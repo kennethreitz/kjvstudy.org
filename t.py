@@ -16,6 +16,7 @@ bible = kjv.Bible()
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     books = list(bible.iter_books())
+
     return templates.TemplateResponse(
         "index.html", {"request": request, "books": books}
     )
@@ -23,22 +24,33 @@ def read_root(request: Request):
 
 @app.get("/book/{book}", response_class=HTMLResponse)
 def read_book(request: Request, book: str):
+    books = list(bible.iter_books())
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+
     if not chapters:
         raise HTTPException(status_code=404, detail="Book not found")
     return templates.TemplateResponse(
-        "book.html", {"request": request, "book": book, "chapters": chapters}
+        "book.html",
+        {"request": request, "book": book, "chapters": chapters, "books": books},
     )
 
 
 @app.get("/book/{book}/chapter/{chapter}", response_class=HTMLResponse)
 def read_chapter(request: Request, book: str, chapter: int):
+    books = list(bible.iter_books())
     verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+
     if not verses:
         raise HTTPException(status_code=404, detail="Chapter not found")
     return templates.TemplateResponse(
         "chapter.html",
-        {"request": request, "book": book, "chapter": chapter, "verses": verses},
+        {
+            "request": request,
+            "book": book,
+            "chapter": chapter,
+            "verses": verses,
+            "books": books,
+        },
     )
 
 
