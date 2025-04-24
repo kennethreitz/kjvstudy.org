@@ -25,6 +25,19 @@ class Bible:
                 text=self.verses[verse],
             )
 
+    def iter_books(self):
+        """
+        Iterates over the books in the Bible.
+        """
+        yielded = set()
+
+        for verse in self.verses:
+            verse_ref = VerseReference.from_string(verse)
+            if verse_ref.book in yielded:
+                continue
+            yielded.add(verse_ref.book)
+            yield verse_ref.book
+
     def iter_verse_references(self):
         """
         Iterates over the verse references in the Bible.
@@ -77,6 +90,8 @@ print(VerseReference.from_string("John 3:16"))
 
 
 bible = Bible()
-for verse in bible.iter_verses():
+for verse in bible.iter_books():
     print(verse)
+    # print()
+    # print(verse)
     # break  # Just print the first verse for demonstration
