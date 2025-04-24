@@ -1,4 +1,37 @@
+import json
 from pydantic import BaseModel
+
+
+class Bible:
+    def __init__(self, fname=None):
+        self.fname = fname or "verses-1769.json"
+
+        # Load the JSON data from the file.
+        with open(self.fname, "r") as f:
+            self.verses = json.load(f)
+
+    def iter_verses(self):
+        """
+        Iterates over the verses in the Bible.
+        """
+
+        for verse in self.verses:
+            verse_ref = VerseReference.from_string(verse)
+
+            yield Verse(
+                book=verse_ref.book,
+                chapter=verse_ref.chapter,
+                verse=verse_ref.verse,
+                text=self.verses[verse],
+            )
+
+    def iter_verse_references(self):
+        """
+        Iterates over the verse references in the Bible.
+        """
+
+        for verse in self.verses:
+            yield VerseReference.from_string(verse)
 
 
 class Verse(BaseModel):
@@ -40,3 +73,10 @@ class VerseReference(BaseModel):
 
 print(VerseReference.from_string("Genesis 1:1"))
 print(VerseReference.from_string("I Corinthians 1:1"))
+print(VerseReference.from_string("John 3:16"))
+
+
+bible = Bible()
+for verse in bible.iter_verses():
+    print(verse)
+    # break  # Just print the first verse for demonstration
