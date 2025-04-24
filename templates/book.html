@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ book }}</title>
+</head>
+<body>
+  <h1>{{ book }}</h1>
+  <ul>
+    {% for chapter in chapters %}
+      <li><a href="/book/{{ book }}/chapter/{{ chapter }}">{{ book }} {{ chapter }}</a></li>
+    {% endfor %}
+  </ul>
+  <a href="/">Back to Books</a>
+</body>
+</html>

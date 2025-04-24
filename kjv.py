@@ -10,6 +10,17 @@ class Bible:
         with open(self.fname, "r") as f:
             self.verses = json.load(f)
 
+    def __getitem__(self, verse):
+        """
+        Returns the text of the verse.
+        """
+
+        # Check if the verse exists in the dictionary.
+        if verse not in self.verses:
+            raise KeyError(f"Verse {verse} not found in the Bible.")
+
+        return self.verses[verse]
+
     def iter_verses(self):
         """
         Iterates over the verses in the Bible.
@@ -37,6 +48,34 @@ class Bible:
                 continue
             yielded.add(verse_ref.book)
             yield verse_ref.book
+
+    def iter_chapters(self):
+        """
+        Iterates over the chapters in the Bible.
+        """
+
+        yielded = set()
+
+        for verse in self.verses:
+            verse_ref = VerseReference.from_string(verse)
+            if (verse_ref.book, verse_ref.chapter) in yielded:
+                continue
+            yielded.add((verse_ref.book, verse_ref.chapter))
+            yield verse_ref.book, verse_ref.chapter
+
+    def iter_chapters_by_book(self):
+        """
+        Iterates over the chapters in the Bible, grouped by book.
+        """
+
+        yielded = set()
+
+        for verse in self.verses:
+            verse_ref = VerseReference.from_string(verse)
+            if (verse_ref.book, verse_ref.chapter) in yielded:
+                continue
+            yielded.add((verse_ref.book, verse_ref.chapter))
+            yield verse_ref.book, verse_ref.chapter
 
     def iter_verse_references(self):
         """
@@ -84,14 +123,15 @@ class VerseReference(BaseModel):
         return cls(book=book, chapter=int(chapter), verse=int(verse))
 
 
-print(VerseReference.from_string("Genesis 1:1"))
-print(VerseReference.from_string("I Corinthians 1:1"))
-print(VerseReference.from_string("John 3:16"))
+if __name__ == "__main__":
 
+    print(VerseReference.from_string("Genesis 1:1"))
+    print(VerseReference.from_string("I Corinthians 1:1"))
+    print(VerseReference.from_string("John 3:16"))
 
-bible = Bible()
-for verse in bible.iter_books():
-    print(verse)
-    # print()
-    # print(verse)
-    # break  # Just print the first verse for demonstration
+    bible = Bible()
+
+    print(bible["Genesis 1:1"])
+# print()
+# print(verse)
+# break  # Just print the first verse for demonstration

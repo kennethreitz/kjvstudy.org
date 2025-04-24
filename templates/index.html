@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bible Browser</title>
+</head>
+<body>
+  <h1>Select a Book</h1>
+  <ul>
+    {% for book in books %}
+      <li><a href="/book/{{ book }}">{{ book }}</a></li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

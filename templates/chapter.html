@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ book }} {{ chapter }}</title>
+</head>
+<body>
+  <h1>{{ book }} {{ chapter }}</h1>
+  {% for verse in verses %}
+    <div>
+      <p><strong>{{ verse.verse }}</strong> {{ verse.text }}</p>
+      <textarea rows="2" cols="80" placeholder="Your commentary..."></textarea>
+    </div>
+  {% endfor %}
+  <a href="/book/{{ book }}">Back to {{ book }}</a>
+</body>
+</html>
