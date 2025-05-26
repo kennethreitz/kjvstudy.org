@@ -51,11 +51,7 @@
 }
 
 .verse-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 1rem 0.5rem;
     background: rgba(75, 46, 131, 0.05);
 }
 
@@ -181,6 +177,10 @@
 .verse-actions {
     display: flex;
     gap: 0.5rem;
+    justify-content: flex-end;
+    padding: 0 1rem 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+    background: rgba(75, 46, 131, 0.02);
 }
 
 .verse-action {
@@ -337,14 +337,14 @@ body::before {
     <div class="verse-card" id="verse-{{ verse.verse }}">
         <div class="verse-header">
             <div class="verse-number">Verse {{ verse.verse }}</div>
-            <div class="verse-actions">
-                <a href="#verse-{{ verse.verse }}" class="verse-action" title="Copy link to: {{ verse.text|truncate(50) }}" onclick="copyVerseLink('{{ verse.verse }}')">
-                    🔗
-                </a>
-                <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-action" title="View in chapter: {{ verse.text|truncate(40) }}">
-                    📖
-                </a>
-            </div>
+        </div>
+        <div class="verse-actions">
+            <a href="#verse-{{ verse.verse }}" class="verse-action" title="Copy link to: {{ verse.text|truncate(50) }}" onclick="copyVerseLink('{{ verse.verse }}')">
+                🔗
+            </a>
+            <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-action" title="View in chapter: {{ verse.text|truncate(40) }}">
+                📖
+            </a>
         </div>
         
         <div class="verse-text">{{ verse.text }}</div>
