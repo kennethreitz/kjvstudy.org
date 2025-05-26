@@ -9,7 +9,7 @@
     <h1 class="page-title">
         📖 Authorized King James Version (KJV) Bible
     </h1>
-    <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+    <p style="font-size: 1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
         Study the complete Authorized King James Version (KJV) Bible with modern tools and AI-powered commentary. 
         Choose a book below to begin your KJV Bible study.
     </p>
@@ -74,7 +74,7 @@
     </div>
 </div>
 
-<h2 class="section-title" id="old-testament" style="margin-top: 2rem; color: var(--torah-color);">Old Testament</h2>
+<h2 class="section-title" id="old-testament" style="margin-top: 2rem; color: var(--torah-color); font-size: 1.8rem;">Old Testament</h2>
 <div class="book-grid">
     {% set old_testament = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
     
@@ -83,8 +83,8 @@
     {% for book in books %}
     {% if book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--torah-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Torah/Pentateuch</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Torah/Pentateuch</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -94,8 +94,8 @@
     {% for book in books %}
     {% if book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--historical-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Historical</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Historical</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -105,8 +105,8 @@
     {% for book in books %}
     {% if book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--wisdom-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Wisdom</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Wisdom</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -116,8 +116,8 @@
     {% for book in books %}
     {% if book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--major-prophets-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Major Prophet</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Major Prophet</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -127,8 +127,8 @@
     {% for book in books %}
     {% if book in ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--minor-prophets-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Minor Prophet</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Minor Prophet</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -136,15 +136,15 @@
 
 <hr class="testament-divider" style="margin: 3rem auto; width: 80%; max-width: 600px; background: linear-gradient(90deg, var(--torah-color) 0%, var(--gospels-color) 100%);">
 
-<h2 class="section-title" id="new-testament" style="margin-top: 2rem; color: var(--gospels-color);">New Testament</h2>
+<h2 class="section-title" id="new-testament" style="margin-top: 2rem; color: var(--gospels-color); font-size: 1.8rem;">New Testament</h2>
 <div class="book-grid">
     <!-- Gospels -->
     <h3 id="gospels" class="category-heading" style="color: var(--gospels-color);">Gospels</h3>
     {% for book in books %}
     {% if book in ['Matthew', 'Mark', 'Luke', 'John'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--gospels-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Gospel</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Gospel</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -154,8 +154,8 @@
     {% for book in books %}
     {% if book == 'Acts' %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--acts-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Historical</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Historical</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -165,8 +165,8 @@
     {% for book in books %}
     {% if book in ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--pauline-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Pauline Epistle</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Pauline Epistle</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -176,8 +176,8 @@
     {% for book in books %}
     {% if book in ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--general-epistles-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">General Epistle</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">General Epistle</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -187,8 +187,8 @@
     {% for book in books %}
     {% if book == 'Revelation' %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--apocalyptic-color);">
-        <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Apocalyptic</p>
+        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
+        <p class="book-meta" style="font-size: 0.8rem;">Apocalyptic</p>
     </a>
     {% endif %}
     {% endfor %}
@@ -208,7 +208,7 @@
 .legend-title {
     margin: 0 0 1rem;
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: var(--text-primary);
 }
 
@@ -226,7 +226,7 @@
 
 .legend-section h4 {
     margin: 0 0 0.75rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 0.5rem;
 }
@@ -265,7 +265,7 @@
 
 .category-heading {
     grid-column: 1 / -1;
-    font-size: 1.15rem;
+    font-size: 1rem;
     margin: 1.5rem 0 0.5rem;
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 0.25rem;
@@ -276,7 +276,7 @@
     <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
         🤖 AI Commentary Coming Soon
     </h3>
-    <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">
+    <p style="color: var(--text-secondary); margin: 0; line-height: 1.6; font-size: 0.95rem;">
         We're working on AI-powered commentary that will provide historical context, 
         theological insights, and cross-references for every passage. Stay tuned for this exciting feature!
     </p>
