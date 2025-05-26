@@ -117,9 +117,19 @@ def read_book(request: Request, book: str):
             status_code=404,
             detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
         )
+    
+    # Generate commentary data for the book page
+    commentary_data = generate_book_commentary(book, chapters)
+    
     return templates.TemplateResponse(
         "book.html",
-        {"request": request, "book": book, "chapters": chapters, "books": books},
+        {
+            "request": request, 
+            "book": book, 
+            "chapters": chapters, 
+            "books": books,
+            **commentary_data
+        },
     )
 
 
