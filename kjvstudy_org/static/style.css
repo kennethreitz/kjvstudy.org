@@ -48,7 +48,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-primary);
   line-height: 1.6;
-  font-size: 16px;
+  font-size: 20px;
   overflow-x: hidden;
 }
 
@@ -86,7 +86,7 @@ body {
 
 .sidebar-title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 600;
   margin: 0;
   color: white;
@@ -96,7 +96,7 @@ body {
 }
 
 .sidebar-subtitle {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.7);
   margin: 0.25rem 0 0;
   font-weight: 400;
@@ -107,7 +107,7 @@ body {
 }
 
 .sidebar-nav h3 {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -123,7 +123,7 @@ body {
   border-radius: var(--radius-sm);
   margin-bottom: 0.15rem;
   transition: all 0.2s ease;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
 }
 
 .sidebar-nav a:hover {
@@ -205,7 +205,7 @@ body {
 /* Typography */
 .page-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 600;
   color: var(--primary-color);
   text-align: center;
@@ -215,7 +215,7 @@ body {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
   color: var(--primary-color);
   margin: 0 0 1.5rem;
@@ -224,7 +224,7 @@ body {
 
 .chapter-title {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: 600;
   color: var(--primary-color);
   text-align: center;
@@ -311,7 +311,7 @@ body {
 
 .book-title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.7rem;
   font-weight: 600;
   color: var(--primary-color);
   margin: 0;
@@ -320,7 +320,7 @@ body {
 
 .book-meta {
   margin: 0.25rem 0 0 0;
-  font-size: 0.75rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
   font-style: italic;
   text-transform: uppercase;
@@ -345,7 +345,7 @@ body {
   border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 600;
-  font-size: 1.125rem;
+  font-size: 1.3rem;
   border: 2px solid var(--border-light);
   transition: all 0.2s ease;
   min-height: 60px;
@@ -376,7 +376,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 0.875rem;
+  font-size: 1.15rem;
   color: var(--text-muted);
   font-weight: 600;
   width: 2.5rem;
@@ -394,13 +394,14 @@ body {
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 2rem;
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   color: var(--text-secondary);
 }
 
 .breadcrumb a {
   color: var(--primary-color);
   text-decoration: none;
+  font-size: 1.2rem;
 }
 
 .breadcrumb a:hover {
@@ -432,6 +433,7 @@ body {
   border: 2px solid var(--border-color);
   font-weight: 500;
   transition: all 0.2s ease;
+  font-size: 1.2rem;
 }
 
 .nav-button:hover {
@@ -460,7 +462,7 @@ body {
 .search-input {
   width: 100%;
   padding: 1rem 1rem 1rem 3rem;
-  font-size: 1rem;
+  font-size: 1.15rem;
   border: 2px solid var(--border-color);
   border-radius: var(--radius-lg);
   background: var(--surface-color);
@@ -714,6 +716,7 @@ html,
   background-color: var(--background-color) !important;
   position: relative;
   z-index: 1;
+  font-size: 1.2rem;
 }
 
 /* Add additional background fixes */

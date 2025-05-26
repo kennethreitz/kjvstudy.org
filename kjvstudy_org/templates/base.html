@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="font-size: 18px;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -318,73 +318,73 @@
                     <span>📖</span>
                     KJV Study
                 </h1>
-                <p class="sidebar-subtitle" style="font-size: 0.8rem;">Authorized King James Version</p>
+                <p class="sidebar-subtitle" style="font-size: 0.95rem;">Authorized King James Version</p>
             </div>
             
             <nav class="sidebar-nav">
-                <h3 style="font-size: 0.75rem;">Navigation</h3>
-                <a href="/" {% if request.url and request.url.path == "/" %}class="active"{% endif %} style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                <h3 style="font-size: 0.9rem;">Navigation</h3>
+                <a href="/" {% if request.url and request.url.path == "/" %}class="active"{% endif %} style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     📚 All Books
                 </a>
                 
                 {% if books %}
-                <h3 style="color: var(--torah-color); margin-bottom: 0.4rem; font-size: 0.75rem;">Old Testament</h3>
+                <h3 style="color: var(--torah-color); margin-bottom: 0.4rem; font-size: 0.9rem;">Old Testament</h3>
                 
                 <!-- Torah/Pentateuch -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--torah-color); text-transform: uppercase; letter-spacing: 0.5px;">Torah/Pentateuch</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--torah-color); text-transform: uppercase; letter-spacing: 0.5px;">Torah/Pentateuch</h4>
                 {% set torah = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
                 {% for book in books %}
                 {% if book in torah %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- Historical Books -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--historical-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical Books</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--historical-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical Books</h4>
                 {% set historical = ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
                 {% for book in books %}
                 {% if book in historical %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book historical {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book historical {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- Wisdom Literature -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--wisdom-color); text-transform: uppercase; letter-spacing: 0.5px;">Wisdom Literature</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--wisdom-color); text-transform: uppercase; letter-spacing: 0.5px;">Wisdom Literature</h4>
                 {% set wisdom = ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
                 {% for book in books %}
                 {% if book in wisdom %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book wisdom {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book wisdom {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- Major Prophets -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--major-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Major Prophets</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--major-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Major Prophets</h4>
                 {% set major_prophets = ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
                 {% for book in books %}
                 {% if book in major_prophets %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book major-prophets {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book major-prophets {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- Minor Prophets -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--minor-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Minor Prophets</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--minor-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Minor Prophets</h4>
                 {% set minor_prophets = ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
                 {% for book in books %}
                 {% if book in minor_prophets %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book minor-prophets {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book minor-prophets {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -392,79 +392,79 @@
                 
                 <hr class="testament-divider">
                 
-                <h3 style="color: var(--gospels-color); margin-bottom: 0.4rem; font-size: 0.75rem;">New Testament</h3>
+                <h3 style="color: var(--gospels-color); margin-bottom: 0.4rem; font-size: 0.9rem;">New Testament</h3>
                 
                 <!-- Gospels -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--gospels-color); text-transform: uppercase; letter-spacing: 0.5px;">Gospels</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--gospels-color); text-transform: uppercase; letter-spacing: 0.5px;">Gospels</h4>
                 {% set gospels = ['Matthew', 'Mark', 'Luke', 'John'] %}
                 {% for book in books %}
                 {% if book in gospels %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book gospels {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book gospels {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- Acts (Historical NT) -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--acts-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--acts-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical</h4>
                 {% set acts = ['Acts'] %}
                 {% for book in books %}
                 {% if book in acts %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book acts {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book acts {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- Pauline Epistles -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--pauline-color); text-transform: uppercase; letter-spacing: 0.5px;">Pauline Epistles</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--pauline-color); text-transform: uppercase; letter-spacing: 0.5px;">Pauline Epistles</h4>
                 {% set pauline = ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
                 {% for book in books %}
                 {% if book in pauline %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book pauline {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book pauline {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- General Epistles -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--general-epistles-color); text-transform: uppercase; letter-spacing: 0.5px;">General Epistles</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--general-epistles-color); text-transform: uppercase; letter-spacing: 0.5px;">General Epistles</h4>
                 {% set general_epistles = ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
                 {% for book in books %}
                 {% if book in general_epistles %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book general-epistles {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book general-epistles {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 
                 <!-- Apocalyptic -->
-                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--apocalyptic-color); text-transform: uppercase; letter-spacing: 0.5px;">Apocalyptic</h4>
+                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--apocalyptic-color); text-transform: uppercase; letter-spacing: 0.5px;">Apocalyptic</h4>
                 {% set apocalyptic = ['Revelation'] %}
                 {% for book in books %}
                 {% if book in apocalyptic %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book apocalyptic {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                   class="bible-book apocalyptic {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
                 {% endfor %}
                 {% endif %}
                 
-                <h3 style="font-size: 0.75rem;">Study Tools</h3>
-                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                <h3 style="font-size: 0.9rem;">Study Tools</h3>
+                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     🤖 AI Commentary
                     <small>(Coming Soon)</small>
                 </a>
-                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     🔍 Search
                     <small>(Coming Soon)</small>
                 </a>
-                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
+                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
                     📝 Notes
                     <small>(Coming Soon)</small>
                 </a>

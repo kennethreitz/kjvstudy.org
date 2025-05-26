@@ -83,7 +83,7 @@
 }
 
 .commentary-title {
-    font-size: 0.875rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin: 0 0 0.75rem;
@@ -92,7 +92,7 @@
 }
 
 .commentary-content {
-    font-size: 1rem;
+    font-size: 1.15rem;
     line-height: 1.6;
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
@@ -108,10 +108,11 @@
 .cross-references ul {
     margin: 0.5rem 0 0;
     padding-left: 1.5rem;
+    font-size: 1.1rem;
 }
 
 .cross-references li {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem;
 }
 
 .cross-references a {
@@ -132,10 +133,11 @@
 .study-questions ol {
     margin: 0.5rem 0 0;
     padding-left: 1.5rem;
+    font-size: 1.1rem;
 }
 
 .study-questions li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
 }
 
 .commentary-header {
@@ -150,7 +152,7 @@
 
 .commentary-header h1 {
     margin: 0 0 0.5rem;
-    font-size: 2rem;
+    font-size: 2.4rem;
 }
 
 .commentary-header p {
@@ -158,6 +160,7 @@
     opacity: 0.9;
     max-width: 600px;
     margin: 0 auto;
+    font-size: 1.15rem;
 }
 
 .commentary-meta {
@@ -172,6 +175,7 @@
 .commentary-meta p {
     margin: 0;
     color: var(--text-secondary);
+    font-size: 1.1rem;
 }
 
 .verse-actions {
@@ -211,7 +215,7 @@
     border: none;
     border-bottom: 2px solid transparent;
     font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -234,11 +238,15 @@
 
 @media (max-width: 768px) {
     .commentary-header h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     
     .verse-text {
-        font-size: 1rem;
+        font-size: 1.15rem;
+    }
+    
+    .commentary-content {
+        font-size: 1.1rem;
     }
 }
 
@@ -290,15 +298,15 @@ body::before {
 
 {% block breadcrumb %}
 <div class="container">
-    <nav class="breadcrumb">
-        <a href="/">📚 All Books</a>
-        <span class="breadcrumb-separator">/</span>
-        <a href="/book/{{ book }}">{{ book }}</a>
-        <span class="breadcrumb-separator">/</span>
-        <a href="/book/{{ book }}/chapter/{{ chapter }}">Chapter {{ chapter }}</a>
-        <span class="breadcrumb-separator">/</span>
-        <span>AI Commentary</span>
-    </nav>
+    <nav class="breadcrumb" style="font-size: 1.1rem;">
+            <a href="/">📚 All Books</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="/book/{{ book }}">{{ book }}</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="/book/{{ book }}/chapter/{{ chapter }}">Chapter {{ chapter }}</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>AI Commentary</span>
+        </nav>
 </div>
 {% endblock %}
 
@@ -316,7 +324,7 @@ body::before {
     
     <div class="chapter-overview verse-card">
         <div class="verse-header">
-            <h2 style="margin: 0; font-size: 1.25rem;">Chapter Overview</h2>
+            <h2 style="margin: 0; font-size: 1.5rem;">Chapter Overview</h2>
         </div>
         <div class="commentary-section">
             <div class="commentary-content">
@@ -330,10 +338,10 @@ body::before {
         <div class="verse-header">
             <div class="verse-number">Verse {{ verse.verse }}</div>
             <div class="verse-actions">
-                <a href="#verse-{{ verse.verse }}" class="verse-action" title="Copy link to Verse {{ verse.verse }}" onclick="copyVerseLink('{{ verse.verse }}')">
+                <a href="#verse-{{ verse.verse }}" class="verse-action" title="Copy link to: {{ verse.text|truncate(50) }}" onclick="copyVerseLink('{{ verse.verse }}')">
                     🔗
                 </a>
-                <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-action" title="View Verse {{ verse.verse }} in chapter">
+                <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-action" title="View in chapter: {{ verse.text|truncate(40) }}">
                     📖
                 </a>
             </div>
@@ -358,7 +366,7 @@ body::before {
                     <h3 class="commentary-title">Cross References</h3>
                     <ul>
                         {% for ref in commentaries[verse.verse].cross_references %}
-                        <li><a href="{{ ref.url }}">{{ ref.text }}</a> - {{ ref.context }}</li>
+                        <li><a href="{{ ref.url }}" title="Go to {{ ref.text }}: {{ ref.context|truncate(60) }}">{{ ref.text }}</a> - {{ ref.context }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -429,8 +437,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function copyVerseLink(verseNumber) {
     const url = window.location.origin + window.location.pathname + '#verse-' + verseNumber;
+    const verseText = document.querySelector(`#verse-${verseNumber} .verse-text`).textContent.trim();
+    const shortVerseText = verseText.length > 30 ? verseText.substring(0, 30) + '...' : verseText;
     navigator.clipboard.writeText(url).then(() => {
-        showToast('Verse ' + verseNumber + ' link copied to clipboard!');
+        showToast(`Verse ${verseNumber} copied: "${shortVerseText}"`);
     });
 }
 
@@ -446,6 +456,11 @@ function switchTab(verseNumber, tabName) {
     // Activate the selected tab and button
     document.getElementById(`tab-${verseNumber}-${tabName}`).classList.add('active');
     event.currentTarget.classList.add('active');
+    
+    // Update page title with current verse
+    const verseText = document.querySelector(`#verse-${verseNumber} .verse-text`).textContent.trim();
+    const shortVerseText = verseText.length > 20 ? verseText.substring(0, 20) + '...' : verseText;
+    document.title = `${tabName.charAt(0).toUpperCase() + tabName.slice(1)} - ${shortVerseText} | ${book} ${chapter}`;
 }
 
 function showToast(message) {

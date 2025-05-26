@@ -549,8 +549,23 @@ function fixBackgroundColors() {
     const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
     const surfaceColor = getComputedStyle(document.documentElement).getPropertyValue('--surface-color').trim();
     
+    // Create a fixed background element to ensure full coverage
+    const fixedBg = document.createElement('div');
+    fixedBg.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: ${bgColor};
+        z-index: -999;
+        pointer-events: none;
+    `;
+    document.body.appendChild(fixedBg);
+    
     // Apply background color to main elements
     document.body.style.backgroundColor = bgColor;
+    document.documentElement.style.backgroundColor = bgColor;
     
     // Apply to main content areas
     const mainContent = document.querySelector('.main-content');
@@ -569,6 +584,9 @@ function fixBackgroundColors() {
     surfaceElements.forEach(element => {
         element.style.backgroundColor = surfaceColor;
     });
+    
+    // Force the layout to repaint by triggering a reflow
+    document.body.offsetHeight;
 }
 
 // Run background fix on page load
@@ -577,4 +595,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Run again after a slight delay to catch any dynamic content
     setTimeout(fixBackgroundColors, 100);
+    
+    // Keep applying the fix periodically for the first few seconds
+    setTimeout(fixBackgroundColors, 500);
+    setTimeout(fixBackgroundColors, 1000);
+    setTimeout(fixBackgroundColors, 2000);
+    
+    // Fix again on window resize
+    window.addEventListener('resize', function() {
+        fixBackgroundColors();
+    });
 });
