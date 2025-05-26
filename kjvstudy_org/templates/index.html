@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}KJV Study - Bible Commentary Platform{% endblock %}
+{% block description %}Study the King James Bible with AI-powered commentary. Browse all 66 books of the Bible with enhanced readability and modern features.{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1 class="page-title">
+        📖 Study the Bible
+    </h1>
+    <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+        Explore the complete King James Version with modern tools and AI-powered commentary. 
+        Choose a book below to begin your study.
+    </p>
+</div>
+
+<div class="book-grid">
+    {% for book in books %}
+    <a href="/book/{{ book }}" class="book-card">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">King James Version</p>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-4" style="padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-top: 3rem; border: 1px solid var(--border-light);">
+    <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
+        🤖 AI Commentary Coming Soon
+    </h3>
+    <p style="color: var(--text-secondary); margin: 0; line-height: 1.6;">
+        We're working on AI-powered commentary that will provide historical context, 
+        theological insights, and cross-references for every passage. Stay tuned for this exciting feature!
+    </p>
+</div>
+{% endblock %}

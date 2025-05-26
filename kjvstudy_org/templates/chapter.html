@@ -1,0 +1,355 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book }} {{ chapter }} - KJV Study{% endblock %}
+{% block description %}Read {{ book }} chapter {{ chapter }} from the King James Bible with verse-by-verse display and study tools.{% endblock %}
+
+{% block head %}
+<style>
+.verse-tools {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: inline-flex;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.verse:hover .verse-tools {
+    opacity: 1;
+}
+
+.verse-tool {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.verse-tool:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.chapter-navigation {
+    position: sticky;
+    top: 0;
+    background: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    z-index: 10;
+}
+
+.chapter-nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.chapter-info {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.chapter-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.reading-options {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-light);
+}
+
+.reading-options h3 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-family: var(--font-display);
+}
+
+.option-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.option-group label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    min-width: 80px;
+}
+
+.range-input {
+    flex: 1;
+    max-width: 200px;
+}
+
+.verse-highlight {
+    background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    background-position: 0 60%;
+}
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="/">📚 All Books</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/book/{{ book }}">{{ book }}</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Chapter {{ chapter }}</span>
+    </nav>
+</div>
+{% endblock %}
+
+{% block container_class %}narrow-container{% endblock %}
+
+{% block content %}
+<div class="chapter-navigation">
+    <div class="chapter-nav-content">
+        <div class="chapter-info">
+            {{ book }} {{ chapter }}
+        </div>
+        <div class="chapter-controls">
+            <button onclick="toggleReadingOptions()" class="nav-button" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                ⚙️ Options
+            </button>
+            <button onclick="scrollToTop()" class="nav-button" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                ↑ Top
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="reading-options" id="readingOptions" style="display: none;">
+    <h3>📖 Reading Options</h3>
+    <div class="option-group">
+        <label for="fontSize">Text Size:</label>
+        <input type="range" id="fontSize" class="range-input" min="16" max="24" value="18" onchange="updateFontSize(this.value)">
+        <span id="fontSizeValue">18px</span>
+    </div>
+    <div class="option-group">
+        <label for="lineHeight">Line Spacing:</label>
+        <input type="range" id="lineHeight" class="range-input" min="1.4" max="2.2" step="0.1" value="1.75" onchange="updateLineHeight(this.value)">
+        <span id="lineHeightValue">1.75</span>
+    </div>
+    <div class="option-group">
+        <label>Verse Numbers:</label>
+        <label style="display: flex; align-items: center; gap: 0.5rem; min-width: auto; cursor: pointer;">
+            <input type="checkbox" id="showVerseNumbers" checked onchange="toggleVerseNumbers(this.checked)">
+            Show verse numbers
+        </label>
+    </div>
+</div>
+
+<div class="text-center mb-4">
+    <h1 class="chapter-title">{{ book }} {{ chapter }}</h1>
+</div>
+
+<div class="verses-container" id="versesContainer">
+    {% for verse in verses %}
+    <div class="verse" id="verse-{{ verse.verse }}">
+        <span class="verse-number">{{ verse.verse }}</span>
+        <span class="verse-text">{{ verse.text }}</span>
+        <span class="verse-tools">
+            <a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to verse" onclick="copyVerseLink({{ verse.verse }})">
+                🔗
+            </a>
+            <a href="#" class="verse-tool" title="Add note" onclick="addNote({{ verse.verse }})">
+                📝
+            </a>
+            <a href="#" class="verse-tool" title="Highlight verse" onclick="highlightVerse({{ verse.verse }})">
+                ✨
+            </a>
+        </span>
+    </div>
+    {% endfor %}
+</div>
+
+<div style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem; border: 1px solid var(--border-light); text-center;">
+    <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
+        🤖 AI Commentary Preview
+    </h3>
+    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
+        Soon you'll see intelligent commentary here, providing historical context, 
+        theological insights, and cross-references for {{ book }} {{ chapter }}.
+    </p>
+    <div style="padding: 1rem; background: var(--background-color); border-radius: var(--radius-md); border-left: 4px solid var(--primary-color);">
+        <p style="margin: 0; font-style: italic; color: var(--text-primary);">
+            "Coming soon: Verse-by-verse analysis, historical context, and study questions powered by AI."
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block navigation %}
+<div class="container">
+    <div class="navigation">
+        <a href="/book/{{ book }}" class="nav-button">
+            ← {{ book }} Chapters
+        </a>
+        <div style="display: flex; gap: 0.5rem;">
+            {% if chapter > 1 %}
+            <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}" class="nav-button">
+                ← Chapter {{ chapter - 1 }}
+            </a>
+            {% endif %}
+            {% if chapter < chapters|length %}
+            <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}" class="nav-button nav-button-primary">
+                Chapter {{ chapter + 1 }} →
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function toggleReadingOptions() {
+    const options = document.getElementById('readingOptions');
+    options.style.display = options.style.display === 'none' ? 'block' : 'none';
+}
+
+function updateFontSize(value) {
+    const container = document.getElementById('versesContainer');
+    container.style.fontSize = value + 'px';
+    document.getElementById('fontSizeValue').textContent = value + 'px';
+    localStorage.setItem('kjv-font-size', value);
+}
+
+function updateLineHeight(value) {
+    const verses = document.querySelectorAll('.verse');
+    verses.forEach(verse => {
+        verse.style.lineHeight = value;
+    });
+    document.getElementById('lineHeightValue').textContent = value;
+    localStorage.setItem('kjv-line-height', value);
+}
+
+function toggleVerseNumbers(show) {
+    const numbers = document.querySelectorAll('.verse-number');
+    numbers.forEach(number => {
+        number.style.display = show ? 'block' : 'none';
+    });
+    localStorage.setItem('kjv-show-verse-numbers', show);
+}
+
+function copyVerseLink(verseNumber) {
+    const url = window.location.origin + window.location.pathname + '#verse-' + verseNumber;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('Verse link copied to clipboard!');
+    });
+}
+
+function addNote(verseNumber) {
+    showToast('Note feature coming soon!');
+}
+
+function highlightVerse(verseNumber) {
+    const verse = document.getElementById('verse-' + verseNumber);
+    const verseText = verse.querySelector('.verse-text');
+    verseText.classList.toggle('verse-highlight');
+    
+    const highlighted = verseText.classList.contains('verse-highlight');
+    showToast(highlighted ? 'Verse highlighted!' : 'Highlight removed!');
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-md);
+        z-index: 1000;
+        font-size: 0.875rem;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+// Load saved preferences
+document.addEventListener('DOMContentLoaded', function() {
+    const savedFontSize = localStorage.getItem('kjv-font-size');
+    if (savedFontSize) {
+        document.getElementById('fontSize').value = savedFontSize;
+        updateFontSize(savedFontSize);
+    }
+    
+    const savedLineHeight = localStorage.getItem('kjv-line-height');
+    if (savedLineHeight) {
+        document.getElementById('lineHeight').value = savedLineHeight;
+        updateLineHeight(savedLineHeight);
+    }
+    
+    const savedShowNumbers = localStorage.getItem('kjv-show-verse-numbers');
+    if (savedShowNumbers === 'false') {
+        document.getElementById('showVerseNumbers').checked = false;
+        toggleVerseNumbers(false);
+    }
+    
+    // Highlight verse from URL hash
+    if (window.location.hash) {
+        setTimeout(() => {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                target.style.background = 'rgba(75, 46, 131, 0.1)';
+                setTimeout(() => {
+                    target.style.background = '';
+                }, 2000);
+            }
+        }, 100);
+    }
+});
+
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}

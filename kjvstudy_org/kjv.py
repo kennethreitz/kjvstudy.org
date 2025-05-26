@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from pathlib import Path
 
 import json
 
@@ -7,7 +8,13 @@ class Bible:
     """Represents a Bible."""
 
     def __init__(self, fname=None):
-        self.fname = fname or "verses-1769.json"
+        if fname is None:
+            # Get the directory where this script is located
+            current_dir = Path(__file__).parent
+            # Look for verses file in the package static directory
+            self.fname = current_dir / "static" / "verses-1769.json"
+        else:
+            self.fname = Path(fname)
 
         # Load the JSON data from the file.
         with open(self.fname, "r") as f:

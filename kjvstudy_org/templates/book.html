@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book }} - KJV Study{% endblock %}
+{% block description %}Study {{ book }} from the King James Bible. Browse all chapters with enhanced readability and navigation.{% endblock %}
+
+{% block breadcrumb %}
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="/">📚 All Books</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>{{ book }}</span>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1 class="section-title">{{ book }}</h1>
+    <p style="font-size: 1rem; color: var(--text-secondary);">
+        Select a chapter to begin reading
+    </p>
+</div>
+
+<div class="chapter-grid">
+    {% for chapter in chapters %}
+    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link">
+        {{ chapter }}
+    </a>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-4" style="padding: 1.5rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-top: 3rem; border: 1px solid var(--border-light);">
+    <p style="color: var(--text-secondary); margin: 0; font-style: italic;">
+        "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."
+        <br>
+        <strong style="color: var(--primary-color);">2 Timothy 2:15</strong>
+    </p>
+</div>
+{% endblock %}
+
+{% block navigation %}
+<div class="container">
+    <div class="navigation">
+        <a href="/" class="nav-button">
+            ← All Books
+        </a>
+        <div style="color: var(--text-muted); font-size: 0.875rem;">
+            {{ chapters|length }} chapters in {{ book }}
+        </div>
+    </div>
+</div>
+{% endblock %}
