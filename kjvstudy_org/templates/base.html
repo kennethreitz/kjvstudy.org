@@ -48,6 +48,178 @@
     <!-- Styles -->
     <link href="/static/style.css" rel="stylesheet">
     
+    <style>
+    .testament-divider {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, var(--torah-color) 0%, var(--gospels-color) 100%);
+        margin: 1rem 0;
+        opacity: 0.6;
+        border-radius: 1px;
+    }
+    
+    .bible-book {
+        display: block;
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-sm);
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+        font-size: 0.875rem;
+    }
+    
+    /* Torah/Pentateuch */
+    .bible-book.torah {
+        border-left-color: var(--torah-color);
+    }
+    .bible-book.torah:hover {
+        background: rgba(139, 69, 19, 0.1);
+        color: var(--torah-color);
+    }
+    .bible-book.active.torah {
+        background: rgba(139, 69, 19, 0.15);
+        color: var(--torah-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Historical Books */
+    .bible-book.historical {
+        border-left-color: var(--historical-color);
+    }
+    .bible-book.historical:hover {
+        background: rgba(205, 133, 63, 0.1);
+        color: var(--historical-color);
+    }
+    .bible-book.active.historical {
+        background: rgba(205, 133, 63, 0.15);
+        color: var(--historical-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Wisdom Literature */
+    .bible-book.wisdom {
+        border-left-color: var(--wisdom-color);
+    }
+    .bible-book.wisdom:hover {
+        background: rgba(218, 165, 32, 0.1);
+        color: var(--wisdom-color);
+    }
+    .bible-book.active.wisdom {
+        background: rgba(218, 165, 32, 0.15);
+        color: var(--wisdom-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Major Prophets */
+    .bible-book.major-prophets {
+        border-left-color: var(--major-prophets-color);
+    }
+    .bible-book.major-prophets:hover {
+        background: rgba(160, 82, 45, 0.1);
+        color: var(--major-prophets-color);
+    }
+    .bible-book.active.major-prophets {
+        background: rgba(160, 82, 45, 0.15);
+        color: var(--major-prophets-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Minor Prophets */
+    .bible-book.minor-prophets {
+        border-left-color: var(--minor-prophets-color);
+    }
+    .bible-book.minor-prophets:hover {
+        background: rgba(165, 42, 42, 0.1);
+        color: var(--minor-prophets-color);
+    }
+    .bible-book.active.minor-prophets {
+        background: rgba(165, 42, 42, 0.15);
+        color: var(--minor-prophets-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Gospels */
+    .bible-book.gospels {
+        border-left-color: var(--gospels-color);
+    }
+    .bible-book.gospels:hover {
+        background: rgba(65, 105, 225, 0.1);
+        color: var(--gospels-color);
+    }
+    .bible-book.active.gospels {
+        background: rgba(65, 105, 225, 0.15);
+        color: var(--gospels-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Acts (Historical NT) */
+    .bible-book.acts {
+        border-left-color: var(--acts-color);
+    }
+    .bible-book.acts:hover {
+        background: rgba(100, 149, 237, 0.1);
+        color: var(--acts-color);
+    }
+    .bible-book.active.acts {
+        background: rgba(100, 149, 237, 0.15);
+        color: var(--acts-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Pauline Epistles */
+    .bible-book.pauline {
+        border-left-color: var(--pauline-color);
+    }
+    .bible-book.pauline:hover {
+        background: rgba(30, 144, 255, 0.1);
+        color: var(--pauline-color);
+    }
+    .bible-book.active.pauline {
+        background: rgba(30, 144, 255, 0.15);
+        color: var(--pauline-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* General Epistles */
+    .bible-book.general-epistles {
+        border-left-color: var(--general-epistles-color);
+    }
+    .bible-book.general-epistles:hover {
+        background: rgba(70, 130, 180, 0.1);
+        color: var(--general-epistles-color);
+    }
+    .bible-book.active.general-epistles {
+        background: rgba(70, 130, 180, 0.15);
+        color: var(--general-epistles-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    
+    /* Apocalyptic */
+    .bible-book.apocalyptic {
+        border-left-color: var(--apocalyptic-color);
+    }
+    .bible-book.apocalyptic:hover {
+        background: rgba(25, 25, 112, 0.1);
+        color: var(--apocalyptic-color);
+    }
+    .bible-book.active.apocalyptic {
+        background: rgba(25, 25, 112, 0.15);
+        color: var(--apocalyptic-color);
+        font-weight: 500;
+        border-left-width: 4px;
+    }
+    </style>
+    
     <!-- Scripts -->
     <script src="/static/app.js" defer></script>
     
@@ -90,12 +262,130 @@
                 </a>
                 
                 {% if books %}
-                <h3>Bible Books</h3>
+                <h3 style="color: var(--torah-color); margin-bottom: 0.5rem;">Old Testament</h3>
+                
+                <!-- Torah/Pentateuch -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--torah-color); text-transform: uppercase; letter-spacing: 0.5px;">Torah/Pentateuch</h4>
+                {% set torah = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
                 {% for book in books %}
+                {% if book in torah %}
                 <a href="/book/{{ book }}" 
-                   {% if book in request.url.path %}class="active"{% endif %}>
+                   class="bible-book torah {% if book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Historical Books -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--historical-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical Books</h4>
+                {% set historical = ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
+                {% for book in books %}
+                {% if book in historical %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book historical {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Wisdom Literature -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--wisdom-color); text-transform: uppercase; letter-spacing: 0.5px;">Wisdom Literature</h4>
+                {% set wisdom = ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
+                {% for book in books %}
+                {% if book in wisdom %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book wisdom {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Major Prophets -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--major-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Major Prophets</h4>
+                {% set major_prophets = ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
+                {% for book in books %}
+                {% if book in major_prophets %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book major-prophets {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Minor Prophets -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--minor-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Minor Prophets</h4>
+                {% set minor_prophets = ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
+                {% for book in books %}
+                {% if book in minor_prophets %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book minor-prophets {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <hr class="testament-divider">
+                
+                <h3 style="color: var(--gospels-color); margin-bottom: 0.5rem;">New Testament</h3>
+                
+                <!-- Gospels -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--gospels-color); text-transform: uppercase; letter-spacing: 0.5px;">Gospels</h4>
+                {% set gospels = ['Matthew', 'Mark', 'Luke', 'John'] %}
+                {% for book in books %}
+                {% if book in gospels %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book gospels {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Acts (Historical NT) -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--acts-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical</h4>
+                {% set acts = ['Acts'] %}
+                {% for book in books %}
+                {% if book in acts %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book acts {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Pauline Epistles -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--pauline-color); text-transform: uppercase; letter-spacing: 0.5px;">Pauline Epistles</h4>
+                {% set pauline = ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
+                {% for book in books %}
+                {% if book in pauline %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book pauline {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- General Epistles -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--general-epistles-color); text-transform: uppercase; letter-spacing: 0.5px;">General Epistles</h4>
+                {% set general_epistles = ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
+                {% for book in books %}
+                {% if book in general_epistles %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book general-epistles {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
+                {% endfor %}
+                
+                <!-- Apocalyptic -->
+                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--apocalyptic-color); text-transform: uppercase; letter-spacing: 0.5px;">Apocalyptic</h4>
+                {% set apocalyptic = ['Revelation'] %}
+                {% for book in books %}
+                {% if book in apocalyptic %}
+                <a href="/book/{{ book }}" 
+                   class="bible-book apocalyptic {% if book in request.url.path %}active{% endif %}">
+                    {{ book }}
+                </a>
+                {% endif %}
                 {% endfor %}
                 {% endif %}
                 

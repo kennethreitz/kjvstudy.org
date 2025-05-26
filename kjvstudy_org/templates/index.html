@@ -15,12 +15,124 @@
     </p>
 </div>
 
+<!-- Bible Book Categories Legend -->
+<div class="bible-legend">
+    <h3 class="legend-title">Bible Book Categories</h3>
+    <div class="legend-grid">
+        <!-- Old Testament Categories -->
+        <div class="legend-section">
+            <h4>Old Testament</h4>
+            <div class="legend-items">
+                <a href="#torah" class="legend-item" style="border-left-color: var(--torah-color);">
+                    <span class="legend-color
+
+<h2 class="section-title" style="margin-top: 2rem; color: var(--torah-color);">Old Testament</h2>
 <div class="book-grid">
+    {% set old_testament = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
+    
+    <!-- Torah/Pentateuch -->
     {% for book in books %}
-    <a href="/book/{{ book }}" class="book-card">
+    {% if book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--torah-color);">
         <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">Authorized King James Version</p>
+        <p class="book-meta">Torah/Pentateuch</p>
     </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Historical Books -->
+    {% for book in books %}
+    {% if book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--historical-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Historical</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Wisdom Literature -->
+    {% for book in books %}
+    {% if book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--wisdom-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Wisdom</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Major Prophets -->
+    {% for book in books %}
+    {% if book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--major-prophets-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Major Prophet</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Minor Prophets -->
+    {% for book in books %}
+    {% if book in ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--minor-prophets-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Minor Prophet</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<hr class="testament-divider" style="margin: 3rem auto; width: 80%; max-width: 600px; background: linear-gradient(90deg, var(--torah-color) 0%, var(--gospels-color) 100%);">
+
+<h2 class="section-title" style="margin-top: 2rem; color: var(--gospels-color);">New Testament</h2>
+<div class="book-grid">
+    <!-- Gospels -->
+    {% for book in books %}
+    {% if book in ['Matthew', 'Mark', 'Luke', 'John'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--gospels-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Gospel</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Acts (Historical NT) -->
+    {% for book in books %}
+    {% if book == 'Acts' %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--acts-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Historical</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Pauline Epistles -->
+    {% for book in books %}
+    {% if book in ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--pauline-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Pauline Epistle</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- General Epistles -->
+    {% for book in books %}
+    {% if book in ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--general-epistles-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">General Epistle</p>
+    </a>
+    {% endif %}
+    {% endfor %}
+    
+    <!-- Apocalyptic -->
+    {% for book in books %}
+    {% if book == 'Revelation' %}
+    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--apocalyptic-color);">
+        <h3 class="book-title">{{ book }}</h3>
+        <p class="book-meta">Apocalyptic</p>
+    </a>
+    {% endif %}
     {% endfor %}
 </div>
 
