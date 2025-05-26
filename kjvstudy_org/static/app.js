@@ -539,4 +539,42 @@ function toggleSidebar() {
             mainContent.style.width = '100%';
         }
     }
+    
+    // Fix background color issues
+    fixBackgroundColors();
 }
+
+// Fix background color issues in browsers
+function fixBackgroundColors() {
+    const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
+    const surfaceColor = getComputedStyle(document.documentElement).getPropertyValue('--surface-color').trim();
+    
+    // Apply background color to main elements
+    document.body.style.backgroundColor = bgColor;
+    
+    // Apply to main content areas
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+        mainContent.style.backgroundColor = bgColor;
+    }
+    
+    // Apply to containers
+    const containers = document.querySelectorAll('.container, .narrow-container, .commentary-container');
+    containers.forEach(container => {
+        container.style.backgroundColor = bgColor;
+    });
+    
+    // Apply to cards and content areas
+    const surfaceElements = document.querySelectorAll('.verse-card, .commentary-section, .chapter-overview, .verse-text');
+    surfaceElements.forEach(element => {
+        element.style.backgroundColor = surfaceColor;
+    });
+}
+
+// Run background fix on page load
+document.addEventListener('DOMContentLoaded', function() {
+    fixBackgroundColors();
+    
+    // Run again after a slight delay to catch any dynamic content
+    setTimeout(fixBackgroundColors, 100);
+});

@@ -50,34 +50,50 @@
     <style>
         html, body {
             min-height: 100vh;
-            background-color: var(--background-color);
+            background-color: var(--background-color) !important;
             overflow-x: hidden;
         }
-        
+            
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color) !important;
+            z-index: -2;
+        }
+            
         @media (min-width: 769px) and (max-width: 1024px) {
             .sidebar {
                 position: fixed;
                 left: 0;
                 top: 0;
                 height: 100%;
-                width: 240px;
-                transform: translateX(-240px);
+                width: 200px;
+                transform: translateX(-200px);
             }
-            
+                
             .sidebar.open {
                 transform: translateX(0);
             }
-            
+                
             .main-content {
                 margin-left: 0;
                 width: 100%;
+                background-color: var(--background-color) !important;
             }
         }
-    </style>
-    <style>
-        html, body {
-            min-height: 100vh;
-            background-color: var(--background-color);
+            
+        .container, .narrow-container {
+            background-color: var(--background-color) !important;
+            position: relative;
+            z-index: 1;
+        }
+            
+        .main-content {
+            background-color: var(--background-color) !important;
         }
     </style>
     
@@ -293,9 +309,8 @@
         </svg>
     </button>
     <div id="background-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--background-color); z-index: -1;"></div>
-    <div id="background-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--background-color); z-index: -1;"></div>
 
-    <div class="layout" style="overflow-x: hidden;">
+    <div class="layout" style="overflow-x: hidden; background-color: var(--background-color) !important; position: relative; z-index: 0;">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -303,7 +318,7 @@
                     <span>📖</span>
                     KJV Study
                 </h1>
-                <p class="sidebar-subtitle">Authorized King James Version</p>
+                <p class="sidebar-subtitle" style="font-size: 0.8rem;">Authorized King James Version</p>
             </div>
             
             <nav class="sidebar-nav">
@@ -316,12 +331,12 @@
                 <h3 style="color: var(--torah-color); margin-bottom: 0.5rem;">Old Testament</h3>
                 
                 <!-- Torah/Pentateuch -->
-                <h4 style="font-size: 0.75rem; margin: 0.5rem 0; color: var(--torah-color); text-transform: uppercase; letter-spacing: 0.5px;">Torah/Pentateuch</h4>
+                <h4 style="font-size: 0.7rem; margin: 0.4rem 0; color: var(--torah-color); text-transform: uppercase; letter-spacing: 0.5px;">Torah/Pentateuch</h4>
                 {% set torah = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
                 {% for book in books %}
                 {% if book in torah %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}">
+                   class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.75rem; margin-bottom: 0.1rem;">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -457,10 +472,10 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="main-content" style="background-color: var(--background-color) !important;">
             {% block breadcrumb %}{% endblock %}
             
-            <div class="{% block container_class %}container{% endblock %}" style="background-color: var(--background-color);">
+            <div class="{% block container_class %}container{% endblock %}" style="background-color: var(--background-color) !important; position: relative; z-index: 1;">
                 {% block content %}{% endblock %}
             </div>
             
@@ -483,8 +498,9 @@
                 sidebar.classList.remove('open');
                 overlay.classList.remove('open');
                 document.body.style.overflow = '';
-                sidebar.style.transform = 'translateX(-240px)';
-                sidebar.style.webkitTransform = 'translate3d(-240px, 0, 0)';
+                sidebar.style.transform = 'translateX(-200px)';
+                sidebar.style.webkitTransform = 'translate3d(-200px, 0, 0)';
+                document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
                 
                 // For iPad/tablet
                 if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
@@ -514,8 +530,13 @@
             if (isIPad || (window.innerWidth >= 768 && window.innerWidth <= 1024)) {
                 document.querySelector('.main-content').style.marginLeft = '0';
                 document.querySelector('.main-content').style.width = '100%';
-                document.getElementById('sidebar').style.transform = 'translateX(-240px)';
+                document.getElementById('sidebar').style.transform = 'translateX(-200px)';
             }
+            
+            // Fix for black background in some browsers
+            document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+            document.querySelector('.main-content').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+            document.querySelector('.container') && (document.querySelector('.container').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color'));
         });
 
         // Close sidebar when clicking on links (mobile)
