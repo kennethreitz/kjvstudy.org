@@ -224,7 +224,7 @@
 
 {% block breadcrumb %}
 <div class="container">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb" style="font-size: 1.2rem;">
         <a href="/">📚 All Books</a>
         <span class="breadcrumb-separator">/</span>
         <a href="/book/{{ book }}">{{ book }}</a>
@@ -449,18 +449,18 @@
 {% block navigation %}
 <div class="container">
     <div class="navigation">
-        <a href="/book/{{ book }}" class="nav-button">
-            ← {{ book }} Chapters
+        <a href="/book/{{ book }}" class="nav-button" style="font-size: 1.2rem;">
+            ← All Chapters
         </a>
         <div style="display: flex; gap: 0.5rem;">
             {% if chapter > 1 %}
-            <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}" class="nav-button">
-                ← Chapter {{ chapter - 1 }}
+            <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}" class="nav-button" style="font-size: 1.2rem;">
+                ← {{ book }} {{ chapter - 1 }}
             </a>
             {% endif %}
             {% if chapter < chapters|length %}
-            <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}" class="nav-button nav-button-primary">
-                Chapter {{ chapter + 1 }} →
+            <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}" class="nav-button nav-button-primary" style="font-size: 1.2rem;">
+                {{ book }} {{ chapter + 1 }} →
             </a>
             {% endif %}
         </div>
