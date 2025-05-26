@@ -5,113 +5,6 @@ from functools import lru_cache
 import json
 
 
-class Bible:
-    """Represents a Bible."""
-
-    def __init__(self, fname=None):
-        if fname is None:
-            # Get the directory where this script is located
-            current_dir = Path(__file__).parent
-            # Look for verses file in the package static directory
-            self.fname = current_dir / "static" / "verses-1769.json"
-        else:
-            self.fname = Path(fname)
-
-        # Load the JSON data from the file.
-        with open(self.fname, "r") as f:
-            self.verses = json.load(f)
-
-    @lru_cache(maxsize=1024)
-    def __getitem__(self, verse):
-        """Returns the text of the verse."""
-
-        # Check if the verse exists in the dictionary.
-        if verse not in self.verses:
-            raise KeyError(f"Verse {verse} not found in the Bible.")
-
-        return self.verses[verse]
-
-    def iter_verses(self):
-        """Iterates over the verses in the Bible."""
-
-        for verse in self.verses:
-            verse_ref = VerseReference.from_string(verse)
-
-            # Remove the leading "# " and brackets from the text.
-            # This is a workaround for the JSON format.
-            # The text is stored as a string with leading "# " and brackets.
-            # Example: "# [In the beginning God created the heaven and the earth.]"
-            text = self.verses[verse]
-            text.replace("# ", "")
-            text.replace("[", "")
-            text.replace("]", "")
-
-            yield Verse(
-                book=verse_ref.book,
-                chapter=verse_ref.chapter,
-                verse=verse_ref.verse,
-                text=text,
-            )
-
-    @lru_cache(maxsize=1)
-    def get_books(self):
-        """Returns a list of all books in the Bible."""
-        yielded = set()
-        books = []
-
-        for verse in self.verses:
-            verse_ref = VerseReference.from_string(verse)
-            if verse_ref.book in yielded:
-                continue
-            yielded.add(verse_ref.book)
-            books.append(verse_ref.book)
-        
-        return books
-
-    def iter_books(self):
-        """Iterates over the books in the Bible."""
-        for book in self.get_books():
-            yield book
-
-    @lru_cache(maxsize=1)
-    def get_chapters(self):
-        """Returns a list of all chapters in the Bible."""
-        yielded = set()
-        chapters = []
-
-        for verse in self.verses:
-            verse_ref = VerseReference.from_string(verse)
-            if (verse_ref.book, verse_ref.chapter) in yielded:
-                continue
-            yielded.add((verse_ref.book, verse_ref.chapter))
-            chapters.append((verse_ref.book, verse_ref.chapter))
-        
-        return chapters
-
-    def iter_chapters(self):
-        """Iterates over the chapters in the Bible."""
-        for book, chapter in self.get_chapters():
-            yield book, chapter
-
-    def iter_chapters_by_book(self):
-        """Iterates over the chapters in the Bible, grouped by book."""
-
-        yielded = set()
-
-        for verse in self.verses:
-            verse_ref = VerseReference.from_string(verse)
-            if (verse_ref.book, verse_ref.chapter) in yielded:
-                continue
-            yielded.add((verse_ref.book, verse_ref.chapter))
-            yield verse_ref.book, verse_ref.chapter
-
-    def iter_verse_references(self):
-        """Iterates over the verse references in the Bible."""
-
-        for verse in self.verses:
-            yield VerseReference.from_string(verse)
-
-
 class Verse(BaseModel):
     book: str
     chapter: int
@@ -187,9 +80,7 @@ class Bible:
             # The text is stored as a string with leading "# " and brackets.
             # Example: "# [In the beginning God created the heaven and the earth.]"
             text = self.verses[verse]
-            text.replace("# ", "")
-            text.replace("[", "")
-            text.replace("]", "")
+            text = text.replace("# ", "").replace("[", "").replace("]", "")
 
             yield Verse(
                 book=verse_ref.book,
@@ -310,6 +201,3 @@ if __name__ == "__main__":
     print(VerseReference.from_string("John 3:16"))
 
     print(bible["Genesis 1:1"])
-# print()
-# print(verse)
-# break  # Just print the first verse for demonstration
