@@ -2,15 +2,15 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import kjv  # assuming your kjv module is available and contains the Bible class
+
+from .kjv import bible
+
 
 app = FastAPI()
 
 # Set up Jinja2 templates and static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-bible = kjv.Bible()
 
 
 @app.get("/", response_class=HTMLResponse)

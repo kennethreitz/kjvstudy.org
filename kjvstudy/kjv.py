@@ -1,8 +1,11 @@
-import json
 from pydantic import BaseModel
+
+import json
 
 
 class Bible:
+    """Represents a Bible."""
+
     def __init__(self, fname=None):
         self.fname = fname or "verses-1769.json"
 
@@ -11,9 +14,7 @@ class Bible:
             self.verses = json.load(f)
 
     def __getitem__(self, verse):
-        """
-        Returns the text of the verse.
-        """
+        """Returns the text of the verse."""
 
         # Check if the verse exists in the dictionary.
         if verse not in self.verses:
@@ -22,24 +23,30 @@ class Bible:
         return self.verses[verse]
 
     def iter_verses(self):
-        """
-        Iterates over the verses in the Bible.
-        """
+        """Iterates over the verses in the Bible."""
 
         for verse in self.verses:
             verse_ref = VerseReference.from_string(verse)
+
+            # Remove the leading "# " and brackets from the text.
+            # This is a workaround for the JSON format.
+            # The text is stored as a string with leading "# " and brackets.
+            # Example: "# [In the beginning God created the heaven and the earth.]"
+            text = self.verses[verse]
+            text.replace("# ", "")
+            text.replace("[", "")
+            text.replace("]", "")
 
             yield Verse(
                 book=verse_ref.book,
                 chapter=verse_ref.chapter,
                 verse=verse_ref.verse,
-                text=self.verses[verse],
+                text=text,
             )
 
     def iter_books(self):
-        """
-        Iterates over the books in the Bible.
-        """
+        """Iterates over the books in the Bible."""
+
         yielded = set()
 
         for verse in self.verses:
@@ -50,9 +57,7 @@ class Bible:
             yield verse_ref.book
 
     def iter_chapters(self):
-        """
-        Iterates over the chapters in the Bible.
-        """
+        """Iterates over the chapters in the Bible."""
 
         yielded = set()
 
@@ -64,9 +69,7 @@ class Bible:
             yield verse_ref.book, verse_ref.chapter
 
     def iter_chapters_by_book(self):
-        """
-        Iterates over the chapters in the Bible, grouped by book.
-        """
+        """Iterates over the chapters in the Bible, grouped by book."""
 
         yielded = set()
 
@@ -78,9 +81,7 @@ class Bible:
             yield verse_ref.book, verse_ref.chapter
 
     def iter_verse_references(self):
-        """
-        Iterates over the verse references in the Bible.
-        """
+        """Iterates over the verse references in the Bible."""
 
         for verse in self.verses:
             yield VerseReference.from_string(verse)
@@ -123,13 +124,15 @@ class VerseReference(BaseModel):
         return cls(book=book, chapter=int(chapter), verse=int(verse))
 
 
+# Create an instance of the Bible class.
+bible = Bible()
+
+
 if __name__ == "__main__":
 
     print(VerseReference.from_string("Genesis 1:1"))
     print(VerseReference.from_string("I Corinthians 1:1"))
     print(VerseReference.from_string("John 3:16"))
-
-    bible = Bible()
 
     print(bible["Genesis 1:1"])
 # print()

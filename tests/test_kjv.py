@@ -1,6 +1,11 @@
-def test_verse_references():
-    from kjv import VerseReference
+# PATH HACK
+import os
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
+from kjvstudy.kjv import VerseReference
+
+def test_verse_references():
     # Test the parsing of a verse reference string
     assert VerseReference.from_string("Genesis 1:1") == VerseReference(
         book="Genesis", chapter=1, verse=1
