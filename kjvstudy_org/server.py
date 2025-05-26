@@ -16,9 +16,9 @@ from .kjv import bible
 def get_verse_text(book, chapter, verse):
     """Get the actual text of a specific verse"""
     try:
-        verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter and v.verse == verse]
-        if verses:
-            return verses[0].text
+        text = bible.get_verse_text(book, chapter, verse)
+        if text:
+            return text
         return f"{book} {chapter}:{verse} text not found"
     except:
         return f"{book} {chapter}:{verse}"
