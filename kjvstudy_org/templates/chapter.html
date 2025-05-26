@@ -55,6 +55,39 @@
     border-color: var(--primary-color);
 }
 
+.verse-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: rgba(75, 46, 131, 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.verse-number:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.highlight-verse {
+    animation: pulse-highlight 2s ease;
+}
+
+@keyframes pulse-highlight {
+    0% { background-color: transparent; }
+    30% { background-color: rgba(255, 235, 59, 0.5); }
+    100% { background-color: transparent; }
+}
+
 .chapter-navigation {
     position: sticky;
     top: 0;
@@ -119,7 +152,7 @@
 }
 
 .verse-highlight {
-    background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+    background: linear-gradient(120deg, #fff59d 0%, #ffee58 100%);
     background-size: 100% 40%;
     background-repeat: no-repeat;
     background-position: 0 60%;
@@ -189,20 +222,20 @@
 <div class="verses-container" id="versesContainer">
     {% for verse in verses %}
     <div class="verse" id="verse-{{ verse.verse }}">
-        <span class="verse-number">{{ verse.verse }}</span>
-        <span class="verse-text">{{ verse.text }}</span>
-        <span class="verse-tools">
-            <a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to verse" onclick="copyVerseLink({{ verse.verse }})">
-                🔗
-            </a>
-            <a href="#" class="verse-tool" title="Add note" onclick="addNote({{ verse.verse }})">
-                📝
-            </a>
-            <a href="#" class="verse-tool" title="Highlight verse" onclick="highlightVerse({{ verse.verse }})">
-                ✨
-            </a>
-        </span>
-    </div>
+            <span class="verse-number" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})">{{ verse.verse }}</span>
+            <span class="verse-text">{{ verse.text }}</span>
+            <span class="verse-tools">
+                <a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to Verse {{ verse.verse }}" onclick="copyVerseLink({{ verse.verse }})">
+                    🔗
+                </a>
+                <a href="#" class="verse-tool" title="Add note to Verse {{ verse.verse }}" onclick="addNote({{ verse.verse }})">
+                    📝
+                </a>
+                <a href="#" class="verse-tool" title="Highlight Verse {{ verse.verse }}" onclick="highlightVerse({{ verse.verse }})">
+                    ✨
+                </a>
+            </span>
+        </div>
     {% endfor %}
 </div>
 
@@ -211,13 +244,36 @@
         🤖 AI Commentary
     </h3>
     {% if book == "Revelation" and chapter == 1 %}
-    <div style="background: rgba(75, 46, 131, 0.05); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem; border-left: 4px solid var(--primary-color);">
-        <p style="margin: 0; font-weight: 500; color: var(--primary-color);">✨ Featured Commentary ✨</p>
+    <div style="background: linear-gradient(135deg, rgba(75, 46, 131, 0.1), rgba(65, 105, 225, 0.1)); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--primary-color); box-shadow: var(--shadow-sm);">
+        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
+            <span style="background: var(--primary-color); color: white; padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.5rem;">Premium</span>
+            <h4 style="margin: 0; font-weight: 600; color: var(--primary-color); font-size: 1.1rem;">✨ Revelation 1: The Apocalyptic Vision ✨</h4>
+        </div>
+        <p style="color: var(--text-primary); margin: 0 0 1rem; line-height: 1.6; font-style: italic;">
+            "I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty." — Revelation 1:8
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Apocalyptic</span>
+            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Christology</span>
+            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Domitian Era</span>
+            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Seven Churches</span>
+        </div>
+        <p style="color: var(--text-secondary); margin: 0 0 1rem; line-height: 1.6;">
+            Our comprehensive analysis of Revelation 1 features in-depth historical context from the Domitian period (81-96 CE), 
+            detailed examination of apocalyptic symbolism, theological insights on Christ's divine nature, and extensive 
+            cross-references to Old Testament prophetic visions in Daniel, Ezekiel, and Isaiah.
+        </p>
+        <div style="background: rgba(255, 255, 255, 0.7); border-radius: var(--radius-sm); padding: 0.75rem; margin-bottom: 1rem; border: 1px solid rgba(75, 46, 131, 0.2);">
+            <h5 style="margin: 0 0 0.5rem; color: var(--primary-color); font-size: 0.9rem;">Featured Commentary Highlights:</h5>
+            <ul style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary); font-size: 0.9rem;">
+                <li>Verse-by-verse exegesis with Greek word studies</li>
+                <li>Archaeological context of the seven churches</li>
+                <li>Counter-imperial themes and symbols</li>
+                <li>High Christology in apocalyptic literature</li>
+                <li>Connections to Daniel 7, Ezekiel 1, and Zechariah 4</li>
+            </ul>
+        </div>
     </div>
-    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
-        Explore our detailed verse-by-verse analysis of Revelation 1, featuring historical context from the late first century CE, 
-        theological insights on apocalyptic literature, and cross-references to Old Testament prophetic visions.
-    </p>
     {% else %}
     <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
         Explore verse-by-verse analysis with historical context, theological insights, 
@@ -286,7 +342,7 @@ function toggleVerseNumbers(show) {
 function copyVerseLink(verseNumber) {
     const url = window.location.origin + window.location.pathname + '#verse-' + verseNumber;
     navigator.clipboard.writeText(url).then(() => {
-        showToast('Verse link copied to clipboard!');
+        showToast('Verse ' + verseNumber + ' link copied to clipboard!');
     });
 }
 
@@ -300,7 +356,12 @@ function highlightVerse(verseNumber) {
     verseText.classList.toggle('verse-highlight');
     
     const highlighted = verseText.classList.contains('verse-highlight');
-    showToast(highlighted ? 'Verse highlighted!' : 'Highlight removed!');
+    showToast(highlighted ? 'Verse ' + verseNumber + ' highlighted!' : 'Highlight removed from Verse ' + verseNumber);
+}
+
+function navigateToVerse(verseNumber) {
+    location.hash = 'verse-' + verseNumber;
+    showToast('Navigated to Verse ' + verseNumber);
 }
 
 function scrollToTop() {
@@ -356,9 +417,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const target = document.querySelector(window.location.hash);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                target.style.background = 'rgba(75, 46, 131, 0.1)';
+                
+                // Extract verse number from the hash
+                const verseMatch = window.location.hash.match(/verse-(\d+)/);
+                if (verseMatch && verseMatch[1]) {
+                    showToast('Navigated to Verse ' + verseMatch[1]);
+                }
+                
+                // Apply highlighting
+                target.classList.add('highlight-verse');
                 setTimeout(() => {
-                    target.style.background = '';
+                    target.classList.remove('highlight-verse');
                 }, 2000);
             }
         }, 100);

@@ -20,6 +20,16 @@
 
 {% block head %}
 <style>
+@keyframes pulse-highlight {
+    0% { background-color: transparent; }
+    30% { background-color: rgba(255, 235, 59, 0.5); }
+    100% { background-color: transparent; }
+}
+
+.highlight-verse {
+    animation: pulse-highlight 2s ease;
+}
+
 .commentary-container {
     max-width: 800px;
     margin: 0 auto;
@@ -264,10 +274,10 @@
         <div class="verse-header">
             <div class="verse-number">Verse {{ verse.verse }}</div>
             <div class="verse-actions">
-                <a href="#verse-{{ verse.verse }}" class="verse-action" title="Copy link to verse" onclick="copyVerseLink('{{ verse.verse }}')">
+                <a href="#verse-{{ verse.verse }}" class="verse-action" title="Copy link to Verse {{ verse.verse }}" onclick="copyVerseLink('{{ verse.verse }}')">
                     🔗
                 </a>
-                <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-action" title="View in chapter">
+                <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-action" title="View Verse {{ verse.verse }} in chapter">
                     📖
                 </a>
             </div>
@@ -283,7 +293,7 @@
         
         <div class="commentary-section">
             <div id="tab-{{ verse.verse }}-analysis" class="tab-content active">
-                <h3 class="commentary-title">Analysis</h3>
+                <h3 class="commentary-title">Analysis - Verse {{ verse.verse }}</h3>
                 <div class="commentary-content">
                     {{ commentaries[verse.verse].analysis | safe }}
                 </div>
@@ -299,14 +309,14 @@
             </div>
             
             <div id="tab-{{ verse.verse }}-historical" class="tab-content">
-                <h3 class="commentary-title">Historical Context</h3>
+                <h3 class="commentary-title">Historical Context - Verse {{ verse.verse }}</h3>
                 <div class="commentary-content">
                     {{ commentaries[verse.verse].historical | safe }}
                 </div>
             </div>
             
             <div id="tab-{{ verse.verse }}-study" class="tab-content">
-                <h3 class="commentary-title">Study Questions</h3>
+                <h3 class="commentary-title">Study Questions - Verse {{ verse.verse }}</h3>
                 <div class="study-questions">
                     <ol>
                         {% for question in commentaries[verse.verse].questions %}
@@ -348,7 +358,7 @@
 function copyVerseLink(verseNumber) {
     const url = window.location.origin + window.location.pathname + '#verse-' + verseNumber;
     navigator.clipboard.writeText(url).then(() => {
-        showToast('Verse link copied to clipboard!');
+        showToast('Verse ' + verseNumber + ' link copied to clipboard!');
     });
 }
 
@@ -392,15 +402,24 @@ function showToast(message) {
 document.addEventListener('DOMContentLoaded', function() {
     // Highlight verse from URL hash
     if (window.location.hash) {
-        const target = document.querySelector(window.location.hash);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            target.style.transition = 'background-color 1s';
-            target.style.backgroundColor = 'rgba(75, 46, 131, 0.1)';
-            setTimeout(() => {
-                target.style.backgroundColor = '';
-            }, 2000);
-        }
+        setTimeout(() => {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                target.style.transition = 'background-color 1s';
+                target.style.backgroundColor = 'rgba(255, 235, 59, 0.5)';
+                        
+                // Get verse number to show in toast
+                const verseMatch = window.location.hash.match(/verse-(\d+)/);
+                if (verseMatch && verseMatch[1]) {
+                    showToast('Navigated to Verse ' + verseMatch[1]);
+                }
+                        
+                setTimeout(() => {
+                    target.style.backgroundColor = '';
+                }, 2000);
+            }
+        }, 100);
     }
 });
 </script>

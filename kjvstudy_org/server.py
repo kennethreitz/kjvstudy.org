@@ -7,6 +7,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from pathlib import Path
 import random
 import html
+import json
 
 from .kjv import bible
 
@@ -60,12 +61,39 @@ def read_book(request: Request, book: str):
 
     if not chapters:
         raise HTTPException(
-            status_code=404,
+            status_code=404, 
             detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
         )
     return templates.TemplateResponse(
         "book.html",
         {"request": request, "book": book, "chapters": chapters, "books": books},
+    )
+
+
+@app.get("/book/{book}/commentary", response_class=HTMLResponse)
+def book_commentary(request: Request, book: str):
+    """Generate comprehensive commentary for an entire book"""
+    books = list(bible.iter_books())
+    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+
+    if not chapters:
+        raise HTTPException(
+            status_code=404, 
+            detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
+        )
+    
+    # Generate comprehensive book commentary
+    commentary_data = generate_book_commentary(book, chapters)
+    
+    return templates.TemplateResponse(
+        "book_commentary.html",
+        {
+            "request": request,
+            "book": book,
+            "chapters": chapters,
+            "books": books,
+            **commentary_data
+        },
     )
 
 
@@ -151,68 +179,90 @@ def generate_commentary(book, chapter, verse):
         # Dictionary of specialized commentary for Revelation 1
         revelation1_commentary = {
             1: {
-                "analysis": "This opening verse establishes the divine origin of the Apocalypse (revelation). The chain of revelation is significant: from God, to Christ, to angel, to John, to the churches. The phrase \"things which must shortly come to pass\" indicates urgency and certainty, not necessarily immediacy in human time scales.",
-                "historical": "During the reign of Emperor Domitian (81-96 CE), Christians faced increasing pressure to participate in emperor worship. This book offered hope to persecuted believers by assuring them of God's ultimate sovereignty over human rulers and the certainty of Christ's victory.",
+                "analysis": """This opening verse establishes the divine origin of the Apocalypse (from Greek ἀποκάλυψις/<em>apokalypsis</em>, meaning "unveiling" or "revelation"). The chain of revelation is significant: from God, to Christ, to angel, to John, to the churches—establishing divine authority and authenticity. The phrase "things which must shortly come to pass" (ἃ δεῖ γενέσθαι ἐν τάχει) indicates both urgency and certainty, though not necessarily immediacy in human time scales. The Greek term ἐν τάχει can indicate rapidity of execution once something begins rather than imminence.<br><br>The phrase "signified it by his angel" uses the Greek ἐσήμανεν (from σημαίνω/<em>sēmainō</em>), literally meaning "to show by signs," hinting at the symbolic nature of the visions to follow. This carefully constructed introduction establishes: divine origin, Christological mediation, angelic communication, apostolic witness, and ecclesiastical destination.""",
+                "historical": """During the reign of Emperor Domitian (81-96 CE), imperial cult worship intensified throughout the Roman Empire. Domitian demanded to be addressed as "Lord and God" (<em>dominus et deus noster</em>), and erected statues of himself for veneration. Christians who refused to burn incense to the emperor or participate in imperial festivals faced economic sanctions, social ostracism, and sometimes execution.<br><br>Patmos, where John received this revelation, was a small, rocky island about 37 miles southwest of Miletus in the Aegean Sea. Roman authorities used such islands as places of exile for political prisoners. John identifies himself as there "for the word of God, and for the testimony of Jesus Christ" (v.9), indicating his exile was punishment for his Christian witness.<br><br>The seven churches addressed were located along a Roman postal route in the province of Asia (western Turkey), each facing unique local challenges while sharing the broader imperial context of Roman domination and pressure to compromise.""",
                 "questions": [
-                    "How does the concept of divine revelation shape your approach to Scripture?",
-                    "What significance might the chain of transmission (God→Christ→angel→John→churches) have for understanding authority?",
-                    "How should we understand the timeframe indicated by 'shortly come to pass' given that nearly 2,000 years have passed?"
+                    "How does the concept of divine revelation through a chain of transmission (God→Christ→angel→John→churches) shape your understanding of biblical authority?",
+                    "In what ways does the description of Jesus 'signifying' the revelation suggest an approach to interpreting the symbolic language throughout the book?",
+                    "How should we understand the timeframe indicated by 'shortly come to pass' given that nearly 2,000 years have passed? What different interpretive approaches address this apparent tension?",
+                    "How might John's emphasis on the divine origin of this revelation have strengthened the resolve of persecuted believers in Asia Minor?"
                 ],
                 "cross_references": [
                     {"text": "Daniel 2:28-29", "url": "/book/Daniel/chapter/2#verse-28", "context": "Things revealed about the latter days"},
-                    {"text": "John 15:15", "url": "/book/John/chapter/15#verse-15", "context": "Christ revealing the Father's will"}
+                    {"text": "John 15:15", "url": "/book/John/chapter/15#verse-15", "context": "Christ revealing the Father's will"},
+                    {"text": "Amos 3:7", "url": "/book/Amos/chapter/3#verse-7", "context": "God revealing secrets to prophets"},
+                    {"text": "2 Peter 1:20-21", "url": "/book/2 Peter/chapter/1#verse-20", "context": "Divine origin of prophecy"}
                 ]
             },
             4: {
-                "analysis": "This verse begins the formal greeting to the seven churches of Asia Minor. The trinitarian formula is unique: the eternal Father ('who is, who was, and who is to come'), the sevenfold Spirit, and Jesus Christ. The number seven symbolizes completeness or perfection in biblical numerology.",
-                "historical": "The seven churches addressed were actual congregations in Asia Minor (modern Turkey). They existed in a cultural environment dominated by pagan worship, including the imperial cult. Each city had its own social, economic, and spiritual challenges that are addressed in chapters 2-3.",
+                "analysis": """This verse begins the formal epistolary greeting to the seven churches of Asia Minor. The trinitarian formula is striking and unique: the eternal Father ("who is, who was, and who is to come"), the sevenfold Spirit "before his throne," and Jesus Christ (fully described in v.5).<br><br>The description of God as "who is, who was, and who is to come" (ὁ ὢν καὶ ὁ ἦν καὶ ὁ ἐρχόμενος) forms a deliberate adaptation of God's self-revelation in Exodus 3:14. While Greek would normally render the divine name with "who was, who is, and who will be," John alters the final element to emphasize not just God's future existence but His active coming to establish His kingdom.<br><br>The "seven Spirits before his throne" has been interpreted in several ways: (1) the sevenfold manifestation of the Holy Spirit based on Isaiah 11:2-3, (2) the seven archangels of Jewish apocalyptic tradition, or (3) the perfection and completeness of the Holy Spirit. The context strongly suggests this refers to the Holy Spirit in His perfect fullness, as this forms part of the trinitarian greeting. The number seven appears 54 times in Revelation, consistently symbolizing divine completeness and perfection.""",
+                "historical": """The seven churches addressed—Ephesus, Smyrna, Pergamum, Thyatira, Sardis, Philadelphia, and Laodicea—were actual congregations in Asia Minor (modern western Turkey). They existed along a natural circular mail route approximately 100 miles in diameter.<br><br>Each city had distinctive characteristics:<br>• <strong>Ephesus</strong>: A major commercial center with the Temple of Artemis (one of the Seven Wonders of the ancient world)<br>• <strong>Smyrna</strong>: A beautiful port city known for emperor worship and fierce loyalty to Rome<br>• <strong>Pergamum</strong>: The provincial capital with an enormous altar to Zeus and a temple to Asclepius (god of healing)<br>• <strong>Thyatira</strong>: Known for trade guilds that posed idolatry challenges for Christians<br>• <strong>Sardis</strong>: Former capital of Lydia, known for wealth and textile industry<br>• <strong>Philadelphia</strong>: The youngest and smallest city, subject to earthquakes<br>• <strong>Laodicea</strong>: A banking center known for eye medicine and black wool<br><br>These churches represented the spectrum of faith communities, facing various challenges: persecution, false teaching, moral compromise, spiritual apathy, and economic pressure to participate in trade guild idolatry. Though historically specific, they also represent the complete church throughout history (seven symbolizing completeness).""",
                 "questions": [
-                    "What does the description of God as 'who is, who was, and who is to come' reveal about divine nature?",
-                    "What might the 'seven Spirits' represent in this context?",
-                    "How does this trinitarian greeting compare to those found in Paul's letters?"
+                    "What does the description of God as 'who is, who was, and who is to come' reveal about divine nature and how does this differ from Greek philosophical conceptions of deity?",
+                    "How does John's adaptation of the divine name from Exodus 3:14 emphasize God's active involvement in human history?",
+                    "What theological significance might the order of the Trinity in this greeting have (Father, Spirit, Son) compared to more common formulations?",
+                    "How might the believers in these seven diverse churches have found comfort in being addressed collectively under divine blessing?",
+                    "What might the image of the 'seven Spirits before his throne' suggest about the Holy Spirit's relationship to both the Father and the churches?"
                 ],
                 "cross_references": [
                     {"text": "Exodus 3:14", "url": "/book/Exodus/chapter/3#verse-14", "context": "God as the 'I AM'"},
-                    {"text": "Isaiah 11:2-3", "url": "/book/Isaiah/chapter/11#verse-2", "context": "Seven aspects of the Spirit"}
+                    {"text": "Isaiah 11:2-3", "url": "/book/Isaiah/chapter/11#verse-2", "context": "Seven aspects of the Spirit"},
+                    {"text": "Zechariah 4:2-10", "url": "/book/Zechariah/chapter/4#verse-2", "context": "Seven lamps as the eyes of the LORD"},
+                    {"text": "2 Corinthians 13:14", "url": "/book/2 Corinthians/chapter/13#verse-14", "context": "Trinitarian blessing"}
                 ]
             },
             7: {
-                "analysis": "This verse emphasizes Christ's glorious return, visible to all, including those who rejected and pierced Him. It combines references from Daniel 7:13 (coming with clouds) and Zechariah 12:10 (those who pierced him shall mourn). The divine declaration 'I am Alpha and Omega' frames the verse with God's sovereignty.",
-                "historical": "For Christians experiencing persecution, this promise of Christ's visible return as judge and vindicator would provide hope and encouragement. The verse establishes that history's culmination centers on Christ's return, not the reign of human emperors.",
+                "analysis": """This powerful verse serves as the central proclamation of Christ's eschatological return, combining two profound Old Testament prophecies in a remarkable synthesis: Daniel 7:13 ("coming with clouds") and Zechariah 12:10 ("they shall look upon me whom they have pierced").<br><br>The declaration begins dramatically with "Behold" (Ἰδού/<em>idou</em>), demanding attention to this climactic event. The "clouds" (νεφελῶν/<em>nephelōn</em>) evoke both the Old Testament theophany tradition where clouds symbolize divine presence (Exodus 13:21, 19:9) and Daniel's vision of the Son of Man coming with clouds to receive dominion and glory.<br><br>The universal witness to Christ's return ("every eye shall see him") emphasizes its public, unmistakable nature, contrasting with His first coming in relative obscurity. The specific mention of "they which pierced him" (ἐξεκέντησαν/<em>exekentēsan</em>, a direct reference to the crucifixion) and the mourning of "all kindreds of the earth" introduces a tension between judgment and potential repentance.<br><br>The verse concludes with divine affirmation—"Even so, Amen"—combining Greek (ναί/<em>nai</em>) and Hebrew (ἀμήν/<em>amēn</em>) expressions of certainty, emphasizing this event's absolute inevitability across all cultures.""",
+                "historical": """For Christians facing persecution under Domitian (81-96 CE), this proclamation of Christ's return as cosmic Lord would provide profound hope and perspective. Roman imperial ideology presented the emperor as divine ruler whose reign brought global peace (<em>pax Romana</em>). Imperial propaganda celebrated the emperor's <em>parousia</em> (arrival) to cities with elaborate ceremonies.<br><br>This verse subverts those imperial claims by declaring Jesus—not Caesar—as the true cosmic sovereign whose <em>parousia</em> will bring history to its climax. The language of "tribes of the earth mourning" (πᾶσαι αἱ φυλαὶ τῆς γῆς) echoes Roman triumphal processions where conquered peoples mourned as the victorious emperor processed through Rome.<br><br>For Jewish readers, the combination of Daniel 7:13 and Zechariah 12:10 was especially significant. While first-century Judaism typically separated the Messiah's coming from Yahweh's coming, John merges these, presenting Jesus as fulfilling both messianic hope and divine visitation. This would be both challenging and transformative for Jewish believers.<br><br>Archaeological evidence from the seven cities addressed shows extensive emperor worship installations. In Pergamum stood a massive temple to Augustus; in Ephesus was the Temple of Domitian with a 23-foot statue of the emperor. Against these claims of imperial divinity, the vision of Christ's return asserted true divine sovereignty.""",
                 "questions": [
-                    "How does the certainty of Christ's return influence Christian ethics and perseverance?",
-                    "What is the significance of combining Old Testament references about God with descriptions of Jesus?",
-                    "How should believers balance the hope of Christ's return with responsible living in the present world?"
+                    "How does the merging of Daniel 7:13 and Zechariah 12:10 transform our understanding of both prophecies, and what does this tell us about Christ's identity?",
+                    "What is the significance of the universal nature of Christ's return—that 'every eye shall see him'—in contrast to claims of secret or localized appearances?",
+                    "How might the phrase 'all kindreds of the earth shall wail because of him' be understood—is this solely judgment, or might it include elements of repentance and recognition?",
+                    "In what ways does the certainty of Christ's return as cosmic Lord challenge contemporary 'empires' and power structures?",
+                    "How should the tension between Christ's first coming in humility and His second coming in glory shape our understanding of God's redemptive work?"
                 ],
                 "cross_references": [
-                    {"text": "Matthew 24:30", "url": "/book/Matthew/chapter/24#verse-30", "context": "Christ's return with clouds"},
-                    {"text": "Zechariah 12:10", "url": "/book/Zechariah/chapter/12#verse-10", "context": "Looking on him whom they pierced"}
+                    {"text": "Daniel 7:13-14", "url": "/book/Daniel/chapter/7#verse-13", "context": "Son of Man coming with clouds"},
+                    {"text": "Zechariah 12:10-14", "url": "/book/Zechariah/chapter/12#verse-10", "context": "Looking on him whom they pierced"},
+                    {"text": "Matthew 24:30-31", "url": "/book/Matthew/chapter/24#verse-30", "context": "Christ's return with clouds and angels"},
+                    {"text": "1 Thessalonians 4:16-17", "url": "/book/1 Thessalonians/chapter/4#verse-16", "context": "The Lord's descent from heaven"},
+                    {"text": "John 19:34-37", "url": "/book/John/chapter/19#verse-34", "context": "Christ pierced on the cross"}
                 ]
             },
             13: {
-                "analysis": "This verse begins the dramatic vision of Christ amid the lampstands. The figure is described in terms combining royal, priestly and divine attributes. The 'one like unto the Son of man' echoes Daniel 7:13, while the long robe with golden sash suggests high priestly attire (Exodus 28:4).",
-                "historical": "In the first century, the imagery would connect with both Jewish apocalyptic expectations and contrast with imperial imagery. While Roman emperors claimed divine status, this vision presents Christ with true divine and cosmic authority.",
+                "analysis": """This verse begins the extraordinary Christophany—the vision of the glorified Christ among the lampstands. The description combines elements of royal, priestly, prophetic, and divine imagery in a stunning portrait of Christ's transcendent glory.<br><br>The phrase "one like unto the Son of man" (ὅμοιον υἱὸν ἀνθρώπου) deliberately echoes Daniel 7:13-14, where the "Son of Man" comes with clouds and receives everlasting dominion. This title, Jesus' favorite self-designation in the Gospels, here takes on its full apocalyptic significance.<br><br>The clothing described has dual significance: the "garment down to the foot" (ποδήρη/<em>podērē</em>) recalls the high priest's robe (Exodus 28:4, 39:29) while the "golden girdle" or sash around the chest rather than waist suggests royal dignity. In combining these images, Christ is presented as both King and High Priest in the order of Melchizedek (Hebrews 7).<br><br>His position "in the midst of the seven lampstands" is theologically significant, showing Christ's immediate presence with and authority over the churches. The lampstands (later identified as the seven churches) allude to both the tabernacle menorah (Exodus 25:31-40) and Zechariah's vision (Zechariah 4:2-10), suggesting the churches' function as light-bearers in the world under Christ's oversight.""",
+                "historical": """In the Greco-Roman world of the late first century, this vision would have provided a stunning contrast to imperial imagery. Roman emperors were typically portrayed in statuary and coinage with idealized, youthful features, wearing the purple toga of authority, and often with radiate crowns suggesting solar divinity.<br><br>Domitian particularly promoted his divine status, having himself addressed as <em>dominus et deus noster</em> ("our lord and god"). In the provincial capital Pergamum (one of the seven churches addressed), a massive temple complex dedicated to emperor worship dominated the acropolis, visible throughout the city.<br><br>The Jewish community would have recognized multiple elements from prophetic tradition. The figure combines features from Ezekiel's vision of God's glory (Ezekiel 1:26-28), Daniel's "Ancient of Days" and "Son of Man" (Daniel 7:9-14, 10:5-6), and various theophany accounts. This deliberate merging of divine imagery with the human "Son of Man" figure creates one of the New Testament's most explicit presentations of Christ's deity.<br><br>Archaeological excavations at Ephesus (another of the seven churches) have uncovered a 23-foot statue of Emperor Domitian that once stood in his temple. John's vision provides the ultimate counter-imperial image: Christ as the true divine sovereign standing among His churches, outshining all imperial pretensions.""",
                 "questions": [
-                    "How does this vision of Christ compare with portrayals elsewhere in Scripture?",
-                    "What significance might the position 'in the midst of the lampstands' have for church leadership?",
-                    "How do the combined royal and priestly elements reveal Christ's roles?"
+                    "How does this vision of the glorified Christ compare with other portraits in Scripture, such as the transfiguration (Matthew 17:1-8) or Isaiah's throne room vision (Isaiah 6:1-5)?",
+                    "What theological significance does Christ's position 'in the midst of the seven lampstands' have for our understanding of His relationship to the church?",
+                    "How does the combination of royal, priestly, and divine imagery shape our understanding of Christ's multifaceted identity and work?",
+                    "In what ways might this vision of Christ have challenged first-century believers' perspectives and provided comfort during persecution?",
+                    "How should this majestic portrayal of Christ influence our worship and daily discipleship today?"
                 ],
                 "cross_references": [
                     {"text": "Daniel 7:13-14", "url": "/book/Daniel/chapter/7#verse-13", "context": "Son of Man vision"},
-                    {"text": "Hebrews 4:14-16", "url": "/book/Hebrews/chapter/4#verse-14", "context": "Christ as High Priest"}
+                    {"text": "Ezekiel 1:26-28", "url": "/book/Ezekiel/chapter/1#verse-26", "context": "Throne vision of divine glory"},
+                    {"text": "Exodus 28:4, 39:29", "url": "/book/Exodus/chapter/28#verse-4", "context": "High priestly garments"},
+                    {"text": "Hebrews 4:14-16", "url": "/book/Hebrews/chapter/4#verse-14", "context": "Christ as High Priest"},
+                    {"text": "Zechariah 4:2-10", "url": "/book/Zechariah/chapter/4#verse-2", "context": "Vision of the lampstand"}
                 ]
             },
             18: {
-                "analysis": "This powerful declaration by the risen Christ emphasizes His victory over death and authority over the afterlife. The phrase 'I am he that liveth, and was dead' directly references Christ's resurrection. The 'keys of hell and of death' symbolize authority over mortality and judgment.",
-                "historical": "For early Christians facing potential martyrdom, this verse would provide profound reassurance that death was not the final word. Christ's authority extends beyond death itself, offering hope to those facing persecution.",
+                "analysis": """This triumphant declaration by the risen Christ contains some of the most profound Christological statements in Scripture. The opening "I am" (ἐγώ εἰμι/<em>egō eimi</em>) echoes God's self-revelation to Moses (Exodus 3:14) and continues John's high Christology throughout Revelation.<br><br>The phrase "he that liveth, and was dead" encapsulates the central paradox of Christian faith—Christ's death and resurrection. The Greek construction (ὁ ζῶν, καὶ ἐγενόμην νεκρὸς) emphasizes the contrast between His eternal living nature and the historical fact of His death. The perfect tense of "am alive" (ζῶν εἰμι) indicates a past action with continuing results—He lives now because He conquered death.<br><br>The declaration "I am alive forevermore" (ζῶν εἰμι εἰς τοὺς αἰῶνας τῶν αἰώνων) asserts Christ's eternal existence, while "Amen" provides divine self-affirmation.<br><br>The climactic statement about possessing "the keys of hell and of death" (τὰς κλεῖς τοῦ θανάτου καὶ τοῦ ᾅδου) draws on ancient imagery where keys symbolize authority and control. In Jewish apocalyptic literature, these keys belonged exclusively to God. Christ now claims this divine prerogative, declaring His absolute sovereignty over mortality and the afterlife—the ultimate source of human fear.""",
+                "historical": """For Christians facing potential martyrdom under Domitian's persecution, this verse would provide extraordinary comfort and courage. The Roman Empire's ultimate weapon against dissidents was death, but Christ's declaration neutralizes this threat by asserting His authority over death itself.<br><br>In Greco-Roman culture, Hades (ᾅδης, translated as "hell" in KJV) was understood as the realm of the dead, ruled by the god of the same name. Various mystery religions promised initiates privileged treatment in the afterlife, while imperial propaganda sometimes suggested the emperor controlled the destiny of subjects even after death.<br><br>Archaeological findings from the period show funerary inscriptions often expressing hopelessness regarding death. A common epitaph read "I was not, I became, I am not, I care not." Against this cultural backdrop of either fear or nihilism toward death, Christ's claim to hold death's keys would be revolutionary.<br><br>In Jewish tradition, Isaiah 22:22 presents God giving the "key of the house of David" to Eliakim, symbolizing transferred authority. The early church would understand Christ's possession of death's keys as fulfillment of His promise to Peter about the "keys of the kingdom" (Matthew 16:19)—but here magnified to cosmic proportions.<br><br>For the seven churches receiving this revelation—some already experiencing martyrdom (like Antipas in Pergamum, 2:13)—this verse transformed their understanding of persecution. Death was no longer defeat but transition into the realm still under Christ's authority.""",
                 "questions": [
-                    "How does Christ's victory over death transform the Christian understanding of mortality?",
-                    "What does it mean that Christ holds 'the keys of hell and of death'?",
-                    "How might this verse have comforted believers facing imperial persecution?"
+                    "How does Christ's claim to possess 'the keys of hell and of death' transform our understanding of mortality and the afterlife?",
+                    "In what ways does the paradox of Christ who died yet lives forever challenge both ancient and modern conceptions of divine nature?",
+                    "How might believers facing persecution or martyrdom throughout history have drawn strength from this verse?",
+                    "What practical implications does Christ's victory over death have for disciples facing suffering, bereavement, or their own mortality?",
+                    "How does this verse relate to Paul's teaching that 'the last enemy to be destroyed is death' (1 Corinthians 15:26)?"
                 ],
                 "cross_references": [
-                    {"text": "Isaiah 22:22", "url": "/book/Isaiah/chapter/22#verse-22", "context": "The key of David"},
-                    {"text": "Romans 6:9", "url": "/book/Romans/chapter/6#verse-9", "context": "Christ dies no more"}
+                    {"text": "Isaiah 22:22", "url": "/book/Isaiah/chapter/22#verse-22", "context": "The key of David symbolizing authority"},
+                    {"text": "Romans 6:9-10", "url": "/book/Romans/chapter/6#verse-9", "context": "Christ dies no more, death has no dominion"},
+                    {"text": "1 Corinthians 15:54-57", "url": "/book/1 Corinthians/chapter/15#verse-54", "context": "Death is swallowed up in victory"},
+                    {"text": "Hebrews 2:14-15", "url": "/book/Hebrews/chapter/2#verse-14", "context": "Christ destroys death and delivers from its fear"},
+                    {"text": "Hosea 13:14", "url": "/book/Hosea/chapter/13#verse-14", "context": "Prophecy of ransom from death and redemption from the grave"}
                 ]
             }
         }
@@ -297,19 +347,67 @@ def generate_chapter_overview(book, chapter, verses):
         return """
     <p><strong>Revelation 1</strong> is the magnificent apocalyptic introduction to the final book of the Bible, often called the <em>Apocalypse</em> (from the Greek ἀποκάλυψις, meaning "unveiling" or "revelation"). Written during the reign of Emperor Domitian (c. 95 CE) when imperial persecution was intensifying, this chapter presents John's vision of the glorified Christ and establishes the divine authority behind the revelations that follow.</p>
         
-    <p>The author identifies himself as "John" (verse 1:1, 1:4, 1:9), traditionally understood to be the Apostle John, though some scholars propose it may be another John known as "John the Elder." He was exiled tocan be divided into several key sections:</p>
-
-        <ol>
-            <li><strong>Verses 1-3</strong>: Introduction and blessing for those who read and keep the prophecy</li>
-            <li><strong>Verses 4-8</strong>: Greeting to the seven churches and proclamation of Christ's divine authority</li>
-            <li><strong>Verses 9-16</strong>: John's vision of the glorified Christ amid the lampstands</li>
-            <li><strong>Verses 17-20</strong>: Christ's commission to John and explanation of the symbolic vision</li>
-        </ol>
-
-        <p>Revelation 1 is significant because it establishes the divine authority behind the apocalyptic visions and presents Christ in His glorified, exalted state. The vivid symbolism introduces key motifs that will appear throughout the book, including the number seven (churches, spirits, lampstands), divine titles ("Alpha and Omega," "First and Last"), and the imagery of Christ as both priest and king.</p>
-
-        <p>When studying this passage, it's important to understand its historical context during a time of imperial persecution, as well as its place as the culmination of biblical prophecy and apocalyptic literature.</p>
-        """
+    <p>The author identifies himself as "John" (verse 1:1, 1:4, 1:9), traditionally understood to be the Apostle John, though some scholars propose it may be another John known as "John the Elder." He was exiled to Patmos, a small rocky island in the Aegean Sea about 37 miles southwest of Miletus, "for the word of God, and for the testimony of Jesus Christ" (verse 9).</p>
+        
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Literary Structure and Context</h4>
+        
+    <p>Revelation belongs to the apocalyptic genre, characterized by symbolic visions, supernatural beings, cosmic conflict, and the ultimate triumph of good over evil. This literary form was especially meaningful during times of persecution, offering hope through coded imagery that conveyed God's sovereignty over earthly powers.</p>
+        
+    <p>This chapter establishes several literary patterns that will repeat throughout the book:</p>
+    <ul>
+        <li>The <strong>number seven</strong> (7 churches, 7 spirits, 7 golden lampstands, 7 stars) symbolizing divine completeness and perfection</li>
+        <li><strong>Divine titles</strong> expressing eternal nature ("Alpha and Omega," "First and Last," "Beginning and End")</li>
+        <li><strong>Old Testament allusions</strong>, particularly to Daniel, Ezekiel, and Isaiah</li>
+        <li><strong>Paradoxical imagery</strong> ("a Lamb as it had been slain" appears later but is foreshadowed by Christ who died yet lives)</li>
+    </ul>
+        
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Chapter Structure</h4>
+        
+    <ol>
+        <li><strong>Prologue (Verses 1-3)</strong>: Establishes the divine source and purpose of the revelation, promising blessing to those who read, hear, and keep these prophecies. The phrase "the time is at hand" creates eschatological urgency.</li>
+            
+        <li><strong>Epistolary Greeting (Verses 4-8)</strong>: John addresses the seven churches of Asia Minor with a trinitarian blessing. This section contains the first of seven beatitudes in Revelation (verse 3) and introduces Christ with titles emphasizing His eternal nature, redemptive work, and future return.</li>
+            
+        <li><strong>John's Commissioning Vision (Verses 9-16)</strong>: The exiled apostle receives his commission on "the Lord's day" (the first Christian use of this term in literature). Christ appears in transcendent glory among seven golden lampstands, with imagery drawing heavily from Daniel 7:13-14, Daniel 10:5-6, and Ezekiel 1:24-28. Each symbolic element (white hair, flaming eyes, bronze feet, thunderous voice) reveals an aspect of Christ's divine nature and authority.</li>
+            
+        <li><strong>Christ's Self-Revelation and Command (Verses 17-20)</strong>: After John falls "as dead" before the vision (compare with Isaiah 6:5, Ezekiel 1:28, Daniel 10:8-9), Christ identifies Himself as the eternal living one who conquered death. He commands John to write what he sees, explaining the mystery of the seven stars (angels/messengers of the churches) and seven lampstands (the churches themselves).</li>
+    </ol>
+        
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Historical Context</h4>
+        
+    <p>Emperor Domitian (reigned 81-96 CE) intensified emperor worship throughout the Roman Empire, demanding to be addressed as "Lord and God" (<em>dominus et deus</em>). Christians who refused to participate in imperial cult rituals faced economic marginalization (foreshadowing the "mark of the beast"), social ostracism, and sometimes execution.</p>
+        
+    <p>The seven churches addressed were located on a Roman postal route in Asia Minor (modern Turkey), each facing unique challenges:</p>
+    <ul>
+        <li><strong>Ephesus</strong>: A major commercial center with the Temple of Artemis</li>
+        <li><strong>Smyrna</strong>: Known for intense emperor worship and Jewish opposition to Christians</li>
+        <li><strong>Pergamum</strong>: Center of emperor worship with a large altar to Zeus</li>
+        <li><strong>Thyatira</strong>: Known for trade guilds that posed idolatry challenges</li>
+        <li><strong>Sardis</strong>: Former capital of Lydia, known for complacency</li>
+        <li><strong>Philadelphia</strong>: Smallest city, facing Jewish opposition</li>
+        <li><strong>Laodicea</strong>: Wealthy banking center known for lukewarm water supply</li>
+    </ul>
+        
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological Significance</h4>
+        
+    <p>Revelation 1 establishes several profound theological truths:</p>
+        
+    <ol>
+        <li><strong>High Christology</strong>: Christ is portrayed with divine attributes and titles previously reserved for Yahweh in the Old Testament. This establishes one of the earliest and clearest presentations of Christ's deity in Christian literature.</li>
+            
+        <li><strong>Divine Sovereignty</strong>: Despite the apparent triumph of evil powers (Roman persecution), God remains enthroned and history moves toward His predetermined conclusion.</li>
+            
+        <li><strong>Trinitarian Framework</strong>: The greeting in verses 4-5 includes all three persons of the Trinity, with the unusual description of the Holy Spirit as "the seven spirits before his throne" (possibly referring to Isaiah 11:2-3 or Zechariah 4:1-10).</li>
+            
+        <li><strong>Church Identity</strong>: The churches are represented as lampstands with Christ moving among them, suggesting both their mission to bear light and Christ's evaluative presence.</li>
+            
+        <li><strong>Victory Through Suffering</strong>: John, a "companion in tribulation" (verse 9), writes from exile, establishing that God's revelation comes in the midst of, not despite, suffering. Christ is identified as one who "loved us, and washed us from our sins in his own blood" (verse 5), linking redemption to sacrificial suffering.</li>
+    </ol>
+        
+    <p>When studying Revelation 1, it's essential to approach the text with awareness of its apocalyptic genre, historical context, and symbolic language. The chapter forms the foundation for understanding the entire book, introducing themes, symbols, and theological concepts that will be developed throughout the subsequent visions.</p>
+        
+    <p>For believers under persecution, whether in the first century or today, this chapter offers the profound assurance that Christ – the Alpha and Omega, the First and Last – remains sovereign over history and present with His church through all tribulations.</p>
+    """
 
     # Simulated chapter overview for other chapters
     themes = [get_theme(v.text.lower()) for v in verses[:5]]  # Sample themes from the first few verses
@@ -1314,10 +1412,119 @@ def get_chapter_significance(book, chapter):
         return random.choice(significance_templates)
 
 
-@app.get("/health")
-def health_check():
-    """Health check endpoint for monitoring"""
-    return {"status": "healthy", "service": "kjv-study"}
+def generate_book_commentary(book, chapters):
+    """Generate comprehensive commentary for an entire book"""
+    # Get basic book information
+    testament = get_testament_for_book(book)
+    time_period = get_time_period(book)
+    genre = get_book_genre(book)
+    
+    # Generate tags based on themes and genre
+    tags = generate_book_tags(book, genre)
+    
+    # Generate introduction based on book
+    introduction = generate_book_introduction(book)
+    
+    # Generate historical context
+    historical_context = generate_historical_context(book)
+    
+    # Generate literary features
+    literary_features = generate_literary_features(book, genre)
+    
+    # Generate key themes
+    themes = generate_book_themes(book)
+    
+    # Generate theological significance
+    theological_significance = generate_theological_significance(book)
+    
+    # Generate contemporary application
+    application = generate_book_application(book)
+    
+    # Generate key highlights from the book
+    highlights = generate_book_highlights(book, chapters)
+    
+    # Generate book outline
+    outline = generate_book_outline(book, chapters)
+    
+    # Generate cross-references to other books
+    cross_references = generate_book_cross_references(book)
+    
+    # Generate chapter summaries with key verses
+    chapter_summaries = generate_chapter_summaries(book, chapters)
+    
+    return {
+        "testament": testament,
+        "time_period": time_period,
+        "genre": genre,
+        "tags": tags,
+        "introduction": introduction,
+        "historical_context": historical_context,
+        "literary_features": literary_features,
+        "themes": themes,
+        "theological_significance": theological_significance,
+        "application": application,
+        "highlights": highlights,
+        "outline": outline,
+        "cross_references": cross_references,
+        "chapter_summaries": chapter_summaries
+    }
+
+
+def generate_book_tags(book, genre):
+    """Generate tags for a book based on its themes and genre"""
+    # Base tags on genre
+    genre_tags = {
+        "narrative": ["Historical", "Narrative", "Story"],
+        "law": ["Law", "Torah", "Covenant"],
+        "poetry": ["Poetry", "Wisdom", "Lyrical"],
+        "prophecy": ["Prophecy", "Prophetic", "Oracle"],
+        "apocalyptic": ["Apocalyptic", "Symbolic", "Visionary"],
+        "epistle": ["Epistle", "Letter", "Instruction"],
+        "gospel": ["Gospel", "Biography", "Testimony"],
+        "wisdom": ["Wisdom", "Proverb", "Teaching"]
+    }
+    
+    # Book-specific tags
+    book_specific_tags = {
+        "Genesis": ["Creation", "Patriarchs", "Covenant", "Origins"],
+        "Exodus": ["Deliverance", "Law", "Tabernacle", "Moses"],
+        "Leviticus": ["Holiness", "Sacrifice", "Priesthood", "Ritual"],
+        "Numbers": ["Wilderness", "Journey", "Census", "Rebellion"],
+        "Deuteronomy": ["Covenant", "Law", "Moses", "Instruction"],
+        "Joshua": ["Conquest", "Promised Land", "Leadership", "Victory"],
+        "Judges": ["Cycle", "Deliverance", "Apostasy", "Tribalism"],
+        "Ruth": ["Loyalty", "Redemption", "Kinsman-Redeemer", "Foreigner"],
+        "1 Samuel": ["Kingship", "Saul", "David", "Transition"],
+        "2 Samuel": ["David", "Kingdom", "Covenant", "Kingship"],
+        "1 Kings": ["Solomon", "Temple", "Division", "Kings"],
+        "2 Kings": ["Kings", "Prophets", "Exile", "Judgment"],
+        "1 Chronicles": ["David", "Genealogy", "Temple", "Worship"],
+        "2 Chronicles": ["Temple", "Kings", "Worship", "Reformation"],
+        "Ezra": ["Return", "Restoration", "Temple", "Law"],
+        "Nehemiah": ["Rebuilding", "Walls", "Reform", "Leadership"],
+        "Esther": ["Providence", "Deliverance", "Courage", "Identity"],
+        "Job": ["Suffering", "Wisdom", "Righteousness", "Divine Justice"],
+        "Psalms": ["Worship", "Praise", "Lament", "Prayer"],
+        "Proverbs": ["Wisdom", "Instruction", "Conduct", "Character"],
+        "Ecclesiastes": ["Meaning", "Vanity", "Wisdom", "Purpose"],
+        "Song of Solomon": ["Love", "Marriage", "Devotion", "Relationship"],
+        "Isaiah": ["Holiness", "Messiah", "Judgment", "Restoration"],
+        "Jeremiah": ["Judgment", "Covenant", "Restoration", "Prophet"],
+        "Lamentations": ["Grief", "Judgment", "Mercy", "Destruction"],
+        "Ezekiel": ["Glory", "Vision", "Judgment", "Restoration"],
+        "Daniel": ["Kingdom", "Sovereignty", "Faithfulness", "Prophecy"],
+        "Hosea": ["Faithfulness", "Covenant", "Redemption", "Apostasy"],
+        "Joel": ["Day of the LORD", "Judgment", "Restoration", "Spirit"],
+        "Amos": ["Justice", "Judgment", "Righteousness", "Prophecy"],
+        "Obadiah": ["Judgment", "Pride", "Edom", "Restoration"],
+        "Jonah": ["Mercy", "Mission", "Repentance", "Compassion"],
+        "Micah": ["Justice", "Judgment", "Messiah", "Covenant"],
+        "Nahum": ["Judgment", "Nineveh", "Justice", "Vengeance"],
+        "Habakkuk": ["Faith", "Justice", "Sovereignty", "Questioning"],
+        "Zephaniah": ["Day of the LORD", "Judgment", "Remnant", "Restoration"],
+        "Haggai": ["Temple", "Priorities", "Restoration", "Blessing"],
+        "Zechariah": ["Messiah", "Vision", "Restoration", "Future"],
+        "jv-study"}
 
 
 if __name__ == "__main__":
