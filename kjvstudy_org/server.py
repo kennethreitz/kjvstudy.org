@@ -147,28 +147,46 @@ def read_book(request: Request, book: str):
 @app.get("/book/{book}/commentary", response_class=HTMLResponse)
 def book_commentary(request: Request, book: str):
     """Generate comprehensive commentary for an entire book"""
-    books = list(bible.iter_books())
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    try:
+        books = list(bible.iter_books())
+        chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
 
-    if not chapters:
-        raise HTTPException(
-            status_code=404,
-            detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
+        if not chapters:
+            raise HTTPException(
+                status_code=404,
+                detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
+            )
+
+        # Generate comprehensive book commentary
+        commentary_data = generate_book_commentary(book, chapters)
+
+        return templates.TemplateResponse(
+            "book_commentary.html",
+            {
+                "request": request,
+                "book": book,
+                "chapters": chapters,
+                "books": books,
+                **commentary_data
+            },
         )
-
-    # Generate comprehensive book commentary
-    commentary_data = generate_book_commentary(book, chapters)
-
-    return templates.TemplateResponse(
-        "book_commentary.html",
-        {
-            "request": request,
-            "book": book,
-            "chapters": chapters,
-            "books": books,
-            **commentary_data
-        },
-    )
+    except Exception as e:
+        print(f"Error in book_commentary route for {book}: {str(e)}")
+        print(f"Error type: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
+        
+        # Return a simple error page instead of 500
+        return templates.TemplateResponse(
+            "error.html",
+            {
+                "request": request,
+                "error_message": f"Sorry, there was an error loading the commentary for {book}. Please try again later.",
+                "book": book,
+                "books": list(bible.iter_books()) if 'bible' in globals() else []
+            },
+            status_code=500
+        )
 
 
 @app.get("/book/{book}/chapter/{chapter}", response_class=HTMLResponse)
