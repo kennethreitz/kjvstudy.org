@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+
+{% block title %}AI Commentary: {{ book }} {{ chapter }} - Authorized King James Version (KJV) Bible{% endblock %}
+{% block description %}AI-powered verse-by-verse commentary on {{ book }} {{ chapter }} from the Authorized King James Version (KJV) Bible. Explore historical context, cross-references, and study questions.{% endblock %}
+{% block keywords %}{{ book }} {{ chapter }} commentary, {{ book }} {{ chapter }} analysis, KJV Bible commentary, {{ book }} {{ chapter }} study guide, AI Bible commentary, {{ book }} {{ chapter }} meaning, KJV study{% endblock %}
+
+{% block schema_type %}Article{% endblock %}
+{% block structured_data %},
+        "headline": "AI Commentary on {{ book }} {{ chapter }} - Authorized King James Version (KJV)",
+        "articleSection": "Biblical Commentary",
+        "text": "Verse-by-verse analysis and commentary on {{ book }} chapter {{ chapter }} from the Authorized King James Version (KJV) Bible.",
+        "isPartOf": {
+            "@type": "Book",
+            "name": "{{ book }} - Authorized King James Version",
+            "isPartOf": {
+                "@type": "Book",
+                "name": "Authorized King James Version Bible"
+            }
+        }{% endblock %}
+
+{% block head %}
+<style>
+.commentary-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.verse-card {
+    margin-bottom: 2rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    background: var(--surface-color);
+}
+
+.verse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-light);
+    background: rgba(75, 46, 131, 0.05);
+}
+
+.verse-number {
+    font-weight: 600;
+    font-family: var(--font-display);
+    color: var(--primary-color);
+}
+
+.verse-text {
+    padding: 1.25rem;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: var(--surface-color);
+    font-family: var(--font-serif);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.commentary-section {
+    padding: 1.25rem;
+}
+
+.commentary-title {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.commentary-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.cross-references {
+    background: rgba(75, 46, 131, 0.05);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+}
+
+.cross-references ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.5rem;
+}
+
+.cross-references li {
+    margin-bottom: 0.25rem;
+}
+
+.cross-references a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.cross-references a:hover {
+    text-decoration: underline;
+}
+
+.study-questions {
+    background: rgba(112, 76, 182, 0.05);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.study-questions ol {
+    margin: 0.5rem 0 0;
+    padding-left: 1.5rem;
+}
+
+.study-questions li {
+    margin-bottom: 0.5rem;
+}
+
+.commentary-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.commentary-header h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2rem;
+}
+
+.commentary-header p {
+    margin: 0;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.commentary-meta {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.commentary-meta p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.verse-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.verse-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.verse-action:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.tab-navigation {
+    display: flex;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.tab-button {
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-button.active {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .commentary-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .verse-text {
+        font-size: 1rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="/">📚 All Books</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/book/{{ book }}">{{ book }}</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/book/{{ book }}/chapter/{{ chapter }}">Chapter {{ chapter }}</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>AI Commentary</span>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<header class="commentary-header">
+    <h1>AI Commentary: {{ book }} {{ chapter }}</h1>
+    <p>Verse-by-verse analysis and insights from the Authorized King James Version (KJV)</p>
+</header>
+
+<div class="commentary-container">
+    <div class="commentary-meta">
+        <p><strong>Note:</strong> This AI-powered commentary is generated based on historical, theological, and scholarly sources. It's designed to assist your study but should not replace personal reflection and traditional commentaries.</p>
+    </div>
+    
+    <div class="chapter-overview verse-card">
+        <div class="verse-header">
+            <h2 style="margin: 0; font-size: 1.25rem;">Chapter Overview</h2>
+        </div>
+        <div class="commentary-section">
+            <div class="commentary-content">
+                {{ chapter_overview | safe }}
+            </div>
+        </div>
+    </div>
+    
+    {% for verse in verses %}
+    <div class="verse-card" id="verse-{{ verse.verse }}">
+        <div class="verse-header">
+            <div class="verse-number">Verse {{ verse.verse }}</div>
+            <div class="verse-actions">
+                <a href="#verse-{{ verse.verse }}" class="verse-action" title="Copy link to verse" onclick="copyVerseLink('{{ verse.verse }}')">
+                    🔗
+                </a>
+                <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-action" title="View in chapter">
+                    📖
+                </a>
+            </div>
+        </div>
+        
+        <div class="verse-text">{{ verse.text }}</div>
+        
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="switchTab({{ verse.verse }}, 'analysis')">Analysis</button>
+            <button class="tab-button" onclick="switchTab({{ verse.verse }}, 'historical')">Historical Context</button>
+            <button class="tab-button" onclick="switchTab({{ verse.verse }}, 'study')">Study Questions</button>
+        </div>
+        
+        <div class="commentary-section">
+            <div id="tab-{{ verse.verse }}-analysis" class="tab-content active">
+                <h3 class="commentary-title">Analysis</h3>
+                <div class="commentary-content">
+                    {{ commentaries[verse.verse].analysis | safe }}
+                </div>
+                
+                <div class="cross-references">
+                    <h3 class="commentary-title">Cross References</h3>
+                    <ul>
+                        {% for ref in commentaries[verse.verse].cross_references %}
+                        <li><a href="{{ ref.url }}">{{ ref.text }}</a> - {{ ref.context }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="tab-{{ verse.verse }}-historical" class="tab-content">
+                <h3 class="commentary-title">Historical Context</h3>
+                <div class="commentary-content">
+                    {{ commentaries[verse.verse].historical | safe }}
+                </div>
+            </div>
+            
+            <div id="tab-{{ verse.verse }}-study" class="tab-content">
+                <h3 class="commentary-title">Study Questions</h3>
+                <div class="study-questions">
+                    <ol>
+                        {% for question in commentaries[verse.verse].questions %}
+                        <li>{{ question }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block navigation %}
+<div class="container">
+    <div class="navigation">
+        <a href="/book/{{ book }}/chapter/{{ chapter }}" class="nav-button">
+            ← Back to {{ book }} {{ chapter }}
+        </a>
+        <div style="display: flex; gap: 0.5rem;">
+            {% if chapter > 1 %}
+            <a href="/commentary/{{ book }}/{{ chapter - 1 }}" class="nav-button">
+                ← {{ book }} {{ chapter - 1 }} Commentary
+            </a>
+            {% endif %}
+            {% if chapter < chapters|length %}
+            <a href="/commentary/{{ book }}/{{ chapter + 1 }}" class="nav-button nav-button-primary">
+                {{ book }} {{ chapter + 1 }} Commentary →
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function copyVerseLink(verseNumber) {
+    const url = window.location.origin + window.location.pathname + '#verse-' + verseNumber;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('Verse link copied to clipboard!');
+    });
+}
+
+function switchTab(verseNumber, tabName) {
+    // Hide all tabs
+    const tabContents = document.querySelectorAll(`.verse-card#verse-${verseNumber} .tab-content`);
+    tabContents.forEach(tab => tab.classList.remove('active'));
+    
+    // Deactivate all tab buttons
+    const tabButtons = document.querySelectorAll(`.verse-card#verse-${verseNumber} .tab-button`);
+    tabButtons.forEach(button => button.classList.remove('active'));
+    
+    // Activate the selected tab and button
+    document.getElementById(`tab-${verseNumber}-${tabName}`).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-md);
+        z-index: 1000;
+        font-size: 0.875rem;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Highlight verse from URL hash
+    if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.style.transition = 'background-color 1s';
+            target.style.backgroundColor = 'rgba(75, 46, 131, 0.1)';
+            setTimeout(() => {
+                target.style.backgroundColor = '';
+            }, 2000);
+        }
+    }
+});
+</script>
+{% endblock %}
