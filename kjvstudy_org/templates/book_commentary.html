@@ -19,11 +19,140 @@
         }{% endblock %}
 
 {% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+/* Typography - Ornate & Large for Older Readers */
+body {
+    font-family: 'EB Garamond', 'Cormorant Garamond', 'Times New Roman', serif;
+    line-height: 1.8;
+    color: #1a1a1a;
+    font-size: 20px;
+    font-feature-settings: 
+        "liga" 1,     /* Enable ligatures */
+        "dlig" 1,     /* Enable discretionary ligatures */
+        "swsh" 1,     /* Enable swashes */
+        "calt" 1,     /* Enable contextual alternates */
+        "kern" 1,     /* Enable kerning */
+        "onum" 1;     /* Enable old-style numerals */
+    text-rendering: optimizeLegibility;
+    font-variant-ligatures: common-ligatures discretionary-ligatures;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', 'EB Garamond', serif;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #0f0f0f;
+    letter-spacing: -0.02em;
+    font-feature-settings: 
+        "liga" 1, 
+        "dlig" 1, 
+        "swsh" 1, 
+        "calt" 1,
+        "kern" 1;
+    text-rendering: optimizeLegibility;
+}
+
+.commentary-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: white;
+}
+
+.commentary-section h3 {
+    font-size: 1.75rem;
+    margin: 2rem 0 1rem 0;
+    font-weight: 600;
+    color: white;
+    font-family: 'Playfair Display', serif;
+}
+
+
+
+.commentary-section p {
+    font-size: 1.375rem;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    hyphens: auto;
+    font-weight: 400;
+    color: white;
+}
+
+.commentary-section li {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+.sidebar-toc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.highlight-desc {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    font-style: italic;
+}
+
+.author-note {
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.6;
+    border-left: 3px solid var(--primary-color);
+    padding-left: 1rem;
+    background: rgba(75, 46, 131, 0.05);
+    border-radius: 0 4px 4px 0;
+    margin: 1.5rem 0;
+    padding: 1rem 1rem 1rem 1.5rem;
+    color: white;
+}
+
+/* Clean quote styling */
+.commentary-section blockquote {
+    font-size: 1.25rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid var(--primary-color);
+    background: rgba(75, 46, 131, 0.05);
+    border-radius: 0 4px 4px 0;
+    color: white;
+}
+
+/* Enhanced strong/bold text */
+.commentary-section strong {
+    font-weight: 600;
+    color: white;
+}
+
+/* Enhanced em/italic text */
+.commentary-section em {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .commentary-container {
-    max-width: 800px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .commentary-header {
@@ -36,15 +165,22 @@
 }
 
 .commentary-header h1 {
-    margin: 0 0 0.5rem;
-    font-size: 2rem;
+    margin: 0 0 1rem;
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .commentary-header p {
     margin: 0;
-    opacity: 0.9;
-    max-width: 600px;
+    opacity: 0.95;
+    max-width: 700px;
     margin: 0 auto;
+    font-size: 1.375rem;
+    font-family: 'EB Garamond', serif;
+    line-height: 1.6;
+    font-style: italic;
 }
 
 .book-meta {
@@ -63,26 +199,25 @@
 }
 
 .commentary-section {
+    margin-bottom: 2rem;
     background: var(--surface-color);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
-    margin-bottom: 2rem;
     border: 1px solid var(--border-light);
     box-shadow: var(--shadow-sm);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .commentary-section h2 {
     margin-top: 0;
-    color: var(--primary-color);
-    font-size: 1.5rem;
+    color: white;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 2px solid var(--border-light);
 }
 
 .commentary-section h3 {
-    font-size: 1.25rem;
-    color: var(--primary-color);
-    margin: 1.5rem 0 0.75rem;
+    color: white;
 }
 
 .commentary-section p {
@@ -106,17 +241,23 @@
     top: 2rem;
     background: var(--surface-color);
     border-radius: var(--radius-lg);
-    padding: 1.25rem;
+    padding: 1.5rem;
     border: 1px solid var(--border-light);
     box-shadow: var(--shadow-sm);
     margin-bottom: 2rem;
+    width: 100%;
+    max-width: 320px;
+    justify-self: start;
 }
 
 .sidebar-toc h3 {
     margin-top: 0;
-    font-size: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border-light);
+    font-size: 1.35rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-light);
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: #4a4a4a;
 }
 
 .toc-list {
@@ -201,16 +342,17 @@
 
 .highlights-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .highlight-card {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 235, 59, 0.1);
     border-radius: var(--radius-md);
-    padding: 1rem;
-    box-shadow: var(--shadow-sm);
+    padding: 1.25rem;
+    border-left: 4px solid var(--accent-color);
+    text-align: left;
 }
 
 .highlight-title {
@@ -221,27 +363,98 @@
 
 .highlight-desc {
     margin: 0;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: white;
+    line-height: 1.5;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 800px;
+    overflow-wrap: break-word;
+    margin: 0 auto;
+    padding: 0;
+    min-width: 0;
+    box-sizing: border-box;
+    justify-self: center;
 }
 
 .two-column {
     display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 320px;
+    gap: 3rem;
+    align-items: start;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+    justify-items: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .two-column {
         grid-template-columns: 1fr;
+        gap: 2rem;
+        justify-items: stretch;
+    }
+    
+    .main-content {
+        justify-self: stretch;
+        max-width: 100%;
+        margin: 0;
     }
     
     .sidebar-toc {
-        display: none;
+        position: static;
+        order: -1;
+        max-width: 100%;
+        justify-self: stretch;
+        margin-bottom: 3rem;
+    }
+    
+    .commentary-container {
+        max-width: 1100px;
+    }
+    
+    .container {
+        max-width: 1100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .commentary-container {
+        padding: 0 0.75rem;
     }
     
     .commentary-header h1 {
+        font-size: 2rem;
+    }
+    
+@media (max-width: 768px) {
+    .commentary-section p {
+        font-size: 1.125rem;
+        text-align: left;
+        line-height: 1.7;
+    }
+    
+    .commentary-section h2 {
+        font-size: 1.75rem;
+    }
+    
+    .commentary-section h3 {
         font-size: 1.5rem;
+    }
+    
+    .commentary-header h1 {
+        font-size: 2rem;
+    }
+    
+    .sidebar-toc {
+        padding: 1rem;
+    }
+    
+    .two-column {
+        gap: 1.5rem;
     }
 }
 
@@ -439,7 +652,7 @@
 
 <div class="commentary-container">
     <div class="two-column">
-        <div class="main-content">
+        <main class="main-content">
             <section class="commentary-section">
                 <h2 id="introduction">Introduction to {{ book }}</h2>
                 {{ introduction|safe }}
@@ -484,7 +697,7 @@
                 <div class="outline-section">
                     <h3 class="outline-title">{{ section.title }}</h3>
                     <ul class="outline-list">
-                        {% for item in section.items %}
+                        {% for item in section['items'] %}
                         <li class="outline-item">
                             {{ item.text }}
                             {% if item.reference %}
@@ -559,7 +772,7 @@
                 <h2 id="application">Contemporary Application</h2>
                 {{ application|safe }}
             </section>
-        </div>
+        </main>
         
         <aside class="sidebar-toc">
             <h3>Commentary Contents</h3>
@@ -575,10 +788,10 @@
             </ul>
             
             <h3 style="margin-top: 1.5rem;">Chapter Quick Links</h3>
-            <ul class="toc-list" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.25rem;">
+            <ul class="toc-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); gap: 0.5rem; justify-items: center;">
                 {% for chapter_num in chapter_summaries.keys() %}
                 <li style="margin: 0;">
-                    <a href="#chapter-{{ chapter_num }}" class="toc-link" style="padding: 0.25rem; text-align: center;">{{ chapter_num }}</a>
+                    <a href="#chapter-{{ chapter_num }}" class="toc-link" style="padding: 0.5rem; text-align: center; min-width: 40px; display: block;">{{ chapter_num }}</a>
                 </li>
                 {% endfor %}
             </ul>

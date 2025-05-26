@@ -151,6 +151,26 @@
     background-repeat: no-repeat;
     background-position: 0 60%;
 }
+
+.verse-text {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: white;
+    font-feature-settings: 
+        "liga" 1,
+        "dlig" 1,
+        "kern" 1,
+        "onum" 1;
+    text-rendering: optimizeLegibility;
+}
+
+@media (max-width: 768px) {
+    .verse-text {
+        font-size: 1.25rem;
+        line-height: 1.7;
+    }
+}
 </style>
 {% endblock %}
 

@@ -9,7 +9,7 @@
     <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
     <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:url" content="{{ request.url if request.url else '' }}">
     <meta property="og:site_name" content="KJV Study - Authorized King James Version Bible">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary">
@@ -23,7 +23,7 @@
         "@type": "{% block schema_type %}WebSite{% endblock %}",
         "name": "KJV Study - Authorized King James Version Bible",
         "description": "{{ self.description() }}",
-        "url": "{{ request.url }}",
+        "url": "{{ request.url if request.url else '' }}",
         "inLanguage": "en-US",
         "about": {
             "@type": "Book",
@@ -257,7 +257,7 @@
             
             <nav class="sidebar-nav">
                 <h3>Navigation</h3>
-                <a href="/" {% if request.url.path == "/" %}class="active"{% endif %}>
+                <a href="/" {% if request.url and request.url.path == "/" %}class="active"{% endif %}>
                     📚 All Books
                 </a>
                 
@@ -270,7 +270,7 @@
                 {% for book in books %}
                 {% if book in torah %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book torah {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -282,7 +282,7 @@
                 {% for book in books %}
                 {% if book in historical %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book historical {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book historical {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -294,7 +294,7 @@
                 {% for book in books %}
                 {% if book in wisdom %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book wisdom {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book wisdom {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -306,7 +306,7 @@
                 {% for book in books %}
                 {% if book in major_prophets %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book major-prophets {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book major-prophets {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -318,7 +318,7 @@
                 {% for book in books %}
                 {% if book in minor_prophets %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book minor-prophets {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book minor-prophets {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -334,7 +334,7 @@
                 {% for book in books %}
                 {% if book in gospels %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book gospels {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book gospels {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -346,7 +346,7 @@
                 {% for book in books %}
                 {% if book in acts %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book acts {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book acts {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -358,7 +358,7 @@
                 {% for book in books %}
                 {% if book in pauline %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book pauline {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book pauline {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -370,7 +370,7 @@
                 {% for book in books %}
                 {% if book in general_epistles %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book general-epistles {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book general-epistles {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
@@ -382,7 +382,7 @@
                 {% for book in books %}
                 {% if book in apocalyptic %}
                 <a href="/book/{{ book }}" 
-                   class="bible-book apocalyptic {% if book in request.url.path %}active{% endif %}">
+                   class="bible-book apocalyptic {% if request.url and book in request.url.path %}active{% endif %}">
                     {{ book }}
                 </a>
                 {% endif %}
