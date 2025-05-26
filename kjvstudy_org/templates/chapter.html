@@ -1,7 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}{{ book }} {{ chapter }} - KJV Study{% endblock %}
-{% block description %}Read {{ book }} chapter {{ chapter }} from the King James Bible with verse-by-verse display and study tools.{% endblock %}
+{% block title %}{{ book }} {{ chapter }} - Authorized King James Version (KJV) Bible{% endblock %}
+{% block description %}Read {{ book }} chapter {{ chapter }} from the Authorized King James Version (KJV) Bible with verse-by-verse display and study tools. Complete text of {{ book }} {{ chapter }} KJV.{% endblock %}
+{% block keywords %}{{ book }} {{ chapter }}, {{ book }} {{ chapter }} KJV, {{ book }} chapter {{ chapter }} King James Version, Authorized King James Version, KJV Bible, {{ book }} {{ chapter }} verses{% endblock %}
+
+{% block schema_type %}Article{% endblock %}
+{% block structured_data %},
+        "headline": "{{ book }} {{ chapter }} - Authorized King James Version (KJV)",
+        "articleSection": "{{ book }}",
+        "text": "{{ verses[0].text[:150] }}...",
+        "wordCount": {{ verses|length }},
+        "isPartOf": {
+            "@type": "Book",
+            "name": "{{ book }} - Authorized King James Version",
+            "isPartOf": {
+                "@type": "Book",
+                "name": "Authorized King James Version Bible"
+            }
+        }{% endblock %}
 
 {% block head %}
 <style>
@@ -129,7 +145,7 @@
 <div class="chapter-navigation">
     <div class="chapter-nav-content">
         <div class="chapter-info">
-            {{ book }} {{ chapter }}
+            {{ book }} {{ chapter }} (KJV)
         </div>
         <div class="chapter-controls">
             <button onclick="toggleReadingOptions()" class="nav-button" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
@@ -165,6 +181,9 @@
 
 <div class="text-center mb-4">
     <h1 class="chapter-title">{{ book }} {{ chapter }}</h1>
+    <p style="font-size: 1rem; color: var(--text-secondary); margin: 0.5rem 0 0 0; font-style: italic;">
+        Authorized King James Version (KJV)
+    </p>
 </div>
 
 <div class="verses-container" id="versesContainer">
@@ -193,11 +212,11 @@
     </h3>
     <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
         Soon you'll see intelligent commentary here, providing historical context, 
-        theological insights, and cross-references for {{ book }} {{ chapter }}.
+        theological insights, and cross-references for {{ book }} {{ chapter }} from the Authorized King James Version (KJV).
     </p>
     <div style="padding: 1rem; background: var(--background-color); border-radius: var(--radius-md); border-left: 4px solid var(--primary-color);">
         <p style="margin: 0; font-style: italic; color: var(--text-primary);">
-            "Coming soon: Verse-by-verse analysis, historical context, and study questions powered by AI."
+            "Coming soon: Verse-by-verse analysis, historical context, and study questions for {{ book }} {{ chapter }} (KJV) powered by AI."
         </p>
     </div>
 </div>

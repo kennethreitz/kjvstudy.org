@@ -34,5 +34,5 @@ COPY --from=builder /app/.venv /app/.venv
 # Copy application code
 COPY . .
 
-# Run the application using FastAPI CLI
-CMD ["fastapi", "run", "kjvstudy_org.server:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the application using uvicorn directly
+CMD ["uvicorn", "kjvstudy_org.server:app", "--host", "0.0.0.0", "--port", "8000"]

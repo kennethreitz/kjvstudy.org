@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}KJV Study - Bible Commentary Platform{% endblock %}
-{% block description %}Study the King James Bible with AI-powered commentary. Browse all 66 books of the Bible with enhanced readability and modern features.{% endblock %}
+{% block title %}Authorized King James Version (KJV) Bible Online - Complete KJV Study{% endblock %}
+{% block description %}Read the complete Authorized King James Version (KJV) Bible online. Study all 66 books of the KJV Bible with AI-powered commentary, enhanced readability and modern study tools.{% endblock %}
+{% block keywords %}Authorized King James Version, KJV Bible online, King James Bible, KJV study, Bible books, KJV commentary, Bible study tools{% endblock %}
 
 {% block content %}
 <div class="text-center mb-4">
     <h1 class="page-title">
-        📖 Study the Bible
+        📖 Authorized King James Version (KJV) Bible
     </h1>
     <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
-        Explore the complete King James Version with modern tools and AI-powered commentary. 
-        Choose a book below to begin your study.
+        Study the complete Authorized King James Version (KJV) Bible with modern tools and AI-powered commentary. 
+        Choose a book below to begin your KJV Bible study.
     </p>
 </div>
 
@@ -18,7 +19,7 @@
     {% for book in books %}
     <a href="/book/{{ book }}" class="book-card">
         <h3 class="book-title">{{ book }}</h3>
-        <p class="book-meta">King James Version</p>
+        <p class="book-meta">Authorized King James Version</p>
     </a>
     {% endfor %}
 </div>

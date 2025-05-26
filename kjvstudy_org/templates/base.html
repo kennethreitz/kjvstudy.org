@@ -3,8 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}KJV Study - Bible Commentary Platform{% endblock %}</title>
-    <meta name="description" content="{% block description %}Study the King James Bible with AI-powered commentary and insights{% endblock %}">
+    <title>{% block title %}Authorized King James Version (KJV) Bible Study - KJV Study{% endblock %}</title>
+    <meta name="description" content="{% block description %}Study the Authorized King James Version (KJV) Bible with AI-powered commentary and insights. Read the complete KJV Bible online with modern study tools.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}Authorized King James Version, KJV Bible, King James Bible, Bible study, Bible commentary, KJV online{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:site_name" content="KJV Study - Authorized King James Version Bible">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ self.title() }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ self.description() }}{% endblock %}">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{% block schema_type %}WebSite{% endblock %}",
+        "name": "KJV Study - Authorized King James Version Bible",
+        "description": "{{ self.description() }}",
+        "url": "{{ request.url }}",
+        "inLanguage": "en-US",
+        "about": {
+            "@type": "Book",
+            "name": "Authorized King James Version Bible",
+            "alternateName": ["KJV Bible", "King James Bible", "KJV"],
+            "description": "The Authorized King James Version of the Bible, originally published in 1611",
+            "inLanguage": "en-US"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "KJV Study",
+            "description": "Online Bible study platform for the Authorized King James Version"
+        }{% block structured_data %}{% endblock %}
+    }
+    </script>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +59,7 @@
     <meta name="theme-color" content="#4b2e83">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="KJV Study">
+    <meta name="apple-mobile-web-app-title" content="KJV Bible Study">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%234b2e83' rx='24'/%3E%3Ctext x='96' y='120' text-anchor='middle' font-size='80' fill='white'%3E📖%3C/text%3E%3C/svg%3E">
     
     {% block head %}{% endblock %}
@@ -46,7 +80,7 @@
                     <span>📖</span>
                     KJV Study
                 </h1>
-                <p class="sidebar-subtitle">Bible Commentary Platform</p>
+                <p class="sidebar-subtitle">Authorized King James Version</p>
             </div>
             
             <nav class="sidebar-nav">

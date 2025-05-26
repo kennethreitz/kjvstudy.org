@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Error - KJV Study{% endblock %}
-{% block description %}An error occurred while loading the requested page.{% endblock %}
+{% block title %}Page Not Found - Authorized King James Version (KJV) Bible Study{% endblock %}
+{% block description %}The requested KJV Bible page could not be found. Browse the complete Authorized King James Version Bible with study tools and commentary.{% endblock %}
+{% block keywords %}KJV Bible, Authorized King James Version, Bible study, page not found, KJV online{% endblock %}
 
 {% block content %}
 <div class="text-center">
@@ -15,24 +16,24 @@
     
     <h1 class="page-title">
         {% if status_code == 404 %}
-            Page Not Found
+            KJV Bible Page Not Found
         {% else %}
-            Error {{ status_code }}
+            Error {{ status_code }} - KJV Study
         {% endif %}
     </h1>
     
     <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem;">
         {% if status_code == 404 %}
-            The Bible passage or page you're looking for could not be found. 
-            It may have been moved or the reference might be incorrect.
+            The Authorized King James Version (KJV) Bible passage or page you're looking for could not be found. 
+            The reference might be incorrect or the page may have been moved.
         {% else %}
-            {{ detail or "An unexpected error occurred while processing your request." }}
+            {{ detail or "An unexpected error occurred while accessing the KJV Bible study platform." }}
         {% endif %}
     </p>
     
     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
         <a href="/" class="nav-button nav-button-primary">
-            📚 Browse All Books
+            📚 Browse KJV Bible Books
         </a>
         <button onclick="history.back()" class="nav-button">
             ← Go Back
@@ -42,20 +43,20 @@
 
 <div class="text-center mt-4" style="padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-top: 3rem; border: 1px solid var(--border-light);">
     <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
-        📖 Suggested Readings
+        📖 Popular KJV Bible Passages
     </h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
         <a href="/book/Genesis/chapter/1" class="nav-button" style="text-decoration: none;">
-            Genesis 1 - Creation
+            Genesis 1 (KJV) - Creation
         </a>
         <a href="/book/Psalms/chapter/23" class="nav-button" style="text-decoration: none;">
-            Psalm 23 - The Shepherd
+            Psalm 23 (KJV) - The Shepherd
         </a>
         <a href="/book/John/chapter/3" class="nav-button" style="text-decoration: none;">
-            John 3 - Born Again
+            John 3 (KJV) - Born Again
         </a>
         <a href="/book/Romans/chapter/8" class="nav-button" style="text-decoration: none;">
-            Romans 8 - No Condemnation
+            Romans 8 (KJV) - No Condemnation
         </a>
     </div>
 </div>

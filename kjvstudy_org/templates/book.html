@@ -1,7 +1,32 @@
 {% extends "base.html" %}
 
-{% block title %}{{ book }} - KJV Study{% endblock %}
-{% block description %}Study {{ book }} from the King James Bible. Browse all chapters with enhanced readability and navigation.{% endblock %}
+{% block title %}{{ book }} - Authorized King James Version (KJV) Bible{% endblock %}
+{% block description %}Read {{ book }} from the Authorized King James Version (KJV) Bible. Browse all chapters of {{ book }} with enhanced readability and navigation tools.{% endblock %}
+{% block keywords %}{{ book }}, {{ book }} KJV, {{ book }} King James Version, Authorized King James Version, KJV Bible, {{ book }} chapters{% endblock %}
+
+{% block schema_type %}Book{% endblock %}
+{% block structured_data %},
+        "name": "{{ book }} - Authorized King James Version",
+        "numberOfPages": {{ chapters|length }},
+        "bookFormat": "EBook",
+        "inLanguage": "en-US",
+        "genre": "Religious Text",
+        "isPartOf": {
+            "@type": "Book",
+            "@id": "https://schema.org/Bible",
+            "name": "Authorized King James Version Bible",
+            "alternateName": ["KJV Bible", "King James Bible"]
+        },
+        "hasPart": [
+            {% for chapter in chapters %}
+            {
+                "@type": "Chapter",
+                "name": "{{ book }} {{ chapter }}",
+                "position": {{ chapter }},
+                "url": "{{ request.url_root }}book/{{ book }}/chapter/{{ chapter }}"
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]{% endblock %}
 
 {% block breadcrumb %}
 <div class="container">
@@ -15,9 +40,9 @@
 
 {% block content %}
 <div class="text-center mb-4">
-    <h1 class="section-title">{{ book }}</h1>
+    <h1 class="section-title">{{ book }} - Authorized King James Version (KJV)</h1>
     <p style="font-size: 1rem; color: var(--text-secondary);">
-        Select a chapter to begin reading
+        Select a chapter to begin reading {{ book }} from the KJV Bible
     </p>
 </div>
 
@@ -45,7 +70,7 @@
             ← All Books
         </a>
         <div style="color: var(--text-muted); font-size: 0.875rem;">
-            {{ chapters|length }} chapters in {{ book }}
+            {{ chapters|length }} chapters in {{ book }} (KJV)
         </div>
     </div>
 </div>
