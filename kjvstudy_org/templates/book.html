@@ -11,28 +11,28 @@
 <style>
 .commentary-section h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: white;
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--border-light);
 }
 
 .commentary-section h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: white;
-    margin: 2rem 0 1rem 0;
+    margin: 1.75rem 0 0.875rem 0;
 }
 
 .commentary-section p {
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.375rem;
-    line-height: 1.9;
-    margin-bottom: 1.5rem;
+    font-size: 1.175rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
     color: white;
     font-feature-settings: 
         "liga" 1,
@@ -44,8 +44,8 @@
 
 .commentary-section li {
     font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.25rem;
-    line-height: 1.8;
+    font-size: 1.1rem;
+    line-height: 1.6;
     color: white;
 }
 
@@ -158,13 +158,13 @@
 
 {% block content %}
 <div class="text-center mb-4">
-    <h1 class="section-title">{{ book }} - Authorized King James Version (KJV)</h1>
-    <p style="font-size: 1rem; color: var(--text-secondary);">
-        Select a chapter to begin reading {{ book }} from the KJV Bible
-    </p>
-    <a href="/book/{{ book }}/commentary" class="nav-button nav-button-primary" style="display: inline-block; margin-top: 1rem;">
-        View Complete {{ book }} Commentary
-    </a>
+    <h1 class="section-title" style="font-size: 1.8rem;">{{ book }} - Authorized King James Version (KJV)</h1>
+        <p style="font-size: 0.95rem; color: var(--text-secondary);">
+            Select a chapter to begin reading {{ book }} from the KJV Bible
+        </p>
+    <a href="/book/{{ book }}/commentary" class="nav-button nav-button-primary" style="display: inline-block; margin-top: 0.75rem; font-size: 0.95rem; padding: 0.5rem 1rem;">
+            View Complete {{ book }} Commentary
+        </a>
 </div>
 
 <div class="chapter-grid">
@@ -176,34 +176,34 @@
 </div>
 
 <div class="commentary-container" style="margin-top: 3rem;">
-    <div class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 2rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); color: white;">
-        <h2 style="color: white; margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.5rem; font-weight: 700;">
-            📚 Commentary on {{ book }}
-        </h2>
+    <div class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); color: white;">
+            <h2 style="color: white; margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">
+                📚 Commentary on {{ book }}
+            </h2>
         
-        <div style="margin-bottom: 2rem;">
-            <h3>Introduction</h3>
-            {{ introduction|safe }}
-        </div>
+        <div style="margin-bottom: 1.5rem;">
+                    <h3>Introduction</h3>
+                    {{ introduction|safe }}
+                </div>
         
-        <div style="margin-bottom: 2rem;">
-            <h3>Historical Context</h3>
-            {{ historical_context|safe }}
-        </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <h3>Historical Context</h3>
+                    {{ historical_context|safe }}
+                </div>
         
-        <div style="margin-bottom: 2rem;">
-            <h3>Major Themes</h3>
-            {{ themes|safe }}
-        </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <h3>Major Themes</h3>
+                    {{ themes|safe }}
+                </div>
         
         <div style="margin-bottom: 2rem;">
             <h3>Key Passages</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 1.25rem;">
                 {% for highlight in highlights %}
                 <a href="{{ highlight.url }}" class="key-passage-link verse-reference" style="position: relative;">
                     <div class="key-passage-card">
-                        <h4 style="font-weight: 600; margin: 0 0 0.5rem; color: #ff6b6b;">{{ highlight.reference }}</h4>
-                        <p style="margin: 0; color: white; line-height: 1.5; font-size: 1.2rem;">{{ highlight.description }}</p>
+                        <h4 style="font-weight: 600; margin: 0 0 0.4rem; color: #ff6b6b; font-size: 1.1rem;">{{ highlight.reference }}</h4>
+                                                <p style="margin: 0; color: white; line-height: 1.4; font-size: 1rem;">{{ highlight.description }}</p>
                         <span style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 0.5rem; display: block;">Click to read passage →</span>
                     </div>
                     <span class="verse-tooltip">{{ highlight.text|default(highlight.description) }}</span>
@@ -212,15 +212,15 @@
             </div>
         </div>
         
-        <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-light);">
-            <a href="/book/{{ book }}/commentary" class="nav-button nav-button-primary" style="display: inline-block; font-size: 1.1rem; padding: 0.75rem 1.5rem;">
-                Read Complete {{ book }} Commentary
-            </a>
-            <p style="color: rgba(255, 255, 255, 0.8); margin-top: 1rem; font-style: italic; font-size: 0.9rem;">
-                "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."
-                <br>
-                <strong style="color: #ff6b6b;">2 Timothy 2:15</strong>
-            </p>
+        <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light);">
+                    <a href="/book/{{ book }}/commentary" class="nav-button nav-button-primary" style="display: inline-block; font-size: 1rem; padding: 0.65rem 1.25rem;">
+                        Read Complete {{ book }} Commentary
+                    </a>
+            <p style="color: rgba(255, 255, 255, 0.8); margin-top: 0.8rem; font-style: italic; font-size: 0.85rem;">
+                            "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."
+                            <br>
+                            <strong style="color: #ff6b6b;">2 Timothy 2:15</strong>
+                        </p>
         </div>
     </div>
 </div>
@@ -229,12 +229,12 @@
 {% block navigation %}
 <div class="container">
     <div class="navigation">
-        <a href="/" class="nav-button">
-            ← All Books
-        </a>
-        <div style="color: var(--text-muted); font-size: 0.875rem;">
-            {{ chapters|length }} chapters in {{ book }} (KJV)
+            <a href="/" class="nav-button" style="font-size: 0.95rem;">
+                ← All Books
+            </a>
+            <div style="color: var(--text-muted); font-size: 0.8rem;">
+                {{ chapters|length }} chapters in {{ book }} (KJV)
+            </div>
         </div>
-    </div>
 </div>
 {% endblock %}
