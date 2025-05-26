@@ -34,6 +34,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 0 1rem;
+    background-color: var(--background-color);
 }
 
 .verse-card {
@@ -43,6 +44,8 @@
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-light);
     background: var(--surface-color);
+    position: relative;
+    z-index: 1;
 }
 
 .verse-header {
@@ -72,6 +75,7 @@
 
 .commentary-section {
     padding: 1.25rem;
+    background-color: var(--surface-color);
 }
 
 .commentary-title {
@@ -215,6 +219,7 @@
 
 .tab-content {
     display: none;
+    background-color: var(--surface-color);
 }
 
 .tab-content.active {
@@ -229,6 +234,22 @@
     .verse-text {
         font-size: 1rem;
     }
+}
+
+/* Fix for background issues across browsers */
+html, body {
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+.container, .commentary-container, .verse-card, .commentary-section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure background color consistency */
+.commentary-header, .commentary-meta, .chapter-overview, .verse-card {
+    background-color: var(--surface-color);
 }
 </style>
 {% endblock %}
@@ -252,6 +273,7 @@
     <h1>AI Commentary: {{ book }} {{ chapter }}</h1>
     <p>Verse-by-verse analysis and insights from the Authorized King James Version (KJV)</p>
 </header>
+<div style="background-color: var(--background-color); min-height: 20px;"></div>
 
 <div class="commentary-container">
     <div class="commentary-meta">

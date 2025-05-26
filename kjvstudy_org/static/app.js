@@ -338,19 +338,19 @@ class KJVStudy {
     }
 
     toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        const isOpen = sidebar.classList.contains('open');
-        
-        if (isOpen) {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('open');
-            document.body.style.overflow = '';
-        } else {
-            sidebar.classList.add('open');
-            overlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const mainContent = document.querySelector('.main-content');
+      const isOpen = sidebar.classList.contains('open');
+      const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+      const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      
+      if (isTablet) {
+              mainContent.style.opacity = '0.4';
+              mainContent.style.pointerEvents = 'none';
+          }
+      }
     }
 
     // Utility Functions
@@ -481,4 +481,19 @@ function scrollToTop() {
 
 function toggleSidebar() {
     KJVStudy.getInstance().toggleSidebar();
+    
+    // Handle iPad specific issues
+    const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+    if (isTablet) {
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('.main-content');
+        
+        if (sidebar.classList.contains('open')) {
+            mainContent.style.opacity = '0.4';
+            mainContent.style.pointerEvents = 'none';
+        } else {
+            mainContent.style.opacity = '1';
+            mainContent.style.pointerEvents = 'auto';
+        }
+    }
 }

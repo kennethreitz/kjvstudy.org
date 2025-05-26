@@ -29,6 +29,7 @@ body {
     line-height: 1.8;
     color: #1a1a1a;
     font-size: 20px;
+    background-color: var(--background-color);
     font-feature-settings: 
         "liga" 1,     /* Enable ligatures */
         "dlig" 1,     /* Enable discretionary ligatures */
@@ -145,6 +146,8 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 1rem;
     width: 100%;
     box-sizing: border-box;
+    background-color: var(--background-color);
+    min-height: 100vh;
 }
 
 .container {
@@ -431,7 +434,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-items: center;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .two-column {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -442,35 +445,48 @@ h1, h2, h3, h4, h5, h6 {
         justify-self: stretch;
         max-width: 100%;
         margin: 0;
+        order: 2;
     }
     
     .sidebar-toc {
         position: static;
-        order: -1;
+        order: 1;
         max-width: 100%;
         justify-self: stretch;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
+        background: var(--surface-color);
+        border: 1px solid var(--border-light);
     }
     
     .commentary-container {
         max-width: 1300px;
+        background-color: var(--background-color);
+        min-height: 100vh;
     }
     
     .container {
         max-width: 1100px;
     }
 }
+</media>
+
+@media (max-width: 1024px) {
+    .commentary-container {
+        max-width: 100%;
+        padding: 0 0.75rem;
+    }
+}
 
 @media (max-width: 768px) {
     .commentary-container {
         padding: 0 0.75rem;
+        background-color: var(--background-color);
     }
     
     .commentary-header h1 {
         font-size: 2rem;
     }
     
-@media (max-width: 768px) {
     .commentary-section p {
         font-size: 1.125rem;
         text-align: left;
@@ -485,12 +501,9 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 1.5rem;
     }
     
-    .commentary-header h1 {
-        font-size: 2rem;
-    }
-    
     .sidebar-toc {
         padding: 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .two-column {
@@ -691,7 +704,7 @@ h1, h2, h3, h4, h5, h6 {
     </div>
 </header>
 
-<div class="commentary-container">
+<div class="commentary-container" style="background-color: var(--background-color); min-height: 100vh;">
     <div class="two-column">
         <main class="main-content">
             <section class="commentary-section">
