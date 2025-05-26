@@ -245,7 +245,7 @@
 /* Fix for background issues across browsers */
 html, body {
     min-height: 100vh;
-    background-color: var(--background-color);
+    background-color: var(--background-color) !important;
     overflow-x: hidden;
 }
 
@@ -257,14 +257,14 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--background-color);
+    background-color: var(--background-color) !important;
     z-index: -1;
 }
 
 .container, .commentary-container, .verse-card, .commentary-section {
     position: relative;
     z-index: 1;
-    background-color: var(--background-color);
+    background-color: var(--background-color) !important;
 }
 
 /* Ensure background color consistency */
@@ -282,7 +282,7 @@ body::before {
     left: -100vw;
     width: 300vw;
     height: 100%;
-    background-color: var(--background-color);
+    background-color: var(--background-color) !important;
     z-index: -1;
 }
 </style>
@@ -307,9 +307,9 @@ body::before {
     <h1>AI Commentary: {{ book }} {{ chapter }}</h1>
     <p>Verse-by-verse analysis and insights from the Authorized King James Version (KJV)</p>
 </header>
-<div style="background-color: var(--background-color); min-height: 20px; position: relative; z-index: 1;"></div>
+<div style="background-color: var(--background-color) !important; min-height: 20px; position: relative; z-index: 1;"></div>
 
-<div class="commentary-container" style="background-color: var(--background-color); position: relative; z-index: 1;">
+<div class="commentary-container" style="background-color: var(--background-color) !important; position: relative; z-index: 1;">
     <div class="commentary-meta">
         <p><strong>Note:</strong> This AI-powered commentary is generated based on historical, theological, and scholarly sources. It's designed to assist your study but should not replace personal reflection and traditional commentaries.</p>
     </div>
@@ -413,8 +413,18 @@ body::before {
 <script>
 // Fix for black background in some browsers
 document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
-    document.querySelector('.commentary-container').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+    const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+    document.body.style.backgroundColor = bgColor;
+    document.documentElement.style.backgroundColor = bgColor;
+    document.querySelector('.commentary-container').style.backgroundColor = bgColor;
+    
+    // Force background color on body
+    document.body.insertAdjacentHTML('afterbegin', `<div style="position:fixed; top:0; left:0; width:100%; height:100%; background-color:${bgColor}; z-index:-100;"></div>`);
+    
+    // Force all main containers to have the background color
+    document.querySelectorAll('.container, .narrow-container, .commentary-container, .main-content').forEach(el => {
+        el.style.backgroundColor = bgColor;
+    });
 });
 
 function copyVerseLink(verseNumber) {
