@@ -49,6 +49,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 /* Layout */
@@ -182,6 +183,7 @@ body {
   will-change: opacity;
   transition: opacity 0.3s ease;
   width: calc(100% - 280px);
+  box-sizing: border-box;
 }
 
 .container {
@@ -189,6 +191,8 @@ body {
   margin: 0 auto;
   padding: 3rem 2rem;
   background-color: var(--background-color);
+  position: relative;
+  z-index: 1;
 }
 
 .narrow-container {
@@ -517,6 +521,7 @@ body {
     width: 100%;
     position: relative;
     z-index: 10;
+    background-color: var(--background-color);
   }
   
   .mobile-menu-button {
@@ -679,23 +684,24 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Fix for white background in Brave/Linux */
+/* Fix for background issues in all browsers */
 body, 
 html, 
 .layout, 
 .main-content {
   min-height: 100vh;
   background-color: var(--background-color);
+  position: relative;
 }
 
 /* Ensure background color extends to the end of the page */
 .layout::after {
   content: '';
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100vh;
+  height: 100%;
   background-color: var(--background-color);
   z-index: -1;
 }
@@ -706,6 +712,27 @@ html,
 .container,
 .narrow-container {
   background-color: var(--background-color);
+  position: relative;
+  z-index: 1;
+}
+
+/* Add additional background fixes */
+.verse-card, 
+.verse-text,
+.chapter-overview,
+.commentary-header,
+.commentary-meta {
+  position: relative;
+  z-index: 2;
+  background-color: var(--surface-color);
+}
+
+.commentary-section {
+  background-color: var(--surface-color);
+}
+
+.tab-content {
+  background-color: var(--surface-color);
 }
 
 /* Dark mode support */
