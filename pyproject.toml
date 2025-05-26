@@ -1,7 +1,7 @@
 [project]
 name = "kjvstudy-org"
 version = "0.1.0"
-description = "Add your description here"
+description = "Study the King James Bible with AI-powered commentary and insights"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -12,3 +12,18 @@ dependencies = [
     "pytest>=8.3.5",
     "uvicorn>=0.34.2",
 ]
+
+[project.scripts]
+kjvstudy-org = "kjvstudy_org.main:main"
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["kjvstudy_org*"]
+exclude = ["static", "templates"]
+
+[tool.uv]
+package = true
