@@ -1480,6 +1480,410 @@ def generate_book_commentary(book, chapters):
     }
 
 
+def generate_literary_features(book, genre):
+    """Generate commentary on literary features of a book"""
+    
+    # Default features based on genre
+    if "narrative" in genre.lower():
+        return f"""
+        <p>{book} employs narrative techniques characteristic of biblical historiography. The book uses plot development, characterization, dialogue, and setting to convey both historical events and theological meaning. Narratives in {book} are carefully structured to highlight divine providence and human response.</p>
+        
+        <h3>Structure</h3>
+        <p>The narrative structure of {book} involves a clear progression with rising and falling action, climactic moments, and resolution. The author selectively includes details that advance the theological purpose while maintaining historical accuracy.</p>
+        
+        <h3>Literary Devices</h3>
+        <p>Common literary devices in {book} include:</p>
+        <ul>
+            <li><strong>Repetition</strong> - Key phrases and motifs recur to emphasize important themes</li>
+            <li><strong>Type-scenes</strong> - Conventional scenarios (e.g., encounters at wells, divine calls) that evoke specific expectations</li>
+            <li><strong>Inclusio</strong> - Framing sections with similar language to create literary units</li>
+            <li><strong>Chiasm</strong> - Mirror-image structures that highlight central elements</li>
+        </ul>
+        
+        <p>These narrative techniques guide the reader's interpretation and highlight theological significance within historical events.</p>
+        """
+    elif "epistle" in genre.lower():
+        return f"""
+        <p>{book} follows the conventions of ancient letter-writing while adapting them for theological instruction. The epistle combines formal elements of Greco-Roman correspondence with Jewish expository methods to communicate Christian teaching.</p>
+        
+        <h3>Structure</h3>
+        <p>The epistle follows a typical pattern including:</p>
+        <ul>
+            <li><strong>Opening</strong> - Sender, recipients, and greeting (often theologically expanded)</li>
+            <li><strong>Thanksgiving/Prayer</strong> - Expressing gratitude and/or intercession for recipients</li>
+            <li><strong>Body</strong> - Doctrinal exposition followed by practical application</li>
+            <li><strong>Closing</strong> - Final exhortations, greetings, and benediction</li>
+        </ul>
+        
+        <h3>Literary Devices</h3>
+        <p>The epistle employs various rhetorical techniques including:</p>
+        <ul>
+            <li><strong>Diatribe</strong> - Dialogue with imaginary opponent through questions and answers</li>
+            <li><strong>Paraenesis</strong> - Moral exhortation often through contrasting vices and virtues</li>
+            <li><strong>Examples</strong> - Drawing on biblical figures or contemporary situations as models</li>
+            <li><strong>Metaphors</strong> - Extended comparisons that illustrate theological concepts</li>
+        </ul>
+        
+        <p>These epistolary features reflect both Greco-Roman rhetorical education and Jewish interpretive traditions adapted for Christian purposes.</p>
+        """
+    elif "wisdom" in genre.lower() or "poetry" in genre.lower():
+        return f"""
+        <p>{book} exemplifies biblical wisdom literature and poetic expression. The book uses carefully crafted language, figurative speech, and structural patterns to convey insights about divine order and human experience.</p>
+        
+        <h3>Poetic Structure</h3>
+        <p>The poetry in {book} primarily employs parallelism, where successive lines relate to each other in various ways:</p>
+        <ul>
+            <li><strong>Synonymous parallelism</strong> - Second line restates the first with similar meaning</li>
+            <li><strong>Antithetic parallelism</strong> - Second line contrasts with the first</li>
+            <li><strong>Synthetic parallelism</strong> - Second line develops or completes the first</li>
+            <li><strong>Emblematic parallelism</strong> - One line uses a metaphor to illustrate the other</li>
+        </ul>
+        
+        <h3>Literary Devices</h3>
+        <p>{book} employs numerous literary techniques including:</p>
+        <ul>
+            <li><strong>Imagery</strong> - Vivid sensory language drawing on nature, daily life, and cultural practices</li>
+            <li><strong>Metaphor and simile</strong> - Comparisons that illuminate abstract concepts</li>
+            <li><strong>Acrostic patterns</strong> - Alphabetical arrangements that structure content</li>
+            <li><strong>Personification</strong> - Abstract qualities given human attributes (particularly wisdom)</li>
+        </ul>
+        
+        <p>These poetic features create aesthetic beauty while making the wisdom more memorable and impactful.</p>
+        """
+    elif "prophetic" in genre.lower():
+        return f"""
+        <p>{book} employs the distinctive literary forms of biblical prophecy. The book combines poetic expression, symbolic actions, and visionary experiences to communicate divine messages with both immediate and future significance.</p>
+        
+        <h3>Prophetic Forms</h3>
+        <p>{book} includes various prophetic forms:</p>
+        <ul>
+            <li><strong>Oracle</strong> - Divine speech introduced by "Thus says the LORD" or similar formula</li>
+            <li><strong>Woe oracle</strong> - Judgment pronouncement beginning with "Woe to..."</li>
+            <li><strong>Lawsuit</strong> - Covenant litigation using legal metaphors with witnesses, evidence, and verdict</li>
+            <li><strong>Vision report</strong> - Account of prophetic visions with interpretation</li>
+            <li><strong>Symbolic action</strong> - Prophetic performance conveying message visually</li>
+        </ul>
+        
+        <h3>Literary Devices</h3>
+        <p>Prophetic literature in {book} employs various techniques:</p>
+        <ul>
+            <li><strong>Metaphor and simile</strong> - Comparing Israel to unfaithful spouse, vineyard, etc.</li>
+            <li><strong>Hyperbole</strong> - Deliberate exaggeration for rhetorical effect</li>
+            <li><strong>Merism</strong> - Expressing totality through contrasting pairs</li>
+            <li><strong>Wordplay</strong> - Puns and sound associations (particularly in Hebrew)</li>
+        </ul>
+        
+        <p>These prophetic literary features combine aesthetic power with rhetorical force to call for response to divine revelation.</p>
+        """
+    elif "apocalyptic" in genre.lower():
+        return f"""
+        <p>{book} exemplifies apocalyptic literature with its distinctive symbolic imagery and visionary framework. The book uses heavily symbolic language, cosmic dualism, and revelatory encounters to unveil spiritual realities and future events.</p>
+        
+        <h3>Apocalyptic Features</h3>
+        <p>Key characteristics of {book} as apocalyptic literature include:</p>
+        <ul>
+            <li><strong>Symbolic visions</strong> - Elaborate imagery requiring interpretation</li>
+            <li><strong>Heavenly mediators</strong> - Angels explaining visions to the recipient</li>
+            <li><strong>Cosmic dualism</strong> - Sharp contrast between good/evil, present age/age to come</li>
+            <li><strong>Deterministic view</strong> - History moving toward predetermined divine conclusion</li>
+            <li><strong>Pseudonymity</strong> - Attribution to ancient figure (in non-canonical apocalypses)</li>
+        </ul>
+        
+        <h3>Literary Devices</h3>
+        <p>Apocalyptic literature in {book} employs various techniques:</p>
+        <ul>
+            <li><strong>Symbolism</strong> - Numbers, colors, and animals representing spiritual realities</li>
+            <li><strong>Mythic imagery</strong> - Drawing on cosmic battle motifs and ancient Near Eastern symbols</li>
+            <li><strong>Recapitulation</strong> - Same events described from different perspectives</li>
+            <li><strong>Intercalation</strong> - Interrupting one sequence with another for theological purposes</li>
+        </ul>
+        
+        <p>These apocalyptic features enable the communication of transcendent realities that defy literal description and provide hope in times of crisis.</p>
+        """
+    elif "gospel" in genre.lower():
+        return f"""
+        <p>{book} represents the distinctive gospel genre—a theological biography focusing on Jesus' life, teaching, death, and resurrection. The book combines narrative elements, discourse material, and passion account to proclaim Jesus' identity and significance.</p>
+        
+        <h3>Structure</h3>
+        <p>{book} organizes its material with theological purpose, including:</p>
+        <ul>
+            <li><strong>Prologue</strong> - Introducing theological themes and Jesus' identity</li>
+            <li><strong>Ministry narrative</strong> - Accounts of teachings, miracles, and encounters</li>
+            <li><strong>Discourse sections</strong> - Extended teaching blocks on various themes</li>
+            <li><strong>Passion narrative</strong> - Detailed account of Jesus' final days, death, and resurrection</li>
+        </ul>
+        
+        <h3>Literary Devices</h3>
+        <p>The gospel employs various techniques including:</p>
+        <ul>
+            <li><strong>Inclusio</strong> - Framing devices marking literary units</li>
+            <li><strong>Chiasm</strong> - Mirror structures highlighting central elements</li>
+            <li><strong>Typology</strong> - Presenting Jesus as fulfilling Old Testament patterns</li>
+            <li><strong>Irony</strong> - Contrasts between appearance and reality, human and divine perspectives</li>
+            <li><strong>Parables</strong> - Figurative stories conveying kingdom truths</li>
+        </ul>
+        
+        <p>These gospel features combine to present Jesus Christ as the fulfillment of God's promises and the decisive revelation of God's salvation.</p>
+        """
+    else:
+        return f"""
+        <p>{book} employs various literary techniques and structural elements to communicate its message effectively. The book's form serves its function, using appropriate conventions to convey its theological content.</p>
+        
+        <h3>Structure</h3>
+        <p>The book demonstrates intentional organization, with distinct sections addressing different aspects of its theme. Transitions between sections are marked by shifts in topic, audience, or literary form.</p>
+        
+        <h3>Literary Devices</h3>
+        <p>The book employs various literary techniques including:</p>
+        <ul>
+            <li><strong>Imagery</strong> - Concrete pictures that convey abstract concepts</li>
+            <li><strong>Repetition</strong> - Key terms and phrases that emphasize important themes</li>
+            <li><strong>Contrast</strong> - Opposing concepts to highlight distinctions</li>
+            <li><strong>Figurative language</strong> - Metaphors and similes that illuminate meaning</li>
+        </ul>
+        
+        <p>These literary features enhance the book's communicative power and contribute to its enduring significance in the biblical canon.</p>
+        """
+
+
+def generate_book_themes(book):
+    """Generate themes for a book"""
+    
+    # Book-specific themes
+    themes = {
+        "Genesis": """
+        <p>Genesis introduces several foundational themes that resonate throughout Scripture:</p>
+        
+        <h3>Creation and Sovereignty</h3>
+        <p>Genesis establishes God as the sovereign Creator who brings order from chaos and establishes the natural world with purpose and design. The creation accounts (Genesis 1-2) reveal God's power, wisdom, and goodness, while distinguishing biblical cosmology from ancient Near Eastern myths. Creation establishes the proper relationship between God, humanity, and the natural world.</p>
+        
+        <h3>Human Identity and Purpose</h3>
+        <p>Humans are created in God's image (Genesis 1:26-27), giving them unique dignity, responsibility, and relationship with God. This theme establishes the basis for human worth, morality, and purpose. Genesis shows humans as both dignified (created in God's image) and fallen (through sin), establishing the tension that drives the biblical narrative.</p>
+        
+        <h3>Sin and Its Consequences</h3>
+        <p>The entrance of sin into the world (Genesis 3) and its devastating effects form a major theme. Genesis traces sin's progression from individual disobedience to civilizational corruption, showing its consequences: broken relationships, suffering, death, and alienation from God. The book realistically portrays human moral failure while pointing toward redemption.</p>
+        
+        <h3>Covenant and Promise</h3>
+        <p>God's covenant relationships, particularly with Abraham (Genesis 12, 15, 17), establish the framework for God's redemptive work. These covenants involve divine initiative, human response, promises, and obligations. The Abrahamic covenant—promising land, descendants, and blessing to all nations—becomes the foundation for Israel's identity and mission.</p>
+        
+        <h3>Divine Providence</h3>
+        <p>Throughout Genesis, God works providentially through human events and choices to accomplish His purposes, most explicitly in Joseph's story (Genesis 37-50). The theme of providential guidance despite human failures demonstrates God's sovereignty and faithfulness in keeping His covenant promises.</p>
+        """,
+        
+        "Revelation": """
+        <p>Revelation develops several major themes that bring the biblical narrative to its climactic conclusion:</p>
+        
+        <h3>Divine Sovereignty</h3>
+        <p>God's absolute sovereignty over history and creation stands as the book's foundation. Despite apparent chaos and the temporary triumph of evil, the heavenly throne room scenes (Revelation 4-5) establish that God remains in control. This sovereignty provides assurance that evil will not ultimately prevail and that God's purposes will be accomplished.</p>
+        
+        <h3>Christ's Identity and Victory</h3>
+        <p>Revelation presents a multifaceted portrait of Christ as the glorified Lord (Revelation 1), the slaughtered but victorious Lamb (Revelation 5), and the conquering King (Revelation 19). This theme celebrates Christ's completed work at the cross while anticipating His final triumph over all evil forces. The paradoxical image of the slain Lamb who conquers is particularly significant.</p>
+        
+        <h3>Faithful Witness Amid Persecution</h3>
+        <p>The call to faithful endurance despite suffering runs throughout the letters to the seven churches (Revelation 2-3) and the visions that follow. Martyrdom is presented not as defeat but as victory that follows Christ's pattern. The book encourages persecuted believers that their suffering is temporary and meaningful within God's larger purposes.</p>
+        
+        <h3>Judgment and Salvation</h3>
+        <p>The theme of divine judgment appears in the seals, trumpets, and bowls (Revelation 6-16), demonstrating God's holy response to evil and vindication of His people. Simultaneously, the book emphasizes salvation for those who remain faithful, portrayed through images of sealing, palm branches, white robes, and the Lamb's book of life.</p>
+        
+        <h3>New Creation</h3>
+        <p>The climactic vision of new heavens and earth (Revelation 21-22) completes the biblical narrative that began in Genesis. This theme emphasizes the comprehensive scope of redemption—not merely saving souls but renewing creation. The new Jerusalem represents the perfect communion between God and His people in a restored creation free from sin and death.</p>
+        """,
+        
+        "Romans": """
+        <p>Romans systematically develops several interconnected theological themes:</p>
+        
+        <h3>Universal Sinfulness</h3>
+        <p>Paul establishes that all humanity—both Jews and Gentiles—stands guilty before God (Romans 1:18-3:20). This universal sinfulness demonstrates the need for a salvation that comes by faith rather than works of the law. Paul's analysis of sin goes beyond individual acts to the underlying condition of rebellion against God.</p>
+        
+        <h3>Justification by Faith</h3>
+        <p>The letter's central theme presents justification as God's declaration of righteousness for those who believe in Christ (Romans 3:21-5:21). This righteousness comes not through law-keeping but through faith in Christ's atoning work. Paul demonstrates this principle from Scripture (Abraham's example) and through the contrast between Adam and Christ.</p>
+        
+        <h3>New Life in the Spirit</h3>
+        <p>Romans explores how believers are freed from sin's dominion to live in the power of the Spirit (Romans 6-8). This progressive sanctification involves dying to sin, serving in the Spirit's newness, and experiencing adoption as God's children. The Spirit's indwelling enables believers to fulfill the law's righteous requirement through transformed hearts.</p>
+        
+        <h3>God's Faithfulness to Israel</h3>
+        <p>Paul addresses the theological problem of Israel's unbelief (Romans 9-11), affirming God's sovereignty in election while maintaining human responsibility. He argues that God has not rejected His people but has always worked through a faithful remnant. The temporary hardening of Israel serves God's purpose of bringing salvation to the Gentiles, but ultimately "all Israel will be saved."</p>
+        
+        <h3>Transformed Relationships</h3>
+        <p>The letter's ethical section (Romans 12-15) shows how theological truth transforms relationships with other believers, enemies, civil authorities, and those with whom believers have conscience disagreements. The gospel creates a new community that embodies sacrificial love, harmony amid diversity, and consideration for others' consciences.</p>
+        """
+    }
+    
+    # Default themes based on testament and genre
+    if book not in themes:
+        testament = get_testament_for_book(book)
+        genre = get_book_genre(book)
+        
+        if testament == "Old Testament":
+            if "law" in genre.lower() or "torah" in genre.lower():
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Divine Revelation and Law</h3>
+                <p>God reveals His character and will through direct instruction, establishing the covenant relationship with His people. The law provides guidance for worshiping the true God, maintaining covenant relationships, and expressing gratitude for redemption.</p>
+                
+                <h3>Holiness and Separation</h3>
+                <p>God calls His people to be set apart from surrounding nations through distinctive worship, ethical standards, and cultural practices. This separation preserves Israel's unique identity and witness in a polytheistic world.</p>
+                
+                <h3>Covenant Faithfulness</h3>
+                <p>The relationship between God and Israel is formalized through covenant commitments with promises for obedience and consequences for disobedience. This covenant structure shapes Israel's national identity and religious practices.</p>
+                
+                <h3>Sacrificial System</h3>
+                <p>Various offerings and rituals provide means of atonement, purification, and communion with God. This sacrificial system acknowledges human sinfulness while providing divinely established means of maintaining relationship with God.</p>
+                """
+            elif "historical" in genre.lower() or "narrative" in genre.lower():
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Divine Providence</h3>
+                <p>God sovereignly works through historical circumstances and human decisions to accomplish His purposes. Even through times of difficulty and apparent setbacks, God remains active in guiding history toward His intended outcomes.</p>
+                
+                <h3>Covenant Fidelity</h3>
+                <p>The book traces God's faithfulness to His covenant promises despite human failings. This covenant relationship forms the framework for understanding Israel's successes, failures, and responsibilities.</p>
+                
+                <h3>Leadership and Authority</h3>
+                <p>Various leaders demonstrate both positive and negative examples of exercising authority. Their successes and failures reveal principles of godly leadership and the consequences of abusing power.</p>
+                
+                <h3>Obedience and Blessing</h3>
+                <p>The narrative demonstrates connections between faithfulness to God's commands and experiencing His blessing. Conversely, disobedience leads to various forms of judgment and discipline.</p>
+                """
+            elif "wisdom" in genre.lower() or "poetry" in genre.lower():
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Divine Wisdom</h3>
+                <p>True wisdom begins with reverence for God and aligns human understanding with divine perspective. This wisdom provides insight for navigating life's complexities and making decisions that honor God.</p>
+                
+                <h3>Creation's Order</h3>
+                <p>The book reflects on patterns and principles embedded in the created order. By observing these patterns, humans can better understand how to live in harmony with God's design.</p>
+                
+                <h3>Human Experience</h3>
+                <p>The text honestly addresses the full range of human emotions, questions, and struggles. This realistic portrayal validates authentic expression while directing these experiences toward God.</p>
+                
+                <h3>Ethical Living</h3>
+                <p>Practical guidance for relationships, speech, work, and character development demonstrates how divine wisdom applies to everyday decisions and interactions.</p>
+                """
+            elif "prophetic" in genre.lower():
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Divine Judgment</h3>
+                <p>God's righteous response to persistent sin demonstrates His holiness and justice. This judgment particularly addresses covenant violations, idolatry, social injustice, and religious hypocrisy.</p>
+                
+                <h3>Repentance and Restoration</h3>
+                <p>God's judgment aims at restoration, with calls to return to covenant faithfulness. The book presents God's willingness to forgive and restore those who genuinely repent.</p>
+                
+                <h3>The Day of the LORD</h3>
+                <p>The prophetic anticipation of divine intervention brings both judgment for the wicked and vindication for the faithful. This eschatological focus places present circumstances in the context of God's ultimate purposes.</p>
+                
+                <h3>Messianic Hope</h3>
+                <p>Promises of a coming deliverer point toward God's ultimate solution to human sin and suffering. These messianic prophecies maintain hope even in the darkest circumstances.</p>
+                """
+            else:
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Divine Revelation</h3>
+                <p>God communicates His character, will, and purposes through various means. This revelation provides the basis for knowing and responding to God appropriately.</p>
+                
+                <h3>Covenant Relationship</h3>
+                <p>The formal relationship between God and His people establishes mutual commitments and expectations. This covenant framework shapes Israel's understanding of their identity and mission.</p>
+                
+                <h3>Human Responsibility</h3>
+                <p>People are accountable for their response to divine revelation. The book explores the consequences of both obedience and disobedience to God's commands.</p>
+                
+                <h3>Divine Faithfulness</h3>
+                <p>Despite human failures, God remains faithful to His promises and purposes. This divine commitment provides hope and confidence in God's ultimate redemptive work.</p>
+                """
+        else:  # New Testament
+            if "gospel" in genre.lower():
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Christology</h3>
+                <p>Jesus is presented in various aspects of His identity and work—Son of God, Son of Man, Messiah, Savior, and Lord. These titles and roles reveal Jesus' unique relationship with the Father and His mission of redemption.</p>
+                
+                <h3>Kingdom of God</h3>
+                <p>Jesus' proclamation and demonstration of God's reign reveals both its present reality and future consummation. The kingdom manifests in Jesus' teaching, miracles, exorcisms, and community formation.</p>
+                
+                <h3>Discipleship</h3>
+                <p>Following Jesus involves more than intellectual assent, requiring transformed values, priorities, and relationships. True disciples demonstrate faith, obedience, and willingness to sacrifice.</p>
+                
+                <h3>Fulfillment</h3>
+                <p>Jesus fulfills Old Testament prophecies, patterns, and promises, demonstrating continuity in God's redemptive plan. This fulfillment confirms Jesus' messianic identity and mission.</p>
+                """
+            elif "epistle" in genre.lower():
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Christology</h3>
+                <p>Jesus Christ's person and work form the foundation for Christian faith and practice. The book explores aspects of Christ's identity, incarnation, atoning death, resurrection, and present ministry.</p>
+                
+                <h3>Soteriology</h3>
+                <p>Salvation through Christ involves multiple dimensions including justification, reconciliation, redemption, and sanctification. This salvation comes by grace through faith and transforms believers' identity and destiny.</p>
+                
+                <h3>Ecclesiology</h3>
+                <p>The church as Christ's body has both unity and diversity, with various gifts contributing to the community's health and mission. Members have mutual responsibilities and share a common identity in Christ.</p>
+                
+                <h3>Ethics</h3>
+                <p>Christian behavior flows from gospel transformation rather than mere rule-keeping. Ethical instructions address relationships, attitudes, speech, and conduct as expressions of new life in Christ.</p>
+                """
+            elif "apocalyptic" in genre.lower():
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Divine Sovereignty</h3>
+                <p>God remains in control despite apparent chaos and evil's temporary triumph. The heavenly perspective reveals that history moves according to divine purpose toward a predetermined conclusion.</p>
+                
+                <h3>Spiritual Conflict</h3>
+                <p>The visible struggle between good and evil reflects a deeper cosmic conflict between God and Satan. This spiritual warfare affects both individuals and societies.</p>
+                
+                <h3>Faithful Witness</h3>
+                <p>Believers are called to maintain loyalty to Christ despite persecution. This faithful testimony may involve suffering but ultimately participates in Christ's victory.</p>
+                
+                <h3>Final Judgment and Renewal</h3>
+                <p>History culminates in divine judgment of evil and renewal of creation. This eschatological hope provides perspective and encouragement during present trials.</p>
+                """
+            else:
+                return """
+                <p>The book develops several significant theological themes:</p>
+                
+                <h3>Christology</h3>
+                <p>Jesus Christ's identity and work form the center of Christian faith. The book explores aspects of His person, ministry, and continuing significance for believers.</p>
+                
+                <h3>Soteriology</h3>
+                <p>Salvation through Christ transforms believers' standing before God and daily experience. This redemptive work addresses sin's penalty, power, and ultimately its presence.</p>
+                
+                <h3>Ecclesiology</h3>
+                <p>The church as God's people has a distinct identity and mission in the world. The community of believers demonstrates and proclaims God's redemptive purpose.</p>
+                
+                <h3>Eschatology</h3>
+                <p>God's future promises provide hope and shape present priorities. The anticipated return of Christ and consummation of God's kingdom give perspective to current circumstances.</p>
+                """
+    
+    return themes[book]
+
+
+def generate_theological_significance(book):
+    """Generate theological significance for a book"""
+    
+    # Book-specific theological significance
+    theological = {
+        "Genesis": """
+        <p>Genesis establishes foundational theological concepts that inform the entire biblical narrative:</p>
+        
+        <h3>Doctrine of God</h3>
+        <p>Genesis reveals God as the sovereign Creator who exists independently of and prior to the universe. Unlike the deities of surrounding cultures, the God of Genesis creates by His word rather than through struggle or sexual reproduction. He interacts personally with creation while remaining transcendent. Genesis portrays God's attributes: omnipotence in creation, omniscience in His foreknowledge, justice in judgment, and mercy in providing coverings for Adam and Eve and preserving Noah's family.</p>
+        
+        <h3>Doctrine of Humanity</h3>
+        <p>The creation of humans in God's image (Genesis 1:26-27) provides the theological foundation for human dignity, equality, and purpose. This concept establishes humans as God's representatives on earth with both privileges and responsibilities. Genesis also honestly portrays human sinfulness, beginning with the first couple's disobedience and continuing through history. This tension between human dignity and depravity informs biblical anthropology.</p>
+        
+        <h3>Doctrine of Salvation</h3>
+        <p>While Genesis does not fully develop soteriology, it lays essential groundwork through the first messianic prophecy (Genesis 3:15) and the covenant with Abraham. God's promise that Abraham's seed would bless all nations (Genesis 12:3, 22:18) becomes the foundation for understanding Christ's work. Genesis establishes the pattern of salvation by faith, particularly through Abraham who "believed God, and it was credited to him as righteousness" (Genesis 15:6).</p>
+        
+        <h3>Doctrine of Covenant</h3>
+        <p>Genesis introduces divine covenants as the framework for God's relationship with humanity. The Noahic covenant (Genesis 9) establishes God's commitment to creation's stability, while the Abrahamic covenant (Genesis 12, 15, 17) introduces God's election of a particular family for universal blessing.
+
+
 def generate_book_tags(book, genre):
     """Generate tags for a book based on its themes and genre"""
     # Base tags on genre
