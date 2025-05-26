@@ -24,13 +24,62 @@
             <h4>Old Testament</h4>
             <div class="legend-items">
                 <a href="#torah" class="legend-item" style="border-left-color: var(--torah-color);">
-                    <span class="legend-color
+                    <span class="legend-color" style="background: var(--torah-color);"></span>
+                    <span class="legend-name">Torah/Pentateuch</span>
+                </a>
+                <a href="#historical" class="legend-item" style="border-left-color: var(--historical-color);">
+                    <span class="legend-color" style="background: var(--historical-color);"></span>
+                    <span class="legend-name">Historical</span>
+                </a>
+                <a href="#wisdom" class="legend-item" style="border-left-color: var(--wisdom-color);">
+                    <span class="legend-color" style="background: var(--wisdom-color);"></span>
+                    <span class="legend-name">Wisdom</span>
+                </a>
+                <a href="#major-prophets" class="legend-item" style="border-left-color: var(--major-prophets-color);">
+                    <span class="legend-color" style="background: var(--major-prophets-color);"></span>
+                    <span class="legend-name">Major Prophets</span>
+                </a>
+                <a href="#minor-prophets" class="legend-item" style="border-left-color: var(--minor-prophets-color);">
+                    <span class="legend-color" style="background: var(--minor-prophets-color);"></span>
+                    <span class="legend-name">Minor Prophets</span>
+                </a>
+            </div>
+        </div>
+        <!-- New Testament Categories -->
+        <div class="legend-section">
+            <h4>New Testament</h4>
+            <div class="legend-items">
+                <a href="#gospels" class="legend-item" style="border-left-color: var(--gospels-color);">
+                    <span class="legend-color" style="background: var(--gospels-color);"></span>
+                    <span class="legend-name">Gospels</span>
+                </a>
+                <a href="#acts" class="legend-item" style="border-left-color: var(--acts-color);">
+                    <span class="legend-color" style="background: var(--acts-color);"></span>
+                    <span class="legend-name">Historical (Acts)</span>
+                </a>
+                <a href="#pauline" class="legend-item" style="border-left-color: var(--pauline-color);">
+                    <span class="legend-color" style="background: var(--pauline-color);"></span>
+                    <span class="legend-name">Pauline Epistles</span>
+                </a>
+                <a href="#general-epistles" class="legend-item" style="border-left-color: var(--general-epistles-color);">
+                    <span class="legend-color" style="background: var(--general-epistles-color);"></span>
+                    <span class="legend-name">General Epistles</span>
+                </a>
+                <a href="#apocalyptic" class="legend-item" style="border-left-color: var(--apocalyptic-color);">
+                    <span class="legend-color" style="background: var(--apocalyptic-color);"></span>
+                    <span class="legend-name">Apocalyptic</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2 class="section-title" style="margin-top: 2rem; color: var(--torah-color);">Old Testament</h2>
+<h2 class="section-title" id="old-testament" style="margin-top: 2rem; color: var(--torah-color);">Old Testament</h2>
 <div class="book-grid">
     {% set old_testament = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
     
     <!-- Torah/Pentateuch -->
+    <h3 id="torah" class="category-heading" style="color: var(--torah-color);">Torah/Pentateuch</h3>
     {% for book in books %}
     {% if book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--torah-color);">
@@ -41,6 +90,7 @@
     {% endfor %}
     
     <!-- Historical Books -->
+    <h3 id="historical" class="category-heading" style="color: var(--historical-color);">Historical Books</h3>
     {% for book in books %}
     {% if book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--historical-color);">
@@ -51,6 +101,7 @@
     {% endfor %}
     
     <!-- Wisdom Literature -->
+    <h3 id="wisdom" class="category-heading" style="color: var(--wisdom-color);">Wisdom Literature</h3>
     {% for book in books %}
     {% if book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--wisdom-color);">
@@ -61,6 +112,7 @@
     {% endfor %}
     
     <!-- Major Prophets -->
+    <h3 id="major-prophets" class="category-heading" style="color: var(--major-prophets-color);">Major Prophets</h3>
     {% for book in books %}
     {% if book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--major-prophets-color);">
@@ -71,6 +123,7 @@
     {% endfor %}
     
     <!-- Minor Prophets -->
+    <h3 id="minor-prophets" class="category-heading" style="color: var(--minor-prophets-color);">Minor Prophets</h3>
     {% for book in books %}
     {% if book in ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--minor-prophets-color);">
@@ -83,9 +136,10 @@
 
 <hr class="testament-divider" style="margin: 3rem auto; width: 80%; max-width: 600px; background: linear-gradient(90deg, var(--torah-color) 0%, var(--gospels-color) 100%);">
 
-<h2 class="section-title" style="margin-top: 2rem; color: var(--gospels-color);">New Testament</h2>
+<h2 class="section-title" id="new-testament" style="margin-top: 2rem; color: var(--gospels-color);">New Testament</h2>
 <div class="book-grid">
     <!-- Gospels -->
+    <h3 id="gospels" class="category-heading" style="color: var(--gospels-color);">Gospels</h3>
     {% for book in books %}
     {% if book in ['Matthew', 'Mark', 'Luke', 'John'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--gospels-color);">
@@ -96,6 +150,7 @@
     {% endfor %}
     
     <!-- Acts (Historical NT) -->
+    <h3 id="acts" class="category-heading" style="color: var(--acts-color);">Historical (Acts)</h3>
     {% for book in books %}
     {% if book == 'Acts' %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--acts-color);">
@@ -106,6 +161,7 @@
     {% endfor %}
     
     <!-- Pauline Epistles -->
+    <h3 id="pauline" class="category-heading" style="color: var(--pauline-color);">Pauline Epistles</h3>
     {% for book in books %}
     {% if book in ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--pauline-color);">
@@ -116,6 +172,7 @@
     {% endfor %}
     
     <!-- General Epistles -->
+    <h3 id="general-epistles" class="category-heading" style="color: var(--general-epistles-color);">General Epistles</h3>
     {% for book in books %}
     {% if book in ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--general-epistles-color);">
@@ -126,6 +183,7 @@
     {% endfor %}
     
     <!-- Apocalyptic -->
+    <h3 id="apocalyptic" class="category-heading" style="color: var(--apocalyptic-color);">Apocalyptic</h3>
     {% for book in books %}
     {% if book == 'Revelation' %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--apocalyptic-color);">
@@ -135,6 +193,84 @@
     {% endif %}
     {% endfor %}
 </div>
+
+<!-- Additional CSS for Legend -->
+<style>
+.bible-legend {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin: 1rem 0 2rem;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.legend-title {
+    margin: 0 0 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.legend-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-around;
+}
+
+.legend-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.legend-section h4 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 0.5rem;
+}
+
+.legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    border-left: 3px solid;
+    background: var(--background-color);
+    transition: all 0.2s ease;
+}
+
+.legend-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-primary);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.category-heading {
+    grid-column: 1 / -1;
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.5rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 0.25rem;
+}
+</style>
 
 <div class="text-center mt-4" style="padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-top: 3rem; border: 1px solid var(--border-light);">
     <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
