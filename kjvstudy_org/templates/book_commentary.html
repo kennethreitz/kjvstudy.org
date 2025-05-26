@@ -744,7 +744,7 @@ h1, h2, h3, h4, h5, h6 {
                             {% if item.reference %}
                             (<a href="{{ item.url }}" class="verse-reference">
                                 {{ item.reference }}
-                                <span class="verse-tooltip">{{ item.text|default("See " + item.reference + " for details") }}</span>
+                                <span class="verse-tooltip">{{ item.verse_text|default("See " + item.reference + " for details") }}</span>
                             </a>)
                             {% endif %}
                             
@@ -756,7 +756,7 @@ h1, h2, h3, h4, h5, h6 {
                                     {% if subitem.reference %}
                                     (<a href="{{ subitem.url }}" class="verse-reference">
                                         {{ subitem.reference }}
-                                        <span class="verse-tooltip">{{ subitem.text|default("See " + subitem.reference + " for details") }}</span>
+                                        <span class="verse-tooltip">{{ subitem.verse_text|default("See " + subitem.reference + " for details") }}</span>
                                     </a>)
                                     {% endif %}
                                 </li>
@@ -786,7 +786,7 @@ h1, h2, h3, h4, h5, h6 {
                         <li>
                             <a href="{{ ref.url }}" class="verse-reference">
                                 {{ ref.reference }}
-                                <span class="verse-tooltip">{{ ref.text|default("Cross-reference: " + ref.description) }}</span>
+                                <span class="verse-tooltip">{{ ref.verse_text|default("Cross-reference: " + ref.description) }}</span>
                             </a> - {{ ref.description }}
                         </li>
                         {% endfor %}
@@ -809,7 +809,7 @@ h1, h2, h3, h4, h5, h6 {
                         <li>
                             <a href="{{ verse.url }}" class="verse-reference">
                                 {{ book }} {{ chapter_num }}:{{ verse.verse_num }}
-                                <span class="verse-tooltip">{{ verse.text|default("Verse text not available") }}</span>
+                                <span class="verse-tooltip">{{ verse.text }}</span>
                             </a> - {{ verse.brief }}
                         </li>
                         {% endfor %}

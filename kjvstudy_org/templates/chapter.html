@@ -165,12 +165,72 @@
     text-rendering: optimizeLegibility;
 }
 
+.verse-reference {
+    position: relative;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.verse-reference:hover {
+    text-decoration: underline;
+}
+
+.verse-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    max-width: 300px;
+    white-space: normal;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'EB Garamond', Georgia, serif;
+    margin-bottom: 8px;
+}
+
+.verse-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.95);
+}
+
+.verse-reference:hover .verse-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
 @media (max-width: 768px) {
     .verse-text {
         font-size: 1.25rem;
         line-height: 1.7;
     }
 }
+</edits>
+
+<edits>
+
+<old_text>
+                    <li>
+                        <a href="{{ ref.url }}" class="verse-reference" style="color: var(--primary-color); text-decoration: none;">
+                            {{ ref.text }}
+                            <span class="verse-tooltip">{{ ref.verse_text|default("Click to view " + ref.text) }}</span>
+                        </a> - {{ ref.context }}
+                    </li>
 </style>
 {% endblock %}
 
@@ -361,7 +421,10 @@
                 <ul style="margin: 0; padding-left: 1.25rem;">
                     {% for ref in commentaries[verse.verse].cross_references %}
                     <li>
-                        <a href="{{ ref.url }}" style="color: var(--primary-color); text-decoration: none;">{{ ref.text }}</a> - {{ ref.context }}
+                        <a href="{{ ref.url }}" class="verse-reference" style="color: var(--primary-color); text-decoration: none;">
+                            {{ ref.text }}
+                            <span class="verse-tooltip">{{ ref.verse_text|default("Click to view " + ref.text) }}</span>
+                        </a> - {{ ref.context }}
                     </li>
                     {% endfor %}
                 </ul>

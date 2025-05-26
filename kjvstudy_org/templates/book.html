@@ -206,7 +206,7 @@
                         <p style="margin: 0; color: white; line-height: 1.5; font-size: 1.2rem;">{{ highlight.description }}</p>
                         <span style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 0.5rem; display: block;">Click to read passage →</span>
                     </div>
-                    <span class="verse-tooltip">{{ highlight.description }} - Click to read the full passage in context</span>
+                    <span class="verse-tooltip">{{ highlight.text|default(highlight.description) }}</span>
                 </a>
                 {% endfor %}
             </div>
