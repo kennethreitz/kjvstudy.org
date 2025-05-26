@@ -208,17 +208,25 @@
 
 <div style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem; border: 1px solid var(--border-light); text-center;">
     <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
-        🤖 AI Commentary Preview
+        🤖 AI Commentary
     </h3>
-    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
-        Soon you'll see intelligent commentary here, providing historical context, 
-        theological insights, and cross-references for {{ book }} {{ chapter }} from the Authorized King James Version (KJV).
-    </p>
-    <div style="padding: 1rem; background: var(--background-color); border-radius: var(--radius-md); border-left: 4px solid var(--primary-color);">
-        <p style="margin: 0; font-style: italic; color: var(--text-primary);">
-            "Coming soon: Verse-by-verse analysis, historical context, and study questions for {{ book }} {{ chapter }} (KJV) powered by AI."
-        </p>
+    {% if book == "Revelation" and chapter == 1 %}
+    <div style="background: rgba(75, 46, 131, 0.05); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem; border-left: 4px solid var(--primary-color);">
+        <p style="margin: 0; font-weight: 500; color: var(--primary-color);">✨ Featured Commentary ✨</p>
     </div>
+    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
+        Explore our detailed verse-by-verse analysis of Revelation 1, featuring historical context from the late first century CE, 
+        theological insights on apocalyptic literature, and cross-references to Old Testament prophetic visions.
+    </p>
+    {% else %}
+    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
+        Explore verse-by-verse analysis with historical context, theological insights, 
+        and cross-references for {{ book }} {{ chapter }} from the Authorized King James Version (KJV).
+    </p>
+    {% endif %}
+    <a href="/commentary/{{ book }}/{{ chapter }}" class="nav-button nav-button-primary" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem;">
+        View AI Commentary for {{ book }} {{ chapter }}
+    </a>
 </div>
 {% endblock %}
 

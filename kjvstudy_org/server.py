@@ -39,7 +39,7 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
             },
             status_code=exc.status_code,
         )
-    
+
     # For other errors, use the default handler
     return await http_exception_handler(request, exc)
 
@@ -60,7 +60,7 @@ def read_book(request: Request, book: str):
 
     if not chapters:
         raise HTTPException(
-            status_code=404, 
+            status_code=404,
             detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
         )
     return templates.TemplateResponse(
@@ -79,15 +79,15 @@ def read_chapter(request: Request, book: str, chapter: int):
         # Check if the book exists first
         if not chapters:
             raise HTTPException(
-                status_code=404, 
+                status_code=404,
                 detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
             )
         else:
             raise HTTPException(
-                status_code=404, 
+                status_code=404,
                 detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
             )
-    
+
     return templates.TemplateResponse(
         "chapter.html",
         {
@@ -112,23 +112,23 @@ def commentary(request: Request, book: str, chapter: int):
         # Check if the book exists first
         if not chapters:
             raise HTTPException(
-                status_code=404, 
+                status_code=404,
                 detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
             )
         else:
             raise HTTPException(
-                status_code=404, 
+                status_code=404,
                 detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
             )
-    
+
     # Generate AI commentary for each verse
     commentaries = {}
     for verse in verses:
         commentaries[verse.verse] = generate_commentary(book, chapter, verse)
-    
+
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
-    
+
     return templates.TemplateResponse(
         "commentary.html",
         {
@@ -146,12 +146,111 @@ def commentary(request: Request, book: str, chapter: int):
 
 def generate_commentary(book, chapter, verse):
     """Generate AI-powered commentary for a specific verse"""
-    # For this implementation, we'll create simulated commentary
-    # In a production environment, this would call an actual AI/LLM API
-    
+    # Special case for Revelation 1
+    if book == "Revelation" and chapter == 1:
+        # Dictionary of specialized commentary for Revelation 1
+        revelation1_commentary = {
+            1: {
+                "analysis": "This opening verse establishes the divine origin of the Apocalypse (revelation). The chain of revelation is significant: from God, to Christ, to angel, to John, to the churches. The phrase \"things which must shortly come to pass\" indicates urgency and certainty, not necessarily immediacy in human time scales.",
+                "historical": "During the reign of Emperor Domitian (81-96 CE), Christians faced increasing pressure to participate in emperor worship. This book offered hope to persecuted believers by assuring them of God's ultimate sovereignty over human rulers and the certainty of Christ's victory.",
+                "questions": [
+                    "How does the concept of divine revelation shape your approach to Scripture?",
+                    "What significance might the chain of transmission (God→Christ→angel→John→churches) have for understanding authority?",
+                    "How should we understand the timeframe indicated by 'shortly come to pass' given that nearly 2,000 years have passed?"
+                ],
+                "cross_references": [
+                    {"text": "Daniel 2:28-29", "url": "/book/Daniel/chapter/2#verse-28", "context": "Things revealed about the latter days"},
+                    {"text": "John 15:15", "url": "/book/John/chapter/15#verse-15", "context": "Christ revealing the Father's will"}
+                ]
+            },
+            4: {
+                "analysis": "This verse begins the formal greeting to the seven churches of Asia Minor. The trinitarian formula is unique: the eternal Father ('who is, who was, and who is to come'), the sevenfold Spirit, and Jesus Christ. The number seven symbolizes completeness or perfection in biblical numerology.",
+                "historical": "The seven churches addressed were actual congregations in Asia Minor (modern Turkey). They existed in a cultural environment dominated by pagan worship, including the imperial cult. Each city had its own social, economic, and spiritual challenges that are addressed in chapters 2-3.",
+                "questions": [
+                    "What does the description of God as 'who is, who was, and who is to come' reveal about divine nature?",
+                    "What might the 'seven Spirits' represent in this context?",
+                    "How does this trinitarian greeting compare to those found in Paul's letters?"
+                ],
+                "cross_references": [
+                    {"text": "Exodus 3:14", "url": "/book/Exodus/chapter/3#verse-14", "context": "God as the 'I AM'"},
+                    {"text": "Isaiah 11:2-3", "url": "/book/Isaiah/chapter/11#verse-2", "context": "Seven aspects of the Spirit"}
+                ]
+            },
+            7: {
+                "analysis": "This verse emphasizes Christ's glorious return, visible to all, including those who rejected and pierced Him. It combines references from Daniel 7:13 (coming with clouds) and Zechariah 12:10 (those who pierced him shall mourn). The divine declaration 'I am Alpha and Omega' frames the verse with God's sovereignty.",
+                "historical": "For Christians experiencing persecution, this promise of Christ's visible return as judge and vindicator would provide hope and encouragement. The verse establishes that history's culmination centers on Christ's return, not the reign of human emperors.",
+                "questions": [
+                    "How does the certainty of Christ's return influence Christian ethics and perseverance?",
+                    "What is the significance of combining Old Testament references about God with descriptions of Jesus?",
+                    "How should believers balance the hope of Christ's return with responsible living in the present world?"
+                ],
+                "cross_references": [
+                    {"text": "Matthew 24:30", "url": "/book/Matthew/chapter/24#verse-30", "context": "Christ's return with clouds"},
+                    {"text": "Zechariah 12:10", "url": "/book/Zechariah/chapter/12#verse-10", "context": "Looking on him whom they pierced"}
+                ]
+            },
+            13: {
+                "analysis": "This verse begins the dramatic vision of Christ amid the lampstands. The figure is described in terms combining royal, priestly and divine attributes. The 'one like unto the Son of man' echoes Daniel 7:13, while the long robe with golden sash suggests high priestly attire (Exodus 28:4).",
+                "historical": "In the first century, the imagery would connect with both Jewish apocalyptic expectations and contrast with imperial imagery. While Roman emperors claimed divine status, this vision presents Christ with true divine and cosmic authority.",
+                "questions": [
+                    "How does this vision of Christ compare with portrayals elsewhere in Scripture?",
+                    "What significance might the position 'in the midst of the lampstands' have for church leadership?",
+                    "How do the combined royal and priestly elements reveal Christ's roles?"
+                ],
+                "cross_references": [
+                    {"text": "Daniel 7:13-14", "url": "/book/Daniel/chapter/7#verse-13", "context": "Son of Man vision"},
+                    {"text": "Hebrews 4:14-16", "url": "/book/Hebrews/chapter/4#verse-14", "context": "Christ as High Priest"}
+                ]
+            },
+            18: {
+                "analysis": "This powerful declaration by the risen Christ emphasizes His victory over death and authority over the afterlife. The phrase 'I am he that liveth, and was dead' directly references Christ's resurrection. The 'keys of hell and of death' symbolize authority over mortality and judgment.",
+                "historical": "For early Christians facing potential martyrdom, this verse would provide profound reassurance that death was not the final word. Christ's authority extends beyond death itself, offering hope to those facing persecution.",
+                "questions": [
+                    "How does Christ's victory over death transform the Christian understanding of mortality?",
+                    "What does it mean that Christ holds 'the keys of hell and of death'?",
+                    "How might this verse have comforted believers facing imperial persecution?"
+                ],
+                "cross_references": [
+                    {"text": "Isaiah 22:22", "url": "/book/Isaiah/chapter/22#verse-22", "context": "The key of David"},
+                    {"text": "Romans 6:9", "url": "/book/Romans/chapter/6#verse-9", "context": "Christ dies no more"}
+                ]
+            }
+        }
+
+        # If we have special commentary for this verse, use it
+        if verse.verse in revelation1_commentary:
+            return revelation1_commentary[verse.verse]
+
+        # For other verses in Revelation 1, use enhanced but generalized commentary
+        analysis = f"This verse is part of John's apocalyptic vision of the glorified Christ. The symbolism connects to Old Testament prophetic tradition, particularly from Daniel and Ezekiel, while revealing Christ's divine nature and authority. The imagery of {get_key_phrase(verse.text.lower())} contributes to the overall majestic portrayal."
+
+        historical = f"Written during a time of imperial persecution under Domitian, this vision would have encouraged believers to remain faithful despite opposition. The apocalyptic imagery draws on Jewish prophetic traditions while speaking to the specific challenges faced by first-century Christians in Asia Minor."
+
+        questions = [
+            "How does this verse contribute to the overall portrayal of Christ in Revelation 1?",
+            "What symbolic elements in this verse connect to Old Testament prophecy?",
+            "How might this imagery have strengthened the faith of persecuted believers?",
+            "What does this revelation tell us about Christ's relationship to the Church?"
+        ]
+
+        # Generate cross-references specific to Revelation imagery
+        cross_refs = [
+            {"text": "Daniel 7:9-14", "url": "/book/Daniel/chapter/7#verse-9", "context": "Ancient of Days and Son of Man vision"},
+            {"text": "Ezekiel 1:26-28", "url": "/book/Ezekiel/chapter/1#verse-26", "context": "Divine throne vision"},
+            {"text": "Isaiah 6:1-5", "url": "/book/Isaiah/chapter/6#verse-1", "context": "Throne room vision"}
+        ]
+
+        return {
+            "analysis": analysis,
+            "historical": historical,
+            "questions": random.sample(questions, 3),
+            "cross_references": cross_refs[:2]  # Limit to 2 references
+        }
+
+    # For all other books/chapters, use the general approach
     verse_text = verse.text.lower()
     verse_number = verse.verse
-    
+
     # Simulated analysis based on the verse content and patterns
     analysis_templates = [
         f"This verse emphasizes the {get_theme(verse_text)} theme common in {book}. The phrase \"{get_key_phrase(verse_text)}\" is particularly significant as it relates to the broader context of this chapter.",
@@ -159,14 +258,14 @@ def generate_commentary(book, chapter, verse):
         f"Here we see a {get_literary_device(verse_text)} that draws attention to {get_theme(verse_text)}. The author uses specific terminology that would have resonated with the original audience.",
         f"This verse contains {get_literary_device(verse_text)} that emphasizes the {get_theme(verse_text)}. The language choice reveals the author's intention to highlight {get_concept(verse_text)}.",
     ]
-    
+
     historical_templates = [
         f"In the historical context of {get_time_period(book)}, this reference to \"{get_key_phrase(verse_text)}\" would have had significant meaning. {get_historical_context(book)}",
         f"The {get_cultural_element(verse_text)} mentioned here was common in {get_time_period(book)}. {get_historical_context(book)} The original audience would have understood this reference differently than modern readers.",
         f"During {get_time_period(book)}, the concept of {get_concept(verse_text)} had specific cultural connotations. {get_historical_context(book)} This provides important context for understanding the verse.",
         f"The historical setting of {get_time_period(book)} helps explain why the author emphasizes {get_theme(verse_text)}. {get_historical_context(book)}"
     ]
-    
+
     # Study questions based on verse content
     question_templates = [
         f"How does the concept of {get_concept(verse_text)} apply to contemporary faith?",
@@ -178,10 +277,10 @@ def generate_commentary(book, chapter, verse):
         f"In what ways does this verse challenge or affirm your current understanding?",
         f"How does this verse fit into the broader narrative of Scripture?",
     ]
-    
+
     # Generate cross-references
     cross_refs = generate_cross_references(book, chapter, verse_number, verse_text)
-    
+
     # Return a dictionary with all commentary components
     return {
         "analysis": random.choice(analysis_templates),
@@ -193,32 +292,51 @@ def generate_commentary(book, chapter, verse):
 
 def generate_chapter_overview(book, chapter, verses):
     """Generate an AI-powered overview of the entire chapter"""
-    # Simulated chapter overview
+    # Special case for Revelation 1
+    if book == "Revelation" and chapter == 1:
+        return """
+    <p><strong>Revelation 1</strong> is the magnificent apocalyptic introduction to the final book of the Bible, often called the <em>Apocalypse</em> (from the Greek ἀποκάλυψις, meaning "unveiling" or "revelation"). Written during the reign of Emperor Domitian (c. 95 CE) when imperial persecution was intensifying, this chapter presents John's vision of the glorified Christ and establishes the divine authority behind the revelations that follow.</p>
+        
+    <p>The author identifies himself as "John" (verse 1:1, 1:4, 1:9), traditionally understood to be the Apostle John, though some scholars propose it may be another John known as "John the Elder." He was exiled tocan be divided into several key sections:</p>
+
+        <ol>
+            <li><strong>Verses 1-3</strong>: Introduction and blessing for those who read and keep the prophecy</li>
+            <li><strong>Verses 4-8</strong>: Greeting to the seven churches and proclamation of Christ's divine authority</li>
+            <li><strong>Verses 9-16</strong>: John's vision of the glorified Christ amid the lampstands</li>
+            <li><strong>Verses 17-20</strong>: Christ's commission to John and explanation of the symbolic vision</li>
+        </ol>
+
+        <p>Revelation 1 is significant because it establishes the divine authority behind the apocalyptic visions and presents Christ in His glorified, exalted state. The vivid symbolism introduces key motifs that will appear throughout the book, including the number seven (churches, spirits, lampstands), divine titles ("Alpha and Omega," "First and Last"), and the imagery of Christ as both priest and king.</p>
+
+        <p>When studying this passage, it's important to understand its historical context during a time of imperial persecution, as well as its place as the culmination of biblical prophecy and apocalyptic literature.</p>
+        """
+
+    # Simulated chapter overview for other chapters
     themes = [get_theme(v.text.lower()) for v in verses[:5]]  # Sample themes from the first few verses
     unique_themes = list(set(themes))[:3]  # Get up to 3 unique themes
-    
+
     chapter_type = get_chapter_type(book, chapter)
     time_period = get_time_period(book)
     historical_context = get_historical_context(book)
-    
+
     overview = f"""
-    <p><strong>{book} {chapter}</strong> is a {chapter_type} chapter in the {get_testament_for_book(book)} that explores themes of {', '.join(unique_themes)}. 
+    <p><strong>{book} {chapter}</strong> is a {chapter_type} chapter in the {get_testament_for_book(book)} that explores themes of {', '.join(unique_themes)}.
     Written during {time_period}, this chapter should be understood within its historical context: {historical_context}</p>
-    
+
     <p>The chapter can be divided into several sections:</p>
-    
+
     <ol>
         <li><strong>Verses 1-{min(5, len(verses))}</strong>: Introduction and setting the context</li>
         {'<li><strong>Verses 6-' + str(min(12, len(verses))) + '</strong>: Development of key themes</li>' if len(verses) > 5 else ''}
         {'<li><strong>Verses 13-' + str(min(20, len(verses))) + '</strong>: Central message and teachings</li>' if len(verses) > 12 else ''}
         {'<li><strong>Verses ' + str(min(21, len(verses))) + '-' + str(len(verses)) + '</strong>: Conclusion and application</li>' if len(verses) > 20 else ''}
     </ol>
-    
-    <p>This chapter is significant because it {get_chapter_significance(book, chapter)}. 
-    When studying this passage, it's important to consider both its immediate context within {book} 
+
+    <p>This chapter is significant because it {get_chapter_significance(book, chapter)}.
+    When studying this passage, it's important to consider both its immediate context within {book}
     and its broader place in the scriptural canon.</p>
     """
-    
+
     return overview
 
 
@@ -252,17 +370,17 @@ def generate_cross_references(book, chapter, verse, verse_text):
             {"book": "Colossians", "chapter": 1, "verse": 16, "context": "All things created through Christ"}
         ]
     }
-    
+
     # Identify themes in the verse text
     verse_themes = []
     for theme in theme_references.keys():
         if theme in verse_text or random.random() < 0.2:  # Randomly include some themes
             verse_themes.append(theme)
-    
+
     # If no themes match, pick a random theme
     if not verse_themes:
         verse_themes = [random.choice(list(theme_references.keys()))]
-    
+
     # Get references for identified themes
     references = []
     for theme in verse_themes[:2]:  # Limit to two themes
@@ -271,13 +389,13 @@ def generate_cross_references(book, chapter, verse, verse_text):
             # Skip self-references
             if ref["book"] == book and ref["chapter"] == chapter and ref["verse"] == verse:
                 continue
-                
+
             references.append({
                 "text": f"{ref['book']} {ref['chapter']}:{ref['verse']}",
                 "url": f"/book/{ref['book']}/chapter/{ref['chapter']}#verse-{ref['verse']}",
                 "context": ref["context"]
             })
-    
+
     # Ensure we have at least one reference
     if not references:
         random_book = random.choice(["Matthew", "John", "Romans", "Psalms", "Proverbs"])
@@ -286,24 +404,24 @@ def generate_cross_references(book, chapter, verse, verse_text):
             "url": f"/book/{random_book}/chapter/1#verse-1",
             "context": "Related teaching"
         })
-    
+
     return references
 
 
 def get_theme(text):
     """Extract a thematic element from text"""
     themes = [
-        "redemption", "salvation", "faith", "obedience", "love", 
+        "redemption", "salvation", "faith", "obedience", "love",
         "judgment", "mercy", "grace", "wisdom", "creation",
         "covenant", "holiness", "righteousness", "truth", "hope",
         "sacrifice", "worship", "prayer", "discipleship", "fellowship"
     ]
-    
+
     # First check if any themes appear directly in the text
     for theme in themes:
         if theme in text:
             return theme
-    
+
     # Otherwise return a random theme
     return random.choice(themes)
 
@@ -312,7 +430,7 @@ def get_key_phrase(text):
     """Extract a key phrase from the text"""
     # Split the text into phrases
     phrases = text.replace(".", ". ").replace(";", "; ").replace(":", ": ").split()
-    
+
     # Select a phrase of 3-5 words if the text is long enough
     if len(phrases) > 5:
         start = random.randint(0, len(phrases) - 5)
@@ -326,7 +444,7 @@ def get_key_phrase(text):
 def get_language_feature(text):
     """Identify a language feature"""
     features = [
-        "metaphorical language", "symbolic imagery", "parallelism", 
+        "metaphorical language", "symbolic imagery", "parallelism",
         "rhetorical questioning", "imperative form", "poetic structure",
         "narrative technique", "prophetic language", "didactic teaching",
         "pastoral guidance", "theological explanation", "eschatological reference"
@@ -337,17 +455,22 @@ def get_language_feature(text):
 def get_literary_device(text):
     """Identify a literary device"""
     devices = [
-        "metaphor", "simile", "allusion", "personification", "hyperbole", 
+        "metaphor", "simile", "allusion", "personification", "hyperbole",
         "chiasm", "merism", "synecdoche", "parallelism", "inclusio",
         "rhetorical question", "allegory", "symbolic language", "irony"
     ]
+
+    # Special case for Revelation text which is highly symbolic
+    if "throne" in text.lower() or "lamb" in text.lower() or "seal" in text.lower():
+        return "apocalyptic symbolism"
+
     return random.choice(devices)
 
 
 def get_concept(text):
     """Identify a theological concept"""
     concepts = [
-        "divine sovereignty", "human responsibility", "covenant faithfulness", 
+        "divine sovereignty", "human responsibility", "covenant faithfulness",
         "sacrificial atonement", "spiritual renewal", "moral obligation",
         "divine justice", "eschatological hope", "messianic expectation",
         "communal worship", "spiritual discipline", "ethical living",
@@ -359,7 +482,7 @@ def get_concept(text):
 def get_cultural_element(text):
     """Identify a cultural element"""
     elements = [
-        "religious practice", "social custom", "cultural tradition", 
+        "religious practice", "social custom", "cultural tradition",
         "political structure", "economic system", "family relationship",
         "legal requirement", "worship ritual", "purity regulation",
         "agricultural reference", "military imagery", "architectural feature"
@@ -376,7 +499,7 @@ def get_time_period(book):
         "Leviticus": "Israel's wilderness period (c. 1446-1406 BCE)",
         "Numbers": "Israel's wilderness period (c. 1446-1406 BCE)",
         "Deuteronomy": "the end of the wilderness wandering (c. 1406 BCE)",
-        
+
         # Historical books
         "Joshua": "the conquest of Canaan (c. 1406-1375 BCE)",
         "Judges": "the pre-monarchic period (c. 1375-1050 BCE)",
@@ -390,21 +513,21 @@ def get_time_period(book):
         "Ezra": "the post-exilic return (c. 458-440 BCE)",
         "Nehemiah": "the rebuilding of Jerusalem (c. 445-420 BCE)",
         "Esther": "the Persian period (c. 483-473 BCE)",
-        
+
         # Wisdom literature
         "Job": "the patriarchal period (literary composition later)",
         "Psalms": "various periods (c. 1000-400 BCE)",
         "Proverbs": "primarily Solomon's reign (c. 970-930 BCE)",
         "Ecclesiastes": "likely Solomon's reign (c. 970-930 BCE)",
         "Song of Solomon": "Solomon's reign (c. 970-930 BCE)",
-        
+
         # Major Prophets
         "Isaiah": "the Assyrian and pre-exilic periods (c. 740-680 BCE)",
         "Jeremiah": "the final years of Judah and early exile (c. 627-580 BCE)",
         "Lamentations": "just after Jerusalem's fall (c. 586 BCE)",
         "Ezekiel": "the Babylonian exile (c. 593-570 BCE)",
         "Daniel": "the Babylonian and Persian periods (c. 605-530 BCE)",
-        
+
         # Minor Prophets
         "Hosea": "the final years of the northern kingdom (c. 755-710 BCE)",
         "Joel": "possibly post-exilic period (uncertain date)",
@@ -418,14 +541,14 @@ def get_time_period(book):
         "Haggai": "the early post-exilic period (c. 520 BCE)",
         "Zechariah": "the early post-exilic period (c. 520-480 BCE)",
         "Malachi": "the mid-5th century BCE (c. 460-430 BCE)",
-        
+
         # Gospels and Acts
         "Matthew": "the late first century CE (c. 80-90 CE)",
         "Mark": "the mid first century CE (c. 65-70 CE)",
         "Luke": "the late first century CE (c. 80-85 CE)",
         "John": "the late first century CE (c. 90-95 CE)",
         "Acts": "the late first century CE (c. 80-85 CE)",
-        
+
         # Pauline Epistles
         "Romans": "Paul's third missionary journey (c. 57 CE)",
         "1 Corinthians": "Paul's third missionary journey (c. 55 CE)",
@@ -441,7 +564,7 @@ def get_time_period(book):
         "Titus": "after Paul's first Roman imprisonment (c. 62-64 CE)",
         "Philemon": "Paul's Roman imprisonment (c. 60-62 CE)",
         "Hebrews": "before Jerusalem's destruction (c. 60-70 CE)",
-        
+
         # General Epistles
         "James": "the early church period (c. 45-50 CE)",
         "1 Peter": "during Nero's persecution (c. 62-64 CE)",
@@ -450,11 +573,11 @@ def get_time_period(book):
         "2 John": "the late first century CE (c. 85-95 CE)",
         "3 John": "the late first century CE (c. 85-95 CE)",
         "Jude": "the late first century CE (c. 65-80 CE)",
-        
+
         # Apocalyptic
         "Revelation": "the end of the first century CE (c. 95 CE)"
     }
-    
+
     return time_periods.get(book, "the biblical period")
 
 
@@ -467,7 +590,7 @@ def get_historical_context(book):
         "Leviticus": "The ritual systems addressed were designed to distinguish Israel from surrounding Canaanite practices.",
         "Numbers": "The wilderness journey occurred between Egypt's dominance and the Canaanite tribal systems.",
         "Deuteronomy": "Moses delivered these speeches as Israel prepared to enter a land filled with different Canaanite city-states.",
-        
+
         # Historical books
         "Joshua": "Canaan was fragmented into city-states with various tribal alliances and religious practices.",
         "Judges": "Without central leadership, Israel faced constant threats from surrounding peoples like the Philistines and Midianites.",
@@ -481,21 +604,21 @@ def get_historical_context(book):
         "Ezra": "The Persian Empire allowed religious freedom while maintaining political control.",
         "Nehemiah": "Persian authorities permitted Jerusalem's rebuilding under local leadership with imperial oversight.",
         "Esther": "Jews in diaspora faced both integration opportunities and threats within the vast Persian Empire.",
-        
+
         # Wisdom literature
         "Job": "Ancient wisdom traditions often wrestled with the problem of suffering and divine justice.",
         "Psalms": "Temple worship utilized these compositions across various periods of Israel's history.",
         "Proverbs": "Ancient Near Eastern wisdom literature was common in royal courts for training officials.",
         "Ecclesiastes": "Royal wisdom reflections paralleled other ancient Near Eastern philosophical works.",
         "Song of Solomon": "Ancient Near Eastern love poetry often used agricultural and royal imagery.",
-        
+
         # Major Prophets
         "Isaiah": "Addressed Judah during Assyria's rise, Babylon's threat, and anticipated restoration.",
         "Jeremiah": "Prophesied during Judah's final years as Babylon became the dominant power.",
         "Lamentations": "Written amid the devastating aftermath of Jerusalem's destruction by Babylon.",
         "Ezekiel": "Ministered to exiles in Babylon with visions of God's glory and future restoration.",
         "Daniel": "Demonstrates faithful living under foreign rule during the Babylonian and Persian empires.",
-        
+
         # Minor Prophets
         "Hosea": "Israel faced imminent threat from Assyria while engaging in Canaanite religious syncretism.",
         "Joel": "Addressed a community devastated by natural disaster as a sign of divine judgment.",
@@ -509,14 +632,14 @@ def get_historical_context(book):
         "Haggai": "Economic hardship and political uncertainty complicated the returning exiles' rebuilding efforts.",
         "Zechariah": "Persian support for temple rebuilding came with continued imperial control.",
         "Malachi": "Post-exilic community struggled with religious apathy and intermarriage challenges.",
-        
+
         # Gospels and Acts
         "Matthew": "Written when Christianity was separating from Judaism following Jerusalem's destruction.",
         "Mark": "Composed during or just after Nero's persecution when eyewitnesses were disappearing.",
         "Luke": "Written when Christians needed to understand their place in the Roman world.",
         "John": "Addressed late first-century challenges from both Judaism and emerging Gnostic thought.",
         "Acts": "Chronicles Christianity's spread across the Roman Empire despite official and unofficial opposition.",
-        
+
         # Pauline Epistles
         "Romans": "Christians in Rome navigated tensions between Jewish and Gentile believers under imperial watch.",
         "1 Corinthians": "The church existed in a prosperous, cosmopolitan, morally permissive Roman colony.",
@@ -532,7 +655,7 @@ def get_historical_context(book):
         "Titus": "Cretan culture's negative reputation required special attention to Christian character.",
         "Philemon": "Roman slavery was addressed through Christian principles without direct confrontation.",
         "Hebrews": "Jewish Christians faced persecution pressure to return to Judaism's legal protections.",
-        
+
         # General Epistles
         "James": "Early Jewish believers struggled to live out faith amid economic hardship and discrimination.",
         "1 Peter": "Christians throughout Asia Minor faced growing social hostility and potential persecution.",
@@ -541,11 +664,11 @@ def get_historical_context(book):
         "2 John": "Itinerant teachers required careful vetting as false teaching spread through hospitality networks.",
         "3 John": "Power struggles in local churches complicated missionary support and fellowship.",
         "Jude": "Libertine teaching undermined moral standards by distorting grace.",
-        
+
         # Apocalyptic
         "Revelation": "Emperor worship intensified under Domitian, pressuring Christians to compromise their exclusive loyalty to Christ."
     }
-    
+
     return historical_contexts.get(book, "This text emerged within the historical context of ancient religious traditions.")
 
 
@@ -559,7 +682,7 @@ def get_chapter_type(book, chapter):
         "Leviticus": "legal and ritual",
         "Numbers": "mixed narrative and legal",
         "Deuteronomy": "sermonic and legal",
-        
+
         # Historical
         "Joshua": "historical narrative",
         "Judges": "cyclical narrative",
@@ -573,14 +696,14 @@ def get_chapter_type(book, chapter):
         "Ezra": "historical narrative",
         "Nehemiah": "historical memoir",
         "Esther": "historical narrative",
-        
+
         # Wisdom
         "Job": "wisdom dialogue",
         "Psalms": "poetic and liturgical",
         "Proverbs": "wisdom sayings",
         "Ecclesiastes": "philosophical reflection",
         "Song of Solomon": "poetic love song",
-        
+
         # Prophetic
         "Isaiah": "prophetic oracle",
         "Jeremiah": "prophetic oracle",
@@ -599,16 +722,16 @@ def get_chapter_type(book, chapter):
         "Haggai": "prophetic oracle",
         "Zechariah": "prophetic vision",
         "Malachi": "prophetic disputation",
-        
+
         # Gospels
         "Matthew": "biographical gospel",
         "Mark": "action-oriented gospel",
         "Luke": "historical gospel",
         "John": "theological gospel",
-        
+
         # Acts
         "Acts": "historical narrative",
-        
+
         # Epistles
         "Romans": "theological epistle",
         "1 Corinthians": "pastoral epistle",
@@ -631,11 +754,11 @@ def get_chapter_type(book, chapter):
         "2 John": "pastoral epistle",
         "3 John": "personal epistle",
         "Jude": "polemical epistle",
-        
+
         # Apocalyptic
         "Revelation": "apocalyptic vision"
     }
-    
+
     # Special cases for specific chapters
     special_chapters = {
         ("Genesis", 1): "creation account",
@@ -649,37 +772,50 @@ def get_chapter_type(book, chapter):
         ("2 Samuel", 7): "covenant narrative",
         ("Psalms", 1): "wisdom psalm",
         ("Psalms", 22): "lament psalm",
-        ("Psalms", 23):
-
+        ("Psalms", 23): "shepherd psalm",
+        ("Psalms", 24): "royal psalm",
+        ("Psalms", 25): "prayer psalm",
+        ("Psalms", 26): "trust psalm",
+        ("Psalms", 27): "hope psalm",
+        ("Psalms", 28): "deliverance psalm",
+        ("Psalms", 29): "praise psalm",
+        ("Psalms", 30): "joy psalm",
+        ("Psalms", 31): "suffering psalm",
+        ("Psalms", 32): "wisdom psalm",
+        ("Psalms", 33): "praise psalm",
+        ("Psalms", 34): "praise psalm",
+        ("Psalms", 35): "praise psalm",
+        ("Psalms", 36): "praise psalm"
+    }
 
 def generate_chapter_overview(book, chapter, verses):
     """Generate an AI-powered overview of the entire chapter"""
     # Simulated chapter overview
     themes = [get_theme(v.text.lower()) for v in verses[:5]]  # Sample themes from the first few verses
     unique_themes = list(set(themes))[:3]  # Get up to 3 unique themes
-    
+
     chapter_type = get_chapter_type(book, chapter)
     time_period = get_time_period(book)
     historical_context = get_historical_context(book)
-    
+
     overview = f"""
-    <p><strong>{book} {chapter}</strong> is a {chapter_type} chapter in the {get_testament_for_book(book)} that explores themes of {', '.join(unique_themes)}. 
+    <p><strong>{book} {chapter}</strong> is a {chapter_type} chapter in the {get_testament_for_book(book)} that explores themes of {', '.join(unique_themes)}.
     Written during {time_period}, this chapter should be understood within its historical context: {historical_context}</p>
-    
+
     <p>The chapter can be divided into several sections:</p>
-    
+
     <ol>
         <li><strong>Verses 1-{min(5, len(verses))}</strong>: Introduction and setting the context</li>
         {'<li><strong>Verses 6-' + str(min(12, len(verses))) + '</strong>: Development of key themes</li>' if len(verses) > 5 else ''}
         {'<li><strong>Verses 13-' + str(min(20, len(verses))) + '</strong>: Central message and teachings</li>' if len(verses) > 12 else ''}
         {'<li><strong>Verses ' + str(min(21, len(verses))) + '-' + str(len(verses)) + '</strong>: Conclusion and application</li>' if len(verses) > 20 else ''}
     </ol>
-    
-    <p>This chapter is significant because it {get_chapter_significance(book, chapter)}. 
-    When studying this passage, it's important to consider both its immediate context within {book} 
+
+    <p>This chapter is significant because it {get_chapter_significance(book, chapter)}.
+    When studying this passage, it's important to consider both its immediate context within {book}
     and its broader place in the scriptural canon.</p>
     """
-    
+
     return overview
 
 
@@ -713,17 +849,17 @@ def generate_cross_references(book, chapter, verse, verse_text):
             {"book": "Colossians", "chapter": 1, "verse": 16, "context": "All things created through Christ"}
         ]
     }
-    
+
     # Identify themes in the verse text
     verse_themes = []
     for theme in theme_references.keys():
         if theme in verse_text or random.random() < 0.2:  # Randomly include some themes
             verse_themes.append(theme)
-    
+
     # If no themes match, pick a random theme
     if not verse_themes:
         verse_themes = [random.choice(list(theme_references.keys()))]
-    
+
     # Get references for identified themes
     references = []
     for theme in verse_themes[:2]:  # Limit to two themes
@@ -732,13 +868,13 @@ def generate_cross_references(book, chapter, verse, verse_text):
             # Skip self-references
             if ref["book"] == book and ref["chapter"] == chapter and ref["verse"] == verse:
                 continue
-                
+
             references.append({
                 "text": f"{ref['book']} {ref['chapter']}:{ref['verse']}",
                 "url": f"/book/{ref['book']}/chapter/{ref['chapter']}#verse-{ref['verse']}",
                 "context": ref["context"]
             })
-    
+
     # Ensure we have at least one reference
     if not references:
         random_book = random.choice(["Matthew", "John", "Romans", "Psalms", "Proverbs"])
@@ -747,24 +883,24 @@ def generate_cross_references(book, chapter, verse, verse_text):
             "url": f"/book/{random_book}/chapter/1#verse-1",
             "context": "Related teaching"
         })
-    
+
     return references
 
 
 def get_theme(text):
     """Extract a thematic element from text"""
     themes = [
-        "redemption", "salvation", "faith", "obedience", "love", 
+        "redemption", "salvation", "faith", "obedience", "love",
         "judgment", "mercy", "grace", "wisdom", "creation",
         "covenant", "holiness", "righteousness", "truth", "hope",
         "sacrifice", "worship", "prayer", "discipleship", "fellowship"
     ]
-    
+
     # First check if any themes appear directly in the text
     for theme in themes:
         if theme in text:
             return theme
-    
+
     # Otherwise return a random theme
     return random.choice(themes)
 
@@ -773,7 +909,7 @@ def get_key_phrase(text):
     """Extract a key phrase from the text"""
     # Split the text into phrases
     phrases = text.replace(".", ". ").replace(";", "; ").replace(":", ": ").split()
-    
+
     # Select a phrase of 3-5 words if the text is long enough
     if len(phrases) > 5:
         start = random.randint(0, len(phrases) - 5)
@@ -787,7 +923,7 @@ def get_key_phrase(text):
 def get_language_feature(text):
     """Identify a language feature"""
     features = [
-        "metaphorical language", "symbolic imagery", "parallelism", 
+        "metaphorical language", "symbolic imagery", "parallelism",
         "rhetorical questioning", "imperative form", "poetic structure",
         "narrative technique", "prophetic language", "didactic teaching",
         "pastoral guidance", "theological explanation", "eschatological reference"
@@ -798,7 +934,7 @@ def get_language_feature(text):
 def get_literary_device(text):
     """Identify a literary device"""
     devices = [
-        "metaphor", "simile", "allusion", "personification", "hyperbole", 
+        "metaphor", "simile", "allusion", "personification", "hyperbole",
         "chiasm", "merism", "synecdoche", "parallelism", "inclusio",
         "rhetorical question", "allegory", "symbolic language", "irony"
     ]
@@ -808,7 +944,7 @@ def get_literary_device(text):
 def get_concept(text):
     """Identify a theological concept"""
     concepts = [
-        "divine sovereignty", "human responsibility", "covenant faithfulness", 
+        "divine sovereignty", "human responsibility", "covenant faithfulness",
         "sacrificial atonement", "spiritual renewal", "moral obligation",
         "divine justice", "eschatological hope", "messianic expectation",
         "communal worship", "spiritual discipline", "ethical living",
@@ -820,7 +956,7 @@ def get_concept(text):
 def get_cultural_element(text):
     """Identify a cultural element"""
     elements = [
-        "religious practice", "social custom", "cultural tradition", 
+        "religious practice", "social custom", "cultural tradition",
         "political structure", "economic system", "family relationship",
         "legal requirement", "worship ritual", "purity regulation",
         "agricultural reference", "military imagery", "architectural feature"
@@ -837,7 +973,7 @@ def get_time_period(book):
         "Leviticus": "Israel's wilderness period (c. 1446-1406 BCE)",
         "Numbers": "Israel's wilderness period (c. 1446-1406 BCE)",
         "Deuteronomy": "the end of the wilderness wandering (c. 1406 BCE)",
-        
+
         # Historical books
         "Joshua": "the conquest of Canaan (c. 1406-1375 BCE)",
         "Judges": "the pre-monarchic period (c. 1375-1050 BCE)",
@@ -851,21 +987,21 @@ def get_time_period(book):
         "Ezra": "the post-exilic return (c. 458-440 BCE)",
         "Nehemiah": "the rebuilding of Jerusalem (c. 445-420 BCE)",
         "Esther": "the Persian period (c. 483-473 BCE)",
-        
+
         # Wisdom literature
         "Job": "the patriarchal period (literary composition later)",
         "Psalms": "various periods (c. 1000-400 BCE)",
         "Proverbs": "primarily Solomon's reign (c. 970-930 BCE)",
         "Ecclesiastes": "likely Solomon's reign (c. 970-930 BCE)",
         "Song of Solomon": "Solomon's reign (c. 970-930 BCE)",
-        
+
         # Major Prophets
         "Isaiah": "the Assyrian and pre-exilic periods (c. 740-680 BCE)",
         "Jeremiah": "the final years of Judah and early exile (c. 627-580 BCE)",
         "Lamentations": "just after Jerusalem's fall (c. 586 BCE)",
         "Ezekiel": "the Babylonian exile (c. 593-570 BCE)",
         "Daniel": "the Babylonian and Persian periods (c. 605-530 BCE)",
-        
+
         # Minor Prophets
         "Hosea": "the final years of the northern kingdom (c. 755-710 BCE)",
         "Joel": "possibly post-exilic period (uncertain date)",
@@ -879,14 +1015,14 @@ def get_time_period(book):
         "Haggai": "the early post-exilic period (c. 520 BCE)",
         "Zechariah": "the early post-exilic period (c. 520-480 BCE)",
         "Malachi": "the mid-5th century BCE (c. 460-430 BCE)",
-        
+
         # Gospels and Acts
         "Matthew": "the late first century CE (c. 80-90 CE)",
         "Mark": "the mid first century CE (c. 65-70 CE)",
         "Luke": "the late first century CE (c. 80-85 CE)",
         "John": "the late first century CE (c. 90-95 CE)",
         "Acts": "the late first century CE (c. 80-85 CE)",
-        
+
         # Pauline Epistles
         "Romans": "Paul's third missionary journey (c. 57 CE)",
         "1 Corinthians": "Paul's third missionary journey (c. 55 CE)",
@@ -902,7 +1038,7 @@ def get_time_period(book):
         "Titus": "after Paul's first Roman imprisonment (c. 62-64 CE)",
         "Philemon": "Paul's Roman imprisonment (c. 60-62 CE)",
         "Hebrews": "before Jerusalem's destruction (c. 60-70 CE)",
-        
+
         # General Epistles
         "James": "the early church period (c. 45-50 CE)",
         "1 Peter": "during Nero's persecution (c. 62-64 CE)",
@@ -911,11 +1047,11 @@ def get_time_period(book):
         "2 John": "the late first century CE (c. 85-95 CE)",
         "3 John": "the late first century CE (c. 85-95 CE)",
         "Jude": "the late first century CE (c. 65-80 CE)",
-        
+
         # Apocalyptic
         "Revelation": "the end of the first century CE (c. 95 CE)"
     }
-    
+
     return time_periods.get(book, "the biblical period")
 
 
@@ -928,7 +1064,7 @@ def get_historical_context(book):
         "Leviticus": "The ritual systems addressed were designed to distinguish Israel from surrounding Canaanite practices.",
         "Numbers": "The wilderness journey occurred between Egypt's dominance and the Canaanite tribal systems.",
         "Deuteronomy": "Moses delivered these speeches as Israel prepared to enter a land filled with different Canaanite city-states.",
-        
+
         # Historical books
         "Joshua": "Canaan was fragmented into city-states with various tribal alliances and religious practices.",
         "Judges": "Without central leadership, Israel faced constant threats from surrounding peoples like the Philistines and Midianites.",
@@ -942,21 +1078,21 @@ def get_historical_context(book):
         "Ezra": "The Persian Empire allowed religious freedom while maintaining political control.",
         "Nehemiah": "Persian authorities permitted Jerusalem's rebuilding under local leadership with imperial oversight.",
         "Esther": "Jews in diaspora faced both integration opportunities and threats within the vast Persian Empire.",
-        
+
         # Wisdom literature
         "Job": "Ancient wisdom traditions often wrestled with the problem of suffering and divine justice.",
         "Psalms": "Temple worship utilized these compositions across various periods of Israel's history.",
         "Proverbs": "Ancient Near Eastern wisdom literature was common in royal courts for training officials.",
         "Ecclesiastes": "Royal wisdom reflections paralleled other ancient Near Eastern philosophical works.",
         "Song of Solomon": "Ancient Near Eastern love poetry often used agricultural and royal imagery.",
-        
+
         # Major Prophets
         "Isaiah": "Addressed Judah during Assyria's rise, Babylon's threat, and anticipated restoration.",
         "Jeremiah": "Prophesied during Judah's final years as Babylon became the dominant power.",
         "Lamentations": "Written amid the devastating aftermath of Jerusalem's destruction by Babylon.",
         "Ezekiel": "Ministered to exiles in Babylon with visions of God's glory and future restoration.",
         "Daniel": "Demonstrates faithful living under foreign rule during the Babylonian and Persian empires.",
-        
+
         # Minor Prophets
         "Hosea": "Israel faced imminent threat from Assyria while engaging in Canaanite religious syncretism.",
         "Joel": "Addressed a community devastated by natural disaster as a sign of divine judgment.",
@@ -970,14 +1106,14 @@ def get_historical_context(book):
         "Haggai": "Economic hardship and political uncertainty complicated the returning exiles' rebuilding efforts.",
         "Zechariah": "Persian support for temple rebuilding came with continued imperial control.",
         "Malachi": "Post-exilic community struggled with religious apathy and intermarriage challenges.",
-        
+
         # Gospels and Acts
         "Matthew": "Written when Christianity was separating from Judaism following Jerusalem's destruction.",
         "Mark": "Composed during or just after Nero's persecution when eyewitnesses were disappearing.",
         "Luke": "Written when Christians needed to understand their place in the Roman world.",
         "John": "Addressed late first-century challenges from both Judaism and emerging Gnostic thought.",
         "Acts": "Chronicles Christianity's spread across the Roman Empire despite official and unofficial opposition.",
-        
+
         # Pauline Epistles
         "Romans": "Christians in Rome navigated tensions between Jewish and Gentile believers under imperial watch.",
         "1 Corinthians": "The church existed in a prosperous, cosmopolitan, morally permissive Roman colony.",
@@ -993,7 +1129,7 @@ def get_historical_context(book):
         "Titus": "Cretan culture's negative reputation required special attention to Christian character.",
         "Philemon": "Roman slavery was addressed through Christian principles without direct confrontation.",
         "Hebrews": "Jewish Christians faced persecution pressure to return to Judaism's legal protections.",
-        
+
         # General Epistles
         "James": "Early Jewish believers struggled to live out faith amid economic hardship and discrimination.",
         "1 Peter": "Christians throughout Asia Minor faced growing social hostility and potential persecution.",
@@ -1002,11 +1138,11 @@ def get_historical_context(book):
         "2 John": "Itinerant teachers required careful vetting as false teaching spread through hospitality networks.",
         "3 John": "Power struggles in local churches complicated missionary support and fellowship.",
         "Jude": "Libertine teaching undermined moral standards by distorting grace.",
-        
+
         # Apocalyptic
         "Revelation": "Emperor worship intensified under Domitian, pressuring Christians to compromise their exclusive loyalty to Christ."
     }
-    
+
     return historical_contexts.get(book, "This text emerged within the historical context of ancient religious traditions.")
 
 
@@ -1020,7 +1156,7 @@ def get_chapter_type(book, chapter):
         "Leviticus": "legal and ritual",
         "Numbers": "mixed narrative and legal",
         "Deuteronomy": "sermonic and legal",
-        
+
         # Historical
         "Joshua": "historical narrative",
         "Judges": "cyclical narrative",
@@ -1034,14 +1170,14 @@ def get_chapter_type(book, chapter):
         "Ezra": "historical narrative",
         "Nehemiah": "historical memoir",
         "Esther": "historical narrative",
-        
+
         # Wisdom
         "Job": "wisdom dialogue",
         "Psalms": "poetic and liturgical",
         "Proverbs": "wisdom sayings",
         "Ecclesiastes": "philosophical reflection",
         "Song of Solomon": "poetic love song",
-        
+
         # Prophetic
         "Isaiah": "prophetic oracle",
         "Jeremiah": "prophetic oracle",
@@ -1060,16 +1196,16 @@ def get_chapter_type(book, chapter):
         "Haggai": "prophetic oracle",
         "Zechariah": "prophetic vision",
         "Malachi": "prophetic disputation",
-        
+
         # Gospels
         "Matthew": "biographical gospel",
         "Mark": "action-oriented gospel",
         "Luke": "historical gospel",
         "John": "theological gospel",
-        
+
         # Acts
         "Acts": "historical narrative",
-        
+
         # Epistles
         "Romans": "theological epistle",
         "1 Corinthians": "pastoral epistle",
@@ -1092,11 +1228,11 @@ def get_chapter_type(book, chapter):
         "2 John": "pastoral epistle",
         "3 John": "personal epistle",
         "Jude": "polemical epistle",
-        
+
         # Apocalyptic
         "Revelation": "apocalyptic vision"
     }
-    
+
     # Special cases for specific chapters
     special_chapters = {
         ("Genesis", 1): "creation account",
@@ -1118,11 +1254,11 @@ def get_chapter_type(book, chapter):
         ("1 Corinthians", 13): "hymn to love",
         ("Revelation", 1): "apocalyptic vision"
     }
-    
+
     # Check if this is a special chapter
     if (book, chapter) in special_chapters:
         return special_chapters[(book, chapter)]
-    
+
     # Otherwise return the general book genre
     return book_genres.get(book, "scriptural")
 
@@ -1139,7 +1275,7 @@ def get_testament_for_book(book):
         "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah",
         "Haggai", "Zechariah", "Malachi"
     ]
-    
+
     return "Old Testament" if book in old_testament else "New Testament"
 
 
@@ -1157,7 +1293,7 @@ def get_chapter_significance(book, chapter):
         "illustrates divine judgment and mercy in response to human actions",
         "provides guidance for worship and spiritual devotion"
     ]
-    
+
     # Special significance for specific chapters
     special_significance = {
         ("Genesis", 1): "establishes the foundational doctrine of creation and God's sovereignty",
@@ -1171,7 +1307,7 @@ def get_chapter_significance(book, chapter):
         ("1 Corinthians", 15): "defends the resurrection as central to Christian faith",
         ("Revelation", 1): "introduces apocalyptic visions that reveal Christ's ultimate victory and sovereignty"
     }
-    
+
     if (book, chapter) in special_significance:
         return special_significance[(book, chapter)]
     else:
@@ -1188,8 +1324,8 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(
-        app, 
-        host="0.0.0.0", 
+        app,
+        host="0.0.0.0",
         port=8000,
         reload=True,
         log_level="info"
