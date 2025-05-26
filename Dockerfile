@@ -23,6 +23,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH="/app" \
     PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
@@ -33,7 +34,5 @@ COPY --from=builder /app/.venv /app/.venv
 # Copy application code
 COPY . .
 
-# Install the project itself
-RUN uv pip install --no-deps .
-
-CMD ["kjvstudy-org"]
+# Run the application using FastAPI CLI
+CMD ["fastapi", "run", "kjvstudy_org.server:app", "--host", "0.0.0.0", "--port", "8000"]
