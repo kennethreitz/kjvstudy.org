@@ -346,9 +346,45 @@ class KJVStudy {
       const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       
-      if (isTablet) {
-              mainContent.style.opacity = '0.4';
+      if (isOpen) {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('open');
+          document.body.style.overflow = '';
+        
+          // Force hardware acceleration to prevent rendering issues
+          if (isTablet || isIPad) {
+              sidebar.style.transform = 'translate3d(-240px, 0, 0)';
+              sidebar.style.webkitTransform = 'translate3d(-240px, 0, 0)';
+          } else {
+              sidebar.style.transform = 'translate3d(-100%, 0, 0)';
+              sidebar.style.webkitTransform = 'translate3d(-100%, 0, 0)';
+          }
+        
+          // Ensure main content is fully visible
+          mainContent.style.filter = 'none';
+          mainContent.style.opacity = '1';
+          mainContent.style.pointerEvents = 'auto';
+          
+          if (isTablet || isIPad) {
+              // Reset any iPad-specific styles
+              mainContent.style.marginLeft = '0';
+              mainContent.style.width = '100%';
+          }
+      } else {
+          sidebar.classList.add('open');
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        
+          // Force hardware acceleration
+          sidebar.style.transform = 'translate3d(0, 0, 0)';
+          sidebar.style.webkitTransform = 'translate3d(0, 0, 0)';
+        
+          // Handle iPad/tablet specific behavior
+          if (isTablet || isIPad) {
+              mainContent.style.opacity = '0.8';
               mainContent.style.pointerEvents = 'none';
+              mainContent.style.marginLeft = '0';
+              mainContent.style.width = '100%';
           }
       }
     }
@@ -484,16 +520,23 @@ function toggleSidebar() {
     
     // Handle iPad specific issues
     const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
-    if (isTablet) {
+    const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+                  
+    if (isTablet || isIPad) {
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.querySelector('.main-content');
         
         if (sidebar.classList.contains('open')) {
-            mainContent.style.opacity = '0.4';
+            mainContent.style.opacity = '0.8';
             mainContent.style.pointerEvents = 'none';
+            mainContent.style.marginLeft = '0';
+            mainContent.style.width = '100%';
         } else {
             mainContent.style.opacity = '1';
             mainContent.style.pointerEvents = 'auto';
+            mainContent.style.marginLeft = '0';
+            mainContent.style.width = '100%';
         }
     }
 }
