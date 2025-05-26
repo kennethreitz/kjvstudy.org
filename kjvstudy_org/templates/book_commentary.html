@@ -757,7 +757,7 @@ h1, h2, h3, h4, h5, h6 {
                             {% if item.reference %}
                             (<a href="{{ item.url }}" class="verse-reference">
                                 {{ item.reference }}
-                                <span class="verse-tooltip">{{ item.verse_text|default(item.reference + ": " + item.description)|truncate(100) }}</span>
+                                <span class="verse-tooltip">{{ item.verse_text|default(item.reference + ": " + item.text)|truncate(100) }}</span>
                             </a>)
                             {% endif %}
                             
@@ -769,7 +769,7 @@ h1, h2, h3, h4, h5, h6 {
                                     {% if subitem.reference %}
                                     (<a href="{{ subitem.url }}" class="verse-reference">
                                         {{ subitem.reference }}
-                                        <span class="verse-tooltip">{{ subitem.verse_text|default(subitem.reference + ": " + subitem.description)|truncate(100) }}</span>
+                                        <span class="verse-tooltip">{{ subitem.verse_text|default(subitem.reference + ": " + subitem.text)|truncate(100) }}</span>
                                     </a>)
                                     {% endif %}
                                 </li>
