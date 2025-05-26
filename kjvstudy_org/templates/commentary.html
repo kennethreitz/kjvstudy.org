@@ -366,7 +366,7 @@ body::before {
                     <h3 class="commentary-title">Cross References</h3>
                     <ul>
                         {% for ref in commentaries[verse.verse].cross_references %}
-                        <li><a href="{{ ref.url }}" title="Go to {{ ref.text }}: {{ ref.context|truncate(60) }}">{{ ref.text }}</a> - {{ ref.context }}</li>
+                        <li><a href="{{ ref.url }}" title="{{ ref.verse_text|default(ref.context)|truncate(80) }}">{{ ref.text }}</a> - {{ ref.context }}</li>
                         {% endfor %}
                     </ul>
                 </div>

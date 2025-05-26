@@ -411,7 +411,7 @@
                     <li>
                         <a href="{{ ref.url }}" class="verse-reference" style="color: var(--primary-color); text-decoration: none;">
                             {{ ref.text }}
-                            <span class="verse-tooltip">{{ ref.verse_text|default("Click to view " + ref.text) }}</span>
+                            <span class="verse-tooltip">{{ ref.verse_text|default(ref.context) }}</span>
                         </a> - {{ ref.context }}
                     </li>
                     {% endfor %}

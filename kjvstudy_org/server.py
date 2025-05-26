@@ -524,32 +524,52 @@ def generate_chapter_overview(book, chapter, verses):
 
 def generate_cross_references(book, chapter, verse, verse_text):
     """Generate simulated cross-references for a verse"""
-    # Dictionary of sample cross-references by theme
+    # Dictionary of sample cross-references by theme with actual verse texts
     theme_references = {
         "salvation": [
-            {"book": "John", "chapter": 3, "verse": 16, "context": "God's love and salvation"},
-            {"book": "Romans", "chapter": 10, "verse": 9, "context": "Confession and belief for salvation"},
-            {"book": "Ephesians", "chapter": 2, "verse": 8, "context": "Salvation by grace through faith"}
+            {"book": "John", "chapter": 3, "verse": 16, "context": "God's love and salvation", "verse_text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."},
+            {"book": "Romans", "chapter": 10, "verse": 9, "context": "Confession and belief for salvation", "verse_text": "That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved."},
+            {"book": "Ephesians", "chapter": 2, "verse": 8, "context": "Salvation by grace through faith", "verse_text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God:"}
         ],
         "faith": [
-            {"book": "Hebrews", "chapter": 11, "verse": 1, "context": "Definition of faith"},
-            {"book": "James", "chapter": 2, "verse": 17, "context": "Faith and works"},
-            {"book": "Romans", "chapter": 1, "verse": 17, "context": "The righteous shall live by faith"}
+            {"book": "Hebrews", "chapter": 11, "verse": 1, "context": "Definition of faith", "verse_text": "Now faith is the substance of things hoped for, the evidence of things not seen."},
+            {"book": "James", "chapter": 2, "verse": 17, "context": "Faith and works", "verse_text": "Even so faith, if it hath not works, is dead, being alone."},
+            {"book": "Romans", "chapter": 1, "verse": 17, "context": "The righteous shall live by faith", "verse_text": "For therein is the righteousness of God revealed from faith to faith: as it is written, The just shall live by faith."}
         ],
         "love": [
-            {"book": "1 Corinthians", "chapter": 13, "verse": 4, "context": "Characteristics of love"},
-            {"book": "1 John", "chapter": 4, "verse": 8, "context": "God is love"},
-            {"book": "John", "chapter": 15, "verse": 13, "context": "Greatest form of love"}
+            {"book": "1 Corinthians", "chapter": 13, "verse": 4, "context": "Characteristics of love", "verse_text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up,"},
+            {"book": "1 John", "chapter": 4, "verse": 8, "context": "God is love", "verse_text": "He that loveth not knoweth not God; for God is love."},
+            {"book": "John", "chapter": 15, "verse": 13, "context": "Greatest form of love", "verse_text": "Greater love hath no man than this, that a man lay down his life for his friends."}
         ],
         "judgment": [
-            {"book": "Matthew", "chapter": 25, "verse": 31, "context": "Final judgment"},
-            {"book": "Romans", "chapter": 2, "verse": 1, "context": "Judging others"},
-            {"book": "Revelation", "chapter": 20, "verse": 12, "context": "Judgment according to deeds"}
+            {"book": "Matthew", "chapter": 25, "verse": 31, "context": "Final judgment", "verse_text": "When the Son of man shall come in his glory, and all the holy angels with him, then shall he sit upon the throne of his glory:"},
+            {"book": "Romans", "chapter": 2, "verse": 1, "context": "Judging others", "verse_text": "Therefore thou art inexcusable, O man, whosoever thou art that judgest: for wherein thou judgest another, thou condemnest thyself; for thou that judgest doest the same things."},
+            {"book": "Revelation", "chapter": 20, "verse": 12, "context": "Judgment according to deeds", "verse_text": "And I saw the dead, small and great, stand before God; and the books were opened: and another book was opened, which is the book of life: and the dead were judged out of those things which were written in the books, according to their works."}
         ],
         "creation": [
-            {"book": "Genesis", "chapter": 1, "verse": 1, "context": "Creation of heavens and earth"},
-            {"book": "Psalm", "chapter": 19, "verse": 1, "context": "Heavens declare God's glory"},
-            {"book": "Colossians", "chapter": 1, "verse": 16, "context": "All things created through Christ"}
+            {"book": "Genesis", "chapter": 1, "verse": 1, "context": "Creation of heavens and earth", "verse_text": "In the beginning God created the heaven and the earth."},
+            {"book": "Psalm", "chapter": 19, "verse": 1, "context": "Heavens declare God's glory", "verse_text": "The heavens declare the glory of God; and the firmament sheweth his handywork."},
+            {"book": "Colossians", "chapter": 1, "verse": 16, "context": "All things created through Christ", "verse_text": "For by him were all things created, that are in heaven, and that are in earth, visible and invisible, whether they be thrones, or dominions, or principalities, or powers: all things were created by him, and for him:"}
+        ],
+        "prayer": [
+            {"book": "Matthew", "chapter": 6, "verse": 9, "context": "The Lord's Prayer", "verse_text": "After this manner therefore pray ye: Our Father which art in heaven, Hallowed be thy name."},
+            {"book": "1 Thessalonians", "chapter": 5, "verse": 17, "context": "Pray without ceasing", "verse_text": "Pray without ceasing."},
+            {"book": "James", "chapter": 5, "verse": 16, "context": "Prayer of the righteous", "verse_text": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."}
+        ],
+        "wisdom": [
+            {"book": "Proverbs", "chapter": 9, "verse": 10, "context": "Beginning of wisdom", "verse_text": "The fear of the Lord is the beginning of wisdom: and the knowledge of the holy is understanding."},
+            {"book": "James", "chapter": 1, "verse": 5, "context": "Ask God for wisdom", "verse_text": "If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him."},
+            {"book": "1 Corinthians", "chapter": 1, "verse": 25, "context": "God's wisdom vs man's", "verse_text": "Because the foolishness of God is wiser than men; and the weakness of God is stronger than men."}
+        ],
+        "hope": [
+            {"book": "Romans", "chapter": 15, "verse": 13, "context": "God of hope", "verse_text": "Now the God of hope fill you with all joy and peace in believing, that ye may abound in hope, through the power of the Holy Ghost."},
+            {"book": "Hebrews", "chapter": 6, "verse": 19, "context": "Hope as anchor", "verse_text": "Which hope we have as an anchor of the soul, both sure and stedfast, and which entereth into that within the veil;"},
+            {"book": "1 Peter", "chapter": 1, "verse": 3, "context": "Living hope", "verse_text": "Blessed be the God and Father of our Lord Jesus Christ, which according to his abundant mercy hath begotten us again unto a lively hope by the resurrection of Jesus Christ from the dead,"}
+        ],
+        "peace": [
+            {"book": "John", "chapter": 14, "verse": 27, "context": "Christ's peace", "verse_text": "Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be afraid."},
+            {"book": "Philippians", "chapter": 4, "verse": 7, "context": "Peace that passes understanding", "verse_text": "And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus."},
+            {"book": "Isaiah", "chapter": 26, "verse": 3, "context": "Perfect peace", "verse_text": "Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee."}
         ]
     }
 
@@ -575,16 +595,17 @@ def generate_cross_references(book, chapter, verse, verse_text):
             references.append({
                 "text": f"{ref['book']} {ref['chapter']}:{ref['verse']}",
                 "url": f"/book/{ref['book']}/chapter/{ref['chapter']}#verse-{ref['verse']}",
-                "context": ref["context"]
+                "context": ref["context"],
+                "verse_text": ref["verse_text"]
             })
 
     # Ensure we have at least one reference
     if not references:
-        random_book = random.choice(["Matthew", "John", "Romans", "Psalms", "Proverbs"])
         references.append({
-            "text": f"{random_book} 1:1",
-            "url": f"/book/{random_book}/chapter/1#verse-1",
-            "context": "Related teaching"
+            "text": "John 1:1",
+            "url": "/book/John/chapter/1#verse-1",
+            "context": "Related teaching",
+            "verse_text": "In the beginning was the Word, and the Word was with God, and the Word was God."
         })
 
     return references
