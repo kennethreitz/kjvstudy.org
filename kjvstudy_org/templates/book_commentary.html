@@ -230,11 +230,50 @@ h1, h2, h3, h4, h5, h6 {
     color: #ff6b6b;
     text-decoration: none;
     white-space: nowrap;
+    position: relative;
 }
 
 .verse-reference:hover {
     color: white;
     text-decoration: underline;
+}
+
+.verse-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    max-width: 300px;
+    white-space: normal;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'EB Garamond', Georgia, serif;
+}
+
+.verse-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.verse-reference:hover .verse-tooltip {
+    opacity: 1;
+    visibility: visible;
 }
 
 .sidebar-toc {
@@ -703,7 +742,10 @@ h1, h2, h3, h4, h5, h6 {
                         <li class="outline-item">
                             {{ item.text }}
                             {% if item.reference %}
-                            (<a href="{{ item.url }}" class="verse-reference">{{ item.reference }}</a>)
+                            (<a href="{{ item.url }}" class="verse-reference">
+                                {{ item.reference }}
+                                <span class="verse-tooltip">{{ item.text|default("See " + item.reference + " for details") }}</span>
+                            </a>)
                             {% endif %}
                             
                             {% if item.subitems %}
@@ -712,7 +754,10 @@ h1, h2, h3, h4, h5, h6 {
                                 <li class="outline-item">
                                     {{ subitem.text }}
                                     {% if subitem.reference %}
-                                    (<a href="{{ subitem.url }}" class="verse-reference">{{ subitem.reference }}</a>)
+                                    (<a href="{{ subitem.url }}" class="verse-reference">
+                                        {{ subitem.reference }}
+                                        <span class="verse-tooltip">{{ subitem.text|default("See " + subitem.reference + " for details") }}</span>
+                                    </a>)
                                     {% endif %}
                                 </li>
                                 {% endfor %}
@@ -739,7 +784,10 @@ h1, h2, h3, h4, h5, h6 {
                     <ul class="cross-ref-list">
                         {% for ref in cross_references %}
                         <li>
-                            <a href="{{ ref.url }}" class="verse-reference">{{ ref.reference }}</a> - {{ ref.description }}
+                            <a href="{{ ref.url }}" class="verse-reference">
+                                {{ ref.reference }}
+                                <span class="verse-tooltip">{{ ref.text|default("Cross-reference: " + ref.description) }}</span>
+                            </a> - {{ ref.description }}
                         </li>
                         {% endfor %}
                     </ul>
@@ -759,8 +807,9 @@ h1, h2, h3, h4, h5, h6 {
                     <ul style="margin: 0; padding-left: 1.25rem;">
                         {% for verse in chapter_data.key_verses %}
                         <li>
-                            <a href="{{ verse.url }}" class="verse-reference verse-popup-trigger" data-chapter="{{ chapter_num }}" data-verse="{{ verse.verse_num }}" data-text="{{ verse.text }}" data-comment="{{ verse.comment }}">
+                            <a href="{{ verse.url }}" class="verse-reference">
                                 {{ book }} {{ chapter_num }}:{{ verse.verse_num }}
+                                <span class="verse-tooltip">{{ verse.text|default("Verse text not available") }}</span>
                             </a> - {{ verse.brief }}
                         </li>
                         {% endfor %}
