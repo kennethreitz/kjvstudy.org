@@ -107,15 +107,23 @@ def read_chapter(request: Request, book: str, chapter: int):
         # Check if the book exists first
         if not chapters:
             raise HTTPException(
-                status_code=404,
+                status_code=404, 
                 detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
             )
         else:
             raise HTTPException(
-                status_code=404,
+                status_code=404, 
                 detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
             )
-
+    
+    # Generate AI commentary for the chapter
+    commentaries = {}
+    for verse in verses:
+        commentaries[verse.verse] = generate_commentary(book, chapter, verse)
+    
+    # Generate chapter overview
+    chapter_overview = generate_chapter_overview(book, chapter, verses)
+    
     return templates.TemplateResponse(
         "chapter.html",
         {
@@ -125,6 +133,8 @@ def read_chapter(request: Request, book: str, chapter: int):
             "verses": verses,
             "books": books,
             "chapters": chapters,
+            "commentaries": commentaries,
+            "chapter_overview": chapter_overview
         },
     )
 
@@ -1524,10 +1534,322 @@ def generate_book_tags(book, genre):
         "Zephaniah": ["Day of the LORD", "Judgment", "Remnant", "Restoration"],
         "Haggai": ["Temple", "Priorities", "Restoration", "Blessing"],
         "Zechariah": ["Messiah", "Vision", "Restoration", "Future"],
-        "jv-study"}
+        "Malachi": ["Covenant", "Faithfulness", "Offering", "Messenger"],
+        "Matthew": ["Kingdom", "Messiah", "Fulfillment", "Teaching"],
+        "Mark": ["Servant", "Action", "Suffering", "Discipleship"],
+        "Luke": ["Savior", "Universal", "Social Justice", "Holy Spirit"],
+        "John": ["Belief", "Life", "Word", "Signs"],
+        "Acts": ["Church", "Holy Spirit", "Mission", "Growth"],
+        "Romans": ["Righteousness", "Faith", "Grace", "Salvation"],
+        "1 Corinthians": ["Unity", "Wisdom", "Gifts", "Love"],
+        "2 Corinthians": ["Ministry", "Reconciliation", "Generosity", "Weakness"],
+        "Galatians": ["Freedom", "Grace", "Faith", "Law"],
+        "Ephesians": ["Unity", "Church", "Grace", "Spiritual Warfare"],
+        "Philippians": ["Joy", "Humility", "Unity", "Contentment"],
+        "Colossians": ["Supremacy", "Completeness", "Wisdom", "Freedom"],
+        "1 Thessalonians": ["Encouragement", "Hope", "Faith", "Return"],
+        "2 Thessalonians": ["Judgment", "Work", "Hope", "Perseverance"],
+        "1 Timothy": ["Leadership", "Church Order", "Sound Doctrine", "Godliness"],
+        "2 Timothy": ["Endurance", "Scripture", "Faithfulness", "Legacy"],
+        "Titus": ["Good Works", "Leadership", "Sound Doctrine", "Grace"],
+        "Philemon": ["Reconciliation", "Forgiveness", "Brotherhood", "Transformation"],
+        "Hebrews": ["Superiority", "Faith", "Perseverance", "Covenant"],
+        "James": ["Works", "Faith", "Wisdom", "Speech"],
+        "1 Peter": ["Suffering", "Holiness", "Hope", "Identity"],
+        "2 Peter": ["Knowledge", "False Teaching", "Day of the Lord", "Growth"],
+        "1 John": ["Love", "Truth", "Fellowship", "Assurance"],
+        "2 John": ["Truth", "Love", "Discernment", "Hospitality"],
+        "3 John": ["Hospitality", "Truth", "Example", "Leadership"],
+        "Jude": ["Contending", "Faith", "False Teaching", "Judgment"],
+        "Revelation": ["Victory", "Judgment", "Worship", "New Creation"]
+    }
+    
+    # Combine tags
+    tags = []
+    
+    # Add genre tags
+    for key in genre_tags.keys():
+        if key in genre.lower():
+            tags.extend(genre_tags[key])
+            break
+    
+    # Add book-specific tags
+    if book in book_specific_tags:
+        tags.extend(book_specific_tags[book])
+    
+    # Return unique tags
+    return list(set(tags))
 
 
-if __name__ == "__main__":
+def get_book_genre(book):
+    """Return the literary genre of a book"""
+    genres = {
+        # Torah
+        "Genesis": "Narrative with genealogy",
+        "Exodus": "Narrative with law",
+        "Leviticus": "Law and ritual instruction",
+        "Numbers": "Narrative with law and census",
+        "Deuteronomy": "Sermonic law",
+        
+        # Historical books
+        "Joshua": "Historical narrative",
+        "Judges": "Cyclical historical narrative",
+        "Ruth": "Historical narrative",
+        "1 Samuel": "Historical narrative",
+        "2 Samuel": "Historical narrative",
+        "1 Kings": "Historical narrative",
+        "2 Kings": "Historical narrative",
+        "1 Chronicles": "Historical narrative with genealogy",
+        "2 Chronicles": "Historical narrative",
+        "Ezra": "Historical narrative",
+        "Nehemiah": "Historical narrative with memoir",
+        "Esther": "Historical narrative",
+        
+        # Wisdom literature
+        "Job": "Wisdom literature with poetic dialogue",
+        "Psalms": "Poetry and liturgy",
+        "Proverbs": "Wisdom literature",
+        "Ecclesiastes": "Wisdom literature with philosophical reflection",
+        "Song of Solomon": "Poetry and love song",
+        
+        # Major Prophets
+        "Isaiah": "Prophetic literature with poetry",
+        "Jeremiah": "Prophetic literature with biography",
+        "Lamentations": "Poetic lament",
+        "Ezekiel": "Prophetic literature with apocalyptic elements",
+        "Daniel": "Narrative with apocalyptic visions",
+        
+        # Minor Prophets
+        "Hosea": "Prophetic literature",
+        "Joel": "Prophetic literature",
+        "Amos": "Prophetic literature",
+        "Obadiah": "Prophetic literature",
+        "Jonah": "Prophetic narrative",
+        "Micah": "Prophetic literature",
+        "Nahum": "Prophetic literature",
+        "Habakkuk": "Prophetic literature with dialogue",
+        "Zephaniah": "Prophetic literature",
+        "Haggai": "Prophetic literature",
+        "Zechariah": "Prophetic literature with apocalyptic visions",
+        "Malachi": "Prophetic literature with disputation",
+        
+        # Gospels
+        "Matthew": "Gospel narrative",
+        "Mark": "Gospel narrative",
+        "Luke": "Gospel narrative with historiography",
+        "John": "Gospel narrative with theology",
+        
+        # Acts
+        "Acts": "Historical narrative",
+        
+        # Pauline Epistles
+        "Romans": "Epistle with systematic theology",
+        "1 Corinthians": "Epistle",
+        "2 Corinthians": "Epistle",
+        "Galatians": "Epistle",
+        "Ephesians": "Epistle",
+        "Philippians": "Epistle",
+        "Colossians": "Epistle",
+        "1 Thessalonians": "Epistle",
+        "2 Thessalonians": "Epistle",
+        "1 Timothy": "Pastoral epistle",
+        "2 Timothy": "Pastoral epistle",
+        "Titus": "Pastoral epistle",
+        "Philemon": "Personal epistle",
+        "Hebrews": "Epistle with sermonic elements",
+        
+        # General Epistles
+        "James": "Epistle with wisdom elements",
+        "1 Peter": "Epistle",
+        "2 Peter": "Epistle",
+        "1 John": "Epistle with theological discourse",
+        "2 John": "Brief epistle",
+        "3 John": "Brief epistle",
+        "Jude": "Epistle",
+        
+        # Apocalyptic
+        "Revelation": "Apocalyptic literature with epistle elements"
+    }
+    
+    return genres.get(book, "Biblical literature")
+
+
+def generate_book_introduction(book):
+    """Generate introduction for a book"""
+    # You would implement detailed logic here based on the book
+    # This is a simplified version that would be expanded
+    
+    introductions = {
+        "Genesis": """
+        <p>Genesis, the first book of the Bible, serves as the foundation for the entire biblical narrative. Its name comes from the Greek word meaning "origin" or "beginning," and it appropriately records the beginnings of the universe, humanity, sin, salvation, and the nation of Israel. Written by Moses according to traditional attribution, Genesis spans from creation to Israel's migration to Egypt, covering more time than any other book in Scripture.</p>
+        
+        <p>As the cornerstone of the Pentateuch (the first five books of the Bible), Genesis establishes the theological framework for understanding God's relationship with humanity and His covenant promises. It introduces key themes that resonate throughout Scripture: creation, fall, judgment, grace, covenant, promise, and redemption.</p>
+        
+        <p>The book divides naturally into two major sections: primeval history (chapters 1-11) and patriarchal narratives (chapters 12-50). The primeval history addresses universal concerns through the stories of creation, the fall, the flood, and the Tower of Babel. The patriarchal narratives focus on God's covenant relationship with Abraham, Isaac, Jacob, and Joseph, establishing the foundation for Israel's national identity.</p>
+        
+        <p>Throughout Genesis, God is portrayed as the sovereign Creator who brings order out of chaos, makes covenants with His chosen people, and works providentially to fulfill His purposes despite human failings. The book's theological significance extends far beyond its historical narrative, providing the essential backdrop for understanding God's redemptive plan that culminates in Christ.</p>
+        """,
+        
+        "Revelation": """
+        <p>Revelation, the final book of the Bible, stands as a triumphant conclusion to God's written word. Also known as the Apocalypse (from the Greek word meaning "unveiling" or "disclosure"), it reveals the culmination of God's redemptive plan through symbolic visions and prophetic declarations. Written by John the Apostle during his exile on the island of Patmos around 95 CE, Revelation addresses seven churches in Asia Minor while providing a cosmic perspective on spiritual realities and future events.</p>
+        
+        <p>As the Bible's primary apocalyptic book, Revelation employs rich symbolism, vivid imagery, and numerological patterns to communicate its message. It draws heavily from Old Testament prophetic literature, particularly Daniel, Ezekiel, and Zechariah, creating a tapestry of allusions that connect it to the broader biblical narrative.</p>
+        
+        <p>The book presents itself as a prophecy, an apocalypse, and an epistle simultaneously. It offers both encouragement to persecuted believers and warnings to compromising churches. Throughout its twenty-two chapters, Revelation contrasts the sovereignty of God against human and demonic powers, ultimately depicting the complete victory of Christ over all evil forces.</p>
+        
+        <p>Central themes include Christ's identity as the slain but victorious Lamb, divine judgment on wickedness, the cosmic conflict between God and Satan, and the glorious hope of a new heaven and new earth. While interpretations of its prophetic timeline vary among scholars, Revelation's core message remains clear: God remains sovereign over history, Christ will return in triumph, and those who remain faithful will participate in His eternal kingdom.</p>
+        """
+    }
+    
+    # Get a template introduction based on genre if specific introduction isn't available
+    if book not in introductions:
+        testament = get_testament_for_book(book)
+        genre = get_book_genre(book)
+        
+        # Generate a generic introduction based on testament and genre
+        if "narrative" in genre.lower():
+            intro = f"""
+            <p>{book} is a narrative book in the {testament} that recounts key historical events and developments in Israel's history. The book contains important stories, characters, and events that contribute to the broader biblical narrative and redemptive history.</p>
+            
+            <p>As with other biblical narratives, {book} combines historical reporting with theological interpretation, showing how God works through historical circumstances and human actions to accomplish His purposes. The narrative demonstrates divine providence, human responsibility, and the consequences of both obedience and disobedience.</p>
+            
+            <p>Throughout {book}, readers can observe God's faithfulness to His covenant promises despite human failings and opposition. The book's events establish important precedents and patterns that inform biblical theology and provide context for understanding later Scriptural developments.</p>
+            """
+        elif "epistle" in genre.lower():
+            intro = f"""
+            <p>{book} is an epistle (letter) in the {testament} written to address specific circumstances, challenges, and questions in the early Christian church. The letter combines theological instruction with practical exhortation, demonstrating the connection between Christian doctrine and everyday living.</p>
+            
+            <p>Like other New Testament epistles, {book} addresses particular situations while establishing principles with broader application. The letter reflects the apostolic authority of its author and the normative teaching of the early church, contributing to the development of Christian theology and practice.</p>
+            
+            <p>Throughout {book}, readers can observe the practical outworking of the gospel in community life, personal ethics, and spiritual development. The letter demonstrates how Christ's finished work transforms individual believers and reshapes their relationships and priorities.</p>
+            """
+        elif "prophetic" in genre.lower() or "prophecy" in genre.lower():
+            intro = f"""
+            <p>{book} is a prophetic book in the {testament} that communicates divine messages of warning, judgment, and hope to God's people. The prophecies combine historical relevance to their original audience with enduring theological significance and, in some cases, messianic predictions.</p>
+            
+            <p>Like other biblical prophetic literature, {book} addresses covenant violations, calls for repentance, and proclaims both divine judgment and promised restoration. The prophecies demonstrate God's righteousness, sovereignty over history, and faithful commitment to His covenant purposes.</p>
+            
+            <p>Throughout {book}, readers encounter powerful imagery, poetic language, and symbolic actions that reinforce the prophetic message. The book reveals God's perspective on historical events and human affairs, often challenging conventional wisdom and cultural assumptions.</p>
+            """
+        elif "wisdom" in genre.lower():
+            intro = f"""
+            <p>{book} is a wisdom book in the {testament} that addresses life's fundamental questions and provides guidance for righteous living. The book explores themes of divine order, human experience, and practical ethics, offering insights for navigating the complexities of human existence.</p>
+            
+            <p>Like other biblical wisdom literature, {book} emphasizes the fear of the Lord as the foundation of true wisdom and contrasts the paths of wisdom and folly. The book demonstrates how reverence for God leads to discernment, virtue, and ultimately flourishing.</p>
+            
+            <p>Throughout {book}, readers encounter profound reflections on creation's order, human limitations, moral principles, and life's meaning. The book bridges theological truth and practical living, showing how divine wisdom applies to everyday decisions and relationships.</p>
+            """
+        elif "gospel" in genre.lower():
+            intro = f"""
+            <p>{book} is a gospel account in the {testament} that presents the life, ministry, death, and resurrection of Jesus Christ. The book combines historical reporting with theological interpretation, portraying Jesus as the fulfillment of Old Testament promises and the inaugurator of God's kingdom.</p>
+            
+            <p>Like other canonical gospels, {book} selectively records Jesus' words and deeds to communicate His identity and significance. The narrative demonstrates Jesus' divine authority, redemptive mission, and transformative teaching, inviting readers to respond in faith.</p>
+            
+            <p>Throughout {book}, readers encounter Jesus' interactions with various individuals and groups, His powerful parables and discourses, and the climactic events of His passion and resurrection. The book establishes the historical foundation for Christian faith while interpreting Jesus' significance for all humanity.</p>
+            """
+        elif "apocalyptic" in genre.lower():
+            intro = f"""
+            <p>{book} is an apocalyptic book in the {testament} that unveils spiritual realities and future events through symbolic visions and prophetic declarations. The book employs rich imagery and symbolic language to communicate divine perspective on history, cosmic conflict, and ultimate outcomes.</p>
+            
+            <p>Like other biblical apocalyptic literature, {book} addresses contexts of suffering and persecution, offering hope through the assurance of God's sovereignty and eventual triumph. The visions demonstrate the temporary nature of evil powers and the certainty of divine judgment and redemption.</p>
+            
+            <p>Throughout {book}, readers encounter dramatic portrayals of spiritual warfare, divine intervention, and eschatological consummation. The book provides a cosmic framework for understanding present trials and maintaining faithful endurance through the assurance of God's ultimate victory.</p>
+            """
+        else:
+            intro = f"""
+            <p>{book} is an important book in the {testament} that contributes significantly to the biblical canon. The book addresses themes and concerns relevant to its original audience while establishing principles and patterns with enduring theological significance.</p>
+            
+            <p>As with other biblical literature, {book} combines historical awareness with divine inspiration, communicating God's truth through human language and cultural forms. The book demonstrates the progressive nature of divine revelation and its adaptation to specific historical contexts.</p>
+            
+            <p>Throughout {book}, readers can trace important developments in the biblical narrative and theological understanding. The book provides essential insights for comprehending God's character, purposes, and relationship with humanity.</p>
+            """
+        
+        return intro
+    
+    return introductions[book]
+
+
+def generate_historical_context(book):
+    """Generate historical context for a book"""
+    # This would be expanded with more detailed content
+    historical_contexts = {
+        "Genesis": """
+        <p>Genesis was compiled and written by Moses around 1440-1400 BCE, according to traditional attribution. The events it records span from creation to approximately 1800 BCE, covering the primeval period and the age of the patriarchs. The book was composed for the Israelites after their exodus from Egypt as they prepared to enter the Promised Land.</p>
+        
+        <h3>Ancient Near Eastern Context</h3>
+        <p>The world of Genesis was dominated by great civilizations in Mesopotamia and Egypt. Urban centers had developed along the Tigris, Euphrates, and Nile rivers, with advanced writing systems, monumental architecture, and complex religious practices. Polytheism was the norm, with elaborate mythologies explaining creation and natural phenomena.</p>
+        
+        <p>Several ancient Near Eastern texts share similarities with Genesis narratives, including the Enuma Elish (Babylonian creation myth), the Epic of Gilgamesh (which includes a flood account), and the Atrahasis Epic. However, Genesis presents a distinctly monotheistic worldview that contrasts sharply with these contemporaneous myths.</p>
+        
+        <h3>Cultural Background</h3>
+        <p>The patriarchs (Abraham, Isaac, and Jacob) lived as semi-nomadic herdsmen, moving between established city-states in Canaan. Their lifestyle involved seasonal migration with flocks and herds, establishing temporary settlements, and digging wells. Kinship ties were paramount, with extended family groups (clans) forming the basic social unit.</p>
+        
+        <p>Marriage customs included bride prices, arranged marriages, and occasionally polygamy, especially when a first wife was barren. Inheritance typically passed to the firstborn son, though Genesis records several instances where this pattern was divinely overturned.</p>
+        
+        <h3>Archaeological Insights</h3>
+        <p>Archaeological discoveries have illuminated many aspects of the Genesis narratives. Excavations at sites like Ur (Abraham's birthplace) reveal a sophisticated urban center. Tablets from Mari and Nuzi document social customs similar to those practiced by the patriarchs, including adoption agreements, surrogacy arrangements, and covenant ceremonies.</p>
+        
+        <p>Egypt's Middle Kingdom period (2040-1782 BCE) provides the likely background for Joseph's rise to prominence. Historical records show that Semitic people did indeed achieve high positions in Egyptian administration, and periods of famine are documented in Egyptian history.</p>
+        """,
+        
+        "Revelation": """
+        <p>Revelation was written during the reign of Emperor Domitian (81-96 CE), according to early church tradition as recorded by Irenaeus. The author, John, was exiled to the island of Patmos "because of the word of God and the testimony of Jesus" (1:9), indicating persecution for his Christian witness. The book addresses seven actual churches in the Roman province of Asia (western Turkey).</p>
+        
+        <h3>Roman Imperial Context</h3>
+        <p>The late first century was marked by increasing imperial persecution of Christians. Domitian intensified emperor worship throughout the Roman Empire, demanding to be addressed as "Lord and God" (<em>dominus et deus noster</em>). He established an imperial cult with temples and statues dedicated to his worship. Christians who refused to participate in emperor worship faced economic sanctions, social ostracism, and sometimes execution.</p>
+        
+        <p>The province of Asia, where the seven churches were located, was particularly zealous in emperor worship. Ephesus, Smyrna, and Pergamum all had temples dedicated to the imperial cult. Pergamum is specifically mentioned as the place "where Satan's throne is" (2:13), likely referring to its prominence in emperor worship or its massive altar to Zeus.</p>
+        
+        <h3>Church Situation</h3>
+        <p>The seven churches addressed in Revelation faced varying challenges. Some endured direct persecution (Smyrna, Philadelphia), while others struggled with false teaching (Ephesus, Pergamum, Thyatira), spiritual apathy (Sardis), or lukewarm commitment (Laodicea). Economic pressures pushed some believers toward compromise, as participation in trade guilds often required involvement in pagan rituals.</p>
+        
+        <p>Jewish communities in these cities sometimes opposed Christian groups, as mentioned regarding Smyrna and Philadelphia (2:9, 3:9). This created additional social pressure for Jewish Christians caught between their ethnic heritage and new faith.</p>
+        
+        <h3>Archaeological Evidence</h3>
+        <p>Archaeological excavations have confirmed details about the seven cities addressed in Revelation. Laodicea's lukewarm water came from aqueducts carrying water from hot springs that cooled during transit. The city was indeed wealthy, with a banking industry and medical school known for eye salve. Philadelphia was subject to frequent earthquakes, as alluded to in the promise of a pillar that would never be shaken (3:12).</p>
+        
+        <p>Ephesus was home to the Temple of Artemis (Diana), one of the Seven Wonders of the ancient world. Excavations have uncovered a massive theater (Acts 19) and evidence of the city's prominence and wealth. Sardis' reputation as a city that appeared alive but was actually in decline is confirmed by archaeological evidence of its diminishing importance in the late first century.</p>
+        """
+    }
+    
+    # Generate a generic historical context if specific context isn't available
+    if book not in historical_contexts:
+        testament = get_testament_for_book(book)
+        
+        if testament == "Old Testament":
+            # Determine approximate time period
+            period = "pre-exilic"  # Default
+            if book in ["Ezra", "Nehemiah", "Esther", "Haggai", "Zechariah", "Malachi"]:
+                period = "post-exilic"
+            elif book in ["Jeremiah", "Lamentations", "Ezekiel", "Daniel"]:
+                period = "exilic"
+            
+            context = f"""
+            <p>{book} was composed during the {period} period of Israel's history. The book reflects the historical circumstances, cultural influences, and theological concerns of its time.</p>
+            
+            <h3>Historical Setting</h3>
+            <p>The book emerges from a context where Israel's covenant relationship with God shaped its national identity and religious practices. The surrounding nations, with their polytheistic worship and imperial ambitions, provided both cultural pressure and political threats that influenced Israel's historical experience.</p>
+            
+            <p>The religious life of Israel centered around the covenant, Law, and (depending on the period) the temple, with prophets calling the people back to covenant faithfulness and warning of judgment for persistent disobedience.</p>
+            
+            <h3>Cultural Background</h3>
+            <p>The cultural world of {book} involved agricultural societies organized around tribal and kinship relationships, with increasing urbanization and social stratification over time. Religious practices permeated daily life, and interaction with surrounding cultures created ongoing tension between assimilation and distinctive identity.</p>
+            
+            <p>Archaeological discoveries have illuminated many aspects of daily life, religious practices, and historical events mentioned in {book}, providing background context for understanding its narratives and teachings.</p>
+            """
+        else:  # New Testament
+            context = f"""
+            <p>{book} was written during the first century CE, within the context of the early Christian church developing under Roman imperial rule. The book reflects the historical circumstances, cultural influences, and theological concerns of this formative period.</p>
+            
+            <h3>Roman Imperial Context</h3>
+            <p>The Roman Empire provided the overarching political structure for the New Testament world, with its system of provinces, client kingdoms, and military presence. The Pax Romana (Roman Peace) enabled travel and communication throughout the Mediterranean world, facilitating the spread of Christianity while also presenting challenges through imperial ideology and occasional persecution.</p>
+            
+            <h3>Religious Environment</h3>
+            <p>The religious landscape included Judaism with its various sects (Pharisees, Sadducees, Essenes), Greco-Roman polytheism, mystery religions, and philosophical schools. Early Christianity emerged within this complex environment, defining its identity in relation to Judaism while addressing Gentile converts from pagan backgrounds.</p>
+            
+            <p>Archaeological discoveries, historical documents, and cultural studies have illuminated many aspects of daily life, religious practices, and social structures in the first-century world, providing valuable context for understanding {book}.</p>
+            """
+
     import uvicorn
 
     uvicorn.run(

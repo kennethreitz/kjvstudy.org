@@ -1,0 +1,708 @@
+{% extends "base.html" %}
+
+{% block title %}Commentary on {{ book }} - Authorized King James Version (KJV) Bible{% endblock %}
+{% block description %}In-depth commentary on the Book of {{ book }} from the Authorized King James Version (KJV) Bible. Explore themes, historical context, and theological significance.{% endblock %}
+{% block keywords %}{{ book }} commentary, {{ book }} study guide, {{ book }} KJV, Authorized King James Version, {{ book }} analysis, {{ book }} themes, {{ book }} meaning{% endblock %}
+
+{% block schema_type %}Article{% endblock %}
+{% block structured_data %},
+        "headline": "Commentary on {{ book }} - Authorized King James Version (KJV)",
+        "articleSection": "Biblical Commentary",
+        "text": "Comprehensive commentary on the Book of {{ book }} from the Authorized King James Version (KJV) Bible.",
+        "isPartOf": {
+            "@type": "Book",
+            "name": "{{ book }} - Authorized King James Version",
+            "isPartOf": {
+                "@type": "Book",
+                "name": "Authorized King James Version Bible"
+            }
+        }{% endblock %}
+
+{% block head %}
+<style>
+.commentary-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.commentary-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border-radius: var(--radius-lg);
+}
+
+.commentary-header h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2rem;
+}
+
+.commentary-header p {
+    margin: 0;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.book-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+    justify-content: center;
+}
+
+.book-meta-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+}
+
+.commentary-section {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.commentary-section h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.commentary-section h3 {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin: 1.5rem 0 0.75rem;
+}
+
+.commentary-section p {
+    margin: 0 0 1rem;
+    line-height: 1.7;
+}
+
+.verse-reference {
+    font-weight: 500;
+    color: var(--primary-color);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.verse-reference:hover {
+    text-decoration: underline;
+}
+
+.sidebar-toc {
+    position: sticky;
+    top: 2rem;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+}
+
+.sidebar-toc h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-item {
+    margin-bottom: 0.5rem;
+}
+
+.toc-link {
+    display: block;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.toc-link:hover {
+    background: rgba(75, 46, 131, 0.05);
+    color: var(--primary-color);
+}
+
+.toc-link.active {
+    background: rgba(75, 46, 131, 0.1);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.outline-section {
+    margin-bottom: 2rem;
+}
+
+.outline-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+}
+
+.outline-list {
+    padding-left: 1.5rem;
+    margin: 0;
+}
+
+.outline-item {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.outline-item:before {
+    content: "";
+    position: absolute;
+    left: -1.5rem;
+    top: 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.outline-nested {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.highlights-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 235, 59, 0.1), rgba(255, 235, 59, 0.2));
+    border-radius: var(--radius-lg);
+    border-left: 4px solid rgba(255, 235, 59, 0.5);
+}
+
+.highlights-section h3 {
+    margin-top: 0;
+    color: var(--text-primary);
+}
+
+.highlights-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.highlight-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.highlight-title {
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: var(--primary-color);
+}
+
+.highlight-desc {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar-toc {
+        display: none;
+    }
+    
+    .commentary-header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(75, 46, 131, 0.1);
+    color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.author-note {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(75, 46, 131, 0.05);
+    border-radius: var(--radius-md);
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.cross-ref-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(75, 46, 131, 0.05);
+    border-radius: var(--radius-md);
+}
+
+.cross-ref-title {
+    margin-top: 0;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+}
+
+.cross-ref-list {
+    column-count: 2;
+    column-gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .cross-ref-list {
+        column-count: 1;
+    }
+}
+
+.cross-ref-list li {
+    margin-bottom: 0.5rem;
+    break-inside: avoid;
+}
+
+.backdrop-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.backdrop-blur.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.verse-popup {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.verse-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.verse-popup-title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.verse-popup-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0;
+}
+
+.verse-popup-text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-family: var(--font-serif);
+}
+
+.verse-popup-comment {
+    background: rgba(75, 46, 131, 0.05);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.verse-popup-comment-title {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--primary-color);
+}
+
+.verse-popup-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: flex-end;
+}
+
+.verse-popup-action {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.verse-popup-action:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.highlight-verse {
+    animation: pulse-highlight 2s ease;
+}
+
+@keyframes pulse-highlight {
+    0% { background-color: transparent; }
+    30% { background-color: rgba(255, 235, 59, 0.5); }
+    100% { background-color: transparent; }
+}
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="/">📚 All Books</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="/book/{{ book }}">{{ book }}</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Commentary</span>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<header class="commentary-header">
+    <h1>Commentary on {{ book }}</h1>
+    <p>Comprehensive analysis and insights from the Authorized King James Version (KJV)</p>
+    
+    <div class="book-meta">
+        <span class="book-meta-item">{{ testament }}</span>
+        <span class="book-meta-item">{{ genre }}</span>
+        <span class="book-meta-item">{{ chapters|length }} Chapters</span>
+        <span class="book-meta-item">{{ time_period }}</span>
+    </div>
+</header>
+
+<div class="commentary-container">
+    <div class="two-column">
+        <div class="main-content">
+            <section class="commentary-section">
+                <h2 id="introduction">Introduction to {{ book }}</h2>
+                {{ introduction|safe }}
+                
+                <div class="tags-container" style="margin-top: 1.5rem;">
+                    {% for tag in tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div class="author-note">
+                    <strong>Note:</strong> This commentary provides historical, theological, and literary insights on {{ book }} while remaining faithful to the text of the Authorized King James Version (KJV).
+                </div>
+            </section>
+            
+            <section class="commentary-section">
+                <h2 id="historical-context">Historical Context</h2>
+                {{ historical_context|safe }}
+            </section>
+            
+            <section class="commentary-section">
+                <h2 id="literary-features">Literary Features</h2>
+                {{ literary_features|safe }}
+            </section>
+            
+            <div class="highlights-section">
+                <h3>Key Passages in {{ book }}</h3>
+                <div class="highlights-list">
+                    {% for highlight in highlights %}
+                    <div class="highlight-card">
+                        <h4 class="highlight-title">{{ highlight.reference }}</h4>
+                        <p class="highlight-desc">{{ highlight.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <section class="commentary-section">
+                <h2 id="outline">Book Outline</h2>
+                
+                {% for section in outline %}
+                <div class="outline-section">
+                    <h3 class="outline-title">{{ section.title }}</h3>
+                    <ul class="outline-list">
+                        {% for item in section.items %}
+                        <li class="outline-item">
+                            {{ item.text }}
+                            {% if item.reference %}
+                            (<a href="{{ item.url }}" class="verse-reference">{{ item.reference }}</a>)
+                            {% endif %}
+                            
+                            {% if item.subitems %}
+                            <ul class="outline-nested">
+                                {% for subitem in item.subitems %}
+                                <li class="outline-item">
+                                    {{ subitem.text }}
+                                    {% if subitem.reference %}
+                                    (<a href="{{ subitem.url }}" class="verse-reference">{{ subitem.reference }}</a>)
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </section>
+            
+            <section class="commentary-section">
+                <h2 id="themes">Major Themes</h2>
+                {{ themes|safe }}
+            </section>
+            
+            <section class="commentary-section">
+                <h2 id="theological-significance">Theological Significance</h2>
+                {{ theological_significance|safe }}
+                
+                <div class="cross-ref-section">
+                    <h3 class="cross-ref-title">Cross References to Other Books</h3>
+                    <ul class="cross-ref-list">
+                        {% for ref in cross_references %}
+                        <li>
+                            <a href="{{ ref.url }}" class="verse-reference">{{ ref.reference }}</a> - {{ ref.description }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="commentary-section">
+                <h2 id="chapter-summaries">Chapter Summaries</h2>
+                
+                {% for chapter_num, chapter_data in chapter_summaries.items() %}
+                <h3 id="chapter-{{ chapter_num }}">Chapter {{ chapter_num }}</h3>
+                <p>{{ chapter_data.summary }}</p>
+                
+                {% if chapter_data.key_verses %}
+                <div style="margin: 1rem 0 1.5rem; padding: 0.75rem; background: rgba(255, 235, 59, 0.1); border-radius: var(--radius-md);">
+                    <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; color: var(--text-secondary);">Key Verses:</h4>
+                    <ul style="margin: 0; padding-left: 1.25rem;">
+                        {% for verse in chapter_data.key_verses %}
+                        <li>
+                            <a href="{{ verse.url }}" class="verse-reference verse-popup-trigger" data-chapter="{{ chapter_num }}" data-verse="{{ verse.verse_num }}" data-text="{{ verse.text }}" data-comment="{{ verse.comment }}">
+                                {{ book }} {{ chapter_num }}:{{ verse.verse_num }}
+                            </a> - {{ verse.brief }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </section>
+            
+            <section class="commentary-section">
+                <h2 id="application">Contemporary Application</h2>
+                {{ application|safe }}
+            </section>
+        </div>
+        
+        <aside class="sidebar-toc">
+            <h3>Commentary Contents</h3>
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#introduction" class="toc-link">Introduction</a></li>
+                <li class="toc-item"><a href="#historical-context" class="toc-link">Historical Context</a></li>
+                <li class="toc-item"><a href="#literary-features" class="toc-link">Literary Features</a></li>
+                <li class="toc-item"><a href="#outline" class="toc-link">Book Outline</a></li>
+                <li class="toc-item"><a href="#themes" class="toc-link">Major Themes</a></li>
+                <li class="toc-item"><a href="#theological-significance" class="toc-link">Theological Significance</a></li>
+                <li class="toc-item"><a href="#chapter-summaries" class="toc-link">Chapter Summaries</a></li>
+                <li class="toc-item"><a href="#application" class="toc-link">Contemporary Application</a></li>
+            </ul>
+            
+            <h3 style="margin-top: 1.5rem;">Chapter Quick Links</h3>
+            <ul class="toc-list" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.25rem;">
+                {% for chapter_num in chapter_summaries.keys() %}
+                <li style="margin: 0;">
+                    <a href="#chapter-{{ chapter_num }}" class="toc-link" style="padding: 0.25rem; text-align: center;">{{ chapter_num }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="/book/{{ book }}" class="nav-button" style="display: inline-block; width: 100%;">
+                    Back to {{ book }}
+                </a>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<div class="backdrop-blur" id="versePopup">
+    <div class="verse-popup">
+        <div class="verse-popup-header">
+            <h3 class="verse-popup-title" id="popupTitle">Verse Title</h3>
+            <button class="verse-popup-close" onclick="closeVersePopup()">×</button>
+        </div>
+        <div class="verse-popup-text" id="popupText">Verse text will appear here.</div>
+        <div class="verse-popup-comment" id="popupCommentContainer">
+            <h4 class="verse-popup-comment-title">Commentary</h4>
+            <div id="popupComment">Commentary will appear here.</div>
+        </div>
+        <div class="verse-popup-actions">
+            <a href="#" class="verse-popup-action" id="popupReadInContext">Read in Context</a>
+            <a href="#" class="verse-popup-action" id="popupViewCommentary">View Full Commentary</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block navigation %}
+<div class="container">
+    <div class="navigation">
+        <a href="/book/{{ book }}" class="nav-button">
+            ← Back to {{ book }}
+        </a>
+        <div style="display: flex; gap: 0.5rem;">
+            <a href="/book/{{ book }}/chapter/1" class="nav-button nav-button-primary">
+                Begin Reading {{ book }} →
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle TOC active state based on scroll position
+    const sections = document.querySelectorAll('.commentary-section h2, .commentary-section h3');
+    const tocLinks = document.querySelectorAll('.toc-link');
+    
+    window.addEventListener('scroll', function() {
+        let currentSection = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            if (window.scrollY >= sectionTop) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentSection) {
+                link.classList.add('active');
+            }
+        });
+    });
+    
+    // Verse popup functionality
+    const verseLinks = document.querySelectorAll('.verse-popup-trigger');
+    verseLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const chapter = this.dataset.chapter;
+            const verse = this.dataset.verse;
+            const text = this.dataset.text;
+            const comment = this.dataset.comment;
+            
+            document.getElementById('popupTitle').textContent = `${book} ${chapter}:${verse}`;
+            document.getElementById('popupText').textContent = text;
+            document.getElementById('popupComment').textContent = comment;
+            document.getElementById('popupReadInContext').href = `/book/${book}/chapter/${chapter}#verse-${verse}`;
+            document.getElementById('popupViewCommentary').href = `/commentary/${book}/${chapter}#verse-${verse}`;
+            
+            document.getElementById('versePopup').classList.add('active');
+        });
+    });
+    
+    // Highlight verse from URL hash
+    if (window.location.hash) {
+        setTimeout(() => {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                target.classList.add('highlight-verse');
+                setTimeout(() => {
+                    target.classList.remove('highlight-verse');
+                }, 2000);
+            }
+        }, 100);
+    }
+});
+
+function closeVersePopup() {
+    document.getElementById('versePopup').classList.remove('active');
+}
+
+// Close popup when clicking outside
+document.getElementById('versePopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeVersePopup();
+    }
+});
+
+// Close popup with escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeVersePopup();
+    }
+});
+</script>
+{% endblock %}
