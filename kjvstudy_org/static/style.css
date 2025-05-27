@@ -485,12 +485,12 @@ div {
 }
 
 .verse-number {
-  font-size: 0.75rem !important;
-  color: var(--text-secondary) !important;
-  font-weight: normal !important;
+  font-size: 0.8rem !important;
+  color: var(--primary-light) !important;
+  font-weight: 500 !important;
   font-family: 'Crimson Text', 'Times New Roman', serif !important;
   vertical-align: super !important;
-  margin-right: 0.2rem !important;
+  margin-right: 0.25rem !important;
   position: static !important;
   display: inline !important;
   background: none !important;
@@ -865,7 +865,7 @@ div {
 
     .verse-number {
         font-size: 0.75rem !important;
-        color: var(--text-secondary) !important;
+        color: var(--primary-light) !important;
         vertical-align: super !important;
         display: inline !important;
     }
@@ -1195,7 +1195,7 @@ html,
 
   .verse-number {
     font-size: 0.7rem !important;
-    color: var(--text-secondary) !important;
+    color: var(--primary-light) !important;
     vertical-align: super !important;
     display: inline !important;
   }
