@@ -757,21 +757,20 @@ div {
     }
 
     .sidebar {
-        transform: translateX(-320px);
-        width: 100%;
-        max-width: 320px;
-        -webkit-transform: translate3d(-320px, 0, 0);
+        display: none !important;
     }
 
     .sidebar.open {
-        transform: translateX(0);
-        -webkit-transform: translate3d(0, 0, 0);
-        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+        display: none !important;
+    }
+
+    .sidebar-overlay {
+        display: none !important;
     }
 
     .main-content {
         margin-left: 0;
-        padding-top: 4rem;
+        padding-top: 2rem;
         position: relative;
         z-index: 10;
         width: 100%;
@@ -780,9 +779,7 @@ div {
     .mobile-menu-button {
         display: block;
         padding: 1rem;
-        min-height: 48px;
-        min-width: 48px;
-        touch-action: manipulation;
+        min-heightone !important;
     }
 
     .container,

@@ -929,6 +929,11 @@
         <script>
             // Sidebar toggle functionality
             function toggleSidebar() {
+                // Don't show sidebar on mobile devices
+                if (window.innerWidth <= 768) {
+                    return;
+                }
+                
                 const sidebar = document.getElementById("sidebar");
                 const overlay = document.getElementById("sidebarOverlay");
                 const mainContent = document.querySelector(".main-content");
@@ -1022,13 +1027,13 @@
                     ).getPropertyValue("--background-color"));
             });
 
-            // Close sidebar when clicking on links (mobile)
+            // Close sidebar when clicking on links (mobile) - not needed on mobile anymore
             document.addEventListener("DOMContentLoaded", function () {
                 const sidebarLinks =
                     document.querySelectorAll(".sidebar-nav a");
                 sidebarLinks.forEach((link) => {
                     link.addEventListener("click", function () {
-                        if (window.innerWidth <= 768) {
+                        if (window.innerWidth > 768 && window.innerWidth <= 1024) {
                             toggleSidebar();
                         }
                     });
@@ -1036,7 +1041,7 @@
 
                 // Close sidebar on escape key
                 document.addEventListener("keydown", function (e) {
-                    if (e.key === "Escape") {
+                    if (e.key === "Escape" && window.innerWidth > 768) {
                         const sidebar = document.getElementById("sidebar");
                         if (sidebar.classList.contains("open")) {
                             toggleSidebar();
@@ -1045,8 +1050,9 @@
                 });
 
                 // Handle window resize
+                // Close sidebar when screen size changes to desktop
                 window.addEventListener("resize", function () {
-                    if (window.innerWidth > 768) {
+                    if (window.innerWidth > 1024) {
                         const sidebar = document.getElementById("sidebar");
                         const overlay =
                             document.getElementById("sidebarOverlay");
@@ -1135,16 +1141,7 @@
                         );
                         if (target) {
                             // Close mobile menu if open when navigating
-                            if (window.innerWidth <= 768) {
-                                const sidebar =
-                                    document.getElementById("sidebar");
-                                if (
-                                    sidebar &&
-                                    sidebar.classList.contains("open")
-                                ) {
-                                    toggleSidebar();
-                                }
-                            }
+                            // Remove mobile touch handler since sidebar is hidden on mobile
 
                             target.scrollIntoView({
                                 behavior: "smooth",
