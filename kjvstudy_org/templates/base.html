@@ -527,16 +527,7 @@
                     <h3 style="font-size: 0.9rem">Navigation</h3>
                     <a
                         href="/"
-                        {%
-                        if
-                        request.url
-                        and
-                        request.url.path=""
-                        ="/"
-                        %}class="active"
-                        {%
-                        endif
-                        %}
+                        {% if request.url and request.url.path == "/" %}class="active"{% endif %}
                         style="
                             padding: 0.35rem 0.5rem;
                             font-size: 0.95rem;
