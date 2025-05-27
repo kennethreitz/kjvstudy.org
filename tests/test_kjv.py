@@ -3,7 +3,7 @@ import os
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from kjvstudy.kjv import VerseReference
+from kjvstudy_org.kjv import VerseReference
 
 def test_verse_references():
     # Test the parsing of a verse reference string
