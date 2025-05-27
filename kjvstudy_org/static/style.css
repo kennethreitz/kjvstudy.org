@@ -1400,6 +1400,26 @@ html,
     min-width: auto;
     padding: 1rem;
     font-size: 1rem;
+    z-index: 1001;
+  }
+}
+
+/* Tablet responsive tooltips */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .verse-tooltip {
+    max-width: 380px;
+    min-width: 280px;
+    font-size: 0.875rem;
+  }
+}
+
+/* Large screen tooltips */
+@media (min-width: 1200px) {
+  .verse-tooltip {
+    max-width: 500px;
+    min-width: 400px;
+    font-size: 0.95rem;
+    padding: 1rem 1.25rem;
   }
 }
 
