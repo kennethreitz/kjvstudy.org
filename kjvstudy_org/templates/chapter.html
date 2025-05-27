@@ -93,11 +93,25 @@ sup.verse-number:hover {
 }
 
 .highlight-verse,
-.verse-highlight {
+.verse-highlight,
+.highlight-verse {
     background-color: rgba(255, 235, 59, 0.3) !important;
     padding: 0.1rem 0.2rem !important;
     border-radius: 3px !important;
     animation: pulse-highlight 2s ease;
+}
+
+.verse-underlined {
+    text-decoration: underline !important;
+    text-decoration-color: var(--primary-light) !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 3px !important;
+    background-color: rgba(139, 92, 246, 0.1) !important;
+    padding: 0.2rem 0.3rem !important;
+    border-radius: 4px !important;
+    border-left: 3px solid var(--primary-light) !important;
+    margin-left: -0.3rem !important;
+    padding-left: 0.6rem !important;
 }
 
 @keyframes pulse-highlight {
@@ -596,6 +610,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (verseMatch && verseMatch[1]) {
                     showToast('Navigated to Verse ' + verseMatch[1]);
 
+                    // Apply permanent underline styling to the verse
+                    target.classList.add('verse-underlined');
+                    
+                    // Also add temporary pulse highlight
+                    target.classList.add('highlight-verse');
+                    setTimeout(() => {
+                        target.classList.remove('highlight-verse');
+                    }, 2000);
+
                     // If the verse has commentary, highlight the commentary card too
                     const commentaryCard = document.getElementById(`commentary-verse-${verseMatch[1]}`);
                     if (commentaryCard) {
@@ -607,19 +630,28 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, 3000);
                     }
                 }
-
-                // Apply highlighting
-                target.style.backgroundColor = 'rgba(255, 235, 59, 0.3)';
-                target.style.padding = '0.1rem 0.2rem';
-                target.style.borderRadius = '3px';
-                setTimeout(() => {
-                    target.style.backgroundColor = '';
-                    target.style.padding = '';
-                    target.style.borderRadius = '';
-                }, 2000);
             }
         }, 100);
     }
+    
+    // Listen for hash changes to update verse highlighting
+    window.addEventListener('hashchange', function() {
+        // Remove previous underlines
+        document.querySelectorAll('.verse-underlined').forEach(el => {
+            el.classList.remove('verse-underlined');
+        });
+        
+        // Apply new underline if hash matches verse pattern
+        if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            const verseMatch = window.location.hash.match(/verse-(\d+)/);
+            if (target && verseMatch) {
+                target.classList.add('verse-underlined');
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                showToast('Navigated to Verse ' + verseMatch[1]);
+            }
+        }
+    });
 
     // Add cross-links from verses to commentary
     document.querySelectorAll('.verse').forEach(verse => {
