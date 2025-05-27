@@ -74,10 +74,19 @@ sup.verse-number {
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
+    transition: all 0.2s ease !important;
+    padding: 0.1rem 0.2rem !important;
+    border-radius: 3px !important;
 }
 
 sup.verse-number:hover {
     color: var(--accent-color) !important;
+    background-color: rgba(139, 92, 246, 0.15) !important;
+}
+
+sup.verse-number:active {
+    background-color: rgba(139, 92, 246, 0.25) !important;
+    transform: scale(1.1) !important;
 }
 
 .ai-commentary-link {
@@ -541,7 +550,21 @@ function highlightVerse(verseNumber) {
 }
 
 function navigateToVerse(verseNumber) {
+    // Remove previous underlines
+    document.querySelectorAll('.verse-underlined').forEach(el => {
+        el.classList.remove('verse-underlined');
+    });
+    
+    // Set the hash and apply styling
     location.hash = 'verse-' + verseNumber;
+    
+    // Apply underline styling to the clicked verse
+    const targetVerse = document.getElementById('verse-' + verseNumber);
+    if (targetVerse) {
+        targetVerse.classList.add('verse-underlined');
+        targetVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
     showToast('Navigated to Verse ' + verseNumber);
 }
 
