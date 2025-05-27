@@ -57,10 +57,10 @@
 }
 
 sup.verse-number {
-    font-size: 0.8rem !important;
+    font-size: 0.7rem !important;
     font-weight: normal !important;
-    color: var(--text-secondary) !important;
-    margin-right: 0.25rem !important;
+    color: var(--text-muted) !important;
+    margin-right: 0.15rem !important;
     user-select: none !important;
     cursor: pointer !important;
     font-family: var(--font-sans) !important;
@@ -69,19 +69,18 @@ sup.verse-number {
 }
 
 sup.verse-number:hover {
-    color: var(--text-primary) !important;
+    color: var(--text-secondary) !important;
 }
 
 .ai-commentary-link {
-    color: var(--primary-light);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: normal;
     transition: color 0.2s ease;
 }
 
 .ai-commentary-link:hover {
     color: var(--text-primary);
-    text-decoration: underline;
 }
 
 .highlight-verse,
@@ -99,28 +98,25 @@ sup.verse-number:hover {
 }
 
 .chapter-navigation {
-    position: sticky;
-    top: 0;
-    background: var(--background-color);
-    border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
-    margin-bottom: 2rem;
-    z-index: 10;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
 }
 
 .chapter-nav-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 
 .chapter-info {
-    font-family: var(--font-display);
-    font-weight: 600;
-    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .verse-highlight {
@@ -131,15 +127,12 @@ sup.verse-number:hover {
 }
 
 .verse-text {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.5rem;
-    line-height: 1.8;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 1.2rem;
+    line-height: 1.9;
     color: var(--text-primary);
-    font-feature-settings:
-        "liga" 1,
-        "dlig" 1,
-        "kern" 1,
-        "onum" 1;
+    font-weight: 400;
+    letter-spacing: 0.01em;
     text-rendering: optimizeLegibility;
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -272,14 +265,13 @@ sup.verse-number:hover {
 
 @media (max-width: 768px) {
     .chapter-text {
-        font-size: 1rem;
-        line-height: 1.7;
-        padding: 0.75rem;
-        text-align: left;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        padding: 1rem;
     }
 
     .chapter-text sup.verse-number {
-        font-size: 0.7rem !important;
+        font-size: 0.65rem !important;
     }
 }
 </style>
@@ -313,7 +305,7 @@ sup.verse-number:hover {
 
 <div class="text-center mb-4">
     <h1 class="chapter-title">{{ book }} {{ chapter }}</h1>
-    <p style="font-size: 1rem; color: var(--text-secondary); margin: 0.5rem 0 0 0; font-style: italic;">
+    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.5rem 0 1rem 0; font-style: normal; text-transform: uppercase; letter-spacing: 0.1em;">
         Authorized King James Version (1769) with <a href="/book/{{ book }}/commentary" class="ai-commentary-link">AI Commentary</a>
     </p>
 </div>
