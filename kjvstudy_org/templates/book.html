@@ -49,6 +49,29 @@
     color: white;
 }
 
+@media (max-width: 768px) {
+    .commentary-container {
+        margin-top: 2rem !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    .commentary-section {
+        padding: 1.25rem !important;
+    }
+    
+    .commentary-section h2 {
+        font-size: 1.4rem !important;
+    }
+    
+    .commentary-section h3 {
+        font-size: 1.2rem !important;
+    }
+    
+    .commentary-section p {
+        font-size: 1rem !important;
+    }
+}
+
 .commentary-section strong {
     color: white;
     font-weight: 600;
@@ -209,7 +232,7 @@
     {% endfor %}
 </div>
 
-<div class="commentary-container" style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+<div class="commentary-container" style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; padding: 0 1rem;">
     <div class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); color: white;">
             <h2 style="color: white; margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700; text-align: center;">
                 📚 Commentary on {{ book }}
