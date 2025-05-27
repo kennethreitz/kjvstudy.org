@@ -113,6 +113,7 @@
                 -webkit-text-size-adjust: 100%;
                 -ms-text-size-adjust: 100%;
                 touch-action: manipulation;
+                font-family: 'Crimson Text', 'Times New Roman', serif !important;
             }
 
             body::before {
@@ -124,6 +125,7 @@
                 height: 100%;
                 background-color: var(--background-color) !important;
                 z-index: -2;
+                font-family: 'Crimson Text', 'Times New Roman', serif !important;
             }
 
             @media (min-width: 769px) and (max-width: 1024px) {
@@ -152,10 +154,12 @@
                 background-color: var(--background-color) !important;
                 position: relative;
                 z-index: 1;
+                font-family: 'Crimson Text', 'Times New Roman', serif !important;
             }
 
             .main-content {
                 background-color: var(--background-color) !important;
+                font-family: 'Crimson Text', 'Times New Roman', serif !important;
             }
 
             /* iOS safe area support */
@@ -164,17 +168,20 @@
                 .narrow-container {
                     padding-left: max(1rem, env(safe-area-inset-left));
                     padding-right: max(1rem, env(safe-area-inset-right));
+                    font-family: 'Crimson Text', 'Times New Roman', serif !important;
                 }
 
                 .mobile-menu-button {
                     top: max(1rem, env(safe-area-inset-top));
                     left: max(1rem, env(safe-area-inset-left));
+                    font-family: 'Crimson Text', 'Times New Roman', serif !important;
                 }
             }
 
             /* Prevent rubber band scrolling on iOS */
             body {
                 overscroll-behavior: none;
+                font-family: 'Crimson Text', 'Times New Roman', serif !important;
             }
 
             /* GitHub Banner */
@@ -521,7 +528,7 @@
                 </div>
 
                 <nav class="sidebar-nav">
-                    <h3 style="font-size: 0.9rem">Navigation</h3>
+                    <h3 style="font-size: 0.9rem; font-family: 'Crimson Text', 'Times New Roman', serif;">Navigation</h3>
                     <a
                         href="/"
                         {% if request.url and request.url.path == "/" %}class="active"{% endif %}
@@ -529,6 +536,7 @@
                             padding: 0.35rem 0.5rem;
                             font-size: 0.95rem;
                             margin-bottom: 0.1rem;
+                            font-family: 'Crimson Text', 'Times New Roman', serif;
                         "
                     >
                         📚 All Books
@@ -537,9 +545,10 @@
                     {% if books %}
                     <h3
                         style="
-                            color: var(--torah-color);
-                            margin-bottom: 0.4rem;
-                            font-size: 0.9rem;
+                            font-size: 0.85rem;
+                            margin-top: 1rem;
+                            margin-bottom: 0.5rem;
+                            font-family: 'Crimson Text', 'Times New Roman', serif;
                         "
                     >
                         Old Testament
@@ -555,7 +564,7 @@
                             letter-spacing: 0.5px;
                         "
                     >
-                        Torah/Pentateuch
+                        Torah / Pentateuch
                     </h4>
                     {% set torah = ['Genesis', 'Exodus', 'Leviticus', 'Numbers',
                     'Deuteronomy'] %} {% for book in books %} {% if book in

@@ -25,7 +25,7 @@
             <div class="legend-items">
                 <a href="#torah" class="legend-item" style="border-left-color: var(--torah-color);">
                     <span class="legend-color" style="background: var(--torah-color);"></span>
-                    <span class="legend-name">Torah/Pentateuch</span>
+                    <span class="legend-name">Torah / Pentateuch</span>
                 </a>
                 <a href="#historical" class="legend-item" style="border-left-color: var(--historical-color);">
                     <span class="legend-color" style="background: var(--historical-color);"></span>
@@ -79,12 +79,12 @@
     {% set old_testament = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
     
     <!-- Torah/Pentateuch -->
-    <h3 id="torah" class="category-heading" style="color: var(--torah-color);">Torah/Pentateuch</h3>
+    <h3 id="torah" class="category-heading" style="color: var(--torah-color);">Torah / Pentateuch</h3>
     {% for book in books %}
     {% if book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
     <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--torah-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Torah/Pentateuch</p>
+        <p class="book-meta" style="font-size: 0.8rem;">Torah / Pentateuch</p>
     </a>
     {% endif %}
     {% endfor %}
