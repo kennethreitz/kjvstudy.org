@@ -560,8 +560,7 @@ div {
 
 .nav-button-primary:hover {
   background: var(--primary-dark);
-  border-text-secondary);
-  border-color: var(--text-secondary);
+  border-color: var(--primary-dark);
 }
 
 /* Search */
@@ -589,7 +588,7 @@ div {
 
 .search-input:focus {
   outline: none;
-  border-color: var(--border-color);
+  border-color: var(--primary-color);
 }
 
 .search-icon {
