@@ -1112,6 +1112,17 @@ html,
 .commentary-container {
   background-color: var(--background-color);
   min-height: 100vh;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Commentary-specific container overrides */
+.commentary-container .container {
+  margin-left: 0 !important;
+  width: 100% !important;
+  max-width: none;
 }
 
 .commentary-header {
@@ -1318,6 +1329,12 @@ html,
 
 /* Mobile styles for commentary */
 @media (max-width: 768px) {
+  .commentary-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 1rem;
+  }
+
   .commentary-header {
     padding: 1.5rem 1rem;
     margin-bottom: 2rem;
@@ -1406,6 +1423,12 @@ html,
 
 /* Tablet responsive tooltips */
 @media (min-width: 769px) and (max-width: 1024px) {
+  .commentary-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 1.5rem;
+  }
+
   .verse-tooltip {
     max-width: 380px;
     min-width: 280px;

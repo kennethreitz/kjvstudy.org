@@ -715,7 +715,7 @@ h1, h2, h3, h4, h5, h6 {
 {% endblock %}
 
 {% block breadcrumb %}
-<div class="container">
+<div class="container" style="margin-left: 220px; width: calc(100% - 220px);">
     <nav class="breadcrumb">
         <a href="/">📚 All Books</a>
         <span class="breadcrumb-separator">/</span>
@@ -727,19 +727,18 @@ h1, h2, h3, h4, h5, h6 {
 {% endblock %}
 
 {% block content %}
-<header class="commentary-header">
-    <h1>Commentary on {{ book }}</h1>
-    <p>Comprehensive analysis and insights from the Authorized King James Version (KJV)</p>
-    
-    <div class="book-meta">
-        <span class="book-meta-item">{{ testament }}</span>
-        <span class="book-meta-item">{{ genre }}</span>
-        <span class="book-meta-item">{{ chapters|length }} Chapters</span>
-        <span class="book-meta-item">{{ time_period }}</span>
-    </div>
-</header>
-
-<div class="commentary-container" style="background-color: var(--background-color); min-height: 100vh;">
+<div class="commentary-container" style="background-color: var(--background-color); min-height: 100vh; margin-left: 220px; width: calc(100% - 220px); padding: 2rem;">
+    <header class="commentary-header">
+        <h1>Commentary on {{ book }}</h1>
+        <p>Comprehensive analysis and insights from the Authorized King James Version (KJV)</p>
+        
+        <div class="book-meta">
+            <span class="book-meta-item">{{ testament }}</span>
+            <span class="book-meta-item">{{ genre }}</span>
+            <span class="book-meta-item">{{ chapters|length }} Chapters</span>
+            <span class="book-meta-item">{{ time_period }}</span>
+        </div>
+    </header>
     <div class="two-column">
         <main class="main-content">
             <section class="commentary-section">
@@ -924,7 +923,7 @@ h1, h2, h3, h4, h5, h6 {
 {% endblock %}
 
 {% block navigation %}
-<div class="container">
+<div class="container" style="margin-left: 220px; width: calc(100% - 220px);">
     <div class="navigation">
         <a href="/book/{{ book }}" class="nav-button">
             ← Back to {{ book }}
