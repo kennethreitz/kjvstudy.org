@@ -1229,14 +1229,18 @@ html,
   position: absolute;
   background: var(--text-primary);
   color: white;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  max-width: 200px;
+  font-size: 0.9rem;
+  max-width: 400px;
+  min-width: 300px;
   z-index: 100;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
+  line-height: 1.5;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .verse-reference:hover .verse-tooltip {
@@ -1393,6 +1397,9 @@ html,
     right: 1rem;
     transform: none;
     max-width: none;
+    min-width: auto;
+    padding: 1rem;
+    font-size: 1rem;
   }
 }
 
