@@ -19,6 +19,18 @@
   --font-serif: 'Crimson Text', 'Times New Roman', 'Times', serif;
   --font-sans: 'Crimson Text', 'Times New Roman', 'Times', serif;
   --font-display: 'Crimson Text', 'Times New Roman', 'Times', serif;
+  
+  /* Bible Book Category Colors */
+  --torah-color: #8B4513;
+  --historical-color: #CD853F;
+  --wisdom-color: #DAA520;
+  --major-prophets-color: #A0522D;
+  --minor-prophets-color: #A52A2A;
+  --gospels-color: #4169E1;
+  --acts-color: #6495ED;
+  --pauline-color: #1E90FF;
+  --general-epistles-color: #4682B4;
+  --apocalyptic-color: #191970;
 }
 
 * {
@@ -297,18 +309,33 @@ div {
     padding: 0.75rem;
     text-decoration: none;
     box-shadow: var(--shadow-sm);
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     position: relative;
     -webkit-tap-highlight-color: transparent;
 }
 
+.book-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
 .book-card:hover {
-    box-shadow: var(--shadow-sm);
-    border-color: var(--border-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.book-card:hover::before {
+  transform: scaleX(1);
 }
 
 /* Testament Divider */
@@ -1690,4 +1717,130 @@ input, textarea, select,
 label, table, th, td,
 blockquote, pre, code {
   font-family: 'Crimson Text', 'Times New Roman', serif !important;
+}
+
+/* Bible Book Category Styles */
+.bible-book {
+    border-left: 4px solid var(--border-color);
+    transition: border-left-color 0.2s ease;
+}
+
+.bible-book.torah {
+    border-left-color: var(--torah-color);
+}
+.bible-book.torah:hover {
+    border-left-color: var(--torah-color);
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
+}
+.bible-book.active.torah {
+    border-left-color: var(--torah-color);
+    background: rgba(139, 69, 19, 0.1);
+}
+
+.bible-book.historical {
+    border-left-color: var(--historical-color);
+}
+.bible-book.historical:hover {
+    border-left-color: var(--historical-color);
+    box-shadow: 0 4px 8px rgba(205, 133, 63, 0.2);
+}
+.bible-book.active.historical {
+    border-left-color: var(--historical-color);
+    background: rgba(205, 133, 63, 0.1);
+}
+
+.bible-book.wisdom {
+    border-left-color: var(--wisdom-color);
+}
+.bible-book.wisdom:hover {
+    border-left-color: var(--wisdom-color);
+    box-shadow: 0 4px 8px rgba(218, 165, 32, 0.2);
+}
+.bible-book.active.wisdom {
+    border-left-color: var(--wisdom-color);
+    background: rgba(218, 165, 32, 0.1);
+}
+
+.bible-book.major-prophets {
+    border-left-color: var(--major-prophets-color);
+}
+.bible-book.major-prophets:hover {
+    border-left-color: var(--major-prophets-color);
+    box-shadow: 0 4px 8px rgba(160, 82, 45, 0.2);
+}
+.bible-book.active.major-prophets {
+    border-left-color: var(--major-prophets-color);
+    background: rgba(160, 82, 45, 0.1);
+}
+
+.bible-book.minor-prophets {
+    border-left-color: var(--minor-prophets-color);
+}
+.bible-book.minor-prophets:hover {
+    border-left-color: var(--minor-prophets-color);
+    box-shadow: 0 4px 8px rgba(165, 42, 42, 0.2);
+}
+.bible-book.active.minor-prophets {
+    border-left-color: var(--minor-prophets-color);
+    background: rgba(165, 42, 42, 0.1);
+}
+
+.bible-book.gospels {
+    border-left-color: var(--gospels-color);
+}
+.bible-book.gospels:hover {
+    border-left-color: var(--gospels-color);
+    box-shadow: 0 4px 8px rgba(65, 105, 225, 0.2);
+}
+.bible-book.active.gospels {
+    border-left-color: var(--gospels-color);
+    background: rgba(65, 105, 225, 0.1);
+}
+
+.bible-book.acts {
+    border-left-color: var(--acts-color);
+}
+.bible-book.acts:hover {
+    border-left-color: var(--acts-color);
+    box-shadow: 0 4px 8px rgba(100, 149, 237, 0.2);
+}
+.bible-book.active.acts {
+    border-left-color: var(--acts-color);
+    background: rgba(100, 149, 237, 0.1);
+}
+
+.bible-book.pauline {
+    border-left-color: var(--pauline-color);
+}
+.bible-book.pauline:hover {
+    border-left-color: var(--pauline-color);
+    box-shadow: 0 4px 8px rgba(30, 144, 255, 0.2);
+}
+.bible-book.active.pauline {
+    border-left-color: var(--pauline-color);
+    background: rgba(30, 144, 255, 0.1);
+}
+
+.bible-book.general-epistles {
+    border-left-color: var(--general-epistles-color);
+}
+.bible-book.general-epistles:hover {
+    border-left-color: var(--general-epistles-color);
+    box-shadow: 0 4px 8px rgba(70, 130, 180, 0.2);
+}
+.bible-book.active.general-epistles {
+    border-left-color: var(--general-epistles-color);
+    background: rgba(70, 130, 180, 0.1);
+}
+
+.bible-book.apocalyptic {
+    border-left-color: var(--apocalyptic-color);
+}
+.bible-book.apocalyptic:hover {
+    border-left-color: var(--apocalyptic-color);
+    box-shadow: 0 4px 8px rgba(25, 25, 112, 0.2);
+}
+.bible-book.active.apocalyptic {
+    border-left-color: var(--apocalyptic-color);
+    background: rgba(25, 25, 112, 0.1);
 }
