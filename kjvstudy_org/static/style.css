@@ -1223,6 +1223,9 @@ html,
   padding: 2rem;
   box-sizing: border-box;
   font-family: 'Crimson Text', 'Times New Roman', serif;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Commentary-specific container overrides */
@@ -1471,11 +1474,13 @@ html,
 
 /* Mobile styles for commentary */
 @media (max-width: 768px) {
-    .commentary-container {
-        margin-left: 0 !important;
-        width: 100% !important;
-        padding: 1rem;
-    }
+  .commentary-container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.5rem;
+  }
 
     .commentary-breadcrumb,
     .commentary-navigation {
@@ -1571,11 +1576,13 @@ html,
 
 /* Tablet responsive tooltips */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .commentary-container {
-        margin-left: 0 !important;
-        width: 100% !important;
-        padding: 1.5rem;
-    }
+  .commentary-container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1rem;
+  }
 
     .commentary-breadcrumb,
     .commentary-navigation {
