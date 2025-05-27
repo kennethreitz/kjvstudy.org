@@ -1468,6 +1468,20 @@ html,
     font-size: 0.95rem;
     padding: 1rem 1.25rem;
   }
+
+  .commentary-container {
+    margin-left: 240px;
+    width: calc(100% - 260px);
+    padding: 3rem;
+    max-width: 1400px;
+  }
+
+  .commentary-breadcrumb,
+  .commentary-navigation {
+    margin-left: 240px;
+    width: calc(100% - 260px);
+    max-width: 1400px;
+  }
 }
 
 @media (max-width: 480px) {
