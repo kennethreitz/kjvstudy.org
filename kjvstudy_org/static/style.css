@@ -615,6 +615,7 @@ div {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 /* Tablet-specific styles */
@@ -932,12 +933,13 @@ div {
     }
 
     /* Prevent zoom on form inputs */
-    input[type="text"],
-    input[type="search"],
+    input[type="text"], 
+    input[type="search"], 
     textarea {
-        font-size: 16px;
-        -webkit-appearance: none;
-        border-radius: var(--radius-md);
+      font-size: 16px;
+      -webkit-appearance: none;
+      border-radius: var(--radius-md);
+      font-family: 'Crimson Text', 'Times New Roman', serif !important;
     }
 
     /* Improve readability on mobile */
@@ -981,11 +983,12 @@ div {
 
 /* Loading and States */
 .loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem;
-    color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .spinner {
