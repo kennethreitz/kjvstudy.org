@@ -64,8 +64,16 @@ sup.verse-number {
     user-select: none !important;
     cursor: pointer !important;
     font-family: 'Crimson Text', 'Times New Roman', serif !important;
-    line-height: 1 !important;
+    line-height: normal !important;
     vertical-align: super !important;
+    position: relative !important;
+    display: inline !important;
+    float: none !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
 }
 
 sup.verse-number:hover {
@@ -143,6 +151,11 @@ sup.verse-number:hover {
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+}
+
+.chapter-text {
+    position: relative;
+    display: block;
 }
 
 .verse-text::selection {
