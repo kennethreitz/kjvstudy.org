@@ -60,16 +60,16 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
-    font-family: 'Playfair Display', serif;
-    color: white;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    color: var(--text-primary);
 }
 
 .commentary-section h3 {
     font-size: 1.75rem;
     margin: 2rem 0 1rem 0;
     font-weight: 600;
-    color: white;
-    font-family: 'Playfair Display', serif;
+    color: var(--text-primary);
+    font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 
@@ -81,14 +81,14 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
     hyphens: auto;
     font-weight: 400;
-    color: white;
+    color: var(--text-primary);
 }
 
 .commentary-section li {
     font-size: 1.25rem;
     line-height: 1.8;
     margin-bottom: 0.75rem;
-    color: white;
+    color: var(--text-primary);
 }
 
 .sidebar-toc {
@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 0 4px 4px 0;
     margin: 1.5rem 0;
     padding: 1rem 1rem 1rem 1.5rem;
-    color: white;
+    color: var(--text-primary);
 }
 
 /* Clean quote styling */
@@ -125,13 +125,13 @@ h1, h2, h3, h4, h5, h6 {
     border-left: 4px solid var(--primary-color);
     background: rgba(75, 46, 131, 0.05);
     border-radius: 0 4px 4px 0;
-    color: white;
+    color: var(--text-primary);
 }
 
 /* Enhanced strong/bold text */
 .commentary-section strong {
     font-weight: 600;
-    color: white;
+    color: var(--text-primary);
 }
 
 /* Enhanced em/italic text */
@@ -159,12 +159,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .commentary-header {
-    background: var(--primary-color);
-    color: white;
+    background: var(--surface-color);
+    color: var(--text-primary);
     padding: 2rem 1rem;
     text-align: center;
     margin-bottom: 2rem;
     border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
 }
 
 .commentary-header h1 {
@@ -214,13 +215,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .commentary-section h2 {
     margin-top: 0;
-    color: white;
+    color: var(--text-primary);
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--border-light);
 }
 
 .commentary-section h3 {
-    color: white;
+    color: var(--text-primary);
 }
 
 .commentary-section p {
@@ -237,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .verse-reference:hover {
-    color: white;
+    color: var(--primary-light);
     text-decoration: underline;
 }
 
@@ -436,12 +437,12 @@ h1, h2, h3, h4, h5, h6 {
 .highlight-title {
     font-weight: 600;
     margin: 0 0 0.5rem;
-    color: white;
+    color: var(--text-primary);
 }
 
 .highlight-desc {
     margin: 0;
-    color: white;
+    color: var(--text-primary);
     line-height: 1.5;
 }
 
@@ -578,7 +579,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     font-size: 1rem;
     margin-bottom: 0.75rem;
-    color: white;
+    color: var(--text-primary);
 }
 
 .cross-ref-list {
@@ -595,7 +596,7 @@ h1, h2, h3, h4, h5, h6 {
 .cross-ref-list li {
     margin-bottom: 0.5rem;
     break-inside: avoid;
-    color: white;
+    color: var(--text-primary);
 }
 
 .backdrop-blur {
