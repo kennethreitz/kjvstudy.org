@@ -10,10 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 .commentary-section h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
     font-size: 1.7rem;
     font-weight: 700;
-    color: white;
+    color: var(--text-primary);
     margin-top: 0;
     margin-bottom: 1.25rem;
     padding-bottom: 0.5rem;
@@ -21,32 +21,27 @@
 }
 
 .commentary-section h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
     font-size: 1.5rem;
     font-weight: 600;
-    color: white;
+    color: var(--text-primary);
     margin: 1.75rem 0 0.875rem 0;
 }
 
 .commentary-section p {
-    font-family: 'EB Garamond', Georgia, serif;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
     font-size: 1.175rem;
     line-height: 1.7;
     margin-bottom: 1.25rem;
-    color: white;
-    font-feature-settings: 
-        "liga" 1,
-        "dlig" 1,
-        "kern" 1,
-        "onum" 1;
+    color: var(--text-primary);
     text-rendering: optimizeLegibility;
 }
 
 .commentary-section li {
-    font-family: 'EB Garamond', Georgia, serif;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
     font-size: 1.1rem;
     line-height: 1.6;
-    color: white;
+    color: var(--text-primary);
 }
 
 @media (max-width: 768px) {
@@ -73,12 +68,12 @@
 }
 
 .commentary-section strong {
-    color: white;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
 .commentary-section em {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -233,8 +228,8 @@
 </div>
 
 <div class="commentary-container" style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; padding: 0 1rem;">
-    <div class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); color: white;">
-            <h2 style="color: white; margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700; text-align: center;">
+    <div class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); color: var(--text-primary);">
+            <h2 style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700; text-align: center;">
                 📚 Commentary on {{ book }}
             </h2>
         
@@ -259,9 +254,9 @@
                 {% for highlight in highlights %}
                 <a href="{{ highlight.url }}" class="key-passage-link verse-reference" style="position: relative;">
                     <div class="key-passage-card">
-                        <h4 style="font-weight: 600; margin: 0 0 0.4rem; color: #ff6b6b; font-size: 1.1rem;">{{ highlight.reference }}</h4>
-                                                <p style="margin: 0; color: white; line-height: 1.4; font-size: 1rem;">{{ highlight.description }}</p>
-                        <span style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 0.5rem; display: block;">Click to read passage →</span>
+                        <h4 style="font-weight: 600; margin: 0 0 0.4rem; color: var(--primary-light); font-size: 1.1rem;">{{ highlight.reference }}</h4>
+                                                <p style="margin: 0; color: var(--text-primary); line-height: 1.4; font-size: 1rem;">{{ highlight.description }}</p>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; display: block;">Click to read passage →</span>
                     </div>
                     <span class="verse-tooltip">{{ highlight.text|default(highlight.description) }}</span>
                 </a>
@@ -273,10 +268,10 @@
                     <a href="/book/{{ book }}/commentary" class="nav-button nav-button-primary" style="display: inline-block; font-size: 1rem; padding: 0.65rem 1.25rem;">
                         Read Complete {{ book }} Commentary
                     </a>
-            <p style="color: rgba(255, 255, 255, 0.8); margin-top: 0.8rem; font-style: italic; font-size: 0.85rem;">
+            <p style="color: var(--text-secondary); margin-top: 0.8rem; font-style: italic; font-size: 0.85rem;">
                             "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."
                             <br>
-                            <strong style="color: #ff6b6b;">2 Timothy 2:15</strong>
+                            <strong style="color: var(--primary-light);">2 Timothy 2:15</strong>
                         </p>
         </div>
     </div>

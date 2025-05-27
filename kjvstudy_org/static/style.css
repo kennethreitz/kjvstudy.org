@@ -1269,7 +1269,7 @@ html,
 .commentary-header h1 {
   font-family: 'Crimson Text', 'Times New Roman', serif;
   font-size: 2.5rem;
-  color: var(--primary-color);
+  color: var(--text-primary);
   margin: 0 0 1rem;
 }
 
@@ -1289,7 +1289,7 @@ html,
 }
 
 .book-meta-item {
-  background: var(--primary-color);
+  background: var(--primary-light);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
@@ -1312,7 +1312,7 @@ html,
 .commentary-section h2 {
   font-family: 'Crimson Text', 'Times New Roman', serif;
   font-size: 1.8rem;
-  color: var(--primary-color);
+  color: var(--text-primary);
   margin: 0 0 1.5rem;
   border-bottom: 2px solid var(--border-light);
   padding-bottom: 0.5rem;
@@ -1365,7 +1365,7 @@ html,
 }
 
 .verse-reference {
-  color: var(--primary-color);
+  color: var(--primary-light);
   text-decoration: none;
   font-weight: 500;
   position: relative;
@@ -1445,7 +1445,7 @@ html,
 .toc-title {
   font-family: 'Crimson Text', 'Times New Roman', serif;
   font-size: 1.2rem;
-  color: var(--primary-color);
+  color: var(--text-primary);
   margin: 0 0 1rem;
 }
 
@@ -1473,7 +1473,7 @@ html,
 
 .toc-link:hover {
   background: var(--border-light);
-  color: var(--primary-color);
+  color: var(--primary-light);
   transform: translateX(4px);
 }
 
