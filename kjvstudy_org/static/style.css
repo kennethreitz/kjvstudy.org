@@ -1216,233 +1216,257 @@ html,
 
 /* Commentary and Outline Styles */
 .commentary-container {
-    background-color: var(--background-color);
-    min-height: 100vh;
-    margin-left: 220px;
-    width: calc(100% - 220px);
-    padding: 2rem;
-    box-sizing: border-box;
+  background-color: var(--background-color);
+  min-height: 100vh;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 /* Commentary-specific container overrides */
 .commentary-container .container {
-    margin-left: 0 !important;
-    width: 100% !important;
-    max-width: none;
+  margin-left: 0 !important;
+  width: 100% !important;
+  max-width: none;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .commentary-breadcrumb {
-    margin-left: 220px;
-    width: calc(100% - 220px);
-    box-sizing: border-box;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  box-sizing: border-box;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .commentary-navigation {
-    margin-left: 220px;
-    width: calc(100% - 220px);
-    box-sizing: border-box;
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  box-sizing: border-box;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .commentary-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding: 2rem 1rem;
-    background: var(--surface-color);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 1rem;
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .commentary-header h1 {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin: 0 0 1rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin: 0 0 1rem;
 }
 
 .commentary-header p {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    margin: 0 0 1.5rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .book-meta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .book-meta-item {
-    background: var(--primary-color);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: 0.9rem;
-    font-weight: 500;
-    border: 1px solid var(--primary-light);
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--primary-light);
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .commentary-section {
-    background: var(--surface-color);
-    margin-bottom: 2rem;
-    padding: 2rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .commentary-section h2 {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin: 0 0 1.5rem;
-    border-bottom: 2px solid var(--border-light);
-    padding-bottom: 0.5rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin: 0 0 1.5rem;
+  border-bottom: 2px solid var(--border-light);
+  padding-bottom: 0.5rem;
 }
 
 .outline-section {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .outline-title {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    color: var(--text-primary);
-    margin: 0 0 1rem;
-    padding: 0.75rem 1rem;
-    background: var(--border-light);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--border-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
 }
 
 .outline-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .outline-item {
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
-    background: var(--background-color);
-    border-radius: var(--radius-sm);
-    border-left: 4px solid var(--accent-color);
-    line-height: 1.6;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: var(--background-color);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--accent-color);
+  line-height: 1.6;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .outline-nested {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0 0 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 1rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .outline-nested .outline-item {
-    border-left-color: var(--text-muted);
-    font-size: 0.95rem;
+  border-left-color: var(--text-muted);
+  font-size: 0.95rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .verse-reference {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .verse-reference:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .verse-tooltip {
-    display: none;
-    position: absolute;
-    background: var(--text-primary);
-    color: white;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.9rem;
-    max-width: 400px;
-    min-width: 300px;
-    z-index: 100;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    line-height: 1.5;
-    white-space: normal;
-    word-wrap: break-word;
+  display: none;
+  position: absolute;
+  background: var(--text-primary);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  max-width: 400px;
+  min-width: 300px;
+  z-index: 100;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1.5;
+  white-space: normal;
+  word-wrap: break-word;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .verse-reference:hover .verse-tooltip {
-    display: block;
+  display: block;
 }
 
 .tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .tag {
-    background: var(--accent-color);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-md);
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+  background: var(--accent-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .two-column {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 2rem;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  align-items: start;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .main-content {
-    min-width: 0;
+  min-width: 0;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .toc-sidebar {
-    position: sticky;
-    top: 2rem;
-    background: var(--surface-color);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
+  position: sticky;
+  top: 2rem;
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .toc-title {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    margin: 0 0 1rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin: 0 0 1rem;
 }
 
 .toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .toc-item {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .toc-link {
-    display: block;
-    padding: 0.5rem 0.75rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: all 0.2s ease;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .toc-link:hover {
-    background: var(--border-light);
-    color: var(--primary-color);
-    transform: translateX(4px);
+  background: var(--border-light);
+  color: var(--primary-color);
+  transform: translateX(4px);
 }
 
 /* Mobile styles for commentary */
@@ -1635,10 +1659,23 @@ html,
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    :root {
-        --border-color: #000;
-        --border-light: #333;
-        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
-    }
+  :root {
+    --border-color: #000;
+    --border-light: #333;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+  }
+  
+  * {
+    font-family: 'Crimson Text', 'Times New Roman', serif !important;
+  }
+}
+
+/* Apply Crimson Text to all remaining elements */
+h1, h2, h3, h4, h5, h6,
+p, li, span, div, a, button, 
+input, textarea, select,
+label, table, th, td,
+blockquote, pre, code {
+  font-family: 'Crimson Text', 'Times New Roman', serif !important;
 }
