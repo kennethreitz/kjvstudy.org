@@ -1719,6 +1719,102 @@ blockquote, pre, code {
   font-family: 'Crimson Text', 'Times New Roman', serif !important;
 }
 
+/* Bible Book Categories Legend */
+.bible-legend {
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.legend-title {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.legend-section h4 {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+}
+
+.legend-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-name {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .legend-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .bible-legend {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Category Headings */
+.category-heading {
+  font-family: 'Crimson Text', 'Times New Roman', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-color);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
 /* Bible Book Category Styles */
 .bible-book {
     border-left: 4px solid var(--border-color);
