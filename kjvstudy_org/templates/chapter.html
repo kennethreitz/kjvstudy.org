@@ -156,13 +156,27 @@
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 1.5rem;
     line-height: 1.8;
-    color: white;
+    color: var(--text-primary);
     font-feature-settings: 
         "liga" 1,
         "dlig" 1,
         "kern" 1,
         "onum" 1;
     text-rendering: optimizeLegibility;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.verse-text::selection {
+    background: rgba(139, 92, 246, 0.4);
+    color: var(--text-primary);
+}
+
+.verse-text::-moz-selection {
+    background: rgba(139, 92, 246, 0.4);
+    color: var(--text-primary);
 }
 
 .verse-reference {
