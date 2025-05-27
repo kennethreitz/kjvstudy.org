@@ -13,6 +13,48 @@
         Study the complete Authorized King James Version (KJV) Bible with modern tools and AI-powered commentary. 
         Choose a book below to begin your KJV Bible study.
     </p>
+    
+    <!-- Search Box -->
+    <div class="search-container" style="max-width: 500px; margin: 1.5rem auto 0;">
+        <form method="get" action="/search" style="display: flex; gap: 0.75rem;">
+            <input 
+                type="text" 
+                name="q" 
+                placeholder="Search the Bible..." 
+                style="
+                    flex: 1;
+                    padding: 0.75rem 1rem;
+                    font-size: 1rem;
+                    border: 2px solid var(--border-color);
+                    border-radius: var(--radius-md);
+                    background: var(--surface-color);
+                    color: var(--text-primary);
+                    font-family: 'Crimson Text', 'Times New Roman', serif;
+                    transition: border-color 0.2s ease;
+                "
+                onfocus="this.style.borderColor='var(--primary-light)'"
+                onblur="this.style.borderColor='var(--border-color)'"
+            >
+            <button 
+                type="submit" 
+                style="
+                    padding: 0.75rem 1.5rem;
+                    background: var(--primary-light);
+                    color: white;
+                    border: none;
+                    border-radius: var(--radius-md);
+                    font-family: 'Crimson Text', 'Times New Roman', serif;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+                "
+                onmouseover="this.style.backgroundColor='var(--primary-color)'"
+                onmouseout="this.style.backgroundColor='var(--primary-light)'"
+            >
+                🔍 Search
+            </button>
+        </form>
+    </div>
 </div>
 
 <!-- Bible Book Categories Legend -->

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Query
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -8,7 +8,9 @@ from pathlib import Path
 import random
 import html
 import json
+import re
 from datetime import datetime
+from typing import List, Dict, Optional
 
 from .kjv import bible
 
@@ -56,6 +58,114 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
     # For other errors, use the default handler
     return await http_exception_handler(request, exc)
 
+
+@app.get("/search", response_class=HTMLResponse)
+def search_page(request: Request, q: str = Query(None, description="Search query")):
+    """Search page with results"""
+    books = list(bible.iter_books())
+    search_results = []
+    
+    if q and len(q.strip()) >= 2:
+        search_results = perform_full_text_search(q.strip())
+    
+    return templates.TemplateResponse(
+        "search.html",
+        {
+            "request": request,
+            "query": q or "",
+            "results": search_results,
+            "books": books,
+            "total_results": len(search_results)
+        }
+    )
+
+@app.get("/api/search")
+def search_api(q: str = Query(..., description="Search query"), limit: int = Query(50, description="Max results")):
+    """JSON API endpoint for search"""
+    if not q or len(q.strip()) < 2:
+        return {"query": q, "results": [], "total": 0}
+    
+    search_results = perform_full_text_search(q.strip(), limit)
+    
+    return {
+        "query": q,
+        "results": search_results,
+        "total": len(search_results)
+    }
+
+def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
+    """Perform full text search across all Bible verses"""
+    results = []
+    search_terms = query.lower().split()
+    
+    # Search through all verses
+    for book in bible.iter_books():
+        for book_name, chapter_num in bible.iter_chapters():
+            if book_name != book:
+                continue
+                
+            try:
+                chapter_verses = bible.get_verses(book, chapter_num)
+                for verse in chapter_verses:
+                    verse_text = verse.text.lower()
+                    
+                    # Check if all search terms are in the verse
+                    if all(term in verse_text for term in search_terms):
+                        # Calculate relevance score
+                        score = calculate_relevance_score(verse.text, search_terms)
+                        
+                        results.append({
+                            "book": book,
+                            "chapter": chapter_num,
+                            "verse": verse.verse,
+                            "text": verse.text,
+                            "reference": f"{book} {chapter_num}:{verse.verse}",
+                            "url": f"/book/{book}/chapter/{chapter_num}#verse-{verse.verse}",
+                            "score": score,
+                            "highlighted_text": highlight_search_terms(verse.text, search_terms)
+                        })
+                        
+                        if len(results) >= limit:
+                            break
+                            
+            except Exception as e:
+                continue
+                
+        if len(results) >= limit:
+            break
+    
+    # Sort by relevance score (highest first)
+    results.sort(key=lambda x: x['score'], reverse=True)
+    return results[:limit]
+
+def calculate_relevance_score(text: str, search_terms: List[str]) -> float:
+    """Calculate relevance score based on term frequency and proximity"""
+    text_lower = text.lower()
+    score = 0.0
+    
+    for term in search_terms:
+        # Count occurrences of each term
+        count = text_lower.count(term)
+        score += count * len(term)  # Longer terms get higher weight
+        
+        # Bonus for exact phrase matches
+        if len(search_terms) > 1:
+            phrase = " ".join(search_terms)
+            if phrase in text_lower:
+                score += 10
+    
+    return score
+
+def highlight_search_terms(text: str, search_terms: List[str]) -> str:
+    """Highlight search terms in the text"""
+    highlighted = text
+    
+    for term in search_terms:
+        # Create case-insensitive regex pattern that preserves original case
+        pattern = re.compile(f'({re.escape(term)})', re.IGNORECASE)
+        highlighted = pattern.sub(r'<mark>\1</mark>', highlighted)
+    
+    return highlighted
 
 @app.get("/sitemap.xml", response_class=Response)
 def sitemap():

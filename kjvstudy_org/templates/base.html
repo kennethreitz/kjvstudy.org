@@ -536,10 +536,20 @@
                             padding: 0.35rem 0.5rem;
                             font-size: 0.95rem;
                             margin-bottom: 0.1rem;
-                            font-family: 'Crimson Text', 'Times New Roman', serif;
                         "
                     >
                         📚 All Books
+                    </a>
+                    <a
+                        href="/search"
+                        {% if request.url and request.url.path == "/search" %}class="active"{% endif %}
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        🔍 Search Bible
                     </a>
 
                     {% if books %}

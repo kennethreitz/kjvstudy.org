@@ -1,0 +1,498 @@
+{% extends "base.html" %}
+
+{% block title %}{% if query %}Search Results for "{{ query }}"{% else %}Search the KJV Bible{% endif %} - Authorized King James Version{% endblock %}
+{% block description %}{% if query %}Search results for "{{ query }}" in the Authorized King James Version (KJV) Bible. Find verses and passages across all books.{% else %}Search the complete Authorized King James Version (KJV) Bible. Find verses, passages, and topics across all 66 books.{% endif %}{% endblock %}
+{% block keywords %}{% if query %}{{ query }}, KJV Bible search, Bible verse search, {{ query }} Bible verses{% else %}KJV Bible search, Bible verse search, search scripture, find Bible verses, Authorized King James Version search{% endif %}{% endblock %}
+
+{% block head %}
+<style>
+.search-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.search-title {
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: normal;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+}
+
+.search-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0 0 2rem;
+}
+
+.search-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.search-input {
+    flex: 1;
+    padding: 1rem 1rem 1rem 3rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-color);
+    color: var(--text-primary);
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.suggestion-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-light);
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    color: var(--text-primary);
+    transition: background-color 0.2s ease;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background: var(--border-light);
+    color: var(--primary-light);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-reference {
+    font-weight: 600;
+    color: var(--primary-light);
+    font-size: 0.9rem;
+}
+
+.suggestion-preview {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    line-height: 1.4;
+}
+
+.suggestion-preview mark {
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--text-primary);
+    padding: 0.1rem 0.2rem;
+    border-radius: 2px;
+}
+
+.search-button {
+    padding: 1rem 2rem;
+    background: var(--primary-light);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+    background: var(--primary-color);
+}
+
+.search-stats {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.search-results {
+    margin-top: 2rem;
+}
+
+.search-result {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.search-result:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+
+.result-reference {
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-light);
+    margin: 0 0 0.75rem;
+    text-decoration: none;
+}
+
+.result-reference:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.result-text {
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.result-text mark {
+    background: rgba(139, 92, 246, 0.3);
+    color: var(--text-primary);
+    padding: 0.1rem 0.2rem;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.no-results-title {
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 1.5rem;
+    margin: 0 0 1rem;
+    color: var(--text-primary);
+}
+
+.no-results-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+}
+
+.search-tips {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.search-tips h3 {
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+}
+
+.search-tips ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-tips li {
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.search-tips li::before {
+    content: "•";
+    color: var(--primary-light);
+    position: absolute;
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        padding: 1rem 0.5rem;
+    }
+    
+    .search-form {
+        flex-direction: column;
+    }
+    
+    .search-title {
+        font-size: 1.75rem;
+    }
+    
+    .search-result {
+        padding: 1rem;
+    }
+    
+    .result-text {
+        font-size: 1rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block breadcrumb %}
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="/">📚 All Books</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Search</span>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <header class="search-header">
+        <h1 class="search-title">Search the KJV Bible</h1>
+        <p class="search-subtitle">
+            Search across all verses in the Authorized King James Version (1769)
+        </p>
+    </header>
+
+    <form class="search-form" method="get" action="/search">
+        <div style="position: relative; flex: 1;">
+            <span class="search-icon">🔍</span>
+            <input 
+                type="text" 
+                name="q" 
+                value="{{ query }}" 
+                placeholder="Enter words or phrases to search..." 
+                class="search-input"
+                id="searchInput"
+                autofocus
+                autocomplete="off"
+            >
+        </div>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+        <button type="submit" class="search-button">Search</button>
+    </form>
+
+    {% if query %}
+        {% if total_results > 0 %}
+            <div class="search-stats">
+                Found <strong>{{ total_results }}</strong> result{{ 's' if total_results != 1 else '' }} for "<strong>{{ query }}</strong>"
+            </div>
+
+            <div class="search-results">
+                {% for result in results %}
+                <div class="search-result">
+                    <a href="{{ result.url }}" class="result-reference">
+                        {{ result.reference }}
+                    </a>
+                    <p class="result-text">{{ result.highlighted_text|safe }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-results">
+                <h2 class="no-results-title">No results found</h2>
+                <p class="no-results-text">
+                    No verses were found for "<strong>{{ query }}</strong>". 
+                    Try different words or check your spelling.
+                </p>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% if not query or total_results == 0 %}
+    <div class="search-tips">
+        <h3>Search Tips</h3>
+        <ul>
+            <li>Search for words or phrases that appear in Bible verses</li>
+            <li>Use multiple words to find verses containing all terms</li>
+            <li>Try different word forms (e.g., "love" vs "loveth")</li>
+            <li>Search for names, places, or key themes</li>
+            <li>Use Old English spellings for better KJV results</li>
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+    const searchForm = document.querySelector('.search-form');
+    let currentSuggestionIndex = -1;
+    let suggestionItems = [];
+    let searchTimeout;
+
+    // Focus on search input if no query
+    if (searchInput && !searchInput.value) {
+        searchInput.focus();
+    }
+    
+    // Live search suggestions
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim();
+        
+        clearTimeout(searchTimeout);
+        
+        if (query.length < 2) {
+            hideSuggestions();
+            return;
+        }
+        
+        searchTimeout = setTimeout(() => {
+            fetchSuggestions(query);
+        }, 300);
+    });
+    
+    // Handle keyboard navigation
+    searchInput.addEventListener('keydown', function(e) {
+        if (suggestionItems.length === 0) return;
+        
+        switch(e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                currentSuggestionIndex = Math.min(currentSuggestionIndex + 1, suggestionItems.length - 1);
+                updateActiveSuggestion();
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                currentSuggestionIndex = Math.max(currentSuggestionIndex - 1, -1);
+                updateActiveSuggestion();
+                break;
+            case 'Enter':
+                if (currentSuggestionIndex >= 0) {
+                    e.preventDefault();
+                    selectSuggestion(suggestionItems[currentSuggestionIndex]);
+                }
+                break;
+            case 'Escape':
+                hideSuggestions();
+                break;
+        }
+    });
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!searchForm.contains(e.target)) {
+            hideSuggestions();
+        }
+    });
+    
+    // Form submission handling
+    searchForm.addEventListener('submit', function(e) {
+        const query = searchInput.value.trim();
+        if (query.length < 2) {
+            e.preventDefault();
+            alert('Please enter at least 2 characters to search.');
+            return false;
+        }
+        hideSuggestions();
+    });
+    
+    function fetchSuggestions(query) {
+        fetch(`/api/search?q=${encodeURIComponent(query)}&limit=5`)
+            .then(response => response.json())
+            .then(data => {
+                showSuggestions(data.results);
+            })
+            .catch(error => {
+                console.error('Search error:', error);
+                hideSuggestions();
+            });
+    }
+    
+    function showSuggestions(results) {
+        if (results.length === 0) {
+            hideSuggestions();
+            return;
+        }
+        
+        searchSuggestions.innerHTML = results.map(result => `
+            <div class="suggestion-item" data-url="${result.url}">
+                <div class="suggestion-reference">${result.reference}</div>
+                <div class="suggestion-preview">${result.highlighted_text}</div>
+            </div>
+        `).join('');
+        
+        suggestionItems = searchSuggestions.querySelectorAll('.suggestion-item');
+        
+        // Add click handlers
+        suggestionItems.forEach(item => {
+            item.addEventListener('click', () => {
+                window.location.href = item.dataset.url;
+            });
+        });
+        
+        searchSuggestions.style.display = 'block';
+        currentSuggestionIndex = -1;
+    }
+    
+    function hideSuggestions() {
+        searchSuggestions.style.display = 'none';
+        suggestionItems = [];
+        currentSuggestionIndex = -1;
+    }
+    
+    function updateActiveSuggestion() {
+        suggestionItems.forEach((item, index) => {
+            item.classList.toggle('active', index === currentSuggestionIndex);
+        });
+        
+        if (currentSuggestionIndex >= 0) {
+            suggestionItems[currentSuggestionIndex].scrollIntoView({
+                block: 'nearest'
+            });
+        }
+    }
+    
+    function selectSuggestion(suggestionItem) {
+        window.location.href = suggestionItem.dataset.url;
+    }
+});
+</script>
+{% endblock %}
