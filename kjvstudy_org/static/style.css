@@ -486,7 +486,7 @@ div {
 
 .verse-number {
   font-size: 0.75rem !important;
-  color: var(--text-muted) !important;
+  color: var(--text-secondary) !important;
   font-weight: normal !important;
   font-family: 'Crimson Text', 'Times New Roman', serif !important;
   vertical-align: super !important;
@@ -865,6 +865,7 @@ div {
 
     .verse-number {
         font-size: 0.75rem !important;
+        color: var(--text-secondary) !important;
         vertical-align: super !important;
         display: inline !important;
     }
@@ -1194,6 +1195,7 @@ html,
 
   .verse-number {
     font-size: 0.7rem !important;
+    color: var(--text-secondary) !important;
     vertical-align: super !important;
     display: inline !important;
   }
