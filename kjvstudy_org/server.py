@@ -98,41 +98,28 @@ def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
     results = []
     search_terms = query.lower().split()
     
-    # Search through all verses
-    for book in bible.iter_books():
-        for book_name, chapter_num in bible.iter_chapters():
-            if book_name != book:
-                continue
-                
-            try:
-                chapter_verses = bible.get_verses(book, chapter_num)
-                for verse in chapter_verses:
-                    verse_text = verse.text.lower()
-                    
-                    # Check if all search terms are in the verse
-                    if all(term in verse_text for term in search_terms):
-                        # Calculate relevance score
-                        score = calculate_relevance_score(verse.text, search_terms)
-                        
-                        results.append({
-                            "book": book,
-                            "chapter": chapter_num,
-                            "verse": verse.verse,
-                            "text": verse.text,
-                            "reference": f"{book} {chapter_num}:{verse.verse}",
-                            "url": f"/book/{book}/chapter/{chapter_num}#verse-{verse.verse}",
-                            "score": score,
-                            "highlighted_text": highlight_search_terms(verse.text, search_terms)
-                        })
-                        
-                        if len(results) >= limit:
-                            break
-                            
-            except Exception as e:
-                continue
-                
-        if len(results) >= limit:
-            break
+    # Search through all verses using the iter_verses method
+    for verse in bible.iter_verses():
+        verse_text = verse.text.lower()
+        
+        # Check if all search terms are in the verse
+        if all(term in verse_text for term in search_terms):
+            # Calculate relevance score
+            score = calculate_relevance_score(verse.text, search_terms)
+            
+            results.append({
+                "book": verse.book,
+                "chapter": verse.chapter,
+                "verse": verse.verse,
+                "text": verse.text,
+                "reference": f"{verse.book} {verse.chapter}:{verse.verse}",
+                "url": f"/book/{verse.book}/chapter/{verse.chapter}#verse-{verse.verse}",
+                "score": score,
+                "highlighted_text": highlight_search_terms(verse.text, search_terms)
+            })
+            
+            if len(results) >= limit:
+                break
     
     # Sort by relevance score (highest first)
     results.sort(key=lambda x: x['score'], reverse=True)
