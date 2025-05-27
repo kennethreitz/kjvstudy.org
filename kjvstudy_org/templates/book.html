@@ -106,6 +106,39 @@
     margin-bottom: 8px;
 }
 
+/* Responsive tooltip styles */
+@media (max-width: 768px) {
+    .verse-tooltip {
+        position: fixed;
+        bottom: 2rem;
+        left: 1rem;
+        right: 1rem;
+        transform: none;
+        max-width: none;
+        min-width: auto;
+        padding: 1rem;
+        font-size: 1rem;
+        z-index: 1001;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .verse-tooltip {
+        max-width: 380px;
+        min-width: 280px;
+        font-size: 0.875rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .verse-tooltip {
+        max-width: 500px;
+        min-width: 400px;
+        font-size: 0.95rem;
+        padding: 1rem 1.25rem;
+    }
+}
+
 .verse-tooltip::after {
     content: '';
     position: absolute;
