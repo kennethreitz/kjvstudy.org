@@ -1,765 +1,1154 @@
-<!DOCTYPE html>
-<html lang="en" style="font-size: 18px;">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- iOS specific meta tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="KJV Study">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <title>{% block title %}Authorized King James Version (KJV) Bible Study - KJV Study{% endblock %}</title>
-    <meta name="description" content="{% block description %}Study the Authorized King James Version (KJV) Bible with AI-powered commentary and insights. Read the complete KJV Bible online with modern study tools.{% endblock %}">
-    <meta name="keywords" content="{% block keywords %}Authorized King James Version, KJV Bible, King James Bible, Bible study, Bible commentary, KJV online{% endblock %}">
-    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
-    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:url" content="{{ request.url if request.url else '' }}">
-    <meta property="og:site_name" content="KJV Study - Authorized King James Version Bible">
-    <meta property="og:locale" content="en_US">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{% block twitter_title %}{{ self.title() }}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{{ self.description() }}{% endblock %}">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/static/style.css" as="style">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    
-    <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "{% block schema_type %}WebSite{% endblock %}",
-        "name": "KJV Study - Authorized King James Version Bible",
-        "description": "{{ self.description() }}",
-        "url": "{{ request.url if request.url else '' }}",
-        "inLanguage": "en-US",
-        "about": {
-            "@type": "Book",
-            "name": "Authorized King James Version Bible",
-            "alternateName": ["KJV Bible", "King James Bible", "KJV"],
-            "description": "The Authorized King James Version of the Bible, originally published in 1611",
-            "inLanguage": "en-US"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "KJV Study",
-            "description": "Online Bible study platform for the Authorized King James Version"
-        }{% block structured_data %}{% endblock %}
-    }
-    </script>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Touch icons for iOS -->
-    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
-    
-    <!-- Styles -->
-    <link href="/static/style.css" rel="stylesheet">
-    <style>
-        html, body {
-            min-height: 100vh;
-            background-color: var(--background-color) !important;
-            overflow-x: hidden;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            touch-action: manipulation;
-        }
-            
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--background-color) !important;
-            z-index: -2;
-        }
-            
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .sidebar {
+<!doctype html>
+<html lang="en" style="font-size: 18px">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
+
+        <!-- iOS specific meta tags -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="KJV Study" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <title>
+            {% block title %}Authorized King James Version (KJV) Bible Study -
+            KJV Study{% endblock %}
+        </title>
+        <meta
+            name="description"
+            content="{% block description %}Study the Authorized King James Version (KJV) Bible with AI-powered commentary and insights. Read the complete KJV Bible online with modern study tools.{% endblock %}"
+        />
+        <meta
+            name="keywords"
+            content="{% block keywords %}Authorized King James Version, KJV Bible, King James Bible, Bible study, Bible commentary, KJV online{% endblock %}"
+        />
+        <meta
+            property="og:title"
+            content="{% block og_title %}{{ self.title() }}{% endblock %}"
+        />
+        <meta
+            property="og:description"
+            content="{% block og_description %}{{ self.description() }}{% endblock %}"
+        />
+        <meta
+            property="og:type"
+            content="{% block og_type %}website{% endblock %}"
+        />
+        <meta
+            property="og:url"
+            content="{{ request.url if request.url else '' }}"
+        />
+        <meta
+            property="og:site_name"
+            content="KJV Study - Authorized King James Version Bible"
+        />
+        <meta property="og:locale" content="en_US" />
+        <meta name="twitter:card" content="summary" />
+        <meta
+            name="twitter:title"
+            content="{% block twitter_title %}{{ self.title() }}{% endblock %}"
+        />
+        <meta
+            name="twitter:description"
+            content="{% block twitter_description %}{{ self.description() }}{% endblock %}"
+        />
+
+        <!-- Preload critical resources -->
+        <link rel="preload" href="/static/style.css" as="style" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+        <!-- Structured Data for SEO -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "{% block schema_type %}WebSite{% endblock %}",
+                "name": "KJV Study - Authorized King James Version Bible",
+                "description": "{{ self.description() }}",
+                "url": "{{ request.url if request.url else '' }}",
+                "inLanguage": "en-US",
+                "about": {
+                    "@type": "Book",
+                    "name": "Authorized King James Version Bible",
+                    "alternateName": ["KJV Bible", "King James Bible", "KJV"],
+                    "description": "The Authorized King James Version of the Bible, originally published in 1611",
+                    "inLanguage": "en-US"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "KJV Study",
+                    "description": "Online Bible study platform for the Authorized King James Version"
+                }{% block structured_data %}{% endblock %}
+            }
+        </script>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Touch icons for iOS -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>"
+        />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>"
+        />
+
+        <!-- Styles -->
+        <link href="/static/style.css" rel="stylesheet" />
+        <style>
+            html,
+            body {
+                min-height: 100vh;
+                background-color: var(--background-color) !important;
+                overflow-x: hidden;
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+                touch-action: manipulation;
+            }
+
+            body::before {
+                content: "";
                 position: fixed;
-                left: 0;
                 top: 0;
-                height: 100%;
-                width: 200px;
-                transform: translateX(-200px);
-            }
-                
-            .sidebar.open {
-                transform: translateX(0);
-            }
-                
-            .main-content {
-                margin-left: 0;
+                left: 0;
                 width: 100%;
+                height: 100%;
+                background-color: var(--background-color) !important;
+                z-index: -2;
+            }
+
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .sidebar {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 200px;
+                    transform: translateX(-200px);
+                }
+
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+
+                .main-content {
+                    margin-left: 0;
+                    width: 100%;
+                    background-color: var(--background-color) !important;
+                }
+            }
+
+            .container,
+            .narrow-container {
+                background-color: var(--background-color) !important;
+                position: relative;
+                z-index: 1;
+            }
+
+            .main-content {
                 background-color: var(--background-color) !important;
             }
-        }
-            
-        .container, .narrow-container {
-            background-color: var(--background-color) !important;
-            position: relative;
-            z-index: 1;
-        }
-            
-        .main-content {
-            background-color: var(--background-color) !important;
-        }
-        
-        /* iOS safe area support */
-        @supports (padding: max(0px)) {
-            .container, .narrow-container {
-                padding-left: max(1rem, env(safe-area-inset-left));
-                padding-right: max(1rem, env(safe-area-inset-right));
+
+            /* iOS safe area support */
+            @supports (padding: max(0px)) {
+                .container,
+                .narrow-container {
+                    padding-left: max(1rem, env(safe-area-inset-left));
+                    padding-right: max(1rem, env(safe-area-inset-right));
+                }
+
+                .mobile-menu-button {
+                    top: max(1rem, env(safe-area-inset-top));
+                    left: max(1rem, env(safe-area-inset-left));
+                }
             }
-            
-            .mobile-menu-button {
-                top: max(1rem, env(safe-area-inset-top));
-                left: max(1rem, env(safe-area-inset-left));
+
+            /* Prevent rubber band scrolling on iOS */
+            body {
+                overscroll-behavior: none;
             }
-        }
-        
-        /* Prevent rubber band scrolling on iOS */
-        body {
-            overscroll-behavior: none;
-        }
-        
-        /* GitHub Banner */
-        .github-banner {
-            position: fixed;
-            top: 0;
-            right: 0;
-            z-index: 100;
-            background: var(--primary-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border-bottom-left-radius: var(--radius-md);
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .github-banner:hover {
-            background: var(--primary-dark);
-            transform: translateY(2px) scale(1.05);
-        }
-        
-        .github-banner svg {
-            transition: transform 0.3s ease;
-        }
-        
-        .github-banner:hover svg {
-            transform: rotate(360deg);
-        }
-        
-        .github-banner svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-            transition: transform 0.3s ease;
-        }
-        
-        @media (max-width: 768px) {
+
+            /* GitHub Banner */
             .github-banner {
-                font-size: 0.75rem;
-                padding: 0.4rem 0.8rem;
+                position: fixed;
+                top: 0;
+                right: 0;
+                z-index: 100;
+                background: var(--primary-color);
+                color: white;
+                padding: 0.5rem 1rem;
+                text-decoration: none;
+                font-size: 0.875rem;
+                font-weight: 600;
+                border-bottom-left-radius: var(--radius-md);
+                box-shadow: var(--shadow-md);
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
             }
-            
+
+            .github-banner:hover {
+                background: var(--primary-dark);
+                transform: translateY(2px) scale(1.05);
+            }
+
             .github-banner svg {
-                width: 14px;
-                height: 14px;
+                transition: transform 0.3s ease;
             }
-        }
-    </style>
-    
-    <!-- Gauges Analytics -->
-    <script type="text/javascript">
-      var _gauges = _gauges || [];
-      (function() {
-        var t   = document.createElement('script');
-        t.type  = 'text/javascript';
-        t.async = true;
-        t.id    = 'gauges-tracker';
-        t.setAttribute('data-site-id', '6834bd650d851064ae28dc13');
-        t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
-        t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(t, s);
-      })();
-    </script>
-    
-    <style>
-    .testament-divider {
-        border: none;
-        height: 2px;
-        background: linear-gradient(90deg, var(--torah-color) 0%, var(--gospels-color) 100%);
-        margin: 1rem 0;
-        opacity: 0.6;
-        border-radius: 1px;
-    }
-    
-    .bible-book {
-        display: block;
-        color: var(--text-secondary);
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        border-radius: var(--radius-sm);
-        transition: all 0.2s ease;
-        border-left: 3px solid transparent;
-        font-size: 0.875rem;
-    }
-    
-    /* Torah/Pentateuch */
-    .bible-book.torah {
-        border-left-color: var(--torah-color);
-    }
-    .bible-book.torah:hover {
-        background: rgba(139, 69, 19, 0.1);
-        color: var(--torah-color);
-    }
-    .bible-book.active.torah {
-        background: rgba(139, 69, 19, 0.15);
-        color: var(--torah-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Historical Books */
-    .bible-book.historical {
-        border-left-color: var(--historical-color);
-    }
-    .bible-book.historical:hover {
-        background: rgba(205, 133, 63, 0.1);
-        color: var(--historical-color);
-    }
-    .bible-book.active.historical {
-        background: rgba(205, 133, 63, 0.15);
-        color: var(--historical-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Wisdom Literature */
-    .bible-book.wisdom {
-        border-left-color: var(--wisdom-color);
-    }
-    .bible-book.wisdom:hover {
-        background: rgba(218, 165, 32, 0.1);
-        color: var(--wisdom-color);
-    }
-    .bible-book.active.wisdom {
-        background: rgba(218, 165, 32, 0.15);
-        color: var(--wisdom-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Major Prophets */
-    .bible-book.major-prophets {
-        border-left-color: var(--major-prophets-color);
-    }
-    .bible-book.major-prophets:hover {
-        background: rgba(160, 82, 45, 0.1);
-        color: var(--major-prophets-color);
-    }
-    .bible-book.active.major-prophets {
-        background: rgba(160, 82, 45, 0.15);
-        color: var(--major-prophets-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Minor Prophets */
-    .bible-book.minor-prophets {
-        border-left-color: var(--minor-prophets-color);
-    }
-    .bible-book.minor-prophets:hover {
-        background: rgba(165, 42, 42, 0.1);
-        color: var(--minor-prophets-color);
-    }
-    .bible-book.active.minor-prophets {
-        background: rgba(165, 42, 42, 0.15);
-        color: var(--minor-prophets-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Gospels */
-    .bible-book.gospels {
-        border-left-color: var(--gospels-color);
-    }
-    .bible-book.gospels:hover {
-        background: rgba(65, 105, 225, 0.1);
-        color: var(--gospels-color);
-    }
-    .bible-book.active.gospels {
-        background: rgba(65, 105, 225, 0.15);
-        color: var(--gospels-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Acts (Historical NT) */
-    .bible-book.acts {
-        border-left-color: var(--acts-color);
-    }
-    .bible-book.acts:hover {
-        background: rgba(100, 149, 237, 0.1);
-        color: var(--acts-color);
-    }
-    .bible-book.active.acts {
-        background: rgba(100, 149, 237, 0.15);
-        color: var(--acts-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Pauline Epistles */
-    .bible-book.pauline {
-        border-left-color: var(--pauline-color);
-    }
-    .bible-book.pauline:hover {
-        background: rgba(30, 144, 255, 0.1);
-        color: var(--pauline-color);
-    }
-    .bible-book.active.pauline {
-        background: rgba(30, 144, 255, 0.15);
-        color: var(--pauline-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* General Epistles */
-    .bible-book.general-epistles {
-        border-left-color: var(--general-epistles-color);
-    }
-    .bible-book.general-epistles:hover {
-        background: rgba(70, 130, 180, 0.1);
-        color: var(--general-epistles-color);
-    }
-    .bible-book.active.general-epistles {
-        background: rgba(70, 130, 180, 0.15);
-        color: var(--general-epistles-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    
-    /* Apocalyptic */
-    .bible-book.apocalyptic {
-        border-left-color: var(--apocalyptic-color);
-    }
-    .bible-book.apocalyptic:hover {
-        background: rgba(25, 25, 112, 0.1);
-        color: var(--apocalyptic-color);
-    }
-    .bible-book.active.apocalyptic {
-        background: rgba(25, 25, 112, 0.15);
-        color: var(--apocalyptic-color);
-        font-weight: 500;
-        border-left-width: 4px;
-    }
-    </style>
-    
-    <!-- Scripts -->
-    <script src="/static/app.js" defer></script>
-    
-    <!-- Icons -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
-    
-    <!-- PWA -->
-    <link rel="manifest" href="/static/manifest.json">
-    <meta name="theme-color" content="#4b2e83">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="KJV Bible Study">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%234b2e83' rx='24'/%3E%3Ctext x='96' y='120' text-anchor='middle' font-size='80' fill='white'%3E📖%3C/text%3E%3C/svg%3E">
-    
-    {% block head %}{% endblock %}
-</head>
-<body>
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-button" onclick="toggleSidebar()" aria-label="Toggle menu">
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-    </button>
-    <div id="background-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--background-color); z-index: -1;"></div>
 
-    <!-- GitHub Banner -->
-    <a href="https://github.com/kennethreitz/kjvstudy.org" class="github-banner" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
-        <svg viewBox="0 0 16 16">
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-        </svg>
-        View on GitHub
-    </a>
+            .github-banner:hover svg {
+                transform: rotate(360deg);
+            }
 
-    <div class="layout" style="overflow-x: hidden; background-color: var(--background-color) !important; position: relative; z-index: 0;">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1 class="sidebar-title">
-                    <span>📖</span>
-                    KJV Study
-                </h1>
-                <p class="sidebar-subtitle" style="font-size: 0.95rem;">Authorized King James Version</p>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <h3 style="font-size: 0.9rem;">Navigation</h3>
-                <a href="/" {% if request.url and request.url.path == "/" %}class="active"{% endif %} style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    📚 All Books
-                </a>
-                
-                {% if books %}
-                <h3 style="color: var(--torah-color); margin-bottom: 0.4rem; font-size: 0.9rem;">Old Testament</h3>
-                
-                <!-- Torah/Pentateuch -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--torah-color); text-transform: uppercase; letter-spacing: 0.5px;">Torah/Pentateuch</h4>
-                {% set torah = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
-                {% for book in books %}
-                {% if book in torah %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- Historical Books -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--historical-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical Books</h4>
-                {% set historical = ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
-                {% for book in books %}
-                {% if book in historical %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book historical {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- Wisdom Literature -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--wisdom-color); text-transform: uppercase; letter-spacing: 0.5px;">Wisdom Literature</h4>
-                {% set wisdom = ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
-                {% for book in books %}
-                {% if book in wisdom %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book wisdom {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- Major Prophets -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--major-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Major Prophets</h4>
-                {% set major_prophets = ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
-                {% for book in books %}
-                {% if book in major_prophets %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book major-prophets {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- Minor Prophets -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--minor-prophets-color); text-transform: uppercase; letter-spacing: 0.5px;">Minor Prophets</h4>
-                {% set minor_prophets = ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
-                {% for book in books %}
-                {% if book in minor_prophets %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book minor-prophets {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <hr class="testament-divider">
-                
-                <h3 style="color: var(--gospels-color); margin-bottom: 0.4rem; font-size: 0.9rem;">New Testament</h3>
-                
-                <!-- Gospels -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--gospels-color); text-transform: uppercase; letter-spacing: 0.5px;">Gospels</h4>
-                {% set gospels = ['Matthew', 'Mark', 'Luke', 'John'] %}
-                {% for book in books %}
-                {% if book in gospels %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book gospels {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- Acts (Historical NT) -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--acts-color); text-transform: uppercase; letter-spacing: 0.5px;">Historical</h4>
-                {% set acts = ['Acts'] %}
-                {% for book in books %}
-                {% if book in acts %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book acts {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- Pauline Epistles -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--pauline-color); text-transform: uppercase; letter-spacing: 0.5px;">Pauline Epistles</h4>
-                {% set pauline = ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
-                {% for book in books %}
-                {% if book in pauline %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book pauline {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- General Epistles -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--general-epistles-color); text-transform: uppercase; letter-spacing: 0.5px;">General Epistles</h4>
-                {% set general_epistles = ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
-                {% for book in books %}
-                {% if book in general_epistles %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book general-epistles {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                
-                <!-- Apocalyptic -->
-                <h4 style="font-size: 0.85rem; margin: 0.4rem 0; color: var(--apocalyptic-color); text-transform: uppercase; letter-spacing: 0.5px;">Apocalyptic</h4>
-                {% set apocalyptic = ['Revelation'] %}
-                {% for book in books %}
-                {% if book in apocalyptic %}
-                <a href="/book/{{ book }}" 
-                   class="bible-book apocalyptic {% if request.url and book in request.url.path %}active{% endif %}" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    {{ book }}
-                </a>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
-                
-                <h3 style="font-size: 0.9rem;">Study Tools</h3>
-                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    🤖 AI Commentary
-                    <small>(Coming Soon)</small>
-                </a>
-                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    🔍 Search
-                    <small>(Coming Soon)</small>
-                </a>
-                <a href="#" class="coming-soon" style="padding: 0.35rem 0.5rem; font-size: 0.95rem; margin-bottom: 0.1rem;">
-                    📝 Notes
-                    <small>(Coming Soon)</small>
-                </a>
-            </nav>
-        </aside>
+            .github-banner svg {
+                width: 16px;
+                height: 16px;
+                fill: currentColor;
+                transition: transform 0.3s ease;
+            }
 
-        <!-- Main Content -->
-        <main class="main-content" style="background-color: var(--background-color) !important;">
-            {% block breadcrumb %}{% endblock %}
-            
-            <div class="{% block container_class %}container{% endblock %}" style="background-color: var(--background-color) !important; position: relative; z-index: 1;">
-                {% block content %}{% endblock %}
-            </div>
-            
-            {% block navigation %}{% endblock %}
-        </main>
-    </div>
-
-    <!-- Sidebar Overlay (Mobile) -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-    <script>
-        // Sidebar toggle functionality
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            const mainContent = document.querySelector('.main-content');
-            const isOpen = sidebar.classList.contains('open');
-            
-            if (isOpen) {
-                sidebar.classList.remove('open');
-                overlay.classList.remove('open');
-                document.body.style.overflow = '';
-                sidebar.style.transform = 'translateX(-200px)';
-                sidebar.style.webkitTransform = 'translate3d(-200px, 0, 0)';
-                document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
-                
-                // For iPad/tablet
-                if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-                    mainContent.style.filter = 'none';
-                    mainContent.style.opacity = '1';
+            @media (max-width: 768px) {
+                .github-banner {
+                    font-size: 0.75rem;
+                    padding: 0.4rem 0.8rem;
                 }
-            } else {
-                sidebar.classList.add('open');
-                overlay.classList.add('open');
-                document.body.style.overflow = 'hidden';
-                sidebar.style.transform = 'translateX(0)';
-                sidebar.style.webkitTransform = 'translate3d(0, 0, 0)';
-                
-                // For iPad/tablet
-                if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-                    mainContent.style.filter = 'none';
-                    mainContent.style.opacity = '0.8';
+
+                .github-banner svg {
+                    width: 14px;
+                    height: 14px;
                 }
             }
-        }
-        
-        // Check if we're on an iPad
-        document.addEventListener('DOMContentLoaded', function() {
-            const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            
-            if (isIPad || (window.innerWidth >= 768 && window.innerWidth <= 1024)) {
-                document.querySelector('.main-content').style.marginLeft = '0';
-                document.querySelector('.main-content').style.width = '100%';
-                document.getElementById('sidebar').style.transform = 'translateX(-280px)';
-            }
-            
-            // Add touch feedback for iOS
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                document.body.addEventListener('touchstart', function() {}, { passive: true });
-            }
-            
-            // Prevent zoom on double tap for iOS
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', function (event) {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, false);
-            
-            // Fix for black background in some browsers
-            document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
-            document.querySelector('.main-content').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
-            document.querySelector('.container') && (document.querySelector('.container').style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color'));
-        });
+        </style>
 
-        // Close sidebar when clicking on links (mobile)
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        toggleSidebar();
+        <!-- Gauges Analytics -->
+        <script type="text/javascript">
+            var _gauges = _gauges || [];
+            (function () {
+                var t = document.createElement("script");
+                t.type = "text/javascript";
+                t.async = true;
+                t.id = "gauges-tracker";
+                t.setAttribute("data-site-id", "6834bd650d851064ae28dc13");
+                t.setAttribute(
+                    "data-track-path",
+                    "https://track.gaug.es/track.gif",
+                );
+                t.src = "https://d2fuc4clr7gvcn.cloudfront.net/track.js";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(t, s);
+            })();
+        </script>
+
+        <style>
+            .testament-divider {
+                border: none;
+                height: 2px;
+                background: linear-gradient(
+                    90deg,
+                    var(--torah-color) 0%,
+                    var(--gospels-color) 100%
+                );
+                margin: 1rem 0;
+                opacity: 0.6;
+                border-radius: 1px;
+            }
+
+            .bible-book {
+                display: block;
+                color: var(--text-secondary);
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                border-radius: var(--radius-sm);
+                transition: all 0.2s ease;
+                border-left: 3px solid transparent;
+                font-size: 0.875rem;
+            }
+
+            /* Torah/Pentateuch */
+            .bible-book.torah {
+                border-left-color: var(--torah-color);
+            }
+            .bible-book.torah:hover {
+                background: rgba(139, 69, 19, 0.1);
+                color: var(--torah-color);
+            }
+            .bible-book.active.torah {
+                background: rgba(139, 69, 19, 0.15);
+                color: var(--torah-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Historical Books */
+            .bible-book.historical {
+                border-left-color: var(--historical-color);
+            }
+            .bible-book.historical:hover {
+                background: rgba(205, 133, 63, 0.1);
+                color: var(--historical-color);
+            }
+            .bible-book.active.historical {
+                background: rgba(205, 133, 63, 0.15);
+                color: var(--historical-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Wisdom Literature */
+            .bible-book.wisdom {
+                border-left-color: var(--wisdom-color);
+            }
+            .bible-book.wisdom:hover {
+                background: rgba(218, 165, 32, 0.1);
+                color: var(--wisdom-color);
+            }
+            .bible-book.active.wisdom {
+                background: rgba(218, 165, 32, 0.15);
+                color: var(--wisdom-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Major Prophets */
+            .bible-book.major-prophets {
+                border-left-color: var(--major-prophets-color);
+            }
+            .bible-book.major-prophets:hover {
+                background: rgba(160, 82, 45, 0.1);
+                color: var(--major-prophets-color);
+            }
+            .bible-book.active.major-prophets {
+                background: rgba(160, 82, 45, 0.15);
+                color: var(--major-prophets-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Minor Prophets */
+            .bible-book.minor-prophets {
+                border-left-color: var(--minor-prophets-color);
+            }
+            .bible-book.minor-prophets:hover {
+                background: rgba(165, 42, 42, 0.1);
+                color: var(--minor-prophets-color);
+            }
+            .bible-book.active.minor-prophets {
+                background: rgba(165, 42, 42, 0.15);
+                color: var(--minor-prophets-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Gospels */
+            .bible-book.gospels {
+                border-left-color: var(--gospels-color);
+            }
+            .bible-book.gospels:hover {
+                background: rgba(65, 105, 225, 0.1);
+                color: var(--gospels-color);
+            }
+            .bible-book.active.gospels {
+                background: rgba(65, 105, 225, 0.15);
+                color: var(--gospels-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Acts (Historical NT) */
+            .bible-book.acts {
+                border-left-color: var(--acts-color);
+            }
+            .bible-book.acts:hover {
+                background: rgba(100, 149, 237, 0.1);
+                color: var(--acts-color);
+            }
+            .bible-book.active.acts {
+                background: rgba(100, 149, 237, 0.15);
+                color: var(--acts-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Pauline Epistles */
+            .bible-book.pauline {
+                border-left-color: var(--pauline-color);
+            }
+            .bible-book.pauline:hover {
+                background: rgba(30, 144, 255, 0.1);
+                color: var(--pauline-color);
+            }
+            .bible-book.active.pauline {
+                background: rgba(30, 144, 255, 0.15);
+                color: var(--pauline-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* General Epistles */
+            .bible-book.general-epistles {
+                border-left-color: var(--general-epistles-color);
+            }
+            .bible-book.general-epistles:hover {
+                background: rgba(70, 130, 180, 0.1);
+                color: var(--general-epistles-color);
+            }
+            .bible-book.active.general-epistles {
+                background: rgba(70, 130, 180, 0.15);
+                color: var(--general-epistles-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+
+            /* Apocalyptic */
+            .bible-book.apocalyptic {
+                border-left-color: var(--apocalyptic-color);
+            }
+            .bible-book.apocalyptic:hover {
+                background: rgba(25, 25, 112, 0.1);
+                color: var(--apocalyptic-color);
+            }
+            .bible-book.active.apocalyptic {
+                background: rgba(25, 25, 112, 0.15);
+                color: var(--apocalyptic-color);
+                font-weight: 500;
+                border-left-width: 4px;
+            }
+        </style>
+
+        <!-- Scripts -->
+        <script src="/static/app.js" defer></script>
+
+        <!-- Icons -->
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E"
+        />
+
+        <!-- PWA -->
+        <link rel="manifest" href="/static/manifest.json" />
+        <meta name="theme-color" content="#4b2e83" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="KJV Bible Study" />
+        <link
+            rel="apple-touch-icon"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%234b2e83' rx='24'/%3E%3Ctext x='96' y='120' text-anchor='middle' font-size='80' fill='white'%3E📖%3C/text%3E%3C/svg%3E"
+        />
+
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <!-- Mobile Menu Button -->
+        <button
+            class="mobile-menu-button"
+            onclick="toggleSidebar()"
+            aria-label="Toggle menu"
+        >
+            <svg
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+            </svg>
+        </button>
+        <div
+            id="background-overlay"
+            style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: var(--background-color);
+                z-index: -1;
+            "
+        ></div>
+
+        <!-- GitHub Banner -->
+        <a
+            href="https://github.com/kennethreitz/kjvstudy.org"
+            class="github-banner"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View source on GitHub"
+        >
+            <svg viewBox="0 0 16 16">
+                <path
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                />
+            </svg>
+            View on GitHub
+        </a>
+
+        <div
+            class="layout"
+            style="
+                overflow-x: hidden;
+                background-color: var(--background-color) !important;
+                position: relative;
+                z-index: 0;
+            "
+        >
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h1 class="sidebar-title">
+                        <span>📖</span>
+                        KJV Study
+                    </h1>
+                    <p class="sidebar-subtitle" style="font-size: 0.95rem">
+                        Authorized King James Version
+                    </p>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <h3 style="font-size: 0.9rem">Navigation</h3>
+                    <a
+                        href="/"
+                        {%
+                        if
+                        request.url
+                        and
+                        request.url.path=""
+                        ="/"
+                        %}class="active"
+                        {%
+                        endif
+                        %}
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        📚 All Books
+                    </a>
+
+                    {% if books %}
+                    <h3
+                        style="
+                            color: var(--torah-color);
+                            margin-bottom: 0.4rem;
+                            font-size: 0.9rem;
+                        "
+                    >
+                        Old Testament
+                    </h3>
+
+                    <!-- Torah/Pentateuch -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--torah-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Torah/Pentateuch
+                    </h4>
+                    {% set torah = ['Genesis', 'Exodus', 'Leviticus', 'Numbers',
+                    'Deuteronomy'] %} {% for book in books %} {% if book in
+                    torah %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- Historical Books -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--historical-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Historical Books
+                    </h4>
+                    {% set historical = ['Joshua', 'Judges', 'Ruth', '1 Samuel',
+                    '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2
+                    Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %} {% for book in
+                    books %} {% if book in historical %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book historical {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- Wisdom Literature -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--wisdom-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Wisdom Literature
+                    </h4>
+                    {% set wisdom = ['Job', 'Psalms', 'Proverbs',
+                    'Ecclesiastes', 'Song of Solomon'] %} {% for book in books
+                    %} {% if book in wisdom %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book wisdom {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- Major Prophets -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--major-prophets-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Major Prophets
+                    </h4>
+                    {% set major_prophets = ['Isaiah', 'Jeremiah',
+                    'Lamentations', 'Ezekiel', 'Daniel'] %} {% for book in books
+                    %} {% if book in major_prophets %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book major-prophets {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- Minor Prophets -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--minor-prophets-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Minor Prophets
+                    </h4>
+                    {% set minor_prophets = ['Hosea', 'Joel', 'Amos', 'Obadiah',
+                    'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
+                    'Haggai', 'Zechariah', 'Malachi'] %} {% for book in books %}
+                    {% if book in minor_prophets %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book minor-prophets {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <hr class="testament-divider" />
+
+                    <h3
+                        style="
+                            color: var(--gospels-color);
+                            margin-bottom: 0.4rem;
+                            font-size: 0.9rem;
+                        "
+                    >
+                        New Testament
+                    </h3>
+
+                    <!-- Gospels -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--gospels-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Gospels
+                    </h4>
+                    {% set gospels = ['Matthew', 'Mark', 'Luke', 'John'] %} {%
+                    for book in books %} {% if book in gospels %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book gospels {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- Acts (Historical NT) -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--acts-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Historical
+                    </h4>
+                    {% set acts = ['Acts'] %} {% for book in books %} {% if book
+                    in acts %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book acts {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- Pauline Epistles -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--pauline-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Pauline Epistles
+                    </h4>
+                    {% set pauline = ['Romans', '1 Corinthians', '2
+                    Corinthians', 'Galatians', 'Ephesians', 'Philippians',
+                    'Colossians', '1 Thessalonians', '2 Thessalonians', '1
+                    Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %} {%
+                    for book in books %} {% if book in pauline %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book pauline {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- General Epistles -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--general-epistles-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        General Epistles
+                    </h4>
+                    {% set general_epistles = ['James', '1 Peter', '2 Peter', '1
+                    John', '2 John', '3 John', 'Jude'] %} {% for book in books
+                    %} {% if book in general_epistles %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book general-epistles {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %}
+
+                    <!-- Apocalyptic -->
+                    <h4
+                        style="
+                            font-size: 0.85rem;
+                            margin: 0.4rem 0;
+                            color: var(--apocalyptic-color);
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        "
+                    >
+                        Apocalyptic
+                    </h4>
+                    {% set apocalyptic = ['Revelation'] %} {% for book in books
+                    %} {% if book in apocalyptic %}
+                    <a
+                        href="/book/{{ book }}"
+                        class="bible-book apocalyptic {% if request.url and book in request.url.path %}active{% endif %}"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        {{ book }}
+                    </a>
+                    {% endif %} {% endfor %} {% endif %}
+
+                    <h3 style="font-size: 0.9rem">Study Tools</h3>
+                    <a
+                        href="#"
+                        class="coming-soon"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        🤖 AI Commentary
+                        <small>(Coming Soon)</small>
+                    </a>
+                    <a
+                        href="#"
+                        class="coming-soon"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        🔍 Search
+                        <small>(Coming Soon)</small>
+                    </a>
+                    <a
+                        href="#"
+                        class="coming-soon"
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        📝 Notes
+                        <small>(Coming Soon)</small>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main
+                class="main-content"
+                style="background-color: var(--background-color) !important"
+            >
+                {% block breadcrumb %}{% endblock %}
+
+                <div
+                    class="{% block container_class %}container{% endblock %}"
+                    style="
+                        background-color: var(--background-color) !important;
+                        position: relative;
+                        z-index: 1;
+                    "
+                >
+                    {% block content %}{% endblock %}
+                </div>
+
+                {% block navigation %}{% endblock %}
+            </main>
+        </div>
+
+        <!-- Sidebar Overlay (Mobile) -->
+        <div
+            class="sidebar-overlay"
+            id="sidebarOverlay"
+            onclick="toggleSidebar()"
+        ></div>
+
+        <script>
+            // Sidebar toggle functionality
+            function toggleSidebar() {
+                const sidebar = document.getElementById("sidebar");
+                const overlay = document.getElementById("sidebarOverlay");
+                const mainContent = document.querySelector(".main-content");
+                const isOpen = sidebar.classList.contains("open");
+
+                if (isOpen) {
+                    sidebar.classList.remove("open");
+                    overlay.classList.remove("open");
+                    document.body.style.overflow = "";
+                    sidebar.style.transform = "translateX(-200px)";
+                    sidebar.style.webkitTransform = "translate3d(-200px, 0, 0)";
+                    document.body.style.backgroundColor = getComputedStyle(
+                        document.documentElement,
+                    ).getPropertyValue("--background-color");
+
+                    // For iPad/tablet
+                    if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+                        mainContent.style.filter = "none";
+                        mainContent.style.opacity = "1";
                     }
-                });
-            });
+                } else {
+                    sidebar.classList.add("open");
+                    overlay.classList.add("open");
+                    document.body.style.overflow = "hidden";
+                    sidebar.style.transform = "translateX(0)";
+                    sidebar.style.webkitTransform = "translate3d(0, 0, 0)";
 
-            // Close sidebar on escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const sidebar = document.getElementById('sidebar');
-                    if (sidebar.classList.contains('open')) {
-                        toggleSidebar();
+                    // For iPad/tablet
+                    if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+                        mainContent.style.filter = "none";
+                        mainContent.style.opacity = "0.8";
                     }
                 }
-            });
+            }
 
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    const sidebar = document.getElementById('sidebar');
-                    const overlay = document.getElementById('sidebarOverlay');
-                    sidebar.classList.remove('open');
-                    overlay.classList.remove('open');
-                    document.body.style.overflow = '';
+            // Check if we're on an iPad
+            document.addEventListener("DOMContentLoaded", function () {
+                const isIPad =
+                    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                    (navigator.platform === "MacIntel" &&
+                        navigator.maxTouchPoints > 1);
+
+                if (
+                    isIPad ||
+                    (window.innerWidth >= 768 && window.innerWidth <= 1024)
+                ) {
+                    document.querySelector(".main-content").style.marginLeft =
+                        "0";
+                    document.querySelector(".main-content").style.width =
+                        "100%";
+                    document.getElementById("sidebar").style.transform =
+                        "translateX(-280px)";
                 }
-            });
-        });
 
-        // Mobile performance optimizations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add passive event listeners for better scroll performance
-            let ticking = false;
-            
-            function updateScrollPos() {
-                // Throttle scroll events for better performance
-                ticking = false;
-            }
-            
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(updateScrollPos);
-                    ticking = true;
+                // Add touch feedback for iOS
+                if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                    document.body.addEventListener(
+                        "touchstart",
+                        function () {},
+                        { passive: true },
+                    );
                 }
-            }, { passive: true });
-            
-            // Add touch feedback for interactive elements on mobile
-            if ('ontouchstart' in window) {
-                const interactiveElements = document.querySelectorAll('.book-card, .chapter-link, .nav-button, .sidebar-nav a');
-                
-                interactiveElements.forEach(element => {
-                    element.addEventListener('touchstart', function() {
-                        this.style.opacity = '0.8';
-                    }, { passive: true });
-                    
-                    element.addEventListener('touchend', function() {
-                        setTimeout(() => {
-                            this.style.opacity = '';
-                        }, 150);
-                    }, { passive: true });
-                    
-                    element.addEventListener('touchcancel', function() {
-                        this.style.opacity = '';
-                    }, { passive: true });
-                });
-            }
-            
-            // Improve mobile menu performance
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            
-            if (sidebar && overlay) {
-                // Use transform3d for hardware acceleration
-                sidebar.style.willChange = 'transform';
-                overlay.style.willChange = 'opacity';
-            }
-        });
 
-        // Smooth scrolling for anchor links
-        document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('a[href^="#"]');
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        // Close mobile menu if open when navigating
-                        if (window.innerWidth <= 768) {
-                            const sidebar = document.getElementById('sidebar');
-                            if (sidebar && sidebar.classList.contains('open')) {
-                                toggleSidebar();
-                            }
+                // Prevent zoom on double tap for iOS
+                let lastTouchEnd = 0;
+                document.addEventListener(
+                    "touchend",
+                    function (event) {
+                        const now = new Date().getTime();
+                        if (now - lastTouchEnd <= 300) {
+                            event.preventDefault();
                         }
-                        
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+                        lastTouchEnd = now;
+                    },
+                    false,
+                );
+
+                // Fix for black background in some browsers
+                document.body.style.backgroundColor = getComputedStyle(
+                    document.documentElement,
+                ).getPropertyValue("--background-color");
+                document.querySelector(".main-content").style.backgroundColor =
+                    getComputedStyle(document.documentElement).getPropertyValue(
+                        "--background-color",
+                    );
+                document.querySelector(".container") &&
+                    (document.querySelector(
+                        ".container",
+                    ).style.backgroundColor = getComputedStyle(
+                        document.documentElement,
+                    ).getPropertyValue("--background-color"));
+            });
+
+            // Close sidebar when clicking on links (mobile)
+            document.addEventListener("DOMContentLoaded", function () {
+                const sidebarLinks =
+                    document.querySelectorAll(".sidebar-nav a");
+                sidebarLinks.forEach((link) => {
+                    link.addEventListener("click", function () {
+                        if (window.innerWidth <= 768) {
+                            toggleSidebar();
+                        }
+                    });
+                });
+
+                // Close sidebar on escape key
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        const sidebar = document.getElementById("sidebar");
+                        if (sidebar.classList.contains("open")) {
+                            toggleSidebar();
+                        }
                     }
                 });
-</edits>
-            });
-        });
-    </script>
 
-    {% block scripts %}{% endblock %}
-</body>
+                // Handle window resize
+                window.addEventListener("resize", function () {
+                    if (window.innerWidth > 768) {
+                        const sidebar = document.getElementById("sidebar");
+                        const overlay =
+                            document.getElementById("sidebarOverlay");
+                        sidebar.classList.remove("open");
+                        overlay.classList.remove("open");
+                        document.body.style.overflow = "";
+                    }
+                });
+            });
+
+            // Mobile performance optimizations
+            document.addEventListener("DOMContentLoaded", function () {
+                // Add passive event listeners for better scroll performance
+                let ticking = false;
+
+                function updateScrollPos() {
+                    // Throttle scroll events for better performance
+                    ticking = false;
+                }
+
+                window.addEventListener(
+                    "scroll",
+                    function () {
+                        if (!ticking) {
+                            requestAnimationFrame(updateScrollPos);
+                            ticking = true;
+                        }
+                    },
+                    { passive: true },
+                );
+
+                // Add touch feedback for interactive elements on mobile
+                if ("ontouchstart" in window) {
+                    const interactiveElements = document.querySelectorAll(
+                        ".book-card, .chapter-link, .nav-button, .sidebar-nav a",
+                    );
+
+                    interactiveElements.forEach((element) => {
+                        element.addEventListener(
+                            "touchstart",
+                            function () {
+                                this.style.opacity = "0.8";
+                            },
+                            { passive: true },
+                        );
+
+                        element.addEventListener(
+                            "touchend",
+                            function () {
+                                setTimeout(() => {
+                                    this.style.opacity = "";
+                                }, 150);
+                            },
+                            { passive: true },
+                        );
+
+                        element.addEventListener(
+                            "touchcancel",
+                            function () {
+                                this.style.opacity = "";
+                            },
+                            { passive: true },
+                        );
+                    });
+                }
+
+                // Improve mobile menu performance
+                const sidebar = document.getElementById("sidebar");
+                const overlay = document.getElementById("sidebarOverlay");
+
+                if (sidebar && overlay) {
+                    // Use transform3d for hardware acceleration
+                    sidebar.style.willChange = "transform";
+                    overlay.style.willChange = "opacity";
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.addEventListener("DOMContentLoaded", function () {
+                const links = document.querySelectorAll('a[href^="#"]');
+                links.forEach((link) => {
+                    link.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(
+                            this.getAttribute("href"),
+                        );
+                        if (target) {
+                            // Close mobile menu if open when navigating
+                            if (window.innerWidth <= 768) {
+                                const sidebar =
+                                    document.getElementById("sidebar");
+                                if (
+                                    sidebar &&
+                                    sidebar.classList.contains("open")
+                                ) {
+                                    toggleSidebar();
+                                }
+                            }
+
+                            target.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+
+        {% block scripts %}{% endblock %}
+    </body>
 </html>

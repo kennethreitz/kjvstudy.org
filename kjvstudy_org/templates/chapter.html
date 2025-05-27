@@ -56,94 +56,34 @@
     border-color: var(--primary-color);
 }
 
-.verse-number {
-    /* Complete CSS reset for verse numbers */
-    all: unset !important;
+sup.verse-number {
     font-size: 0.8rem !important;
     font-weight: normal !important;
     color: var(--text-secondary) !important;
-    vertical-align: super !important;
     margin-right: 0.25rem !important;
     user-select: none !important;
     cursor: pointer !important;
-    display: inline !important;
     font-family: var(--font-sans) !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    margin-left: 0 !important;
-    width: auto !important;
-    height: auto !important;
-    text-align: left !important;
-    min-height: auto !important;
-    max-height: auto !important;
-    min-width: auto !important;
-    max-width: auto !important;
-    line-height: normal !important;
-    text-transform: none !important;
-    text-decoration: none !important;
-    letter-spacing: normal !important;
-    word-spacing: normal !important;
-    white-space: normal !important;
-    box-sizing: content-box !important;
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    z-index: auto !important;
-    float: none !important;
-    clear: none !important;
-    overflow: visible !important;
-    clip: auto !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    border-radius: 0 !important;
-}
-
-.verse-number::before,
-.verse-number::after {
-    content: none !important;
-    display: none !important;
-}
-
-/* Prevent any heading styles from applying */
-h1 .verse-number,
-h2 .verse-number,
-h3 .verse-number,
-h4 .verse-number,
-h5 .verse-number,
-h6 .verse-number {
-    all: unset !important;
-    font-size: 0.8rem !important;
-    font-weight: normal !important;
-    color: var(--text-secondary) !important;
+    line-height: 1 !important;
     vertical-align: super !important;
-    margin-right: 0.25rem !important;
-    display: inline !important;
-    font-family: var(--font-sans) !important;
 }
 
-.verse-number:hover {
-    color: var(--text-primary);
-    text-decoration: none;
+sup.verse-number:hover {
+    color: var(--text-primary) !important;
 }
 
-.highlight-verse {
+.highlight-verse,
+.verse-highlight {
+    background-color: rgba(255, 235, 59, 0.3) !important;
+    padding: 0.1rem 0.2rem !important;
+    border-radius: 3px !important;
     animation: pulse-highlight 2s ease;
 }
 
 @keyframes pulse-highlight {
     0% { background-color: transparent; }
     30% { background-color: rgba(255, 235, 59, 0.5); }
-    100% { background-color: transparent; }
+    100% { background-color: rgba(255, 235, 59, 0.3); }
 }
 
 .chapter-navigation {
@@ -221,7 +161,7 @@ h6 .verse-number {
     font-size: 1.5rem;
     line-height: 1.8;
     color: var(--text-primary);
-    font-feature-settings: 
+    font-feature-settings:
         "liga" 1,
         "dlig" 1,
         "kern" 1,
@@ -331,7 +271,7 @@ h6 .verse-number {
         font-size: 1.1rem;
         line-height: 1.8;
     }
-    
+
     .verse-number {
         font-size: 0.75rem;
     }
@@ -351,30 +291,9 @@ h6 .verse-number {
     border: 1px solid var(--border-color);
 }
 
-.chapter-text .verse {
-    display: inline !important;
-    position: relative;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    font-size: inherit !important;
-    line-height: inherit !important;
-}
-
-.chapter-text .verse .verse-number {
+.chapter-text sup.verse-number {
     font-size: 0.75rem !important;
-    vertical-align: super !important;
     margin-right: 0.2rem !important;
-}
-
-.chapter-text .verse:hover {
-    background: rgba(139, 92, 246, 0.1);
-    border-radius: 3px;
-}
-
-.chapter-text .verse:hover .verse-tools {
-    opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -384,26 +303,9 @@ h6 .verse-number {
         padding: 0.75rem;
         text-align: left;
     }
-    
-    .chapter-text .verse .verse-number {
-        all: unset !important;
+
+    .chapter-text sup.verse-number {
         font-size: 0.7rem !important;
-        font-weight: normal !important;
-        color: var(--text-secondary) !important;
-        vertical-align: super !important;
-        margin-right: 0.2rem !important;
-        display: inline !important;
-        font-family: var(--font-sans) !important;
-    }
-    
-    .verse-tools {
-        display: none;
-    }
-    
-    .verse-tool {
-        width: 16px;
-        height: 16px;
-        font-size: 9px;
     }
 }
 </style>
@@ -471,17 +373,7 @@ h6 .verse-number {
 <div class="verses-container" id="versesContainer">
     <div class="chapter-text">
         {% for verse in verses %}
-        <span class="verse" id="verse-{{ verse.verse }}"><span class="verse-number" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})">{{ verse.verse }}</span><span class="verse-text">{{ verse.text }}</span><span class="verse-tools">
-                <a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to Verse {{ verse.verse }}" onclick="copyVerseLink({{ verse.verse }})">
-                    🔗
-                </a>
-                <a href="#" class="verse-tool" title="Add note to Verse {{ verse.verse }}" onclick="addNote({{ verse.verse }})">
-                    📝
-                </a>
-                <a href="#" class="verse-tool" title="Highlight Verse {{ verse.verse }}" onclick="highlightVerse({{ verse.verse }})">
-                    ✨
-                </a>
-            </span></span>{% if not loop.last %} {% endif %}
+        <sup class="verse-number" id="verse-{{ verse.verse }}" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})">{{ verse.verse }}</sup>{{ verse.text }}{% if not loop.last %} {% endif %}
         {% endfor %}
     </div>
 </div>
@@ -506,7 +398,7 @@ h6 .verse-number {
             <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Seven Churches</span>
         </div>
         <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
-            Explore our detailed verse-by-verse analysis of Revelation 1, featuring historical context from the late first century CE, 
+            Explore our detailed verse-by-verse analysis of Revelation 1, featuring historical context from the late first century CE,
             theological insights on apocalyptic literature, and cross-references to Old Testament prophetic visions.
         </p>
         <div style="background: rgba(255, 255, 255, 0.7); border-radius: var(--radius-sm); padding: 0.75rem; margin-bottom: 1rem; border: 1px solid rgba(75, 46, 131, 0.2);">
@@ -522,7 +414,7 @@ h6 .verse-number {
     </div>
     {% else %}
     <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
-        Explore verse-by-verse analysis with historical context, theological insights, 
+        Explore verse-by-verse analysis with historical context, theological insights,
         and cross-references for {{ book }} {{ chapter }} from the Authorized King James Version (KJV).
     </p>
     {% endif %}
@@ -541,7 +433,7 @@ h6 .verse-number {
     <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-family: var(--font-display);">
         AI Commentary on {{ book }} {{ chapter }}
     </h2>
-    
+
     <!-- Chapter Overview -->
     <div class="commentary-card" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
         <h3 style="color: var(--primary-color); margin-top: 0; margin-bottom: 1rem; font-family: var(--font-display);">
@@ -551,11 +443,11 @@ h6 .verse-number {
             {{ chapter_overview|safe if chapter_overview else "Chapter overview is not available." }}
         </div>
     </div>
-    
+
     <!-- Verse-by-Verse Commentary -->
     {% if commentaries %}
     <h3 style="margin: 2rem 0 1rem; color: var(--primary-color); font-family: var(--font-display);">Verse-by-Verse Commentary</h3>
-    
+
     {% for verse in verses %}
     {% if verse.verse in commentaries %}
     <div id="commentary-verse-{{ verse.verse }}" class="commentary-card" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
@@ -569,11 +461,11 @@ h6 .verse-number {
                 View in Full Commentary
             </a>
         </div>
-        
+
         <div class="verse-quote" style="background: rgba(255, 235, 59, 0.1); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem; border-left: 3px solid rgba(255, 235, 59, 0.5); font-family: var(--font-serif);">
             {{ verse.text }}
         </div>
-        
+
         <div style="display: flex; gap: 1rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 0.5rem;">
             <button class="tab active" onclick="switchCommentaryTab({{ verse.verse }}, 'analysis')" style="background: none; border: none; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid var(--primary-color); color: var(--primary-color); font-weight: 500;">
                 Analysis
@@ -585,10 +477,10 @@ h6 .verse-number {
                 Study Questions
             </button>
         </div>
-        
+
         <div id="tab-{{ verse.verse }}-analysis" class="tab-content active" style="color: var(--text-secondary); line-height: 1.7;">
             {{ commentaries[verse.verse].analysis|safe }}
-            
+
             {% if commentaries[verse.verse].cross_references %}
             <div style="background: rgba(75, 46, 131, 0.05); padding: 1rem; border-radius: var(--radius-md); margin-top: 1rem;">
                 <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem; color: var(--primary-color);">Cross References:</h5>
@@ -605,11 +497,11 @@ h6 .verse-number {
             </div>
             {% endif %}
         </div>
-        
+
         <div id="tab-{{ verse.verse }}-historical" class="tab-content" style="display: none; color: var(--text-secondary); line-height: 1.7;">
             {{ commentaries[verse.verse].historical|safe }}
         </div>
-        
+
         <div id="tab-{{ verse.verse }}-questions" class="tab-content" style="display: none; color: var(--text-secondary); line-height: 1.7;">
             <ol style="padding-left: 1.25rem; margin: 0;">
                 {% for question in commentaries[verse.verse].questions %}
@@ -620,7 +512,7 @@ h6 .verse-number {
     </div>
     {% endif %}
     {% endfor %}
-    
+
     {% else %}
     <div style="text-align: center; padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-bottom: 2rem; border: 1px solid var(--border-light);">
         <p style="color: var(--text-secondary); margin: 0 0 1rem;">Commentary is still loading or not available for this chapter.</p>
@@ -698,10 +590,9 @@ function addNote(verseNumber) {
 
 function highlightVerse(verseNumber) {
     const verse = document.getElementById('verse-' + verseNumber);
-    const verseText = verse.querySelector('.verse-text');
-    verseText.classList.toggle('verse-highlight');
-    
-    const highlighted = verseText.classList.contains('verse-highlight');
+    verse.classList.toggle('verse-highlight');
+
+    const highlighted = verse.classList.contains('verse-highlight');
     showToast(highlighted ? 'Verse ' + verseNumber + ' highlighted!' : 'Highlight removed from Verse ' + verseNumber);
 }
 
@@ -718,7 +609,7 @@ function switchCommentaryTab(verseNumber, tabName) {
     // Hide all tabs for this verse
     const tabContents = document.querySelectorAll(`#commentary-verse-${verseNumber} .tab-content`);
     tabContents.forEach(tab => tab.style.display = 'none');
-    
+
     // Deactivate all tab buttons
     const tabButtons = document.querySelectorAll(`#commentary-verse-${verseNumber} .tab`);
     tabButtons.forEach(button => {
@@ -726,10 +617,10 @@ function switchCommentaryTab(verseNumber, tabName) {
         button.style.borderBottom = '2px solid transparent';
         button.style.color = 'var(--text-secondary)';
     });
-    
+
     // Activate the selected tab
     document.getElementById(`tab-${verseNumber}-${tabName}`).style.display = 'block';
-    
+
     // Activate the tab button
     const activeButton = document.querySelector(`#commentary-verse-${verseNumber} .tab:nth-child(${tabName === 'analysis' ? 1 : tabName === 'historical' ? 2 : 3})`);
     activeButton.classList.add('active');
@@ -753,7 +644,7 @@ function showToast(message) {
         font-size: 0.875rem;
         animation: slideIn 0.3s ease;
     `;
-    
+
     document.body.appendChild(toast);
     setTimeout(() => {
         toast.style.animation = 'slideOut 0.3s ease';
@@ -768,31 +659,31 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('fontSize').value = savedFontSize;
         updateFontSize(savedFontSize);
     }
-    
+
     const savedLineHeight = localStorage.getItem('kjv-line-height');
     if (savedLineHeight) {
         document.getElementById('lineHeight').value = savedLineHeight;
         updateLineHeight(savedLineHeight);
     }
-    
+
     const savedShowNumbers = localStorage.getItem('kjv-show-verse-numbers');
     if (savedShowNumbers === 'false') {
         document.getElementById('showVerseNumbers').checked = false;
         toggleVerseNumbers(false);
     }
-    
+
     // Highlight verse from URL hash
     if (window.location.hash) {
         setTimeout(() => {
             const target = document.querySelector(window.location.hash);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
+
                 // Extract verse number from the hash
                 const verseMatch = window.location.hash.match(/verse-(\d+)/);
                 if (verseMatch && verseMatch[1]) {
                     showToast('Navigated to Verse ' + verseMatch[1]);
-                    
+
                     // If the verse has commentary, highlight the commentary card too
                     const commentaryCard = document.getElementById(`commentary-verse-${verseMatch[1]}`);
                     if (commentaryCard) {
@@ -804,21 +695,25 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, 3000);
                     }
                 }
-                
+
                 // Apply highlighting
-                target.classList.add('highlight-verse');
+                target.style.backgroundColor = 'rgba(255, 235, 59, 0.3)';
+                target.style.padding = '0.1rem 0.2rem';
+                target.style.borderRadius = '3px';
                 setTimeout(() => {
-                    target.classList.remove('highlight-verse');
+                    target.style.backgroundColor = '';
+                    target.style.padding = '';
+                    target.style.borderRadius = '';
                 }, 2000);
             }
         }, 100);
     }
-    
+
     // Add cross-links from verses to commentary
     document.querySelectorAll('.verse').forEach(verse => {
         const verseNum = verse.id.replace('verse-', '');
         const commentaryEl = document.getElementById(`commentary-verse-${verseNum}`);
-        
+
         if (commentaryEl) {
             // Mark verses with commentary
             const verseTools = verse.querySelector('.verse-tools');
@@ -841,7 +736,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 verseTools.appendChild(commentaryLink);
             }
-            
+
             // Add visual indicator to verses with commentary
             const verseNumber = verse.querySelector('.verse-number');
             if (verseNumber) {
