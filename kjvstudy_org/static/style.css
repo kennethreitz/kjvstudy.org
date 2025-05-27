@@ -1125,6 +1125,18 @@ html,
   max-width: none;
 }
 
+.commentary-breadcrumb {
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  box-sizing: border-box;
+}
+
+.commentary-navigation {
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  box-sizing: border-box;
+}
+
 .commentary-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -1335,6 +1347,12 @@ html,
     padding: 1rem;
   }
 
+  .commentary-breadcrumb,
+  .commentary-navigation {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
   .commentary-header {
     padding: 1.5rem 1rem;
     margin-bottom: 2rem;
@@ -1427,6 +1445,12 @@ html,
     margin-left: 0 !important;
     width: 100% !important;
     padding: 1.5rem;
+  }
+
+  .commentary-breadcrumb,
+  .commentary-navigation {
+    margin-left: 0 !important;
+    width: 100% !important;
   }
 
   .verse-tooltip {
