@@ -82,7 +82,7 @@
     <h3 id="torah" class="category-heading" style="color: var(--torah-color);">Torah / Pentateuch</h3>
     {% for book in books %}
     {% if book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--torah-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book torah" style="border-left: 4px solid var(--torah-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Torah / Pentateuch</p>
     </a>
@@ -93,7 +93,7 @@
     <h3 id="historical" class="category-heading" style="color: var(--historical-color);">Historical Books</h3>
     {% for book in books %}
     {% if book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--historical-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book historical" style="border-left: 4px solid var(--historical-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Historical</p>
     </a>
@@ -104,7 +104,7 @@
     <h3 id="wisdom" class="category-heading" style="color: var(--wisdom-color);">Wisdom Literature</h3>
     {% for book in books %}
     {% if book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--wisdom-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book wisdom" style="border-left: 4px solid var(--wisdom-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Wisdom</p>
     </a>
@@ -115,7 +115,7 @@
     <h3 id="major-prophets" class="category-heading" style="color: var(--major-prophets-color);">Major Prophets</h3>
     {% for book in books %}
     {% if book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--major-prophets-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book major-prophets" style="border-left: 4px solid var(--major-prophets-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Major Prophet</p>
     </a>
@@ -126,7 +126,7 @@
     <h3 id="minor-prophets" class="category-heading" style="color: var(--minor-prophets-color);">Minor Prophets</h3>
     {% for book in books %}
     {% if book in ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--minor-prophets-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book minor-prophets" style="border-left: 4px solid var(--minor-prophets-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Minor Prophet</p>
     </a>
@@ -142,7 +142,7 @@
     <h3 id="gospels" class="category-heading" style="color: var(--gospels-color);">Gospels</h3>
     {% for book in books %}
     {% if book in ['Matthew', 'Mark', 'Luke', 'John'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--gospels-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book gospels" style="border-left: 4px solid var(--gospels-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Gospel</p>
     </a>
@@ -153,7 +153,7 @@
     <h3 id="acts" class="category-heading" style="color: var(--acts-color);">Historical (Acts)</h3>
     {% for book in books %}
     {% if book == 'Acts' %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--acts-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book acts" style="border-left: 4px solid var(--acts-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Historical</p>
     </a>
@@ -164,7 +164,7 @@
     <h3 id="pauline" class="category-heading" style="color: var(--pauline-color);">Pauline Epistles</h3>
     {% for book in books %}
     {% if book in ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--pauline-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book pauline" style="border-left: 4px solid var(--pauline-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Pauline Epistle</p>
     </a>
@@ -175,7 +175,7 @@
     <h3 id="general-epistles" class="category-heading" style="color: var(--general-epistles-color);">General Epistles</h3>
     {% for book in books %}
     {% if book in ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--general-epistles-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book general-epistles" style="border-left: 4px solid var(--general-epistles-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">General Epistle</p>
     </a>
@@ -186,7 +186,7 @@
     <h3 id="apocalyptic" class="category-heading" style="color: var(--apocalyptic-color);">Apocalyptic</h3>
     {% for book in books %}
     {% if book == 'Revelation' %}
-    <a href="/book/{{ book }}" class="book-card" style="border-left: 4px solid var(--apocalyptic-color);">
+    <a href="/book/{{ book }}" class="book-card bible-book apocalyptic" style="border-left: 4px solid var(--apocalyptic-color);">
         <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
         <p class="book-meta" style="font-size: 0.8rem;">Apocalyptic</p>
     </a>
