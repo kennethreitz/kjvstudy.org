@@ -4,6 +4,8 @@
 {% block description %}In-depth commentary on the Book of {{ book }} from the Authorized King James Version (KJV) Bible. Explore themes, historical context, and theological significance.{% endblock %}
 {% block keywords %}{{ book }} commentary, {{ book }} study guide, {{ book }} KJV, Authorized King James Version, {{ book }} analysis, {{ book }} themes, {{ book }} meaning{% endblock %}
 
+{% block container_class %}narrow-container{% endblock %}
+
 {% block schema_type %}Article{% endblock %}
 {% block structured_data %},
         "headline": "Commentary on {{ book }} - Authorized King James Version (KJV)",
@@ -19,226 +21,30 @@
         }{% endblock %}
 
 {% block head %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* Typography - Ornate & Large for Older Readers */
-body {
-    font-family: 'EB Garamond', 'Cormorant Garamond', 'Times New Roman', serif;
-    line-height: 1.8;
-    color: #1a1a1a;
-    font-size: 20px;
-    background-color: var(--background-color);
-    font-feature-settings: 
-        "liga" 1,     /* Enable ligatures */
-        "dlig" 1,     /* Enable discretionary ligatures */
-        "swsh" 1,     /* Enable swashes */
-        "calt" 1,     /* Enable contextual alternates */
-        "kern" 1,     /* Enable kerning */
-        "onum" 1;     /* Enable old-style numerals */
-    text-rendering: optimizeLegibility;
-    font-variant-ligatures: common-ligatures discretionary-ligatures;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', 'EB Garamond', serif;
-    font-weight: 600;
-    line-height: 1.2;
-    color: #0f0f0f;
-    letter-spacing: -0.02em;
-    font-feature-settings: 
-        "liga" 1, 
-        "dlig" 1, 
-        "swsh" 1, 
-        "calt" 1,
-        "kern" 1;
-    text-rendering: optimizeLegibility;
-}
-
-.commentary-section h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-    color: var(--text-primary);
-}
-
-.commentary-section h3 {
-    font-size: 1.75rem;
-    margin: 2rem 0 1rem 0;
-    font-weight: 600;
-    color: var(--text-primary);
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
-
-
 .commentary-section p {
-    font-size: 1.375rem;
-    line-height: 1.9;
-    margin-bottom: 1.5rem;
-    text-align: left;
-    hyphens: auto;
-    font-weight: 400;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    font-size: 1.175rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
     color: var(--text-primary);
 }
 
 .commentary-section li {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.sidebar-toc {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
     font-size: 1.1rem;
-    font-weight: 500;
-}
-
-.highlight-desc {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    font-style: italic;
-}
-
-.author-note {
-    font-style: italic;
-    font-size: 1rem;
     line-height: 1.6;
-    border-left: 3px solid var(--primary-color);
-    padding-left: 1rem;
-    background: rgba(75, 46, 131, 0.05);
-    border-radius: 0 4px 4px 0;
-    margin: 1.5rem 0;
-    padding: 1rem 1rem 1rem 1.5rem;
     color: var(--text-primary);
-}
-
-/* Clean quote styling */
-.commentary-section blockquote {
-    font-size: 1.25rem;
-    font-style: italic;
-    margin: 1.5rem 0;
-    padding: 1rem 1.5rem;
-    border-left: 4px solid var(--primary-color);
-    background: rgba(75, 46, 131, 0.05);
-    border-radius: 0 4px 4px 0;
-    color: var(--text-primary);
-}
-
-/* Enhanced strong/bold text */
-.commentary-section strong {
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-/* Enhanced em/italic text */
-.commentary-section em {
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.commentary-container {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: var(--background-color);
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.commentary-header {
-    background: var(--surface-color);
-    color: var(--text-primary);
-    padding: 2rem 1rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-color);
-}
-
-.commentary-header h1 {
-    margin: 0 0 1rem;
-    font-size: 2.5rem;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-}
-
-.commentary-header p {
-    margin: 0;
-    opacity: 0.95;
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 1.375rem;
-    font-family: 'EB Garamond', serif;
-    line-height: 1.6;
-    font-style: italic;
-}
-
-.book-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin: 1rem 0;
-    justify-content: center;
-}
-
-.book-meta-item {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.875rem;
-}
-
-.commentary-section {
-    margin-bottom: 2rem;
-    background: var(--surface-color);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-sm);
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.commentary-section h2 {
-    margin-top: 0;
-    color: var(--text-primary);
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-light);
-}
-
-.commentary-section h3 {
-    color: var(--text-primary);
-}
-
-.commentary-section p {
-    margin: 0 0 1rem;
-    line-height: 1.7;
 }
 
 .verse-reference {
     font-weight: 500;
-    color: #ff6b6b;
+    color: var(--primary-light);
     text-decoration: none;
-    white-space: nowrap;
     position: relative;
 }
 
 .verse-reference:hover {
-    color: var(--primary-light);
     text-decoration: underline;
 }
 
@@ -247,7 +53,7 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     color: white;
     padding: 0.75rem 1rem;
     border-radius: 6px;
@@ -262,12 +68,10 @@ h1, h2, h3, h4, h5, h6 {
     transition: opacity 0.3s ease, visibility 0.3s ease;
     pointer-events: none;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: 'EB Garamond', Georgia, serif;
+    font-family: 'Crimson Text', 'Times New Roman', serif;
     margin-bottom: 8px;
 }
 
-/* Responsive tooltip styles */
 @media (max-width: 768px) {
     .verse-tooltip {
         position: fixed;
@@ -283,23 +87,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    .verse-tooltip {
-        max-width: 380px;
-        min-width: 280px;
-        font-size: 0.875rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    .verse-tooltip {
-        max-width: 500px;
-        min-width: 400px;
-        font-size: 0.95rem;
-        padding: 1rem 1.25rem;
-    }
-}
-
 .verse-tooltip::after {
     content: '';
     position: absolute;
@@ -307,7 +94,7 @@ h1, h2, h3, h4, h5, h6 {
     left: 50%;
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.9);
+    border-top-color: rgba(0, 0, 0, 0.95);
 }
 
 .verse-reference:hover .verse-tooltip {
@@ -315,66 +102,8 @@ h1, h2, h3, h4, h5, h6 {
     visibility: visible;
 }
 
-.sidebar-toc {
-    position: sticky;
-    top: 2rem;
-    background: var(--surface-color);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 2rem;
-    width: 100%;
-    max-width: 350px;
-    justify-self: start;
-}
-
-.sidebar-toc h3 {
-    margin-top: 0;
-    font-size: 1.35rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--border-light);
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    color: #4a4a4a;
-}
-
-.toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.toc-item {
-    margin-bottom: 0.5rem;
-}
-
-.toc-link {
-    display: block;
-    padding: 0.5rem;
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.toc-link:hover {
-    background: rgba(75, 46, 131, 0.05);
-    color: var(--primary-color);
-}
-
-.toc-link.active {
-    background: rgba(75, 46, 131, 0.1);
-    color: var(--primary-color);
-    font-weight: 500;
-}
-
-.outline-section {
-    margin-bottom: 2rem;
-}
-
 .outline-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
     color: var(--primary-color);
@@ -387,18 +116,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .outline-item {
     margin-bottom: 0.5rem;
-    position: relative;
-}
-
-.outline-item:before {
-    content: "";
-    position: absolute;
-    left: -1.5rem;
-    top: 0.5rem;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background-color: var(--primary-color);
 }
 
 .outline-nested {
@@ -406,178 +123,16 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0.5rem;
 }
 
-.highlights-section {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(255, 235, 59, 0.1), rgba(255, 235, 59, 0.2));
-    border-radius: var(--radius-lg);
-    border-left: 4px solid rgba(255, 235, 59, 0.5);
-}
-
-.highlights-section h3 {
-    margin-top: 0;
-    color: var(--text-primary);
-}
-
-.highlights-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.highlight-card {
-    background: rgba(255, 235, 59, 0.1);
-    border-radius: var(--radius-md);
-    padding: 1.25rem;
-    border-left: 4px solid var(--accent-color);
-    text-align: left;
-}
-
-.highlight-title {
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-    color: var(--text-primary);
-}
-
-.highlight-desc {
-    margin: 0;
-    color: var(--text-primary);
-    line-height: 1.5;
-}
-
-.main-content {
-    width: 100%;
-    max-width: 900px;
-    overflow-wrap: break-word;
-    margin: 0 auto;
-    padding: 0;
-    min-width: 0;
-    box-sizing: border-box;
-    justify-self: center;
-}
-
-.two-column {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: 3rem;
-    align-items: start;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-    justify-items: center;
-}
-
-@media (max-width: 1200px) {
-    .two-column {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        justify-items: stretch;
-    }
-    
-    .main-content {
-        justify-self: stretch;
-        max-width: 100%;
-        margin: 0;
-        order: 2;
-    }
-    
-    .sidebar-toc {
-        position: static;
-        order: 1;
-        max-width: 100%;
-        justify-self: stretch;
-        margin-bottom: 2rem;
-        background: var(--surface-color);
-        border: 1px solid var(--border-light);
-    }
-    
-    .commentary-container {
-        max-width: 1300px;
-        background-color: var(--background-color);
-        min-height: 100vh;
-    }
-    
-    .container {
-        max-width: 1100px;
-    }
-}
-</media>
-
-@media (max-width: 1024px) {
-    .commentary-container {
-        max-width: 100%;
-        padding: 0 0.75rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .commentary-container {
-        padding: 0 0.75rem;
-        background-color: var(--background-color);
-    }
-    
-    .commentary-header h1 {
-        font-size: 2rem;
-    }
-    
-    .commentary-section p {
-        font-size: 1.125rem;
-        text-align: left;
-        line-height: 1.7;
-    }
-    
-    .commentary-section h2 {
-        font-size: 1.75rem;
-    }
-    
-    .commentary-section h3 {
-        font-size: 1.5rem;
-    }
-    
-    .sidebar-toc {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .two-column {
-        gap: 1.5rem;
-    }
-}
-
-.tag {
-    display: inline-block;
-    background: rgba(75, 46, 131, 0.1);
-    color: var(--primary-color);
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.75rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.author-note {
-    margin-top: 2rem;
-    padding: 1rem;
-    background: rgba(75, 46, 131, 0.05);
-    border-radius: var(--radius-md);
-    font-style: italic;
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-}
-
 .cross-ref-section {
     margin-top: 2rem;
     padding: 1rem;
-    background: rgba(75, 46, 131, 0.05);
+    background: rgba(139, 92, 246, 0.1);
     border-radius: var(--radius-md);
 }
 
 .cross-ref-title {
     margin-top: 0;
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 0.75rem;
     color: var(--text-primary);
 }
@@ -605,8 +160,7 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -661,11 +215,11 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.125rem;
     line-height: 1.7;
     margin-bottom: 1rem;
-    font-family: var(--font-serif);
+    font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
 .verse-popup-comment {
-    background: rgba(75, 46, 131, 0.05);
+    background: rgba(139, 92, 246, 0.1);
     border-radius: var(--radius-md);
     padding: 1rem;
     margin-top: 1rem;
@@ -702,16 +256,6 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
     border-color: var(--primary-color);
 }
-
-.highlight-verse {
-    animation: pulse-highlight 2s ease;
-}
-
-@keyframes pulse-highlight {
-    0% { background-color: transparent; }
-    30% { background-color: rgba(255, 235, 59, 0.5); }
-    100% { background-color: transparent; }
-}
 </style>
 {% endblock %}
 
@@ -728,59 +272,60 @@ h1, h2, h3, h4, h5, h6 {
 {% endblock %}
 
 {% block content %}
-<div class="commentary-container">
-    <header class="commentary-header">
-        <h1>Commentary on {{ book }}</h1>
-        <p>Comprehensive analysis and insights from the Authorized King James Version (KJV)</p>
+<div class="text-center mb-4">
+    <h1 class="section-title" style="font-size: 1.8rem;">Commentary on {{ book }}</h1>
+    <p style="font-size: 0.95rem; color: var(--text-secondary);">
+        Comprehensive analysis and insights from the Authorized King James Version (KJV)
+    </p>
+    
+    <div class="book-meta" style="margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <span class="book-meta-item" style="background: var(--surface-color); padding: 0.25rem 0.75rem; border-radius: var(--radius-md); font-size: 0.9rem;">{{ testament }}</span>
+        <span class="book-meta-item" style="background: var(--surface-color); padding: 0.25rem 0.75rem; border-radius: var(--radius-md); font-size: 0.9rem;">{{ genre }}</span>
+        <span class="book-meta-item" style="background: var(--surface-color); padding: 0.25rem 0.75rem; border-radius: var(--radius-md); font-size: 0.9rem;">{{ chapters|length }} Chapters</span>
+        <span class="book-meta-item" style="background: var(--surface-color); padding: 0.25rem 0.75rem; border-radius: var(--radius-md); font-size: 0.9rem;">{{ time_period }}</span>
+    </div>
+</div>
+
+<div class="commentary-container" style="max-width: 800px; margin: 0 auto;">
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="introduction" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Introduction to {{ book }}</h2>
+        {{ introduction|safe }}
         
-        <div class="book-meta">
-            <span class="book-meta-item">{{ testament }}</span>
-            <span class="book-meta-item">{{ genre }}</span>
-            <span class="book-meta-item">{{ chapters|length }} Chapters</span>
-            <span class="book-meta-item">{{ time_period }}</span>
+        <div class="tags-container" style="margin-top: 1.5rem;">
+            {% for tag in tags %}
+            <span class="tag" style="display: inline-block; background: var(--primary-color); color: white; padding: 0.25rem 0.75rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-right: 0.5rem; margin-bottom: 0.5rem;">{{ tag }}</span>
+            {% endfor %}
         </div>
-    </header>
-    <div class="two-column">
-        <main class="main-content">
-            <section class="commentary-section">
-                <h2 id="introduction">Introduction to {{ book }}</h2>
-                {{ introduction|safe }}
-                
-                <div class="tags-container" style="margin-top: 1.5rem;">
-                    {% for tag in tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
-                </div>
-                
-                <div class="author-note">
-                    <strong>Note:</strong> This commentary provides historical, theological, and literary insights on {{ book }} while remaining faithful to the text of the Authorized King James Version (KJV).
-                </div>
-            </section>
-            
-            <section class="commentary-section">
-                <h2 id="historical-context">Historical Context</h2>
-                {{ historical_context|safe }}
-            </section>
-            
-            <section class="commentary-section">
-                <h2 id="literary-features">Literary Features</h2>
-                {{ literary_features|safe }}
-            </section>
-            
-            <div class="highlights-section">
-                <h3>Key Passages in {{ book }}</h3>
-                <div class="highlights-list">
-                    {% for highlight in highlights %}
-                    <div class="highlight-card">
-                        <h4 class="highlight-title">{{ highlight.reference }}</h4>
-                        <p class="highlight-desc">{{ highlight.description }}</p>
-                    </div>
-                    {% endfor %}
-                </div>
+        
+        <div class="author-note" style="background: rgba(139, 92, 246, 0.1); border-radius: var(--radius-md); padding: 1rem; margin-top: 1.5rem; border-left: 4px solid var(--accent-color);">
+            <strong>Note:</strong> This commentary provides historical, theological, and literary insights on {{ book }} while remaining faithful to the text of the Authorized King James Version (KJV).
+        </div>
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="historical-context" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Historical Context</h2>
+        {{ historical_context|safe }}
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="literary-features" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Literary Features</h2>
+        {{ literary_features|safe }}
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Key Passages in {{ book }}</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 1.25rem;">
+            {% for highlight in highlights %}
+            <div class="highlight-card" style="background: rgba(255, 235, 59, 0.1); border-radius: var(--radius-md); padding: 1.25rem; border-left: 4px solid var(--accent-color);">
+                <h4 class="highlight-title" style="font-weight: 600; margin: 0 0 0.4rem; color: var(--primary-light); font-size: 1.1rem;">{{ highlight.reference }}</h4>
+                <p class="highlight-desc" style="margin: 0; color: var(--text-primary); line-height: 1.4; font-size: 1rem;">{{ highlight.description }}</p>
             </div>
-            
-            <section class="commentary-section">
-                <h2 id="outline">Book Outline</h2>
+            {% endfor %}
+        </div>
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="outline" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Book Outline</h2>
                 
                 {% for section in outline %}
                 <div class="outline-section">
@@ -816,15 +361,15 @@ h1, h2, h3, h4, h5, h6 {
                     </ul>
                 </div>
                 {% endfor %}
-            </section>
-            
-            <section class="commentary-section">
-                <h2 id="themes">Major Themes</h2>
-                {{ themes|safe }}
-            </section>
-            
-            <section class="commentary-section">
-                <h2 id="theological-significance">Theological Significance</h2>
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="themes" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Major Themes</h2>
+        {{ themes|safe }}
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="theological-significance" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Theological Significance</h2>
                 {{ theological_significance|safe }}
                 
                 <div class="cross-ref-section">
@@ -840,10 +385,10 @@ h1, h2, h3, h4, h5, h6 {
                         {% endfor %}
                     </ul>
                 </div>
-            </section>
-            
-            <section class="commentary-section">
-                <h2 id="chapter-summaries">Chapter Summaries</h2>
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="chapter-summaries" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Chapter Summaries</h2>
                 
                 {% for chapter_num, chapter_data in chapter_summaries.items() %}
                 <h3 id="chapter-{{ chapter_num }}">Chapter {{ chapter_num }}</h3>
@@ -865,43 +410,40 @@ h1, h2, h3, h4, h5, h6 {
                 </div>
                 {% endif %}
                 {% endfor %}
-            </section>
-            
-            <section class="commentary-section">
-                <h2 id="application">Contemporary Application</h2>
-                {{ application|safe }}
-            </section>
-        </main>
+    </section>
+    
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h2 id="application" style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700;">Contemporary Application</h2>
+        {{ application|safe }}
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+        <h3 style="color: var(--text-primary); margin-top: 0; margin-bottom: 1rem; font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.4rem;">Commentary Contents</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.5rem;">
+            <a href="#introduction" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Introduction</a>
+            <a href="#historical-context" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Historical Context</a>
+            <a href="#literary-features" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Literary Features</a>
+            <a href="#outline" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Book Outline</a>
+            <a href="#themes" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Major Themes</a>
+            <a href="#theological-significance" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Theological Significance</a>
+            <a href="#chapter-summaries" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Chapter Summaries</a>
+            <a href="#application" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); transition: background-color 0.2s;">Contemporary Application</a>
+        </div>
         
-        <aside class="sidebar-toc">
-            <h3>Commentary Contents</h3>
-            <ul class="toc-list">
-                <li class="toc-item"><a href="#introduction" class="toc-link">Introduction</a></li>
-                <li class="toc-item"><a href="#historical-context" class="toc-link">Historical Context</a></li>
-                <li class="toc-item"><a href="#literary-features" class="toc-link">Literary Features</a></li>
-                <li class="toc-item"><a href="#outline" class="toc-link">Book Outline</a></li>
-                <li class="toc-item"><a href="#themes" class="toc-link">Major Themes</a></li>
-                <li class="toc-item"><a href="#theological-significance" class="toc-link">Theological Significance</a></li>
-                <li class="toc-item"><a href="#chapter-summaries" class="toc-link">Chapter Summaries</a></li>
-                <li class="toc-item"><a href="#application" class="toc-link">Contemporary Application</a></li>
-            </ul>
-            
-            <h3 style="margin-top: 1.5rem;">Chapter Quick Links</h3>
-            <ul class="toc-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); gap: 0.5rem; justify-items: center;">
-                {% for chapter_num in chapter_summaries.keys() %}
-                <li style="margin: 0;">
-                    <a href="#chapter-{{ chapter_num }}" class="toc-link" style="padding: 0.5rem; text-align: center; min-width: 40px; display: block;">{{ chapter_num }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-            
-            <div style="margin-top: 2rem; text-align: center;">
-                <a href="/book/{{ book }}" class="nav-button" style="display: inline-block; width: 100%;">
-                    Back to {{ book }}
-                </a>
-            </div>
-        </aside>
-    </div>
+        <h3 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--text-primary); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.2rem;">Chapter Quick Links</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); gap: 0.5rem; max-width: 600px;">
+            {% for chapter_num in chapter_summaries.keys() %}
+            <a href="#chapter-{{ chapter_num }}" style="padding: 0.5rem; background: var(--background-color); border-radius: var(--radius-md); text-decoration: none; color: var(--text-primary); text-align: center; transition: background-color 0.2s;">{{ chapter_num }}</a>
+            {% endfor %}
+        </div>
+        
+        <div style="margin-top: 2rem; text-align: center;">
+            <a href="/book/{{ book }}" class="nav-button" style="display: inline-block; padding: 0.65rem 1.25rem; background: var(--primary-color); color: white; text-decoration: none; border-radius: var(--radius-md); transition: background-color 0.2s;">
+                ← Back to {{ book }}
+            </a>
+        </div>
+    </section>
 </div>
 
 <div class="backdrop-blur" id="versePopup">
