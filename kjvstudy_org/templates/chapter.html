@@ -373,7 +373,7 @@ sup.verse-number:hover {
 <div class="verses-container" id="versesContainer">
     <div class="chapter-text">
         {% for verse in verses %}
-        <sup class="verse-number" id="verse-{{ verse.verse }}" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})">{{ verse.verse }}</sup>{{ verse.text }}{% if not loop.last %} {% endif %}
+        {% if not loop.first %}<br>{% endif %}<sup class="verse-number" id="verse-{{ verse.verse }}" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})">{{ verse.verse }}</sup>{{ verse.text }}{% if not loop.last %} {% endif %}
         {% endfor %}
     </div>
 </div>
