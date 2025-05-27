@@ -574,13 +574,18 @@ function navigateToVerse(verseNumber) {
     });
     
     // Set the hash and apply styling
-    location.hash = 'verse-' + verseNumber;
+    const newHash = 'verse-' + verseNumber;
+    history.pushState(null, null, '#' + newHash);
     
     // Apply underline styling to the clicked verse
-    const targetVerse = document.getElementById('verse-' + verseNumber);
+    const targetVerse = document.getElementById(newHash);
     if (targetVerse) {
         targetVerse.classList.add('verse-underlined');
         targetVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Update page title to include verse reference
+        const originalTitle = document.title.split(' - Verse')[0];
+        document.title = originalTitle + ' - Verse ' + verseNumber;
     }
     
     showToast('Navigated to Verse ' + verseNumber);
@@ -640,17 +645,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Highlight verse from URL hash
-    if (window.location.hash) {
-        setTimeout(() => {
+    function highlightVerseFromHash() {
+        if (window.location.hash) {
             const target = document.querySelector(window.location.hash);
             if (target) {
+                // Remove any existing underlines first
+                document.querySelectorAll('.verse-underlined').forEach(el => {
+                    el.classList.remove('verse-underlined');
+                });
+                
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
                 // Extract verse number from the hash
                 const verseMatch = window.location.hash.match(/verse-(\d+)/);
                 if (verseMatch && verseMatch[1]) {
-                    showToast('Navigated to Verse ' + verseMatch[1]);
-
                     // Apply permanent underline styling to the verse
                     target.classList.add('verse-underlined');
                     
@@ -659,6 +667,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(() => {
                         target.classList.remove('highlight-verse');
                     }, 2000);
+
+                    // Update page title
+                    const originalTitle = document.title.split(' - Verse')[0];
+                    document.title = originalTitle + ' - Verse ' + verseMatch[1];
+                    
+                    showToast('Navigated to Verse ' + verseMatch[1]);
 
                     // If the verse has commentary, highlight the commentary card too
                     const commentaryCard = document.getElementById(`commentary-verse-${verseMatch[1]}`);
@@ -672,26 +686,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }
-        }, 100);
+        }
     }
     
+    // Call on page load
+    setTimeout(highlightVerseFromHash, 100);
+    
     // Listen for hash changes to update verse highlighting
-    window.addEventListener('hashchange', function() {
-        // Remove previous underlines
-        document.querySelectorAll('.verse-underlined').forEach(el => {
-            el.classList.remove('verse-underlined');
-        });
-        
-        // Apply new underline if hash matches verse pattern
-        if (window.location.hash) {
-            const target = document.querySelector(window.location.hash);
-            const verseMatch = window.location.hash.match(/verse-(\d+)/);
-            if (target && verseMatch) {
-                target.classList.add('verse-underlined');
-                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                showToast('Navigated to Verse ' + verseMatch[1]);
-            }
-        }
+    window.addEventListener('hashchange', highlightVerseFromHash);
+    
+    // Listen for popstate (back/forward button) to update highlighting
+    window.addEventListener('popstate', function() {
+        setTimeout(highlightVerseFromHash, 50);
     });
 
     // Add cross-links from verses to commentary
