@@ -114,13 +114,15 @@ sup.verse-number:active {
     text-decoration: underline !important;
     text-decoration-color: var(--primary-light) !important;
     text-decoration-thickness: 2px !important;
-    text-underline-offset: 3px !important;
-    background-color: rgba(139, 92, 246, 0.1) !important;
-    padding: 0.2rem 0.3rem !important;
-    border-radius: 4px !important;
-    border-left: 3px solid var(--primary-light) !important;
-    margin-left: -0.3rem !important;
-    padding-left: 0.6rem !important;
+    text-underline-offset: 4px !important;
+    background-color: rgba(139, 92, 246, 0.08) !important;
+    padding: 0.3rem 0.4rem !important;
+    border-radius: 5px !important;
+    border-left: 4px solid var(--primary-light) !important;
+    margin-left: -0.4rem !important;
+    padding-left: 0.7rem !important;
+    box-shadow: 0 1px 3px rgba(139, 92, 246, 0.1) !important;
+    transition: all 0.3s ease !important;
 }
 
 @keyframes pulse-highlight {
@@ -179,6 +181,12 @@ sup.verse-number:active {
 .chapter-text {
     position: relative;
     display: block;
+}
+
+.chapter-text .verse-underlined {
+    display: inline-block;
+    min-width: 100%;
+    box-sizing: border-box;
 }
 
 .verse-text::selection {
