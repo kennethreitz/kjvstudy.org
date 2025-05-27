@@ -463,13 +463,28 @@ p, li, div {
 }
 
 .verse-number {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  font-weight: normal;
-  font-family: var(--font-sans);
-  vertical-align: super;
-  margin-right: 0.25rem;
-  position: static;
+  font-size: 0.8rem !important;
+  color: var(--text-secondary) !important;
+  font-weight: normal !important;
+  font-family: var(--font-sans) !important;
+  vertical-align: super !important;
+  margin-right: 0.25rem !important;
+  position: static !important;
+  display: inline !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  text-align: left !important;
+  min-height: auto !important;
+  line-height: normal !important;
+}
+
+.verse-number::before,
+.verse-number::after {
+  content: none !important;
+  display: none !important;
 }
 
 .verse-text {
@@ -829,7 +844,9 @@ p, li, div {
   }
 
   .verse-number {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
+    vertical-align: super !important;
+    display: inline !important;
   }
 
   .verse-text {
@@ -1084,7 +1101,9 @@ html,
   }
 
   .verse-number {
-    font-size: 0.7rem;
+    font-size: 0.7rem !important;
+    vertical-align: super !important;
+    display: inline !important;
   }
 
   .verse-text {

@@ -57,16 +57,78 @@
 }
 
 .verse-number {
-    font-size: 0.8rem;
-    font-weight: normal;
-    color: var(--text-secondary);
-    vertical-align: super;
-    margin-right: 0.25rem;
-    user-select: none;
-    cursor: pointer;
-    position: static;
-    display: inline;
-    font-family: var(--font-sans);
+    /* Complete CSS reset for verse numbers */
+    all: unset !important;
+    font-size: 0.8rem !important;
+    font-weight: normal !important;
+    color: var(--text-secondary) !important;
+    vertical-align: super !important;
+    margin-right: 0.25rem !important;
+    user-select: none !important;
+    cursor: pointer !important;
+    display: inline !important;
+    font-family: var(--font-sans) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    text-align: left !important;
+    min-height: auto !important;
+    max-height: auto !important;
+    min-width: auto !important;
+    max-width: auto !important;
+    line-height: normal !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+    white-space: normal !important;
+    box-sizing: content-box !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: auto !important;
+    float: none !important;
+    clear: none !important;
+    overflow: visible !important;
+    clip: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+}
+
+.verse-number::before,
+.verse-number::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Prevent any heading styles from applying */
+h1 .verse-number,
+h2 .verse-number,
+h3 .verse-number,
+h4 .verse-number,
+h5 .verse-number,
+h6 .verse-number {
+    all: unset !important;
+    font-size: 0.8rem !important;
+    font-weight: normal !important;
+    color: var(--text-secondary) !important;
+    vertical-align: super !important;
+    margin-right: 0.25rem !important;
+    display: inline !important;
+    font-family: var(--font-sans) !important;
 }
 
 .verse-number:hover {
@@ -290,12 +352,20 @@
 }
 
 .chapter-text .verse {
-    display: inline;
+    display: inline !important;
     position: relative;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    border: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+}
+
+.chapter-text .verse .verse-number {
+    font-size: 0.75rem !important;
+    vertical-align: super !important;
+    margin-right: 0.2rem !important;
 }
 
 .chapter-text .verse:hover {
@@ -313,6 +383,17 @@
         line-height: 1.7;
         padding: 0.75rem;
         text-align: left;
+    }
+    
+    .chapter-text .verse .verse-number {
+        all: unset !important;
+        font-size: 0.7rem !important;
+        font-weight: normal !important;
+        color: var(--text-secondary) !important;
+        vertical-align: super !important;
+        margin-right: 0.2rem !important;
+        display: inline !important;
+        font-family: var(--font-sans) !important;
     }
     
     .verse-tools {
