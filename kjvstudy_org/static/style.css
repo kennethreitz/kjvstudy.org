@@ -419,40 +419,27 @@ p, li, div {
 }
 
 .verse {
-  margin-bottom: 1.5rem;
-  line-height: 1.75;
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
   font-size: 1.125rem;
   position: relative;
-  padding-left: 3rem;
-  background: var(--surface-color);
-  border-radius: var(--radius-sm);
-  padding: 1rem 1rem 1rem 3rem;
-  border-left: 3px solid var(--border-light);
-  transition: all 0.2s ease;
+  padding: 0.25rem 0;
+  background: transparent;
+  border: none;
 }
 
 .verse:hover {
-  border-left-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .verse-number {
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-  font-size: 1.15rem;
-  color: var(--primary-color);
-  font-weight: 600;
-  width: 2rem;
-  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: normal;
   font-family: var(--font-sans);
-  background: var(--border-light);
-  border-radius: var(--radius-sm);
-  padding: 0.25rem;
-  min-height: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  vertical-align: super;
+  margin-right: 0.25rem;
+  position: static;
 }
 
 .verse-text {
@@ -806,17 +793,13 @@ p, li, div {
 
   .verse {
     font-size: 1rem;
-    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-    margin-bottom: 1rem;
-    line-height: 1.6;
+    padding: 0.25rem 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
   }
 
   .verse-number {
-    width: 1.75rem;
-    font-size: 0.9rem;
-    left: 0.5rem;
-    top: 0.75rem;
-    min-height: 1.25rem;
+    font-size: 0.75rem;
   }
 
   .verse-text {
@@ -1058,16 +1041,12 @@ html,
   }
 
   .verse {
-    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    padding: 0.25rem 0;
     font-size: 0.95rem;
   }
 
   .verse-number {
-    width: 1.5rem;
-    font-size: 0.85rem;
-    left: 0.25rem;
-    top: 0.5rem;
-    min-height: 1rem;
+    font-size: 0.7rem;
   }
 
   .verse-text {

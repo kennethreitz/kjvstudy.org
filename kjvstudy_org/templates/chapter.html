@@ -25,9 +25,10 @@
     opacity: 0;
     transition: opacity 0.2s ease;
     display: inline-flex;
-    gap: 0.5rem;
-    margin-left: 0.5rem;
+    gap: 0.25rem;
+    margin-left: 0.25rem;
     vertical-align: middle;
+    font-size: 0.75rem;
 }
 
 .verse:hover .verse-tools {
@@ -38,14 +39,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: var(--radius-sm);
     background: var(--surface-color);
     border: 1px solid var(--border-color);
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 12px;
+    font-size: 10px;
     transition: all 0.2s ease;
 }
 
@@ -56,20 +57,21 @@
 }
 
 .verse-number {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--primary-color);
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: var(--text-secondary);
     vertical-align: super;
     margin-right: 0.25rem;
     user-select: none;
     cursor: pointer;
-    position: relative;
+    position: static;
     display: inline;
+    font-family: var(--font-sans);
 }
 
 .verse-number:hover {
-    color: var(--primary-color);
-    text-decoration: underline;
+    color: var(--text-primary);
+    text-decoration: none;
 }
 
 .highlight-verse {
@@ -264,9 +266,65 @@
 
 @media (max-width: 768px) {
     .verse-text {
-        font-size: 1.25rem;
-        line-height: 1.7;
+        font-size: 1.1rem;
+        line-height: 1.8;
     }
+    
+    .verse-number {
+        font-size: 0.75rem;
+    }
+}
+
+.chapter-text {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: var(--surface-color);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.chapter-text .verse {
+    display: inline;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.chapter-text .verse:hover {
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 3px;
+}
+
+.chapter-text .verse:hover .verse-tools {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .chapter-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        padding: 0.75rem;
+        text-align: left;
+    }
+    
+    .verse-tools {
+        display: none;
+    }
+    
+    .verse-tool {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+    }
+}
 </style>
 {% endblock %}
 
@@ -330,10 +388,9 @@
 </div>
 
 <div class="verses-container" id="versesContainer">
-    {% for verse in verses %}
-    <div class="verse" id="verse-{{ verse.verse }}">
-            <span class="verse-number" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})">{{ verse.verse }}</span><span class="verse-text">{{ verse.text }}</span>
-            <span class="verse-tools">
+    <div class="chapter-text">
+        {% for verse in verses %}
+        <span class="verse" id="verse-{{ verse.verse }}"><span class="verse-number" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})">{{ verse.verse }}</span><span class="verse-text">{{ verse.text }}</span><span class="verse-tools">
                 <a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to Verse {{ verse.verse }}" onclick="copyVerseLink({{ verse.verse }})">
                     🔗
                 </a>
@@ -343,9 +400,9 @@
                 <a href="#" class="verse-tool" title="Highlight Verse {{ verse.verse }}" onclick="highlightVerse({{ verse.verse }})">
                     ✨
                 </a>
-            </span>
-        </div>
-    {% endfor %}
+            </span></span>{% if not loop.last %} {% endif %}
+        {% endfor %}
+    </div>
 </div>
 
 <div class="commentary-preview" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem; border: 1px solid var(--border-light); text-center;">
