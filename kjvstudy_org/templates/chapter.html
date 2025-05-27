@@ -331,37 +331,11 @@ sup.verse-number:hover {
         <div class="chapter-info">
             {{ book }} {{ chapter }} (KJV)
         </div>
-        <div class="chapter-controls">
-            <button onclick="toggleReadingOptions()" class="nav-button" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
-                ⚙️ Options
-            </button>
-            <button onclick="scrollToTop()" class="nav-button" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
-                ↑ Top
-            </button>
-        </div>
+
     </div>
 </div>
 
-<div class="reading-options" id="readingOptions" style="display: none;">
-    <h3>📖 Reading Options</h3>
-    <div class="option-group">
-        <label for="fontSize">Text Size:</label>
-        <input type="range" id="fontSize" class="range-input" min="16" max="24" value="18" onchange="updateFontSize(this.value)">
-        <span id="fontSizeValue">18px</span>
-    </div>
-    <div class="option-group">
-        <label for="lineHeight">Line Spacing:</label>
-        <input type="range" id="lineHeight" class="range-input" min="1.4" max="2.2" step="0.1" value="1.75" onchange="updateLineHeight(this.value)">
-        <span id="lineHeightValue">1.75</span>
-    </div>
-    <div class="option-group">
-        <label>Verse Numbers:</label>
-        <label style="display: flex; align-items: center; gap: 0.5rem; min-width: auto; cursor: pointer;">
-            <input type="checkbox" id="showVerseNumbers" checked onchange="toggleVerseNumbers(this.checked)">
-            Show verse numbers
-        </label>
-    </div>
-</div>
+
 
 <div class="text-center mb-4">
     <h1 class="chapter-title">{{ book }} {{ chapter }}</h1>
@@ -654,23 +628,7 @@ function showToast(message) {
 
 // Load saved preferences
 document.addEventListener('DOMContentLoaded', function() {
-    const savedFontSize = localStorage.getItem('kjv-font-size');
-    if (savedFontSize) {
-        document.getElementById('fontSize').value = savedFontSize;
-        updateFontSize(savedFontSize);
-    }
 
-    const savedLineHeight = localStorage.getItem('kjv-line-height');
-    if (savedLineHeight) {
-        document.getElementById('lineHeight').value = savedLineHeight;
-        updateLineHeight(savedLineHeight);
-    }
-
-    const savedShowNumbers = localStorage.getItem('kjv-show-verse-numbers');
-    if (savedShowNumbers === 'false') {
-        document.getElementById('showVerseNumbers').checked = false;
-        toggleVerseNumbers(false);
-    }
 
     // Highlight verse from URL hash
     if (window.location.hash) {
