@@ -522,34 +522,7 @@ sup.verse-number:hover {
 
 {% block scripts %}
 <script>
-function toggleReadingOptions() {
-    const options = document.getElementById('readingOptions');
-    options.style.display = options.style.display === 'none' ? 'block' : 'none';
-}
 
-function updateFontSize(value) {
-    const container = document.getElementById('versesContainer');
-    container.style.fontSize = value + 'px';
-    document.getElementById('fontSizeValue').textContent = value + 'px';
-    localStorage.setItem('kjv-font-size', value);
-}
-
-function updateLineHeight(value) {
-    const verses = document.querySelectorAll('.verse');
-    verses.forEach(verse => {
-        verse.style.lineHeight = value;
-    });
-    document.getElementById('lineHeightValue').textContent = value;
-    localStorage.setItem('kjv-line-height', value);
-}
-
-function toggleVerseNumbers(show) {
-    const numbers = document.querySelectorAll('.verse-number');
-    numbers.forEach(number => {
-        number.style.display = show ? 'inline' : 'none';
-    });
-    localStorage.setItem('kjv-show-verse-numbers', show);
-}
 
 function copyVerseLink(verseNumber) {
     const url = window.location.origin + window.location.pathname + '#verse-' + verseNumber;
@@ -575,9 +548,7 @@ function navigateToVerse(verseNumber) {
     showToast('Navigated to Verse ' + verseNumber);
 }
 
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+
 
 function switchCommentaryTab(verseNumber, tabName) {
     // Hide all tabs for this verse
