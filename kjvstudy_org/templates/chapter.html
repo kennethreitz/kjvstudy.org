@@ -72,6 +72,18 @@ sup.verse-number:hover {
     color: var(--text-primary) !important;
 }
 
+.ai-commentary-link {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.ai-commentary-link:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
 .highlight-verse,
 .verse-highlight {
     background-color: rgba(255, 235, 59, 0.3) !important;
@@ -302,7 +314,7 @@ sup.verse-number:hover {
 <div class="text-center mb-4">
     <h1 class="chapter-title">{{ book }} {{ chapter }}</h1>
     <p style="font-size: 1rem; color: var(--text-secondary); margin: 0.5rem 0 0 0; font-style: italic;">
-        Authorized King James Version (1769) with <a href="/book/{{ book }}/commentary" style="color: var(--primary-light); text-decoration: none; font-weight: 500; transition: color 0.2s ease;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--primary-light)'">AI Commentary</a>
+        Authorized King James Version (1769) with <a href="/book/{{ book }}/commentary" class="ai-commentary-link">AI Commentary</a>
     </p>
 </div>
 
