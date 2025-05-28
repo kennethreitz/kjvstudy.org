@@ -1,127 +1,48 @@
-# KJV Study - AI-Powered Biblical Commentary Platform
+# KJV Study
 
-A modern, responsive web application for studying the King James Version of the Bible with AI-generated commentary and insights.
+A web application for studying the King James Bible with AI-powered commentary and insights.
 
-## 🎯 Vision
+## Features
 
-This project aims to create an intelligent Bible study platform that combines the timeless text of the KJV with modern AI technology to provide:
+- Browse and search King James Bible verses
+- AI-powered biblical commentary and insights
+- Clean, responsive web interface
+- Fast verse lookup and navigation
 
-- **Deep Scriptural Analysis**: AI-generated commentary that explores historical context, theological themes, and cross-references
-- **Personalized Study Paths**: Adaptive learning that adjusts to individual study patterns and interests
-- **Interactive Exploration**: Dynamic connections between passages, themes, and concepts
-- **Scholarly Insights**: Commentary that draws from centuries of biblical scholarship and interpretation
-- **Accessible Learning**: Making deep biblical study available to everyone, regardless of theological background
+## Installation
 
-## ✨ Features
-
-### Current Features
-- **Clean, Responsive Design**: Modern interface optimized for reading and study
-- **Complete KJV Text**: Full biblical text with chapter and verse navigation
-- **Intuitive Navigation**: Easy browsing through books, chapters, and verses
-- **Mobile-First Design**: Optimized for smartphones, tablets, and desktop
-- **Fast Performance**: Built with FastAPI for quick loading and responsive interactions
-
-### Planned AI Commentary Features
-- **Verse-by-Verse Commentary**: AI-generated insights for every verse
-- **Historical Context**: Background information on cultural, historical, and geographical context
-- **Theological Themes**: Identification and explanation of key theological concepts
-- **Cross-References**: Intelligent linking to related passages throughout Scripture
-- **Study Questions**: Thought-provoking questions to deepen understanding
-- **Sermon Outlines**: AI-generated preaching and teaching materials
-- **Devotional Insights**: Daily application and spiritual reflection prompts
-- **Academic Analysis**: Scholarly examination of original languages, manuscripts, and interpretations
-
-### Advanced AI Capabilities (Future)
-- **Personalized Commentary**: Tailored insights based on reading history and interests
-- **Comparative Analysis**: Side-by-side comparison with other translations and versions
-- **Topical Studies**: AI-curated studies on specific themes (e.g., prophecy, parables, covenant)
-- **Interactive Q&A**: Natural language interface for asking questions about passages
-- **Study Group Features**: Collaborative tools for group study and discussion
-- **Audio Commentary**: AI-generated spoken commentary and explanations
-
-## 🛠 Technology Stack
-
-- **Backend**: FastAPI (Python) - High-performance web framework
-- **Frontend**: Modern HTML5, CSS3, and vanilla JavaScript
-- **Templates**: Jinja2 templating for dynamic content
-- **Data**: JSON-based Bible text storage for fast access
-- **AI Integration**: Planned integration with GPT-4, Claude, or other LLMs
-- **Deployment**: Docker-ready for easy deployment
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.8+
-- UV (Python package manager)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd kjvstudy.org
-   ```
-
-2. **Install dependencies**
+1. Clone the repository
+2. Install dependencies:
    ```bash
    uv sync
    ```
 
-3. **Run the development server**
-   ```bash
-   uv run python -m kjvstudy
-   ```
+## Usage
 
-4. **Open your browser**
-   Navigate to `http://localhost:8000`
-
-### Project Structure
-```
-kjvstudy.org/
-├── kjvstudy/           # Main application package
-│   ├── __init__.py
-│   ├── __main__.py     # Application entry point
-│   ├── kjv.py          # Bible text data handling
-│   └── server.py       # FastAPI web server
-├── templates/          # Jinja2 HTML templates
-│   ├── base.html       # Base template with navigation
-│   ├── index.html      # Home page - book selection
-│   ├── book.html       # Chapter listing for a book
-│   └── chapter.html    # Verse display for a chapter
-├── static/             # CSS, JavaScript, and assets
-│   └── style.css       # Main stylesheet
-├── verses-1769.json    # Complete KJV text data
-└── pyproject.toml      # Project dependencies and config
+Run the development server:
+```bash
+uv run kjvstudy-org
 ```
 
-## 🤖 AI Commentary Implementation Plan
+The application will be available at http://localhost:8000
 
-### Phase 1: Basic Commentary Generation
-- Integrate with OpenAI GPT-4 or Anthropic Claude
-- Generate verse-by-verse commentary for popular passages
-- Store generated commentary in database for performance
-- Add commentary display in the chapter view
+## Docker
 
-### Phase 2: Enhanced Analysis
-- Historical and cultural context generation
-- Cross-reference identification and linking
-- Theological theme extraction and explanation
-- Integration with Bible dictionaries and concordances
+Build and run with Docker:
+```bash
+docker build -t kjvstudy .
+docker run -p 8000:8000 kjvstudy
+```
 
-### Phase 3: Interactive Features
-- Natural language Q&A about passages
-- Personalized study recommendations
-- Custom study plan generation
-- Advanced search with semantic understanding
+## Requirements
 
-### Phase 4: Community and Collaboration
-- User-generated notes and insights
-- Community discussion features
-- Study group creation and management
-- Sharing and bookmarking capabilities
+- Python 3.13+
+- FastAPI
+- biblepy
 
-## 🎨 Design Philosophy
+## License
 
+<<<<<<< HEAD
 ### Typography and Reading Experience
 - **Serif fonts** for Scripture text to enhance readability
 - **Optimal line spacing** and margins for extended reading
@@ -209,3 +130,6 @@ For questions, suggestions, or collaboration opportunities:
 ---
 
 *"Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."* - 2 Timothy 2:15 (KJV)
+=======
+See LICENSE file for details.
+>>>>>>> bb2748c (Simplify README documentation)
