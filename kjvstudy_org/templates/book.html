@@ -136,7 +136,8 @@
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease 0.5s, visibility 0.3s ease 0.5s;
+    transform: translateX(-50%) scale(0.8);
+    transition: opacity 0.3s ease 0.5s, visibility 0.3s ease 0.5s, transform 0.3s ease 0.5s;
 }
 
 .chapter-link::after {
@@ -158,6 +159,10 @@
 .chapter-link:hover::after {
     opacity: 1;
     visibility: visible;
+}
+
+.chapter-link:hover::before {
+    transform: translateX(-50%) scale(1);
 }
 
 @media (max-width: 768px) {
