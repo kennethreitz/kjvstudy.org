@@ -35,6 +35,10 @@
     opacity: 1;
 }
 
+.chapter-text .verse:hover .verse-tools {
+    opacity: 1;
+}
+
 .verse-tool {
     display: inline-flex;
     align-items: center;
@@ -371,7 +375,7 @@ sup.verse-number:active {
 <div class="verses-container" id="versesContainer" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
     <div class="chapter-text" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
         {% for verse in verses %}
-        {% if not loop.first %}<br>{% endif %}<sup class="verse-number" id="verse-{{ verse.verse }}" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})" style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.verse }}</sup><span style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.text }}</span>{% if not loop.last %} {% endif %}
+        {% if not loop.first %}<br>{% endif %}<span class="verse" id="verse-{{ verse.verse }}" style="position: relative; display: inline;"><sup class="verse-number" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})" style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.verse }}</sup><span style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.text }}</span><span class="verse-tools"><a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to this verse" onclick="copyVerseLink({{ verse.verse }}); return false;">🔗</a><a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-tool" title="Go to this verse">🔍</a></span></span>{% if not loop.last %} {% endif %}
         {% endfor %}
     </div>
 </div>

@@ -8,7 +8,7 @@ from typing import List, Dict, Optional
 
 from fastapi import FastAPI, HTTPException, Request, Query
 from fastapi.exception_handlers import http_exception_handler
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import HTMLResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -696,6 +696,11 @@ def book_commentary(request: Request, book: str):
             status_code=500
         )
 
+
+@app.get("/book/{book}/{chapter}")
+def redirect_chapter_legacy(book: str, chapter: int):
+    """Redirect legacy chapter URLs to correct format"""
+    return RedirectResponse(url=f"/book/{book}/chapter/{chapter}", status_code=301)
 
 @app.get("/book/{book}/chapter/{chapter}", response_class=HTMLResponse)
 def read_chapter(request: Request, book: str, chapter: int):
