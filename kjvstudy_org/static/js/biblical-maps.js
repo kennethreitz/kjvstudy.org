@@ -55,6 +55,11 @@ class BiblicalMaps {
             "OpenStreetMap": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }),
+            "Dark Theme": L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }),
             "Terrain": L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors'
             }),
@@ -251,6 +256,52 @@ class BiblicalMaps {
                 description: "River where Jesus was baptized",
                 verses: ["Joshua 3:17", "Matthew 3:13", "Mark 1:9"],
                 layer: ["Old Testament Cities", "New Testament Cities"]
+            },
+            // Additional locations
+            hebron: {
+                name: "Hebron",
+                coords: [31.5326, 35.0998],
+                type: "city",
+                period: ["ot"],
+                description: "Where Abraham lived and was buried, David's first capital",
+                verses: ["Genesis 23:2", "2 Samuel 2:11"],
+                layer: ["Old Testament Cities"]
+            },
+            samaria: {
+                name: "Samaria",
+                coords: [32.2764, 35.1891],
+                type: "city",
+                period: ["ot", "nt"],
+                description: "Capital of Northern Kingdom of Israel",
+                verses: ["1 Kings 16:24", "John 4:4-9"],
+                layer: ["Old Testament Cities", "New Testament Cities"]
+            },
+            caesarea: {
+                name: "Caesarea",
+                coords: [32.5014, 34.8944],
+                type: "city",
+                period: ["nt"],
+                description: "Roman capital, where Paul was imprisoned",
+                verses: ["Acts 10:1", "Acts 23:23"],
+                layer: ["Paul's Journeys"]
+            },
+            philippi: {
+                name: "Philippi",
+                coords: [41.0136, 24.2919],
+                type: "city",
+                period: ["nt"],
+                description: "First European city where Paul preached",
+                verses: ["Acts 16:12", "Philippians 1:1"],
+                layer: ["Paul's Journeys"]
+            },
+            thessalonica: {
+                name: "Thessalonica",
+                coords: [40.6403, 22.9439],
+                type: "city",
+                period: ["nt"],
+                description: "Where Paul established a strong church",
+                verses: ["Acts 17:1", "1 Thessalonians 1:1"],
+                layer: ["Paul's Journeys"]
             }
         };
     }
@@ -323,14 +374,14 @@ class BiblicalMaps {
      */
     createPopupContent(location) {
         const verseLinks = location.verses.map(verse => 
-            `<a href="/search?q=${encodeURIComponent(verse)}" class="verse-link">${verse}</a>`
+            `<a href="/search?q=${encodeURIComponent(verse)}" style="color: #6d4bb3; text-decoration: none;">${verse}</a>`
         ).join(', ');
 
         return `
-            <div class="biblical-location-info">
-                <h3>${location.name}</h3>
-                <p class="description">${location.description}</p>
-                <div class="verses">
+            <div style="font-family: 'Crimson Text', serif; color: #f5f5f5;">
+                <h3 style="margin: 0 0 8px 0; color: #6d4bb3; font-size: 16px; border-bottom: 1px solid #2a2a2a; padding-bottom: 4px;">${location.name}</h3>
+                <p style="margin: 8px 0; font-size: 14px; color: #a3a3a3;">${location.description}</p>
+                <div style="margin-top: 10px; font-size: 12px; color: #737373;">
                     <strong>Key Verses:</strong><br>
                     ${verseLinks}
                 </div>
@@ -350,9 +401,9 @@ class BiblicalMaps {
         if (location) {
             this.map.setView(location.coords, 10);
             // Find and open the marker popup
-            this.mapLayers.forEach(layer => {
+            Object.values(this.mapLayers).forEach(layer => {
                 layer.eachLayer(marker => {
-                    if (marker.getLatLng().lat === location.coords[0] && 
+                    if (marker.getLatLng && marker.getLatLng().lat === location.coords[0] && 
                         marker.getLatLng().lng === location.coords[1]) {
                         marker.openPopup();
                     }
@@ -384,21 +435,23 @@ class BiblicalMaps {
      */
     getLocationsForBook(bookName) {
         const bookLocations = {
-            "Genesis": ["babylon", "egypt_memphis"],
+            "Genesis": ["hebron", "egypt_memphis"],
             "Exodus": ["egypt_memphis", "mount_sinai"],
             "Joshua": ["jericho", "jordan_river"],
             "1 Samuel": ["bethlehem"],
-            "2 Samuel": ["jerusalem"],
-            "1 Kings": ["jerusalem", "mount_carmel"],
+            "2 Samuel": ["jerusalem", "hebron"],
+            "1 Kings": ["jerusalem", "mount_carmel", "samaria"],
             "Psalms": ["jerusalem"],
             "Matthew": ["bethlehem", "nazareth", "capernaum", "jerusalem"],
             "Mark": ["capernaum", "sea_of_galilee", "jerusalem"],
             "Luke": ["nazareth", "bethlehem", "jericho", "jerusalem"],
-            "John": ["capernaum", "sea_of_galilee", "jerusalem"],
-            "Acts": ["jerusalem", "damascus", "antioch", "athens", "corinth", "ephesus", "rome"],
+            "John": ["capernaum", "sea_of_galilee", "jerusalem", "samaria"],
+            "Acts": ["jerusalem", "damascus", "antioch", "athens", "corinth", "ephesus", "rome", "caesarea", "philippi", "thessalonica"],
             "Romans": ["rome"],
             "1 Corinthians": ["corinth"],
             "Ephesians": ["ephesus"],
+            "Philippians": ["philippi"],
+            "1 Thessalonians": ["thessalonica"],
             "Revelation": ["ephesus"]
         };
 
@@ -453,88 +506,3 @@ document.addEventListener('DOMContentLoaded', function() {
         window.biblicalMapsInstance.init('biblical-map');
     }
 });
-
-// CSS styles for map components
-const mapStyles = `
-<style>
-.biblical-location-popup .leaflet-popup-content {
-    font-family: Georgia, serif;
-    line-height: 1.4;
-}
-
-.biblical-location-info h3 {
-    margin: 0 0 8px 0;
-    color: #8B4513;
-    font-size: 16px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 4px;
-}
-
-.biblical-location-info .description {
-    margin: 8px 0;
-    font-size: 14px;
-    color: #333;
-}
-
-.biblical-location-info .verses {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #666;
-}
-
-.biblical-location-info .verse-link {
-    color: #8B4513;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.biblical-location-info .verse-link:hover {
-    text-decoration: underline;
-}
-
-.biblical-location-marker {
-    cursor: pointer;
-}
-
-.leaflet-control-layers {
-    font-family: Georgia, serif;
-}
-
-#biblical-map {
-    height: 500px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.map-search {
-    margin-bottom: 10px;
-}
-
-.map-search input {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: Georgia, serif;
-    width: 200px;
-}
-
-.map-search button {
-    padding: 8px 16px;
-    background: #8B4513;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 5px;
-}
-
-.map-search button:hover {
-    background: #A0522D;
-}
-</style>
-`;
-
-// Inject styles into document head
-if (typeof document !== 'undefined') {
-    document.head.insertAdjacentHTML('beforeend', mapStyles);
-}

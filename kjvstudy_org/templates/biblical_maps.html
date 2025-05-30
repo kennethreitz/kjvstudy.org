@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblical Maps - KJV Study</title>
-    
+{% extends "base.html" %}
+
+{% block title %}Biblical Maps - KJV Study{% endblock %}
+
+{% block description %}Explore the geographical context of Scripture with interactive biblical maps showing locations, journeys, and historical events from both the Old and New Testaments.{% endblock %}
+
+{% block keywords %}biblical maps, Bible geography, biblical locations, Jerusalem, Holy Land, Paul's journeys, Old Testament maps, New Testament maps{% endblock %}
+
+{% block extra_head %}
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
-    
-    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
     
     <style>
         .maps-container {
@@ -25,12 +25,13 @@
         }
         
         .maps-header h1 {
-            color: #8B4513;
+            color: var(--primary-light);
             margin-bottom: 10px;
+            font-family: var(--font-display);
         }
         
         .maps-header p {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 16px;
             max-width: 600px;
             margin: 0 auto;
@@ -38,11 +39,12 @@
         }
         
         .map-controls {
-            background: #f8f9fa;
+            background: var(--surface-color);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
             margin-bottom: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
         }
         
         .control-group {
@@ -57,7 +59,8 @@
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
-            color: #8B4513;
+            color: var(--primary-light);
+            font-family: var(--font-display);
         }
         
         .search-container {
@@ -69,26 +72,39 @@
         
         .search-input {
             padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: Georgia, serif;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: var(--font-serif);
             min-width: 200px;
             flex: 1;
+            background: var(--background-color);
+            color: var(--text-primary);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(75, 46, 131, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
         }
         
         .search-btn, .book-btn {
             padding: 10px 16px;
-            background: #8B4513;
-            color: white;
+            background: var(--primary-color);
+            color: var(--text-primary);
             border: none;
-            border-radius: 4px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-family: Georgia, serif;
+            font-family: var(--font-serif);
             transition: background-color 0.3s;
         }
         
         .search-btn:hover, .book-btn:hover {
-            background: #A0522D;
+            background: var(--primary-light);
         }
         
         .book-selector {
@@ -101,11 +117,22 @@
         .book-btn {
             padding: 6px 12px;
             font-size: 14px;
-            background: #6c757d;
+            background: var(--border-color);
+            color: var(--text-secondary);
         }
         
         .book-btn.active {
-            background: #8B4513;
+            background: var(--primary-color);
+            color: var(--text-primary);
+        }
+        
+        .book-btn.clear-filter {
+            background: var(--text-muted);
+            color: var(--background-color);
+        }
+        
+        .book-btn.clear-filter:hover {
+            background: var(--text-secondary);
         }
         
         .period-filter {
@@ -123,26 +150,36 @@
         
         .period-checkbox input[type="checkbox"] {
             margin: 0;
+            accent-color: var(--primary-color);
+        }
+        
+        .period-checkbox label {
+            font-weight: normal !important;
+            color: var(--text-secondary) !important;
+            margin-bottom: 0 !important;
+            cursor: pointer;
         }
         
         #biblical-map {
             height: 600px;
-            border: 2px solid #8B4513;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
         }
         
         .map-legend {
-            background: white;
+            background: var(--surface-color);
             padding: 15px;
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
             margin-top: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
         }
         
         .map-legend h3 {
             margin: 0 0 10px 0;
-            color: #8B4513;
+            color: var(--primary-light);
+            font-family: var(--font-display);
         }
         
         .legend-items {
@@ -155,6 +192,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-secondary);
         }
         
         .legend-icon {
@@ -164,37 +202,96 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            border: 2px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
             font-size: 10px;
         }
         
         .error-message {
-            background: #f8d7da;
-            color: #721c24;
+            background: rgba(220, 53, 69, 0.1);
+            color: #ff6b6b;
             padding: 12px;
-            border-radius: 4px;
+            border-radius: var(--radius-md);
             margin: 10px 0;
-            border: 1px solid #f5c6cb;
+            border: 1px solid rgba(220, 53, 69, 0.3);
             display: none;
         }
         
         .info-panel {
-            background: #e7f3ff;
-            border: 1px solid #b8daff;
-            border-radius: 8px;
+            background: rgba(75, 46, 131, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-lg);
             padding: 20px;
             margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
         }
         
         .info-panel h3 {
-            color: #004085;
+            color: var(--primary-light);
             margin: 0 0 10px 0;
+            font-family: var(--font-display);
         }
         
         .info-panel p {
             margin: 0;
             line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        
+        /* Dark theme for Leaflet map controls */
+        .leaflet-control-layers {
+            background: var(--surface-color) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        
+        .leaflet-control-layers-list {
+            color: var(--text-primary) !important;
+        }
+        
+        .leaflet-control-layers-separator {
+            border-top: 1px solid var(--border-color) !important;
+        }
+        
+        .leaflet-popup-content-wrapper {
+            background: var(--surface-color) !important;
+            color: var(--text-primary) !important;
+            border-radius: var(--radius-md) !important;
+        }
+        
+        .leaflet-popup-tip {
+            background: var(--surface-color) !important;
+        }
+        
+        .biblical-location-info h3 {
+            margin: 0 0 8px 0;
+            color: var(--primary-light) !important;
+            font-size: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+        
+        .biblical-location-info .description {
+            margin: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary) !important;
+        }
+        
+        .biblical-location-info .verses {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-muted) !important;
+        }
+        
+        .biblical-location-info .verse-link {
+            color: var(--primary-light) !important;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .biblical-location-info .verse-link:hover {
+            text-decoration: underline;
+            color: var(--accent-color) !important;
         }
         
         @media (max-width: 768px) {
@@ -222,124 +319,116 @@
             .legend-items {
                 grid-template-columns: 1fr;
             }
+            
+            .period-filter {
+                justify-content: center;
+            }
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <nav class="navbar">
-            <div class="nav-brand">
-                <a href="/">📖 KJV Study</a>
-            </div>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/search">Search</a>
-                <a href="/study-guides">Study Guides</a>
-                <a href="/verse-of-the-day">Verse of the Day</a>
-                <a href="/biblical-maps" class="active">Biblical Maps</a>
-            </div>
-        </nav>
+{% endblock %}
 
-        <div class="maps-container">
-            <div class="maps-header">
-                <h1>🗺️ Biblical Maps</h1>
-                <p>Explore the geographical context of Scripture with interactive maps showing biblical locations, journeys, and historical events from both the Old and New Testaments.</p>
-            </div>
+{% block content %}
+<div class="maps-container">
+    <div class="maps-header">
+        <h1>🗺️ Biblical Maps</h1>
+        <p>Explore the geographical context of Scripture with interactive maps showing biblical locations, journeys, and historical events from both the Old and New Testaments.</p>
+    </div>
 
-            <div class="info-panel">
-                <h3>📍 How to Use Biblical Maps</h3>
-                <p>Click on map markers to learn about biblical locations and their significance. Use the layer controls to show different time periods, search for specific places, or filter by Bible books. Each location includes relevant Scripture references you can click to explore further.</p>
-            </div>
+    <div class="info-panel">
+        <h3>📍 How to Use Biblical Maps</h3>
+        <p>Click on map markers to learn about biblical locations and their significance. Use the layer controls to show different time periods, search for specific places, or filter by Bible books. Each location includes relevant Scripture references you can click to explore further.</p>
+    </div>
 
-            <div class="map-controls">
-                <div class="control-group">
-                    <label for="location-search">🔍 Search Biblical Locations</label>
-                    <div class="search-container">
-                        <input type="text" 
-                               id="location-search" 
-                               class="search-input" 
-                               placeholder="Search for Jerusalem, Bethlehem, Damascus..."
-                               autocomplete="off">
-                        <button type="button" id="search-location-btn" class="search-btn">
-                            Search
-                        </button>
-                        <button type="button" id="clear-search-btn" class="search-btn" style="background: #6c757d;">
-                            Clear
-                        </button>
-                    </div>
-                    <div id="search-error" class="error-message">
-                        Location not found. Try searching for Jerusalem, Bethlehem, Damascus, or other biblical cities.
-                    </div>
+    <div class="map-controls">
+        <div class="control-group">
+            <label for="location-search">🔍 Search Biblical Locations</label>
+            <div class="search-container">
+                <input type="text" 
+                       id="location-search" 
+                       class="search-input" 
+                       placeholder="Search for Jerusalem, Bethlehem, Damascus..."
+                       autocomplete="off">
+                <button type="button" id="search-location-btn" class="search-btn">
+                    Search
+                </button>
+                <button type="button" id="clear-search-btn" class="search-btn" style="background: var(--border-color); color: var(--text-secondary);">
+                    Clear
+                </button>
+            </div>
+            <div id="search-error" class="error-message">
+                Location not found. Try searching for Jerusalem, Bethlehem, Damascus, or other biblical cities.
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>📚 Filter by Bible Book</label>
+            <div class="book-selector">
+                <button type="button" class="book-btn" data-book="Genesis">Genesis</button>
+                <button type="button" class="book-btn" data-book="Exodus">Exodus</button>
+                <button type="button" class="book-btn" data-book="Joshua">Joshua</button>
+                <button type="button" class="book-btn" data-book="1 Samuel">1 Samuel</button>
+                <button type="button" class="book-btn" data-book="2 Samuel">2 Samuel</button>
+                <button type="button" class="book-btn" data-book="1 Kings">1 Kings</button>
+                <button type="button" class="book-btn" data-book="Matthew">Matthew</button>
+                <button type="button" class="book-btn" data-book="Mark">Mark</button>
+                <button type="button" class="book-btn" data-book="Luke">Luke</button>
+                <button type="button" class="book-btn" data-book="John">John</button>
+                <button type="button" class="book-btn" data-book="Acts">Acts</button>
+                <button type="button" class="book-btn" data-book="Romans">Romans</button>
+                <button type="button" class="book-btn clear-filter">Clear Filter</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>⏰ Time Periods</label>
+            <div class="period-filter">
+                <div class="period-checkbox">
+                    <input type="checkbox" id="show-ot" checked>
+                    <label for="show-ot">Old Testament</label>
                 </div>
-
-                <div class="control-group">
-                    <label>📚 Filter by Bible Book</label>
-                    <div class="book-selector">
-                        <button type="button" class="book-btn" data-book="Genesis">Genesis</button>
-                        <button type="button" class="book-btn" data-book="Exodus">Exodus</button>
-                        <button type="button" class="book-btn" data-book="Joshua">Joshua</button>
-                        <button type="button" class="book-btn" data-book="1 Samuel">1 Samuel</button>
-                        <button type="button" class="book-btn" data-book="2 Samuel">2 Samuel</button>
-                        <button type="button" class="book-btn" data-book="1 Kings">1 Kings</button>
-                        <button type="button" class="book-btn" data-book="Matthew">Matthew</button>
-                        <button type="button" class="book-btn" data-book="Mark">Mark</button>
-                        <button type="button" class="book-btn" data-book="Luke">Luke</button>
-                        <button type="button" class="book-btn" data-book="John">John</button>
-                        <button type="button" class="book-btn" data-book="Acts">Acts</button>
-                        <button type="button" class="book-btn" data-book="Romans">Romans</button>
-                        <button type="button" class="book-btn clear-filter">Clear Filter</button>
-                    </div>
+                <div class="period-checkbox">
+                    <input type="checkbox" id="show-nt" checked>
+                    <label for="show-nt">New Testament</label>
                 </div>
-
-                <div class="control-group">
-                    <label>⏰ Time Periods</label>
-                    <div class="period-filter">
-                        <div class="period-checkbox">
-                            <input type="checkbox" id="show-ot" checked>
-                            <label for="show-ot">Old Testament</label>
-                        </div>
-                        <div class="period-checkbox">
-                            <input type="checkbox" id="show-nt" checked>
-                            <label for="show-nt">New Testament</label>
-                        </div>
-                        <div class="period-checkbox">
-                            <input type="checkbox" id="show-journeys" checked>
-                            <label for="show-journeys">Paul's Journeys</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="biblical-map"></div>
-
-            <div class="map-legend">
-                <h3>🗺️ Map Legend</h3>
-                <div class="legend-items">
-                    <div class="legend-item">
-                        <div class="legend-icon" style="background-color: #8B4513;">🏛️</div>
-                        <span>Biblical Cities</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-icon" style="background-color: #8B7355;">⛰️</div>
-                        <span>Mountains & High Places</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-icon" style="background-color: #4682B4;">🌊</div>
-                        <span>Bodies of Water</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-icon" style="background-color: #DAA520;">🕌</div>
-                        <span>Temples & Holy Sites</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-icon" style="background-color: #DC143C;">✨</div>
-                        <span>Major Biblical Events</span>
-                    </div>
+                <div class="period-checkbox">
+                    <input type="checkbox" id="show-journeys" checked>
+                    <label for="show-journeys">Paul's Journeys</label>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="biblical-map"></div>
+
+    <div class="map-legend">
+        <h3>🗺️ Map Legend</h3>
+        <div class="legend-items">
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: #8B4513;">🏛️</div>
+                <span>Biblical Cities</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: #8B7355;">⛰️</div>
+                <span>Mountains & High Places</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: #4682B4;">🌊</div>
+                <span>Bodies of Water</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: #DAA520;">🕌</div>
+                <span>Temples & Holy Sites</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: #DC143C;">✨</div>
+                <span>Major Biblical Events</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -350,9 +439,25 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the biblical maps
-            const biblicalMaps = new BiblicalMaps();
-            biblicalMaps.init('biblical-map');
+            // Wait a bit for CSS to load, then initialize the biblical maps
+            setTimeout(function() {
+                console.log('Initializing biblical maps...');
+                const mapContainer = document.getElementById('biblical-map');
+                console.log('Map container:', mapContainer);
+                
+                if (!mapContainer) {
+                    console.error('Map container not found!');
+                    return;
+                }
+                
+                try {
+                    const biblicalMaps = new BiblicalMaps();
+                    const map = biblicalMaps.init('biblical-map');
+                    console.log('Map initialized:', map);
+                } catch (error) {
+                    console.error('Error initializing map:', error);
+                }
+            }, 100);
             
             // Search functionality
             const searchInput = document.getElementById('location-search');
@@ -486,5 +591,4 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}
