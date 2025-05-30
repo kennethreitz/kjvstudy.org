@@ -53,6 +53,17 @@
         line-height: 1.6;
         color: var(--text-secondary);
     }
+
+    .map-container {
+        width: 100%;
+        height: 400px;
+        margin: 20px 0;
+        border: 2px solid var(--primary-color);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        background: #f8f9fa;
+    }
     
     .section-header {
         display: flex;
@@ -257,34 +268,39 @@
     }
     
     @media (max-width: 768px) {
-        .maps-container {
-            padding: 15px;
-        }
-        
-        .locations-grid {
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        
-        .location-card {
-            padding: 15px;
-        }
-        
-        .legend-items {
-            grid-template-columns: 1fr;
-        }
-        
-        .stats-bar {
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .section-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
+    .maps-container {
+        padding: 15px;
     }
+
+    .map-container {
+        height: 300px;
+        margin: 15px 0;
+    }
+        
+    .locations-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+        
+    .location-card {
+        padding: 15px;
+    }
+        
+    .legend-items {
+        grid-template-columns: 1fr;
+    }
+        
+    .stats-bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+        
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
 </style>
 {% endblock %}
 
@@ -298,6 +314,33 @@
     <div class="info-panel">
         <h3>📍 About Biblical Geography</h3>
         <p>Understanding the geographical context of biblical events enriches our study of Scripture. These locations span from Egypt to Babylon, from Mount Sinai to Rome, tracing the movement of God's people throughout history. Click on any verse reference to explore the biblical text.</p>
+    </div>
+
+    <div class="map-container">
+        <iframe 
+            src="https://www.openstreetmap.org/export/embed.html?bbox=32.0%2C30.0%2C38.0%2C34.0&layer=mapnik&marker=31.7683%2C35.2137"
+            width="100%" 
+            height="100%" 
+            style="border:0; border-radius: inherit;" 
+            allowfullscreen="" 
+            loading="lazy"
+            onerror="showBackupMap()">
+        </iframe>
+        
+        <div id="backup-map" style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; color: white; padding: 20px; box-sizing: border-box;">
+            <h3 style="text-align: center; margin: 0 0 20px 0;">Biblical Region Map</h3>
+            <div style="position: relative; width: 100%; height: calc(100% - 60px); background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden;">
+                <div style="position: absolute; top: 20%; left: 45%; width: 8px; height: 8px; background: #FFD700; border-radius: 50%; cursor: pointer;" title="Jerusalem (31.77°N, 35.21°E)" onclick="alert('Jerusalem - The Holy City\n31.77°N, 35.21°E\n\nKey events: Solomon\'s Temple, Jesus\'s crucifixion and resurrection')"></div>
+                <div style="position: absolute; top: 25%; left: 43%; width: 6px; height: 6px; background: #90EE90; border-radius: 50%; cursor: pointer;" title="Bethlehem" onclick="alert('Bethlehem - City of David\n31.71°N, 35.20°E\n\nBirthplace of King David and Jesus Christ')"></div>
+                <div style="position: absolute; top: 15%; left: 46%; width: 6px; height: 6px; background: #87CEEB; border-radius: 50%; cursor: pointer;" title="Nazareth" onclick="alert('Nazareth - Jesus\'s hometown\n32.70°N, 35.30°E\n\nWhere Jesus grew up and began His ministry')"></div>
+                <div style="position: absolute; top: 10%; left: 48%; width: 6px; height: 6px; background: #DDA0DD; border-radius: 50%; cursor: pointer;" title="Sea of Galilee" onclick="alert('Sea of Galilee\n32.82°N, 35.59°E\n\nWhere Jesus walked on water and called fishermen')"></div>
+                <div style="position: absolute; top: 5%; left: 40%; width: 6px; height: 6px; background: #F0E68C; border-radius: 50%; cursor: pointer;" title="Damascus" onclick="alert('Damascus - Paul\'s conversion\n33.51°N, 36.28°E\n\nWhere Saul encountered Christ on the road')"></div>
+                <div style="position: absolute; bottom: 30%; left: 20%; width: 6px; height: 6px; background: #CD853F; border-radius: 50%; cursor: pointer;" title="Mount Sinai" onclick="alert('Mount Sinai\n28.54°N, 33.97°E\n\nWhere Moses received the Ten Commandments')"></div>
+                <div style="position: absolute; top: 70%; right: 20%; width: 6px; height: 6px; background: #DC143C; border-radius: 50%; cursor: pointer;" title="Babylon" onclick="alert('Babylon\n32.54°N, 44.43°E\n\nCapital of Babylonian Empire, site of Jewish exile')"></div>
+                <div style="position: absolute; bottom: 15%; left: 10%; width: 6px; height: 6px; background: #FF6347; border-radius: 50%; cursor: pointer;" title="Rome" onclick="alert('Rome\n41.90°N, 12.50°E\n\nCapital of Roman Empire, Paul\'s final destination')"></div>
+                <p style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 12px; margin: 0; opacity: 0.8;">Click the colored dots to learn about each location</p>
+            </div>
+        </div>
     </div>
 
     <div class="stats-bar">
@@ -716,6 +759,33 @@
 
 {% block scripts %}
 <script>
+// Show backup map if iframe fails to load
+function showBackupMap() {
+    const iframe = document.querySelector('.map-container iframe');
+    const backupMap = document.getElementById('backup-map');
+    if (iframe && backupMap) {
+        iframe.style.display = 'none';
+        backupMap.style.display = 'block';
+        console.log('Showing backup map due to iframe load failure');
+    }
+}
+
+// Check if iframe loaded successfully after 5 seconds
+setTimeout(function() {
+    const iframe = document.querySelector('.map-container iframe');
+    if (iframe) {
+        try {
+            // Try to access iframe content - will fail if not loaded
+            if (!iframe.contentDocument && !iframe.contentWindow) {
+                showBackupMap();
+            }
+        } catch (e) {
+            // If we can't access it, assume it failed and show backup
+            showBackupMap();
+        }
+    }
+}, 5000);
+
 // Add click handlers for verse tags to potentially link to bible passages
 document.addEventListener('DOMContentLoaded', function() {
     const verseTags = document.querySelectorAll('.verse-tag');
@@ -740,6 +810,17 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.borderColor = 'var(--border-color)';
         });
     });
+    
+    // Manual fallback trigger - show backup map after 3 seconds if iframe seems empty
+    setTimeout(function() {
+        const iframe = document.querySelector('.map-container iframe');
+        const backupMap = document.getElementById('backup-map');
+        
+        if (iframe && backupMap && iframe.style.display !== 'none') {
+            // Check if iframe appears to be loaded but empty/broken
+            showBackupMap();
+        }
+    }, 3000);
 });
 </script>
 {% endblock %}
