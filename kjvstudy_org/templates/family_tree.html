@@ -229,6 +229,30 @@
         stroke-width: 4px;
     }
 
+    .tree-node.male circle {
+        fill: #2d3436;
+        stroke: #74b9ff;
+        stroke-width: 3px;
+    }
+
+    .tree-node.female circle {
+        fill: #2d3436;
+        stroke: #fd79a8;
+        stroke-width: 3px;
+    }
+
+    .tree-node.current.male circle {
+        fill: #74b9ff;
+        stroke: #74b9ff;
+        stroke-width: 4px;
+    }
+
+    .tree-node.current.female circle {
+        fill: #fd79a8;
+        stroke: #fd79a8;
+        stroke-width: 4px;
+    }
+
     .tree-node.spouse circle {
         fill: #2d3436;
         stroke: #28a745;
@@ -262,6 +286,16 @@
         font-weight: bold;
     }
 
+    .tree-node.current.male text {
+        fill: white;
+        font-weight: bold;
+    }
+
+    .tree-node.current.female text {
+        fill: white;
+        font-weight: bold;
+    }
+
     .tree-link {
         fill: none;
         stroke: #636e72;
@@ -283,6 +317,58 @@
         border-radius: 8px;
         padding: 0.5rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .gender-legend {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #2d3436;
+        border: 1px solid #636e72;
+        border-radius: 8px;
+        padding: 0.75rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        font-size: 0.8rem;
+        color: #f8f9fa;
+    }
+
+    .legend-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #ffc107;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .legend-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .legend-circle {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid;
+    }
+
+    .legend-circle.male {
+        background: #2d3436;
+        border-color: #74b9ff;
+    }
+
+    .legend-circle.female {
+        background: #2d3436;
+        border-color: #fd79a8;
+    }
+
+    .legend-circle.current {
+        background: #ffc107;
+        border-color: #ffc107;
     }
 
     .tree-controls button {
@@ -318,6 +404,11 @@
         .tree-controls button {
             font-size: 0.7rem;
             padding: 0.2rem 0.4rem;
+        }
+
+        .gender-legend {
+            font-size: 0.7rem;
+            padding: 0.5rem;
         }
     }
 
@@ -623,6 +714,22 @@
                         <button onclick="collapseAll()">Collapse All</button>
                     </div>
                     <svg class="d3-tree-svg" id="tree-svg"></svg>
+                    
+                    <div class="gender-legend">
+                        <div class="legend-title">Gender</div>
+                        <div class="legend-item">
+                            <div class="legend-circle male"></div>
+                            <span>Male</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-circle female"></div>
+                            <span>Female</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-circle current"></div>
+                            <span>Current Person</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1025,6 +1132,62 @@
         tree = d3.tree().size([height - 100, width - 200]);
     }
 
+    function determineGender(person) {
+        const name = person.name.toLowerCase();
+        
+        // Known biblical female names (expanded list)
+        const femaleNames = [
+            'eve', 'sarah', 'sarai', 'rebekah', 'rebecca', 'rachel', 'leah', 'dinah', 
+            'tamar', 'miriam', 'deborah', 'ruth', 'naomi', 'bathsheba', 'bath-sheba',
+            'abigail', 'esther', 'judith', 'mary', 'elizabeth', 'anna', 'hannah',
+            'martha', 'mary magdalene', 'dorcas', 'lydia', 'priscilla', 'prisca',
+            'naamah', 'adah', 'zillah', 'milcah', 'iscah', 'hagar', 'keturah',
+            'asenath', 'potipherah', 'zipporah', 'gomer', 'rizpah', 'maacah',
+            'haggith', 'abital', 'eglah', 'michal', 'ahinoam', 'abigail',
+            'jezebel', 'athaliah', 'huldah', 'vashti', 'zeresh', 'peninnah',
+            'orpah', 'ruth', 'nomi', 'mara', 'rahab', 'jael', 'sisera',
+            'gideon', 'samson', 'delilah', 'hannah', 'abigail', 'bathsheba'
+        ];
+        
+        // Remove duplicates and clean up the list
+        const uniqueFemaleNames = [...new Set(femaleNames)].filter(n => n && n.length > 0);
+        
+        // Check if it's a known female name
+        if (uniqueFemaleNames.includes(name)) {
+            return 'female';
+        }
+        
+        // Check for name endings that suggest female names
+        if (name.endsWith('ah') || name.endsWith('iah') || name.endsWith('beth') || name.endsWith('anna')) {
+            // But exclude male names that also end this way
+            const maleExceptions = ['noah', 'judah', 'micah', 'hosea', 'nehemiah', 'jeremiah', 'isaiah', 'obadiah'];
+            if (!maleExceptions.includes(name)) {
+                return 'female';
+            }
+        }
+        
+        // If person has a spouse, try to determine from relationship context
+        if (person.spouse) {
+            // Look for contextual clues in description or title
+            const description = (person.description || '').toLowerCase();
+            const title = (person.title || '').toLowerCase();
+            
+            if (description.includes('wife') || title.includes('wife') || 
+                description.includes('mother') || title.includes('mother') ||
+                description.includes('daughter') || title.includes('daughter')) {
+                return 'female';
+            }
+            if (description.includes('husband') || title.includes('husband') ||
+                description.includes('father') || title.includes('father') ||
+                description.includes('son') || title.includes('son')) {
+                return 'male';
+            }
+        }
+        
+        // Default to male for biblical genealogies (most recorded names are male)
+        return 'male';
+    }
+
     function buildTreeData(rootPersonId, maxDepth = 3) {
         const visited = new Set();
 
@@ -1039,6 +1202,7 @@
                 id: personId,
                 name: person.name,
                 data: person,
+                gender: determineGender(person),
                 children: [],
                 spouse: null
             };
@@ -1047,10 +1211,12 @@
             if (person.spouse) {
                 const spouseId = Object.keys(familyData).find(id => familyData[id].name === person.spouse);
                 if (spouseId && !visited.has(spouseId)) {
+                    const spouseData = familyData[spouseId];
                     node.spouse = {
                         id: spouseId,
                         name: person.spouse,
-                        data: familyData[spouseId]
+                        data: spouseData,
+                        gender: determineGender(spouseData)
                     };
                 }
             }
@@ -1121,7 +1287,7 @@
             .data(treeLayout.descendants())
             .enter()
             .append('g')
-            .attr('class', d => `tree-node ${d.data.id === personId ? 'current' : ''}`)
+            .attr('class', d => `tree-node ${d.data.gender} ${d.data.id === personId ? 'current' : ''}`)
             .attr('transform', d => `translate(${d.y},${d.x})`)
             .on('click', (event, d) => {
                 selectPerson(d.data.id);
@@ -1141,7 +1307,7 @@
             .data(treeLayout.descendants().filter(d => d.data.spouse))
             .enter()
             .append('g')
-            .attr('class', 'tree-node spouse')
+            .attr('class', d => `tree-node spouse ${d.data.spouse.gender}`)
             .attr('transform', d => `translate(${d.y + 50},${d.x})`)
             .on('click', (event, d) => {
                 selectPerson(d.data.spouse.id);
