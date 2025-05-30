@@ -1,10 +1,13 @@
-{% extends "base.html" %} 
-{% block title %}Biblical Family Tree Explorer - KJV Study{% endblock %} 
-{% block description %}Explore biblical genealogies with an interactive person index and family tree viewer. Browse from Adam to the patriarchs with detailed family relationships.{% endblock %} 
-{% block keywords %}biblical family tree, biblical genealogy, Adam and Eve, patriarchs, biblical lineage, Old Testament families, KJV genealogy{% endblock %} 
-{% block og_title %}Biblical Family Tree Explorer - KJV Study{% endblock %} 
+{% extends "base.html" %}
+{% block title %}Biblical Family Tree Explorer - KJV Study{% endblock %}
+{% block description %}Explore biblical genealogies with an interactive person index and family tree viewer. Browse from Adam to the patriarchs with detailed family relationships.{% endblock %}
+{% block keywords %}biblical family tree, biblical genealogy, Adam and Eve, patriarchs, biblical lineage, Old Testament families, KJV genealogy{% endblock %}
+{% block og_title %}Biblical Family Tree Explorer - KJV Study{% endblock %}
 
 {% block head %}
+<!-- D3.js Library -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
 <style>
     .family-explorer-container {
         max-width: 1400px;
@@ -186,166 +189,133 @@
     }
 
     .tree-view {
-        display: none;
+        display: block;
         margin-top: 2rem;
     }
 
-    .tree-view.active {
-        display: block;
+    .details-view {
+        display: none;
     }
 
-    .nuclear-family-container {
-        position: relative;
+    .d3-tree-container {
         width: 100%;
-        height: 500px;
+        height: 600px;
         background: var(--background-color);
         border-radius: 12px;
         border: 1px solid var(--border-color);
         overflow: hidden;
+        position: relative;
     }
 
-    .nuclear-family-network {
-        position: relative;
+    .d3-tree-svg {
         width: 100%;
         height: 100%;
-        padding: 2rem;
     }
 
-    .family-member {
-        position: absolute;
-        background: white;
-        border: 3px solid var(--border-color);
-        border-radius: 12px;
-        padding: 1rem;
-        text-align: center;
-        min-width: 100px;
+    .tree-node {
         cursor: pointer;
+    }
+
+    .tree-node circle {
+        fill: #fff;
+        stroke: var(--primary-color);
+        stroke-width: 3px;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .family-member:hover {
-        border-color: var(--primary-color);
-        transform: scale(1.05);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        z-index: 10;
+    .tree-node.current circle {
+        fill: var(--primary-color);
+        stroke: var(--primary-color);
+        stroke-width: 4px;
     }
 
-    .family-member.current {
-        background: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.3);
+    .tree-node.spouse circle {
+        fill: #e8f5e8;
+        stroke: #28a745;
     }
 
-    .family-member.spouse {
-        background: #e8f5e8;
-        border-color: #28a745;
+    .tree-node.parent circle {
+        fill: #fff3cd;
+        stroke: #ffc107;
     }
 
-    .family-member.parent {
-        background: #fff3cd;
-        border-color: #ffc107;
+    .tree-node.child circle {
+        fill: #f8d7da;
+        stroke: #dc3545;
     }
 
-    .family-member.child {
-        background: #f8d7da;
-        border-color: #dc3545;
+    .tree-node:hover circle {
+        r: 8;
+        stroke-width: 4px;
     }
 
-    .family-member .name {
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-        font-size: 0.85rem;
-        line-height: 1.2;
+    .tree-node text {
+        font: 12px sans-serif;
+        fill: var(--text-color);
+        text-anchor: middle;
+        dominant-baseline: central;
+        pointer-events: none;
     }
 
-    .family-member .role {
-        font-size: 0.7rem;
-        opacity: 0.8;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+    .tree-node.current text {
+        fill: white;
+        font-weight: bold;
     }
 
-    .connection-line {
-        position: absolute;
-        background: var(--border-color);
-        z-index: 1;
+    .tree-link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 2px;
     }
 
-    .connection-line.marriage {
-        background: #28a745;
-        height: 3px;
+    .tree-link.marriage {
+        stroke: #28a745;
+        stroke-width: 3px;
+        stroke-dasharray: 5,5;
     }
 
-    .connection-line.parent-child {
-        background: #007bff;
-        width: 3px;
-    }
-
-    .connection-line.sibling {
-        background: #6c757d;
-        height: 2px;
-    }
-
-    .family-legend {
+    .tree-controls {
         position: absolute;
         top: 1rem;
-        right: 1rem;
+        left: 1rem;
         background: white;
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        padding: 1rem;
-        font-size: 0.8rem;
+        padding: 0.5rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
+    .tree-controls button {
+        margin: 0.25rem;
+        padding: 0.25rem 0.5rem;
+        border: 1px solid var(--border-color);
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.8rem;
     }
 
-    .legend-color {
-        width: 12px;
-        height: 12px;
-        border-radius: 2px;
-        border: 1px solid #ccc;
+    .tree-controls button:hover {
+        background: var(--primary-color);
+        color: white;
     }
 
     @media (max-width: 768px) {
-        .nuclear-family-container {
-            height: 350px;
+        .d3-tree-container {
+            height: 400px;
         }
 
-        .family-member {
-            min-width: 70px;
-            padding: 0.5rem;
+        .tree-node text {
+            font-size: 10px;
         }
 
-        .family-member .name {
+        .tree-controls {
+            padding: 0.25rem;
+        }
+
+        .tree-controls button {
             font-size: 0.7rem;
-        }
-
-        .family-member .role {
-            font-size: 0.55rem;
-        }
-
-        .family-legend {
-            font-size: 0.65rem;
-            padding: 0.5rem;
-            top: 0.5rem;
-            right: 0.5rem;
-        }
-
-        .legend-item {
-            margin-bottom: 0.25rem;
-        }
-
-        .legend-color {
-            width: 10px;
-            height: 10px;
+            padding: 0.2rem 0.4rem;
         }
     }
 
@@ -577,14 +547,14 @@
         }
     }
 </style>
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 <div class="family-explorer-container">
     <header class="family-explorer-header">
         <h1>🌳 Biblical Family Tree Explorer</h1>
         <p>
-            Explore biblical genealogies with an interactive person index. 
+            Explore biblical genealogies with an interactive person index.
             Click on any person to see their family relationships and scripture references.
         </p>
     </header>
@@ -612,10 +582,10 @@
         <div class="person-index">
             <div class="index-header">
                 <h2>📜 Person Index</h2>
-                <input 
-                    type="text" 
-                    class="search-box" 
-                    id="person-search" 
+                <input
+                    type="text"
+                    class="search-box"
+                    id="person-search"
                     placeholder="Search by name..."
                     onkeyup="filterPersons()"
                 >
@@ -638,12 +608,23 @@
                 <p>The biblical genealogies contain {{ family_tree_data|length }} individuals spanning many generations from Adam to the patriarchs of Israel.</p>
             </div>
 
-            <div class="view-toggle" id="view-toggle" style="display: none;">
-                <button class="view-btn active" onclick="showDetailsView()">📋 Details View</button>
-                <button class="view-btn" onclick="showTreeView()">🌳 Tree View</button>
+            <div class="view-toggle" id="view-toggle" style="display: flex;">
+                <button class="view-btn" onclick="showDetailsView()">📋 Details View</button>
+                <button class="view-btn active" onclick="showTreeView()">🌳 Tree View</button>
             </div>
 
-            <div id="person-details" style="display: none;">
+            <div class="tree-view" id="tree-view">
+                <div class="d3-tree-container">
+                    <div class="tree-controls">
+                        <button onclick="centerTree()">Center</button>
+                        <button onclick="expandAll()">Expand All</button>
+                        <button onclick="collapseAll()">Collapse All</button>
+                    </div>
+                    <svg class="d3-tree-svg" id="tree-svg"></svg>
+                </div>
+            </div>
+
+            <div class="details-view" id="person-details">
                 <div class="current-person">
                     <h2 id="current-name"></h2>
                     <div class="title" id="current-title"></div>
@@ -669,33 +650,6 @@
                 <div class="verses-section" id="verses-section" style="display: none;">
                     <h3>📖 Scripture References</h3>
                     <div id="verses-list"></div>
-                </div>
-            </div>
-
-            <div class="tree-view" id="tree-view">
-                <div class="nuclear-family-container">
-                    <div class="nuclear-family-network" id="nuclear-family-network">
-                        <!-- Family members will be positioned here by JavaScript -->
-                    </div>
-                    
-                    <div class="family-legend">
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: var(--primary-color);"></div>
-                            <span>Current Person</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: #e8f5e8; border-color: #28a745;"></div>
-                            <span>Spouse</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: #fff3cd; border-color: #ffc107;"></div>
-                            <span>Parent</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: #f8d7da; border-color: #dc3545;"></div>
-                            <span>Child</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -728,7 +682,7 @@
         populatePersonList();
 
         // Select Adam by default if available
-        const adamId = Object.keys(familyData).find(id => 
+        const adamId = Object.keys(familyData).find(id =>
             familyData[id].name.toLowerCase() === 'adam'
         );
         if (adamId) {
@@ -738,7 +692,7 @@
 
     function updateStatistics() {
         document.getElementById('total-persons').textContent = allPersons.length;
-        
+
         // Count families (people with children)
         const families = allPersons.filter(person => person.children && person.children.length > 0);
         document.getElementById('total-families').textContent = families.length;
@@ -756,7 +710,7 @@
         // Apply search filter
         const searchTerm = document.getElementById('person-search').value.toLowerCase();
         if (searchTerm) {
-            filteredPersons = filteredPersons.filter(person => 
+            filteredPersons = filteredPersons.filter(person =>
                 person.name.toLowerCase().includes(searchTerm) ||
                 (person.title && person.title.toLowerCase().includes(searchTerm))
             );
@@ -776,16 +730,16 @@
             if (currentPersonId === person.id) {
                 listItem.classList.add('active');
             }
-            
+
             const lineage = determineLineage(person);
             const generationInfo = getGenerationInfo(person);
-            
+
             listItem.innerHTML = `
                 <div class="person-name">${person.name}</div>
                 <div class="person-title">${person.title || 'Biblical Figure'}</div>
                 <div class="person-generation">${lineage} • ${generationInfo}</div>
             `;
-            
+
             listItem.onclick = () => selectPerson(person.id);
             personList.appendChild(listItem);
         });
@@ -798,22 +752,22 @@
     function determineLineage(person) {
         // Simple lineage determination based on name patterns and known relationships
         const name = person.name.toLowerCase();
-        
+
         // Known Cain's line
         if (['cain', 'enoch', 'irad', 'mehujael', 'methusael', 'lamech', 'jabal', 'jubal', 'tubalcain', 'naamah'].includes(name)) {
             return 'cain';
         }
-        
+
         // Known Seth's line (main genealogy)
         if (['seth', 'enos', 'cainan', 'mahalaleel', 'jared', 'enoch', 'methuselah', 'lamech', 'noah'].includes(name)) {
             return 'seth';
         }
-        
+
         // Noah's sons and their descendants
         if (['shem', 'ham', 'japheth'].includes(name) || person.parents?.some(p => ['shem', 'ham', 'japheth'].includes(familyData[p]?.name?.toLowerCase()))) {
             return 'noah';
         }
-        
+
         return 'other';
     }
 
@@ -822,7 +776,7 @@
         if (!person.birth_year || person.birth_year === 'Unknown') {
             return 'Generation unknown';
         }
-        
+
         // Try to extract year from birth_year string
         const yearMatch = person.birth_year.match(/\d+/);
         if (yearMatch) {
@@ -833,21 +787,21 @@
             if (year > 2500) return 'Generation 9-11';
             return 'Later generations';
         }
-        
+
         return 'Generation unknown';
     }
 
     function selectPerson(personId) {
         currentPersonId = personId;
         const person = familyData[personId];
-        
+
         if (!person) return;
 
         // Update active state in person list
         document.querySelectorAll('.person-item').forEach(item => {
             item.classList.remove('active');
         });
-        
+
         // Find and activate the current person in the list
         const personItems = document.querySelectorAll('.person-item');
         personItems.forEach(item => {
@@ -856,15 +810,19 @@
             }
         });
 
-        // Hide welcome message and show person details
+        // Hide welcome message and show tree view by default
         document.getElementById('welcome-message').style.display = 'none';
         document.getElementById('view-toggle').style.display = 'flex';
-        document.getElementById('person-details').style.display = 'block';
+
+        // Show tree view by default
+        if (document.getElementById('tree-view').style.display !== 'none') {
+            updateD3Tree(person, personId);
+        }
 
         // Update current person info
         document.getElementById('current-name').textContent = person.name;
         document.getElementById('current-title').textContent = person.title || 'Biblical Figure';
-        
+
         // Update dates
         let datesText = '';
         if (person.birth_year !== 'Unknown' || person.death_year !== 'Unknown') {
@@ -874,7 +832,7 @@
             }
         }
         document.getElementById('current-dates').textContent = datesText;
-        
+
         document.getElementById('current-description').textContent = person.description;
 
         // Update selected person generation in stats
@@ -885,19 +843,19 @@
         showSpouse(person);
         showChildren(person);
         showVerses(person);
-        
-        // Update tree view
-        updateTreeView(person, personId);
+
+        // Update D3 tree view
+        updateD3Tree(person, personId);
     }
 
     function showParents(person) {
         const parentsSection = document.getElementById('parents-section');
         const parentsGrid = document.getElementById('parents-grid');
-        
+
         if (person.parents && person.parents.length > 0) {
             parentsSection.style.display = 'block';
             parentsGrid.innerHTML = '';
-            
+
             person.parents.forEach(parentId => {
                 const parent = familyData[parentId];
                 if (parent) {
@@ -913,16 +871,16 @@
     function showSpouse(person) {
         const spouseSection = document.getElementById('spouse-section');
         const spouseGrid = document.getElementById('spouse-grid');
-        
+
         if (person.spouse) {
             spouseSection.style.display = 'block';
             spouseGrid.innerHTML = '';
-            
+
             // Find spouse by name
-            const spouseId = Object.keys(familyData).find(id => 
+            const spouseId = Object.keys(familyData).find(id =>
                 familyData[id].name === person.spouse
             );
-            
+
             if (spouseId) {
                 const spouse = familyData[spouseId];
                 const card = createFamilyCard(spouse, spouseId, 'Spouse');
@@ -936,11 +894,11 @@
     function showChildren(person) {
         const childrenSection = document.getElementById('children-section');
         const childrenGrid = document.getElementById('children-grid');
-        
+
         if (person.children && person.children.length > 0) {
             childrenSection.style.display = 'block';
             childrenGrid.innerHTML = '';
-            
+
             person.children.forEach(childId => {
                 const child = familyData[childId];
                 if (child) {
@@ -957,44 +915,44 @@
         const card = document.createElement('div');
         card.className = 'family-card';
         card.onclick = () => selectPerson(personId);
-        
+
         let datesText = '';
         if (person.birth_year !== 'Unknown' || person.death_year !== 'Unknown') {
             datesText = `${person.birth_year} - ${person.death_year}`;
         }
-        
+
         card.innerHTML = `
             <h4>${person.name}</h4>
             <div class="relationship">${relationship}</div>
             <div class="dates">${datesText}</div>
         `;
-        
+
         return card;
     }
 
     function showVerses(person) {
         const versesSection = document.getElementById('verses-section');
         const versesList = document.getElementById('verses-list');
-        
+
         if (person.verses && person.verses.length > 0) {
             versesSection.style.display = 'block';
             versesList.innerHTML = '';
-            
+
             person.verses.forEach(verse => {
                 const verseItem = document.createElement('div');
                 verseItem.className = 'verse-item';
-                
+
                 const bookChapter = verse.reference.split(' ');
                 const book = bookChapter[0];
                 const chapter = bookChapter[1] ? bookChapter[1].split(':')[0] : '';
-                
+
                 verseItem.innerHTML = `
                     <div class="verse-reference">
                         <a href="/book/${book}${chapter ? '/chapter/' + chapter : ''}">${verse.reference}</a>
                     </div>
                     <div class="verse-text">${verse.text}</div>
                 `;
-                
+
                 versesList.appendChild(verseItem);
             });
         } else {
@@ -1008,177 +966,231 @@
 
     function filterByLineage(lineage) {
         currentFilter = lineage;
-        
+
         // Update active filter button
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         event.target.classList.add('active');
-        
+
         populatePersonList();
     }
 
     function showDetailsView() {
+        document.getElementById('person-details').classList.remove('details-view');
         document.getElementById('person-details').style.display = 'block';
         document.getElementById('tree-view').style.display = 'none';
-        
+
         document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelector('button[onclick="showDetailsView()"]').classList.add('active');
     }
 
     function showTreeView() {
+        document.getElementById('person-details').classList.add('details-view');
         document.getElementById('person-details').style.display = 'none';
         document.getElementById('tree-view').style.display = 'block';
-        
+
         document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelector('button[onclick="showTreeView()"]').classList.add('active');
-    }
 
-    function createFamilyMember(person, personId, role, position) {
-        const member = document.createElement('div');
-        member.className = `family-member ${role}`;
-        member.onclick = () => selectPerson(personId);
-        member.style.left = `${position.x}px`;
-        member.style.top = `${position.y}px`;
-        
-        member.innerHTML = `
-            <div class="name">${person.name}</div>
-            <div class="role">${role}</div>
-        `;
-        
-        return member;
-    }
-
-    function createConnectionLine(from, to, type) {
-        const line = document.createElement('div');
-        line.className = `connection-line ${type}`;
-        
-        const fromRect = from.getBoundingClientRect();
-        const toRect = to.getBoundingClientRect();
-        const containerRect = document.getElementById('nuclear-family-network').getBoundingClientRect();
-        
-        const fromX = fromRect.left - containerRect.left + fromRect.width / 2;
-        const fromY = fromRect.top - containerRect.top + fromRect.height / 2;
-        const toX = toRect.left - containerRect.left + toRect.width / 2;
-        const toY = toRect.top - containerRect.top + toRect.height / 2;
-        
-        if (type === 'marriage') {
-            // Horizontal line for marriage
-            const minX = Math.min(fromX, toX);
-            const maxX = Math.max(fromX, toX);
-            line.style.left = `${minX}px`;
-            line.style.top = `${fromY}px`;
-            line.style.width = `${maxX - minX}px`;
-        } else {
-            // Vertical line for parent-child relationships
-            const minY = Math.min(fromY, toY);
-            const maxY = Math.max(fromY, toY);
-            line.style.left = `${fromX}px`;
-            line.style.top = `${minY}px`;
-            line.style.height = `${maxY - minY}px`;
+        // Update D3 tree when switching to tree view
+        if (currentPersonId) {
+            updateD3Tree(familyData[currentPersonId], currentPersonId);
         }
-        
-        return line;
     }
 
-    function updateTreeView(person, personId) {
-        const network = document.getElementById('nuclear-family-network');
-        network.innerHTML = '';
-        
-        // Responsive positioning based on container size
-        const container = network.getBoundingClientRect();
-        const containerWidth = container.width - 100; // Account for padding
-        const containerHeight = container.height - 100;
-        
-        const positions = {
-            current: { x: containerWidth * 0.3, y: containerHeight * 0.4 },
-            spouse: { x: containerWidth * 0.6, y: containerHeight * 0.4 },
-            parent1: { x: containerWidth * 0.2, y: containerHeight * 0.1 },
-            parent2: { x: containerWidth * 0.5, y: containerHeight * 0.1 },
-            children: []
-        };
-        
-        const members = [];
-        
-        // Add current person
-        const currentMember = createFamilyMember(person, personId, 'current', positions.current);
-        network.appendChild(currentMember);
-        members.push({ element: currentMember, role: 'current' });
-        
-        // Add spouse if exists
-        let spouseMember = null;
-        if (person.spouse) {
-            const spouseId = Object.keys(familyData).find(id => familyData[id].name === person.spouse);
-            if (spouseId) {
-                const spouse = familyData[spouseId];
-                spouseMember = createFamilyMember(spouse, spouseId, 'spouse', positions.spouse);
-                network.appendChild(spouseMember);
-                members.push({ element: spouseMember, role: 'spouse' });
-            }
-        }
-        
-        // Add parents
-        const parentMembers = [];
-        if (person.parents && person.parents.length > 0) {
-            person.parents.forEach((parentId, index) => {
-                const parent = familyData[parentId];
-                if (parent) {
-                    const pos = index === 0 ? positions.parent1 : positions.parent2;
-                    const parentMember = createFamilyMember(parent, parentId, 'parent', pos);
-                    network.appendChild(parentMember);
-                    parentMembers.push(parentMember);
-                    members.push({ element: parentMember, role: 'parent' });
+    let treeData = null;
+    let svg = null;
+    let g = null;
+    let tree = null;
+    let zoom = null;
+
+    function initializeD3Tree() {
+        svg = d3.select("#tree-svg");
+        const width = +svg.node().getBoundingClientRect().width;
+        const height = +svg.node().getBoundingClientRect().height;
+
+        zoom = d3.zoom()
+            .scaleExtent([0.1, 3])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        g = svg.append("g");
+
+        tree = d3.tree().size([height - 100, width - 200]);
+    }
+
+    function buildTreeData(rootPersonId, maxDepth = 3) {
+        const visited = new Set();
+
+        function buildNode(personId, depth = 0) {
+            if (!personId || visited.has(personId) || depth > maxDepth) return null;
+
+            visited.add(personId);
+            const person = familyData[personId];
+            if (!person) return null;
+
+            const node = {
+                id: personId,
+                name: person.name,
+                data: person,
+                children: [],
+                spouse: null
+            };
+
+            // Add spouse
+            if (person.spouse) {
+                const spouseId = Object.keys(familyData).find(id => familyData[id].name === person.spouse);
+                if (spouseId && !visited.has(spouseId)) {
+                    node.spouse = {
+                        id: spouseId,
+                        name: person.spouse,
+                        data: familyData[spouseId]
+                    };
                 }
-            });
-        }
-        
-        // Add children
-        const childMembers = [];
-        if (person.children && person.children.length > 0) {
-            const childStartX = containerWidth * 0.15;
-            const childSpacing = Math.min(120, containerWidth * 0.15);
-            
-            person.children.forEach((childId, index) => {
-                const child = familyData[childId];
-                if (child) {
-                    const childPos = { x: childStartX + (index * childSpacing), y: containerHeight * 0.7 };
-                    const childMember = createFamilyMember(child, childId, 'child', childPos);
-                    network.appendChild(childMember);
-                    childMembers.push(childMember);
-                    members.push({ element: childMember, role: 'child' });
-                    positions.children.push(childPos);
-                }
-            });
-        }
-        
-        // Wait for elements to be rendered, then add connection lines
-        setTimeout(() => {
-            // Marriage line
-            if (spouseMember) {
-                const marriageLine = createConnectionLine(currentMember, spouseMember, 'marriage');
-                network.appendChild(marriageLine);
             }
-            
-            // Parent-child lines
-            parentMembers.forEach(parentMember => {
-                const parentChildLine = createConnectionLine(parentMember, currentMember, 'parent-child');
-                network.appendChild(parentChildLine);
-            });
-            
-            // Current person to children lines
-            childMembers.forEach(childMember => {
-                const childLine = createConnectionLine(currentMember, childMember, 'parent-child');
-                network.appendChild(childLine);
-            });
-            
-            // Spouse to children lines (if spouse exists)
-            if (spouseMember) {
-                childMembers.forEach(childMember => {
-                    const spouseChildLine = createConnectionLine(spouseMember, childMember, 'parent-child');
-                    network.appendChild(spouseChildLine);
+
+            // Add children
+            if (person.children && depth < maxDepth) {
+                person.children.forEach(childId => {
+                    const childNode = buildNode(childId, depth + 1);
+                    if (childNode) {
+                        node.children.push(childNode);
+                    }
                 });
             }
-        }, 100);
+
+            // Add parents if we're at root and depth allows
+            if (depth === 0 && person.parents) {
+                person.parents.forEach(parentId => {
+                    const parentNode = buildNode(parentId, -1);
+                    if (parentNode) {
+                        // Parents are added as reverse children for upward tree
+                        parentNode.children = [node];
+                        return parentNode;
+                    }
+                });
+            }
+
+            return node;
+        }
+
+        return buildNode(rootPersonId);
+    }
+
+    function updateD3Tree(person, personId) {
+        if (!svg) initializeD3Tree();
+
+        treeData = buildTreeData(personId);
+        if (!treeData) return;
+
+        const root = d3.hierarchy(treeData);
+        const treeLayout = tree(root);
+
+        // Clear previous tree
+        g.selectAll("*").remove();
+
+        // Draw links
+        const links = g.selectAll('.tree-link')
+            .data(treeLayout.links())
+            .enter()
+            .append('path')
+            .attr('class', 'tree-link')
+            .attr('d', d3.linkHorizontal()
+                .x(d => d.y)
+                .y(d => d.x));
+
+        // Draw spouse links
+        const spouseLinks = g.selectAll('.spouse-link')
+            .data(treeLayout.descendants().filter(d => d.data.spouse))
+            .enter()
+            .append('line')
+            .attr('class', 'tree-link marriage')
+            .attr('x1', d => d.y)
+            .attr('y1', d => d.x)
+            .attr('x2', d => d.y + 50)
+            .attr('y2', d => d.x);
+        
+        // Draw nodes
+        const nodes = g.selectAll('.tree-node')
+            .data(treeLayout.descendants())
+            .enter()
+            .append('g')
+            .attr('class', d => `tree-node ${d.data.id === personId ? 'current' : ''}`)
+            .attr('transform', d => `translate(${d.y},${d.x})`)
+            .on('click', (event, d) => {
+                selectPerson(d.data.id);
+            });
+        
+        nodes.append('circle')
+            .attr('r', 6);
+        
+        nodes.append('text')
+            .attr('dy', '.35em')
+            .attr('x', d => d.children ? -13 : 13)
+            .style('text-anchor', d => d.children ? 'end' : 'start')
+            .text(d => d.data.name);
+        
+        // Draw spouse nodes
+        const spouseNodes = g.selectAll('.spouse-node')
+            .data(treeLayout.descendants().filter(d => d.data.spouse))
+            .enter()
+            .append('g')
+            .attr('class', 'tree-node spouse')
+            .attr('transform', d => `translate(${d.y + 50},${d.x})`)
+            .on('click', (event, d) => {
+                selectPerson(d.data.spouse.id);
+            });
+        
+        spouseNodes.append('circle')
+            .attr('r', 6);
+        
+        spouseNodes.append('text')
+            .attr('dy', '.35em')
+            .attr('x', 13)
+            .style('text-anchor', 'start')
+            .text(d => d.data.spouse.name);
+        
+        // Center the tree
+        centerTree();
+    }
+
+    function centerTree() {
+        if (!svg || !g) return;
+        
+        const bounds = g.node().getBBox();
+        const parent = svg.node().getBoundingClientRect();
+        const fullWidth = parent.width;
+        const fullHeight = parent.height;
+        const width = bounds.width;
+        const height = bounds.height;
+        const midX = bounds.x + width / 2;
+        const midY = bounds.y + height / 2;
+        
+        const scale = 0.8 / Math.max(width / fullWidth, height / fullHeight);
+        const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+        
+        svg.transition()
+            .duration(750)
+            .call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+    }
+
+    function expandAll() {
+        // Implementation for expanding all nodes
+        if (currentPersonId) {
+            updateD3Tree(familyData[currentPersonId], currentPersonId);
+        }
+    }
+
+    function collapseAll() {
+        // Implementation for collapsing nodes
+        if (currentPersonId) {
+            treeData = buildTreeData(currentPersonId, 1);
+            updateD3Tree(familyData[currentPersonId], currentPersonId);
+        }
     }
 </script>
 {% endblock %}
