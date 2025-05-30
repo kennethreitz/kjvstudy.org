@@ -217,31 +217,31 @@
     }
 
     .tree-node circle {
-        fill: #fff;
-        stroke: var(--primary-color);
+        fill: #2d3436;
+        stroke: #ffc107;
         stroke-width: 3px;
         transition: all 0.3s ease;
     }
 
     .tree-node.current circle {
-        fill: var(--primary-color);
-        stroke: var(--primary-color);
+        fill: #ffc107;
+        stroke: #ffc107;
         stroke-width: 4px;
     }
 
     .tree-node.spouse circle {
-        fill: #e8f5e8;
+        fill: #2d3436;
         stroke: #28a745;
     }
 
     .tree-node.parent circle {
-        fill: #fff3cd;
-        stroke: #ffc107;
+        fill: #2d3436;
+        stroke: #74b9ff;
     }
 
     .tree-node.child circle {
-        fill: #f8d7da;
-        stroke: #dc3545;
+        fill: #2d3436;
+        stroke: #fd79a8;
     }
 
     .tree-node:hover circle {
@@ -251,25 +251,25 @@
 
     .tree-node text {
         font: 12px sans-serif;
-        fill: var(--text-color);
+        fill: #f8f9fa;
         text-anchor: middle;
         dominant-baseline: central;
         pointer-events: none;
     }
 
     .tree-node.current text {
-        fill: white;
+        fill: #2d3436;
         font-weight: bold;
     }
 
     .tree-link {
         fill: none;
-        stroke: #ccc;
+        stroke: #636e72;
         stroke-width: 2px;
     }
 
     .tree-link.marriage {
-        stroke: #28a745;
+        stroke: #00b894;
         stroke-width: 3px;
         stroke-dasharray: 5,5;
     }
@@ -278,26 +278,28 @@
         position: absolute;
         top: 1rem;
         left: 1rem;
-        background: white;
-        border: 1px solid var(--border-color);
+        background: #2d3436;
+        border: 1px solid #636e72;
         border-radius: 8px;
         padding: 0.5rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .tree-controls button {
         margin: 0.25rem;
         padding: 0.25rem 0.5rem;
-        border: 1px solid var(--border-color);
-        background: white;
+        border: 1px solid #636e72;
+        background: #2d3436;
+        color: #f8f9fa;
         border-radius: 4px;
         cursor: pointer;
         font-size: 0.8rem;
     }
 
     .tree-controls button:hover {
-        background: var(--primary-color);
-        color: white;
+        background: #ffc107;
+        color: #2d3436;
+        border-color: #ffc107;
     }
 
     @media (max-width: 768px) {
