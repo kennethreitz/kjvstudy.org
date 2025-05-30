@@ -294,8 +294,11 @@
         <h3>🔧 Tree Navigation</h3>
         <div class="control-buttons">
             <button class="control-btn active" onclick="showGeneration('all')">Show All</button>
-            <button class="control-btn" onclick="showGeneration('early')">Early Generations</button>
-            <button class="control-btn" onclick="showGeneration('patriarchs')">Patriarchs</button>
+            <button class="control-btn" onclick="showGeneration('gen1-3')">Gen 1-3 (Adam to Enos)</button>
+            <button class="control-btn" onclick="showGeneration('gen4-6')">Gen 4-6 (Cainan to Jared)</button>
+            <button class="control-btn" onclick="showGeneration('gen7-10')">Gen 7-10 (Enoch to Noah's Sons)</button>
+            <button class="control-btn" onclick="showGeneration('cain-line')">Cain's Line</button>
+            <button class="control-btn" onclick="showGeneration('seth-line')">Seth's Line</button>
             <button class="control-btn" onclick="resetZoom()">Reset View</button>
             <button class="control-btn" onclick="fitToScreen()">Fit to Screen</button>
         </div>
@@ -303,15 +306,19 @@
         <div class="tree-legend">
             <div class="legend-item">
                 <div class="legend-color" style="background: #4a90e2;"></div>
-                <span>Early Generations (Adam - Noah)</span>
+                <span>Seth's Line (Gen 1-10)</span>
             </div>
             <div class="legend-item">
-                <div class="legend-color" style="background: #8b4513;"></div>
-                <span>Patriarchs (Abraham - Jacob)</span>
+                <div class="legend-color" style="background: #dc143c;"></div>
+                <span>Cain's Line</span>
             </div>
             <div class="legend-item">
                 <div class="legend-color" style="background: #228b22;"></div>
-                <span>Sons of Jacob</span>
+                <span>Noah's Sons</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff6b35;"></div>
+                <span>Special Figures</span>
             </div>
         </div>
     </div>
@@ -367,19 +374,25 @@ function initializeFamilyTree() {
     const nodeArray = [];
     const edgeArray = [];
     
-    // Define node colors by generation/category
+    // Define node colors by lineage and significance
     const nodeColors = {
-        // Early generations
-        'adam': '#4a90e2', 'eve': '#4a90e2',
-        'cain': '#4a90e2', 'abel': '#4a90e2', 'seth': '#4a90e2',
-        'enoch_son_of_cain': '#4a90e2', 'enos': '#4a90e2',
-        'noah': '#4a90e2',
+        // Adam and Eve
+        'adam': '#d4af37', 'eve': '#d4af37',
         
-        // Patriarchs
-        'abraham': '#8b4513', 'isaac': '#8b4513', 'jacob': '#8b4513',
+        // Seth's line (righteous line)
+        'seth': '#4a90e2', 'enos': '#4a90e2', 'cainan': '#4a90e2', 'mahalaleel': '#4a90e2',
+        'jared': '#4a90e2', 'enoch_seth': '#ff6b35', 'methuselah': '#4a90e2', 'lamech_seth': '#4a90e2',
+        'noah': '#ff6b35',
         
-        // Sons of Jacob
-        'joseph': '#228b22'
+        // Cain's line
+        'cain': '#dc143c', 'enoch_cain': '#dc143c', 'irad': '#dc143c', 'mehujael': '#dc143c',
+        'methusael': '#dc143c', 'lamech_cain': '#dc143c', 'jabal': '#dc143c', 'jubal': '#dc143c', 'tubalcain': '#dc143c',
+        
+        // Abel (murdered)
+        'abel': '#8b0000',
+        
+        // Noah's sons
+        'shem': '#228b22', 'ham': '#228b22', 'japheth': '#228b22'
     };
     
     // Create nodes
@@ -456,8 +469,9 @@ function initializeFamilyTree() {
                 enabled: true,
                 direction: 'UD',
                 sortMethod: 'directed',
-                nodeSpacing: 200,
-                levelSeparation: 150
+                nodeSpacing: 150,
+                levelSeparation: 120,
+                shakeTowards: 'roots'
             }
         },
         physics: {
@@ -466,18 +480,26 @@ function initializeFamilyTree() {
         interaction: {
             dragNodes: true,
             zoomView: true,
-            dragView: true
+            dragView: true,
+            selectConnectedEdges: false
         },
         nodes: {
             borderWidth: 2,
-            shadow: true
+            shadow: {
+                enabled: true,
+                color: 'rgba(0,0,0,0.3)',
+                size: 10,
+                x: 2,
+                y: 2
+            }
         },
         edges: {
             smooth: {
                 enabled: true,
                 type: 'cubicBezier',
-                roundness: 0.4
-            }
+                roundness: 0.3
+            },
+            width: 2
         }
     };
     
@@ -585,11 +607,20 @@ function showGeneration(type) {
     let visibleNodes;
     
     switch(type) {
-        case 'early':
-            visibleNodes = ['adam', 'eve', 'cain', 'abel', 'seth', 'enoch_son_of_cain', 'enos', 'noah'];
+        case 'gen1-3':
+            visibleNodes = ['adam', 'eve', 'cain', 'abel', 'seth', 'enoch_cain', 'enos'];
             break;
-        case 'patriarchs':
-            visibleNodes = ['abraham', 'isaac', 'jacob', 'joseph'];
+        case 'gen4-6':
+            visibleNodes = ['cainan', 'mahalaleel', 'jared', 'irad', 'mehujael', 'methusael'];
+            break;
+        case 'gen7-10':
+            visibleNodes = ['enoch_seth', 'methuselah', 'lamech_seth', 'lamech_cain', 'noah', 'shem', 'ham', 'japheth'];
+            break;
+        case 'cain-line':
+            visibleNodes = ['adam', 'eve', 'cain', 'enoch_cain', 'irad', 'mehujael', 'methusael', 'lamech_cain', 'jabal', 'jubal', 'tubalcain'];
+            break;
+        case 'seth-line':
+            visibleNodes = ['adam', 'eve', 'seth', 'enos', 'cainan', 'mahalaleel', 'jared', 'enoch_seth', 'methuselah', 'lamech_seth', 'noah', 'shem', 'ham', 'japheth'];
             break;
         default:
             visibleNodes = Object.keys(familyData);
