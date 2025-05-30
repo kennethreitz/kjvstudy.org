@@ -106,7 +106,80 @@
     overflow: visible;
 }
 
-/* Use browser default tooltips for better reliability and accessibility */
+/* Custom wide tooltips for chapter links */
+.chapter-link {
+    cursor: pointer;
+}
+
+.chapter-link::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    white-space: normal;
+    width: 320px;
+    max-width: 450px;
+    min-width: 280px;
+    text-align: left;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+    word-wrap: break-word;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease 0.5s, visibility 0.3s ease 0.5s;
+}
+
+.chapter-link::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.95);
+    z-index: 1001;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease 0.5s, visibility 0.3s ease 0.5s;
+}
+
+.chapter-link:hover::before,
+.chapter-link:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .chapter-link::before {
+        position: fixed;
+        bottom: 3rem;
+        left: 1rem;
+        right: 1rem;
+        transform: none;
+        width: auto;
+        max-width: none;
+        min-width: auto;
+        font-size: 0.9rem;
+        padding: 1rem;
+        z-index: 1002;
+        text-align: center;
+    }
+    
+    .chapter-link::after {
+        display: none;
+    }
+}
 
 .chapter-link[data-popularity="10"] {
     background: linear-gradient(135deg, #8B5CF6, #A855F7);
@@ -340,7 +413,7 @@
 
 <div class="chapter-grid">
     {% for chapter in chapters %}
-    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" title="{{ book }} {{ chapter }} ({{ chapter_popularity[chapter] }}/10) - {{ chapter_explanations[chapter] }}">
+    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" data-tooltip="{{ book }} {{ chapter }} ({{ chapter_popularity[chapter] }}/10) - {{ chapter_explanations[chapter] }}">
         {{ chapter }}
     </a>
     {% endfor %}
