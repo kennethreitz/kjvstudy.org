@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}{{ guide.title }} - Bible Study Guide - KJV Study{% endblock %}
+{% block description %}{{ guide.description }} - A comprehensive Bible study guide with Scripture references and practical applications from the KJV Bible.{% endblock %}
+{% block keywords %}{{ guide.title }}, Bible study, KJV study, Christian study guide, Scripture study, Bible lesson{% endblock %}
+
+{% block content %}
+<div class="study-guide-header" style="margin-bottom: 2rem;">
+    <nav class="breadcrumb" style="
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+    ">
+        <a href="/" style="color: var(--primary-color); text-decoration: none;">Home</a>
+        <span style="margin: 0 0.5rem;">›</span>
+        <a href="/study-guides" style="color: var(--primary-color); text-decoration: none;">Study Guides</a>
+        <span style="margin: 0 0.5rem;">›</span>
+        <span>{{ guide.title }}</span>
+    </nav>
+
+    <h1 class="guide-title" style="
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+        font-family: var(--font-display);
+        line-height: 1.2;
+    ">
+        📖 {{ guide.title }}
+    </h1>
+    
+    <p class="guide-description" style="
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        max-width: 700px;
+        margin-bottom: 2rem;
+    ">
+        {{ guide.description }}
+    </p>
+</div>
+
+<!-- Study Guide Sections -->
+<div class="study-sections">
+    {% for section in guide.sections %}
+    <div class="study-section" style="
+        background: var(--surface-color);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+    ">
+        <h2 class="section-title" style="
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-family: var(--font-display);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 0.5rem;
+        ">
+            {{ section.title }}
+        </h2>
+        
+        <!-- Scripture Verses -->
+        <div class="scripture-section" style="margin-bottom: 2rem;">
+            <h3 style="
+                font-size: 1rem;
+                margin-bottom: 1rem;
+                color: var(--text-secondary);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 600;
+            ">
+                📜 Scripture References
+            </h3>
+            
+            {% for verse_data in section.verse_texts %}
+            <div class="verse-card" style="
+                background: var(--background-color);
+                border-left: 4px solid var(--primary-light);
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+                border-radius: 0 var(--radius-md) var(--radius-md) 0;
+                position: relative;
+            ">
+                <div class="verse-reference" style="
+                    font-weight: 600;
+                    color: var(--primary-color);
+                    margin-bottom: 0.75rem;
+                    font-size: 0.95rem;
+                    font-family: var(--font-display);
+                ">
+                    {{ verse_data.reference }}
+                </div>
+                <div class="verse-text" style="
+                    font-family: 'Crimson Text', 'Times New Roman', serif;
+                    font-size: 1.1rem;
+                    line-height: 1.7;
+                    color: var(--text-primary);
+                    font-style: italic;
+                ">
+                    "{{ verse_data.text }}"
+                </div>
+                <a href="/search?q={{ verse_data.reference | urlencode }}" style="
+                    position: absolute;
+                    top: 1rem;
+                    right: 1rem;
+                    color: var(--text-secondary);
+                    text-decoration: none;
+                    font-size: 0.8rem;
+                    opacity: 0.7;
+                    transition: opacity 0.2s ease;
+                " onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                    🔍
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Study Content -->
+        <div class="study-content" style="
+            background: var(--primary-ultra-light);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--primary-light);
+        ">
+            <h3 style="
+                font-size: 1rem;
+                margin-bottom: 1rem;
+                color: var(--primary-color);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 600;
+            ">
+                💡 Study Notes
+            </h3>
+            <p style="
+                font-size: 1.05rem;
+                line-height: 1.7;
+                color: var(--text-primary);
+                margin: 0;
+                font-family: 'Crimson Text', 'Times New Roman', serif;
+            ">
+                {{ section.content }}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Navigation and Actions -->
+<div class="study-actions" style="
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 3rem;
+    text-align: center;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+">
+    <h3 style="
+        color: var(--primary-color);
+        margin: 0 0 1rem;
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+    ">
+        Continue Your Study
+    </h3>
+    <p style="
+        color: var(--text-secondary);
+        margin: 0 0 1.5rem;
+        line-height: 1.6;
+    ">
+        Explore more study guides or search for specific topics in Scripture.
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/study-guides" style="
+            display: inline-block;
+            background: var(--primary-light);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            transition: background-color 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
+           onmouseout="this.style.backgroundColor='var(--primary-light)'">
+            📖 More Study Guides
+        </a>
+        <a href="/search" style="
+            display: inline-block;
+            background: transparent;
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            transition: all 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-light)'; this.style.color='white'" 
+           onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-color)'">
+            🔍 Search Scripture
+        </a>
+        <a href="/verse-of-the-day" style="
+            display: inline-block;
+            background: transparent;
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            transition: all 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-light)'; this.style.color='white'" 
+           onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-color)'">
+            ✨ Verse of the Day
+        </a>
+    </div>
+</div>
+
+<style>
+@media (max-width: 768px) {
+    .guide-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .guide-description {
+        font-size: 1rem !important;
+    }
+    
+    .study-section {
+        padding: 1.5rem !important;
+    }
+    
+    .verse-card {
+        padding: 1rem !important;
+    }
+    
+    .verse-text {
+        font-size: 1rem !important;
+    }
+    
+    .study-actions {
+        padding: 1.5rem !important;
+    }
+    
+    .study-actions div {
+        flex-direction: column !important;
+    }
+    
+    .study-actions a {
+        text-align: center;
+    }
+}
+
+.verse-card:hover {
+    transform: translateX(4px);
+    transition: transform 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}

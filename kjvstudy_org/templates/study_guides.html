@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Bible Study Guides - KJV Study{% endblock %}
+{% block description %}Explore comprehensive Bible study guides covering foundational Christian truths, character development, and biblical themes. Study the KJV Bible with structured guides and scripture references.{% endblock %}
+{% block keywords %}Bible study guides, KJV study, Christian study guides, Bible study topics, scripture study, Bible lessons{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1 class="page-title">
+        📖 Bible Study Guides
+    </h1>
+    <p style="font-size: 1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+        Deepen your understanding of God's Word with these comprehensive study guides. 
+        Each guide includes relevant Scripture passages and practical applications for Christian living.
+    </p>
+</div>
+
+<!-- Study Guide Categories -->
+{% for category, guides in study_guides.items() %}
+<div class="study-category" style="margin-bottom: 3rem;">
+    <h2 class="category-title" style="
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--border-light);
+        padding-bottom: 0.5rem;
+        font-family: var(--font-display);
+    ">
+        {{ category }}
+    </h2>
+    
+    <div class="guides-grid" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    ">
+        {% for guide in guides %}
+        <div class="guide-card" style="
+            background: var(--surface-color);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        ">
+            <h3 style="
+                margin: 0 0 1rem;
+                font-size: 1.25rem;
+                color: var(--text-primary);
+                font-family: var(--font-display);
+            ">
+                {{ guide.title }}
+            </h3>
+            
+            <p style="
+                color: var(--text-secondary);
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+                font-size: 0.95rem;
+            ">
+                {{ guide.description }}
+            </p>
+            
+            <div class="verse-preview" style="
+                background: var(--background-color);
+                border-left: 3px solid var(--primary-light);
+                padding: 0.75rem 1rem;
+                margin-bottom: 1.5rem;
+                border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            ">
+                <h4 style="
+                    font-size: 0.85rem;
+                    margin: 0 0 0.5rem;
+                    color: var(--text-secondary);
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                ">Key Verses</h4>
+                <div class="verse-list" style="font-size: 0.9rem; color: var(--text-primary);">
+                    {% for verse in guide.verses[:3] %}
+                        <span style="
+                            display: inline-block;
+                            background: var(--primary-ultra-light);
+                            padding: 0.25rem 0.5rem;
+                            border-radius: var(--radius-sm);
+                            margin: 0.25rem 0.25rem 0.25rem 0;
+                            font-size: 0.85rem;
+                            color: var(--primary-color);
+                        ">{{ verse }}</span>
+                    {% endfor %}
+                    {% if guide.verses|length > 3 %}
+                        <span style="color: var(--text-secondary); font-size: 0.85rem;">
+                            +{{ guide.verses|length - 3 }} more
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <a href="/study-guides/{{ guide.slug }}" style="
+                display: inline-block;
+                background: var(--primary-light);
+                color: white;
+                padding: 0.75rem 1.5rem;
+                text-decoration: none;
+                border-radius: var(--radius-md);
+                font-family: var(--font-display);
+                font-weight: 500;
+                transition: background-color 0.2s ease;
+                font-size: 0.95rem;
+            " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
+               onmouseout="this.style.backgroundColor='var(--primary-light)'">
+                Start Study →
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+<!-- Call to Action -->
+<div class="cta-section" style="
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 3rem;
+    text-align: center;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+">
+    <h3 style="
+        color: var(--primary-color);
+        margin: 0 0 1rem;
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+    ">
+        🌱 Growing in Faith
+    </h3>
+    <p style="
+        color: var(--text-secondary);
+        margin: 0 0 1.5rem;
+        line-height: 1.6;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    ">
+        These study guides are designed to help you grow in your understanding of God's Word. 
+        Take your time with each section and allow the Holy Spirit to teach you through Scripture.
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/verse-of-the-day" style="
+            display: inline-block;
+            background: var(--primary-light);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            transition: background-color 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
+           onmouseout="this.style.backgroundColor='var(--primary-light)'">
+            ✨ Today's Verse
+        </a>
+        <a href="/search" style="
+            display: inline-block;
+            background: transparent;
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            transition: all 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-light)'; this.style.color='white'" 
+           onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-color)'">
+            🔍 Search Scripture
+        </a>
+    </div>
+</div>
+
+<style>
+.guide-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-ultra-light);
+}
+
+@media (max-width: 768px) {
+    .guides-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .cta-section {
+        padding: 1.5rem !important;
+    }
+    
+    .cta-section div {
+        flex-direction: column !important;
+    }
+    
+    .cta-section a {
+        text-align: center;
+    }
+}
+
+.page-title {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.8rem;
+    }
+}
+</style>
+{% endblock %}

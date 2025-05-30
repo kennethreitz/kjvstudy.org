@@ -5,6 +5,8 @@ A web application for studying the King James Bible with AI-powered commentary a
 ## Features
 
 - Browse and search King James Bible verses
+- **Study Guides** - Comprehensive Bible study guides covering foundational Christian truths, character development, and biblical themes
+- **Verse of the Day** - Daily Scripture verses with reflection questions and sharing capabilities
 - AI-powered biblical commentary and insights
 - Clean, responsive web interface
 - Fast verse lookup and navigation
@@ -25,6 +27,27 @@ uv run kjvstudy-org
 ```
 
 The application will be available at http://localhost:8000
+
+## New Features
+
+### Study Guides
+Access comprehensive Bible study guides at `/study-guides` covering:
+- **Foundational Studies**: New Believer's Guide, Salvation by Grace, The Gospel Message
+- **Character & Living**: Fruits of the Spirit, Prayer & Faith, Christian Living
+- **Biblical Themes**: God's Love, Hope & Comfort, Wisdom & Guidance
+
+Each study guide includes:
+- Scripture references with full text
+- Study notes and practical applications
+- Reflection questions for deeper understanding
+
+### Verse of the Day
+Visit `/verse-of-the-day` for:
+- Daily Scripture verses from a curated collection
+- Reflection questions for meditation
+- Easy sharing capabilities
+- Links to read the full chapter or book
+- Integrated with the homepage for daily inspiration
 
 ## Docker
 

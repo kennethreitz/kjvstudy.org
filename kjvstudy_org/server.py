@@ -11,8 +11,67 @@ import json
 import re
 from datetime import datetime
 from typing import List, Dict, Optional
+import hashlib
 
 from .kjv import bible
+
+
+def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
+    """Perform full text search across all Bible verses"""
+    results = []
+    search_terms = query.lower().split()
+    
+    # Search through all verses using the iter_verses method
+    for verse in bible.iter_verses():
+        verse_text = verse.text.lower()
+        
+        # Check if all search terms are in the verse
+        if all(term in verse_text for term in search_terms):
+            # Calculate relevance score
+            score = calculate_relevance_score(verse.text, search_terms)
+            
+            results.append({
+                "book": verse.book,
+                "chapter": verse.chapter,
+                "verse": verse.verse,
+                "text": verse.text,
+                "reference": f"{verse.book} {verse.chapter}:{verse.verse}",
+                "url": f"/book/{verse.book}/chapter/{verse.chapter}#verse-{verse.verse}",
+                "score": score,
+                "highlighted_text": highlight_search_terms(verse.text, search_terms)
+            })
+    
+    # Sort by relevance score (higher is better)
+    results.sort(key=lambda x: x["score"], reverse=True)
+    
+    # Limit results
+    return results[:limit]
+
+
+def calculate_relevance_score(text: str, search_terms: List[str]) -> float:
+    """Calculate relevance score for search results"""
+    text_lower = text.lower()
+    score = 0.0
+    
+    for term in search_terms:
+        # Count occurrences of each term
+        count = text_lower.count(term.lower())
+        score += count
+        
+        # Bonus for exact word matches
+        if f" {term.lower()} " in f" {text_lower} ":
+            score += 0.5
+    
+    return score
+
+
+def highlight_search_terms(text: str, search_terms: List[str]) -> str:
+    """Highlight search terms in text"""
+    highlighted = text
+    for term in search_terms:
+        # Simple highlighting (could be improved)
+        highlighted = highlighted.replace(term, f"<mark>{term}</mark>")
+    return highlighted
 
 
 def get_verse_text(book, chapter, verse):
@@ -93,66 +152,417 @@ def search_api(q: str = Query(..., description="Search query"), limit: int = Que
         "total": len(search_results)
     }
 
-def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
-    """Perform full text search across all Bible verses"""
-    results = []
-    search_terms = query.lower().split()
+@app.get("/study-guides", response_class=HTMLResponse)
+def study_guides_page(request: Request):
+    """Study guides main page"""
+    books = list(bible.iter_books())
     
-    # Search through all verses using the iter_verses method
-    for verse in bible.iter_verses():
-        verse_text = verse.text.lower()
-        
-        # Check if all search terms are in the verse
-        if all(term in verse_text for term in search_terms):
-            # Calculate relevance score
-            score = calculate_relevance_score(verse.text, search_terms)
-            
-            results.append({
-                "book": verse.book,
-                "chapter": verse.chapter,
-                "verse": verse.verse,
-                "text": verse.text,
-                "reference": f"{verse.book} {verse.chapter}:{verse.verse}",
-                "url": f"/book/{verse.book}/chapter/{verse.chapter}#verse-{verse.verse}",
-                "score": score,
-                "highlighted_text": highlight_search_terms(verse.text, search_terms)
-            })
-            
-            if len(results) >= limit:
-                break
+    # Define study guide categories
+    study_guides = {
+        "Foundational Studies": [
+            {
+                "title": "New Believer's Guide",
+                "description": "Essential truths for new Christians",
+                "slug": "new-believer",
+                "verses": ["John 3:16", "Romans 10:9", "1 John 1:9", "2 Corinthians 5:17"]
+            },
+            {
+                "title": "Salvation by Grace",
+                "description": "Understanding God's gift of salvation",
+                "slug": "salvation",
+                "verses": ["Ephesians 2:8-9", "Romans 3:23", "Romans 6:23", "Titus 3:5"]
+            },
+            {
+                "title": "The Gospel Message",
+                "description": "The good news of Jesus Christ",
+                "slug": "gospel",
+                "verses": ["1 Corinthians 15:3-4", "Romans 1:16", "Mark 16:15", "Acts 4:12"]
+            }
+        ],
+        "Character & Living": [
+            {
+                "title": "Fruits of the Spirit",
+                "description": "Developing Christian character",
+                "slug": "fruits-spirit",
+                "verses": ["Galatians 5:22-23", "1 Corinthians 13:4-7", "Philippians 4:8", "Colossians 3:12-14"]
+            },
+            {
+                "title": "Prayer & Faith",
+                "description": "Growing in prayer and trust",
+                "slug": "prayer-faith",
+                "verses": ["Matthew 6:9-13", "1 Thessalonians 5:17", "Hebrews 11:1", "James 1:6"]
+            },
+            {
+                "title": "Christian Living",
+                "description": "Walking as followers of Christ",
+                "slug": "christian-living",
+                "verses": ["Romans 12:1-2", "1 Peter 2:9", "Matthew 5:14-16", "Philippians 2:14-16"]
+            }
+        ],
+        "Biblical Themes": [
+            {
+                "title": "God's Love",
+                "description": "Understanding the depth of God's love",
+                "slug": "gods-love",
+                "verses": ["1 John 4:8", "John 3:16", "Romans 8:38-39", "1 John 3:1"]
+            },
+            {
+                "title": "Hope & Comfort",
+                "description": "Finding hope in difficult times",
+                "slug": "hope-comfort",
+                "verses": ["Romans 15:13", "2 Corinthians 1:3-4", "Psalm 23:4", "Isaiah 41:10"]
+            },
+            {
+                "title": "Wisdom & Guidance",
+                "description": "Seeking God's wisdom for life",
+                "slug": "wisdom-guidance",
+                "verses": ["Proverbs 3:5-6", "James 1:5", "Psalm 119:105", "Proverbs 27:17"]
+            }
+        ]
+    }
     
-    # Sort by relevance score (highest first)
-    results.sort(key=lambda x: x['score'], reverse=True)
-    return results[:limit]
+    return templates.TemplateResponse(
+        "study_guides.html",
+        {
+            "request": request,
+            "books": books,
+            "study_guides": study_guides
+        }
+    )
 
-def calculate_relevance_score(text: str, search_terms: List[str]) -> float:
-    """Calculate relevance score based on term frequency and proximity"""
-    text_lower = text.lower()
-    score = 0.0
+@app.get("/study-guides/{slug}", response_class=HTMLResponse)
+def study_guide_detail(request: Request, slug: str):
+    """Individual study guide page"""
+    books = list(bible.iter_books())
     
-    for term in search_terms:
-        # Count occurrences of each term
-        count = text_lower.count(term)
-        score += count * len(term)  # Longer terms get higher weight
+    # Study guide content
+    guides_content = {
+        "new-believer": {
+            "title": "New Believer's Guide",
+            "description": "Essential truths for new Christians to understand their faith",
+            "sections": [
+                {
+                    "title": "God's Love for You",
+                    "verses": ["John 3:16", "1 John 4:9-10"],
+                    "content": "God loves you unconditionally. His love is not based on what you do, but on who He is."
+                },
+                {
+                    "title": "Your New Life",
+                    "verses": ["2 Corinthians 5:17", "Ephesians 2:10"],
+                    "content": "When you accept Christ, you become a new creation. The old has passed away, and the new has come."
+                },
+                {
+                    "title": "Assurance of Salvation",
+                    "verses": ["Romans 10:9", "1 John 5:13"],
+                    "content": "You can know for certain that you have eternal life through faith in Jesus Christ."
+                }
+            ]
+        },
+        "salvation": {
+            "title": "Salvation by Grace",
+            "description": "Understanding how God saves us through His grace alone",
+            "sections": [
+                {
+                    "title": "The Problem: Sin",
+                    "verses": ["Romans 3:23", "Romans 6:23"],
+                    "content": "All have sinned and fallen short of God's glory. The wages of sin is death."
+                },
+                {
+                    "title": "The Solution: Grace",
+                    "verses": ["Ephesians 2:8-9", "Titus 3:5"],
+                    "content": "Salvation is by grace through faith, not by works. It is God's gift to us."
+                },
+                {
+                    "title": "The Response: Faith",
+                    "verses": ["Romans 10:9-10", "Acts 16:31"],
+                    "content": "We are saved by believing in Jesus Christ and confessing Him as Lord."
+                }
+            ]
+        },
+        "gospel": {
+            "title": "The Gospel Message",
+            "description": "The good news of Jesus Christ and what it means for us",
+            "sections": [
+                {
+                    "title": "Christ's Death",
+                    "verses": ["1 Corinthians 15:3", "Isaiah 53:5"],
+                    "content": "Christ died for our sins according to the Scriptures, taking our place on the cross."
+                },
+                {
+                    "title": "Christ's Resurrection",
+                    "verses": ["1 Corinthians 15:4", "Romans 1:4"],
+                    "content": "He was raised on the third day, proving His victory over sin and death."
+                },
+                {
+                    "title": "Our Commission",
+                    "verses": ["Mark 16:15", "Acts 1:8"],
+                    "content": "We are called to share this good news with others around the world."
+                }
+            ]
+        },
+        "fruits-spirit": {
+            "title": "Fruits of the Spirit",
+            "description": "Developing Christian character through the Holy Spirit",
+            "sections": [
+                {
+                    "title": "Love, Joy, Peace",
+                    "verses": ["Galatians 5:22", "1 Corinthians 13:4-7"],
+                    "content": "The first fruits show our relationship with God and inner transformation."
+                },
+                {
+                    "title": "Patience, Kindness, Goodness",
+                    "verses": ["Galatians 5:22", "Colossians 3:12"],
+                    "content": "These fruits are shown in how we treat others, especially in difficult situations."
+                },
+                {
+                    "title": "Faithfulness, Gentleness, Self-Control",
+                    "verses": ["Galatians 5:23", "2 Timothy 2:24"],
+                    "content": "These fruits demonstrate spiritual maturity and Christ-like character."
+                }
+            ]
+        },
+        "prayer-faith": {
+            "title": "Prayer & Faith",
+            "description": "Growing in prayer and trust in God",
+            "sections": [
+                {
+                    "title": "The Lord's Prayer",
+                    "verses": ["Matthew 6:9-13", "Luke 11:2-4"],
+                    "content": "Jesus taught us how to pray, giving us a model for our communication with God."
+                },
+                {
+                    "title": "Persistent Prayer",
+                    "verses": ["1 Thessalonians 5:17", "Luke 18:1"],
+                    "content": "We are called to pray without ceasing and never give up in prayer."
+                },
+                {
+                    "title": "Faith and Trust",
+                    "verses": ["Hebrews 11:1", "Proverbs 3:5-6"],
+                    "content": "Faith is the substance of things hoped for and the evidence of things not seen."
+                }
+            ]
+        },
+        "christian-living": {
+            "title": "Christian Living",
+            "description": "Walking as followers of Christ in daily life",
+            "sections": [
+                {
+                    "title": "Living Sacrifice",
+                    "verses": ["Romans 12:1-2", "Galatians 2:20"],
+                    "content": "Present your bodies as living sacrifices, holy and acceptable to God."
+                },
+                {
+                    "title": "Light of the World",
+                    "verses": ["Matthew 5:14-16", "Philippians 2:15"],
+                    "content": "We are called to be lights in the darkness, showing God's love to others."
+                },
+                {
+                    "title": "Holy Living",
+                    "verses": ["1 Peter 1:15-16", "1 Thessalonians 4:7"],
+                    "content": "God has called us to be holy as He is holy, set apart for His purposes."
+                }
+            ]
+        },
+        "gods-love": {
+            "title": "God's Love",
+            "description": "Understanding the depth and breadth of God's love for us",
+            "sections": [
+                {
+                    "title": "God is Love",
+                    "verses": ["1 John 4:8", "1 John 4:16"],
+                    "content": "Love is not just something God does - it is who He is. His very nature is love."
+                },
+                {
+                    "title": "Demonstrated Love",
+                    "verses": ["John 3:16", "Romans 5:8"],
+                    "content": "God demonstrated His love by sending His Son to die for us while we were still sinners."
+                },
+                {
+                    "title": "Unchanging Love",
+                    "verses": ["Romans 8:38-39", "Jeremiah 31:3"],
+                    "content": "Nothing can separate us from God's love. His love for us is eternal and unchanging."
+                }
+            ]
+        },
+        "hope-comfort": {
+            "title": "Hope & Comfort",
+            "description": "Finding hope and comfort in God during difficult times",
+            "sections": [
+                {
+                    "title": "God of All Comfort",
+                    "verses": ["2 Corinthians 1:3-4", "Psalm 34:18"],
+                    "content": "God comforts us in all our troubles so we can comfort others with His comfort."
+                },
+                {
+                    "title": "Present Help",
+                    "verses": ["Psalm 46:1", "Isaiah 41:10"],
+                    "content": "God is our refuge and strength, a very present help in trouble."
+                },
+                {
+                    "title": "Future Hope",
+                    "verses": ["Romans 15:13", "1 Peter 1:3"],
+                    "content": "We have hope for the future because of Christ's resurrection and God's promises."
+                }
+            ]
+        },
+        "wisdom-guidance": {
+            "title": "Wisdom & Guidance",
+            "description": "Seeking God's wisdom and guidance for life decisions",
+            "sections": [
+                {
+                    "title": "Trust in the Lord",
+                    "verses": ["Proverbs 3:5-6", "Psalm 37:5"],
+                    "content": "Trust in the Lord with all your heart and lean not on your own understanding."
+                },
+                {
+                    "title": "Asking for Wisdom",
+                    "verses": ["James 1:5", "Proverbs 2:6"],
+                    "content": "If anyone lacks wisdom, let them ask God, who gives generously to all."
+                },
+                {
+                    "title": "Word as Guide",
+                    "verses": ["Psalm 119:105", "2 Timothy 3:16"],
+                    "content": "God's Word is a lamp to our feet and a light to our path."
+                }
+            ]
+        }
+    }
+    
+    if slug not in guides_content:
+        raise HTTPException(status_code=404, detail="Study guide not found")
+    
+    guide = guides_content[slug]
+    
+    # Get verse texts
+    for section in guide["sections"]:
+        verse_texts = []
+        for verse_ref in section["verses"]:
+            try:
+                # Parse verse reference (simplified)
+                parts = verse_ref.split(" ")
+                if len(parts) >= 2:
+                    book = " ".join(parts[:-1])
+                    chapter_verse = parts[-1]
+                    if ":" in chapter_verse:
+                        if "-" in chapter_verse:
+                            # Handle verse ranges like "8-9"
+                            chapter, verse_range = chapter_verse.split(":")
+                            start_verse, end_verse = verse_range.split("-")
+                            verse_text = ""
+                            for v in range(int(start_verse), int(end_verse) + 1):
+                                text = bible.get_verse_text(book, int(chapter), v)
+                                if text:
+                                    verse_text += f"[{v}] {text} "
+                        else:
+                            chapter, verse = chapter_verse.split(":")
+                            verse_text = bible.get_verse_text(book, int(chapter), int(verse))
+                    else:
+                        # Just chapter
+                        chapter = int(chapter_verse)
+                        verse_text = f"(See {book} {chapter})"
+                    
+                    if verse_text:
+                        verse_texts.append({
+                            "reference": verse_ref,
+                            "text": verse_text
+                        })
+            except:
+                verse_texts.append({
+                    "reference": verse_ref,
+                    "text": "Text not found"
+                })
         
-        # Bonus for exact phrase matches
-        if len(search_terms) > 1:
-            phrase = " ".join(search_terms)
-            if phrase in text_lower:
-                score += 10
+        section["verse_texts"] = verse_texts
     
-    return score
+    return templates.TemplateResponse(
+        "study_guide_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "guide": guide
+        }
+    )
 
-def highlight_search_terms(text: str, search_terms: List[str]) -> str:
-    """Highlight search terms in the text"""
-    highlighted = text
+@app.get("/verse-of-the-day", response_class=HTMLResponse)
+def verse_of_the_day_page(request: Request):
+    """Verse of the day page"""
+    books = list(bible.iter_books())
+    daily_verse = get_daily_verse()
     
-    for term in search_terms:
-        # Create case-insensitive regex pattern that preserves original case
-        pattern = re.compile(f'({re.escape(term)})', re.IGNORECASE)
-        highlighted = pattern.sub(r'<mark>\1</mark>', highlighted)
+    return templates.TemplateResponse(
+        "verse_of_the_day.html",
+        {
+            "request": request,
+            "books": books,
+            "daily_verse": daily_verse
+        }
+    )
+
+@app.get("/api/verse-of-the-day")
+def verse_of_the_day_api():
+    """API endpoint for verse of the day"""
+    return get_daily_verse()
+
+def get_daily_verse():
+    """Get the verse of the day based on current date"""
+    # Use date as seed for consistent daily verse
+    today = datetime.now().strftime("%Y-%m-%d")
+    seed = int(hashlib.md5(today.encode()).hexdigest(), 16) % 1000000
     
-    return highlighted
+    # Featured verses for rotation
+    featured_verses = [
+        ("John", 3, 16),
+        ("Jeremiah", 29, 11),
+        ("Philippians", 4, 13),
+        ("Romans", 8, 28),
+        ("Proverbs", 3, 5),
+        ("Isaiah", 41, 10),
+        ("Matthew", 11, 28),
+        ("1 John", 4, 19),
+        ("Psalm", 23, 1),
+        ("2 Corinthians", 5, 17),
+        ("Ephesians", 2, 8),
+        ("Romans", 10, 9),
+        ("1 Peter", 5, 7),
+        ("James", 1, 5),
+        ("Philippians", 4, 19),
+        ("Psalm", 119, 105),
+        ("Matthew", 6, 33),
+        ("Romans", 12, 2),
+        ("1 Corinthians", 13, 13),
+        ("Galatians", 5, 22),
+        ("Hebrews", 11, 1),
+        ("1 Thessalonians", 5, 18),
+        ("Psalm", 46, 1),
+        ("Isaiah", 40, 31),
+        ("Matthew", 5, 16),
+        ("Romans", 15, 13),
+        ("Colossians", 3, 23),
+        ("1 John", 1, 9),
+        ("Psalm", 37, 4),
+        ("Proverbs", 27, 17)
+    ]
+    
+    # Select verse based on seed
+    verse_index = seed % len(featured_verses)
+    book, chapter, verse = featured_verses[verse_index]
+    
+    verse_text = bible.get_verse_text(book, chapter, verse)
+    if not verse_text:
+        # Fallback to John 3:16
+        book, chapter, verse = "John", 3, 16
+        verse_text = bible.get_verse_text(book, chapter, verse)
+    
+    return {
+        "book": book,
+        "chapter": chapter,
+        "verse": verse,
+        "text": verse_text,
+        "reference": f"{book} {chapter}:{verse}",
+        "date": today
+    }
+
+
 
 @app.get("/sitemap.xml", response_class=Response)
 def sitemap():
@@ -209,9 +619,10 @@ def sitemap():
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     books = list(bible.iter_books())
+    daily_verse = get_daily_verse()
 
     return templates.TemplateResponse(
-        "index.html", {"request": request, "books": books}
+        "index.html", {"request": request, "books": books, "daily_verse": daily_verse}
     )
 
 
