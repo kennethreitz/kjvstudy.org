@@ -1,6 +1,4 @@
 import hashlib
-import html
-import json
 import re
 import random
 from datetime import datetime
@@ -30,10 +28,8 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
         cleaned_query = query.strip()
         
         # Handle common variations in book names
-        # Replace common numeric prefixes
-        cleaned_query = re.sub(r'^1\s+', 'I ', cleaned_query)
-        cleaned_query = re.sub(r'^2\s+', 'II ', cleaned_query)
-        cleaned_query = re.sub(r'^3\s+', 'III ', cleaned_query)
+        # The KJV data uses "1", "2", "3" format, not Roman numerals
+        # No need to convert here since the data already uses this format
         
         # Try to parse using the existing VerseReference.from_string method
         verse_ref = VerseReference.from_string(cleaned_query)
@@ -52,52 +48,38 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
                 "score": 100.0,  # High score for exact verse matches
                 "highlighted_text": verse_text
             }
+        
     except Exception as e:
         print(f"Error parsing verse reference '{query}': {e}")
+    
+    # If we reach here, either parsing failed or verse_text was None
+    # Try alternative book name formats (Roman numerals to numbers)
+    try:
+        # First try simple Roman numeral to Arabic numeral conversion
+        alternative_query = query.strip()
         
-        # Try alternative book name formats if the first attempt failed
-        try:
-            # Try with different book name mappings
-            book_mappings = {
-                '1 john': 'I John',
-                '2 john': 'II John', 
-                '3 john': 'III John',
-                '1 corinthians': 'I Corinthians',
-                '2 corinthians': 'II Corinthians',
-                '1 thessalonians': 'I Thessalonians',
-                '2 thessalonians': 'II Thessalonians',
-                '1 timothy': 'I Timothy',
-                '2 timothy': 'II Timothy',
-                '1 peter': 'I Peter',
-                '2 peter': 'II Peter',
-                '1 kings': 'I Kings',
-                '2 kings': 'II Kings',
-                '1 chronicles': 'I Chronicles',
-                '2 chronicles': 'II Chronicles',
-                '1 samuel': 'I Samuel',
-                '2 samuel': 'II Samuel'
-            }
+        # Replace Roman numerals at the beginning of the string
+        alternative_query = re.sub(r'^I\s+', '1 ', alternative_query)
+        alternative_query = re.sub(r'^II\s+', '2 ', alternative_query)
+        alternative_query = re.sub(r'^III\s+', '3 ', alternative_query)
+        
+        if alternative_query != query.strip():
+            verse_ref = VerseReference.from_string(alternative_query)
+            verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
             
-            query_lower = cleaned_query.lower()
-            for old_name, new_name in book_mappings.items():
-                if query_lower.startswith(old_name):
-                    alternative_query = query_lower.replace(old_name, new_name, 1)
-                    verse_ref = VerseReference.from_string(alternative_query)
-                    verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
-                    
-                    if verse_text:
-                        return {
-                            "book": verse_ref.book,
-                            "chapter": verse_ref.chapter,
-                            "verse": verse_ref.verse,
-                            "text": verse_text,
-                            "reference": f"{verse_ref.book} {verse_ref.chapter}:{verse_ref.verse}",
-                            "url": f"/book/{verse_ref.book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
-                            "score": 100.0,
-                            "highlighted_text": verse_text
-                        }
-        except Exception as e2:
-            print(f"Alternative parsing also failed for '{query}': {e2}")
+            if verse_text:
+                return {
+                    "book": verse_ref.book,
+                    "chapter": verse_ref.chapter,
+                    "verse": verse_ref.verse,
+                    "text": verse_text,
+                    "reference": f"{verse_ref.book} {verse_ref.chapter}:{verse_ref.verse}",
+                    "url": f"/book/{verse_ref.book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
+                    "score": 100.0,
+                    "highlighted_text": verse_text
+                }
+    except Exception as e2:
+        print(f"Alternative parsing also failed for '{query}': {e2}")
     
     return None
 
