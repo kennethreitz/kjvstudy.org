@@ -1,4 +1,5 @@
 import hashlib
+import json
 import re
 import random
 from datetime import datetime
@@ -1729,6 +1730,18 @@ def read_chapter(request: Request, book: str, chapter: int):
                 detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
             )
 
+    # Load Scofield commentary data
+    scofield_commentary = {}
+    try:
+        static_dir = Path(__file__).parent / "static"
+        commentary_path = static_dir / "scofield_commentary.json"
+        if commentary_path.exists():
+            with open(commentary_path, 'r', encoding='utf-8') as f:
+                scofield_commentary = json.load(f)
+    except Exception as e:
+        print(f"Error loading Scofield commentary: {e}")
+        scofield_commentary = {}
+
     # Generate AI commentary for the chapter
     commentaries = {}
     for verse in verses:
@@ -1747,8 +1760,9 @@ def read_chapter(request: Request, book: str, chapter: int):
             "books": books,
             "chapters": chapters,
             "commentaries": commentaries,
-            "chapter_overview": chapter_overview
-        },
+            "chapter_overview": chapter_overview,
+            "scofield_commentary": scofield_commentary
+        }
     )
 
 
