@@ -948,7 +948,7 @@
 
                 if (isOpen) {
                     sidebar.classList.remove("open");
-                    overlay.classList.remove("open");
+                    if (overlay) overlay.classList.remove("open");
                     document.body.style.overflow = "";
                     sidebar.style.transform = "translateX(-200px)";
                     sidebar.style.webkitTransform = "translate3d(-200px, 0, 0)";
@@ -963,7 +963,7 @@
                     }
                 } else {
                     sidebar.classList.add("open");
-                    overlay.classList.add("open");
+                    if (overlay) overlay.classList.add("open");
                     document.body.style.overflow = "hidden";
                     sidebar.style.transform = "translateX(0)";
                     sidebar.style.webkitTransform = "translate3d(0, 0, 0)";
@@ -1064,7 +1064,7 @@
                         const overlay =
                             document.getElementById("sidebarOverlay");
                         sidebar.classList.remove("open");
-                        overlay.classList.remove("open");
+                        if (overlay) overlay.classList.remove("open");
                         document.body.style.overflow = "";
                     }
                 });
