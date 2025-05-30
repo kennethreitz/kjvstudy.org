@@ -293,12 +293,13 @@
     <div class="tree-controls">
         <h3>🔧 Tree Navigation</h3>
         <div class="control-buttons">
-            <button class="control-btn active" onclick="showGeneration('all')">Show All</button>
-            <button class="control-btn" onclick="showGeneration('gen1-3')">Gen 1-3 (Adam to Enos)</button>
-            <button class="control-btn" onclick="showGeneration('gen4-6')">Gen 4-6 (Cainan to Jared)</button>
-            <button class="control-btn" onclick="showGeneration('gen7-10')">Gen 7-10 (Enoch to Noah's Sons)</button>
+            <button class="control-btn active" onclick="showGeneration('gen1-5')">Gen 1-5 (Adam to Mahalaleel)</button>
+            <button class="control-btn" onclick="showGeneration('gen3-7')">Gen 3-7 (Enos to Enoch)</button>
+            <button class="control-btn" onclick="showGeneration('gen5-9')">Gen 5-9 (Mahalaleel to Lamech)</button>
+            <button class="control-btn" onclick="showGeneration('gen7-11')">Gen 7-11 (Enoch to Noah's Grandsons)</button>
             <button class="control-btn" onclick="showGeneration('cain-line')">Cain's Line</button>
             <button class="control-btn" onclick="showGeneration('seth-line')">Seth's Line</button>
+            <button class="control-btn" onclick="showGeneration('all')">Show All</button>
             <button class="control-btn" onclick="resetZoom()">Reset View</button>
             <button class="control-btn" onclick="fitToScreen()">Fit to Screen</button>
             <a href="/static/adameve.ged" download class="control-btn" style="text-decoration: none; display: inline-block;">📥 Download GEDCOM</a>
@@ -470,8 +471,8 @@ function initializeFamilyTree() {
                 enabled: true,
                 direction: 'UD',
                 sortMethod: 'directed',
-                nodeSpacing: 150,
-                levelSeparation: 120,
+                nodeSpacing: 180,
+                levelSeparation: 140,
                 shakeTowards: 'roots'
             }
         },
@@ -616,20 +617,27 @@ function showGeneration(type) {
     let visibleNodes;
     
     switch(type) {
-        case 'gen1-3':
-            visibleNodes = ['adam', 'eve', 'cain', 'abel', 'seth', 'enoch_cain', 'enos'];
+        case 'gen1-5':
+            // Adam to Mahalaleel (5 generations)
+            visibleNodes = getAllConnectedNodes(['adam', 'eve', 'cain', 'abel', 'seth', 'enoch_cain', 'enos', 'irad', 'cainan', 'mahalaleel']);
             break;
-        case 'gen4-6':
-            visibleNodes = ['cainan', 'mahalaleel', 'jared', 'irad', 'mehujael', 'methusael'];
+        case 'gen3-7':
+            // Enos to Enoch (5 generations)
+            visibleNodes = getAllConnectedNodes(['enos', 'cainan', 'mahalaleel', 'jared', 'enoch_seth', 'mehujael', 'methusael']);
             break;
-        case 'gen7-10':
-            visibleNodes = ['enoch_seth', 'methuselah', 'lamech_seth', 'lamech_cain', 'noah', 'shem', 'ham', 'japheth'];
+        case 'gen5-9':
+            // Mahalaleel to Lamech (5 generations)
+            visibleNodes = getAllConnectedNodes(['mahalaleel', 'jared', 'enoch_seth', 'methuselah', 'lamech_seth', 'lamech_cain']);
+            break;
+        case 'gen7-11':
+            // Enoch to Noah's grandsons (5 generations)
+            visibleNodes = getAllConnectedNodes(['enoch_seth', 'methuselah', 'lamech_seth', 'noah', 'shem', 'ham', 'japheth']);
             break;
         case 'cain-line':
-            visibleNodes = ['adam', 'eve', 'cain', 'enoch_cain', 'irad', 'mehujael', 'methusael', 'lamech_cain', 'jabal', 'jubal', 'tubalcain'];
+            visibleNodes = getAllConnectedNodes(['adam', 'eve', 'cain', 'enoch_cain', 'irad', 'mehujael', 'methusael', 'lamech_cain', 'jabal', 'jubal', 'tubalcain']);
             break;
         case 'seth-line':
-            visibleNodes = ['adam', 'eve', 'seth', 'enos', 'cainan', 'mahalaleel', 'jared', 'enoch_seth', 'methuselah', 'lamech_seth', 'noah', 'shem', 'ham', 'japheth'];
+            visibleNodes = getAllConnectedNodes(['adam', 'eve', 'seth', 'enos', 'cainan', 'mahalaleel', 'jared', 'enoch_seth', 'methuselah', 'lamech_seth', 'noah', 'shem', 'ham', 'japheth']);
             break;
         default:
             visibleNodes = Object.keys(familyData);
@@ -675,6 +683,29 @@ function fitToScreen() {
             easingFunction: 'easeInOutQuad'
         }
     });
+}
+
+function getAllConnectedNodes(nodeList) {
+    // Helper function to get all nodes and their spouses
+    const connected = new Set();
+    
+    nodeList.forEach(nodeId => {
+        if (familyData[nodeId]) {
+            connected.add(nodeId);
+            // Add spouse if they exist
+            const person = familyData[nodeId];
+            if (person.spouse) {
+                // Find spouse ID
+                Object.keys(familyData).forEach(id => {
+                    if (familyData[id].name === person.spouse) {
+                        connected.add(id);
+                    }
+                });
+            }
+        }
+    });
+    
+    return Array.from(connected);
 }
 
 function centerOnPersonAndDescendants(personId) {
@@ -759,6 +790,11 @@ function centerOnPersonAndDescendants(personId) {
 // Initialize the family tree when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     initializeFamilyTree();
+    
+    // Start with first 5 generations by default
+    setTimeout(() => {
+        showGeneration('gen1-5');
+    }, 1000);
 });
 </script>
 
