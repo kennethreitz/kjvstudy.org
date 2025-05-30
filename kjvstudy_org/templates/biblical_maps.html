@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Maps - KJV Study</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    
+    <style>
+        .maps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .maps-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .maps-header h1 {
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+        
+        .maps-header p {
+            color: #666;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .map-controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .control-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #8B4513;
+        }
+        
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-input {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Georgia, serif;
+            min-width: 200px;
+            flex: 1;
+        }
+        
+        .search-btn, .book-btn {
+            padding: 10px 16px;
+            background: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: Georgia, serif;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn:hover, .book-btn:hover {
+            background: #A0522D;
+        }
+        
+        .book-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .book-btn {
+            padding: 6px 12px;
+            font-size: 14px;
+            background: #6c757d;
+        }
+        
+        .book-btn.active {
+            background: #8B4513;
+        }
+        
+        .period-filter {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .period-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .period-checkbox input[type="checkbox"] {
+            margin: 0;
+        }
+        
+        #biblical-map {
+            height: 600px;
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map-legend {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+        }
+        
+        .map-legend h3 {
+            margin: 0 0 10px 0;
+            color: #8B4513;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            font-size: 10px;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+        
+        .info-panel {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .info-panel h3 {
+            color: #004085;
+            margin: 0 0 10px 0;
+        }
+        
+        .info-panel p {
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .maps-container {
+                padding: 10px;
+            }
+            
+            #biblical-map {
+                height: 400px;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-input {
+                min-width: unset;
+            }
+            
+            .book-selector {
+                justify-content: center;
+            }
+            
+            .legend-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="/">📖 KJV Study</a>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/search">Search</a>
+                <a href="/study-guides">Study Guides</a>
+                <a href="/verse-of-the-day">Verse of the Day</a>
+                <a href="/biblical-maps" class="active">Biblical Maps</a>
+            </div>
+        </nav>
+
+        <div class="maps-container">
+            <div class="maps-header">
+                <h1>🗺️ Biblical Maps</h1>
+                <p>Explore the geographical context of Scripture with interactive maps showing biblical locations, journeys, and historical events from both the Old and New Testaments.</p>
+            </div>
+
+            <div class="info-panel">
+                <h3>📍 How to Use Biblical Maps</h3>
+                <p>Click on map markers to learn about biblical locations and their significance. Use the layer controls to show different time periods, search for specific places, or filter by Bible books. Each location includes relevant Scripture references you can click to explore further.</p>
+            </div>
+
+            <div class="map-controls">
+                <div class="control-group">
+                    <label for="location-search">🔍 Search Biblical Locations</label>
+                    <div class="search-container">
+                        <input type="text" 
+                               id="location-search" 
+                               class="search-input" 
+                               placeholder="Search for Jerusalem, Bethlehem, Damascus..."
+                               autocomplete="off">
+                        <button type="button" id="search-location-btn" class="search-btn">
+                            Search
+                        </button>
+                        <button type="button" id="clear-search-btn" class="search-btn" style="background: #6c757d;">
+                            Clear
+                        </button>
+                    </div>
+                    <div id="search-error" class="error-message">
+                        Location not found. Try searching for Jerusalem, Bethlehem, Damascus, or other biblical cities.
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>📚 Filter by Bible Book</label>
+                    <div class="book-selector">
+                        <button type="button" class="book-btn" data-book="Genesis">Genesis</button>
+                        <button type="button" class="book-btn" data-book="Exodus">Exodus</button>
+                        <button type="button" class="book-btn" data-book="Joshua">Joshua</button>
+                        <button type="button" class="book-btn" data-book="1 Samuel">1 Samuel</button>
+                        <button type="button" class="book-btn" data-book="2 Samuel">2 Samuel</button>
+                        <button type="button" class="book-btn" data-book="1 Kings">1 Kings</button>
+                        <button type="button" class="book-btn" data-book="Matthew">Matthew</button>
+                        <button type="button" class="book-btn" data-book="Mark">Mark</button>
+                        <button type="button" class="book-btn" data-book="Luke">Luke</button>
+                        <button type="button" class="book-btn" data-book="John">John</button>
+                        <button type="button" class="book-btn" data-book="Acts">Acts</button>
+                        <button type="button" class="book-btn" data-book="Romans">Romans</button>
+                        <button type="button" class="book-btn clear-filter">Clear Filter</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>⏰ Time Periods</label>
+                    <div class="period-filter">
+                        <div class="period-checkbox">
+                            <input type="checkbox" id="show-ot" checked>
+                            <label for="show-ot">Old Testament</label>
+                        </div>
+                        <div class="period-checkbox">
+                            <input type="checkbox" id="show-nt" checked>
+                            <label for="show-nt">New Testament</label>
+                        </div>
+                        <div class="period-checkbox">
+                            <input type="checkbox" id="show-journeys" checked>
+                            <label for="show-journeys">Paul's Journeys</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="biblical-map"></div>
+
+            <div class="map-legend">
+                <h3>🗺️ Map Legend</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #8B4513;">🏛️</div>
+                        <span>Biblical Cities</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #8B7355;">⛰️</div>
+                        <span>Mountains & High Places</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #4682B4;">🌊</div>
+                        <span>Bodies of Water</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #DAA520;">🕌</div>
+                        <span>Temples & Holy Sites</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #DC143C;">✨</div>
+                        <span>Major Biblical Events</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    
+    <!-- Biblical Maps JavaScript -->
+    <script src="{{ url_for('static', path='/js/biblical-maps.js') }}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the biblical maps
+            const biblicalMaps = new BiblicalMaps();
+            biblicalMaps.init('biblical-map');
+            
+            // Search functionality
+            const searchInput = document.getElementById('location-search');
+            const searchBtn = document.getElementById('search-location-btn');
+            const clearBtn = document.getElementById('clear-search-btn');
+            const errorMsg = document.getElementById('search-error');
+            
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    const found = biblicalMaps.searchLocation(query);
+                    if (!found) {
+                        errorMsg.style.display = 'block';
+                        setTimeout(() => {
+                            errorMsg.style.display = 'none';
+                        }, 3000);
+                    } else {
+                        errorMsg.style.display = 'none';
+                    }
+                }
+            }
+            
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            clearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                errorMsg.style.display = 'none';
+                // Reset map to default view
+                biblicalMaps.map.setView([31.7683, 35.2137], 7);
+            });
+            
+            // Book filter functionality
+            const bookButtons = document.querySelectorAll('.book-btn');
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const book = this.dataset.book;
+                    
+                    if (this.classList.contains('clear-filter')) {
+                        // Clear all filters
+                        bookButtons.forEach(btn => btn.classList.remove('active'));
+                        biblicalMaps.clearHighlights();
+                        return;
+                    }
+                    
+                    // Toggle active state
+                    bookButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show locations for this book
+                    biblicalMaps.showBookLocations(book);
+                });
+            });
+            
+            // Period filter functionality
+            const otCheckbox = document.getElementById('show-ot');
+            const ntCheckbox = document.getElementById('show-nt');
+            const journeysCheckbox = document.getElementById('show-journeys');
+            
+            function updateLayerVisibility() {
+                const map = biblicalMaps.map;
+                
+                // Old Testament layers
+                if (otCheckbox.checked) {
+                    if (!map.hasLayer(biblicalMaps.mapLayers['Old Testament Cities'])) {
+                        map.addLayer(biblicalMaps.mapLayers['Old Testament Cities']);
+                    }
+                } else {
+                    if (map.hasLayer(biblicalMaps.mapLayers['Old Testament Cities'])) {
+                        map.removeLayer(biblicalMaps.mapLayers['Old Testament Cities']);
+                    }
+                }
+                
+                // New Testament layers
+                if (ntCheckbox.checked) {
+                    if (!map.hasLayer(biblicalMaps.mapLayers['New Testament Cities'])) {
+                        map.addLayer(biblicalMaps.mapLayers['New Testament Cities']);
+                    }
+                } else {
+                    if (map.hasLayer(biblicalMaps.mapLayers['New Testament Cities'])) {
+                        map.removeLayer(biblicalMaps.mapLayers['New Testament Cities']);
+                    }
+                }
+                
+                // Paul's Journeys layers
+                if (journeysCheckbox.checked) {
+                    if (!map.hasLayer(biblicalMaps.mapLayers["Paul's Journeys"])) {
+                        map.addLayer(biblicalMaps.mapLayers["Paul's Journeys"]);
+                    }
+                } else {
+                    if (map.hasLayer(biblicalMaps.mapLayers["Paul's Journeys"])) {
+                        map.removeLayer(biblicalMaps.mapLayers["Paul's Journeys"]);
+                    }
+                }
+                
+                // Always show major events and tribal territories
+                if (!map.hasLayer(biblicalMaps.mapLayers['Major Events'])) {
+                    map.addLayer(biblicalMaps.mapLayers['Major Events']);
+                }
+                if (!map.hasLayer(biblicalMaps.mapLayers['Tribal Territories'])) {
+                    map.addLayer(biblicalMaps.mapLayers['Tribal Territories']);
+                }
+            }
+            
+            otCheckbox.addEventListener('change', updateLayerVisibility);
+            ntCheckbox.addEventListener('change', updateLayerVisibility);
+            journeysCheckbox.addEventListener('change', updateLayerVisibility);
+            
+            // Auto-complete suggestions for search
+            const biblicalLocationNames = [
+                'Jerusalem', 'Bethlehem', 'Nazareth', 'Capernaum', 'Jericho',
+                'Damascus', 'Babylon', 'Memphis', 'Mount Sinai', 'Mount Carmel',
+                'Antioch', 'Athens', 'Corinth', 'Ephesus', 'Rome',
+                'Sea of Galilee', 'Dead Sea', 'Jordan River'
+            ];
+            
+            searchInput.addEventListener('input', function() {
+                // Simple auto-complete logic could be added here
+                const value = this.value.toLowerCase();
+                // For now, just hide error when user starts typing
+                errorMsg.style.display = 'none';
+            });
+            
+            // Responsive map resize
+            window.addEventListener('resize', function() {
+                biblicalMaps.resize();
+            });
+        });
+    </script>
+</body>
+</html>
