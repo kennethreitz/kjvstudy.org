@@ -1,17 +1,17 @@
-from fastapi import FastAPI, HTTPException, Request, Query
-from fastapi.responses import HTMLResponse, Response
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.exception_handlers import http_exception_handler
-from starlette.exceptions import HTTPException as StarletteHTTPException
-from pathlib import Path
-import random
+import hashlib
 import html
 import json
 import re
 from datetime import datetime
+from pathlib import Path
 from typing import List, Dict, Optional
-import hashlib
+
+from fastapi import FastAPI, HTTPException, Request, Query
+from fastapi.exception_handlers import http_exception_handler
+from fastapi.responses import HTMLResponse, Response
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .kjv import bible
 
@@ -20,16 +20,16 @@ def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
     """Perform full text search across all Bible verses"""
     results = []
     search_terms = query.lower().split()
-    
+
     # Search through all verses using the iter_verses method
     for verse in bible.iter_verses():
         verse_text = verse.text.lower()
-        
+
         # Check if all search terms are in the verse
         if all(term in verse_text for term in search_terms):
             # Calculate relevance score
             score = calculate_relevance_score(verse.text, search_terms)
-            
+
             results.append({
                 "book": verse.book,
                 "chapter": verse.chapter,
@@ -40,10 +40,10 @@ def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
                 "score": score,
                 "highlighted_text": highlight_search_terms(verse.text, search_terms)
             })
-    
+
     # Sort by relevance score (higher is better)
     results.sort(key=lambda x: x["score"], reverse=True)
-    
+
     # Limit results
     return results[:limit]
 
@@ -52,16 +52,16 @@ def calculate_relevance_score(text: str, search_terms: List[str]) -> float:
     """Calculate relevance score for search results"""
     text_lower = text.lower()
     score = 0.0
-    
+
     for term in search_terms:
         # Count occurrences of each term
         count = text_lower.count(term.lower())
         score += count
-        
+
         # Bonus for exact word matches
         if f" {term.lower()} " in f" {text_lower} ":
             score += 0.5
-    
+
     return score
 
 
@@ -123,10 +123,10 @@ def search_page(request: Request, q: str = Query(None, description="Search query
     """Search page with results"""
     books = list(bible.iter_books())
     search_results = []
-    
+
     if q and len(q.strip()) >= 2:
         search_results = perform_full_text_search(q.strip())
-    
+
     return templates.TemplateResponse(
         "search.html",
         {
@@ -143,9 +143,9 @@ def search_api(q: str = Query(..., description="Search query"), limit: int = Que
     """JSON API endpoint for search"""
     if not q or len(q.strip()) < 2:
         return {"query": q, "results": [], "total": 0}
-    
+
     search_results = perform_full_text_search(q.strip(), limit)
-    
+
     return {
         "query": q,
         "results": search_results,
@@ -156,7 +156,7 @@ def search_api(q: str = Query(..., description="Search query"), limit: int = Que
 def study_guides_page(request: Request):
     """Study guides main page"""
     books = list(bible.iter_books())
-    
+
     # Define study guide categories
     study_guides = {
         "Foundational Studies": [
@@ -220,7 +220,7 @@ def study_guides_page(request: Request):
             }
         ]
     }
-    
+
     return templates.TemplateResponse(
         "study_guides.html",
         {
@@ -234,7 +234,7 @@ def study_guides_page(request: Request):
 def study_guide_detail(request: Request, slug: str):
     """Individual study guide page"""
     books = list(bible.iter_books())
-    
+
     # Study guide content
     guides_content = {
         "new-believer": {
@@ -427,12 +427,12 @@ def study_guide_detail(request: Request, slug: str):
             ]
         }
     }
-    
+
     if slug not in guides_content:
         raise HTTPException(status_code=404, detail="Study guide not found")
-    
+
     guide = guides_content[slug]
-    
+
     # Get verse texts
     for section in guide["sections"]:
         verse_texts = []
@@ -460,7 +460,7 @@ def study_guide_detail(request: Request, slug: str):
                         # Just chapter
                         chapter = int(chapter_verse)
                         verse_text = f"(See {book} {chapter})"
-                    
+
                     if verse_text:
                         verse_texts.append({
                             "reference": verse_ref,
@@ -471,9 +471,9 @@ def study_guide_detail(request: Request, slug: str):
                     "reference": verse_ref,
                     "text": "Text not found"
                 })
-        
+
         section["verse_texts"] = verse_texts
-    
+
     return templates.TemplateResponse(
         "study_guide_detail.html",
         {
@@ -488,7 +488,7 @@ def verse_of_the_day_page(request: Request):
     """Verse of the day page"""
     books = list(bible.iter_books())
     daily_verse = get_daily_verse()
-    
+
     return templates.TemplateResponse(
         "verse_of_the_day.html",
         {
@@ -508,7 +508,7 @@ def get_daily_verse():
     # Use date as seed for consistent daily verse
     today = datetime.now().strftime("%Y-%m-%d")
     seed = int(hashlib.md5(today.encode()).hexdigest(), 16) % 1000000
-    
+
     # Featured verses for rotation
     featured_verses = [
         ("John", 3, 16),
@@ -542,17 +542,17 @@ def get_daily_verse():
         ("Psalm", 37, 4),
         ("Proverbs", 27, 17)
     ]
-    
+
     # Select verse based on seed
     verse_index = seed % len(featured_verses)
     book, chapter, verse = featured_verses[verse_index]
-    
+
     verse_text = bible.get_verse_text(book, chapter, verse)
     if not verse_text:
         # Fallback to John 3:16
         book, chapter, verse = "John", 3, 16
         verse_text = bible.get_verse_text(book, chapter, verse)
-    
+
     return {
         "book": book,
         "chapter": chapter,
@@ -569,7 +569,7 @@ def sitemap():
     """Generate sitemap.xml with all URLs"""
     base_url = "https://kjvstudy.org"
     current_date = datetime.now().strftime("%Y-%m-%d")
-    
+
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
@@ -579,7 +579,7 @@ def sitemap():
         <priority>1.0</priority>
     </url>
 """
-    
+
     # Add all book URLs
     books = list(bible.iter_books())
     for book in books:
@@ -590,7 +590,7 @@ def sitemap():
         <priority>0.8</priority>
     </url>
 """
-        
+
         # Add book commentary URLs
         sitemap_xml += f"""    <url>
         <loc>{base_url}/book/{book}/commentary</loc>
@@ -599,7 +599,7 @@ def sitemap():
         <priority>0.7</priority>
     </url>
 """
-        
+
         # Add all chapter URLs for each book
         chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
         for chapter in chapters:
@@ -610,9 +610,9 @@ def sitemap():
         <priority>0.6</priority>
     </url>
 """
-    
+
     sitemap_xml += "</urlset>"
-    
+
     return Response(content=sitemap_xml, media_type="application/xml")
 
 
@@ -636,16 +636,16 @@ def read_book(request: Request, book: str):
             status_code=404,
             detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
         )
-    
+
     # Generate commentary data for the book page
     commentary_data = generate_book_commentary(book, chapters)
-    
+
     return templates.TemplateResponse(
         "book.html",
         {
-            "request": request, 
-            "book": book, 
-            "chapters": chapters, 
+            "request": request,
+            "book": book,
+            "chapters": chapters,
             "books": books,
             **commentary_data
         },
@@ -683,7 +683,7 @@ def book_commentary(request: Request, book: str):
         print(f"Error type: {type(e).__name__}")
         import traceback
         traceback.print_exc()
-        
+
         # Return a simple error page instead of 500
         return templates.TemplateResponse(
             "error.html",
@@ -1927,20 +1927,20 @@ def generate_book_application(book):
     applications = {
         "Exodus": """
         <p>Exodus provides enduring insights that apply to contemporary life:</p>
-        
+
         <h3>Divine Deliverance</h3>
         <p>The exodus story reminds us that God sees and responds to the suffering of His people. In a world where many experience various forms of bondage—whether addiction, oppression, or spiritual darkness—Exodus testifies that God is a deliverer. The pattern of redemption from Egypt foreshadows Christ's greater deliverance from sin, offering hope to those in seemingly impossible situations and affirming that liberation comes through divine intervention, not merely human effort.</p>
-        
+
         <h3>Identity Formation</h3>
         <p>Israel's transformation from slaves to "a kingdom of priests and a holy nation" (Exodus 19:6) parallels the Christian's new identity in Christ. This theme addresses contemporary questions of personal identity, reminding believers that they are defined not by past bondage or present circumstances but by covenant relationship with God. The corporate identity of Israel also speaks to the church's collective identity as God's people set apart for divine purposes in a secular world.</p>
-        
+
         <h3>Law and Grace</h3>
         <p>The law given at Sinai provides ethical guidance while demonstrating humanity's need for grace. This balanced perspective challenges both legalism (reducing faith to rule-keeping) and antinomianism (disregarding moral standards). The law in Exodus shows that freedom is not lawlessness but rather the liberty to live according to God's design. For Christians, the moral principles underlying the law continue to provide wisdom for ethical decision-making, even as we recognize Christ as the law's fulfillment.</p>
-        
+
         <h3>Divine Presence</h3>
         <p>The tabernacle established the profound truth that God desires to dwell among His people. In an age of spiritual disconnection and isolation, this theme reminds us that God is not distant but seeks communion with humanity. The elaborate preparations for God's presence in Exodus highlight both divine holiness and divine nearness. For Christians, this anticipates the incarnation ("the Word became flesh and tabernacled among us") and the indwelling of the Holy Spirit, assuring believers of God's abiding presence through all circumstances.</p>
         """,
-        
+
         "Genesis": """
         <p>Genesis provides enduring insights that apply to contemporary life:</p>
 
@@ -2027,7 +2027,7 @@ def generate_book_highlights(book, chapters):
     # Simple highlights based on book
     # In a real implementation, this would be much more detailed and accurate
     highlights = []
-    
+
     if book == "Genesis":
         highlights = [
             {"reference": "Genesis 1:1", "description": "The foundational statement of God's creative activity", "url": "/book/Genesis/chapter/1#verse-1", "text": get_verse_text("Genesis", 1, 1)},
@@ -2212,9 +2212,9 @@ def generate_book_cross_references(book):
     """Generate cross-references to other books"""
     # Simple cross-references based on book
     # In a real implementation, this would be much more detailed and accurate
-    
+
     cross_refs = []
-    
+
     if book == "Genesis":
         cross_refs = [
             {"reference": "John 1:1-3", "url": "/book/John/chapter/1#verse-1", "description": "Echoes Genesis 1:1, revealing Christ's role in creation"},
@@ -2507,28 +2507,28 @@ def generate_literary_features(book, genre):
 
 def generate_book_themes(book):
     """Generate themes for a book"""
-    
+
     # Book-specific themes
     themes = {
         "Exodus": """
         <p>Exodus develops several major theological themes that shape the biblical narrative:</p>
-        
+
         <h3>Divine Deliverance</h3>
         <p>The central event of Exodus—Israel's liberation from Egyptian bondage—establishes God as the deliverer who sees affliction, hears cries, and acts powerfully to save. The exodus event becomes paradigmatic in Scripture, referenced repeatedly as the definitive display of God's redemptive power. This deliverance comes through both supernatural intervention (plagues, Red Sea crossing) and human agency (Moses' leadership), establishing a pattern where God typically works through human instruments while maintaining divine sovereignty.</p>
-        
+
         <h3>Covenant Relationship</h3>
         <p>Exodus transforms God's covenant with the patriarchs into a formalized national covenant at Sinai. This covenant establishes Israel's special status as God's "treasured possession," "kingdom of priests," and "holy nation" (Exodus 19:5-6). The covenant includes mutual commitments: God promises His presence and protection, while Israel commits to exclusive worship and ethical living. This formalized relationship provides the framework for understanding subsequent interactions between God and Israel throughout the Old Testament.</p>
-        
+
         <h3>Divine Revelation</h3>
         <p>Throughout Exodus, God progressively reveals Himself through words and actions. The book records direct divine speech, mediated revelation through Moses, and physical manifestations of divine presence (burning bush, pillar of cloud/fire, Sinai theophany). The revelation culminates in the giving of the law, which discloses God's will for human conduct, and the tabernacle instructions, which provide the means for divine-human communion. This theme emphasizes that God desires to be known and has taken initiative to make Himself known.</p>
-        
+
         <h3>Divine Presence</h3>
         <p>The tabernacle establishment addresses the fundamental question of how a holy God can dwell among an unholy people. The elaborate preparation for God's presence—with specific architecture, furnishings, priesthood, and sacrificial system—highlights both divine holiness and divine desire for communion. The book concludes with God's glory filling the tabernacle, visibly confirming His presence among Israel. This theme of divine presence continues throughout Scripture, reaching its culmination in the incarnation of Christ and the indwelling of the Holy Spirit.</p>
-        
+
         <h3>Worship and Holiness</h3>
         <p>Exodus establishes Israel's identity as a worshiping community set apart for divine service. The initial demand to Pharaoh was for Israel's release to worship, and the book culminates with worship regulations and structures. The law and tabernacle system emphasize the importance of approaching God on His terms rather than through human innovation. The repeated call to holiness—separation from other nations and consecration to God—establishes that authentic worship involves both specific religious practices and comprehensive ethical living.</p>
         """,
-        
+
         "Genesis": """
         <p>Genesis establishes the foundational theological themes that undergird the entire biblical narrative, introducing concepts that find their ultimate fulfillment in Christ and the new creation:</p>
 
@@ -2767,25 +2767,25 @@ def generate_book_themes(book):
 
 def generate_theological_significance(book):
     """Generate theological significance for a book"""
-    
+
     # Book-specific theological significance
     theological = {
         "Exodus": """
         <p>Exodus develops several foundational theological concepts that influence the rest of Scripture:</p>
-        
+
         <h3>Doctrine of God</h3>
         <p>Exodus significantly advances biblical revelation about God's nature and character. Through His self-disclosure to Moses as "I AM WHO I AM" (Exodus 3:14), God reveals His self-existence, self-sufficiency, and eternal presence. The divine name YHWH (the LORD) becomes central to Israel's understanding of God. Throughout Exodus, God demonstrates His attributes: power through plagues and miracles, faithfulness to covenant promises, justice in judgment on Egypt, mercy toward Israel despite their complaints, and holiness that requires mediated approach. The tension between divine transcendence (God's separateness on the mountain) and immanence (His dwelling among Israel) provides a balanced theology.</p>
-        
+
         <h3>Doctrine of Salvation</h3>
         <p>The exodus event establishes the paradigm for understanding salvation throughout Scripture. It demonstrates that redemption begins with divine initiative and grace, not human merit. The Passover ritual, with its sacrificial lamb and blood protection, introduces substitutionary atonement concepts later fulfilled in Christ. Salvation in Exodus includes both deliverance from (Egyptian bondage) and deliverance to (covenant relationship and service). This holistic understanding counters reductionist views of salvation and highlights that redemption has both individual and corporate dimensions.</p>
-        
+
         <h3>Doctrine of Covenant</h3>
         <p>Exodus develops the covenant concept introduced in Genesis, now expanded to include an entire nation. The Sinai covenant follows the pattern of ancient suzerain-vassal treaties, with historical prologue, stipulations, blessings/curses, and ratification ceremony. This covenant establishes Israel's unique relationship with God as a "kingdom of priests" (Exodus 19:5-6) and introduces the concept of covenant law as the grateful response to divine deliverance rather than a means of earning favor. The broken and renewed covenant (Exodus 32-34) demonstrates that divine faithfulness transcends human failure.</p>
-        
+
         <h3>Doctrine of Worship</h3>
         <p>The tabernacle instructions and construction (Exodus 25-40) establish principles for appropriate worship. These include the need for divine prescription rather than human innovation, the centrality of sacrifice for approaching God, the role of designated mediators (priests), and the importance of visual symbols. The detailed regulations communicate both divine holiness and gracious accommodation to human limitations. The tabernacle system foreshadows Christ's greater fulfillment as sacrifice, priest, and meeting place between God and humanity.</p>
         """,
-        
+
         "Genesis": """
         <p>Genesis establishes the foundational theological architecture for understanding the character of God, the nature of humanity, the origin of sin, and the hope of redemption. Every major doctrine of Scripture finds its seedbed in Genesis, making it indispensable for systematic theology:</p>
 
@@ -3236,527 +3236,527 @@ def generate_historical_context(book):
 
         <p>Egypt's Middle Kingdom period (2040-1782 BCE) provides the likely background for Joseph's rise to prominence. Historical records show that Semitic people did indeed achieve high positions in Egyptian administration, and periods of famine are documented in Egyptian history.</p>
         """,
-        
+
         "Exodus": """
         <p>Exodus emerges from the historical setting of Egyptian dominance and Israelite oppression during the second millennium BCE. Traditional dating places the exodus event around 1446 BCE (based on 1 Kings 6:1), though some scholars prefer a later date around 1270-1260 BCE during Rameses II's reign.</p>
-        
+
         <h3>Egyptian Background</h3>
         <p>The Egypt of Exodus was a sophisticated civilization with monumental architecture, complex religious systems, and highly centralized government. The unnamed pharaoh likely ruled during Egypt's New Kingdom period (1550-1070 BCE), a time of imperial expansion and extensive building projects requiring massive labor forces. Egyptian records confirm the use of Semitic slaves for construction, and archaeological evidence from sites like Pi-Rameses aligns with biblical descriptions of brick-making with straw.</p>
-        
+
         <p>Egyptian religion centered on a vast pantheon of deities associated with natural forces. The pharaoh claimed divine status as the incarnation of Horus and son of Ra, providing context for the cosmic theological conflict underlying the plagues, each targeting specific Egyptian gods. This religious background illuminates why Pharaoh repeatedly hardened his heart despite mounting evidence of YHWH's superior power.</p>
-        
+
         <h3>Israelite Situation</h3>
         <p>The Israelites had grown from Jacob's family of 70 persons to a multitude large enough to threaten Egyptian security (Exodus 1:7-10). Archaeological evidence from the eastern Nile Delta (biblical Goshen) confirms Semitic settlements during this period. Their transition from honored guests (due to Joseph's position) to enslaved laborers likely occurred with a dynastic change—"a new king...who did not know about Joseph" (Exodus 1:8).</p>
-        
+
         <p>The forced labor conditions described in Exodus are consistent with Egyptian practices for foreign populations. Israelite identity during this period was primarily tribal and familial rather than national. The exodus event would become foundational for their emerging national identity and self-understanding as a people set apart by divine election and deliverance.</p>
-        
+
         <h3>Wilderness Context</h3>
         <p>The Sinai Peninsula, where Israel journeyed after leaving Egypt, was sparsely populated and largely controlled by Egypt through mining operations and military outposts. The harsh desert environment required divine provision for survival, emphasizing Israel's dependence on God. Egyptian records confirm the presence of Semitic peoples in this region during the second millennium BCE.</p>
-        
+
         <p>Mount Sinai (possibly Jebel Musa in traditional identification) provided an appropriately awesome setting for divine revelation. The theophanic manifestations described in Exodus—thunder, lightning, earthquake, fire, and cloud—align with the dramatic landscape of the Sinai mountains. This wilderness experience would become paradigmatic for Israel's understanding of pilgrimage, testing, and dependence on divine grace.</p>
         """,
-        
+
         "Leviticus": """
         <p>Leviticus was written by Moses during Israel's wilderness sojourn at Mount Sinai (c. 1446-1406 BCE). The book contains instructions given while the Israelites camped at Sinai for approximately eleven months, between their arrival and departure recorded in Exodus and Numbers respectively.</p>
-        
+
         <h3>Ancient Near Eastern Worship</h3>
         <p>Leviticus addresses Israel's worship in a world dominated by elaborate pagan ritual systems. Surrounding Canaanite religions involved child sacrifice, temple prostitution, and syncretistic practices mixing agricultural fertility concerns with worship. Egyptian religion featured complex ritual systems managed by professional priestly classes, while Mesopotamian cultures maintained elaborate temple complexes with detailed sacrificial regulations.</p>
-        
+
         <p>Archaeological discoveries at sites like Ugarit have revealed ritual texts paralleling some Levitical procedures while highlighting distinctive differences. Israel's sacrificial system emphasized moral purity and covenant relationship rather than manipulation of divine powers for agricultural fertility or military success.</p>
-        
+
         <h3>Socio-Religious Context</h3>
         <p>The tabernacle system described in Leviticus provided Israel with a portable worship center suitable for wilderness conditions and eventual settlement in Canaan. This mobility distinguished Israel's worship from the fixed temple complexes typical of ancient Near Eastern religions tied to specific geographical locations.</p>
-        
+
         <p>The holiness code (Leviticus 17-26) addressed Israel's need for distinctive identity amid Canaanite influences. These laws governed diet, sexual practices, social relationships, and religious observances, creating clear boundaries between Israel and surrounding peoples while emphasizing ethical behavior as worship expression.</p>
         """,
-        
+
         "Numbers": """
         <p>Numbers covers approximately 38 years of Israel's wilderness wandering (c. 1446-1408 BCE), from the organization at Sinai through arrival at the plains of Moab. The book records two generations: the exodus generation that died in the wilderness due to unbelief, and their children who would enter the Promised Land.</p>
-        
+
         <h3>Wilderness Geography</h3>
         <p>The Sinai Peninsula provided a harsh training ground for transforming escaped slaves into a military and religious community. The region's scarce water sources, extreme temperatures, and limited vegetation required constant dependence on divine provision. Egyptian texts confirm knowledge of wilderness routes and oasis locations that align with biblical descriptions.</p>
-        
+
         <p>The wilderness setting isolated Israel from cultural contamination while providing space for national formation. The forty-year duration allowed time for the slave mentality to die out and for new leadership to emerge under divine instruction.</p>
-        
+
         <h3>Political Context</h3>
         <p>Israel's wilderness journey occurred during Egyptian dominance over Canaan and the Transjordan. The encounters with Edom, Moab, and Ammon reflect complex kinship relationships and territorial disputes typical of the Late Bronze Age. The victory over Sihon and Og represents Israel's first military successes against established kingdoms, demonstrating divine enablement for conquest.</p>
         """,
-        
+
         "Deuteronomy": """
         <p>Deuteronomy records Moses' final speeches to Israel on the plains of Moab (c. 1406 BCE) as they prepared to enter Canaan under Joshua's leadership. The setting emphasizes transition between generations and leadership, with explicit preparation for life in the Promised Land.</p>
-        
+
         <h3>Treaty Form</h3>
         <p>Deuteronomy follows the structure of ancient Near Eastern suzerain-vassal treaties, particularly Hittite forms from the second millennium BCE. This includes historical prologue, stipulations, blessings and curses, and provisions for covenant renewal. This format would have been familiar to ancient audiences and emphasizes the covenant relationship between God and Israel.</p>
-        
+
         <h3>Canaanite Context</h3>
         <p>The warnings against Canaanite religious practices in Deuteronomy reflect archaeological knowledge of Late Bronze Age Canaanite culture. Excavations at sites like Hazor, Megiddo, and Lachish reveal the sophisticated urban civilization Israel would encounter. Canaanite religion involved Baal worship, Asherah poles, high places, and child sacrifice—practices explicitly forbidden in Deuteronomy.</p>
-        
+
         <p>The transition from nomadic to settled life required new legal and social structures. Deuteronomy's laws address agricultural life, urban governance, military organization, and judicial procedures appropriate for the sedentary lifestyle Israel would adopt in Canaan.</p>
         """,
-        
+
         "Joshua": """
         <p>Joshua records Israel's conquest and settlement of Canaan (c. 1406-1375 BCE) during the Late Bronze Age collapse. Archaeological evidence suggests widespread destruction of Canaanite cities during this period, though dating and attribution remain debated among scholars.</p>
-        
+
         <h3>Canaanite Civilization</h3>
         <p>Late Bronze Age Canaan consisted of independent city-states with sophisticated urban centers, advanced metallurgy, and international trade connections. The Amarna Letters from Egypt reveal political instability and frequent warfare among Canaanite rulers, creating opportunities for Israelite settlement.</p>
-        
+
         <p>Canaanite religion centered on fertility deities like Baal and Asherah, with worship involving ritual prostitution, child sacrifice, and seasonal festivals. Archaeological discoveries at Ugarit provide extensive documentation of Canaanite mythology and ritual practices that Joshua's conquest aimed to eliminate.</p>
-        
+
         <h3>Military Context</h3>
         <p>Bronze Age warfare typically involved siege techniques, chariot warfare, and professional armies. Israel's success despite inferior technology and numbers emphasizes divine enablement. The destruction of Jericho and Ai demonstrates unconventional military tactics guided by divine strategy rather than standard Bronze Age siege methods.</p>
         """,
-        
+
         "Judges": """
         <p>Judges covers the period from Joshua's death to Samuel's ministry (c. 1375-1050 BCE), characterized by political decentralization, religious syncretism, and cyclical foreign oppression. This era represents Israel's troubled transition from conquest to monarchy.</p>
-        
+
         <h3>Iron Age Transition</h3>
         <p>The Judges period coincides with the Late Bronze Age collapse and emergence of Iron Age technology. The Philistine settlement in coastal Canaan brought advanced military technology and political organization that challenged Israelite tribal confederation. Archaeological evidence shows Philistine material culture distinct from both Canaanite and Israelite traditions.</p>
-        
+
         <h3>Tribal Society</h3>
         <p>Israel during Judges maintained a decentralized tribal confederation without central authority. This system worked during external threats (when judges provided temporary leadership) but failed to maintain covenant faithfulness during peaceful periods. The repeated cycle of apostasy, oppression, repentance, and deliverance reflects the instability of pre-monarchic Israel.</p>
-        
+
         <p>Archaeological surveys reveal scattered highland settlements consistent with early Israelite material culture. These small, agricultural communities lacked the urban sophistication of Canaanite city-states but demonstrated gradual territorial expansion and cultural development.</p>
         """,
-        
+
         "Ruth": """
         <p>Ruth is set during the Judges period (c. 1100 BCE) but was likely written later, possibly during David's reign or the early monarchy. The story provides insight into rural life, legal customs, and social relationships during Israel's pre-monarchic period.</p>
-        
+
         <h3>Agricultural Context</h3>
         <p>The narrative reflects the agricultural rhythms of ancient Palestine, with barley and wheat harvests providing seasonal structure. The gleaning laws mentioned in Ruth demonstrate social welfare provisions protecting widows, orphans, and foreigners. Archaeological evidence confirms agricultural practices described in the book.</p>
-        
+
         <h3>Legal Background</h3>
         <p>The kinsman-redeemer (goel) institution reflected in Ruth represents ancient Near Eastern family law designed to preserve property within clan structures. Similar legal concepts appear in Mesopotamian law codes, though Israel's implementation emphasized covenant community values and care for vulnerable members.</p>
         """,
-        
+
         "1 Samuel": """
         <p>1 Samuel covers Israel's transition from tribal confederation to monarchy (c. 1050-1010 BCE), focusing on Samuel's judgeship, Saul's reign, and David's rise. This period represents fundamental changes in Israel's political and religious structure.</p>
-        
+
         <h3>Philistine Pressure</h3>
         <p>The Philistines arrived in Canaan around 1200 BCE as part of the Sea Peoples movement. They established a pentapolis (five-city confederation) along the coastal plain and maintained technological superiority through iron weapons and military organization. Philistine pressure forced Israel to abandon tribal confederation in favor of centralized monarchy.</p>
-        
+
         <h3>Religious Transition</h3>
         <p>The capture of the ark (1 Samuel 4) and destruction of Shiloh marked the end of the tabernacle period and transition to new worship arrangements. Samuel's circuit ministry and David's eventual establishment of Jerusalem as the religious center reflect changing religious organization during this period.</p>
         """,
-        
+
         "2 Samuel": """
         <p>2 Samuel records David's reign over Judah (seven years) and united Israel (thirty-three years, c. 1010-970 BCE). This period marked Israel's emergence as a regional power and the establishment of Jerusalem as the political and religious center.</p>
-        
+
         <h3>Political Context</h3>
         <p>David's reign occurred during a power vacuum in the ancient Near East. Egyptian and Mesopotamian empires were weak, allowing Israel to expand and control trade routes. Archaeological evidence from sites like Megiddo and Hazor shows destruction levels consistent with Davidic expansion.</p>
-        
+
         <h3>Jerusalem's Significance</h3>
         <p>David's capture of Jerusalem from the Jebusites provided a neutral capital between northern and southern tribes. The city's strategic location, defensible position, and lack of tribal associations made it ideal for unifying the kingdom. Archaeological excavations in Jerusalem continue to illuminate David's city.</p>
         """,
-        
+
         "1 Kings": """
         <p>1 Kings covers Solomon's reign and the kingdom's division (c. 970-853 BCE), from Israel's golden age through the beginning of the divided monarchy. This period saw unprecedented prosperity followed by civil war and political fragmentation.</p>
-        
+
         <h3>Solomon's Golden Age</h3>
         <p>Solomon's reign represented ancient Israel's apex of wealth, wisdom, and international prestige. Archaeological evidence from Megiddo, Hazor, and Gezer confirms Solomonic building projects. The temple construction utilized Phoenician expertise and materials, reflecting Israel's integration into international trade networks.</p>
-        
+
         <h3>Division Context</h3>
         <p>The kingdom's division resulted from economic burdens, tribal tensions, and religious issues. The northern kingdom (Israel) controlled more territory and trade routes but lacked Jerusalem's religious legitimacy. The southern kingdom (Judah) maintained Davidic succession and temple worship but had limited economic resources.</p>
         """,
-        
+
         "2 Kings": """
         <p>2 Kings chronicles the divided monarchy through both kingdoms' destruction (c. 853-560 BCE), ending with Jehoiachin's release from Babylonian prison. This period witnessed the rise of Assyrian and Babylonian empires that ultimately conquered both Israel and Judah.</p>
-        
+
         <h3>Assyrian Period</h3>
         <p>Assyrian expansion westward began seriously under Shalmaneser III (858-824 BCE). The northern kingdom fell to Assyria in 722 BCE under Sargon II, with massive deportation of population. Assyrian records confirm biblical accounts of tribute payments and military campaigns.</p>
-        
+
         <h3>Babylonian Conquest</h3>
         <p>Nebuchadnezzar II's campaigns against Judah (605, 597, 586 BCE) culminated in Jerusalem's destruction and exile. Babylonian records document these campaigns, while archaeological evidence from sites like Lachish confirms the destruction described in 2 Kings.</p>
         """,
-        
+
         "1 Chronicles": """
         <p>1 Chronicles was written during the post-exilic period (c. 430-400 BCE) to encourage returning exiles by emphasizing David's legacy, temple worship, and covenant promises. The author (traditionally identified as Ezra) reinterpreted Israel's history for a community rebuilding their identity.</p>
-        
+
         <h3>Post-Exilic Context</h3>
         <p>The Persian Empire's policy of religious tolerance allowed Jewish return and temple reconstruction. However, the community faced challenges including limited resources, hostile neighbors, and questions about identity and divine favor. Chronicles addresses these concerns by emphasizing continuity with pre-exilic Israel.</p>
         """,
-        
+
         "2 Chronicles": """
         <p>2 Chronicles continues the post-exilic reinterpretation of Israel's monarchy, focusing on temple worship, religious reforms, and God's faithfulness despite national failure. The book concludes with Cyrus's decree allowing Jewish return, providing hope for restoration.</p>
-        
+
         <h3>Temple Focus</h3>
         <p>The chronicler's emphasis on temple worship addressed post-exilic concerns about proper religious observance. The detailed attention to Solomon's temple construction and various reforming kings provided models for the rebuilt temple community under Persian rule.</p>
         """,
-        
+
         "Ezra": """
         <p>Ezra records the first return from Babylonian exile under Zerubbabel (538 BCE) and Ezra's later mission (458 BCE). These events occurred during Persian rule when Cyrus's policy allowed subjugated peoples to return to their homelands and rebuild their temples.</p>
-        
+
         <h3>Persian Administration</h3>
         <p>The Persian Empire governed through local authorities while maintaining overall control. The Elephantine Papyri provide contemporary documentation of Jewish communities under Persian rule, including religious practices and administrative procedures that illuminate Ezra's narrative.</p>
-        
+
         <h3>Religious Restoration</h3>
         <p>Ezra's emphasis on law observance and separation from foreign wives addressed identity preservation concerns. The small Jewish community in Judah needed clear boundaries to maintain covenant distinctiveness while living under foreign rule.</p>
         """,
-        
+
         "Nehemiah": """
         <p>Nehemiah records the rebuilding of Jerusalem's walls (445 BCE) and subsequent reforms under Nehemiah's governorship. This occurred during Artaxerxes I's reign when Persian policy supported local reconstruction projects that enhanced imperial security.</p>
-        
+
         <h3>Political Context</h3>
         <p>Nehemiah's position as cupbearer to Artaxerxes provided access to imperial authority. The wall rebuilding faced opposition from neighboring officials who feared Jewish resurgence might threaten their territorial interests. Archaeological evidence confirms destruction and rebuilding of Jerusalem's fortifications during this period.</p>
         """,
-        
+
         "Esther": """
         <p>Esther is set during the reign of Ahasuerus (Xerxes I, 486-465 BCE) in the Persian capital of Susa. The story addresses the situation of Jews who remained in the diaspora rather than returning to Judah, showing God's providential care for scattered covenant people.</p>
-        
+
         <h3>Persian Court Life</h3>
         <p>Archaeological excavations at Susa have revealed the magnificent palace complex described in Esther. Persian administrative records document the complex bureaucracy and communication systems that feature in the narrative. The book accurately reflects Persian customs, titles, and governmental procedures.</p>
         """,
-        
+
         "Job": """
         <p>Job's setting reflects the patriarchal period (c. 2000-1800 BCE), though the book's composition may be later. The story occurs in the land of Uz, possibly in northern Arabia or southern Syria, among pastoral peoples contemporary with Abraham.</p>
-        
+
         <h3>Wisdom Literature Context</h3>
         <p>Job belongs to the international wisdom tradition evident throughout the ancient Near East. Similar wisdom texts from Egypt, Mesopotamia, and Canaan address suffering, divine justice, and human limitations. However, Job's monotheistic framework and covenant context distinguish it from its international parallels.</p>
         """,
-        
+
         "Psalms": """
         <p>The Psalms were composed over many centuries, from Moses (Psalm 90) through the post-exilic period. Many psalms are attributed to David (c. 1000 BCE), reflecting his role in organizing Israel's worship and his personal spiritual journey.</p>
-        
+
         <h3>Temple Worship</h3>
         <p>Many psalms were composed for temple worship, with musical notations and liturgical arrangements. The temple musicians and Levitical choirs used psalms in daily offerings, festival celebrations, and special occasions. Archaeological discoveries of musical instruments illuminate the performance context.</p>
         """,
-        
+
         "Proverbs": """
         <p>Proverbs primarily originates from Solomon's reign (c. 970-930 BCE), though it includes collections from other periods. Solomon's international connections facilitated exchange with wisdom traditions from Egypt, Mesopotamia, and other cultures, while maintaining distinctive Israelite theological perspective.</p>
-        
+
         <h3>Royal Wisdom</h3>
         <p>Ancient Near Eastern courts maintained wisdom traditions for training officials and governing effectively. Egyptian wisdom texts like the Instruction of Amenemhope show similarities to Proverbs 22:17-24:22, illustrating international wisdom exchange while highlighting Israel's unique covenant context.</p>
         """,
-        
+
         "Ecclesiastes": """
         <p>Ecclesiastes reflects the wisdom tradition associated with Solomon, though its date and authorship remain debated. The book addresses questions of meaning and purpose that arose during periods of prosperity and philosophical reflection, possibly during the post-exilic period.</p>
-        
+
         <h3>Philosophical Context</h3>
         <p>The book's existential questions parallel concerns found in ancient Near Eastern wisdom literature, particularly texts addressing life's apparent meaninglessness and the human search for purpose. However, Ecclesiastes maintains a distinctive theological framework emphasizing divine sovereignty and human limitation.</p>
         """,
-        
+
         "Song of Solomon": """
         <p>Song of Solomon is traditionally attributed to Solomon (c. 970-930 BCE) and reflects ancient Near Eastern love poetry traditions. The pastoral and royal imagery suggests composition during Israel's monarchic period when such literary forms flourished.</p>
-        
+
         <h3>Literary Context</h3>
         <p>Ancient Near Eastern love poetry from Egypt and Mesopotamia provides cultural background for understanding the Song's imagery and conventions. However, the Song's celebration of monogamous love contrasts with the polygamous practices common in ancient royal courts.</p>
         """,
-        
+
         "Isaiah": """
         <p>Isaiah prophesied during the reigns of Uzziah, Jotham, Ahaz, and Hezekiah (c. 740-680 BCE), a period of Assyrian expansion and threat to Judah. The book addresses multiple historical contexts spanning from the eighth century through the post-exilic period.</p>
-        
+
         <h3>Assyrian Crisis</h3>
         <p>Isaiah's ministry occurred during Assyria's westward expansion under Tiglath-Pileser III, Sargon II, and Sennacherib. The Assyrian siege of Jerusalem (701 BCE) forms a crucial backdrop for Isaiah's prophecies. Assyrian records confirm their campaigns against Judah and Jerusalem's remarkable survival.</p>
-        
+
         <h3>International Context</h3>
         <p>Isaiah's prophecies against foreign nations reflect the complex international situation during the eighth-seventh centuries BCE. The rise and fall of Damascus, Samaria, Egypt, Babylon, and other powers provide historical framework for understanding Isaiah's oracles.</p>
         """,
-        
+
         "Jeremiah": """
         <p>Jeremiah prophesied during Judah's final decades (c. 627-580 BCE), from Josiah's reign through the Babylonian exile. His ministry spanned the crucial transition from Assyrian to Babylonian dominance and witnessed Jerusalem's destruction.</p>
-        
+
         <h3>Babylonian Period</h3>
         <p>Jeremiah's prophecies reflect the rising Babylonian threat under Nabopolassar and Nebuchadnezzar II. The Babylonian Chronicles provide contemporary documentation of campaigns against Judah, confirming biblical accounts of sieges, deportations, and Jerusalem's destruction.</p>
-        
+
         <h3>Social Context</h3>
         <p>Jeremiah addressed a society facing political collapse, religious corruption, and social injustice. The reforms of Josiah had failed to produce lasting change, and subsequent kings pursued policies that accelerated national destruction. Jeremiah's personal suffering paralleled the nation's experience of judgment and exile.</p>
         """,
-        
+
         "Lamentations": """
         <p>Lamentations was written shortly after Jerusalem's destruction (586 BCE), possibly by Jeremiah or a contemporary eyewitness. The book reflects the immediate aftermath of Babylonian conquest, with vivid descriptions of siege conditions, destruction, and exile.</p>
-        
+
         <h3>Babylonian Siege</h3>
         <p>The siege of Jerusalem lasted approximately 18 months (588-586 BCE), creating conditions of extreme famine and desperation described in Lamentations. Archaeological evidence from Jerusalem shows destruction layers consistent with Babylonian assault, including arrowheads, burned structures, and evidence of rapid abandonment.</p>
-        
+
         <h3>Ancient Lament Tradition</h3>
         <p>Lamentations follows ancient Near Eastern traditions of city laments found in Mesopotamian literature. Similar texts mourning destroyed cities provide cultural context for understanding the book's literary form while highlighting its unique theological perspective on divine judgment and hope.</p>
         """,
-        
+
         "Ezekiel": """
         <p>Ezekiel prophesied among the Babylonian exiles (593-570 BCE) after being deported in 597 BCE with King Jehoiachin. His ministry occurred in Tel-abib near the Kebar Canal, addressing both exiles in Babylon and conditions in Jerusalem before its final destruction.</p>
-        
+
         <h3>Exile Context</h3>
         <p>Babylonian policy involved deporting skilled workers and leaders while leaving agricultural workers in the land. The exile community in Babylon maintained some autonomy under appointed leaders but faced questions about identity, hope, and God's presence outside the Promised Land.</p>
-        
+
         <h3>Mesopotamian Influence</h3>
         <p>Ezekiel's visionary language reflects familiarity with Mesopotamian art and mythology, particularly in throne visions and cosmic imagery. However, the prophet adapts these cultural forms to communicate distinctly Israelite theological content about divine sovereignty and restoration.</p>
         """,
-        
+
         "Daniel": """
         <p>Daniel spans the Babylonian and early Persian periods (605-530 BCE), from Nebuchadnezzar's reign through Cyrus's conquest of Babylon. The book addresses Jewish faithfulness under foreign rule and divine sovereignty over international affairs.</p>
-        
+
         <h3>Babylonian Court</h3>
         <p>The Babylonian court maintained international character with officials from various conquered territories. Training programs for foreign youth in Babylonian language and culture provided paths for advancement while testing loyalty to foreign gods and customs.</p>
-        
+
         <h3>Persian Transition</h3>
         <p>Cyrus's conquest of Babylon (539 BCE) marked a significant policy shift toward religious tolerance and cultural restoration. The Persian administration utilized existing governmental structures while allowing conquered peoples to return to their homelands and rebuild their temples.</p>
         """,
-        
+
         "Hosea": """
         <p>Hosea prophesied in the northern kingdom during its final decades (c. 755-710 BCE), particularly during the reigns of Jeroboam II and his successors. The prophet witnessed Israel's prosperity, political instability, and eventual destruction by Assyria.</p>
-        
+
         <h3>Northern Kingdom Decline</h3>
         <p>After Jeroboam II's death (753 BCE), Israel experienced rapid political deterioration with six kings in twenty years, including four assassinations. This instability, combined with Assyrian pressure and religious syncretism, created the crisis Hosea addressed.</p>
         """,
-        
+
         "Joel": """
         <p>Joel's date remains uncertain, with proposals ranging from the ninth to fourth centuries BCE. The locust plague and drought described may reflect actual natural disasters that prompted reflection on divine judgment and eschatological hope.</p>
-        
+
         <h3>Agricultural Context</h3>
         <p>Joel's imagery draws heavily on Palestine's agricultural cycles and vulnerability to natural disasters. Locust swarms, drought, and crop failure represented existential threats to ancient agricultural communities, making them effective metaphors for divine judgment.</p>
         """,
-        
+
         "Amos": """
         <p>Amos prophesied during the prosperous reigns of Jeroboam II in Israel and Uzziah in Judah (c. 760-750 BCE). Despite external prosperity, both kingdoms faced internal social injustice and religious corruption that Amos vigorously denounced.</p>
-        
+
         <h3>Economic Prosperity</h3>
         <p>Archaeological evidence from sites like Samaria confirms the luxury and international trade that characterized this period. However, this prosperity was unevenly distributed, creating the social stratification and oppression that Amos condemned.</p>
         """,
-        
+
         "Obadiah": """
         <p>Obadiah addresses Edom's betrayal of Judah, most likely during the Babylonian siege and destruction of Jerusalem (586 BCE). Edom's cooperation with Babylon and expansion into southern Judah created lasting animosity reflected in the prophecy.</p>
-        
+
         <h3>Edomite Relations</h3>
         <p>Despite kinship ties through Esau and Jacob, Edom and Israel maintained complex and often hostile relationships. Edom's strategic location controlling trade routes between Arabia and the Mediterranean made it a significant regional power.</p>
         """,
-        
+
         "Jonah": """
         <p>Jonah is set during the Assyrian period (c. 780-750 BCE) when Nineveh served as a major Assyrian center. The historical Jonah prophesied during Jeroboam II's reign, though the book's composition may be later.</p>
-        
+
         <h3>Assyrian Context</h3>
         <p>Nineveh's repentance, while temporary, reflects documented instances of religious and moral reform in Assyrian history. The city's great size and importance described in Jonah align with archaeological evidence of Assyrian urban development.</p>
         """,
-        
+
         "Micah": """
         <p>Micah prophesied during the reigns of Jotham, Ahaz, and Hezekiah (c. 735-700 BCE), contemporary with Isaiah but addressing rural concerns in Judah's Shephelah region. His ministry spanned the Assyrian crisis and siege of Jerusalem.</p>
-        
+
         <h3>Rural Perspective</h3>
         <p>Micah's rural origin in Moresheth-gath provided perspective on how royal policies and international conflicts affected agricultural communities. His concern for social justice reflects the impact of urbanization and commercialization on traditional rural life.</p>
         """,
-        
+
         "Nahum": """
         <p>Nahum prophesied shortly before Nineveh's fall to the Babylonian-Median coalition (612 BCE). The prophecy celebrates the end of Assyrian oppression that had dominated the Near East for over a century.</p>
-        
+
         <h3>Assyrian Decline</h3>
         <p>Assyria's rapid collapse after Ashurbanipal's death (627 BCE) surprised the ancient world. Internal strife, Babylonian rebellion, and Median pressure combined to destroy what had seemed an invincible empire.</p>
         """,
-        
+
         "Habakkuk": """
         <p>Habakkuk prophesied during the neo-Babylonian rise to power (c. 605-597 BCE), possibly during Jehoiakim's reign. The prophet witnessed Babylon's emergence as the dominant power that would execute judgment on Judah.</p>
-        
+
         <h3>Babylonian Expansion</h3>
         <p>Nebuchadnezzar's campaigns westward brought Babylonian power to Palestine for the first time. The defeat of Egypt at Carchemish (605 BCE) established Babylonian control over the Levant and posed direct threat to Judah.</p>
         """,
-        
+
         "Zephaniah": """
         <p>Zephaniah prophesied during Josiah's reign (640-609 BCE), possibly before or during the king's religious reforms. The prophecy addresses religious syncretism and social corruption that characterized Judah before Josiah's reformation efforts.</p>
-        
+
         <h3>Reform Context</h3>
         <p>Josiah's reforms (622 BCE) addressed many issues Zephaniah raised, including removal of foreign religious practices, destruction of high places, and restoration of proper temple worship. Archaeological evidence confirms cult object destruction during this period.</p>
         """,
-        
+
         "Haggai": """
         <p>Haggai prophesied during the early post-exilic period (520 BCE) under Persian rule, encouraging completion of the second temple. His ministry occurred during Darius I's reign when internal Persian conflicts delayed reconstruction projects.</p>
-        
+
         <h3>Temple Rebuilding</h3>
         <p>Work on the second temple had stalled due to opposition from local inhabitants and economic difficulties. Haggai's prophecies provided divine mandate for resuming construction despite challenging circumstances.</p>
         """,
-        
+
         "Zechariah": """
         <p>Zechariah was contemporary with Haggai (520-480 BCE), prophesying during temple reconstruction and early Persian period. His visions addressed questions about divine presence, future hope, and messianic expectations in the post-exilic community.</p>
-        
+
         <h3>Post-Exilic Hopes</h3>
         <p>The small, struggling post-exilic community needed encouragement about God's future plans. Zechariah's messianic prophecies provided hope for ultimate restoration beyond the modest circumstances of Persian-period Judah.</p>
         """,
-        
+
         "Malachi": """
         <p>Malachi prophesied during the mid-5th century BCE (c. 460-430 BCE), possibly contemporary with Ezra and Nehemiah's reforms. The prophecy addresses religious apathy and moral decline in the post-exilic community.</p>
-        
+
         <h3>Religious Decline</h3>
         <p>Several generations after return from exile, religious enthusiasm had waned. Priests offered defective sacrifices, people withheld tithes, and intermarriage threatened covenant distinctiveness. Malachi's stern warnings addressed these compromises.</p>
         """,
-        
+
         "Matthew": """
         <p>Matthew was written for Jewish Christians, likely in the 80s CE after Jerusalem's destruction. The gospel addresses questions about Jesus' relationship to Jewish law, prophecy, and institutions while explaining the church's mission to Gentiles.</p>
-        
+
         <h3>Post-70 CE Context</h3>
         <p>Jerusalem's destruction forced redefinition of Judaism and Jewish Christianity. Matthew demonstrates Jesus' fulfillment of Old Testament prophecy while explaining why the church, not the temple, represents God's continuing presence among His people.</p>
         """,
-        
+
         "Mark": """
         <p>Mark was written during or shortly after Nero's persecution (c. 65-70 CE), possibly in Rome for Gentile Christians facing martyrdom. The gospel emphasizes Jesus' suffering and calls disciples to similar faithful endurance.</p>
-        
+
         <h3>Persecution Context</h3>
         <p>Nero's persecution (64-68 CE) represented the first systematic imperial attack on Christianity. Mark's emphasis on Jesus' suffering death and resurrection provided theological framework for understanding Christian martyrdom as participation in Christ's victory.</p>
         """,
-        
+
         "Luke": """
         <p>Luke wrote for Gentile Christians (c. 80-85 CE), possibly in Greece or Asia Minor. The gospel demonstrates Christianity's universal scope while addressing questions about the church's relationship to Judaism and the Roman Empire.</p>
-        
+
         <h3>Gentile Mission</h3>
         <p>By the 80s CE, Christianity had spread throughout the Roman Empire with largely Gentile membership. Luke's gospel validates this development by showing Jesus' concern for outcasts, foreigners, and social minorities from the beginning of His ministry.</p>
         """,
-        
+
         "John": """
         <p>John was written in the 90s CE, likely in Ephesus, addressing challenges from both Jewish opposition and emerging Gnostic thought. The gospel presents Jesus' divine identity and incarnation against those who denied His true humanity or deity.</p>
-        
+
         <h3>Late First-Century Challenges</h3>
         <p>By the 90s CE, Christianity faced sophisticated theological challenges. Jewish synagogues had excluded Christians, while Greek philosophical thought questioned the incarnation. John's high Christology addressed both challenges.</p>
         """,
-        
+
         "Acts": """
         <p>Acts was written as Luke's second volume (c. 80-85 CE), tracing Christianity's expansion from Jerusalem to Rome. The book addresses questions about the church's identity, mission, and relationship to both Judaism and the Roman Empire.</p>
-        
+
         <h3>Imperial Context</h3>
         <p>Acts presents Christianity as politically harmless to Rome while theologically distinct from Judaism. This apologetic purpose reflects the church's need to establish legal and social legitimacy within the Roman system.</p>
         """,
-        
+
         "Romans": """
         <p>Romans was written from Corinth (c. 57 CE) as Paul prepared for his Jerusalem visit and planned mission to Spain. The letter addresses theological questions about salvation, law, and God's plan for Jews and Gentiles.</p>
-        
+
         <h3>Jewish-Gentile Relations</h3>
         <p>The Roman church included both Jewish and Gentile Christians with potential tensions over law observance, food regulations, and calendar observances. Romans addresses these practical issues through theological exposition.</p>
         """,
-        
+
         "1 Corinthians": """
         <p>1 Corinthians was written from Ephesus (c. 55 CE) to address specific problems in the Corinthian church. The letter responds to reports and questions about divisions, immorality, lawsuits, marriage, idol food, worship practices, and resurrection.</p>
-        
+
         <h3>Corinthian Context</h3>
         <p>Corinth was a cosmopolitan Roman colony known for commerce, religious diversity, and moral permissiveness. The church faced challenges adapting Christian ethics to this culturally complex environment.</p>
         """,
-        
+
         "2 Corinthians": """
         <p>2 Corinthians was written after a painful visit to Corinth (c. 55-56 CE), defending Paul's apostolic authority against opponents who questioned his credentials and methods. The letter reveals the emotional intensity of Paul's relationship with the church.</p>
-        
+
         <h3>Apostolic Opposition</h3>
         <p>Paul faced challenges from "super-apostles" who promoted different gospel presentations and questioned his apostolic authority. This opposition reflected broader first-century disputes about Christian leadership and authentic gospel proclamation.</p>
         """,
-        
+
         "Galatians": """
         <p>Galatians was written to churches in central Asia Minor, addressing the Judaizing controversy about Gentile requirements for circumcision and law observance. The letter's date depends on whether it addresses north or south Galatian churches.</p>
-        
+
         <h3>Judaizing Controversy</h3>
         <p>The question of Gentile obligations to Jewish law represented a fundamental issue for early Christianity. Galatians provides Paul's theological defense of salvation by faith alone against those requiring law observance for full church membership.</p>
         """,
-        
+
         "Ephesians": """
         <p>Ephesians was written during Paul's Roman imprisonment (c. 60-62 CE), possibly as a circular letter to Asian churches. The letter develops themes of church unity, spiritual warfare, and God's eternal plan for Jews and Gentiles.</p>
-        
+
         <h3>Asian Ministry</h3>
         <p>Paul's three-year ministry in Ephesus had established churches throughout the Asian province. Ephesians reflects mature theological reflection on the nature and mission of the church in this diverse cultural environment.</p>
         """,
-        
+
         "Philippians": """
         <p>Philippians was written from Roman imprisonment (c. 60-62 CE) to thank the church for financial support and address concerns about Paul's circumstances and false teaching. The letter reveals warm relationships between Paul and this supporting congregation.</p>
-        
+
         <h3>Partnership in Ministry</h3>
         <p>Philippi was a Roman colony populated by military veterans with strong imperial loyalty. The church's financial support of Paul's mission demonstrated Christian commitment that transcended local political pressures.</p>
         """,
-        
+
         "Colossians": """
         <p>Colossians was written during Paul's imprisonment (c. 60-62 CE) to address syncretistic philosophy threatening the church. The letter emphasizes Christ's supremacy over all spiritual powers and philosophical systems.</p>
-        
+
         <h3>Syncretistic Threats</h3>
         <p>The Lycus Valley's religious environment included mystery religions, Jewish mysticism, and Greek philosophy. The "Colossian heresy" apparently combined elements from these traditions, requiring Paul's assertion of Christ's absolute supremacy.</p>
         """,
-        
+
         "1 Thessalonians": """
         <p>1 Thessalonians was written from Corinth (c. 50-51 CE) shortly after Paul's ministry in Thessalonica. The letter addresses concerns about persecution, moral purity, and questions about Christ's return and the fate of deceased believers.</p>
-        
+
         <h3>Thessalonian Ministry</h3>
         <p>Paul's brief ministry in Thessalonica (Acts 17) was cut short by Jewish opposition, leaving new converts with incomplete instruction. The letter provides encouragement and clarification for a young church facing persecution.</p>
         """,
-        
+
         "2 Thessalonians": """
         <p>2 Thessalonians was written shortly after the first letter (c. 50-51 CE) to address continued concerns about Christ's return. Some believers had abandoned work expecting immediate parousia, while others questioned whether the day of the Lord had already occurred.</p>
-        
+
         <h3>Eschatological Confusion</h3>
         <p>Misunderstanding about the timing of Christ's return created practical problems in the church. Paul provides correction about end-time events while emphasizing responsible living in the present age.</p>
         """,
-        
+
         "1 Timothy": """
         <p>1 Timothy was written after Paul's release from Roman imprisonment (c. 62-64 CE) as he continued mission work. The letter addresses church organization, leadership qualifications, and response to false teaching in Ephesus.</p>
-        
+
         <h3>Church Development</h3>
         <p>As churches matured, they needed formal leadership structures and procedures for maintaining orthodoxy. The pastoral epistles address these institutional developments in early Christianity.</p>
         """,
-        
+
         "2 Timothy": """
         <p>2 Timothy was written during Paul's final imprisonment (c. 66-67 CE) as a farewell letter to his protégé. The letter emphasizes faithful ministry continuation despite persecution and personal abandonment.</p>
-        
+
         <h3>Final Persecution</h3>
         <p>Paul's second Roman imprisonment occurred during intensified persecution under Nero. The letter reflects awareness of approaching martyrdom and concern for ministry continuation through faithful disciples.</p>
         """,
-        
+
         "Titus": """
         <p>Titus was written during Paul's ministry in Crete (c. 62-64 CE) to provide guidance for church organization and pastoral challenges. The letter addresses the notorious moral problems of Cretan culture and their impact on church life.</p>
-        
+
         <h3>Cretan Context</h3>
         <p>Crete's reputation for dishonesty and moral laxity required special attention to Christian character and conduct. Titus addresses these cultural challenges through emphasis on good works and sound doctrine.</p>
         """,
-        
+
         "Philemon": """
         <p>Philemon was written during Paul's Roman imprisonment (c. 60-62 CE) to request forgiveness for Onesimus, a runaway slave who had become a Christian. The letter addresses slavery within Christian relationships.</p>
-        
+
         <h3>Slavery Context</h3>
         <p>Roman slavery was widespread and legally protected, making Paul's request for Onesimus's reception revolutionary. The letter demonstrates Christian principles transforming social relationships without directly attacking institutional structures.</p>
         """,
-        
+
         "Hebrews": """
         <p>Hebrews was written before Jerusalem's destruction (c. 60-70 CE) to Jewish Christians tempted to abandon Christianity for Judaism. The letter demonstrates Christ's superiority to all Old Testament institutions and personalities.</p>
-        
+
         <h3>Jewish Christian Crisis</h3>
         <p>Jewish Christians faced persecution from both Jewish and Roman authorities, creating temptation to return to Judaism's legal protection. Hebrews argues that Christianity represents the fulfillment, not abandonment, of Jewish faith.</p>
         """,
-        
+
         "James": """
         <p>James was written by Jesus' brother to Jewish Christians, possibly before 50 CE. The letter addresses practical Christian living with emphasis on faith demonstrated through works, concern for the poor, and control of speech.</p>
-        
+
         <h3>Early Jewish Christianity</h3>
         <p>James reflects early Jewish Christian communities that maintained strong connections to Jewish ethical traditions while developing distinctively Christian practices and beliefs.</p>
         """,
-        
+
         "1 Peter": """
         <p>1 Peter was written to Christians in Asia Minor during Nero's persecution (c. 62-64 CE). The letter encourages believers facing suffering while providing guidance for Christian conduct in a hostile environment.</p>
-        
+
         <h3>Imperial Persecution</h3>
         <p>Nero's persecution marked the beginning of systematic imperial opposition to Christianity. 1 Peter provides theological framework for understanding Christian suffering as participation in Christ's redemptive work.</p>
         """,
-        
+
         "2 Peter": """
         <p>2 Peter was written shortly before Peter's martyrdom (c. 65-68 CE) to warn against false teachers who denied Christ's return and promoted moral libertinism. The letter emphasizes the certainty of divine judgment.</p>
-        
+
         <h3>False Teaching</h3>
         <p>Second-generation Christianity faced challenges from teachers who exploited Christian freedom for immoral purposes and questioned eschatological expectations. 2 Peter addresses these theological and ethical deviations.</p>
         """,
-        
+
         "1 John": """
         <p>1 John was written in the 90s CE to address challenges from those who denied Christ's true humanity while claiming superior spiritual knowledge. The letter emphasizes love, truth, and assurance in response to these Gnostic-like ideas.</p>
-        
+
         <h3>Proto-Gnostic Challenge</h3>
         <p>Early Gnostic thought questioned the incarnation and promoted salvation through special knowledge rather than faith and love. 1 John counters these ideas with emphasis on Christ's true humanity and the centrality of love.</p>
         """,
-        
+
         "2 John": """
         <p>2 John was written to warn against extending hospitality to traveling teachers who denied Christ's true humanity. The brief letter addresses practical issues of discernment and church protection against false doctrine.</p>
-        
+
         <h3>Traveling Teachers</h3>
         <p>Early Christianity depended on traveling missionaries and teachers, creating vulnerability to false doctrine spread through hospitality networks. 2 John provides guidance for maintaining doctrinal integrity while practicing Christian hospitality.</p>
         """,
-        
+
         "3 John": """
         <p>3 John was written to address conflict between itinerant missionaries and local church leaders. The letter reveals tensions between apostolic authority and emerging local church autonomy in late first-century Christianity.</p>
-        
+
         <h3>Church Authority</h3>
         <p>As apostolic leadership passed away, questions arose about authority structures in local churches. 3 John illustrates conflicts between traditional apostolic oversight and local leadership autonomy.</p>
         """,
-        
+
         "Jude": """
         <p>Jude was written by Jesus' brother to address false teachers who exploited Christian freedom for immoral purposes. The letter warns against antinomian tendencies that threatened Christian community integrity.</p>
-        
+
         <h3>Libertine Teaching</h3>
         <p>Some teachers distorted grace doctrine to justify immoral behavior, claiming spiritual freedom from moral constraints. Jude vigorously opposes this antinomian interpretation of Christian liberty.</p>
         """,
-        
+
         "Revelation": """
         <p>Revelation was written during the reign of Emperor Domitian (81-96 CE), according to early church tradition as recorded by Irenaeus. The author, John, was exiled to the island of Patmos "because of the word of God and the testimony of Jesus" (1:9), indicating persecution for his Christian witness. The book addresses seven actual churches in the Roman province of Asia (western Turkey).</p>
 

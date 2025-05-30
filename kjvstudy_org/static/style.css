@@ -71,7 +71,6 @@ overflow-x: hidden;
 
 /* Prevent unwanted text selection on UI elements */
 .sidebar-nav,
-.mobile-menu-button,
 .chapter-link,
 .nav-button,
 .book-card,
@@ -197,23 +196,7 @@ div {
   font-family: 'Crimson Text', 'Times New Roman', serif;
 }
 
-.sidebar-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 35;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
 
-.sidebar-overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
 
 .main-content {
     flex: 1;
@@ -627,29 +610,6 @@ div {
   font-size: 0.9rem;
 }
 
-/* Mobile Responsiveness */
-.mobile-menu-button {
-  display: none;
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  z-index: 40;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 0.75rem;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  touch-action: manipulation;
-  min-height: 48px;
-  min-width: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
 /* Tablet-specific styles */
 @media (min-width: 769px) and (max-width: 1024px) {
     body {
@@ -681,12 +641,7 @@ div {
         padding-top: 4rem;
     }
 
-    .mobile-menu-button {
-        display: block;
-        padding: 1rem;
-        min-height: 52px;
-        min-width: 52px;
-    }
+
 
     .container,
     .narrow-container {
@@ -764,9 +719,7 @@ div {
         display: none !important;
     }
 
-    .sidebar-overlay {
-        display: none !important;
-    }
+
 
     .main-content {
         margin-left: 0;
@@ -776,11 +729,7 @@ div {
         width: 100%;
     }
 
-    .mobile-menu-button {
-        display: block;
-        padding: 1rem;
-        min-heightone !important;
-    }
+
 
     .container,
     .narrow-container {

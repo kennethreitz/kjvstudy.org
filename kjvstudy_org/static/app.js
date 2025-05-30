@@ -233,12 +233,6 @@ class KJVStudy {
 
     // Event Listeners
     setupEventListeners() {
-        // Sidebar toggle
-        const mobileMenuButton = document.querySelector('.mobile-menu-button');
-        if (mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', this.toggleSidebar);
-        }
-
         // Reading options
         const fontSizeInput = document.getElementById('fontSize');
         if (fontSizeInput) {
@@ -337,57 +331,7 @@ class KJVStudy {
         }
     }
 
-    toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      const mainContent = document.querySelector('.main-content');
-      const isOpen = sidebar.classList.contains('open');
-      const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
-      const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      
-      if (isOpen) {
-          sidebar.classList.remove('open');
-          overlay.classList.remove('open');
-          document.body.style.overflow = '';
-        
-          // Force hardware acceleration to prevent rendering issues
-          if (isTablet || isIPad) {
-              sidebar.style.transform = 'translate3d(-240px, 0, 0)';
-              sidebar.style.webkitTransform = 'translate3d(-240px, 0, 0)';
-          } else {
-              sidebar.style.transform = 'translate3d(-100%, 0, 0)';
-              sidebar.style.webkitTransform = 'translate3d(-100%, 0, 0)';
-          }
-        
-          // Ensure main content is fully visible
-          mainContent.style.filter = 'none';
-          mainContent.style.opacity = '1';
-          mainContent.style.pointerEvents = 'auto';
-          
-          if (isTablet || isIPad) {
-              // Reset any iPad-specific styles
-              mainContent.style.marginLeft = '0';
-              mainContent.style.width = '100%';
-          }
-      } else {
-          sidebar.classList.add('open');
-          overlay.classList.add('open');
-          document.body.style.overflow = 'hidden';
-        
-          // Force hardware acceleration
-          sidebar.style.transform = 'translate3d(0, 0, 0)';
-          sidebar.style.webkitTransform = 'translate3d(0, 0, 0)';
-        
-          // Handle iPad/tablet specific behavior
-          if (isTablet || isIPad) {
-              mainContent.style.opacity = '0.8';
-              mainContent.style.pointerEvents = 'none';
-              mainContent.style.marginLeft = '0';
-              mainContent.style.width = '100%';
-          }
-      }
-    }
+
 
     // Utility Functions
     showToast(message, type = 'info') {
@@ -515,34 +459,7 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function toggleSidebar() {
-    KJVStudy.getInstance().toggleSidebar();
-    
-    // Handle iPad specific issues
-    const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
-    const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-                  
-    if (isTablet || isIPad) {
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.querySelector('.main-content');
-        
-        if (sidebar.classList.contains('open')) {
-            mainContent.style.opacity = '0.8';
-            mainContent.style.pointerEvents = 'none';
-            mainContent.style.marginLeft = '0';
-            mainContent.style.width = '100%';
-        } else {
-            mainContent.style.opacity = '1';
-            mainContent.style.pointerEvents = 'auto';
-            mainContent.style.marginLeft = '0';
-            mainContent.style.width = '100%';
-        }
-    }
-    
-    // Fix background color issues
-    fixBackgroundColors();
-}
+
 
 // Fix background color issues in browsers
 function fixBackgroundColors() {
