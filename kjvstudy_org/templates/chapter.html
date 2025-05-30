@@ -192,6 +192,103 @@
     }
 }
 
+{% block head %}
+<style>
+.chapter-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    padding-right: 320px; /* Space for margin notes */
+}
+
+/* Override any container restrictions */
+.container,
+.narrow-container {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+.margin-commentary {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 300px;
+    font-family: "Crimson Text", serif;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.margin-note {
+    position: absolute;
+    right: 0;
+    background: #fefefe;
+    border-left: 3px solid #8b4513;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 0 4px 4px 0;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+    max-width: 280px;
+    z-index: 10;
+}
+
+.margin-note.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.margin-note-ref {
+    font-weight: bold;
+    color: #8b4513;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid #8b4513;
+    padding-bottom: 0.25rem;
+}
+
+.margin-note-text {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.margin-cross-refs {
+    background: #f0f8ff;
+    padding: 0.25rem;
+    border-radius: 3px;
+    margin: 0.25rem 0;
+    font-size: 0.7rem;
+}
+
+.margin-theological {
+    background: #fff8dc;
+    padding: 0.25rem;
+    border-radius: 3px;
+    margin: 0.25rem 0;
+    font-size: 0.7rem;
+}
+
+.margin-hebrew {
+    background: #f0fff0;
+    padding: 0.25rem;
+    border-radius: 3px;
+    margin: 0.25rem 0;
+    font-size: 0.7rem;
+}
+
+@media (max-width: 1200px) {
+    .chapter-container {
+        padding-right: 1rem;
+    }
+
+    .margin-commentary {
+        display: none;
+    }
+}
+
 .verse-tools {
     opacity: 0;
     transition: opacity 0.2s ease;
