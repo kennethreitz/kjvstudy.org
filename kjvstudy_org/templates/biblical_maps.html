@@ -26,6 +26,19 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
+    .maps-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-family: 'Crimson Text', serif;
+    }
+
+    .maps-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
     .search-controls {
         background: var(--card-background);
         border-radius: 8px;
@@ -84,17 +97,74 @@
         font-style: italic;
     }
 
-    .maps-header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-        font-family: 'Crimson Text', serif;
+    .interactive-map-container {
+        background: var(--card-background);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        border: 1px solid var(--border-color);
     }
 
-    .maps-header p {
-        font-size: 1.1rem;
-        opacity: 0.9;
-        max-width: 600px;
-        margin: 0 auto;
+    .map-wrapper {
+        display: flex;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    .biblical-map {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        background: white;
+    }
+
+    .location-point {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        stroke: white;
+        stroke-width: 2;
+    }
+
+    .location-point:hover {
+        r: 12;
+        stroke-width: 3;
+        filter: drop-shadow(0 0 8px rgba(0,0,0,0.3));
+    }
+
+    .location-label {
+        font-size: 10px;
+        font-weight: 600;
+        fill: #333;
+        font-family: 'Inter', sans-serif;
+        pointer-events: none;
+    }
+
+    .location-label.small {
+        font-size: 8px;
+    }
+
+    .legend-title {
+        font-size: 12px;
+        font-weight: 600;
+        fill: #333;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .legend-text {
+        font-size: 10px;
+        fill: #666;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .map-tooltip {
+        pointer-events: none;
+    }
+
+    .tooltip-text {
+        font-size: 11px;
+        font-family: 'Inter', sans-serif;
     }
 
     .testament-section {
@@ -143,7 +213,8 @@
         background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     }
 
-    .location-card:hover {
+    .location-card:hover,
+    .location-card.highlighted {
         transform: translateY(-2px);
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         border-color: var(--primary-color);
@@ -241,6 +312,35 @@
         opacity: 0.7;
     }
 
+    .map-controls {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .map-filter-buttons {
+        margin-bottom: 1rem;
+    }
+
+    .map-filter-btn {
+        background: #8b4513;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        margin: 0 0.25rem;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .map-filter-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .map-filter-btn:not(.active) {
+        opacity: 0.5;
+    }
+
     @media (max-width: 768px) {
         .maps-header h1 {
             font-size: 2rem;
@@ -258,12 +358,41 @@
         .testament-section {
             padding: 1rem;
         }
+
+        .interactive-map-container {
+            padding: 1rem;
+        }
+        
+        .biblical-map {
+            max-height: 400px;
+        }
+        
+        .location-label {
+            font-size: 8px;
+        }
+        
+        .location-label.small {
+            font-size: 6px;
+        }
     }
 
     /* Dark mode adjustments */
     @media (prefers-color-scheme: dark) {
         .maps-header {
             background: linear-gradient(135deg, #2d1b69, #8b5a2b);
+        }
+        
+        .biblical-map {
+            background: #f8f9fa;
+        }
+        
+        .location-label,
+        .legend-title {
+            fill: #333;
+        }
+        
+        .legend-text {
+            fill: #666;
         }
     }
 </style>
@@ -297,7 +426,185 @@
     <div class="map-intro">
         <h2>📍 Journey Through Biblical History</h2>
         <p>The Bible is filled with references to real places that shaped the history of God's people. From the creation in Eden to the exile in Babylon, from Jesus' birth in Bethlehem to Paul's journeys across the Roman Empire, these locations provide important context for understanding Scripture.</p>
-        <p>Click on any verse reference to read the full chapter and explore the biblical context of these significant places.</p>
+        <p>Click on any location on the map below or explore the detailed listings. Click verse references to read the full chapter context.</p>
+    </div>
+
+    <!-- Interactive Biblical Map -->
+    <div class="interactive-map-container">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 1rem; font-family: 'Crimson Text', serif;">
+            🗺️ Interactive Biblical Map
+        </h2>
+        <div class="map-wrapper">
+            <svg viewBox="0 0 800 600" class="biblical-map" id="biblical-map">
+                <!-- Background -->
+                <rect width="800" height="600" fill="#e6f3ff"/>
+                
+                <!-- Mediterranean Sea -->
+                <path d="M0 150 Q80 130 160 135 Q240 140 320 145 Q400 150 480 148 Q560 146 640 150 Q720 154 800 158 L800 0 L0 0 Z" fill="#4a90e2" opacity="0.6"/>
+                
+                <!-- Red Sea -->
+                <path d="M470 480 Q480 450 490 420 Q500 390 510 360 Q520 330 530 300 L545 300 Q535 330 525 360 Q515 390 505 420 Q495 450 485 480 Z" fill="#4a90e2" opacity="0.6"/>
+                
+                <!-- Land masses -->
+                <path d="M0 200 Q100 185 200 188 Q300 192 400 195 Q500 198 600 202 Q700 206 800 210 L800 600 L0 600 Z" fill="#d4c5a0" opacity="0.7"/>
+                
+                <!-- Desert regions -->
+                <circle cx="450" cy="480" r="60" fill="#e6d4a6" opacity="0.4"/>
+                <circle cx="650" cy="420" r="80" fill="#e6d4a6" opacity="0.4"/>
+                
+                <!-- Mountain ranges -->
+                <path d="M350 280 L360 270 L370 275 L380 265 L390 270 L400 260 L410 265 L420 255 L430 260 L440 250 L450 255 L460 245 L470 250 L480 240" stroke="#8b7355" stroke-width="2" fill="none"/>
+                <path d="M180 300 L190 290 L200 295 L210 285 L220 290 L230 280 L240 285 L250 275" stroke="#8b7355" stroke-width="2" fill="none"/>
+                
+                <!-- River Jordan -->
+                <path d="M410 320 Q415 340 420 360 Q418 380 416 400 Q414 420 412 440" stroke="#4a90e2" stroke-width="3" fill="none" opacity="0.7"/>
+                <text x="430" y="355" class="location-label small" fill="#4a90e2">Jordan River</text>
+                
+                <!-- Biblical Locations -->
+                <!-- Old Testament -->
+                <g class="ot-locations">
+                    <!-- Garden of Eden -->
+                    <circle cx="580" cy="350" r="8" fill="#8b4513" class="location-point" data-location="garden-of-eden" data-tooltip="Garden of Eden"/>
+                    <text x="580" y="375" text-anchor="middle" class="location-label">Eden</text>
+                    
+                    <!-- Mount Ararat -->
+                    <circle cx="480" cy="280" r="8" fill="#8b4513" class="location-point" data-location="mount-ararat" data-tooltip="Mount Ararat"/>
+                    <text x="480" y="305" text-anchor="middle" class="location-label">Ararat</text>
+                    
+                    <!-- Ur of the Chaldees -->
+                    <circle cx="650" cy="420" r="8" fill="#8b4513" class="location-point" data-location="ur" data-tooltip="Ur of the Chaldees"/>
+                    <text x="650" y="445" text-anchor="middle" class="location-label">Ur</text>
+                    
+                    <!-- Jerusalem -->
+                    <circle cx="400" cy="380" r="10" fill="#d4af37" stroke="#8b4513" stroke-width="2" class="location-point" data-location="jerusalem" data-tooltip="Jerusalem - The Holy City"/>
+                    <text x="400" y="405" text-anchor="middle" class="location-label" style="font-weight: bold;">Jerusalem</text>
+                    
+                    <!-- Egypt -->
+                    <circle cx="350" cy="500" r="8" fill="#8b4513" class="location-point" data-location="egypt" data-tooltip="Egypt"/>
+                    <text x="350" y="525" text-anchor="middle" class="location-label">Egypt</text>
+                    
+                    <!-- Mount Sinai -->
+                    <circle cx="420" cy="480" r="8" fill="#8b4513" class="location-point" data-location="mount-sinai" data-tooltip="Mount Sinai"/>
+                    <text x="420" y="505" text-anchor="middle" class="location-label">Sinai</text>
+                    
+                    <!-- Babylon -->
+                    <circle cx="570" cy="380" r="8" fill="#8b4513" class="location-point" data-location="babylon" data-tooltip="Babylon"/>
+                    <text x="570" y="405" text-anchor="middle" class="location-label">Babylon</text>
+                    
+                    <!-- Bethel -->
+                    <circle cx="395" cy="365" r="6" fill="#8b4513" class="location-point" data-location="bethel" data-tooltip="Bethel"/>
+                    <text x="395" y="385" text-anchor="middle" class="location-label small">Bethel</text>
+                    
+                    <!-- Hebron -->
+                    <circle cx="395" cy="395" r="6" fill="#8b4513" class="location-point" data-location="hebron" data-tooltip="Hebron"/>
+                    <text x="395" y="415" text-anchor="middle" class="location-label small">Hebron</text>
+                    
+                    <!-- Jericho -->
+                    <circle cx="415" cy="375" r="6" fill="#8b4513" class="location-point" data-location="jericho" data-tooltip="Jericho"/>
+                    <text x="415" y="395" text-anchor="middle" class="location-label small">Jericho</text>
+                </g>
+                
+                <!-- New Testament -->
+                <g class="nt-locations">
+                    <!-- Bethlehem -->
+                    <circle cx="398" cy="388" r="8" fill="#4169e1" class="location-point" data-location="bethlehem" data-tooltip="Bethlehem - Birthplace of Jesus"/>
+                    <text x="398" y="413" text-anchor="middle" class="location-label">Bethlehem</text>
+                    
+                    <!-- Nazareth -->
+                    <circle cx="385" cy="340" r="8" fill="#4169e1" class="location-point" data-location="nazareth" data-tooltip="Nazareth"/>
+                    <text x="385" y="365" text-anchor="middle" class="location-label">Nazareth</text>
+                    
+                    <!-- Sea of Galilee -->
+                    <ellipse cx="410" cy="330" rx="12" ry="8" fill="#4a90e2" opacity="0.6" class="location-point" data-location="galilee" data-tooltip="Sea of Galilee"/>
+                    <text x="410" y="355" text-anchor="middle" class="location-label">Sea of Galilee</text>
+                    
+                    <!-- Antioch -->
+                    <circle cx="440" cy="280" r="8" fill="#4169e1" class="location-point" data-location="antioch" data-tooltip="Antioch"/>
+                    <text x="440" y="305" text-anchor="middle" class="location-label">Antioch</text>
+                    
+                    <!-- Damascus -->
+                    <circle cx="480" cy="320" r="8" fill="#4169e1" class="location-point" data-location="damascus" data-tooltip="Damascus"/>
+                    <text x="480" y="345" text-anchor="middle" class="location-label">Damascus</text>
+                    
+                    <!-- Calvary -->
+                    <circle cx="402" cy="378" r="6" fill="#8B0000" class="location-point" data-location="calvary" data-tooltip="Calvary - Place of Crucifixion"/>
+                    <text x="402" y="398" text-anchor="middle" class="location-label small" style="fill: #8b0000;">Calvary</text>
+                </g>
+                
+                <!-- Paul's Journey locations -->
+                <g class="journey-locations">
+                    <!-- Cyprus -->
+                    <circle cx="380" cy="220" r="6" fill="#ff6b35" class="location-point" data-location="cyprus" data-tooltip="Cyprus"/>
+                    <text x="380" y="240" text-anchor="middle" class="location-label small">Cyprus</text>
+                    
+                    <!-- Ephesus -->
+                    <circle cx="280" cy="250" r="6" fill="#ff6b35" class="location-point" data-location="ephesus" data-tooltip="Ephesus"/>
+                    <text x="280" y="270" text-anchor="middle" class="location-label small">Ephesus</text>
+                    
+                    <!-- Corinth -->
+                    <circle cx="250" cy="280" r="6" fill="#ff6b35" class="location-point" data-location="corinth" data-tooltip="Corinth"/>
+                    <text x="250" y="300" text-anchor="middle" class="location-label small">Corinth</text>
+                    
+                    <!-- Athens -->
+                    <circle cx="240" cy="290" r="6" fill="#ff6b35" class="location-point" data-location="athens" data-tooltip="Athens"/>
+                    <text x="240" y="310" text-anchor="middle" class="location-label small">Athens</text>
+                    
+                    <!-- Philippi -->
+                    <circle cx="260" cy="260" r="6" fill="#ff6b35" class="location-point" data-location="philippi" data-tooltip="Philippi"/>
+                    <text x="260" y="280" text-anchor="middle" class="location-label small">Philippi</text>
+                    
+                    <!-- Rome -->
+                    <circle cx="140" cy="280" r="8" fill="#ff6b35" class="location-point" data-location="rome" data-tooltip="Rome - Capital of the Empire"/>
+                    <text x="140" y="305" text-anchor="middle" class="location-label">Rome</text>
+                    
+                    <!-- Malta -->
+                    <circle cx="180" cy="350" r="6" fill="#ff6b35" class="location-point" data-location="malta" data-tooltip="Malta"/>
+                    <text x="180" y="370" text-anchor="middle" class="location-label small">Malta</text>
+                    
+                    <!-- Patmos -->
+                    <circle cx="300" cy="320" r="6" fill="#ff6b35" class="location-point" data-location="patmos" data-tooltip="Patmos"/>
+                    <text x="300" y="340" text-anchor="middle" class="location-label small">Patmos</text>
+                    
+                    <!-- Journey Routes -->
+                    <path d="M440 280 Q400 250 380 220" stroke="#ff6b35" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="5,5"/>
+                    <path d="M380 220 Q330 235 280 250" stroke="#ff6b35" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="5,5"/>
+                    <path d="M280 250 Q265 265 250 280" stroke="#ff6b35" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="5,5"/>
+                    <path d="M250 280 Q195 280 140 280" stroke="#ff6b35" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="5,5"/>
+                </g>
+                
+                <!-- Map Legend -->
+                <g class="map-legend" transform="translate(20, 20)">
+                    <rect x="0" y="0" width="180" height="90" fill="white" stroke="#ccc" rx="5" opacity="0.9"/>
+                    <text x="10" y="20" class="legend-title">Biblical Locations</text>
+                    
+                    <circle cx="20" cy="35" r="4" fill="#8b4513"/>
+                    <text x="30" y="40" class="legend-text">Old Testament</text>
+                    
+                    <circle cx="20" cy="55" r="4" fill="#4169e1"/>
+                    <text x="30" y="60" class="legend-text">New Testament</text>
+                    
+                    <circle cx="20" cy="75" r="4" fill="#ff6b35"/>
+                    <text x="30" y="80" class="legend-text">Paul's Journeys</text>
+                </g>
+                
+                <!-- Tooltip -->
+                <g id="map-tooltip" class="map-tooltip" style="display: none; pointer-events: none;">
+                    <rect x="0" y="0" width="120" height="30" fill="black" opacity="0.8" rx="3"/>
+                    <text x="60" y="20" text-anchor="middle" fill="white" class="tooltip-text"></text>
+                </g>
+            </svg>
+        </div>
+        
+        <div class="map-controls">
+            <div class="map-filter-buttons">
+                <button onclick="toggleMapLayer('ot-locations')" class="map-filter-btn active" id="ot-toggle" style="background: #8b4513;">Old Testament</button>
+                <button onclick="toggleMapLayer('nt-locations')" class="map-filter-btn active" id="nt-toggle" style="background: #4169e1;">New Testament</button>
+                <button onclick="toggleMapLayer('journey-locations')" class="map-filter-btn active" id="journey-toggle" style="background: #ff6b35;">Paul's Journeys</button>
+            </div>
+            <p style="color: var(--text-muted); font-style: italic; font-size: 0.9rem;">
+                Click on any location marker to see detailed information below. Use the buttons above to show/hide different location types.
+            </p>
+        </div>
     </div>
 
     {% for testament_name, locations in biblical_locations.items() %}
@@ -329,11 +636,9 @@
                             {% set ref_parts = verse.reference.split() %}
                             {% if ref_parts|length >= 2 %}
                                 {% if ref_parts|length == 2 %}
-                                    {# Simple case: "Genesis 1:1" #}
                                     {% set book_part = ref_parts[0] %}
                                     {% set chapter_verse = ref_parts[1] %}
                                 {% else %}
-                                    {# Complex case: "1 Samuel 17:4" or "Song of Solomon 2:1" #}
                                     {% set last_part = ref_parts[-1] %}
                                     {% set book_parts = ref_parts[:-1] %}
                                     {% set book_part = book_parts|join(' ') %}
@@ -389,7 +694,6 @@ function filterLocations() {
 }
 
 function filterByTestament(testament) {
-    // Update button states
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
     
@@ -401,7 +705,6 @@ function filterByTestament(testament) {
         
         if (testament === 'all' || sectionTestament === testament) {
             section.style.display = 'block';
-            // Count visible location cards in this section
             const visibleCards = section.querySelectorAll('.location-card[style*="display: block"], .location-card:not([style*="display: none"])');
             visibleCount += visibleCards.length;
         } else {
@@ -409,9 +712,7 @@ function filterByTestament(testament) {
         }
     });
     
-    // Clear search when filtering by testament
     document.getElementById('location-search').value = '';
-    
     updateLocationCount(visibleCount);
 }
 
@@ -426,10 +727,112 @@ function updateLocationCount(count) {
     }
 }
 
-// Initialize count on page load
+function initializeMap() {
+    const locationPoints = document.querySelectorAll('.location-point');
+    const tooltip = document.getElementById('map-tooltip');
+    const tooltipText = tooltip.querySelector('.tooltip-text');
+    
+    locationPoints.forEach(point => {
+        point.addEventListener('mouseenter', function(e) {
+            const locationName = this.getAttribute('data-tooltip');
+            tooltipText.textContent = locationName;
+            tooltip.style.display = 'block';
+            
+            const x = this.getAttribute('cx') - 60;
+            const y = this.getAttribute('cy') - 40;
+            tooltip.setAttribute('transform', `translate(${x}, ${y})`);
+        });
+        
+        point.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+        });
+        
+        point.addEventListener('click', function() {
+            const locationId = this.getAttribute('data-location');
+            highlightLocationCard(locationId);
+            scrollToLocationCard(locationId);
+        });
+    });
+}
+
+function highlightLocationCard(locationId) {
+    document.querySelectorAll('.location-card').forEach(card => {
+        card.classList.remove('highlighted');
+    });
+    
+    const locationName = getLocationNameFromId(locationId);
+    const cards = document.querySelectorAll('.location-card');
+    
+    cards.forEach(card => {
+        const cardName = card.querySelector('.location-name').textContent.trim();
+        if (cardName.toLowerCase().includes(locationName.toLowerCase()) || 
+            locationName.toLowerCase().includes(cardName.toLowerCase())) {
+            card.classList.add('highlighted');
+        }
+    });
+}
+
+function scrollToLocationCard(locationId) {
+    const locationName = getLocationNameFromId(locationId);
+    const cards = document.querySelectorAll('.location-card');
+    
+    cards.forEach(card => {
+        const cardName = card.querySelector('.location-name').textContent.trim();
+        if (cardName.toLowerCase().includes(locationName.toLowerCase()) || 
+            locationName.toLowerCase().includes(cardName.toLowerCase())) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
+}
+
+function getLocationNameFromId(locationId) {
+    const locationMap = {
+        'garden-of-eden': 'Garden of Eden',
+        'mount-ararat': 'Mount Ararat',
+        'ur': 'Ur',
+        'jerusalem': 'Jerusalem',
+        'egypt': 'Egypt',
+        'mount-sinai': 'Mount Sinai',
+        'babylon': 'Babylon',
+        'bethel': 'Bethel',
+        'hebron': 'Hebron',
+        'bethlehem': 'Bethlehem',
+        'nazareth': 'Nazareth',
+        'galilee': 'Sea of Galilee',
+        'antioch': 'Antioch',
+        'damascus': 'Damascus',
+        'calvary': 'Calvary',
+        'cyprus': 'Cyprus',
+        'ephesus': 'Ephesus',
+        'corinth': 'Corinth',
+        'athens': 'Athens',
+        'philippi': 'Philippi',
+        'rome': 'Rome',
+        'malta': 'Malta',
+        'patmos': 'Patmos'
+    };
+    return locationMap[locationId] || locationId;
+}
+
+function toggleMapLayer(layerClass) {
+    const layer = document.querySelector(`.${layerClass}`);
+    const button = document.getElementById(layerClass.replace('-locations', '-toggle'));
+    
+    if (layer.style.display === 'none') {
+        layer.style.display = 'block';
+        button.classList.add('active');
+        button.style.opacity = '1';
+    } else {
+        layer.style.display = 'none';
+        button.classList.remove('active');
+        button.style.opacity = '0.5';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const totalLocations = document.querySelectorAll('.location-card').length;
     updateLocationCount(totalLocations);
+    initializeMap();
 });
 </script>
 
