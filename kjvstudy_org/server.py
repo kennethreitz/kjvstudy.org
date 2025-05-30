@@ -1110,6 +1110,94 @@ def commentary(request: Request, book: str, chapter: int):
 
 def generate_commentary(book, chapter, verse):
     """Generate AI-powered commentary for a specific verse"""
+    # Enhanced commentary database for major chapters
+    enhanced_commentary = {
+        "Genesis": {
+            1: {
+                1: {
+                    "analysis": """<strong>In the beginning God created the heaven and the earth.</strong> This majestic opening declares the fundamental truth of biblical theology: God is the sovereign Creator of all that exists. The Hebrew word <em>bereshit</em> (בְּרֵאשִׁית) means "in beginning" without the definite article, suggesting not merely a temporal starting point but the absolute origin of all created reality.<br><br>The verb <em>bara</em> (בָּרָא, "created") appears exclusively with God as its subject in Scripture, denoting divine creative activity that brings something entirely new into existence. This distinguishes biblical creation from ancient Near Eastern myths where gods merely reshape pre-existing matter. The phrase "the heaven and the earth" (<em>hashamayim ve'et ha'aretz</em>) is a Hebrew merism expressing the totality of creation—all realms, visible and invisible.<br><br>Theologically, this verse establishes: (1) God's transcendence—He exists before and apart from creation; (2) God's omnipotence—He speaks reality into being; (3) the contingency of creation—all depends on God for existence; and (4) the purposefulness of creation—it originates from divine will, not chance or necessity.""",
+                    "historical": """Genesis 1:1 stands in stark contrast to ancient Near Eastern creation accounts like the Babylonian <em>Enuma Elish</em> or the Egyptian creation myths. While these portrayed creation as resulting from conflicts between deities, Genesis presents a sovereign God who creates effortlessly by divine decree. This would have been revolutionary to ancient readers accustomed to polytheistic cosmogonies.<br><br>The Hebrew text's literary structure suggests careful composition rather than primitive mythology. The absence of theogony (origin of gods) and theomachy (conflict between gods) distinguishes Genesis from its contemporary literature. Archaeological discoveries of creation tablets from Mesopotamia (dating to 2000-1500 BCE) reveal that Genesis addresses similar questions but provides radically different answers about the nature of God, humanity, and the cosmos.<br><br>For the Israelites emerging from Egyptian bondage, this truth that their God created everything would have been profoundly liberating—the gods of Egypt were mere creations, not creators.""",
+                    "questions": [
+                        "How does the doctrine of creation ex nihilo (from nothing) shape our understanding of God's relationship to the universe?",
+                        "What are the implications of God creating by His word alone for our understanding of the power of divine speech throughout Scripture?",
+                        "How does Genesis 1:1 provide the foundation for a biblical worldview distinct from both ancient mythology and modern materialism?"
+                    ]
+                },
+                26: {
+                    "analysis": """<strong>Let us make man in our image, after our likeness.</strong> This pivotal verse introduces humanity's creation with striking theological significance. The plural "Let us" has generated extensive theological discussion. While some see this as a plural of majesty (royal we), the most compelling interpretation recognizes an intra-Trinitarian conversation, especially given New Testament revelation (John 1:1-3, Colossians 1:16).<br><br>The Hebrew words <em>tselem</em> (צֶלֶם, "image") and <em>demuth</em> (דְּמוּת, "likeness") are essentially synonymous, together emphasizing humanity's unique status as God's representatives. This image encompasses: (1) rational and moral capacities, (2) relational nature, (3) creative abilities, (4) dominion over creation, and (5) spiritual dimension. Importantly, the image of God is not something humans possess but something they <em>are</em>.<br><br>The immediate context links the image to dominion—humans are God's vice-regents on earth. This establishes human dignity, purpose, and responsibility. Every human bears this image, making human life sacred and murder heinous (Genesis 9:6). The fall damages but does not eliminate this image (James 3:9).""",
+                    "historical": """The concept of humans as divine images was revolutionary in the ancient Near East. While other cultures depicted only kings as divine images, Genesis democratizes this honor—all humans bear God's image regardless of social status. In Egypt, the Pharaoh was considered the living image of the gods, while in Mesopotamia, only kings were called divine images. Genesis radically declares that every human, from the greatest to the least, shares this extraordinary dignity.<br><br>Ancient creation accounts typically portrayed humans as afterthoughts or slaves to the gods. The Babylonian <em>Atrahasis Epic</em> describes humans created to relieve the gods of burdensome labor. By contrast, Genesis presents humans as the crown of creation, specially crafted by God's own hands and breath. This would have been profoundly counter-cultural to ancient readers familiar with their insignificance in other religious systems.""",
+                    "questions": [
+                        "How does the image of God distinguish humans from animals and what implications does this have for bioethics?",
+                        "In what ways does understanding humans as God's image-bearers shape our view of human rights and social justice?",
+                        "How should the doctrine of imago Dei influence our approach to race relations, disability, and the value of human life at all stages?"
+                    ]
+                }
+            }
+        },
+        "John": {
+            3: {
+                16: {
+                    "analysis": """<strong>For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</strong> This verse, often called the "Gospel in miniature," encapsulates the entire biblical narrative of redemption. The Greek construction emphasizes the manner and extent of God's love: <em>houtōs</em> (οὕτως, "so" or "in this way") points not merely to degree but to the specific manner—through sacrificial giving.<br><br>The phrase "only begotten" (<em>monogenēs</em>, μονογενής) literally means "one of a kind" or "unique," emphasizing Christ's distinctive relationship to the Father rather than necessarily temporal generation. This word appears five times in John's writings (John 1:14, 18; 3:16, 18; 1 John 4:9), always highlighting Christ's unique divine sonship.<br><br>"The world" (<em>kosmos</em>, κόσμος) in John's Gospel typically refers to fallen humanity in rebellion against God (John 1:10; 15:18-19). That God loves <em>this</em> world—hostile, rebellious, and alienated—demonstrates the radical nature of divine grace. The purpose clause reveals God's desire: not condemnation but salvation, not death but eternal life.""",
+                    "historical": """Jesus spoke these words to Nicodemus, a Pharisee and member of the Sanhedrin, during a nighttime conversation that reveals the tension surrounding Jesus' ministry. Nicodemus represented the religious elite who struggled to understand Jesus' revolutionary teachings about spiritual rebirth and salvation.<br><br>The context of Jesus' statement connects to the bronze serpent incident (Numbers 21:4-9), which Jesus had just referenced. In the wilderness, when venomous serpents bit the Israelites, God commanded Moses to make a bronze serpent and lift it up on a pole. Anyone who looked upon it would live. This historical parallel illustrates how Christ, lifted up on the cross, becomes the means of salvation for all who look to Him in faith.<br><br>For first-century Jews, the concept of God's love extending to "the world" (including Gentiles) was revolutionary. Jewish thought generally emphasized God's special love for Israel, making this universal scope of divine love a radical departure that would later become central to Paul's Gentile mission.""",
+                    "questions": [
+                        "How does the phrase 'God so loved the world' challenge both ancient Jewish particularism and modern religious exclusivism?",
+                        "What does it mean that God 'gave' His Son, and how does this relate to theories of atonement and sacrifice?",
+                        "How should we understand 'eternal life' not just as quantity but quality of existence, beginning now rather than only in the future?"
+                    ]
+                }
+            }
+        },
+        "Romans": {
+            8: {
+                28: {
+                    "analysis": """<strong>And we know that all things work together for good to them that love God, to them who are the called according to his purpose.</strong> This beloved verse provides profound comfort while requiring careful theological understanding. The verb "work together" (<em>synergei</em>, συνεργεῖ) suggests a divine orchestration where even disparate events collaborate toward God's ultimate purpose.<br><br>The phrase "all things" (πάντα) is comprehensive yet must be understood within context. Paul doesn't claim all things are inherently good, but that God sovereignly works through all circumstances—including suffering, persecution, and even human sin—to accomplish His redemptive purposes for His people. The "good" (<em>agathon</em>, ἀγαθόν) here refers to conformity to Christ's image (v.29), not necessarily temporal comfort or prosperity.<br><br>The verse contains two crucial qualifications: (1) "to them that love God"—demonstrating genuine saving faith, and (2) "the called according to his purpose"—referring to God's eternal elective purpose. These aren't two different groups but describe the same people from human (love) and divine (calling) perspectives.""",
+                    "historical": """Romans 8:28 appears within Paul's exposition of Christian suffering and hope. The Roman church, composed of both Jewish and Gentile believers, faced mounting persecution under Nero's increasingly hostile policies toward Christians. Paul wrote Romans around 57 CE, just a few years before Nero's great persecution that would claim many Christian lives.<br><br>The broader context of Romans 8 addresses the tension between present suffering and future glory (vv. 18-30). Early Christians needed assurance that their current tribulations served God's redemptive purposes rather than indicating divine abandonment. This verse would have provided crucial comfort to believers facing social ostracism, economic hardship, and physical persecution for their faith.""",
+                    "questions": [
+                        "How do we reconcile God's sovereignty in 'working all things together for good' with human responsibility and the reality of evil?",
+                        "What practical difference should this verse make in how Christians respond to suffering, disappointment, and apparent setbacks?",
+                        "How does understanding our identity as 'called according to his purpose' provide security and hope in uncertain circumstances?"
+                    ]
+                }
+            }
+        },
+        "Psalms": {
+            23: {
+                1: {
+                    "analysis": """<strong>The Lord is my shepherd; I shall not want.</strong> This opening declaration establishes both the fundamental relationship (Lord as shepherd, believer as sheep) and its primary consequence (complete sufficiency). The Hebrew word for "Lord" here is <em>Yahweh</em> (יהוה), the covenant name of God, emphasizing not just divine power but divine faithfulness to His promises.<br><br>The metaphor of God as shepherd was deeply rooted in Hebrew thought and ancient Near Eastern royal ideology. Kings were often called shepherds of their people (Ezekiel 34:1-10). David, himself a shepherd before becoming king, understood both the tender care and protective authority required. The verb "shepherd" (<em>ra'ah</em>, רעה) implies not passive watching but active guidance, protection, and provision.<br><br>The phrase "I shall not want" (<em>lo echsar</em>, לא אחסר) uses a strong Hebrew negative, meaning "I shall certainly not lack." This isn't a promise of luxury but of sufficiency—every true need will be met. The psalmist's confidence rests not in circumstances but in the character and commitment of his divine Shepherd.""",
+                    "historical": """Psalm 23 likely originates from David's experience as both shepherd and king. Archaeological evidence reveals that shepherding in ancient Palestine required constant vigilance against predators (lions, bears, wolves) and environmental dangers (cliffs, sudden storms, poisonous plants). Shepherds risked their lives for their flocks, often sleeping in caves or under stars to guard against night attacks.<br><br>The psalm's imagery would have resonated powerfully with David's original audience, many of whom lived in pastoral settings. The metaphor also connected to Israel's understanding of God's relationship with the nation—He had shepherded them out of Egypt, through the wilderness, and into the Promised Land. Royal psalms often used shepherd imagery to describe ideal kingship (Psalm 78:70-72).<br><br>For exiled or oppressed Israelites in later periods, this psalm provided comfort by affirming God's continued care despite apparent abandonment. The shepherd metaphor assured them that their divine King remained attentive to their needs even in foreign lands.""",
+                    "questions": [
+                        "How does understanding God as our shepherd change our perspective on guidance, protection, and provision in daily life?",
+                        "What does it mean practically to 'not want' when we clearly experience desires and needs that seem unmet?",
+                        "How does the personal, intimate nature of this psalm ('my shepherd') balance with understanding God's universal sovereignty?"
+                    ]
+                }
+            }
+        },
+        "1 Corinthians": {
+            13: {
+                4: {
+                    "analysis": """<strong>Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up.</strong> Paul begins his poetic description of love with two positive qualities followed by four negative ones. The Greek word <em>agape</em> (ἀγάπη), translated "charity" in the KJV, represents divine love characterized by self-sacrificial commitment rather than emotional feeling or romantic attraction.<br><br>"Suffereth long" (<em>makrothymei</em>, μακροθυμεῖ) literally means "long-tempered" or "slow to anger," describing patience with people rather than circumstances. This patience isn't passive endurance but active forbearance that continues loving despite provocation. "Is kind" (<em>chresteuetai</em>, χρηστεύεται) appears only here in the New Testament, emphasizing active benevolence that seeks others' welfare.<br><br>The four negatives reveal what love never does: it doesn't envy (<em>ou zeloi</em>), doesn't boast (<em>ou perpereuetai</em>), doesn't act arrogantly (<em>ou physioutai</em>), and doesn't behave inappropriately. These contrasts address specific problems Paul observed in Corinth: jealousy over spiritual gifts, boasting about wisdom or status, and prideful behavior that disrupted fellowship.""",
+                    "historical": """The Corinthian church was deeply divided by issues of status, spiritual gifts, and personal preferences. Wealthy members looked down on poorer believers, different factions claimed superiority based on their favorite teachers (Paul, Apollos, Cephas), and some boasted about having more impressive spiritual gifts like tongues or prophecy.<br><br>First-century Corinth was a cosmopolitan commercial center where social status, rhetorical skill, and impressive displays of wisdom or power determined social standing. The Roman patronage system created obvious hierarchies, and Greek philosophical schools competed for intellectual supremacy. Into this context, Paul introduces a radically different value system based on self-sacrificial love rather than self-promotion.<br><br>Paul's description of love directly challenges Corinthian culture: instead of self-assertion, love seeks others' good; instead of competing for honor, love rejoices in others' success; instead of demanding rights, love willingly suffers inconvenience for others' benefit.""",
+                    "questions": [
+                        "How does Paul's definition of love challenge modern cultural understandings of love as primarily emotional or romantic?",
+                        "Which of these characteristics of love do you find most challenging to practice consistently, and why?",
+                        "How might the church today address conflicts and divisions by applying these principles of love?"
+                    ]
+                }
+            }
+        }
+    }
+
+    # Check for enhanced commentary first
+    if book in enhanced_commentary and chapter in enhanced_commentary[book] and verse.verse in enhanced_commentary[book][chapter]:
+        commentary_data = enhanced_commentary[book][chapter][verse.verse]
+        return {
+            "analysis": commentary_data["analysis"],
+            "historical": commentary_data["historical"],
+            "questions": commentary_data["questions"],
+            "cross_references": generate_cross_references(book, chapter, verse.verse, verse.text)
+        }
+
     # Special case for Revelation 1
     if book == "Revelation" and chapter == 1:
         # Dictionary of specialized commentary for Revelation 1
@@ -1233,48 +1321,160 @@ def generate_commentary(book, chapter, verse):
             "cross_references": cross_refs[:2]  # Limit to 2 references
         }
 
-    # For all other books/chapters, use the general approach
+    # For all other books/chapters, use enhanced theological analysis
     verse_text = verse.text.lower()
     verse_number = verse.verse
-
-    # Simulated analysis based on the verse content and patterns
+    
+    # Generate sophisticated analysis based on biblical themes and context
+    theme = get_enhanced_theological_theme(verse_text, book)
+    key_concept = extract_theological_concept(verse_text, book)
+    literary_context = analyze_literary_context(book, chapter)
+    
+    # Create rich, scholarly analysis
     analysis_templates = [
-        f"This verse emphasizes the {get_theme(verse_text)} theme common in {book}. The phrase \"{get_key_phrase(verse_text)}\" is particularly significant as it relates to the broader context of this chapter.",
-        f"The {get_language_feature(verse_text)} used here is characteristic of {book}'s literary style. This verse builds upon the previous context while introducing the concept of {get_concept(verse_text)}.",
-        f"Here we see a {get_literary_device(verse_text)} that draws attention to {get_theme(verse_text)}. The author uses specific terminology that would have resonated with the original audience.",
-        f"This verse contains {get_literary_device(verse_text)} that emphasizes the {get_theme(verse_text)}. The language choice reveals the author's intention to highlight {get_concept(verse_text)}.",
+        f"This verse develops the {theme} theme central to {book}. The concept of <strong>{key_concept}</strong> reflects {get_theological_significance(book, theme)}. {get_literary_analysis(verse_text, book, literary_context)} The original language emphasizes {get_linguistic_insight(verse_text, book)}, providing deeper understanding of the author's theological intention.",
+        
+        f"Within the broader context of {book}, this passage highlights {theme} through {get_rhetorical_device(verse_text)}. The theological weight of <strong>{key_concept}</strong> {get_doctrinal_significance(key_concept, book)}. This verse contributes to the book's overall argument by {get_structural_purpose(book, chapter, verse_number)}.",
+        
+        f"The {theme} theme here intersects with {get_biblical_theology_connection(theme, book)}. Biblical theology recognizes this as part of {get_canonical_development(theme)}. The phrase emphasizing <strong>{key_concept}</strong> {get_systematic_theology_insight(key_concept)} and connects to the broader scriptural witness about {get_cross_biblical_theme(theme)}."
     ]
-
+    
     historical_templates = [
-        f"In the historical context of {get_time_period(book)}, this reference to \"{get_key_phrase(verse_text)}\" would have had significant meaning. {get_historical_context(book)}",
-        f"The {get_cultural_element(verse_text)} mentioned here was common in {get_time_period(book)}. {get_historical_context(book)} The original audience would have understood this reference differently than modern readers.",
-        f"During {get_time_period(book)}, the concept of {get_concept(verse_text)} had specific cultural connotations. {get_historical_context(book)} This provides important context for understanding the verse.",
-        f"The historical setting of {get_time_period(book)} helps explain why the author emphasizes {get_theme(verse_text)}. {get_historical_context(book)}"
+        f"The historical context of {get_detailed_time_period(book)} provides crucial background for understanding this verse. {get_comprehensive_historical_context(book)} The {get_cultural_background(book, verse_text)} would have shaped how the original audience understood {key_concept}. Archaeological and historical evidence reveals {get_archaeological_insight(book, theme)}.",
+        
+        f"This passage must be understood within {get_socio_political_context(book)}. The author writes to address {get_historical_audience_situation(book, chapter)}, making the emphasis on {theme} particularly relevant. Historical documents from this period show {get_historical_parallel(book, key_concept)}, illuminating the verse's original impact.",
+        
+        f"The literary and historical milieu of {get_literary_historical_context(book)} shapes this text's meaning. {get_historical_theological_development(book, theme)} Understanding {get_ancient_worldview_context(book)} helps modern readers appreciate why the author emphasizes {key_concept} in this particular way."
     ]
-
-    # Study questions based on verse content
+    
     question_templates = [
-        f"How does the concept of {get_concept(verse_text)} apply to contemporary faith?",
-        f"What does this verse reveal about the character of God?",
-        f"How does this verse connect to other passages in {book} or elsewhere in Scripture?",
-        f"What practical applications can be drawn from this verse?",
-        f"How might the original audience have understood this passage differently than we do today?",
-        f"What aspects of {get_theme(verse_text)} are emphasized in this verse?",
-        f"In what ways does this verse challenge or affirm your current understanding?",
-        f"How does this verse fit into the broader narrative of Scripture?",
+        f"How does the {theme} theme in this verse connect to the overarching narrative of Scripture, and what does this reveal about God's character and purposes?",
+        f"In what ways does understanding {key_concept} in its original context challenge or deepen contemporary Christian thinking about {theme}?",
+        f"How might the original audience's understanding of {key_concept} differ from modern interpretations, and what bridges can be built between ancient meaning and contemporary application?",
+        f"What systematic theological implications arise from this verse's treatment of {theme}, and how does it contribute to a biblical theology of {get_related_doctrine(theme)}?",
+        f"How does this verse's literary context within {book} chapter {chapter} illuminate its theological significance, and what does this teach us about biblical interpretation?",
+        f"What practical applications emerge from understanding {theme} as presented in this verse, particularly in light of {get_contemporary_relevance(theme, key_concept)}?",
+        f"How does this passage contribute to our understanding of {get_biblical_theological_trajectory(theme)}, and what implications does this have for Christian discipleship?",
+        f"In what ways does this verse's emphasis on {key_concept} address {get_contemporary_theological_challenge(theme)}, and how should the church respond?"
     ]
 
     # Generate cross-references
-    cross_refs = generate_cross_references(book, chapter, verse_number, verse_text)
+    cross_refs = generate_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
 
-    # Return a dictionary with all commentary components
+    # Return a dictionary with enhanced commentary components
     return {
         "analysis": random.choice(analysis_templates),
         "historical": random.choice(historical_templates),
-        "questions": random.sample(question_templates, 3),  # Select 3 random questions
+        "questions": random.sample(question_templates, 3),
         "cross_references": cross_refs
     }
 
+
+def get_enhanced_theological_theme(verse_text, book):
+    """Extract primary theological theme from verse text considering book context"""
+    themes = {
+        # Core theological themes
+        "salvation": ["save", "redeem", "deliver", "rescue", "forgive", "justify", "sanctify"],
+        "covenant": ["covenant", "promise", "faithful", "oath", "testament", "pledge"],
+        "kingdom of God": ["kingdom", "reign", "rule", "throne", "dominion", "authority"],
+        "divine love": ["love", "mercy", "compassion", "grace", "kindness", "tender"],
+        "faith and obedience": ["faith", "believe", "trust", "obey", "follow", "serve"],
+        "judgment and justice": ["judge", "justice", "righteous", "condemn", "punish", "wrath"],
+        "worship and praise": ["worship", "praise", "glory", "honor", "magnify", "exalt"],
+        "suffering and persecution": ["suffer", "afflict", "persecute", "trial", "tribulation"],
+        "hope and restoration": ["hope", "restore", "renew", "heal", "comfort", "peace"],
+        "wisdom and understanding": ["wise", "wisdom", "understand", "knowledge", "discern"],
+        "creation and providence": ["create", "made", "form", "establish", "sustain", "provide"],
+        "sin and rebellion": ["sin", "transgress", "rebel", "iniquity", "evil", "wicked"]
+    }
+    
+    # Book-specific theme adjustments
+    book_themes = {
+        "Genesis": ["creation and providence", "covenant", "divine love"],
+        "Psalms": ["worship and praise", "divine love", "suffering and persecution"],
+        "Romans": ["salvation", "faith and obedience", "judgment and justice"],
+        "John": ["divine love", "salvation", "faith and obedience"],
+        "Revelation": ["kingdom of God", "judgment and justice", "hope and restoration"]
+    }
+    
+    primary_themes = book_themes.get(book, list(themes.keys())[:3])
+    
+    for theme in primary_themes:
+        if any(word in verse_text for word in themes[theme]):
+            return theme
+    
+    # Fallback to most common theme for the book
+    return primary_themes[0] if primary_themes else "divine love"
+
+def extract_theological_concept(verse_text, book):
+    """Extract key theological concept from verse"""
+    concepts = ["grace", "faith", "love", "righteousness", "salvation", "redemption", 
+               "covenant", "kingdom", "glory", "peace", "wisdom", "truth", "life",
+               "hope", "mercy", "justice", "holiness", "forgiveness", "eternal life"]
+    
+    for concept in concepts:
+        if concept in verse_text:
+            return concept
+    
+    # Extract meaningful phrases if no single concept found
+    if "lord" in verse_text or "god" in verse_text:
+        return "divine sovereignty"
+    elif "people" in verse_text or "nation" in verse_text:
+        return "covenant community"
+    else:
+        return "divine revelation"
+
+def analyze_literary_context(book, chapter):
+    """Provide literary context for the book and chapter"""
+    contexts = {
+        "Genesis": f"foundational narrative establishing God's relationship with creation and humanity",
+        "Psalms": f"worship literature expressing the full range of human experience before God",
+        "Romans": f"systematic theological exposition of the gospel",
+        "John": f"theological biography emphasizing Jesus' divine identity",
+        "Revelation": f"apocalyptic literature revealing God's ultimate victory",
+        "1 Corinthians": f"pastoral letter addressing practical Christian living issues",
+        "Matthew": f"gospel presenting Jesus as the fulfillment of Jewish Messianic hope"
+    }
+    return contexts.get(book, f"biblical literature contributing to the canon's theological witness")
+
+def get_theological_significance(book, theme):
+    """Get theological significance of theme within book context"""
+    significance_map = {
+        ("Genesis", "creation and providence"): "God's absolute sovereignty over all existence",
+        ("Psalms", "worship and praise"): "the proper human response to God's character and works",
+        ("Romans", "salvation"): "justification by faith as the foundation of Christian hope",
+        ("John", "divine love"): "the essential nature of God revealed through Christ",
+        ("Revelation", "kingdom of God"): "the ultimate establishment of divine rule over creation"
+    }
+    key = (book, theme)
+    return significance_map.get(key, f"the development of {theme} within biblical theology")
+
+def get_doctrinal_significance(concept, book):
+    """Provide doctrinal significance of theological concept"""
+    return f"connects to fundamental Christian doctrine about {concept}, contributing to our understanding of God's nature and relationship with humanity"
+
+def get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, concept):
+    """Generate enhanced cross-references based on theme and concept"""
+    # Theme-based cross-references
+    theme_refs = {
+        "salvation": [
+            {"text": "Romans 10:9", "url": "/book/Romans/chapter/10#verse-9", "context": "Confession and faith for salvation"},
+            {"text": "Ephesians 2:8-9", "url": "/book/Ephesians/chapter/2#verse-8", "context": "Salvation by grace through faith"}
+        ],
+        "divine love": [
+            {"text": "1 John 4:8", "url": "/book/1 John/chapter/4#verse-8", "context": "God is love"},
+            {"text": "Romans 5:8", "url": "/book/Romans/chapter/5#verse-8", "context": "God's love demonstrated in Christ"}
+        ],
+        "faith and obedience": [
+            {"text": "Hebrews 11:1", "url": "/book/Hebrews/chapter/11#verse-1", "context": "Definition of faith"},
+            {"text": "James 2:17", "url": "/book/James/chapter/2#verse-17", "context": "Faith and works"}
+        ]
+    }
+    
+    return theme_refs.get(theme, [
+        {"text": "John 1:1", "url": "/book/John/chapter/1#verse-1", "context": "Related theological concept"},
+        {"text": "Romans 8:28", "url": "/book/Romans/chapter/8#verse-28", "context": "God's sovereign purpose"}
+    ])[:2]
 
 def generate_chapter_overview(book, chapter, verses):
     """Generate an AI-powered overview of the entire chapter"""
