@@ -157,6 +157,198 @@
         min-height: 80vh;
     }
 
+    .view-toggle {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        gap: 0.5rem;
+    }
+
+    .view-btn {
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--primary-color);
+        background: transparent;
+        color: var(--primary-color);
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .view-btn.active {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .view-btn:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .tree-view {
+        display: none;
+        margin-top: 2rem;
+    }
+
+    .tree-view.active {
+        display: block;
+    }
+
+    .nuclear-family-container {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        background: var(--background-color);
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+    }
+
+    .nuclear-family-network {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    .family-member {
+        position: absolute;
+        background: white;
+        border: 3px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        min-width: 100px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .family-member:hover {
+        border-color: var(--primary-color);
+        transform: scale(1.05);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+    }
+
+    .family-member.current {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.3);
+    }
+
+    .family-member.spouse {
+        background: #e8f5e8;
+        border-color: #28a745;
+    }
+
+    .family-member.parent {
+        background: #fff3cd;
+        border-color: #ffc107;
+    }
+
+    .family-member.child {
+        background: #f8d7da;
+        border-color: #dc3545;
+    }
+
+    .family-member .name {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        font-size: 0.85rem;
+        line-height: 1.2;
+    }
+
+    .family-member .role {
+        font-size: 0.7rem;
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .connection-line {
+        position: absolute;
+        background: var(--border-color);
+        z-index: 1;
+    }
+
+    .connection-line.marriage {
+        background: #28a745;
+        height: 3px;
+    }
+
+    .connection-line.parent-child {
+        background: #007bff;
+        width: 3px;
+    }
+
+    .connection-line.sibling {
+        background: #6c757d;
+        height: 2px;
+    }
+
+    .family-legend {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem;
+        font-size: 0.8rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        border: 1px solid #ccc;
+    }
+
+    @media (max-width: 768px) {
+        .nuclear-family-container {
+            height: 350px;
+        }
+
+        .family-member {
+            min-width: 70px;
+            padding: 0.5rem;
+        }
+
+        .family-member .name {
+            font-size: 0.7rem;
+        }
+
+        .family-member .role {
+            font-size: 0.55rem;
+        }
+
+        .family-legend {
+            font-size: 0.65rem;
+            padding: 0.5rem;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+
+        .legend-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .legend-color {
+            width: 10px;
+            height: 10px;
+        }
+    }
+
     .welcome-message {
         text-align: center;
         color: var(--text-muted);
@@ -446,6 +638,11 @@
                 <p>The biblical genealogies contain {{ family_tree_data|length }} individuals spanning many generations from Adam to the patriarchs of Israel.</p>
             </div>
 
+            <div class="view-toggle" id="view-toggle" style="display: none;">
+                <button class="view-btn active" onclick="showDetailsView()">📋 Details View</button>
+                <button class="view-btn" onclick="showTreeView()">🌳 Tree View</button>
+            </div>
+
             <div id="person-details" style="display: none;">
                 <div class="current-person">
                     <h2 id="current-name"></h2>
@@ -470,8 +667,35 @@
                 </div>
 
                 <div class="verses-section" id="verses-section" style="display: none;">
-                    <h3>📜 Scripture References</h3>
+                    <h3>📖 Scripture References</h3>
                     <div id="verses-list"></div>
+                </div>
+            </div>
+
+            <div class="tree-view" id="tree-view">
+                <div class="nuclear-family-container">
+                    <div class="nuclear-family-network" id="nuclear-family-network">
+                        <!-- Family members will be positioned here by JavaScript -->
+                    </div>
+                    
+                    <div class="family-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--primary-color);"></div>
+                            <span>Current Person</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #e8f5e8; border-color: #28a745;"></div>
+                            <span>Spouse</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #fff3cd; border-color: #ffc107;"></div>
+                            <span>Parent</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #f8d7da; border-color: #dc3545;"></div>
+                            <span>Child</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -634,6 +858,7 @@
 
         // Hide welcome message and show person details
         document.getElementById('welcome-message').style.display = 'none';
+        document.getElementById('view-toggle').style.display = 'flex';
         document.getElementById('person-details').style.display = 'block';
 
         // Update current person info
@@ -660,6 +885,9 @@
         showSpouse(person);
         showChildren(person);
         showVerses(person);
+        
+        // Update tree view
+        updateTreeView(person, personId);
     }
 
     function showParents(person) {
@@ -788,6 +1016,169 @@
         event.target.classList.add('active');
         
         populatePersonList();
+    }
+
+    function showDetailsView() {
+        document.getElementById('person-details').style.display = 'block';
+        document.getElementById('tree-view').style.display = 'none';
+        
+        document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('button[onclick="showDetailsView()"]').classList.add('active');
+    }
+
+    function showTreeView() {
+        document.getElementById('person-details').style.display = 'none';
+        document.getElementById('tree-view').style.display = 'block';
+        
+        document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('button[onclick="showTreeView()"]').classList.add('active');
+    }
+
+    function createFamilyMember(person, personId, role, position) {
+        const member = document.createElement('div');
+        member.className = `family-member ${role}`;
+        member.onclick = () => selectPerson(personId);
+        member.style.left = `${position.x}px`;
+        member.style.top = `${position.y}px`;
+        
+        member.innerHTML = `
+            <div class="name">${person.name}</div>
+            <div class="role">${role}</div>
+        `;
+        
+        return member;
+    }
+
+    function createConnectionLine(from, to, type) {
+        const line = document.createElement('div');
+        line.className = `connection-line ${type}`;
+        
+        const fromRect = from.getBoundingClientRect();
+        const toRect = to.getBoundingClientRect();
+        const containerRect = document.getElementById('nuclear-family-network').getBoundingClientRect();
+        
+        const fromX = fromRect.left - containerRect.left + fromRect.width / 2;
+        const fromY = fromRect.top - containerRect.top + fromRect.height / 2;
+        const toX = toRect.left - containerRect.left + toRect.width / 2;
+        const toY = toRect.top - containerRect.top + toRect.height / 2;
+        
+        if (type === 'marriage') {
+            // Horizontal line for marriage
+            const minX = Math.min(fromX, toX);
+            const maxX = Math.max(fromX, toX);
+            line.style.left = `${minX}px`;
+            line.style.top = `${fromY}px`;
+            line.style.width = `${maxX - minX}px`;
+        } else {
+            // Vertical line for parent-child relationships
+            const minY = Math.min(fromY, toY);
+            const maxY = Math.max(fromY, toY);
+            line.style.left = `${fromX}px`;
+            line.style.top = `${minY}px`;
+            line.style.height = `${maxY - minY}px`;
+        }
+        
+        return line;
+    }
+
+    function updateTreeView(person, personId) {
+        const network = document.getElementById('nuclear-family-network');
+        network.innerHTML = '';
+        
+        // Responsive positioning based on container size
+        const container = network.getBoundingClientRect();
+        const containerWidth = container.width - 100; // Account for padding
+        const containerHeight = container.height - 100;
+        
+        const positions = {
+            current: { x: containerWidth * 0.3, y: containerHeight * 0.4 },
+            spouse: { x: containerWidth * 0.6, y: containerHeight * 0.4 },
+            parent1: { x: containerWidth * 0.2, y: containerHeight * 0.1 },
+            parent2: { x: containerWidth * 0.5, y: containerHeight * 0.1 },
+            children: []
+        };
+        
+        const members = [];
+        
+        // Add current person
+        const currentMember = createFamilyMember(person, personId, 'current', positions.current);
+        network.appendChild(currentMember);
+        members.push({ element: currentMember, role: 'current' });
+        
+        // Add spouse if exists
+        let spouseMember = null;
+        if (person.spouse) {
+            const spouseId = Object.keys(familyData).find(id => familyData[id].name === person.spouse);
+            if (spouseId) {
+                const spouse = familyData[spouseId];
+                spouseMember = createFamilyMember(spouse, spouseId, 'spouse', positions.spouse);
+                network.appendChild(spouseMember);
+                members.push({ element: spouseMember, role: 'spouse' });
+            }
+        }
+        
+        // Add parents
+        const parentMembers = [];
+        if (person.parents && person.parents.length > 0) {
+            person.parents.forEach((parentId, index) => {
+                const parent = familyData[parentId];
+                if (parent) {
+                    const pos = index === 0 ? positions.parent1 : positions.parent2;
+                    const parentMember = createFamilyMember(parent, parentId, 'parent', pos);
+                    network.appendChild(parentMember);
+                    parentMembers.push(parentMember);
+                    members.push({ element: parentMember, role: 'parent' });
+                }
+            });
+        }
+        
+        // Add children
+        const childMembers = [];
+        if (person.children && person.children.length > 0) {
+            const childStartX = containerWidth * 0.15;
+            const childSpacing = Math.min(120, containerWidth * 0.15);
+            
+            person.children.forEach((childId, index) => {
+                const child = familyData[childId];
+                if (child) {
+                    const childPos = { x: childStartX + (index * childSpacing), y: containerHeight * 0.7 };
+                    const childMember = createFamilyMember(child, childId, 'child', childPos);
+                    network.appendChild(childMember);
+                    childMembers.push(childMember);
+                    members.push({ element: childMember, role: 'child' });
+                    positions.children.push(childPos);
+                }
+            });
+        }
+        
+        // Wait for elements to be rendered, then add connection lines
+        setTimeout(() => {
+            // Marriage line
+            if (spouseMember) {
+                const marriageLine = createConnectionLine(currentMember, spouseMember, 'marriage');
+                network.appendChild(marriageLine);
+            }
+            
+            // Parent-child lines
+            parentMembers.forEach(parentMember => {
+                const parentChildLine = createConnectionLine(parentMember, currentMember, 'parent-child');
+                network.appendChild(parentChildLine);
+            });
+            
+            // Current person to children lines
+            childMembers.forEach(childMember => {
+                const childLine = createConnectionLine(currentMember, childMember, 'parent-child');
+                network.appendChild(childLine);
+            });
+            
+            // Spouse to children lines (if spouse exists)
+            if (spouseMember) {
+                childMembers.forEach(childMember => {
+                    const spouseChildLine = createConnectionLine(spouseMember, childMember, 'parent-child');
+                    network.appendChild(spouseChildLine);
+                });
+            }
+        }, 100);
     }
 </script>
 {% endblock %}
