@@ -301,6 +301,7 @@
             <button class="control-btn" onclick="showGeneration('seth-line')">Seth's Line</button>
             <button class="control-btn" onclick="resetZoom()">Reset View</button>
             <button class="control-btn" onclick="fitToScreen()">Fit to Screen</button>
+            <a href="/static/adameve.ged" download class="control-btn" style="text-decoration: none; display: inline-block;">📥 Download GEDCOM</a>
         </div>
         
         <div class="tree-legend">
@@ -516,6 +517,14 @@ function initializeFamilyTree() {
         }
     });
     
+    // Add double-click event listener
+    network.on('doubleClick', function(params) {
+        if (params.nodes.length > 0) {
+            const nodeId = params.nodes[0];
+            centerOnPersonAndDescendants(nodeId);
+        }
+    });
+    
     // Initial fit
     setTimeout(() => {
         network.fit();
@@ -666,6 +675,85 @@ function fitToScreen() {
             easingFunction: 'easeInOutQuad'
         }
     });
+}
+
+function centerOnPersonAndDescendants(personId) {
+    const person = familyData[personId];
+    if (!person) return;
+    
+    // Find all descendants recursively
+    function getDescendants(id, visited = new Set()) {
+        if (visited.has(id)) return [];
+        visited.add(id);
+        
+        const descendants = [id];
+        const personData = familyData[id];
+        
+        if (personData && personData.children) {
+            personData.children.forEach(childId => {
+                descendants.push(...getDescendants(childId, visited));
+            });
+        }
+        
+        return descendants;
+    }
+    
+    const visibleNodes = getDescendants(personId);
+    
+    // Hide all nodes first
+    const allNodes = nodes.get();
+    allNodes.forEach(node => {
+        if (visibleNodes.includes(node.id)) {
+            nodes.update({...node, hidden: false});
+        } else {
+            nodes.update({...node, hidden: true});
+        }
+    });
+    
+    // Update edges visibility
+    const allEdges = edges.get();
+    allEdges.forEach(edge => {
+        const showEdge = visibleNodes.includes(edge.from) && visibleNodes.includes(edge.to);
+        edges.update({...edge, hidden: !showEdge});
+    });
+    
+    // Center on the selected person
+    setTimeout(() => {
+        network.focus(personId, {
+            scale: 1.2,
+            animation: {
+                duration: 1000,
+                easingFunction: 'easeInOutQuad'
+            }
+        });
+    }, 100);
+    
+    // Show details for the centered person
+    showPersonDetails(personId);
+    
+    // Update button states
+    document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // Add notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--primary-color);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        z-index: 1000;
+        font-family: 'Inter', sans-serif;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    `;
+    notification.textContent = `Showing ${person.name} and descendants`;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 // Initialize the family tree when the page loads

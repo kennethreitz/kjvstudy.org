@@ -1018,34 +1018,33 @@ def biblical_maps_page(request: Request):
 
 @app.get("/family-tree", response_class=HTMLResponse)
 def family_tree_page(request: Request):
-    """Biblical family tree page starting with Adam and Eve"""
+    """Biblical family tree page using GEDCOM file"""
     books = list(bible.iter_books())
 
-    # Try to fetch and parse GEDCOM file
-    family_tree_data = {}
+    # Load GEDCOM file from static folder
+    static_dir = Path(__file__).parent / "static"
+    gedcom_path = static_dir / "adameve.ged"
+    
+    if not gedcom_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"GEDCOM file not found. Please place 'adameve.ged' in the static folder."
+        )
+    
+    if not GedcomReader:
+        raise HTTPException(
+            status_code=500,
+            detail="GEDCOM parser not available. Please install ged4py."
+        )
 
+    # Parse GEDCOM data
     try:
-        # Load GEDCOM file from static folder
-        static_dir = Path(__file__).parent / "static"
-        gedcom_path = static_dir / "adameve.ged"
-        
-        if gedcom_path.exists() and GedcomReader:
-            # Parse GEDCOM data
-            with open(gedcom_path, 'r', encoding='utf-8') as f:
-                gedcom = GedcomReader(f)
-                # Convert GEDCOM to our format
-                family_tree_data = parse_gedcom_to_tree_data(gedcom)
-        else:
-            if not gedcom_path.exists():
-                print(f"GEDCOM file not found at: {gedcom_path}")
-            if not GedcomReader:
-                print("GEDCOM parser not available")
-            raise FileNotFoundError("GEDCOM file or parser not available")
-
+        family_tree_data = parse_gedcom_to_tree_data(gedcom_path)
     except Exception as e:
-        print(f"Failed to load GEDCOM file: {e}")
-        # Fallback to manual data
-        family_tree_data = get_fallback_family_data()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to parse GEDCOM file: {str(e)}"
+        )
 
     return templates.TemplateResponse(
         "family_tree.html",
@@ -1057,461 +1056,160 @@ def family_tree_page(request: Request):
     )
 
 
-def parse_gedcom_to_tree_data(gedcom):
-    """Parse GEDCOM data into our family tree format"""
+def parse_gedcom_to_tree_data(gedcom_path):
+    """Parse GEDCOM file into our family tree format"""
     tree_data = {}
+    
+    # Read GEDCOM file content first
+    with open(gedcom_path, 'r', encoding='utf-8') as f:
+        gedcom_content = f.read()
+    
+    # Parse with ged4py using string content
+    from io import StringIO
+    gedcom_io = StringIO(gedcom_content)
+    gedcom = GedcomReader(gedcom_io)
 
-    try:
-        for record in gedcom.records0:
-            if hasattr(record, 'tag') and record.tag == 'INDI':
-                person_id = record.xref_id.lower().replace('@', '').replace('i', '')
+    # First pass: collect all individuals
+    for record in gedcom.records0:
+        if record.tag == 'INDI':
+            person_id = record.xref_id.replace('@', '').replace('#', '').lower()
 
-                # Get person name
-                name = "Unknown"
-                for sub in record.sub_records:
-                    if sub.tag == 'NAME':
-                        name_parts = sub.value.replace('/', '').strip().split()
-                        name = ' '.join(name_parts)
-                        break
+            # Get person name
+            name = "Unknown"
+            title = "Biblical Figure"
+            for sub in record.sub_records:
+                if sub.tag == 'NAME':
+                    name_value = sub.value.replace('/', '').strip()
+                    name = ' '.join(name_value.split())
+                    break
 
-                # Get basic info
-                person_data = {
-                    "name": name,
-                    "title": "Biblical Figure",
-                    "description": "Person from biblical genealogy",
-                    "children": [],
-                    "parents": [],
-                    "spouse": None,
-                    "verses": [],
-                    "birth_year": "Unknown",
-                    "death_year": "Unknown",
-                    "age_at_death": "Unknown"
-                }
+            # Get occupation/title from OCCU tag
+            for sub in record.sub_records:
+                if sub.tag == 'OCCU':
+                    title = sub.value
+                    break
 
-                # Get dates if available
-                for sub in record.sub_records:
-                    if sub.tag == 'BIRT':
-                        for date_sub in sub.sub_records:
-                            if date_sub.tag == 'DATE':
-                                person_data["birth_year"] = date_sub.value
-                    elif sub.tag == 'DEAT':
-                        for date_sub in sub.sub_records:
-                            if date_sub.tag == 'DATE':
-                                person_data["death_year"] = date_sub.value
+            # Get notes for description
+            description = f"Biblical figure from {name}'s genealogy"
+            for sub in record.sub_records:
+                if sub.tag == 'NOTE':
+                    description = sub.value
+                    break
 
-                tree_data[person_id] = person_data
+            # Get birth and death dates
+            birth_year = "Unknown"
+            death_year = "Unknown"
+            age_at_death = "Unknown"
+            
+            for sub in record.sub_records:
+                if sub.tag == 'BIRT':
+                    for date_sub in sub.sub_records:
+                        if date_sub.tag == 'DATE':
+                            birth_year = date_sub.value
+                elif sub.tag == 'DEAT':
+                    for date_sub in sub.sub_records:
+                        if date_sub.tag == 'DATE':
+                            death_year = date_sub.value
 
-        # Second pass for relationships
-        for record in gedcom.records0:
-            if hasattr(record, 'tag') and record.tag == 'FAM':
-                husband_id = None
-                wife_id = None
-                children = []
+            # Calculate age if we have both birth and death years
+            if birth_year != "Unknown" and death_year != "Unknown":
+                try:
+                    birth_num = int(birth_year.split()[0]) if birth_year.split() else 0
+                    death_num = int(death_year.split()[0]) if death_year.split() else 0
+                    if death_num > birth_num:
+                        age_at_death = f"{death_num - birth_num} years"
+                except (ValueError, IndexError):
+                    pass
 
-                for sub in record.sub_records:
-                    if sub.tag == 'HUSB':
-                        husband_id = sub.value.lower().replace('@', '').replace('i', '')
-                    elif sub.tag == 'WIFE':
-                        wife_id = sub.value.lower().replace('@', '').replace('i', '')
-                    elif sub.tag == 'CHIL':
-                        child_id = sub.value.lower().replace('@', '').replace('i', '')
-                        children.append(child_id)
+            person_data = {
+                "name": name,
+                "title": title,
+                "description": description,
+                "children": [],
+                "parents": [],
+                "spouse": None,
+                "verses": get_biblical_verses(name),
+                "birth_year": birth_year,
+                "death_year": death_year,
+                "age_at_death": age_at_death
+            }
 
-                # Set relationships
-                if husband_id and husband_id in tree_data and wife_id and wife_id in tree_data:
-                    tree_data[husband_id]["spouse"] = tree_data[wife_id]["name"]
-                    tree_data[wife_id]["spouse"] = tree_data[husband_id]["name"]
+            tree_data[person_id] = person_data
 
-                # Set parent-child relationships
-                for child_id in children:
-                    if child_id in tree_data:
-                        if husband_id and husband_id in tree_data:
-                            tree_data[husband_id]["children"].append(child_id)
+    # Second pass: collect family relationships
+    for record in gedcom.records0:
+        if record.tag == 'FAM':
+            husband_id = None
+            wife_id = None
+            children = []
+
+            for sub in record.sub_records:
+                if sub.tag == 'HUSB':
+                    husband_id = sub.value.replace('@', '').replace('#', '').lower()
+                elif sub.tag == 'WIFE':
+                    wife_id = sub.value.replace('@', '').replace('#', '').lower()
+                elif sub.tag == 'CHIL':
+                    child_id = sub.value.replace('@', '').replace('#', '').lower()
+                    children.append(child_id)
+
+            # Set spouse relationships
+            if husband_id and husband_id in tree_data and wife_id and wife_id in tree_data:
+                tree_data[husband_id]["spouse"] = tree_data[wife_id]["name"]
+                tree_data[wife_id]["spouse"] = tree_data[husband_id]["name"]
+
+            # Set parent-child relationships
+            for child_id in children:
+                if child_id in tree_data:
+                    if husband_id and husband_id in tree_data:
+                        tree_data[husband_id]["children"].append(child_id)
+                        if husband_id not in tree_data[child_id]["parents"]:
                             tree_data[child_id]["parents"].append(husband_id)
-                        if wife_id and wife_id in tree_data:
-                            tree_data[wife_id]["children"].append(child_id)
-                            if wife_id not in tree_data[child_id]["parents"]:
-                                tree_data[child_id]["parents"].append(wife_id)
+                    if wife_id and wife_id in tree_data:
+                        tree_data[wife_id]["children"].append(child_id)
+                        if wife_id not in tree_data[child_id]["parents"]:
+                            tree_data[child_id]["parents"].append(wife_id)
 
-    except Exception as e:
-        print(f"Error parsing GEDCOM: {e}")
-        return get_fallback_family_data()
-
-    return tree_data if tree_data else get_fallback_family_data()
+    return tree_data
 
 
-def get_fallback_family_data():
-    """Fallback family tree data if GEDCOM parsing fails"""
-    return {
-        # Generation 1
-        "adam": {
-            "name": "Adam",
-            "title": "The First Man",
-            "description": "Created by God from the dust of the ground",
-            "spouse": "Eve",
-            "children": ["cain", "abel", "seth"],
-            "parents": [],
-            "verses": [
-                {"reference": "Genesis 2:7", "text": "And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."},
-                {"reference": "Genesis 1:27", "text": "So God created man in his own image, in the image of God created he him; male and female created he them."}
-            ],
-            "birth_year": "Year 0 (Creation)",
-            "death_year": "Year 930",
-            "age_at_death": "930 years"
-        },
-        "eve": {
-            "name": "Eve",
-            "title": "Mother of All Living",
-            "description": "The first woman, created from Adam's rib",
-            "spouse": "Adam",
-            "children": ["cain", "abel", "seth"],
-            "parents": [],
-            "verses": [
-                {"reference": "Genesis 2:22", "text": "And the rib, which the LORD God had taken from man, made he a woman, and brought her unto the man."},
-                {"reference": "Genesis 3:20", "text": "And Adam called his wife's name Eve; because she was the mother of all living."}
-            ],
-            "birth_year": "Year 0 (Creation)",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        
-        # Generation 2
-        "cain": {
-            "name": "Cain",
-            "title": "The First Son",
-            "description": "First son of Adam and Eve, a tiller of the ground",
-            "parents": ["adam", "eve"],
-            "spouse": "Wife of Cain",
-            "children": ["enoch_cain"],
-            "verses": [
-                {"reference": "Genesis 4:1", "text": "And Adam knew Eve his wife; and she conceived, and bare Cain, and said, I have gotten a man from the LORD."},
-                {"reference": "Genesis 4:8", "text": "And Cain talked with Abel his brother: and it came to pass, when they were in the field, that Cain rose up against Abel his brother, and slew him."}
-            ],
-            "birth_year": "~Year 130",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "abel": {
-            "name": "Abel",
-            "title": "The Righteous Son",
-            "description": "Second son of Adam and Eve, a keeper of sheep",
-            "parents": ["adam", "eve"],
-            "spouse": None,
-            "children": [],
-            "verses": [
-                {"reference": "Genesis 4:2", "text": "And she again bare his brother Abel. And Abel was a keeper of sheep, but Cain was a tiller of the ground."},
-                {"reference": "Genesis 4:4", "text": "And Abel, he also brought of the firstlings of his flock and of the fat thereof. And the LORD had respect unto Abel and to his offering:"}
-            ],
-            "birth_year": "~Year 132",
-            "death_year": "~Year 160",
-            "age_at_death": "~28 years"
-        },
-        "seth": {
-            "name": "Seth",
-            "title": "The Appointed One",
-            "description": "Third son of Adam and Eve, appointed to replace Abel",
-            "parents": ["adam", "eve"],
-            "spouse": "Wife of Seth",
-            "children": ["enos"],
-            "verses": [
-                {"reference": "Genesis 4:25", "text": "And Adam knew his wife again; and she bare a son, and called his name Seth: For God, said she, hath appointed me another seed instead of Abel, whom Cain slew."},
-                {"reference": "Genesis 5:3", "text": "And Adam lived an hundred and thirty years, and begat a son in his own likeness, after his image; and called his name Seth:"}
-            ],
-            "birth_year": "Year 130",
-            "death_year": "Year 1042",
-            "age_at_death": "912 years"
-        },
-        
-        # Generation 3
-        "enoch_cain": {
-            "name": "Enoch",
-            "title": "Son of Cain, City Builder",
-            "description": "Son of Cain, first city builder mentioned in Scripture",
-            "parents": ["cain"],
-            "spouse": "Wife of Enoch",
-            "children": ["irad"],
-            "verses": [
-                {"reference": "Genesis 4:17", "text": "And Cain knew his wife; and she conceived, and bare Enoch: and he builded a city, and called the name of the city, after the name of his son, Enoch."}
-            ],
-            "birth_year": "~Year 200",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "enos": {
-            "name": "Enos",
-            "title": "Son of Seth",
-            "description": "Grandson of Adam, in his time men began to call upon the name of the LORD",
-            "parents": ["seth"],
-            "spouse": "Wife of Enos",
-            "children": ["cainan"],
-            "verses": [
-                {"reference": "Genesis 4:26", "text": "And to Seth, to him also there was born a son; and he called his name Enos: then began men to call upon the name of the LORD."},
-                {"reference": "Genesis 5:6", "text": "And Seth lived an hundred and five years, and begat Enos:"}
-            ],
-            "birth_year": "Year 235",
-            "death_year": "Year 1140",
-            "age_at_death": "905 years"
-        },
-        
-        # Generation 4
-        "irad": {
-            "name": "Irad",
-            "title": "Son of Enoch",
-            "description": "Great-grandson of Cain",
-            "parents": ["enoch_cain"],
-            "spouse": "Wife of Irad",
-            "children": ["mehujael"],
-            "verses": [
-                {"reference": "Genesis 4:18", "text": "And unto Enoch was born Irad: and Irad begat Mehujael; and Mehujael begat Methusael; and Methusael begat Lamech."}
-            ],
-            "birth_year": "~Year 300",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "cainan": {
-            "name": "Cainan",
-            "title": "Son of Enos",
-            "description": "Great-grandson of Adam through Seth's line",
-            "parents": ["enos"],
-            "spouse": "Wife of Cainan",
-            "children": ["mahalaleel"],
-            "verses": [
-                {"reference": "Genesis 5:9", "text": "And Enos lived ninety years, and begat Cainan:"}
-            ],
-            "birth_year": "Year 325",
-            "death_year": "Year 1235",
-            "age_at_death": "910 years"
-        },
-        
-        # Generation 5
-        "mehujael": {
-            "name": "Mehujael",
-            "title": "Son of Irad",
-            "description": "From Cain's lineage",
-            "parents": ["irad"],
-            "spouse": "Wife of Mehujael",
-            "children": ["methusael"],
-            "verses": [
-                {"reference": "Genesis 4:18", "text": "And unto Enoch was born Irad: and Irad begat Mehujael; and Mehujael begat Methusael; and Methusael begat Lamech."}
-            ],
-            "birth_year": "~Year 400",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "mahalaleel": {
-            "name": "Mahalaleel",
-            "title": "Son of Cainan",
-            "description": "Fourth generation from Adam through Seth",
-            "parents": ["cainan"],
-            "spouse": "Wife of Mahalaleel",
-            "children": ["jared"],
-            "verses": [
-                {"reference": "Genesis 5:12", "text": "And Cainan lived seventy years, and begat Mahalaleel:"}
-            ],
-            "birth_year": "Year 395",
-            "death_year": "Year 1290",
-            "age_at_death": "895 years"
-        },
-        
-        # Generation 6
-        "methusael": {
-            "name": "Methusael",
-            "title": "Son of Mehujael",
-            "description": "From Cain's lineage",
-            "parents": ["mehujael"],
-            "spouse": "Wife of Methusael",
-            "children": ["lamech_cain"],
-            "verses": [
-                {"reference": "Genesis 4:18", "text": "And unto Enoch was born Irad: and Irad begat Mehujael; and Mehujael begat Methusael; and Methusael begat Lamech."}
-            ],
-            "birth_year": "~Year 500",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "jared": {
-            "name": "Jared",
-            "title": "Son of Mahalaleel",
-            "description": "Fifth generation from Adam through Seth",
-            "parents": ["mahalaleel"],
-            "spouse": "Wife of Jared",
-            "children": ["enoch_seth"],
-            "verses": [
-                {"reference": "Genesis 5:15", "text": "And Mahalaleel lived sixty and five years, and begat Jared:"}
-            ],
-            "birth_year": "Year 460",
-            "death_year": "Year 1422",
-            "age_at_death": "962 years"
-        },
-        
-        # Generation 7
-        "lamech_cain": {
-            "name": "Lamech",
-            "title": "Son of Methusael",
-            "description": "Descendant of Cain, father of Jabal, Jubal, and Tubal-cain",
-            "parents": ["methusael"],
-            "spouse": "Adah and Zillah",
-            "children": ["jabal", "jubal", "tubalcain"],
-            "verses": [
-                {"reference": "Genesis 4:19", "text": "And Lamech took unto him two wives: the name of the one was Adah, and the name of the other Zillah."}
-            ],
-            "birth_year": "~Year 600",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "enoch_seth": {
-            "name": "Enoch",
-            "title": "The One Who Walked with God",
-            "description": "Sixth generation from Adam through Seth, taken by God without dying",
-            "parents": ["jared"],
-            "spouse": "Wife of Enoch",
-            "children": ["methuselah"],
-            "verses": [
-                {"reference": "Genesis 5:21", "text": "And Enoch lived sixty and five years, and begat Methuselah:"},
-                {"reference": "Genesis 5:24", "text": "And Enoch walked with God: and he was not; for God took him."}
-            ],
-            "birth_year": "Year 622",
-            "death_year": "Year 987 (Taken by God)",
-            "age_at_death": "365 years"
-        },
-        
-        # Generation 8
-        "jabal": {
-            "name": "Jabal",
-            "title": "Father of Tent Dwellers",
-            "description": "Son of Lamech, father of those who dwell in tents and have cattle",
-            "parents": ["lamech_cain"],
-            "spouse": None,
-            "children": [],
-            "verses": [
-                {"reference": "Genesis 4:20", "text": "And Adah bare Jabal: he was the father of such as dwell in tents, and of such as have cattle."}
-            ],
-            "birth_year": "~Year 700",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "jubal": {
-            "name": "Jubal",
-            "title": "Father of Musicians",
-            "description": "Son of Lamech, father of all who handle the harp and organ",
-            "parents": ["lamech_cain"],
-            "spouse": None,
-            "children": [],
-            "verses": [
-                {"reference": "Genesis 4:21", "text": "And his brother's name was Jubal: he was the father of all such as handle the harp and organ."}
-            ],
-            "birth_year": "~Year 702",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "tubalcain": {
-            "name": "Tubal-cain",
-            "title": "Instructor of Metal Workers",
-            "description": "Son of Lamech, instructor of every artificer in brass and iron",
-            "parents": ["lamech_cain"],
-            "spouse": None,
-            "children": [],
-            "verses": [
-                {"reference": "Genesis 4:22", "text": "And Zillah, she also bare Tubalcain, an instructer of every artificer in brass and iron: and the sister of Tubalcain was Naamah."}
-            ],
-            "birth_year": "~Year 704",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "methuselah": {
-            "name": "Methuselah",
-            "title": "The Longest Lived",
-            "description": "Son of Enoch, lived 969 years - the longest lifespan recorded",
-            "parents": ["enoch_seth"],
-            "spouse": "Wife of Methuselah",
-            "children": ["lamech_seth"],
-            "verses": [
-                {"reference": "Genesis 5:25", "text": "And Methuselah lived an hundred eighty and seven years, and begat Lamech:"},
-                {"reference": "Genesis 5:27", "text": "And all the days of Methuselah were nine hundred sixty and nine years: and he died."}
-            ],
-            "birth_year": "Year 687",
-            "death_year": "Year 1656",
-            "age_at_death": "969 years"
-        },
-        
-        # Generation 9
-        "lamech_seth": {
-            "name": "Lamech",
-            "title": "Father of Noah",
-            "description": "Son of Methuselah, father of Noah",
-            "parents": ["methuselah"],
-            "spouse": "Wife of Lamech",
-            "children": ["noah"],
-            "verses": [
-                {"reference": "Genesis 5:28", "text": "And Lamech lived an hundred eighty and two years, and begat a son:"},
-                {"reference": "Genesis 5:29", "text": "And he called his name Noah, saying, This same shall comfort us concerning our work and toil of our hands, because of the ground which the LORD hath cursed."}
-            ],
-            "birth_year": "Year 874",
-            "death_year": "Year 1651",
-            "age_at_death": "777 years"
-        },
-        
-        # Generation 10
-        "noah": {
-            "name": "Noah",
-            "title": "The Preacher of Righteousness",
-            "description": "Righteous man who built the ark and survived the flood",
-            "parents": ["lamech_seth"],
-            "spouse": "Wife of Noah",
-            "children": ["shem", "ham", "japheth"],
-            "verses": [
-                {"reference": "Genesis 6:8", "text": "But Noah found grace in the eyes of the LORD."},
-                {"reference": "Genesis 7:1", "text": "And the LORD said unto Noah, Come thou and all thy house into the ark; for thee have I seen righteous before me in this generation."}
-            ],
-            "birth_year": "Year 1056",
-            "death_year": "Year 2006",
-            "age_at_death": "950 years"
-        },
-        "shem": {
-            "name": "Shem",
-            "title": "Son of Noah",
-            "description": "Son of Noah, ancestor of Abraham and the Semitic peoples",
-            "parents": ["noah"],
-            "spouse": "Wife of Shem",
-            "children": ["arphaxad"],
-            "verses": [
-                {"reference": "Genesis 9:26", "text": "And he said, Blessed be the LORD God of Shem; and Canaan shall be his servant."},
-                {"reference": "Genesis 10:1", "text": "Now these are the generations of the sons of Noah, Shem, Ham, and Japheth: and unto them were sons born after the flood."}
-            ],
-            "birth_year": "Year 1558",
-            "death_year": "Year 2158",
-            "age_at_death": "600 years"
-        },
-        "ham": {
-            "name": "Ham",
-            "title": "Son of Noah",
-            "description": "Son of Noah, ancestor of Canaan and African peoples",
-            "parents": ["noah"],
-            "spouse": "Wife of Ham",
-            "children": ["canaan", "cush", "mizraim", "phut"],
-            "verses": [
-                {"reference": "Genesis 9:22", "text": "And Ham, the father of Canaan, saw the nakedness of his father, and told his two brethren without."},
-                {"reference": "Genesis 10:6", "text": "And the sons of Ham; Cush, and Mizraim, and Phut, and Canaan."}
-            ],
-            "birth_year": "Year 1556",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        },
-        "japheth": {
-            "name": "Japheth",
-            "title": "Son of Noah",
-            "description": "Son of Noah, ancestor of many European and Asian peoples",
-            "parents": ["noah"],
-            "spouse": "Wife of Japheth",
-            "children": ["gomer", "magog", "madai", "javan"],
-            "verses": [
-                {"reference": "Genesis 9:27", "text": "God shall enlarge Japheth, and he shall dwell in the tents of Shem; and Canaan shall be his servant."},
-                {"reference": "Genesis 10:2", "text": "The sons of Japheth; Gomer, and Magog, and Madai, and Javan, and Tubal, and Meshech, and Tiras."}
-            ],
-            "birth_year": "Year 1556",
-            "death_year": "Unknown",
-            "age_at_death": "Unknown"
-        }
+def get_biblical_verses(name):
+    """Get relevant Bible verses for a person based on their name"""
+    verse_map = {
+        "Adam": [
+            {"reference": "Genesis 2:7", "text": "And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."},
+            {"reference": "Genesis 1:27", "text": "So God created man in his own image, in the image of God created he him; male and female created he them."}
+        ],
+        "Eve": [
+            {"reference": "Genesis 2:22", "text": "And the rib, which the LORD God had taken from man, made he a woman, and brought her unto the man."},
+            {"reference": "Genesis 3:20", "text": "And Adam called his wife's name Eve; because she was the mother of all living."}
+        ],
+        "Cain": [
+            {"reference": "Genesis 4:1", "text": "And Adam knew Eve his wife; and she conceived, and bare Cain, and said, I have gotten a man from the LORD."},
+            {"reference": "Genesis 4:8", "text": "And Cain talked with Abel his brother: and it came to pass, when they were in the field, that Cain rose up against Abel his brother, and slew him."}
+        ],
+        "Abel": [
+            {"reference": "Genesis 4:2", "text": "And she again bare his brother Abel. And Abel was a keeper of sheep, but Cain was a tiller of the ground."},
+            {"reference": "Genesis 4:4", "text": "And Abel, he also brought of the firstlings of his flock and of the fat thereof. And the LORD had respect unto Abel and to his offering:"}
+        ],
+        "Seth": [
+            {"reference": "Genesis 4:25", "text": "And Adam knew his wife again; and she bare a son, and called his name Seth: For God, said she, hath appointed me another seed instead of Abel, whom Cain slew."},
+            {"reference": "Genesis 5:3", "text": "And Adam lived an hundred and thirty years, and begat a son in his own likeness, after his image; and called his name Seth:"}
+        ],
+        "Enoch": [
+            {"reference": "Genesis 5:21", "text": "And Enoch lived sixty and five years, and begat Methuselah:"},
+            {"reference": "Genesis 5:24", "text": "And Enoch walked with God: and he was not; for God took him."}
+        ],
+        "Noah": [
+            {"reference": "Genesis 6:8", "text": "But Noah found grace in the eyes of the LORD."},
+            {"reference": "Genesis 7:1", "text": "And the LORD said unto Noah, Come thou and all thy house into the ark; for thee have I seen righteous before me in this generation."}
+        ],
+        "Methuselah": [
+            {"reference": "Genesis 5:25", "text": "And Methuselah lived an hundred eighty and seven years, and begat Lamech:"},
+            {"reference": "Genesis 5:27", "text": "And all the days of Methuselah were nine hundred sixty and nine years: and he died."}
+        ]
     }
+    
+    return verse_map.get(name, [])
 
 
 def get_daily_verse():
