@@ -103,6 +103,53 @@
 .chapter-link {
     position: relative;
     transition: all 0.3s ease;
+    overflow: visible;
+}
+
+.chapter-link::before {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    max-width: 300px;
+    white-space: normal;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Crimson Text', 'Times New Roman', serif;
+}
+
+.chapter-link::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.95);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.chapter-link:hover::before,
+.chapter-link:hover::after {
+    opacity: 1;
+    visibility: visible;
 }
 
 .chapter-link[data-popularity="10"] {
@@ -173,10 +220,36 @@
     opacity: 0.8;
 }
 
-.chapter-link[data-popularity="10"]::after,
-.chapter-link[data-popularity="9"]::after,
-.chapter-link[data-popularity="8"]::after {
+.chapter-link[data-popularity="10"] .chapter-star,
+.chapter-link[data-popularity="9"] .chapter-star,
+.chapter-link[data-popularity="8"] .chapter-star {
     color: #FFD700;
+}
+
+.chapter-star {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .chapter-link::before {
+        position: fixed;
+        bottom: 2rem;
+        left: 1rem;
+        right: 1rem;
+        transform: none;
+        max-width: none;
+        font-size: 0.9rem;
+        padding: 1rem;
+        z-index: 1002;
+    }
+    
+    .chapter-link::after {
+        display: none;
+    }
 }
 
 .verse-tooltip {
@@ -348,8 +421,9 @@
 
 <div class="chapter-grid">
     {% for chapter in chapters %}
-    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" title="{{ book }} Chapter {{ chapter }} - Popularity: {{ chapter_popularity[chapter] }}/10 ★{% if chapter_popularity[chapter] >= 8 %} - Highly popular passage{% elif chapter_popularity[chapter] >= 6 %} - Well-known chapter{% else %} - Click to explore{% endif %}">
+    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" title="{{ book }} {{ chapter }} ({{ chapter_popularity[chapter] }}/10 ★) - {{ chapter_explanations[chapter] }}">
         {{ chapter }}
+        {% if chapter_popularity[chapter] >= 8 %}<span class="chapter-star">★</span>{% endif %}
     </a>
     {% endfor %}
 </div>

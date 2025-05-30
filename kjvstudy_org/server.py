@@ -83,6 +83,162 @@ def get_chapter_popularity_score(book: str, chapter: int) -> int:
     return min(default_score, 6)  # Cap at 6 for non-specifically scored chapters
 
 
+def get_chapter_popularity_explanation(book: str, chapter: int) -> str:
+    """Get explanation for why a chapter is popular or what it contains"""
+    explanations = {
+        "John": {
+            3: "Contains John 3:16 - 'For God so loved the world' - the most quoted verse in Christianity",
+            1: "The Word became flesh - Jesus as the eternal Logos and the calling of the first disciples",
+        },
+        "1 Corinthians": {
+            13: "The famous 'Love Chapter' - 'Love is patient, love is kind' - essential reading for weddings and Christian living",
+        },
+        "Psalms": {
+            23: "The beloved Shepherd Psalm - 'The Lord is my shepherd, I shall not want' - comfort in times of trouble",
+            91: "Psalm of protection - 'He who dwells in the shelter of the Most High' - promises of God's care",
+            1: "The blessed man - contrasts the righteous and wicked, foundation of wisdom literature",
+            139: "God's omniscience and omnipresence - 'You have searched me and known me' - intimate knowledge of God",
+        },
+        "Romans": {
+            8: "No condemnation in Christ - 'All things work together for good' - assurance of salvation",
+            3: "All have sinned - universal need for salvation and justification by faith",
+            12: "Living sacrifice - practical Christian living and spiritual gifts",
+        },
+        "Matthew": {
+            5: "The Beatitudes - 'Blessed are the poor in spirit' - foundation of Christian ethics",
+            6: "The Lord's Prayer and teachings on worry - 'Give us this day our daily bread'",
+            7: "Golden Rule and narrow gate - 'Do unto others as you would have them do unto you'",
+        },
+        "Ephesians": {
+            2: "Salvation by grace through faith - 'not by works' - core Protestant doctrine",
+            6: "Armor of God - spiritual warfare and family relationships",
+        },
+        "Philippians": {
+            4: "Joy and peace in Christ - 'I can do all things through Christ' and 'Be anxious for nothing'",
+        },
+        "Genesis": {
+            1: "Creation account - 'In the beginning God created the heavens and the earth'",
+            3: "The Fall - Adam and Eve's disobedience and the first promise of redemption",
+            22: "Abraham's ultimate test - the near-sacrifice of Isaac, foreshadowing Christ",
+        },
+        "Exodus": {
+            20: "The Ten Commandments - moral foundation given to Moses on Mount Sinai",
+            14: "Crossing the Red Sea - God's miraculous deliverance of Israel from Egypt",
+        },
+        "Isaiah": {
+            53: "The Suffering Servant - 'He was wounded for our transgressions' - prophecy of Christ's crucifixion",
+            40: "Comfort my people - 'Every valley shall be exalted' - hope and restoration",
+        },
+        "Jeremiah": {
+            29: "'I know the plans I have for you' - God's promises during exile, hope for the future",
+        },
+        "Proverbs": {
+            31: "The virtuous woman - 'Her price is far above rubies' - ideal of godly womanhood",
+            3: "'Trust in the Lord with all your heart' - foundational wisdom for life",
+        },
+        "Ecclesiastes": {
+            3: "'To everything there is a season' - the famous passage on time and purpose",
+        },
+        "1 Peter": {
+            5: "'Cast all your anxiety on him' - comfort for suffering Christians",
+        },
+        "James": {
+            1: "Faith and trials - 'Count it all joy when you fall into various trials'",
+        },
+        "Hebrews": {
+            11: "Hall of Faith - examples of faithful men and women throughout history",
+            12: "'Let us run with endurance the race set before us' - perseverance in faith",
+        },
+        "Revelation": {
+            21: "New heaven and new earth - 'God will wipe away every tear' - ultimate hope",
+            22: "The final invitation - 'Come, Lord Jesus' - conclusion of Scripture",
+        },
+        "Luke": {
+            2: "The Christmas story - birth of Jesus, shepherds, and Mary's pondering heart",
+            15: "Lost sheep, lost coin, and prodigal son - parables of God's pursuing love",
+        },
+        "2 Timothy": {
+            3: "'All Scripture is given by inspiration of God' - doctrine of biblical inspiration",
+        },
+        "Joshua": {
+            1: "'Be strong and of good courage' - God's commissioning of Joshua as leader",
+        },
+        "Daniel": {
+            3: "Shadrach, Meshach, and Abednego in the fiery furnace - faith under persecution",
+            6: "Daniel in the lion's den - integrity and God's deliverance",
+        },
+        "1 John": {
+            4: "'God is love' - the essential nature of God and perfect love casting out fear",
+        },
+        "Galatians": {
+            5: "Fruits of the Spirit - 'love, joy, peace, patience' - Christian character",
+        },
+        "Colossians": {
+            3: "'Set your mind on things above' - heavenly perspective on earthly life",
+        },
+        "1 Thessalonians": {
+            4: "The rapture - 'We shall be caught up together' - Second Coming of Christ",
+        },
+        "Mark": {
+            16: "The Great Commission - 'Go into all the world and preach the gospel'",
+        },
+        "Acts": {
+            2: "Pentecost - the Holy Spirit comes and the church is born",
+        },
+        "1 Samuel": {
+            17: "David and Goliath - faith triumphs over impossible odds",
+        },
+        "Job": {
+            19: "'I know that my Redeemer lives' - hope in the midst of suffering",
+        },
+        "2 Corinthians": {
+            5: "'If anyone is in Christ, he is a new creation' - transformation in Christ",
+        },
+        "1 Kings": {
+            3: "Solomon's wisdom - asking for an understanding heart to judge God's people",
+            18: "Elijah and the prophets of Baal - 'The Lord, He is God!'",
+        },
+        "Malachi": {
+            3: "Tithing and God's faithfulness - 'Bring all the tithes into the storehouse'",
+        },
+        "Joel": {
+            2: "'I will pour out My Spirit on all flesh' - prophecy of the Spirit's outpouring",
+        },
+        "Micah": {
+            6: "'What does the Lord require of you?' - justice, mercy, and humble walking with God",
+        },
+        "Habakkuk": {
+            2: "'The just shall live by faith' - foundational verse for Protestant Reformation",
+        },
+    }
+    
+    # Check if we have a specific explanation for this chapter
+    if book in explanations and chapter in explanations[book]:
+        return explanations[book][chapter]
+    
+    # Generate default explanations based on chapter position and book type
+    if chapter == 1:
+        return f"Opening chapter of {book} - introduces key themes and characters"
+    
+    # Check book categories for general explanations
+    if book in ["Matthew", "Mark", "Luke", "John"]:
+        return f"Gospel account of Jesus' life and ministry"
+    elif book in ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"]:
+        return f"Torah/Pentateuch - foundational law and history of Israel"
+    elif book in ["Psalms", "Proverbs", "Ecclesiastes", "Song of Solomon"]:
+        return f"Wisdom literature - poetry and practical life guidance"
+    elif book in ["Isaiah", "Jeremiah", "Ezekiel", "Daniel"]:
+        return f"Major prophet - messages of judgment and hope"
+    elif book in ["Romans", "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon"]:
+        return f"Pauline epistle - apostolic teaching for the early church"
+    elif book == "Acts":
+        return f"History of the early church and spread of the gospel"
+    elif book == "Revelation":
+        return f"Apocalyptic vision of the end times and Christ's victory"
+    else:
+        return f"Part of {book} - explore this chapter to discover its significance"
+
+
 def is_verse_reference(query: str) -> bool:
     """Check if query looks like a verse reference"""
     # Pattern for verse references like "John 3:16", "1 John 4:8", "Genesis 1:1", "I Corinthians 13:4", etc.
@@ -798,8 +954,10 @@ def read_book(request: Request, book: str):
     
     # Calculate popularity scores for each chapter
     chapter_popularity = {}
+    chapter_explanations = {}
     for chapter in chapters:
         chapter_popularity[chapter] = get_chapter_popularity_score(book, chapter)
+        chapter_explanations[chapter] = get_chapter_popularity_explanation(book, chapter)
 
     return templates.TemplateResponse(
         "book.html",
@@ -809,6 +967,7 @@ def read_book(request: Request, book: str):
             "chapters": chapters,
             "books": books,
             "chapter_popularity": chapter_popularity,
+            "chapter_explanations": chapter_explanations,
             **commentary_data
         },
     )
