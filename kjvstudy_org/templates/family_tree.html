@@ -7,6 +7,14 @@
 {% block head %}
 <!-- D3.js Library -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- Chart.js for analytics -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Font Awesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<!-- Chart.js for analytics -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Font Awesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 <style>
     .family-explorer-container {
@@ -836,9 +844,103 @@
     }
 
     /* Dark mode adjustments */
+    /* Enhanced Features Styles */
+    .layout-btn {
+        padding: 8px 16px;
+        border: 1px solid #dee2e6;
+        background: white;
+        color: #495057;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .layout-btn.active {
+        background: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .layout-btn:hover {
+        border-color: #007bff;
+        color: #007bff;
+        transform: translateY(-1px);
+    }
+
+    .layout-btn.active:hover {
+        background: #0056b3;
+        color: white;
+    }
+
+    .tree-node.search-highlight circle {
+        stroke: #ff9800 !important;
+        stroke-width: 4px !important;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { stroke-opacity: 1; }
+        50% { stroke-opacity: 0.5; }
+        100% { stroke-opacity: 1; }
+    }
+
+    .radial-link {
+        stroke: #666;
+        stroke-width: 2;
+        fill: none;
+        opacity: 0.7;
+    }
+
+    .force-link {
+        stroke: #999;
+        stroke-opacity: 0.6;
+    }
+
+    .force-link.marriage {
+        stroke: #4caf50;
+        stroke-width: 3px;
+        stroke-dasharray: 5,5;
+    }
+
+    .force-node {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .force-node:hover circle {
+        stroke-width: 3px;
+        r: 10;
+    }
+
+    .search-btn:hover {
+        background: #0056b3 !important;
+        transform: translateY(-1px);
+    }
+
+    .close-btn:hover {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+
     @media (prefers-color-scheme: dark) {
         .family-explorer-header {
-            background: linear-gradient(135deg, #2d1b69, #8b5a2b);
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+        }
+        
+        .layout-btn {
+            background: #2d3436;
+            border-color: #636e72;
+            color: #ddd;
+        }
+        
+        .search-panel, .analytics-panel {
+            background: #2d3436 !important;
+            border-color: #636e72 !important;
+            color: #ddd;
         }
     }
 </style>
@@ -908,12 +1010,95 @@
                 <button class="view-btn active" onclick="showTreeView()">🌳 Full Tree View</button>
             </div>
 
+            <!-- Enhanced Layout Selector -->
+            <div class="layout-selector" id="layout-selector" style="display: none; justify-content: center; gap: 10px; margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <button class="layout-btn active" onclick="switchLayout('hierarchical')" title="Traditional family tree">
+                    <i class="fas fa-sitemap"></i> Hierarchical
+                </button>
+                <button class="layout-btn" onclick="switchLayout('radial')" title="Generations in circles">
+                    <i class="fas fa-sun"></i> Radial
+                </button>
+                <button class="layout-btn" onclick="switchLayout('force-directed')" title="Dynamic relationships">
+                    <i class="fas fa-project-diagram"></i> Force-Directed
+                </button>
+                <button class="layout-btn" onclick="switchLayout('timeline')" title="Chronological view">
+                    <i class="fas fa-timeline"></i> Timeline
+                </button>
+            </div>
+
+            <!-- Enhanced Search Panel -->
+            <div class="search-panel" id="search-panel" style="display: none; background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                <div class="search-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h4><i class="fas fa-search"></i> Advanced Search</h4>
+                    <button onclick="toggleSearch()" class="close-btn" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
+                </div>
+                <div class="search-input-wrapper" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="enhanced-search-input" placeholder="Search by name, title, or description..." 
+                           style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <button onclick="performEnhancedSearch()" class="search-btn" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Search
+                    </button>
+                </div>
+                <div class="search-filters" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; gap: 5px;">
+                        <input type="checkbox" id="search-names" checked> Names
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px;">
+                        <input type="checkbox" id="search-titles" checked> Titles
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px;">
+                        <input type="checkbox" id="search-descriptions"> Descriptions
+                    </label>
+                </div>
+                <div id="search-results" style="margin-top: 15px; max-height: 200px; overflow-y: auto;"></div>
+            </div>
+
+            <!-- Analytics Panel -->
+            <div class="analytics-panel" id="analytics-panel" style="display: none; background: white; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+                <div class="analytics-header" style="background: #007bff; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <h4><i class="fas fa-chart-bar"></i> Family Tree Analytics</h4>
+                    <button onclick="toggleAnalytics()" class="close-btn" style="background: none; border: none; color: white; font-size: 18px; cursor: pointer;">×</button>
+                </div>
+                <div class="analytics-content" style="padding: 20px;">
+                    <div class="stats-overview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div class="stat-card" style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div class="stat-number" id="total-persons" style="font-size: 24px; font-weight: bold; color: #007bff;">0</div>
+                            <div class="stat-label" style="font-size: 12px; color: #6c757d;">Total Persons</div>
+                        </div>
+                        <div class="stat-card" style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div class="stat-number" id="male-count" style="font-size: 24px; font-weight: bold; color: #2196F3;">0</div>
+                            <div class="stat-label" style="font-size: 12px; color: #6c757d;">Male</div>
+                        </div>
+                        <div class="stat-card" style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div class="stat-number" id="female-count" style="font-size: 24px; font-weight: bold; color: #E91E63;">0</div>
+                            <div class="stat-label" style="font-size: 12px; color: #6c757d;">Female</div>
+                        </div>
+                        <div class="stat-card" style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                            <div class="stat-number" id="generations-count" style="font-size: 24px; font-weight: bold; color: #4CAF50;">0</div>
+                            <div class="stat-label" style="font-size: 12px; color: #6c757d;">Generations</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" style="height: 300px; background: #fafafa; border-radius: 8px; padding: 15px; display: flex; align-items: center; justify-content: center;">
+                        <canvas id="demo-chart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <div class="tree-view" id="tree-view">
                 <div class="d3-tree-container">
                     <div class="tree-controls">
                         <button onclick="centerTree()">Center</button>
                         <button onclick="expandAll()">Expand All</button>
                         <button onclick="collapseAll()">Collapse All</button>
+                        <button onclick="toggleSearch()" style="background: #28a745; color: white; margin-left: 10px;">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                        <button onclick="toggleAnalytics()" style="background: #fd7e14; color: white;">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </button>
+                        <button onclick="exportTree()" style="background: #6c757d; color: white;">
+                            <i class="fas fa-download"></i> Export
+                        </button>
                     </div>
                     <svg class="d3-tree-svg" id="tree-svg"></svg>
                     
@@ -1765,10 +1950,496 @@
         document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelector('button[onclick="showTreeView()"]').classList.add('active');
 
+        // Show layout selector
+        document.getElementById('layout-selector').style.display = 'flex';
+
         // Update D3 tree when switching to tree view
         if (currentPersonId) {
             updateD3Tree(familyData[currentPersonId], currentPersonId);
         }
+    }
+
+    // Enhanced Layout Functions
+    let currentLayout = 'hierarchical';
+    let searchResults = [];
+    let analyticsData = {};
+
+    function switchLayout(layoutType) {
+        // Update button states
+        document.querySelectorAll('.layout-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        currentLayout = layoutType;
+        
+        if (!currentPersonId) return;
+        
+        const svg = d3.select("#tree-svg");
+        svg.selectAll("*").remove();
+        
+        switch(layoutType) {
+            case 'hierarchical':
+                updateD3Tree(familyData[currentPersonId], currentPersonId);
+                break;
+            case 'radial':
+                renderRadialLayout(currentPersonId);
+                break;
+            case 'force-directed':
+                renderForceDirectedLayout(currentPersonId);
+                break;
+            case 'timeline':
+                renderTimelineLayout(currentPersonId);
+                break;
+        }
+    }
+
+    function renderRadialLayout(personId) {
+        const svg = d3.select("#tree-svg");
+        const width = +svg.node().getBoundingClientRect().width;
+        const height = +svg.node().getBoundingClientRect().height;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const maxRadius = Math.min(width, height) / 2 - 60;
+
+        const g = svg.append("g");
+        
+        // Build radial data
+        const radialData = buildRadialData(personId, 3);
+        
+        // Position nodes in circles
+        radialData.forEach((generation, genIndex) => {
+            const radius = (genIndex + 1) * (maxRadius / 4);
+            const angleStep = (2 * Math.PI) / Math.max(generation.length, 1);
+            
+            generation.forEach((person, nodeIndex) => {
+                const angle = nodeIndex * angleStep - Math.PI / 2;
+                person.x = centerX + radius * Math.cos(angle);
+                person.y = centerY + radius * Math.sin(angle);
+            });
+        });
+
+        // Draw connections
+        const allNodes = radialData.flat();
+        const connections = [];
+        
+        allNodes.forEach(node => {
+            if (node.children) {
+                node.children.forEach(childId => {
+                    const child = allNodes.find(n => n.id === childId);
+                    if (child) {
+                        connections.push({ source: node, target: child });
+                    }
+                });
+            }
+        });
+
+        g.selectAll('.radial-link')
+            .data(connections)
+            .enter()
+            .append('path')
+            .attr('class', 'radial-link')
+            .attr('d', d => {
+                const midX = (d.source.x + d.target.x) / 2;
+                const midY = (d.source.y + d.target.y) / 2;
+                return `M${d.source.x},${d.source.y} Q${midX},${midY} ${d.target.x},${d.target.y}`;
+            });
+
+        // Draw nodes
+        const nodes = g.selectAll('.radial-node')
+            .data(allNodes)
+            .enter()
+            .append('g')
+            .attr('class', 'radial-node')
+            .attr('transform', d => `translate(${d.x},${d.y})`)
+            .on('click', (event, d) => selectPerson(d.id));
+
+        nodes.append('circle')
+            .attr('r', d => d.id === personId ? 10 : 6)
+            .attr('fill', d => d.id === personId ? '#007bff' : '#6c757d');
+
+        nodes.append('text')
+            .attr('dy', -15)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '10px')
+            .text(d => d.name);
+    }
+
+    function renderForceDirectedLayout(personId) {
+        const svg = d3.select("#tree-svg");
+        const width = +svg.node().getBoundingClientRect().width;
+        const height = +svg.node().getBoundingClientRect().height;
+
+        const g = svg.append("g");
+        
+        const { nodes, links } = buildForceData(personId);
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(80))
+            .force("charge", d3.forceManyBody().strength(-200))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        const link = g.selectAll('.force-link')
+            .data(links)
+            .enter()
+            .append('line')
+            .attr('class', d => `force-link ${d.type}`)
+            .attr('stroke-width', d => d.type === 'marriage' ? 3 : 2);
+
+        const node = g.selectAll('.force-node')
+            .data(nodes)
+            .enter()
+            .append('g')
+            .attr('class', 'force-node')
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended))
+            .on('click', (event, d) => selectPerson(d.id));
+
+        node.append('circle')
+            .attr('r', d => d.id === personId ? 12 : 8)
+            .attr('fill', d => d.id === personId ? '#007bff' : '#6c757d');
+
+        node.append('text')
+            .attr('dy', '.35em')
+            .attr('text-anchor', 'middle')
+            .style('font-size', '10px')
+            .text(d => d.name.length > 10 ? d.name.substring(0, 10) + '...' : d.name);
+
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node.attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+    }
+
+    function renderTimelineLayout(personId) {
+        const svg = d3.select("#tree-svg");
+        const width = +svg.node().getBoundingClientRect().width;
+        const height = +svg.node().getBoundingClientRect().height;
+
+        const g = svg.append("g");
+        
+        // Get timeline data
+        const timelineData = Object.values(familyData)
+            .filter(person => person.birth_year && person.birth_year !== "Unknown")
+            .map(person => ({
+                ...person,
+                id: Object.keys(familyData).find(id => familyData[id] === person),
+                birthYear: parseInt(person.birth_year.match(/\d+/)?.[0] || 0)
+            }))
+            .sort((a, b) => b.birthYear - a.birthYear);
+
+        if (timelineData.length === 0) {
+            g.append('text')
+                .attr('x', width / 2)
+                .attr('y', height / 2)
+                .attr('text-anchor', 'middle')
+                .text('No timeline data available');
+            return;
+        }
+
+        const xScale = d3.scaleLinear()
+            .domain(d3.extent(timelineData, d => d.birthYear))
+            .range([50, width - 50]);
+
+        const yScale = d3.scaleBand()
+            .domain(timelineData.map((d, i) => i))
+            .range([50, height - 50])
+            .paddingInner(0.1);
+
+        // Draw timeline axis
+        g.append('line')
+            .attr('x1', 50)
+            .attr('y1', height / 2)
+            .attr('x2', width - 50)
+            .attr('y2', height / 2)
+            .attr('stroke', '#333')
+            .attr('stroke-width', 2);
+
+        // Draw nodes
+        const nodes = g.selectAll('.timeline-node')
+            .data(timelineData.slice(0, 15)) // Limit for visibility
+            .enter()
+            .append('g')
+            .attr('class', 'timeline-node')
+            .attr('transform', (d, i) => `translate(${xScale(d.birthYear)}, ${yScale(i)})`)
+            .on('click', (event, d) => selectPerson(d.id));
+
+        nodes.append('circle')
+            .attr('r', d => d.id === personId ? 8 : 5)
+            .attr('fill', d => d.id === personId ? '#007bff' : '#6c757d');
+
+        nodes.append('text')
+            .attr('dy', -10)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '10px')
+            .text(d => d.name);
+
+        nodes.append('text')
+            .attr('dy', 20)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '8px')
+            .attr('fill', '#666')
+            .text(d => d.birth_year);
+    }
+
+    // Helper functions for layouts
+    function buildRadialData(rootId, maxGenerations) {
+        const generations = [];
+        const visited = new Set();
+        
+        function traverse(personId, generation) {
+            if (generation >= maxGenerations || visited.has(personId)) return;
+            visited.add(personId);
+            
+            const person = familyData[personId];
+            if (!person) return;
+            
+            if (!generations[generation]) generations[generation] = [];
+            generations[generation].push({
+                id: personId,
+                name: person.name,
+                children: person.children || []
+            });
+            
+            if (person.children) {
+                person.children.forEach(childId => traverse(childId, generation + 1));
+            }
+        }
+        
+        traverse(rootId, 0);
+        return generations.filter(gen => gen && gen.length > 0);
+    }
+
+    function buildForceData(rootId) {
+        const nodes = [];
+        const links = [];
+        const visited = new Set();
+        
+        function traverse(personId, depth = 0) {
+            if (depth > 2 || visited.has(personId)) return;
+            visited.add(personId);
+            
+            const person = familyData[personId];
+            if (!person) return;
+            
+            nodes.push({
+                id: personId,
+                name: person.name,
+                group: depth
+            });
+            
+            if (person.children) {
+                person.children.forEach(childId => {
+                    traverse(childId, depth + 1);
+                    links.push({
+                        source: personId,
+                        target: childId,
+                        type: 'parent-child'
+                    });
+                });
+            }
+            
+            if (person.spouse && !visited.has(person.spouse)) {
+                const spouseId = Object.keys(familyData).find(id => familyData[id].name === person.spouse);
+                if (spouseId) {
+                    traverse(spouseId, depth);
+                    links.push({
+                        source: personId,
+                        target: spouseId,
+                        type: 'marriage'
+                    });
+                }
+            }
+        }
+        
+        traverse(rootId);
+        return { nodes, links };
+    }
+
+    // Enhanced Search Functions
+    function toggleSearch() {
+        const panel = document.getElementById('search-panel');
+        if (panel.style.display === 'none') {
+            panel.style.display = 'block';
+            calculateSearchIndex();
+        } else {
+            panel.style.display = 'none';
+        }
+    }
+
+    function calculateSearchIndex() {
+        searchResults = Object.entries(familyData).map(([id, person]) => ({
+            id,
+            name: person.name.toLowerCase(),
+            title: (person.title || '').toLowerCase(),
+            description: (person.description || '').toLowerCase(),
+            searchText: [person.name, person.title || '', person.description || ''].join(' ').toLowerCase()
+        }));
+    }
+
+    function performEnhancedSearch() {
+        const query = document.getElementById('enhanced-search-input').value.toLowerCase();
+        if (!query.trim()) return;
+        
+        const searchNames = document.getElementById('search-names').checked;
+        const searchTitles = document.getElementById('search-titles').checked;
+        const searchDescriptions = document.getElementById('search-descriptions').checked;
+        
+        const results = searchResults.filter(person => {
+            let match = false;
+            if (searchNames && person.name.includes(query)) match = true;
+            if (searchTitles && person.title.includes(query)) match = true;
+            if (searchDescriptions && person.description.includes(query)) match = true;
+            return match;
+        });
+        
+        displaySearchResults(results);
+        highlightSearchResults(results);
+    }
+
+    function displaySearchResults(results) {
+        const container = document.getElementById('search-results');
+        if (results.length === 0) {
+            container.innerHTML = '<div style="padding: 10px; color: #666; text-align: center;">No results found</div>';
+            return;
+        }
+        
+        container.innerHTML = results.map(result => {
+            const person = familyData[result.id];
+            return `
+                <div style="padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;" onclick="selectPerson('${result.id}')">
+                    <div style="font-weight: bold; color: #007bff;">${person.name}</div>
+                    <div style="font-size: 12px; color: #666;">${person.title || 'Biblical Figure'}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function highlightSearchResults(results) {
+        // Clear previous highlights
+        d3.selectAll('.tree-node').classed('search-highlight', false);
+        
+        // Highlight new results
+        results.forEach(result => {
+            d3.selectAll('.tree-node').filter(d => d && d.data && d.data.id === result.id)
+                .classed('search-highlight', true);
+        });
+    }
+
+    // Analytics Functions
+    function toggleAnalytics() {
+        const panel = document.getElementById('analytics-panel');
+        if (panel.style.display === 'none') {
+            panel.style.display = 'block';
+            calculateAnalytics();
+            renderAnalyticsChart();
+        } else {
+            panel.style.display = 'none';
+        }
+    }
+
+    function calculateAnalytics() {
+        const total = Object.keys(familyData).length;
+        let maleCount = 0;
+        let femaleCount = 0;
+        const generations = new Set();
+        
+        Object.values(familyData).forEach(person => {
+            // Simple gender detection
+            const name = person.name.toLowerCase();
+            const femaleNames = ['eve', 'sarah', 'rebekah', 'rachel', 'leah', 'mary', 'elizabeth'];
+            if (femaleNames.some(fname => name.includes(fname))) {
+                femaleCount++;
+            } else {
+                maleCount++;
+            }
+            
+            // Estimate generation (simplified)
+            if (person.parents && person.parents.length > 0) {
+                generations.add(person.parents.length);
+            }
+        });
+        
+        document.getElementById('total-persons').textContent = total;
+        document.getElementById('male-count').textContent = maleCount;
+        document.getElementById('female-count').textContent = femaleCount;
+        document.getElementById('generations-count').textContent = Math.max(5, generations.size);
+        
+        analyticsData = { total, maleCount, femaleCount, generations: generations.size };
+    }
+
+    function renderAnalyticsChart() {
+        const ctx = document.getElementById('demo-chart');
+        if (!ctx || typeof Chart === 'undefined') return;
+        
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Male', 'Female'],
+                datasets: [{
+                    data: [analyticsData.maleCount, analyticsData.femaleCount],
+                    backgroundColor: ['#2196F3', '#E91E63'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Gender Distribution'
+                    }
+                }
+            }
+        });
+    }
+
+    function exportTree() {
+        const svg = document.getElementById('tree-svg');
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        
+        img.onload = function() {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            
+            const link = document.createElement('a');
+            link.download = `family-tree-${new Date().getTime()}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        };
+        
+        img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
     }
 
     let treeData = null;
