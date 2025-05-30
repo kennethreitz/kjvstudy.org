@@ -60,12 +60,15 @@
         }
         
         #biblical-map {
-            height: 600px;
-            width: 100%;
+            height: 600px !important;
+            width: 100% !important;
             border: 2px solid var(--primary-color);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-lg);
             margin: 20px 0;
+            background: #333 !important;
+            display: block !important;
+            position: relative !important;
         }
         
         .map-legend {
@@ -153,7 +156,11 @@
         <p>Click on map markers to learn about biblical locations and their significance. Use the layer controls to switch between different map styles. Each location includes relevant Scripture references you can click to explore further.</p>
     </div>
 
-    <div id="biblical-map"></div>
+    <div id="biblical-map">
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--surface-color); color: var(--text-secondary); font-size: 18px; border-radius: var(--radius-lg);">
+            📍 Loading Biblical Maps...
+        </div>
+    </div>
 
     <div class="map-legend">
         <h3>🗺️ Map Legend</h3>
@@ -191,29 +198,54 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize map
-            const map = L.map('biblical-map').setView([31.7683, 35.2137], 7);
+            console.log('DOM loaded, starting map initialization...');
             
-            // Add tile layers
+            // Check if container exists
+            const container = document.getElementById('biblical-map');
+            if (!container) {
+                console.error('Map container not found!');
+                return;
+            }
+            console.log('Map container found:', container);
+            
+            // Clear loading message
+            container.innerHTML = '';
+            
+            // Initialize map with error handling
+            let map;
+            try {
+                map = L.map('biblical-map').setView([31.7683, 35.2137], 7);
+                console.log('Map object created successfully');
+            } catch (error) {
+                console.error('Error creating map:', error);
+                container.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: var(--surface-color); color: #ff6b6b; font-size: 18px; border-radius: var(--radius-lg);">❌ Error loading map</div>';
+                return;
+            }
+            
+            // Add tile layers with error handling
             const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                errorTileUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgdmlld0JveD0iMCAwIDI1NiAyNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiBmaWxsPSIjMzMzIi8+Cjx0ZXh0IHg9IjEyOCIgeT0iMTI4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0Ij5NYXAgVGlsZTwvdGV4dD4KPC9zdmc+'
             });
             
             const darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                subdomains: 'abcd'
+                subdomains: 'abcd',
+                errorTileUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgdmlld0JveD0iMCAwIDI1NiAyNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiBmaWxsPSIjMjIyIi8+Cjx0ZXh0IHg9IjEyOCIgeT0iMTI4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0Ij5EYXJrIE1hcDwvdGV4dD4KPC9zdmc+'
             });
             
-            // Add dark layer by default
-            darkLayer.addTo(map);
+            // Add OSM layer by default (more reliable)
+            osmLayer.addTo(map);
+            console.log('Tile layer added to map');
             
             // Layer control
             const baseLayers = {
-                "Dark Theme": darkLayer,
-                "Standard": osmLayer
+                "Standard": osmLayer,
+                "Dark Theme": darkLayer
             };
             
             L.control.layers(baseLayers).addTo(map);
+            console.log('Layer control added');
             
             // Biblical locations
             const locations = [
@@ -327,7 +359,13 @@
                 });
             });
             
-            console.log('Biblical maps loaded successfully');
+            console.log('Biblical maps loaded successfully with', locations.length, 'locations');
+            
+            // Force map resize after a short delay
+            setTimeout(function() {
+                map.invalidateSize();
+                console.log('Map size invalidated');
+            }, 100);
         });
     </script>
 {% endblock %}
