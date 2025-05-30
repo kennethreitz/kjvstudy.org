@@ -1,0 +1,646 @@
+{% extends "base.html" %}
+
+{% block title %}Biblical Family Tree - From Adam to Joseph - KJV Study{% endblock %}
+
+{% block description %}Explore the biblical family tree starting with Adam and Eve through the patriarchs. Interactive genealogy with scripture references from the King James Version Bible.{% endblock %}
+
+{% block keywords %}biblical family tree, biblical genealogy, Adam and Eve, patriarchs, biblical lineage, Old Testament families, KJV genealogy{% endblock %}
+
+{% block og_title %}Biblical Family Tree - From Adam to Joseph - KJV Study{% endblock %}
+
+{% block head %}
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<style>
+    .family-tree-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+
+    .family-tree-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem 1rem;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: 12px;
+        color: white;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .family-tree-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-family: 'Crimson Text', serif;
+    }
+
+    .family-tree-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .tree-controls {
+        background: var(--card-background);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .tree-controls h3 {
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+        font-family: 'Crimson Text', serif;
+    }
+
+    .control-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+    }
+
+    .control-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--border-color);
+        background: var(--background-color);
+        color: var(--text-color);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+    }
+
+    .control-btn:hover,
+    .control-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .tree-legend {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .legend-color {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .interactive-tree-container {
+        background: var(--card-background);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        border: 1px solid var(--border-color);
+    }
+
+    .tree-visualization {
+        width: 100%;
+        height: 600px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        background: #fafafa;
+    }
+
+    .person-details {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: var(--background-color);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        display: none;
+    }
+
+    .person-details.active {
+        display: block;
+    }
+
+    .person-name {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-family: 'Crimson Text', serif;
+    }
+
+    .person-title {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        font-style: italic;
+        margin-bottom: 1rem;
+    }
+
+    .person-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .info-section {
+        background: var(--card-background);
+        padding: 1rem;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+    }
+
+    .info-section h4 {
+        margin-bottom: 0.75rem;
+        color: var(--primary-color);
+        font-size: 1rem;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .info-section p, .info-section ul {
+        margin: 0;
+        line-height: 1.5;
+        color: var(--text-color);
+    }
+
+    .info-section ul {
+        padding-left: 1.5rem;
+    }
+
+    .verses-section {
+        margin-top: 1.5rem;
+    }
+
+    .verse-item {
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+        transition: all 0.2s ease;
+    }
+
+    .verse-item:hover {
+        background: var(--hover-background);
+        border-color: var(--primary-color);
+    }
+
+    .verse-reference {
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .verse-reference a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .verse-reference a:hover {
+        text-decoration: underline;
+    }
+
+    .verse-text {
+        font-family: 'Crimson Text', serif;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-color);
+        font-style: italic;
+    }
+
+    .family-intro {
+        background: var(--card-background);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid var(--primary-color);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .family-intro h2 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-family: 'Crimson Text', serif;
+    }
+
+    .family-intro p {
+        line-height: 1.6;
+        color: var(--text-color);
+        margin-bottom: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
+        .family-tree-header h1 {
+            font-size: 2rem;
+        }
+        
+        .tree-visualization {
+            height: 400px;
+        }
+        
+        .person-info {
+            grid-template-columns: 1fr;
+        }
+        
+        .control-buttons {
+            justify-content: center;
+        }
+        
+        .tree-legend {
+            justify-content: center;
+        }
+    }
+
+    /* Dark mode adjustments */
+    @media (prefers-color-scheme: dark) {
+        .family-tree-header {
+            background: linear-gradient(135deg, #2d1b69, #8b5a2b);
+        }
+        
+        .tree-visualization {
+            background: #2a2a2a;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="family-tree-container">
+    <header class="family-tree-header">
+        <h1>🌳 Biblical Family Tree</h1>
+        <p>Explore the genealogies and family relationships from Adam and Eve through the patriarchs of Israel. Click on any person to see their details and scripture references.</p>
+    </header>
+
+    <div class="family-intro">
+        <h2>📜 Tracing Biblical Lineages</h2>
+        <p>The Bible contains detailed genealogies that trace the lineage of God's people from the very beginning. These family trees are not just historical records—they show God's faithfulness in preserving His covenant people throughout generations.</p>
+        <p>From Adam, the first man created in God's image, to the patriarchs Abraham, Isaac, and Jacob, each person in this family tree played a crucial role in God's plan of redemption.</p>
+    </div>
+
+    <div class="tree-controls">
+        <h3>🔧 Tree Navigation</h3>
+        <div class="control-buttons">
+            <button class="control-btn active" onclick="showGeneration('all')">Show All</button>
+            <button class="control-btn" onclick="showGeneration('early')">Early Generations</button>
+            <button class="control-btn" onclick="showGeneration('patriarchs')">Patriarchs</button>
+            <button class="control-btn" onclick="resetZoom()">Reset View</button>
+            <button class="control-btn" onclick="fitToScreen()">Fit to Screen</button>
+        </div>
+        
+        <div class="tree-legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #4a90e2;"></div>
+                <span>Early Generations (Adam - Noah)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #8b4513;"></div>
+                <span>Patriarchs (Abraham - Jacob)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #228b22;"></div>
+                <span>Sons of Jacob</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Family Tree -->
+    <div class="interactive-tree-container">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 1rem; font-family: 'Crimson Text', serif;">
+            🌳 Interactive Family Tree
+        </h2>
+        <div id="family-tree-network" class="tree-visualization"></div>
+        
+        <div id="person-details" class="person-details">
+            <div class="person-name" id="person-name"></div>
+            <div class="person-title" id="person-title"></div>
+            <div class="person-info">
+                <div class="info-section">
+                    <h4>📖 Description</h4>
+                    <p id="person-description"></p>
+                </div>
+                <div class="info-section">
+                    <h4>👨‍👩‍👧‍👦 Family</h4>
+                    <div id="person-family"></div>
+                </div>
+                <div class="info-section">
+                    <h4>📅 Life Span</h4>
+                    <div id="person-lifespan"></div>
+                </div>
+            </div>
+            <div class="verses-section">
+                <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-family: 'Crimson Text', serif;">📜 Scripture References</h4>
+                <div id="person-verses"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="family-intro" style="margin-top: 3rem;">
+        <h2>🔍 Continue Your Study</h2>
+        <p>This family tree represents just a portion of the genealogies found throughout Scripture. For more detailed study of biblical lineages, explore the book of <a href="/book/1 Chronicles" style="color: var(--primary-color);">1 Chronicles</a> or the genealogy of Jesus in <a href="/book/Matthew/chapter/1" style="color: var(--primary-color);">Matthew 1</a> and <a href="/book/Luke/chapter/3" style="color: var(--primary-color);">Luke 3</a>.</p>
+        <p>Each person in these genealogies has their own story of faith, failure, and God's grace. Use our <a href="/search" style="color: var(--primary-color);">search feature</a> to find more references to any of these biblical figures.</p>
+    </div>
+</div>
+
+<script>
+// Family tree data passed from the server
+const familyData = {{ family_tree_data | tojson }};
+
+let network;
+let nodes;
+let edges;
+
+function initializeFamilyTree() {
+    // Create nodes and edges for the family tree
+    const nodeArray = [];
+    const edgeArray = [];
+    
+    // Define node colors by generation/category
+    const nodeColors = {
+        // Early generations
+        'adam': '#4a90e2', 'eve': '#4a90e2',
+        'cain': '#4a90e2', 'abel': '#4a90e2', 'seth': '#4a90e2',
+        'enoch_son_of_cain': '#4a90e2', 'enos': '#4a90e2',
+        'noah': '#4a90e2',
+        
+        // Patriarchs
+        'abraham': '#8b4513', 'isaac': '#8b4513', 'jacob': '#8b4513',
+        
+        // Sons of Jacob
+        'joseph': '#228b22'
+    };
+    
+    // Create nodes
+    Object.entries(familyData).forEach(([id, person]) => {
+        nodeArray.push({
+            id: id,
+            label: person.name,
+            title: `${person.name}\n${person.title}\n${person.description}`,
+            color: {
+                background: nodeColors[id] || '#666',
+                border: '#333',
+                highlight: {
+                    background: '#ffd700',
+                    border: '#333'
+                }
+            },
+            font: {
+                color: 'white',
+                size: 14,
+                face: 'Inter'
+            },
+            shape: 'box',
+            margin: 10,
+            widthConstraint: {
+                minimum: 100,
+                maximum: 150
+            }
+        });
+    });
+    
+    // Create edges (parent-child relationships)
+    Object.entries(familyData).forEach(([id, person]) => {
+        if (person.children && person.children.length > 0) {
+            person.children.forEach(childId => {
+                if (familyData[childId]) {
+                    edgeArray.push({
+                        from: id,
+                        to: childId,
+                        arrows: { to: { enabled: true, scaleFactor: 0.8 } },
+                        color: { color: '#666', highlight: '#333' },
+                        width: 2
+                    });
+                }
+            });
+        }
+        
+        // Add spouse connections
+        if (person.spouse && person.spouse !== "Unknown wife" && person.spouse !== "Mrs. Noah") {
+            const spouseId = Object.keys(familyData).find(key => 
+                familyData[key].name === person.spouse
+            );
+            if (spouseId && id < spouseId) { // Avoid duplicate edges
+                edgeArray.push({
+                    from: id,
+                    to: spouseId,
+                    color: { color: '#ff6b9d', highlight: '#ff1744' },
+                    width: 3,
+                    dashes: true,
+                    label: 'married'
+                });
+            }
+        }
+    });
+    
+    nodes = new vis.DataSet(nodeArray);
+    edges = new vis.DataSet(edgeArray);
+    
+    const container = document.getElementById('family-tree-network');
+    const data = { nodes: nodes, edges: edges };
+    
+    const options = {
+        layout: {
+            hierarchical: {
+                enabled: true,
+                direction: 'UD',
+                sortMethod: 'directed',
+                nodeSpacing: 200,
+                levelSeparation: 150
+            }
+        },
+        physics: {
+            enabled: false
+        },
+        interaction: {
+            dragNodes: true,
+            zoomView: true,
+            dragView: true
+        },
+        nodes: {
+            borderWidth: 2,
+            shadow: true
+        },
+        edges: {
+            smooth: {
+                enabled: true,
+                type: 'cubicBezier',
+                roundness: 0.4
+            }
+        }
+    };
+    
+    network = new vis.Network(container, data, options);
+    
+    // Add click event listener
+    network.on('click', function(params) {
+        if (params.nodes.length > 0) {
+            const nodeId = params.nodes[0];
+            showPersonDetails(nodeId);
+            
+            // Highlight the selected node
+            network.selectNodes([nodeId]);
+        }
+    });
+    
+    // Initial fit
+    setTimeout(() => {
+        network.fit();
+    }, 1000);
+}
+
+function showPersonDetails(personId) {
+    const person = familyData[personId];
+    if (!person) return;
+    
+    // Update person details
+    document.getElementById('person-name').textContent = person.name;
+    document.getElementById('person-title').textContent = person.title;
+    document.getElementById('person-description').textContent = person.description;
+    
+    // Update family information
+    const familyDiv = document.getElementById('person-family');
+    let familyHTML = '';
+    
+    if (person.parents && person.parents.length > 0) {
+        const parentNames = person.parents.map(id => familyData[id]?.name || id).join(', ');
+        familyHTML += `<p><strong>Parents:</strong> ${parentNames}</p>`;
+    }
+    
+    if (person.spouse && person.spouse !== "Unknown wife") {
+        familyHTML += `<p><strong>Spouse:</strong> ${person.spouse}</p>`;
+    }
+    
+    if (person.children && person.children.length > 0) {
+        const childNames = person.children.map(id => familyData[id]?.name || id).join(', ');
+        familyHTML += `<p><strong>Children:</strong> ${childNames}</p>`;
+    }
+    
+    familyDiv.innerHTML = familyHTML || '<p>No family information available</p>';
+    
+    // Update lifespan information
+    const lifespanDiv = document.getElementById('person-lifespan');
+    lifespanDiv.innerHTML = `
+        <p><strong>Born:</strong> ${person.birth_year}</p>
+        <p><strong>Died:</strong> ${person.death_year}</p>
+        <p><strong>Age at Death:</strong> ${person.age_at_death}</p>
+    `;
+    
+    // Update verses
+    const versesDiv = document.getElementById('person-verses');
+    let versesHTML = '';
+    
+    if (person.verses && person.verses.length > 0) {
+        person.verses.forEach(verse => {
+            const refParts = verse.reference.split(' ');
+            let bookPart, chapterVerse;
+            
+            if (refParts.length === 2) {
+                bookPart = refParts[0];
+                chapterVerse = refParts[1];
+            } else {
+                const lastPart = refParts[refParts.length - 1];
+                const bookParts = refParts.slice(0, -1);
+                bookPart = bookParts.join(' ');
+                chapterVerse = lastPart;
+            }
+            
+            const chapter = chapterVerse.includes(':') ? chapterVerse.split(':')[0] : chapterVerse;
+            
+            versesHTML += `
+                <div class="verse-item">
+                    <div class="verse-reference">
+                        <a href="/book/${bookPart}/chapter/${chapter}">${verse.reference}</a>
+                    </div>
+                    <div class="verse-text">"${verse.text}"</div>
+                </div>
+            `;
+        });
+    } else {
+        versesHTML = '<p>No specific verses available for this person.</p>';
+    }
+    
+    versesDiv.innerHTML = versesHTML;
+    
+    // Show the details panel
+    document.getElementById('person-details').classList.add('active');
+}
+
+function showGeneration(type) {
+    // Update button states
+    document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    let visibleNodes;
+    
+    switch(type) {
+        case 'early':
+            visibleNodes = ['adam', 'eve', 'cain', 'abel', 'seth', 'enoch_son_of_cain', 'enos', 'noah'];
+            break;
+        case 'patriarchs':
+            visibleNodes = ['abraham', 'isaac', 'jacob', 'joseph'];
+            break;
+        default:
+            visibleNodes = Object.keys(familyData);
+    }
+    
+    // Show/hide nodes
+    const allNodes = nodes.get();
+    allNodes.forEach(node => {
+        if (visibleNodes.includes(node.id)) {
+            nodes.update({...node, hidden: false});
+        } else {
+            nodes.update({...node, hidden: true});
+        }
+    });
+    
+    // Update edges visibility
+    const allEdges = edges.get();
+    allEdges.forEach(edge => {
+        const showEdge = visibleNodes.includes(edge.from) && visibleNodes.includes(edge.to);
+        edges.update({...edge, hidden: !showEdge});
+    });
+    
+    setTimeout(() => {
+        network.fit();
+    }, 100);
+}
+
+function resetZoom() {
+    network.moveTo({
+        position: {x: 0, y: 0},
+        scale: 1,
+        animation: {
+            duration: 1000,
+            easingFunction: 'easeInOutQuad'
+        }
+    });
+}
+
+function fitToScreen() {
+    network.fit({
+        animation: {
+            duration: 1000,
+            easingFunction: 'easeInOutQuad'
+        }
+    });
+}
+
+// Initialize the family tree when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFamilyTree();
+});
+</script>
+
+{% endblock %}

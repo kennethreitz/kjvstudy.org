@@ -981,94 +981,198 @@ def biblical_maps_page(request: Request):
             "Ephesus": {
                 "description": "Important center of early Christianity in Asia Minor",
                 "verses": [
-                    {"reference": "Acts 19:10", "text": "And this continued by the space of two years; so that all they which dwelt in Asia heard the word of the Lord Jesus, both Jews and Greeks."},
-                    {"reference": "Ephesians 1:1", "text": "Paul, an apostle of Jesus Christ by the will of God, to the saints which are at Ephesus, and to the faithful in Christ Jesus:"}
-                ]
-            },
-            "Rome": {
-                "description": "Capital of the empire, destination of Paul's final journey",
-                "verses": [
-                    {"reference": "Acts 28:16", "text": "And when we came to Rome, the centurion delivered the prisoners to the captain of the guard: but Paul was suffered to dwell by himself with a soldier that kept him."},
-                    {"reference": "Romans 1:7", "text": "To all that be in Rome, beloved of God, called to be saints: Grace to you and peace from God our Father, and the Lord Jesus Christ."}
-                ]
-            },
-            "Patmos": {
-                "description": "Island where John received the Revelation",
-                "verses": [
-                    {"reference": "Revelation 1:9", "text": "I John, who also am your brother, and companion in tribulation, and in the kingdom and patience of Jesus Christ, was in the isle that is called Patmos, for the word of God, and for the testimony of Jesus Christ."}
-                ]
-            }
+                    {"reference": "Acts 19:10", "text": "
+
+@app.get("/family-tree", response_class=HTMLResponse)
+def family_tree_page(request: Request):
+    """Biblical family tree page starting with Adam and Eve"""
+    books = list(bible.iter_books())
+    
+    # Biblical family tree data structure
+    family_tree_data = {
+        "adam": {
+            "name": "Adam",
+            "title": "The First Man", 
+            "description": "Created by God from the dust of the ground",
+            "spouse": "Eve",
+            "children": ["cain", "abel", "seth"],
+            "verses": [
+                {"reference": "Genesis 2:7", "text": "And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."},
+                {"reference": "Genesis 1:27", "text": "So God created man in his own image, in the image of God created he him; male and female created he them."}
+            ],
+            "birth_year": "Year 0 (Creation)",
+            "death_year": "Year 930",
+            "age_at_death": "930 years"
         },
-        "Paul's Missionary Journeys": {
-            "Cyprus": {
-                "description": "First stop on Paul's first missionary journey",
-                "verses": [
-                    {"reference": "Acts 13:4", "text": "So they, being sent forth by the Holy Ghost, departed unto Seleucia; and from thence they sailed to Cyprus."},
-                    {"reference": "Acts 13:6", "text": "And when they had gone through the isle unto Paphos, they found a certain sorcerer, a false prophet, a Jew, whose name was Barjesus:"}
-                ]
-            },
-            "Lystra": {
-                "description": "Where Paul was stoned and left for dead",
-                "verses": [
-                    {"reference": "Acts 14:19", "text": "And there came thither certain Jews from Antioch and Iconium, who persuaded the people, and, having stoned Paul, drew him out of the city, supposing he had been dead."},
-                    {"reference": "Acts 14:8", "text": "And there sat a certain man at Lystra, impotent in his feet, being a cripple from his mother's womb, who never had walked:"}
-                ]
-            },
-            "Philippi": {
-                "description": "Where Paul and Silas were imprisoned and freed by an earthquake",
-                "verses": [
-                    {"reference": "Acts 16:26", "text": "And suddenly there was a great earthquake, so that the foundations of the prison were shaken: and immediately all the doors were opened, and every one's bands were loosed."},
-                    {"reference": "Philippians 1:1", "text": "Paul and Timotheus, the servants of Jesus Christ, to all the saints in Christ Jesus which are at Philippi, with the bishops and deacons:"}
-                ]
-            },
-            "Athens": {
-                "description": "Where Paul preached at the Areopagus",
-                "verses": [
-                    {"reference": "Acts 17:22", "text": "Then Paul stood in the midst of Mars' hill, and said, Ye men of Athens, I perceive that in all things ye are too superstitious."},
-                    {"reference": "Acts 17:16", "text": "Now while Paul waited for them at Athens, his spirit was stirred in him, when he saw the city wholly given to idolatry."}
-                ]
-            },
-            "Thessalonica": {
-                "description": "Where Paul preached for three sabbaths",
-                "verses": [
-                    {"reference": "Acts 17:2", "text": "And Paul, as his manner was, went in unto them, and three sabbath days reasoned with them out of the scriptures,"},
-                    {"reference": "1 Thessalonians 1:1", "text": "Paul, and Silvanus, and Timotheus, unto the church of the Thessalonians which is in God the Father and in the Lord Jesus Christ: Grace be unto you, and peace, from God our Father, and the Lord Jesus Christ."}
-                ]
-            },
-            "Berea": {
-                "description": "Where the people were more noble and searched the scriptures daily",
-                "verses": [
-                    {"reference": "Acts 17:11", "text": "These were more noble than those in Thessalonica, in that they received the word with all readiness of mind, and searched the scriptures daily, whether those things were so."}
-                ]
-            },
-            "Galatia": {
-                "description": "Region where Paul established churches",
-                "verses": [
-                    {"reference": "Galatians 1:2", "text": "And all the brethren which are with me, unto the churches of Galatia:"},
-                    {"reference": "Acts 16:6", "text": "Now when they had gone throughout Phrygia and the region of Galatia, and were forbidden of the Holy Ghost to preach the word in Asia,"}
-                ]
-            },
-            "Malta": {
-                "description": "Island where Paul was shipwrecked and healed the sick",
-                "verses": [
-                    {"reference": "Acts 28:1", "text": "And when they were escaped, then they knew that the island was called Melita."},
-                    {"reference": "Acts 28:8", "text": "And it came to pass, that the father of Publius lay sick of a fever and of a bloody flux: to whom Paul entered in, and prayed, and laid his hands on him, and healed him."}
-                ]
-            }
+        "eve": {
+            "name": "Eve",
+            "title": "Mother of All Living",
+            "description": "The first woman, created from Adam's rib",
+            "spouse": "Adam", 
+            "children": ["cain", "abel", "seth"],
+            "verses": [
+                {"reference": "Genesis 2:22", "text": "And the rib, which the LORD God had taken from man, made he a woman, and brought her unto the man."},
+                {"reference": "Genesis 3:20", "text": "And Adam called his wife's name Eve; because she was the mother of all living."}
+            ],
+            "birth_year": "Year 0 (Creation)",
+            "death_year": "Unknown",
+            "age_at_death": "Unknown"
+        },
+        "cain": {
+            "name": "Cain",
+            "title": "The First Son",
+            "description": "First son of Adam and Eve, a tiller of the ground",
+            "parents": ["adam", "eve"],
+            "spouse": "Unknown wife",
+            "children": ["enoch_son_of_cain"],
+            "verses": [
+                {"reference": "Genesis 4:1", "text": "And Adam knew Eve his wife; and she conceived, and bare Cain, and said, I have gotten a man from the LORD."},
+                {"reference": "Genesis 4:8", "text": "And Cain talked with Abel his brother: and it came to pass, when they were in the field, that Cain rose up against Abel his brother, and slew him."}
+            ],
+            "birth_year": "~Year 130",
+            "death_year": "Unknown",
+            "age_at_death": "Unknown"
+        },
+        "abel": {
+            "name": "Abel", 
+            "title": "The Righteous Son",
+            "description": "Second son of Adam and Eve, a keeper of sheep",
+            "parents": ["adam", "eve"],
+            "spouse": null,
+            "children": [],
+            "verses": [
+                {"reference": "Genesis 4:2", "text": "And she again bare his brother Abel. And Abel was a keeper of sheep, but Cain was a tiller of the ground."},
+                {"reference": "Genesis 4:4", "text": "And Abel, he also brought of the firstlings of his flock and of the fat thereof. And the LORD had respect unto Abel and to his offering:"}
+            ],
+            "birth_year": "~Year 132", 
+            "death_year": "~Year 160",
+            "age_at_death": "~28 years"
+        },
+        "seth": {
+            "name": "Seth",
+            "title": "The Appointed One",
+            "description": "Third son of Adam and Eve, appointed to replace Abel",
+            "parents": ["adam", "eve"],
+            "spouse": "Unknown wife",
+            "children": ["enos"],
+            "verses": [
+                {"reference": "Genesis 4:25", "text": "And Adam knew his wife again; and she bare a son, and called his name Seth: For God, said she, hath appointed me another seed instead of Abel, whom Cain slew."},
+                {"reference": "Genesis 5:3", "text": "And Adam lived an hundred and thirty years, and begat a son in his own likeness, after his image; and called his name Seth:"}
+            ],
+            "birth_year": "Year 130",
+            "death_year": "Year 1042", 
+            "age_at_death": "912 years"
+        },
+        "enoch_son_of_cain": {
+            "name": "Enoch",
+            "title": "Son of Cain",
+            "description": "Son of Cain, first city builder",
+            "parents": ["cain"],
+            "children": ["irad"],
+            "verses": [
+                {"reference": "Genesis 4:17", "text": "And Cain knew his wife; and she conceived, and bare Enoch: and he builded a city, and called the name of the city, after the name of his son, Enoch."}
+            ],
+            "birth_year": "~Year 200",
+            "death_year": "Unknown",
+            "age_at_death": "Unknown"
+        },
+        "enos": {
+            "name": "Enos",
+            "title": "Son of Seth", 
+            "description": "Grandson of Adam, in his time men began to call upon the name of the LORD",
+            "parents": ["seth"],
+            "children": ["cainan"],
+            "verses": [
+                {"reference": "Genesis 4:26", "text": "And to Seth, to him also there was born a son; and he called his name Enos: then began men to call upon the name of the LORD."},
+                {"reference": "Genesis 5:6", "text": "And Seth lived an hundred and five years, and begat Enos:"}
+            ],
+            "birth_year": "Year 235",
+            "death_year": "Year 1140",
+            "age_at_death": "905 years"
+        },
+        "noah": {
+            "name": "Noah",
+            "title": "The Preacher of Righteousness",
+            "description": "Righteous man who built the ark and survived the flood",
+            "spouse": "Mrs. Noah",
+            "children": ["shem", "ham", "japheth"],
+            "verses": [
+                {"reference": "Genesis 6:8", "text": "But Noah found grace in the eyes of the LORD."},
+                {"reference": "Genesis 7:1", "text": "And the LORD said unto Noah, Come thou and all thy house into the ark; for thee have I seen righteous before me in this generation."}
+            ],
+            "birth_year": "Year 1056",
+            "death_year": "Year 2006",
+            "age_at_death": "950 years"
+        },
+        "abraham": {
+            "name": "Abraham",
+            "title": "Father of Many Nations",
+            "description": "Called by God to leave his country, father of the faithful",
+            "spouse": "Sarah",
+            "children": ["isaac", "ishmael"],
+            "verses": [
+                {"reference": "Genesis 12:1", "text": "Now the LORD had said unto Abram, Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee."},
+                {"reference": "Genesis 17:5", "text": "Neither shall thy name any more be called Abram, but thy name shall be Abraham; for a father of many nations have I made thee."}
+            ],
+            "birth_year": "Year 1948",
+            "death_year": "Year 2123", 
+            "age_at_death": "175 years"
+        },
+        "isaac": {
+            "name": "Isaac",
+            "title": "Child of Promise",
+            "description": "Son of Abraham and Sarah, offered as a sacrifice",
+            "parents": ["abraham"],
+            "spouse": "Rebekah",
+            "children": ["jacob", "esau"],
+            "verses": [
+                {"reference": "Genesis 21:3", "text": "And Abraham called the name of his son that was born unto him, whom Sarah bare to him, Isaac."},
+                {"reference": "Genesis 22:2", "text": "And he said, Take now thy son, thine only son Isaac, whom thou lovest, and get thee into the land of Moriah; and offer him there for a burnt offering upon one of the mountains which I will tell thee of."}
+            ],
+            "birth_year": "Year 2048",
+            "death_year": "Year 2228",
+            "age_at_death": "180 years"
+        },
+        "jacob": {
+            "name": "Jacob (Israel)",
+            "title": "Father of the Twelve Tribes",
+            "description": "Son of Isaac, wrestled with God and became Israel",
+            "parents": ["isaac"],
+            "spouse": "Leah, Rachel",
+            "children": ["reuben", "simeon", "levi", "judah", "dan", "naphtali", "gad", "asher", "issachar", "zebulun", "joseph", "benjamin"],
+            "verses": [
+                {"reference": "Genesis 32:28", "text": "And he said, Thy name shall be called no more Jacob, but Israel: for as a prince hast thou power with God and with men, and hast prevailed."},
+                {"reference": "Genesis 35:10", "text": "And God said unto him, Thy name is Jacob: thy name shall not be called any more Jacob, but Israel shall be thy name: and he called his name Israel."}
+            ],
+            "birth_year": "Year 2108", 
+            "death_year": "Year 2255",
+            "age_at_death": "147 years"
+        },
+        "joseph": {
+            "name": "Joseph",
+            "title": "The Dreamer, Governor of Egypt",
+            "description": "Son of Jacob, sold into slavery but became ruler of Egypt",
+            "parents": ["jacob"],
+            "spouse": "Asenath",
+            "children": ["manasseh", "ephraim"],
+            "verses": [
+                {"reference": "Genesis 37:3", "text": "Now Israel loved Joseph more than all his children, because he was the son of his old age: and he made him a coat of many colours."},
+                {"reference": "Genesis 41:41", "text": "And Pharaoh said unto Joseph, See, I have set thee over all the land of Egypt."}
+            ],
+            "birth_year": "Year 2199",
+            "death_year": "Year 2309",
+            "age_at_death": "110 years"
         }
     }
     
     return templates.TemplateResponse(
-        "biblical_maps.html",
+        "family_tree.html",
         {
             "request": request,
             "books": books,
-            "biblical_locations": biblical_locations
+            "family_tree_data": family_tree_data
         }
     )
-
-
-
 
 
 def get_daily_verse():
@@ -1166,6 +1270,12 @@ def sitemap():
     </url>
     <url>
         <loc>{base_url}/biblical-maps</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/family-tree</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>

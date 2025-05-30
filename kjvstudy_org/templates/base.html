@@ -563,6 +563,17 @@
                     >
                         🗺️ Biblical Maps
                     </a>
+                    <a
+                        href="/family-tree"
+                        {% if request.url and request.url.path == "/family-tree" %}class="active"{% endif %}
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        🌳 Family Tree
+                    </a>
 
 
                     {% if books %}
