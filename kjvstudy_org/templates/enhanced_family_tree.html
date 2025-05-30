@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Family Tree - KJV Study</title>
+    
+    <!-- Core Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- D3.js for advanced visualizations -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom Styles -->
+    <link href="/static/css/family-tree-expansions.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header-section h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        
+        .header-section p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .content-wrapper {
+            padding: 30px;
+        }
+        
+        .layout-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .layout-option {
+            padding: 12px 24px;
+            border: 2px solid #dee2e6;
+            background: white;
+            color: #495057;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .layout-option.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+        
+        .layout-option:hover {
+            border-color: #007bff;
+            transform: translateY(-1px);
+        }
+        
+        .visualization-container {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            min-height: 600px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tree-svg {
+            width: 100%;
+            height: 600px;
+        }
+        
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #6c757d;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .feature-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #495057;
+        }
+        
+        .feature-description {
+            color: #6c757d;
+            line-height: 1.6;
+        }
+        
+        .demo-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .demo-btn {
+            padding: 10px 20px;
+            border: none;
+            background: #6c757d;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .demo-btn:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+        
+        .demo-btn.primary {
+            background: #007bff;
+        }
+        
+        .demo-btn.primary:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1><i class="fas fa-sitemap"></i> Enhanced Family Tree Visualization</h1>
+            <p>Advanced biblical genealogy exploration with multiple layouts, analytics, and interactive features</p>
+        </div>
+        
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <!-- Layout Selector -->
+            <div class="layout-selector">
+                <div class="layout-option active" data-layout="hierarchical">
+                    <i class="fas fa-sitemap"></i> Hierarchical
+                </div>
+                <div class="layout-option" data-layout="radial">
+                    <i class="fas fa-sun"></i> Radial
+                </div>
+                <div class="layout-option" data-layout="force-directed">
+                    <i class="fas fa-project-diagram"></i> Force-Directed
+                </div>
+                <div class="layout-option" data-layout="timeline">
+                    <i class="fas fa-timeline"></i> Timeline
+                </div>
+                <div class="layout-option" data-layout="circular-pedigree">
+                    <i class="fas fa-circle-notch"></i> Circular Pedigree
+                </div>
+            </div>
+            
+            <!-- Demo Controls -->
+            <div class="demo-controls">
+                <button class="demo-btn primary" id="load-sample-data">
+                    <i class="fas fa-database"></i> Load Sample Data
+                </button>
+                <button class="demo-btn" id="center-view">
+                    <i class="fas fa-crosshairs"></i> Center View
+                </button>
+                <button class="demo-btn" id="export-view">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button class="demo-btn" id="toggle-analytics">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </button>
+                <button class="demo-btn" id="toggle-search">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            
+            <!-- Visualization Container -->
+            <div class="visualization-container" id="viz-container">
+                <div class="loading-indicator" id="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    <div>Loading family tree data...</div>
+                </div>
+                <svg class="tree-svg" id="main-tree-svg"></svg>
+            </div>
+            
+            <!-- Search Container (Will be dynamically inserted) -->
+            <div id="search-container"></div>
+            
+            <!-- Analytics Container (Will be dynamically inserted) -->
+            <div id="analytics-container"></div>
+            
+            <!-- Feature Showcase -->
+            <div class="feature-showcase">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-search-plus"></i></div>
+                    <div class="feature-title">Advanced Search</div>
+                    <div class="feature-description">
+                        Comprehensive search capabilities with filtering by name, gender, generation, and biblical references. 
+                        Features real-time highlighting and bookmark management.
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="feature-title">Statistical Analytics</div>
+                    <div class="feature-description">
+                        Interactive charts and insights showing demographic patterns, generational trends, 
+                        family relationships, and biblical timeline analysis.
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-project-diagram"></i></div>
+                    <div class="feature-title">Multiple Layouts</div>
+                    <div class="feature-description">
+                        Choose from hierarchical, radial, force-directed, timeline, and circular pedigree layouts. 
+                        Each optimized for different exploration patterns.
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-route"></i></div>
+                    <div class="feature-title">Smart Navigation</div>
+                    <div class="feature-description">
+                        Breadcrumb trails, navigation history, bookmarking system, and quick access controls 
+                        for efficient family tree exploration.
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="feature-title">Responsive Design</div>
+                    <div class="feature-description">
+                        Fully responsive interface that adapts to desktop, tablet, and mobile devices 
+                        with touch-friendly controls and optimized layouts.
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-download"></i></div>
+                    <div class="feature-title">Export Capabilities</div>
+                    <div class="feature-description">
+                        Export family trees as high-quality images, PDF documents, or structured data formats. 
+                        Perfect for sharing and printing.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="/static/js/advanced-tree-layouts.js"></script>
+    <script src="/static/js/family-tree-search.js"></script>
+    <script src="/static/js/family-tree-analytics.js"></script>
+
+    <!-- Main Integration Script -->
+    <script>
+        // Enhanced Family Tree Integration
+        class EnhancedFamilyTree {
+            constructor() {
+                this.familyData = {};
+                this.currentLayout = 'hierarchical';
+                this.currentPerson = null;
+                this.layoutEngine = null;
+                this.searchEngine = null;
+                this.analyticsEngine = null;
+                
+                this.initialize();
+            }
+            
+            async initialize() {
+                // Initialize components
+                this.setupEventListeners();
+                await this.loadSampleData();
+                this.initializeComponents();
+                this.hideLoading();
+            }
+            
+            setupEventListeners() {
+                // Layout selector
+                document.querySelectorAll('.layout-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        this.switchLayout(e.target.dataset.layout);
+                    });
+                });
+                
+                // Demo controls
+                document.getElementById('load-sample-data').addEventListener('click', () => {
+                    this.loadSampleData();
+                });
+                
+                document.getElementById('center-view').addEventListener('click', () => {
+                    if (this.layoutEngine) {
+                        this.layoutEngine.centerView();
+                    }
+                });
+                
+                document.getElementById('export-view').addEventListener('click', () => {
+                    this.exportCurrentView();
+                });
+                
+                document.getElementById('toggle-analytics').addEventListener('click', () => {
+                    this.toggleAnalytics();
+                });
+                
+                document.getElementById('toggle-search').addEventListener('click', () => {
+                    this.toggleSearch();
+                });
+            }
+            
+            async loadSampleData() {
+                // Sample biblical family data
+                this.familyData = {
+                    'adam': {
+                        name: 'Adam',
+                        title: 'First Man',
+                        description: 'The first human being created by God',
+                        children: ['cain', 'abel', 'seth'],
+                        parents: [],
+                        spouse: 'Eve',
+                        birth_year: '4004 BC',
+                        death_year: '3074 BC',
+                        age_at_death: '930 years',
+                        verses: [
+                            { reference: 'Genesis 2:7', text: 'And the LORD God formed man of the dust of the ground...' },
+                            { reference: 'Genesis 5:5', text: 'And all the days that Adam lived were nine hundred and thirty years...' }
+                        ]
+                    },
+                    'eve': {
+                        name: 'Eve',
+                        title: 'First Woman',
+                        description: 'The first woman, created from Adam\'s rib',
+                        children: ['cain', 'abel', 'seth'],
+                        parents: [],
+                        spouse: 'Adam',
+                        birth_year: '4004 BC',
+                        death_year: 'Unknown',
+                        age_at_death: 'Unknown',
+                        verses: [
+                            { reference: 'Genesis 2:22', text: 'And the rib, which the LORD God had taken from man, made he a woman...' },
+                            { reference: 'Genesis 3:20', text: 'And Adam called his wife\'s name Eve; because she was the mother of all living.' }
+                        ]
+                    },
+                    'cain': {
+                        name: 'Cain',
+                        title: 'First Son',
+                        description: 'First son of Adam and Eve, farmer and first murderer',
+                        children: ['enoch'],
+                        parents: ['adam', 'eve'],
+                        spouse: null,
+                        birth_year: '3874 BC',
+                        death_year: 'Unknown',
+                        age_at_death: 'Unknown',
+                        verses: [
+                            { reference: 'Genesis 4:1', text: 'And Adam knew Eve his wife; and she conceived, and bare Cain...' }
+                        ]
+                    },
+                    'abel': {
+                        name: 'Abel',
+                        title: 'Second Son',
+                        description: 'Second son of Adam and Eve, shepherd, killed by Cain',
+                        children: [],
+                        parents: ['adam', 'eve'],
+                        spouse: null,
+                        birth_year: '3871 BC',
+                        death_year: '3796 BC',
+                        age_at_death: '75 years',
+                        verses: [
+                            { reference: 'Genesis 4:2', text: 'And she again bare his brother Abel. And Abel was a keeper of sheep...' }
+                        ]
+                    },
+                    'seth': {
+                        name: 'Seth',
+                        title: 'Third Son',
+                        description: 'Third son of Adam and Eve, ancestor of Noah',
+                        children: ['enos'],
+                        parents: ['adam', 'eve'],
+                        spouse: null,
+                        birth_year: '3769 BC',
+                        death_year: '2857 BC',
+                        age_at_death: '912 years',
+                        verses: [
+                            { reference: 'Genesis 4:25', text: 'And Adam knew his wife again; and she bare a son, and called his name Seth...' }
+                        ]
+                    },
+                    'enoch': {
+                        name: 'Enoch',
+                        title: 'Son of Cain',
+                        description: 'Son of Cain, first city builder',
+                        children: [],
+                        parents: ['cain'],
+                        spouse: null,
+                        birth_year: '3700 BC',
+                        death_year: 'Unknown',
+                        age_at_death: 'Unknown',
+                        verses: []
+                    },
+                    'enos': {
+                        name: 'Enos',
+                        title: 'Son of Seth',
+                        description: 'Son of Seth, grandson of Adam',
+                        children: ['cainan'],
+                        parents: ['seth'],
+                        spouse: null,
+                        birth_year: '3679 BC',
+                        death_year: '2769 BC',
+                        age_at_death: '905 years',
+                        verses: []
+                    },
+                    'cainan': {
+                        name: 'Cainan',
+                        title: 'Son of Enos',
+                        description: 'Son of Enos, great-grandson of Adam',
+                        children: [],
+                        parents: ['enos'],
+                        spouse: null,
+                        birth_year: '3609 BC',
+                        death_year: '2699 BC',
+                        age_at_death: '910 years',
+                        verses: []
+                    }
+                };
+                
+                // Simulate loading delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Initialize with Adam as root
+                this.currentPerson = 'adam';
+                this.renderCurrentLayout();
+            }
+            
+            initializeComponents() {
+                const svg = d3.select('#main-tree-svg');
+                
+                // Initialize layout engine
+                this.layoutEngine = new AdvancedTreeLayouts(svg, this.familyData);
+                this.layoutEngine.setSelectPersonCallback((personId) => {
+                    this.selectPerson(personId);
+                });
+                
+                // Initialize search engine
+                this.searchEngine = new FamilyTreeSearch(this.familyData, this.layoutEngine);
+                
+                // Initialize analytics engine
+                this.analyticsEngine = new FamilyTreeAnalytics(this.familyData);
+                
+                // Initially hide search and analytics
+                this.hideSearch();
+                this.hideAnalytics();
+            }
+            
+            switchLayout(layoutType) {
+                // Update UI
+                document.querySelectorAll('.layout-option').forEach(option => {
+                    option.classList.toggle('active', option.dataset.layout === layoutType);
+                });
+                
+                this.currentLayout = layoutType;
+                this.renderCurrentLayout();
+            }
+            
+            renderCurrentLayout() {
+                if (!this.layoutEngine || !this.currentPerson) return;
+                
+                this.showLoading();
+                
+                // Small delay to show loading indicator
+                setTimeout(() => {
+                    switch(this.currentLayout) {
+                        case 'hierarchical':
+                            // Use existing D3 tree implementation
+                            this.renderHierarchicalLayout();
+                            break;
+                        case 'radial':
+                            this.layoutEngine.renderRadialLayout(this.currentPerson);
+                            break;
+                        case 'force-directed':
+                            this.layoutEngine.renderForceDirectedLayout(this.currentPerson);
+                            break;
+                        case 'timeline':
+                            this.layoutEngine.renderTimelineLayout(this.currentPerson);
+                            break;
+                        case 'circular-pedigree':
+                            this.layoutEngine.renderCircularPedigreeLayout(this.currentPerson);
+                            break;
+                    }
+                    this.hideLoading();
+                }, 300);
+            }
+            
+            renderHierarchicalLayout() {
+                // Use the existing hierarchical tree implementation
+                // This would integrate with the existing family tree code
+                const svg = d3.select('#main-tree-svg');
+                svg.selectAll('*').remove();
+                
+                // Add sample hierarchical tree
+                const g = svg.append('g');
+                const nodes = [
+                    { name: 'Adam', x: 400, y: 100, id: 'adam' },
+                    { name: 'Eve', x: 500, y: 100, id: 'eve' },
+                    { name: 'Cain', x: 300, y: 200, id: 'cain' },
+                    { name: 'Abel', x: 400, y: 200, id: 'abel' },
+                    { name: 'Seth', x: 500, y: 200, id: 'seth' }
+                ];
+                
+                const nodeGroups = g.selectAll('.node')
+                    .data(nodes)
+                    .enter()
+                    .append('g')
+                    .attr('class', 'node')
+                    .attr('transform', d => `translate(${d.x}, ${d.y})`)
+                    .on('click', (event, d) => this.selectPerson(d.id));
+                
+                nodeGroups.append('circle')
+                    .attr('r', 8)
+                    .attr('fill', d => d.id === this.currentPerson ? '#007bff' : '#6c757d');
+                
+                nodeGroups.append('text')
+                    .attr('dy', -15)
+                    .attr('text-anchor', 'middle')
+                    .attr('font-size', '12px')
+                    .text(d => d.name);
+            }
+            
+            selectPerson(personId) {
+                this.currentPerson = personId;
+                this.renderCurrentLayout();
+                
+                // Update analytics if visible
+                if (this.analyticsEngine && !document.getElementById('analytics-container').style.display === 'none') {
+                    this.analyticsEngine.calculateStatistics();
+                }
+            }
+            
+            exportCurrentView() {
+                const svg = document.getElementById('main-tree-svg');
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = function() {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const link = document.createElement('a');
+                    link.download = `family-tree-${new Date().getTime()}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                };
+                
+                img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+            }
+            
+            toggleAnalytics() {
+                const container = document.getElementById('analytics-container');
+                if (container.style.display === 'none') {
+                    this.showAnalytics();
+                } else {
+                    this.hideAnalytics();
+                }
+            }
+            
+            toggleSearch() {
+                const container = document.getElementById('search-container');
+                if (container.style.display === 'none') {
+                    this.showSearch();
+                } else {
+                    this.hideSearch();
+                }
+            }
+            
+            showAnalytics() {
+                const container = document.getElementById('analytics-container');
+                container.style.display = 'block';
+                container.innerHTML = '';
+                
+                if (this.analyticsEngine) {
+                    // Re-initialize analytics in the container
+                    const analyticsElement = this.analyticsEngine.createAnalyticsInterface();
+                    container.appendChild(analyticsElement);
+                }
+            }
+            
+            hideAnalytics() {
+                document.getElementById('analytics-container').style.display = 'none';
+            }
+            
+            showSearch() {
+                const container = document.getElementById('search-container');
+                container.style.display = 'block';
+            }
+            
+            hideSearch() {
+                document.getElementById('search-container').style.display = 'none';
+            }
+            
+            showLoading() {
+                document.getElementById('loading-indicator').style.display = 'block';
+            }
+            
+            hideLoading() {
+                document.getElementById('loading-indicator').style.display = 'none';
+            }
+        }
+        
+        // Initialize the enhanced family tree when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new EnhancedFamilyTree();
+        });
+        
+        // Global helper functions for integration with existing code
+        window.selectPerson = function(personId) {
+            if (window.familyTreeInstance) {
+                window.familyTreeInstance.selectPerson(personId);
+            }
+        };
+        
+        // Export for global access
+        window.EnhancedFamilyTree = EnhancedFamilyTree;
+    </script>
+</body>
+</html>
