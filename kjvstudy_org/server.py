@@ -56,30 +56,30 @@ def get_chapter_popularity_score(book: str, chapter: int) -> int:
         "Micah": {6: 6},  # What does the Lord require
         "Habakkuk": {2: 6},  # The just shall live by faith
     }
-    
+
     # Check if this specific chapter has a popularity score
     if book in popular_chapters and chapter in popular_chapters[book]:
         return popular_chapters[book][chapter]
-    
+
     # Default scoring based on book type and chapter position
     default_score = 4  # Base score
-    
+
     # Boost for first chapters (often contain key introductions)
     if chapter == 1:
         default_score += 1
-    
+
     # Boost for books with generally high readership
-    high_readership_books = ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", 
+    high_readership_books = ["Matthew", "Mark", "Luke", "John", "Acts", "Romans",
                            "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians",
                            "Philippians", "Colossians", "Genesis", "Exodus", "Psalms", "Proverbs"]
     if book in high_readership_books:
         default_score += 1
-    
+
     # Small boost for shorter books (more likely to be read in full)
     total_chapters = len([ch for bk, ch in bible.iter_chapters() if bk == book])
     if total_chapters <= 5:
         default_score += 1
-    
+
     return min(default_score, 6)  # Cap at 6 for non-specifically scored chapters
 
 
@@ -211,15 +211,15 @@ def get_chapter_popularity_explanation(book: str, chapter: int) -> str:
             2: "'The just shall live by faith' - foundational verse for Protestant Reformation",
         },
     }
-    
+
     # Check if we have a specific explanation for this chapter
     if book in explanations and chapter in explanations[book]:
         return explanations[book][chapter]
-    
+
     # Generate default explanations based on chapter position and book type
     if chapter == 1:
         return f"Opening chapter of {book} - introduces key themes and characters"
-    
+
     # Check book categories for general explanations
     if book in ["Matthew", "Mark", "Luke", "John"]:
         return f"Gospel account of Jesus' life and ministry"
@@ -250,17 +250,17 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
     try:
         # Clean up the query
         cleaned_query = query.strip()
-        
+
         # Handle common variations in book names
         # The KJV data uses "1", "2", "3" format, not Roman numerals
         # No need to convert here since the data already uses this format
-        
+
         # Try to parse using the existing VerseReference.from_string method
         verse_ref = VerseReference.from_string(cleaned_query)
-        
+
         # Get the actual verse text
         verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
-        
+
         if verse_text:
             return {
                 "book": verse_ref.book,
@@ -272,25 +272,25 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
                 "score": 100.0,  # High score for exact verse matches
                 "highlighted_text": verse_text
             }
-        
+
     except Exception as e:
         print(f"Error parsing verse reference '{query}': {e}")
-    
+
     # If we reach here, either parsing failed or verse_text was None
     # Try alternative book name formats (Roman numerals to numbers)
     try:
         # First try simple Roman numeral to Arabic numeral conversion
         alternative_query = query.strip()
-        
+
         # Replace Roman numerals at the beginning of the string
         alternative_query = re.sub(r'^I\s+', '1 ', alternative_query)
         alternative_query = re.sub(r'^II\s+', '2 ', alternative_query)
         alternative_query = re.sub(r'^III\s+', '3 ', alternative_query)
-        
+
         if alternative_query != query.strip():
             verse_ref = VerseReference.from_string(alternative_query)
             verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
-            
+
             if verse_text:
                 return {
                     "book": verse_ref.book,
@@ -304,19 +304,19 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
                 }
     except Exception as e2:
         print(f"Alternative parsing also failed for '{query}': {e2}")
-    
+
     return None
 
 def perform_full_text_search(query: str, limit: Optional[int] = None) -> List[Dict]:
     """Perform full text search across all Bible verses or find specific verse references"""
     results = []
-    
+
     # First, check if this looks like a verse reference
     if is_verse_reference(query):
         verse_result = parse_verse_reference(query)
         if verse_result:
             return [verse_result]
-    
+
     # If not a verse reference or verse not found, perform regular text search
     search_terms = query.lower().split()
 
@@ -452,7 +452,7 @@ def search_api(q: str = Query(..., description="Search query"), limit: Optional[
 
     search_results = perform_full_text_search(q.strip(), limit)
     is_direct_verse = False
-    
+
     # Check if this was a direct verse reference match
     if search_results and len(search_results) == 1 and search_results[0].get("score") == 100.0:
         is_direct_verse = True
@@ -951,7 +951,7 @@ def read_book(request: Request, book: str):
 
     # Generate commentary data for the book page
     commentary_data = generate_book_commentary(book, chapters)
-    
+
     # Calculate popularity scores for each chapter
     chapter_popularity = {}
     chapter_explanations = {}
@@ -1315,7 +1315,67 @@ def generate_commentary(book, chapter, verse):
             12: {
                 1: {
                     "analysis": """<strong>Wherefore seeing we also are compassed about with so great a cloud of witnesses, let us lay aside every weight, and the sin which doth so easily beset us, and let us run with patience the race that is set before us.</strong> This verse applies the examples of faith from chapter 11 to encourage perseverance. The "cloud of witnesses" (<em>nephos martyrōn</em>, νέφος μαρτύρων) refers to the heroes of faith who provide testimony to God's faithfulness, not spectators watching our performance. Their lives bear witness to the reliability of faith.<br><br>"Lay aside every weight" (<em>apothemenoi ogan</em>, ἀποθέμενοι ὄγκον) uses athletic imagery of runners removing unnecessary clothing and weights. "Weight" refers to anything that hinders spiritual progress—not necessarily sin but anything that slows spiritual advancement. The definite article before "sin" (<em>tēn hamartian</em>, τὴν ἁμαρτίαν) may refer to a specific besetting sin or the principle of sin itself.<br><br>"Run with patience" (<em>di' hypomonēs trechōmen</em>, δι' ὑπομονῆς τρέχωμεν) combines active effort with patient endurance. The Christian life requires both sustained effort and patient persistence, like a long-distance race rather than a sprint.""",
-                    "historical": """The athletic imagery would have been familiar to first-century readers who knew Greek Olympic games and local athletic competitions. Athletes trained rigorously, maintained strict diets, and competed naked to avoid any hindrance. This imagery emphasized the dedication and focus required for Christian living.<br><br>The original recipients faced mounting persecution and social pressure to abandon their Christian faith. Some were wavering, discouraged by
+                    "historical": """The athletic imagery would have been familiar to first-century readers who knew Greek Olympic games and local athletic competitions. Athletes trained rigorously, maintained strict diets, and competed naked to avoid any hindrance. This imagery emphasized the dedication and focus required for Christian living.<br><br>The original recipients faced mounting persecution and social pressure to abandon their Christian faith. Some were wavering, discouraged by suffering and the apparent delay of Christ's return. The author uses the metaphor of a race to encourage persistence despite difficulties.""",
+                    "questions": [
+                        "How do the 'witnesses' from Hebrews 11 provide encouragement for contemporary believers facing spiritual challenges?",
+                        "What specific 'weights' and 'sins' might hinder spiritual progress in modern Christian living?",
+                        "How does understanding the Christian life as a long-distance race change approaches to spiritual discipline and perseverance?"
+                    ]
+                }
+            }
+        },
+        "Isaiah": {
+            53: {
+                5: {
+                    "analysis": """<strong>But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed.</strong> This verse stands at the heart of the Suffering Servant song, providing the clearest Old Testament prophecy of substitutionary atonement. The four Hebrew verbs describe the Servant's suffering: "wounded" (<em>mecholal</em>, מְחֹלָל) from piercing, "bruised" (<em>medukka</em>, מְדֻכָּא) from crushing, bearing "chastisement" (<em>musar</em>, מוּסָר), and providing healing through "stripes" (<em>chaburah</em>, חַבּוּרָה).<br><br>The preposition "for" (<em>min</em>, מִן) indicates substitution—the Servant suffers in place of others. "Our transgressions" and "our iniquities" emphasize that the suffering is vicarious, not for the Servant's own sins. The parallel structure reinforces that the Servant's suffering directly addresses human sin and its consequences.<br><br>"The chastisement of our peace" indicates that the punishment necessary for reconciliation fell upon the Servant rather than the guilty parties. The word "peace" (<em>shalom</em>, שָׁלוֹם) encompasses complete well-being and restoration of relationship with God.""",
+                    "historical": """Isaiah prophesied during the 8th century BCE, addressing Judah's spiritual crisis and the threat of Assyrian invasion. The Suffering Servant songs (Isaiah 42, 49, 50, 52-53) present a figure who would accomplish what Israel failed to do—be a light to the nations and bring salvation to the ends of the earth.<br><br>Ancient Near Eastern cultures understood vicarious suffering and substitutionary rituals, but typically involved animals or slaves substituting for the guilty. The concept of a righteous individual voluntarily suffering for others' sins was unprecedented in scope and significance.<br><br>Jewish interpretation historically applied this passage to the nation of Israel or to righteous individuals within Israel. However, the New Testament writers consistently identified Jesus as the fulfillment of this prophecy, seeing in His crucifixion the precise fulfillment of Isaiah's description.""",
+                    "questions": [
+                        "How does Isaiah 53:5 explain the mechanism by which Christ's suffering accomplishes human salvation?",
+                        "What does the emphasis on 'our' transgressions and iniquities reveal about human responsibility and divine grace?",
+                        "How should understanding Christ as the Suffering Servant shape Christian responses to persecution and suffering?"
+                    ]
+                }
+            }
+        },
+        "Jeremiah": {
+            29: {
+                11: {
+                    "analysis": """<strong>For I know the thoughts that I think toward you, saith the Lord, thoughts of peace, and not of evil, to give you an expected end.</strong> This beloved promise reveals God's benevolent intentions toward His people during their darkest hour. "I know" (<em>yadati</em>, יָדַעְתִּי) indicates intimate, personal knowledge—God is fully aware of His plans and their ultimate purpose. The Hebrew word for "thoughts" (<em>machashavot</em>, מַחֲשָׁבוֹת) can mean plans, intentions, or purposes, emphasizing divine deliberation and planning.<br><br>"Thoughts of peace" (<em>machshevot shalom</em>, מַחְשְׁבוֹת שָׁלוֹם) uses <em>shalom</em> in its fullest sense—not mere absence of conflict but comprehensive well-being, prosperity, and harmonious relationship with God. This directly contrasts with the "evil" (<em>ra'ah</em>, רָעָה) or calamity that the people were experiencing in exile.<br><br>"An expected end" (<em>acharit vetikvah</em>, אַחֲרִית וְתִקְוָה) literally means "a future and a hope." This phrase promises both temporal restoration and ultimate eschatological fulfillment, giving hope beyond immediate circumstances.""",
+                    "historical": """Jeremiah spoke these words to the Jewish exiles in Babylon around 597-586 BCE, during one of the darkest periods in Jewish history. The temple had been destroyed, Jerusalem lay in ruins, and the covenant people found themselves in pagan lands, wondering if God had abandoned His promises.<br><br>False prophets in Babylon were promising immediate return and quick restoration, creating false hope and preventing the exiles from settling and building productive lives. Jeremiah's message required them to accept their situation while trusting God's long-term purposes—a difficult but necessary perspective.<br><br>The 70-year exile period mentioned in the broader context (v.10) corresponded to the sabbath years Israel had failed to observe (2 Chronicles 36:21), showing that even judgment served God's righteous purposes and would ultimately lead to restoration.""",
+                    "questions": [
+                        "How should believers understand God's 'plans for peace' when experiencing difficult circumstances or apparent setbacks?",
+                        "What is the relationship between trusting God's ultimate purposes and taking practical action in challenging situations?",
+                        "How does this promise apply to individual believers versus the corporate people of God, and what are the implications for personal application?"
+                    ]
+                }
+            }
+        },
+        "Proverbs": {
+            3: {
+                5: {
+                    "analysis": """<strong>Trust in the Lord with all thine heart; and lean not unto thine own understanding.</strong> This foundational proverb establishes the proper relationship between human reason and divine revelation. "Trust" (<em>batach</em>, בָּטַח) means to feel secure, confident, or safe—not mere intellectual assent but complete reliance. The phrase "with all thine heart" (<em>bekhol libbekha</em>, בְּכָל־לִבֶּךָ) demands total commitment, engaging the entire personality rather than partial allegiance.<br><br>"The Lord" uses the covenant name <em>Yahweh</em> (יהוה), emphasizing relationship with the God who has revealed Himself and proven faithful to His promises. This trust is not blind faith but confidence based on God's character and past faithfulness.<br><br>"Lean not unto thine own understanding" (<em>al tishaen</em>, אַל־תִּשָּׁעֵן) literally means "do not support yourself upon" human wisdom. This doesn't eliminate human reason but subordinates it to divine revelation. The contrast between "all your heart" and "your own understanding" emphasizes comprehensive trust versus limited human perspective.""",
+                    "historical": """Proverbs 3 forms part of Solomon's wisdom literature, written during Israel's golden age when wisdom and learning flourished. The historical Solomon gathered wisdom from various sources while maintaining that true wisdom begins with fear of the Lord (Proverbs 1:7).<br><br>Ancient Near Eastern wisdom literature typically emphasized human observation and practical experience as the source of wisdom. While Proverbs incorporates practical wisdom, it uniquely subordinates human understanding to divine revelation, setting Hebrew wisdom apart from contemporary cultures.<br><br>The proverb addresses the perpetual human tendency to rely on limited understanding rather than trusting divine guidance. This would have been particularly relevant for a young king like Solomon, who needed wisdom beyond human capability to govern God's people effectively.""",
+                    "questions": [
+                        "How do believers balance using God-given rational abilities while trusting God rather than human understanding?",
+                        "What are the practical implications of trusting God 'with all your heart' in decision-making and life planning?",
+                        "How does this proverb address the contemporary tension between secular education and biblical faith?"
+                    ]
+                }
+            }
+        },
+        "James": {
+            1: {
+                2: {
+                    "analysis": """<strong>My brethren, count it all joy when ye fall into divers temptations.</strong> This counterintuitive command challenges natural human responses to difficulty. "Count it" (<em>hēgēsasthe</em>, ἡγήσασθε) means to consider, regard, or evaluate—a deliberate mental process rather than emotional feeling. The aorist imperative suggests a decisive choice to view trials from God's perspective.<br><br>"All joy" (<em>pasan charan</em>, πᾶσαν χαράν) doesn't mean partial happiness but complete joy. This joy isn't based on the trials themselves but on their ultimate purpose and results. The joy comes from understanding God's purposes in allowing difficulties.<br><br>"When ye fall into" (<em>hotan peripesēte</em>, ὅταν περιπέσητε) uses a verb meaning to fall around or encounter unexpectedly. "Divers temptations" (<em>peirasmois poikilois</em>, πειρασμοῖς ποικίλοις) refers to various trials or tests—circumstances that reveal and develop character rather than enticements to sin.""",
+                    "historical": """James wrote to Jewish Christians scattered throughout the Roman Empire, likely during the persecution following Stephen's martyrdom (Acts 8:1). These believers faced both external persecution for their faith and internal struggles with favoritism, worldliness, and spiritual immaturity.<br><br>The recipients would have been familiar with Jewish understanding that suffering could serve divine purposes. The Old Testament taught that God tested His people to refine their faith (Deuteronomy 8:2-3), but James applies this principle to the new covenant community.<br><br>The early church's experience of persecution created a practical need for understanding how to respond to trials. James provides theological framework for viewing suffering as beneficial rather than merely enduring it passively.""",
+                    "questions": [
+                        "How can believers cultivate joy in trials without minimizing real pain or adopting superficial optimism?",
+                        "What is the difference between trials that test faith and temptations that lead to sin, and how should responses differ?",
+                        "How does understanding trials as having divine purpose change practical responses to unexpected difficulties?"
+                    ]
+                }
+            }
+        }
     }
 
     # Check for enhanced commentary first
@@ -1454,29 +1514,29 @@ def generate_commentary(book, chapter, verse):
     # For all other books/chapters, use enhanced theological analysis
     verse_text = verse.text.lower()
     verse_number = verse.verse
-    
+
     # Generate sophisticated analysis based on biblical themes and context
     theme = get_enhanced_theological_theme(verse_text, book)
     key_concept = extract_theological_concept(verse_text, book)
     literary_context = analyze_literary_context(book, chapter)
-    
+
     # Create rich, scholarly analysis
     analysis_templates = [
         f"This verse develops the {theme} theme central to {book}. The concept of <strong>{key_concept}</strong> reflects {get_theological_significance(book, theme)}. {get_literary_analysis(verse_text, book, literary_context)} The original language emphasizes {get_linguistic_insight(verse_text, book)}, providing deeper understanding of the author's theological intention.",
-        
+
         f"Within the broader context of {book}, this passage highlights {theme} through {get_rhetorical_device(verse_text)}. The theological weight of <strong>{key_concept}</strong> {get_doctrinal_significance(key_concept, book)}. This verse contributes to the book's overall argument by {get_structural_purpose(book, chapter, verse_number)}.",
-        
+
         f"The {theme} theme here intersects with {get_biblical_theology_connection(theme, book)}. Biblical theology recognizes this as part of {get_canonical_development(theme)}. The phrase emphasizing <strong>{key_concept}</strong> {get_systematic_theology_insight(key_concept)} and connects to the broader scriptural witness about {get_cross_biblical_theme(theme)}."
     ]
-    
+
     historical_templates = [
         f"The historical context of {get_detailed_time_period(book)} provides crucial background for understanding this verse. {get_comprehensive_historical_context(book)} The {get_cultural_background(book, verse_text)} would have shaped how the original audience understood {key_concept}. Archaeological and historical evidence reveals {get_archaeological_insight(book, theme)}.",
-        
+
         f"This passage must be understood within {get_socio_political_context(book)}. The author writes to address {get_historical_audience_situation(book, chapter)}, making the emphasis on {theme} particularly relevant. Historical documents from this period show {get_historical_parallel(book, key_concept)}, illuminating the verse's original impact.",
-        
+
         f"The literary and historical milieu of {get_literary_historical_context(book)} shapes this text's meaning. {get_historical_theological_development(book, theme)} Understanding {get_ancient_worldview_context(book)} helps modern readers appreciate why the author emphasizes {key_concept} in this particular way."
     ]
-    
+
     question_templates = [
         f"How does the {theme} theme in this verse connect to the overarching narrative of Scripture, and what does this reveal about God's character and purposes?",
         f"In what ways does understanding {key_concept} in its original context challenge or deepen contemporary Christian thinking about {theme}?",
@@ -1517,7 +1577,7 @@ def get_enhanced_theological_theme(verse_text, book):
         "creation and providence": ["create", "made", "form", "establish", "sustain", "provide"],
         "sin and rebellion": ["sin", "transgress", "rebel", "iniquity", "evil", "wicked"]
     }
-    
+
     # Book-specific theme adjustments
     book_themes = {
         "Genesis": ["creation and providence", "covenant", "divine love"],
@@ -1526,26 +1586,26 @@ def get_enhanced_theological_theme(verse_text, book):
         "John": ["divine love", "salvation", "faith and obedience"],
         "Revelation": ["kingdom of God", "judgment and justice", "hope and restoration"]
     }
-    
+
     primary_themes = book_themes.get(book, list(themes.keys())[:3])
-    
+
     for theme in primary_themes:
         if any(word in verse_text for word in themes[theme]):
             return theme
-    
+
     # Fallback to most common theme for the book
     return primary_themes[0] if primary_themes else "divine love"
 
 def extract_theological_concept(verse_text, book):
     """Extract key theological concept from verse"""
-    concepts = ["grace", "faith", "love", "righteousness", "salvation", "redemption", 
+    concepts = ["grace", "faith", "love", "righteousness", "salvation", "redemption",
                "covenant", "kingdom", "glory", "peace", "wisdom", "truth", "life",
                "hope", "mercy", "justice", "holiness", "forgiveness", "eternal life"]
-    
+
     for concept in concepts:
         if concept in verse_text:
             return concept
-    
+
     # Extract meaningful phrases if no single concept found
     if "lord" in verse_text or "god" in verse_text:
         return "divine sovereignty"
@@ -1600,7 +1660,7 @@ def get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme
             {"text": "James 2:17", "url": "/book/James/chapter/2#verse-17", "context": "Faith and works"}
         ]
     }
-    
+
     return theme_refs.get(theme, [
         {"text": "John 1:1", "url": "/book/John/chapter/1#verse-1", "context": "Related theological concept"},
         {"text": "Romans 8:28", "url": "/book/Romans/chapter/8#verse-28", "context": "God's sovereign purpose"}
@@ -1625,7 +1685,7 @@ def get_linguistic_insight(verse_text, book):
         "salvation": "soteria in Greek or yeshua in Hebrew, indicating deliverance and wholeness",
         "grace": "charis in Greek or hen in Hebrew, emphasizing unmerited divine favor"
     }
-    
+
     for word, insight in insights.items():
         if word in verse_text:
             return insight
