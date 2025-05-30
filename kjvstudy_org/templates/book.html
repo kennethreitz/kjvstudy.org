@@ -211,28 +211,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
 
-.chapter-link::after {
-    content: '★';
-    position: absolute;
-    top: 2px;
-    right: 4px;
-    font-size: 0.7rem;
-    opacity: 0.8;
-}
 
-.chapter-link[data-popularity="10"] .chapter-star,
-.chapter-link[data-popularity="9"] .chapter-star,
-.chapter-link[data-popularity="8"] .chapter-star {
-    color: #FFD700;
-}
-
-.chapter-star {
-    position: absolute;
-    top: 2px;
-    right: 4px;
-    font-size: 0.7rem;
-    opacity: 0.8;
-}
 
 @media (max-width: 768px) {
     .chapter-link::before {
@@ -421,9 +400,8 @@
 
 <div class="chapter-grid">
     {% for chapter in chapters %}
-    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" title="{{ book }} {{ chapter }} ({{ chapter_popularity[chapter] }}/10 ★) - {{ chapter_explanations[chapter] }}">
+    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" title="{{ book }} {{ chapter }} ({{ chapter_popularity[chapter] }}/10) - {{ chapter_explanations[chapter] }}">
         {{ chapter }}
-        {% if chapter_popularity[chapter] >= 8 %}<span class="chapter-star">★</span>{% endif %}
     </a>
     {% endfor %}
 </div>
