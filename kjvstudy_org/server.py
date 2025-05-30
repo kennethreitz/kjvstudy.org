@@ -816,6 +816,259 @@ def verse_of_the_day_api():
     return get_daily_verse()
 
 
+@app.get("/biblical-maps", response_class=HTMLResponse)
+def biblical_maps_page(request: Request):
+    """Biblical maps page showing important biblical locations"""
+    books = list(bible.iter_books())
+    
+    # Define biblical locations with their related verses
+    biblical_locations = {
+        "Old Testament Locations": {
+            "Garden of Eden": {
+                "description": "The original home of mankind",
+                "verses": [
+                    {"reference": "Genesis 2:8", "text": "And the LORD God planted a garden eastward in Eden; and there he put the man whom he had formed."},
+                    {"reference": "Genesis 3:23", "text": "Therefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken."}
+                ]
+            },
+            "Mount Ararat": {
+                "description": "Where Noah's ark came to rest",
+                "verses": [
+                    {"reference": "Genesis 8:4", "text": "And the ark rested in the seventh month, on the seventeenth day of the month, upon the mountains of Ararat."}
+                ]
+            },
+            "Ur of the Chaldees": {
+                "description": "Abraham's birthplace",
+                "verses": [
+                    {"reference": "Genesis 11:31", "text": "And Terah took Abram his son, and Lot the son of Haran his son's son, and Sarai his daughter in law, his son Abram's wife; and they went forth with them from Ur of the Chaldees, to go into the land of Canaan; and they came unto Haran, and dwelt there."}
+                ]
+            },
+            "Canaan (Promised Land)": {
+                "description": "The land promised to Abraham and his descendants",
+                "verses": [
+                    {"reference": "Genesis 12:7", "text": "And the LORD appeared unto Abram, and said, Unto thy seed will I give this land: and there builded he an altar unto the LORD, who appeared unto him."},
+                    {"reference": "Deuteronomy 8:7", "text": "For the LORD thy God bringeth thee into a good land, a land of brooks of water, of fountains and depths that spring out of valleys and hills."}
+                ]
+            },
+            "Egypt": {
+                "description": "Land of bondage and deliverance",
+                "verses": [
+                    {"reference": "Exodus 12:41", "text": "And it came to pass at the end of the four hundred and thirty years, even the selfsame day it came to pass, that all the hosts of the LORD went out from the land of Egypt."},
+                    {"reference": "Genesis 47:27", "text": "And Israel dwelt in the land of Egypt, in the country of Goshen; and they had possessions therein, and grew, and multiplied exceedingly."}
+                ]
+            },
+            "Mount Sinai": {
+                "description": "Where Moses received the Ten Commandments",
+                "verses": [
+                    {"reference": "Exodus 19:20", "text": "And the LORD came down upon mount Sinai, on the top of the mount: and the LORD called Moses up to the top of the mount; and Moses went up."},
+                    {"reference": "Exodus 20:1", "text": "And God spake all these words, saying,"}
+                ]
+            },
+            "Jerusalem": {
+                "description": "The holy city, city of David",
+                "verses": [
+                    {"reference": "2 Samuel 5:7", "text": "Nevertheless David took the strong hold of Zion: the same is the city of David."},
+                    {"reference": "1 Kings 8:29", "text": "That thine eyes may be open toward this house night and day, even toward the place of which thou hast said, My name shall be there: that thou mayest hearken unto the prayer which thy servant shall make toward this place."}
+                ]
+            },
+            "Babylon": {
+                "description": "Place of exile for the Jewish people",
+                "verses": [
+                    {"reference": "2 Kings 25:11", "text": "Now the rest of the people that were left in the city, and the fugitives that fell away to the king of Babylon, with the remnant of the multitude, did Nebuzaradan the captain of the guard carry away."},
+                    {"reference": "Psalm 137:1", "text": "By the rivers of Babylon, there we sat and wept, when we remembered Zion."}
+                ]
+            },
+            "Bethel": {
+                "description": "Where Jacob saw the ladder to heaven",
+                "verses": [
+                    {"reference": "Genesis 28:19", "text": "And he called the name of that place Bethel: but the name of that city was called Luz at the first."},
+                    {"reference": "Genesis 28:12", "text": "And he dreamed, and behold a ladder set up on the earth, and the top of it reached to heaven: and behold the angels of God ascending and descending on it."}
+                ]
+            },
+            "Hebron": {
+                "description": "Where Abraham, Isaac, and Jacob are buried",
+                "verses": [
+                    {"reference": "Genesis 23:19", "text": "And after this, Abraham buried Sarah his wife in the cave of the field of Machpelah before Mamre: the same is Hebron in the land of Canaan."},
+                    {"reference": "2 Samuel 2:4", "text": "And the men of Judah came, and there they anointed David king over the house of Judah. And they told David, saying, That the men of Jabeshgilead were they that buried Saul."}
+                ]
+            },
+            "Mount Moriah": {
+                "description": "Where Abraham offered Isaac and where the temple was built",
+                "verses": [
+                    {"reference": "Genesis 22:2", "text": "And he said, Take now thy son, thine only son Isaac, whom thou lovest, and get thee into the land of Moriah; and offer him there for a burnt offering upon one of the mountains which I will tell thee of."},
+                    {"reference": "2 Chronicles 3:1", "text": "Then Solomon began to build the house of the LORD at Jerusalem in mount Moriah, where the Lord appeared unto David his father, in the place that David had prepared in the threshingfloor of Ornan the Jebusite."}
+                ]
+            },
+            "Jericho": {
+                "description": "The first city conquered in the Promised Land",
+                "verses": [
+                    {"reference": "Joshua 6:20", "text": "So the people shouted when the priests blew with the trumpets: and it came to pass, when the people heard the sound of the trumpet, and the people shouted with a great shout, that the wall fell down flat, so that the people went up into the city, every man straight before him, and they took the city."},
+                    {"reference": "Joshua 2:1", "text": "And Joshua the son of Nun sent out of Shittim two men to spy secretly, saying, Go view the land, even Jericho. And they went, and came into an harlot's house, named Rahab, and lodged there."}
+                ]
+            },
+            "Mount Carmel": {
+                "description": "Where Elijah defeated the prophets of Baal",
+                "verses": [
+                    {"reference": "1 Kings 18:39", "text": "And when all the people saw it, they fell on their faces: and they said, The LORD, he is the God; the LORD, he is the God."},
+                    {"reference": "1 Kings 18:20", "text": "So Ahab sent unto all the children of Israel, and gathered the prophets together unto mount Carmel."}
+                ]
+            },
+            "River Jordan": {
+                "description": "Where the Israelites crossed into the Promised Land",
+                "verses": [
+                    {"reference": "Joshua 3:17", "text": "And the priests that bare the ark of the covenant of the LORD stood firm on dry ground in the midst of Jordan, and all the Israelites passed over on dry ground, until all the people were passed clean over Jordan."},
+                    {"reference": "2 Kings 2:8", "text": "And Elijah took his mantle, and wrapped it together, and smote the waters, and they were divided hither and thither, so that they two went over on dry ground."}
+                ]
+            }
+        },
+        "New Testament Locations": {
+            "Bethlehem": {
+                "description": "Birthplace of Jesus Christ",
+                "verses": [
+                    {"reference": "Matthew 2:1", "text": "Now when Jesus was born in Bethlehem of Judaea in the days of Herod the king, behold, there came wise men from the east to Jerusalem,"},
+                    {"reference": "Luke 2:4", "text": "And Joseph also went up from Galilee, out of the city of Nazareth, into Judaea, unto the city of David, which is called Bethlehem; (because he was of the house and lineage of David:)"}
+                ]
+            },
+            "Nazareth": {
+                "description": "Where Jesus grew up",
+                "verses": [
+                    {"reference": "Luke 2:39", "text": "And when they had performed all things according to the law of the Lord, they returned into Galilee, to their own city Nazareth."},
+                    {"reference": "Matthew 2:23", "text": "And he came and dwelt in a city called Nazareth: that it might be fulfilled which was spoken by the prophets, He shall be called a Nazarene."}
+                ]
+            },
+            "Sea of Galilee": {
+                "description": "Where Jesus called his disciples and performed many miracles",
+                "verses": [
+                    {"reference": "Matthew 4:18", "text": "And Jesus, walking by the sea of Galilee, saw two brethren, Simon called Peter, and Andrew his brother, casting a net into the sea: for they were fishers."},
+                    {"reference": "Mark 6:48", "text": "And he saw them toiling in rowing; for the wind was contrary unto them: and about the fourth watch of the night he cometh unto them, walking upon the sea, and would have passed by them."}
+                ]
+            },
+            "Jerusalem (NT)": {
+                "description": "Site of Jesus' crucifixion, resurrection, and the early church",
+                "verses": [
+                    {"reference": "Luke 24:47", "text": "And that repentance and remission of sins should be preached in his name among all nations, beginning at Jerusalem."},
+                    {"reference": "Acts 2:5", "text": "And there were dwelling at Jerusalem Jews, devout men, out of every nation under heaven."}
+                ]
+            },
+            "Calvary (Golgotha)": {
+                "description": "The place where Jesus was crucified",
+                "verses": [
+                    {"reference": "Luke 23:33", "text": "And when they were come to the place, which is called Calvary, there they crucified him, and the malefactors, one on the right hand, and the other on the left."},
+                    {"reference": "John 19:17", "text": "And he bearing his cross went forth into a place called the place of a skull, which is called in the Hebrew Golgotha:"}
+                ]
+            },
+            "Antioch": {
+                "description": "Where believers were first called Christians, base for Paul's missions",
+                "verses": [
+                    {"reference": "Acts 11:26", "text": "And when he had found him, he brought him unto Antioch. And it came to pass, that a whole year they assembled themselves with the church, and taught much people. And the disciples were called Christians first in Antioch."},
+                    {"reference": "Acts 13:1", "text": "Now there were in the church that was at Antioch certain prophets and teachers; as Barnabas, and Simeon that was called Niger, and Lucius of Cyrene, and Manaen, which had been brought up with Herod the tetrarch, and Saul."}
+                ]
+            },
+            "Damascus": {
+                "description": "Where Paul was converted on the road",
+                "verses": [
+                    {"reference": "Acts 9:3", "text": "And as he journeyed, he came near Damascus: and suddenly there shined round about him a light from heaven:"},
+                    {"reference": "Acts 22:6", "text": "And it came to pass, that, as I made my journey, and was come nigh unto Damascus about noon, suddenly there shone from heaven a great light round about me."}
+                ]
+            },
+            "Corinth": {
+                "description": "Major city where Paul established a church",
+                "verses": [
+                    {"reference": "Acts 18:1", "text": "After these things Paul departed from Athens, and came to Corinth;"},
+                    {"reference": "1 Corinthians 1:2", "text": "Unto the church of God which is at Corinth, to them that are sanctified in Christ Jesus, called to be saints, with all that in every place call upon the name of Jesus Christ our Lord, both theirs and ours:"}
+                ]
+            },
+            "Ephesus": {
+                "description": "Important center of early Christianity in Asia Minor",
+                "verses": [
+                    {"reference": "Acts 19:10", "text": "And this continued by the space of two years; so that all they which dwelt in Asia heard the word of the Lord Jesus, both Jews and Greeks."},
+                    {"reference": "Ephesians 1:1", "text": "Paul, an apostle of Jesus Christ by the will of God, to the saints which are at Ephesus, and to the faithful in Christ Jesus:"}
+                ]
+            },
+            "Rome": {
+                "description": "Capital of the empire, destination of Paul's final journey",
+                "verses": [
+                    {"reference": "Acts 28:16", "text": "And when we came to Rome, the centurion delivered the prisoners to the captain of the guard: but Paul was suffered to dwell by himself with a soldier that kept him."},
+                    {"reference": "Romans 1:7", "text": "To all that be in Rome, beloved of God, called to be saints: Grace to you and peace from God our Father, and the Lord Jesus Christ."}
+                ]
+            },
+            "Patmos": {
+                "description": "Island where John received the Revelation",
+                "verses": [
+                    {"reference": "Revelation 1:9", "text": "I John, who also am your brother, and companion in tribulation, and in the kingdom and patience of Jesus Christ, was in the isle that is called Patmos, for the word of God, and for the testimony of Jesus Christ."}
+                ]
+            }
+        },
+        "Paul's Missionary Journeys": {
+            "Cyprus": {
+                "description": "First stop on Paul's first missionary journey",
+                "verses": [
+                    {"reference": "Acts 13:4", "text": "So they, being sent forth by the Holy Ghost, departed unto Seleucia; and from thence they sailed to Cyprus."},
+                    {"reference": "Acts 13:6", "text": "And when they had gone through the isle unto Paphos, they found a certain sorcerer, a false prophet, a Jew, whose name was Barjesus:"}
+                ]
+            },
+            "Lystra": {
+                "description": "Where Paul was stoned and left for dead",
+                "verses": [
+                    {"reference": "Acts 14:19", "text": "And there came thither certain Jews from Antioch and Iconium, who persuaded the people, and, having stoned Paul, drew him out of the city, supposing he had been dead."},
+                    {"reference": "Acts 14:8", "text": "And there sat a certain man at Lystra, impotent in his feet, being a cripple from his mother's womb, who never had walked:"}
+                ]
+            },
+            "Philippi": {
+                "description": "Where Paul and Silas were imprisoned and freed by an earthquake",
+                "verses": [
+                    {"reference": "Acts 16:26", "text": "And suddenly there was a great earthquake, so that the foundations of the prison were shaken: and immediately all the doors were opened, and every one's bands were loosed."},
+                    {"reference": "Philippians 1:1", "text": "Paul and Timotheus, the servants of Jesus Christ, to all the saints in Christ Jesus which are at Philippi, with the bishops and deacons:"}
+                ]
+            },
+            "Athens": {
+                "description": "Where Paul preached at the Areopagus",
+                "verses": [
+                    {"reference": "Acts 17:22", "text": "Then Paul stood in the midst of Mars' hill, and said, Ye men of Athens, I perceive that in all things ye are too superstitious."},
+                    {"reference": "Acts 17:16", "text": "Now while Paul waited for them at Athens, his spirit was stirred in him, when he saw the city wholly given to idolatry."}
+                ]
+            },
+            "Thessalonica": {
+                "description": "Where Paul preached for three sabbaths",
+                "verses": [
+                    {"reference": "Acts 17:2", "text": "And Paul, as his manner was, went in unto them, and three sabbath days reasoned with them out of the scriptures,"},
+                    {"reference": "1 Thessalonians 1:1", "text": "Paul, and Silvanus, and Timotheus, unto the church of the Thessalonians which is in God the Father and in the Lord Jesus Christ: Grace be unto you, and peace, from God our Father, and the Lord Jesus Christ."}
+                ]
+            },
+            "Berea": {
+                "description": "Where the people were more noble and searched the scriptures daily",
+                "verses": [
+                    {"reference": "Acts 17:11", "text": "These were more noble than those in Thessalonica, in that they received the word with all readiness of mind, and searched the scriptures daily, whether those things were so."}
+                ]
+            },
+            "Galatia": {
+                "description": "Region where Paul established churches",
+                "verses": [
+                    {"reference": "Galatians 1:2", "text": "And all the brethren which are with me, unto the churches of Galatia:"},
+                    {"reference": "Acts 16:6", "text": "Now when they had gone throughout Phrygia and the region of Galatia, and were forbidden of the Holy Ghost to preach the word in Asia,"}
+                ]
+            },
+            "Malta": {
+                "description": "Island where Paul was shipwrecked and healed the sick",
+                "verses": [
+                    {"reference": "Acts 28:1", "text": "And when they were escaped, then they knew that the island was called Melita."},
+                    {"reference": "Acts 28:8", "text": "And it came to pass, that the father of Publius lay sick of a fever and of a bloody flux: to whom Paul entered in, and prayed, and laid his hands on him, and healed him."}
+                ]
+            }
+        }
+    }
+    
+    return templates.TemplateResponse(
+        "biblical_maps.html",
+        {
+            "request": request,
+            "books": books,
+            "biblical_locations": biblical_locations
+        }
+    )
+
+
+
 
 
 def get_daily_verse():
@@ -892,6 +1145,30 @@ def sitemap():
         <lastmod>{current_date}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>{base_url}/search</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>{base_url}/study-guides</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>{base_url}/verse-of-the-day</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/biblical-maps</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
 """
 
