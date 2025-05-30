@@ -1185,7 +1185,137 @@ def generate_commentary(book, chapter, verse):
                     ]
                 }
             }
-        }
+        },
+        "Matthew": {
+            5: {
+                3: {
+                    "analysis": """<strong>Blessed are the poor in spirit: for theirs is the kingdom of heaven.</strong> This opening beatitude establishes the fundamental character of kingdom citizens. The Greek <em>makarios</em> (μακάριος, "blessed") denotes not temporary happiness but objective divine favor and ultimate well-being. The "poor in spirit" (<em>ptōchoi tō pneumati</em>, πτωχοὶ τῷ πνεύματι) describes those who recognize their spiritual bankruptcy before God.<br><br>The word <em>ptōchoi</em> refers to abject poverty—those who must beg to survive. Spiritually, it describes complete dependence on God's mercy rather than self-righteousness or merit. This poverty of spirit stands opposite to Pharisaic pride and self-sufficiency. The present tense "theirs is" indicates immediate possession of the kingdom, not just future hope.<br><br>Jesus radically reverses worldly values: those the world considers unsuccessful (the spiritually poor) are declared blessed by God. This beatitude forms the foundation for all others, as spiritual poverty is the prerequisite for receiving God's grace.""",
+                    "historical": """The Sermon on the Mount was delivered to Jesus' disciples with crowds listening (Matthew 5:1-2). In first-century Palestine, poverty was widespread, and religious leaders often taught that prosperity indicated divine blessing while poverty suggested divine disfavor. The Pharisees emphasized righteous works and religious achievement as means of gaining God's approval.<br><br>Jesus' audience would have included many literally poor people who struggled under Roman taxation and religious obligations. The concept of being "poor in spirit" would have resonated with those who felt spiritually inadequate compared to the religious elite. This teaching directly challenged the prevailing theology that equated material and spiritual prosperity with divine favor.<br><br>The beatitudes as a whole present kingdom ethics that contrast sharply with both Roman imperial values (strength, conquest, honor) and Jewish religious expectations (law-keeping, prosperity, national restoration).""",
+                    "questions": [
+                        "How does recognizing our spiritual poverty before God change our approach to righteousness and religious achievement?",
+                        "What practical steps can believers take to maintain a 'poor in spirit' attitude in a culture that promotes self-sufficiency?",
+                        "How does this beatitude challenge both religious pride and secular humanism's emphasis on human potential?"
+                    ]
+                },
+                8: {
+                    "analysis": """<strong>Blessed are the pure in heart: for they shall see God.</strong> This beatitude addresses the inner nature that God requires for relationship with Him. The Greek <em>katharos</em> (καθαρός, "pure") originally meant clean from dirt or unmixed, like pure metals without alloy. Applied to the heart (<em>kardia</em>, καρδία), it describes undivided loyalty and moral integrity—a heart free from duplicity, hypocrisy, and mixed motives.<br><br>Purity of heart encompasses both moral cleanness and single-minded devotion to God. It's not sinless perfection but sincere, undivided commitment without hidden agendas or secret sins. The "heart" in Hebrew thought represents the center of personality—intellect, emotions, and will united in purpose.<br><br>The promise "they shall see God" (<em>theon opsontai</em>, θεὸν ὄψονται) refers to both present spiritual vision and future beatific vision. Only the pure in heart can truly perceive God's nature and works. Sin creates spiritual cataracts that prevent clear vision of divine truth and beauty.""",
+                    "historical": """Jewish purity laws emphasized external ceremonial cleanness through ritual washings, dietary restrictions, and avoidance of ceremonial defilement. The Pharisees had developed elaborate systems for maintaining ritual purity while often neglecting inner spiritual condition. Jesus consistently emphasized that external religious observance without internal transformation was insufficient.<br><br>The concept of "seeing God" was particularly significant to first-century Jews who believed that no one could see God and live (Exodus 33:20). Yet the Old Testament promised that the pure would see God (Psalm 24:3-4), creating tension between divine transcendence and the possibility of intimate knowledge of God.<br><br>This beatitude would have shocked Jesus' audience by suggesting that moral and spiritual purity, rather than ritual observance, determines one's ability to perceive and commune with God.""",
+                    "questions": [
+                        "How does Jesus' emphasis on purity of heart challenge both legalistic religion and antinomian attitudes toward holiness?",
+                        "What are the barriers to purity of heart in contemporary culture, and how can believers cultivate undivided devotion to God?",
+                        "How does the promise of 'seeing God' provide motivation for pursuing holiness and moral integrity?"
+                    ]
+                }
+            },
+            6: {
+                9: {
+                    "analysis": """<strong>Our Father which art in heaven, Hallowed be thy name.</strong> This opening address establishes the fundamental relationship and priority in prayer. "Our Father" (<em>Pater hēmōn</em>, Πάτερ ἡμῶν) was revolutionary in its intimacy—while Jews acknowledged God as Father of the nation, Jesus taught individual believers to approach God with filial confidence. The Aramaic <em>Abba</em> behind this Greek reflects intimate family relationship.<br><br>"Which art in heaven" (<em>ho en tois ouranois</em>, ὁ ἐν τοῖς οὐρανοῖς) balances intimacy with reverence, acknowledging God's transcendence and sovereign authority. This phrase prevents presumptuous familiarity while maintaining relational warmth.<br><br>"Hallowed be thy name" (<em>hagiasthētō to onoma sou</em>, ἁγιασθήτω τὸ ὄνομά σου) uses the passive voice, recognizing that ultimately God hallows His own name through His actions. The aorist imperative suggests both an ongoing desire and an eschatological hope for universal recognition of God's holiness.""",
+                    "historical": """Jewish prayer in the first century typically began with elaborate titles acknowledging God's transcendence and holiness. The most common address was "Blessed art Thou, O Lord our God, King of the universe." Jesus' use of "Father" would have been startling in its simplicity and intimacy, though some Jewish prayers did refer to God as Father of Israel.<br><br>The Kaddish prayer, central to Jewish liturgy, included the petition "May His great name be sanctified and hallowed," showing that the concept of hallowing God's name was familiar to Jewish worshipers. However, Jesus places this petition in the context of individual, intimate prayer rather than formal liturgy.<br><br>The family structure in ancient Mediterranean culture made the father the source of honor, provision, and protection for the household. Jesus' teaching that believers could approach the sovereign God as "Father" implied both tremendous privilege and serious responsibility.""",
+                    "questions": [
+                        "How does understanding God as 'our Father' change the way we approach prayer, worship, and obedience?",
+                        "What does it mean practically to 'hallow' God's name in contemporary culture, and how do our lives contribute to this?",
+                        "How does the balance between intimacy ('Father') and reverence ('in heaven') inform healthy Christian spirituality?"
+                    ]
+                },
+                11: {
+                    "analysis": """<strong>Give us this day our daily bread.</strong> This petition addresses humanity's fundamental dependence on God for sustenance. The Greek <em>artos</em> (ἄρτος, "bread") represents basic nourishment, standing for all necessities of life. The qualifier <em>epiousios</em> (ἐπιούσιος, "daily") is rare in ancient literature, possibly meaning "sufficient for today," "for the coming day," or "necessary for existence."<br><br>This request acknowledges human dependence while modeling contentment with basic provisions rather than luxury or excess. The petition follows immediately after seeking God's kingdom and righteousness, suggesting that material needs, while legitimate, are secondary to spiritual priorities.<br><br>The present imperative "give" (<em>dos</em>, δός) indicates ongoing dependence rather than one-time provision. The plural "us" emphasizes communal concern—followers of Jesus pray not just for personal needs but for the community's welfare.""",
+                    "historical": """In ancient Palestine, daily bread was literally a daily concern for most people. Laborers were typically paid at the end of each workday (Leviticus 19:13), and families often lived from day to day without significant food storage. Bread was the staple food, representing up to 70% of caloric intake for ordinary people.<br><br>The wilderness wandering provided the theological background for this petition, where Israel learned to depend on God for daily manna (Exodus 16). They could not hoard manna—it spoiled if kept overnight (except on the Sabbath), teaching complete dependence on God's daily provision.<br><br>Jewish blessings over bread acknowledged God as the source of provision: "Blessed art Thou, O Lord our God, King of the universe, who bringest forth bread from the earth." Jesus' prayer reflects this understanding while emphasizing ongoing dependence rather than accumulated wealth.""",
+                    "questions": [
+                        "How does praying for 'daily bread' challenge consumer culture's emphasis on accumulation and security through material wealth?",
+                        "What does it mean to depend on God for daily provision in developed economies where food security seems guaranteed?",
+                        "How should the plural 'us' in this petition influence Christian attitudes toward global hunger and economic inequality?"
+                    ]
+                }
+            },
+            28: {
+                19: {
+                    "analysis": """<strong>Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost.</strong> The Great Commission establishes the church's universal mission. "Go ye therefore" (<em>poreuthentes oun</em>, πορευθέντες οὖν) connects this command to Jesus' declaration of universal authority (v.18). The participle suggests "as you go" or "going," indicating that evangelism occurs through normal life activities, not just formal missions.<br><br>"Teach all nations" more literally reads "make disciples of all nations" (<em>mathēteusate panta ta ethnē</em>, μαθητεύσατε πάντα τὰ ἔθνη). The term <em>ethnē</em> refers to people groups, not just political entities. This universality breaks down Jewish-Gentile barriers and extends salvation to every cultural and ethnic group.<br><br>The Trinitarian baptismal formula "in the name of the Father, and of the Son, and of the Holy Ghost" uses the singular "name" (<em>onoma</em>, ὄνομα), suggesting the unity of the three persons in one divine essence. This represents the clearest Trinitarian statement in the Gospels.""",
+                    "historical": """This commission was given to the eleven disciples on a mountain in Galilee (Matthew 28:16), fulfilling Jesus' promise to meet them there (26:32, 28:10). The mountain setting echoes other significant biblical revelations and commissions, particularly Moses receiving the law on Mount Sinai.<br><br>At this time, Jewish understanding generally limited God's full salvation to Israel, though they acknowledged righteous Gentiles could be saved. Jesus' command to make disciples of "all nations" would have been revolutionary, expanding the scope of salvation beyond ethnic and religious boundaries that had defined Jewish identity for centuries.<br><br>The early church initially struggled with this universal mandate, as seen in Peter's vision (Acts 10) and the Jerusalem Council (Acts 15). The inclusion of Gentiles without requiring circumcision and law-keeping represented a fundamental shift in understanding God's redemptive purposes.""",
+                    "questions": [
+                        "How does the Great Commission challenge both religious exclusivism and cultural relativism in contemporary missions?",
+                        "What does 'making disciples' involve beyond initial evangelism, and how should this shape church ministry strategies?",
+                        "How does the Trinitarian baptismal formula inform our understanding of conversion as incorporation into the divine community?"
+                    ]
+                }
+            }
+        },
+        "Luke": {
+            2: {
+                14: {
+                    "analysis": """<strong>Glory to God in the highest, and on earth peace, good will toward men.</strong> The angelic proclamation announces the cosmic significance of Christ's birth. "Glory to God in the highest" (<em>doxa en hypsistois theō</em>, δόξα ἐν ὑψίστοις θεῷ) declares that Christ's incarnation supremely manifests God's glory—His character, power, and purposes. The superlative "highest" emphasizes the ultimate nature of this glorification.<br><br>"Peace on earth" (<em>epi gēs eirēnē</em>, ἐπὶ γῆς εἰρήνη) refers to the comprehensive well-being that Messiah brings—not mere absence of conflict but wholeness, harmony, and reconciliation between God and humanity. This peace fulfills prophetic promises of the Prince of Peace (Isaiah 9:6) who would establish everlasting peace.<br><br>"Good will toward men" (<em>en anthrōpois eudokia</em>, ἐν ἀνθρώποις εὐδοκία) better translates as "among people with whom [God] is pleased" or "people of [God's] good pleasure." This emphasizes divine initiative in salvation rather than general human goodwill.""",
+                    "historical": """The angelic announcement came to shepherds keeping watch over their flocks by night, likely during lambing season when shepherds maintained constant vigilance. Shepherds were generally despised in first-century Jewish society, considered ceremonially unclean due to their work and unable to maintain ritual purity. Yet God chose them as the first recipients of the Messiah's birth announcement.<br><br>The proclamation echoes imperial Roman announcements of the emperor's birth or victories, which were called "gospel" (<em>euangelion</em>) and promised peace throughout the empire. The angels' message presents Jesus as the true king whose birth brings authentic peace, contrasting with Pax Romana maintained through military force.<br><br>Bethlehem's significance as David's birthplace would have been profound for Jewish hearers, as Messianic expectations focused on the Davidic covenant and promises of an eternal kingdom. The humble circumstances of Jesus' birth would have seemed paradoxical given royal expectations.""",
+                    "questions": [
+                        "How does God's choice to announce the Messiah's birth to shepherds challenge human concepts of status and importance?",
+                        "What is the relationship between the 'glory to God' and 'peace on earth' announced by the angels, and how are these connected through Christ?",
+                        "How does the biblical concept of peace differ from contemporary secular understandings of peace and conflict resolution?"
+                    ]
+                }
+            },
+            15: {
+                11: {
+                    "analysis": """<strong>A certain man had two sons.</strong> This simple opening to the parable of the prodigal son establishes the family context that drives the entire narrative. The "certain man" represents God the Father, whose character is revealed through his treatment of both sons. The "two sons" represent two fundamentally different approaches to relationship with God—one openly rebellious, the other outwardly compliant but inwardly resentful.<br><br>The parable structure follows the classic pattern of Jesus' teaching stories: a realistic scenario that suddenly takes an unexpected turn, challenging conventional wisdom and revealing kingdom values. The father's response to both sons defies cultural expectations and reveals the radical nature of divine grace.<br><br>This introduction sets up the central tension of the parable: how divine love responds to both flagrant sin and self-righteous legalism. Both sons are alienated from the father despite their different behaviors, suggesting that external conformity without heart transformation is as problematic as open rebellion.""",
+                    "historical": """The parable was told in response to Pharisees and scribes criticizing Jesus for eating with tax collectors and sinners (Luke 15:1-2). In first-century Jewish culture, table fellowship implied acceptance and approval, making Jesus' behavior scandalous to religious leaders who maintained strict separation from the ceremonially unclean.<br><br>The family dynamics described would have been familiar to Jesus' audience. Younger sons typically received one-third of the inheritance, while the eldest received a double portion. Requesting inheritance while the father lived was culturally unthinkable—equivalent to wishing the father dead. The father's granting this request would have shocked listeners.<br><br>The parable addresses the fundamental Jewish struggle with Gentile inclusion in God's kingdom. The religious leaders (represented by the elder son) resented God's acceptance of sinners without requiring full proselyte conversion and law observance.""",
+                    "questions": [
+                        "How do both sons in the parable represent different forms of alienation from the father, and what does this teach about human relationship with God?",
+                        "What does the father's character in this parable reveal about God's nature that challenges both legalistic and antinomian approaches to faith?",
+                        "How should this parable shape Christian attitudes toward both open sinners and self-righteous religious people?"
+                    ]
+                }
+            }
+        },
+        "Ephesians": {
+            2: {
+                8: {
+                    "analysis": """<strong>For by grace are ye saved through faith; and that not of yourselves: it is the gift of God.</strong> This verse provides the theological foundation of Protestant soteriology. "By grace" (<em>tē chariti</em>, τῇ χάριτι) emphasizes the instrumental cause of salvation—God's unmerited favor is the means by which salvation occurs. Grace is not merely divine attitude but active divine power working salvation.<br><br>"Through faith" (<em>dia pisteōs</em>, διὰ πίστεως) identifies faith as the channel through which grace is received. Faith is not a work that earns salvation but the empty hand that receives God's gift. The prepositions distinguish grace as the efficient cause and faith as the instrumental cause of salvation.<br><br>"Not of yourselves" (<em>ouk ex hymōn</em>, οὐκ ἐξ ὑμῶν) explicitly denies human contribution to salvation. The pronoun "that" (<em>touto</em>, τοῦτο) likely refers to the entire salvation process, not just faith, emphasizing that salvation in its entirety—including the faith to receive it—originates from God.""",
+                    "historical": """Paul wrote Ephesians during his Roman imprisonment (c. 60-62 CE) to address Gentile Christians who had been brought into the covenant community alongside Jewish believers. The letter addresses the theological implications of Jew-Gentile unity in the church and the foundation of this new community in God's grace rather than ethnic identity or law-keeping.<br><br>The emphasis on salvation by grace alone would have been particularly significant for Gentile converts who might have felt pressure to adopt Jewish customs or might have wondered about their standing before God without adherence to the Mosaic law. This passage provides assurance that their salvation rests on divine grace alone.<br><br>The concept of grace as divine gift contrasts with Greco-Roman reciprocal gift-giving, where gifts created obligations and expectations of return. Paul emphasizes that God's grace creates no obligation because it cannot be repaid—it is pure gift motivated by divine love.""",
+                    "questions": [
+                        "How does understanding salvation as entirely God's gift affect human pride and the tendency toward spiritual self-righteousness?",
+                        "What is the relationship between faith and works if salvation is by grace alone, and how does this understanding shape Christian living?",
+                        "How should the doctrine of salvation by grace alone influence evangelism and the church's approach to social action?"
+                    ]
+                }
+            },
+            6: {
+                10: {
+                    "analysis": """<strong>Finally, my brethren, be strong in the Lord, and in the power of his might.</strong> This verse introduces Paul's teaching on spiritual warfare with an emphasis on divine empowerment. "Be strong" (<em>endunamousthe</em>, ἐνδυναμοῦσθε) is a present passive imperative, indicating ongoing empowerment that comes from God rather than human effort. The passive voice emphasizes that strength comes from outside ourselves.<br><br>"In the Lord" (<em>en kyriō</em>, ἐν κυρίῳ) identifies the sphere and source of strength—union with Christ provides access to divine power. This prepositional phrase indicates not just help from God but participation in divine life and power through spiritual union.<br><br>"The power of his might" (<em>tō kratei tēs ischyos autou</em>, τῷ κράτει τῆς ἰσχύος αὐτοῦ) uses two Greek words for power, emphasizing the overwhelming nature of God's strength. <em>Kratos</em> refers to dominion and rule, while <em>ischys</em> refers to inherent strength and ability.""",
+                    "historical": """Paul writes from Roman imprisonment, where he would have observed the military equipment and discipline of Roman soldiers daily. His use of military metaphors draws from this immediate context to describe spiritual realities. Roman soldiers were renowned for their discipline, training, and equipment that made them nearly invincible in battle.<br><br>The Ephesian Christians lived in a city dominated by magical practices, occult arts, and pagan spirituality. Acts 19 describes how many converted Christians burned their magic books publicly. In this context, Paul's teaching about spiritual warfare would have been particularly relevant as new believers faced real spiritual opposition.<br><br>The emphasis on divine strength rather than human ability would have resonated with converts from both Jewish and pagan backgrounds, who might have been tempted to rely on their own religious practices, moral efforts, or spiritual techniques rather than on God's power.""",
+                    "questions": [
+                        "How does understanding spiritual strength as coming 'in the Lord' change approaches to Christian discipline and spiritual growth?",
+                        "What are the practical implications of relying on 'the power of his might' rather than human willpower in spiritual battles?",
+                        "How should awareness of spiritual warfare influence daily Christian living and decision-making?"
+                    ]
+                }
+            }
+        },
+        "Philippians": {
+            4: {
+                13: {
+                    "analysis": """<strong>I can do all things through Christ which strengtheneth me.</strong> This beloved verse is often misunderstood when separated from its context of contentment in various circumstances. "I can do all things" (<em>panta ischyō</em>, πάντα ἰσχύω) refers specifically to Paul's ability to be content in any situation—abundance or need, plenty or hunger. The "all things" refers to all circumstances, not all tasks or ambitions.<br><br>"Through Christ" (<em>en tō endunamounti me</em>, ἐν τῷ ἐνδυναμοῦντι με) literally reads "in the one strengthening me." The present participle indicates ongoing, continuous empowerment. Christ doesn't merely help Paul but provides the very strength and ability to respond appropriately to life's varied circumstances.<br><br>The context emphasizes supernatural contentment that transcends natural human responses to hardship or prosperity. This strength enables believers to maintain spiritual equilibrium regardless of external conditions, finding sufficiency in Christ rather than circumstances.""",
+                    "historical": """Paul wrote Philippians from Roman imprisonment, likely the house arrest described in Acts 28. Despite uncertain prospects and physical limitations, Paul demonstrates the contentment he describes. The Philippian church had sent financial support through Epaphroditus, prompting Paul's discussion of contentment and gratitude.<br><br>Ancient Stoic philosophy emphasized contentment and emotional equilibrium, but achieved through human reason and willpower. Paul presents a fundamentally different approach—contentment through divine empowerment rather than philosophical detachment. This would have been a striking contrast for readers familiar with Stoic teaching.<br><br>The historical context of imprisonment, where Paul lacked control over his circumstances, provides the perfect backdrop for demonstrating that true strength and contentment come from spiritual resources rather than favorable external conditions.""",
+                    "questions": [
+                        "How does understanding this verse in the context of contentment change its application from achieving goals to accepting circumstances?",
+                        "What is the difference between Stoic self-sufficiency and Christian contentment through Christ's strength?",
+                        "How can believers cultivate the kind of contentment Paul describes while still pursuing legitimate goals and improvements?"
+                    ]
+                }
+            }
+        },
+        "Hebrews": {
+            11: {
+                1: {
+                    "analysis": """<strong>Now faith is the substance of things hoped for, the evidence of things not seen.</strong> This verse provides the classic biblical definition of faith, describing both its nature and function. "Substance" (<em>hypostasis</em>, ὑπόστασις) literally means "that which stands under" or foundation, indicating that faith provides objective reality to hoped-for things, not merely subjective confidence. Faith gives substance to future promises, making them present realities in the believer's experience.<br><br>"Evidence" (<em>elegchos</em>, ἔλεγχος) refers to proof or conviction that establishes truth. Faith provides convincing evidence of invisible spiritual realities, functioning like a divine radar that detects what natural senses cannot perceive. This evidence is not emotional feeling but objective spiritual perception.<br><br>The verse establishes faith as the bridge between visible and invisible realms, enabling believers to live based on divine promises rather than immediate circumstances. Faith makes the future present and the invisible visible, providing the foundation for the life of obedience described in the following examples.""",
+                    "historical": """Hebrews was written to Jewish Christians facing persecution and temptation to return to Judaism. The recipients were wavering in their commitment to Christ, discouraged by suffering and the apparent delay of promised blessings. In this context, the definition of faith addresses their need for perseverance based on unseen realities.<br><br>The concept of faith as "substance" would have resonated with readers familiar with both Greek philosophical concepts and Hebrew understanding of God's covenant faithfulness. The author uses sophisticated Greek terminology to explain Hebrew concepts of trust and faithfulness to God.<br><br>Chapter 11 follows this definition with examples from Jewish history, demonstrating that faith has always been the operating principle for God's people. These examples would have encouraged wavering Jewish Christians by showing that their ancestors also lived by faith in God's promises rather than visible fulfillment.""",
+                    "questions": [
+                        "How does faith as 'substance' and 'evidence' differ from mere wishful thinking or blind belief?",
+                        "What role should faith play in decision-making when circumstances seem to contradict God's promises?",
+                        "How can believers develop the kind of faith that makes unseen realities more real than visible circumstances?"
+                    ]
+                }
+            },
+            12: {
+                1: {
+                    "analysis": """<strong>Wherefore seeing we also are compassed about with so great a cloud of witnesses, let us lay aside every weight, and the sin which doth so easily beset us, and let us run with patience the race that is set before us.</strong> This verse applies the examples of faith from chapter 11 to encourage perseverance. The "cloud of witnesses" (<em>nephos martyrōn</em>, νέφος μαρτύρων) refers to the heroes of faith who provide testimony to God's faithfulness, not spectators watching our performance. Their lives bear witness to the reliability of faith.<br><br>"Lay aside every weight" (<em>apothemenoi ogan</em>, ἀποθέμενοι ὄγκον) uses athletic imagery of runners removing unnecessary clothing and weights. "Weight" refers to anything that hinders spiritual progress—not necessarily sin but anything that slows spiritual advancement. The definite article before "sin" (<em>tēn hamartian</em>, τὴν ἁμαρτίαν) may refer to a specific besetting sin or the principle of sin itself.<br><br>"Run with patience" (<em>di' hypomonēs trechōmen</em>, δι' ὑπομονῆς τρέχωμεν) combines active effort with patient endurance. The Christian life requires both sustained effort and patient persistence, like a long-distance race rather than a sprint.""",
+                    "historical": """The athletic imagery would have been familiar to first-century readers who knew Greek Olympic games and local athletic competitions. Athletes trained rigorously, maintained strict diets, and competed naked to avoid any hindrance. This imagery emphasized the dedication and focus required for Christian living.<br><br>The original recipients faced mounting persecution and social pressure to abandon their Christian faith. Some were wavering, discouraged by
     }
 
     # Check for enhanced commentary first
@@ -1359,7 +1489,7 @@ def generate_commentary(book, chapter, verse):
     ]
 
     # Generate cross-references
-    cross_refs = generate_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
+    cross_refs = get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
 
     # Return a dictionary with enhanced commentary components
     return {
@@ -1475,6 +1605,238 @@ def get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme
         {"text": "John 1:1", "url": "/book/John/chapter/1#verse-1", "context": "Related theological concept"},
         {"text": "Romans 8:28", "url": "/book/Romans/chapter/8#verse-28", "context": "God's sovereign purpose"}
     ])[:2]
+
+
+def get_literary_analysis(verse_text, book, literary_context):
+    """Provide literary analysis of the verse within its context"""
+    if "lord" in verse_text or "god" in verse_text:
+        return f"The divine name or title here functions within {literary_context} to establish theological authority and covenantal relationship."
+    elif any(word in verse_text for word in ["love", "mercy", "grace"]):
+        return f"The emotional and relational language employed here is characteristic of {literary_context}, emphasizing the personal nature of divine-human relationship."
+    else:
+        return f"The literary structure and word choice here contribute to {literary_context}, advancing the author's theological argument."
+
+def get_linguistic_insight(verse_text, book):
+    """Provide insight into original language significance"""
+    insights = {
+        "lord": "the covenant name Yahweh, emphasizing God's faithfulness to His promises",
+        "love": "agape in Greek contexts or hesed in Hebrew, indicating covenantal loyalty",
+        "faith": "pistis in Greek, encompassing both belief and faithfulness",
+        "salvation": "soteria in Greek or yeshua in Hebrew, indicating deliverance and wholeness",
+        "grace": "charis in Greek or hen in Hebrew, emphasizing unmerited divine favor"
+    }
+    
+    for word, insight in insights.items():
+        if word in verse_text:
+            return insight
+    return "careful word choice that would have carried specific theological weight for the original audience"
+
+def get_rhetorical_device(verse_text):
+    """Identify rhetorical or literary devices in the verse"""
+    if "like" in verse_text or "as" in verse_text:
+        return "simile or metaphorical language"
+    elif any(word in verse_text for word in ["all", "every", "none", "nothing"]):
+        return "universal language and absolute statements"
+    elif "?" in verse_text:
+        return "rhetorical questioning that engages the reader"
+    else:
+        return "declarative statements that establish theological truth"
+
+def get_structural_purpose(book, chapter, verse_number):
+    """Explain how the verse functions structurally within the book"""
+    if verse_number == 1:
+        return f"introducing key themes that will be developed throughout {book}"
+    elif chapter == 1:
+        return f"establishing foundational concepts crucial to {book}'s theological argument"
+    else:
+        return f"building upon previous themes while advancing the overall message of {book}"
+
+def get_biblical_theology_connection(theme, book):
+    """Connect the theme to broader biblical theology"""
+    connections = {
+        "salvation": "the metanarrative of redemption running from Genesis to Revelation",
+        "divine love": "God's covenantal faithfulness demonstrated throughout salvation history",
+        "kingdom of God": "the progressive revelation of God's rule from creation to consummation",
+        "covenant": "God's relationship with His people from Abraham through the new covenant",
+        "faith and obedience": "the proper human response to divine revelation across Scripture"
+    }
+    return connections.get(theme, "the broader canonical witness to God's character and purposes")
+
+def get_canonical_development(theme):
+    """Describe how the theme develops across the biblical canon"""
+    developments = {
+        "salvation": "a unified storyline from the promise in Genesis 3:15 to its fulfillment in Christ",
+        "divine love": "progressive revelation from covenant love in the Old Testament to agape love in the New",
+        "kingdom of God": "development from creation mandate through Davidic kingdom to eschatological fulfillment",
+        "covenant": "evolution from creation covenant through Abrahamic, Mosaic, Davidic, to new covenant"
+    }
+    return developments.get(theme, "progressive revelation that finds its culmination in Christ")
+
+def get_systematic_theology_insight(concept):
+    """Provide systematic theological perspective on the concept"""
+    insights = {
+        "grace": "relates to the doctrine of soteriology and God's unmerited favor in salvation",
+        "faith": "central to epistemology and the means by which humans receive divine revelation",
+        "love": "fundamental to theology proper, revealing God's essential nature and character",
+        "salvation": "encompasses justification, sanctification, and glorification in the ordo salutis",
+        "kingdom": "relates to eschatology and the ultimate purpose of God's redemptive plan"
+    }
+    return insights.get(concept, "contributes to our systematic understanding of Christian doctrine")
+
+def get_cross_biblical_theme(theme):
+    """Identify how the theme appears across Scripture"""
+    cross_biblical = {
+        "salvation": "God's saving work from the Exodus to the cross",
+        "divine love": "hesed in the Old Testament and agape in the New Testament",
+        "kingdom of God": "God's reign from creation through the millennial kingdom",
+        "covenant": "God's relational commitment from Noah to the new covenant"
+    }
+    return cross_biblical.get(theme, "God's consistent character and purposes")
+
+def get_detailed_time_period(book):
+    """Provide detailed historical time period for the book"""
+    periods = {
+        "Genesis": "the patriarchal period (c. 2000-1500 BCE) and primeval history",
+        "Exodus": "the period of Egyptian bondage and wilderness wandering (c. 1440-1400 BCE)",
+        "Psalms": "the monarchic period, particularly David's reign (c. 1000-970 BCE)",
+        "Romans": "the early imperial period under Nero (c. 57 CE)",
+        "John": "the late first century during increasing tension between synagogue and church",
+        "Revelation": "the Domitian persecution period (c. 95 CE)"
+    }
+    return periods.get(book, "the biblical period relevant to this book's composition")
+
+def get_comprehensive_historical_context(book):
+    """Provide comprehensive historical background"""
+    contexts = {
+        "Genesis": "The ancient Near Eastern world with its creation myths, flood narratives, and patriarchal social structures provided the cultural backdrop against which God's revelation stands in stark contrast.",
+        "Romans": "The Roman Empire at its height, with sophisticated legal systems, diverse religious practices, and increasing Christian presence in major urban centers shaped Paul's theological arguments.",
+        "Psalms": "The Israelite monarchy with its temple worship, court life, and constant military threats created the liturgical and emotional context for these prayers and praises."
+    }
+    return contexts.get(book, "The historical and cultural milieu of the biblical world informed the author's theological expression and the audience's understanding.")
+
+def get_archaeological_insight(book, theme):
+    """Provide relevant archaeological insight"""
+    insights = {
+        ("Genesis", "creation and providence"): "Ancient Near Eastern creation texts like Enuma Elish provide comparative context for understanding Genesis's unique theological perspective",
+        ("Romans", "salvation"): "Inscriptions from Corinth and Rome reveal the social dynamics and religious pluralism that shaped early Christian communities",
+        ("Psalms", "worship and praise"): "Temple archaeology and ancient musical instruments illuminate the liturgical context of Israelite worship"
+    }
+    key = (book, theme)
+    return insights.get(key, "Archaeological discoveries continue to illuminate the historical context of biblical texts")
+
+def get_related_doctrine(theme):
+    """Identify related systematic theology doctrines"""
+    doctrines = {
+        "salvation": "soteriology and the doctrine of salvation",
+        "divine love": "theology proper and the doctrine of God",
+        "kingdom of God": "eschatology and the doctrine of last things",
+        "covenant": "theology of covenant and God's relational commitment"
+    }
+    return doctrines.get(theme, "fundamental Christian doctrine")
+
+def get_contemporary_relevance(theme, concept):
+    """Identify contemporary relevance and application"""
+    relevance = {
+        "salvation": "addressing questions of religious pluralism and the exclusivity of Christ",
+        "divine love": "responding to cultural confusion about the nature of love and relationships",
+        "kingdom of God": "providing hope in times of political and social upheaval",
+        "faith and obedience": "challenging cultural relativism with objective truth claims"
+    }
+    return relevance.get(theme, "contemporary challenges facing the church and individual believers")
+
+def get_cultural_background(book, verse_text):
+    """Provide cultural background relevant to the verse"""
+    backgrounds = {
+        "Genesis": "ancient Near Eastern cosmology and patriarchal society",
+        "Matthew": "first-century Palestinian Jewish culture under Roman occupation",
+        "Romans": "Greco-Roman urban culture with diverse religious and philosophical influences",
+        "Psalms": "ancient Israelite worship practices and court culture",
+        "John": "late first-century Jewish-Christian tensions and Hellenistic thought"
+    }
+    return backgrounds.get(book, "the cultural context of the biblical world")
+
+def get_socio_political_context(book):
+    """Provide socio-political context for the book"""
+    contexts = {
+        "Genesis": "the tribal and clan-based society of the ancient Near East",
+        "Matthew": "Roman imperial rule over Jewish Palestine with messianic expectations",
+        "Romans": "the cosmopolitan capital of the Roman Empire with diverse populations",
+        "Psalms": "the Israelite monarchy with its court politics and military conflicts",
+        "Revelation": "imperial persecution under Domitian's demand for emperor worship"
+    }
+    return contexts.get(book, "the political and social structures of the biblical period")
+
+def get_historical_audience_situation(book, chapter):
+    """Describe the specific situation of the original audience"""
+    situations = {
+        "Genesis": "the foundational narrative for Israel's identity and relationship with God",
+        "Matthew": "Jewish Christians seeking to understand Jesus as Messiah",
+        "Romans": "a mixed congregation of Jewish and Gentile believers in the imperial capital",
+        "Psalms": "worshipers in the temple and those seeking God in times of distress",
+        "Revelation": "persecuted Christians in Asia Minor facing pressure to compromise"
+    }
+    return situations.get(book, "believers seeking to understand God's will and purposes")
+
+def get_historical_parallel(book, concept):
+    """Provide historical parallels that illuminate the concept"""
+    parallels = {
+        "salvation": "rescue narratives from ancient literature that would resonate with the audience",
+        "kingdom": "imperial and royal imagery familiar to subjects of ancient monarchies",
+        "covenant": "treaty language and adoption practices from the ancient world",
+        "love": "patron-client relationships and family loyalty concepts"
+    }
+    return parallels.get(concept, "cultural practices and social structures that would have been familiar to the original readers")
+
+def get_literary_historical_context(book):
+    """Provide literary and historical context combined"""
+    contexts = {
+        "Genesis": "ancient Near Eastern narrative literature addressing origins and identity",
+        "Matthew": "Jewish biographical literature presenting Jesus as the fulfillment of Scripture",
+        "Romans": "Hellenistic epistolary literature with sophisticated theological argumentation",
+        "Psalms": "ancient Near Eastern poetry and hymnic literature for worship",
+        "Revelation": "Jewish apocalyptic literature using symbolic imagery to convey hope"
+    }
+    return contexts.get(book, "the literary conventions and historical circumstances of biblical literature")
+
+def get_historical_theological_development(book, theme):
+    """Describe how the theme developed historically within the book's context"""
+    developments = {
+        ("Genesis", "creation and providence"): "The development from creation to divine election established God's sovereign care over history",
+        ("Romans", "salvation"): "Paul's systematic presentation built upon centuries of Jewish understanding about righteousness and divine justice",
+        ("Psalms", "worship and praise"): "Israel's liturgical traditions developed through centuries of temple worship and personal devotion"
+    }
+    key = (book, theme)
+    return developments.get(key, f"The historical development of {theme} within the theological tradition of {book}")
+
+def get_ancient_worldview_context(book):
+    """Provide ancient worldview context"""
+    worldviews = {
+        "Genesis": "a worldview where divine beings actively governed natural and historical processes",
+        "Matthew": "a worldview expecting divine intervention through a promised Messiah",
+        "Romans": "a worldview shaped by both Jewish monotheism and Greco-Roman philosophical thought",
+        "Psalms": "a worldview centered on covenant relationship between God and His people"
+    }
+    return worldviews.get(book, "the ancient worldview that shaped the author's theological expression")
+
+def get_biblical_theological_trajectory(theme):
+    """Describe the biblical theological trajectory of the theme"""
+    trajectories = {
+        "salvation": "from physical deliverance in the Old Testament to spiritual redemption in the New",
+        "kingdom of God": "from earthly theocracy through Davidic kingdom to eschatological fulfillment",
+        "divine love": "from covenant faithfulness to sacrificial love demonstrated in Christ",
+        "faith and obedience": "from law observance to faith in Christ as the means of righteousness"
+    }
+    return trajectories.get(theme, "the progressive revelation of God's purposes throughout Scripture")
+
+def get_contemporary_theological_challenge(theme):
+    """Identify contemporary theological challenges addressed by the theme"""
+    challenges = {
+        "salvation": "religious pluralism and questions about the necessity of Christ",
+        "divine love": "the problem of evil and suffering in light of God's goodness",
+        "kingdom of God": "the apparent delay of Christ's return and God's justice",
+        "faith and obedience": "the relationship between faith and works in salvation"
+    }
+    return challenges.get(theme, "questions about God's character and purposes in the modern world")
 
 def generate_chapter_overview(book, chapter, verses):
     """Generate an AI-powered overview of the entire chapter"""
