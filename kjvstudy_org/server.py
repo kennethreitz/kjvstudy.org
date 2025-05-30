@@ -1060,35 +1060,38 @@ def parse_gedcom_to_tree_data(gedcom_path):
     """Parse GEDCOM file into our family tree format"""
     tree_data = {}
     
-    # Parse with ged4py directly from file path
-    with open(gedcom_path, 'r', encoding='utf-8') as f:
-        gedcom = GedcomReader(f)
+    # Parse with ged4py using the file path directly
+    gedcom = GedcomReader(str(gedcom_path))
 
     # First pass: collect all individuals
-    for record in gedcom.records0:
+    for record in gedcom.records0():
         if record.tag == 'INDI':
-            person_id = record.xref_id.replace('@', '').replace('#', '').lower()
+            person_id = str(record.xref_id).replace('@', '').replace('#', '').lower()
 
             # Get person name
             name = "Unknown"
             title = "Biblical Figure"
             for sub in record.sub_records:
                 if sub.tag == 'NAME':
-                    name_value = sub.value.replace('/', '').strip()
+                    # Handle case where sub.value might be a tuple
+                    value = sub.value[0] if isinstance(sub.value, tuple) else sub.value
+                    name_value = str(value).replace('/', '').strip()
                     name = ' '.join(name_value.split())
                     break
 
             # Get occupation/title from OCCU tag
             for sub in record.sub_records:
                 if sub.tag == 'OCCU':
-                    title = sub.value
+                    value = sub.value[0] if isinstance(sub.value, tuple) else sub.value
+                    title = str(value)
                     break
 
             # Get notes for description
             description = f"Biblical figure from {name}'s genealogy"
             for sub in record.sub_records:
                 if sub.tag == 'NOTE':
-                    description = sub.value
+                    value = sub.value[0] if isinstance(sub.value, tuple) else sub.value
+                    description = str(value)
                     break
 
             # Get birth and death dates
@@ -1100,11 +1103,13 @@ def parse_gedcom_to_tree_data(gedcom_path):
                 if sub.tag == 'BIRT':
                     for date_sub in sub.sub_records:
                         if date_sub.tag == 'DATE':
-                            birth_year = date_sub.value
+                            value = date_sub.value[0] if isinstance(date_sub.value, tuple) else date_sub.value
+                            birth_year = str(value)
                 elif sub.tag == 'DEAT':
                     for date_sub in sub.sub_records:
                         if date_sub.tag == 'DATE':
-                            death_year = date_sub.value
+                            value = date_sub.value[0] if isinstance(date_sub.value, tuple) else date_sub.value
+                            death_year = str(value)
 
             # Calculate age if we have both birth and death years
             if birth_year != "Unknown" and death_year != "Unknown":
@@ -1132,7 +1137,7 @@ def parse_gedcom_to_tree_data(gedcom_path):
             tree_data[person_id] = person_data
 
     # Second pass: collect family relationships
-    for record in gedcom.records0:
+    for record in gedcom.records0():
         if record.tag == 'FAM':
             husband_id = None
             wife_id = None
@@ -1140,11 +1145,15 @@ def parse_gedcom_to_tree_data(gedcom_path):
 
             for sub in record.sub_records:
                 if sub.tag == 'HUSB':
-                    husband_id = sub.value.replace('@', '').replace('#', '').lower()
+                    # Handle case where sub.value might be a tuple
+                    value = sub.value[0] if isinstance(sub.value, tuple) else sub.value
+                    husband_id = str(value).replace('@', '').replace('#', '').lower()
                 elif sub.tag == 'WIFE':
-                    wife_id = sub.value.replace('@', '').replace('#', '').lower()
+                    value = sub.value[0] if isinstance(sub.value, tuple) else sub.value
+                    wife_id = str(value).replace('@', '').replace('#', '').lower()
                 elif sub.tag == 'CHIL':
-                    child_id = sub.value.replace('@', '').replace('#', '').lower()
+                    value = sub.value[0] if isinstance(sub.value, tuple) else sub.value
+                    child_id = str(value).replace('@', '').replace('#', '').lower()
                     children.append(child_id)
 
             # Set spouse relationships
