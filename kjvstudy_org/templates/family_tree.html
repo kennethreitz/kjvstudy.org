@@ -197,6 +197,208 @@
         display: none;
     }
 
+    .comprehensive-person-view {
+        background: var(--card-background);
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-top: 2rem;
+        display: block;
+    }
+
+    .person-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .person-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: white;
+        flex-shrink: 0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .person-avatar.male {
+        background: linear-gradient(135deg, #74b9ff, #0984e3);
+    }
+
+    .person-avatar.female {
+        background: linear-gradient(135deg, #fd79a8, #e84393);
+    }
+
+    .person-basic-info h1 {
+        font-size: 2.2rem;
+        margin: 0 0 0.5rem 0;
+        color: var(--text-color);
+        font-family: 'Crimson Text', serif;
+    }
+
+    .person-basic-info .person-title {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+        font-style: italic;
+    }
+
+    .person-basic-info .person-lifespan {
+        font-size: 1rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .data-sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .data-section {
+        background: var(--background-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid var(--border-color);
+    }
+
+    .data-section h3 {
+        font-size: 1.3rem;
+        margin: 0 0 1rem 0;
+        color: var(--primary-color);
+        font-family: 'Crimson Text', serif;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .gedcom-field {
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .gedcom-field:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .field-label {
+        font-weight: 600;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
+    }
+
+    .field-value {
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    .scripture-references {
+        grid-column: 1 / -1;
+    }
+
+    .verse-reference-item {
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .verse-ref {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .verse-ref a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    .verse-ref a:hover {
+        text-decoration: underline;
+    }
+
+    .verse-text {
+        font-family: 'Crimson Text', serif;
+        font-style: italic;
+        line-height: 1.6;
+        color: var(--text-color);
+    }
+
+    .family-connections {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .connection-card {
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .connection-card:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .connection-card .connection-name {
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 0.25rem;
+    }
+
+    .connection-card .connection-type {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+        .data-sections {
+            grid-template-columns: 1fr;
+        }
+
+        .person-header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .person-basic-info h1 {
+            font-size: 1.8rem;
+        }
+
+        .family-connections {
+            grid-template-columns: 1fr;
+        }
+    }
+
     .d3-tree-container {
         width: 100%;
         height: 600px;
@@ -702,8 +904,8 @@
             </div>
 
             <div class="view-toggle" id="view-toggle" style="display: flex;">
-                <button class="view-btn" onclick="showDetailsView()">📋 Details View</button>
-                <button class="view-btn active" onclick="showTreeView()">🌳 Tree View</button>
+                <button class="view-btn" onclick="showDetailsView()">📋 Simple View</button>
+                <button class="view-btn active" onclick="showTreeView()">🌳 Full Tree View</button>
             </div>
 
             <div class="tree-view" id="tree-view">
@@ -728,6 +930,54 @@
                         <div class="legend-item">
                             <div class="legend-circle current"></div>
                             <span>Current Person</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comprehensive-person-view" id="comprehensive-person-view" style="display: block;">
+                    <div class="person-header">
+                        <div class="person-avatar" id="person-avatar">👤</div>
+                        <div class="person-basic-info">
+                            <h1 id="comp-person-name">Select a Person</h1>
+                            <div class="person-title" id="comp-person-title"></div>
+                            <div class="person-lifespan" id="comp-person-lifespan"></div>
+                        </div>
+                    </div>
+
+                    <div class="data-sections">
+                        <div class="data-section">
+                            <h3>📋 Personal Information</h3>
+                            <div id="personal-info-fields"></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>👨‍👩‍👧‍👦 Family Relationships</h3>
+                            <div id="family-relationships"></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>📅 Life Events</h3>
+                            <div id="life-events"></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>🏷️ GEDCOM Details</h3>
+                            <div id="gedcom-technical"></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>🧬 Genealogy Path</h3>
+                            <div id="genealogy-path"></div>
+                        </div>
+
+                        <div class="data-section">
+                            <h3>📈 Statistical Info</h3>
+                            <div id="statistical-info"></div>
+                        </div>
+
+                        <div class="data-section scripture-references">
+                            <h3>📖 Scripture References</h3>
+                            <div id="scripture-references"></div>
                         </div>
                     </div>
                 </div>
@@ -928,6 +1178,9 @@
             updateD3Tree(person, personId);
         }
 
+        // Update comprehensive person view
+        updateComprehensiveView(person, personId);
+
         // Update current person info
         document.getElementById('current-name').textContent = person.name;
         document.getElementById('current-title').textContent = person.title || 'Biblical Figure';
@@ -955,6 +1208,416 @@
 
         // Update D3 tree view
         updateD3Tree(person, personId);
+
+        // Update comprehensive person view
+        updateComprehensiveView(person, personId);
+    }
+
+    function updateComprehensiveView(person, personId) {
+        const compView = document.getElementById('comprehensive-person-view');
+        const avatar = document.getElementById('person-avatar');
+        const name = document.getElementById('comp-person-name');
+        const title = document.getElementById('comp-person-title');
+        const lifespan = document.getElementById('comp-person-lifespan');
+
+        // Ensure the comprehensive view is visible
+        compView.style.display = 'block';
+
+        // Update avatar
+        const gender = determineGender(person);
+        avatar.className = `person-avatar ${gender}`;
+        avatar.textContent = gender === 'female' ? '👩' : '👨';
+
+        // Update basic info
+        name.textContent = person.name || 'Unknown';
+        title.textContent = person.title || 'Biblical Figure';
+        
+        let lifespanText = '';
+        if (person.birth_year && person.birth_year !== 'Unknown') {
+            lifespanText = person.birth_year;
+        }
+        if (person.death_year && person.death_year !== 'Unknown') {
+            lifespanText += ` - ${person.death_year}`;
+        }
+        if (person.age_at_death && person.age_at_death !== 'Unknown') {
+            lifespanText += ` (${person.age_at_death})`;
+        }
+        lifespan.textContent = lifespanText || 'Lifespan unknown';
+
+        // Update personal information
+        updatePersonalInfo(person);
+        
+        // Update family relationships
+        updateFamilyRelationships(person, personId);
+        
+        // Update life events
+        updateLifeEvents(person);
+        
+        // Update GEDCOM technical details
+        updateGedcomDetails(person, personId);
+        
+        // Update genealogy path
+        updateGenealogyPath(person, personId);
+        
+        // Update statistical information
+        updateStatisticalInfo(person, personId);
+        
+        // Update scripture references
+        updateScriptureReferences(person);
+    }
+
+    function updatePersonalInfo(person) {
+        const container = document.getElementById('personal-info-fields');
+        container.innerHTML = '';
+
+        const fields = [
+            { label: 'Full Name', value: person.name },
+            { label: 'Gender', value: determineGender(person) },
+            { label: 'Title/Occupation', value: person.title },
+            { label: 'Description', value: person.description },
+            { label: 'Birth Year', value: person.birth_year },
+            { label: 'Death Year', value: person.death_year },
+            { label: 'Age at Death', value: person.age_at_death }
+        ];
+
+        fields.forEach(field => {
+            if (field.value && field.value !== 'Unknown') {
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'gedcom-field';
+                fieldDiv.innerHTML = `
+                    <div class="field-label">${field.label}</div>
+                    <div class="field-value">${field.value}</div>
+                `;
+                container.appendChild(fieldDiv);
+            }
+        });
+
+        if (container.children.length === 0) {
+            container.innerHTML = '<div class="field-value">No personal information available</div>';
+        }
+    }
+
+    function updateFamilyRelationships(person, personId) {
+        const container = document.getElementById('family-relationships');
+        container.innerHTML = '';
+
+        const relationships = [];
+
+        // Parents
+        if (person.parents && person.parents.length > 0) {
+            person.parents.forEach(parentId => {
+                const parent = familyData[parentId];
+                if (parent) {
+                    relationships.push({
+                        name: parent.name,
+                        type: 'Parent',
+                        id: parentId
+                    });
+                }
+            });
+        }
+
+        // Spouse
+        if (person.spouse) {
+            const spouseId = Object.keys(familyData).find(id => familyData[id].name === person.spouse);
+            if (spouseId) {
+                relationships.push({
+                    name: person.spouse,
+                    type: 'Spouse',
+                    id: spouseId
+                });
+            }
+        }
+
+        // Children
+        if (person.children && person.children.length > 0) {
+            person.children.forEach(childId => {
+                const child = familyData[childId];
+                if (child) {
+                    relationships.push({
+                        name: child.name,
+                        type: 'Child',
+                        id: childId
+                    });
+                }
+            });
+        }
+
+        if (relationships.length > 0) {
+            const connectionsDiv = document.createElement('div');
+            connectionsDiv.className = 'family-connections';
+            
+            relationships.forEach(rel => {
+                const card = document.createElement('div');
+                card.className = 'connection-card';
+                card.onclick = () => selectPerson(rel.id);
+                card.innerHTML = `
+                    <div class="connection-name">${rel.name}</div>
+                    <div class="connection-type">${rel.type}</div>
+                `;
+                connectionsDiv.appendChild(card);
+            });
+            
+            container.appendChild(connectionsDiv);
+        } else {
+            container.innerHTML = '<div class="field-value">No family relationships recorded</div>';
+        }
+    }
+
+    function updateLifeEvents(person) {
+        const container = document.getElementById('life-events');
+        container.innerHTML = '';
+
+        const events = [];
+
+        if (person.birth_year && person.birth_year !== 'Unknown') {
+            events.push({
+                label: 'Birth',
+                value: person.birth_year,
+                icon: '🎂'
+            });
+        }
+
+        if (person.death_year && person.death_year !== 'Unknown') {
+            events.push({
+                label: 'Death',
+                value: person.death_year,
+                icon: '⚰️'
+            });
+        }
+
+        if (person.spouse) {
+            events.push({
+                label: 'Marriage',
+                value: `Married to ${person.spouse}`,
+                icon: '💒'
+            });
+        }
+
+        if (person.children && person.children.length > 0) {
+            events.push({
+                label: 'Children',
+                value: `${person.children.length} children`,
+                icon: '👶'
+            });
+        }
+
+        if (events.length > 0) {
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'gedcom-field';
+                eventDiv.innerHTML = `
+                    <div class="field-label">${event.icon} ${event.label}</div>
+                    <div class="field-value">${event.value}</div>
+                `;
+                container.appendChild(eventDiv);
+            });
+        } else {
+            container.innerHTML = '<div class="field-value">No life events recorded</div>';
+        }
+    }
+
+    function updateGedcomDetails(person, personId) {
+        const container = document.getElementById('gedcom-technical');
+        container.innerHTML = '';
+
+        const details = [
+            { label: 'Person ID', value: personId, icon: '🆔' },
+            { label: 'Record Type', value: 'GEDCOM Individual', icon: '📋' },
+            { label: 'Lineage', value: determineLineage(person), icon: '🌳' },
+            { label: 'Generation', value: getGenerationInfo(person), icon: '📊' },
+            { label: 'Gender', value: determineGender(person), icon: determineGender(person) === 'female' ? '👩' : '👨' },
+            { label: 'Data Source', value: 'Biblical GEDCOM Database', icon: '💾' }
+        ];
+
+        details.forEach(detail => {
+            const detailDiv = document.createElement('div');
+            detailDiv.className = 'gedcom-field';
+            detailDiv.innerHTML = `
+                <div class="field-label">${detail.icon} ${detail.label}</div>
+                <div class="field-value">${detail.value}</div>
+            `;
+            container.appendChild(detailDiv);
+        });
+    }
+
+    function updateScriptureReferences(person) {
+        const container = document.getElementById('scripture-references');
+        container.innerHTML = '';
+
+        if (person.verses && person.verses.length > 0) {
+            person.verses.forEach(verse => {
+                const verseDiv = document.createElement('div');
+                verseDiv.className = 'verse-reference-item';
+                
+                // Parse reference for linking
+                const refParts = verse.reference.split(' ');
+                let book, chapter, verseLink;
+                
+                if (refParts.length >= 2) {
+                    if (refParts[0] in ['1', '2'] && refParts.length >= 3) {
+                        book = refParts[0] + ' ' + refParts[1];
+                        chapter = refParts[2].split(':')[0];
+                    } else {
+                        book = refParts[0];
+                        chapter = refParts[1].split(':')[0];
+                    }
+                    verseLink = `/book/${book}/chapter/${chapter}`;
+                }
+                
+                verseDiv.innerHTML = `
+                    <div class="verse-ref">
+                        ${verseLink ? `<a href="${verseLink}">${verse.reference}</a>` : verse.reference}
+                    </div>
+                    <div class="verse-text">"${verse.text}"</div>
+                `;
+                container.appendChild(verseDiv);
+            });
+        } else {
+            container.innerHTML = '<div class="field-value">No scripture references available</div>';
+        }
+    }
+
+    function updateGenealogyPath(person, personId) {
+        const container = document.getElementById('genealogy-path');
+        container.innerHTML = '';
+
+        // Build path from Adam to current person
+        const path = buildGenealogyPath(personId);
+        
+        if (path.length > 0) {
+            const pathDiv = document.createElement('div');
+            pathDiv.className = 'genealogy-path-display';
+            pathDiv.style.cssText = `
+                padding: 1rem;
+                background: var(--card-background);
+                border-radius: 6px;
+                border: 1px solid var(--border-color);
+                font-family: 'Crimson Text', serif;
+                line-height: 2;
+            `;
+            
+            const pathText = path.map((ancestor, index) => {
+                return `<span style="color: var(--primary-color); font-weight: 600;">${ancestor.name}</span>`;
+            }).join(' → ');
+            
+            pathDiv.innerHTML = `
+                <div class="field-label" style="margin-bottom: 0.5rem;">📍 Lineage from Adam</div>
+                <div>${pathText}</div>
+                <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                    ${path.length} generations from Adam
+                </div>
+            `;
+            container.appendChild(pathDiv);
+        } else {
+            container.innerHTML = '<div class="field-value">Genealogy path not available</div>';
+        }
+    }
+
+    function updateStatisticalInfo(person, personId) {
+        const container = document.getElementById('statistical-info');
+        container.innerHTML = '';
+
+        const stats = [];
+
+        // Count descendants
+        const descendantCount = countDescendants(personId);
+        stats.push({ label: 'Total Descendants', value: descendantCount, icon: '👶' });
+
+        // Count ancestors
+        const ancestorCount = countAncestors(personId);
+        stats.push({ label: 'Known Ancestors', value: ancestorCount, icon: '👴' });
+
+        // Siblings count
+        const siblingCount = countSiblings(person);
+        stats.push({ label: 'Siblings', value: siblingCount, icon: '👫' });
+
+        // Children count
+        const childrenCount = person.children ? person.children.length : 0;
+        stats.push({ label: 'Children', value: childrenCount, icon: '👶' });
+
+        stats.forEach(stat => {
+            const statDiv = document.createElement('div');
+            statDiv.className = 'gedcom-field';
+            statDiv.innerHTML = `
+                <div class="field-label">${stat.icon} ${stat.label}</div>
+                <div class="field-value">${stat.value}</div>
+            `;
+            container.appendChild(statDiv);
+        });
+    }
+
+    function buildGenealogyPath(personId, visited = new Set()) {
+        if (visited.has(personId)) return [];
+        visited.add(personId);
+
+        const person = familyData[personId];
+        if (!person) return [];
+
+        // If this is Adam, start the path
+        if (person.name.toLowerCase() === 'adam') {
+            return [{ id: personId, name: person.name }];
+        }
+
+        // Try to find path through parents
+        if (person.parents && person.parents.length > 0) {
+            for (const parentId of person.parents) {
+                const parentPath = buildGenealogyPath(parentId, visited);
+                if (parentPath.length > 0) {
+                    return [...parentPath, { id: personId, name: person.name }];
+                }
+            }
+        }
+
+        return [];
+    }
+
+    function countDescendants(personId, visited = new Set()) {
+        if (visited.has(personId)) return 0;
+        visited.add(personId);
+
+        const person = familyData[personId];
+        if (!person || !person.children) return 0;
+
+        let count = person.children.length;
+        person.children.forEach(childId => {
+            count += countDescendants(childId, visited);
+        });
+
+        return count;
+    }
+
+    function countAncestors(personId, visited = new Set()) {
+        if (visited.has(personId)) return 0;
+        visited.add(personId);
+
+        const person = familyData[personId];
+        if (!person || !person.parents) return 0;
+
+        let count = person.parents.length;
+        person.parents.forEach(parentId => {
+            count += countAncestors(parentId, visited);
+        });
+
+        return count;
+    }
+
+    function countSiblings(person) {
+        if (!person.parents || person.parents.length === 0) return 0;
+
+        let siblings = new Set();
+        person.parents.forEach(parentId => {
+            const parent = familyData[parentId];
+            if (parent && parent.children) {
+                parent.children.forEach(childId => {
+                    if (childId !== person.id) {
+                        siblings.add(childId);
+                    }
+                });
+            }
+        });
+
+        return siblings.size;
     }
 
     function showParents(person) {
