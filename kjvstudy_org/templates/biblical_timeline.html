@@ -10,31 +10,38 @@
 
 {% block head %}
 <style>
+    body {
+        background-color: #1a1a1a !important;
+        color: #f8f9fa;
+    }
+
     .timeline-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 1rem;
+        background-color: #1a1a1a;
+        min-height: 100vh;
     }
 
     .timeline-header {
         text-align: center;
         margin-bottom: 2rem;
         padding: 2rem 1rem;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
         border-radius: 12px;
-        border: 1px solid #dee2e6;
+        border: 1px solid #4a4a4a;
     }
 
     .timeline-header h1 {
         font-size: 2.5rem;
         margin-bottom: 0.5rem;
-        color: #2c3e50;
+        color: #f8f9fa;
         font-family: 'Crimson Text', serif;
     }
 
     .timeline-header p {
         font-size: 1.1rem;
-        color: #6c757d;
+        color: #ced4da;
         max-width: 600px;
         margin: 0 auto;
         line-height: 1.6;
@@ -49,24 +56,25 @@
         display: inline-block;
         margin: 0 0.5rem;
         padding: 0.5rem 1rem;
-        background: #f8f9fa;
-        border: 2px solid #dee2e6;
+        background: #343a40;
+        border: 2px solid #495057;
         border-radius: 20px;
         cursor: pointer;
         transition: all 0.3s ease;
         font-size: 0.9rem;
-        color: #495057;
+        color: #ced4da;
     }
 
     .period-filter:hover {
-        background: #e9ecef;
-        border-color: #adb5bd;
+        background: #495057;
+        border-color: #6c757d;
+        color: #f8f9fa;
     }
 
     .period-filter.active {
-        background: #007bff;
-        border-color: #007bff;
-        color: white;
+        background: #ffc107;
+        border-color: #ffc107;
+        color: #212529;
     }
 
     .timeline-period {
@@ -84,11 +92,12 @@
         font-weight: 600;
         margin-bottom: 1.5rem;
         padding: 1rem 1.5rem;
-        background: linear-gradient(135deg, #495057 0%, #6c757d 100%);
-        color: white;
+        background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+        color: #ffc107;
         border-radius: 8px;
         font-family: 'Crimson Text', serif;
         text-align: center;
+        border: 1px solid #495057;
     }
 
     .timeline-events {
@@ -103,24 +112,25 @@
         top: 0;
         bottom: 0;
         width: 2px;
-        background: linear-gradient(to bottom, #007bff 0%, #6c757d 100%);
+        background: linear-gradient(to bottom, #ffc107 0%, #495057 100%);
     }
 
     .timeline-event {
         position: relative;
         margin-bottom: 2rem;
-        background: white;
+        background: #2d3436;
         border-radius: 12px;
         padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e9ecef;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        border: 1px solid #495057;
         margin-left: 2rem;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .timeline-event:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        border-color: #ffc107;
     }
 
     .timeline-event::before {
@@ -130,16 +140,16 @@
         top: 1.5rem;
         width: 12px;
         height: 12px;
-        background: #007bff;
-        border: 3px solid white;
+        background: #ffc107;
+        border: 3px solid #2d3436;
         border-radius: 50%;
-        box-shadow: 0 0 0 3px #007bff;
+        box-shadow: 0 0 0 3px #ffc107;
     }
 
     .event-date {
         font-size: 0.9rem;
         font-weight: 600;
-        color: #007bff;
+        color: #ffc107;
         margin-bottom: 0.5rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -149,21 +159,21 @@
         font-size: 1.4rem;
         font-weight: 600;
         margin-bottom: 0.75rem;
-        color: #2c3e50;
+        color: #f8f9fa;
         font-family: 'Crimson Text', serif;
     }
 
     .event-description {
-        color: #6c757d;
+        color: #adb5bd;
         margin-bottom: 1rem;
         line-height: 1.6;
     }
 
     .event-verses {
-        background: #f8f9fa;
+        background: #212529;
         border-radius: 8px;
         padding: 1rem;
-        border-left: 4px solid #007bff;
+        border-left: 4px solid #ffc107;
     }
 
     .verse {
@@ -176,40 +186,98 @@
 
     .verse-reference {
         font-weight: 600;
-        color: #007bff;
+        color: #ffc107;
         margin-bottom: 0.25rem;
         font-size: 0.9rem;
     }
 
     .verse-text {
         font-style: italic;
-        color: #495057;
+        color: #ced4da;
         line-height: 1.5;
         font-family: 'Crimson Text', serif;
+    }
+
+    .verse-link {
+        color: #ffc107;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid transparent;
+        padding: 2px 4px;
+        border-radius: 3px;
+        position: relative;
+    }
+
+    .verse-link:hover {
+        color: #fff3cd;
+        text-decoration: none;
+        border-bottom: 1px solid #ffc107;
+        text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+        background: rgba(255, 193, 7, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .verse-link::after {
+        content: "📖";
+        font-size: 0.8em;
+        margin-left: 4px;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+
+    .verse-link:hover::after {
+        opacity: 1;
+    }
+
+    .verse-link:visited {
+        color: #e0a800;
+    }
+
+    .verse-link:active {
+        color: #d39e00;
     }
 
     @media (max-width: 768px) {
         .timeline-container {
             padding: 0.5rem;
+            background-color: #1a1a1a;
         }
 
         .timeline-header h1 {
             font-size: 2rem;
+            color: #f8f9fa;
         }
 
         .timeline-header p {
             font-size: 1rem;
+            color: #ced4da;
         }
 
         .period-filter {
             margin: 0.25rem;
             padding: 0.4rem 0.8rem;
             font-size: 0.8rem;
+            background: #343a40;
+            border-color: #495057;
+            color: #ced4da;
+        }
+
+        .period-filter:hover {
+            background: #495057;
+            color: #f8f9fa;
+        }
+
+        .period-filter.active {
+            background: #ffc107;
+            color: #212529;
         }
 
         .period-title {
             font-size: 1.4rem;
             padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+            color: #ffc107;
+            border: 1px solid #495057;
         }
 
         .timeline-events {
@@ -218,11 +286,18 @@
 
         .timeline-events::before {
             left: 0.5rem;
+            background: linear-gradient(to bottom, #ffc107 0%, #495057 100%);
         }
 
         .timeline-event {
             margin-left: 1rem;
             padding: 1rem;
+            background: #2d3436;
+            border-color: #495057;
+        }
+
+        .timeline-event:hover {
+            border-color: #ffc107;
         }
 
         .timeline-event::before {
@@ -230,15 +305,109 @@
             top: 1rem;
             width: 8px;
             height: 8px;
+            background: #ffc107;
+            border: 2px solid #2d3436;
+            box-shadow: 0 0 0 2px #ffc107;
         }
 
         .event-title {
             font-size: 1.2rem;
+            color: #f8f9fa;
         }
     }
 
     .show-all-periods .timeline-period {
         display: block !important;
+    }
+
+    /* Additional dark theme improvements */
+    .timeline-event:hover .event-title {
+        color: #ffc107;
+        transition: color 0.3s ease;
+    }
+
+    .timeline-event:hover .event-date {
+        text-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
+    }
+
+    /* Enhanced animations */
+    .timeline-event {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .period-title {
+        animation: slideInLeft 0.5s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Glowing timeline line effect */
+    .timeline-events::before {
+        box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+    }
+
+    /* Enhanced verse styling */
+    .event-verses {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .event-verses::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #ffc107, #fd7e14);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.7;
+        }
+    }
+
+    /* Smooth scrollbar for dark theme */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #212529;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #495057;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #6c757d;
     }
 </style>
 {% endblock %}
@@ -280,7 +449,33 @@
                     <div class="event-verses">
                         {% for verse in event.verses %}
                         <div class="verse">
-                            <div class="verse-reference">{{ verse.reference }}</div>
+                            {% set ref_parts = verse.reference.split(' ') %}
+                            {% if ref_parts|length >= 2 %}
+                                {% if ref_parts[0] in ['1', '2'] and ref_parts|length >= 3 %}
+                                    {# Handle books like "1 Kings 6:14" or "2 Samuel 5:3" #}
+                                    {% set book = ref_parts[0] + ' ' + ref_parts[1] %}
+                                    {% set chapter_verse_part = ref_parts[2] %}
+                                {% else %}
+                                    {# Handle books like "Genesis 1:1" or "Joshua 6:20" #}
+                                    {% set book = ref_parts[0] %}
+                                    {% set chapter_verse_part = ref_parts[1] %}
+                                {% endif %}
+                                
+                                {# Extract chapter number, handling ranges like "15:3-4" #}
+                                {% if ':' in chapter_verse_part %}
+                                    {% set chapter = chapter_verse_part.split(':')[0] %}
+                                {% elif '-' in chapter_verse_part %}
+                                    {% set chapter = chapter_verse_part.split('-')[0] %}
+                                {% else %}
+                                    {% set chapter = chapter_verse_part %}
+                                {% endif %}
+                                
+                                <div class="verse-reference">
+                                    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="verse-link">{{ verse.reference }}</a>
+                                </div>
+                            {% else %}
+                                <div class="verse-reference">{{ verse.reference }}</div>
+                            {% endif %}
                             <div class="verse-text">"{{ verse.text }}"</div>
                         </div>
                         {% endfor %}
