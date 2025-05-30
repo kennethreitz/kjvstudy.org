@@ -815,6 +815,15 @@ def verse_of_the_day_api():
     """API endpoint for verse of the day"""
     return get_daily_verse()
 
+
+@app.get("/biblical-maps", response_class=HTMLResponse)
+def biblical_maps_page(request: Request):
+    """Biblical maps page with interactive OpenStreetMap"""
+    return templates.TemplateResponse(
+        "biblical_maps.html", 
+        {"request": request}
+    )
+
 def get_daily_verse():
     """Get the verse of the day based on current date"""
     # Use date as seed for consistent daily verse
