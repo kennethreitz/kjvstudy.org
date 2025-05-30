@@ -723,9 +723,15 @@ sup.verse-number:active {
     <div class="scofield-commentary">
         <h3>📖 Scofield Commentary</h3>
         <div id="commentary-content">
-            <p style="color: #666; font-style: italic; text-align: center; padding: 2rem;">
-                Select a verse to view detailed commentary, cross-references, and theological notes.
-            </p>
+            <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 8px; margin-bottom: 1rem;">
+                <h4 style="color: #8b4513; margin: 0 0 1rem 0; font-size: 1rem;">📖 Scofield Reference Commentary</h4>
+                <p style="color: #666; font-style: italic; margin: 0 0 0.5rem 0; font-size: 0.9rem;">
+                    Click any verse number to view detailed commentary, cross-references, and theological notes.
+                </p>
+                <p style="color: #8b4513; margin: 0; font-size: 0.8rem; font-weight: 600;">
+                    Try clicking verse 1, 3, or 26 to see comprehensive annotations!
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -834,38 +840,39 @@ function navigateToReference(reference) {
     window.open(`/book/${book}/chapter/${chapter}#verse-${verse}`, '_blank');
 }
 
-// Add click handlers to verse numbers
-document.addEventListener('DOMContentLoaded', function() {
-    const verseNumbers = document.querySelectorAll('sup.verse-number');
-    verseNumbers.forEach(verseNum => {
-        verseNum.addEventListener('click', function(e) {
-            e.preventDefault();
-            const verseText = this.textContent;
-            const book = '{{ book }}';
-            const chapter = '{{ chapter }}';
-            
-            // Highlight the verse
-            document.querySelectorAll('.verse-highlight-scofield').forEach(el => {
-                el.classList.remove('verse-highlight-scofield');
-            });
-            
-            const verseElement = document.getElementById(`verse-${verseText}`);
-            if (verseElement) {
-                verseElement.classList.add('verse-highlight-scofield');
-            }
-            
-            // Show commentary
-            showScofieldCommentary(book, chapter, verseText);
-        });
+// Override existing navigateToVerse function to also show Scofield commentary
+const originalNavigateToVerse = window.navigateToVerse || function() {};
+
+window.navigateToVerse = function(verseNumber) {
+    // Call original function if it exists
+    originalNavigateToVerse(verseNumber);
+    
+    const book = '{{ book }}';
+    const chapter = '{{ chapter }}';
+    
+    // Highlight the verse
+    document.querySelectorAll('.verse-highlight-scofield').forEach(el => {
+        el.classList.remove('verse-highlight-scofield');
     });
     
-    // Also add click handlers to verse text
+    const verseElement = document.getElementById(`verse-${verseNumber}`);
+    if (verseElement) {
+        verseElement.classList.add('verse-highlight-scofield');
+    }
+    
+    // Show commentary
+    showScofieldCommentary(book, chapter, verseNumber.toString());
+};
+
+// Add click handlers to verse text for commentary
+document.addEventListener('DOMContentLoaded', function() {
     const verses = document.querySelectorAll('.verse');
     verses.forEach(verse => {
         verse.addEventListener('click', function() {
             const verseNum = this.querySelector('sup.verse-number');
             if (verseNum) {
-                verseNum.click();
+                const verseNumber = verseNum.textContent;
+                window.navigateToVerse(parseInt(verseNumber));
             }
         });
     });
