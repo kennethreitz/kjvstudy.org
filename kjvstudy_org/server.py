@@ -1571,6 +1571,12 @@ def sitemap():
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>{base_url}/biblical-timeline</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 """
 
     # Add all book URLs

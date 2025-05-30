@@ -574,6 +574,17 @@
                     >
                         🌳 Family Tree
                     </a>
+                    <a
+                        href="/biblical-timeline"
+                        {% if request.url and request.url.path == "/biblical-timeline" %}class="active"{% endif %}
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        📜 Biblical Timeline
+                    </a>
 
 
                     {% if books %}
