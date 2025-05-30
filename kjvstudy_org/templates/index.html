@@ -57,6 +57,83 @@
     </div>
 </div>
 
+<!-- Verse of the Day -->
+<div class="verse-of-the-day" style="
+    background: linear-gradient(135deg, var(--primary-ultra-light) 0%, var(--surface-color) 100%);
+    border: 2px solid var(--primary-light);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 700px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+">
+    <h2 style="
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+        font-family: var(--font-display);
+    ">
+        ✨ Verse of the Day
+    </h2>
+    
+    <blockquote style="
+        font-family: 'Crimson Text', 'Times New Roman', serif;
+        font-size: 1.2rem;
+        line-height: 1.7;
+        color: var(--text-primary);
+        font-style: italic;
+        margin: 0 0 1rem;
+        quotes: '"' '"';
+    ">
+        "{{ daily_verse.text }}"
+    </blockquote>
+    
+    <cite style="
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        font-style: normal;
+        display: block;
+        margin-bottom: 1.5rem;
+    ">
+        — {{ daily_verse.reference }}
+    </cite>
+    
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/verse-of-the-day" style="
+            display: inline-block;
+            background: var(--primary-light);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
+           onmouseout="this.style.backgroundColor='var(--primary-light)'">
+            Read More
+        </a>
+        <a href="/book/{{ daily_verse.book }}" style="
+            display: inline-block;
+            background: transparent;
+            color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-light)'; this.style.color='white'" 
+           onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-color)'">
+            Read {{ daily_verse.book }}
+        </a>
+    </div>
+</div>
+
 <!-- Bible Book Categories Legend -->
 <div class="bible-legend">
     <h3 class="legend-title">Bible Book Categories</h3>
@@ -316,11 +393,40 @@
 
 <div class="text-center mt-4" style="padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-top: 3rem; border: 1px solid var(--border-light);">
     <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
-        🤖 AI Commentary Coming Soon
+        🌱 Grow in Your Faith
     </h3>
-    <p style="color: var(--text-secondary); margin: 0; line-height: 1.6; font-size: 0.95rem;">
-        We're working on AI-powered commentary that will provide historical context, 
-        theological insights, and cross-references for every passage. Stay tuned for this exciting feature!
+    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6; font-size: 0.95rem;">
+        Explore our study guides and daily verses to deepen your understanding of God's Word 
+        and strengthen your relationship with Him.
     </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/study-guides" style="
+            display: inline-block;
+            background: var(--primary-light);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            transition: background-color 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
+           onmouseout="this.style.backgroundColor='var(--primary-light)'">
+            📖 Study Guides
+        </a>
+        <a href="/verse-of-the-day" style="
+            display: inline-block;
+            background: transparent;
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            transition: all 0.2s ease;
+        " onmouseover="this.style.backgroundColor='var(--primary-light)'; this.style.color='white'" 
+           onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-color)'">
+            ✨ Daily Verse
+        </a>
+    </div>
 </div>
 {% endblock %}

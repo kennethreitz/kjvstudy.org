@@ -551,6 +551,28 @@
                     >
                         🔍 Search Bible
                     </a>
+                    <a
+                        href="/study-guides"
+                        {% if request.url and "/study-guides" in request.url.path %}class="active"{% endif %}
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        📖 Study Guides
+                    </a>
+                    <a
+                        href="/verse-of-the-day"
+                        {% if request.url and request.url.path == "/verse-of-the-day" %}class="active"{% endif %}
+                        style="
+                            padding: 0.35rem 0.5rem;
+                            font-size: 0.95rem;
+                            margin-bottom: 0.1rem;
+                        "
+                    >
+                        ✨ Verse of the Day
+                    </a>
 
                     {% if books %}
                     <h3
