@@ -106,51 +106,7 @@
     overflow: visible;
 }
 
-.chapter-link::before {
-    content: attr(title);
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.95);
-    color: white;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    line-height: 1.4;
-    white-space: nowrap;
-    max-width: 300px;
-    white-space: normal;
-    text-align: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    pointer-events: none;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
-.chapter-link::after {
-    content: '';
-    position: absolute;
-    bottom: calc(100% + 2px);
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.95);
-    z-index: 1001;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.chapter-link:hover::before,
-.chapter-link:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
+/* Use browser default tooltips for better reliability and accessibility */
 
 .chapter-link[data-popularity="10"] {
     background: linear-gradient(135deg, #8B5CF6, #A855F7);
@@ -213,23 +169,7 @@
 
 
 
-@media (max-width: 768px) {
-    .chapter-link::before {
-        position: fixed;
-        bottom: 2rem;
-        left: 1rem;
-        right: 1rem;
-        transform: none;
-        max-width: none;
-        font-size: 0.9rem;
-        padding: 1rem;
-        z-index: 1002;
-    }
-    
-    .chapter-link::after {
-        display: none;
-    }
-}
+/* Mobile styles will use browser default tooltips */
 
 .verse-tooltip {
     position: absolute;
