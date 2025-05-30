@@ -99,6 +99,86 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Chapter popularity color coding */
+.chapter-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.chapter-link[data-popularity="10"] {
+    background: linear-gradient(135deg, #8B5CF6, #A855F7);
+    color: white;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.chapter-link[data-popularity="9"] {
+    background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+    color: white;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+}
+
+.chapter-link[data-popularity="8"] {
+    background: linear-gradient(135deg, #6366F1, #7C3AED);
+    color: white;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+}
+
+.chapter-link[data-popularity="7"] {
+    background: linear-gradient(135deg, #3B82F6, #6366F1);
+    color: white;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.chapter-link[data-popularity="6"] {
+    background: linear-gradient(135deg, #06B6D4, #3B82F6);
+    color: white;
+}
+
+.chapter-link[data-popularity="5"] {
+    background: linear-gradient(135deg, #10B981, #06B6D4);
+    color: white;
+}
+
+.chapter-link[data-popularity="4"] {
+    background: linear-gradient(135deg, #84CC16, #10B981);
+    color: white;
+}
+
+.chapter-link[data-popularity="3"] {
+    background: linear-gradient(135deg, #EAB308, #84CC16);
+    color: white;
+}
+
+.chapter-link[data-popularity="2"] {
+    background: linear-gradient(135deg, #F59E0B, #EAB308);
+    color: white;
+}
+
+.chapter-link[data-popularity="1"] {
+    background: linear-gradient(135deg, #F97316, #F59E0B);
+    color: white;
+}
+
+.chapter-link:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.chapter-link::after {
+    content: '★';
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.chapter-link[data-popularity="10"]::after,
+.chapter-link[data-popularity="9"]::after,
+.chapter-link[data-popularity="8"]::after {
+    color: #FFD700;
+}
+
 .verse-tooltip {
     position: absolute;
     bottom: 100%;
@@ -171,6 +251,25 @@
     opacity: 1;
     visibility: visible;
 }
+
+/* Mobile styles for popularity legend */
+@media (max-width: 768px) {
+    .popularity-legend h3 {
+        font-size: 0.9rem !important;
+    }
+    
+    .popularity-legend-items {
+        gap: 0.3rem !important;
+    }
+    
+    .popularity-legend-item span {
+        font-size: 0.7rem !important;
+    }
+    
+    .popularity-legend p {
+        font-size: 0.65rem !important;
+    }
+}
 </style>
 {% endblock %}
 
@@ -219,9 +318,37 @@
         </a>
 </div>
 
+<!-- Popularity Legend -->
+<div class="popularity-legend" style="margin-bottom: 1.5rem; text-align: center;">
+    <h3 style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">
+        📊 Chapter Popularity Guide
+    </h3>
+    <div class="popularity-legend-items" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
+            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #8B5CF6, #A855F7); border-radius: 4px; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem;">★</div>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Most Popular</span>
+        </div>
+        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
+            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #3B82F6, #6366F1); border-radius: 4px;"></div>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Very Popular</span>
+        </div>
+        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
+            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #10B981, #06B6D4); border-radius: 4px;"></div>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Popular</span>
+        </div>
+        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
+            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #EAB308, #84CC16); border-radius: 4px;"></div>
+            <span style="font-size: 0.8rem; color: var(--text-secondary);">Standard</span>
+        </div>
+    </div>
+    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0; font-style: italic;">
+        Colors indicate how frequently chapters are read and studied
+    </p>
+</div>
+
 <div class="chapter-grid">
     {% for chapter in chapters %}
-    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link">
+    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" title="{{ book }} Chapter {{ chapter }} - Popularity: {{ chapter_popularity[chapter] }}/10 ★{% if chapter_popularity[chapter] >= 8 %} - Highly popular passage{% elif chapter_popularity[chapter] >= 6 %} - Well-known chapter{% else %} - Click to explore{% endif %}">
         {{ chapter }}
     </a>
     {% endfor %}

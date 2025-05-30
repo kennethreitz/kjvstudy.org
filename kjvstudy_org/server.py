@@ -15,6 +15,74 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from .kjv import bible, VerseReference
 
 
+def get_chapter_popularity_score(book: str, chapter: int) -> int:
+    """Calculate popularity score for a chapter (1-10 scale) based on well-known verses"""
+    # Define highly popular chapters with their scores
+    popular_chapters = {
+        # Perfect 10s - Most famous chapters
+        "John": {3: 10},  # John 3:16
+        "1 Corinthians": {13: 10},  # Love chapter
+        "Psalms": {23: 10, 91: 9, 1: 8, 139: 8},  # Most beloved psalms
+        "Romans": {8: 9, 3: 8, 12: 8},  # Core doctrine
+        "Matthew": {5: 9, 6: 8, 7: 8},  # Sermon on the Mount
+        "Ephesians": {2: 8, 6: 8},  # Salvation by grace, armor of God
+        "Philippians": {4: 8},  # Joy and peace
+        "Genesis": {1: 9, 3: 8, 22: 7},  # Creation, fall, Abraham's test
+        "Exodus": {20: 8, 14: 7},  # Ten Commandments, Red Sea
+        "Isaiah": {53: 9, 40: 8},  # Suffering servant, comfort
+        "Jeremiah": {29: 7},  # Plans to prosper you
+        "Proverbs": {31: 7, 3: 7},  # Virtuous woman, trust in the Lord
+        "Ecclesiastes": {3: 8},  # To everything there is a season
+        "1 Peter": {5: 7},  # Cast your cares
+        "James": {1: 7},  # Faith and trials
+        "Hebrews": {11: 8, 12: 7},  # Faith hall of fame
+        "Revelation": {21: 8, 22: 7},  # New heaven and earth
+        "Luke": {2: 9, 15: 8},  # Christmas story, prodigal son
+        "2 Timothy": {3: 7},  # All Scripture is inspired
+        "Joshua": {1: 7},  # Be strong and courageous
+        "Daniel": {3: 7, 6: 7},  # Fiery furnace, lion's den
+        "1 John": {4: 8},  # God is love
+        "Galatians": {5: 7},  # Fruits of the Spirit
+        "Colossians": {3: 7},  # Set your mind on things above
+        "1 Thessalonians": {4: 7},  # Rapture passage
+        "Mark": {16: 7},  # Great Commission
+        "Acts": {2: 8},  # Pentecost
+        "1 Samuel": {17: 7},  # David and Goliath
+        "Job": {19: 7},  # I know my redeemer lives
+        "2 Corinthians": {5: 7},  # New creation
+        "1 Kings": {3: 6, 18: 6},  # Solomon's wisdom, Elijah
+        "Malachi": {3: 6},  # Tithing
+        "Joel": {2: 6},  # Pour out my Spirit
+        "Micah": {6: 6},  # What does the Lord require
+        "Habakkuk": {2: 6},  # The just shall live by faith
+    }
+    
+    # Check if this specific chapter has a popularity score
+    if book in popular_chapters and chapter in popular_chapters[book]:
+        return popular_chapters[book][chapter]
+    
+    # Default scoring based on book type and chapter position
+    default_score = 4  # Base score
+    
+    # Boost for first chapters (often contain key introductions)
+    if chapter == 1:
+        default_score += 1
+    
+    # Boost for books with generally high readership
+    high_readership_books = ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", 
+                           "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians",
+                           "Philippians", "Colossians", "Genesis", "Exodus", "Psalms", "Proverbs"]
+    if book in high_readership_books:
+        default_score += 1
+    
+    # Small boost for shorter books (more likely to be read in full)
+    total_chapters = len([ch for bk, ch in bible.iter_chapters() if bk == book])
+    if total_chapters <= 5:
+        default_score += 1
+    
+    return min(default_score, 6)  # Cap at 6 for non-specifically scored chapters
+
+
 def is_verse_reference(query: str) -> bool:
     """Check if query looks like a verse reference"""
     # Pattern for verse references like "John 3:16", "1 John 4:8", "Genesis 1:1", "I Corinthians 13:4", etc.
@@ -83,7 +151,7 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
     
     return None
 
-def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
+def perform_full_text_search(query: str, limit: Optional[int] = None) -> List[Dict]:
     """Perform full text search across all Bible verses or find specific verse references"""
     results = []
     
@@ -119,8 +187,10 @@ def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
     # Sort by relevance score (higher is better)
     results.sort(key=lambda x: x["score"], reverse=True)
 
-    # Limit results
-    return results[:limit]
+    # Limit results if specified
+    if limit is not None:
+        return results[:limit]
+    return results
 
 
 def calculate_relevance_score(text: str, search_terms: List[str]) -> float:
@@ -219,7 +289,7 @@ def search_page(request: Request, q: str = Query(None, description="Search query
     )
 
 @app.get("/api/search")
-def search_api(q: str = Query(..., description="Search query"), limit: int = Query(50, description="Max results")):
+def search_api(q: str = Query(..., description="Search query"), limit: Optional[int] = Query(None, description="Max results")):
     """JSON API endpoint for search"""
     if not q or len(q.strip()) < 2:
         return {"query": q, "results": [], "total": 0}
@@ -725,6 +795,11 @@ def read_book(request: Request, book: str):
 
     # Generate commentary data for the book page
     commentary_data = generate_book_commentary(book, chapters)
+    
+    # Calculate popularity scores for each chapter
+    chapter_popularity = {}
+    for chapter in chapters:
+        chapter_popularity[chapter] = get_chapter_popularity_score(book, chapter)
 
     return templates.TemplateResponse(
         "book.html",
@@ -733,6 +808,7 @@ def read_book(request: Request, book: str):
             "book": book,
             "chapters": chapters,
             "books": books,
+            "chapter_popularity": chapter_popularity,
             **commentary_data
         },
     )
