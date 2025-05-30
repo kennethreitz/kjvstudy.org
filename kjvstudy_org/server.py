@@ -1060,14 +1060,9 @@ def parse_gedcom_to_tree_data(gedcom_path):
     """Parse GEDCOM file into our family tree format"""
     tree_data = {}
     
-    # Read GEDCOM file content first
+    # Parse with ged4py directly from file path
     with open(gedcom_path, 'r', encoding='utf-8') as f:
-        gedcom_content = f.read()
-    
-    # Parse with ged4py using string content
-    from io import StringIO
-    gedcom_io = StringIO(gedcom_content)
-    gedcom = GedcomReader(gedcom_io)
+        gedcom = GedcomReader(f)
 
     # First pass: collect all individuals
     for record in gedcom.records0:
