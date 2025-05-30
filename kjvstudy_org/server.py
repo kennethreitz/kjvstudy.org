@@ -2,6 +2,7 @@ import hashlib
 import html
 import json
 import re
+import random
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
