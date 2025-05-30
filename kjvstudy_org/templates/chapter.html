@@ -21,6 +21,177 @@
 
 {% block head %}
 <style>
+.chapter-container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 100%;
+}
+
+/* Override any container restrictions */
+.container, .narrow-container {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+.scofield-commentary {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: 'Crimson Text', serif;
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.scofield-commentary h3 {
+    font-size: 1.2rem;
+    color: #8b4513;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+    border-bottom: 2px solid #8b4513;
+    padding-bottom: 0.5rem;
+}
+
+.commentary-verse {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 6px;
+    border-left: 4px solid #8b4513;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.commentary-verse-ref {
+    font-weight: bold;
+    color: #8b4513;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.commentary-text {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.theological-notes {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+}
+
+.theological-notes h4 {
+    font-size: 0.85rem;
+    color: #856404;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.theological-note {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    color: #856404;
+    line-height: 1.5;
+}
+
+.cross-references {
+    background: #e7f3ff;
+    border: 1px solid #bee5eb;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+}
+
+.cross-references h4 {
+    font-size: 0.85rem;
+    color: #0c5460;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cross-ref-link {
+    color: #0c5460;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+    border-bottom: 1px dotted #0c5460;
+}
+
+.cross-ref-link:hover {
+    color: #0a4e5c;
+    border-bottom: 1px solid #0a4e5c;
+}
+
+.hebrew-insights {
+    background: #f0f8e7;
+    border: 1px solid #c3d69b;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+}
+
+.hebrew-insights h4 {
+    font-size: 0.85rem;
+    color: #4a5c23;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hebrew-term {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    color: #4a5c23;
+}
+
+.hebrew-word {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.verse-highlight-scofield {
+    background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.verse-highlight-scofield:hover {
+    background: linear-gradient(120deg, #8fbc8f 0%, #98fb98 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 1200px) {
+    .chapter-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .scofield-commentary {
+        position: static;
+        max-height: none;
+        order: 2;
+    }
+}
+
 .verse-tools {
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -352,10 +523,12 @@ sup.verse-number:active {
 </div>
 {% endblock %}
 
-{% block container_class %}narrow-container{% endblock %}
+{% block container_class %}{% endblock %}
 
 {% block content %}
-<div class="chapter-navigation" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
+<div class="chapter-container">
+    <div class="main-content" style="min-width: 0;">
+        <div class="chapter-navigation" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
     <div class="chapter-nav-content" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
         <div class="chapter-info" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
             {{ book }} {{ chapter }} (KJV)
@@ -545,7 +718,159 @@ sup.verse-number:active {
             {% endif %}
         </div>
     </div>
+    </div>
+    
+    <div class="scofield-commentary">
+        <h3>📖 Scofield Commentary</h3>
+        <div id="commentary-content">
+            <p style="color: #666; font-style: italic; text-align: center; padding: 2rem;">
+                Select a verse to view detailed commentary, cross-references, and theological notes.
+            </p>
+        </div>
+    </div>
 </div>
+
+<script>
+const scofieldCommentary = {{ scofield_commentary|tojson|safe }};
+
+function showScofieldCommentary(book, chapter, verse) {
+    const commentaryContent = document.getElementById('commentary-content');
+    
+    // Get commentary for this verse
+    const bookData = scofieldCommentary[book];
+    if (!bookData) {
+        commentaryContent.innerHTML = '<p style="color: #666; font-style: italic;">No commentary available for this book.</p>';
+        return;
+    }
+    
+    const chapterData = bookData[chapter];
+    if (!chapterData) {
+        commentaryContent.innerHTML = '<p style="color: #666; font-style: italic;">No commentary available for this chapter.</p>';
+        return;
+    }
+    
+    const verseData = chapterData[verse];
+    if (!verseData) {
+        commentaryContent.innerHTML = '<p style="color: #666; font-style: italic;">No commentary available for this verse.</p>';
+        return;
+    }
+    
+    let html = `
+        <div class="commentary-verse">
+            <div class="commentary-verse-ref">${book} ${chapter}:${verse}</div>
+            <div class="commentary-text">${verseData.commentary}</div>
+    `;
+    
+    // Add cross references if available
+    if (verseData.cross_references && verseData.cross_references.length > 0) {
+        html += `
+            <div class="cross-references">
+                <h4>✠ Cross References</h4>
+                ${verseData.cross_references.map(ref => `<a href="#" class="cross-ref-link" onclick="navigateToReference('${ref}')">${ref}</a>`).join('')}
+            </div>
+        `;
+    }
+    
+    // Add theological notes if available
+    if (verseData.theological_notes && verseData.theological_notes.length > 0) {
+        html += `
+            <div class="theological-notes">
+                <h4>⛪ Theological Notes</h4>
+                ${verseData.theological_notes.map(note => `<div class="theological-note">• ${note}</div>`).join('')}
+            </div>
+        `;
+    }
+    
+    // Add Hebrew insights if available
+    if (verseData.hebrew_insights) {
+        html += `
+            <div class="hebrew-insights">
+                <h4>📜 Hebrew Insights</h4>
+                ${Object.entries(verseData.hebrew_insights).map(([word, meaning]) => 
+                    `<div class="hebrew-term"><span class="hebrew-word">${word}:</span> ${meaning}</div>`
+                ).join('')}
+            </div>
+        `;
+    }
+    
+    // Add practical application if available
+    if (verseData.practical_application) {
+        html += `
+            <div class="theological-notes">
+                <h4>🔥 Application</h4>
+                <div class="theological-note">${verseData.practical_application}</div>
+            </div>
+        `;
+    }
+    
+    // Add prophetic significance if available
+    if (verseData.prophetic_significance) {
+        html += `
+            <div class="cross-references">
+                <h4>🔮 Prophetic Significance</h4>
+                <div style="font-size: 0.85rem; color: #0c5460;">${verseData.prophetic_significance}</div>
+            </div>
+        `;
+    }
+    
+    html += '</div>';
+    commentaryContent.innerHTML = html;
+}
+
+function navigateToReference(reference) {
+    // Parse reference like "John 1:1" or "1 Corinthians 15:3"
+    const parts = reference.split(' ');
+    let book, chapterVerse;
+    
+    if (parts[0] === '1' || parts[0] === '2') {
+        book = parts[0] + ' ' + parts[1];
+        chapterVerse = parts[2];
+    } else {
+        book = parts[0];
+        chapterVerse = parts[1];
+    }
+    
+    const [chapter, verse] = chapterVerse.split(':');
+    window.open(`/book/${book}/chapter/${chapter}#verse-${verse}`, '_blank');
+}
+
+// Add click handlers to verse numbers
+document.addEventListener('DOMContentLoaded', function() {
+    const verseNumbers = document.querySelectorAll('sup.verse-number');
+    verseNumbers.forEach(verseNum => {
+        verseNum.addEventListener('click', function(e) {
+            e.preventDefault();
+            const verseText = this.textContent;
+            const book = '{{ book }}';
+            const chapter = '{{ chapter }}';
+            
+            // Highlight the verse
+            document.querySelectorAll('.verse-highlight-scofield').forEach(el => {
+                el.classList.remove('verse-highlight-scofield');
+            });
+            
+            const verseElement = document.getElementById(`verse-${verseText}`);
+            if (verseElement) {
+                verseElement.classList.add('verse-highlight-scofield');
+            }
+            
+            // Show commentary
+            showScofieldCommentary(book, chapter, verseText);
+        });
+    });
+    
+    // Also add click handlers to verse text
+    const verses = document.querySelectorAll('.verse');
+    verses.forEach(verse => {
+        verse.addEventListener('click', function() {
+            const verseNum = this.querySelector('sup.verse-number');
+            if (verseNum) {
+                verseNum.click();
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
 
 {% block scripts %}
