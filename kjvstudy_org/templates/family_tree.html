@@ -1,185 +1,275 @@
-{% extends "base.html" %}
-
-{% block title %}Biblical Family Tree - From Adam to Joseph - KJV Study{% endblock %}
-
-{% block description %}Explore the biblical family tree starting with Adam and Eve through the patriarchs. Interactive genealogy with scripture references from the King James Version Bible.{% endblock %}
-
-{% block keywords %}biblical family tree, biblical genealogy, Adam and Eve, patriarchs, biblical lineage, Old Testament families, KJV genealogy{% endblock %}
-
-{% block og_title %}Biblical Family Tree - From Adam to Joseph - KJV Study{% endblock %}
+{% extends "base.html" %} 
+{% block title %}Biblical Family Tree Explorer - KJV Study{% endblock %} 
+{% block description %}Explore biblical genealogies with an interactive person index and family tree viewer. Browse from Adam to the patriarchs with detailed family relationships.{% endblock %} 
+{% block keywords %}biblical family tree, biblical genealogy, Adam and Eve, patriarchs, biblical lineage, Old Testament families, KJV genealogy{% endblock %} 
+{% block og_title %}Biblical Family Tree Explorer - KJV Study{% endblock %} 
 
 {% block head %}
-<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <style>
-    .family-tree-container {
+    .family-explorer-container {
         max-width: 1400px;
         margin: 0 auto;
         padding: 1rem;
     }
 
-    .family-tree-header {
+    .family-explorer-header {
         text-align: center;
         margin-bottom: 2rem;
         padding: 2rem 1rem;
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         border-radius: 12px;
         color: white;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
-    .family-tree-header h1 {
+    .family-explorer-header h1 {
         font-size: 2.5rem;
         margin-bottom: 0.5rem;
-        font-family: 'Crimson Text', serif;
+        font-family: "Crimson Text", serif;
     }
 
-    .family-tree-header p {
+    .family-explorer-header p {
         font-size: 1.1rem;
         opacity: 0.9;
         max-width: 700px;
         margin: 0 auto;
     }
 
-    .tree-controls {
+    .explorer-layout {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .person-index {
         background: var(--card-background);
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 1.5rem;
-        margin-bottom: 2rem;
         border: 1px solid var(--border-color);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        height: fit-content;
+        max-height: 80vh;
+        overflow-y: auto;
     }
 
-    .tree-controls h3 {
-        margin-bottom: 1rem;
+    .index-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .index-header h2 {
         color: var(--primary-color);
-        font-family: 'Crimson Text', serif;
-    }
-
-    .control-buttons {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
+        font-family: "Crimson Text", serif;
         margin-bottom: 1rem;
+        font-size: 1.5rem;
     }
 
-    .control-btn {
-        padding: 0.5rem 1rem;
+    .search-box {
+        width: 100%;
+        padding: 0.75rem;
         border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 1rem;
         background: var(--background-color);
         color: var(--text-color);
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.9rem;
+        margin-bottom: 1rem;
     }
 
-    .control-btn:hover,
-    .control-btn.active {
+    .search-box:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(75, 46, 131, 0.1);
+    }
+
+    .filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .filter-btn {
+        padding: 0.4rem 0.8rem;
+        background: var(--background-color);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
         background: var(--primary-color);
         color: white;
         border-color: var(--primary-color);
     }
 
-    .tree-legend {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        flex-wrap: wrap;
-        font-size: 0.9rem;
+    .person-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 
-    .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+    .person-item {
+        padding: 0.75rem;
+        cursor: pointer;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
     }
 
-    .legend-color {
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        border: 2px solid white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    .person-item:hover {
+        background: var(--hover-background);
+        border-color: var(--border-color);
     }
 
-    .interactive-tree-container {
-        background: var(--card-background);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 3rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        border: 1px solid var(--border-color);
-    }
-
-    .tree-visualization {
-        width: 100%;
-        height: 600px;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        background: #fafafa;
-    }
-
-    .person-details {
-        margin-top: 2rem;
-        padding: 1.5rem;
-        background: var(--background-color);
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-        display: none;
-    }
-
-    .person-details.active {
-        display: block;
+    .person-item.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
     }
 
     .person-name {
-        font-size: 1.8rem;
         font-weight: 600;
-        color: var(--primary-color);
-        margin-bottom: 0.5rem;
-        font-family: 'Crimson Text', serif;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
     }
 
     .person-title {
-        font-size: 1.1rem;
+        font-size: 0.8rem;
+        opacity: 0.8;
+        margin-bottom: 0.25rem;
+    }
+
+    .person-generation {
+        font-size: 0.7rem;
+        opacity: 0.6;
+    }
+
+    .family-viewer {
+        background: var(--card-background);
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        min-height: 80vh;
+    }
+
+    .welcome-message {
+        text-align: center;
+        color: var(--text-muted);
+        padding: 4rem 2rem;
+    }
+
+    .welcome-message h3 {
+        color: var(--primary-color);
+        font-family: "Crimson Text", serif;
+        margin-bottom: 1rem;
+    }
+
+    .current-person {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: var(--background-color);
+        border-radius: 8px;
+        border: 2px solid var(--primary-color);
+    }
+
+    .current-person h2 {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-family: "Crimson Text", serif;
+    }
+
+    .current-person .title {
+        font-size: 1.2rem;
         color: var(--text-muted);
         font-style: italic;
         margin-bottom: 1rem;
     }
 
-    .person-info {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .info-section {
-        background: var(--card-background);
-        padding: 1rem;
-        border-radius: 6px;
-        border: 1px solid var(--border-color);
-    }
-
-    .info-section h4 {
-        margin-bottom: 0.75rem;
-        color: var(--primary-color);
+    .current-person .dates {
         font-size: 1rem;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .info-section p, .info-section ul {
-        margin: 0;
-        line-height: 1.5;
         color: var(--text-color);
+        margin-bottom: 1rem;
     }
 
-    .info-section ul {
-        padding-left: 1.5rem;
+    .current-person .description {
+        font-style: italic;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .family-section {
+        margin-bottom: 2rem;
+    }
+
+    .family-section h3 {
+        font-size: 1.3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-family: "Crimson Text", serif;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+    }
+
+    .family-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .family-card {
+        background: var(--background-color);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+    }
+
+    .family-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary-color);
+    }
+
+    .family-card h4 {
+        font-size: 1.1rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-family: "Crimson Text", serif;
+    }
+
+    .family-card .relationship {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+    }
+
+    .family-card .dates {
+        font-size: 0.8rem;
+        color: var(--text-muted);
     }
 
     .verses-section {
-        margin-top: 1.5rem;
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: var(--background-color);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+    }
+
+    .verses-section h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-family: "Crimson Text", serif;
     }
 
     .verse-item {
@@ -201,7 +291,7 @@
         color: var(--primary-color);
         font-size: 0.9rem;
         margin-bottom: 0.5rem;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
     }
 
     .verse-reference a {
@@ -214,588 +304,490 @@
     }
 
     .verse-text {
-        font-family: 'Crimson Text', serif;
+        font-family: "Crimson Text", serif;
         font-size: 1rem;
         line-height: 1.6;
         color: var(--text-color);
         font-style: italic;
     }
 
-    .family-intro {
-        background: var(--card-background);
-        border-radius: 8px;
-        padding: 1.5rem;
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
         margin-bottom: 2rem;
-        border-left: 4px solid var(--primary-color);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .family-intro h2 {
+    .stat-card {
+        background: var(--background-color);
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
         color: var(--primary-color);
-        margin-bottom: 1rem;
-        font-family: 'Crimson Text', serif;
+        font-family: "Crimson Text", serif;
     }
 
-    .family-intro p {
-        line-height: 1.6;
-        color: var(--text-color);
-        margin-bottom: 0.75rem;
+    .stat-label {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+    }
+
+    @media (max-width: 1024px) {
+        .explorer-layout {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .person-index {
+            max-height: 40vh;
+            order: 2;
+        }
+
+        .family-viewer {
+            order: 1;
+            min-height: auto;
+        }
     }
 
     @media (max-width: 768px) {
-        .family-tree-header h1 {
+        .family-explorer-header h1 {
             font-size: 2rem;
         }
-        
-        .tree-visualization {
-            height: 400px;
-        }
-        
-        .person-info {
+
+        .explorer-layout {
             grid-template-columns: 1fr;
         }
-        
-        .control-buttons {
-            justify-content: center;
+
+        .person-index {
+            max-height: 50vh;
         }
-        
-        .tree-legend {
-            justify-content: center;
+
+        .family-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 
     /* Dark mode adjustments */
     @media (prefers-color-scheme: dark) {
-        .family-tree-header {
+        .family-explorer-header {
             background: linear-gradient(135deg, #2d1b69, #8b5a2b);
-        }
-        
-        .tree-visualization {
-            background: #2a2a2a;
         }
     }
 </style>
-{% endblock %}
+{% endblock %} 
 
 {% block content %}
-<div class="family-tree-container">
-    <header class="family-tree-header">
-        <h1>🌳 Biblical Family Tree</h1>
-        <p>Explore the genealogies and family relationships from Adam and Eve through the patriarchs of Israel. Click on any person to see their details and scripture references.</p>
+<div class="family-explorer-container">
+    <header class="family-explorer-header">
+        <h1>🌳 Biblical Family Tree Explorer</h1>
+        <p>
+            Explore biblical genealogies with an interactive person index. 
+            Click on any person to see their family relationships and scripture references.
+        </p>
     </header>
 
-    <div class="family-intro">
-        <h2>📜 Tracing Biblical Lineages</h2>
-        <p>The Bible contains detailed genealogies that trace the lineage of God's people from the very beginning. These family trees are not just historical records—they show God's faithfulness in preserving His covenant people throughout generations.</p>
-        <p>From Adam, the first man created in God's image, to the patriarchs Abraham, Isaac, and Jacob, each person in this family tree played a crucial role in God's plan of redemption.</p>
-    </div>
-
-    <div class="tree-controls">
-        <h3>🔧 Tree Navigation</h3>
-        <div class="control-buttons">
-            <button class="control-btn active" onclick="showGeneration('gen1-5')">Gen 1-5 (Adam to Mahalaleel)</button>
-            <button class="control-btn" onclick="showGeneration('gen3-7')">Gen 3-7 (Enos to Enoch)</button>
-            <button class="control-btn" onclick="showGeneration('gen5-9')">Gen 5-9 (Mahalaleel to Lamech)</button>
-            <button class="control-btn" onclick="showGeneration('gen7-11')">Gen 7-11 (Enoch to Noah's Grandsons)</button>
-            <button class="control-btn" onclick="showGeneration('cain-line')">Cain's Line</button>
-            <button class="control-btn" onclick="showGeneration('seth-line')">Seth's Line</button>
-            <button class="control-btn" onclick="showGeneration('all')">Show All</button>
-            <button class="control-btn" onclick="resetZoom()">Reset View</button>
-            <button class="control-btn" onclick="fitToScreen()">Fit to Screen</button>
-            <a href="/static/adameve.ged" download class="control-btn" style="text-decoration: none; display: inline-block;">📥 Download GEDCOM</a>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="total-persons">0</div>
+            <div class="stat-label">Total Persons</div>
         </div>
-        
-        <div class="tree-legend">
-            <div class="legend-item">
-                <div class="legend-color" style="background: #4a90e2;"></div>
-                <span>Seth's Line (Gen 1-10)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #dc143c;"></div>
-                <span>Cain's Line</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #228b22;"></div>
-                <span>Noah's Sons</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #ff6b35;"></div>
-                <span>Special Figures</span>
-            </div>
+        <div class="stat-card">
+            <div class="stat-number" id="total-families">0</div>
+            <div class="stat-label">Family Groups</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="total-generations">0</div>
+            <div class="stat-label">Generations</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="selected-generation">-</div>
+            <div class="stat-label">Selected Person</div>
         </div>
     </div>
 
-    <!-- Interactive Family Tree -->
-    <div class="interactive-tree-container">
-        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 1rem; font-family: 'Crimson Text', serif;">
-            🌳 Interactive Family Tree
-        </h2>
-        <div id="family-tree-network" class="tree-visualization"></div>
-        
-        <div id="person-details" class="person-details">
-            <div class="person-name" id="person-name"></div>
-            <div class="person-title" id="person-title"></div>
-            <div class="person-info">
-                <div class="info-section">
-                    <h4>📖 Description</h4>
-                    <p id="person-description"></p>
-                </div>
-                <div class="info-section">
-                    <h4>👨‍👩‍👧‍👦 Family</h4>
-                    <div id="person-family"></div>
-                </div>
-                <div class="info-section">
-                    <h4>📅 Life Span</h4>
-                    <div id="person-lifespan"></div>
+    <div class="explorer-layout">
+        <div class="person-index">
+            <div class="index-header">
+                <h2>📜 Person Index</h2>
+                <input 
+                    type="text" 
+                    class="search-box" 
+                    id="person-search" 
+                    placeholder="Search by name..."
+                    onkeyup="filterPersons()"
+                >
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterByLineage('all')">All</button>
+                    <button class="filter-btn" onclick="filterByLineage('seth')">Seth's Line</button>
+                    <button class="filter-btn" onclick="filterByLineage('cain')">Cain's Line</button>
+                    <button class="filter-btn" onclick="filterByLineage('noah')">Noah's Sons</button>
                 </div>
             </div>
-            <div class="verses-section">
-                <h4 style="color: var(--primary-color); margin-bottom: 1rem; font-family: 'Crimson Text', serif;">📜 Scripture References</h4>
-                <div id="person-verses"></div>
+            <ul class="person-list" id="person-list">
+                <!-- Persons will be populated by JavaScript -->
+            </ul>
+        </div>
+
+        <div class="family-viewer">
+            <div class="welcome-message" id="welcome-message">
+                <h3>👈 Select a Person</h3>
+                <p>Choose someone from the person index to explore their family relationships and see relevant scripture passages.</p>
+                <p>The biblical genealogies contain {{ family_tree_data|length }} individuals spanning many generations from Adam to the patriarchs of Israel.</p>
+            </div>
+
+            <div id="person-details" style="display: none;">
+                <div class="current-person">
+                    <h2 id="current-name"></h2>
+                    <div class="title" id="current-title"></div>
+                    <div class="dates" id="current-dates"></div>
+                    <div class="description" id="current-description"></div>
+                </div>
+
+                <div class="family-section" id="parents-section" style="display: none;">
+                    <h3>👨‍👩‍👧‍👦 Parents</h3>
+                    <div class="family-grid" id="parents-grid"></div>
+                </div>
+
+                <div class="family-section" id="spouse-section" style="display: none;">
+                    <h3>💑 Spouse</h3>
+                    <div class="family-grid" id="spouse-grid"></div>
+                </div>
+
+                <div class="family-section" id="children-section" style="display: none;">
+                    <h3>👶 Children</h3>
+                    <div class="family-grid" id="children-grid"></div>
+                </div>
+
+                <div class="verses-section" id="verses-section" style="display: none;">
+                    <h3>📜 Scripture References</h3>
+                    <div id="verses-list"></div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="family-intro" style="margin-top: 3rem;">
-        <h2>🔍 Continue Your Study</h2>
-        <p>This family tree represents just a portion of the genealogies found throughout Scripture. For more detailed study of biblical lineages, explore the book of <a href="/book/1 Chronicles" style="color: var(--primary-color);">1 Chronicles</a> or the genealogy of Jesus in <a href="/book/Matthew/chapter/1" style="color: var(--primary-color);">Matthew 1</a> and <a href="/book/Luke/chapter/3" style="color: var(--primary-color);">Luke 3</a>.</p>
-        <p>Each person in these genealogies has their own story of faith, failure, and God's grace. Use our <a href="/search" style="color: var(--primary-color);">search feature</a> to find more references to any of these biblical figures.</p>
     </div>
 </div>
 
 <script>
-// Family tree data passed from the server
-const familyData = {{ family_tree_data | tojson }};
+    // Family tree data passed from the server
+    const familyData = {{ family_tree_data | tojson }};
+    let currentPersonId = null;
+    let currentFilter = 'all';
+    let allPersons = [];
 
-let network;
-let nodes;
-let edges;
+    // Initialize the explorer
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeExplorer();
+    });
 
-function initializeFamilyTree() {
-    // Create nodes and edges for the family tree
-    const nodeArray = [];
-    const edgeArray = [];
-    
-    // Define node colors by lineage and significance
-    const nodeColors = {
-        // Adam and Eve
-        'adam': '#d4af37', 'eve': '#d4af37',
-        
-        // Seth's line (righteous line)
-        'seth': '#4a90e2', 'enos': '#4a90e2', 'cainan': '#4a90e2', 'mahalaleel': '#4a90e2',
-        'jared': '#4a90e2', 'enoch_seth': '#ff6b35', 'methuselah': '#4a90e2', 'lamech_seth': '#4a90e2',
-        'noah': '#ff6b35',
-        
-        // Cain's line
-        'cain': '#dc143c', 'enoch_cain': '#dc143c', 'irad': '#dc143c', 'mehujael': '#dc143c',
-        'methusael': '#dc143c', 'lamech_cain': '#dc143c', 'jabal': '#dc143c', 'jubal': '#dc143c', 'tubalcain': '#dc143c',
-        
-        // Abel (murdered)
-        'abel': '#8b0000',
-        
-        // Noah's sons
-        'shem': '#228b22', 'ham': '#228b22', 'japheth': '#228b22'
-    };
-    
-    // Create nodes
-    Object.entries(familyData).forEach(([id, person]) => {
-        nodeArray.push({
+    function initializeExplorer() {
+        // Convert family data to sorted array
+        allPersons = Object.keys(familyData).map(id => ({
             id: id,
-            label: person.name,
-            title: `${person.name}\n${person.title}\n${person.description}`,
-            color: {
-                background: nodeColors[id] || '#666',
-                border: '#333',
-                highlight: {
-                    background: '#ffd700',
-                    border: '#333'
-                }
-            },
-            font: {
-                color: 'white',
-                size: 14,
-                face: 'Inter'
-            },
-            shape: 'box',
-            margin: 10,
-            widthConstraint: {
-                minimum: 100,
-                maximum: 150
-            }
-        });
-    });
-    
-    // Create edges (parent-child relationships)
-    Object.entries(familyData).forEach(([id, person]) => {
-        if (person.children && person.children.length > 0) {
-            person.children.forEach(childId => {
-                if (familyData[childId]) {
-                    edgeArray.push({
-                        from: id,
-                        to: childId,
-                        arrows: { to: { enabled: true, scaleFactor: 0.8 } },
-                        color: { color: '#666', highlight: '#333' },
-                        width: 2
-                    });
-                }
-            });
+            ...familyData[id]
+        })).sort((a, b) => a.name.localeCompare(b.name));
+
+        // Update statistics
+        updateStatistics();
+
+        // Populate person list
+        populatePersonList();
+
+        // Select Adam by default if available
+        const adamId = Object.keys(familyData).find(id => 
+            familyData[id].name.toLowerCase() === 'adam'
+        );
+        if (adamId) {
+            selectPerson(adamId);
         }
+    }
+
+    function updateStatistics() {
+        document.getElementById('total-persons').textContent = allPersons.length;
         
-        // Add spouse connections
-        if (person.spouse && person.spouse !== "Unknown wife" && person.spouse !== "Mrs. Noah") {
-            const spouseId = Object.keys(familyData).find(key => 
-                familyData[key].name === person.spouse
+        // Count families (people with children)
+        const families = allPersons.filter(person => person.children && person.children.length > 0);
+        document.getElementById('total-families').textContent = families.length;
+
+        // Estimate generations (this is approximate)
+        document.getElementById('total-generations').textContent = '12+';
+    }
+
+    function populatePersonList() {
+        const personList = document.getElementById('person-list');
+        personList.innerHTML = '';
+
+        let filteredPersons = allPersons;
+
+        // Apply search filter
+        const searchTerm = document.getElementById('person-search').value.toLowerCase();
+        if (searchTerm) {
+            filteredPersons = filteredPersons.filter(person => 
+                person.name.toLowerCase().includes(searchTerm) ||
+                (person.title && person.title.toLowerCase().includes(searchTerm))
             );
-            if (spouseId && id < spouseId) { // Avoid duplicate edges
-                edgeArray.push({
-                    from: id,
-                    to: spouseId,
-                    color: { color: '#ff6b9d', highlight: '#ff1744' },
-                    width: 3,
-                    dashes: true,
-                    label: 'married'
-                });
-            }
         }
-    });
-    
-    nodes = new vis.DataSet(nodeArray);
-    edges = new vis.DataSet(edgeArray);
-    
-    const container = document.getElementById('family-tree-network');
-    const data = { nodes: nodes, edges: edges };
-    
-    const options = {
-        layout: {
-            hierarchical: {
-                enabled: true,
-                direction: 'UD',
-                sortMethod: 'directed',
-                nodeSpacing: 180,
-                levelSeparation: 140,
-                shakeTowards: 'roots'
-            }
-        },
-        physics: {
-            enabled: false
-        },
-        interaction: {
-            dragNodes: true,
-            zoomView: true,
-            dragView: true,
-            selectConnectedEdges: false
-        },
-        nodes: {
-            borderWidth: 2,
-            shadow: {
-                enabled: true,
-                color: 'rgba(0,0,0,0.3)',
-                size: 10,
-                x: 2,
-                y: 2
-            }
-        },
-        edges: {
-            smooth: {
-                enabled: true,
-                type: 'cubicBezier',
-                roundness: 0.3
-            },
-            width: 2
-        }
-    };
-    
-    network = new vis.Network(container, data, options);
-    
-    // Add click event listener
-    network.on('click', function(params) {
-        if (params.nodes.length > 0) {
-            const nodeId = params.nodes[0];
-            showPersonDetails(nodeId);
-            
-            // Highlight the selected node
-            network.selectNodes([nodeId]);
-        }
-    });
-    
-    // Add double-click event listener
-    network.on('doubleClick', function(params) {
-        if (params.nodes.length > 0) {
-            const nodeId = params.nodes[0];
-            centerOnPersonAndDescendants(nodeId);
-        }
-    });
-    
-    // Initial fit
-    setTimeout(() => {
-        network.fit();
-    }, 1000);
-}
 
-function showPersonDetails(personId) {
-    const person = familyData[personId];
-    if (!person) return;
-    
-    // Update person details
-    document.getElementById('person-name').textContent = person.name;
-    document.getElementById('person-title').textContent = person.title;
-    document.getElementById('person-description').textContent = person.description;
-    
-    // Update family information
-    const familyDiv = document.getElementById('person-family');
-    let familyHTML = '';
-    
-    if (person.parents && person.parents.length > 0) {
-        const parentNames = person.parents.map(id => familyData[id]?.name || id).join(', ');
-        familyHTML += `<p><strong>Parents:</strong> ${parentNames}</p>`;
-    }
-    
-    if (person.spouse && person.spouse !== "Unknown wife") {
-        familyHTML += `<p><strong>Spouse:</strong> ${person.spouse}</p>`;
-    }
-    
-    if (person.children && person.children.length > 0) {
-        const childNames = person.children.map(id => familyData[id]?.name || id).join(', ');
-        familyHTML += `<p><strong>Children:</strong> ${childNames}</p>`;
-    }
-    
-    familyDiv.innerHTML = familyHTML || '<p>No family information available</p>';
-    
-    // Update lifespan information
-    const lifespanDiv = document.getElementById('person-lifespan');
-    lifespanDiv.innerHTML = `
-        <p><strong>Born:</strong> ${person.birth_year}</p>
-        <p><strong>Died:</strong> ${person.death_year}</p>
-        <p><strong>Age at Death:</strong> ${person.age_at_death}</p>
-    `;
-    
-    // Update verses
-    const versesDiv = document.getElementById('person-verses');
-    let versesHTML = '';
-    
-    if (person.verses && person.verses.length > 0) {
-        person.verses.forEach(verse => {
-            const refParts = verse.reference.split(' ');
-            let bookPart, chapterVerse;
-            
-            if (refParts.length === 2) {
-                bookPart = refParts[0];
-                chapterVerse = refParts[1];
-            } else {
-                const lastPart = refParts[refParts.length - 1];
-                const bookParts = refParts.slice(0, -1);
-                bookPart = bookParts.join(' ');
-                chapterVerse = lastPart;
-            }
-            
-            const chapter = chapterVerse.includes(':') ? chapterVerse.split(':')[0] : chapterVerse;
-            
-            versesHTML += `
-                <div class="verse-item">
-                    <div class="verse-reference">
-                        <a href="/book/${bookPart}/chapter/${chapter}">${verse.reference}</a>
-                    </div>
-                    <div class="verse-text">"${verse.text}"</div>
-                </div>
-            `;
-        });
-    } else {
-        versesHTML = '<p>No specific verses available for this person.</p>';
-    }
-    
-    versesDiv.innerHTML = versesHTML;
-    
-    // Show the details panel
-    document.getElementById('person-details').classList.add('active');
-}
-
-function showGeneration(type) {
-    // Update button states
-    document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    let visibleNodes;
-    
-    switch(type) {
-        case 'gen1-5':
-            // Adam to Mahalaleel (5 generations)
-            visibleNodes = getAllConnectedNodes(['adam', 'eve', 'cain', 'abel', 'seth', 'enoch_cain', 'enos', 'irad', 'cainan', 'mahalaleel']);
-            break;
-        case 'gen3-7':
-            // Enos to Enoch (5 generations)
-            visibleNodes = getAllConnectedNodes(['enos', 'cainan', 'mahalaleel', 'jared', 'enoch_seth', 'mehujael', 'methusael']);
-            break;
-        case 'gen5-9':
-            // Mahalaleel to Lamech (5 generations)
-            visibleNodes = getAllConnectedNodes(['mahalaleel', 'jared', 'enoch_seth', 'methuselah', 'lamech_seth', 'lamech_cain']);
-            break;
-        case 'gen7-11':
-            // Enoch to Noah's grandsons (5 generations)
-            visibleNodes = getAllConnectedNodes(['enoch_seth', 'methuselah', 'lamech_seth', 'noah', 'shem', 'ham', 'japheth']);
-            break;
-        case 'cain-line':
-            visibleNodes = getAllConnectedNodes(['adam', 'eve', 'cain', 'enoch_cain', 'irad', 'mehujael', 'methusael', 'lamech_cain', 'jabal', 'jubal', 'tubalcain']);
-            break;
-        case 'seth-line':
-            visibleNodes = getAllConnectedNodes(['adam', 'eve', 'seth', 'enos', 'cainan', 'mahalaleel', 'jared', 'enoch_seth', 'methuselah', 'lamech_seth', 'noah', 'shem', 'ham', 'japheth']);
-            break;
-        default:
-            visibleNodes = Object.keys(familyData);
-    }
-    
-    // Show/hide nodes
-    const allNodes = nodes.get();
-    allNodes.forEach(node => {
-        if (visibleNodes.includes(node.id)) {
-            nodes.update({...node, hidden: false});
-        } else {
-            nodes.update({...node, hidden: true});
-        }
-    });
-    
-    // Update edges visibility
-    const allEdges = edges.get();
-    allEdges.forEach(edge => {
-        const showEdge = visibleNodes.includes(edge.from) && visibleNodes.includes(edge.to);
-        edges.update({...edge, hidden: !showEdge});
-    });
-    
-    setTimeout(() => {
-        network.fit();
-    }, 100);
-}
-
-function resetZoom() {
-    network.moveTo({
-        position: {x: 0, y: 0},
-        scale: 1,
-        animation: {
-            duration: 1000,
-            easingFunction: 'easeInOutQuad'
-        }
-    });
-}
-
-function fitToScreen() {
-    network.fit({
-        animation: {
-            duration: 1000,
-            easingFunction: 'easeInOutQuad'
-        }
-    });
-}
-
-function getAllConnectedNodes(nodeList) {
-    // Helper function to get all nodes and their spouses
-    const connected = new Set();
-    
-    nodeList.forEach(nodeId => {
-        if (familyData[nodeId]) {
-            connected.add(nodeId);
-            // Add spouse if they exist
-            const person = familyData[nodeId];
-            if (person.spouse) {
-                // Find spouse ID
-                Object.keys(familyData).forEach(id => {
-                    if (familyData[id].name === person.spouse) {
-                        connected.add(id);
-                    }
-                });
-            }
-        }
-    });
-    
-    return Array.from(connected);
-}
-
-function centerOnPersonAndDescendants(personId) {
-    const person = familyData[personId];
-    if (!person) return;
-    
-    // Find all descendants recursively
-    function getDescendants(id, visited = new Set()) {
-        if (visited.has(id)) return [];
-        visited.add(id);
-        
-        const descendants = [id];
-        const personData = familyData[id];
-        
-        if (personData && personData.children) {
-            personData.children.forEach(childId => {
-                descendants.push(...getDescendants(childId, visited));
+        // Apply lineage filter
+        if (currentFilter !== 'all') {
+            filteredPersons = filteredPersons.filter(person => {
+                const lineage = determineLineage(person);
+                return lineage === currentFilter;
             });
         }
-        
-        return descendants;
-    }
-    
-    const visibleNodes = getDescendants(personId);
-    
-    // Hide all nodes first
-    const allNodes = nodes.get();
-    allNodes.forEach(node => {
-        if (visibleNodes.includes(node.id)) {
-            nodes.update({...node, hidden: false});
-        } else {
-            nodes.update({...node, hidden: true});
+
+        filteredPersons.forEach(person => {
+            const listItem = document.createElement('li');
+            listItem.className = 'person-item';
+            if (currentPersonId === person.id) {
+                listItem.classList.add('active');
+            }
+            
+            const lineage = determineLineage(person);
+            const generationInfo = getGenerationInfo(person);
+            
+            listItem.innerHTML = `
+                <div class="person-name">${person.name}</div>
+                <div class="person-title">${person.title || 'Biblical Figure'}</div>
+                <div class="person-generation">${lineage} • ${generationInfo}</div>
+            `;
+            
+            listItem.onclick = () => selectPerson(person.id);
+            personList.appendChild(listItem);
+        });
+
+        if (filteredPersons.length === 0) {
+            personList.innerHTML = '<li style="padding: 1rem; text-align: center; color: var(--text-muted);">No persons found</li>';
         }
-    });
-    
-    // Update edges visibility
-    const allEdges = edges.get();
-    allEdges.forEach(edge => {
-        const showEdge = visibleNodes.includes(edge.from) && visibleNodes.includes(edge.to);
-        edges.update({...edge, hidden: !showEdge});
-    });
-    
-    // Center on the selected person
-    setTimeout(() => {
-        network.focus(personId, {
-            scale: 1.2,
-            animation: {
-                duration: 1000,
-                easingFunction: 'easeInOutQuad'
+    }
+
+    function determineLineage(person) {
+        // Simple lineage determination based on name patterns and known relationships
+        const name = person.name.toLowerCase();
+        
+        // Known Cain's line
+        if (['cain', 'enoch', 'irad', 'mehujael', 'methusael', 'lamech', 'jabal', 'jubal', 'tubalcain', 'naamah'].includes(name)) {
+            return 'cain';
+        }
+        
+        // Known Seth's line (main genealogy)
+        if (['seth', 'enos', 'cainan', 'mahalaleel', 'jared', 'enoch', 'methuselah', 'lamech', 'noah'].includes(name)) {
+            return 'seth';
+        }
+        
+        // Noah's sons and their descendants
+        if (['shem', 'ham', 'japheth'].includes(name) || person.parents?.some(p => ['shem', 'ham', 'japheth'].includes(familyData[p]?.name?.toLowerCase()))) {
+            return 'noah';
+        }
+        
+        return 'other';
+    }
+
+    function getGenerationInfo(person) {
+        // Simplified generation calculation
+        if (!person.birth_year || person.birth_year === 'Unknown') {
+            return 'Generation unknown';
+        }
+        
+        // Try to extract year from birth_year string
+        const yearMatch = person.birth_year.match(/\d+/);
+        if (yearMatch) {
+            const year = parseInt(yearMatch[0]);
+            if (year > 4000) return 'Generation 1-2';
+            if (year > 3500) return 'Generation 3-5';
+            if (year > 3000) return 'Generation 6-8';
+            if (year > 2500) return 'Generation 9-11';
+            return 'Later generations';
+        }
+        
+        return 'Generation unknown';
+    }
+
+    function selectPerson(personId) {
+        currentPersonId = personId;
+        const person = familyData[personId];
+        
+        if (!person) return;
+
+        // Update active state in person list
+        document.querySelectorAll('.person-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Find and activate the current person in the list
+        const personItems = document.querySelectorAll('.person-item');
+        personItems.forEach(item => {
+            if (item.querySelector('.person-name').textContent === person.name) {
+                item.classList.add('active');
             }
         });
-    }, 100);
-    
-    // Show details for the centered person
-    showPersonDetails(personId);
-    
-    // Update button states
-    document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
-    
-    // Add notification
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--primary-color);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        font-family: 'Inter', sans-serif;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    `;
-    notification.textContent = `Showing ${person.name} and descendants`;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
-}
 
-// Initialize the family tree when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeFamilyTree();
-    
-    // Start with first 5 generations by default
-    setTimeout(() => {
-        showGeneration('gen1-5');
-    }, 1000);
-});
+        // Hide welcome message and show person details
+        document.getElementById('welcome-message').style.display = 'none';
+        document.getElementById('person-details').style.display = 'block';
+
+        // Update current person info
+        document.getElementById('current-name').textContent = person.name;
+        document.getElementById('current-title').textContent = person.title || 'Biblical Figure';
+        
+        // Update dates
+        let datesText = '';
+        if (person.birth_year !== 'Unknown' || person.death_year !== 'Unknown') {
+            datesText = `${person.birth_year} - ${person.death_year}`;
+            if (person.age_at_death !== 'Unknown') {
+                datesText += ` (${person.age_at_death})`;
+            }
+        }
+        document.getElementById('current-dates').textContent = datesText;
+        
+        document.getElementById('current-description').textContent = person.description;
+
+        // Update selected person generation in stats
+        document.getElementById('selected-generation').textContent = getGenerationInfo(person);
+
+        // Show family sections
+        showParents(person);
+        showSpouse(person);
+        showChildren(person);
+        showVerses(person);
+    }
+
+    function showParents(person) {
+        const parentsSection = document.getElementById('parents-section');
+        const parentsGrid = document.getElementById('parents-grid');
+        
+        if (person.parents && person.parents.length > 0) {
+            parentsSection.style.display = 'block';
+            parentsGrid.innerHTML = '';
+            
+            person.parents.forEach(parentId => {
+                const parent = familyData[parentId];
+                if (parent) {
+                    const card = createFamilyCard(parent, parentId, 'Parent');
+                    parentsGrid.appendChild(card);
+                }
+            });
+        } else {
+            parentsSection.style.display = 'none';
+        }
+    }
+
+    function showSpouse(person) {
+        const spouseSection = document.getElementById('spouse-section');
+        const spouseGrid = document.getElementById('spouse-grid');
+        
+        if (person.spouse) {
+            spouseSection.style.display = 'block';
+            spouseGrid.innerHTML = '';
+            
+            // Find spouse by name
+            const spouseId = Object.keys(familyData).find(id => 
+                familyData[id].name === person.spouse
+            );
+            
+            if (spouseId) {
+                const spouse = familyData[spouseId];
+                const card = createFamilyCard(spouse, spouseId, 'Spouse');
+                spouseGrid.appendChild(card);
+            }
+        } else {
+            spouseSection.style.display = 'none';
+        }
+    }
+
+    function showChildren(person) {
+        const childrenSection = document.getElementById('children-section');
+        const childrenGrid = document.getElementById('children-grid');
+        
+        if (person.children && person.children.length > 0) {
+            childrenSection.style.display = 'block';
+            childrenGrid.innerHTML = '';
+            
+            person.children.forEach(childId => {
+                const child = familyData[childId];
+                if (child) {
+                    const card = createFamilyCard(child, childId, 'Child');
+                    childrenGrid.appendChild(card);
+                }
+            });
+        } else {
+            childrenSection.style.display = 'none';
+        }
+    }
+
+    function createFamilyCard(person, personId, relationship) {
+        const card = document.createElement('div');
+        card.className = 'family-card';
+        card.onclick = () => selectPerson(personId);
+        
+        let datesText = '';
+        if (person.birth_year !== 'Unknown' || person.death_year !== 'Unknown') {
+            datesText = `${person.birth_year} - ${person.death_year}`;
+        }
+        
+        card.innerHTML = `
+            <h4>${person.name}</h4>
+            <div class="relationship">${relationship}</div>
+            <div class="dates">${datesText}</div>
+        `;
+        
+        return card;
+    }
+
+    function showVerses(person) {
+        const versesSection = document.getElementById('verses-section');
+        const versesList = document.getElementById('verses-list');
+        
+        if (person.verses && person.verses.length > 0) {
+            versesSection.style.display = 'block';
+            versesList.innerHTML = '';
+            
+            person.verses.forEach(verse => {
+                const verseItem = document.createElement('div');
+                verseItem.className = 'verse-item';
+                
+                const bookChapter = verse.reference.split(' ');
+                const book = bookChapter[0];
+                const chapter = bookChapter[1] ? bookChapter[1].split(':')[0] : '';
+                
+                verseItem.innerHTML = `
+                    <div class="verse-reference">
+                        <a href="/book/${book}${chapter ? '/chapter/' + chapter : ''}">${verse.reference}</a>
+                    </div>
+                    <div class="verse-text">${verse.text}</div>
+                `;
+                
+                versesList.appendChild(verseItem);
+            });
+        } else {
+            versesSection.style.display = 'none';
+        }
+    }
+
+    function filterPersons() {
+        populatePersonList();
+    }
+
+    function filterByLineage(lineage) {
+        currentFilter = lineage;
+        
+        // Update active filter button
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        populatePersonList();
+    }
 </script>
-
 {% endblock %}
