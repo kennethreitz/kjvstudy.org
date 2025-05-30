@@ -1176,6 +1176,256 @@ def parse_gedcom_to_tree_data(gedcom_path):
     return tree_data
 
 
+@app.get("/biblical-timeline", response_class=HTMLResponse)
+def biblical_timeline_page(request: Request):
+    """Biblical timeline page showing major biblical events chronologically"""
+    books = list(bible.iter_books())
+
+    # Define biblical timeline events
+    timeline_events = {
+        "Creation and Early History": [
+            {
+                "title": "Creation of the World",
+                "date": "c. 4000 BC",
+                "description": "God creates the heavens and the earth in six days",
+                "verses": [
+                    {"reference": "Genesis 1:1", "text": "In the beginning God created the heaven and the earth."},
+                    {"reference": "Genesis 1:31", "text": "And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day."}
+                ]
+            },
+            {
+                "title": "The Fall of Man",
+                "date": "c. 4000 BC",
+                "description": "Adam and Eve disobey God and are expelled from Eden",
+                "verses": [
+                    {"reference": "Genesis 3:6", "text": "And when the woman saw that the tree was good for food, and that it was pleasant to the eyes, and a tree to be desired to make one wise, she took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat."},
+                    {"reference": "Genesis 3:23", "text": "Therefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken."}
+                ]
+            },
+            {
+                "title": "Cain and Abel",
+                "date": "c. 3900 BC",
+                "description": "The first murder when Cain kills his brother Abel",
+                "verses": [
+                    {"reference": "Genesis 4:8", "text": "And Cain talked with Abel his brother: and it came to pass, when they were in the field, that Cain rose up against Abel his brother, and slew him."}
+                ]
+            },
+            {
+                "title": "The Great Flood",
+                "date": "c. 2350 BC",
+                "description": "God destroys the world with a flood, saving only Noah's family",
+                "verses": [
+                    {"reference": "Genesis 7:17", "text": "And the flood was forty days upon the earth; and the waters increased, and bare up the ark, and it was lift up above the earth."},
+                    {"reference": "Genesis 8:20", "text": "And Noah builded an altar unto the LORD; and took of every clean beast, and of every clean fowl, and offered burnt offerings on the altar."}
+                ]
+            }
+        ],
+        "The Patriarchs": [
+            {
+                "title": "Call of Abraham",
+                "date": "c. 2100 BC",
+                "description": "God calls Abram to leave Ur and go to the Promised Land",
+                "verses": [
+                    {"reference": "Genesis 12:1", "text": "Now the LORD had said unto Abram, Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee."},
+                    {"reference": "Genesis 12:7", "text": "And the LORD appeared unto Abram, and said, Unto thy seed will I give this land: and there builded he an altar unto the LORD, who appeared unto him."}
+                ]
+            },
+            {
+                "title": "Birth of Isaac",
+                "date": "c. 2000 BC",
+                "description": "God fulfills His promise by giving Abraham and Sarah a son",
+                "verses": [
+                    {"reference": "Genesis 21:2", "text": "For Sarah conceived, and bare Abraham a son in his old age, at the set time of which God had spoken to him."}
+                ]
+            },
+            {
+                "title": "Jacob and Esau",
+                "date": "c. 1900 BC",
+                "description": "Isaac's twin sons, with Jacob receiving the birthright",
+                "verses": [
+                    {"reference": "Genesis 25:23", "text": "And the LORD said unto her, Two nations are in thy womb, and two manner of people shall be separated from thy bowels; and the one people shall be stronger than the other people; and the elder shall serve the younger."}
+                ]
+            },
+            {
+                "title": "Joseph in Egypt",
+                "date": "c. 1700 BC",
+                "description": "Joseph is sold into slavery but becomes ruler in Egypt",
+                "verses": [
+                    {"reference": "Genesis 41:40", "text": "Thou shalt be over my house, and according unto thy word shall all my people be ruled: only in the throne will I be greater than thou."},
+                    {"reference": "Genesis 50:20", "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."}
+                ]
+            }
+        ],
+        "Egypt and the Exodus": [
+            {
+                "title": "Israelites in Egyptian Bondage",
+                "date": "c. 1600-1300 BC",
+                "description": "The descendants of Jacob become slaves in Egypt",
+                "verses": [
+                    {"reference": "Exodus 1:13-14", "text": "And the Egyptians made the children of Israel to serve with rigour: And they made their lives bitter with hard bondage, in morter, and in brick, and in all manner of service in the field: all their service, wherein they made them serve, was with rigour."}
+                ]
+            },
+            {
+                "title": "Birth of Moses",
+                "date": "c. 1350 BC",
+                "description": "Moses is born and saved from Pharaoh's decree",
+                "verses": [
+                    {"reference": "Exodus 2:10", "text": "And the child grew, and she brought him unto Pharaoh's daughter, and he became her son. And she called his name Moses: and she said, Because I drew him out of the water."}
+                ]
+            },
+            {
+                "title": "The Exodus from Egypt",
+                "date": "c. 1300 BC",
+                "description": "God delivers Israel from Egypt through Moses",
+                "verses": [
+                    {"reference": "Exodus 12:37", "text": "And the children of Israel journeyed from Rameses to Succoth, about six hundred thousand on foot that were men, beside children."},
+                    {"reference": "Exodus 14:21", "text": "And Moses stretched out his hand over the sea; and the LORD caused the sea to go back by a strong east wind all that night, and made the sea dry land, and the waters were divided."}
+                ]
+            },
+            {
+                "title": "Giving of the Law at Sinai",
+                "date": "c. 1300 BC",
+                "description": "God gives Moses the Ten Commandments and the Law",
+                "verses": [
+                    {"reference": "Exodus 19:20", "text": "And the LORD came down upon mount Sinai, on the top of the mount: and the LORD called Moses up to the top of the mount; and Moses went up."},
+                    {"reference": "Exodus 20:1-2", "text": "And God spake all these words, saying, I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage."}
+                ]
+            }
+        ],
+        "Conquest and Judges": [
+            {
+                "title": "Conquest of Canaan",
+                "date": "c. 1260 BC",
+                "description": "Joshua leads Israel to conquer the Promised Land",
+                "verses": [
+                    {"reference": "Joshua 6:20", "text": "So the people shouted when the priests blew with the trumpets: and it came to pass, when the people heard the sound of the trumpet, and the people shouted with a great shout, that the wall fell down flat, so that the people went up into the city, every man straight before him, and they took the city."}
+                ]
+            },
+            {
+                "title": "Period of the Judges",
+                "date": "c. 1200-1000 BC",
+                "description": "Israel is ruled by judges including Gideon, Samson, and Samuel",
+                "verses": [
+                    {"reference": "Judges 2:16", "text": "Nevertheless the LORD raised up judges, which delivered them out of the hand of those that spoiled them."}
+                ]
+            }
+        ],
+        "The Kingdom Period": [
+            {
+                "title": "Saul Becomes King",
+                "date": "c. 1050 BC",
+                "description": "Israel's first king is anointed by Samuel",
+                "verses": [
+                    {"reference": "1 Samuel 10:1", "text": "Then Samuel took a vial of oil, and poured it upon his head, and kissed him, and said, Is it not because the LORD hath anointed thee to be captain over his inheritance?"}
+                ]
+            },
+            {
+                "title": "David Becomes King",
+                "date": "c. 1010 BC",
+                "description": "David, the man after God's own heart, becomes king",
+                "verses": [
+                    {"reference": "2 Samuel 5:3", "text": "So all the elders of Israel came to the king to Hebron; and king David made a league with them in Hebron before the LORD: and they anointed David king over Israel."}
+                ]
+            },
+            {
+                "title": "Solomon's Reign and Temple",
+                "date": "c. 970-930 BC",
+                "description": "Solomon builds the Temple and rules with great wisdom",
+                "verses": [
+                    {"reference": "1 Kings 6:14", "text": "So Solomon built the house, and finished it."},
+                    {"reference": "1 Kings 3:12", "text": "Behold, I have done according to thy words: lo, I have given thee a wise and an understanding heart; so that there was none like thee before thee, neither after thee shall any arise like unto thee."}
+                ]
+            },
+            {
+                "title": "Division of the Kingdom",
+                "date": "c. 930 BC",
+                "description": "The kingdom splits into Israel (north) and Judah (south)",
+                "verses": [
+                    {"reference": "1 Kings 12:16", "text": "So when all Israel saw that the king hearkened not unto them, the people answered the king, saying, What portion have we in David? neither have we inheritance in the son of Jesse: to your tents, O Israel: now see to thine own house, David. So Israel departed unto their tents."}
+                ]
+            }
+        ],
+        "Exile and Return": [
+            {
+                "title": "Fall of Northern Kingdom",
+                "date": "722 BC",
+                "description": "Assyria conquers Israel and takes the people captive",
+                "verses": [
+                    {"reference": "2 Kings 17:6", "text": "In the ninth year of Hoshea the king of Assyria took Samaria, and carried Israel away into Assyria, and placed them in Halah and in Habor by the river of Gozan, and in the cities of the Medes."}
+                ]
+            },
+            {
+                "title": "Fall of Southern Kingdom",
+                "date": "586 BC",
+                "description": "Babylon conquers Judah and destroys the Temple",
+                "verses": [
+                    {"reference": "2 Kings 25:9", "text": "And he burnt the house of the LORD, and the king's house, and all the houses of Jerusalem, and every great man's house burnt he with fire."}
+                ]
+            },
+            {
+                "title": "Return from Exile",
+                "date": "538 BC",
+                "description": "Cyrus allows the Jews to return and rebuild the Temple",
+                "verses": [
+                    {"reference": "Ezra 1:3", "text": "Who is there among you of all his people? his God be with him, and let him go up to Jerusalem, which is in Judah, and build the house of the LORD God of Israel, (he is the God,) which is in Jerusalem."}
+                ]
+            }
+        ],
+        "New Testament Era": [
+            {
+                "title": "Birth of Jesus Christ",
+                "date": "c. 4 BC",
+                "description": "The Son of God is born in Bethlehem",
+                "verses": [
+                    {"reference": "Luke 2:11", "text": "For unto you is born this day in the city of David a Saviour, which is Christ the Lord."},
+                    {"reference": "Matthew 1:21", "text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins."}
+                ]
+            },
+            {
+                "title": "Ministry of Jesus",
+                "date": "c. 30-33 AD",
+                "description": "Jesus preaches, performs miracles, and calls disciples",
+                "verses": [
+                    {"reference": "Mark 1:15", "text": "And saying, The time is fulfilled, and the kingdom of God is at hand: repent ye, and believe the gospel."}
+                ]
+            },
+            {
+                "title": "Crucifixion and Resurrection",
+                "date": "c. 33 AD",
+                "description": "Jesus dies for sins and rises from the dead",
+                "verses": [
+                    {"reference": "1 Corinthians 15:3-4", "text": "For I delivered unto you first of all that which I also received, how that Christ died for our sins according to the scriptures; And that he was buried, and that he rose again the third day according to the scriptures."}
+                ]
+            },
+            {
+                "title": "Day of Pentecost",
+                "date": "c. 33 AD",
+                "description": "The Holy Spirit comes and the Church begins",
+                "verses": [
+                    {"reference": "Acts 2:4", "text": "And they were all filled with the Holy Ghost, and began to speak with other tongues, as the Spirit gave them utterance."}
+                ]
+            },
+            {
+                "title": "Paul's Missionary Journeys",
+                "date": "c. 47-60 AD",
+                "description": "Paul spreads the Gospel throughout the Roman world",
+                "verses": [
+                    {"reference": "Acts 13:2", "text": "As they ministered to the Lord, and fasted, the Holy Ghost said, Separate me Barnabas and Saul for the work whereunto I have called them."}
+                ]
+            }
+        ]
+    }
+
+    return templates.TemplateResponse(
+        "biblical_timeline.html",
+        {
+            "request": request,
+            "books": books,
+            "timeline_events": timeline_events
+        }
+    )
+
+
 def get_biblical_verses(name):
     """Get relevant Bible verses for a person based on their name"""
     verse_map = {

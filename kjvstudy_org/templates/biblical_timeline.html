@@ -1,0 +1,382 @@
+{% extends "base.html" %}
+
+{% block title %}Biblical Timeline - Major Bible Events - KJV Study{% endblock %}
+
+{% block description %}Explore the chronological timeline of major biblical events from Creation to the early Church. Interactive timeline with dates, descriptions, and scripture references from the King James Version Bible.{% endblock %}
+
+{% block keywords %}biblical timeline, bible chronology, biblical events, Old Testament timeline, New Testament timeline, biblical history, scripture timeline, KJV chronology{% endblock %}
+
+{% block og_title %}Biblical Timeline - Major Bible Events - KJV Study{% endblock %}
+
+{% block head %}
+<style>
+    .timeline-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+
+    .timeline-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem 1rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 12px;
+        border: 1px solid #dee2e6;
+    }
+
+    .timeline-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+        font-family: 'Crimson Text', serif;
+    }
+
+    .timeline-header p {
+        font-size: 1.1rem;
+        color: #6c757d;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .timeline-controls {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .period-filter {
+        display: inline-block;
+        margin: 0 0.5rem;
+        padding: 0.5rem 1rem;
+        background: #f8f9fa;
+        border: 2px solid #dee2e6;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        color: #495057;
+    }
+
+    .period-filter:hover {
+        background: #e9ecef;
+        border-color: #adb5bd;
+    }
+
+    .period-filter.active {
+        background: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .timeline-period {
+        margin-bottom: 3rem;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .timeline-period.hidden {
+        display: none;
+    }
+
+    .period-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        padding: 1rem 1.5rem;
+        background: linear-gradient(135deg, #495057 0%, #6c757d 100%);
+        color: white;
+        border-radius: 8px;
+        font-family: 'Crimson Text', serif;
+        text-align: center;
+    }
+
+    .timeline-events {
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .timeline-events::before {
+        content: '';
+        position: absolute;
+        left: 1rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #007bff 0%, #6c757d 100%);
+    }
+
+    .timeline-event {
+        position: relative;
+        margin-bottom: 2rem;
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+        margin-left: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-event:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .timeline-event::before {
+        content: '';
+        position: absolute;
+        left: -3rem;
+        top: 1.5rem;
+        width: 12px;
+        height: 12px;
+        background: #007bff;
+        border: 3px solid white;
+        border-radius: 50%;
+        box-shadow: 0 0 0 3px #007bff;
+    }
+
+    .event-date {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #007bff;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .event-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #2c3e50;
+        font-family: 'Crimson Text', serif;
+    }
+
+    .event-description {
+        color: #6c757d;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .event-verses {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        border-left: 4px solid #007bff;
+    }
+
+    .verse {
+        margin-bottom: 1rem;
+    }
+
+    .verse:last-child {
+        margin-bottom: 0;
+    }
+
+    .verse-reference {
+        font-weight: 600;
+        color: #007bff;
+        margin-bottom: 0.25rem;
+        font-size: 0.9rem;
+    }
+
+    .verse-text {
+        font-style: italic;
+        color: #495057;
+        line-height: 1.5;
+        font-family: 'Crimson Text', serif;
+    }
+
+    @media (max-width: 768px) {
+        .timeline-container {
+            padding: 0.5rem;
+        }
+
+        .timeline-header h1 {
+            font-size: 2rem;
+        }
+
+        .timeline-header p {
+            font-size: 1rem;
+        }
+
+        .period-filter {
+            margin: 0.25rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .period-title {
+            font-size: 1.4rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .timeline-events {
+            padding-left: 1rem;
+        }
+
+        .timeline-events::before {
+            left: 0.5rem;
+        }
+
+        .timeline-event {
+            margin-left: 1rem;
+            padding: 1rem;
+        }
+
+        .timeline-event::before {
+            left: -1.75rem;
+            top: 1rem;
+            width: 8px;
+            height: 8px;
+        }
+
+        .event-title {
+            font-size: 1.2rem;
+        }
+    }
+
+    .show-all-periods .timeline-period {
+        display: block !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="timeline-container">
+    <header class="timeline-header">
+        <h1>📜 Biblical Timeline</h1>
+        <p>
+            Journey through the major events of biblical history from Creation to the early Church. 
+            Each event includes approximate dates, descriptions, and relevant scripture references from the King James Version Bible.
+        </p>
+    </header>
+
+    <div class="timeline-controls">
+        <div class="period-filter active" data-period="all">Show All</div>
+        <div class="period-filter" data-period="creation">Creation & Early History</div>
+        <div class="period-filter" data-period="patriarchs">The Patriarchs</div>
+        <div class="period-filter" data-period="exodus">Egypt & Exodus</div>
+        <div class="period-filter" data-period="conquest">Conquest & Judges</div>
+        <div class="period-filter" data-period="kingdom">Kingdom Period</div>
+        <div class="period-filter" data-period="exile">Exile & Return</div>
+        <div class="period-filter" data-period="nt">New Testament</div>
+    </div>
+
+    <div class="timeline-content">
+        {% for period_name, events in timeline_events.items() %}
+        <div class="timeline-period" data-period="{{ period_name.lower().replace(' ', '-').replace('&', '').replace('the-', '') }}">
+            <h2 class="period-title">{{ period_name }}</h2>
+            
+            <div class="timeline-events">
+                {% for event in events %}
+                <div class="timeline-event">
+                    <div class="event-date">{{ event.date }}</div>
+                    <h3 class="event-title">{{ event.title }}</h3>
+                    <p class="event-description">{{ event.description }}</p>
+                    
+                    {% if event.verses %}
+                    <div class="event-verses">
+                        {% for verse in event.verses %}
+                        <div class="verse">
+                            <div class="verse-reference">{{ verse.reference }}</div>
+                            <div class="verse-text">"{{ verse.text }}"</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filters = document.querySelectorAll('.period-filter');
+    const periods = document.querySelectorAll('.timeline-period');
+    const timelineContent = document.querySelector('.timeline-content');
+
+    // Map filter data-period values to actual period data-period values
+    const periodMap = {
+        'creation': 'creation-and-early-history',
+        'patriarchs': 'patriarchs',
+        'exodus': 'egypt-and-exodus',
+        'conquest': 'conquest-and-judges',
+        'kingdom': 'kingdom-period',
+        'exile': 'exile-and-return',
+        'nt': 'new-testament-era'
+    };
+
+    function showAllPeriods() {
+        periods.forEach(period => {
+            period.classList.remove('hidden');
+        });
+        timelineContent.classList.add('show-all-periods');
+    }
+
+    function hidePeriod(period) {
+        period.classList.add('hidden');
+    }
+
+    function showPeriod(period) {
+        period.classList.remove('hidden');
+    }
+
+    filters.forEach(filter => {
+        filter.addEventListener('click', function() {
+            // Remove active class from all filters
+            filters.forEach(f => f.classList.remove('active'));
+            
+            // Add active class to clicked filter
+            this.classList.add('active');
+            
+            const selectedPeriod = this.dataset.period;
+            
+            if (selectedPeriod === 'all') {
+                showAllPeriods();
+            } else {
+                // Hide all periods first
+                timelineContent.classList.remove('show-all-periods');
+                periods.forEach(hidePeriod);
+                
+                // Show only the selected period
+                const targetPeriodName = periodMap[selectedPeriod];
+                const targetPeriod = document.querySelector(`[data-period="${targetPeriodName}"]`);
+                if (targetPeriod) {
+                    showPeriod(targetPeriod);
+                }
+            }
+        });
+    });
+
+    // Smooth scrolling for timeline events
+    const timelineEvents = document.querySelectorAll('.timeline-event');
+    
+    // Add scroll-triggered animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    timelineEvents.forEach(event => {
+        event.style.opacity = '0';
+        event.style.transform = 'translateY(20px)';
+        event.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(event);
+    });
+});
+</script>
+{% endblock %}
