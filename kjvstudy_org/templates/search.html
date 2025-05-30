@@ -255,6 +255,16 @@
     left: 0;
 }
 
+.direct-verse-result {
+    border-left: 4px solid var(--primary-color);
+    background: linear-gradient(135deg, rgba(75, 46, 131, 0.03), rgba(65, 105, 225, 0.03));
+}
+
+.direct-verse-result .result-reference {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
 @media (max-width: 768px) {
     .search-container {
         padding: 1rem 0.5rem;
@@ -318,17 +328,40 @@
 
     {% if query %}
         {% if total_results > 0 %}
+            {% if is_direct_verse %}
+            <div class="search-stats">
+                <span style="color: var(--primary-color); font-weight: 600;">📖 Found exact verse: </span><strong>{{ query }}</strong>
+            </div>
+            {% else %}
             <div class="search-stats">
                 Found <strong>{{ total_results }}</strong> result{{ 's' if total_results != 1 else '' }} for "<strong>{{ query }}</strong>"
             </div>
+            {% endif %}
 
             <div class="search-results">
                 {% for result in results %}
-                <div class="search-result">
+                <div class="search-result{% if is_direct_verse %} direct-verse-result{% endif %}">
                     <a href="{{ result.url }}" class="result-reference">
-                        {{ result.reference }}
+                        {% if is_direct_verse %}📖 {% endif %}{{ result.reference }}
                     </a>
                     <p class="result-text">{{ result.highlighted_text|safe }}</p>
+                    {% if is_direct_verse %}
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-light);">
+                        <a href="{{ result.url }}" style="
+                            display: inline-block;
+                            background: var(--primary-light);
+                            color: white;
+                            padding: 0.5rem 1rem;
+                            text-decoration: none;
+                            border-radius: var(--radius-sm);
+                            font-size: 0.9rem;
+                            transition: background-color 0.2s ease;
+                        " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
+                           onmouseout="this.style.backgroundColor='var(--primary-light)'">
+                            Read {{ result.reference }} in Context →
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
@@ -348,6 +381,7 @@
         <h3>Search Tips</h3>
         <ul>
             <li>Search for words or phrases that appear in Bible verses</li>
+            <li>Enter specific verse references like "John 3:16" or "1 John 4:8"</li>
             <li>Use multiple words to find verses containing all terms</li>
             <li>Try different word forms (e.g., "love" vs "loveth")</li>
             <li>Search for names, places, or key themes</li>

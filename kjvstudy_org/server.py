@@ -14,12 +14,104 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from .kjv import bible
+from .kjv import bible, VerseReference
 
+
+def is_verse_reference(query: str) -> bool:
+    """Check if query looks like a verse reference"""
+    # Pattern for verse references like "John 3:16", "1 John 4:8", "Genesis 1:1", "I Corinthians 13:4", etc.
+    verse_pattern = r'^(I{1,3}|1|2|3)?\s*[A-Za-z]+(\s+[A-Za-z]+)?\s+\d+:\d+$'
+    return bool(re.match(verse_pattern, query.strip()))
+
+def parse_verse_reference(query: str) -> Optional[Dict]:
+    """Parse a verse reference string and return verse info if found"""
+    try:
+        # Clean up the query
+        cleaned_query = query.strip()
+        
+        # Handle common variations in book names
+        # Replace common numeric prefixes
+        cleaned_query = re.sub(r'^1\s+', 'I ', cleaned_query)
+        cleaned_query = re.sub(r'^2\s+', 'II ', cleaned_query)
+        cleaned_query = re.sub(r'^3\s+', 'III ', cleaned_query)
+        
+        # Try to parse using the existing VerseReference.from_string method
+        verse_ref = VerseReference.from_string(cleaned_query)
+        
+        # Get the actual verse text
+        verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
+        
+        if verse_text:
+            return {
+                "book": verse_ref.book,
+                "chapter": verse_ref.chapter,
+                "verse": verse_ref.verse,
+                "text": verse_text,
+                "reference": f"{verse_ref.book} {verse_ref.chapter}:{verse_ref.verse}",
+                "url": f"/book/{verse_ref.book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
+                "score": 100.0,  # High score for exact verse matches
+                "highlighted_text": verse_text
+            }
+    except Exception as e:
+        print(f"Error parsing verse reference '{query}': {e}")
+        
+        # Try alternative book name formats if the first attempt failed
+        try:
+            # Try with different book name mappings
+            book_mappings = {
+                '1 john': 'I John',
+                '2 john': 'II John', 
+                '3 john': 'III John',
+                '1 corinthians': 'I Corinthians',
+                '2 corinthians': 'II Corinthians',
+                '1 thessalonians': 'I Thessalonians',
+                '2 thessalonians': 'II Thessalonians',
+                '1 timothy': 'I Timothy',
+                '2 timothy': 'II Timothy',
+                '1 peter': 'I Peter',
+                '2 peter': 'II Peter',
+                '1 kings': 'I Kings',
+                '2 kings': 'II Kings',
+                '1 chronicles': 'I Chronicles',
+                '2 chronicles': 'II Chronicles',
+                '1 samuel': 'I Samuel',
+                '2 samuel': 'II Samuel'
+            }
+            
+            query_lower = cleaned_query.lower()
+            for old_name, new_name in book_mappings.items():
+                if query_lower.startswith(old_name):
+                    alternative_query = query_lower.replace(old_name, new_name, 1)
+                    verse_ref = VerseReference.from_string(alternative_query)
+                    verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
+                    
+                    if verse_text:
+                        return {
+                            "book": verse_ref.book,
+                            "chapter": verse_ref.chapter,
+                            "verse": verse_ref.verse,
+                            "text": verse_text,
+                            "reference": f"{verse_ref.book} {verse_ref.chapter}:{verse_ref.verse}",
+                            "url": f"/book/{verse_ref.book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
+                            "score": 100.0,
+                            "highlighted_text": verse_text
+                        }
+        except Exception as e2:
+            print(f"Alternative parsing also failed for '{query}': {e2}")
+    
+    return None
 
 def perform_full_text_search(query: str, limit: int = 50) -> List[Dict]:
-    """Perform full text search across all Bible verses"""
+    """Perform full text search across all Bible verses or find specific verse references"""
     results = []
+    
+    # First, check if this looks like a verse reference
+    if is_verse_reference(query):
+        verse_result = parse_verse_reference(query)
+        if verse_result:
+            return [verse_result]
+    
+    # If not a verse reference or verse not found, perform regular text search
     search_terms = query.lower().split()
 
     # Search through all verses using the iter_verses method
@@ -124,9 +216,13 @@ def search_page(request: Request, q: str = Query(None, description="Search query
     """Search page with results"""
     books = list(bible.iter_books())
     search_results = []
+    is_direct_verse = False
 
     if q and len(q.strip()) >= 2:
         search_results = perform_full_text_search(q.strip())
+        # Check if this was a direct verse reference match
+        if search_results and len(search_results) == 1 and search_results[0].get("score") == 100.0:
+            is_direct_verse = True
 
     return templates.TemplateResponse(
         "search.html",
@@ -135,7 +231,8 @@ def search_page(request: Request, q: str = Query(None, description="Search query
             "query": q or "",
             "results": search_results,
             "books": books,
-            "total_results": len(search_results)
+            "total_results": len(search_results),
+            "is_direct_verse": is_direct_verse
         }
     )
 
@@ -146,11 +243,17 @@ def search_api(q: str = Query(..., description="Search query"), limit: int = Que
         return {"query": q, "results": [], "total": 0}
 
     search_results = perform_full_text_search(q.strip(), limit)
+    is_direct_verse = False
+    
+    # Check if this was a direct verse reference match
+    if search_results and len(search_results) == 1 and search_results[0].get("score") == 100.0:
+        is_direct_verse = True
 
     return {
         "query": q,
         "results": search_results,
-        "total": len(search_results)
+        "total": len(search_results),
+        "is_direct_verse": is_direct_verse
     }
 
 @app.get("/study-guides", response_class=HTMLResponse)
