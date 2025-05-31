@@ -526,6 +526,10 @@ class GedcomParser {
         const familyTreeData = {};
 
         for (const [id, individual] of this.individuals) {
+            // Filter out non-biblical names
+            if (!this.isBiblicalName(individual.name)) {
+                continue;
+            }
             // Convert birth/death dates to years for compatibility
             const birthYear = this.extractYear(individual.birthDate);
             const deathYear = this.extractYear(individual.deathDate);
@@ -721,6 +725,203 @@ class GedcomParser {
         }
 
         return { errors, warnings };
+    }
+
+    /**
+     * Check if a name is a biblical figure
+     */
+    isBiblicalName(name) {
+        if (!name || name === 'Unknown') return false;
+        
+        const nameLower = name.toLowerCase();
+        
+        // Known non-biblical patterns to exclude
+        const nonBiblicalPatterns = [
+            /^page\s/i,
+            /^mr\./i,
+            /^mrs\./i,
+            /^dr\./i,
+            /robert/i,
+            /smith/i,
+            /johnson/i,
+            /brown/i,
+            /williams/i,
+            /jones/i,
+            /garcia/i,
+            /miller/i,
+            /davis/i,
+            /wilson/i,
+            /moore/i,
+            /taylor/i,
+            /anderson/i,
+            /thomas/i,
+            /jackson/i,
+            /white/i,
+            /harris/i,
+            /martin/i,
+            /thompson/i,
+            /young/i,
+            /allen/i,
+            /king/i,
+            /wright/i,
+            /lopez/i,
+            /hill/i,
+            /scott/i,
+            /green/i,
+            /adams/i,
+            /baker/i,
+            /gonzalez/i,
+            /nelson/i,
+            /carter/i,
+            /mitchell/i,
+            /perez/i,
+            /roberts/i,
+            /turner/i,
+            /phillips/i,
+            /campbell/i,
+            /parker/i,
+            /evans/i,
+            /edwards/i,
+            /collins/i,
+            /stewart/i,
+            /sanchez/i,
+            /morris/i,
+            /rogers/i,
+            /reed/i,
+            /cook/i,
+            /morgan/i,
+            /bell/i,
+            /murphy/i,
+            /bailey/i,
+            /rivera/i,
+            /cooper/i,
+            /richardson/i,
+            /cox/i,
+            /howard/i,
+            /ward/i,
+            /torres/i,
+            /peterson/i,
+            /gray/i,
+            /ramirez/i,
+            /james/i,
+            /watson/i,
+            /brooks/i,
+            /kelly/i,
+            /sanders/i,
+            /price/i,
+            /bennett/i,
+            /wood/i,
+            /barnes/i,
+            /ross/i,
+            /henderson/i,
+            /coleman/i,
+            /jenkins/i,
+            /perry/i,
+            /powell/i,
+            /long/i,
+            /patterson/i,
+            /hughes/i,
+            /flores/i,
+            /washington/i,
+            /butler/i,
+            /simmons/i,
+            /foster/i,
+            /gonzales/i,
+            /bryant/i,
+            /alexander/i,
+            /russell/i,
+            /griffin/i,
+            /diaz/i,
+            /hayes/i
+        ];
+        
+        // Check if name matches any non-biblical pattern
+        if (nonBiblicalPatterns.some(pattern => pattern.test(name))) {
+            return false;
+        }
+        
+        // Known biblical names (comprehensive list)
+        const biblicalNames = [
+            'adam', 'eve', 'cain', 'abel', 'seth', 'enos', 'cainan', 'mahalaleel',
+            'jared', 'enoch', 'methuselah', 'lamech', 'noah', 'shem', 'ham', 'japheth',
+            'abraham', 'isaac', 'jacob', 'joseph', 'moses', 'aaron', 'miriam',
+            'joshua', 'caleb', 'david', 'solomon', 'samuel', 'saul', 'jonathan',
+            'daniel', 'ezekiel', 'jeremiah', 'isaiah', 'hosea', 'joel', 'amos',
+            'obadiah', 'jonah', 'micah', 'nahum', 'habakkuk', 'zephaniah', 'haggai',
+            'zechariah', 'malachi', 'matthew', 'mark', 'luke', 'john', 'paul',
+            'peter', 'james', 'andrew', 'philip', 'bartholomew', 'thomas', 'simon',
+            'thaddeus', 'judas', 'matthias', 'stephen', 'barnabas', 'timothy',
+            'titus', 'philemon', 'mary', 'martha', 'elizabeth', 'anna', 'sarah',
+            'rebekah', 'rachel', 'leah', 'dinah', 'tamar', 'ruth', 'naomi',
+            'esther', 'judith', 'deborah', 'jael', 'huldah', 'abigail', 'bathsheba',
+            'gomer', 'rahab', 'dorcas', 'lydia', 'priscilla', 'phoebe', 'eunice',
+            'lois', 'claudia', 'tryphena', 'tryphosa', 'persis', 'julia', 'nereus',
+            'olympas', 'reuben', 'simeon', 'levi', 'judah', 'zebulun', 'issachar',
+            'dan', 'gad', 'asher', 'naphtali', 'benjamin', 'manasseh', 'ephraim',
+            'gideon', 'samson', 'eli', 'hannah', 'ruth', 'boaz', 'obed', 'jesse',
+            'goliath', 'abner', 'joab', 'uriah', 'nathan', 'zadok', 'benaiah',
+            'ahithophel', 'hushai', 'shimei', 'mephibosheth', 'ziba', 'barzillai',
+            'elijah', 'elisha', 'gehazi', 'naaman', 'hazael', 'jehu', 'athaliah',
+            'joash', 'amaziah', 'uzziah', 'jotham', 'ahaz', 'hezekiah', 'manasseh',
+            'amon', 'josiah', 'jehoahaz', 'jehoiakim', 'jehoiachin', 'zedekiah',
+            'ezra', 'nehemiah', 'esther', 'mordecai', 'haman', 'vashti', 'zerubbabel',
+            'haggai', 'zechariah', 'malachi', 'job', 'bildad', 'eliphaz', 'zophar',
+            'elihu', 'cyrus', 'darius', 'artaxerxes', 'ahasuerus', 'nebuchadnezzar',
+            'belshazzar', 'shadrach', 'meshach', 'abednego', 'arioch', 'ashpenaz',
+            'melzar', 'gabriel', 'michael', 'raphael', 'uriel', 'lucifer', 'satan',
+            'beelzebub', 'apollyon', 'abaddon', 'jesus', 'christ', 'emmanuel',
+            'immanuel', 'messiah', 'mary', 'joseph', 'zechariah', 'elisabeth',
+            'john', 'andrew', 'peter', 'philip', 'bartholomew', 'matthew', 'thomas',
+            'james', 'simon', 'judas', 'matthias', 'paul', 'saul', 'barnabas',
+            'mark', 'luke', 'timothy', 'titus', 'philemon', 'onesimus', 'epaphras',
+            'epaphroditus', 'silas', 'aquila', 'priscilla', 'apollos', 'cephas',
+            'stephanas', 'fortunatus', 'achaicus', 'erastus', 'trophimus', 'tychicus',
+            'artemas', 'zenas', 'crescens', 'demas', 'hermogenes', 'phygellus',
+            'onesiphorus', 'hymenaeus', 'alexander', 'philetus', 'jannes', 'jambres',
+            'diotrephes', 'gaius', 'demetrius', 'archippus', 'nympha', 'laodicea',
+            'philadelphia', 'sardis', 'thyatira', 'pergamos', 'smyrna', 'ephesus',
+            'patmos', 'nicolaitanes', 'balaam', 'balak', 'jezebel', 'ahab', 'elijah',
+            'elisha', 'gehazi', 'naaman', 'syria', 'jordan', 'gilead', 'bashan',
+            'aroer', 'arnon', 'jabbok', 'peniel', 'mahanaim', 'succoth', 'shechem',
+            'bethel', 'ai', 'jericho', 'gilgal', 'shiloh', 'mizpah', 'ramah',
+            'gibeah', 'jerusalem', 'zion', 'moriah', 'olivet', 'gethsemane',
+            'calvary', 'golgotha', 'bethany', 'bethphage', 'emmaus', 'joppa',
+            'lydda', 'caesarea', 'antioch', 'damascus', 'tarsus', 'derbe', 'lystra',
+            'iconium', 'pisidian', 'perga', 'attalia', 'salamis', 'paphos', 'cyprus',
+            'crete', 'fair', 'havens', 'lasea', 'phoenix', 'clauda', 'melita',
+            'malta', 'syracuse', 'rhegium', 'puteoli', 'appii', 'forum', 'rome',
+            'spanish', 'illyricum', 'macedonia', 'achaia', 'corinth', 'cenchrea',
+            'athens', 'berea', 'thessalonica', 'philippi', 'neapolis', 'samothrace',
+            'troas', 'assos', 'mitylene', 'chios', 'samos', 'miletus', 'cos',
+            'rhodes', 'patara', 'myra', 'cnidus', 'salmone', 'phenice', 'lasea',
+            'melita', 'sicily', 'regium', 'puteoli', 'brundusium', 'appian', 'way',
+            'three', 'taverns', 'market', 'appius', 'forum', 'rome', 'palatine',
+            'aventine', 'capitoline', 'caelian', 'esquiline', 'quirinal', 'viminal',
+            'arphaxad', 'shelah', 'eber', 'peleg', 'reu', 'serug', 'nahor', 'terah',
+            'abram', 'lot', 'melchizedek', 'hagar', 'ishmael', 'keturah', 'zimran',
+            'jokshan', 'medan', 'midian', 'ishbak', 'shuah', 'sheba', 'dedan',
+            'asshurim', 'letushim', 'leummim', 'ephah', 'epher', 'hanoch', 'abida',
+            'eldaah', 'esau', 'edom', 'eliphaz', 'reuel', 'jeush', 'jaalam', 'korah',
+            'teman', 'omar', 'zepho', 'gatam', 'kenaz', 'timna', 'amalek', 'nahath',
+            'zerah', 'shammah', 'mizzah', 'magdiel', 'iram', 'lotan', 'shobal',
+            'zibeon', 'anah', 'dishon', 'ezer', 'dishan', 'hori', 'homam', 'alvan',
+            'manahath', 'ebal', 'shepho', 'onam', 'ajah', 'dishon', 'hemdan',
+            'eshban', 'ithran', 'cheran', 'bilhan', 'zaavan', 'akan', 'uz', 'aran'
+        ];
+        
+        // Check if name (or part of name) is biblical
+        const nameWords = nameLower.split(/\s+/);
+        const hasKnownBiblicalName = nameWords.some(word => 
+            biblicalNames.some(biblical => 
+                word.includes(biblical) || biblical.includes(word)
+            )
+        );
+        
+        // Check if it has biblical patterns
+        const hasHebrewPattern = /^[a-z]*(?:ah|iah|el|ai|im|an|on|ur|ar|am|ab|ad|ag|ak|al|ap|as|at|av|az|ba|be|da|ga|ha|ja|ka|ma|na|ra|sa|ta|za)$/i.test(nameLower);
+        
+        // Accept if it matches known biblical names or has Hebrew naming patterns
+        return hasKnownBiblicalName || (hasHebrewPattern && name.length >= 3);
     }
 }
 
