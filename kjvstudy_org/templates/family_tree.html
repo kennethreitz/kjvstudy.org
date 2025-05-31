@@ -2716,13 +2716,41 @@
             updateD3Tree(familyData[currentPersonId], currentPersonId);
         }
     }
-    // Load FamilySearch-style tree
-    const script = document.createElement('script');
-    script.src = '/static/js/familysearch-style-tree.js';
-    script.onload = function() {
-        console.log('FamilySearch-style tree loaded');
+    // Load GEDCOM parser and FamilySearch-style tree
+    const gedcomScript = document.createElement('script');
+    gedcomScript.src = '/static/js/gedcom-parser.js';
+    gedcomScript.onload = function() {
+        const treeScript = document.createElement('script');
+        treeScript.src = '/static/js/familysearch-style-tree.js';
+        treeScript.onload = function() {
+            console.log('FamilySearch-style tree loaded');
+            loadGedcomData();
+        };
+        document.head.appendChild(treeScript);
     };
-    document.head.appendChild(script);
+    document.head.appendChild(gedcomScript);
+
+    async function loadGedcomData() {
+        try {
+            const response = await fetch('/static/adameve.ged');
+            const gedcomContent = await response.text();
+            
+            const parser = new GedcomParser();
+            const parsedData = parser.parse(gedcomContent);
+            
+            console.log('GEDCOM parsed successfully:', parser.getStatistics());
+            
+            // Replace server-provided data with parsed data
+            familyData = parsedData;
+            
+            // Reinitialize the explorer with new data
+            initializeExplorer();
+        } catch (error) {
+            console.error('Failed to load GEDCOM data:', error);
+            // Fall back to server-provided data
+            initializeExplorer();
+        }
+    }
 
 </script>
 {% endblock %}
