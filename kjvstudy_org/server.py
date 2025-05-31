@@ -1809,6 +1809,25 @@ def commentary(request: Request, book: str, chapter: int):
     )
 
 
+def escape_jinja2_syntax(text):
+    """Escape Jinja2 syntax in text to prevent template parsing errors"""
+    if not text:
+        return text
+    
+    # Escape Jinja2 block tags
+    text = text.replace('{%', '&#123;&#37;')
+    text = text.replace('%}', '&#37;&#125;')
+    
+    # Escape Jinja2 variable tags
+    text = text.replace('{{', '&#123;&#123;')
+    text = text.replace('}}', '&#125;&#125;')
+    
+    # Escape Jinja2 comment tags
+    text = text.replace('{#', '&#123;&#35;')
+    text = text.replace('#}', '&#35;&#125;')
+    
+    return text
+
 def generate_commentary(book, chapter, verse):
     """Generate AI-powered commentary for a specific verse"""
     # Enhanced commentary database for major chapters
