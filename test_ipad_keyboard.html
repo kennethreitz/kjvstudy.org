@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>iPad Keyboard Test - KJV Study</title>
+    <link href="/static/style.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Crimson Text', 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color, #f8f9fa);
+        }
+        
+        .test-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .test-info h3 {
+            margin: 0 0 0.5rem 0;
+            color: #4CAF50;
+        }
+        
+        .device-info {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        .keyboard-shortcuts {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+        
+        .keyboard-shortcuts h4 {
+            margin: 0 0 0.5rem 0;
+            color: #FFC107;
+        }
+        
+        .shortcut {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+            font-size: 0.8rem;
+        }
+        
+        .main-test-content {
+            margin-left: 220px;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .test-section {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .test-button:hover, .test-button:focus {
+            background: #0056b3;
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .test-input:focus {
+            border-color: #007bff;
+            outline: 2px solid rgba(0, 123, 255, 0.25);
+            outline-offset: 2px;
+        }
+        
+        .status {
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        @media (max-width: 767px) {
+            .test-info {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 1rem;
+                max-width: none;
+            }
+            
+            .main-test-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar (copied from base template structure) -->
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">
+                    <span>📖</span>
+                    KJV Study Test
+                </h1>
+                <p class="sidebar-subtitle">iPad Keyboard Testing</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h3>Navigation Test</h3>
+                <a href="#test1" id="nav1" tabindex="0">📚 Test Section 1</a>
+                <a href="#test2" id="nav2" tabindex="0">🔍 Test Section 2</a>
+                <a href="#test3" id="nav3" tabindex="0">📖 Test Section 3</a>
+                <a href="#test4" id="nav4" tabindex="0">✨ Test Section 4</a>
+                <a href="#test5" id="nav5" tabindex="0">🗺️ Test Section 5</a>
+                
+                <h3>Keyboard Test Items</h3>
+                <a href="#keyboard1" tabindex="0">⌨️ Keyboard Test 1</a>
+                <a href="#keyboard2" tabindex="0">⌨️ Keyboard Test 2</a>
+                <a href="#keyboard3" tabindex="0">⌨️ Keyboard Test 3</a>
+            </nav>
+        </aside>
+
+        <main class="main-test-content">
+            <div class="test-info">
+                <h3>iPad Keyboard Test</h3>
+                <div class="device-info" id="deviceInfo">
+                    <strong>Device Detection:</strong><br>
+                    <span id="deviceDetails">Loading...</span>
+                </div>
+                
+                <div class="keyboard-shortcuts">
+                    <h4>Test These Shortcuts:</h4>
+                    <div class="shortcut">
+                        <span>⌘/Ctrl + B</span>
+                        <span>Toggle Sidebar</span>
+                    </div>
+                    <div class="shortcut">
+                        <span>⌘/Ctrl + K</span>
+                        <span>Focus Search</span>
+                    </div>
+                    <div class="shortcut">
+                        <span>Tab</span>
+                        <span>Navigate Elements</span>
+                    </div>
+                    <div class="shortcut">
+                        <span>↑/↓ in Sidebar</span>
+                        <span>Navigate Links</span>
+                    </div>
+                    <div class="shortcut">
+                        <span>⌘/Ctrl + 1-5</span>
+                        <span>Quick Jump</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-section" id="test1">
+                <h2>Test Section 1: Focus Management</h2>
+                <p>Test keyboard navigation and focus indicators:</p>
+                <button class="test-button" onclick="testFocus()" tabindex="0">Focus Test Button 1</button>
+                <button class="test-button" onclick="testFocus()" tabindex="0">Focus Test Button 2</button>
+                <button class="test-button" onclick="testFocus()" tabindex="0">Focus Test Button 3</button>
+                <input type="text" class="test-input" placeholder="Test input field - try Cmd+K" id="testSearch">
+                <div id="focusStatus" class="status info">Use Tab to navigate, observe focus indicators</div>
+            </div>
+
+            <div class="test-section" id="test2">
+                <h2>Test Section 2: Sidebar Integration</h2>
+                <p>Test sidebar behavior and keyboard shortcuts:</p>
+                <button class="test-button" onclick="testSidebar()" tabindex="0">Toggle Sidebar (Cmd+B)</button>
+                <button class="test-button" onclick="testSidebarNav()" tabindex="0">Focus First Sidebar Link</button>
+                <div id="sidebarStatus" class="status info">Try keyboard shortcuts and sidebar navigation</div>
+            </div>
+
+            <div class="test-section" id="test3">
+                <h2>Test Section 3: Touch vs Keyboard</h2>
+                <p>Test hybrid touch and keyboard interactions:</p>
+                <button class="test-button" onclick="simulateTouch()" tabindex="0">Simulate Touch Interaction</button>
+                <button class="test-button" onclick="simulateKeyboard()" tabindex="0">Simulate Keyboard Interaction</button>
+                <div id="interactionStatus" class="status info">Test both touch and keyboard on the same elements</div>
+            </div>
+
+            <div class="test-section" id="test4">
+                <h2>Test Section 4: Responsive Behavior</h2>
+                <p>Test responsive breakpoints and orientations:</p>
+                <button class="test-button" onclick="checkBreakpoint()" tabindex="0">Check Current Breakpoint</button>
+                <button class="test-button" onclick="simulateOrientation()" tabindex="0">Test Orientation Change</button>
+                <div id="responsiveStatus" class="status info">Rotate device or resize window to test</div>
+            </div>
+
+            <div class="test-section" id="test5">
+                <h2>Test Section 5: Accessibility</h2>
+                <p>Test accessibility features and high contrast:</p>
+                <button class="test-button" onclick="toggleHighContrast()" tabindex="0">Toggle High Contrast</button>
+                <button class="test-button" onclick="testScreenReader()" tabindex="0">Test Screen Reader</button>
+                <div id="accessibilityStatus" class="status info">Test with screen readers and accessibility tools</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Device detection function (same as implemented)
+        function detectInputMethod() {
+            const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const hasKeyboard = window.innerWidth >= 768 && window.innerHeight >= 600;
+            const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1366;
+            
+            return {
+                isIPad,
+                hasKeyboard,
+                isTablet,
+                isMobile: window.innerWidth <= 767,
+                isDesktop: window.innerWidth >= 1367
+            };
+        }
+
+        // Initialize device info
+        function updateDeviceInfo() {
+            const device = detectInputMethod();
+            const details = `
+                iPad: ${device.isIPad}<br>
+                Keyboard: ${device.hasKeyboard}<br>
+                Tablet: ${device.isTablet}<br>
+                Mobile: ${device.isMobile}<br>
+                Desktop: ${device.isDesktop}<br>
+                Screen: ${window.innerWidth}x${window.innerHeight}
+            `;
+            document.getElementById('deviceDetails').innerHTML = details;
+        }
+
+        // Test functions
+        function testFocus() {
+            document.getElementById('focusStatus').innerHTML = '<strong>Focus test activated!</strong> Button was clicked/focused.';
+            document.getElementById('focusStatus').className = 'status success';
+        }
+
+        function testSidebar() {
+            if (window.toggleSidebar) {
+                window.toggleSidebar();
+                document.getElementById('sidebarStatus').innerHTML = '<strong>Sidebar toggled!</strong> Function executed.';
+            } else {
+                document.getElementById('sidebarStatus').innerHTML = '<strong>Sidebar function not found.</strong> Check implementation.';
+            }
+            document.getElementById('sidebarStatus').className = 'status success';
+        }
+
+        function testSidebarNav() {
+            const firstLink = document.querySelector('.sidebar-nav a');
+            if (firstLink) {
+                firstLink.focus();
+                document.getElementById('sidebarStatus').innerHTML = '<strong>Focused first sidebar link!</strong> Use arrow keys to navigate.';
+                document.getElementById('sidebarStatus').className = 'status success';
+            }
+        }
+
+        function simulateTouch() {
+            document.body.classList.remove('keyboard-navigation');
+            document.getElementById('interactionStatus').innerHTML = '<strong>Touch mode activated!</strong> Focus indicators should be minimal.';
+            document.getElementById('interactionStatus').className = 'status success';
+        }
+
+        function simulateKeyboard() {
+            document.body.classList.add('keyboard-navigation');
+            document.getElementById('interactionStatus').innerHTML = '<strong>Keyboard mode activated!</strong> Focus indicators should be enhanced.';
+            document.getElementById('interactionStatus').className = 'status success';
+        }
+
+        function checkBreakpoint() {
+            const device = detectInputMethod();
+            let breakpoint = 'Unknown';
+            if (device.isMobile) breakpoint = 'Mobile';
+            else if (device.isTablet) breakpoint = 'Tablet';
+            else if (device.isDesktop) breakpoint = 'Desktop';
+            
+            document.getElementById('responsiveStatus').innerHTML = `<strong>Current breakpoint: ${breakpoint}</strong><br>Window: ${window.innerWidth}x${window.innerHeight}`;
+            document.getElementById('responsiveStatus').className = 'status success';
+        }
+
+        function simulateOrientation() {
+            // Simulate orientation change by updating device info
+            setTimeout(() => {
+                updateDeviceInfo();
+                document.getElementById('responsiveStatus').innerHTML = '<strong>Orientation change simulated!</strong> Device info updated.';
+                document.getElementById('responsiveStatus').className = 'status success';
+            }, 100);
+        }
+
+        function toggleHighContrast() {
+            document.body.style.filter = document.body.style.filter ? '' : 'contrast(2) brightness(1.5)';
+            document.getElementById('accessibilityStatus').innerHTML = '<strong>High contrast toggled!</strong> Focus indicators should adapt.';
+            document.getElementById('accessibilityStatus').className = 'status success';
+        }
+
+        function testScreenReader() {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.style.position = 'absolute';
+            announcement.style.left = '-10000px';
+            announcement.textContent = 'Screen reader test: iPad keyboard improvements are active.';
+            document.body.appendChild(announcement);
+            
+            document.getElementById('accessibilityStatus').innerHTML = '<strong>Screen reader test activated!</strong> Check for announcements.';
+            document.getElementById('accessibilityStatus').className = 'status success';
+            
+            setTimeout(() => document.body.removeChild(announcement), 3000);
+        }
+
+        // Enhanced keyboard shortcuts for testing
+        document.addEventListener('keydown', (e) => {
+            const device = detectInputMethod();
+            
+            // Cmd/Ctrl + K for search focus
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.getElementById('testSearch');
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.select();
+                    document.getElementById('focusStatus').innerHTML = '<strong>Search focused via keyboard!</strong> Cmd+K shortcut worked.';
+                    document.getElementById('focusStatus').className = 'status success';
+                }
+            }
+            
+            // Cmd/Ctrl + B for sidebar toggle (tablet/iPad only)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b' && (device.isTablet || device.isIPad)) {
+                e.preventDefault();
+                testSidebar();
+            }
+            
+            // Cmd/Ctrl + 1-5 for quick navigation
+            if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '5') {
+                e.preventDefault();
+                const index = parseInt(e.key) - 1;
+                const navLinks = document.querySelectorAll('.sidebar-nav a');
+                if (navLinks[index]) {
+                    navLinks[index].focus();
+                    document.getElementById('sidebarStatus').innerHTML = `<strong>Quick jump to nav item ${e.key}!</strong> Shortcut worked.`;
+                    document.getElementById('sidebarStatus').className = 'status success';
+                }
+            }
+            
+            // Tab navigation detection
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+            
+            // Arrow key navigation in sidebar
+            if (e.target.closest('.sidebar-nav')) {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    let next = e.target.nextElementSibling;
+                    while (next && next.tagName !== 'A') {
+                        next = next.nextElementSibling;
+                    }
+                    if (next) {
+                        next.focus();
+                        document.getElementById('sidebarStatus').innerHTML = '<strong>Arrow navigation worked!</strong> Down arrow moved focus.';
+                        document.getElementById('sidebarStatus').className = 'status success';
+                    }
+                }
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    let prev = e.target.previousElementSibling;
+                    while (prev && prev.tagName !== 'A') {
+                        prev = prev.previousElementSibling;
+                    }
+                    if (prev) {
+                        prev.focus();
+                        document.getElementById('sidebarStatus').innerHTML = '<strong>Arrow navigation worked!</strong> Up arrow moved focus.';
+                        document.getElementById('sidebarStatus').className = 'status success';
+                    }
+                }
+            }
+        });
+
+        // Remove keyboard navigation class on mouse use
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDeviceInfo();
+            
+            // Add iPad optimization classes
+            const device = detectInputMethod();
+            if (device.isTablet || device.isIPad) {
+                document.body.classList.add('ipad-optimized');
+                if (device.hasKeyboard) {
+                    document.body.classList.add('keyboard-available');
+                }
+            }
+        });
+
+        // Update on resize/orientation change
+        window.addEventListener('resize', updateDeviceInfo);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(updateDeviceInfo, 100);
+        });
+    </script>
+</body>
+</html>
