@@ -128,24 +128,42 @@
                 font-family: 'Crimson Text', 'Times New Roman', serif !important;
             }
 
+            /* Enhanced iPad and tablet support */
             @media (min-width: 769px) and (max-width: 1024px) {
                 .sidebar {
-                    position: fixed;
-                    left: 0;
-                    top: 0;
-                    height: 100%;
-                    width: 200px;
-                    transform: translateX(-200px);
+                    position: fixed !important;
+                    left: 0 !important;
+                    top: 0 !important;
+                    height: 100% !important;
+                    width: 280px !important;
+                    transform: translateX(0) !important;
+                    -webkit-transform: translate3d(0, 0, 0) !important;
+                    display: block !important;
+                    visibility: visible !important;
+                    z-index: 50;
                 }
 
                 .sidebar.open {
-                    transform: translateX(0);
+                    transform: translateX(0) !important;
+                    -webkit-transform: translate3d(0, 0, 0) !important;
                 }
 
                 .main-content {
-                    margin-left: 0;
-                    width: 100%;
+                    margin-left: 280px !important;
+                    width: calc(100% - 280px) !important;
                     background-color: var(--background-color) !important;
+                }
+            }
+
+            /* iPad Pro specific optimizations */
+            @media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+                .sidebar {
+                    width: 320px !important;
+                }
+
+                .main-content {
+                    margin-left: 320px !important;
+                    width: calc(100% - 320px) !important;
                 }
             }
 
@@ -957,10 +975,29 @@
 
 
         <script>
-            // Sidebar toggle functionality
+            // Enhanced device and input method detection
+            function detectInputMethod() {
+                // Check for iPad/tablet with keyboard
+                const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+                const hasKeyboard = window.innerWidth >= 768 && window.innerHeight >= 600;
+                const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1366;
+                
+                return {
+                    isIPad,
+                    hasKeyboard,
+                    isTablet,
+                    isMobile: window.innerWidth <= 767,
+                    isDesktop: window.innerWidth >= 1367
+                };
+            }
+
+            // Enhanced sidebar toggle functionality
             function toggleSidebar() {
-                // Don't show sidebar on mobile devices
-                if (window.innerWidth <= 768) {
+                const device = detectInputMethod();
+                
+                // Don't show sidebar only on actual mobile phones
+                if (device.isMobile) {
                     return;
                 }
                 
@@ -969,35 +1006,131 @@
                 const mainContent = document.querySelector(".main-content");
                 const isOpen = sidebar.classList.contains("open");
 
+                // For iPad and tablets, keep sidebar visible by default
+                if (device.isTablet || device.isIPad) {
+                    if (isOpen) {
+                        sidebar.classList.remove("open");
+                        if (overlay) overlay.classList.remove("open");
+                        
+                        // Only hide on small tablets if explicitly requested
+                        if (window.innerWidth < 900) {
+                            sidebar.style.transform = "translateX(-280px)";
+                            sidebar.style.webkitTransform = "translate3d(-280px, 0, 0)";
+                            mainContent.style.marginLeft = "0";
+                            mainContent.style.width = "100%";
+                        }
+                    } else {
+                        sidebar.classList.add("open");
+                        if (overlay) overlay.classList.add("open");
+                        sidebar.style.transform = "translateX(0)";
+                        sidebar.style.webkitTransform = "translate3d(0, 0, 0)";
+                        
+                        // Ensure proper layout
+                        const sidebarWidth = window.innerWidth >= 1024 ? "320px" : "280px";
+                        mainContent.style.marginLeft = sidebarWidth;
+                        mainContent.style.width = `calc(100% - ${sidebarWidth})`;
+                    }
+                    
+                    document.body.style.overflow = "";
+                    return;
+                }
+
+                // Desktop behavior (unchanged)
                 if (isOpen) {
                     sidebar.classList.remove("open");
                     if (overlay) overlay.classList.remove("open");
                     document.body.style.overflow = "";
-                    sidebar.style.transform = "translateX(-200px)";
-                    sidebar.style.webkitTransform = "translate3d(-200px, 0, 0)";
-                    document.body.style.backgroundColor = getComputedStyle(
-                        document.documentElement,
-                    ).getPropertyValue("--background-color");
-
-                    // For iPad/tablet
-                    if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-                        mainContent.style.filter = "none";
-                        mainContent.style.opacity = "1";
-                    }
+                    sidebar.style.transform = "translateX(-220px)";
+                    sidebar.style.webkitTransform = "translate3d(-220px, 0, 0)";
                 } else {
                     sidebar.classList.add("open");
                     if (overlay) overlay.classList.add("open");
-                    document.body.style.overflow = "hidden";
                     sidebar.style.transform = "translateX(0)";
                     sidebar.style.webkitTransform = "translate3d(0, 0, 0)";
-
-                    // For iPad/tablet
-                    if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
-                        mainContent.style.filter = "none";
-                        mainContent.style.opacity = "0.8";
-                    }
                 }
             }
+
+            // Enhanced keyboard navigation for iPad/tablet
+            function setupKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    const device = detectInputMethod();
+                    
+                    // Enhanced keyboard shortcuts for tablets
+                    if (device.isTablet || device.isIPad) {
+                        // Cmd/Ctrl + B to toggle sidebar
+                        if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
+                            e.preventDefault();
+                            toggleSidebar();
+                        }
+                        
+                        // Tab navigation enhancements
+                        if (e.key === 'Tab') {
+                            // Ensure focus is visible
+                            document.body.classList.add('keyboard-navigation');
+                        }
+                        
+                        // Arrow key navigation in sidebar
+                        if (e.target.closest('.sidebar-nav')) {
+                            if (e.key === 'ArrowDown') {
+                                e.preventDefault();
+                                const next = e.target.nextElementSibling;
+                                if (next && next.tagName === 'A') next.focus();
+                            }
+                            if (e.key === 'ArrowUp') {
+                                e.preventDefault();
+                                const prev = e.target.previousElementSibling;
+                                if (prev && prev.tagName === 'A') prev.focus();
+                            }
+                        }
+                    }
+                });
+
+                // Remove keyboard navigation class on mouse use
+                document.addEventListener('mousedown', () => {
+                    document.body.classList.remove('keyboard-navigation');
+                });
+            }
+
+            // Initialize enhanced iPad support
+            function initializeIPadSupport() {
+                const device = detectInputMethod();
+                
+                if (device.isTablet || device.isIPad) {
+                    // Ensure sidebar is visible on page load for tablets
+                    const sidebar = document.getElementById("sidebar");
+                    const mainContent = document.querySelector(".main-content");
+                    
+                    if (sidebar && mainContent) {
+                        sidebar.style.transform = "translateX(0)";
+                        sidebar.style.webkitTransform = "translate3d(0, 0, 0)";
+                        sidebar.style.display = "block";
+                        sidebar.style.visibility = "visible";
+                        
+                        const sidebarWidth = window.innerWidth >= 1024 ? "320px" : 
+                                           window.innerWidth >= 769 ? "280px" : "260px";
+                        
+                        mainContent.style.marginLeft = sidebarWidth;
+                        mainContent.style.width = `calc(100% - ${sidebarWidth})`;
+                    }
+                    
+                    // Add iPad-specific classes
+                    document.body.classList.add('ipad-optimized');
+                    if (device.hasKeyboard) {
+                        document.body.classList.add('keyboard-available');
+                    }
+                }
+                
+                setupKeyboardNavigation();
+            }
+
+            // Initialize on page load and orientation change
+            document.addEventListener('DOMContentLoaded', initializeIPadSupport);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(initializeIPadSupport, 100);
+            });
+            window.addEventListener('resize', () => {
+                setTimeout(initializeIPadSupport, 100);
+            });
 
             // Check if we're on an iPad
             document.addEventListener("DOMContentLoaded", function () {

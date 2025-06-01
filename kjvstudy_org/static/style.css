@@ -181,6 +181,16 @@ div {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.sidebar-nav a:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav a:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .sidebar-nav a.active {
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
@@ -654,6 +664,7 @@ div {
 }
 
 /* Tablet-specific styles */
+/* iPad and large tablets - enhanced keyboard support */
 @media (min-width: 769px) and (max-width: 1024px) {
     body {
         font-size: 17px;
@@ -668,6 +679,8 @@ div {
         top: 0;
         z-index: 50;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        display: block !important;
+        visibility: visible !important;
     }
 
     .main-content {
@@ -708,52 +721,149 @@ div {
     .chapter-link {
         min-height: 60px;
         font-size: 1.2rem;
+        /* Enhanced touch targets for hybrid touch/keyboard use */
+        padding: 1rem;
+        border-radius: var(--radius-md);
     }
 
     .sidebar-nav a {
         padding: 0.75rem 1rem;
         font-size: 1rem;
         min-height: 52px;
+        /* Better keyboard focus indicators */
+        border-radius: var(--radius-sm);
+        transition: all 0.2s ease;
     }
 
-    /* Special iPad handling - keep sidebar visible */
-    @supports (-webkit-touch-callout: none) {
-        .sidebar {
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .main-content {
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
+    .sidebar-nav a:focus {
+        outline: 2px solid rgba(255, 255, 255, 0.8);
+        outline-offset: 2px;
+        background-color: rgba(255, 255, 255, 0.15);
     }
+
+    /* Enhanced iPad handling - always keep sidebar visible */
+        @supports (-webkit-touch-callout: none) {
+            .sidebar {
+                -webkit-transform: translate3d(0, 0, 0) !important;
+                transform: translate3d(0, 0, 0) !important;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                position: fixed !important;
+                left: 0 !important;
+            }
+
+            .main-content {
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                margin-left: 280px !important;
+            }
+
+            /* Prevent sidebar from being hidden on iPad */
+            .sidebar:not(.force-hide) {
+                display: block !important;
+                visibility: visible !important;
+            }
+        }
 }
 
-/* iPad Portrait specific - ensure sidebar is visible */
-@media (min-width: 768px) and (max-width: 834px) and (orientation: portrait) {
+/* iPad Pro 11" and 12.9" specific optimizations */
+@media (min-width: 769px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     .sidebar {
-        width: 240px;
-        transform: translateX(0);
-        -webkit-transform: translate3d(0, 0, 0);
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 50;
-        display: block !important;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+        width: 300px;
     }
 
     .main-content {
-        margin-left: 240px;
-        width: calc(100% - 240px);
+        margin-left: 300px;
+        width: calc(100% - 300px);
+    }
+
+    .sidebar-nav a {
+        padding: 0.875rem 1.125rem;
+        font-size: 1.05rem;
+        min-height: 56px;
+    }
+
+    .sidebar-header {
+        padding: 1.25rem;
+    }
+
+    .sidebar-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* Landscape iPad optimization for keyboard usage */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+    .sidebar {
+        width: 320px;
+    }
+
+    .main-content {
+        margin-left: 320px;
+        width: calc(100% - 320px);
+    }
+
+    .sidebar-nav a {
+        padding: 1rem 1.25rem;
+        font-size: 1.1rem;
+        min-height: 60px;
+    }
+}
+
+/* iPad Portrait - optimized for keyboard and touch */
+@media (min-width: 768px) and (max-width: 834px) and (orientation: portrait) {
+    .sidebar {
+        width: 260px;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        z-index: 50;
+        display: block !important;
+        visibility: visible !important;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .main-content {
+        margin-left: 260px !important;
+        width: calc(100% - 260px) !important;
         min-width: 0;
         transition: margin-left 0.3s ease;
         padding-left: 1rem;
+    }
+
+    .sidebar-nav a {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        min-height: 48px;
+        /* Larger touch targets while maintaining keyboard usability */
+        margin-bottom: 0.15rem;
+    }
+
+    .sidebar-nav a:focus {
+        outline: 2px solid rgba(255, 255, 255, 0.9);
+        outline-offset: 2px;
+    }
+
+    /* Ensure sidebar stays visible even when toggled */
+    .sidebar.open {
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+    }
+}
+
+/* iPad mini specific adjustments */
+@media (min-width: 768px) and (max-width: 820px) and (orientation: portrait) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .main-content {
+        margin-left: 240px !important;
+        width: calc(100% - 240px) !important;
     }
 }
 
@@ -1931,4 +2041,122 @@ blockquote, pre, code {
 .bible-book.active.apocalyptic {
     border-left-color: var(--apocalyptic-color);
     background: rgba(25, 25, 112, 0.1);
+}
+
+/* Enhanced iPad and keyboard navigation styles */
+.keyboard-navigation *:focus {
+    outline: 2px solid var(--accent-color) !important;
+    outline-offset: 2px !important;
+}
+
+.keyboard-navigation .sidebar-nav a:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.9) !important;
+    outline-offset: 2px !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    transform: translateX(6px);
+}
+
+/* iPad-specific optimizations */
+.ipad-optimized {
+    -webkit-text-size-adjust: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.ipad-optimized input,
+.ipad-optimized textarea {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.keyboard-available .sidebar-nav a {
+    transition: all 0.2s ease, transform 0.2s ease;
+}
+
+.keyboard-available .sidebar-nav a:hover {
+    transform: translateX(6px);
+}
+
+.keyboard-available .sidebar-nav a:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced touch targets for iPad */
+@media (min-width: 768px) and (max-width: 1366px) {
+    .sidebar-nav a {
+        min-height: 48px;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .chapter-link {
+        min-height: 56px;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .book-card {
+        min-height: 120px;
+        padding: 1.25rem;
+    }
+    
+    /* Improved scroll behavior for sidebar */
+    .sidebar {
+        scroll-behavior: smooth;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Focus within sidebar improvements */
+    .sidebar-nav a:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.9);
+        outline-offset: 3px;
+        background-color: rgba(255, 255, 255, 0.25);
+        border-radius: var(--radius-md);
+    }
+}
+
+/* iPad Pro landscape optimizations */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+    .sidebar-nav a {
+        padding: 1rem 1.25rem;
+        font-size: 1.1rem;
+        min-height: 56px;
+    }
+    
+    .sidebar-header {
+        padding: 1.5rem 1.25rem;
+    }
+    
+    .sidebar-title {
+        font-size: 1.4rem;
+    }
+}
+
+/* Accessibility improvements for keyboard users */
+@media (prefers-reduced-motion: no-preference) {
+    .keyboard-navigation .sidebar-nav a:focus {
+        transition: all 0.3s ease;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .keyboard-navigation *:focus {
+        outline: 3px solid #000 !important;
+        outline-offset: 2px !important;
+        background-color: #fff !important;
+        color: #000 !important;
+    }
+    
+    .sidebar .keyboard-navigation *:focus {
+        outline: 3px solid #fff !important;
+        background-color: #000 !important;
+        color: #fff !important;
+    }
 }

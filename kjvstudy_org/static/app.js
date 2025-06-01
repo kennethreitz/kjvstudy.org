@@ -202,23 +202,101 @@ class KJVStudy {
 
     // Keyboard Shortcuts
     setupKeyboardShortcuts() {
+        // Enhanced device detection for iPad/tablet
+        const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1366;
+        const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        
         document.addEventListener('keydown', (e) => {
             // Ctrl/Cmd + K for search
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
                 const searchInput = document.getElementById('searchInput');
-                if (searchInput) searchInput.focus();
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.select();
+                }
             }
             
-            // Arrow keys for navigation
-            if (e.key === 'ArrowLeft' && e.altKey) {
-                const prevButton = document.querySelector('a[href*="chapter"]:contains("←")');
+            // Enhanced sidebar toggle for iPad/tablet (Cmd/Ctrl + B)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b' && (isTablet || isIPad)) {
+                e.preventDefault();
+                if (window.toggleSidebar) {
+                    window.toggleSidebar();
+                }
+            }
+            
+            // Arrow keys for navigation with enhanced tablet support
+            if (e.key === 'ArrowLeft' && (e.altKey || (isTablet && e.metaKey))) {
+                e.preventDefault();
+                const prevButton = document.querySelector('.nav-button[href*="chapter"]') ||
+                                 document.querySelector('a[title*="Previous"]') ||
+                                 document.querySelector('a:contains("←")');
                 if (prevButton) prevButton.click();
             }
             
-            if (e.key === 'ArrowRight' && e.altKey) {
-                const nextButton = document.querySelector('a[href*="chapter"]:contains("→")');
+            if (e.key === 'ArrowRight' && (e.altKey || (isTablet && e.metaKey))) {
+                e.preventDefault();
+                const nextButton = document.querySelector('.nav-button[href*="chapter"]:last-of-type') ||
+                                 document.querySelector('a[title*="Next"]') ||
+                                 document.querySelector('a:contains("→")');
                 if (nextButton) nextButton.click();
+            }
+            
+            // Enhanced navigation for tablets
+            if (isTablet || isIPad) {
+                // Tab navigation improvements
+                if (e.key === 'Tab') {
+                    document.body.classList.add('keyboard-navigation');
+                }
+                
+                // Sidebar navigation with arrow keys
+                if (e.target.closest('.sidebar-nav')) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        let next = e.target.nextElementSibling;
+                        while (next && next.tagName !== 'A') {
+                            next = next.nextElementSibling;
+                        }
+                        if (next) next.focus();
+                    }
+                    
+                    if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        let prev = e.target.previousElementSibling;
+                        while (prev && prev.tagName !== 'A') {
+                            prev = prev.previousElementSibling;
+                        }
+                        if (prev) prev.focus();
+                    }
+                    
+                    // Enter to activate link
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        e.target.click();
+                    }
+                }
+                
+                // Quick jump shortcuts for tablets
+                if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '9') {
+                    e.preventDefault();
+                    const index = parseInt(e.key) - 1;
+                    const navLinks = document.querySelectorAll('.sidebar-nav a');
+                    if (navLinks[index]) {
+                        navLinks[index].click();
+                    }
+                }
+                
+                // Home/End navigation in chapters
+                if (e.key === 'Home' && e.ctrlKey) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                
+                if (e.key === 'End' && e.ctrlKey) {
+                    e.preventDefault();
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }
             }
             
             // Escape to close modals/options
@@ -226,6 +304,26 @@ class KJVStudy {
                 const readingOptions = document.getElementById('readingOptions');
                 if (readingOptions && readingOptions.style.display !== 'none') {
                     readingOptions.style.display = 'none';
+                }
+                
+                // Remove focus from sidebar if escape is pressed
+                if (e.target.closest('.sidebar')) {
+                    document.querySelector('.main-content').focus();
+                }
+            }
+        });
+        
+        // Remove keyboard navigation class on mouse use
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+        
+        // Add focus management for better tablet experience
+        document.addEventListener('focusin', (e) => {
+            if (isTablet || isIPad) {
+                // Ensure focused elements are visible
+                if (e.target.closest('.sidebar-nav')) {
+                    e.target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
                 }
             }
         });
