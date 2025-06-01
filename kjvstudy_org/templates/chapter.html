@@ -22,20 +22,76 @@
 {% block head %}
 <style>
 .chapter-container {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
+    display: block;
+    max-width: none;
+    margin: 0;
     padding: 1rem;
     width: 100%;
 }
 
-/* Override any container restrictions */
+/* Override any container restrictions and ensure proper layout with sidebar */
 .container, .narrow-container {
     max-width: none !important;
     width: 100% !important;
     padding: 0 !important;
+}
+
+/* Ensure main content accounts for always-visible sidebar */
+@media (min-width: 768px) {
+    .chapter-container {
+        margin-left: 0;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .chapter-container {
+        max-width: calc(100vw - 280px);
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .chapter-container {
+        max-width: calc(100vw - 320px);
+    }
+}
+
+@media (min-width: 1367px) {
+    .chapter-container {
+        max-width: calc(100vw - 220px);
+    }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 767px) {
+    .chapter-container {
+        margin-left: 0;
+        padding: 0.5rem;
+        max-width: 100vw;
+    }
+    
+    .chapter-main-content {
+        width: 100% !important;
+    }
+    
+    .chapter-navigation {
+        margin-bottom: 1rem;
+    }
+    
+    .chapter-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .verse-number {
+        font-size: 0.7rem !important;
+        padding: 0.1rem 0.3rem !important;
+    }
+    
+    .chapter-text {
+        font-size: 1.1rem !important;
+        line-height: 1.6 !important;
+    }
 }
 
 .scofield-commentary {
@@ -623,7 +679,7 @@ sup.verse-number:active {
 
 {% block content %}
 <div class="chapter-container">
-    <div class="main-content" style="min-width: 0;">
+    <div class="chapter-main-content" style="min-width: 0; width: 100%;">
         <div class="chapter-navigation" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
     <div class="chapter-nav-content" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
         <div class="chapter-info" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
@@ -796,7 +852,7 @@ sup.verse-number:active {
 {% endblock %}
 
 {% block navigation %}
-<div class="container">
+<div class="chapter-container">
     <div class="navigation">
         <a href="/book/{{ book }}" class="nav-button" style="font-size: 1.2rem;">
             ← All Chapters
@@ -814,8 +870,9 @@ sup.verse-number:active {
             {% endif %}
         </div>
     </div>
-    </div>
-    
+</div>
+
+<div class="chapter-container">
     <div class="scofield-commentary">
         <h3>📖 Scofield Commentary</h3>
         <div id="commentary-content">
