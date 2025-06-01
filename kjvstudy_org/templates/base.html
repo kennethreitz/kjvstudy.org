@@ -1116,9 +1116,80 @@
                 setupKeyboardNavigation();
             }
 
+            // Enhanced scrollbar functionality
+            function enhanceScrollbarExperience() {
+                const sidebar = document.getElementById("sidebar");
+                if (!sidebar) return;
+                
+                // Add smooth scrolling to sidebar navigation links
+                const navLinks = sidebar.querySelectorAll('.sidebar-nav a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        // Smooth scroll the link into view within sidebar
+                        setTimeout(() => {
+                            link.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest',
+                                inline: 'nearest'
+                            });
+                        }, 100);
+                    });
+                });
+                
+                // Enhanced keyboard navigation with scrollbar awareness
+                sidebar.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                        setTimeout(() => {
+                            const focusedElement = document.activeElement;
+                            if (focusedElement && sidebar.contains(focusedElement)) {
+                                focusedElement.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'nearest',
+                                    inline: 'nearest'
+                                });
+                            }
+                        }, 50);
+                    }
+                });
+                
+                // Add scroll position memory
+                let scrollPosition = 0;
+                sidebar.addEventListener('scroll', () => {
+                    scrollPosition = sidebar.scrollTop;
+                });
+                
+                // Restore scroll position on page reload
+                const savedScrollPosition = sessionStorage.getItem('sidebar-scroll-position');
+                if (savedScrollPosition) {
+                    sidebar.scrollTop = parseInt(savedScrollPosition);
+                    sessionStorage.removeItem('sidebar-scroll-position');
+                }
+                
+                // Save scroll position before page unload
+                window.addEventListener('beforeunload', () => {
+                    sessionStorage.setItem('sidebar-scroll-position', sidebar.scrollTop.toString());
+                });
+                
+                // Add accessibility enhancements
+                sidebar.setAttribute('aria-label', 'Main navigation sidebar');
+                sidebar.setAttribute('role', 'navigation');
+                
+                // Show scrollbar briefly on focus to indicate scrollability
+                sidebar.addEventListener('focus', () => {
+                    sidebar.style.scrollbarWidth = 'thin';
+                    setTimeout(() => {
+                        if (!sidebar.matches(':hover')) {
+                            sidebar.style.scrollbarWidth = 'none';
+                        }
+                    }, 2000);
+                });
+            }
+
             // Initialize on page load and handle layout changes
             document.addEventListener('DOMContentLoaded', () => {
                 initializeIPadSupport();
+                enhanceScrollbarExperience();
+                
                 // Force sidebar to be visible immediately
                 const sidebar = document.getElementById("sidebar");
                 if (sidebar && window.innerWidth > 767) {
