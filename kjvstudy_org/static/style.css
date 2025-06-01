@@ -110,14 +110,14 @@ div {
     position: fixed;
     height: 100vh;
     z-index: 30;
-    transition: transform 0.3s ease;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    will-change: transform;
-    left: 0;
+    left: 0 !important;
     top: 0;
+    display: block !important;
+    visibility: visible !important;
 }
 
 .sidebar-header {
@@ -217,16 +217,15 @@ div {
 
 .main-content {
     flex: 1;
-    margin-left: 220px;
+    margin-left: 220px !important;
     min-height: 100vh;
     position: relative;
     z-index: 10;
     background-color: var(--background-color);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    will-change: opacity;
-    transition: margin-left 0.3s ease, opacity 0.3s ease;
     padding-left: 1rem;
+    width: calc(100% - 220px) !important;
 }
 
 .container {
@@ -671,12 +670,12 @@ div {
     }
 
     .sidebar {
-        width: 280px;
-        transform: translateX(0);
-        -webkit-transform: translate3d(0, 0, 0);
-        position: fixed;
-        left: 0;
-        top: 0;
+        width: 280px !important;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
         z-index: 50;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
         display: block !important;
@@ -684,13 +683,12 @@ div {
     }
 
     .main-content {
-        margin-left: 280px;
-        width: calc(100% - 280px);
+        margin-left: 280px !important;
+        width: calc(100% - 280px) !important;
         min-width: 0;
         position: relative;
         z-index: 10;
         background-color: var(--background-color);
-        transition: margin-left 0.3s ease;
         padding-left: 1rem;
     }
 
@@ -769,12 +767,16 @@ div {
 /* iPad Pro 11" and 12.9" specific optimizations */
 @media (min-width: 769px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
     .sidebar {
-        width: 300px;
+        width: 300px !important;
+        display: block !important;
+        visibility: visible !important;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
     }
 
     .main-content {
-        margin-left: 300px;
-        width: calc(100% - 300px);
+        margin-left: 300px !important;
+        width: calc(100% - 300px) !important;
     }
 
     .sidebar-nav a {
@@ -795,12 +797,16 @@ div {
 /* Landscape iPad optimization for keyboard usage */
 @media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
     .sidebar {
-        width: 320px;
+        width: 320px !important;
+        display: block !important;
+        visibility: visible !important;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
     }
 
     .main-content {
-        margin-left: 320px;
-        width: calc(100% - 320px);
+        margin-left: 320px !important;
+        width: calc(100% - 320px) !important;
     }
 
     .sidebar-nav a {
@@ -813,7 +819,7 @@ div {
 /* iPad Portrait - optimized for keyboard and touch */
 @media (min-width: 768px) and (max-width: 834px) and (orientation: portrait) {
     .sidebar {
-        width: 260px;
+        width: 260px !important;
         transform: translateX(0) !important;
         -webkit-transform: translate3d(0, 0, 0) !important;
         position: fixed !important;
@@ -831,7 +837,6 @@ div {
         margin-left: 260px !important;
         width: calc(100% - 260px) !important;
         min-width: 0;
-        transition: margin-left 0.3s ease;
         padding-left: 1rem;
     }
 
@@ -858,12 +863,34 @@ div {
 /* iPad mini specific adjustments */
 @media (min-width: 768px) and (max-width: 820px) and (orientation: portrait) {
     .sidebar {
-        width: 240px;
+        width: 240px !important;
+        display: block !important;
+        visibility: visible !important;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
     }
 
     .main-content {
         margin-left: 240px !important;
         width: calc(100% - 240px) !important;
+    }
+}
+
+/* Desktop - ensure sidebar is always visible */
+@media (min-width: 1367px) {
+    .sidebar {
+        width: 220px !important;
+        display: block !important;
+        visibility: visible !important;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+        position: fixed !important;
+        left: 0 !important;
+    }
+
+    .main-content {
+        margin-left: 220px !important;
+        width: calc(100% - 220px) !important;
     }
 }
 
@@ -2041,6 +2068,34 @@ blockquote, pre, code {
 .bible-book.active.apocalyptic {
     border-left-color: var(--apocalyptic-color);
     background: rgba(25, 25, 112, 0.1);
+}
+
+
+
+/* Force sidebar to always be visible on non-mobile devices */
+@media (min-width: 768px) {
+    .sidebar {
+        display: block !important;
+        visibility: visible !important;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        height: 100vh !important;
+        z-index: 50 !important;
+    }
+    
+    .sidebar.hidden,
+    .sidebar.closed,
+    .sidebar[style*="display: none"],
+    .sidebar[style*="visibility: hidden"],
+    .sidebar[style*="translateX(-"] {
+        display: block !important;
+        visibility: visible !important;
+        transform: translateX(0) !important;
+        -webkit-transform: translate3d(0, 0, 0) !important;
+    }
 }
 
 /* Enhanced iPad and keyboard navigation styles */

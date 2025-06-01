@@ -218,13 +218,7 @@ class KJVStudy {
                 }
             }
             
-            // Enhanced sidebar toggle for iPad/tablet (Cmd/Ctrl + B)
-            if ((e.ctrlKey || e.metaKey) && e.key === 'b' && (isTablet || isIPad)) {
-                e.preventDefault();
-                if (window.toggleSidebar) {
-                    window.toggleSidebar();
-                }
-            }
+
             
             // Arrow keys for navigation with enhanced tablet support
             if (e.key === 'ArrowLeft' && (e.altKey || (isTablet && e.metaKey))) {
