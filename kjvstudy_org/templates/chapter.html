@@ -22,53 +22,39 @@
 {% block head %}
 <style>
 .chapter-container {
-    display: block;
-    max-width: none;
-    margin: 0;
-    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
     width: 100%;
+    text-align: center;
 }
 
-/* Override any container restrictions and ensure proper layout with sidebar */
+/* Override any container restrictions for clean full-width layout */
 .container, .narrow-container {
-    max-width: none !important;
+    max-width: 800px !important;
     width: 100% !important;
-    padding: 0 !important;
+    margin: 0 auto !important;
+    padding: 1rem !important;
 }
 
-/* Ensure main content accounts for always-visible sidebar */
+/* Responsive design for all screen sizes */
 @media (min-width: 768px) {
     .chapter-container {
-        margin-left: 0;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding: 2rem 1rem;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 1024px) {
     .chapter-container {
-        max-width: calc(100vw - 280px);
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1366px) {
-    .chapter-container {
-        max-width: calc(100vw - 320px);
-    }
-}
-
-@media (min-width: 1367px) {
-    .chapter-container {
-        max-width: calc(100vw - 220px);
+        padding: 2rem;
     }
 }
 
 /* Mobile responsive styles */
 @media (max-width: 767px) {
     .chapter-container {
-        margin-left: 0;
-        padding: 0.5rem;
-        max-width: 100vw;
+        padding: 1rem 0.5rem;
+        margin: 0 auto;
     }
     
     .chapter-main-content {
@@ -94,27 +80,7 @@
     }
 }
 
-.scofield-commentary {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 1.5rem;
-    font-family: 'Crimson Text', serif;
-    height: fit-content;
-    position: sticky;
-    top: 2rem;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
-}
 
-.scofield-commentary h3 {
-    font-size: 1.2rem;
-    color: #8b4513;
-    margin: 0 0 1rem 0;
-    font-weight: 600;
-    border-bottom: 2px solid #8b4513;
-    padding-bottom: 0.5rem;
-}
 
 .commentary-verse {
     margin-bottom: 1.5rem;
@@ -223,18 +189,7 @@
     font-style: italic;
 }
 
-.verse-highlight-scofield {
-    background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
-    padding: 2px 4px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
 
-.verse-highlight-scofield:hover {
-    background: linear-gradient(120deg, #8fbc8f 0%, #98fb98 100%);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
 
 @media (max-width: 1200px) {
     .chapter-container {
@@ -266,10 +221,10 @@
 }
 
 .margin-commentary {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 300px;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 1rem auto;
     font-family: "Crimson Text", serif;
     font-size: 0.8rem;
     line-height: 1.4;
@@ -336,11 +291,13 @@
 
 @media (max-width: 1200px) {
     .chapter-container {
-        padding-right: 1rem;
+        padding: 1rem;
     }
-
+    
     .margin-commentary {
-        display: none;
+        position: relative;
+        width: 100%;
+        margin: 1rem 0;
     }
 }
 
@@ -697,8 +654,8 @@ sup.verse-number:active {
     </p>
 </div>
 
-<div class="verses-container" id="versesContainer" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
-    <div class="chapter-text" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
+<div class="verses-container" id="versesContainer" style="font-family: 'Crimson Text', 'Times New Roman', serif; max-width: 700px; margin: 0 auto; text-align: left;">
+    <div class="chapter-text" style="font-family: 'Crimson Text', 'Times New Roman', serif; text-align: left; line-height: 1.8;">
         {% for verse in verses %}
         {% if not loop.first %}<br>{% endif %}<span class="verse" id="verse-{{ verse.verse }}" style="position: relative; display: inline;"><sup class="verse-number" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})" style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.verse }}</sup><span style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.text }}</span><span class="verse-tools"><a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to this verse" onclick="copyVerseLink({{ verse.verse }}); return false;">🔗</a><a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-tool" title="Go to this verse">🔍</a></span></span>{% if not loop.last %} {% endif %}
         {% endfor %}
@@ -746,109 +703,13 @@ sup.verse-number:active {
     </p>
     {% endif %}
     <div class="button-group" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
-        <a href="#embedded-commentary" class="nav-button" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem;">
-            View Commentary Below
-        </a>
         <a href="/commentary/{{ book }}/{{ chapter }}" class="nav-button nav-button-primary" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem;">
-            Open Full Commentary
+            📖 View Commentary
         </a>
     </div>
 </div>
 
-<!-- Embedded Commentary Section -->
-<div id="embedded-commentary" class="embedded-commentary" style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-light);">
-    <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-family: var(--font-display);">
-        AI Commentary on {{ book }} {{ chapter }}
-    </h2>
 
-    <!-- Chapter Overview -->
-    <div class="commentary-card" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
-        <h3 style="color: var(--primary-color); margin-top: 0; margin-bottom: 1rem; font-family: var(--font-display);">
-            Chapter Overview
-        </h3>
-        <div style="color: var(--text-secondary); line-height: 1.7;">
-            {{ chapter_overview|safe if chapter_overview else "Chapter overview is not available." }}
-        </div>
-    </div>
-
-    <!-- Verse-by-Verse Commentary -->
-    {% if commentaries %}
-    <h3 style="margin: 2rem 0 1rem; color: var(--primary-color); font-family: var(--font-display);">Verse-by-Verse Commentary</h3>
-
-    {% for verse in verses %}
-    {% if verse.verse in commentaries %}
-    <div id="commentary-verse-{{ verse.verse }}" class="commentary-card" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-light);">
-            <h4 style="margin: 0; color: var(--primary-color); font-family: var(--font-display);">
-                <a href="#verse-{{ verse.verse }}" class="verse-link" style="text-decoration: none; color: inherit;">
-                    Verse {{ verse.verse }}
-                </a>
-            </h4>
-            <a href="/commentary/{{ book }}/{{ chapter }}#verse-{{ verse.verse }}" style="font-size: 0.875rem; color: var(--primary-color); text-decoration: none;">
-                View in Full Commentary
-            </a>
-        </div>
-
-        <div class="verse-quote" style="background: rgba(255, 235, 59, 0.1); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem; border-left: 3px solid rgba(255, 235, 59, 0.5); font-family: var(--font-serif);">
-            {{ verse.text }}
-        </div>
-
-        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 0.5rem;">
-            <button class="tab active" onclick="switchCommentaryTab({{ verse.verse }}, 'analysis')" style="background: none; border: none; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid var(--primary-color); color: var(--primary-color); font-weight: 500;">
-                Analysis
-            </button>
-            <button class="tab" onclick="switchCommentaryTab({{ verse.verse }}, 'historical')" style="background: none; border: none; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-secondary);">
-                Historical Context
-            </button>
-            <button class="tab" onclick="switchCommentaryTab({{ verse.verse }}, 'questions')" style="background: none; border: none; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-secondary);">
-                Study Questions
-            </button>
-        </div>
-
-        <div id="tab-{{ verse.verse }}-analysis" class="tab-content active" style="color: var(--text-secondary); line-height: 1.7;">
-            {{ commentaries[verse.verse].analysis|safe }}
-
-            {% if commentaries[verse.verse].cross_references %}
-            <div style="background: rgba(75, 46, 131, 0.05); padding: 1rem; border-radius: var(--radius-md); margin-top: 1rem;">
-                <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem; color: var(--primary-color);">Cross References:</h5>
-                <ul style="margin: 0; padding-left: 1.25rem;">
-                    {% for ref in commentaries[verse.verse].cross_references %}
-                    <li>
-                        <a href="{{ ref.url }}" class="verse-reference" style="color: var(--primary-color); text-decoration: none;">
-                            {{ ref.text }}
-                            <span class="verse-tooltip">{{ ref.verse_text|default(ref.context) }}</span>
-                        </a> - {{ ref.context }}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-        </div>
-
-        <div id="tab-{{ verse.verse }}-historical" class="tab-content" style="display: none; color: var(--text-secondary); line-height: 1.7;">
-            {{ commentaries[verse.verse].historical|safe }}
-        </div>
-
-        <div id="tab-{{ verse.verse }}-questions" class="tab-content" style="display: none; color: var(--text-secondary); line-height: 1.7;">
-            <ol style="padding-left: 1.25rem; margin: 0;">
-                {% for question in commentaries[verse.verse].questions %}
-                <li style="margin-bottom: 0.75rem;">{{ question }}</li>
-                {% endfor %}
-            </ol>
-        </div>
-    </div>
-    {% endif %}
-    {% endfor %}
-
-    {% else %}
-    <div style="text-align: center; padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-bottom: 2rem; border: 1px solid var(--border-light);">
-        <p style="color: var(--text-secondary); margin: 0 0 1rem;">Commentary is still loading or not available for this chapter.</p>
-        <a href="/commentary/{{ book }}/{{ chapter }}" class="nav-button nav-button-primary">
-            Try Full Commentary
-        </a>
-    </div>
-    {% endif %}
-</div>
 {% endblock %}
 
 {% block navigation %}
@@ -872,156 +733,30 @@ sup.verse-number:active {
     </div>
 </div>
 
-<div class="chapter-container">
-    <div class="scofield-commentary">
-        <h3>📖 Scofield Commentary</h3>
-        <div id="commentary-content">
-            <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 8px; margin-bottom: 1rem;">
-                <h4 style="color: #8b4513; margin: 0 0 1rem 0; font-size: 1rem;">📖 Scofield Reference Commentary</h4>
-                <p style="color: #666; font-style: italic; margin: 0 0 0.5rem 0; font-size: 0.9rem;">
-                    Click any verse number to view detailed commentary, cross-references, and theological notes.
-                </p>
-                <p style="color: #8b4513; margin: 0; font-size: 0.8rem; font-weight: 600;">
-                    Try clicking verse 1, 3, or 26 to see comprehensive annotations!
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script>
-const scofieldCommentary = {{ scofield_commentary|tojson|safe }};
-</script>
-</div>
-
-<script>
-
-function showScofieldCommentary(book, chapter, verse) {
-    const commentaryContent = document.getElementById('commentary-content');
-    
-    // Get commentary for this verse
-    const bookData = scofieldCommentary[book];
-    if (!bookData) {
-        commentaryContent.innerHTML = '<p style="color: #666; font-style: italic;">No commentary available for this book.</p>';
-        return;
-    }
-    
-    const chapterData = bookData[chapter];
-    if (!chapterData) {
-        commentaryContent.innerHTML = '<p style="color: #666; font-style: italic;">No commentary available for this chapter.</p>';
-        return;
-    }
-    
-    const verseData = chapterData[verse];
-    if (!verseData) {
-        commentaryContent.innerHTML = '<p style="color: #666; font-style: italic;">No commentary available for this verse.</p>';
-        return;
-    }
-    
-    let html = `
-        <div class="commentary-verse">
-            <div class="commentary-verse-ref">${book} ${chapter}:${verse}</div>
-            <div class="commentary-text">${verseData.commentary}</div>
-    `;
-    
-    // Add cross references if available
-    if (verseData.cross_references && verseData.cross_references.length > 0) {
-        html += `
-            <div class="cross-references">
-                <h4>✠ Cross References</h4>
-                ${verseData.cross_references.map(ref => `<a href="#" class="cross-ref-link" onclick="navigateToReference('${ref}')">${ref}</a>`).join('')}
-            </div>
-        `;
-    }
-    
-    // Add theological notes if available
-    if (verseData.theological_notes && verseData.theological_notes.length > 0) {
-        html += `
-            <div class="theological-notes">
-                <h4>⛪ Theological Notes</h4>
-                ${verseData.theological_notes.map(note => `<div class="theological-note">• ${note}</div>`).join('')}
-            </div>
-        `;
-    }
-    
-    // Add Hebrew insights if available
-    if (verseData.hebrew_insights) {
-        html += `
-            <div class="hebrew-insights">
-                <h4>📜 Hebrew Insights</h4>
-                ${Object.entries(verseData.hebrew_insights).map(([word, meaning]) => 
-                    `<div class="hebrew-term"><span class="hebrew-word">${word}:</span> ${meaning}</div>`
-                ).join('')}
-            </div>
-        `;
-    }
-    
-    // Add practical application if available
-    if (verseData.practical_application) {
-        html += `
-            <div class="theological-notes">
-                <h4>🔥 Application</h4>
-                <div class="theological-note">${verseData.practical_application}</div>
-            </div>
-        `;
-    }
-    
-    // Add prophetic significance if available
-    if (verseData.prophetic_significance) {
-        html += `
-            <div class="cross-references">
-                <h4>🔮 Prophetic Significance</h4>
-                <div style="font-size: 0.85rem; color: #0c5460;">${verseData.prophetic_significance}</div>
-            </div>
-        `;
-    }
-    
-    html += '</div>';
-    commentaryContent.innerHTML = html;
-}
-
-function navigateToReference(reference) {
-    // Parse reference like "John 1:1" or "1 Corinthians 15:3"
-    const parts = reference.split(' ');
-    let book, chapterVerse;
-    
-    if (parts[0] === '1' || parts[0] === '2') {
-        book = parts[0] + ' ' + parts[1];
-        chapterVerse = parts[2];
-    } else {
-        book = parts[0];
-        chapterVerse = parts[1];
-    }
-    
-    const [chapter, verse] = chapterVerse.split(':');
-    window.open(`/book/${book}/chapter/${chapter}#verse-${verse}`, '_blank');
-}
-
-// Override existing navigateToVerse function to also show Scofield commentary
-const originalNavigateToVerse = window.navigateToVerse || function() {};
-
-window.navigateToVerse = function(verseNumber) {
-    // Call original function if it exists
-    originalNavigateToVerse(verseNumber);
-    
-    const book = '{{ book }}';
-    const chapter = '{{ chapter }}';
-    
-    // Highlight the verse
-    document.querySelectorAll('.verse-highlight-scofield').forEach(el => {
-        el.classList.remove('verse-highlight-scofield');
-    });
-    
+function navigateToVerse(verseNumber) {
     const verseElement = document.getElementById(`verse-${verseNumber}`);
     if (verseElement) {
-        verseElement.classList.add('verse-highlight-scofield');
+        verseElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Remove previous underlines
+        document.querySelectorAll('.verse-underlined').forEach(el => {
+            el.classList.remove('verse-underlined');
+        });
+        
+        // Add underline to current verse
+        verseElement.classList.add('verse-underlined');
+        
+        // Update URL hash
+        window.location.hash = `verse-${verseNumber}`;
+        
+        showToast('Navigated to Verse ' + verseNumber);
     }
-    
-    // Show commentary
-    showScofieldCommentary(book, chapter, verseNumber.toString());
-};
+}
 
-// Add click handlers to verse text for commentary
+// Add click handlers to verse numbers
 document.addEventListener('DOMContentLoaded', function() {
     const verses = document.querySelectorAll('.verse');
     verses.forEach(verse => {
@@ -1029,7 +764,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const verseNum = this.querySelector('sup.verse-number');
             if (verseNum) {
                 const verseNumber = verseNum.textContent;
-                window.navigateToVerse(parseInt(verseNumber));
+                navigateToVerse(parseInt(verseNumber));
             }
         });
     });
@@ -1060,55 +795,11 @@ function highlightVerse(verseNumber) {
     showToast(highlighted ? 'Verse ' + verseNumber + ' highlighted!' : 'Highlight removed from Verse ' + verseNumber);
 }
 
-function navigateToVerse(verseNumber) {
-    // Remove previous underlines
-    document.querySelectorAll('.verse-underlined').forEach(el => {
-        el.classList.remove('verse-underlined');
-    });
-    
-    // Set the hash and apply styling
-    const newHash = 'verse-' + verseNumber;
-    history.pushState(null, null, '#' + newHash);
-    
-    // Apply underline styling to the clicked verse
-    const targetVerse = document.getElementById(newHash);
-    if (targetVerse) {
-        targetVerse.classList.add('verse-underlined');
-        targetVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Update page title to include verse reference
-        const originalTitle = document.title.split(' - Verse')[0];
-        document.title = originalTitle + ' - Verse ' + verseNumber;
-    }
-    
-    showToast('Navigated to Verse ' + verseNumber);
-}
 
 
 
-function switchCommentaryTab(verseNumber, tabName) {
-    // Hide all tabs for this verse
-    const tabContents = document.querySelectorAll(`#commentary-verse-${verseNumber} .tab-content`);
-    tabContents.forEach(tab => tab.style.display = 'none');
 
-    // Deactivate all tab buttons
-    const tabButtons = document.querySelectorAll(`#commentary-verse-${verseNumber} .tab`);
-    tabButtons.forEach(button => {
-        button.classList.remove('active');
-        button.style.borderBottom = '2px solid transparent';
-        button.style.color = 'var(--text-secondary)';
-    });
 
-    // Activate the selected tab
-    document.getElementById(`tab-${verseNumber}-${tabName}`).style.display = 'block';
-
-    // Activate the tab button
-    const activeButton = document.querySelector(`#commentary-verse-${verseNumber} .tab:nth-child(${tabName === 'analysis' ? 1 : tabName === 'historical' ? 2 : 3})`);
-    activeButton.classList.add('active');
-    activeButton.style.borderBottom = '2px solid var(--primary-color)';
-    activeButton.style.color = 'var(--primary-color)';
-    activeButton.style.fontWeight = '500';
-}
 
 function showToast(message) {
     const toast = document.createElement('div');
@@ -1137,107 +828,18 @@ function showToast(message) {
 document.addEventListener('DOMContentLoaded', function() {
 
 
-    // Highlight verse from URL hash
-    function highlightVerseFromHash() {
-        if (window.location.hash) {
-            const target = document.querySelector(window.location.hash);
-            if (target) {
-                // Remove any existing underlines first
-                document.querySelectorAll('.verse-underlined').forEach(el => {
-                    el.classList.remove('verse-underlined');
-                });
-                
+    // Highlight verse from URL hash on load
+    if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+            setTimeout(() => {
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                // Extract verse number from the hash
-                const verseMatch = window.location.hash.match(/verse-(\d+)/);
-                if (verseMatch && verseMatch[1]) {
-                    // Apply permanent underline styling to the verse
-                    target.classList.add('verse-underlined');
-                    
-                    // Also add temporary pulse highlight
-                    target.classList.add('highlight-verse');
-                    setTimeout(() => {
-                        target.classList.remove('highlight-verse');
-                    }, 2000);
-
-                    // Update page title
-                    const originalTitle = document.title.split(' - Verse')[0];
-                    document.title = originalTitle + ' - Verse ' + verseMatch[1];
-                    
-                    showToast('Navigated to Verse ' + verseMatch[1]);
-
-                    // If the verse has commentary, highlight the commentary card too
-                    const commentaryCard = document.getElementById(`commentary-verse-${verseMatch[1]}`);
-                    if (commentaryCard) {
-                        commentaryCard.style.border = '2px solid var(--primary-color)';
-                        commentaryCard.style.boxShadow = 'var(--shadow-md)';
-                        setTimeout(() => {
-                            commentaryCard.style.border = '1px solid var(--border-light)';
-                            commentaryCard.style.boxShadow = 'var(--shadow-sm)';
-                        }, 3000);
-                    }
-                }
-            }
+                target.classList.add('verse-underlined');
+            }, 100);
         }
     }
-    
-    // Call on page load
-    setTimeout(highlightVerseFromHash, 100);
-    
-    // Listen for hash changes to update verse highlighting
-    window.addEventListener('hashchange', highlightVerseFromHash);
-    
-    // Listen for popstate (back/forward button) to update highlighting
-    window.addEventListener('popstate', function() {
-        setTimeout(highlightVerseFromHash, 50);
-    });
 
-    // Add cross-links from verses to commentary
-    document.querySelectorAll('.verse').forEach(verse => {
-        const verseNum = verse.id.replace('verse-', '');
-        const commentaryEl = document.getElementById(`commentary-verse-${verseNum}`);
 
-        if (commentaryEl) {
-            // Mark verses with commentary
-            const verseTools = verse.querySelector('.verse-tools');
-            if (verseTools) {
-                const commentaryLink = document.createElement('a');
-                commentaryLink.href = `#commentary-verse-${verseNum}`;
-                commentaryLink.className = 'verse-tool';
-                commentaryLink.title = `View commentary for Verse ${verseNum}`;
-                commentaryLink.innerHTML = '💡';
-                commentaryLink.onclick = function(e) {
-                    e.preventDefault();
-                    commentaryEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    commentaryEl.style.border = '2px solid var(--primary-color)';
-                    commentaryEl.style.boxShadow = 'var(--shadow-md)';
-                    setTimeout(() => {
-                        commentaryEl.style.border = '1px solid var(--border-light)';
-                        commentaryEl.style.boxShadow = 'var(--shadow-sm)';
-                    }, 3000);
-                    return false;
-                };
-                verseTools.appendChild(commentaryLink);
-            }
-
-            // Add visual indicator to verses with commentary
-            const verseNumber = verse.querySelector('.verse-number');
-            if (verseNumber) {
-                const indicator = document.createElement('span');
-                indicator.style.cssText = `
-                    display: inline-block;
-                    width: 5px;
-                    height: 5px;
-                    border-radius: 50%;
-                    background-color: var(--primary-color);
-                    margin-left: 2px;
-                    vertical-align: text-top;
-                `;
-                verseNumber.appendChild(indicator);
-            }
-        }
-    });
 });
 
 // Add CSS animations

@@ -129,60 +129,7 @@
             }
 
             /* Enhanced iPad and tablet support */
-            @media (min-width: 769px) and (max-width: 1024px) {
-                .sidebar {
-                    position: fixed !important;
-                    left: 0 !important;
-                    top: 0 !important;
-                    height: 100% !important;
-                    width: 280px !important;
-                    transform: translateX(0) !important;
-                    -webkit-transform: translate3d(0, 0, 0) !important;
-                    display: block !important;
-                    visibility: visible !important;
-                    z-index: 50;
-                }
 
-                .main-content {
-                    margin-left: 280px !important;
-                    width: calc(100% - 280px) !important;
-                    background-color: var(--background-color) !important;
-                }
-            }
-
-            /* Desktop - ensure sidebar is always visible */
-            @media (min-width: 1367px) {
-                .sidebar {
-                    position: fixed !important;
-                    left: 0 !important;
-                    top: 0 !important;
-                    height: 100% !important;
-                    width: 220px !important;
-                    transform: translateX(0) !important;
-                    -webkit-transform: translate3d(0, 0, 0) !important;
-                    display: block !important;
-                    visibility: visible !important;
-                    z-index: 50;
-                }
-
-                .main-content {
-                    margin-left: 220px !important;
-                    width: calc(100% - 220px) !important;
-                    background-color: var(--background-color) !important;
-                }
-            }
-
-            /* iPad Pro specific optimizations */
-            @media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
-                .sidebar {
-                    width: 320px !important;
-                }
-
-                .main-content {
-                    margin-left: 320px !important;
-                    width: calc(100% - 320px) !important;
-                }
-            }
 
             .container,
             .narrow-container {
@@ -270,6 +217,82 @@
                     height: 14px;
                 }
             }
+
+            /* Bottom Navigation Styles */
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--background-color);
+                border-top: 1px solid var(--border-color);
+                padding: 0.75rem;
+                z-index: 100;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .bottom-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;
+                color: var(--text-secondary);
+                padding: 0.5rem;
+                border-radius: var(--radius-sm);
+                transition: all 0.2s ease;
+                min-width: 60px;
+                text-align: center;
+            }
+
+            .bottom-nav-item:hover,
+            .bottom-nav-item.active {
+                color: var(--primary-color);
+                background: rgba(139, 92, 246, 0.1);
+            }
+
+            .bottom-nav-icon {
+                font-size: 1.2rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .bottom-nav-label {
+                font-size: 0.75rem;
+                font-weight: 500;
+            }
+
+            @media (max-width: 768px) {
+                .bottom-nav {
+                    padding: 0.5rem;
+                    gap: 0.5rem;
+                }
+
+                .bottom-nav-item {
+                    min-width: 50px;
+                    padding: 0.4rem;
+                }
+
+                .bottom-nav-icon {
+                    font-size: 1rem;
+                }
+
+                .bottom-nav-label {
+                    font-size: 0.65rem;
+                }
+            }
+
+            /* Add padding to main content for bottom nav */
+        .main-content {
+            padding-bottom: 120px;
+            margin: 0 auto !important;
+            width: 100% !important;
+            max-width: 1200px;
+        }
         </style>
 
         <!-- Gauges Analytics -->
@@ -520,6 +543,8 @@
             View on GitHub
         </a>
 
+
+
         <div
             class="layout"
             style="
@@ -529,451 +554,8 @@
                 z-index: 0;
             "
         >
-
-
-            <!-- Sidebar -->
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-header">
-                    <h1 class="sidebar-title">
-                        <span>📖</span>
-                        KJV Study
-                    </h1>
-                    <p class="sidebar-subtitle" style="font-size: 0.95rem">
-                        Authorized King James Version
-                    </p>
-                </div>
-
-                <nav class="sidebar-nav">
-                    <h3 style="font-size: 0.9rem; font-family: 'Crimson Text', 'Times New Roman', serif;">Navigation</h3>
-                    <a
-                        href="/"
-                        {% if request.url and request.url.path == "/" %}class="active"{% endif %}
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        📚 All Books
-                    </a>
-                    <a
-                        href="/search"
-                        {% if request.url and request.url.path == "/search" %}class="active"{% endif %}
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        🔍 Search Bible
-                    </a>
-                    <a
-                        href="/study-guides"
-                        {% if request.url and "/study-guides" in request.url.path %}class="active"{% endif %}
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        📖 Study Guides
-                    </a>
-                    <a
-                        href="/verse-of-the-day"
-                        {% if request.url and request.url.path == "/verse-of-the-day" %}class="active"{% endif %}
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        ✨ Verse of the Day
-                    </a>
-                    <a
-                        href="/biblical-maps"
-                        {% if request.url and request.url.path == "/biblical-maps" %}class="active"{% endif %}
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        🗺️ Biblical Maps
-                    </a>
-                    <a
-                        href="/family-tree"
-                        {% if request.url and request.url.path == "/family-tree" %}class="active"{% endif %}
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        🌳 Family Tree
-                    </a>
-                    <a
-                        href="/biblical-timeline"
-                        {% if request.url and request.url.path == "/biblical-timeline" %}class="active"{% endif %}
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        📜 Biblical Timeline
-                    </a>
-
-
-                    {% if books %}
-                    <h3
-                        style="
-                            font-size: 0.85rem;
-                            margin-top: 1rem;
-                            margin-bottom: 0.5rem;
-                            font-family: 'Crimson Text', 'Times New Roman', serif;
-                        "
-                    >
-                        Old Testament
-                    </h3>
-
-                    <!-- Torah/Pentateuch -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--torah-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Torah / Pentateuch
-                    </h4>
-                    {% set torah = ['Genesis', 'Exodus', 'Leviticus', 'Numbers',
-                    'Deuteronomy'] %} {% for book in books %} {% if book in
-                    torah %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book torah {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- Historical Books -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--historical-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Historical Books
-                    </h4>
-                    {% set historical = ['Joshua', 'Judges', 'Ruth', '1 Samuel',
-                    '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2
-                    Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %} {% for book in
-                    books %} {% if book in historical %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book historical {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- Wisdom Literature -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--wisdom-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Wisdom Literature
-                    </h4>
-                    {% set wisdom = ['Job', 'Psalms', 'Proverbs',
-                    'Ecclesiastes', 'Song of Solomon'] %} {% for book in books
-                    %} {% if book in wisdom %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book wisdom {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- Major Prophets -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--major-prophets-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Major Prophets
-                    </h4>
-                    {% set major_prophets = ['Isaiah', 'Jeremiah',
-                    'Lamentations', 'Ezekiel', 'Daniel'] %} {% for book in books
-                    %} {% if book in major_prophets %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book major-prophets {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- Minor Prophets -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--minor-prophets-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Minor Prophets
-                    </h4>
-                    {% set minor_prophets = ['Hosea', 'Joel', 'Amos', 'Obadiah',
-                    'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
-                    'Haggai', 'Zechariah', 'Malachi'] %} {% for book in books %}
-                    {% if book in minor_prophets %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book minor-prophets {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <hr class="testament-divider" />
-
-                    <h3
-                        style="
-                            color: var(--gospels-color);
-                            margin-bottom: 0.4rem;
-                            font-size: 0.9rem;
-                        "
-                    >
-                        New Testament
-                    </h3>
-
-                    <!-- Gospels -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--gospels-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Gospels
-                    </h4>
-                    {% set gospels = ['Matthew', 'Mark', 'Luke', 'John'] %} {%
-                    for book in books %} {% if book in gospels %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book gospels {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- Acts (Historical NT) -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--acts-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Historical
-                    </h4>
-                    {% set acts = ['Acts'] %} {% for book in books %} {% if book
-                    in acts %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book acts {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- Pauline Epistles -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--pauline-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Pauline Epistles
-                    </h4>
-                    {% set pauline = ['Romans', '1 Corinthians', '2
-                    Corinthians', 'Galatians', 'Ephesians', 'Philippians',
-                    'Colossians', '1 Thessalonians', '2 Thessalonians', '1
-                    Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %} {%
-                    for book in books %} {% if book in pauline %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book pauline {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- General Epistles -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--general-epistles-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        General Epistles
-                    </h4>
-                    {% set general_epistles = ['James', '1 Peter', '2 Peter', '1
-                    John', '2 John', '3 John', 'Jude'] %} {% for book in books
-                    %} {% if book in general_epistles %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book general-epistles {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %}
-
-                    <!-- Apocalyptic -->
-                    <h4
-                        style="
-                            font-size: 0.85rem;
-                            margin: 0.4rem 0;
-                            color: var(--apocalyptic-color);
-                            text-transform: uppercase;
-                            letter-spacing: 0.5px;
-                        "
-                    >
-                        Apocalyptic
-                    </h4>
-                    {% set apocalyptic = ['Revelation'] %} {% for book in books
-                    %} {% if book in apocalyptic %}
-                    <a
-                        href="/book/{{ book }}"
-                        class="bible-book apocalyptic {% if request.url and book in request.url.path %}active{% endif %}"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        {{ book }}
-                    </a>
-                    {% endif %} {% endfor %} {% endif %}
-
-                    <h3 style="font-size: 0.9rem">Study Tools</h3>
-                    <a
-                        href="#"
-                        class="coming-soon"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        🤖 AI Commentary
-                        <small>(Coming Soon)</small>
-                    </a>
-                    <a
-                        href="#"
-                        class="coming-soon"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        🔍 Search
-                        <small>(Coming Soon)</small>
-                    </a>
-                    <a
-                        href="#"
-                        class="coming-soon"
-                        style="
-                            padding: 0.35rem 0.5rem;
-                            font-size: 0.95rem;
-                            margin-bottom: 0.1rem;
-                        "
-                    >
-                        📝 Notes
-                        <small>(Coming Soon)</small>
-                    </a>
-                </nav>
-            </aside>
-
             <!-- Main Content -->
-            <main
-                class="main-content"
-                style="background-color: var(--background-color) !important"
-            >
+            <main class="main-content">
                 {% block breadcrumb %}{% endblock %}
 
                 <div
@@ -989,317 +571,60 @@
 
                 {% block navigation %}{% endblock %}
             </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav">
+                <a href="/" class="bottom-nav-item {% if request.url and request.url.path == "/" %}active{% endif %}">
+                    <div class="bottom-nav-icon">📚</div>
+                    <div class="bottom-nav-label">Books</div>
+                </a>
+                <a href="/search" class="bottom-nav-item {% if request.url and request.url.path == "/search" %}active{% endif %}">
+                    <div class="bottom-nav-icon">🔍</div>
+                    <div class="bottom-nav-label">Search</div>
+                </a>
+                <a href="/study-guides" class="bottom-nav-item {% if request.url and "/study-guides" in request.url.path %}active{% endif %}">
+                    <div class="bottom-nav-icon">📖</div>
+                    <div class="bottom-nav-label">Study</div>
+                </a>
+                <a href="/commentary" class="bottom-nav-item {% if request.url and "/commentary" in request.url.path %}active{% endif %}">
+                    <div class="bottom-nav-icon">💡</div>
+                    <div class="bottom-nav-label">Commentary</div>
+                </a>
+                <a href="/verse-of-the-day" class="bottom-nav-item {% if request.url and request.url.path == "/verse-of-the-day" %}active{% endif %}">
+                    <div class="bottom-nav-icon">✨</div>
+                    <div class="bottom-nav-label">Daily</div>
+                </a>
+            </nav>
         </div>
 
 
 
         <script>
-            // Enhanced device and input method detection
-            function detectInputMethod() {
-                const isIPad = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-                const hasKeyboard = window.innerWidth >= 768 && window.innerHeight >= 600;
-                const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1366;
-                
-                return {
-                    isIPad,
-                    hasKeyboard,
-                    isTablet,
-                    isMobile: window.innerWidth <= 767,
-                    isDesktop: window.innerWidth >= 1367
-                };
-            }
-
-            // Simplified sidebar - always visible except on mobile
-            function initializeSidebar() {
-                const device = detectInputMethod();
-                const sidebar = document.getElementById("sidebar");
-                const mainContent = document.querySelector(".main-content");
-
-                if (device.isMobile) {
-                    // Mobile: sidebar hidden
-                    if (sidebar) {
-                        sidebar.style.transform = "translateX(-100%)";
-                        sidebar.style.webkitTransform = "translate3d(-100%, 0, 0)";
-                        sidebar.style.display = "none";
-                    }
-                    if (mainContent) {
-                        mainContent.style.marginLeft = "0";
-                        mainContent.style.width = "100%";
-                    }
-                } else {
-                    // ALL non-mobile: sidebar ALWAYS visible
-                    if (sidebar && mainContent) {
-                        sidebar.style.transform = "translateX(0)";
-                        sidebar.style.webkitTransform = "translate3d(0, 0, 0)";
-                        sidebar.style.display = "block";
-                        sidebar.style.visibility = "visible";
-                        sidebar.style.position = "fixed";
-                        sidebar.style.left = "0";
-                        sidebar.style.top = "0";
-                        sidebar.style.height = "100vh";
-                        sidebar.style.zIndex = "50";
-                        
-                        let sidebarWidth;
-                        if (window.innerWidth >= 1367) {
-                            sidebarWidth = 220;
-                        } else if (window.innerWidth >= 1024) {
-                            sidebarWidth = 320;
-                        } else if (window.innerWidth >= 769) {
-                            sidebarWidth = 280;
-                        } else {
-                            sidebarWidth = 260;
-                        }
-                        
-                        sidebar.style.width = `${sidebarWidth}px`;
-                        mainContent.style.marginLeft = `${sidebarWidth}px`;
-                        mainContent.style.width = `calc(100% - ${sidebarWidth}px)`;
-                    }
-                }
-            }
-
-            // Enhanced keyboard navigation for iPad/tablet
-            function setupKeyboardNavigation() {
-                document.addEventListener('keydown', (e) => {
-                    const device = detectInputMethod();
-                    
-                    // Enhanced keyboard shortcuts for tablets
-                    if (device.isTablet || device.isIPad) {
-
-                        
-                        // Tab navigation enhancements
-                        if (e.key === 'Tab') {
-                            // Ensure focus is visible
-                            document.body.classList.add('keyboard-navigation');
-                        }
-                        
-                        // Arrow key navigation in sidebar
-                        if (e.target.closest('.sidebar-nav')) {
-                            if (e.key === 'ArrowDown') {
-                                e.preventDefault();
-                                const next = e.target.nextElementSibling;
-                                if (next && next.tagName === 'A') next.focus();
-                            }
-                            if (e.key === 'ArrowUp') {
-                                e.preventDefault();
-                                const prev = e.target.previousElementSibling;
-                                if (prev && prev.tagName === 'A') prev.focus();
-                            }
-                        }
-                    }
-                });
-
-                // Remove keyboard navigation class on mouse use
-                document.addEventListener('mousedown', () => {
-                    document.body.classList.remove('keyboard-navigation');
-                });
-            }
-
-            // Initialize enhanced support with always-visible sidebar
-            function initializeIPadSupport() {
-                const device = detectInputMethod();
-                
-                // Initialize sidebar layout
-                initializeSidebar();
-                
-                // Add device-specific classes
-                if (device.isTablet || device.isIPad) {
-                    document.body.classList.add('ipad-optimized');
-                    if (device.hasKeyboard) {
-                        document.body.classList.add('keyboard-available');
-                    }
-                } else if (!device.isMobile) {
-                    // Desktop
-                    document.body.classList.add('desktop-optimized');
-                }
-                
-                setupKeyboardNavigation();
-            }
-
-            // Enhanced scrollbar functionality
-            function enhanceScrollbarExperience() {
-                const sidebar = document.getElementById("sidebar");
-                if (!sidebar) return;
-                
-                // Add smooth scrolling to sidebar navigation links
-                const navLinks = sidebar.querySelectorAll('.sidebar-nav a');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        // Smooth scroll the link into view within sidebar
-                        setTimeout(() => {
-                            link.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'nearest',
-                                inline: 'nearest'
-                            });
-                        }, 100);
-                    });
-                });
-                
-                // Enhanced keyboard navigation with scrollbar awareness
-                sidebar.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                        setTimeout(() => {
-                            const focusedElement = document.activeElement;
-                            if (focusedElement && sidebar.contains(focusedElement)) {
-                                focusedElement.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'nearest',
-                                    inline: 'nearest'
-                                });
-                            }
-                        }, 50);
-                    }
-                });
-                
-                // Add scroll position memory
-                let scrollPosition = 0;
-                sidebar.addEventListener('scroll', () => {
-                    scrollPosition = sidebar.scrollTop;
-                });
-                
-                // Restore scroll position on page reload
-                const savedScrollPosition = sessionStorage.getItem('sidebar-scroll-position');
-                if (savedScrollPosition) {
-                    sidebar.scrollTop = parseInt(savedScrollPosition);
-                    sessionStorage.removeItem('sidebar-scroll-position');
-                }
-                
-                // Save scroll position before page unload
-                window.addEventListener('beforeunload', () => {
-                    sessionStorage.setItem('sidebar-scroll-position', sidebar.scrollTop.toString());
-                });
-                
-                // Add accessibility enhancements
-                sidebar.setAttribute('aria-label', 'Main navigation sidebar');
-                sidebar.setAttribute('role', 'navigation');
-                
-                // Show scrollbar briefly on focus to indicate scrollability
-                sidebar.addEventListener('focus', () => {
-                    sidebar.style.scrollbarWidth = 'thin';
-                    setTimeout(() => {
-                        if (!sidebar.matches(':hover')) {
-                            sidebar.style.scrollbarWidth = 'none';
-                        }
-                    }, 2000);
-                });
-            }
-
-            // Initialize on page load and handle layout changes
-            document.addEventListener('DOMContentLoaded', () => {
-                initializeIPadSupport();
-                enhanceScrollbarExperience();
-                
-                // Force sidebar to be visible immediately
-                const sidebar = document.getElementById("sidebar");
-                if (sidebar && window.innerWidth > 767) {
-                    sidebar.style.display = "block";
-                    sidebar.style.visibility = "visible";
-                    sidebar.style.transform = "translateX(0)";
-                    sidebar.style.webkitTransform = "translate3d(0, 0, 0)";
-                }
-            });
-            window.addEventListener('orientationchange', () => {
-                setTimeout(initializeSidebar, 100);
-            });
-            window.addEventListener('resize', () => {
-                setTimeout(initializeSidebar, 100);
-            });
-
-            // Check if we're on an iPad
+            // Simple initialization for the clean layout
             document.addEventListener("DOMContentLoaded", function () {
-                const isIPad =
-                    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                    (navigator.platform === "MacIntel" &&
-                        navigator.maxTouchPoints > 1);
-
-                if (
-                    isIPad ||
-                    (window.innerWidth >= 768 && window.innerWidth <= 1024)
-                ) {
-                    document.querySelector(".main-content").style.marginLeft =
-                        "0";
-                    document.querySelector(".main-content").style.width =
-                        "100%";
-                    document.getElementById("sidebar").style.transform =
-                        "translateX(-280px)";
-                }
-
-                // Add touch feedback for iOS
-                if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                    document.body.addEventListener(
-                        "touchstart",
-                        function () {},
-                        { passive: true },
-                    );
-                }
-
-                // Prevent zoom on double tap for iOS
-                let lastTouchEnd = 0;
-                document.addEventListener(
-                    "touchend",
-                    function (event) {
-                        const now = new Date().getTime();
-                        if (now - lastTouchEnd <= 300) {
-                            event.preventDefault();
-                        }
-                        lastTouchEnd = now;
-                    },
-                    false,
-                );
-
-                // Fix for black background in some browsers
-                document.body.style.backgroundColor = getComputedStyle(
-                    document.documentElement,
-                ).getPropertyValue("--background-color");
-                document.querySelector(".main-content").style.backgroundColor =
+                // Ensure proper background colors
+                document.querySelector(".layout").style.backgroundColor =
                     getComputedStyle(document.documentElement).getPropertyValue(
                         "--background-color",
                     );
-                document.querySelector(".container") &&
-                    (document.querySelector(
-                        ".container",
-                    ).style.backgroundColor = getComputedStyle(
+                
+                const mainContent = document.querySelector(".main-content");
+                if (mainContent) {
+                    mainContent.style.backgroundColor =
+                        getComputedStyle(document.documentElement).getPropertyValue(
+                            "--background-color",
+                        );
+                }
+                
+                const container = document.querySelector(".container");
+                if (container) {
+                    container.style.backgroundColor = getComputedStyle(
                         document.documentElement,
-                    ).getPropertyValue("--background-color"));
+                    ).getPropertyValue("--background-color");
+                }
             });
 
-            // Close sidebar when clicking on links (mobile) - not needed on mobile anymore
-            document.addEventListener("DOMContentLoaded", function () {
-                const sidebarLinks =
-                    document.querySelectorAll(".sidebar-nav a");
-                sidebarLinks.forEach((link) => {
-                    link.addEventListener("click", function () {
-                        if (window.innerWidth > 768 && window.innerWidth <= 1024) {
-                            toggleSidebar();
-                        }
-                    });
-                });
-
-                // Close sidebar on escape key
-                document.addEventListener("keydown", function (e) {
-                    if (e.key === "Escape" && window.innerWidth > 768) {
-                        const sidebar = document.getElementById("sidebar");
-                        if (sidebar.classList.contains("open")) {
-                            toggleSidebar();
-                        }
-                    }
-                });
-
-                // Handle window resize
-                // Close sidebar when screen size changes to desktop
-                window.addEventListener("resize", function () {
-                    if (window.innerWidth > 1024) {
-                        const sidebar = document.getElementById("sidebar");
-                        const overlay =
-                            document.getElementById("sidebarOverlay");
-                        sidebar.classList.remove("open");
-                        if (overlay) overlay.classList.remove("open");
-                        document.body.style.overflow = "";
-                    }
-                });
-            });
-
+            // Mobile performance optimizations
             // Mobile performance optimizations
             document.addEventListener("DOMContentLoaded", function () {
                 // Add passive event listeners for better scroll performance
@@ -1324,7 +649,7 @@
                 // Add touch feedback for interactive elements on mobile
                 if ("ontouchstart" in window) {
                     const interactiveElements = document.querySelectorAll(
-                        ".book-card, .chapter-link, .nav-button, .sidebar-nav a",
+                        ".book-card, .chapter-link, .nav-button",
                     );
 
                     interactiveElements.forEach((element) => {
@@ -1355,15 +680,56 @@
                         );
                     });
                 }
+            });
 
-                // Improve mobile menu performance
-                const sidebar = document.getElementById("sidebar");
-                const overlay = document.getElementById("sidebarOverlay");
 
-                if (sidebar && overlay) {
-                    // Use transform3d for hardware acceleration
-                    sidebar.style.willChange = "transform";
-                    overlay.style.willChange = "opacity";
+
+
+                                animation: swipeIndicatorShow 0.4s ease forwards;
+                                pointer-events: none;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                            `;
+
+                            document.body.appendChild(indicator);
+
+                            // Add animation keyframes if not already added
+                            if (!document.querySelector('#swipeAnimations')) {
+                                const style = document.createElement('style');
+                                style.id = 'swipeAnimations';
+                                style.textContent = `
+                                    @keyframes swipeIndicatorShow {
+                                        0% { opacity: 0; transform: translateY(-50%) scale(0.8); }
+                                        50% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+                                        100% { opacity: 1; transform: translateY(-50%) scale(1); }
+                                    }
+                                `;
+                                document.head.appendChild(style);
+                            }
+
+                            setTimeout(() => {
+                                indicator.style.animation = 'none';
+                                indicator.style.opacity = '0';
+                                setTimeout(() => {
+                                    document.body.removeChild(indicator);
+                                }, 200);
+                            }, 1000);
+                        }
+                    }
+
+                    // Add ripple effect to touch interactions (not on extremely narrow screens)
+                    if (window.innerWidth > 360) {
+                        const touchableElements = document.querySelectorAll('.book-card, .chapter-link, .nav-button');
+                        touchableElements.forEach(element => {
+                            element.addEventListener('touchstart', function(e) {
+                                if (!this.classList.contains('ripple-effect')) {
+                                    this.classList.add('ripple-effect');
+                                    setTimeout(() => {
+                                        this.classList.remove('ripple-effect');
+                                    }, 600);
+                                }
+                            }, { passive: true });
+                        });
+                    }
                 }
             });
 
@@ -1377,9 +743,6 @@
                             this.getAttribute("href"),
                         );
                         if (target) {
-                            // Close mobile menu if open when navigating
-                            // Remove mobile touch handler since sidebar is hidden on mobile
-
                             target.scrollIntoView({
                                 behavior: "smooth",
                                 block: "start",
