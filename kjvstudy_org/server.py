@@ -1755,6 +1755,58 @@ def read_chapter(request: Request, book: str, chapter: int):
     )
 
 
+@app.get("/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
+def read_verse(request: Request, book: str, chapter: int, verse_num: int):
+    """Display a single verse with detailed commentary"""
+    books = list(bible.iter_books())
+    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+
+    if not verses:
+        # Check if the book exists first
+        if not chapters:
+            raise HTTPException(
+                status_code=404,
+                detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
+            )
+        else:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
+            )
+
+    # Find the specific verse
+    verse = None
+    for v in verses:
+        if v.verse == verse_num:
+            verse = v
+            break
+
+    if not verse:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Verse {verse_num} not found in {book} {chapter}. This chapter has {len(verses)} verses."
+        )
+
+    # Generate commentary for this verse
+    commentary = generate_commentary(book, chapter, verse)
+
+    return templates.TemplateResponse(
+        "verse.html",
+        {
+            "request": request,
+            "book": book,
+            "chapter": chapter,
+            "verse_num": verse_num,
+            "verse_text": verse.text,
+            "commentary": commentary,
+            "total_verses": len(verses),
+            "books": books,
+            "chapters": chapters
+        }
+    )
+
+
 @app.get("/commentary/{book}/{chapter}", response_class=HTMLResponse)
 def commentary(request: Request, book: str, chapter: int):
     """Generate AI-powered commentary for a specific chapter"""
