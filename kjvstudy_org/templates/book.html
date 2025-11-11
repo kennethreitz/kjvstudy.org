@@ -1,489 +1,132 @@
 {% extends "base.html" %}
 
-{% block title %}{{ book }} - Authorized King James Version (KJV) Bible{% endblock %}
-{% block description %}Read {{ book }} from the Authorized King James Version (KJV) Bible. Browse all chapters of {{ book }} with enhanced readability and navigation tools.{% endblock %}
-{% block keywords %}{{ book }}, {{ book }} KJV, {{ book }} King James Version, Authorized King James Version, KJV Bible, {{ book }} chapters{% endblock %}
+{% block title %}{{ book }} - KJV Bible{% endblock %}
 
 {% block head %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-.commentary-section h2 {
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-top: 0;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-light);
-}
-
-.commentary-section h3 {
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 1.75rem 0 0.875rem 0;
-}
-
-.commentary-section p {
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-    font-size: 1.175rem;
-    line-height: 1.7;
-    margin-bottom: 1.25rem;
-    color: var(--text-primary);
-    text-rendering: optimizeLegibility;
-}
-
-.commentary-section li {
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--text-primary);
-}
-
-@media (max-width: 768px) {
-    .commentary-container {
-        margin-top: 2rem !important;
-        padding: 0 0.5rem !important;
-    }
-    
-    .commentary-section {
-        padding: 1.25rem !important;
-    }
-    
-    .commentary-section h2 {
-        font-size: 1.4rem !important;
-    }
-    
-    .commentary-section h3 {
-        font-size: 1.2rem !important;
-    }
-    
-    .commentary-section p {
-        font-size: 1rem !important;
-    }
-}
-
-.commentary-section strong {
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
-.commentary-section em {
-    color: var(--text-secondary);
-    font-style: italic;
-}
-
-.key-passage-link {
-    text-decoration: none;
-    display: block;
-    position: relative;
-    z-index: 1;
-}
-
-.key-passage-card {
-    background: rgba(255, 235, 59, 0.1);
-    border-radius: var(--radius-md);
-    padding: 1.25rem;
-    border-left: 4px solid var(--accent-color);
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.key-passage-link:hover .key-passage-card {
-    background: rgba(255, 235, 59, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Chapter popularity color coding */
-.chapter-link {
-    position: relative;
-    transition: all 0.3s ease;
-    overflow: visible;
-}
-
-/* Custom wide tooltips for chapter links */
-.chapter-link {
-    cursor: pointer;
-}
-
-.chapter-link::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.95);
-    color: white;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    white-space: normal;
-    width: 320px;
-    max-width: 450px;
-    min-width: 280px;
-    text-align: left;
-    z-index: 1000;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-    word-wrap: break-word;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(-50%) scale(0.8);
-    transition: opacity 0.3s ease 0.5s, visibility 0.3s ease 0.5s, transform 0.3s ease 0.5s;
-}
-
-.chapter-link::after {
-    content: '';
-    position: absolute;
-    bottom: calc(100% + 4px);
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.95);
-    z-index: 1001;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease 0.5s, visibility 0.3s ease 0.5s;
-}
-
-.chapter-link:hover::before,
-.chapter-link:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
-
-.chapter-link:hover::before {
-    transform: translateX(-50%) scale(1);
-}
-
-@media (max-width: 768px) {
-    .chapter-link::before {
-        position: fixed;
-        bottom: 3rem;
-        left: 1rem;
-        right: 1rem;
-        transform: none;
-        width: auto;
-        max-width: none;
-        min-width: auto;
-        font-size: 0.9rem;
-        padding: 1rem;
-        z-index: 1002;
-        text-align: center;
-    }
-    
-    .chapter-link::after {
-        display: none;
-    }
-}
-
-.chapter-link[data-popularity="10"] {
-    background: linear-gradient(135deg, #8B5CF6, #A855F7);
-    color: white;
-    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
-}
-
-.chapter-link[data-popularity="9"] {
-    background: linear-gradient(135deg, #7C3AED, #8B5CF6);
-    color: white;
-    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
-}
-
-.chapter-link[data-popularity="8"] {
-    background: linear-gradient(135deg, #6366F1, #7C3AED);
-    color: white;
-    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
-}
-
-.chapter-link[data-popularity="7"] {
-    background: linear-gradient(135deg, #3B82F6, #6366F1);
-    color: white;
-    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
-}
-
-.chapter-link[data-popularity="6"] {
-    background: linear-gradient(135deg, #06B6D4, #3B82F6);
-    color: white;
-}
-
-.chapter-link[data-popularity="5"] {
-    background: linear-gradient(135deg, #10B981, #06B6D4);
-    color: white;
-}
-
-.chapter-link[data-popularity="4"] {
-    background: linear-gradient(135deg, #84CC16, #10B981);
-    color: white;
-}
-
-.chapter-link[data-popularity="3"] {
-    background: linear-gradient(135deg, #EAB308, #84CC16);
-    color: white;
-}
-
-.chapter-link[data-popularity="2"] {
-    background: linear-gradient(135deg, #F59E0B, #EAB308);
-    color: white;
-}
-
-.chapter-link[data-popularity="1"] {
-    background: linear-gradient(135deg, #F97316, #F59E0B);
-    color: white;
-}
-
-.chapter-link:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
-}
-
-
-
-/* Mobile styles will use browser default tooltips */
-
-.verse-tooltip {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.95);
-    color: white;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    max-width: 450px;
-    min-width: 350px;
-    white-space: normal;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    pointer-events: none;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: 'EB Garamond', Georgia, serif;
-    margin-bottom: 8px;
-}
-
-/* Responsive tooltip styles */
-@media (max-width: 768px) {
-    .verse-tooltip {
-        position: fixed;
-        bottom: 2rem;
-        left: 1rem;
-        right: 1rem;
-        transform: none;
-        max-width: none;
-        min-width: auto;
-        padding: 1rem;
-        font-size: 1rem;
-        z-index: 1001;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .verse-tooltip {
-        max-width: 380px;
-        min-width: 280px;
-        font-size: 0.875rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    .verse-tooltip {
-        max-width: 500px;
-        min-width: 400px;
-        font-size: 0.95rem;
-        padding: 1rem 1.25rem;
-    }
-}
-
-.verse-tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.95);
-}
-
-.verse-reference:hover .verse-tooltip {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Mobile styles for popularity legend */
-@media (max-width: 768px) {
-    .popularity-legend h3 {
-        font-size: 0.9rem !important;
-    }
-    
-    .popularity-legend-items {
-        gap: 0.3rem !important;
-    }
-    
-    .popularity-legend-item span {
-        font-size: 0.7rem !important;
-    }
-    
-    .popularity-legend p {
-        font-size: 0.65rem !important;
-    }
+.popular-chapter {
+    font-weight: bold;
 }
 </style>
-{% endblock %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const bookName = "{{ book }}";
 
-{% block schema_type %}Book{% endblock %}
-{% block structured_data %},
-        "name": "{{ book }} - Authorized King James Version",
-        "numberOfPages": {{ chapters|length }},
-        "bookFormat": "EBook",
-        "inLanguage": "en-US",
-        "genre": "Religious Text",
-        "isPartOf": {
-            "@type": "Book",
-            "@id": "https://schema.org/Bible",
-            "name": "Authorized King James Version Bible",
-            "alternateName": ["KJV Bible", "King James Bible"]
-        },
-        "hasPart": [
-            {% for chapter in chapters %}
-            {
-                "@type": "Chapter",
-                "name": "{{ book }} {{ chapter }}",
-                "position": {{ chapter }},
-                "url": "{{ request.url_root }}book/{{ book }}/chapter/{{ chapter }}"
-            }{% if not loop.last %},{% endif %}
-            {% endfor %}
-        ]{% endblock %}
+    // Function to link verse references in text
+    function linkVerseReferences(element) {
+        if (!element) return;
 
-{% block breadcrumb %}
-<div class="container">
-    <nav class="breadcrumb">
-        <a href="/">📚 All Books</a>
-        <span class="breadcrumb-separator">/</span>
-        <span>{{ book }}</span>
-    </nav>
-</div>
+        // Get all text nodes
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+            textNodes.push(node);
+        }
+
+        textNodes.forEach(function(textNode) {
+            let text = textNode.textContent;
+            let changed = false;
+
+            // Match chapter ranges in parentheses like "(21-22)" or "(21)"
+            text = text.replace(/\((\d+)(?:-(\d+))?\)/g, function(match, chapterStart, chapterEnd) {
+                changed = true;
+                if (chapterEnd) {
+                    return '(<a href="/book/' + bookName + '/chapter/' + chapterStart + '">' + chapterStart + '-' + chapterEnd + '</a>)';
+                } else {
+                    return '(<a href="/book/' + bookName + '/chapter/' + chapterStart + '">' + chapterStart + '</a>)';
+                }
+            });
+
+            // Create regex for book name references
+            const bookRegex = new RegExp('\\b' + bookName.replace(/\s+/g, '\\s+') + '\\s+(\\d+):(\\d+)-(\\d+)\\b', 'g');
+            text = text.replace(bookRegex, function(match, chapter, verseStart, verseEnd) {
+                changed = true;
+                return '<a href="/book/' + bookName + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
+            });
+
+            // Match verse ranges like "1:1-5"
+            text = text.replace(/\b(\d+):(\d+)-(\d+)\b/g, function(match, chapter, verseStart, verseEnd) {
+                changed = true;
+                return '<a href="/book/' + bookName + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
+            });
+
+            // Match single verses like "1:1"
+            text = text.replace(/\b(\d+):(\d+)\b/g, function(match, chapter, verse) {
+                changed = true;
+                return '<a href="/book/' + bookName + '/chapter/' + chapter + '#verse-' + verse + '">' + match + '</a>';
+            });
+
+            if (changed) {
+                const span = document.createElement('span');
+                span.innerHTML = text;
+                textNode.parentNode.replaceChild(span, textNode);
+                // Replace the span's children with its contents
+                while (span.firstChild) {
+                    span.parentNode.insertBefore(span.firstChild, span);
+                }
+                span.parentNode.removeChild(span);
+            }
+        });
+    }
+
+    // Link verse references in all sections
+    document.querySelectorAll('section').forEach(function(section) {
+        linkVerseReferences(section);
+    });
+});
+</script>
 {% endblock %}
 
 {% block content %}
-<div class="text-center mb-4">
-    <h1 class="section-title" style="font-size: 1.8rem;">{{ book }} - Authorized King James Version (KJV)</h1>
-        <p style="font-size: 0.95rem; color: var(--text-secondary);">
-            Select a chapter to begin reading {{ book }} from the KJV Bible
-        </p>
-    <a href="/book/{{ book }}/commentary" class="nav-button nav-button-primary" style="display: inline-block; margin-top: 0.75rem; font-size: 0.95rem; padding: 0.5rem 1rem;">
-            View Complete {{ book }} Commentary
-        </a>
-</div>
+<h1>{{ book }}</h1>
+<p class="subtitle"><a href="/">Authorized King James Version</a></p>
 
-<!-- Popularity Legend -->
-<div class="popularity-legend" style="margin-bottom: 1.5rem; text-align: center;">
-    <h3 style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">
-        📊 Chapter Popularity Guide
-    </h3>
-    <div class="popularity-legend-items" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
-        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
-            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #8B5CF6, #A855F7); border-radius: 4px; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem;">★</div>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">Most Popular</span>
-        </div>
-        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
-            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #3B82F6, #6366F1); border-radius: 4px;"></div>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">Very Popular</span>
-        </div>
-        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
-            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #10B981, #06B6D4); border-radius: 4px;"></div>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">Popular</span>
-        </div>
-        <div class="popularity-legend-item" style="display: flex; align-items: center; gap: 0.25rem;">
-            <div style="width: 20px; height: 20px; background: linear-gradient(135deg, #EAB308, #84CC16); border-radius: 4px;"></div>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">Standard</span>
-        </div>
-    </div>
-    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0; font-style: italic;">
-        Colors indicate how frequently chapters are read and studied
+<section>
+    <h2>Chapters</h2>
+    <p>
+        <label for="mn-popular" class="margin-toggle">⊕</label>
+        <input type="checkbox" id="mn-popular" class="margin-toggle"/>
+        <span class="marginnote">Chapters in <strong>bold</strong> are among the most frequently read and studied passages.</span>
+        {% for chapter in chapters %}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}" {% if chapter_popularity[chapter] >= 7 %}class="popular-chapter"{% endif %}>{{ chapter }}</a>{% if not loop.last %} · {% endif %}
+        {% endfor %}
     </p>
-</div>
+</section>
 
-<div class="chapter-grid">
-    {% for chapter in chapters %}
-    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="chapter-link" data-popularity="{{ chapter_popularity[chapter] }}" data-tooltip="{{ book }} {{ chapter }} ({{ chapter_popularity[chapter] }}/10) - {{ chapter_explanations[chapter] }}">
-        {{ chapter }}
-    </a>
-    {% endfor %}
-</div>
+{% if introduction %}
+<section>
+    <h2>Introduction</h2>
+    {{ introduction|safe }}
+</section>
+{% endif %}
 
-<div class="commentary-container" style="margin-top: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; padding: 0 1rem;">
-    <div class="commentary-section" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 1.75rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); color: var(--text-primary);">
-            <h2 style="color: var(--text-primary); margin-top: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-light); font-family: 'Crimson Text', 'Times New Roman', serif; font-size: 1.7rem; margin-bottom: 1.25rem; font-weight: 700; text-align: center;">
-                📚 Commentary on {{ book }}
-            </h2>
-        
-        <div style="margin-bottom: 1.5rem;">
-                    <h3>Introduction</h3>
-                    {{ introduction|safe }}
-                </div>
-        
-                <div style="margin-bottom: 1.5rem;">
-                    <h3>Historical Context</h3>
-                    {{ historical_context|safe }}
-                </div>
-        
-                <div style="margin-bottom: 1.5rem;">
-                    <h3>Major Themes</h3>
-                    {{ themes|safe }}
-                </div>
-        
-        <div style="margin-bottom: 2rem;">
-            <h3>Key Passages</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 1.25rem;">
-                {% for highlight in highlights %}
-                <a href="{{ highlight.url }}" class="key-passage-link verse-reference" style="position: relative;">
-                    <div class="key-passage-card">
-                        <h4 style="font-weight: 600; margin: 0 0 0.4rem; color: var(--primary-light); font-size: 1.1rem;">{{ highlight.reference }}</h4>
-                                                <p style="margin: 0; color: var(--text-primary); line-height: 1.4; font-size: 1rem;">{{ highlight.description }}</p>
-                        <span style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; display: block;">Click to read passage →</span>
-                    </div>
-                    <span class="verse-tooltip">{{ highlight.text|default(highlight.description) }}</span>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light);">
-                    <a href="/book/{{ book }}/commentary" class="nav-button nav-button-primary" style="display: inline-block; font-size: 1rem; padding: 0.65rem 1.25rem;">
-                        Read Complete {{ book }} Commentary
-                    </a>
-            <p style="color: var(--text-secondary); margin-top: 0.8rem; font-style: italic; font-size: 0.85rem;">
-                            "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."
-                            <br>
-                            <strong style="color: var(--primary-light);">2 Timothy 2:15</strong>
-                        </p>
-        </div>
-    </div>
-</div>
-{% endblock %}
+{% if historical_context %}
+<section>
+    <h2>Historical Context</h2>
+    {{ historical_context|safe }}
+</section>
+{% endif %}
 
-{% block navigation %}
-<div class="container">
-    <div class="navigation">
-            <a href="/" class="nav-button" style="font-size: 0.95rem;">
-                ← All Books
-            </a>
-            <div style="color: var(--text-muted); font-size: 0.8rem;">
-                {{ chapters|length }} chapters in {{ book }} (KJV)
-            </div>
-        </div>
-</div>
+{% if themes %}
+<section>
+    <h2>Major Themes</h2>
+    {{ themes|safe }}
+</section>
+{% endif %}
+
+{% if key_passages %}
+<section>
+    <h2>Key Passages</h2>
+    <ul>
+        {% for passage in key_passages %}
+        <li><a href="{{ passage.url }}">{{ passage.reference }}</a> — {{ passage.description }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<nav>
+    <p><a href="/">← All Books</a></p>
+</nav>
 {% endblock %}

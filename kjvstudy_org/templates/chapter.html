@@ -1,859 +1,189 @@
 {% extends "base.html" %}
 
-{% block title %}{{ book }} {{ chapter }} - Authorized King James Version (KJV) Bible{% endblock %}
-{% block description %}Read {{ book }} chapter {{ chapter }} from the Authorized King James Version (KJV) Bible with verse-by-verse display and study tools. Complete text of {{ book }} {{ chapter }} KJV.{% endblock %}
-{% block keywords %}{{ book }} {{ chapter }}, {{ book }} {{ chapter }} KJV, {{ book }} chapter {{ chapter }} King James Version, Authorized King James Version, KJV Bible, {{ book }} {{ chapter }} verses{% endblock %}
-
-{% block schema_type %}Article{% endblock %}
-{% block structured_data %},
-        "headline": "{{ book }} {{ chapter }} - Authorized King James Version (KJV)",
-        "articleSection": "{{ book }}",
-        "text": "{{ verses[0].text[:150] }}...",
-        "wordCount": {{ verses|length }},
-        "isPartOf": {
-            "@type": "Book",
-            "name": "{{ book }} - Authorized King James Version",
-            "isPartOf": {
-                "@type": "Book",
-                "name": "Authorized King James Version Bible"
-            }
-        }{% endblock %}
+{% block title %}{{ book }} {{ chapter }} - KJV Bible{% endblock %}
 
 {% block head %}
 <style>
-.chapter-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    width: 100%;
-    text-align: center;
+.sidenote {
+    max-height: 150px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: max-height 0.3s ease;
 }
 
-/* Override any container restrictions for clean full-width layout */
-.container, .narrow-container {
-    max-width: 800px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    padding: 1rem !important;
+.sidenote.expanded {
+    max-height: none;
+    overflow: visible;
 }
 
-/* Responsive design for all screen sizes */
-@media (min-width: 768px) {
-    .chapter-container {
-        padding: 2rem 1rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .chapter-container {
-        padding: 2rem;
-    }
-}
-
-/* Mobile responsive styles */
-@media (max-width: 767px) {
-    .chapter-container {
-        padding: 1rem 0.5rem;
-        margin: 0 auto;
-    }
-    
-    .chapter-main-content {
-        width: 100% !important;
-    }
-    
-    .chapter-navigation {
-        margin-bottom: 1rem;
-    }
-    
-    .chapter-title {
-        font-size: 1.8rem !important;
-    }
-    
-    .verse-number {
-        font-size: 0.7rem !important;
-        padding: 0.1rem 0.3rem !important;
-    }
-    
-    .chapter-text {
-        font-size: 1.1rem !important;
-        line-height: 1.6 !important;
-    }
-}
-
-
-
-.commentary-verse {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 6px;
-    border-left: 4px solid #8b4513;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.commentary-verse-ref {
-    font-weight: bold;
-    color: #8b4513;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.commentary-text {
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    color: #333;
-    font-size: 0.95rem;
-}
-
-.theological-notes {
-    background: #fff3cd;
-    border: 1px solid #ffeaa7;
-    border-radius: 4px;
-    padding: 0.75rem;
-    margin: 0.75rem 0;
-}
-
-.theological-notes h4 {
-    font-size: 0.85rem;
-    color: #856404;
-    margin: 0 0 0.5rem 0;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.theological-note {
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
-    color: #856404;
-    line-height: 1.5;
-}
-
-.cross-references {
-    background: #e7f3ff;
-    border: 1px solid #bee5eb;
-    border-radius: 4px;
-    padding: 0.75rem;
-    margin: 0.75rem 0;
-}
-
-.cross-references h4 {
-    font-size: 0.85rem;
-    color: #0c5460;
-    margin: 0 0 0.5rem 0;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.cross-ref-link {
-    color: #0c5460;
-    text-decoration: none;
-    font-size: 0.85rem;
-    margin-right: 0.5rem;
-    border-bottom: 1px dotted #0c5460;
-}
-
-.cross-ref-link:hover {
-    color: #0a4e5c;
-    border-bottom: 1px solid #0a4e5c;
-}
-
-.hebrew-insights {
-    background: #f0f8e7;
-    border: 1px solid #c3d69b;
-    border-radius: 4px;
-    padding: 0.75rem;
-    margin: 0.75rem 0;
-}
-
-.hebrew-insights h4 {
-    font-size: 0.85rem;
-    color: #4a5c23;
-    margin: 0 0 0.5rem 0;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.hebrew-term {
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
-    color: #4a5c23;
-}
-
-.hebrew-word {
-    font-weight: bold;
-    font-style: italic;
-}
-
-
-
-@media (max-width: 1200px) {
-    .chapter-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .scofield-commentary {
-        position: static;
-        max-height: none;
-        order: 2;
-    }
-}
-
-<style>
-.chapter-container {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    padding-right: 320px; /* Space for margin notes */
-}
-
-/* Override any container restrictions */
-.container,
-.narrow-container {
-    max-width: none !important;
-    width: 100% !important;
-    padding: 0 !important;
-}
-
-.margin-commentary {
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-    margin: 1rem auto;
-    font-family: "Crimson Text", serif;
-    font-size: 0.8rem;
-    line-height: 1.4;
-}
-
-.margin-note {
+.sidenote:not(.expanded)::after {
+    content: "";
     position: absolute;
+    bottom: 0;
+    left: 0;
     right: 0;
-    background: #fefefe;
-    border-left: 3px solid #8b4513;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-radius: 0 4px 4px 0;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.3s ease;
-    max-width: 280px;
-    z-index: 10;
-}
-
-.margin-note.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.margin-note-ref {
-    font-weight: bold;
-    color: #8b4513;
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
-    border-bottom: 1px solid #8b4513;
-    padding-bottom: 0.25rem;
-}
-
-.margin-note-text {
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.margin-cross-refs {
-    background: #f0f8ff;
-    padding: 0.25rem;
-    border-radius: 3px;
-    margin: 0.25rem 0;
-    font-size: 0.7rem;
-}
-
-.margin-theological {
-    background: #fff8dc;
-    padding: 0.25rem;
-    border-radius: 3px;
-    margin: 0.25rem 0;
-    font-size: 0.7rem;
-}
-
-.margin-hebrew {
-    background: #f0fff0;
-    padding: 0.25rem;
-    border-radius: 3px;
-    margin: 0.25rem 0;
-    font-size: 0.7rem;
-}
-
-@media (max-width: 1200px) {
-    .chapter-container {
-        padding: 1rem;
-    }
-    
-    .margin-commentary {
-        position: relative;
-        width: 100%;
-        margin: 1rem 0;
-    }
-}
-
-.verse-tools {
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    display: inline-flex;
-    gap: 0.25rem;
-    margin-left: 0.25rem;
-    vertical-align: middle;
-    font-size: 0.75rem;
-}
-
-.verse:hover .verse-tools {
-    opacity: 1;
-}
-
-.chapter-text .verse:hover .verse-tools {
-    opacity: 1;
-}
-
-.verse-tool {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    border-radius: var(--radius-sm);
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 10px;
-    transition: all 0.2s ease;
-}
-
-.verse-tool:hover {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-sup.verse-number {
-    font-size: 0.8rem !important;
-    font-weight: 500 !important;
-    color: var(--primary-light) !important;
-    margin-right: 0.25rem !important;
-    user-select: none !important;
-    cursor: pointer !important;
-    font-family: 'Crimson Text', 'Times New Roman', serif !important;
-    line-height: normal !important;
-    vertical-align: super !important;
-    position: relative !important;
-    display: inline !important;
-    float: none !important;
-    transform: none !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    transition: all 0.2s ease !important;
-    padding: 0.1rem 0.2rem !important;
-    border-radius: 3px !important;
-}
-
-sup.verse-number:hover {
-    color: var(--accent-color) !important;
-    background-color: rgba(139, 92, 246, 0.15) !important;
-}
-
-sup.verse-number:active {
-    background-color: rgba(139, 92, 246, 0.25) !important;
-    transform: scale(1.1) !important;
-}
-
-.ai-commentary-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: normal;
-    transition: color 0.2s ease;
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
-.ai-commentary-link:hover {
-    color: var(--text-primary);
-}
-
-.highlight-verse,
-.verse-highlight,
-.highlight-verse {
-    background-color: rgba(255, 235, 59, 0.3) !important;
-    padding: 0.1rem 0.2rem !important;
-    border-radius: 3px !important;
-    animation: pulse-highlight 2s ease;
-}
-
-.verse-underlined {
-    text-decoration: underline !important;
-    text-decoration-color: var(--primary-light) !important;
-    text-decoration-thickness: 2px !important;
-    text-underline-offset: 4px !important;
-    background-color: rgba(139, 92, 246, 0.08) !important;
-    padding: 0.3rem 0.4rem !important;
-    border-radius: 5px !important;
-    border-left: 4px solid var(--primary-light) !important;
-    margin-left: -0.4rem !important;
-    padding-left: 0.7rem !important;
-    box-shadow: 0 1px 3px rgba(139, 92, 246, 0.1) !important;
-    transition: all 0.3s ease !important;
-}
-
-@keyframes pulse-highlight {
-    0% { background-color: transparent; }
-    30% { background-color: rgba(255, 235, 59, 0.5); }
-    100% { background-color: rgba(255, 235, 59, 0.3); }
-}
-
-.chapter-navigation {
-    padding: 0.5rem 0;
-    margin-bottom: 1rem;
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
-.chapter-nav-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
-.chapter-info {
-    font-size: 0.9rem;
-    font-weight: normal;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
-.verse-highlight {
-    background: linear-gradient(120deg, #fff59d 0%, #ffee58 100%);
-    background-size: 100% 40%;
-    background-repeat: no-repeat;
-    background-position: 0 60%;
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-}
-
-.verse-text {
-    font-family: 'Crimson Text', 'Times New Roman', serif;
-    font-size: 1.2rem;
-    line-height: 1.9;
-    color: var(--text-primary);
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    text-rendering: optimizeLegibility;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-}
-
-.chapter-text {
-    position: relative;
-    display: block;
-}
-
-.chapter-text .verse-underlined {
-    display: inline-block;
-    min-width: 100%;
-    box-sizing: border-box;
-}
-
-.verse-text::selection {
-    background: rgba(139, 92, 246, 0.4);
-    color: var(--text-primary);
-}
-
-.verse-text::-moz-selection {
-    background: rgba(139, 92, 246, 0.4);
-    color: var(--text-primary);
-}
-
-.verse-reference {
-    position: relative;
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.verse-reference:hover {
-    text-decoration: underline;
-}
-
-.verse-tooltip {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.95);
-    color: white;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    max-width: 450px;
-    min-width: 350px;
-    white-space: normal;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, #fffff8);
     pointer-events: none;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: 'EB Garamond', Georgia, serif;
-    margin-bottom: 8px;
 }
 
-/* Responsive tooltip styles */
-@media (max-width: 768px) {
-    .verse-tooltip {
-        position: fixed;
-        bottom: 2rem;
-        left: 1rem;
-        right: 1rem;
-        transform: none;
-        max-width: none;
-        min-width: auto;
-        padding: 1rem;
-        font-size: 1rem;
-        z-index: 1001;
+.marginnote {
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 760px) {
+    .sidenote {
+        max-height: 120px;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    .verse-tooltip {
-        max-width: 380px;
-        min-width: 280px;
-        font-size: 0.875rem;
-    }
+hr {
+    border: 0;
+    height: 0;
+    text-align: center;
+    margin: 2em 0;
 }
 
-@media (min-width: 1200px) {
-    .verse-tooltip {
-        max-width: 500px;
-        min-width: 400px;
-        font-size: 0.95rem;
-        padding: 1rem 1.25rem;
-    }
+hr::before {
+    content: "⁂";
+    font-size: 1.5rem;
+    letter-spacing: 0.6em;
+    color: #111;
 }
 
-.verse-tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.95);
+.verse-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
-.verse-reference:hover .verse-tooltip {
-    opacity: 1;
-    visibility: visible;
-}
-
-@media (max-width: 768px) {
-    .verse-text {
-        font-size: 1.1rem;
-        line-height: 1.8;
-    }
-
-    .verse-number {
-        font-size: 0.75rem;
-    }
-}
-
-.chapter-text {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: var(--text-primary);
-    text-align: justify;
-    text-justify: inter-word;
-    margin: 2rem 0;
-    padding: 1rem;
-    background: var(--surface-color);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-}
-
-.chapter-text sup.verse-number {
-    font-size: 0.75rem !important;
-    margin-right: 0.2rem !important;
-}
-
-@media (max-width: 768px) {
-    .chapter-text {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        padding: 1rem;
-    }
-
-    .chapter-text sup.verse-number {
-        font-size: 0.65rem !important;
-    }
-
-    .verse-underlined {
-        text-decoration-thickness: 1px !important;
-        text-underline-offset: 2px !important;
-        padding: 0.2rem 0.3rem !important;
-        border-left-width: 3px !important;
-        margin-left: -0.3rem !important;
-        padding-left: 0.5rem !important;
-        font-size: 1.05rem !important;
-    }
+.verse-link:hover {
+    color: #111;
 }
 </style>
 {% endblock %}
 
-{% block breadcrumb %}
-<div class="container">
-    <nav class="breadcrumb" style="font-size: 1.2rem;">
-        <a href="/">📚 All Books</a>
-        <span class="breadcrumb-separator">/</span>
-        <a href="/book/{{ book }}">{{ book }}</a>
-        <span class="breadcrumb-separator">/</span>
-        <span>Chapter {{ chapter }}</span>
-    </nav>
-</div>
-{% endblock %}
-
-{% block container_class %}{% endblock %}
-
 {% block content %}
-<div class="chapter-container">
-    <div class="chapter-main-content" style="min-width: 0; width: 100%;">
-        <div class="chapter-navigation" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
-    <div class="chapter-nav-content" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
-        <div class="chapter-info" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
-            {{ book }} {{ chapter }} (KJV)
-        </div>
+<h1>{{ book }} {{ chapter }}</h1>
+<p class="subtitle"><a href="/">Authorized King James Version</a></p>
 
-    </div>
-</div>
+{% if chapter_overview %}
+<section>
+    {{ chapter_overview|safe }}
+</section>
+<hr/>
+{% endif %}
 
-
-<div class="text-center mb-4" style="font-family: 'Crimson Text', 'Times New Roman', serif;">
-    <h1 class="chapter-title" style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ book }} {{ chapter }}</h1>
-    <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0.5rem 0 1rem 0; font-style: normal; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Crimson Text', 'Times New Roman', serif;">
-        Authorized King James Version (1769) with <a href="/book/{{ book }}/commentary" class="ai-commentary-link" style="font-family: 'Crimson Text', 'Times New Roman', serif;">AI Commentary</a>
+<section>
+    {% for verse in verses %}
+    {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
+    <p id="verse-{{ verse.verse }}">
+        <a href="#verse-{{ verse.verse }}" class="verse-link"><label for="sn-{{ verse.verse }}" class="margin-toggle sidenote-number"></label></a>
+        <input type="checkbox" id="sn-{{ verse.verse }}" class="margin-toggle"/>
+        {% if commentary and commentary.analysis %}
+        <span class="sidenote">{{ commentary.analysis|safe }}</span>
+        {% endif %}
+        {{ verse.text }}
+        {% if commentary and commentary.cross_references %}
+            {% for ref in commentary.cross_references %}
+            <label for="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle">⊕</label>
+            <input type="checkbox" id="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle"/>
+            <span class="marginnote"><strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}</span>
+            {% endfor %}
+        {% endif %}
+        {% if commentary and commentary.historical %}
+        <label for="sn-{{ verse.verse }}-hist" class="margin-toggle">⊕</label>
+        <input type="checkbox" id="sn-{{ verse.verse }}-hist" class="margin-toggle"/>
+        <span class="marginnote"><em>Historical context:</em> {{ commentary.historical|safe }}</span>
+        {% endif %}
     </p>
-</div>
+    {% endfor %}
+</section>
 
-<div class="verses-container" id="versesContainer" style="font-family: 'Crimson Text', 'Times New Roman', serif; max-width: 700px; margin: 0 auto; text-align: left;">
-    <div class="chapter-text" style="font-family: 'Crimson Text', 'Times New Roman', serif; text-align: left; line-height: 1.8;">
-        {% for verse in verses %}
-        {% if not loop.first %}<br>{% endif %}<span class="verse" id="verse-{{ verse.verse }}" style="position: relative; display: inline;"><sup class="verse-number" title="Verse {{ verse.verse }}" onclick="navigateToVerse({{ verse.verse }})" style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.verse }}</sup><span style="font-family: 'Crimson Text', 'Times New Roman', serif;">{{ verse.text }}</span><span class="verse-tools"><a href="#verse-{{ verse.verse }}" class="verse-tool" title="Link to this verse" onclick="copyVerseLink({{ verse.verse }}); return false;">🔗</a><a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse.verse }}" class="verse-tool" title="Go to this verse">🔍</a></span></span>{% if not loop.last %} {% endif %}
-        {% endfor %}
-    </div>
-</div>
-
-<div class="commentary-preview" style="background: var(--surface-color); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem; border: 1px solid var(--border-light); text-center;">
-    <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
-        🤖 AI Commentary
-    </h3>
-    {% if book == "Revelation" and chapter == 1 %}
-    <div style="background: linear-gradient(135deg, rgba(75, 46, 131, 0.1), rgba(65, 105, 225, 0.1)); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--primary-color); box-shadow: var(--shadow-sm);">
-        <div style="display: flex; align-items: center; margin-bottom: 0.75rem;">
-            <span style="background: var(--primary-color); color: white; padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.5rem;">Premium</span>
-            <h4 style="margin: 0; font-weight: 600; color: var(--primary-color); font-size: 1.1rem;">✨ Revelation 1: The Apocalyptic Vision ✨</h4>
-        </div>
-        <p style="color: var(--text-primary); margin: 0 0 1rem; line-height: 1.6; font-style: italic;">
-            "I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty." — Revelation 1:8
-        </p>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
-            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Apocalyptic</span>
-            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Christology</span>
-            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Domitian Era</span>
-            <span style="background: rgba(75, 46, 131, 0.1); color: var(--primary-color); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem;">Seven Churches</span>
-        </div>
-        <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
-            Explore our detailed verse-by-verse analysis of Revelation 1, featuring historical context from the late first century CE,
-            theological insights on apocalyptic literature, and cross-references to Old Testament prophetic visions.
-        </p>
-        <div style="background: rgba(255, 255, 255, 0.7); border-radius: var(--radius-sm); padding: 0.75rem; margin-bottom: 1rem; border: 1px solid rgba(75, 46, 131, 0.2);">
-            <h5 style="margin: 0 0 0.5rem; color: var(--primary-color); font-size: 0.9rem;">Featured Commentary Highlights:</h5>
-            <ul style="margin: 0; padding-left: 1.25rem; color: var(--text-secondary); font-size: 0.9rem;">
-                <li>Verse-by-verse exegesis with Greek word studies</li>
-                <li>Archaeological context of the seven churches</li>
-                <li>Counter-imperial themes and symbols</li>
-                <li>High Christology in apocalyptic literature</li>
-                <li>Connections to Daniel 7, Ezekiel 1, and Zechariah 4</li>
-            </ul>
-        </div>
-    </div>
-    {% else %}
-    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6;">
-        Explore verse-by-verse analysis with historical context, theological insights,
-        and cross-references for {{ book }} {{ chapter }} from the Authorized King James Version (KJV).
+<nav>
+    <p>
+        <a href="/book/{{ book }}">← {{ book }}</a>
+        {% if chapter > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}">← Chapter {{ chapter - 1 }}</a>{% endif %}
+        {% if chapter < chapters|length %} | <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}">Chapter {{ chapter + 1 }} →</a>{% endif %}
     </p>
-    {% endif %}
-    <div class="button-group" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
-        <a href="/commentary/{{ book }}/{{ chapter }}" class="nav-button nav-button-primary" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem;">
-            📖 View Commentary
-        </a>
-    </div>
-</div>
-
-
-{% endblock %}
-
-{% block navigation %}
-<div class="chapter-container">
-    <div class="navigation">
-        <a href="/book/{{ book }}" class="nav-button" style="font-size: 1.2rem;">
-            ← All Chapters
-        </a>
-        <div style="display: flex; gap: 0.5rem;">
-            {% if chapter > 1 %}
-            <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}" class="nav-button" style="font-size: 1.2rem;">
-                ← {{ book }} {{ chapter - 1 }}
-            </a>
-            {% endif %}
-            {% if chapter < chapters|length %}
-            <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}" class="nav-button nav-button-primary" style="font-size: 1.2rem;">
-                {{ book }} {{ chapter + 1 }} →
-            </a>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-
+</nav>
 
 <script>
-function navigateToVerse(verseNumber) {
-    const verseElement = document.getElementById(`verse-${verseNumber}`);
-    if (verseElement) {
-        verseElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Remove previous underlines
-        document.querySelectorAll('.verse-underlined').forEach(el => {
-            el.classList.remove('verse-underlined');
-        });
-        
-        // Add underline to current verse
-        verseElement.classList.add('verse-underlined');
-        
-        // Update URL hash
-        window.location.hash = `verse-${verseNumber}`;
-        
-        showToast('Navigated to Verse ' + verseNumber);
-    }
-}
-
-// Add click handlers to verse numbers
 document.addEventListener('DOMContentLoaded', function() {
-    const verses = document.querySelectorAll('.verse');
-    verses.forEach(verse => {
-        verse.addEventListener('click', function() {
-            const verseNum = this.querySelector('sup.verse-number');
-            if (verseNum) {
-                const verseNumber = verseNum.textContent;
-                navigateToVerse(parseInt(verseNumber));
+    // Function to link verse references
+    function linkVerseReferences(element) {
+        let html = element.innerHTML;
+
+        // Match patterns like "Verse 1", "Verses 1-5", "verse 12", etc.
+        html = html.replace(/\b(Verse|verse)s?\s+(\d+)(?:-(\d+))?\b/g, function(match, word, start, end) {
+            if (end) {
+                return '<a href="#verse-' + start + '-' + end + '">' + match + '</a>';
+            } else {
+                return '<a href="#verse-' + start + '">' + match + '</a>';
             }
         });
+
+        element.innerHTML = html;
+    }
+
+    const sidenotes = document.querySelectorAll('.sidenote');
+
+    // Make sidenotes expandable and link verse references
+    sidenotes.forEach(function(sidenote) {
+        sidenote.addEventListener('click', function(e) {
+            // Don't expand if clicking a link
+            if (e.target.tagName !== 'A') {
+                this.classList.toggle('expanded');
+            }
+        });
+
+        linkVerseReferences(sidenote);
     });
-});
-</script>
-{% endblock %}
 
-{% block scripts %}
-<script>
+    // Also link verse references in chapter overview
+    const chapterOverview = document.querySelector('section');
+    if (chapterOverview) {
+        linkVerseReferences(chapterOverview);
+    }
 
+    // Handle verse ranges in URL hash
+    function highlightVerses() {
+        const hash = window.location.hash.substring(1); // Remove the #
+        if (hash.startsWith('verse-')) {
+            const versePart = hash.substring(6); // Remove 'verse-'
+            const rangeParts = versePart.split('-');
 
-function copyVerseLink(verseNumber) {
-    const url = window.location.origin + window.location.pathname + '#verse-' + verseNumber;
-    navigator.clipboard.writeText(url).then(() => {
-        showToast('Verse ' + verseNumber + ' link copied to clipboard!');
-    });
-}
+            if (rangeParts.length === 2) {
+                // Verse range (e.g., verse-22-23)
+                const start = parseInt(rangeParts[0]);
+                const end = parseInt(rangeParts[1]);
 
-function addNote(verseNumber) {
-    showToast('Note feature coming soon!');
-}
+                for (let i = start; i <= end; i++) {
+                    const verseEl = document.getElementById('verse-' + i);
+                    if (verseEl) {
+                        verseEl.style.backgroundColor = 'rgba(255, 235, 59, 0.2)';
+                    }
+                }
 
-function highlightVerse(verseNumber) {
-    const verse = document.getElementById('verse-' + verseNumber);
-    verse.classList.toggle('verse-highlight');
-
-    const highlighted = verse.classList.contains('verse-highlight');
-    showToast(highlighted ? 'Verse ' + verseNumber + ' highlighted!' : 'Highlight removed from Verse ' + verseNumber);
-}
-
-
-
-
-
-
-
-function showToast(message) {
-    const toast = document.createElement('div');
-    toast.textContent = message;
-    toast.style.cssText = `
-        position: fixed;
-        top: 2rem;
-        right: 2rem;
-        background: var(--primary-color);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: var(--radius-md);
-        z-index: 1000;
-        font-size: 0.875rem;
-        animation: slideIn 0.3s ease;
-    `;
-
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 2000);
-}
-
-// Load saved preferences
-document.addEventListener('DOMContentLoaded', function() {
-
-
-    // Highlight verse from URL hash on load
-    if (window.location.hash) {
-        const target = document.querySelector(window.location.hash);
-        if (target) {
-            setTimeout(() => {
-                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                target.classList.add('verse-underlined');
-            }, 100);
+                // Scroll to first verse
+                const firstVerse = document.getElementById('verse-' + start);
+                if (firstVerse) {
+                    firstVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                // Single verse
+                const verseEl = document.getElementById('verse-' + versePart);
+                if (verseEl) {
+                    verseEl.style.backgroundColor = 'rgba(255, 235, 59, 0.2)';
+                    verseEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
         }
     }
 
-
+    highlightVerses();
+    window.addEventListener('hashchange', highlightVerses);
 });
-
-// Add CSS animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-`;
-document.head.appendChild(style);
 </script>
 {% endblock %}

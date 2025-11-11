@@ -1,433 +1,94 @@
 {% extends "base.html" %}
 
-{% block title %}Authorized King James Version (KJV) Bible Online - Complete KJV Study{% endblock %}
-{% block description %}Read the complete Authorized King James Version (KJV) Bible online. Study all 66 books of the KJV Bible with AI-powered commentary, enhanced readability and modern study tools.{% endblock %}
-{% block keywords %}Authorized King James Version, KJV Bible online, King James Bible, KJV study, Bible books, KJV commentary, Bible study tools{% endblock %}
+{% block title %}The King James Bible{% endblock %}
 
-{% block content %}
-<div class="text-center mb-4">
-    <h1 class="page-title">
-        📖 Authorized King James Version (KJV) Bible
-    </h1>
-    <p style="font-size: 1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
-        Study the complete Authorized King James Version (KJV) Bible with modern tools and AI-powered commentary. 
-        Choose a book below to begin your KJV Bible study.
-    </p>
-    
-    <!-- Search Box -->
-    <div class="search-container" style="max-width: 500px; margin: 1.5rem auto 0;">
-        <form method="get" action="/search" style="display: flex; gap: 0.75rem;">
-            <input 
-                type="text" 
-                name="q" 
-                placeholder="Search the Bible..." 
-                style="
-                    flex: 1;
-                    padding: 0.75rem 1rem;
-                    font-size: 1rem;
-                    border: 2px solid var(--border-color);
-                    border-radius: var(--radius-md);
-                    background: var(--surface-color);
-                    color: var(--text-primary);
-                    font-family: 'Crimson Text', 'Times New Roman', serif;
-                    transition: border-color 0.2s ease;
-                "
-                onfocus="this.style.borderColor='var(--primary-light)'"
-                onblur="this.style.borderColor='var(--border-color)'"
-            >
-            <button 
-                type="submit" 
-                style="
-                    padding: 0.75rem 1.5rem;
-                    background: var(--primary-light);
-                    color: white;
-                    border: none;
-                    border-radius: var(--radius-md);
-                    font-family: 'Crimson Text', 'Times New Roman', serif;
-                    font-size: 1rem;
-                    cursor: pointer;
-                    transition: background-color 0.2s ease;
-                "
-                onmouseover="this.style.backgroundColor='var(--primary-color)'"
-                onmouseout="this.style.backgroundColor='var(--primary-light)'"
-            >
-                🔍 Search
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- Verse of the Day -->
-<div class="verse-of-the-day" style="
-    background: linear-gradient(135deg, var(--primary-ultra-light) 0%, var(--surface-color) 100%);
-    border: 2px solid var(--primary-light);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 700px;
-    text-align: center;
-    box-shadow: var(--shadow-md);
-">
-    <h2 style="
-        font-size: 1.3rem;
-        margin-bottom: 1.5rem;
-        color: var(--primary-color);
-        font-family: var(--font-display);
-    ">
-        ✨ Verse of the Day
-    </h2>
-    
-    <blockquote style="
-        font-family: 'Crimson Text', 'Times New Roman', serif;
-        font-size: 1.2rem;
-        line-height: 1.7;
-        color: var(--text-primary);
-        font-style: italic;
-        margin: 0 0 1rem;
-        quotes: '"' '"';
-    ">
-        "{{ daily_verse.text }}"
-    </blockquote>
-    
-    <cite style="
-        font-family: var(--font-display);
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--primary-color);
-        font-style: normal;
-        display: block;
-        margin-bottom: 1.5rem;
-    ">
-        — {{ daily_verse.reference }}
-    </cite>
-    
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="/verse-of-the-day" style="
-            display: inline-block;
-            background: var(--primary-light);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            transition: background-color 0.2s ease;
-        " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
-           onmouseout="this.style.backgroundColor='var(--primary-light)'">
-            Read More
-        </a>
-        <a href="/book/{{ daily_verse.book }}" style="
-            display: inline-block;
-            background: transparent;
-            color: var(--primary-color);
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            border: 2px solid var(--primary-light);
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        " onmouseover="this.style.backgroundColor='var(--primary-light)'; this.style.color='white'" 
-           onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-color)'">
-            Read {{ daily_verse.book }}
-        </a>
-    </div>
-</div>
-
-<!-- Bible Book Categories Legend -->
-<div class="bible-legend">
-    <h3 class="legend-title">Bible Book Categories</h3>
-    <div class="legend-grid">
-        <!-- Old Testament Categories -->
-        <div class="legend-section">
-            <h4>Old Testament</h4>
-            <div class="legend-items">
-                <a href="#torah" class="legend-item" style="border-left-color: var(--torah-color);">
-                    <span class="legend-color" style="background: var(--torah-color);"></span>
-                    <span class="legend-name">Torah / Pentateuch</span>
-                </a>
-                <a href="#historical" class="legend-item" style="border-left-color: var(--historical-color);">
-                    <span class="legend-color" style="background: var(--historical-color);"></span>
-                    <span class="legend-name">Historical</span>
-                </a>
-                <a href="#wisdom" class="legend-item" style="border-left-color: var(--wisdom-color);">
-                    <span class="legend-color" style="background: var(--wisdom-color);"></span>
-                    <span class="legend-name">Wisdom</span>
-                </a>
-                <a href="#major-prophets" class="legend-item" style="border-left-color: var(--major-prophets-color);">
-                    <span class="legend-color" style="background: var(--major-prophets-color);"></span>
-                    <span class="legend-name">Major Prophets</span>
-                </a>
-                <a href="#minor-prophets" class="legend-item" style="border-left-color: var(--minor-prophets-color);">
-                    <span class="legend-color" style="background: var(--minor-prophets-color);"></span>
-                    <span class="legend-name">Minor Prophets</span>
-                </a>
-            </div>
-        </div>
-        <!-- New Testament Categories -->
-        <div class="legend-section">
-            <h4>New Testament</h4>
-            <div class="legend-items">
-                <a href="#gospels" class="legend-item" style="border-left-color: var(--gospels-color);">
-                    <span class="legend-color" style="background: var(--gospels-color);"></span>
-                    <span class="legend-name">Gospels</span>
-                </a>
-                <a href="#acts" class="legend-item" style="border-left-color: var(--acts-color);">
-                    <span class="legend-color" style="background: var(--acts-color);"></span>
-                    <span class="legend-name">Historical (Acts)</span>
-                </a>
-                <a href="#pauline" class="legend-item" style="border-left-color: var(--pauline-color);">
-                    <span class="legend-color" style="background: var(--pauline-color);"></span>
-                    <span class="legend-name">Pauline Epistles</span>
-                </a>
-                <a href="#general-epistles" class="legend-item" style="border-left-color: var(--general-epistles-color);">
-                    <span class="legend-color" style="background: var(--general-epistles-color);"></span>
-                    <span class="legend-name">General Epistles</span>
-                </a>
-                <a href="#apocalyptic" class="legend-item" style="border-left-color: var(--apocalyptic-color);">
-                    <span class="legend-color" style="background: var(--apocalyptic-color);"></span>
-                    <span class="legend-name">Apocalyptic</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<h2 class="section-title" id="old-testament" style="margin-top: 2rem; color: var(--torah-color); font-size: 1.8rem;">Old Testament</h2>
-<div class="book-grid">
-    {% set old_testament = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
-    
-    <!-- Torah/Pentateuch -->
-    <h3 id="torah" class="category-heading" style="color: var(--torah-color);">Torah / Pentateuch</h3>
-    {% for book in books %}
-    {% if book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book torah" style="border-left: 4px solid var(--torah-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Torah / Pentateuch</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- Historical Books -->
-    <h3 id="historical" class="category-heading" style="color: var(--historical-color);">Historical Books</h3>
-    {% for book in books %}
-    {% if book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book historical" style="border-left: 4px solid var(--historical-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Historical</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- Wisdom Literature -->
-    <h3 id="wisdom" class="category-heading" style="color: var(--wisdom-color);">Wisdom Literature</h3>
-    {% for book in books %}
-    {% if book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book wisdom" style="border-left: 4px solid var(--wisdom-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Wisdom</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- Major Prophets -->
-    <h3 id="major-prophets" class="category-heading" style="color: var(--major-prophets-color);">Major Prophets</h3>
-    {% for book in books %}
-    {% if book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book major-prophets" style="border-left: 4px solid var(--major-prophets-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Major Prophet</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- Minor Prophets -->
-    <h3 id="minor-prophets" class="category-heading" style="color: var(--minor-prophets-color);">Minor Prophets</h3>
-    {% for book in books %}
-    {% if book in ['Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book minor-prophets" style="border-left: 4px solid var(--minor-prophets-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Minor Prophet</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-</div>
-
-<hr class="testament-divider" style="margin: 3rem auto; width: 80%; max-width: 600px; background: linear-gradient(90deg, var(--torah-color) 0%, var(--gospels-color) 100%);">
-
-<h2 class="section-title" id="new-testament" style="margin-top: 2rem; color: var(--gospels-color); font-size: 1.8rem;">New Testament</h2>
-<div class="book-grid">
-    <!-- Gospels -->
-    <h3 id="gospels" class="category-heading" style="color: var(--gospels-color);">Gospels</h3>
-    {% for book in books %}
-    {% if book in ['Matthew', 'Mark', 'Luke', 'John'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book gospels" style="border-left: 4px solid var(--gospels-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Gospel</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- Acts (Historical NT) -->
-    <h3 id="acts" class="category-heading" style="color: var(--acts-color);">Historical (Acts)</h3>
-    {% for book in books %}
-    {% if book == 'Acts' %}
-    <a href="/book/{{ book }}" class="book-card bible-book acts" style="border-left: 4px solid var(--acts-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Historical</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- Pauline Epistles -->
-    <h3 id="pauline" class="category-heading" style="color: var(--pauline-color);">Pauline Epistles</h3>
-    {% for book in books %}
-    {% if book in ['Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book pauline" style="border-left: 4px solid var(--pauline-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Pauline Epistle</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- General Epistles -->
-    <h3 id="general-epistles" class="category-heading" style="color: var(--general-epistles-color);">General Epistles</h3>
-    {% for book in books %}
-    {% if book in ['James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}
-    <a href="/book/{{ book }}" class="book-card bible-book general-epistles" style="border-left: 4px solid var(--general-epistles-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">General Epistle</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-    
-    <!-- Apocalyptic -->
-    <h3 id="apocalyptic" class="category-heading" style="color: var(--apocalyptic-color);">Apocalyptic</h3>
-    {% for book in books %}
-    {% if book == 'Revelation' %}
-    <a href="/book/{{ book }}" class="book-card bible-book apocalyptic" style="border-left: 4px solid var(--apocalyptic-color);">
-        <h3 class="book-title" style="font-size: 1.25rem;">{{ book }}</h3>
-        <p class="book-meta" style="font-size: 0.8rem;">Apocalyptic</p>
-    </a>
-    {% endif %}
-    {% endfor %}
-</div>
-
-<!-- Additional CSS for Legend -->
+{% block head %}
 <style>
-.bible-legend {
-    background: var(--surface-color);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    margin: 1rem 0 2rem;
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-sm);
+.title-page {
+    margin: 4rem 0;
 }
 
-.legend-title {
-    margin: 0 0 1rem;
-    text-align: center;
+.title-page h1 {
+    margin-bottom: 2rem;
+}
+
+.title-details {
+    font-style: italic;
     font-size: 1.1rem;
-    color: var(--text-primary);
-}
-
-.legend-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: space-around;
-}
-
-.legend-section {
-    flex: 1;
-    min-width: 300px;
-}
-
-.legend-section h4 {
-    margin: 0 0 0.75rem;
-    font-size: 0.9rem;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 0.5rem;
-}
-
-.legend-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    border-left: 3px solid;
-    background: var(--background-color);
-    transition: all 0.2s ease;
-}
-
-.legend-item:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-    color: var(--text-primary);
-}
-
-.legend-color {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 6px;
-}
-
-.category-heading {
-    grid-column: 1 / -1;
-    font-size: 1rem;
-    margin: 1.5rem 0 0.5rem;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 0.25rem;
+    line-height: 1.8;
+    color: #666;
+    margin: 0 0 3rem 0;
 }
 </style>
+{% endblock %}
 
-<div class="text-center mt-4" style="padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-top: 3rem; border: 1px solid var(--border-light);">
-    <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
-        🌱 Grow in Your Faith
-    </h3>
-    <p style="color: var(--text-secondary); margin: 0 0 1.5rem; line-height: 1.6; font-size: 0.95rem;">
-        Explore our study guides and daily verses to deepen your understanding of God's Word 
-        and strengthen your relationship with Him.
-    </p>
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="/study-guides" style="
-            display: inline-block;
-            background: var(--primary-light);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            transition: background-color 0.2s ease;
-        " onmouseover="this.style.backgroundColor='var(--primary-color)'" 
-           onmouseout="this.style.backgroundColor='var(--primary-light)'">
-            📖 Study Guides
-        </a>
-        <a href="/verse-of-the-day" style="
-            display: inline-block;
-            background: transparent;
-            color: var(--primary-color);
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border: 2px solid var(--primary-light);
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            transition: all 0.2s ease;
-        " onmouseover="this.style.backgroundColor='var(--primary-light)'; this.style.color='white'" 
-           onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-color)'">
-            ✨ Daily Verse
-        </a>
-
+{% block content %}
+<div class="title-page">
+    <h1>The Holy Bible</h1>
+    <div class="title-details">
+        Containing the Old and New Testaments<br/>
+        Translated out of the Original Tongues<br/>
+        and with the Former Translations<br/>
+        Diligently Compared and Revised<br/>
+        by His Majesty's Special Command<br/>
+        Appointed to be Read in Churches<br/>
+        <em>Anno Domini</em> 1611
     </div>
 </div>
+
+<div class="epigraph">
+    <blockquote>
+        <p>In the beginning was the Word, and the Word was with God, and the Word was God.</p>
+        <footer><a href="/book/John/chapter/1#verse-1">John 1:1</a></footer>
+    </blockquote>
+</div>
+
+<section>
+    <p><span class="newthought">The Authorized Version</span>, commonly known as the King James Bible, stands as one of the most influential works in the English language. Commissioned by King James I of England and completed in 1611, this translation has shaped literature, law, and spiritual life for over four centuries.</p>
+
+    <p>This digital edition presents the 1769 Oxford Standard text with integrated commentary and cross-references, offering readers both the majesty of the original translation and modern scholarly insights.</p>
+</section>
+
+<section>
+    <h2>The Old Testament</h2>
+
+    <p><span class="newthought">The Law</span><label for="sn-torah" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-torah" class="margin-toggle"/>
+    <span class="sidenote">The Torah, or Pentateuch, traditionally attributed to Moses, forms the foundation of Jewish and Christian scripture.</span>
+    — {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+
+    <p><span class="newthought">The Historical Books</span><label for="sn-history" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-history" class="margin-toggle"/>
+    <span class="sidenote">These books chronicle the history of Israel from the conquest of Canaan through the Babylonian exile and return.</span>
+    — {% for book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+
+    <p><span class="newthought">Wisdom Literature</span><label for="sn-wisdom" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-wisdom" class="margin-toggle"/>
+    <span class="sidenote">Poetic and philosophical works exploring the nature of God, human suffering, and righteous living.</span>
+    — {% for book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+
+    <p><span class="newthought">The Prophets</span><label for="sn-prophets" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-prophets" class="margin-toggle"/>
+    <span class="sidenote">The prophetic books record God's messages to Israel through His chosen messengers, calling the people to repentance and foretelling future events.</span>
+    — {% for book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+</section>
+
+<section>
+    <h2>The New Testament</h2>
+
+    <p><span class="newthought">The Gospels</span><label for="sn-gospels" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-gospels" class="margin-toggle"/>
+    <span class="sidenote">Four accounts of the life, ministry, death, and resurrection of Jesus Christ, each written for a different audience and purpose.</span>
+    — {% for book in ['Matthew', 'Mark', 'Luke', 'John'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+
+    <p><span class="newthought">Acts and Epistles</span><label for="sn-acts" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-acts" class="margin-toggle"/>
+    <span class="sidenote">The book of Acts chronicles the early church, while the epistles provide theological instruction and pastoral guidance to Christian communities.</span>
+    — {% for book in ['Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+
+    <p><span class="newthought">Revelation</span><label for="sn-revelation" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-revelation" class="margin-toggle"/>
+    <span class="sidenote">The Apocalypse of John, a prophetic vision of the end times and the ultimate triumph of God's kingdom.</span>
+    — {% for book in ['Revelation'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% endif %}{% endfor %}</p>
+</section>
 {% endblock %}
