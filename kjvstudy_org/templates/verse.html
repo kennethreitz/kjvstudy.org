@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
+
+{% block head %}
+<style>
+.verse-text {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    margin: 2rem 0;
+    font-style: italic;
+}
+
+.verse-reference {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>{{ book }} {{ chapter }}:{{ verse_num }}</h1>
+<p class="subtitle"><a href="/">Authorized King James Version</a></p>
+
+<section>
+    <p class="verse-text">{{ verse_text }}</p>
+</section>
+
+{% if commentary %}
+    {% if commentary.analysis %}
+    <section>
+        <h2>Analysis</h2>
+        <p>{{ commentary.analysis|safe }}</p>
+    </section>
+    {% endif %}
+
+    {% if commentary.cross_references %}
+    <section>
+        <h2>Cross References</h2>
+        <ul>
+            {% for ref in commentary.cross_references %}
+            <li>
+                <strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>
+                {% if ref.context %} — {{ ref.context }}{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if commentary.historical %}
+    <section>
+        <h2>Historical Context</h2>
+        <p>{{ commentary.historical|safe }}</p>
+    </section>
+    {% endif %}
+
+    {% if commentary.theological %}
+    <section>
+        <h2>Theological Significance</h2>
+        <p>{{ commentary.theological|safe }}</p>
+    </section>
+    {% endif %}
+
+    {% if commentary.questions %}
+    <section>
+        <h2>Questions for Reflection</h2>
+        <ul>
+            {% for question in commentary.questions %}
+            <li>{{ question }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+{% endif %}
+
+<nav>
+    <p>
+        <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">← {{ book }} {{ chapter }}</a>
+        {% if verse_num > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}">← Verse {{ verse_num - 1 }}</a>{% endif %}
+        {% if verse_num < total_verses %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}">Verse {{ verse_num + 1 }} →</a>{% endif %}
+    </p>
+</nav>
+{% endblock %}

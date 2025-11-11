@@ -1789,7 +1789,12 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
         )
 
     # Generate commentary for this verse
-    commentary = generate_commentary(book, chapter, verse)
+    try:
+        commentary = generate_commentary(book, chapter, verse)
+    except Exception as e:
+        # Log the error but don't fail the request
+        print(f"Error generating commentary for {book} {chapter}:{verse_num}: {e}")
+        commentary = None
 
     return templates.TemplateResponse(
         "verse.html",
