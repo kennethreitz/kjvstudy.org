@@ -20,7 +20,7 @@
         <label for="mn-s{{ section_index }}-v{{ loop.index }}" class="margin-toggle">⊕</label>
         <input type="checkbox" id="mn-s{{ section_index }}-v{{ loop.index }}" class="margin-toggle"/>
         <span class="marginnote">
-            <strong>{{ verse_data.reference }}</strong><br/>
+            <strong><a href="{{ verse_data.url }}">{{ verse_data.reference }}</a></strong><br/>
             <em>{{ verse_data.text }}</em>
         </span>
     </p>

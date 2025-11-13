@@ -818,12 +818,14 @@ def study_guide_detail(request: Request, slug: str):
                     if verse_text:
                         verse_texts.append({
                             "reference": verse_ref,
-                            "text": verse_text
+                            "text": verse_text,
+                            "url": parse_verse_reference(verse_ref) or "#"
                         })
             except:
                 verse_texts.append({
                     "reference": verse_ref,
-                    "text": "Text not found"
+                    "text": "Text not found",
+                    "url": "#"
                 })
 
         section["verse_texts"] = verse_texts
