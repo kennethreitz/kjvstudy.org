@@ -470,6 +470,31 @@ def search_api(q: str = Query(..., description="Search query"), limit: Optional[
         "is_direct_verse": is_direct_verse
     }
 
+def parse_verse_reference(reference: str):
+    """Parse a verse reference and return a URL for it.
+
+    Examples:
+        "John 3:16" -> "/book/John/chapter/3/verse/16"
+        "Romans 8:38-39" -> "/book/Romans/chapter/8#verse-38-39"
+        "Ephesians 2:8-9" -> "/book/Ephesians/chapter/2#verse-8-9"
+    """
+    # Pattern: Book Chapter:Verse or Book Chapter:Verse-Verse
+    match = re.match(r'^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$', reference.strip())
+    if not match:
+        return None
+
+    book = match.group(1).strip()
+    chapter = match.group(2)
+    verse_start = match.group(3)
+    verse_end = match.group(4)
+
+    if verse_end:
+        # Verse range - link to chapter with anchor
+        return f"/book/{book}/chapter/{chapter}#verse-{verse_start}-{verse_end}"
+    else:
+        # Single verse - link to verse page
+        return f"/book/{book}/chapter/{chapter}/verse/{verse_start}"
+
 @app.get("/study-guides", response_class=HTMLResponse)
 def study_guides_page(request: Request):
     """Study guides main page"""
@@ -538,6 +563,17 @@ def study_guides_page(request: Request):
             }
         ]
     }
+
+    # Process verse references to add URLs
+    for category in study_guides.values():
+        for guide in category:
+            guide['verse_refs'] = [
+                {
+                    'text': verse,
+                    'url': parse_verse_reference(verse) or '#'
+                }
+                for verse in guide['verses']
+            ]
 
     return templates.TemplateResponse(
         "study_guides.html",
@@ -1684,6 +1720,17 @@ def read_root(request: Request):
             }
         ]
     }
+
+    # Process verse references to add URLs
+    for category in study_guides.values():
+        for guide in category:
+            guide['verse_refs'] = [
+                {
+                    'text': verse,
+                    'url': parse_verse_reference(verse) or '#'
+                }
+                for verse in guide['verses']
+            ]
 
     return templates.TemplateResponse(
         "index.html", {"request": request, "books": books, "daily_verse": daily_verse, "study_guides": study_guides}

@@ -20,11 +20,11 @@
         <input type="checkbox" id="sn-{{ guide.slug }}" class="margin-toggle"/>
         <span class="sidenote">
             <strong>Key Verses:</strong><br/>
-            {% for verse in guide.verses[:5] %}
-                {{ verse }}{% if not loop.last %}, {% endif %}
+            {% for verse_ref in guide.verse_refs[:5] %}
+                <a href="{{ verse_ref.url }}">{{ verse_ref.text }}</a>{% if not loop.last %}, {% endif %}
             {% endfor %}
-            {% if guide.verses|length > 5 %}
-                <br/><em>+{{ guide.verses|length - 5 }} more</em>
+            {% if guide.verse_refs|length > 5 %}
+                <br/><em>+{{ guide.verse_refs|length - 5 }} more</em>
             {% endif %}
         </span>
         — {{ guide.description }}
