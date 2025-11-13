@@ -34,9 +34,6 @@
         Appointed to be Read in Churches<br/>
         <em>Anno Domini</em> 1611
     </div>
-    <p style="margin-top: 2rem; font-style: normal; font-size: 1.2rem;">
-        <a href="/study-guides">Study Guides</a>
-    </p>
 </div>
 
 <div class="epigraph">
@@ -93,5 +90,14 @@
     <input type="checkbox" id="sn-revelation" class="margin-toggle"/>
     <span class="sidenote">The Apocalypse of John, a prophetic vision of the end times and the ultimate triumph of God's kingdom.</span>
     — {% for book in ['Revelation'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% endif %}{% endfor %}</p>
+</section>
+
+<section>
+    <h2>Study Guides</h2>
+
+    {% for category, guides in study_guides.items() %}
+    <p><span class="newthought">{{ category }}</span> —
+    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% endfor %}
 </section>
 {% endblock %}

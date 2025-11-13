@@ -1621,8 +1621,72 @@ def read_root(request: Request):
     books = list(bible.iter_books())
     daily_verse = get_daily_verse()
 
+    # Define study guide categories
+    study_guides = {
+        "Foundational Studies": [
+            {
+                "title": "New Believer's Guide",
+                "description": "Essential truths for new Christians",
+                "slug": "new-believer",
+                "verses": ["John 3:16", "Romans 10:9", "1 John 1:9", "2 Corinthians 5:17"]
+            },
+            {
+                "title": "Salvation by Grace",
+                "description": "Understanding God's gift of salvation",
+                "slug": "salvation",
+                "verses": ["Ephesians 2:8-9", "Romans 3:23", "Romans 6:23", "Titus 3:5"]
+            },
+            {
+                "title": "The Gospel Message",
+                "description": "The good news of Jesus Christ",
+                "slug": "gospel",
+                "verses": ["1 Corinthians 15:3-4", "Romans 1:16", "Mark 16:15", "Acts 4:12"]
+            }
+        ],
+        "Character & Living": [
+            {
+                "title": "Fruits of the Spirit",
+                "description": "Developing Christian character",
+                "slug": "fruits-spirit",
+                "verses": ["Galatians 5:22-23", "1 Corinthians 13:4-7", "Philippians 4:8", "Colossians 3:12-14"]
+            },
+            {
+                "title": "Prayer & Faith",
+                "description": "Growing in prayer and trust",
+                "slug": "prayer-faith",
+                "verses": ["Matthew 6:9-13", "1 Thessalonians 5:17", "Hebrews 11:1", "James 1:6"]
+            },
+            {
+                "title": "Christian Living",
+                "description": "Walking as followers of Christ",
+                "slug": "christian-living",
+                "verses": ["Romans 12:1-2", "1 Peter 2:9", "Matthew 5:14-16", "Philippians 2:14-16"]
+            }
+        ],
+        "Biblical Themes": [
+            {
+                "title": "God's Love",
+                "description": "Understanding the depth of God's love",
+                "slug": "gods-love",
+                "verses": ["1 John 4:8", "John 3:16", "Romans 8:38-39", "1 John 3:1"]
+            },
+            {
+                "title": "Hope & Comfort",
+                "description": "Finding hope in difficult times",
+                "slug": "hope-comfort",
+                "verses": ["Romans 15:13", "2 Corinthians 1:3-4", "Psalm 23:4", "Isaiah 41:10"]
+            },
+            {
+                "title": "Wisdom & Guidance",
+                "description": "Seeking God's wisdom for life",
+                "slug": "wisdom-guidance",
+                "verses": ["Proverbs 3:5-6", "James 1:5", "Psalm 119:105", "Proverbs 27:17"]
+            }
+        ]
+    }
+
     return templates.TemplateResponse(
-        "index.html", {"request": request, "books": books, "daily_verse": daily_verse}
+        "index.html", {"request": request, "books": books, "daily_verse": daily_verse, "study_guides": study_guides}
     )
 
 
