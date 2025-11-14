@@ -4,19 +4,23 @@
 
 {% block head %}
 <style>
-.sidenote {
+.sidenote,
+.marginnote {
     max-height: 150px;
     overflow: hidden;
     cursor: pointer;
     transition: max-height 0.3s ease;
+    position: relative;
 }
 
-.sidenote.expanded {
+.sidenote.expanded,
+.marginnote.expanded {
     max-height: none;
     overflow: visible;
 }
 
-.sidenote:not(.expanded)::after {
+.sidenote:not(.expanded)::after,
+.marginnote:not(.expanded)::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -33,7 +37,8 @@
 }
 
 @media (max-width: 760px) {
-    .sidenote {
+    .sidenote,
+    .marginnote {
         max-height: 120px;
     }
 }
@@ -129,9 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
         element.innerHTML = html;
     }
 
-    const sidenotes = document.querySelectorAll('.sidenote');
+    const sidenotes = document.querySelectorAll('.sidenote, .marginnote');
 
-    // Make sidenotes expandable and link verse references
+    // Make sidenotes and marginnotes expandable and link verse references
     sidenotes.forEach(function(sidenote) {
         sidenote.addEventListener('click', function(e) {
             // Don't expand if clicking a link
