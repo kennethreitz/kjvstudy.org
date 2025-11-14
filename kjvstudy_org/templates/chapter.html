@@ -19,8 +19,8 @@
     overflow: visible;
 }
 
-.sidenote:not(.expanded)::after,
-.marginnote:not(.expanded)::after {
+.sidenote.truncated:not(.expanded)::after,
+.marginnote.truncated:not(.expanded)::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -138,6 +138,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Make sidenotes and marginnotes expandable and link verse references
     sidenotes.forEach(function(sidenote) {
+        // Check if content is actually truncated
+        if (sidenote.scrollHeight > sidenote.clientHeight) {
+            sidenote.classList.add('truncated');
+        }
+
         sidenote.addEventListener('click', function(e) {
             // Don't expand if clicking a link
             if (e.target.tagName !== 'A') {
