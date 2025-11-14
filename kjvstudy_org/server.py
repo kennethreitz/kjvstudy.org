@@ -854,12 +854,19 @@ def verse_of_the_day_page(request: Request):
     books = list(bible.iter_books())
     daily_verse = get_daily_verse()
 
+    # Build breadcrumbs
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Verse of the Day", "url": "/verse-of-the-day"}
+    ]
+
     return templates.TemplateResponse(
         "verse_of_the_day.html",
         {
             "request": request,
             "books": books,
-            "daily_verse": daily_verse
+            "daily_verse": daily_verse,
+            "breadcrumbs": breadcrumbs
         }
     )
 
