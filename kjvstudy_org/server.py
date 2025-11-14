@@ -406,6 +406,15 @@ templates_dir = current_dir / "templates"
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 templates = Jinja2Templates(directory=str(templates_dir))
 
+# Load Scofield commentary for cross-references
+scofield_commentary = {}
+try:
+    scofield_path = static_dir / "scofield_commentary.json"
+    with open(scofield_path, 'r') as f:
+        scofield_commentary = json.load(f)
+except Exception as e:
+    print(f"Warning: Could not load Scofield commentary: {e}")
+
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
@@ -1760,6 +1769,12 @@ def read_book(request: Request, book: str):
         chapter_popularity[chapter] = get_chapter_popularity_score(book, chapter)
         chapter_explanations[chapter] = get_chapter_popularity_explanation(book, chapter)
 
+    # Build breadcrumbs
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": book, "url": f"/book/{book}"}
+    ]
+
     return templates.TemplateResponse(
         "book.html",
         {
@@ -1769,6 +1784,7 @@ def read_book(request: Request, book: str):
             "books": books,
             "chapter_popularity": chapter_popularity,
             "chapter_explanations": chapter_explanations,
+            "breadcrumbs": breadcrumbs,
             **commentary_data
         },
     )
@@ -1853,6 +1869,13 @@ def read_chapter(request: Request, book: str, chapter: int):
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
 
+    # Build breadcrumbs
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": book, "url": f"/book/{book}"},
+        {"text": f"Chapter {chapter}", "url": f"/book/{book}/chapter/{chapter}"}
+    ]
+
     return templates.TemplateResponse(
         "chapter.html",
         {
@@ -1863,7 +1886,8 @@ def read_chapter(request: Request, book: str, chapter: int):
             "books": books,
             "chapters": chapters,
             "commentaries": commentaries,
-            "chapter_overview": chapter_overview
+            "chapter_overview": chapter_overview,
+            "breadcrumbs": breadcrumbs
         }
     )
 
@@ -1909,6 +1933,14 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
         print(f"Error generating commentary for {book} {chapter}:{verse_num}: {e}")
         commentary = None
 
+    # Build breadcrumbs
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": book, "url": f"/book/{book}"},
+        {"text": f"Chapter {chapter}", "url": f"/book/{book}/chapter/{chapter}"},
+        {"text": f"Verse {verse_num}", "url": f"/book/{book}/chapter/{chapter}/verse/{verse_num}"}
+    ]
+
     return templates.TemplateResponse(
         "verse.html",
         {
@@ -1920,7 +1952,8 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "commentary": commentary,
             "total_verses": len(verses),
             "books": books,
-            "chapters": chapters
+            "chapters": chapters,
+            "breadcrumbs": breadcrumbs
         }
     )
 
@@ -2875,8 +2908,57 @@ def generate_chapter_overview(book, chapter, verses):
     return overview
 
 
+def parse_cross_reference(ref_string):
+    """Parse a cross-reference string like 'John 1:1-3' or 'Genesis 3:15' into structured data"""
+    try:
+        # Handle verse ranges like "John 1:1-3" or simple refs like "John 1:1"
+        match = re.match(r'(.+?)\s+(\d+):(\d+)(?:-(\d+))?', ref_string.strip())
+        if not match:
+            return None
+
+        ref_book = match.group(1).strip()
+        ref_chapter = int(match.group(2))
+        ref_verse_start = int(match.group(3))
+        ref_verse_end = int(match.group(4)) if match.group(4) else ref_verse_start
+
+        # Create the display text and URL
+        if ref_verse_end > ref_verse_start:
+            text = f"{ref_book} {ref_chapter}:{ref_verse_start}-{ref_verse_end}"
+        else:
+            text = f"{ref_book} {ref_chapter}:{ref_verse_start}"
+
+        url = f"/book/{ref_book}/chapter/{ref_chapter}#verse-{ref_verse_start}"
+
+        return {
+            "text": text,
+            "url": url,
+            "context": None  # Will be populated from theme or left empty
+        }
+    except Exception as e:
+        print(f"Error parsing cross-reference '{ref_string}': {e}")
+        return None
+
+
 def generate_cross_references(book, chapter, verse, verse_text):
-    """Generate simulated cross-references for a verse"""
+    """Generate cross-references for a verse using Scofield commentary when available"""
+
+    # First, try to get cross-references from Scofield commentary
+    if book in scofield_commentary:
+        if str(chapter) in scofield_commentary[book]:
+            if str(verse) in scofield_commentary[book][str(chapter)]:
+                verse_data = scofield_commentary[book][str(chapter)][str(verse)]
+                if "cross_references" in verse_data and verse_data["cross_references"]:
+                    # Parse the Scofield cross-references
+                    references = []
+                    for ref_string in verse_data["cross_references"][:4]:  # Limit to 4 references
+                        parsed_ref = parse_cross_reference(ref_string)
+                        if parsed_ref:
+                            references.append(parsed_ref)
+
+                    if references:
+                        return references
+
+    # Fall back to thematic cross-references if no Scofield data
     # Dictionary of sample cross-references by theme with actual verse texts
     theme_references = {
         "salvation": [

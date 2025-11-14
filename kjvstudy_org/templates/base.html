@@ -11,13 +11,147 @@
     <link rel="stylesheet" href="/static/tufte.css"/>
 
     {% block head %}{% endblock %}
+
+    <style>
+        .breadcrumb {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .breadcrumb a {
+            color: #111;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb-separator {
+            margin: 0 0.5rem;
+            color: #999;
+        }
+        .verse-lookup {
+            margin: 1rem 0 2rem 0;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .verse-lookup-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-family: inherit;
+        }
+        .verse-lookup-input:focus {
+            outline: none;
+            border-color: #666;
+        }
+        .verse-lookup-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .verse-lookup-error {
+            display: none;
+            margin-top: 0.5rem;
+            color: #c00;
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
     <article>
+        <div class="verse-lookup">
+            <label class="verse-lookup-label" for="verse-search">Quick Verse Lookup</label>
+            <input
+                type="text"
+                id="verse-search"
+                class="verse-lookup-input"
+                placeholder="e.g., John 3:16 or Genesis 1:1"
+                autocomplete="off"
+            />
+            <div id="verse-lookup-error" class="verse-lookup-error"></div>
+        </div>
+        {% if breadcrumbs %}
+        <nav class="breadcrumb">
+            {% for crumb in breadcrumbs %}
+                {% if not loop.last %}
+                    <a href="{{ crumb.url }}">{{ crumb.text }}</a>
+                    <span class="breadcrumb-separator">&gt;</span>
+                {% else %}
+                    <span>{{ crumb.text }}</span>
+                {% endif %}
+            {% endfor %}
+        </nav>
+        {% endif %}
+
         {% block content %}{% endblock %}
     </article>
 
     <script type="text/javascript">
+      // Quick verse lookup functionality
+      (function() {
+        var input = document.getElementById('verse-search');
+        var errorDiv = document.getElementById('verse-lookup-error');
+
+        function parseVerseReference(text) {
+          // Match patterns like "John 3:16" or "1 John 3:16" or "Genesis 1:1"
+          var pattern = /^(\d?\s*[a-z]+)\s+(\d+):(\d+)$/i;
+          var match = text.trim().match(pattern);
+
+          if (!match) {
+            return null;
+          }
+
+          var book = match[1].trim();
+          var chapter = match[2];
+          var verse = match[3];
+
+          // Capitalize book name properly
+          book = book.split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+
+          return {
+            book: book,
+            chapter: chapter,
+            verse: verse
+          };
+        }
+
+        function showError(message) {
+          errorDiv.textContent = message;
+          errorDiv.style.display = 'block';
+        }
+
+        function hideError() {
+          errorDiv.style.display = 'none';
+        }
+
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            hideError();
+
+            var ref = parseVerseReference(input.value);
+
+            if (ref) {
+              // Navigate to the verse
+              window.location.href = '/book/' + ref.book + '/chapter/' + ref.chapter + '/verse/' + ref.verse;
+            } else {
+              showError('Invalid format. Please use format like "John 3:16" or "Genesis 1:1"');
+            }
+          }
+        });
+
+        // Hide error when user starts typing
+        input.addEventListener('input', hideError);
+      })();
+
+      // Gauges analytics
       var _gauges = _gauges || [];
       (function() {
         var t   = document.createElement('script');
