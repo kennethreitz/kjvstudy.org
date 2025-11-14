@@ -2,7 +2,7 @@ import hashlib
 import json
 import re
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Dict, Optional
 
@@ -854,6 +854,15 @@ def verse_of_the_day_page(request: Request):
     books = list(bible.iter_books())
     daily_verse = get_daily_verse()
 
+    # Generate past 30 days of verses
+    past_verses = []
+    today = datetime.now()
+    for i in range(1, 31):  # Past 30 days (not including today)
+        past_date = today - timedelta(days=i)
+        date_str = past_date.strftime("%Y-%m-%d")
+        verse = get_daily_verse(date_str)
+        past_verses.append(verse)
+
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -866,6 +875,7 @@ def verse_of_the_day_page(request: Request):
             "request": request,
             "books": books,
             "daily_verse": daily_verse,
+            "past_verses": past_verses,
             "breadcrumbs": breadcrumbs
         }
     )
@@ -1521,11 +1531,12 @@ def get_biblical_verses(name):
     return verse_map.get(name, [])
 
 
-def get_daily_verse():
-    """Get the verse of the day based on current date"""
+def get_daily_verse(date_str=None):
+    """Get the verse of the day based on a specific date (or current date if not provided)"""
     # Use date as seed for consistent daily verse
-    today = datetime.now().strftime("%Y-%m-%d")
-    seed = int(hashlib.md5(today.encode()).hexdigest(), 16) % 1000000
+    if date_str is None:
+        date_str = datetime.now().strftime("%Y-%m-%d")
+    seed = int(hashlib.md5(date_str.encode()).hexdigest(), 16) % 1000000
 
     # Featured verses for rotation
     featured_verses = [
@@ -1577,7 +1588,7 @@ def get_daily_verse():
         "verse": verse,
         "text": verse_text,
         "reference": f"{book} {chapter}:{verse}",
-        "date": today
+        "date": date_str
     }
 
 
