@@ -1,4 +1,4 @@
-FROM python:3.14 AS builder
+FROM python:3.13 AS builder
 
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
@@ -16,7 +16,7 @@ COPY pyproject.toml uv.lock ./
 # Install dependencies into the system
 RUN uv sync --frozen --no-install-project --no-dev
 
-FROM python:3.14-slim
+FROM python:3.13-slim
 
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
