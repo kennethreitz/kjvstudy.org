@@ -14,6 +14,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .kjv import bible, VerseReference
+from .cross_references import get_cross_references
 
 try:
     from ged4py import GedcomReader
@@ -3012,6 +3013,67 @@ def read_root(request: Request):
     )
 
 
+@app.get("/books", response_class=HTMLResponse)
+def books_page(request: Request):
+    """Browse all books of the Bible"""
+    books = list(bible.iter_books())
+
+    # Organize books by testament
+    old_testament_books = [
+        'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth',
+        '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra',
+        'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon',
+        'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
+        'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'
+    ]
+
+    new_testament_books = [
+        'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians',
+        'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians',
+        '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter',
+        '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+    ]
+
+    # Get chapter counts for each book
+    def get_chapter_count(book_name):
+        chapters = [ch for bk, ch in bible.iter_chapters() if bk == book_name]
+        return len(chapters)
+
+    old_testament = [
+        {
+            'name': book,
+            'chapters': get_chapter_count(book),
+            'available': book in books
+        }
+        for book in old_testament_books
+    ]
+
+    new_testament = [
+        {
+            'name': book,
+            'chapters': get_chapter_count(book),
+            'available': book in books
+        }
+        for book in new_testament_books
+    ]
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Books", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "books.html",
+        {
+            "request": request,
+            "old_testament": old_testament,
+            "new_testament": new_testament,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/book/{book}", response_class=HTMLResponse)
 def read_book(request: Request, book: str):
     books = list(bible.iter_books())
@@ -3200,6 +3262,9 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
         print(f"Error generating commentary for {book} {chapter}:{verse_num}: {e}")
         commentary = None
 
+    # Get cross-references for this verse
+    cross_refs = get_cross_references(book, chapter, verse_num)
+
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -3217,6 +3282,7 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "verse_num": verse_num,
             "verse_text": verse.text,
             "commentary": commentary,
+            "cross_references": cross_refs,
             "total_verses": len(verses),
             "books": books,
             "chapters": chapters,

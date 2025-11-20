@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Books of the Bible - KJV Study{% endblock %}
+{% block description %}Browse all 66 books of the Authorized King James Version Bible{% endblock %}
+
+{% block head %}
+<style>
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    max-width: 90%;
+    margin: 2rem 0;
+}
+
+.book-card {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.book-card:hover {
+    border-color: var(--border-color-darker);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.book-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.book-name a {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.book-name a:hover {
+    color: var(--link-hover);
+}
+
+.book-info {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.testament-section {
+    margin: 2rem 0;
+}
+
+.testament-header {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Books of the Bible</h1>
+<p class="subtitle">The Authorized King James Version</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The Holy Bible</span> comprises sixty-six books penned by approximately forty authors over the span of fifteen centuries. These sacred writings divide into the Old and New Testaments—the former containing God's revelation to Israel from creation through the prophetic age, the latter recording Christ's incarnation, the establishment of His church, and the consummation of all things.</p>
+</section>
+
+<section class="testament-section">
+    <h2 class="testament-header">Old Testament</h2>
+    <p class="intro-text">The thirty-nine books of the Old Testament preserve God's covenant with Israel, beginning with creation and extending through the return from Babylonian captivity. These writings encompass law, history, wisdom literature, and prophetic oracles.</p>
+
+    <div class="book-grid">
+        {% for book in old_testament %}
+        {% if book.available %}
+        <div class="book-card">
+            <div class="book-name"><a href="/book/{{ book.name }}">{{ book.name }}</a></div>
+            <div class="book-info">{{ book.chapters }} {% if book.chapters == 1 %}chapter{% else %}chapters{% endif %}</div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="testament-section">
+    <h2 class="testament-header">New Testament</h2>
+    <p class="intro-text">The twenty-seven books of the New Testament reveal the incarnation of God's Son, the redemption accomplished through His death and resurrection, and the establishment and growth of His church. The apostolic writings conclude with visions of Christ's return and the restoration of all things.</p>
+
+    <div class="book-grid">
+        {% for book in new_testament %}
+        {% if book.available %}
+        <div class="book-card">
+            <div class="book-name"><a href="/book/{{ book.name }}">{{ book.name }}</a></div>
+            <div class="book-info">{{ book.chapters }} {% if book.chapters == 1 %}chapter{% else %}chapters{% endif %}</div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>How to Navigate</h2>
+    <p class="intro-text">Select any book above to view its chapters and contents. Each book page includes chapter summaries, key themes, and scholarly notes to aid in understanding the sacred text.</p>
+</section>
+{% endblock %}

@@ -21,11 +21,39 @@
 
 {% block content %}
 <h1>{{ book }} {{ chapter }}:{{ verse_num }}</h1>
-<p class="subtitle"><a href="/">Authorized King James Version</a></p>
+<p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
 <section>
     <p class="verse-text">{{ verse_text | link_names | safe }}</p>
 </section>
+
+{% if cross_references %}
+<section>
+    <h2>Cross References</h2>
+    <p>Related verses that illuminate this passage:</p>
+    <ul style="max-width: 60%; list-style: none; padding: 0;">
+        {% for ref in cross_references %}
+        <li style="margin: 1rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
+            {% set ref_parts = ref.ref.rsplit(' ', 1) %}
+            {% if ref_parts|length == 2 %}
+                {% set book_name = ref_parts[0] %}
+                {% set chapter_verse = ref_parts[1] %}
+                {% if ':' in chapter_verse %}
+                    {% set ch = chapter_verse.split(':')[0] %}
+                    {% set v = chapter_verse.split(':')[1] %}
+                    <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ ref.ref }}</a></strong>
+                {% else %}
+                    <strong>{{ ref.ref }}</strong>
+                {% endif %}
+            {% else %}
+                <strong>{{ ref.ref }}</strong>
+            {% endif %}
+            {% if ref.note %} — <em style="color: var(--text-secondary);">{{ ref.note }}</em>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
 
 {% if commentary %}
     {% if commentary.analysis %}
