@@ -18,7 +18,7 @@
         <p>{{ generations|length }} generations from Adam</p>
 
         {% for gen_num in generations.keys() | sort %}
-        <div style="margin: 2rem 0;">
+        <div style="margin: 2rem 0; max-width: 55%;">
             <h3><a href="/family-tree/generation/{{ gen_num }}">Generation {{ gen_num }}</a></h3>
             <p>
                 {{ generations[gen_num]|length }} individual{% if generations[gen_num]|length != 1 %}s{% endif %}:
@@ -38,7 +38,7 @@
         {% set notable = ["Adam", "Noah", "Abraham", "Isaac", "Jacob", "Joseph", "Moses", "David", "Solomon", "Jesus"] %}
         {% for person_id, person in family_tree_data.items() %}
             {% if person.name in notable %}
-            <div style="margin: 2rem 0;">
+            <div style="margin: 2rem 0; max-width: 55%;">
                 <h3><a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>{% if person.generation %} (Generation {{ person.generation }}){% endif %}</h3>
 
                 {% if person.birth_year != "Unknown" or person.death_year != "Unknown" or person.age_at_death != "Unknown" %}
