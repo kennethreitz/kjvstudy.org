@@ -5,126 +5,83 @@
 
 {% block head %}
 <style>
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
+.stats-line {
     max-width: 55%;
+    margin: 2rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.1rem;
 }
 
-.stat-card {
-    padding: 1.5rem;
-    background: #f9f9f9;
-    border-left: 4px solid #111;
+.stat-item {
+    display: inline;
+    margin-right: 2rem;
 }
 
 .stat-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-    line-height: 1;
-    margin-bottom: 0.5rem;
     font-family: et-book-roman-old-style;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.generation-card {
-    padding: 1.5rem;
-    margin: 2rem 0;
-    background: #fffff8;
-    border: 1px solid #ddd;
-    border-left: 4px solid #111;
-    max-width: 55%;
-}
-
-.generation-card h3 {
-    margin-top: 0;
-    font-size: 1.5rem;
-}
-
-.generation-number {
-    display: inline-block;
-    background: #111;
-    color: #fff;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.85rem;
-    font-weight: bold;
-    margin-right: 0.5rem;
-    font-family: et-book-roman-old-style;
-}
-
-.person-card {
-    padding: 1.5rem;
-    margin: 2rem 0;
-    background: #fffff8;
-    border-left: 3px solid #666;
-    max-width: 55%;
-    position: relative;
-}
-
-.person-card:hover {
-    border-left-color: #111;
-    background: #f9f9f9;
-}
-
-.person-name {
-    font-size: 1.4rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
 }
 
-.person-meta {
-    font-size: 0.9rem;
-    color: #666;
+.generation-section {
+    max-width: 55%;
+    margin: 3rem 0;
+}
+
+.generation-header {
     margin-bottom: 1rem;
 }
 
-.person-details {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
+.generation-number {
+    font-family: et-book-roman-old-style;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
-.search-box {
+.people-inline {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.person-entry {
+    max-width: 55%;
+    margin: 2.5rem 0;
+}
+
+.person-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.person-life {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.person-info {
+    margin: 0.5rem 0;
+    line-height: 1.8;
+}
+
+.search-form {
     max-width: 55%;
     margin: 2rem 0;
 }
 
-.search-box input {
+.search-form input {
     width: 100%;
-    padding: 0.75rem;
-    font-size: 1.1rem;
-    border: 2px solid #ddd;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
     font-family: inherit;
 }
 
-.search-box input:focus {
+.search-form input:focus {
     outline: none;
-    border-color: #111;
-}
-
-.people-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.people-list li {
-    display: inline;
-}
-
-.people-list li:after {
-    content: " • ";
-    color: #999;
-}
-
-.people-list li:last-child:after {
-    content: "";
+    border-color: #666;
 }
 </style>
 {% endblock %}
@@ -134,16 +91,16 @@
 <p class="subtitle">From Adam to Jesus Christ</p>
 
 <section>
-    <p>The Bible contains detailed genealogies that trace God's plan through specific family lines, culminating in the birth of Jesus Christ.</p>
+    <p>The Bible contains detailed genealogies that trace God's plan through specific family lines, culminating in the birth of Jesus Christ. This record spans from the creation of Adam through countless generations to the birth of our Lord.</p>
 </section>
 
 <section>
-    <div class="search-box">
+    <div class="search-form">
         <form method="get" action="/family-tree/search">
             <input
                 type="text"
                 name="q"
-                placeholder="Search for a person in the family tree..."
+                placeholder="Search for a person..."
                 autocomplete="off"
             >
         </form>
@@ -153,123 +110,90 @@
 {% if family_tree_data and generations %}
     <section>
         <h2>Overview</h2>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">{{ family_tree_data|length }}</div>
-                <div class="stat-label">Individuals</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">{{ generations|length }}</div>
-                <div class="stat-label">Generations</div>
-            </div>
+        <div class="stats-line">
+            <span class="stat-item"><span class="stat-number">{{ family_tree_data|length }}</span> individuals recorded</span>
+            <span class="stat-item"><span class="stat-number">{{ generations|length }}</span> generations from Adam</span>
             {% set people_with_age = [] %}
             {% for person_id, person in family_tree_data.items() %}
                 {% if person.age_at_death != "Unknown" and "years" in person.age_at_death %}
                     {% set _ = people_with_age.append(person) %}
                 {% endif %}
             {% endfor %}
-            <div class="stat-card">
-                <div class="stat-number">{{ people_with_age|length }}</div>
-                <div class="stat-label">With Ages</div>
-            </div>
+            <span class="stat-item"><span class="stat-number">{{ people_with_age|length }}</span> with recorded ages</span>
         </div>
     </section>
 
     <section>
-        <h2>Generations</h2>
-        <p>Browse the biblical genealogy generation by generation</p>
+        <h2>The Generations</h2>
 
         {% for gen_num in generations.keys() | sort %}
-        <div class="generation-card">
-            <h3>
-                <span class="generation-number">{{ gen_num }}</span>
-                <a href="/family-tree/generation/{{ gen_num }}">Generation {{ gen_num }}</a>
-            </h3>
-            <p class="person-meta">{{ generations[gen_num]|length }} individual{% if generations[gen_num]|length != 1 %}s{% endif %}</p>
-            <ul class="people-list">
-                {% for person_id in generations[gen_num][:15] %}
-                    <li><a href="/family-tree/person/{{ person_id }}">{{ family_tree_data[person_id].name }}</a></li>
-                {% endfor %}
-                {% if generations[gen_num]|length > 15 %}
-                    <li>and {{ generations[gen_num]|length - 15 }} more</li>
-                {% endif %}
-            </ul>
+        <div class="generation-section">
+            <div class="generation-header">
+                <h3><span class="generation-number">Generation {{ gen_num }}.</span> <a href="/family-tree/generation/{{ gen_num }}">{{ generations[gen_num]|length }} individual{% if generations[gen_num]|length != 1 %}s{% endif %}</a></h3>
+            </div>
+            <p class="people-inline">
+                {% for person_id in generations[gen_num][:20] %}
+                    <a href="/family-tree/person/{{ person_id }}">{{ family_tree_data[person_id].name }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}{% if generations[gen_num]|length > 20 %}, and {{ generations[gen_num]|length - 20 }} others{% endif %}.
+            </p>
         </div>
         {% endfor %}
     </section>
 
     <section>
-        <h2>Notable Individuals</h2>
-        <p>Key figures in biblical history</p>
+        <h2>Notable Figures</h2>
 
         {% set notable = ["Adam", "Noah", "Abraham", "Isaac", "Jacob", "Joseph", "Moses", "David", "Solomon", "Jesus"] %}
         {% for person_id, person in family_tree_data.items() %}
             {% if person.name in notable %}
-            <div class="person-card">
+            <div class="person-entry">
                 <div class="person-name">
                     <a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>
                 </div>
 
-                <div class="person-meta">
-                    {% if person.generation %}Generation {{ person.generation }}{% endif %}
-                    {% if person.birth_year != "Unknown" %} • Born {{ person.birth_year }}{% endif %}
-                    {% if person.age_at_death != "Unknown" %} • Lived {{ person.age_at_death }}{% endif %}
+                <div class="person-life">
+                    {% if person.generation %}Generation {{ person.generation }}{% endif %}{% if person.birth_year != "Unknown" %} • born {{ person.birth_year }}{% endif %}{% if person.age_at_death != "Unknown" %} • lived {{ person.age_at_death }}{% endif %}
                 </div>
 
-                {% if person.spouse %}
-                <div class="person-details"><strong>Spouse:</strong> {{ person.spouse }}</div>
-                {% endif %}
-
-                {% if person.parents|length > 0 %}
-                <div class="person-details">
-                    <strong>Parents:</strong>
-                    {% for parent_id in person.parents %}
-                        {% if parent_id in family_tree_data %}<a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>{% if not loop.last %}, {% endif %}{% endif %}
-                    {% endfor %}
-                </div>
-                {% endif %}
-
-                {% if person.children|length > 0 %}
-                <div class="person-details">
-                    <strong>Children:</strong>
-                    {% for child_id in person.children[:5] %}
-                        {% if child_id in family_tree_data %}<a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}{% endif %}
-                    {% endfor %}
-                    {% if person.children|length > 5 %}
-                        and {{ person.children|length - 5 }} more
+                <div class="person-info">
+                    {% if person.spouse %}
+                        Married to {{ person.spouse }}.
+                    {% endif %}
+                    {% if person.parents|length > 0 %}
+                        {% if person.spouse %}{% endif %}
+                        Child of
+                        {% for parent_id in person.parents %}
+                            {% if parent_id in family_tree_data %}<a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>{% if not loop.last %} and {% endif %}{% endif %}
+                        {% endfor %}.
+                    {% endif %}
+                    {% if person.children|length > 0 %}
+                        Father of
+                        {% for child_id in person.children[:5] %}
+                            {% if child_id in family_tree_data %}<a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}{% endif %}
+                        {% endfor %}{% if person.children|length > 5 %}, and {{ person.children|length - 5 }} others{% endif %}.
                     {% endif %}
                 </div>
-                {% endif %}
 
                 {% if person.verses %}
-                <div class="person-details">
-                    <strong>Related Verses:</strong>
-                    <ul style="margin: 0.5rem 0;">
-                        {% for verse in person.verses[:2] %}
-                        <li>
-                            {% set ref_parts = verse.reference.split(' ') %}
-                            {% if ref_parts|length >= 2 %}
-                                {% set chapter_verse = ref_parts[-1] %}
-                                {% if ':' in chapter_verse %}
-                                    {% set chapter = chapter_verse.split(':')[0] %}
-                                    {% set verse_part = chapter_verse.split(':')[1] %}
-                                    {% if '-' in verse_part %}
-                                        {% set verse_num = verse_part.split('-')[0] %}
-                                    {% else %}
-                                        {% set verse_num = verse_part %}
-                                    {% endif %}
-                                    {% set book = ' '.join(ref_parts[:-1]) %}
-                                    <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                <p>
+                    {% for verse in person.verses[:2] %}
+                        {% set ref_parts = verse.reference.split(' ') %}
+                        {% if ref_parts|length >= 2 %}
+                            {% set chapter_verse = ref_parts[-1] %}
+                            {% if ':' in chapter_verse %}
+                                {% set chapter = chapter_verse.split(':')[0] %}
+                                {% set verse_part = chapter_verse.split(':')[1] %}
+                                {% if '-' in verse_part %}
+                                    {% set verse_num = verse_part.split('-')[0] %}
                                 {% else %}
-                                    {{ verse.reference }}
+                                    {% set verse_num = verse_part %}
                                 {% endif %}
-                            {% else %}
-                                {{ verse.reference }}
+                                {% set book = ' '.join(ref_parts[:-1]) %}
+                                <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>{% if not loop.last %}; {% endif %}
                             {% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                        {% endif %}
+                    {% endfor %}
+                </p>
                 {% endif %}
             </div>
             {% endif %}
@@ -277,7 +201,7 @@
     </section>
 {% else %}
     <section>
-        <p>Family tree data could not be loaded. Please ensure the GEDCOM file is available and ged4py is installed.</p>
+        <p>Family tree data could not be loaded.</p>
     </section>
 {% endif %}
 {% endblock %}

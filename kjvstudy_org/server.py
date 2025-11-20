@@ -1119,8 +1119,8 @@ def family_tree_page(request: Request):
             "family_tree_data": family_tree_data,
             "generations": generations,
             "breadcrumbs": [
-                {"name": "Home", "url": "/"},
-                {"name": "Family Tree", "url": None}
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": None}
             ]
         }
     )
@@ -1175,9 +1175,9 @@ def family_tree_generation_page(request: Request, gen_num: int):
             "generation_people": generation_people,
             "generations": generations,
             "breadcrumbs": [
-                {"name": "Home", "url": "/"},
-                {"name": "Family Tree", "url": "/family-tree"},
-                {"name": f"Generation {gen_num}", "url": None}
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": f"Generation {gen_num}", "url": None}
             ]
         }
     )
@@ -1233,9 +1233,9 @@ def family_tree_person_page(request: Request, person_id: str):
             "family_tree_data": family_tree_data,
             "generations": generations,
             "breadcrumbs": [
-                {"name": "Home", "url": "/"},
-                {"name": "Family Tree", "url": "/family-tree"},
-                {"name": person["name"], "url": None}
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": person["name"], "url": None}
             ]
         }
     )
@@ -1293,9 +1293,9 @@ def family_tree_search_page(request: Request, q: str = ""):
             "query": q,
             "results": results,
             "breadcrumbs": [
-                {"name": "Home", "url": "/"},
-                {"name": "Family Tree", "url": "/family-tree"},
-                {"name": "Search", "url": None}
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": "Search", "url": None}
             ]
         }
     )

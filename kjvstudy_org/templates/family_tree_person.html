@@ -8,9 +8,8 @@
 .person-header {
     max-width: 55%;
     margin: 2rem 0;
-    padding: 2rem;
-    background: #f9f9f9;
-    border-left: 5px solid #111;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #111;
 }
 
 .person-title {
@@ -26,122 +25,81 @@
     font-style: italic;
 }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
+.person-vitals {
+    max-width: 55%;
     margin: 1.5rem 0;
-}
-
-.info-item {
-    padding: 1rem;
-    background: #fffff8;
-    border: 1px solid #ddd;
-}
-
-.info-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #999;
-    margin-bottom: 0.25rem;
-}
-
-.info-value {
     font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.person-vitals strong {
     font-weight: 600;
 }
 
-.section-card {
+.person-description {
     max-width: 55%;
     margin: 2rem 0;
-    padding: 1.5rem;
-    background: #fffff8;
-    border: 1px solid #ddd;
-    border-left: 3px solid #666;
+    padding: 1.5rem 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.2rem;
+    line-height: 1.8;
 }
 
-.section-card h2 {
-    margin-top: 0;
-    font-size: 1.5rem;
+.relationships-section {
+    max-width: 55%;
+    margin: 2.5rem 0;
 }
 
 .relationship-list {
-    list-style: none;
-    padding: 0;
     margin: 1rem 0;
+    line-height: 1.8;
 }
 
 .relationship-item {
-    padding: 0.75rem;
     margin: 0.5rem 0;
-    background: #f9f9f9;
-    border-left: 2px solid #ddd;
-}
-
-.relationship-item:hover {
-    border-left-color: #111;
-    background: #f5f5f5;
 }
 
 .relationship-name {
     font-weight: 600;
-    font-size: 1.1rem;
 }
 
 .relationship-meta {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #666;
+    font-style: italic;
 }
 
-.verse-item {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: #f9f9f9;
-    border-left: 2px solid #666;
+.verses-section {
+    max-width: 55%;
+    margin: 2.5rem 0;
+}
+
+.verse-entry {
+    margin: 1.5rem 0;
 }
 
 .verse-ref {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .verse-text {
     font-style: italic;
     color: #444;
-    line-height: 1.6;
-}
-
-.navigation-bar {
-    max-width: 55%;
-    margin: 2rem 0;
-    padding: 1rem;
-    background: #111;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navigation-bar a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-}
-
-.navigation-bar a:hover {
-    background: #333;
-}
-
-.description-box {
-    max-width: 55%;
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: #fffef8;
-    border: 1px solid #e0d8c0;
-    border-left: 3px solid #d4af37;
-    font-size: 1.2rem;
     line-height: 1.8;
+    padding-left: 1.5rem;
+}
+
+.navigation-links {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+}
+
+.navigation-links a {
+    margin-right: 1.5rem;
 }
 </style>
 {% endblock %}
@@ -152,105 +110,74 @@
     {% if person.generation %}
     <p class="person-subtitle">Generation {{ person.generation }} from Adam</p>
     {% endif %}
-
-    {% if person.birth_year != "Unknown" or person.death_year != "Unknown" or person.age_at_death != "Unknown" or person.spouse %}
-    <div class="info-grid">
-        {% if person.birth_year != "Unknown" %}
-        <div class="info-item">
-            <div class="info-label">Born</div>
-            <div class="info-value">{{ person.birth_year }}</div>
-        </div>
-        {% endif %}
-
-        {% if person.death_year != "Unknown" %}
-        <div class="info-item">
-            <div class="info-label">Died</div>
-            <div class="info-value">{{ person.death_year }}</div>
-        </div>
-        {% endif %}
-
-        {% if person.age_at_death != "Unknown" %}
-        <div class="info-item">
-            <div class="info-label">Age</div>
-            <div class="info-value">{{ person.age_at_death }}</div>
-        </div>
-        {% endif %}
-
-        {% if person.spouse %}
-        <div class="info-item">
-            <div class="info-label">Spouse</div>
-            <div class="info-value">{{ person.spouse }}</div>
-        </div>
-        {% endif %}
-    </div>
-    {% endif %}
 </div>
 
-<div class="navigation-bar">
-    <a href="/family-tree">← Family Tree</a>
-    {% if person.generation %}
-    <a href="/family-tree/generation/{{ person.generation }}">View Generation {{ person.generation }}</a>
+<div class="person-vitals">
+    {% if person.birth_year != "Unknown" %}
+    <strong>Born:</strong> {{ person.birth_year }}.
     {% endif %}
-    <a href="/family-tree/search">Search</a>
+    {% if person.death_year != "Unknown" %}
+    <strong>Died:</strong> {{ person.death_year }}.
+    {% endif %}
+    {% if person.age_at_death != "Unknown" %}
+    <strong>Age:</strong> {{ person.age_at_death }}.
+    {% endif %}
+    {% if person.spouse %}
+    <strong>Spouse:</strong> {{ person.spouse }}.
+    {% endif %}
 </div>
 
 {% if person.description and not person.description.startswith("Biblical figure from") %}
-<div class="description-box">
+<div class="person-description">
     {{ person.description }}
 </div>
 {% endif %}
 
 {% if person.parents|length > 0 %}
-<div class="section-card">
+<div class="relationships-section">
     <h2>Parents</h2>
-    <ul class="relationship-list">
+    <div class="relationship-list">
         {% for parent_id in person.parents %}
             {% if parent_id in family_tree_data %}
-            <li class="relationship-item">
-                <div class="relationship-name">
-                    <a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>
-                </div>
-                {% if family_tree_data[parent_id].generation %}
-                <div class="relationship-meta">
-                    Generation {{ family_tree_data[parent_id].generation }}
-                    {% if family_tree_data[parent_id].age_at_death != "Unknown" %} • Lived {{ family_tree_data[parent_id].age_at_death }}{% endif %}
-                </div>
+            <div class="relationship-item">
+                <span class="relationship-name"><a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a></span>
+                {% if family_tree_data[parent_id].generation or family_tree_data[parent_id].age_at_death != "Unknown" %}
+                <span class="relationship-meta">
+                    {% if family_tree_data[parent_id].generation %}generation {{ family_tree_data[parent_id].generation }}{% endif %}{% if family_tree_data[parent_id].age_at_death != "Unknown" %}{% if family_tree_data[parent_id].generation %}, {% endif %}lived {{ family_tree_data[parent_id].age_at_death }}{% endif %}
+                </span>
                 {% endif %}
-            </li>
+            </div>
             {% endif %}
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endif %}
 
 {% if person.children|length > 0 %}
-<div class="section-card">
+<div class="relationships-section">
     <h2>Children ({{ person.children|length }})</h2>
-    <ul class="relationship-list">
+    <div class="relationship-list">
         {% for child_id in person.children %}
             {% if child_id in family_tree_data %}
-            <li class="relationship-item">
-                <div class="relationship-name">
-                    <a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>
-                </div>
-                {% if family_tree_data[child_id].generation %}
-                <div class="relationship-meta">
-                    Generation {{ family_tree_data[child_id].generation }}
-                    {% if family_tree_data[child_id].age_at_death != "Unknown" %} • Lived {{ family_tree_data[child_id].age_at_death }}{% endif %}
-                </div>
+            <div class="relationship-item">
+                <span class="relationship-name"><a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a></span>
+                {% if family_tree_data[child_id].generation or family_tree_data[child_id].age_at_death != "Unknown" %}
+                <span class="relationship-meta">
+                    {% if family_tree_data[child_id].generation %}generation {{ family_tree_data[child_id].generation }}{% endif %}{% if family_tree_data[child_id].age_at_death != "Unknown" %}{% if family_tree_data[child_id].generation %}, {% endif %}lived {{ family_tree_data[child_id].age_at_death }}{% endif %}
+                </span>
                 {% endif %}
-            </li>
+            </div>
             {% endif %}
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endif %}
 
 {% if person.verses %}
-<div class="section-card">
-    <h2>Related Bible Verses</h2>
+<div class="verses-section">
+    <h2>Related Scriptures</h2>
     {% for verse in person.verses %}
-    <div class="verse-item">
+    <div class="verse-entry">
         <div class="verse-ref">
             {% set ref_parts = verse.reference.split(' ') %}
             {% if ref_parts|length >= 2 %}
@@ -278,10 +205,10 @@
 </div>
 {% endif %}
 
-<div class="navigation-bar">
+<div class="navigation-links">
     <a href="/family-tree">← Family Tree</a>
     {% if person.generation %}
-    <a href="/family-tree/generation/{{ person.generation }}">View Generation {{ person.generation }}</a>
+    <a href="/family-tree/generation/{{ person.generation }}">Generation {{ person.generation }}</a>
     {% endif %}
     <a href="/family-tree/search">Search</a>
 </div>
