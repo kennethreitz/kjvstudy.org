@@ -1,760 +1,147 @@
 {% extends "base.html" %}
 
 {% block title %}Biblical Maps - Important Bible Locations - KJV Study{% endblock %}
-
-{% block description %}Explore important biblical locations mentioned in the King James Version Bible. Interactive maps showing Old and New Testament sites with relevant scripture references.{% endblock %}
-
-{% block keywords %}biblical maps, bible locations, biblical geography, Old Testament places, New Testament cities, biblical sites, scripture locations, KJV geography{% endblock %}
-
-{% block og_title %}Biblical Maps - Important Bible Locations - KJV Study{% endblock %}
+{% block description %}Explore important biblical locations mentioned in the King James Version Bible.{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <style>
-    .maps-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1rem;
-    }
+.map-container {
+    width: 100%;
+    height: 500px;
+    margin: 2rem 0;
+    border: 1px solid #ccc;
+}
 
-    .maps-header {
-        text-align: center;
-        margin-bottom: 2rem;
-        padding: 2rem 1rem;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        border-radius: 12px;
-        color: white;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
+.location-section {
+    margin: 3rem 0;
+}
 
-    .maps-header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-        font-family: 'Crimson Text', serif;
-    }
+.location-card {
+    margin: 2rem 0;
+    padding: 1rem;
+    border-left: 3px solid #111;
+}
 
-    .maps-header p {
-        font-size: 1.1rem;
-        opacity: 0.9;
-        max-width: 600px;
-        margin: 0 auto;
-    }
+.location-name {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
 
-    .search-controls {
-        background: var(--card-background);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
+.location-description {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
 
-    .search-input {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        font-size: 1rem;
-        background: var(--background-color);
-        color: var(--text-color);
-        transition: border-color 0.2s ease;
-    }
+.verse-item {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: #f9f9f9;
+}
 
-    .search-input:focus {
-        outline: none;
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 2px rgba(75, 46, 131, 0.1);
-    }
+.verse-reference {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
 
-    .filter-buttons {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .filter-btn {
-        padding: 0.5rem 1rem;
-        border: 1px solid var(--border-color);
-        background: var(--background-color);
-        color: var(--text-color);
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.9rem;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-        background: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-    }
-
-    .location-count {
-        text-align: center;
-        color: var(--text-muted);
-        margin: 1rem 0;
-        font-style: italic;
-    }
-
-    .interactive-map-container {
-        background: var(--card-background);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 3rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        border: 1px solid var(--border-color);
-    }
-
-    .map-wrapper {
-        display: flex;
-        justify-content: center;
-        margin: 1rem 0;
-    }
-
-    .biblical-map {
-        max-width: 100%;
-        width: 100%;
-        height: 500px;
-        min-height: 400px;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        background: white;
-        z-index: 1;
-    }
-
-    .leaflet-popup-content-wrapper {
-        background: var(--card-background);
-        color: var(--text-color);
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    .leaflet-popup-content {
-        margin: 12px 16px;
-        line-height: 1.5;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .leaflet-popup h3 {
-        margin: 0 0 8px 0;
-        color: var(--primary-color);
-        font-family: 'Crimson Text', serif;
-        font-size: 1.1rem;
-    }
-
-    .leaflet-popup p {
-        margin: 0 0 8px 0;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        font-style: italic;
-    }
-
-    .leaflet-popup-tip {
-        background: var(--card-background);
-    }
-
-    .location-marker {
-        border-radius: 50%;
-        border: 2px solid white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .location-marker:hover {
-        transform: scale(1.2);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    }
-
-    .ot-marker {
-        background: #8b4513;
-    }
-
-    .nt-marker {
-        background: #4169e1;
-    }
-
-    .journey-marker {
-        background: #ff6b35;
-    }
-
-    .testament-section {
-        margin-bottom: 3rem;
-        background: var(--card-background);
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        border: 1px solid var(--border-color);
-    }
-
-    .testament-title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        font-family: 'Crimson Text', serif;
-        color: var(--primary-color);
-        text-align: center;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid var(--primary-color);
-    }
-
-    .locations-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
-    }
-
-    .location-card {
-        background: var(--background-color);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 1.5rem;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .location-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    }
-
-    .location-card:hover,
-    .location-card.highlighted {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        border-color: var(--primary-color);
-    }
-
-    .location-name {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: var(--primary-color);
-        margin-bottom: 0.5rem;
-        font-family: 'Crimson Text', serif;
-    }
-
-    .location-description {
-        color: var(--text-muted);
-        font-style: italic;
-        margin-bottom: 1rem;
-        font-size: 0.95rem;
-        line-height: 1.4;
-    }
-
-    .verses-container {
-        margin-top: 1rem;
-    }
-
-    .verse-item {
-        background: var(--card-background);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        padding: 1rem;
-        margin-bottom: 0.75rem;
-        transition: all 0.2s ease;
-    }
-
-    .verse-item:hover {
-        background: var(--hover-background);
-        border-color: var(--primary-color);
-    }
-
-    .verse-reference {
-        font-weight: 600;
-        color: var(--primary-color);
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .verse-reference a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .verse-reference a:hover {
-        text-decoration: underline;
-    }
-
-    .verse-text {
-        font-family: 'Crimson Text', serif;
-        font-size: 1rem;
-        line-height: 1.6;
-        color: var(--text-color);
-        font-style: italic;
-    }
-
-    .map-intro {
-        background: var(--card-background);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-left: 4px solid var(--primary-color);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .map-intro h2 {
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-        font-family: 'Crimson Text', serif;
-    }
-
-    .map-intro p {
-        line-height: 1.6;
-        color: var(--text-color);
-        margin-bottom: 0.75rem;
-    }
-
-    .testament-icon {
-        font-size: 1.5rem;
-        margin-right: 0.5rem;
-        vertical-align: middle;
-    }
-
-    .location-icon {
-        font-size: 1.2rem;
-        margin-right: 0.5rem;
-        opacity: 0.7;
-    }
-
-    .map-controls {
-        text-align: center;
-        margin-top: 1rem;
-    }
-
-    .map-filter-buttons {
-        margin-bottom: 1rem;
-    }
-
-    .map-filter-btn {
-        background: #8b4513;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        margin: 0 0.25rem;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .map-filter-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .map-filter-btn:not(.active) {
-        opacity: 0.5;
-    }
-
-    @media (max-width: 768px) {
-        .maps-header h1 {
-            font-size: 2rem;
-        }
-        
-        .locations-grid {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-        
-        .location-card {
-            padding: 1rem;
-        }
-        
-        .testament-section {
-            padding: 1rem;
-        }
-
-        .interactive-map-container {
-            padding: 1rem;
-        }
-        
-        .biblical-map {
-            height: 350px;
-            min-height: 300px;
-        }
-        
-        .location-label {
-            font-size: 8px;
-        }
-        
-        .location-label.small {
-            font-size: 6px;
-        }
-    }
-
-    /* Dark mode adjustments */
-    @media (prefers-color-scheme: dark) {
-        .maps-header {
-            background: linear-gradient(135deg, #2d1b69, #8b5a2b);
-        }
-        
-        .biblical-map {
-            background: #f8f9fa;
-        }
-        
-        .location-label,
-        .legend-title {
-            fill: #333;
-        }
-        
-        .legend-text {
-            fill: #666;
-        }
-    }
+.verse-text {
+    font-style: italic;
+    color: #666;
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="maps-container">
-    <header class="maps-header">
-        <h1>🗺️ Biblical Maps</h1>
-        <p>Explore the important locations mentioned throughout the King James Version Bible, from the Garden of Eden to the Isle of Patmos. Each location includes relevant scripture references to deepen your understanding of biblical geography.</p>
-    </header>
+<h1>Biblical Maps</h1>
+<p class="subtitle">Important locations throughout Scripture</p>
 
-    <div class="search-controls">
-        <h3 style="margin-bottom: 1rem; color: var(--primary-color);">🔍 Search Biblical Locations</h3>
-        <input 
-            type="text" 
-            id="location-search" 
-            class="search-input" 
-            placeholder="Search for biblical locations (e.g., Jerusalem, Eden, Bethlehem)..."
-            onkeyup="filterLocations()"
-        >
-        <div class="filter-buttons">
-            <button class="filter-btn active" onclick="filterByTestament('all')">All Locations</button>
-            <button class="filter-btn" onclick="filterByTestament('old')">Old Testament</button>
-            <button class="filter-btn" onclick="filterByTestament('new')">New Testament</button>
-            <button class="filter-btn" onclick="filterByTestament('journey')">Paul's Journeys</button>
-        </div>
-        <div id="location-count" class="location-count"></div>
-    </div>
+<section>
+    <p>Explore the geographical context of biblical events. Click on locations on the map or scroll through the listings below.</p>
+</section>
 
-    <div class="map-intro">
-        <h2>📍 Journey Through Biblical History</h2>
-        <p>The Bible is filled with references to real places that shaped the history of God's people. From the creation in Eden to the exile in Babylon, from Jesus' birth in Bethlehem to Paul's journeys across the Roman Empire, these locations provide important context for understanding Scripture.</p>
-        <p>Click on any location on the map below or explore the detailed listings. Click verse references to read the full chapter context.</p>
-    </div>
+<div id="biblical-map" class="map-container"></div>
 
-    <!-- Interactive Biblical Map -->
-    <div class="interactive-map-container">
-        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 1rem; font-family: 'Crimson Text', serif;">
-            🗺️ Interactive Biblical Map
-        </h2>
-        <div class="map-wrapper">
-            <div id="biblical-map" class="biblical-map"></div>
-        </div>
-        
-        <div class="map-controls">
-            <div class="map-filter-buttons">
-                <button onclick="toggleMapLayer('ot-locations')" class="map-filter-btn active" id="ot-toggle" style="background: #8b4513;">Old Testament</button>
-                <button onclick="toggleMapLayer('nt-locations')" class="map-filter-btn active" id="nt-toggle" style="background: #4169e1;">New Testament</button>
-                <button onclick="toggleMapLayer('journey-locations')" class="map-filter-btn active" id="journey-toggle" style="background: #ff6b35;">Paul's Journeys</button>
-            </div>
-            <p style="color: var(--text-muted); font-style: italic; font-size: 0.9rem;">
-                Click on any location marker to see detailed information below. Use the buttons above to show/hide different location types.
-            </p>
-        </div>
-    </div>
+{% for testament_name, locations in biblical_locations.items() %}
+<section class="location-section">
+    <h2>{{ testament_name }}</h2>
 
-    {% for testament_name, locations in biblical_locations.items() %}
-    <section class="testament-section" data-testament="{% if 'Old' in testament_name %}old{% elif 'New' in testament_name %}new{% else %}journey{% endif %}">
-        <h2 class="testament-title">
-            {% if "Old" in testament_name %}
-                <span class="testament-icon">📜</span>
-            {% elif "Paul" in testament_name %}
-                <span class="testament-icon">⛵</span>
-            {% else %}
-                <span class="testament-icon">✨</span>
-            {% endif %}
-            {{ testament_name }}
-        </h2>
-        
-        <div class="locations-grid">
-            {% for location_name, location_data in locations.items() %}
-            <article class="location-card" data-location="{{ location_name.lower() }}" data-description="{{ location_data.description.lower() }}">
-                <h3 class="location-name">
-                    <span class="location-icon">📍</span>
-                    {{ location_name }}
-                </h3>
-                <p class="location-description">{{ location_data.description }}</p>
-                
-                <div class="verses-container">
-                    {% for verse in location_data.verses %}
-                    <div class="verse-item">
-                        <div class="verse-reference">
-                            {% set ref_parts = verse.reference.split() %}
-                            {% if ref_parts|length >= 2 %}
-                                {% if ref_parts|length == 2 %}
-                                    {% set book_part = ref_parts[0] %}
-                                    {% set chapter_verse = ref_parts[1] %}
-                                {% else %}
-                                    {% set last_part = ref_parts[-1] %}
-                                    {% set book_parts = ref_parts[:-1] %}
-                                    {% set book_part = book_parts|join(' ') %}
-                                    {% set chapter_verse = last_part %}
-                                {% endif %}
-                                
-                                {% if ":" in chapter_verse %}
-                                    {% set chapter = chapter_verse.split(":")[0] %}
-                                    <a href="/book/{{ book_part }}/chapter/{{ chapter }}">{{ verse.reference }}</a>
-                                {% else %}
-                                    <a href="/book/{{ book_part }}/chapter/{{ chapter_verse }}">{{ verse.reference }}</a>
-                                {% endif %}
-                            {% else %}
-                                {{ verse.reference }}
-                            {% endif %}
-                        </div>
-                        <div class="verse-text">"{{ verse.text }}"</div>
+    {% for location_name, location_data in locations.items() %}
+    <article class="location-card">
+        <h3 class="location-name">{{ location_name }}</h3>
+        <p class="location-description">{{ location_data.description }}</p>
+
+        {% for verse in location_data.verses %}
+        <div class="verse-item">
+            {% set ref_parts = verse.reference.split() %}
+            {% if ref_parts|length >= 2 %}
+                {% if ref_parts|length == 2 %}
+                    {% set book_part = ref_parts[0] %}
+                    {% set chapter_verse = ref_parts[1] %}
+                {% else %}
+                    {% set last_part = ref_parts[-1] %}
+                    {% set book_parts = ref_parts[:-1] %}
+                    {% set book_part = book_parts|join(' ') %}
+                    {% set chapter_verse = last_part %}
+                {% endif %}
+
+                {% if ":" in chapter_verse %}
+                    {% set chapter = chapter_verse.split(":")[0] %}
+                    <div class="verse-reference">
+                        <a href="/book/{{ book_part }}/chapter/{{ chapter }}">{{ verse.reference }}</a>
                     </div>
-                    {% endfor %}
-                </div>
-            </article>
-            {% endfor %}
+                {% else %}
+                    <div class="verse-reference">
+                        <a href="/book/{{ book_part }}/chapter/{{ chapter_verse }}">{{ verse.reference }}</a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="verse-reference">{{ verse.reference }}</div>
+            {% endif %}
+            <div class="verse-text">{{ verse.text }}</div>
         </div>
-    </section>
+        {% endfor %}
+    </article>
     {% endfor %}
-
-    <div class="map-intro" style="margin-top: 3rem;">
-        <h2>🔍 Continue Your Study</h2>
-        <p>These biblical locations are just the beginning of your journey through Scripture. Use our <a href="/search" style="color: var(--primary-color);">search feature</a> to find more references to specific places, or explore our <a href="/study-guides" style="color: var(--primary-color);">study guides</a> for deeper theological insights.</p>
-        <p>Each location tells a story of God's relationship with His people throughout history. As you read about these places, consider how God used geography and specific locations to accomplish His purposes.</p>
-    </div>
-</div>
+</section>
+{% endfor %}
 
 <script>
-function filterLocations() {
-    const searchTerm = document.getElementById('location-search').value.toLowerCase();
-    const locationCards = document.querySelectorAll('.location-card');
-    let visibleCount = 0;
-    
-    locationCards.forEach(card => {
-        const locationName = card.getAttribute('data-location');
-        const description = card.getAttribute('data-description');
-        
-        if (locationName.includes(searchTerm) || description.includes(searchTerm)) {
-            card.style.display = 'block';
-            visibleCount++;
-        } else {
-            card.style.display = 'none';
-        }
-    });
-    
-    updateLocationCount(visibleCount);
-}
-
-function filterByTestament(testament) {
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    const sections = document.querySelectorAll('.testament-section');
-    let visibleCount = 0;
-    
-    sections.forEach(section => {
-        const sectionTestament = section.getAttribute('data-testament');
-        
-        if (testament === 'all' || sectionTestament === testament) {
-            section.style.display = 'block';
-            const visibleCards = section.querySelectorAll('.location-card[style*="display: block"], .location-card:not([style*="display: none"])');
-            visibleCount += visibleCards.length;
-        } else {
-            section.style.display = 'none';
-        }
-    });
-    
-    document.getElementById('location-search').value = '';
-    updateLocationCount(visibleCount);
-}
-
-function updateLocationCount(count) {
-    const countElement = document.getElementById('location-count');
-    if (count === 0) {
-        countElement.textContent = 'No locations found matching your search.';
-    } else if (count === 1) {
-        countElement.textContent = 'Showing 1 biblical location.';
-    } else {
-        countElement.textContent = `Showing ${count} biblical locations.`;
-    }
-}
-
 function initializeMap() {
-    // Biblical locations with coordinates
     const biblicalLocations = {
-        'garden-of-eden': { name: 'Garden of Eden', coords: [33.0, 44.0], type: 'ot', description: 'The original home of mankind' },
-        'mount-ararat': { name: 'Mount Ararat', coords: [39.7, 44.3], type: 'ot', description: 'Where Noah\'s ark came to rest' },
-        'ur': { name: 'Ur of the Chaldees', coords: [30.96, 46.1], type: 'ot', description: 'Abraham\'s birthplace' },
-        'jerusalem': { name: 'Jerusalem', coords: [31.7857, 35.2007], type: 'ot', description: 'The holy city, city of David' },
-        'egypt': { name: 'Egypt', coords: [26.8206, 30.8025], type: 'ot', description: 'Land of bondage and deliverance' },
-        'mount-sinai': { name: 'Mount Sinai', coords: [28.5, 33.9], type: 'ot', description: 'Where Moses received the Ten Commandments' },
-        'babylon': { name: 'Babylon', coords: [32.5355, 44.4275], type: 'ot', description: 'Place of exile for the Jewish people' },
-        'bethel': { name: 'Bethel', coords: [31.93, 35.22], type: 'ot', description: 'Where Jacob saw the ladder to heaven' },
-        'hebron': { name: 'Hebron', coords: [31.53, 35.1], type: 'ot', description: 'Where Abraham, Isaac, and Jacob are buried' },
-        'jericho': { name: 'Jericho', coords: [31.87, 35.44], type: 'ot', description: 'First city conquered in the Promised Land' },
-        
-        'bethlehem': { name: 'Bethlehem', coords: [31.7054, 35.2024], type: 'nt', description: 'Birthplace of Jesus Christ' },
-        'nazareth': { name: 'Nazareth', coords: [32.7, 35.3], type: 'nt', description: 'Where Jesus grew up' },
-        'galilee': { name: 'Sea of Galilee', coords: [32.8, 35.6], type: 'nt', description: 'Where Jesus called disciples and performed miracles' },
-        'antioch': { name: 'Antioch', coords: [36.16, 36.2], type: 'nt', description: 'Where believers were first called Christians' },
-        'damascus': { name: 'Damascus', coords: [33.5, 36.3], type: 'nt', description: 'Where Paul was converted on the road' },
-        'calvary': { name: 'Calvary', coords: [31.7784, 35.2066], type: 'nt', description: 'The place where Jesus was crucified' },
-        
-        'cyprus': { name: 'Cyprus', coords: [35.1, 33.4], type: 'journey', description: 'First stop on Paul\'s first missionary journey' },
-        'ephesus': { name: 'Ephesus', coords: [37.95, 27.37], type: 'journey', description: 'Important center of early Christianity' },
-        'corinth': { name: 'Corinth', coords: [37.9, 22.9], type: 'journey', description: 'Major city where Paul established a church' },
-        'athens': { name: 'Athens', coords: [37.98, 23.73], type: 'journey', description: 'Where Paul preached at the Areopagus' },
-        'philippi': { name: 'Philippi', coords: [41.01, 24.28], type: 'journey', description: 'Where Paul and Silas were imprisoned' },
-        'rome': { name: 'Rome', coords: [41.9, 12.5], type: 'journey', description: 'Capital of the empire, destination of Paul\'s final journey' },
-        'malta': { name: 'Malta', coords: [35.9, 14.5], type: 'journey', description: 'Island where Paul was shipwrecked' },
-        'patmos': { name: 'Patmos', coords: [37.3, 26.55], type: 'journey', description: 'Island where John received the Revelation' }
+        'jerusalem': { name: 'Jerusalem', coords: [31.7857, 35.2007], type: 'ot' },
+        'bethlehem': { name: 'Bethlehem', coords: [31.7054, 35.2024], type: 'nt' },
+        'nazareth': { name: 'Nazareth', coords: [32.7, 35.3], type: 'nt' },
+        'egypt': { name: 'Egypt', coords: [26.8206, 30.8025], type: 'ot' },
+        'babylon': { name: 'Babylon', coords: [32.5355, 44.4275], type: 'ot' },
+        'rome': { name: 'Rome', coords: [41.9, 12.5], type: 'journey' },
+        'damascus': { name: 'Damascus', coords: [33.5, 36.3], type: 'nt' },
+        'antioch': { name: 'Antioch', coords: [36.16, 36.2], type: 'nt' },
+        'ephesus': { name: 'Ephesus', coords: [37.95, 27.37], type: 'journey' },
+        'corinth': { name: 'Corinth', coords: [37.9, 22.9], type: 'journey' }
     };
 
-    // Initialize the map
     const map = L.map('biblical-map').setView([31.5, 35.0], 6);
 
-    // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 18,
+        attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Create layer groups for different location types
-    const otLayer = L.layerGroup().addTo(map);
-    const ntLayer = L.layerGroup().addTo(map);
-    const journeyLayer = L.layerGroup().addTo(map);
-
-    // Add markers for each location
     Object.entries(biblicalLocations).forEach(([id, location]) => {
         const marker = L.circleMarker(location.coords, {
-            radius: location.type === 'ot' && location.name === 'Jerusalem' ? 10 : 8,
+            radius: 8,
             fillColor: location.type === 'ot' ? '#8b4513' : location.type === 'nt' ? '#4169e1' : '#ff6b35',
             color: 'white',
             weight: 2,
-            opacity: 1,
             fillOpacity: 0.8
         });
 
-        // Add popup with location info
-        marker.bindPopup(`
-            <h3>${location.name}</h3>
-            <p>${location.description}</p>
-        `);
-
-        // Add click handler to highlight location cards
-        marker.on('click', function() {
-            highlightLocationCard(id);
-            scrollToLocationCard(id);
-        });
-
-        // Add to appropriate layer
-        if (location.type === 'ot') {
-            marker.addTo(otLayer);
-        } else if (location.type === 'nt') {
-            marker.addTo(ntLayer);
-        } else {
-            marker.addTo(journeyLayer);
-        }
-    });
-
-    // Store layers globally for toggle functionality
-    window.mapLayers = { otLayer, ntLayer, journeyLayer };
-    window.biblicalMap = map;
-}
-
-function highlightLocationCard(locationId) {
-    document.querySelectorAll('.location-card').forEach(card => {
-        card.classList.remove('highlighted');
-    });
-    
-    const locationName = getLocationNameFromId(locationId);
-    const cards = document.querySelectorAll('.location-card');
-    
-    cards.forEach(card => {
-        const cardName = card.querySelector('.location-name').textContent.trim();
-        if (cardName.toLowerCase().includes(locationName.toLowerCase()) || 
-            locationName.toLowerCase().includes(cardName.toLowerCase())) {
-            card.classList.add('highlighted');
-        }
+        marker.bindPopup(`<strong>${location.name}</strong>`);
+        marker.addTo(map);
     });
 }
 
-function scrollToLocationCard(locationId) {
-    const locationName = getLocationNameFromId(locationId);
-    const cards = document.querySelectorAll('.location-card');
-    
-    cards.forEach(card => {
-        const cardName = card.querySelector('.location-name').textContent.trim();
-        if (cardName.toLowerCase().includes(locationName.toLowerCase()) || 
-            locationName.toLowerCase().includes(cardName.toLowerCase())) {
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    });
-}
-
-function getLocationNameFromId(locationId) {
-    const locationMap = {
-        'garden-of-eden': 'Garden of Eden',
-        'mount-ararat': 'Mount Ararat',
-        'ur': 'Ur',
-        'jerusalem': 'Jerusalem',
-        'egypt': 'Egypt',
-        'mount-sinai': 'Mount Sinai',
-        'babylon': 'Babylon',
-        'bethel': 'Bethel',
-        'hebron': 'Hebron',
-        'bethlehem': 'Bethlehem',
-        'nazareth': 'Nazareth',
-        'galilee': 'Sea of Galilee',
-        'antioch': 'Antioch',
-        'damascus': 'Damascus',
-        'calvary': 'Calvary',
-        'cyprus': 'Cyprus',
-        'ephesus': 'Ephesus',
-        'corinth': 'Corinth',
-        'athens': 'Athens',
-        'philippi': 'Philippi',
-        'rome': 'Rome',
-        'malta': 'Malta',
-        'patmos': 'Patmos'
-    };
-    return locationMap[locationId] || locationId;
-}
-
-function toggleMapLayer(layerType) {
-    const button = document.getElementById(layerType.replace('-locations', '-toggle'));
-    const layerMap = {
-        'ot-locations': 'otLayer',
-        'nt-locations': 'ntLayer',
-        'journey-locations': 'journeyLayer'
-    };
-    
-    if (window.mapLayers && window.biblicalMap) {
-        const layer = window.mapLayers[layerMap[layerType]];
-        
-        if (window.biblicalMap.hasLayer(layer)) {
-            window.biblicalMap.removeLayer(layer);
-            button.classList.remove('active');
-            button.style.opacity = '0.5';
-        } else {
-            window.biblicalMap.addLayer(layer);
-            button.classList.add('active');
-            button.style.opacity = '1';
-        }
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const totalLocations = document.querySelectorAll('.location-card').length;
-    updateLocationCount(totalLocations);
-    initializeMap();
-});
+document.addEventListener('DOMContentLoaded', initializeMap);
 </script>
-
 {% endblock %}

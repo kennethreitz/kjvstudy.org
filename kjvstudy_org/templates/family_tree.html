@@ -1,148 +1,23 @@
 {% extends "base.html" %}
+
 {% block title %}Biblical Family Tree - Coming Soon - KJV Study{% endblock %}
 {% block description %}Biblical family tree feature coming soon to KJV Study. Explore biblical genealogies and family relationships.{% endblock %}
-{% block keywords %}biblical family tree, biblical genealogy, KJV Bible, family relationships{% endblock %}
-
-{% block head %}
-<style>
-    .coming-soon-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 4rem 2rem;
-        text-align: center;
-    }
-
-    .coming-soon-header {
-        margin-bottom: 3rem;
-    }
-
-    .coming-soon-header h1 {
-        font-size: 3rem;
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-        font-family: "Crimson Text", serif;
-    }
-
-    .coming-soon-header p {
-        font-size: 1.2rem;
-        color: var(--text-muted);
-        line-height: 1.6;
-    }
-
-    .feature-preview {
-        background: var(--card-background);
-        border-radius: 12px;
-        padding: 2rem;
-        margin: 2rem 0;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .feature-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        margin: 2rem 0;
-    }
-
-    .feature-item {
-        background: var(--background-color);
-        padding: 1.5rem;
-        border-radius: 8px;
-        border-left: 4px solid var(--primary-color);
-    }
-
-    .feature-item h3 {
-        color: var(--primary-color);
-        margin-bottom: 0.5rem;
-        font-size: 1.1rem;
-    }
-
-    .feature-item p {
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        line-height: 1.5;
-        margin: 0;
-    }
-
-    .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: 500;
-        padding: 0.75rem 1.5rem;
-        border: 2px solid var(--primary-color);
-        border-radius: 6px;
-        transition: all 0.3s ease;
-        margin-top: 2rem;
-    }
-
-    .back-link:hover {
-        background: var(--primary-color);
-        color: white;
-        text-decoration: none;
-    }
-
-    .icon {
-        font-size: 4rem;
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-    }
-
-    @media (max-width: 768px) {
-        .coming-soon-header h1 {
-            font-size: 2rem;
-        }
-        
-        .feature-list {
-            grid-template-columns: 1fr;
-        }
-        
-        .coming-soon-container {
-            padding: 2rem 1rem;
-        }
-    }
-</style>
-{% endblock %}
 
 {% block content %}
-<div class="coming-soon-container">
-    <div class="coming-soon-header">
-        <div class="icon">🌳</div>
-        <h1>Biblical Family Tree</h1>
-        <p>We're working on an interactive biblical genealogy explorer that will help you navigate the rich family relationships found throughout Scripture.</p>
-    </div>
+<h1>Biblical Family Tree</h1>
+<p class="subtitle">Coming Soon</p>
 
-    <div class="feature-preview">
-        <h2 style="color: var(--primary-color); margin-bottom: 1.5rem;">Coming Soon Features</h2>
-        
-        <div class="feature-list">
-            <div class="feature-item">
-                <h3>📊 Interactive Tree View</h3>
-                <p>Navigate biblical genealogies with an interactive, zoomable family tree showing relationships from Adam to the patriarchs.</p>
-            </div>
-            
-            <div class="feature-item">
-                <h3>📖 Scripture Integration</h3>
-                <p>Each person in the tree will link to relevant Bible verses and passages that mention them.</p>
-            </div>
-            
-            <div class="feature-item">
-                <h3>🔍 Advanced Search</h3>
-                <p>Search for biblical figures by name, relationship, or time period to quickly find family connections.</p>
-            </div>
-            
-            <div class="feature-item">
-                <h3>📱 Mobile Friendly</h3>
-                <p>Fully responsive design that works seamlessly on desktop, tablet, and mobile devices.</p>
-            </div>
-        </div>
-    </div>
+<section>
+    <p>We're working on an interactive biblical genealogy explorer that will help you navigate the rich family relationships found throughout Scripture.</p>
 
-    <a href="/" class="back-link">
-        ← Back to KJV Study
-    </a>
-</div>
+    <h2>Planned Features</h2>
+    <ul>
+        <li>Interactive tree view showing relationships from Adam to the patriarchs</li>
+        <li>Scripture integration with links to relevant Bible verses</li>
+        <li>Search for biblical figures by name, relationship, or time period</li>
+        <li>Fully responsive design for all devices</li>
+    </ul>
+
+    <p><a href="/">Return to Homepage</a></p>
+</section>
 {% endblock %}

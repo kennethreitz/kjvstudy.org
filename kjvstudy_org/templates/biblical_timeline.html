@@ -1,576 +1,183 @@
 {% extends "base.html" %}
 
 {% block title %}Biblical Timeline - Major Bible Events - KJV Study{% endblock %}
-
-{% block description %}Explore the chronological timeline of major biblical events from Creation to the early Church. Interactive timeline with dates, descriptions, and scripture references from the King James Version Bible.{% endblock %}
-
-{% block keywords %}biblical timeline, bible chronology, biblical events, Old Testament timeline, New Testament timeline, biblical history, scripture timeline, KJV chronology{% endblock %}
-
-{% block og_title %}Biblical Timeline - Major Bible Events - KJV Study{% endblock %}
+{% block description %}Explore the chronological timeline of major biblical events from Creation to the early Church.{% endblock %}
 
 {% block head %}
 <style>
-    body {
-        background-color: #1a1a1a !important;
-        color: #f8f9fa;
-    }
+.timeline-filter {
+    margin: 2rem 0;
+    text-align: center;
+}
 
-    .timeline-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1rem;
-        background-color: #1a1a1a;
-        min-height: 100vh;
-    }
+.filter-btn {
+    margin: 0.25rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
 
-    .timeline-header {
-        text-align: center;
-        margin-bottom: 2rem;
-        padding: 2rem 1rem;
-        background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
-        border-radius: 12px;
-        border: 1px solid #4a4a4a;
-    }
+.filter-btn.active {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
 
-    .timeline-header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-        color: #f8f9fa;
-        font-family: 'Crimson Text', serif;
-    }
+.timeline-period {
+    margin: 3rem 0;
+}
 
-    .timeline-header p {
-        font-size: 1.1rem;
-        color: #ced4da;
-        max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.6;
-    }
+.timeline-period.hidden {
+    display: none;
+}
 
-    .timeline-controls {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
+.period-title {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #111;
+}
 
-    .period-filter {
-        display: inline-block;
-        margin: 0 0.5rem;
-        padding: 0.5rem 1rem;
-        background: #343a40;
-        border: 2px solid #495057;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 0.9rem;
-        color: #ced4da;
-    }
+.timeline-event {
+    margin: 2rem 0 2rem 2rem;
+    padding-left: 1rem;
+    border-left: 2px solid #ccc;
+}
 
-    .period-filter:hover {
-        background: #495057;
-        border-color: #6c757d;
-        color: #f8f9fa;
-    }
+.event-date {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
 
-    .period-filter.active {
-        background: #ffc107;
-        border-color: #ffc107;
-        color: #212529;
-    }
+.event-title {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
 
-    .timeline-period {
-        margin-bottom: 3rem;
-        opacity: 1;
-        transition: opacity 0.3s ease;
-    }
+.event-description {
+    color: #666;
+    margin: 0.5rem 0;
+}
 
-    .timeline-period.hidden {
-        display: none;
-    }
+.event-verses {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-left: 3px solid #111;
+}
 
-    .period-title {
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        padding: 1rem 1.5rem;
-        background: linear-gradient(135deg, #212529 0%, #343a40 100%);
-        color: #ffc107;
-        border-radius: 8px;
-        font-family: 'Crimson Text', serif;
-        text-align: center;
-        border: 1px solid #495057;
-    }
+.verse {
+    margin-bottom: 1rem;
+}
 
-    .timeline-events {
-        position: relative;
-        padding-left: 2rem;
-    }
+.verse:last-child {
+    margin-bottom: 0;
+}
 
-    .timeline-events::before {
-        content: '';
-        position: absolute;
-        left: 1rem;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: linear-gradient(to bottom, #ffc107 0%, #495057 100%);
-    }
+.verse-reference {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
 
-    .timeline-event {
-        position: relative;
-        margin-bottom: 2rem;
-        background: #2d3436;
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        border: 1px solid #495057;
-        margin-left: 2rem;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .timeline-event:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        border-color: #ffc107;
-    }
-
-    .timeline-event::before {
-        content: '';
-        position: absolute;
-        left: -3rem;
-        top: 1.5rem;
-        width: 12px;
-        height: 12px;
-        background: #ffc107;
-        border: 3px solid #2d3436;
-        border-radius: 50%;
-        box-shadow: 0 0 0 3px #ffc107;
-    }
-
-    .event-date {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #ffc107;
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .event-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        color: #f8f9fa;
-        font-family: 'Crimson Text', serif;
-    }
-
-    .event-description {
-        color: #adb5bd;
-        margin-bottom: 1rem;
-        line-height: 1.6;
-    }
-
-    .event-verses {
-        background: #212529;
-        border-radius: 8px;
-        padding: 1rem;
-        border-left: 4px solid #ffc107;
-    }
-
-    .verse {
-        margin-bottom: 1rem;
-    }
-
-    .verse:last-child {
-        margin-bottom: 0;
-    }
-
-    .verse-reference {
-        font-weight: 600;
-        color: #ffc107;
-        margin-bottom: 0.25rem;
-        font-size: 0.9rem;
-    }
-
-    .verse-text {
-        font-style: italic;
-        color: #ced4da;
-        line-height: 1.5;
-        font-family: 'Crimson Text', serif;
-    }
-
-    .verse-link {
-        color: #ffc107;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        border-bottom: 1px solid transparent;
-        padding: 2px 4px;
-        border-radius: 3px;
-        position: relative;
-    }
-
-    .verse-link:hover {
-        color: #fff3cd;
-        text-decoration: none;
-        border-bottom: 1px solid #ffc107;
-        text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
-        background: rgba(255, 193, 7, 0.1);
-        transform: translateY(-1px);
-    }
-
-    .verse-link::after {
-        content: "📖";
-        font-size: 0.8em;
-        margin-left: 4px;
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-    }
-
-    .verse-link:hover::after {
-        opacity: 1;
-    }
-
-    .verse-link:visited {
-        color: #e0a800;
-    }
-
-    .verse-link:active {
-        color: #d39e00;
-    }
-
-    @media (max-width: 768px) {
-        .timeline-container {
-            padding: 0.5rem;
-            background-color: #1a1a1a;
-        }
-
-        .timeline-header h1 {
-            font-size: 2rem;
-            color: #f8f9fa;
-        }
-
-        .timeline-header p {
-            font-size: 1rem;
-            color: #ced4da;
-        }
-
-        .period-filter {
-            margin: 0.25rem;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-            background: #343a40;
-            border-color: #495057;
-            color: #ced4da;
-        }
-
-        .period-filter:hover {
-            background: #495057;
-            color: #f8f9fa;
-        }
-
-        .period-filter.active {
-            background: #ffc107;
-            color: #212529;
-        }
-
-        .period-title {
-            font-size: 1.4rem;
-            padding: 0.75rem 1rem;
-            background: linear-gradient(135deg, #212529 0%, #343a40 100%);
-            color: #ffc107;
-            border: 1px solid #495057;
-        }
-
-        .timeline-events {
-            padding-left: 1rem;
-        }
-
-        .timeline-events::before {
-            left: 0.5rem;
-            background: linear-gradient(to bottom, #ffc107 0%, #495057 100%);
-        }
-
-        .timeline-event {
-            margin-left: 1rem;
-            padding: 1rem;
-            background: #2d3436;
-            border-color: #495057;
-        }
-
-        .timeline-event:hover {
-            border-color: #ffc107;
-        }
-
-        .timeline-event::before {
-            left: -1.75rem;
-            top: 1rem;
-            width: 8px;
-            height: 8px;
-            background: #ffc107;
-            border: 2px solid #2d3436;
-            box-shadow: 0 0 0 2px #ffc107;
-        }
-
-        .event-title {
-            font-size: 1.2rem;
-            color: #f8f9fa;
-        }
-    }
-
-    .show-all-periods .timeline-period {
-        display: block !important;
-    }
-
-    /* Additional dark theme improvements */
-    .timeline-event:hover .event-title {
-        color: #ffc107;
-        transition: color 0.3s ease;
-    }
-
-    .timeline-event:hover .event-date {
-        text-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
-    }
-
-    /* Enhanced animations */
-    .timeline-event {
-        animation: fadeInUp 0.6s ease-out;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .period-title {
-        animation: slideInLeft 0.5s ease-out;
-    }
-
-    @keyframes slideInLeft {
-        from {
-            opacity: 0;
-            transform: translateX(-50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    /* Glowing timeline line effect */
-    .timeline-events::before {
-        box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
-    }
-
-    /* Enhanced verse styling */
-    .event-verses {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .event-verses::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(to bottom, #ffc107, #fd7e14);
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0.7;
-        }
-    }
-
-    /* Smooth scrollbar for dark theme */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #212529;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #495057;
-        border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: #6c757d;
-    }
+.verse-text {
+    font-style: italic;
+    color: #666;
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="timeline-container">
-    <header class="timeline-header">
-        <h1>📜 Biblical Timeline</h1>
-        <p>
-            Journey through the major events of biblical history from Creation to the early Church. 
-            Each event includes approximate dates, descriptions, and relevant scripture references from the King James Version Bible.
-        </p>
-    </header>
+<h1>Biblical Timeline</h1>
+<p class="subtitle">Major events from Creation to the early Church</p>
 
-    <div class="timeline-controls">
-        <div class="period-filter active" data-period="all">Show All</div>
-        <div class="period-filter" data-period="creation">Creation & Early History</div>
-        <div class="period-filter" data-period="patriarchs">The Patriarchs</div>
-        <div class="period-filter" data-period="exodus">Egypt & Exodus</div>
-        <div class="period-filter" data-period="conquest">Conquest & Judges</div>
-        <div class="period-filter" data-period="kingdom">Kingdom Period</div>
-        <div class="period-filter" data-period="exile">Exile & Return</div>
-        <div class="period-filter" data-period="nt">New Testament</div>
-    </div>
+<section>
+    <p>This timeline presents the key events of biblical history with approximate dates and relevant scripture references.</p>
+</section>
 
-    <div class="timeline-content">
-        {% for period_name, events in timeline_events.items() %}
-        <div class="timeline-period" data-period="{{ period_name.lower().replace(' ', '-').replace('&', '').replace('the-', '') }}">
-            <h2 class="period-title">{{ period_name }}</h2>
-            
-            <div class="timeline-events">
-                {% for event in events %}
-                <div class="timeline-event">
-                    <div class="event-date">{{ event.date }}</div>
-                    <h3 class="event-title">{{ event.title }}</h3>
-                    <p class="event-description">{{ event.description }}</p>
-                    
-                    {% if event.verses %}
-                    <div class="event-verses">
-                        {% for verse in event.verses %}
-                        <div class="verse">
-                            {% set ref_parts = verse.reference.split(' ') %}
-                            {% if ref_parts|length >= 2 %}
-                                {% if ref_parts[0] in ['1', '2'] and ref_parts|length >= 3 %}
-                                    {# Handle books like "1 Kings 6:14" or "2 Samuel 5:3" #}
-                                    {% set book = ref_parts[0] + ' ' + ref_parts[1] %}
-                                    {% set chapter_verse_part = ref_parts[2] %}
-                                {% else %}
-                                    {# Handle books like "Genesis 1:1" or "Joshua 6:20" #}
-                                    {% set book = ref_parts[0] %}
-                                    {% set chapter_verse_part = ref_parts[1] %}
-                                {% endif %}
-                                
-                                {# Extract chapter number, handling ranges like "15:3-4" #}
-                                {% if ':' in chapter_verse_part %}
-                                    {% set chapter = chapter_verse_part.split(':')[0] %}
-                                {% elif '-' in chapter_verse_part %}
-                                    {% set chapter = chapter_verse_part.split('-')[0] %}
-                                {% else %}
-                                    {% set chapter = chapter_verse_part %}
-                                {% endif %}
-                                
-                                <div class="verse-reference">
-                                    <a href="/book/{{ book }}/chapter/{{ chapter }}" class="verse-link">{{ verse.reference }}</a>
-                                </div>
-                            {% else %}
-                                <div class="verse-reference">{{ verse.reference }}</div>
-                            {% endif %}
-                            <div class="verse-text">"{{ verse.text }}"</div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+<div class="timeline-filter">
+    <button class="filter-btn active" data-period="all">All</button>
+    <button class="filter-btn" data-period="creation-and-early-history">Creation</button>
+    <button class="filter-btn" data-period="patriarchs">Patriarchs</button>
+    <button class="filter-btn" data-period="egypt-and-exodus">Exodus</button>
+    <button class="filter-btn" data-period="conquest-and-judges">Conquest & Judges</button>
+    <button class="filter-btn" data-period="kingdom-period">Kingdom</button>
+    <button class="filter-btn" data-period="exile-and-return">Exile & Return</button>
+    <button class="filter-btn" data-period="new-testament-era">New Testament</button>
 </div>
+
+{% for period_name, events in timeline_events.items() %}
+<section class="timeline-period" data-period="{{ period_name.lower().replace(' ', '-').replace('&', '').replace('the-', '') }}">
+    <h2 class="period-title">{{ period_name }}</h2>
+
+    {% for event in events %}
+    <article class="timeline-event">
+        <div class="event-date">{{ event.date }}</div>
+        <h3 class="event-title">{{ event.title }}</h3>
+        <p class="event-description">{{ event.description }}</p>
+
+        {% if event.verses %}
+        <div class="event-verses">
+            {% for verse in event.verses %}
+            <div class="verse">
+                {% set ref_parts = verse.reference.split(' ') %}
+                {% if ref_parts|length >= 2 %}
+                    {% if ref_parts[0] in ['1', '2'] and ref_parts|length >= 3 %}
+                        {% set book = ref_parts[0] + ' ' + ref_parts[1] %}
+                        {% set chapter_verse_part = ref_parts[2] %}
+                    {% else %}
+                        {% set book = ref_parts[0] %}
+                        {% set chapter_verse_part = ref_parts[1] %}
+                    {% endif %}
+
+                    {% if ':' in chapter_verse_part %}
+                        {% set chapter = chapter_verse_part.split(':')[0] %}
+                    {% elif '-' in chapter_verse_part %}
+                        {% set chapter = chapter_verse_part.split('-')[0] %}
+                    {% else %}
+                        {% set chapter = chapter_verse_part %}
+                    {% endif %}
+
+                    <div class="verse-reference">
+                        <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a>
+                    </div>
+                {% else %}
+                    <div class="verse-reference">{{ verse.reference }}</div>
+                {% endif %}
+                <div class="verse-text">{{ verse.text }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const filters = document.querySelectorAll('.period-filter');
+    const filters = document.querySelectorAll('.filter-btn');
     const periods = document.querySelectorAll('.timeline-period');
-    const timelineContent = document.querySelector('.timeline-content');
-
-    // Map filter data-period values to actual period data-period values
-    const periodMap = {
-        'creation': 'creation-and-early-history',
-        'patriarchs': 'patriarchs',
-        'exodus': 'egypt-and-exodus',
-        'conquest': 'conquest-and-judges',
-        'kingdom': 'kingdom-period',
-        'exile': 'exile-and-return',
-        'nt': 'new-testament-era'
-    };
-
-    function showAllPeriods() {
-        periods.forEach(period => {
-            period.classList.remove('hidden');
-        });
-        timelineContent.classList.add('show-all-periods');
-    }
-
-    function hidePeriod(period) {
-        period.classList.add('hidden');
-    }
-
-    function showPeriod(period) {
-        period.classList.remove('hidden');
-    }
 
     filters.forEach(filter => {
         filter.addEventListener('click', function() {
-            // Remove active class from all filters
             filters.forEach(f => f.classList.remove('active'));
-            
-            // Add active class to clicked filter
             this.classList.add('active');
-            
+
             const selectedPeriod = this.dataset.period;
-            
-            if (selectedPeriod === 'all') {
-                showAllPeriods();
-            } else {
-                // Hide all periods first
-                timelineContent.classList.remove('show-all-periods');
-                periods.forEach(hidePeriod);
-                
-                // Show only the selected period
-                const targetPeriodName = periodMap[selectedPeriod];
-                const targetPeriod = document.querySelector(`[data-period="${targetPeriodName}"]`);
-                if (targetPeriod) {
-                    showPeriod(targetPeriod);
+
+            periods.forEach(period => {
+                if (selectedPeriod === 'all' || period.dataset.period === selectedPeriod) {
+                    period.classList.remove('hidden');
+                } else {
+                    period.classList.add('hidden');
                 }
-            }
+            });
         });
-    });
-
-    // Smooth scrolling for timeline events
-    const timelineEvents = document.querySelectorAll('.timeline-event');
-    
-    // Add scroll-triggered animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    timelineEvents.forEach(event => {
-        event.style.opacity = '0';
-        event.style.transform = 'translateY(20px)';
-        event.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(event);
     });
 });
 </script>
