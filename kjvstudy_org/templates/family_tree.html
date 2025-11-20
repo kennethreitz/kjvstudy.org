@@ -3,103 +3,273 @@
 {% block title %}Biblical Family Tree - KJV Study{% endblock %}
 {% block description %}Explore biblical genealogies from Adam to Jesus Christ.{% endblock %}
 
+{% block head %}
+<style>
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+    max-width: 55%;
+}
+
+.stat-card {
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 4px solid #111;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-family: et-book-roman-old-style;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.generation-card {
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background: #fffff8;
+    border: 1px solid #ddd;
+    border-left: 4px solid #111;
+    max-width: 55%;
+}
+
+.generation-card h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.generation-number {
+    display: inline-block;
+    background: #111;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    font-family: et-book-roman-old-style;
+}
+
+.person-card {
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background: #fffff8;
+    border-left: 3px solid #666;
+    max-width: 55%;
+    position: relative;
+}
+
+.person-card:hover {
+    border-left-color: #111;
+    background: #f9f9f9;
+}
+
+.person-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.person-meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.person-details {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.search-box {
+    max-width: 55%;
+    margin: 2rem 0;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    font-family: inherit;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #111;
+}
+
+.people-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.people-list li {
+    display: inline;
+}
+
+.people-list li:after {
+    content: " • ";
+    color: #999;
+}
+
+.people-list li:last-child:after {
+    content: "";
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>Biblical Family Tree</h1>
 <p class="subtitle">From Adam to Jesus Christ</p>
 
 <section>
-    <p>The Bible contains detailed genealogies that trace God's plan through specific family lines, culminating in the birth of Jesus Christ. This family tree is organized by generation.</p>
-    <p><a href="/family-tree/search">Search the Family Tree →</a></p>
+    <p>The Bible contains detailed genealogies that trace God's plan through specific family lines, culminating in the birth of Jesus Christ.</p>
+</section>
+
+<section>
+    <div class="search-box">
+        <form method="get" action="/family-tree/search">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search for a person in the family tree..."
+                autocomplete="off"
+            >
+        </form>
+    </div>
 </section>
 
 {% if family_tree_data and generations %}
     <section>
-        <h2>Generations Overview</h2>
-        <p>{{ generations|length }} generations from Adam</p>
+        <h2>Overview</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ family_tree_data|length }}</div>
+                <div class="stat-label">Individuals</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ generations|length }}</div>
+                <div class="stat-label">Generations</div>
+            </div>
+            {% set people_with_age = [] %}
+            {% for person_id, person in family_tree_data.items() %}
+                {% if person.age_at_death != "Unknown" and "years" in person.age_at_death %}
+                    {% set _ = people_with_age.append(person) %}
+                {% endif %}
+            {% endfor %}
+            <div class="stat-card">
+                <div class="stat-number">{{ people_with_age|length }}</div>
+                <div class="stat-label">With Ages</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Generations</h2>
+        <p>Browse the biblical genealogy generation by generation</p>
 
         {% for gen_num in generations.keys() | sort %}
-        <div style="margin: 2rem 0; max-width: 55%;">
-            <h3><a href="/family-tree/generation/{{ gen_num }}">Generation {{ gen_num }}</a></h3>
-            <p>
-                {{ generations[gen_num]|length }} individual{% if generations[gen_num]|length != 1 %}s{% endif %}:
-                {% for person_id in generations[gen_num][:10] %}
-                    <a href="/family-tree/person/{{ person_id }}">{{ family_tree_data[person_id].name }}</a>{% if not loop.last %}, {% endif %}
+        <div class="generation-card">
+            <h3>
+                <span class="generation-number">{{ gen_num }}</span>
+                <a href="/family-tree/generation/{{ gen_num }}">Generation {{ gen_num }}</a>
+            </h3>
+            <p class="person-meta">{{ generations[gen_num]|length }} individual{% if generations[gen_num]|length != 1 %}s{% endif %}</p>
+            <ul class="people-list">
+                {% for person_id in generations[gen_num][:15] %}
+                    <li><a href="/family-tree/person/{{ person_id }}">{{ family_tree_data[person_id].name }}</a></li>
                 {% endfor %}
-                {% if generations[gen_num]|length > 10 %}
-                    and {{ generations[gen_num]|length - 10 }} more...
+                {% if generations[gen_num]|length > 15 %}
+                    <li>and {{ generations[gen_num]|length - 15 }} more</li>
                 {% endif %}
-            </p>
+            </ul>
         </div>
         {% endfor %}
     </section>
 
     <section>
         <h2>Notable Individuals</h2>
+        <p>Key figures in biblical history</p>
+
         {% set notable = ["Adam", "Noah", "Abraham", "Isaac", "Jacob", "Joseph", "Moses", "David", "Solomon", "Jesus"] %}
         {% for person_id, person in family_tree_data.items() %}
             {% if person.name in notable %}
-            <div style="margin: 2rem 0; max-width: 55%;">
-                <h3><a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>{% if person.generation %} (Generation {{ person.generation }}){% endif %}</h3>
+            <div class="person-card">
+                <div class="person-name">
+                    <a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>
+                </div>
 
-                {% if person.birth_year != "Unknown" or person.death_year != "Unknown" or person.age_at_death != "Unknown" %}
-                <p>
-                    {% if person.birth_year != "Unknown" %}Born: {{ person.birth_year }}{% endif %}
-                    {% if person.death_year != "Unknown" %} — Died: {{ person.death_year }}{% endif %}
-                    {% if person.age_at_death != "Unknown" %} ({{ person.age_at_death }}){% endif %}
-                </p>
-                {% endif %}
+                <div class="person-meta">
+                    {% if person.generation %}Generation {{ person.generation }}{% endif %}
+                    {% if person.birth_year != "Unknown" %} • Born {{ person.birth_year }}{% endif %}
+                    {% if person.age_at_death != "Unknown" %} • Lived {{ person.age_at_death }}{% endif %}
+                </div>
 
                 {% if person.spouse %}
-                <p>Spouse: {{ person.spouse }}</p>
+                <div class="person-details"><strong>Spouse:</strong> {{ person.spouse }}</div>
                 {% endif %}
 
                 {% if person.parents|length > 0 %}
-                <p>Parents:
+                <div class="person-details">
+                    <strong>Parents:</strong>
                     {% for parent_id in person.parents %}
                         {% if parent_id in family_tree_data %}<a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>{% if not loop.last %}, {% endif %}{% endif %}
                     {% endfor %}
-                </p>
+                </div>
                 {% endif %}
 
                 {% if person.children|length > 0 %}
-                <p>Children:
+                <div class="person-details">
+                    <strong>Children:</strong>
                     {% for child_id in person.children[:5] %}
                         {% if child_id in family_tree_data %}<a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}{% endif %}
                     {% endfor %}
                     {% if person.children|length > 5 %}
                         and {{ person.children|length - 5 }} more
                     {% endif %}
-                </p>
+                </div>
                 {% endif %}
 
                 {% if person.verses %}
-                <ul>
-                    {% for verse in person.verses[:2] %}
-                    <li>
-                        {% set ref_parts = verse.reference.split(' ') %}
-                        {% if ref_parts|length >= 2 %}
-                            {% set chapter_verse = ref_parts[-1] %}
-                            {% if ':' in chapter_verse %}
-                                {% set chapter = chapter_verse.split(':')[0] %}
-                                {% set verse_part = chapter_verse.split(':')[1] %}
-                                {# Handle verse ranges like "7-9" by taking just the first verse #}
-                                {% if '-' in verse_part %}
-                                    {% set verse_num = verse_part.split('-')[0] %}
+                <div class="person-details">
+                    <strong>Related Verses:</strong>
+                    <ul style="margin: 0.5rem 0;">
+                        {% for verse in person.verses[:2] %}
+                        <li>
+                            {% set ref_parts = verse.reference.split(' ') %}
+                            {% if ref_parts|length >= 2 %}
+                                {% set chapter_verse = ref_parts[-1] %}
+                                {% if ':' in chapter_verse %}
+                                    {% set chapter = chapter_verse.split(':')[0] %}
+                                    {% set verse_part = chapter_verse.split(':')[1] %}
+                                    {% if '-' in verse_part %}
+                                        {% set verse_num = verse_part.split('-')[0] %}
+                                    {% else %}
+                                        {% set verse_num = verse_part %}
+                                    {% endif %}
+                                    {% set book = ' '.join(ref_parts[:-1]) %}
+                                    <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
                                 {% else %}
-                                    {% set verse_num = verse_part %}
+                                    {{ verse.reference }}
                                 {% endif %}
-                                {% set book = ' '.join(ref_parts[:-1]) %}
-                                <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
                             {% else %}
                                 {{ verse.reference }}
                             {% endif %}
-                        {% else %}
-                            {{ verse.reference }}
-                        {% endif %}
-                        — {{ verse.text[:100] }}{% if verse.text|length > 100 %}...{% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% endif %}
             </div>
             {% endif %}
