@@ -3,127 +3,27 @@
 {% block title %}Biblical Timeline - Major Bible Events - KJV Study{% endblock %}
 {% block description %}Explore the chronological timeline of major biblical events from Creation to the early Church.{% endblock %}
 
-{% block head %}
-<style>
-.timeline-filter {
-    margin: 2rem 0;
-    text-align: center;
-}
-
-.filter-btn {
-    margin: 0.25rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    background: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.filter-btn.active {
-    background: #111;
-    color: #fff;
-    border-color: #111;
-}
-
-.timeline-period {
-    margin: 3rem 0;
-}
-
-.timeline-period.hidden {
-    display: none;
-}
-
-.period-title {
-    font-size: 1.5rem;
-    font-weight: normal;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #111;
-}
-
-.timeline-event {
-    margin: 2rem 0 2rem 2rem;
-    padding-left: 1rem;
-    border-left: 2px solid #ccc;
-}
-
-.event-date {
-    font-size: 0.9rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.event-title {
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-}
-
-.event-description {
-    color: #666;
-    margin: 0.5rem 0;
-}
-
-.event-verses {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #f9f9f9;
-    border-left: 3px solid #111;
-}
-
-.verse {
-    margin-bottom: 1rem;
-}
-
-.verse:last-child {
-    margin-bottom: 0;
-}
-
-.verse-reference {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
-
-.verse-text {
-    font-style: italic;
-    color: #666;
-}
-</style>
-{% endblock %}
-
 {% block content %}
 <h1>Biblical Timeline</h1>
 <p class="subtitle">Major events from Creation to the early Church</p>
 
 <section>
-    <p>This timeline presents the key events of biblical history with approximate dates and relevant scripture references.</p>
+    <p>This timeline presents key events of biblical history with approximate dates and relevant scripture references.</p>
 </section>
 
-<div class="timeline-filter">
-    <button class="filter-btn active" data-period="all">All</button>
-    <button class="filter-btn" data-period="creation-and-early-history">Creation</button>
-    <button class="filter-btn" data-period="patriarchs">Patriarchs</button>
-    <button class="filter-btn" data-period="egypt-and-exodus">Exodus</button>
-    <button class="filter-btn" data-period="conquest-and-judges">Conquest & Judges</button>
-    <button class="filter-btn" data-period="kingdom-period">Kingdom</button>
-    <button class="filter-btn" data-period="exile-and-return">Exile & Return</button>
-    <button class="filter-btn" data-period="new-testament-era">New Testament</button>
-</div>
-
 {% for period_name, events in timeline_events.items() %}
-<section class="timeline-period" data-period="{{ period_name.lower().replace(' ', '-').replace('&', '').replace('the-', '') }}">
-    <h2 class="period-title">{{ period_name }}</h2>
+<section>
+    <h2>{{ period_name }}</h2>
 
     {% for event in events %}
-    <article class="timeline-event">
-        <div class="event-date">{{ event.date }}</div>
-        <h3 class="event-title">{{ event.title }}</h3>
-        <p class="event-description">{{ event.description }}</p>
+    <article style="margin: 2rem 0;">
+        <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }})</span></h3>
+        <p>{{ event.description }}</p>
 
         {% if event.verses %}
-        <div class="event-verses">
+        <ul>
             {% for verse in event.verses %}
-            <div class="verse">
+            <li>
                 {% set ref_parts = verse.reference.split(' ') %}
                 {% if ref_parts|length >= 2 %}
                     {% if ref_parts[0] in ['1', '2'] and ref_parts|length >= 3 %}
@@ -142,43 +42,16 @@
                         {% set chapter = chapter_verse_part %}
                     {% endif %}
 
-                    <div class="verse-reference">
-                        <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a>
-                    </div>
+                    <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a> — {{ verse.text }}
                 {% else %}
-                    <div class="verse-reference">{{ verse.reference }}</div>
+                    {{ verse.reference }} — {{ verse.text }}
                 {% endif %}
-                <div class="verse-text">{{ verse.text }}</div>
-            </div>
+            </li>
             {% endfor %}
-        </div>
+        </ul>
         {% endif %}
     </article>
     {% endfor %}
 </section>
 {% endfor %}
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const filters = document.querySelectorAll('.filter-btn');
-    const periods = document.querySelectorAll('.timeline-period');
-
-    filters.forEach(filter => {
-        filter.addEventListener('click', function() {
-            filters.forEach(f => f.classList.remove('active'));
-            this.classList.add('active');
-
-            const selectedPeriod = this.dataset.period;
-
-            periods.forEach(period => {
-                if (selectedPeriod === 'all' || period.dataset.period === selectedPeriod) {
-                    period.classList.remove('hidden');
-                } else {
-                    period.classList.add('hidden');
-                }
-            });
-        });
-    });
-});
-</script>
 {% endblock %}
