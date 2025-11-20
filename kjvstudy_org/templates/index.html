@@ -100,4 +100,16 @@
     {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
     {% endfor %}
 </section>
+
+<section>
+    <h2>Resources</h2>
+
+    <p><a href="/search">Search</a> — Search the entire Bible for words and phrases.</p>
+
+    <p><a href="/biblical-maps">Biblical Maps</a> — Explore important locations mentioned in Scripture.</p>
+
+    <p><a href="/family-tree">Family Tree</a> — Visual genealogies of biblical figures.</p>
+
+    <p><a href="/biblical-timeline">Biblical Timeline</a> — Key events in biblical history.</p>
+</section>
 {% endblock %}
