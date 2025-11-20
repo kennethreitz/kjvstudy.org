@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Search Family Tree - KJV Study{% endblock %}
+{% block description %}Search the biblical family tree from Adam to Jesus Christ.{% endblock %}
+
+{% block content %}
+<h1>Search Family Tree</h1>
+<p class="subtitle">Find individuals in the biblical genealogy</p>
+
+<section>
+    <p><a href="/family-tree">← Back to Family Tree</a></p>
+</section>
+
+<section>
+    <form method="get" action="/family-tree/search">
+        <input
+            type="text"
+            name="q"
+            value="{{ query }}"
+            placeholder="Enter a name..."
+            style="width: 100%; max-width: 55%; padding: 0.75rem; font-size: 1.1rem; border: 1px solid #ccc;"
+            autofocus
+        >
+        <br>
+        <button type="submit" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: #111; color: #fff; border: none; cursor: pointer;">Search</button>
+    </form>
+</section>
+
+{% if query %}
+    <section>
+        <h2>Results</h2>
+
+        {% if results %}
+            <p>Found {{ results|length }} individual{% if results|length != 1 %}s{% endif %} matching "{{ query }}"</p>
+
+            {% for result in results %}
+            <div style="margin: 2rem 0; padding-left: 1rem; border-left: 2px solid #ccc;">
+                <h3><a href="/family-tree/person/{{ result.id }}">{{ result.name }}</a></h3>
+                <p>
+                    {% if result.generation %}Generation {{ result.generation }}{% endif %}
+                    {% if result.birth_year != "Unknown" %}<br>Born: {{ result.birth_year }}{% endif %}
+                    {% if result.death_year != "Unknown" %}<br>Died: {{ result.death_year }}{% endif %}
+                </p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No results found for "{{ query }}"</p>
+        {% endif %}
+    </section>
+{% endif %}
+{% endblock %}

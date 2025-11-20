@@ -1183,6 +1183,124 @@ def family_tree_generation_page(request: Request, gen_num: int):
     )
 
 
+@app.get("/family-tree/person/{person_id}", response_class=HTMLResponse)
+def family_tree_person_page(request: Request, person_id: str):
+    """Individual person page"""
+    books = list(bible.iter_books())
+
+    # Load GEDCOM file from static folder
+    static_dir = Path(__file__).parent / "static"
+    gedcom_path = static_dir / "adameve.ged"
+
+    if not gedcom_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"GEDCOM file not found. Please place 'adameve.ged' in the static folder."
+        )
+
+    if not GedcomReader:
+        raise HTTPException(
+            status_code=500,
+            detail="GEDCOM parser not available. Please install ged4py."
+        )
+
+    # Parse GEDCOM data
+    try:
+        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to parse GEDCOM file: {str(e)}"
+        )
+
+    # Get person data
+    person_id_lower = person_id.lower()
+    if person_id_lower not in family_tree_data:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Person '{person_id}' not found"
+        )
+
+    person = family_tree_data[person_id_lower]
+
+    return templates.TemplateResponse(
+        "family_tree_person.html",
+        {
+            "request": request,
+            "books": books,
+            "person": person,
+            "person_id": person_id_lower,
+            "family_tree_data": family_tree_data,
+            "generations": generations,
+            "breadcrumbs": [
+                {"name": "Home", "url": "/"},
+                {"name": "Family Tree", "url": "/family-tree"},
+                {"name": person["name"], "url": None}
+            ]
+        }
+    )
+
+
+@app.get("/family-tree/search", response_class=HTMLResponse)
+def family_tree_search_page(request: Request, q: str = ""):
+    """Search the family tree"""
+    books = list(bible.iter_books())
+
+    # Load GEDCOM file from static folder
+    static_dir = Path(__file__).parent / "static"
+    gedcom_path = static_dir / "adameve.ged"
+
+    if not gedcom_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"GEDCOM file not found. Please place 'adameve.ged' in the static folder."
+        )
+
+    if not GedcomReader:
+        raise HTTPException(
+            status_code=500,
+            detail="GEDCOM parser not available. Please install ged4py."
+        )
+
+    # Parse GEDCOM data
+    try:
+        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to parse GEDCOM file: {str(e)}"
+        )
+
+    # Search for people
+    results = []
+    if q:
+        query_lower = q.lower()
+        for person_id, person in family_tree_data.items():
+            if query_lower in person["name"].lower():
+                results.append({
+                    "id": person_id,
+                    "name": person["name"],
+                    "generation": person.get("generation"),
+                    "birth_year": person.get("birth_year", "Unknown"),
+                    "death_year": person.get("death_year", "Unknown")
+                })
+
+    return templates.TemplateResponse(
+        "family_tree_search.html",
+        {
+            "request": request,
+            "books": books,
+            "query": q,
+            "results": results,
+            "breadcrumbs": [
+                {"name": "Home", "url": "/"},
+                {"name": "Family Tree", "url": "/family-tree"},
+                {"name": "Search", "url": None}
+            ]
+        }
+    )
+
+
 def parse_gedcom_to_tree_data(gedcom_path):
     """Parse GEDCOM file into our family tree format"""
     tree_data = {}

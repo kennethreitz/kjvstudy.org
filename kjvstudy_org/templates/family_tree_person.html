@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}{{ person.name }} - Biblical Family Tree - KJV Study{% endblock %}
+{% block description %}{{ person.name }} in the biblical genealogy from Adam to Jesus Christ.{% endblock %}
+
+{% block content %}
+<h1>{{ person.name }}</h1>
+{% if person.generation %}
+<p class="subtitle">Generation {{ person.generation }}</p>
+{% endif %}
+
+<section>
+    <p><a href="/family-tree">← Back to Family Tree</a>{% if person.generation %} | <a href="/family-tree/generation/{{ person.generation }}">View Generation {{ person.generation }}</a>{% endif %}</p>
+</section>
+
+<section>
+    <h2>Details</h2>
+
+    {% if person.birth_year != "Unknown" or person.death_year != "Unknown" or person.age_at_death != "Unknown" %}
+    <p>
+        {% if person.birth_year != "Unknown" %}<strong>Born:</strong> {{ person.birth_year }}{% endif %}
+        {% if person.death_year != "Unknown" %}<br><strong>Died:</strong> {{ person.death_year }}{% endif %}
+        {% if person.age_at_death != "Unknown" %}<br><strong>Age:</strong> {{ person.age_at_death }}{% endif %}
+    </p>
+    {% endif %}
+
+    {% if person.spouse %}
+    <p><strong>Spouse:</strong> {{ person.spouse }}</p>
+    {% endif %}
+</section>
+
+{% if person.parents|length > 0 %}
+<section>
+    <h2>Parents</h2>
+    <ul>
+        {% for parent_id in person.parents %}
+            {% if parent_id in family_tree_data %}
+            <li>
+                <a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>
+                {% if family_tree_data[parent_id].generation %}
+                    (Generation {{ family_tree_data[parent_id].generation }})
+                {% endif %}
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+{% if person.children|length > 0 %}
+<section>
+    <h2>Children</h2>
+    <ul>
+        {% for child_id in person.children %}
+            {% if child_id in family_tree_data %}
+            <li>
+                <a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>
+                {% if family_tree_data[child_id].generation %}
+                    (Generation {{ family_tree_data[child_id].generation }})
+                {% endif %}
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+{% if person.description and not person.description.startswith("Biblical figure from") %}
+<section>
+    <h2>Description</h2>
+    <p>{{ person.description }}</p>
+</section>
+{% endif %}
+
+{% if person.verses %}
+<section>
+    <h2>Related Bible Verses</h2>
+    <ul>
+        {% for verse in person.verses %}
+        <li>
+            {% set ref_parts = verse.reference.split(' ') %}
+            {% if ref_parts|length >= 2 %}
+                {% set chapter_verse = ref_parts[-1] %}
+                {% if ':' in chapter_verse %}
+                    {% set chapter = chapter_verse.split(':')[0] %}
+                    {% set verse_num = chapter_verse.split(':')[1] %}
+                    {% set book = ' '.join(ref_parts[:-1]) %}
+                    <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                {% else %}
+                    {{ verse.reference }}
+                {% endif %}
+            {% else %}
+                {{ verse.reference }}
+            {% endif %}
+            — {{ verse.text }}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<section>
+    <h2>Family Tree Navigation</h2>
+    <p>
+        <a href="/family-tree">← Back to Family Tree Overview</a>
+        {% if person.generation %}
+        <br><a href="/family-tree/generation/{{ person.generation }}">View All in Generation {{ person.generation }}</a>
+        {% endif %}
+    </p>
+</section>
+{% endblock %}

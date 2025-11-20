@@ -8,7 +8,7 @@
 <p class="subtitle">{{ generation_people|length }} individual{% if generation_people|length != 1 %}s{% endif %} in this generation</p>
 
 <section>
-    <p><a href="/family-tree">← Back to Family Tree Overview</a></p>
+    <p><a href="/family-tree">← Back to Family Tree Overview</a> | <a href="/family-tree/search">Search</a></p>
 </section>
 
 <section>
@@ -47,7 +47,7 @@
             <p><strong>Parents:</strong>
                 {% for parent_id in person.parents %}
                     {% if parent_id in family_tree_data %}
-                        {{ family_tree_data[parent_id].name }}
+                        <a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>
                         {% if family_tree_data[parent_id].generation %}
                             (Generation {{ family_tree_data[parent_id].generation }})
                         {% endif %}
@@ -61,7 +61,7 @@
             <p><strong>Children:</strong>
                 {% for child_id in person.children %}
                     {% if child_id in family_tree_data %}
-                        {{ family_tree_data[child_id].name }}{% if not loop.last %}, {% endif %}
+                        <a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}
                     {% endif %}
                 {% endfor %}
             </p>
