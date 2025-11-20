@@ -116,7 +116,7 @@
         .nav-sidebar {
             position: fixed;
             top: 2rem;
-            right: 2rem;
+            left: 2rem;
             width: 280px;
             max-height: calc(100vh - 4rem);
             overflow-y: auto;
@@ -225,10 +225,10 @@
             }
         }
 
-        /* Adjust article width when sidebar is present */
+        /* Adjust article position when sidebar is present */
         @media (min-width: 1201px) {
             article {
-                max-width: calc(100% - 340px);
+                margin-left: 340px;
             }
         }
     </style>
