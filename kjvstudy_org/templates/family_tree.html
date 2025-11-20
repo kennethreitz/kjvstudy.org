@@ -1,23 +1,449 @@
 {% extends "base.html" %}
 
-{% block title %}Biblical Family Tree - Coming Soon - KJV Study{% endblock %}
-{% block description %}Biblical family tree feature coming soon to KJV Study. Explore biblical genealogies and family relationships.{% endblock %}
+{% block title %}Biblical Family Tree - KJV Study{% endblock %}
+{% block description %}Explore biblical genealogies from Adam to Jesus Christ.{% endblock %}
+
+{% block head %}
+<style>
+.family-tree-intro {
+    margin: 2rem 0;
+}
+
+.tree-section {
+    margin: 3rem 0;
+}
+
+.tree-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #111;
+}
+
+.tree {
+    margin: 2rem 0;
+}
+
+.tree ul {
+    list-style: none;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.tree ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: #ccc;
+}
+
+.tree li {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1rem 0;
+}
+
+.tree li::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 2rem;
+    height: 1px;
+    background: #ccc;
+}
+
+.tree li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1rem;
+    background: #ccc;
+}
+
+.tree li:first-child::after {
+    display: none;
+}
+
+.person {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #f9f9f9;
+    border-left: 3px solid #111;
+}
+
+.person-name {
+    font-weight: 600;
+}
+
+.person-details {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.verse-ref {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.verse-ref a {
+    color: #666;
+    text-decoration: none;
+}
+
+.verse-ref a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <h1>Biblical Family Tree</h1>
-<p class="subtitle">Coming Soon</p>
+<p class="subtitle">Major genealogies from Genesis to the Gospels</p>
+
+<section class="family-tree-intro">
+    <p>The Bible contains detailed genealogies that trace God's plan through specific family lines. These genealogies demonstrate the historical continuity of God's promises and culminate in the birth of Jesus Christ.</p>
+</section>
+
+<section class="tree-section">
+    <h2 class="tree-title">From Adam to Noah</h2>
+    <div class="verse-ref">Based on <a href="/book/Genesis/chapter/5">Genesis 5</a></div>
+
+    <div class="tree">
+        <ul>
+            <li>
+                <div class="person">
+                    <div class="person-name">Adam</div>
+                    <div class="person-details">Created by God, lived 930 years</div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="person">
+                            <div class="person-name">Seth</div>
+                            <div class="person-details">Born when Adam was 130, lived 912 years</div>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="person">
+                                    <div class="person-name">Enos</div>
+                                    <div class="person-details">Lived 905 years</div>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="person">
+                                            <div class="person-name">Cainan</div>
+                                            <div class="person-details">Lived 910 years</div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div class="person">
+                                                    <div class="person-name">Mahalaleel</div>
+                                                    <div class="person-details">Lived 895 years</div>
+                                                </div>
+                                                <ul>
+                                                    <li>
+                                                        <div class="person">
+                                                            <div class="person-name">Jared</div>
+                                                            <div class="person-details">Lived 962 years</div>
+                                                        </div>
+                                                        <ul>
+                                                            <li>
+                                                                <div class="person">
+                                                                    <div class="person-name">Enoch</div>
+                                                                    <div class="person-details">Walked with God, lived 365 years, taken by God</div>
+                                                                </div>
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="person">
+                                                                            <div class="person-name">Methuselah</div>
+                                                                            <div class="person-details">Lived 969 years (longest recorded lifespan)</div>
+                                                                        </div>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <div class="person">
+                                                                                    <div class="person-name">Lamech</div>
+                                                                                    <div class="person-details">Lived 777 years</div>
+                                                                                </div>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <div class="person">
+                                                                                            <div class="person-name">Noah</div>
+                                                                                            <div class="person-details">Built the ark, lived 950 years</div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="tree-section">
+    <h2 class="tree-title">From Noah to Abraham</h2>
+    <div class="verse-ref">Based on <a href="/book/Genesis/chapter/11">Genesis 11</a></div>
+
+    <div class="tree">
+        <ul>
+            <li>
+                <div class="person">
+                    <div class="person-name">Noah</div>
+                    <div class="person-details">Survivor of the flood</div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="person">
+                            <div class="person-name">Shem</div>
+                            <div class="person-details">Blessed by Noah, lived 600 years</div>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="person">
+                                    <div class="person-name">Arphaxad</div>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="person">
+                                            <div class="person-name">Salah</div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div class="person">
+                                                    <div class="person-name">Eber</div>
+                                                </div>
+                                                <ul>
+                                                    <li>
+                                                        <div class="person">
+                                                            <div class="person-name">Peleg</div>
+                                                            <div class="person-details">In his days the earth was divided</div>
+                                                        </div>
+                                                        <ul>
+                                                            <li>
+                                                                <div class="person">
+                                                                    <div class="person-name">Reu</div>
+                                                                </div>
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="person">
+                                                                            <div class="person-name">Serug</div>
+                                                                        </div>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <div class="person">
+                                                                                    <div class="person-name">Nahor</div>
+                                                                                </div>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <div class="person">
+                                                                                            <div class="person-name">Terah</div>
+                                                                                        </div>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <div class="person">
+                                                                                                    <div class="person-name">Abram (Abraham)</div>
+                                                                                                    <div class="person-details">Father of many nations</div>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="tree-section">
+    <h2 class="tree-title">The Patriarchs</h2>
+    <div class="verse-ref">Based on <a href="/book/Genesis/chapter/21">Genesis 21-50</a></div>
+
+    <div class="tree">
+        <ul>
+            <li>
+                <div class="person">
+                    <div class="person-name">Abraham</div>
+                    <div class="person-details">Father of the faithful, married Sarah</div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="person">
+                            <div class="person-name">Isaac</div>
+                            <div class="person-details">Son of promise, married Rebekah</div>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="person">
+                                    <div class="person-name">Jacob (Israel)</div>
+                                    <div class="person-details">Father of the twelve tribes, married Leah and Rachel</div>
+                                </div>
+                                <ul>
+                                    <li><div class="person"><div class="person-name">Reuben</div></div></li>
+                                    <li><div class="person"><div class="person-name">Simeon</div></div></li>
+                                    <li><div class="person"><div class="person-name">Levi</div></div></li>
+                                    <li><div class="person"><div class="person-name">Judah</div><div class="person-details">Line of David and Jesus</div></div></li>
+                                    <li><div class="person"><div class="person-name">Dan</div></div></li>
+                                    <li><div class="person"><div class="person-name">Naphtali</div></div></li>
+                                    <li><div class="person"><div class="person-name">Gad</div></div></li>
+                                    <li><div class="person"><div class="person-name">Asher</div></div></li>
+                                    <li><div class="person"><div class="person-name">Issachar</div></div></li>
+                                    <li><div class="person"><div class="person-name">Zebulun</div></div></li>
+                                    <li><div class="person"><div class="person-name">Joseph</div><div class="person-details">Sold into Egypt, became second to Pharaoh</div></div></li>
+                                    <li><div class="person"><div class="person-name">Benjamin</div></div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="tree-section">
+    <h2 class="tree-title">Line of David</h2>
+    <div class="verse-ref">Based on <a href="/book/Ruth/chapter/4">Ruth 4</a> and <a href="/book/1 Samuel/chapter/16">1 Samuel 16</a></div>
+
+    <div class="tree">
+        <ul>
+            <li>
+                <div class="person">
+                    <div class="person-name">Judah</div>
+                    <div class="person-details">Son of Jacob</div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="person">
+                            <div class="person-name">Pharez</div>
+                        </div>
+                        <ul>
+                            <li><div class="person"><div class="person-name">Hezron</div></div>
+                                <ul>
+                                    <li><div class="person"><div class="person-name">Ram</div></div>
+                                        <ul>
+                                            <li><div class="person"><div class="person-name">Amminadab</div></div>
+                                                <ul>
+                                                    <li><div class="person"><div class="person-name">Nahshon</div></div>
+                                                        <ul>
+                                                            <li><div class="person"><div class="person-name">Salmon</div></div>
+                                                                <ul>
+                                                                    <li><div class="person"><div class="person-name">Boaz</div><div class="person-details">Married Ruth the Moabitess</div></div>
+                                                                        <ul>
+                                                                            <li><div class="person"><div class="person-name">Obed</div></div>
+                                                                                <ul>
+                                                                                    <li><div class="person"><div class="person-name">Jesse</div></div>
+                                                                                        <ul>
+                                                                                            <li><div class="person"><div class="person-name">David</div><div class="person-details">King of Israel, man after God's own heart</div></div></li>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="tree-section">
+    <h2 class="tree-title">Genealogy of Jesus Christ</h2>
+    <div class="verse-ref">Based on <a href="/book/Matthew/chapter/1">Matthew 1</a> and <a href="/book/Luke/chapter/3">Luke 3</a></div>
+
+    <p>Matthew traces Jesus's legal lineage through Joseph (his adoptive father) back to Abraham, emphasizing His right to the throne of David. Luke traces Jesus's lineage through Mary back to Adam, emphasizing His humanity and role as the second Adam.</p>
+
+    <div class="tree">
+        <ul>
+            <li>
+                <div class="person">
+                    <div class="person-name">David</div>
+                </div>
+                <ul>
+                    <li><div class="person"><div class="person-name">Solomon</div><div class="person-details">By Bathsheba</div></div>
+                        <ul>
+                            <li><div class="person"><div class="person-name">Rehoboam</div></div></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p style="margin: 1rem 0 1rem 2rem; color: #666; font-style: italic;">...many generations...</p>
+        <ul>
+            <li>
+                <div class="person">
+                    <div class="person-name">Jesse</div>
+                </div>
+                <ul>
+                    <li><div class="person"><div class="person-name">Jacob</div></div>
+                        <ul>
+                            <li><div class="person"><div class="person-name">Joseph</div><div class="person-details">Husband of Mary</div></div>
+                                <ul>
+                                    <li><div class="person"><div class="person-name">Jesus Christ</div><div class="person-details">Son of God, born of the Virgin Mary</div></div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
 
 <section>
-    <p>We're working on an interactive biblical genealogy explorer that will help you navigate the rich family relationships found throughout Scripture.</p>
-
-    <h2>Planned Features</h2>
+    <h2>Study Further</h2>
     <ul>
-        <li>Interactive tree view showing relationships from Adam to the patriarchs</li>
-        <li>Scripture integration with links to relevant Bible verses</li>
-        <li>Search for biblical figures by name, relationship, or time period</li>
-        <li>Fully responsive design for all devices</li>
+        <li><a href="/book/Genesis/chapter/5">Genesis 5</a> — From Adam to Noah</li>
+        <li><a href="/book/Genesis/chapter/11">Genesis 11</a> — From Shem to Abraham</li>
+        <li><a href="/book/Ruth/chapter/4">Ruth 4</a> — The lineage of David</li>
+        <li><a href="/book/Matthew/chapter/1">Matthew 1</a> — The genealogy of Jesus Christ</li>
+        <li><a href="/book/Luke/chapter/3">Luke 3</a> — Another genealogy of Jesus</li>
+        <li><a href="/book/1 Chronicles/chapter/1">1 Chronicles 1-9</a> — Extensive genealogical records</li>
     </ul>
-
-    <p><a href="/">Return to Homepage</a></p>
 </section>
 {% endblock %}
