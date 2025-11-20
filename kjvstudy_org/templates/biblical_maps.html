@@ -1,144 +1,409 @@
 {% extends "base.html" %}
 
-{% block title %}Biblical Maps - Important Bible Locations - KJV Study{% endblock %}
-{% block description %}Explore important biblical locations mentioned in the King James Version Bible.{% endblock %}
+{% block title %}Biblical Geography - KJV Study{% endblock %}
+{% block description %}Explore the geographical and historical context of biblical locations.{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <style>
+.map-intro {
+    max-width: 55%;
+    margin: 2rem 0;
+}
+
 .map-container {
     width: 100%;
     max-width: 55%;
-    height: 500px;
-    margin: 2rem auto;
+    height: 450px;
+    margin: 2rem 0;
     border: 1px solid #ccc;
 }
 
-.location-section {
+.map-legend {
+    max-width: 55%;
+    margin: 1rem 0 2rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 0.95rem;
+}
+
+.legend-item {
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+.legend-marker {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.region-section {
+    max-width: 55%;
     margin: 3rem 0;
 }
 
-.location-card {
+.location-entry {
     margin: 2rem 0;
-    padding: 1rem;
-    border-left: 3px solid #111;
 }
 
 .location-name {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-}
-
-.location-description {
-    color: #666;
-    font-style: italic;
-    margin-bottom: 1rem;
-}
-
-.verse-item {
-    margin: 1rem 0;
-    padding: 0.75rem;
-    background: #f9f9f9;
-}
-
-.verse-reference {
+    font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
 }
 
-.verse-text {
+.location-meta {
     font-style: italic;
     color: #666;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.location-description {
+    margin: 0.75rem 0;
+    line-height: 1.8;
+}
+
+.location-verses {
+    margin: 0.75rem 0;
+    font-size: 0.95rem;
+}
+
+.location-verses a {
+    margin-right: 0.5rem;
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>Biblical Maps</h1>
-<p class="subtitle">Important locations throughout Scripture</p>
+<h1>Biblical Geography</h1>
+<p class="subtitle">The lands of Scripture</p>
 
 <section>
-    <p>Explore the geographical context of biblical events. Click on locations on the map or scroll through the listings below.</p>
+    <div class="map-intro">
+        <p>The Bible unfolds across a vast geographical landscape, from the Tigris and Euphrates rivers to the shores of the Mediterranean, from Egypt to Asia Minor. Understanding these places enriches our comprehension of Scripture's narrative and its historical context.</p>
+    </div>
 </section>
 
 <div id="biblical-map" class="map-container"></div>
 
-{% for testament_name, locations in biblical_locations.items() %}
-<section class="location-section">
-    <h2>{{ testament_name }}</h2>
+<div class="map-legend">
+    <span class="legend-item">
+        <span class="legend-marker" style="background: #8b4513;"></span>
+        Old Testament Sites
+    </span>
+    <span class="legend-item">
+        <span class="legend-marker" style="background: #4169e1;"></span>
+        New Testament Sites
+    </span>
+    <span class="legend-item">
+        <span class="legend-marker" style="background: #2e7d32;"></span>
+        Apostolic Journeys
+    </span>
+</div>
 
-    {% for location_name, location_data in locations.items() %}
-    <article class="location-card">
-        <h3 class="location-name">{{ location_name }}</h3>
-        <p class="location-description">{{ location_data.description }}</p>
+<section class="region-section">
+    <h2>The Holy Land</h2>
 
-        {% for verse in location_data.verses %}
-        <div class="verse-item">
-            {% set ref_parts = verse.reference.split() %}
-            {% if ref_parts|length >= 2 %}
-                {% if ref_parts|length == 2 %}
-                    {% set book_part = ref_parts[0] %}
-                    {% set chapter_verse = ref_parts[1] %}
-                {% else %}
-                    {% set last_part = ref_parts[-1] %}
-                    {% set book_parts = ref_parts[:-1] %}
-                    {% set book_part = book_parts|join(' ') %}
-                    {% set chapter_verse = last_part %}
-                {% endif %}
-
-                {% if ":" in chapter_verse %}
-                    {% set chapter = chapter_verse.split(":")[0] %}
-                    <div class="verse-reference">
-                        <a href="/book/{{ book_part }}/chapter/{{ chapter }}">{{ verse.reference }}</a>
-                    </div>
-                {% else %}
-                    <div class="verse-reference">
-                        <a href="/book/{{ book_part }}/chapter/{{ chapter_verse }}">{{ verse.reference }}</a>
-                    </div>
-                {% endif %}
-            {% else %}
-                <div class="verse-reference">{{ verse.reference }}</div>
-            {% endif %}
-            <div class="verse-text">{{ verse.text }}</div>
+    <div class="location-entry">
+        <div class="location-name">Jerusalem</div>
+        <div class="location-meta">City of David, the Holy City</div>
+        <div class="location-description">
+            The spiritual and political center of ancient Israel, Jerusalem holds unparalleled significance throughout Scripture. Captured by David from the Jebusites, it became the site of Solomon's Temple and the focal point of Jewish worship. Here Jesus taught, was crucified, and rose again.
         </div>
-        {% endfor %}
-    </article>
-    {% endfor %}
+        <div class="location-verses">
+            <a href="/book/2 Samuel/chapter/5">2 Samuel 5:6-9</a>
+            <a href="/book/1 Kings/chapter/8">1 Kings 8:1-13</a>
+            <a href="/book/Luke/chapter/23">Luke 23:33</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Bethlehem</div>
+        <div class="location-meta">City of David's birth and Christ's nativity</div>
+        <div class="location-description">
+            A small town in Judea, five miles south of Jerusalem, Bethlehem was the birthplace of King David and, centuries later, of Jesus Christ. The prophet Micah foretold that the Messiah would be born in this humble place.
+        </div>
+        <div class="location-verses">
+            <a href="/book/1 Samuel/chapter/16">1 Samuel 16:1</a>
+            <a href="/book/Micah/chapter/5">Micah 5:2</a>
+            <a href="/book/Matthew/chapter/2">Matthew 2:1</a>
+            <a href="/book/Luke/chapter/2">Luke 2:4-7</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Nazareth</div>
+        <div class="location-meta">The childhood home of Jesus</div>
+        <div class="location-description">
+            A town in Galilee where Jesus was raised by Mary and Joseph. Though small and obscure, Nazareth was where the Son of God spent His formative years as a carpenter's son before beginning His public ministry.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Luke/chapter/1">Luke 1:26-27</a>
+            <a href="/book/Luke/chapter/2">Luke 2:39-40</a>
+            <a href="/book/Matthew/chapter/2">Matthew 2:23</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Sea of Galilee</div>
+        <div class="location-meta">Also called the Lake of Gennesaret</div>
+        <div class="location-description">
+            A freshwater lake in northern Israel where Jesus performed many miracles, called His first disciples (who were fishermen), and taught from boats. The surrounding region was central to His Galilean ministry.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Matthew/chapter/4">Matthew 4:18-22</a>
+            <a href="/book/Mark/chapter/4">Mark 4:35-41</a>
+            <a href="/book/John/chapter/21">John 21:1-14</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Jericho</div>
+        <div class="location-meta">Ancient city conquered by Joshua</div>
+        <div class="location-description">
+            One of the oldest continuously inhabited cities in the world, Jericho was the first Canaanite city conquered by the Israelites under Joshua's leadership. Its walls fell after the people marched around them for seven days. Later, Jesus passed through Jericho and called Zacchaeus down from a sycamore tree.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Joshua/chapter/6">Joshua 6:1-20</a>
+            <a href="/book/Luke/chapter/19">Luke 19:1-10</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Bethel</div>
+        <div class="location-meta">House of God, site of Jacob's vision</div>
+        <div class="location-description">
+            A town north of Jerusalem where Jacob dreamed of a ladder reaching to heaven with angels ascending and descending. He named the place Bethel, meaning "House of God." Later it became a significant religious center in Israel's history.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Genesis/chapter/28">Genesis 28:10-19</a>
+            <a href="/book/Genesis/chapter/35">Genesis 35:1-7</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Hebron</div>
+        <div class="location-meta">City of the Patriarchs</div>
+        <div class="location-description">
+            An ancient city in the hill country of Judea, Hebron was home to Abraham, Isaac, and Jacob. The Cave of Machpelah, where the patriarchs and their wives were buried, is located here. David reigned in Hebron for seven years before moving his capital to Jerusalem.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Genesis/chapter/23">Genesis 23:17-20</a>
+            <a href="/book/2 Samuel/chapter/2">2 Samuel 2:1-4</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Beersheba</div>
+        <div class="location-meta">Southern boundary of ancient Israel</div>
+        <div class="location-description">
+            A desert town marking the southern extent of Israel, frequently mentioned in the phrase "from Dan to Beersheba." Abraham and Isaac both made covenants here and dug wells. The name means "well of the oath" or "well of seven."
+        </div>
+        <div class="location-verses">
+            <a href="/book/Genesis/chapter/21">Genesis 21:25-31</a>
+            <a href="/book/Genesis/chapter/26">Genesis 26:23-33</a>
+        </div>
+    </div>
 </section>
-{% endfor %}
+
+<section class="region-section">
+    <h2>The Exodus and Wilderness</h2>
+
+    <div class="location-entry">
+        <div class="location-name">The Red Sea</div>
+        <div class="location-meta">Site of Israel's miraculous deliverance</div>
+        <div class="location-description">
+            The body of water that God parted to allow the Israelites to escape from Pharaoh's pursuing army. When Moses stretched out his hand over the sea, the waters divided, and Israel crossed on dry ground. When the Egyptians followed, the waters returned and covered them completely.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Exodus/chapter/14">Exodus 14:21-31</a>
+            <a href="/book/Psalm/chapter/106">Psalm 106:9-11</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Mount Sinai</div>
+        <div class="location-meta">Where the Law was given</div>
+        <div class="location-description">
+            The holy mountain in the wilderness where Moses received the Ten Commandments and the Law from God. The mountain was covered in smoke and fire when the LORD descended upon it. Here God established His covenant with Israel and gave them the pattern for the Tabernacle.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Exodus/chapter/19">Exodus 19:16-25</a>
+            <a href="/book/Exodus/chapter/20">Exodus 20:1-17</a>
+            <a href="/book/Exodus/chapter/24">Exodus 24:12-18</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Mount Nebo</div>
+        <div class="location-meta">Where Moses viewed the Promised Land</div>
+        <div class="location-description">
+            A mountain peak east of the Jordan River from which Moses viewed the Promised Land before his death. From this vantage point, God showed him all the land from Gilead to Dan, all of Naphtali, Ephraim, Manasseh, Judah, and the Negev. Though Moses could not enter, he was permitted to see God's promise fulfilled.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Deuteronomy/chapter/34">Deuteronomy 34:1-5</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">The Jordan River</div>
+        <div class="location-meta">Boundary into the Promised Land</div>
+        <div class="location-description">
+            The river that forms a natural boundary through the Holy Land. God stopped its flow to allow Israel to cross into Canaan on dry ground, echoing the Red Sea crossing. Centuries later, John the Baptist baptized repentant sinners here, including Jesus Christ at the beginning of His public ministry.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Joshua/chapter/3">Joshua 3:14-17</a>
+            <a href="/book/Matthew/chapter/3">Matthew 3:13-17</a>
+        </div>
+    </div>
+</section>
+
+<section class="region-section">
+    <h2>Ancient Kingdoms</h2>
+
+    <div class="location-entry">
+        <div class="location-name">Egypt</div>
+        <div class="location-meta">Land of bondage and refuge</div>
+        <div class="location-description">
+            The great civilization along the Nile served as both a place of refuge (for Abraham, Jacob's family, and the infant Jesus) and a house of bondage from which God delivered Israel under Moses. Egypt features prominently throughout biblical history.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Genesis/chapter/12">Genesis 12:10</a>
+            <a href="/book/Exodus/chapter/1">Exodus 1:8-14</a>
+            <a href="/book/Matthew/chapter/2">Matthew 2:13-15</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Babylon</div>
+        <div class="location-meta">Capital of the Babylonian Empire</div>
+        <div class="location-description">
+            Located on the Euphrates River in Mesopotamia, Babylon was a center of ancient power and learning. The Israelites were carried into captivity here after Jerusalem's destruction in 586 BC, remaining for seventy years before their return under Cyrus.
+        </div>
+        <div class="location-verses">
+            <a href="/book/2 Kings/chapter/24">2 Kings 24:10-16</a>
+            <a href="/book/Daniel/chapter/1">Daniel 1:1-4</a>
+            <a href="/book/Ezra/chapter/1">Ezra 1:1-4</a>
+        </div>
+    </div>
+</section>
+
+<section class="region-section">
+    <h2>The Apostolic World</h2>
+
+    <div class="location-entry">
+        <div class="location-name">Antioch</div>
+        <div class="location-meta">Where believers were first called Christians</div>
+        <div class="location-description">
+            A major city in Syria, Antioch became a crucial center for early Christianity. The church here sent forth Paul and Barnabas on their missionary journeys, and it was here that disciples were first called "Christians."
+        </div>
+        <div class="location-verses">
+            <a href="/book/Acts/chapter/11">Acts 11:19-26</a>
+            <a href="/book/Acts/chapter/13">Acts 13:1-3</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Ephesus</div>
+        <div class="location-meta">Site of Paul's extended ministry</div>
+        <div class="location-description">
+            A prominent city in Asia Minor (modern-day Turkey), Ephesus was home to one of the Seven Churches of Revelation. Paul spent over two years here, and Timothy later served as its bishop. The apostle John is believed to have spent his final years in this city.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Acts/chapter/19">Acts 19:1-10</a>
+            <a href="/book/Ephesians/chapter/1">Ephesians 1:1</a>
+            <a href="/book/Revelation/chapter/2">Revelation 2:1-7</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Corinth</div>
+        <div class="location-meta">Wealthy port city of Greece</div>
+        <div class="location-description">
+            A bustling commercial center known for its wealth and immorality, Corinth presented unique challenges for the early church. Paul established a church here during his second missionary journey and later wrote two epistles to address the congregation's struggles.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Acts/chapter/18">Acts 18:1-11</a>
+            <a href="/book/1 Corinthians/chapter/1">1 Corinthians 1:2</a>
+        </div>
+    </div>
+
+    <div class="location-entry">
+        <div class="location-name">Rome</div>
+        <div class="location-meta">The eternal city, capital of the Empire</div>
+        <div class="location-description">
+            The seat of imperial power and eventual destination of Paul's journey as a prisoner. Rome became a major center of Christianity, though believers there faced severe persecution. Paul's epistle to the Romans remains one of the most profound theological works in Scripture.
+        </div>
+        <div class="location-verses">
+            <a href="/book/Acts/chapter/28">Acts 28:14-16</a>
+            <a href="/book/Romans/chapter/1">Romans 1:7</a>
+        </div>
+    </div>
+</section>
 
 <script>
 function initializeMap() {
-    const biblicalLocations = {
-        'jerusalem': { name: 'Jerusalem', coords: [31.7857, 35.2007], type: 'ot' },
-        'bethlehem': { name: 'Bethlehem', coords: [31.7054, 35.2024], type: 'nt' },
-        'nazareth': { name: 'Nazareth', coords: [32.7, 35.3], type: 'nt' },
-        'egypt': { name: 'Egypt', coords: [26.8206, 30.8025], type: 'ot' },
-        'babylon': { name: 'Babylon', coords: [32.5355, 44.4275], type: 'ot' },
-        'rome': { name: 'Rome', coords: [41.9, 12.5], type: 'journey' },
-        'damascus': { name: 'Damascus', coords: [33.5, 36.3], type: 'nt' },
-        'antioch': { name: 'Antioch', coords: [36.16, 36.2], type: 'nt' },
-        'ephesus': { name: 'Ephesus', coords: [37.95, 27.37], type: 'journey' },
-        'corinth': { name: 'Corinth', coords: [37.9, 22.9], type: 'journey' }
-    };
+    const locations = [
+        // Holy Land
+        { name: 'Jerusalem', coords: [31.7857, 35.2007], type: 'ot', desc: 'The Holy City' },
+        { name: 'Bethlehem', coords: [31.7054, 35.2024], type: 'nt', desc: 'Birthplace of Christ' },
+        { name: 'Nazareth', coords: [32.7, 35.3], type: 'nt', desc: 'Where Jesus was raised' },
+        { name: 'Sea of Galilee', coords: [32.8, 35.6], type: 'nt', desc: 'Site of many miracles' },
+        { name: 'Jericho', coords: [31.87, 35.44], type: 'ot', desc: 'Walls fell before Joshua' },
+        { name: 'Bethel', coords: [31.93, 35.22], type: 'ot', desc: "Jacob's ladder vision" },
+        { name: 'Hebron', coords: [31.53, 35.09], type: 'ot', desc: 'City of the Patriarchs' },
+        { name: 'Beersheba', coords: [31.25, 34.79], type: 'ot', desc: 'Southern boundary of Israel' },
+        { name: 'Jordan River', coords: [31.85, 35.55], type: 'ot', desc: 'Crossed on dry ground' },
 
-    const map = L.map('biblical-map').setView([31.5, 35.0], 6);
+        // Exodus and Wilderness
+        { name: 'Red Sea Crossing', coords: [29.5, 33.0], type: 'ot', desc: 'Waters parted for Israel' },
+        { name: 'Mount Sinai', coords: [28.54, 33.97], type: 'ot', desc: 'The Law was given' },
+        { name: 'Mount Nebo', coords: [31.77, 35.73], type: 'ot', desc: 'Moses viewed the Promise' },
+
+        // Ancient Kingdoms
+        { name: 'Egypt', coords: [26.8, 30.8], type: 'ot', desc: 'Land of the Pharaohs' },
+        { name: 'Babylon', coords: [32.54, 44.43], type: 'ot', desc: 'Site of captivity' },
+        { name: 'Damascus', coords: [33.5, 36.3], type: 'nt', desc: 'Where Saul was converted' },
+
+        // Apostolic World
+        { name: 'Antioch', coords: [36.16, 36.2], type: 'journey', desc: 'First called Christians' },
+        { name: 'Ephesus', coords: [37.95, 27.37], type: 'journey', desc: 'One of the Seven Churches' },
+        { name: 'Corinth', coords: [37.9, 22.9], type: 'journey', desc: 'Cosmopolitan port' },
+        { name: 'Rome', coords: [41.9, 12.5], type: 'journey', desc: 'Imperial capital' },
+        { name: 'Athens', coords: [37.98, 23.73], type: 'journey', desc: "Paul's Mars Hill sermon" },
+        { name: 'Philippi', coords: [41.01, 24.29], type: 'journey', desc: 'First European church' }
+    ];
+
+    const map = L.map('biblical-map').setView([33.0, 35.0], 5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
     }).addTo(map);
 
-    Object.entries(biblicalLocations).forEach(([id, location]) => {
+    const colorMap = {
+        'ot': '#8b4513',
+        'nt': '#4169e1',
+        'journey': '#2e7d32'
+    };
+
+    locations.forEach(location => {
         const marker = L.circleMarker(location.coords, {
-            radius: 8,
-            fillColor: location.type === 'ot' ? '#8b4513' : location.type === 'nt' ? '#4169e1' : '#ff6b35',
-            color: 'white',
+            radius: 7,
+            fillColor: colorMap[location.type],
+            color: '#fff',
             weight: 2,
             fillOpacity: 0.8
         });
 
-        marker.bindPopup(`<strong>${location.name}</strong>`);
+        marker.bindPopup(`<strong>${location.name}</strong><br><em>${location.desc}</em>`);
         marker.addTo(map);
     });
 }

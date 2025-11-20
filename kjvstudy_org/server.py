@@ -1076,7 +1076,11 @@ def biblical_maps_page(request: Request):
         {
             "request": request,
             "books": books,
-            "biblical_locations": biblical_locations
+            "biblical_locations": biblical_locations,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Biblical Geography", "url": None}
+            ]
         }
     )
 
