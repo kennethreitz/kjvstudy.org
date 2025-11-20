@@ -75,7 +75,23 @@
             <p><strong>Related Verses:</strong></p>
             <ul>
                 {% for verse in person.verses %}
-                <li>{{ verse.reference }} — {{ verse.text }}</li>
+                <li>
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% else %}
+                            {{ verse.reference }}
+                        {% endif %}
+                    {% else %}
+                        {{ verse.reference }}
+                    {% endif %}
+                    — {{ verse.text }}
+                </li>
                 {% endfor %}
             </ul>
             {% endif %}
