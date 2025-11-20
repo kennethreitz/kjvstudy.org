@@ -1697,7 +1697,11 @@ def biblical_timeline_page(request: Request):
         {
             "request": request,
             "books": books,
-            "timeline_events": timeline_events
+            "timeline_events": timeline_events,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Biblical Timeline", "url": None}
+            ]
         }
     )
 
