@@ -1130,6 +1130,54 @@ def family_tree_page(request: Request):
     )
 
 
+@app.get("/family-tree/interactive", response_class=HTMLResponse)
+def family_tree_interactive_page(request: Request):
+    """Interactive D3.js visualization of biblical family tree"""
+    books = list(bible.iter_books())
+
+    # Load GEDCOM file from static folder
+    static_dir = Path(__file__).parent / "static"
+    gedcom_path = static_dir / "adameve.ged"
+
+    if not gedcom_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"GEDCOM file not found. Please place 'adameve.ged' in the static folder."
+        )
+
+    if not GedcomReader:
+        raise HTTPException(
+            status_code=500,
+            detail="GEDCOM parser not available. Please install ged4py."
+        )
+
+    # Parse GEDCOM data
+    try:
+        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to parse GEDCOM file: {str(e)}"
+        )
+
+    # Convert family tree data to JSON for D3.js
+    family_tree_json = json.dumps(family_tree_data, default=str)
+
+    return templates.TemplateResponse(
+        "family_tree_interactive.html",
+        {
+            "request": request,
+            "books": books,
+            "family_tree_json": family_tree_json,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": "Interactive", "url": None}
+            ]
+        }
+    )
+
+
 @app.get("/family-tree/generation/{gen_num}", response_class=HTMLResponse)
 def family_tree_generation_page(request: Request, gen_num: int):
     """Individual generation page"""

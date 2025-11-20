@@ -179,27 +179,37 @@
     {% for verse in person.verses %}
     <div class="verse-entry">
         <div class="verse-ref">
-            {% set ref_parts = verse.reference.split(' ') %}
-            {% if ref_parts|length >= 2 %}
-                {% set chapter_verse = ref_parts[-1] %}
-                {% if ':' in chapter_verse %}
-                    {% set chapter = chapter_verse.split(':')[0] %}
-                    {% set verse_part = chapter_verse.split(':')[1] %}
-                    {% if '-' in verse_part %}
-                        {% set verse_num = verse_part.split('-')[0] %}
+            {% if verse.reference %}
+                {% set ref_parts = verse.reference.split(' ') %}
+                {% if ref_parts|length >= 2 %}
+                    {% set chapter_verse = ref_parts[-1] %}
+                    {% if ':' in chapter_verse %}
+                        {% set chapter = chapter_verse.split(':')[0] %}
+                        {% set verse_part = chapter_verse.split(':')[1] %}
+                        {% if '-' in verse_part %}
+                            {% set verse_num = verse_part.split('-')[0] %}
+                        {% else %}
+                            {% set verse_num = verse_part %}
+                        {% endif %}
+                        {% set book = ' '.join(ref_parts[:-1]) %}
+                        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
                     {% else %}
-                        {% set verse_num = verse_part %}
+                        {% set book = ' '.join(ref_parts[:-1]) %}
+                        {% set chapter = ref_parts[-1] %}
+                        <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a>
                     {% endif %}
-                    {% set book = ' '.join(ref_parts[:-1]) %}
-                    <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
                 {% else %}
-                    {{ verse.reference }}
+                    {{ verse.reference if verse.reference else verse }}
                 {% endif %}
+            {% elif verse is string %}
+                {{ verse }}
             {% else %}
-                {{ verse.reference }}
+                {{ verse.text if verse.text else '' }}
             {% endif %}
         </div>
+        {% if verse.text %}
         <div class="verse-text">{{ verse.text }}</div>
+        {% endif %}
     </div>
     {% endfor %}
 </div>
