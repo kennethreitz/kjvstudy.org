@@ -127,6 +127,7 @@
             font-size: 0.85rem;
             line-height: 1.6;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            z-index: 100;
         }
 
         .nav-sidebar::-webkit-scrollbar {
@@ -218,16 +219,16 @@
         }
 
         /* Hide sidebar on smaller screens */
-        @media (max-width: 1400px) {
+        @media (max-width: 1200px) {
             .nav-sidebar {
                 display: none;
             }
         }
 
         /* Adjust article width when sidebar is present */
-        @media (min-width: 1401px) {
+        @media (min-width: 1201px) {
             article {
-                max-width: calc(100% - 320px);
+                max-width: calc(100% - 340px);
             }
         }
     </style>
