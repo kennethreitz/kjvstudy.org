@@ -7,39 +7,33 @@
 <h1>Verse of the Day</h1>
 <p class="subtitle">{{ daily_verse.date }}</p>
 
-<section>
+<div class="epigraph">
     <blockquote>
         <p>{{ daily_verse.text }}</p>
         <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a></footer>
     </blockquote>
+</div>
+
+<section>
+    <h2>For Meditation</h2>
+    <p><span class="newthought">The practice</span> of daily meditation upon Scripture has been commended by the godly throughout the ages. As the Psalmist declares, "Blessed is the man... [whose] delight is in the law of the LORD; and in his law doth he meditate day and night." Consider, as you reflect upon this portion of God's Word:</p>
+
+    <p>What does this verse reveal concerning the character and purposes of the Almighty? How might its truth be applied to the circumstances of your own life? What action or change of heart does the Holy Spirit call forth in response to this divine instruction?</p>
 </section>
 
 <section>
-    <h2>Reflection</h2>
-    <p>As you meditate on this verse today, consider:</p>
-    <ul>
-        <li>What does this verse teach me about God's character?</li>
-        <li>How can I apply this truth to my life today?</li>
-        <li>What is God calling me to do or change?</li>
-    </ul>
+    <h2>Further Study</h2>
+    <p>The careful student of Scripture will wish to examine this verse within its fuller context. Proceed to <a href="/book/{{ daily_verse.book }}">the book of {{ daily_verse.book }}</a>, or read <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}">the {{ daily_verse.chapter | ordinal }} chapter entire</a>, or consult the <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">full commentary</a> upon this passage.</p>
 </section>
 
 <section>
-    <h2>Continue Reading</h2>
-    <p>
-        <a href="/book/{{ daily_verse.book }}">Read {{ daily_verse.book }}</a> |
-        <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}">Chapter {{ daily_verse.chapter }}</a> |
-        <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">Full Commentary</a>
-    </p>
-</section>
-
-<section>
-    <h2>Past 30 Days</h2>
+    <h2>Archive of Recent Verses</h2>
+    <p>For those who would review the portions appointed for meditation during the past month:</p>
     <table>
         <thead>
             <tr>
                 <th>Date</th>
-                <th>Verse</th>
+                <th>Scripture Reference</th>
             </tr>
         </thead>
         <tbody>
