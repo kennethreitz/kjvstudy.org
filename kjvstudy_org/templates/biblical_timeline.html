@@ -16,41 +16,39 @@
     <h2>{{ period_name }}</h2>
 
     {% for event in events %}
-    <article style="margin: 2rem 0;">
-        <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }})</span></h3>
-        <p>{{ event.description }}</p>
+    <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }})</span></h3>
+    <p>{{ event.description }}</p>
 
-        {% if event.verses %}
-        <ul>
-            {% for verse in event.verses %}
-            <li>
-                {% set ref_parts = verse.reference.split(' ') %}
-                {% if ref_parts|length >= 2 %}
-                    {% if ref_parts[0] in ['1', '2'] and ref_parts|length >= 3 %}
-                        {% set book = ref_parts[0] + ' ' + ref_parts[1] %}
-                        {% set chapter_verse_part = ref_parts[2] %}
-                    {% else %}
-                        {% set book = ref_parts[0] %}
-                        {% set chapter_verse_part = ref_parts[1] %}
-                    {% endif %}
-
-                    {% if ':' in chapter_verse_part %}
-                        {% set chapter = chapter_verse_part.split(':')[0] %}
-                    {% elif '-' in chapter_verse_part %}
-                        {% set chapter = chapter_verse_part.split('-')[0] %}
-                    {% else %}
-                        {% set chapter = chapter_verse_part %}
-                    {% endif %}
-
-                    <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a> — {{ verse.text }}
+    {% if event.verses %}
+    <ul>
+        {% for verse in event.verses %}
+        <li>
+            {% set ref_parts = verse.reference.split(' ') %}
+            {% if ref_parts|length >= 2 %}
+                {% if ref_parts[0] in ['1', '2'] and ref_parts|length >= 3 %}
+                    {% set book = ref_parts[0] + ' ' + ref_parts[1] %}
+                    {% set chapter_verse_part = ref_parts[2] %}
                 {% else %}
-                    {{ verse.reference }} — {{ verse.text }}
+                    {% set book = ref_parts[0] %}
+                    {% set chapter_verse_part = ref_parts[1] %}
                 {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </article>
+
+                {% if ':' in chapter_verse_part %}
+                    {% set chapter = chapter_verse_part.split(':')[0] %}
+                {% elif '-' in chapter_verse_part %}
+                    {% set chapter = chapter_verse_part.split('-')[0] %}
+                {% else %}
+                    {% set chapter = chapter_verse_part %}
+                {% endif %}
+
+                <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a> — {{ verse.text }}
+            {% else %}
+                {{ verse.reference }} — {{ verse.text }}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {% endfor %}
 </section>
 {% endfor %}
