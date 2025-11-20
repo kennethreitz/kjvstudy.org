@@ -2022,6 +2022,7 @@ def read_book(request: Request, book: str):
             "chapter_popularity": chapter_popularity,
             "chapter_explanations": chapter_explanations,
             "breadcrumbs": breadcrumbs,
+            "current_book": book,
             **commentary_data
         },
     )
@@ -2124,7 +2125,9 @@ def read_chapter(request: Request, book: str, chapter: int):
             "chapters": chapters,
             "commentaries": commentaries,
             "chapter_overview": chapter_overview,
-            "breadcrumbs": breadcrumbs
+            "breadcrumbs": breadcrumbs,
+            "current_book": book,
+            "current_chapter": chapter
         }
     )
 
@@ -2190,7 +2193,10 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "total_verses": len(verses),
             "books": books,
             "chapters": chapters,
-            "breadcrumbs": breadcrumbs
+            "breadcrumbs": breadcrumbs,
+            "current_book": book,
+            "current_chapter": chapter,
+            "current_verse": verse_num
         }
     )
 
