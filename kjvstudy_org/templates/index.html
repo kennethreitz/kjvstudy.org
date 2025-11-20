@@ -44,52 +44,54 @@
 </div>
 
 <section>
-    <p><span class="newthought">The Authorized Version</span>, commonly known as the King James Bible, stands as one of the most influential works in the English language. Commissioned by King James I of England and completed in 1611, this translation has shaped literature, law, and spiritual life for over four centuries.</p>
+    <p><span class="newthought">The Authorized Version</span>, commonly known as the King James Bible, stands as one of the most influential works in the English language. Commissioned by King James I of England in 1604 and completed seven years hence by a company of forty-seven scholars, this translation has shaped not merely literature and law, but the very fabric of spiritual and moral discourse for more than four centuries.</p>
 
-    <p>This digital edition presents the 1769 Oxford Standard text with integrated commentary and cross-references, offering readers both the majesty of the original translation and modern scholarly insights.</p>
+    <p>The translators themselves, in their address "To the most high and mightie Prince, James," wrote that they sought to make "the very vulgar" acquainted with God's Word—not in crude simplicity, but with such scholarly exactitude and linguistic majesty that the sacred text might be apprehended by learned and unlearned alike. Their labor produced a work of such enduring power that its cadences echo still through English prose.</p>
+
+    <p>This digital edition presents the 1769 Oxford Standard text—the received form of the Authorized Version—integrated with commentary drawn from the most eminent divines and critical scholarship. Here the reader will find not merely the biblical text, but apparatus for its proper understanding: marginal notes, cross-references, and such geographical and historical context as may illumine the sacred page.</p>
 </section>
 
 <section>
     <h2>The Old Testament</h2>
 
-    <p><span class="newthought">The Law</span><label for="sn-torah" class="margin-toggle sidenote-number"></label>
+    <p><span class="newthought">The Law</span>,<label for="sn-torah" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-torah" class="margin-toggle"/>
-    <span class="sidenote">The Torah, or Pentateuch, traditionally attributed to Moses, forms the foundation of Jewish and Christian scripture.</span>
-    — {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+    <span class="sidenote">The Hebrew <em>Torah</em>, or Pentateuch—five books traditionally ascribed to Moses, servant of God. These form the foundation upon which all subsequent scripture rests, containing both the primeval history of mankind and the particular covenant established with Israel.</span>
+    or Books of Moses, constitute the foundation of divine revelation. Beginning with the creation of the world and the fall of man, proceeding through the patriarchal dispensation, and culminating in the giving of the Law at Sinai—here is recorded the establishment of God's covenant with His chosen people: {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}.</p>
 
     <p><span class="newthought">The Historical Books</span><label for="sn-history" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-history" class="margin-toggle"/>
-    <span class="sidenote">These books chronicle the history of Israel from the conquest of Canaan through the Babylonian exile and return.</span>
-    — {% for book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+    <span class="sidenote">These chronicles record Israel's history from Joshua's conquest of Canaan through the divided kingdom, the Babylonian captivity, and the restoration under Ezra and Nehemiah. They demonstrate God's faithfulness to His covenant despite Israel's repeated unfaithfulness.</span>
+    narrate the unfolding drama of Israel's occupation of Canaan, the establishment and dissolution of the monarchy, the exile to Babylon, and the subsequent restoration. Through triumph and tragedy alike, these records demonstrate the providence of God working through the affairs of nations: {% for book in ['Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}.</p>
 
-    <p><span class="newthought">Wisdom Literature</span><label for="sn-wisdom" class="margin-toggle sidenote-number"></label>
+    <p><span class="newthought">The Wisdom Literature</span><label for="sn-wisdom" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-wisdom" class="margin-toggle"/>
-    <span class="sidenote">Poetic and philosophical works exploring the nature of God, human suffering, and righteous living.</span>
-    — {% for book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+    <span class="sidenote">The <em>Ḥokhmah</em>, or Wisdom books, explore the deepest questions of human existence: the problem of suffering, the nature of righteous living, the brevity of life, and the soul's relationship with God. Their poetic form elevates them to the highest achievements of Hebrew literature.</span>
+    comprises those books wherein are considered the weightiest questions of human existence—the nature of suffering, the vanity of earthly pursuits, the fear of the LORD as the beginning of wisdom, and the soul's yearning for communion with the Divine: {% for book in ['Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}.</p>
 
-    <p><span class="newthought">The Prophets</span><label for="sn-prophets" class="margin-toggle sidenote-number"></label>
+    <p><span class="newthought">The Prophetic Books</span><label for="sn-prophets" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-prophets" class="margin-toggle"/>
-    <span class="sidenote">The prophetic books record God's messages to Israel through His chosen messengers, calling the people to repentance and foretelling future events.</span>
-    — {% for book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+    <span class="sidenote">The <em>Nevi'im</em>, or Prophets, spoke as the mouthpieces of God to wayward Israel and Judah. Their oracles combine fierce denunciation of sin with tender promises of restoration, and contain numerous Messianic prophecies fulfilled in Christ.</span>
+    preserve the oracles of those men whom God raised up to call His people to repentance, to pronounce judgment upon the nations, and to foretell the coming of Messiah. These books contain some of the most sublime passages in all Scripture: {% for book in ['Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}.</p>
 </section>
 
 <section>
     <h2>The New Testament</h2>
 
-    <p><span class="newthought">The Gospels</span><label for="sn-gospels" class="margin-toggle sidenote-number"></label>
+    <p><span class="newthought">The Holy Gospels</span><label for="sn-gospels" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-gospels" class="margin-toggle"/>
-    <span class="sidenote">Four accounts of the life, ministry, death, and resurrection of Jesus Christ, each written for a different audience and purpose.</span>
-    — {% for book in ['Matthew', 'Mark', 'Luke', 'John'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+    <span class="sidenote">Four distinct accounts of the incarnation, ministry, passion, and resurrection of our Lord Jesus Christ. Matthew presents Christ as the King of the Jews; Mark, as the suffering Servant; Luke, as the perfect Man; John, as the eternal Word made flesh.</span>
+    present the life, teaching, death, and resurrection of our Lord Jesus Christ. These four witnesses—Matthew, Mark, Luke, and John—though writing from different perspectives and to different audiences, unite in their testimony to the central fact of human history: that the eternal Word became flesh and dwelt among us: {% for book in ['Matthew', 'Mark', 'Luke', 'John'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}.</p>
 
-    <p><span class="newthought">Acts and Epistles</span><label for="sn-acts" class="margin-toggle sidenote-number"></label>
+    <p><span class="newthought">The Acts of the Apostles</span><label for="sn-acts" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-acts" class="margin-toggle"/>
-    <span class="sidenote">The book of Acts chronicles the early church, while the epistles provide theological instruction and pastoral guidance to Christian communities.</span>
-    — {% for book in ['Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+    <span class="sidenote">Luke's second treatise chronicles the ascension of Christ, the descent of the Holy Spirit at Pentecost, and the subsequent expansion of the church from Jerusalem to Rome. It demonstrates how the gospel spread "unto the uttermost part of the earth" through the preaching of Peter, Paul, and other apostles.</span>
+    and the Epistles contain the history of the primitive church and the doctrinal instruction given to the early Christian communities. Acts records the establishment and growth of the church following Pentecost, while the letters of Paul, Peter, John, James, and Jude expound Christian doctrine and provide pastoral guidance for believers: {% for book in ['Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}.</p>
 
-    <p><span class="newthought">Revelation</span><label for="sn-revelation" class="margin-toggle sidenote-number"></label>
+    <p><span class="newthought">The Revelation of St. John the Divine</span><label for="sn-revelation" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-revelation" class="margin-toggle"/>
-    <span class="sidenote">The Apocalypse of John, a prophetic vision of the end times and the ultimate triumph of God's kingdom.</span>
-    — {% for book in ['Revelation'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% endif %}{% endfor %}</p>
+    <span class="sidenote">The Apocalypse—from the Greek ἀποκάλυψις, "unveiling"—presents in highly symbolic imagery the ultimate triumph of Christ over all earthly and spiritual powers. It concludes the canon of Scripture with visions of judgment and the restoration of all things.</span>
+    concludes the canon with visions of the end times, the final judgment, and the establishment of the new heaven and new earth. This prophetic book, given to John while exiled on Patmos, unveils the ultimate victory of the Lamb and the consummation of God's redemptive plan: {% for book in ['Revelation'] %}{% if book in books %}<a href="/book/{{ book }}">{{ book }}</a>{% endif %}{% endfor %}.</p>
 </section>
 
 <section>
@@ -104,12 +106,12 @@
 <section>
     <h2>Resources</h2>
 
-    <p><a href="/search">Search</a> — Search the entire Bible for words and phrases.</p>
+    <p><span class="newthought">Concordance and Search</span> — A comprehensive <a href="/search">search facility</a> allowing the reader to trace any word or phrase throughout the entire corpus of Scripture, after the manner of Cruden's Complete Concordance.</p>
 
-    <p><a href="/biblical-maps">Biblical Maps</a> — Explore important locations mentioned in Scripture.</p>
+    <p><span class="newthought">Biblical Geography</span> — <a href="/biblical-maps">Maps and descriptions</a> of those places mentioned in Holy Writ, from the rivers of Babylon to the shores of Galilee, illuminating the geographical context of sacred history.</p>
 
-    <p><a href="/family-tree">Family Tree</a> — Visual genealogies of biblical figures.</p>
+    <p><span class="newthought">Genealogies</span> — <a href="/family-tree">The family tree</a> of biblical personages, tracing the line of descent from Adam through the patriarchs to the house of David and ultimately to Jesus Christ, the son of David, the son of Abraham.</p>
 
-    <p><a href="/biblical-timeline">Biblical Timeline</a> — Key events in biblical history.</p>
+    <p><span class="newthought">Chronology</span> — A <a href="/biblical-timeline">timeline of biblical events</a>, presenting in ordered sequence the principal occurrences recorded in Scripture, from the creation to the apostolic age.</p>
 </section>
 {% endblock %}
