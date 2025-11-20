@@ -83,7 +83,13 @@
                 {% set chapter_verse = ref_parts[-1] %}
                 {% if ':' in chapter_verse %}
                     {% set chapter = chapter_verse.split(':')[0] %}
-                    {% set verse_num = chapter_verse.split(':')[1] %}
+                    {% set verse_part = chapter_verse.split(':')[1] %}
+                    {# Handle verse ranges like "7-9" by taking just the first verse #}
+                    {% if '-' in verse_part %}
+                        {% set verse_num = verse_part.split('-')[0] %}
+                    {% else %}
+                        {% set verse_num = verse_part %}
+                    {% endif %}
                     {% set book = ' '.join(ref_parts[:-1]) %}
                     <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
                 {% else %}
