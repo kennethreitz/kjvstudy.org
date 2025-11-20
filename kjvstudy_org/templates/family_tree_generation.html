@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Generation {{ generation_num }} - Biblical Family Tree - KJV Study{% endblock %}
+{% block description %}Generation {{ generation_num }} in the biblical genealogy from Adam to Jesus Christ.{% endblock %}
+
+{% block content %}
+<h1>Generation {{ generation_num }}</h1>
+<p class="subtitle">{{ generation_people|length }} individual{% if generation_people|length != 1 %}s{% endif %} in this generation</p>
+
+<section>
+    <p><a href="/family-tree">← Back to Family Tree Overview</a></p>
+</section>
+
+<section>
+    <h2>Navigation</h2>
+    <p>
+        {% if generation_num > 1 %}
+        <a href="/family-tree/generation/{{ generation_num - 1 }}">← Previous Generation</a>
+        {% endif %}
+        {% if generation_num in generations.keys() | sort and generation_num < (generations.keys() | sort | last) %}
+        <a href="/family-tree/generation/{{ generation_num + 1 }}">Next Generation →</a>
+        {% endif %}
+    </p>
+</section>
+
+<section>
+    <h2>People in Generation {{ generation_num }}</h2>
+
+    {% for person_id in generation_people %}
+        {% set person = family_tree_data[person_id] %}
+        <div style="margin: 3rem 0; padding-left: 1rem; border-left: 2px solid #ccc;">
+            <h3>{{ person.name }}</h3>
+
+            {% if person.birth_year != "Unknown" or person.death_year != "Unknown" or person.age_at_death != "Unknown" %}
+            <p>
+                {% if person.birth_year != "Unknown" %}Born: {{ person.birth_year }}{% endif %}
+                {% if person.death_year != "Unknown" %} — Died: {{ person.death_year }}{% endif %}
+                {% if person.age_at_death != "Unknown" %} ({{ person.age_at_death }}){% endif %}
+            </p>
+            {% endif %}
+
+            {% if person.spouse %}
+            <p><strong>Spouse:</strong> {{ person.spouse }}</p>
+            {% endif %}
+
+            {% if person.parents|length > 0 %}
+            <p><strong>Parents:</strong>
+                {% for parent_id in person.parents %}
+                    {% if parent_id in family_tree_data %}
+                        {{ family_tree_data[parent_id].name }}
+                        {% if family_tree_data[parent_id].generation %}
+                            (Generation {{ family_tree_data[parent_id].generation }})
+                        {% endif %}
+                        {% if not loop.last %}, {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </p>
+            {% endif %}
+
+            {% if person.children|length > 0 %}
+            <p><strong>Children:</strong>
+                {% for child_id in person.children %}
+                    {% if child_id in family_tree_data %}
+                        {{ family_tree_data[child_id].name }}{% if not loop.last %}, {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </p>
+            {% endif %}
+
+            {% if person.description and not person.description.startswith("Biblical figure from") %}
+            <p>{{ person.description[:300] }}{% if person.description|length > 300 %}...{% endif %}</p>
+            {% endif %}
+
+            {% if person.verses %}
+            <p><strong>Related Verses:</strong></p>
+            <ul>
+                {% for verse in person.verses %}
+                <li>{{ verse.reference }} — {{ verse.text }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
+</section>
+
+<section>
+    <h2>Navigation</h2>
+    <p>
+        {% if generation_num > 1 %}
+        <a href="/family-tree/generation/{{ generation_num - 1 }}">← Previous Generation</a>
+        {% endif %}
+        {% if generation_num in generations.keys() | sort and generation_num < (generations.keys() | sort | last) %}
+        <a href="/family-tree/generation/{{ generation_num + 1 }}">Next Generation →</a>
+        {% endif %}
+    </p>
+    <p><a href="/family-tree">← Back to Family Tree Overview</a></p>
+</section>
+{% endblock %}

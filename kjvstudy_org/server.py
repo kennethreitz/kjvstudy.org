@@ -1089,13 +1089,13 @@ def family_tree_page(request: Request):
     # Load GEDCOM file from static folder
     static_dir = Path(__file__).parent / "static"
     gedcom_path = static_dir / "adameve.ged"
-    
+
     if not gedcom_path.exists():
         raise HTTPException(
             status_code=404,
             detail=f"GEDCOM file not found. Please place 'adameve.ged' in the static folder."
         )
-    
+
     if not GedcomReader:
         raise HTTPException(
             status_code=500,
@@ -1104,7 +1104,7 @@ def family_tree_page(request: Request):
 
     # Parse GEDCOM data
     try:
-        family_tree_data = parse_gedcom_to_tree_data(gedcom_path)
+        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
     except Exception as e:
         raise HTTPException(
             status_code=500,
@@ -1116,7 +1116,69 @@ def family_tree_page(request: Request):
         {
             "request": request,
             "books": books,
-            "family_tree_data": family_tree_data
+            "family_tree_data": family_tree_data,
+            "generations": generations,
+            "breadcrumbs": [
+                {"name": "Home", "url": "/"},
+                {"name": "Family Tree", "url": None}
+            ]
+        }
+    )
+
+
+@app.get("/family-tree/generation/{gen_num}", response_class=HTMLResponse)
+def family_tree_generation_page(request: Request, gen_num: int):
+    """Individual generation page"""
+    books = list(bible.iter_books())
+
+    # Load GEDCOM file from static folder
+    static_dir = Path(__file__).parent / "static"
+    gedcom_path = static_dir / "adameve.ged"
+
+    if not gedcom_path.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"GEDCOM file not found. Please place 'adameve.ged' in the static folder."
+        )
+
+    if not GedcomReader:
+        raise HTTPException(
+            status_code=500,
+            detail="GEDCOM parser not available. Please install ged4py."
+        )
+
+    # Parse GEDCOM data
+    try:
+        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to parse GEDCOM file: {str(e)}"
+        )
+
+    # Get people in this generation
+    generation_people = generations.get(gen_num, [])
+
+    if not generation_people:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Generation {gen_num} not found"
+        )
+
+    return templates.TemplateResponse(
+        "family_tree_generation.html",
+        {
+            "request": request,
+            "books": books,
+            "family_tree_data": family_tree_data,
+            "generation_num": gen_num,
+            "generation_people": generation_people,
+            "generations": generations,
+            "breadcrumbs": [
+                {"name": "Home", "url": "/"},
+                {"name": "Family Tree", "url": "/family-tree"},
+                {"name": f"Generation {gen_num}", "url": None}
+            ]
         }
     )
 
@@ -1238,7 +1300,38 @@ def parse_gedcom_to_tree_data(gedcom_path):
                         if wife_id not in tree_data[child_id]["parents"]:
                             tree_data[child_id]["parents"].append(wife_id)
 
-    return tree_data
+    # Calculate generations using BFS from root people (those with no parents)
+    generations = {}
+    for person_id, person in tree_data.items():
+        person["generation"] = None
+
+    # Find root people (no parents)
+    roots = [pid for pid, person in tree_data.items() if len(person["parents"]) == 0]
+
+    # BFS to assign generation numbers
+    queue = [(pid, 1) for pid in roots]
+    visited = set()
+
+    while queue:
+        person_id, gen_num = queue.pop(0)
+        if person_id in visited:
+            continue
+        visited.add(person_id)
+
+        if person_id in tree_data:
+            tree_data[person_id]["generation"] = gen_num
+
+            # Add to generations dict
+            if gen_num not in generations:
+                generations[gen_num] = []
+            generations[gen_num].append(person_id)
+
+            # Add children to queue
+            for child_id in tree_data[person_id]["children"]:
+                if child_id not in visited:
+                    queue.append((child_id, gen_num + 1))
+
+    return tree_data, generations
 
 
 @app.get("/biblical-timeline", response_class=HTMLResponse)
