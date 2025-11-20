@@ -13,9 +13,41 @@
     {% block head %}{% endblock %}
 
     <style>
+        /* Color scheme variables */
+        :root {
+            --bg-color: #fffff8;
+            --text-color: #111;
+            --text-secondary: #666;
+            --text-tertiary: #888;
+            --text-quaternary: #999;
+            --border-color: #eee;
+            --border-color-dark: #ddd;
+            --border-color-darker: #ccc;
+            --link-color: #333;
+            --link-hover: #000;
+            --code-bg: #f5f5f5;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-tertiary: #909090;
+            --text-quaternary: #707070;
+            --border-color: #333;
+            --border-color-dark: #444;
+            --border-color-darker: #555;
+            --link-color: #d0d0d0;
+            --link-hover: #fff;
+            --code-bg: #2a2a2a;
+        }
+
         /* Enhanced typography and spacing */
         body {
             counter-reset: sidenote-counter;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         article {
@@ -59,38 +91,38 @@
         .breadcrumb {
             margin: 2rem 0 3rem 0;
             font-size: 0.95rem;
-            color: #666;
+            color: var(--text-secondary);
             font-style: italic;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 1rem;
         }
 
         .breadcrumb a {
-            color: #333;
+            color: var(--link-color);
             text-decoration: none;
             transition: color 0.2s;
         }
 
         .breadcrumb a:hover {
-            color: #000;
+            color: var(--link-hover);
         }
 
         .breadcrumb-separator {
             margin: 0 0.75rem;
-            color: #999;
+            color: var(--text-quaternary);
         }
 
         /* Enhanced link styling */
         a {
-            color: #333;
+            color: var(--link-color);
             text-decoration: none;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border-color-dark);
             transition: all 0.2s;
         }
 
         a:hover {
-            color: #000;
-            border-bottom-color: #000;
+            color: var(--link-hover);
+            border-bottom-color: var(--link-hover);
         }
 
         /* Section dividers */
@@ -100,14 +132,14 @@
         }
 
         section:not(:first-of-type) {
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border-color);
         }
 
         /* Ornamental breaks */
         .ornament {
             text-align: center;
             margin: 3rem 0;
-            color: #999;
+            color: var(--text-quaternary);
             font-size: 1.5rem;
             letter-spacing: 1rem;
         }
@@ -146,8 +178,8 @@
             font-style: italic;
             margin: 0 0 0.5rem 0;
             padding-bottom: 0.4rem;
-            border-bottom: 1px solid #eee;
-            color: #555;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
         }
 
         .nav-sidebar ul {
@@ -161,7 +193,7 @@
         }
 
         .nav-sidebar a {
-            color: #666;
+            color: var(--text-secondary);
             text-decoration: none;
             border-bottom: none;
             display: block;
@@ -170,11 +202,11 @@
         }
 
         .nav-sidebar a:hover {
-            color: #000;
+            color: var(--link-hover);
         }
 
         .nav-sidebar a.current {
-            color: #000;
+            color: var(--link-hover);
             font-weight: 600;
         }
 
@@ -186,7 +218,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #888;
+            color: var(--text-tertiary);
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
@@ -200,7 +232,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #888;
+            color: var(--text-tertiary);
             margin-bottom: 0.5rem;
             font-weight: 600;
             list-style: none;
@@ -244,19 +276,57 @@
             height: 24px;
             cursor: pointer;
             background: transparent;
-            border: 1px solid #ccc;
+            border: 1px solid var(--border-color-darker);
             border-radius: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.85rem;
-            color: #666;
+            color: var(--text-secondary);
             transition: all 0.3s;
         }
 
         .sidebar-toggle-btn:hover {
-            border-color: #888;
-            color: #000;
+            border-color: var(--text-tertiary);
+            color: var(--link-hover);
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 101;
+            margin: -25px 0 0 0;
+            padding: 0;
+        }
+
+        .dark-mode-btn {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid var(--border-color-darker);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .dark-mode-btn:hover {
+            border-color: var(--text-tertiary);
+            color: var(--link-hover);
+        }
+
+        .dark-mode-btn::before {
+            content: '☀';
+        }
+
+        [data-theme="dark"] .dark-mode-btn::before {
+            content: '☾';
         }
 
         .nav-sidebar {
@@ -287,7 +357,7 @@
             content: '-';
         }
 
-        /* Hide sidebar on smaller screens */
+        /* Hide sidebar and controls on smaller screens */
         @media (max-width: 1200px) {
             .nav-sidebar {
                 display: none;
@@ -296,12 +366,159 @@
                 display: none;
             }
         }
+
+        @media (max-width: 768px) {
+            .dark-mode-toggle {
+                display: none;
+            }
+        }
+
+        /* Print styles for beautiful printed pages */
+        @media print {
+            /* Use light colors for print */
+            :root {
+                --bg-color: white;
+                --text-color: black;
+                --text-secondary: #333;
+                --border-color: #ccc;
+            }
+
+            body {
+                background: white;
+                color: black;
+                font-size: 12pt;
+                line-height: 1.6;
+            }
+
+            /* Hide navigation elements */
+            .nav-sidebar,
+            .sidebar-toggle-container,
+            .dark-mode-toggle,
+            .breadcrumb {
+                display: none !important;
+            }
+
+            /* Expand article to full width */
+            article {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* Optimize typography for print */
+            h1 {
+                font-size: 24pt;
+                margin-top: 0;
+                page-break-after: avoid;
+            }
+
+            h2 {
+                font-size: 18pt;
+                page-break-after: avoid;
+            }
+
+            h3 {
+                font-size: 14pt;
+                page-break-after: avoid;
+            }
+
+            p {
+                font-size: 12pt;
+                orphans: 3;
+                widows: 3;
+            }
+
+            /* Avoid breaking inside elements */
+            section,
+            .verse-item,
+            .angel-entry,
+            .prophet-entry,
+            .name-entry,
+            .parable-entry,
+            .covenant-entry,
+            .apostle-entry,
+            .woman-entry,
+            .festival-entry {
+                page-break-inside: avoid;
+            }
+
+            /* Make sidenotes visible in print */
+            .sidenote,
+            .marginnote {
+                display: block !important;
+                float: none !important;
+                width: 100% !important;
+                margin: 0.5rem 0 0.5rem 2rem !important;
+                padding: 0.5rem;
+                border-left: 2px solid #ccc;
+                font-size: 10pt;
+                color: #333;
+            }
+
+            /* Hide sidenote toggles */
+            .margin-toggle {
+                display: none !important;
+            }
+
+            /* Show URLs for links */
+            a[href^="http"]:after {
+                content: " (" attr(href) ")";
+                font-size: 10pt;
+                color: #666;
+            }
+
+            /* Don't show URLs for internal links */
+            a[href^="/"]:after {
+                content: "";
+            }
+
+            /* Clean borders */
+            section:not(:first-of-type) {
+                border-top: 1px solid #ccc;
+                padding-top: 1rem;
+            }
+
+            /* Optimize verse display */
+            .verse-item {
+                margin: 0.5rem 0;
+                padding-left: 1rem;
+            }
+
+            .verse-ref {
+                font-weight: bold;
+            }
+
+            .verse-text {
+                max-width: 100%;
+            }
+
+            /* Remove link underlines for cleaner print */
+            a {
+                color: black;
+                text-decoration: none;
+                border-bottom: none;
+            }
+
+            /* Page breaks */
+            h1, h2 {
+                page-break-before: auto;
+            }
+
+            /* Add chapter/verse numbers in margin for reference */
+            @page {
+                margin: 2cm;
+            }
+        }
     </style>
 </head>
 <body>
     <input type="checkbox" id="sidebar-toggle">
     <p class="sidebar-toggle-container">
         <label for="sidebar-toggle" class="sidebar-toggle-btn" title="Toggle sidebar"></label>
+    </p>
+    <p class="dark-mode-toggle">
+        <button class="dark-mode-btn" title="Toggle dark mode" onclick="toggleDarkMode()"></button>
     </p>
     <article>
         {% if breadcrumbs %}
@@ -371,6 +588,20 @@
     </nav>
 
     <script type="text/javascript">
+      // Dark mode functionality
+      (function() {
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+      })();
+
+      function toggleDarkMode() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      }
+
       // Sidebar collapse state persistence
       (function() {
         var toggle = document.getElementById('sidebar-toggle');
@@ -382,6 +613,57 @@
           localStorage.setItem('sidebarExpanded', toggle.checked);
         });
       })();
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', function(e) {
+        // Don't trigger if user is typing in an input field
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+          // Allow Escape to clear focus
+          if (e.key === 'Escape') {
+            e.target.blur();
+          }
+          return;
+        }
+
+        // Cmd/Ctrl + D: Toggle dark mode
+        if ((e.metaKey || e.ctrlKey) && e.key === 'd') {
+          e.preventDefault();
+          toggleDarkMode();
+        }
+
+        // Cmd/Ctrl + B: Toggle sidebar
+        if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
+          e.preventDefault();
+          var toggle = document.getElementById('sidebar-toggle');
+          if (toggle) {
+            toggle.checked = !toggle.checked;
+            toggle.dispatchEvent(new Event('change'));
+          }
+        }
+
+        // Cmd/Ctrl + K or /: Focus search
+        if (((e.metaKey || e.ctrlKey) && e.key === 'k') || e.key === '/') {
+          e.preventDefault();
+          window.location.href = '/search';
+        }
+
+        // ?: Show keyboard shortcuts help
+        if (e.key === '?' && !e.shiftKey) {
+          showKeyboardHelp();
+        }
+      });
+
+      // Keyboard shortcuts help modal
+      function showKeyboardHelp() {
+        var helpText = 'Keyboard Shortcuts:\\n\\n' +
+          'Cmd/Ctrl + D  - Toggle dark mode\\n' +
+          'Cmd/Ctrl + B  - Toggle sidebar\\n' +
+          'Cmd/Ctrl + K  - Go to search\\n' +
+          '/             - Go to search\\n' +
+          '?             - Show this help\\n' +
+          'Esc           - Clear focus';
+        alert(helpText);
+      }
 
       // Gauges analytics
       var _gauges = _gauges || [];
