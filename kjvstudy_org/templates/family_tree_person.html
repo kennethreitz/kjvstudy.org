@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ person.name }} - Biblical Family Tree - KJV Study{% endblock %}
+{% block title %}Family Tree: {{ person.name }} - KJV Study{% endblock %}
 {% block description %}{{ person.name }} in the biblical genealogy from Adam to Jesus Christ.{% endblock %}
 
 {% block head %}
@@ -106,7 +106,7 @@
 
 {% block content %}
 <div class="person-header">
-    <h1 class="person-title">{{ person.name }}</h1>
+    <h1 class="person-title">Family Tree: {{ person.name }}</h1>
     {% if person.generation %}
     <p class="person-subtitle">Generation {{ person.generation }} from Adam</p>
     {% endif %}
@@ -123,7 +123,18 @@
     <strong>Age:</strong> {{ person.age_at_death }}.
     {% endif %}
     {% if person.spouse %}
-    <strong>Spouse:</strong> {{ person.spouse }}.
+    <strong>Spouse:</strong>
+    {% set spouse_id = None %}
+    {% for pid, p in family_tree_data.items() %}
+        {% if p.name == person.spouse %}
+            {% set spouse_id = pid %}
+        {% endif %}
+    {% endfor %}
+    {% if spouse_id %}
+        <a href="/family-tree/person/{{ spouse_id }}">{{ person.spouse }}</a>.
+    {% else %}
+        {{ person.spouse }}.
+    {% endif %}
     {% endif %}
 </div>
 

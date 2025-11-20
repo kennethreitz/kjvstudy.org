@@ -5,10 +5,22 @@
 
 {% block head %}
 <style>
+/* Compact the opening sections */
+section:first-of-type {
+    margin-top: 1rem;
+}
+
+section:nth-of-type(2),
+section:nth-of-type(3) {
+    margin-top: 1rem;
+    padding-top: 0;
+    border-top: none;
+}
+
 .stats-line {
     max-width: 55%;
-    margin: 2rem 0;
-    padding: 1rem 0;
+    margin: 1rem 0;
+    padding: 0.75rem 0;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     font-size: 1.1rem;
@@ -26,11 +38,11 @@
 
 .generation-section {
     max-width: 55%;
-    margin: 3rem 0;
+    margin: 1.5rem 0;
 }
 
 .generation-header {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .generation-number {
@@ -46,7 +58,7 @@
 
 .person-entry {
     max-width: 55%;
-    margin: 2.5rem 0;
+    margin: 1.5rem 0;
 }
 
 .person-name {
@@ -68,7 +80,7 @@
 
 .search-form {
     max-width: 55%;
-    margin: 2rem 0;
+    margin: 0.5rem 0;
 }
 
 .search-form input {

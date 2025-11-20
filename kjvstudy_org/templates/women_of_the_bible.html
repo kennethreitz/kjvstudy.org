@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Women of the Bible - KJV Study{% endblock %}
+{% block description %}Explore the lives, faith, and legacies of notable women throughout Scripture.{% endblock %}
+
+{% block head %}
+<style>
+.woman-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.woman-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.woman-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.woman-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.woman-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.woman-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Women of the Bible</h1>
+<p class="subtitle">Faithful Witnesses Throughout Redemptive History</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The biblical narrative</span> features numerous women whose faith, courage, and devotion shaped Israel's history and the church's foundation. From Eden's first mother to the women who followed Christ, these accounts demonstrate that God uses both men and women to accomplish His purposes.<label for="sn-women" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-women" class="margin-toggle"/>
+    <span class="sidenote">Ancient Near Eastern culture typically marginalized women, making Scripture's attention to their stories remarkable. The biblical text neither idealizes nor denigrates women but presents them realistically—displaying both their faith and their failures, their wisdom and their weaknesses.</span></p>
+
+    <p class="intro-text">Scripture affirms both the equal dignity of men and women as divine image-bearers and their distinct roles in God's order. These women exemplify godliness not by conforming to modern expectations but by faithfully fulfilling their callings within their historical and cultural contexts.<label for="sn-roles" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-roles" class="margin-toggle"/>
+    <span class="sidenote">The biblical complementarity of men and women appears in creation's order, the Fall's effects, and redemption's restoration. While roles differ, value remains equal—a truth often obscured by both ancient patriarchy and modern egalitarianism.</span></p>
+</section>
+
+{% for category, women in women_data.items() %}
+<section class="woman-section">
+    <h2>{{ category }}</h2>
+
+    {% for woman_name, woman in women.items() %}
+    <article class="woman-entry">
+        <h3 class="woman-name">{{ woman_name }}</h3>
+        <p class="woman-title">{{ woman.title }}</p>
+
+        <div class="woman-description">
+            {{ woman.description | safe }}
+        </div>
+
+        {% if woman.verses %}
+        <div class="verse-list">
+            {% for verse in woman.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>The Significance of Biblical Women</h2>
+    <p class="intro-text">These accounts instruct contemporary believers in several ways:</p>
+
+    <p class="intro-text"><span class="newthought">Faithful service</span>, for these women served God within their spheres of influence—whether as mothers training children in godliness, as prophets declaring divine truth, or as benefactors supporting Christ's ministry. Faithfulness, not prominence, characterizes biblical heroines.</p>
+
+    <p class="intro-text"><span class="newthought">Sovereign grace</span>, as God included unlikely candidates in His redemptive plan—a Moabite widow, a Canaanite harlot, an adulteress. The presence of Tamar, Rahab, Ruth, and Bathsheba in Christ's genealogy demonstrates that grace, not merit, determines inclusion in God's purposes.<label for="sn-genealogy" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-genealogy" class="margin-toggle"/>
+    <span class="sidenote">Matthew's inclusion of four women (plus Mary) in Christ's genealogy was highly unusual. Three were Gentiles; most had questionable backgrounds. This deliberate emphasis on grace anticipates the gospel's universal offer to all who believe, regardless of ethnic or moral background.</span></p>
+
+    <p class="intro-text"><span class="newthought">Covenantal faithfulness</span>, for many biblical women demonstrated remarkable faith in God's promises. Sarah, despite her laughter, believed God's impossible promise. Ruth chose Israel's God over Moab's deities. Mary submitted to bearing the Messiah despite social scandal. Their faith overcame fear and doubt.</p>
+
+    <p class="intro-text"><span class="newthought">Redemptive hope</span>, as the protevangelium promised the woman's seed would crush the serpent. Every godly woman in Israel potentially participated in this promise, culminating in Mary's conception of Christ. The virgin birth fulfilled this ancient hope, demonstrating God's faithfulness across millennia.<label for="sn-seed" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-seed" class="margin-toggle"/>
+    <span class="sidenote">Genesis 3:15's unusual phrase 'her seed' (rather than 'his seed') finds ultimate explanation in the virgin birth. Christ, born of woman without human father, crushed Satan through His death and resurrection—fulfilling the first gospel promise given to fallen humanity.</span></p>
+</section>
+{% endblock %}

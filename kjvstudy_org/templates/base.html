@@ -191,26 +191,100 @@
             font-weight: 600;
         }
 
+        .nav-sidebar details {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-sidebar summary {
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #888;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            list-style: none;
+            user-select: none;
+        }
+
+        .nav-sidebar summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .nav-sidebar summary::before {
+            content: '▸ ';
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .nav-sidebar details[open] summary::before {
+            transform: rotate(90deg);
+        }
+
         .nav-sidebar .book-list {
             font-size: 0.8rem;
         }
 
-        .nav-sidebar .context-path {
-            background: transparent;
-            padding: 0 0 0.75rem 0;
-            margin-bottom: 1rem;
-            border-left: 2px solid #ccc;
-            padding-left: 0.5rem;
-            font-size: 0.75rem;
-            line-height: 1.6;
-            color: #666;
-            font-style: italic;
+        /* Sidebar collapse functionality */
+        #sidebar-toggle {
+            display: none;
         }
 
-        .nav-sidebar .context-path strong {
-            color: #333;
-            font-weight: 600;
-            font-style: normal;
+        .sidebar-toggle-container {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 101;
+            margin: -25px 0 0 0;
+            padding: 0;
+        }
+
+        .sidebar-toggle-btn {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .sidebar-toggle-btn:hover {
+            border-color: #888;
+            color: #000;
+        }
+
+        .nav-sidebar {
+            transform: translateX(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar-toggle-container {
+            left: 0.5rem;
+        }
+
+        .sidebar-toggle-btn::before {
+            content: '+';
+        }
+
+        #sidebar-toggle:checked ~ .nav-sidebar {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #sidebar-toggle:checked ~ .sidebar-toggle-container {
+            left: 2rem;
+        }
+
+        #sidebar-toggle:checked ~ .sidebar-toggle-container .sidebar-toggle-btn::before {
+            content: '-';
         }
 
         /* Hide sidebar on smaller screens */
@@ -218,10 +292,17 @@
             .nav-sidebar {
                 display: none;
             }
+            .sidebar-toggle-container {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <input type="checkbox" id="sidebar-toggle">
+    <p class="sidebar-toggle-container">
+        <label for="sidebar-toggle" class="sidebar-toggle-btn" title="Toggle sidebar"></label>
+    </p>
     <article>
         {% if breadcrumbs %}
         <nav class="breadcrumb">
@@ -241,31 +322,9 @@
 
     <!-- Floating Navigation Sidebar -->
     <nav class="nav-sidebar">
-        <h3>Navigation</h3>
-
-        {% if current_book or current_chapter or current_verse %}
-        <div class="context-path">
-            {% if current_book %}
-                <strong>{{ current_book }}</strong>
-                {% if current_chapter %}
-                    <br>Chapter {{ current_chapter }}
-                    {% if current_verse %}
-                        <br>Verse {{ current_verse }}
-                    {% endif %}
-                {% endif %}
-            {% endif %}
-        </div>
-        {% endif %}
-
-        <ul>
-            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
-            <li><a href="/verse-of-the-day">Verse of the Day</a></li>
-            <li><a href="/search">Search</a></li>
-        </ul>
-
         {% if books %}
-        <div class="testament-section">
-            <div class="testament-title">Old Testament</div>
+        <details>
+            <summary>Old Testament</summary>
             <ul class="book-list">
                 {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
                     {% if book in books %}
@@ -273,10 +332,10 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-        </div>
+        </details>
 
-        <div class="testament-section">
-            <div class="testament-title">New Testament</div>
+        <details>
+            <summary>New Testament</summary>
             <ul class="book-list">
                 {% for book in ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'] %}
                     {% if book in books %}
@@ -284,11 +343,26 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-        </div>
+        </details>
         {% endif %}
+
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
+            <li><a href="/verse-of-the-day">Verse of the Day</a></li>
+            <li><a href="/search">Search</a></li>
+        </ul>
 
         <h3>Resources</h3>
         <ul>
+            <li><a href="/biblical-angels">Biblical Angels</a></li>
+            <li><a href="/biblical-prophets">Biblical Prophets</a></li>
+            <li><a href="/biblical-covenants">Biblical Covenants</a></li>
+            <li><a href="/biblical-festivals">Biblical Festivals</a></li>
+            <li><a href="/names-of-god">Names of God</a></li>
+            <li><a href="/parables">Parables of Jesus</a></li>
+            <li><a href="/the-twelve-apostles">The Twelve Apostles</a></li>
+            <li><a href="/women-of-the-bible">Women of the Bible</a></li>
             <li><a href="/biblical-maps">Biblical Geography</a></li>
             <li><a href="/family-tree">Genealogies</a></li>
             <li><a href="/biblical-timeline">Timeline</a></li>
@@ -297,6 +371,18 @@
     </nav>
 
     <script type="text/javascript">
+      // Sidebar collapse state persistence
+      (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var expanded = localStorage.getItem('sidebarExpanded') === 'true';
+        if (expanded) {
+          toggle.checked = true;
+        }
+        toggle.addEventListener('change', function() {
+          localStorage.setItem('sidebarExpanded', toggle.checked);
+        });
+      })();
+
       // Gauges analytics
       var _gauges = _gauges || [];
       (function() {

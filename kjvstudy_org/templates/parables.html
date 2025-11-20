@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Parables of Jesus - KJV Study{% endblock %}
+{% block description %}Explore the parables of Jesus Christ with interpretations, cultural context, and theological significance from the Gospels.{% endblock %}
+
+{% block head %}
+<style>
+.parable-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.parable-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.parable-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.parable-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.parable-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.parable-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Parables of Jesus</h1>
+<p class="subtitle">Teaching in Earthly Stories with Heavenly Meanings</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">Our Lord's parables</span> constitute a distinctive teaching method wherein spiritual truths are conveyed through familiar imagery drawn from daily life—agriculture, commerce, domestic affairs, and social customs.<label for="sn-parables" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-parables" class="margin-toggle"/>
+    <span class="sidenote">The Greek παραβολή (<em>parabolē</em>) literally means "a placing alongside"—a comparison or analogy. The Hebrew מָשָׁל (<em>mashal</em>) has broader meaning, encompassing proverbs, riddles, and similitudes. Christ employed this rabbinic teaching method to both reveal and conceal truth.</span> These narratives served dual purposes: to illuminate kingdom mysteries for receptive hearts while hiding truth from those who rejected the light.</p>
+
+    <p class="intro-text">When the disciples inquired why He spoke in parables, Christ quoted Isaiah's prophecy concerning judicial blindness upon those who persistently refuse divine revelation.<label for="sn-purpose" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-purpose" class="margin-toggle"/>
+    <span class="sidenote">Matthew 13:10-17 records Christ's explanation. Parables rewarded diligent seekers with deeper understanding while leaving casual observers with mere stories. This discriminating function fulfilled Isaiah 6:9-10, demonstrating the principle that to those who have, more is given.</span> The parables thus separate true disciples from mere curiosity-seekers, requiring contemplation and spiritual discernment for proper interpretation.</p>
+</section>
+
+{% for category, parables in parables_data.items() %}
+<section class="parable-section">
+    <h2>{{ category }}</h2>
+
+    {% for parable_name, parable in parables.items() %}
+    <article class="parable-entry">
+        <h3 class="parable-name">{{ parable_name }}</h3>
+        <p class="parable-title">{{ parable.title }}</p>
+
+        <div class="parable-description">
+            {{ parable.description | safe }}
+        </div>
+
+        {% if parable.verses %}
+        <div class="verse-list">
+            {% for verse in parable.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>Principles of Parabolic Interpretation</h2>
+    <p class="intro-text">Proper understanding of parables requires adherence to sound hermeneutical principles:</p>
+
+    <p class="intro-text"><span class="newthought">One central truth</span>, for most parables illustrate a single main point. Seeking symbolic meaning in every detail often leads to fanciful allegorizing. The primary lesson should govern interpretation.<label for="sn-interpretation" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-interpretation" class="margin-toggle"/>
+    <span class="sidenote">Church history records numerous examples of excessive allegorization. Augustine interpreted the Good Samaritan's every detail symbolically: the inn represented the church, the two pence the sacraments, the innkeeper the apostle Paul. Such elaboration, though edifying in intent, ventures beyond the text's plain meaning.</span></p>
+
+    <p class="intro-text"><span class="newthought">Historical and cultural context</span>, understanding the agricultural practices, social customs, and religious background of first-century Palestine illuminates many parables. What seemed commonplace to Christ's original audience requires explanation for modern readers.</p>
+
+    <p class="intro-text"><span class="newthought">Christ's own interpretations</span>, when provided, establish the authoritative framework. The parables of the Sower, the Wheat and Tares, and the Unjust Judge all receive dominical exposition, demonstrating the proper hermeneutical approach.</p>
+
+    <p class="intro-text"><span class="newthought">Kingdom emphasis</span>, as many parables illuminate aspects of God's kingdom—its nature, growth, value, and final consummation. Together they present a comprehensive doctrine of the kingdom in its various phases and manifestations.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}The Twelve Apostles - KJV Study{% endblock %}
+{% block description %}Explore the lives, ministries, and legacies of the twelve apostles chosen by Jesus Christ.{% endblock %}
+
+{% block head %}
+<style>
+.apostle-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.apostle-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.apostle-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.apostle-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.apostle-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.apostle-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>The Twelve Apostles</h1>
+<p class="subtitle">Those Whom He Chose to Be With Him</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The calling of the Twelve</span> marked a pivotal moment in Christ's ministry. After a night of prayer, He summoned His disciples and chose twelve whom He named apostles (Greek ἀπόστολοι, <em>apostoloi</em>, meaning "sent ones")—men who would be with Him, witness His works, and carry His message to the world.<label for="sn-apostles" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-apostles" class="margin-toggle"/>
+    <span class="sidenote">Mark's account emphasizes Christ's purpose: 'that they should be with him, and that he might send them forth to preach' (Mark 3:14). Apostleship required both intimate companionship with Christ and authoritative commission. The term distinguished them from the broader group of disciples.</span> These ordinary men—fishermen, a tax collector, a political zealot—would turn the world upside down.</p>
+
+    <p class="intro-text">The apostolic office carried unique authority. They served as Christ's authorized representatives, eyewitnesses of His resurrection, and foundation stones of the church (Ephesians 2:20). Their teaching, preserved in the New Testament, provides the authoritative doctrinal standard for all subsequent generations.<label for="sn-authority" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-authority" class="margin-toggle"/>
+    <span class="sidenote">Paul's insistence on his apostolic credentials (Galatians 1:1, 1 Corinthians 9:1) demonstrates the office's significance. True apostles had seen the risen Christ and received direct commission from Him. The signs of an apostle included miraculous authentication (2 Corinthians 12:12) and doctrinal authority.</span></p>
+</section>
+
+{% for category, apostles in apostles_data.items() %}
+<section class="apostle-section">
+    <h2>{{ category }}</h2>
+
+    {% for apostle_name, apostle in apostles.items() %}
+    <article class="apostle-entry">
+        <h3 class="apostle-name">{{ apostle_name }}</h3>
+        <p class="apostle-title">{{ apostle.title }}</p>
+
+        <div class="apostle-description">
+            {{ apostle.description | safe }}
+        </div>
+
+        {% if apostle.verses %}
+        <div class="verse-list">
+            {% for verse in apostle.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>The Apostolic Ministry</h2>
+    <p class="intro-text">Understanding the Twelve's role illuminates the church's foundation and mission:</p>
+
+    <p class="intro-text"><span class="newthought">Chosen, not volunteers</span>, for Christ selected them according to His sovereign purpose, not their merit. Their diverse backgrounds—educated and uneducated, zealous and cautious, wealthy and poor—demonstrated that apostleship rested on divine calling, not human qualification.</p>
+
+    <p class="intro-text"><span class="newthought">Transformed by companionship</span>, as three years with Christ converted these ordinary men into pillars of the faith. Peter's transformation from impulsive denier to bold proclaimer, John's development from 'son of thunder' to apostle of love, and Thomas's progression from skeptic to confessor exemplify grace's sanctifying work.<label for="sn-transformation" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-transformation" class="margin-toggle"/>
+    <span class="sidenote">Acts' portrayal of the apostles—particularly Peter's Pentecost sermon and the boldness before the Sanhedrin—shows marked contrast with their fearful desertion at Gethsemane. The resurrection and Pentecost's empowerment account for this dramatic transformation.</span></p>
+
+    <p class="intro-text"><span class="newthought">Commissioned and sent</span>, for after the resurrection Christ gave the Great Commission, empowering the apostles to make disciples of all nations. Church tradition records their subsequent ministries spanning from Spain to India, from Ethiopia to Scythia—carrying the gospel to the known world.</p>
+
+    <p class="intro-text"><span class="newthought">Martyred for witness</span>, as all save John sealed their testimony with blood. Their willingness to suffer and die for proclaiming Christ's resurrection provides powerful evidence of its reality. Men do not die for what they know to be false.<label for="sn-martyrdom" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-martyrdom" class="margin-toggle"/>
+    <span class="sidenote">Early church tradition records Peter crucified upside down in Rome, Andrew on an X-shaped cross in Achaia, James beheaded in Jerusalem, and Thomas speared in India. While some details remain uncertain, the apostles' martyrdom testifies to their unwavering conviction in Christ's resurrection.</span></p>
+</section>
+{% endblock %}

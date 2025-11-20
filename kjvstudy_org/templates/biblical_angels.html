@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Biblical Angels - KJV Study{% endblock %}
+{% block description %}Explore angels and angelic beings mentioned in the King James Bible, including Michael, Gabriel, and the heavenly host.{% endblock %}
+
+{% block head %}
+<style>
+.angel-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.angel-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.angel-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.angel-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.angel-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.angel-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Biblical Angels</h1>
+<p class="subtitle">Angelic Beings in Holy Scripture</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The ministry of angels</span> pervades the sacred record from Genesis to Revelation. These celestial beings serve as messengers of the Almighty, executors of His will, and witnesses to His glory.<label for="sn-angels" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-angels" class="margin-toggle"/>
+    <span class="sidenote">The word <em>angel</em> derives from the Greek ἄγγελος (<em>angelos</em>), meaning "messenger," corresponding to the Hebrew מַלְאָךְ (<em>mal'ak</em>). This designation emphasizes their primary function as bearers of divine communications.</span> Scripture reveals their nature as spiritual beings of great power and intelligence, created before the foundation of the world to worship God and minister to the heirs of salvation.</p>
+
+    <p class="intro-text">While the Bible speaks frequently of angels in general terms, certain individuals among the heavenly host are named and their specific offices described. Others are known by their orders—cherubim, seraphim, and archangels—each fulfilling distinct functions in the economy of heaven.<label for="sn-hierarchy" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-hierarchy" class="margin-toggle"/>
+    <span class="sidenote">Medieval theologians, building upon Scriptural hints and the writings of Pseudo-Dionysius, developed elaborate hierarchies of nine angelic orders: seraphim, cherubim, thrones, dominions, virtues, powers, principalities, archangels, and angels. While such systems venture beyond explicit Biblical warrant, they reflect an attempt to systematize the various angelic designations found in Scripture.</span></p>
+</section>
+
+{% for category, angels in angels_data.items() %}
+<section class="angel-section">
+    <h2>{{ category }}</h2>
+
+    {% for angel_name, angel in angels.items() %}
+    <article class="angel-entry">
+        <h3 class="angel-name">{{ angel_name }}</h3>
+        <p class="angel-title">{{ angel.title }}</p>
+
+        <div class="angel-description">
+            {{ angel.description | safe }}
+        </div>
+
+        {% if angel.verses %}
+        <div class="verse-list">
+            {% for verse in angel.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>The Nature and Office of Angels</h2>
+    <p>The Scriptures reveal several truths concerning the angelic host:</p>
+
+    <p><span class="newthought">Created beings</span>, not eternal in themselves, brought into existence by the word of God before the creation of man.<label for="sn-creation" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-creation" class="margin-toggle"/>
+    <span class="sidenote">Job 38:7 speaks of the morning stars singing together and the sons of God shouting for joy at creation's foundation, suggesting angels witnessed the formation of the earth. They were thus created before the material world, existing in the eternal counsels of God.</span> They possess great intelligence and power, yet remain creatures subject to their Creator.</p>
+
+    <p><span class="newthought">Innumerable multitude</span>, described as "ten thousand times ten thousand, and thousands of thousands" in Daniel's vision and John's Revelation, suggesting a vast heavenly host beyond human computation.<label for="sn-number" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-number" class="margin-toggle"/>
+    <span class="sidenote">Hebrews 12:22 speaks of "an innumerable company of angels." The Greek term μυριάσιν (myriads) represents the highest number in ancient reckoning, suggesting a host that exceeds all human enumeration.</span></p>
+
+    <p><span class="newthought">Diverse in rank and function</span>, organized in hierarchies and orders, each fulfilling specific roles in the divine administration. Some stand in the immediate presence of God, while others are sent forth as messengers to earth.</p>
+
+    <p><span class="newthought">Witnesses of redemption</span>, desiring to look into the mysteries of salvation though they themselves are not redeemed.<label for="sn-redemption" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-redemption" class="margin-toggle"/>
+    <span class="sidenote">First Peter 1:12 declares that angels desire to look into the things concerning salvation. Though they announced Christ's birth and resurrection, they cannot themselves experience redemption—that privilege belongs to fallen humanity alone, whom Christ came to save.</span> They rejoice over one sinner that repenteth and will accompany Christ at His return in glory.</p>
+</section>
+{% endblock %}

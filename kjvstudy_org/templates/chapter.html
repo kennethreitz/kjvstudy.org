@@ -91,7 +91,7 @@ hr::before {
     {% for verse in verses %}
     {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
     <p id="verse-{{ verse.verse }}">
-        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link">{{ verse.verse }}</a> {{ verse.text }}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link">{{ verse.verse }}</a> {{ verse.text | link_names | safe }}
         {% if commentary and commentary.cross_references %}
             {% for ref in commentary.cross_references %}
             <label for="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle">⊕</label>

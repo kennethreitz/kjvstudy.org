@@ -117,7 +117,7 @@
                 <div class="result-reference">
                     <a href="{{ result.url }}">{{ result.reference }}</a>
                 </div>
-                <div class="result-text">{{ result.highlighted_text|safe }}</div>
+                <div class="result-text">{{ result.highlighted_text | link_names | safe }}</div>
             </article>
             {% endfor %}
         {% else %}

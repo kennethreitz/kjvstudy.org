@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Biblical Covenants - KJV Study{% endblock %}
+{% block description %}Explore God's covenants throughout redemptive history—from Noah to the New Covenant in Christ's blood.{% endblock %}
+
+{% block head %}
+<style>
+.covenant-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.covenant-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.covenant-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.covenant-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.covenant-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.covenant-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Biblical Covenants</h1>
+<p class="subtitle">God's Covenantal Framework Throughout Redemptive History</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The covenant concept</span> provides the structural framework for understanding God's dealings with humanity throughout Scripture. A covenant (Hebrew בְּרִית, <em>berith</em>; Greek διαθήκη, <em>diathēkē</em>) represents a solemn, binding agreement between parties, establishing relationship and defining obligations.<label for="sn-covenants" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-covenants" class="margin-toggle"/>
+    <span class="sidenote">Ancient Near Eastern covenants followed established patterns: preamble, historical prologue, stipulations, witnesses, and blessings/curses. Biblical covenants often echo these structures while maintaining unique theological characteristics—particularly in their unilateral nature and gracious provisions.</span> These divine compacts reveal God's sovereignty, faithfulness, and redemptive purposes across the ages.</p>
+
+    <p class="intro-text">Scripture distinguishes between conditional and unconditional covenants. Conditional covenants tie blessing to human obedience (as with the Mosaic covenant), while unconditional covenants rest entirely upon divine promise and performance (as with the Abrahamic and New Covenants).<label for="sn-types" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-types" class="margin-toggle"/>
+    <span class="sidenote">The theological debate between covenant theology and dispensationalism centers largely on how these various covenants relate to one another and to the church. Both traditions affirm the covenants' reality and significance, differing primarily in their understanding of continuity and fulfillment.</span> Together, these covenants trace the unfolding drama of redemption from creation's curse to glorification's crown.</p>
+</section>
+
+{% for category, covenants in covenants_data.items() %}
+<section class="covenant-section">
+    <h2>{{ category }}</h2>
+
+    {% for covenant_name, covenant in covenants.items() %}
+    <article class="covenant-entry">
+        <h3 class="covenant-name">{{ covenant_name }}</h3>
+        <p class="covenant-title">{{ covenant.title }}</p>
+
+        <div class="covenant-description">
+            {{ covenant.description | safe }}
+        </div>
+
+        {% if covenant.verses %}
+        <div class="verse-list">
+            {% for verse in covenant.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>Covenantal Theology</h2>
+    <p class="intro-text">Understanding the biblical covenants illuminates numerous theological truths:</p>
+
+    <p class="intro-text"><span class="newthought">Progressive revelation</span>, wherein each covenant builds upon previous ones, moving from universal scope (Noahic) to national focus (Mosaic, Davidic) to universal fulfillment (New Covenant). This progression demonstrates God's orderly unfolding of His redemptive plan across the ages.</p>
+
+    <p class="intro-text"><span class="newthought">Grace and Law</span>, for even conditional covenants presuppose grace—Israel's election preceded Sinai's demands. The Law revealed sin and pointed to the need for a Savior, never offering salvation by works but always requiring faith in God's promise.<label for="sn-grace" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-grace" class="margin-toggle"/>
+    <span class="sidenote">Paul's argument in Galatians hinges on recognizing that the Abrahamic covenant of promise (Genesis 15) preceded the Mosaic covenant of law (Exodus 19-20) by 430 years. The Law could not annul the promise, nor substitute works for faith as the means of justification.</span></p>
+
+    <p class="intro-text"><span class="newthought">Christological fulfillment</span>, as every covenant finds its ultimate realization in Christ. He is the seed of Abraham, the prophet like Moses, the Son of David, and the mediator of the New Covenant. In Him, all God's promises find their 'Yes and Amen.'</p>
+
+    <p class="intro-text"><span class="newthought">Covenantal faithfulness</span>, for God's unwavering commitment to His covenant promises demonstrates His character. Though Israel repeatedly violated the covenant, God remained faithful to His word—a truth providing assurance to all who trust in His covenantal commitments through Christ.<label for="sn-faithfulness" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-faithfulness" class="margin-toggle"/>
+    <span class="sidenote">The Hebrew word חֶסֶד (<em>chesed</em>)—often translated "lovingkindness" or "steadfast love"—specifically describes covenant loyalty. It appears repeatedly in contexts emphasizing God's unwavering commitment to His covenantal obligations despite human unfaithfulness.</span></p>
+</section>
+{% endblock %}

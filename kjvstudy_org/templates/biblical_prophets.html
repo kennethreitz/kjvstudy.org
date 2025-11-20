@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Biblical Prophets - KJV Study{% endblock %}
+{% block description %}Explore the prophets of the Old Testament, from Isaiah to Malachi, their messages and Messianic prophecies.{% endblock %}
+
+{% block head %}
+<style>
+.prophet-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.prophet-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.prophet-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.prophet-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.prophet-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.prophet-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Biblical Prophets</h1>
+<p class="subtitle">Messengers of the Most High</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The prophetic ministry</span> represents one of the most extraordinary phenomena in sacred history. These men, called by divine election and empowered by the Holy Spirit, declared "Thus saith the LORD" with absolute authority.<label for="sn-prophets" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-prophets" class="margin-toggle"/>
+    <span class="sidenote">The Hebrew term נָבִיא (<em>navi</em>) derives from a root meaning "to call" or "to announce," emphasizing the prophet's role as spokesman for God. The Greek προφήτης (<em>prophētēs</em>) carries similar meaning: one who speaks forth divine revelation.</span> They rebuked kings, warned nations, comforted the afflicted, and foretold events centuries before their fulfillment.</p>
+
+    <p class="intro-text">The prophets stood in that most solemn office—mediators between heaven and earth, bearing messages of both judgment and mercy. Their words, though often rejected in their own time, have proven unfailingly accurate in their predictions and eternally relevant in their moral and spiritual instruction.<label for="sn-messianic" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-messianic" class="margin-toggle"/>
+    <span class="sidenote">The prophets provided detailed predictions of Messiah's coming: His birthplace (Micah 5:2), His virgin birth (Isaiah 7:14), His suffering (Isaiah 53), His betrayal price (Zechariah 11:12), and countless other particulars fulfilled in Christ.</span></p>
+</section>
+
+{% for category, prophets in prophets_data.items() %}
+<section class="prophet-section">
+    <h2>{{ category }}</h2>
+
+    {% for prophet_name, prophet in prophets.items() %}
+    <article class="prophet-entry">
+        <h3 class="prophet-name">{{ prophet_name }}</h3>
+        <p class="prophet-title">{{ prophet.title }}</p>
+
+        <div class="prophet-description">
+            {{ prophet.description | safe }}
+        </div>
+
+        {% if prophet.verses %}
+        <div class="verse-list">
+            {% for verse in prophet.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>The Prophetic Office</h2>
+    <p class="intro-text">The Scriptures reveal several characteristics of the true prophet:</p>
+
+    <p class="intro-text"><span class="newthought">Divine calling</span>, not self-appointed but commissioned by God Himself. Isaiah heard the voice asking "Whom shall I send?" Jeremiah was ordained before birth. Amos protested he was no prophet's son, yet the word of the Lord came to him.</p>
+
+    <p class="intro-text"><span class="newthought">Forth-telling and fore-telling</span>, both proclaiming God's word to their generation and predicting future events. The immediate fulfillment of near prophecies authenticated their distant predictions concerning Messiah and the end times.<label for="sn-fulfillment" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-fulfillment" class="margin-toggle"/>
+    <span class="sidenote">Deuteronomy 18:22 provided the test: "When a prophet speaketh in the name of the LORD, if the thing follow not, nor come to pass, that is the thing which the LORD hath not spoken." A single false prophecy disqualified the claimant.</span></p>
+
+    <p class="intro-text"><span class="newthought">Suffering for truth</span>, often persecuted for their unpopular messages. Elijah fled from Jezebel. Jeremiah was cast into a dungeon. Zechariah was stoned in the temple court. Christ declared, "O Jerusalem, Jerusalem, thou that killest the prophets."</p>
+
+    <p class="intro-text"><span class="newthought">Witnesses to Christ</span>, for the testimony of Jesus is the spirit of prophecy. All their varied ministries pointed forward to the coming Redeemer, who would Himself be the Prophet like unto Moses, speaking the Father's words with ultimate authority.</p>
+</section>
+{% endblock %}

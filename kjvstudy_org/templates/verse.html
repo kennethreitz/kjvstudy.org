@@ -24,7 +24,7 @@
 <p class="subtitle"><a href="/">Authorized King James Version</a></p>
 
 <section>
-    <p class="verse-text">{{ verse_text }}</p>
+    <p class="verse-text">{{ verse_text | link_names | safe }}</p>
 </section>
 
 {% if commentary %}
@@ -77,7 +77,8 @@
 
 <nav>
     <p>
-        <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">← {{ book }} {{ chapter }}</a>
+        <a href="/book/{{ book }}">← {{ book }}</a> |
+        <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">View in Chapter {{ chapter }}</a>
         {% if verse_num > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}">← Verse {{ verse_num - 1 }}</a>{% endif %}
         {% if verse_num < total_verses %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}">Verse {{ verse_num + 1 }} →</a>{% endif %}
     </p>

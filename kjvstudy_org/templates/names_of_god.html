@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Names of God - KJV Study{% endblock %}
+{% block description %}Explore the sacred names and titles of God revealed in Scripture, from Elohim to Jehovah, with Hebrew meanings and theological significance.{% endblock %}
+
+{% block head %}
+<style>
+.name-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.name-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.name-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.name-heading {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.name-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.name-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Names of God</h1>
+<p class="subtitle">The Divine Names Revealed in Holy Scripture</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The revelation of God's names</span> throughout Scripture unveils the character and attributes of the Almighty. Each name discloses some aspect of the divine nature—His power, mercy, faithfulness, or sovereignty.<label for="sn-names" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-names" class="margin-toggle"/>
+    <span class="sidenote">In Hebrew thought, a name represented the essential nature and character of its bearer. To know God's name meant intimate knowledge of His person and attributes—hence the sacred reverence with which the covenant name יהוה was treated.</span> These names were not arbitrarily chosen but divinely revealed, each one a window into the infinite perfections of the Godhead.</p>
+
+    <p class="intro-text">The multiplicity of divine names does not suggest multiple deities but rather the inexhaustible richness of the one true God. No single name could encompass His fullness; thus Scripture employs various appellations, each emphasizing different facets of His being and His relationship to His creation.<label for="sn-ineffable" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-ineffable" class="margin-toggle"/>
+    <span class="sidenote">The Kabbalistic tradition speaks of seventy-two names of God, though such enumerations venture beyond the clear teaching of Scripture. The biblical text itself reveals approximately fifteen primary names and numerous descriptive titles.</span></p>
+</section>
+
+{% for category, names in names_data.items() %}
+<section class="name-section">
+    <h2>{{ category }}</h2>
+
+    {% for name_text, name in names.items() %}
+    <article class="name-entry">
+        <h3 class="name-heading">{{ name_text }}</h3>
+        <p class="name-title">{{ name.title }}</p>
+
+        <div class="name-description">
+            {{ name.description | safe }}
+        </div>
+
+        {% if name.verses %}
+        <div class="verse-list">
+            {% for verse in name.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>The Significance of Divine Names</h2>
+    <p class="intro-text">Understanding God's names enriches our comprehension of His person and our relationship with Him:</p>
+
+    <p class="intro-text"><span class="newthought">Progressive revelation</span>, wherein each name was revealed at a particular juncture in redemptive history, appropriate to the need of that moment. Abraham knew El Shaddai; Moses received the covenant name Jehovah; the psalmists celebrated Jehovah-Nissi and Jehovah-Shalom.</p>
+
+    <p class="intro-text"><span class="newthought">Comprehensive provision</span>, for the various names disclose God's complete sufficiency for every human need. He is Provider (Jehovah-Jireh), Healer (Jehovah-Rapha), Peace (Jehovah-Shalom), Righteousness (Jehovah-Tsidkenu), and abiding Presence (Jehovah-Shammah).<label for="sn-compound" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-compound" class="margin-toggle"/>
+    <span class="sidenote">The compound names combining יהוה (Jehovah) with descriptive terms represent not different gods but different revelations of the one covenant-keeping God meeting specific needs of His people throughout their history.</span></p>
+
+    <p class="intro-text"><span class="newthought">Worship and reverence</span>, as proper understanding of God's names leads to appropriate adoration. The third commandment—"Thou shalt not take the name of the LORD thy God in vain"—demands reverent treatment not merely of the vocalized name but of all that God's name represents.</p>
+
+    <p class="intro-text"><span class="newthought">Christological fulfillment</span>, wherein the Old Testament names find their ultimate realization in Christ. He is Emmanuel (God with us), the Prince of Peace, our Righteousness, the great I AM who spoke to Moses from the burning bush. In Him dwells all the fullness of the Godhead bodily.</p>
+</section>
+{% endblock %}

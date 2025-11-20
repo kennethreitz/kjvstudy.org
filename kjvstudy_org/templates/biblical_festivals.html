@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Biblical Festivals - KJV Study{% endblock %}
+{% block description %}Explore the sacred feasts and festivals of Israel, their historical significance, and their prophetic fulfillment in Christ.{% endblock %}
+
+{% block head %}
+<style>
+.festival-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.festival-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.festival-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.festival-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.festival-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.festival-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Biblical Festivals</h1>
+<p class="subtitle">The Sacred Feasts of Israel and Their Prophetic Significance</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">The appointed feasts</span> of Israel, ordained by God in Leviticus 23, constitute far more than commemorations of historical events. These sacred assemblies (Hebrew מוֹעֲדִים, <em>mo'adim</em>—"appointed times") formed the liturgical calendar around which Israel's worship revolved, and each contains rich typological significance pointing to the Messiah.<label for="sn-feasts" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-feasts" class="margin-toggle"/>
+    <span class="sidenote">The Hebrew word חַג (<em>chag</em>) denotes a pilgrim feast requiring attendance at the sanctuary—Passover, Pentecost, and Tabernacles. Lesser feasts (Trumpets, Atonement) still demanded holy convocation. These festivals structured Israel's year and maintained covenant relationship through corporate worship.</span></p>
+
+    <p class="intro-text">The festal calendar divides into spring and fall observances, separated by the agricultural work of summer. The spring feasts—Passover through Pentecost—find clear fulfillment in Christ's first advent. The fall feasts—Trumpets through Tabernacles—anticipate events connected with His second coming and millennial reign.<label for="sn-fulfillment" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-fulfillment" class="margin-toggle"/>
+    <span class="sidenote\">Christ fulfilled the spring feasts with remarkable precision: crucified on Passover, buried during Unleavened Bread, resurrected on Firstfruits, and sending the Spirit on Pentecost. This exact correspondence strengthens confidence that the fall feasts will likewise find literal fulfillment in end-time events.</span></p>
+</section>
+
+{% for category, festivals in festivals_data.items() %}
+<section class="festival-section">
+    <h2>{{ category }}</h2>
+
+    {% for festival_name, festival in festivals.items() %}
+    <article class="festival-entry">
+        <h3 class="festival-name">{{ festival_name }}</h3>
+        <p class="festival-title">{{ festival.title }}</p>
+
+        <div class="festival-description">
+            {{ festival.description | safe }}
+        </div>
+
+        {% if festival.verses %}
+        <div class="verse-list">
+            {% for verse in festival.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>The Significance of the Festivals</h2>
+    <p class="intro-text">Understanding these appointed times enriches biblical interpretation and deepens appreciation for God's redemptive plan:</p>
+
+    <p class="intro-text"><span class="newthought">Divine precision</span>, for God commanded these observances centuries before their fulfillment in Christ. The exact correspondence between festival requirements and Messianic events demonstrates supernatural design, providing powerful evidence for inspiration.</p>
+
+    <p class="intro-text"><span class="newthought">Covenant remembrance</span>, as the festivals kept God's mighty acts perpetually before Israel. Each generation relived the Exodus through Passover, recalled Sinai at Pentecost, and remembered wilderness wanderings during Tabernacles. Corporate memory maintained covenant identity.<label for="sn-remembrance" class="margin-toggle sidenote-number\"></label>
+    <input type="checkbox" id="sn-remembrance" class="margin-toggle"/>
+    <span class="sidenote\">The command to tell children about Passover's meaning (Exodus 12:26-27) illustrates how festivals transmitted faith across generations. These annual celebrations educated each new generation in covenant history and theology through participatory ritual rather than mere abstract instruction.</span></p>
+
+    <p class="intro-text"><span class="newthought">Prophetic preview</span>, for the festivals outlined redemptive history in advance. Christ fulfilled the spring feasts at His first coming—dying as the Passover Lamb, rising as the Firstfruits, sending the Spirit at Pentecost. The unfulfilled fall feasts point to His return, national Israel's repentance (Trumpets, Atonement), and millennial blessing (Tabernacles).</p>
+
+    <p class="intro-text"><span class="newthought">Worship structure</span>, as these festivals provided rhythm and pattern for Israel's religious year. Modern believers, while not bound to observe these feasts, benefit from structured worship and corporate remembrance of God's redemptive acts—principles embodied in the Lord's Day and ordinances of baptism and communion.<label for="sn-application" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-application" class="margin-toggle"/>
+    <span class="sidenote">Colossians 2:16-17 clarifies that festivals were "a shadow of things to come; but the body is of Christ." Believers need not observe Jewish feast days, yet studying them illuminates Christ's work and God's purposes. The shadow points to the substance; knowing both enriches understanding.</span></p>
+</section>
+{% endblock %}

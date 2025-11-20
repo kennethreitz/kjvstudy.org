@@ -9,7 +9,7 @@
 
 <div class="epigraph">
     <blockquote>
-        <p>{{ daily_verse.text }}</p>
+        <p>{{ daily_verse.text | link_names | safe }}</p>
         <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a></footer>
     </blockquote>
 </div>
