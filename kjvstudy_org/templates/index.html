@@ -24,6 +24,66 @@
 section a[href^="/book/"] {
     font-weight: 600;
 }
+
+/* Quick verse lookup */
+.verse-lookup {
+    max-width: 60%;
+    margin: 2rem 0;
+    padding: 2rem;
+    border: 2px solid var(--border-color-darker);
+    border-radius: 6px;
+    background: var(--code-bg);
+}
+
+.verse-lookup h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+
+.lookup-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.lookup-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+}
+
+.lookup-input:focus {
+    outline: none;
+    border-color: var(--link-color);
+}
+
+.lookup-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: var(--link-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.lookup-btn:hover {
+    background: var(--link-hover);
+}
+
+.lookup-help {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
 </style>
 {% endblock %}
 
@@ -40,6 +100,76 @@ section a[href^="/book/"] {
         <em>Anno Domini</em> 1611
     </div>
 </div>
+
+<div class="verse-lookup">
+    <h2>Jump to Verse</h2>
+    <form class="lookup-form" onsubmit="return jumpToVerse(event)">
+        <input
+            type="text"
+            class="lookup-input"
+            id="verse-lookup-input"
+            placeholder="Enter verse reference (e.g., John 3:16)"
+            autocomplete="off"
+        />
+        <button type="submit" class="lookup-btn">Go</button>
+    </form>
+    <div class="lookup-help">Examples: Genesis 1:1, Romans 8:28, Psalm 23, Matthew 5-7</div>
+</div>
+
+<script>
+function jumpToVerse(event) {
+    event.preventDefault();
+    const input = document.getElementById('verse-lookup-input').value.trim();
+
+    if (!input) {
+        return false;
+    }
+
+    // Parse the reference
+    // Formats: "Book Chapter:Verse", "Book Chapter", "Book Chapter-Chapter"
+    // Examples: "John 3:16", "Psalm 23", "Matthew 5-7"
+
+    // Try to match: Book Chapter:Verse
+    let match = input.match(/^(.+?)\s+(\d+):(\d+)$/i);
+    if (match) {
+        const book = match[1].trim();
+        const chapter = match[2];
+        const verse = match[3];
+        window.location.href = `/book/${encodeURIComponent(book)}/chapter/${chapter}/verse/${verse}`;
+        return false;
+    }
+
+    // Try to match: Book Chapter (go to chapter)
+    match = input.match(/^(.+?)\s+(\d+)$/i);
+    if (match) {
+        const book = match[1].trim();
+        const chapter = match[2];
+        window.location.href = `/book/${encodeURIComponent(book)}/chapter/${chapter}`;
+        return false;
+    }
+
+    // Try to match: Book (go to book)
+    match = input.match(/^(.+)$/i);
+    if (match) {
+        const book = match[1].trim();
+        window.location.href = `/book/${encodeURIComponent(book)}`;
+        return false;
+    }
+
+    return false;
+}
+
+// Add keyboard shortcut: Press 'g' to focus the lookup input
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'g' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const activeElement = document.activeElement;
+        if (activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            document.getElementById('verse-lookup-input')?.focus();
+        }
+    }
+});
+</script>
 
 <div class="epigraph">
     <blockquote>

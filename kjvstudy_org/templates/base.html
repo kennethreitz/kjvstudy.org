@@ -650,15 +650,57 @@
           window.location.href = '/search';
         }
 
+        // g: Quick verse lookup
+        if (e.key === 'g') {
+          e.preventDefault();
+          showVerseLookup();
+        }
+
         // ?: Show keyboard shortcuts help
         if (e.key === '?' && !e.shiftKey) {
           showKeyboardHelp();
         }
       });
 
+      // Quick verse lookup
+      function showVerseLookup() {
+        var reference = prompt('Enter verse reference (e.g., John 3:16, Psalm 23, Genesis 1):');
+        if (!reference) return;
+
+        reference = reference.trim();
+
+        // Try to match: Book Chapter:Verse
+        var match = reference.match(/^(.+?)\s+(\d+):(\d+)$/i);
+        if (match) {
+          var book = match[1].trim();
+          var chapter = match[2];
+          var verse = match[3];
+          window.location.href = '/book/' + encodeURIComponent(book) + '/chapter/' + chapter + '/verse/' + verse;
+          return;
+        }
+
+        // Try to match: Book Chapter
+        match = reference.match(/^(.+?)\s+(\d+)$/i);
+        if (match) {
+          var book = match[1].trim();
+          var chapter = match[2];
+          window.location.href = '/book/' + encodeURIComponent(book) + '/chapter/' + chapter;
+          return;
+        }
+
+        // Try to match: Book
+        match = reference.match(/^(.+)$/i);
+        if (match) {
+          var book = match[1].trim();
+          window.location.href = '/book/' + encodeURIComponent(book);
+          return;
+        }
+      }
+
       // Keyboard shortcuts help modal
       function showKeyboardHelp() {
         var helpText = 'Keyboard Shortcuts:\\n\\n' +
+          'g             - Quick verse lookup\\n' +
           'Cmd/Ctrl + D  - Toggle dark mode\\n' +
           'Cmd/Ctrl + B  - Toggle sidebar\\n' +
           'Cmd/Ctrl + K  - Go to search\\n' +
