@@ -294,7 +294,7 @@
 
         .sidebar-search input {
             width: 100%;
-            padding: 0.5rem 0.5rem 0.5rem 1.8rem;
+            padding: 0.5rem;
             border: 1px solid var(--border-color-dark);
             border-radius: 3px;
             font-size: 0.75rem;
@@ -308,15 +308,6 @@
             border-color: var(--text-tertiary);
         }
 
-        .sidebar-search::before {
-            content: '🔍';
-            position: absolute;
-            left: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.8rem;
-            opacity: 0.5;
-        }
 
         /* Recently viewed section */
         .recently-viewed {
@@ -329,10 +320,6 @@
             gap: 0.3rem;
         }
 
-        .recently-viewed h3::before {
-            content: '🕐';
-            font-size: 0.85rem;
-        }
 
         .recently-viewed ul {
             max-height: 150px;
@@ -351,14 +338,6 @@
             color: var(--text-tertiary);
             font-style: italic;
             padding: 0.5rem 0;
-        }
-
-        /* Navigation section icons */
-        .nav-sidebar .nav-icon {
-            display: inline-block;
-            width: 1.2rem;
-            font-size: 0.9rem;
-            margin-right: 0.3rem;
         }
 
         /* Resource grouping */
@@ -897,13 +876,13 @@
         <!-- Navigation -->
         <h3>Navigation</h3>
         <ul>
-            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}><span class="nav-icon">🏠</span>Home</a></li>
-            <li><a href="/books"><span class="nav-icon">📖</span>Books</a></li>
-            <li><a href="/verse-of-the-day"><span class="nav-icon">✨</span>Verse of the Day</a></li>
-            <li><a href="/random-verse"><span class="nav-icon">🎲</span>Random Verse</a></li>
-            <li><a href="/reading-plans"><span class="nav-icon">📅</span>Reading Plans</a></li>
-            <li><a href="/topics"><span class="nav-icon">🏷️</span>Topics</a></li>
-            <li><a href="/search"><span class="nav-icon">🔍</span>Search</a></li>
+            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
+            <li><a href="/books">Books</a></li>
+            <li><a href="/verse-of-the-day">Verse of the Day</a></li>
+            <li><a href="/random-verse">Random Verse</a></li>
+            <li><a href="/reading-plans">Reading Plans</a></li>
+            <li><a href="/topics">Topics</a></li>
+            <li><a href="/search">Search</a></li>
         </ul>
 
         <!-- Resources organized by category -->
