@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}{{ parable_name }} - Parables - KJV Study{% endblock %}
+{% block description %}{{ parable.title }} - {{ parable_name }}{% endblock %}
+
+{% block head %}
+<style>
+.parable-title {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.parable-category {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.parable-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 2rem 0;
+}
+
+.verse-list {
+    margin: 2rem 0;
+}
+
+.verse-item {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.verse-ref a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.verse-ref a:hover {
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="parable-category">{{ category_name }}</div>
+<h1>{{ parable_name }}</h1>
+<p class="parable-title">{{ parable.title }}</p>
+
+<section>
+    <h2>Description</h2>
+    <div class="parable-description">
+        {{ parable.description | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Key Verses</h2>
+    <div class="verse-list">
+        {% for verse in parable.verses %}
+        <div class="verse-item">
+            <div class="verse-ref">
+                {% set ref_parts = verse.reference.rsplit(' ', 1) %}
+                {% if ref_parts|length == 2 %}
+                    {% set book_name = ref_parts[0] %}
+                    {% set chapter_verse = ref_parts[1] %}
+                    {% if ':' in chapter_verse %}
+                        {% set ch = chapter_verse.split(':')[0] %}
+                        {% set v = chapter_verse.split(':')[1] %}
+                        <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ verse.reference }}</a>
+                    {% else %}
+                        {{ verse.reference }}
+                    {% endif %}
+                {% else %}
+                    {{ verse.reference }}
+                {% endif %}
+            </div>
+            <div class="verse-text">{{ verse.text }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <p class="intro-text"><span class="newthought">Christ's parables</span> conveyed profound theological truths through familiar imagery drawn from daily life in first-century Palestine. These narratives challenged conventional wisdom, revealed the nature of God's kingdom, and called hearers to decisive response.</p>
+</section>
+
+<section>
+    <p><a href="/parables">← Back to all parables</a></p>
+</section>
+{% endblock %}

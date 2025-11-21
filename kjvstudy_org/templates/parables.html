@@ -24,6 +24,16 @@
     margin-bottom: 0.25rem;
 }
 
+.parable-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.parable-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
 .parable-title {
     font-size: 1.1rem;
     color: #666;
@@ -99,7 +109,7 @@
 
     {% for parable_name, parable in parables.items() %}
     <article class="parable-entry">
-        <h3 class="parable-name">{{ parable_name }}</h3>
+        <h3 class="parable-name"><a href="/parables/{{ parable_name|lower|replace(' ', '-')|replace("'", '') }}">{{ parable_name }}</a></h3>
         <p class="parable-title">{{ parable.title }}</p>
 
         <div class="parable-description">

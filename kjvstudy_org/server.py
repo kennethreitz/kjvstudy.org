@@ -1617,6 +1617,148 @@ def parables_page(request: Request):
     )
 
 
+@app.get("/parables/{parable_slug}", response_class=HTMLResponse)
+def parable_detail(request: Request, parable_slug: str):
+    """Individual parable detail page"""
+    books = list(bible.iter_books())
+
+    # Same data structure as above
+    parables_data = {
+        "Kingdom Parables": {
+            "The Sower": {
+                "title": "Parable of the Four Soils",
+                "description": "Christ's explanation of why He taught in parables accompanied this foundational teaching about receiving the Word of God. Four types of soil represent four responses to divine truth—the hardened path, shallow rocky ground, thorny entanglements, and good soil bearing abundant fruit.<label for=\"sn-sower\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sower\" class=\"margin-toggle\"/><span class=\"sidenote\">This parable's agricultural imagery would resonate deeply with Christ's audience. Palestinian farming methods involved broadcasting seed before plowing, explaining why seed fell on paths and rocky places. The 'hundredfold' yield far exceeded normal harvests, signifying supernatural fruitfulness.</span>",
+                "verses": [
+                    {"reference": "Matthew 13:3", "text": "And he spake many things unto them in parables, saying, Behold, a sower went forth to sow;"},
+                    {"reference": "Matthew 13:23", "text": "But he that received seed into the good ground is he that heareth the word, and understandeth it; which also beareth fruit, and bringeth forth, some an hundredfold, some sixty, some thirty."}
+                ]
+            },
+            "The Mustard Seed": {
+                "title": "From Small Beginnings to Great Growth",
+                "description": "The kingdom's humble origins—twelve disciples in an obscure province—would expand to fill the earth. The mustard seed, though minute, grows into a substantial plant providing shelter for birds.",
+                "verses": [
+                    {"reference": "Matthew 13:31", "text": "Another parable put he forth unto them, saying, The kingdom of heaven is like to a grain of mustard seed, which a man took, and sowed in his field:"},
+                    {"reference": "Matthew 13:32", "text": "Which indeed is the least of all seeds: but when it is grown, it is the greatest among herbs, and becometh a tree, so that the birds of the air come and lodge in the branches thereof."}
+                ]
+            },
+            "The Pearl of Great Price": {
+                "title": "The Kingdom's Surpassing Worth",
+                "description": "A merchant seeking fine pearls, upon finding one of extraordinary value, sold all his possessions to purchase it. The kingdom of heaven surpasses all earthly treasures in worth, demanding total commitment.<label for=\"sn-pearl\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-pearl\" class=\"margin-toggle\"/><span class=\"sidenote\">In the ancient world, pearls ranked among the most precious commodities. Unlike gems requiring cutting and polishing, pearls emerge perfect from the oyster—a natural beauty suggesting the kingdom's intrinsic worth.</span>",
+                "verses": [
+                    {"reference": "Matthew 13:45", "text": "Again, the kingdom of heaven is like unto a merchant man, seeking goodly pearls:"},
+                    {"reference": "Matthew 13:46", "text": "Who, when he had found one pearl of great price, went and sold all that he had, and bought it."}
+                ]
+            },
+            "The Wheat and Tares": {
+                "title": "The Kingdom's Mixed Composition Until Harvest",
+                "description": "An enemy sowed tares among wheat, but the householder commanded servants to wait until harvest lest pulling tares uproot wheat also. This parable teaches that true and false professors will coexist until the final judgment.<label for=\"sn-tares\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-tares\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek word ζιζάνια (<em>zizania</em>) likely refers to bearded darnel, a noxious weed nearly indistinguishable from wheat until both mature. Its presence among wheat was often attributed to malicious neighbors—a practice even mentioned in Roman law.</span>",
+                "verses": [
+                    {"reference": "Matthew 13:24", "text": "Another parable put he forth unto them, saying, The kingdom of heaven is likened unto a man which sowed good seed in his field:"},
+                    {"reference": "Matthew 13:30", "text": "Let both grow together until the harvest: and in the time of harvest I will say to the reapers, Gather ye together first the tares, and bind them in bundles to burn them: but gather the wheat into my barn."}
+                ]
+            }
+        },
+        "Grace and Forgiveness": {
+            "The Prodigal Son": {
+                "title": "The Father's Unfailing Love",
+                "description": "Perhaps the most beloved of all parables, this narrative of a wayward son's return and the father's joyous reception illustrates divine grace toward repentant sinners. The elder brother's resentment exposes self-righteous pride.<label for=\"sn-prodigal\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-prodigal\" class=\"margin-toggle\"/><span class=\"sidenote\">The word 'prodigal' means wasteful or lavish. While traditionally applied to the younger son's squandering, it equally describes the father's extravagant love—the best robe, ring, sandals, and fatted calf all signifying complete restoration to sonship.</span>",
+                "verses": [
+                    {"reference": "Luke 15:20", "text": "And he arose, and came to his father. But when he was yet a great way off, his father saw him, and had compassion, and ran, and fell on his neck, and kissed him."},
+                    {"reference": "Luke 15:24", "text": "For this my son was dead, and is alive again; he was lost, and is found. And they began to be merry."}
+                ]
+            },
+            "The Good Samaritan": {
+                "title": "Neighbor Love Without Boundaries",
+                "description": "When a lawyer asked 'Who is my neighbor?' Christ responded with this account of a Samaritan—despised by Jews—who showed mercy to a robbery victim ignored by priest and Levite. True religion manifests in compassionate action.<label for=\"sn-samaritan\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-samaritan\" class=\"margin-toggle\"/><span class=\"sidenote\">The road from Jerusalem to Jericho descended 3,600 feet over seventeen miles of rocky, desolate terrain—a notorious haunt of bandits. That a Samaritan, not the religious professionals, demonstrated covenant love would shock Christ's Jewish audience.</span>",
+                "verses": [
+                    {"reference": "Luke 10:33", "text": "But a certain Samaritan, as he journeyed, came where he was: and when he saw him, he had compassion on him,"},
+                    {"reference": "Luke 10:37", "text": "And he said, He that shewed mercy on him. Then said Jesus unto him, Go, and do thou likewise."}
+                ]
+            },
+            "The Unmerciful Servant": {
+                "title": "Forgiven Much, Forgive Much",
+                "description": "A servant forgiven an astronomical debt—ten thousand talents—refused to forgive a fellow servant's trivial obligation of a hundred pence. This parable warns that those who withhold forgiveness after receiving divine pardon face severe judgment.",
+                "verses": [
+                    {"reference": "Matthew 18:32", "text": "Then his lord, after that he had called him, said unto him, O thou wicked servant, I forgave thee all that debt, because thou desiredst me:"},
+                    {"reference": "Matthew 18:33", "text": "Shouldest not thou also have had compassion on thy fellowservant, even as I had pity on thee?"}
+                ]
+            }
+        },
+        "Stewardship and Responsibility": {
+            "The Talents": {
+                "title": "Faithful Use of Divine Gifts",
+                "description": "A man traveling to a far country entrusted his servants with talents according to their abilities. Two doubled their investment; one, fearing, buried his talent. Christ commends faithful stewardship and condemns slothful neglect of opportunities.<label for=\"sn-talents\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-talents\" class=\"margin-toggle\"/><span class=\"sidenote\">A talent represented approximately 6,000 denarii—roughly twenty years' wages for a common laborer. The amounts entrusted were thus substantial, emphasizing the magnitude of divine gifts bestowed upon believers.</span>",
+                "verses": [
+                    {"reference": "Matthew 25:21", "text": "His lord said unto him, Well done, thou good and faithful servant: thou hast been faithful over a few things, I will make thee ruler over many things: enter thou into the joy of thy lord."},
+                    {"reference": "Matthew 25:29", "text": "For unto every one that hath shall be given, and he shall have abundance: but from him that hath not shall be taken away even that which he hath."}
+                ]
+            },
+            "The Unjust Steward": {
+                "title": "Wisdom in Preparation",
+                "description": "Though commending neither the steward's dishonesty nor his methods, Christ praised his prudent preparation for the future. Believers should demonstrate equal foresight in securing eternal treasures.",
+                "verses": [
+                    {"reference": "Luke 16:8", "text": "And the lord commended the unjust steward, because he had done wisely: for the children of this world are in their generation wiser than the children of light."},
+                    {"reference": "Luke 16:9", "text": "And I say unto you, Make to yourselves friends of the mammon of unrighteousness; that, when ye fail, they may receive you into everlasting habitations."}
+                ]
+            }
+        },
+        "Prayer and Persistence": {
+            "The Importunate Widow": {
+                "title": "Perseverance in Prayer",
+                "description": "A persistent widow obtained justice from an unjust judge through continual entreaty. How much more will the righteous Judge hear His elect who cry to Him day and night? This parable encourages persistent prayer.",
+                "verses": [
+                    {"reference": "Luke 18:7", "text": "And shall not God avenge his own elect, which cry day and night unto him, though he bear long with them?"},
+                    {"reference": "Luke 18:8", "text": "I tell you that he will avenge them speedily. Nevertheless when the Son of man cometh, shall he find faith on the earth?"}
+                ]
+            },
+            "The Pharisee and Publican": {
+                "title": "Humility Before God",
+                "description": "Two men prayed in the temple: the Pharisee recounted his righteousness; the publican smote his breast, crying 'God be merciful to me a sinner.' Christ declared the humble tax collector, not the self-righteous religious leader, went home justified.<label for=\"sn-publican\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-publican\" class=\"margin-toggle\"/><span class=\"sidenote\">The publican's prayer—'God be merciful to me a sinner'—literally reads 'be propitiated to me.' He appealed to the mercy seat where atoning blood was sprinkled, acknowledging his need for substitutionary atonement.</span>",
+                "verses": [
+                    {"reference": "Luke 18:13", "text": "And the publican, standing afar off, would not lift up so much as his eyes unto heaven, but smote upon his breast, saying, God be merciful to me a sinner."},
+                    {"reference": "Luke 18:14", "text": "I tell you, this man went down to his house justified rather than the other: for every one that exalteth himself shall be abased; and he that humbleth himself shall be exalted."}
+                ]
+            }
+        }
+    }
+
+    # Find the parable by slug
+    parable = None
+    parable_name = None
+    category_name = None
+
+    for cat_name, category in parables_data.items():
+        for name, data in category.items():
+            if create_slug(name) == parable_slug:
+                parable = data
+                parable_name = name
+                category_name = cat_name
+                break
+        if parable:
+            break
+
+    if not parable:
+        raise HTTPException(status_code=404, detail="Parable not found")
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Parables", "url": "/parables"},
+        {"text": parable_name, "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "parable_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "parable": parable,
+            "parable_name": parable_name,
+            "category_name": category_name,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/biblical-covenants", response_class=HTMLResponse)
 def biblical_covenants_page(request: Request):
     """Biblical covenants throughout redemptive history"""
