@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item_name }} - {{ resource_title }} - KJV Study{% endblock %}
+{% block description %}{{ item.title }} - {{ item_name }}{% endblock %}
+
+{% block head %}
+<style>
+.resource-title {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.resource-category {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.resource-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 2rem 0;
+}
+
+.verse-list {
+    margin: 2rem 0;
+}
+
+.verse-item {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.verse-ref a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.verse-ref a:hover {
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% if category_name %}
+<div class="resource-category">{{ category_name }}</div>
+{% endif %}
+<h1>{{ item_name }}</h1>
+<p class="resource-title">{{ item.title }}</p>
+
+<section>
+    <h2>Description</h2>
+    <div class="resource-description">
+        {{ item.description | safe }}
+    </div>
+</section>
+
+<section>
+    <h2>Key Verses</h2>
+    <div class="verse-list">
+        {% for verse in item.verses %}
+        <div class="verse-item">
+            <div class="verse-ref">
+                {% set ref_parts = verse.reference.rsplit(' ', 1) %}
+                {% if ref_parts|length == 2 %}
+                    {% set book_name = ref_parts[0] %}
+                    {% set chapter_verse = ref_parts[1] %}
+                    {% if ':' in chapter_verse %}
+                        {% set ch = chapter_verse.split(':')[0] %}
+                        {% set v = chapter_verse.split(':')[1] %}
+                        <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ verse.reference }}</a>
+                    {% else %}
+                        {{ verse.reference }}
+                    {% endif %}
+                {% else %}
+                    {{ verse.reference }}
+                {% endif %}
+            </div>
+            <div class="verse-text">{{ verse.text }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <p><a href="{{ back_url }}">← Back to {{ back_text }}</a></p>
+</section>
+{% endblock %}
