@@ -24,6 +24,16 @@
     margin-bottom: 0.25rem;
 }
 
+.woman-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.woman-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
 .woman-title {
     font-size: 1.1rem;
     color: #666;
@@ -99,7 +109,9 @@
 
     {% for woman_name, woman in women.items() %}
     <article class="woman-entry">
-        <h3 class="woman-name">{{ woman_name }}</h3>
+        <h3 class="woman-name">
+          <a href="/women-of-the-bible/{{ woman_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ woman_name }}</a>
+        </h3>
         <p class="woman-title">{{ woman.title }}</p>
 
         <div class="woman-description">

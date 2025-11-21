@@ -24,6 +24,16 @@
     margin-bottom: 0.25rem;
 }
 
+.prophet-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.prophet-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
 .prophet-title {
     font-size: 1.1rem;
     color: #666;
@@ -99,7 +109,9 @@
 
     {% for prophet_name, prophet in prophets.items() %}
     <article class="prophet-entry">
-        <h3 class="prophet-name">{{ prophet_name }}</h3>
+        <h3 class="prophet-name">
+          <a href="/biblical-prophets/{{ prophet_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ prophet_name }}</a>
+        </h3>
         <p class="prophet-title">{{ prophet.title }}</p>
 
         <div class="prophet-description">

@@ -24,6 +24,16 @@
     margin-bottom: 0.25rem;
 }
 
+.apostle-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.apostle-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
 .apostle-title {
     font-size: 1.1rem;
     color: #666;
@@ -99,7 +109,9 @@
 
     {% for apostle_name, apostle in apostles.items() %}
     <article class="apostle-entry">
-        <h3 class="apostle-name">{{ apostle_name }}</h3>
+        <h3 class="apostle-name">
+          <a href="/the-twelve-apostles/{{ apostle_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ apostle_name }}</a>
+        </h3>
         <p class="apostle-title">{{ apostle.title }}</p>
 
         <div class="apostle-description">

@@ -24,6 +24,16 @@
     margin-bottom: 0.25rem;
 }
 
+.covenant-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.covenant-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
 .covenant-title {
     font-size: 1.1rem;
     color: #666;
@@ -99,7 +109,9 @@
 
     {% for covenant_name, covenant in covenants.items() %}
     <article class="covenant-entry">
-        <h3 class="covenant-name">{{ covenant_name }}</h3>
+        <h3 class="covenant-name">
+          <a href="/biblical-covenants/{{ covenant_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ covenant_name }}</a>
+        </h3>
         <p class="covenant-title">{{ covenant.title }}</p>
 
         <div class="covenant-description">

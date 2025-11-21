@@ -24,6 +24,16 @@
     margin-bottom: 0.25rem;
 }
 
+.festival-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.festival-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
 .festival-title {
     font-size: 1.1rem;
     color: #666;
@@ -99,7 +109,9 @@
 
     {% for festival_name, festival in festivals.items() %}
     <article class="festival-entry">
-        <h3 class="festival-name">{{ festival_name }}</h3>
+        <h3 class="festival-name">
+          <a href="/biblical-festivals/{{ festival_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ festival_name }}</a>
+        </h3>
         <p class="festival-title">{{ festival.title }}</p>
 
         <div class="festival-description">

@@ -24,6 +24,16 @@
     margin-bottom: 0.25rem;
 }
 
+.name-heading a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.name-heading a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
 .name-title {
     font-size: 1.1rem;
     color: #666;
@@ -99,7 +109,9 @@
 
     {% for name_text, name in names.items() %}
     <article class="name-entry">
-        <h3 class="name-heading">{{ name_text }}</h3>
+        <h3 class="name-heading">
+          <a href="/names-of-god/{{ name_text|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ name_text }}</a>
+        </h3>
         <p class="name-title">{{ name.title }}</p>
 
         <div class="name-description">

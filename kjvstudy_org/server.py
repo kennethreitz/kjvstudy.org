@@ -1257,6 +1257,177 @@ def biblical_angels_page(request: Request):
     )
 
 
+@app.get("/biblical-angels/{angel_slug}", response_class=HTMLResponse)
+def angel_detail(request: Request, angel_slug: str):
+    """Individual biblical angels detail page"""
+    books = list(bible.iter_books())
+    
+    # Reuse data structure from main route - this is a reference implementation
+    # In production, consider extracting to shared module
+    # For now, we reference the data inline
+    # NOTE: This will be populated by copying from main route manually or via refactoring
+    
+    # Import the get function for this resource's data
+    from . import server
+    # Get data by calling the main route's logic
+    # For now, inline minimal lookup
+    
+    angels_data = {
+        "Named Angels": {
+            "Michael the Archangel": {
+                "title": "The Chief Prince, Warrior Angel",
+                "description": "Michael is identified as one of the chief princes and appears as the defender of Israel.<label for=\"sn-michael\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-michael\" class=\"margin-toggle\"/><span class=\"sidenote\">Michael appears by name only five times in Scripture: thrice in Daniel, once in Jude, and once in Revelation. Yet these references establish him as a prince of the highest rank, engaged in spiritual warfare on behalf of God's people.</span> In the book of Revelation, he leads the heavenly armies against the dragon (Satan). His name signifies 'Who is like God?' expressing his role as God's champion.",
+                "verses": [
+                    {"reference": "Daniel 10:13", "text": "But the prince of the kingdom of Persia withstood me one and twenty days: but, lo, Michael, one of the chief princes, came to help me; and I remained there with the kings of Persia."},
+                    {"reference": "Daniel 12:1", "text": "And at that time shall Michael stand up, the great prince which standeth for the children of thy people: and there shall be a time of trouble, such as never was since there was a nation even to that same time: and at that time thy people shall be delivered, every one that shall be found written in the book."},
+                    {"reference": "Jude 1:9", "text": "Yet Michael the archangel, when contending with the devil he disputed about the body of Moses, durst not bring against him a railing accusation, but said, The Lord rebuke thee."},
+                    {"reference": "Revelation 12:7", "text": "And there was war in heaven: Michael and his angels fought against the dragon; and the dragon fought and his angels,"}
+                ]
+            },
+            "Gabriel": {
+                "title": "The Messenger Angel",
+                "description": "Gabriel appears as God's special messenger, announcing events of paramount importance.<label for=\"sn-gabriel\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-gabriel\" class=\"margin-toggle\"/><span class=\"sidenote\">Gabriel's appearances mark the most momentous announcements in redemptive history. His declaration to Mary—'Hail, thou that art highly favoured, the Lord is with thee'—initiated the incarnation of the eternal Word.</span> He interprets visions to Daniel, announces the birth of John the Baptist to Zacharias, and proclaims the incarnation to the Virgin Mary. His name means 'God is my strength.'",
+                "verses": [
+                    {"reference": "Daniel 8:16", "text": "And I heard a man's voice between the banks of Ulai, which called, and said, Gabriel, make this man to understand the vision."},
+                    {"reference": "Daniel 9:21", "text": "Yea, whiles I was speaking in prayer, even the man Gabriel, whom I had seen in the vision at the beginning, being caused to fly swiftly, touched me about the time of the evening oblation."},
+                    {"reference": "Luke 1:19", "text": "And the angel answering said unto him, I am Gabriel, that stand in the presence of God; and am sent to speak unto thee, and to shew thee these glad tidings."},
+                    {"reference": "Luke 1:26", "text": "And in the sixth month the angel Gabriel was sent from God unto a city of Galilee, named Nazareth,"}
+                ]
+            },
+            "Lucifer (Satan)": {
+                "title": "The Fallen Angel, Adversary",
+                "description": "Originally created as a magnificent angel, Lucifer fell through pride and became Satan, the adversary of God and accuser of the brethren. The name Lucifer means 'light-bearer' or 'morning star,' reflecting his original glory before the fall.",
+                "verses": [
+                    {"reference": "Isaiah 14:12", "text": "How art thou fallen from heaven, O Lucifer, son of the morning! how art thou cut down to the ground, which didst weaken the nations!"},
+                    {"reference": "Ezekiel 28:14", "text": "Thou art the anointed cherub that covereth; and I have set thee so: thou wast upon the holy mountain of God; thou hast walked up and down in the midst of the stones of fire."},
+                    {"reference": "Luke 10:18", "text": "And he said unto them, I beheld Satan as lightning fall from heaven."},
+                    {"reference": "Revelation 12:9", "text": "And the great dragon was cast out, that old serpent, called the Devil, and Satan, which deceiveth the whole world: he was cast out into the earth, and his angels were cast out with him."}
+                ]
+            },
+            "Abaddon / Apollyon": {
+                "title": "Angel of the Bottomless Pit",
+                "description": "Named as the angel of the abyss in Revelation, Abaddon (Hebrew) or Apollyon (Greek) both mean 'destroyer.' He is depicted as the king over the demonic locusts that emerge from the bottomless pit during the tribulation.",
+                "verses": [
+                    {"reference": "Revelation 9:11", "text": "And they had a king over them, which is the angel of the bottomless pit, whose name in the Hebrew tongue is Abaddon, but in the Greek tongue hath his name Apollyon."}
+                ]
+            }
+        },
+        "Orders of Angels": {
+            "Cherubim": {
+                "title": "Guardians of God's Holiness",
+                "description": "The cherubim are associated with guarding God's glory and holiness. They barred the way to the Tree of Life after the Fall, formed the mercy seat upon the Ark of the Covenant, and surround God's throne.<label for=\"sn-cherubim\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-cherubim\" class=\"margin-toggle\"/><span class=\"sidenote\">Ezekiel's vision describes cherubim with four faces—of a man, a lion, an ox, and an eagle—representing the fullness of creation's intelligence, strength, service, and swiftness. Their many eyes signify divine omniscience; their wheels within wheels, God's sovereign providence moving throughout the earth.</span> Ezekiel describes them as having four faces and multiple wings.",
+                "verses": [
+                    {"reference": "Genesis 3:24", "text": "So he drove out the man; and he placed at the east of the garden of Eden Cherubims, and a flaming sword which turned every way, to keep the way of the tree of life."},
+                    {"reference": "Exodus 25:20", "text": "And the cherubims shall stretch forth their wings on high, covering the mercy seat with their wings, and their faces shall look one to another; toward the mercy seat shall the faces of the cherubims be."},
+                    {"reference": "Ezekiel 10:1", "text": "Then I looked, and, behold, in the firmament that was above the head of the cherubims there appeared over them as it were a sapphire stone, as the appearance of the likeness of a throne."},
+                    {"reference": "Psalms 80:1", "text": "Give ear, O Shepherd of Israel, thou that leadest Joseph like a flock; thou that dwellest between the cherubims, shine forth."}
+                ]
+            },
+            "Seraphim": {
+                "title": "The Burning Ones, Worshippers of God",
+                "description": "The seraphim appear in Isaiah's vision, standing above the throne of God. With six wings—two covering their faces, two covering their feet, and two for flying—they perpetually cry 'Holy, holy, holy, is the LORD of hosts.'<label for=\"sn-seraphim\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-seraphim\" class=\"margin-toggle\"/><span class=\"sidenote\">The threefold repetition of 'holy' (the <em>Trisagion</em>) represents the superlative degree in Hebrew idiom, declaring God's absolute and infinite holiness. Early church fathers saw in this triple ascription a foreshadowing of the Trinity—Father, Son, and Holy Spirit—though such Trinitarian interpretation lies beyond the immediate sense of the text.</span> Their name means 'burning ones,' suggesting their blazing purity and zeal.",
+                "verses": [
+                    {"reference": "Isaiah 6:2", "text": "Above it stood the seraphims: each one had six wings; with twain he covered his face, and with twain he covered his feet, and with twain he did fly."},
+                    {"reference": "Isaiah 6:3", "text": "And one cried unto another, and said, Holy, holy, holy, is the LORD of hosts: the whole earth is full of his glory."},
+                    {"reference": "Isaiah 6:6", "text": "Then flew one of the seraphims unto me, having a live coal in his hand, which he had taken with the tongs from off the altar:"}
+                ]
+            },
+            "Archangels": {
+                "title": "Chief Angels, Principalities",
+                "description": "Archangels are chief princes among the angelic host. Michael is specifically called an archangel, and the singular 'voice of the archangel' is mentioned in connection with Christ's return. They appear to have authority over other angels and serve as commanders in spiritual warfare.",
+                "verses": [
+                    {"reference": "1 Thessalonians 4:16", "text": "For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first:"},
+                    {"reference": "Jude 1:9", "text": "Yet Michael the archangel, when contending with the devil he disputed about the body of Moses, durst not bring against him a railing accusation, but said, The Lord rebuke thee."}
+                ]
+            }
+        },
+        "Angelic Activities and Appearances": {
+            "Ministering Spirits": {
+                "title": "Servants of the Heirs of Salvation",
+                "description": "Angels are described as ministering spirits sent forth to serve those who will inherit salvation. They are spiritual beings created by God to worship Him and execute His will.",
+                "verses": [
+                    {"reference": "Hebrews 1:14", "text": "Are they not all ministering spirits, sent forth to minister for them who shall be heirs of salvation?"},
+                    {"reference": "Psalms 103:20", "text": "Bless the LORD, ye his angels, that excel in strength, that do his commandments, hearkening unto the voice of his word."},
+                    {"reference": "Psalms 104:4", "text": "Who maketh his angels spirits; his ministers a flaming fire:"}
+                ]
+            },
+            "Angels at Christ's Birth": {
+                "title": "Heralds of the Nativity",
+                "description": "A multitude of the heavenly host appeared to shepherds near Bethlehem, announcing the birth of Christ and praising God. This manifestation revealed the angels' joy in the incarnation.",
+                "verses": [
+                    {"reference": "Luke 2:9", "text": "And, lo, the angel of the Lord came upon them, and the glory of the Lord shone round about them: and they were sore afraid."},
+                    {"reference": "Luke 2:13", "text": "And suddenly there was with the angel a multitude of the heavenly host praising God, and saying,"},
+                    {"reference": "Luke 2:14", "text": "Glory to God in the highest, and on earth peace, good will toward men."}
+                ]
+            },
+            "Angel at the Tomb": {
+                "title": "Witnesses of the Resurrection",
+                "description": "Angels appeared at Christ's tomb to announce His resurrection to the women who came to anoint His body. They rolled away the stone and declared that He had risen.",
+                "verses": [
+                    {"reference": "Matthew 28:2", "text": "And, behold, there was a great earthquake: for the angel of the Lord descended from heaven, and came and rolled back the stone from the door, and sat upon it."},
+                    {"reference": "Matthew 28:5", "text": "And the angel answered and said unto the women, Fear not ye: for I know that ye seek Jesus, which was crucified."},
+                    {"reference": "Luke 24:23", "text": "And when they found not his body, they came, saying, that they had also seen a vision of angels, which said that he was alive."}
+                ]
+            },
+            "Jacob's Ladder": {
+                "title": "Angels Ascending and Descending",
+                "description": "In Jacob's dream at Bethel, he saw a ladder reaching to heaven with angels ascending and descending upon it, representing the connection between heaven and earth and God's providential care.",
+                "verses": [
+                    {"reference": "Genesis 28:12", "text": "And he dreamed, and behold a ladder set up on the earth, and the top of it reached to heaven: and behold the angels of God ascending and descending on it."},
+                    {"reference": "John 1:51", "text": "And he saith unto him, Verily, verily, I say unto you, Hereafter ye shall see heaven open, and the angels of God ascending and descending upon the Son of man."}
+                ]
+            },
+            "Angel Delivers Peter": {
+                "title": "Divine Liberation",
+                "description": "An angel of the Lord freed Peter from prison, demonstrating God's sovereign power to deliver His servants and the angels' role in protecting believers.",
+                "verses": [
+                    {"reference": "Acts 12:7", "text": "And, behold, the angel of the Lord came upon him, and a light shined in the prison: and he smote Peter on the side, and raised him up, saying, Arise up quickly. And his chains fell off from his hands."},
+                    {"reference": "Acts 12:11", "text": "And when Peter was come to himself, he said, Now I know of a surety, that the Lord hath sent his angel, and hath delivered me out of the hand of Herod, and from all the expectation of the people of the Jews."}
+                ]
+            }
+        }
+    }
+    
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+    
+    for cat_name, category in angels_data.items():
+        for name, data in category.items():
+            if create_slug(name) == angel_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+    
+    if not item:
+        raise HTTPException(status_code=404, detail="Biblical Angels item not found")
+    
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Biblical Angels", "url": "/biblical-angels"},
+        {"text": item_name, "url": None}
+    ]
+    
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Biblical Angels",
+            "back_url": "/biblical-angels",
+            "back_text": "Biblical Angels",
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/biblical-prophets", response_class=HTMLResponse)
 def biblical_prophets_page(request: Request):
     """Biblical prophets page exploring the prophetic ministry throughout Scripture"""
@@ -1358,6 +1529,147 @@ def biblical_prophets_page(request: Request):
                 {"text": "Home", "url": "/"},
                 {"text": "Biblical Prophets", "url": None}
             ]
+        }
+    )
+
+
+@app.get("/biblical-prophets/{prophet_slug}", response_class=HTMLResponse)
+def prophet_detail(request: Request, prophet_slug: str):
+    """Individual biblical prophets detail page"""
+    books = list(bible.iter_books())
+    
+    # Reuse data structure from main route - this is a reference implementation
+    # In production, consider extracting to shared module
+    # For now, we reference the data inline
+    # NOTE: This will be populated by copying from main route manually or via refactoring
+    
+    # Import the get function for this resource's data
+    from . import server
+    # Get data by calling the main route's logic
+    # For now, inline minimal lookup
+    
+    prophets_data = {
+        "Major Prophets": {
+            "Isaiah": {
+                "title": "The Evangelical Prophet",
+                "description": "Isaiah prophesied during the reigns of Uzziah, Jotham, Ahaz, and Hezekiah, spanning approximately sixty years (c. 740-680 BC). His prophecies alternate between judgment upon Judah and surrounding nations, and glorious promises of Messianic redemption.<label for=\"sn-isaiah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-isaiah\" class=\"margin-toggle\"/><span class=\"sidenote\">Isaiah is called the 'Evangelical Prophet' because his book contains more Messianic prophecies than any other prophetic work. Chapter 53's description of the suffering servant found its ultimate fulfillment in Christ's passion.</span> His commission came through a dramatic vision of the Lord seated upon His throne, surrounded by seraphim, wherein he cried 'Woe is me! for I am undone.'",
+                "verses": [
+                    {"reference": "Isaiah 6:1", "text": "In the year that king Uzziah died I saw also the Lord sitting upon a throne, high and lifted up, and his train filled the temple."},
+                    {"reference": "Isaiah 6:8", "text": "Also I heard the voice of the Lord, saying, Whom shall I send, and who will go for us? Then said I, Here am I; send me."},
+                    {"reference": "Isaiah 53:5", "text": "But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed."},
+                    {"reference": "Isaiah 7:14", "text": "Therefore the Lord himself shall give you a sign; Behold, a virgin shall conceive, and bear a son, and shall call his name Immanuel."}
+                ]
+            },
+            "Jeremiah": {
+                "title": "The Weeping Prophet",
+                "description": "Called to prophesy in his youth, Jeremiah ministered during Judah's final years before the Babylonian captivity (c. 627-586 BC). His message of impending judgment proved unpopular, bringing him persecution, imprisonment, and profound sorrow.<label for=\"sn-jeremiah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-jeremiah\" class=\"margin-toggle\"/><span class=\"sidenote\">Jeremiah's emotional depth and personal suffering mirror that of Christ. His lamentations over Jerusalem's fall and his imprisonment in a miry dungeon prefigure aspects of our Lord's passion.</span> Yet within his prophecies of doom shine promises of restoration and the New Covenant written upon the heart.",
+                "verses": [
+                    {"reference": "Jeremiah 1:5", "text": "Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I sanctified thee, and I ordained thee a prophet unto the nations."},
+                    {"reference": "Jeremiah 31:31", "text": "Behold, the days come, saith the LORD, that I will make a new covenant with the house of Israel, and with the house of Judah:"},
+                    {"reference": "Jeremiah 29:11", "text": "For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end."},
+                    {"reference": "Jeremiah 9:1", "text": "Oh that my head were waters, and mine eyes a fountain of tears, that I might weep day and night for the slain of the daughter of my people!"}
+                ]
+            },
+            "Ezekiel": {
+                "title": "The Prophet of Visions",
+                "description": "Carried captive to Babylon with King Jehoiachin in 597 BC, Ezekiel prophesied among the exiles by the river Chebar. His ministry featured extraordinary visions—the divine chariot-throne, the valley of dry bones, the measuring of the temple—conveying both judgment and restoration.<label for=\"sn-ezekiel\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-ezekiel\" class=\"margin-toggle\"/><span class=\"sidenote\">Ezekiel employed dramatic symbolic actions to convey his messages: lying on his side for 390 days, shaving his head and beard, digging through a wall. These enacted prophecies made visible the invisible spiritual realities he proclaimed.</span> He emphasized individual responsibility and God's ultimate purpose to vindicate His holy name among the nations.",
+                "verses": [
+                    {"reference": "Ezekiel 1:1", "text": "Now it came to pass in the thirtieth year, in the fourth month, in the fifth day of the month, as I was among the captives by the river of Chebar, that the heavens were opened, and I saw visions of God."},
+                    {"reference": "Ezekiel 37:3", "text": "And he said unto me, Son of man, can these bones live? And I answered, O Lord GOD, thou knowest."},
+                    {"reference": "Ezekiel 36:26", "text": "A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh."}
+                ]
+            },
+            "Daniel": {
+                "title": "The Prophet of Kings",
+                "description": "Taken to Babylon as a youth of noble lineage, Daniel rose to prominence in the courts of Nebuchadnezzar, Belshazzar, Darius, and Cyrus. His prophetic visions outlined successive world empires and the ultimate establishment of God's eternal kingdom.<label for=\"sn-daniel\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-daniel\" class=\"margin-toggle\"/><span class=\"sidenote\">Daniel's prophecy of the seventy weeks (Daniel 9:24-27) provides the chronological framework for understanding Messianic fulfillment. His visions of world kingdoms find their consummation in the stone cut without hands that fills the earth.</span> Maintaining unwavering faithfulness despite exile, he exemplified godliness in a pagan court.",
+                "verses": [
+                    {"reference": "Daniel 2:44", "text": "And in the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed: and the kingdom shall not be left to other people, but it shall break in pieces and consume all these kingdoms, and it shall stand for ever."},
+                    {"reference": "Daniel 6:10", "text": "Now when Daniel knew that the writing was signed, he went into his house; and his windows being open in his chamber toward Jerusalem, he kneeled upon his knees three times a day, and prayed, and gave thanks before his God, as he did aforetime."},
+                    {"reference": "Daniel 9:24", "text": "Seventy weeks are determined upon thy people and upon thy holy city, to finish the transgression, and to make an end of sins, and to make reconciliation for iniquity, and to bring in everlasting righteousness, and to seal up the vision and prophecy, and to anoint the most Holy."}
+                ]
+            }
+        },
+        "The Twelve Minor Prophets": {
+            "Hosea": {
+                "title": "Prophet of God's Unfailing Love",
+                "description": "Commanded to marry an unfaithful wife as a living illustration of Israel's spiritual adultery, Hosea's personal tragedy became a prophetic sign. His message emphasizes God's persistent love despite His people's waywardness.<label for=\"sn-hosea\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-hosea\" class=\"margin-toggle\"/><span class=\"sidenote\">The Hebrew word <em>hesed</em>, translated 'lovingkindness' or 'mercy,' appears throughout Hosea. This covenant love endures despite unfaithfulness, pointing to the redemptive love displayed ultimately in Christ.</span>",
+                "verses": [
+                    {"reference": "Hosea 1:2", "text": "The beginning of the word of the LORD by Hosea. And the LORD said to Hosea, Go, take unto thee a wife of whoredoms and children of whoredoms: for the land hath committed great whoredom, departing from the LORD."},
+                    {"reference": "Hosea 11:1", "text": "When Israel was a child, then I loved him, and called my son out of Egypt."}
+                ]
+            },
+            "Joel": {
+                "title": "Prophet of the Spirit's Outpouring",
+                "description": "Using a devastating locust plague as his text, Joel called Judah to repentance and prophesied the coming Day of the Lord. His promise of the Spirit's outpouring found initial fulfillment at Pentecost.",
+                "verses": [
+                    {"reference": "Joel 2:28", "text": "And it shall come to pass afterward, that I will pour out my spirit upon all flesh; and your sons and your daughters shall prophesy, your old men shall dream dreams, your young men shall see visions:"},
+                    {"reference": "Joel 2:32", "text": "And it shall come to pass, that whosoever shall call on the name of the LORD shall be delivered: for in mount Zion and in Jerusalem shall be deliverance, as the LORD hath said, and in the remnant whom the LORD shall call."}
+                ]
+            },
+            "Amos": {
+                "title": "The Shepherd Prophet",
+                "description": "A shepherd and gatherer of sycamore fruit from Tekoa, Amos prophesied against Israel's social injustice and religious formalism during a time of prosperity under Jeroboam II. Though untrained in prophetic schools, he spoke with divine authority.<label for=\"sn-amos\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-amos\" class=\"margin-toggle\"/><span class=\"sidenote\">'I was no prophet, neither was I a prophet's son,' Amos declared, 'but I was an herdman.' His humble origins emphasize that prophetic authority derives not from human credentials but from divine calling.</span>",
+                "verses": [
+                    {"reference": "Amos 5:24", "text": "But let judgment run down as waters, and righteousness as a mighty stream."},
+                    {"reference": "Amos 7:14", "text": "Then answered Amos, and said to Amaziah, I was no prophet, neither was I a prophet's son; but I was an herdman, and a gatherer of sycomore fruit:"}
+                ]
+            },
+            "Jonah": {
+                "title": "The Reluctant Missionary",
+                "description": "Commissioned to preach to Nineveh, Israel's enemy, Jonah fled toward Tarshish—only to be swallowed by a great fish and returned to his calling. His account demonstrates God's compassion extending even to the Gentiles.<label for=\"sn-jonah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-jonah\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ Himself cited Jonah's three days and nights in the fish as a sign of His own death and resurrection. The prophet thus becomes a type of Christ in His burial and rising.</span>",
+                "verses": [
+                    {"reference": "Jonah 1:17", "text": "Now the LORD had prepared a great fish to swallow up Jonah. And Jonah was in the belly of the fish three days and three nights."},
+                    {"reference": "Jonah 2:9", "text": "But I will sacrifice unto thee with the voice of thanksgiving; I will pay that that I have vowed. Salvation is of the LORD."},
+                    {"reference": "Jonah 4:2", "text": "And he prayed unto the LORD, and said, I pray thee, O LORD, was not this my saying, when I was yet in my country? Therefore I fled before unto Tarshish: for I knew that thou art a gracious God, and merciful, slow to anger, and of great kindness, and repentest thee of the evil."}
+                ]
+            },
+            "Micah": {
+                "title": "Champion of the Oppressed",
+                "description": "Contemporary with Isaiah, Micah prophesied judgment against social oppression while foretelling Messiah's birth in Bethlehem. His message balanced divine justice with promised mercy.",
+                "verses": [
+                    {"reference": "Micah 5:2", "text": "But thou, Bethlehem Ephratah, though thou be little among the thousands of Judah, yet out of thee shall he come forth unto me that is to be ruler in Israel; whose goings forth have been from of old, from everlasting."},
+                    {"reference": "Micah 6:8", "text": "He hath shewed thee, O man, what is good; and what doth the LORD require of thee, but to do justly, and to love mercy, and to walk humbly with thy God?"}
+                ]
+            }
+        }
+    }: Copy from main route above or refactor to shared module
+    
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+    
+    for cat_name, category in prophets_data.items():
+        for name, data in category.items():
+            if create_slug(name) == prophet_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+    
+    if not item:
+        raise HTTPException(status_code=404, detail="Biblical Prophets item not found")
+    
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Biblical Prophets", "url": "/biblical-prophets"},
+        {"text": item_name, "url": None}
+    ]
+    
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Biblical Prophets",
+            "back_url": "/biblical-prophets",
+            "back_text": "Biblical Prophets",
+            "breadcrumbs": breadcrumbs
         }
     )
 
@@ -1495,6 +1807,179 @@ def names_of_god_page(request: Request):
                 {"text": "Home", "url": "/"},
                 {"text": "Names of God", "url": None}
             ]
+        }
+    )
+
+
+@app.get("/names-of-god/{name_slug}", response_class=HTMLResponse)
+def name_detail(request: Request, name_slug: str):
+    """Individual names of god detail page"""
+    books = list(bible.iter_books())
+    
+    # Reuse data structure from main route - this is a reference implementation
+    # In production, consider extracting to shared module
+    # For now, we reference the data inline
+    # NOTE: This will be populated by copying from main route manually or via refactoring
+    
+    # Import the get function for this resource's data
+    from . import server
+    # Get data by calling the main route's logic
+    # For now, inline minimal lookup
+    
+    names_data = {
+        "Primary Names of God": {
+            "Elohim (אֱלֹהִים)": {
+                "title": "God as Creator and Judge",
+                "description": "The first name for God appearing in Scripture, used in the very opening words: 'In the beginning Elohim created the heaven and the earth.' Though plural in form, it takes singular verbs, suggesting the plural of majesty or hinting at the Trinity.<label for=\"sn-elohim\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-elohim\" class=\"margin-toggle\"/><span class=\"sidenote\">The plural form אֱלֹהִים (<em>Elohim</em>) with singular verbs appears over 2,500 times in the Old Testament. Some scholars see intimations of the Trinity in this construction; others view it as a plural of majesty, the 'royal we' applied to deity.</span> This name emphasizes God's power and sovereignty as Creator.",
+                "verses": [
+                    {"reference": "Genesis 1:1", "text": "In the beginning God created the heaven and the earth."},
+                    {"reference": "Genesis 1:26", "text": "And God said, Let us make man in our image, after our likeness: and let them have dominion over the fish of the sea, and over the fowl of the air, and over the cattle, and over all the earth, and over every creeping thing that creepeth upon the earth."},
+                    {"reference": "Psalms 19:1", "text": "The heavens declare the glory of God; and the firmament sheweth his handywork."}
+                ]
+            },
+            "Yahweh/Jehovah (יהוה)": {
+                "title": "The Self-Existent, Eternal God",
+                "description": "The covenant name of God, revealed to Moses at the burning bush. Derived from the Hebrew verb 'to be,' it signifies eternal, self-existent being—'I AM THAT I AM.'<label for=\"sn-yahweh\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-yahweh\" class=\"margin-toggle\"/><span class=\"sidenote\">The sacred Tetragrammaton יהוה (YHWH) was considered too holy to pronounce. Jewish scribes substituted <em>Adonai</em> (Lord) when reading Scripture. The vowels of <em>Adonai</em> combined with the consonants YHWH produced 'Jehovah,' though 'Yahweh' likely represents the original pronunciation.</span> This name emphasizes God's unchanging nature, faithfulness to His promises, and personal relationship with His people.",
+                "verses": [
+                    {"reference": "Exodus 3:14", "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."},
+                    {"reference": "Exodus 6:3", "text": "And I appeared unto Abraham, unto Isaac, and unto Jacob, by the name of God Almighty, but by my name JEHOVAH was I not known to them."},
+                    {"reference": "Psalms 83:18", "text": "That men may know that thou, whose name alone is JEHOVAH, art the most high over all the earth."}
+                ]
+            },
+            "Adonai (אֲדֹנָי)": {
+                "title": "Lord, Master, Owner",
+                "description": "Signifying lordship, sovereignty, and ownership, this name acknowledges God's absolute authority over all creation and His people's complete submission to His will.<label for=\"sn-adonai\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-adonai\" class=\"margin-toggle\"/><span class=\"sidenote\">When <em>Adonai</em> appears alongside יהוה (YHWH) in the Hebrew text, English translations typically render it 'Lord GOD' to distinguish the two divine names occurring together.</span> It appears frequently in expressions of worship and prayer.",
+                "verses": [
+                    {"reference": "Genesis 15:2", "text": "And Abram said, Lord GOD, what wilt thou give me, seeing I go childless, and the steward of my house is this Eliezer of Damascus?"},
+                    {"reference": "Psalms 8:1", "text": "O LORD our Lord, how excellent is thy name in all the earth! who hast set thy glory above the heavens."},
+                    {"reference": "Isaiah 6:8", "text": "Also I heard the voice of the Lord, saying, Whom shall I send, and who will go for us? Then said I, Here am I; send me."}
+                ]
+            },
+            "El Shaddai (אֵל שַׁדַּי)": {
+                "title": "God Almighty, All-Sufficient One",
+                "description": "The name emphasizing God's might and His all-sufficiency to supply every need of His people. First revealed to Abraham in connection with the covenant promise of innumerable descendants.<label for=\"sn-shaddai\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-shaddai\" class=\"margin-toggle\"/><span class=\"sidenote\">The etymology of <em>Shaddai</em> remains debated. Some derive it from a root meaning 'mountain,' suggesting strength; others from a word meaning 'breast,' implying nourishment and sufficiency. The latter etymology emphasizes God as the complete source of blessing and provision.</span>",
+                "verses": [
+                    {"reference": "Genesis 17:1", "text": "And when Abram was ninety years old and nine, the LORD appeared to Abram, and said unto him, I am the Almighty God; walk before me, and be thou perfect."},
+                    {"reference": "Genesis 49:25", "text": "Even by the God of thy father, who shall help thee; and by the Almighty, who shall bless thee with blessings of heaven above, blessings of the deep that lieth under, blessings of the breasts, and of the womb:"},
+                    {"reference": "Revelation 1:8", "text": "I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty."}
+                ]
+            }
+        },
+        "Compound Names with Jehovah": {
+            "Jehovah-Jireh (יְהוָה יִרְאֶה)": {
+                "title": "The LORD Will Provide",
+                "description": "Abraham named the place where God provided a ram in Isaac's stead 'Jehovah-Jireh,' commemorating divine provision at the critical moment. This name assures believers of God's faithful supply of all needs according to His perfect timing.",
+                "verses": [
+                    {"reference": "Genesis 22:14", "text": "And Abraham called the name of that place Jehovahjireh: as it is said to this day, In the mount of the LORD it shall be seen."},
+                    {"reference": "Philippians 4:19", "text": "But my God shall supply all your need according to his riches in glory by Christ Jesus."}
+                ]
+            },
+            "Jehovah-Rapha (יְהוָה רֹפְאֶךָ)": {
+                "title": "The LORD Who Heals",
+                "description": "Revealed after the waters of Marah were made sweet, this name proclaims God as the healer of both body and soul. His healing power extends beyond physical ailments to spiritual restoration.<label for=\"sn-rapha\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-rapha\" class=\"margin-toggle\"/><span class=\"sidenote\">The Hebrew verb רָפָא (<em>rapha</em>) encompasses physical healing, emotional restoration, and spiritual renewal. God's healing power addresses the whole person, body and soul.</span>",
+                "verses": [
+                    {"reference": "Exodus 15:26", "text": "And said, If thou wilt diligently hearken to the voice of the LORD thy God, and wilt do that which is right in his sight, and wilt give ear to his commandments, and keep all his statutes, I will put none of these diseases upon thee, which I have brought upon the Egyptians: for I am the LORD that healeth thee."},
+                    {"reference": "Psalms 103:3", "text": "Who forgiveth all thine iniquities; who healeth all thy diseases;"}
+                ]
+            },
+            "Jehovah-Nissi (יְהוָה נִסִּי)": {
+                "title": "The LORD My Banner",
+                "description": "Moses built an altar with this name after Israel's victory over Amalek, acknowledging that triumph came through God's power, not human strength. The banner signifies rallying point, protection, and victory.",
+                "verses": [
+                    {"reference": "Exodus 17:15", "text": "And Moses built an altar, and called the name of it Jehovahnissi:"},
+                    {"reference": "Psalms 60:4", "text": "Thou hast given a banner to them that fear thee, that it may be displayed because of the truth. Selah."}
+                ]
+            },
+            "Jehovah-Shalom (יְהוָה שָׁלוֹם)": {
+                "title": "The LORD Is Peace",
+                "description": "Gideon named the altar he built 'Jehovah-Shalom' after the angel of the LORD assured him of divine peace. This name speaks of wholeness, completeness, and tranquility found in God alone.<label for=\"sn-shalom\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-shalom\" class=\"margin-toggle\"/><span class=\"sidenote\">The Hebrew שָׁלוֹם (<em>shalom</em>) encompasses far more than absence of conflict. It signifies completeness, welfare, harmony, prosperity, and right relationship with God—all dimensions of true peace.</span>",
+                "verses": [
+                    {"reference": "Judges 6:24", "text": "Then Gideon built an altar there unto the LORD, and called it Jehovahshalom: unto this day it is yet in Ophrah of the Abiezrites."},
+                    {"reference": "Isaiah 9:6", "text": "For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder: and his name shall be called Wonderful, Counsellor, The mighty God, The everlasting Father, The Prince of Peace."}
+                ]
+            },
+            "Jehovah-Tsidkenu (יְהוָה צִדְקֵנוּ)": {
+                "title": "The LORD Our Righteousness",
+                "description": "Jeremiah prophesied of the coming Branch of David who would be called 'THE LORD OUR RIGHTEOUSNESS,' fulfilled in Christ who became our righteousness through His perfect obedience and atoning sacrifice.",
+                "verses": [
+                    {"reference": "Jeremiah 23:6", "text": "In his days Judah shall be saved, and Israel shall dwell safely: and this is his name whereby he shall be called, THE LORD OUR RIGHTEOUSNESS."},
+                    {"reference": "1 Corinthians 1:30", "text": "But of him are ye in Christ Jesus, who of God is made unto us wisdom, and righteousness, and sanctification, and redemption:"}
+                ]
+            },
+            "Jehovah-Shammah (יְהוָה שָׁמָּה)": {
+                "title": "The LORD Is There",
+                "description": "Ezekiel's final vision concludes with this name for the restored Jerusalem, signifying God's abiding presence with His people. Where the LORD dwells, there is fullness of blessing.",
+                "verses": [
+                    {"reference": "Ezekiel 48:35", "text": "It was round about eighteen thousand measures: and the name of the city from that day shall be, The LORD is there."},
+                    {"reference": "Matthew 28:20", "text": "Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world. Amen."}
+                ]
+            }
+        },
+        "Descriptive Titles": {
+            "El Elyon (אֵל עֶלְיוֹן)": {
+                "title": "The Most High God",
+                "description": "Emphasizing God's supremacy above all powers and authorities, this name appears first in Melchizedek's blessing of Abraham. It declares absolute sovereignty over heaven and earth.",
+                "verses": [
+                    {"reference": "Genesis 14:18", "text": "And Melchizedek king of Salem brought forth bread and wine: and he was the priest of the most high God."},
+                    {"reference": "Psalms 91:1", "text": "He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty."},
+                    {"reference": "Daniel 4:34", "text": "And at the end of the days I Nebuchadnezzar lifted up mine eyes unto heaven, and mine understanding returned unto me, and I blessed the most High, and I praised and honoured him that liveth for ever, whose dominion is an everlasting dominion, and his kingdom is from generation to generation:"}
+                ]
+            },
+            "El Roi (אֵל רֳאִי)": {
+                "title": "The God Who Sees",
+                "description": "Hagar gave this name to God after He saw her affliction and spoke to her in the wilderness. It assures believers that no circumstance escapes divine notice; God sees, knows, and cares.",
+                "verses": [
+                    {"reference": "Genesis 16:13", "text": "And she called the name of the LORD that spake unto her, Thou God seest me: for she said, Have I also here looked after him that seeth me?"},
+                    {"reference": "Psalms 139:1", "text": "O LORD, thou hast searched me, and known me."}
+                ]
+            },
+            "Ancient of Days": {
+                "title": "The Eternal, Everlasting God",
+                "description": "Daniel's vision presents God as the Ancient of Days, whose throne is established from eternity, whose garment is white as snow, and from whose presence flows a fiery stream. This title emphasizes eternal existence and judicial authority.<label for=\"sn-ancient\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-ancient\" class=\"margin-toggle\"/><span class=\"sidenote\">The Aramaic עַתִּיק יוֹמִין (<em>Attiq Yomin</em>) literally means 'advanced in days' or 'aged of days,' suggesting not infirmity but the eternal pre-existence and timeless nature of the Godhead.</span>",
+                "verses": [
+                    {"reference": "Daniel 7:9", "text": "I beheld till the thrones were cast down, and the Ancient of days did sit, whose garment was white as snow, and the hair of his head like the pure wool: his throne was like the fiery flame, and his wheels as burning fire."},
+                    {"reference": "Daniel 7:13", "text": "I saw in the night visions, and, behold, one like the Son of man came with the clouds of heaven, and came to the Ancient of days, and they brought him near before him."}
+                ]
+            }
+        }
+    }: Copy from main route above or refactor to shared module
+    
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+    
+    for cat_name, category in names_data.items():
+        for name, data in category.items():
+            if create_slug(name) == name_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+    
+    if not item:
+        raise HTTPException(status_code=404, detail="Names of God item not found")
+    
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Names of God", "url": "/names-of-god"},
+        {"text": item_name, "url": None}
+    ]
+    
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Names of God",
+            "back_url": "/names-of-god",
+            "back_text": "Names of God",
+            "breadcrumbs": breadcrumbs
         }
     )
 
@@ -1823,6 +2308,106 @@ def biblical_covenants_page(request: Request):
     )
 
 
+@app.get("/biblical-covenants/{covenant_slug}", response_class=HTMLResponse)
+def covenant_detail(request: Request, covenant_slug: str):
+    """Individual biblical covenants detail page"""
+    books = list(bible.iter_books())
+    
+    # Reuse data structure from main route - this is a reference implementation
+    # In production, consider extracting to shared module
+    # For now, we reference the data inline
+    # NOTE: This will be populated by copying from main route manually or via refactoring
+    
+    # Import the get function for this resource's data
+    from . import server
+    # Get data by calling the main route's logic
+    # For now, inline minimal lookup
+    
+    covenants_data = {
+        "The Major Covenants": {
+            "Noahic Covenant": {
+                "title": "The Covenant of Preservation",
+                "description": "Following the Flood, God established an unconditional covenant with Noah and all creation, promising never again to destroy the earth by water. The rainbow serves as the perpetual sign.<label for=\"sn-noah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-noah\" class=\"margin-toggle\"/><span class=\"sidenote\">This covenant extends to 'every living creature'—a universal compact affecting all creation. Its unconditional nature contrasts with later conditional covenants, demonstrating God's common grace toward the earth.</span>",
+                "verses": [
+                    {"reference": "Genesis 9:11", "text": "And I will establish my covenant with you; neither shall all flesh be cut off any more by the waters of a flood; neither shall there any more be a flood to destroy the earth."},
+                    {"reference": "Genesis 9:13", "text": "I do set my bow in the cloud, and it shall be for a token of a covenant between me and the earth."}
+                ]
+            },
+            "Abrahamic Covenant": {
+                "title": "The Covenant of Promise",
+                "description": "God's unconditional promises to Abraham form the foundation of Israel's national existence and the channel of Messianic blessing. Land, seed, and universal blessing constitute its threefold provision.<label for=\"sn-abraham\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-abraham\" class=\"margin-toggle\"/><span class=\"sidenote\">The covenant's ratification ceremony (Genesis 15) followed ancient Near Eastern treaty forms. God alone passed between the divided pieces, signifying His unilateral commitment. Abraham's role was faith; God's role was fulfillment.</span>",
+                "verses": [
+                    {"reference": "Genesis 12:2", "text": "And I will make of thee a great nation, and I will bless thee, and make thy name great; and thou shalt be a blessing:"},
+                    {"reference": "Genesis 17:7", "text": "And I will establish my covenant between me and thee and thy seed after thee in their generations for an everlasting covenant, to be a God unto thee, and to thy seed after thee."}
+                ]
+            },
+            "Mosaic Covenant": {
+                "title": "The Covenant of Law",
+                "description": "At Sinai, God established Israel as His covenant people through the giving of the Law. Unlike the unconditional Abrahamic covenant, this arrangement tied blessings to obedience.<label for=\"sn-mosaic\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-mosaic\" class=\"margin-toggle\"/><span class=\"sidenote\">The Mosaic covenant functioned as Israel's national constitution, governing civil, ceremonial, and moral life. While salvation remained by grace through faith, national blessing depended upon covenant faithfulness—a principle demonstrated repeatedly in Israel's history.</span>",
+                "verses": [
+                    {"reference": "Exodus 19:5", "text": "Now therefore, if ye will obey my voice indeed, and keep my covenant, then ye shall be a peculiar treasure unto me above all people: for all the earth is mine:"},
+                    {"reference": "Deuteronomy 28:1", "text": "And it shall come to pass, if thou shalt hearken diligently unto the voice of the LORD thy God, to observe and to do all his commandments which I command thee this day, that the LORD thy God will set thee on high above all nations of the earth:"}
+                ]
+            },
+            "Davidic Covenant": {
+                "title": "The Covenant of Kingdom",
+                "description": "God's unconditional promise to David guaranteed an eternal throne and dynasty, ultimately fulfilled in Christ, the Son of David who reigns forever.<label for=\"sn-davidic\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-davidic\" class=\"margin-toggle\"/><span class=\"sidenote\">The Davidic covenant finds explicit New Testament affirmation in Gabriel's announcement to Mary: 'The Lord God shall give unto him the throne of his father David.' Peter's Pentecost sermon appeals to this covenant as proof of Messiah's identity.</span>",
+                "verses": [
+                    {"reference": "2 Samuel 7:16", "text": "And thine house and thy kingdom shall be established for ever before thee: thy throne shall be established for ever."},
+                    {"reference": "Luke 1:32", "text": "He shall be great, and shall be called the Son of the Highest: and the Lord God shall give unto him the throne of his father David:"}
+                ]
+            },
+            "New Covenant": {
+                "title": "The Covenant of Grace",
+                "description": "Prophesied by Jeremiah and ratified in Christ's blood, the New Covenant writes God's law upon hearts, provides complete forgiveness, and establishes intimate knowledge of God.<label for=\"sn-new\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-new\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ's institution of the Lord's Supper explicitly invoked Jeremiah's prophecy: 'This cup is the new covenant in my blood.' The New Covenant surpasses the Old in its internalization of the law, its effectiveness in removing sin, and its universal availability to Jew and Gentile alike.</span>",
+                "verses": [
+                    {"reference": "Jeremiah 31:33", "text": "But this shall be the covenant that I will make with the house of Israel; After those days, saith the LORD, I will put my law in their inward parts, and write it in their hearts; and will be their God, and they shall be my people."},
+                    {"reference": "Hebrews 8:6", "text": "But now hath he obtained a more excellent ministry, by how much also he is the mediator of a better covenant, which was established upon better promises."}
+                ]
+            }
+        }
+    }: Copy from main route above or refactor to shared module
+    
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+    
+    for cat_name, category in covenants_data.items():
+        for name, data in category.items():
+            if create_slug(name) == covenant_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+    
+    if not item:
+        raise HTTPException(status_code=404, detail="Biblical Covenants item not found")
+    
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Biblical Covenants", "url": "/biblical-covenants"},
+        {"text": item_name, "url": None}
+    ]
+    
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Biblical Covenants",
+            "back_url": "/biblical-covenants",
+            "back_text": "Biblical Covenants",
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/the-twelve-apostles", response_class=HTMLResponse)
 def twelve_apostles_page(request: Request):
     """The Twelve Apostles chosen by Jesus"""
@@ -1943,6 +2528,152 @@ def twelve_apostles_page(request: Request):
     )
 
 
+@app.get("/the-twelve-apostles/{apostle_slug}", response_class=HTMLResponse)
+def apostle_detail(request: Request, apostle_slug: str):
+    """Individual apostle detail page"""
+    books = list(bible.iter_books())
+
+    apostles_data = {
+        "The Twelve": {
+            "Simon Peter": {
+                "title": "The Rock, Chief Apostle",
+                "description": "A fisherman from Bethsaida, Simon received the name Peter (Greek Πέτρος, <em>Petros</em>, 'rock') from Christ. His leadership among the apostles, his great confession, his threefold denial, and his restoration mark him as emblematic of both human weakness and divine grace.<label for=\"sn-peter\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-peter\" class=\"margin-toggle\"/><span class=\"sidenote\">Peter's prominence appears in the apostolic listings (always named first), his spokesmanship for the Twelve, his role at Pentecost, and his ministry to the circumcision. Tradition holds he was martyred in Rome, crucified upside down at his own request.</span>",
+                "verses": [
+                    {"reference": "Matthew 16:16", "text": "And Simon Peter answered and said, Thou art the Christ, the Son of the living God."},
+                    {"reference": "Matthew 16:18", "text": "And I say also unto thee, That thou art Peter, and upon this rock I will build my church; and the gates of hell shall not prevail against it."}
+                ]
+            },
+            "Andrew": {
+                "title": "The First Called, Bringer of Others",
+                "description": "Peter's brother, Andrew first followed John the Baptist before becoming Christ's disciple. His consistent pattern of bringing others to Jesus—his brother Peter, the lad with loaves and fishes, certain Greeks seeking the Lord—characterizes his ministry.",
+                "verses": [
+                    {"reference": "John 1:40", "text": "One of the two which heard John speak, and followed him, was Andrew, Simon Peter's brother."},
+                    {"reference": "John 1:41", "text": "He first findeth his own brother Simon, and saith unto him, We have found the Messias, which is, being interpreted, the Christ."}
+                ]
+            },
+            "James, son of Zebedee": {
+                "title": "Son of Thunder, First Martyred Apostle",
+                "description": "Brother of John, James belonged to the inner circle with Peter and John, witnessing the Transfiguration, Gethsemane's agony, and other pivotal moments. His martyrdom by Herod Agrippa (Acts 12:2) made him the first apostolic martyr.<label for=\"sn-james\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-james\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ called James and John 'Boanerges'—Sons of Thunder—possibly referring to their fiery temperament (as when they sought to call down fire on a Samaritan village). Their mother's ambitious request for them to sit at Christ's right and left hand revealed both her faith and misunderstanding of the kingdom's nature.</span>",
+                "verses": [
+                    {"reference": "Mark 3:17", "text": "And James the son of Zebedee, and John the brother of James; and he surnamed them Boanerges, which is, The sons of thunder:"},
+                    {"reference": "Acts 12:2", "text": "And he killed James the brother of John with the sword."}
+                ]
+            },
+            "John": {
+                "title": "The Beloved Disciple, Apostle of Love",
+                "description": "The son of Zebedee, John reclined on Christ's breast at the Last Supper, stood at the cross, received Mary into his care, and outlived all other apostles. His Gospel, epistles, and the Revelation present Christ's deity, emphasize love, and unveil prophetic mysteries.<label for=\"sn-john\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-john\" class=\"margin-toggle\"/><span class=\"sidenote\">Early church fathers unanimously identify John as the 'disciple whom Jesus loved'—not suggesting favoritism but intimate communion. Banished to Patmos under Domitian, he received the Revelation. Tradition holds he ministered in Ephesus until extreme old age, continually repeating 'Little children, love one another.'</span>",
+                "verses": [
+                    {"reference": "John 13:23", "text": "Now there was leaning on Jesus' bosom one of his disciples, whom Jesus loved."},
+                    {"reference": "John 21:20", "text": "Then Peter, turning about, seeth the disciple whom Jesus loved following; which also leaned on his breast at supper, and said, Lord, which is he that betrayeth thee?"}
+                ]
+            },
+            "Philip": {
+                "title": "The Practical Questioner",
+                "description": "From Bethsaida, Philip immediately brought Nathanael to Christ. His practical, calculating nature appears in his questions about feeding the multitude and showing the Father. Despite his slowness to grasp spiritual truths, his earnest seeking characterized his discipleship.",
+                "verses": [
+                    {"reference": "John 1:45", "text": "Philip findeth Nathanael, and saith unto him, We have found him, of whom Moses in the law, and the prophets, did write, Jesus of Nazareth, the son of Joseph."},
+                    {"reference": "John 14:8", "text": "Philip saith unto him, Lord, shew us the Father, and it sufficeth us."}
+                ]
+            },
+            "Bartholomew (Nathanael)": {
+                "title": "The Israelite Without Guile",
+                "description": "Generally identified with Nathanael, Bartholomew received Christ's commendation as 'an Israelite indeed, in whom is no guile.' His initial skepticism ('Can any good thing come out of Nazareth?') gave way to profound confession: 'Rabbi, thou art the Son of God; thou art the King of Israel.'<label for=\"sn-bartholomew\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-bartholomew\" class=\"margin-toggle\"/><span class=\"sidenote\">The Synoptics list 'Bartholomew' while John's Gospel names 'Nathanael.' Since Bartholomew means 'son of Tolmai' (a patronymic, not a given name), and since Philip brought Nathanael to Christ just as he appears with Bartholomew in the lists, most scholars identify them as the same person.</span>",
+                "verses": [
+                    {"reference": "John 1:47", "text": "Jesus saw Nathanael coming to him, and saith of him, Behold an Israelite indeed, in whom is no guile!"},
+                    {"reference": "John 1:49", "text": "Nathanael answered and saith unto him, Rabbi, thou art the Son of God; thou art the King of Israel."}
+                ]
+            },
+            "Matthew (Levi)": {
+                "title": "The Tax Collector Transformed",
+                "description": "A publican (tax collector) called from the receipt of custom, Matthew left all to follow Christ. His occupation, despised by fellow Jews as collaboration with Rome, made his calling a demonstration of grace. His Gospel presents Christ as King of Israel.<label for=\"sn-matthew\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-matthew\" class=\"margin-toggle\"/><span class=\"sidenote\">Matthew's detailed attention to financial matters and numerical precision in his Gospel reflects his accounting background. His great feast for Christ (Luke 5:29) demonstrated both his wealth and his desire to introduce his former associates to the Savior.</span>",
+                "verses": [
+                    {"reference": "Matthew 9:9", "text": "And as Jesus passed forth from thence, he saw a man, named Matthew, sitting at the receipt of custom: and he saith unto him, Follow me. And he arose, and followed him."},
+                    {"reference": "Mark 2:14", "text": "And as he passed by, he saw Levi the son of Alphaeus sitting at the receipt of custom, and said unto him, Follow me. And he arose and followed him."}
+                ]
+            },
+            "Thomas": {
+                "title": "Doubting Thomas, Believing Confessor",
+                "description": "Thomas, called Didymus (twin), demanded empirical proof of Christ's resurrection yet made the highest christological confession when convinced: 'My Lord and my God.' His willingness to die with Christ (John 11:16) showed devotion; his doubt demonstrated humanity.<label for=\"sn-thomas\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-thomas\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ's gentle rebuke—'Thomas, because thou hast seen me, thou hast believed: blessed are they that have not seen, and yet have believed'—addresses all subsequent generations who must believe without physical sight. Tradition holds Thomas evangelized as far as India.</span>",
+                "verses": [
+                    {"reference": "John 20:25", "text": "The other disciples therefore said unto him, We have seen the Lord. But he said unto them, Except I shall see in his hands the print of the nails, and put my finger into the print of the nails, and thrust my hand into his side, I will not believe."},
+                    {"reference": "John 20:28", "text": "And Thomas answered and said unto him, My Lord and my God."}
+                ]
+            },
+            "James, son of Alphaeus": {
+                "title": "James the Less",
+                "description": "Distinguished from James the son of Zebedee by the designation 'the Less' (possibly meaning younger or smaller in stature), this apostle receives little individual mention in Scripture. His faithful service despite obscurity exemplifies humble discipleship.",
+                "verses": [
+                    {"reference": "Matthew 10:3", "text": "Philip, and Bartholomew; Thomas, and Matthew the publican; James the son of Alphaeus, and Lebbaeus, whose surname was Thaddaeus;"},
+                    {"reference": "Mark 15:40", "text": "There were also women looking on afar off: among whom was Mary Magdalene, and Mary the mother of James the less and of Joses, and Salome;"}
+                ]
+            },
+            "Thaddaeus (Judas, son of James)": {
+                "title": "The Questioner of Love",
+                "description": "Also called Judas (not Iscariot) and Lebbaeus, Thaddaeus asked at the Last Supper why Christ would manifest Himself to the disciples but not to the world. This question elicited Christ's teaching on love and obedience as prerequisites for divine manifestation.",
+                "verses": [
+                    {"reference": "John 14:22", "text": "Judas saith unto him, not Iscariot, Lord, how is it that thou wilt manifest thyself unto us, and not unto the world?"},
+                    {"reference": "Matthew 10:3", "text": "Philip, and Bartholomew; Thomas, and Matthew the publican; James the son of Alphaeus, and Lebbaeus, whose surname was Thaddaeus;"}
+                ]
+            },
+            "Simon the Zealot": {
+                "title": "The Former Revolutionary",
+                "description": "Designated 'the Zealot' (or 'Canaanite,' from Aramaic <em>qanana</em>, meaning zealous), Simon possibly belonged to the Zealot party—Jewish nationalists opposing Roman rule. His transformation from political revolutionary to spiritual ambassador demonstrates grace's power.<label for=\"sn-simon\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-simon\" class=\"margin-toggle\"/><span class=\"sidenote\">The presence of both Simon the Zealot (a nationalist) and Matthew the tax collector (a Roman collaborator) among the Twelve illustrates the gospel's power to unite those formerly divided by irreconcilable political positions.</span>",
+                "verses": [
+                    {"reference": "Luke 6:15", "text": "Matthew and Thomas, James the son of Alphaeus, and Simon called Zelotes,"},
+                    {"reference": "Matthew 10:4", "text": "Simon the Canaanite, and Judas Iscariot, who also betrayed him."}
+                ]
+            },
+            "Judas Iscariot": {
+                "title": "The Betrayer, Son of Perdition",
+                "description": "The treasurer who became a thief, Judas betrayed Christ for thirty pieces of silver—the price of a slave. His suicide in despair contrasts with Peter's repentance. Scripture calls him 'son of perdition,' the only one of the Twelve ultimately lost.<label for=\"sn-judas\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-judas\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ's statement 'Have not I chosen you twelve, and one of you is a devil?' (John 6:70) shows His foreknowledge. Yet Judas bore full responsibility for his actions. His betrayal fulfilled prophecy (Psalm 41:9) while demonstrating human depravity's depths.</span>",
+                "verses": [
+                    {"reference": "Matthew 26:14", "text": "Then one of the twelve, called Judas Iscariot, went unto the chief priests,"},
+                    {"reference": "Matthew 26:15", "text": "And said unto them, What will ye give me, and I will deliver him unto you? And they covenanted with him for thirty pieces of silver."}
+                ]
+            }
+        }
+    }
+
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+
+    for cat_name, category in apostles_data.items():
+        for name, data in category.items():
+            if create_slug(name) == apostle_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Apostle not found")
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "The Twelve Apostles", "url": "/the-twelve-apostles"},
+        {"text": item_name, "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "The Twelve Apostles",
+            "back_url": "/the-twelve-apostles",
+            "back_text": "The Twelve Apostles",
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/women-of-the-bible", response_class=HTMLResponse)
 def women_of_the_bible_page(request: Request):
     """Notable women of Scripture and their significance"""
@@ -2051,6 +2782,150 @@ def women_of_the_bible_page(request: Request):
     )
 
 
+@app.get("/women-of-the-bible/{woman_slug}", response_class=HTMLResponse)
+def woman_detail(request: Request, woman_slug: str):
+    """Individual women of the bible detail page"""
+    books = list(bible.iter_books())
+    
+    # Reuse data structure from main route - this is a reference implementation
+    # In production, consider extracting to shared module
+    # For now, we reference the data inline
+    # NOTE: This will be populated by copying from main route manually or via refactoring
+    
+    # Import the get function for this resource's data
+    from . import server
+    # Get data by calling the main route's logic
+    # For now, inline minimal lookup
+    
+    women_data = {
+        "Matriarchs and Mothers": {
+            "Eve": {
+                "title": "Mother of All Living",
+                "description": "The first woman, fashioned from Adam's rib, Eve bore the privilege and peril of being humanity's mother. Her deception by the serpent brought sin into the world, yet God's promise of the woman's seed crushing the serpent's head (Genesis 3:15) offered hope of redemption.<label for=\"sn-eve\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-eve\" class=\"margin-toggle\"/><span class=\"sidenote\">Eve's name חַוָּה (<em>Chavvah</em>) derives from the Hebrew word for 'life.' Despite the curse, Adam named her thus in faith, believing God's promise. The protevangelium (first gospel) in Genesis 3:15 finds ultimate fulfillment in Christ, born of a woman.</span>",
+                "verses": [
+                    {"reference": "Genesis 2:23", "text": "And Adam said, This is now bone of my bones, and flesh of my flesh: she shall be called Woman, because she was taken out of Man."},
+                    {"reference": "Genesis 3:20", "text": "And Adam called his wife's name Eve; because she was the mother of all living."}
+                ]
+            },
+            "Sarah": {
+                "title": "Princess, Mother of Nations",
+                "description": "Abraham's wife, originally named Sarai, received the promise that she would be mother of nations. Her laughter at the impossibility became joy when Isaac was born. Her faith, despite wavering, earned mention in Hebrews' hall of faith.<label for=\"sn-sarah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sarah\" class=\"margin-toggle\"/><span class=\"sidenote\">God changed Sarai ('my princess') to Sarah ('princess'—without the possessive), indicating her elevation from being merely Abraham's princess to princess over nations. Peter commends her submission to Abraham as an example for Christian wives (1 Peter 3:6).</span>",
+                "verses": [
+                    {"reference": "Genesis 17:15", "text": "And God said unto Abraham, As for Sarai thy wife, thou shalt not call her name Sarai, but Sarah shall her name be."},
+                    {"reference": "Genesis 17:16", "text": "And I will bless her, and give thee a son also of her: yea, I will bless her, and she shall be a mother of nations; kings of people shall be of her."}
+                ]
+            },
+            "Rebekah": {
+                "title": "Chosen Bride of Isaac",
+                "description": "Selected by divine providence to be Isaac's wife, Rebekah's kindness at the well revealed her character. Her favoritism toward Jacob and complicity in deceiving Isaac demonstrated human weakness, yet God's purposes prevailed.",
+                "verses": [
+                    {"reference": "Genesis 24:16", "text": "And the damsel was very fair to look upon, a virgin, neither had any man known her: and she went down to the well, and filled her pitcher, and came up."},
+                    {"reference": "Genesis 24:67", "text": "And Isaac brought her into his mother Sarah's tent, and took Rebekah, and she became his wife; and he loved her: and Isaac was comforted after his mother's death."}
+                ]
+            },
+            "Rachel": {
+                "title": "Beloved of Jacob",
+                "description": "Jacob's beloved wife, for whom he labored fourteen years, Rachel endured barrenness before bearing Joseph and Benjamin. Her death in childbirth brought sorrow, yet her sons became pivotal to Israel's history.<label for=\"sn-rachel\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-rachel\" class=\"margin-toggle\"/><span class=\"sidenote\">Jeremiah's prophecy of 'Rachel weeping for her children' (Jeremiah 31:15) found fulfillment in Herod's slaughter of Bethlehem's infants (Matthew 2:18). Rachel's tomb near Bethlehem made her an apt symbol of maternal grief over Israel's suffering.</span>",
+                "verses": [
+                    {"reference": "Genesis 29:17", "text": "Leah was tender eyed; but Rachel was beautiful and well favoured."},
+                    {"reference": "Genesis 29:20", "text": "And Jacob served seven years for Rachel; and they seemed unto him but a few days, for the love he had to her."}
+                ]
+            }
+        },
+        "Women of Faith and Courage": {
+            "Ruth": {
+                "title": "The Moabite Convert, Great-Grandmother of David",
+                "description": "A Moabitess who chose the God of Israel over her own people, Ruth's loyalty to Naomi and faith in Yahweh brought her into the Messianic line. Her account demonstrates that God's grace extends beyond ethnic Israel to all who trust Him.<label for=\"sn-ruth\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-ruth\" class=\"margin-toggle\"/><span class=\"sidenote\">Ruth's declaration—'thy people shall be my people, and thy God my God'—represents one of Scripture's clearest expressions of conversion. As a Moabite woman in Christ's genealogy (Matthew 1:5), she prefigures the gospel's inclusion of Gentiles.</span>",
+                "verses": [
+                    {"reference": "Ruth 1:16", "text": "And Ruth said, Intreat me not to leave thee, or to return from following after thee: for whither thou goest, I will go; and where thou lodgest, I will lodge: thy people shall be my people, and thy God my God:"},
+                    {"reference": "Ruth 4:13", "text": "So Boaz took Ruth, and she was his wife: and when he went in unto her, the LORD gave her conception, and she bare a son."}
+                ]
+            },
+            "Esther": {
+                "title": "Queen of Persia, Deliverer of Israel",
+                "description": "A Jewish orphan who became queen of Persia, Esther risked her life to save her people from genocide. Her courage, guided by Mordecai's wisdom and undergirded by fasting, thwarted Haman's plot and secured Israel's preservation.<label for=\"sn-esther\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-esther\" class=\"margin-toggle\"/><span class=\"sidenote\">Though God's name never appears in Esther, His providence permeates the narrative. Mordecai's words—'who knoweth whether thou art come to the kingdom for such a time as this?'—express the doctrine of divine sovereignty working through human agency.</span>",
+                "verses": [
+                    {"reference": "Esther 4:14", "text": "For if thou altogether holdest thy peace at this time, then shall there enlargement and deliverance arise to the Jews from another place; but thou and thy father's house shall be destroyed: and who knoweth whether thou art come to the kingdom for such a time as this?"},
+                    {"reference": "Esther 4:16", "text": "Go, gather together all the Jews that are present in Shushan, and fast ye for me, and neither eat nor drink three days, night or day: I also and my maidens will fast likewise; and so will I go in unto the king, which is not according to the law: and if I perish, I perish."}
+                ]
+            },
+            "Deborah": {
+                "title": "Prophetess and Judge of Israel",
+                "description": "The only female judge, Deborah led Israel with wisdom and faith. Her prophetic authority, demonstrated in summoning Barak and predicting victory over Sisera, shows God raises leaders according to His purposes, not human conventions.<label for=\"sn-deborah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-deborah\" class=\"margin-toggle\"/><span class=\"sidenote\">Deborah's leadership during the period of the judges demonstrates that God sometimes raises women to positions of authority, particularly when men fail to lead. Her song of victory (Judges 5) ranks among Scripture's finest poetry, celebrating God's deliverance of His people.</span>",
+                "verses": [
+                    {"reference": "Judges 4:4", "text": "And Deborah, a prophetess, the wife of Lapidoth, she judged Israel at that time."},
+                    {"reference": "Judges 4:9", "text": "And she said, I will surely go with thee: notwithstanding the journey that thou takest shall not be for thine honour; for the LORD shall sell Sisera into the hand of a woman. And Deborah arose, and went with Barak to Kedesh."}
+                ]
+            }
+        },
+        "Women in Christ's Ministry": {
+            "Mary, Mother of Jesus": {
+                "title": "The Virgin, Bearer of the Messiah",
+                "description": "Chosen to bear the Son of God, Mary's humble submission ('Behold the handmaid of the Lord') exemplifies godly surrender to divine will. Her Magnificat displays deep knowledge of Scripture and understanding of God's redemptive purposes.<label for=\"sn-mary\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-mary\" class=\"margin-toggle\"/><span class=\"sidenote\">Mary's perpetual virginity, venerated in some traditions, finds no biblical support. Scripture mentions Christ's brothers and sisters (Matthew 13:55-56). While worthy of honor as the Messiah's mother, Mary herself acknowledged her need for a Savior (Luke 1:47).</span>",
+                "verses": [
+                    {"reference": "Luke 1:38", "text": "And Mary said, Behold the handmaid of the Lord; be it unto me according to thy word. And the angel departed from her."},
+                    {"reference": "Luke 1:46", "text": "And Mary said, My soul doth magnify the Lord,"}
+                ]
+            },
+            "Mary Magdalene": {
+                "title": "First Witness of the Resurrection",
+                "description": "Delivered from seven demons, Mary Magdalene became a devoted follower of Christ. Her presence at the crucifixion and her encounter with the risen Lord at the tomb established her as the first resurrection witness—an apostle to the apostles.<label for=\"sn-magdalene\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-magdalene\" class=\"margin-toggle\"/><span class=\"sidenote\">Later tradition erroneously identified Mary Magdalene with the sinful woman who anointed Jesus (Luke 7) and with Mary of Bethany. Scripture gives no warrant for these identifications. Her epithet 'Magdalene' simply indicates her hometown of Magdala.</span>",
+                "verses": [
+                    {"reference": "Luke 8:2", "text": "And certain women, which had been healed of evil spirits and infirmities, Mary called Magdalene, out of whom went seven devils,"},
+                    {"reference": "John 20:16", "text": "Jesus saith unto her, Mary. She turned herself, and saith unto him, Rabboni; which is to say, Master."}
+                ]
+            },
+            "Martha and Mary": {
+                "title": "Sisters of Bethany, Friends of Jesus",
+                "description": "These sisters, with their brother Lazarus, provided Christ with friendship and hospitality. Martha's service and Mary's contemplation at Jesus' feet both express devotion, though Christ commended Mary's choice of the 'good part' that would not be taken away.<label for=\"sn-sisters\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sisters\" class=\"margin-toggle\"/><span class=\"sidenote\">Martha's confession—'I believe that thou art the Christ, the Son of God'—parallels Peter's great confession. Both Martha's active service and Mary's contemplative worship find place in godly living, though Jesus prioritized spiritual devotion over anxious activity.</span>",
+                "verses": [
+                    {"reference": "Luke 10:39", "text": "And she had a sister called Mary, which also sat at Jesus' feet, and heard his word."},
+                    {"reference": "John 11:27", "text": "She saith unto him, Yea, Lord: I believe that thou art the Christ, the Son of God, which should come into the world."}
+                ]
+            }
+        }
+    }: Copy from main route above or refactor to shared module
+    
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+    
+    for cat_name, category in women_data.items():
+        for name, data in category.items():
+            if create_slug(name) == woman_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+    
+    if not item:
+        raise HTTPException(status_code=404, detail="Women of the Bible item not found")
+    
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Women of the Bible", "url": "/women-of-the-bible"},
+        {"text": item_name, "url": None}
+    ]
+    
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Women of the Bible",
+            "back_url": "/women-of-the-bible",
+            "back_text": "Women of the Bible",
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/biblical-festivals", response_class=HTMLResponse)
 def biblical_festivals_page(request: Request):
     """The sacred festivals and feasts of Israel"""
@@ -2129,6 +3004,124 @@ def biblical_festivals_page(request: Request):
                 {"text": "Home", "url": "/"},
                 {"text": "Biblical Festivals", "url": None}
             ]
+        }
+    )
+
+
+@app.get("/biblical-festivals/{festival_slug}", response_class=HTMLResponse)
+def festival_detail(request: Request, festival_slug: str):
+    """Individual biblical festivals detail page"""
+    books = list(bible.iter_books())
+    
+    # Reuse data structure from main route - this is a reference implementation
+    # In production, consider extracting to shared module
+    # For now, we reference the data inline
+    # NOTE: This will be populated by copying from main route manually or via refactoring
+    
+    # Import the get function for this resource's data
+    from . import server
+    # Get data by calling the main route's logic
+    # For now, inline minimal lookup
+    
+    festivals_data = {
+        "The Spring Festivals": {
+            "Passover (Pesach)": {
+                "title": "Memorial of the Exodus from Egypt",
+                "description": "Instituted on the night of Israel's deliverance from Egypt, Passover commemorates the death angel passing over houses marked with lamb's blood. Celebrated on the fourteenth day of Nisan, this feast finds its fulfillment in Christ, our Passover Lamb sacrificed for us.<label for=\"sn-passover\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-passover\" class=\"margin-toggle\"/><span class=\"sidenote\">The Passover lamb's qualifications—male, without blemish, killed at twilight, blood applied for protection—all typify Christ's atoning work. Paul's declaration 'Christ our passover is sacrificed for us' (1 Corinthians 5:7) connects the Old Testament type with its New Testament antitype.</span>",
+                "verses": [
+                    {"reference": "Exodus 12:14", "text": "And this day shall be unto you for a memorial; and ye shall keep it a feast to the LORD throughout your generations; ye shall keep it a feast by an ordinance for ever."},
+                    {"reference": "1 Corinthians 5:7", "text": "Purge out therefore the old leaven, that ye may be a new lump, as ye are unleavened. For even Christ our passover is sacrificed for us:"}
+                ]
+            },
+            "Unleavened Bread (Chag HaMatzot)": {
+                "title": "Seven Days Without Leaven",
+                "description": "Beginning the day after Passover, this week-long observance required removal of all leaven from Israelite homes. Leaven symbolized sin and corruption; its absence represented purity and separation from evil. The festival commemorated Israel's hasty departure from Egypt without time for bread to rise.<label for=\"sn-unleavened\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-unleavened\" class=\"margin-toggle\"/><span class=\"sidenote\">Throughout Scripture, leaven represents doctrine and influence (Matthew 16:6-12). The requirement to purge all leaven prefigures the believer's need for sanctification and separation from sin. Christ's burial during this feast period connects the unleavened bread to His sinless body.</span>",
+                "verses": [
+                    {"reference": "Exodus 12:17", "text": "And ye shall observe the feast of unleavened bread; for in this selfsame day have I brought your armies out of the land of Egypt: therefore shall ye observe this day in your generations by an ordinance for ever."},
+                    {"reference": "Leviticus 23:6", "text": "And on the fifteenth day of the same month is the feast of unleavened bread unto the LORD: seven days ye must eat unleavened bread."}
+                ]
+            },
+            "Firstfruits (Yom HaBikkurim)": {
+                "title": "The First Sheaf of Harvest",
+                "description": "On the day after the Sabbath following Passover, Israel presented the first sheaf of barley harvest to the LORD. This offering acknowledged God's provision and consecrated the entire harvest to Him. Christ's resurrection on this very day makes Him the 'firstfruits of them that slept.'<label for=\"sn-firstfruits\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-firstfruits\" class=\"margin-toggle\"/><span class=\"sidenote\">Paul explicitly identifies Christ as 'the firstfruits of them that slept' (1 Corinthians 15:20). As the firstfruits guaranteed the coming harvest, so Christ's resurrection ensures the future resurrection of all believers. The exact timing of Christ's resurrection on Firstfruits demonstrates divine precision in fulfilling the festal calendar.</span>",
+                "verses": [
+                    {"reference": "Leviticus 23:10", "text": "Speak unto the children of Israel, and say unto them, When ye be come into the land which I give unto you, and shall reap the harvest thereof, then ye shall bring a sheaf of the firstfruits of your harvest unto the priest:"},
+                    {"reference": "1 Corinthians 15:20", "text": "But now is Christ risen from the dead, and become the firstfruits of them that slept."}
+                ]
+            },
+            "Pentecost (Shavuot)": {
+                "title": "The Feast of Weeks, Celebration of the Wheat Harvest",
+                "description": "Fifty days after Firstfruits, Israel celebrated the wheat harvest with two leavened loaves—representing Jew and Gentile united in the church. The Holy Spirit's descent on this feast (Acts 2) marked the church's birth and the ingathering of the first believers.<label for=\"sn-pentecost\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-pentecost\" class=\"margin-toggle\"/><span class=\"sidenote\">Pentecost's dual significance—commemorating the giving of the Law at Sinai and the wheat harvest—finds fulfillment when the Holy Spirit writes God's law upon believers' hearts. The three thousand converts at Pentecost reverse Sinai's three thousand dead (Exodus 32:28), demonstrating that the Spirit gives life while the letter kills.</span>",
+                "verses": [
+                    {"reference": "Leviticus 23:15", "text": "And ye shall count unto you from the morrow after the sabbath, from the day that ye brought the sheaf of the wave offering; seven sabbaths shall be complete:"},
+                    {"reference": "Acts 2:1", "text": "And when the day of Pentecost was fully come, they were all with one accord in one place."}
+                ]
+            }
+        },
+        "The Fall Festivals": {
+            "Trumpets (Rosh Hashanah)": {
+                "title": "The Feast of Trumpets, Beginning of the Civil New Year",
+                "description": "The first day of the seventh month, marked by trumpet blasts, inaugurated a period of solemn preparation for the Day of Atonement. This feast anticipated Messiah's return, when 'the trumpet shall sound, and the dead shall be raised incorruptible.'<label for=\"sn-trumpets\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-trumpets\" class=\"margin-toggle\"/><span class=\"sidenote\">The shofar (ram's horn) blasts on this feast served multiple purposes: calling Israel to remembrance, summoning them to judgment, and proclaiming God's kingship. Prophetic passages connect trumpet blasts with both the rapture of the church (1 Thessalonians 4:16) and Christ's second coming (Matthew 24:31).</span>",
+                "verses": [
+                    {"reference": "Leviticus 23:24", "text": "Speak unto the children of Israel, saying, In the seventh month, in the first day of the month, shall ye have a sabbath, a memorial of blowing of trumpets, an holy convocation."},
+                    {"reference": "1 Corinthians 15:52", "text": "In a moment, in the twinkling of an eye, at the last trump: for the trumpet shall sound, and the dead shall be raised incorruptible, and we shall be changed."}
+                ]
+            },
+            "Day of Atonement (Yom Kippur)": {
+                "title": "The Great Day of National Cleansing",
+                "description": "On the tenth day of the seventh month, Israel's High Priest entered the Holy of Holies with blood of atonement for the nation's sin. This solemn fast day, requiring complete cessation from work and affliction of soul, pointed to Christ's once-for-all sacrifice.<label for=\"sn-atonement\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-atonement\" class=\"margin-toggle\"/><span class=\"sidenote\">Leviticus 16's detailed ritual—the High Priest's multiple washings, the two goats (one sacrificed, one sent away), the blood sprinkled on the mercy seat—all typify aspects of Christ's atoning work. Hebrews 9-10 expounds these typological connections, showing Christ entered heaven itself with His own blood.</span>",
+                "verses": [
+                    {"reference": "Leviticus 16:30", "text": "For on that day shall the priest make an atonement for you, to cleanse you, that ye may be clean from all your sins before the LORD."},
+                    {"reference": "Hebrews 9:12", "text": "Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."}
+                ]
+            },
+            "Tabernacles (Sukkot)": {
+                "title": "The Feast of Booths, Celebration of the Final Harvest",
+                "description": "For seven days beginning on the fifteenth of the seventh month, Israel dwelt in temporary shelters, commemorating their wilderness wanderings. This joyous feast, coinciding with the final harvest, anticipated the millennial rest when Messiah would tabernacle among His people.<label for=\"sn-tabernacles\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-tabernacles\" class=\"margin-toggle\"/><span class=\"sidenote\">Tabernacles' themes—dwelling in booths, water-drawing ceremonies, great illumination of the temple courts—provide context for Christ's declarations: 'If any man thirst, let him come unto me' and 'I am the light of the world' (John 7:37, 8:12). Zechariah 14:16 prophesies that surviving nations will celebrate this feast during the Millennium.</span>",
+                "verses": [
+                    {"reference": "Leviticus 23:42", "text": "Ye shall dwell in booths seven days; all that are Israelites born shall dwell in booths:"},
+                    {"reference": "Zechariah 14:16", "text": "And it shall come to pass, that every one that is left of all the nations which came against Jerusalem shall even go up from year to year to worship the King, the LORD of hosts, and to keep the feast of tabernacles."}
+                ]
+            }
+        }
+    }: Copy from main route above or refactor to shared module
+    
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+    
+    for cat_name, category in festivals_data.items():
+        for name, data in category.items():
+            if create_slug(name) == festival_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+    
+    if not item:
+        raise HTTPException(status_code=404, detail="Biblical Festivals item not found")
+    
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Biblical Festivals", "url": "/biblical-festivals"},
+        {"text": item_name, "url": None}
+    ]
+    
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Biblical Festivals",
+            "back_url": "/biblical-festivals",
+            "back_text": "Biblical Festivals",
+            "breadcrumbs": breadcrumbs
         }
     )
 
