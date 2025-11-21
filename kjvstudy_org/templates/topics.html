@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Topical Index - KJV Study{% endblock %}
+{% block description %}Find Bible verses by theme and theological topic{% endblock %}
+
+{% block head %}
+<style>
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    max-width: 90%;
+    margin: 2rem 0;
+}
+
+.topic-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.topic-card:hover {
+    border-color: var(--border-color-darker);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.topic-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.topic-name a {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.topic-name a:hover {
+    color: var(--link-hover);
+}
+
+.topic-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0.5rem 0;
+}
+
+.topic-subtopics {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    font-style: italic;
+    margin-top: 0.75rem;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Topical Index</h1>
+<p class="subtitle">Find Verses by Theme and Subject</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">Systematic topical study</span> enables thematic exploration of Scripture across both testaments. This concordance organizes key theological and practical themes, providing structured access to related passages that illuminate each subject from multiple biblical perspectives.</p>
+
+    <p class="intro-text">Select a topic below to explore its subtopics and discover the verses that address each theme. Each reference includes contextual notes to aid understanding of its relevance to the broader subject.</p>
+</section>
+
+<section>
+    <h2>Major Topics</h2>
+
+    <div class="topic-grid">
+        {% for topic_name, topic_data in topics.items() %}
+        <div class="topic-card">
+            <div class="topic-name"><a href="/topics/{{ topic_name }}">{{ topic_name }}</a></div>
+            <div class="topic-description">{{ topic_data.description }}</div>
+            <div class="topic-subtopics">{{ topic_data.subtopics|length }} subtopics</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>Using the Topical Index</h2>
+    <p class="intro-text">Each major topic contains multiple subtopics with carefully selected verses. The references provided represent foundational passages for each theme, though they are not exhaustive. Consider these as entry points for deeper study, using cross-references and concordances to expand your exploration.</p>
+
+    <p class="intro-text">Topical study complements sequential Bible reading by allowing focused examination of specific doctrines or practical matters. Compare passages across different books and testaments to grasp the full biblical teaching on any subject.</p>
+</section>
+{% endblock %}

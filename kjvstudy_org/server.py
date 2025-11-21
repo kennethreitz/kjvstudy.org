@@ -16,6 +16,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from .kjv import bible, VerseReference
 from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
+from .topics import get_all_topics, get_topic, search_topics
 
 try:
     from ged4py import GedcomReader
@@ -3118,6 +3119,55 @@ def reading_plan_detail(request: Request, plan_id: str):
             "request": request,
             "plan": plan,
             "plan_id": plan_id,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@app.get("/topics", response_class=HTMLResponse)
+def topics_page(request: Request):
+    """Browse topical index of Bible themes"""
+    books = list(bible.iter_books())
+    topics = get_all_topics()
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Topics", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "topics.html",
+        {
+            "request": request,
+            "topics": topics,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@app.get("/topics/{topic_name}", response_class=HTMLResponse)
+def topic_detail(request: Request, topic_name: str):
+    """View verses for a specific topic"""
+    books = list(bible.iter_books())
+    topic = get_topic(topic_name)
+
+    if not topic:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Topics", "url": "/topics"},
+        {"text": topic_name, "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "topic_detail.html",
+        {
+            "request": request,
+            "topic": topic,
+            "topic_name": topic_name,
             "books": books,
             "breadcrumbs": breadcrumbs
         }

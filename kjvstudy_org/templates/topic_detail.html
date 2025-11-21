@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}{{ topic_name }} - Topical Index - KJV Study{% endblock %}
+{% block description %}{{ topic.description }}{% endblock %}
+
+{% block head %}
+<style>
+.topic-overview {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-left: 3px solid var(--border-color-darker);
+    background: var(--code-bg);
+}
+
+.subtopics-container {
+    max-width: 70%;
+    margin: 2rem 0;
+}
+
+.subtopic-section {
+    margin: 2.5rem 0;
+}
+
+.subtopic-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--link-color);
+    margin-bottom: 0.5rem;
+}
+
+.subtopic-description {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.verses-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.verse-item {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border-color);
+}
+
+.verse-ref {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.verse-ref a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.verse-ref a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.verse-note {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-left: 0.5rem;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>{{ topic_name }}</h1>
+<p class="subtitle">{{ topic.description }}</p>
+
+<section>
+    <h2>Overview</h2>
+    <div class="topic-overview">
+        This topical index organizes key Scripture passages related to {{ topic_name|lower }}. Each subtopic below addresses a specific aspect of this theme, with carefully selected verses that establish biblical teaching on the subject.
+    </div>
+</section>
+
+<section>
+    <h2>Subtopics</h2>
+
+    <div class="subtopics-container">
+        {% for subtopic_name, subtopic_data in topic.subtopics.items() %}
+        <div class="subtopic-section">
+            <h3 class="subtopic-header">{{ subtopic_name }}</h3>
+            <p class="subtopic-description">{{ subtopic_data.description }}</p>
+
+            <ul class="verses-list">
+                {% for verse in subtopic_data.verses %}
+                <li class="verse-item">
+                    <span class="verse-ref">
+                        {% set ref_parts = verse.ref.rsplit(' ', 1) %}
+                        {% if ref_parts|length == 2 %}
+                            {% set book_name = ref_parts[0] %}
+                            {% set chapter_verse = ref_parts[1] %}
+                            {% if ':' in chapter_verse %}
+                                {% set ch = chapter_verse.split(':')[0] %}
+                                {% set v = chapter_verse.split(':')[1] %}
+                                {% if '-' not in v %}
+                                    {# Single verse - make it a link #}
+                                    <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ verse.ref }}</a>
+                                {% else %}
+                                    {# Verse range - link to first verse #}
+                                    {% set v_start = v.split('-')[0] %}
+                                    <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v_start }}">{{ verse.ref }}</a>
+                                {% endif %}
+                            {% else %}
+                                {# No colon, just display text #}
+                                {{ verse.ref }}
+                            {% endif %}
+                        {% else %}
+                            {{ verse.ref }}
+                        {% endif %}
+                    </span>
+                    {% if verse.note %}
+                    <span class="verse-note">— {{ verse.note }}</span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>Study Guidance</h2>
+    <p class="intro-text"><span class="newthought">Topical study benefits</span> from reading verses in their broader context. Click any reference above to view the complete passage and surrounding verses. Consider comparing how different biblical authors address the same theme across various contexts and time periods.</p>
+
+    <p class="intro-text">Cross-reference study deepens understanding. Many verses listed here connect to other passages—use the cross-references provided on individual verse pages to trace theological themes throughout Scripture.</p>
+</section>
+
+<section>
+    <p><a href="/topics">← Back to all topics</a></p>
+</section>
+{% endblock %}
