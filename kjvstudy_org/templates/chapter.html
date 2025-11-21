@@ -73,6 +73,75 @@ hr::before {
     color: #111;
     text-decoration: underline;
 }
+
+.chapter-nav {
+    max-width: 60%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--code-bg);
+}
+
+.chapter-nav-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.chapter-nav-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: var(--link-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+}
+
+.chapter-nav-btn:hover {
+    background: var(--link-hover);
+}
+
+.chapter-nav-btn.secondary {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color-darker);
+}
+
+.chapter-nav-btn.secondary:hover {
+    background: var(--code-bg);
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+.chapter-select {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.chapter-select:focus {
+    outline: none;
+    border-color: var(--link-color);
+}
+
+.nav-help {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 0.75rem;
+}
 </style>
 {% endblock %}
 
@@ -108,12 +177,36 @@ hr::before {
     {% endfor %}
 </section>
 
-<nav>
-    <p>
-        <a href="/book/{{ book }}">← {{ book }}</a>
-        {% if chapter > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}">← Chapter {{ chapter - 1 }}</a>{% endif %}
-        {% if chapter < chapters|length %} | <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}">Chapter {{ chapter + 1 }} →</a>{% endif %}
-    </p>
+<nav class="chapter-nav">
+    <div class="chapter-nav-controls">
+        {% if chapter > 1 %}
+        <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}" class="chapter-nav-btn" id="prev-chapter">
+            ← Previous
+        </a>
+        {% endif %}
+
+        <select class="chapter-select" onchange="if(this.value) window.location.href=this.value">
+            <option value="">Jump to chapter...</option>
+            {% for ch in chapters %}
+            <option value="/book/{{ book }}/chapter/{{ ch }}"{% if ch == chapter %} selected{% endif %}>
+                Chapter {{ ch }}
+            </option>
+            {% endfor %}
+        </select>
+
+        {% if chapter < chapters|length %}
+        <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}" class="chapter-nav-btn" id="next-chapter">
+            Next →
+        </a>
+        {% endif %}
+
+        <a href="/book/{{ book }}" class="chapter-nav-btn secondary">
+            {{ book }}
+        </a>
+    </div>
+    <div class="nav-help">
+        Tip: Use left/right arrow keys to navigate chapters
+    </div>
 </nav>
 
 <script>
@@ -196,6 +289,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     highlightVerses();
     window.addEventListener('hashchange', highlightVerses);
+
+    // Keyboard navigation for chapters
+    document.addEventListener('keydown', function(e) {
+        // Don't trigger if user is typing
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+        }
+
+        // Left arrow: Previous chapter
+        if (e.key === 'ArrowLeft') {
+            const prevBtn = document.getElementById('prev-chapter');
+            if (prevBtn) {
+                e.preventDefault();
+                window.location.href = prevBtn.href;
+            }
+        }
+
+        // Right arrow: Next chapter
+        if (e.key === 'ArrowRight') {
+            const nextBtn = document.getElementById('next-chapter');
+            if (nextBtn) {
+                e.preventDefault();
+                window.location.href = nextBtn.href;
+            }
+        }
+    });
 });
 </script>
 {% endblock %}
