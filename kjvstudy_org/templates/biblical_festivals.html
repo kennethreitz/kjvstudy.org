@@ -110,7 +110,7 @@
     {% for festival_name, festival in festivals.items() %}
     <article class="festival-entry">
         <h3 class="festival-name">
-          <a href="/biblical-festivals/{{ festival_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ festival_name }}</a>
+          <a href="/biblical-festivals/{{ festival_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '')|replace('/', '') }}">{{ festival_name }}</a>
         </h3>
         <p class="festival-title">{{ festival.title }}</p>
 

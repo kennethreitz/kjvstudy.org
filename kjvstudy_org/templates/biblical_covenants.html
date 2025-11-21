@@ -110,7 +110,7 @@
     {% for covenant_name, covenant in covenants.items() %}
     <article class="covenant-entry">
         <h3 class="covenant-name">
-          <a href="/biblical-covenants/{{ covenant_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ covenant_name }}</a>
+          <a href="/biblical-covenants/{{ covenant_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '')|replace('/', '') }}">{{ covenant_name }}</a>
         </h3>
         <p class="covenant-title">{{ covenant.title }}</p>
 

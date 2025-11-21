@@ -110,7 +110,7 @@
     {% for woman_name, woman in women.items() %}
     <article class="woman-entry">
         <h3 class="woman-name">
-          <a href="/women-of-the-bible/{{ woman_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ woman_name }}</a>
+          <a href="/women-of-the-bible/{{ woman_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '')|replace('/', '') }}">{{ woman_name }}</a>
         </h3>
         <p class="woman-title">{{ woman.title }}</p>
 

@@ -110,7 +110,7 @@
     {% for apostle_name, apostle in apostles.items() %}
     <article class="apostle-entry">
         <h3 class="apostle-name">
-          <a href="/the-twelve-apostles/{{ apostle_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '') }}">{{ apostle_name }}</a>
+          <a href="/the-twelve-apostles/{{ apostle_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '')|replace('/', '') }}">{{ apostle_name }}</a>
         </h3>
         <p class="apostle-title">{{ apostle.title }}</p>
 
