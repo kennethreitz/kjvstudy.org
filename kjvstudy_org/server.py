@@ -1632,7 +1632,7 @@ def prophet_detail(request: Request, prophet_slug: str):
                 ]
             }
         }
-    }: Copy from main route above or refactor to shared module
+    }
     
     # Find the item by slug
     item = None
@@ -1942,7 +1942,7 @@ def name_detail(request: Request, name_slug: str):
                 ]
             }
         }
-    }: Copy from main route above or refactor to shared module
+    }
     
     # Find the item by slug
     item = None
@@ -2366,7 +2366,7 @@ def covenant_detail(request: Request, covenant_slug: str):
                 ]
             }
         }
-    }: Copy from main route above or refactor to shared module
+    }
     
     # Find the item by slug
     item = None
@@ -2884,7 +2884,7 @@ def woman_detail(request: Request, woman_slug: str):
                 ]
             }
         }
-    }: Copy from main route above or refactor to shared module
+    }
     
     # Find the item by slug
     item = None
@@ -3084,7 +3084,7 @@ def festival_detail(request: Request, festival_slug: str):
                 ]
             }
         }
-    }: Copy from main route above or refactor to shared module
+    }
     
     # Find the item by slug
     item = None
