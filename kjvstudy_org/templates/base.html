@@ -149,14 +149,17 @@
             position: fixed;
             top: 2rem;
             left: 2rem;
-            width: 160px;
+            width: 200px;
             max-height: calc(100vh - 4rem);
             overflow-y: auto;
-            background: transparent;
-            padding: 0;
-            font-size: 0.75rem;
-            line-height: 1.4;
+            background: var(--bg-color);
+            padding: 1rem;
+            font-size: 0.8rem;
+            line-height: 1.5;
             z-index: 100;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .nav-sidebar::-webkit-scrollbar {
@@ -257,6 +260,103 @@
             font-size: 0.8rem;
         }
 
+        /* Sidebar search box */
+        .sidebar-search {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: 0.5rem 0.5rem 0.5rem 1.8rem;
+            border: 1px solid var(--border-color-dark);
+            border-radius: 3px;
+            font-size: 0.75rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.2s;
+        }
+
+        .sidebar-search input:focus {
+            outline: none;
+            border-color: var(--text-tertiary);
+        }
+
+        .sidebar-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        /* Recently viewed section */
+        .recently-viewed {
+            margin-bottom: 1.5rem;
+        }
+
+        .recently-viewed h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .recently-viewed h3::before {
+            content: '🕐';
+            font-size: 0.85rem;
+        }
+
+        .recently-viewed ul {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .recently-viewed li {
+            font-size: 0.75rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .recently-viewed .empty-state {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            font-style: italic;
+            padding: 0.5rem 0;
+        }
+
+        /* Navigation section icons */
+        .nav-sidebar .nav-icon {
+            display: inline-block;
+            width: 1.2rem;
+            font-size: 0.9rem;
+            margin-right: 0.3rem;
+        }
+
+        /* Resource grouping */
+        .resource-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .resource-group h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin: 1rem 0 0.5rem 0;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .resource-group:first-of-type h4 {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
         /* Sidebar collapse functionality */
         #sidebar-toggle {
             display: none;
@@ -340,7 +440,10 @@
         }
 
         .sidebar-toggle-btn::before {
-            content: '+';
+            content: 'Sidebar';
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
         }
 
         #sidebar-toggle:checked ~ .nav-sidebar {
@@ -354,16 +457,40 @@
         }
 
         #sidebar-toggle:checked ~ .sidebar-toggle-container .sidebar-toggle-btn::before {
-            content: '-';
+            content: '×';
+            font-size: 1.5rem;
         }
 
         /* Responsive design for tablets and mobile */
         @media (max-width: 1200px) {
             .nav-sidebar {
-                display: none;
+                width: 280px;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                max-height: 100vh;
+                border-radius: 0;
+                border-left: none;
+                box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+                padding-top: 4rem;
             }
+
+            #sidebar-toggle:checked ~ .nav-sidebar {
+                left: 0;
+            }
+
             .sidebar-toggle-container {
-                display: none;
+                display: block;
+                top: 1rem;
+                left: 1rem;
+            }
+
+            .sidebar-toggle-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+                background: var(--bg-color);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -697,6 +824,20 @@
 
     <!-- Floating Navigation Sidebar -->
     <nav class="nav-sidebar">
+        <!-- Search Box -->
+        <div class="sidebar-search">
+            <input type="text" id="sidebar-search-input" placeholder="Search..." autocomplete="off">
+        </div>
+
+        <!-- Recently Viewed -->
+        <div class="recently-viewed">
+            <h3>Recent</h3>
+            <ul id="recently-viewed-list">
+                <div class="empty-state">No recent pages</div>
+            </ul>
+        </div>
+
+        <!-- Bible Books -->
         {% if books %}
         <details>
             <summary>Old Testament</summary>
@@ -721,32 +862,54 @@
         </details>
         {% endif %}
 
+        <!-- Navigation -->
         <h3>Navigation</h3>
         <ul>
-            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
-            <li><a href="/books">Books</a></li>
-            <li><a href="/verse-of-the-day">Verse of the Day</a></li>
-            <li><a href="/random-verse">Random Verse</a></li>
-            <li><a href="/reading-plans">Reading Plans</a></li>
-            <li><a href="/topics">Topics</a></li>
-            <li><a href="/search">Search</a></li>
+            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}><span class="nav-icon">🏠</span>Home</a></li>
+            <li><a href="/books"><span class="nav-icon">📖</span>Books</a></li>
+            <li><a href="/verse-of-the-day"><span class="nav-icon">✨</span>Verse of the Day</a></li>
+            <li><a href="/random-verse"><span class="nav-icon">🎲</span>Random Verse</a></li>
+            <li><a href="/reading-plans"><span class="nav-icon">📅</span>Reading Plans</a></li>
+            <li><a href="/topics"><span class="nav-icon">🏷️</span>Topics</a></li>
+            <li><a href="/search"><span class="nav-icon">🔍</span>Search</a></li>
         </ul>
 
-        <h3>Resources</h3>
-        <ul>
-            <li><a href="/biblical-angels">Biblical Angels</a></li>
-            <li><a href="/biblical-prophets">Biblical Prophets</a></li>
-            <li><a href="/biblical-covenants">Biblical Covenants</a></li>
-            <li><a href="/biblical-festivals">Biblical Festivals</a></li>
-            <li><a href="/names-of-god">Names of God</a></li>
-            <li><a href="/parables">Parables of Jesus</a></li>
-            <li><a href="/the-twelve-apostles">The Twelve Apostles</a></li>
-            <li><a href="/women-of-the-bible">Women of the Bible</a></li>
-            <li><a href="/biblical-maps">Biblical Geography</a></li>
-            <li><a href="/family-tree">Genealogies</a></li>
-            <li><a href="/biblical-timeline">Timeline</a></li>
-            <li><a href="/study-guides">Study Guides</a></li>
-        </ul>
+        <!-- Resources organized by category -->
+        <div class="resource-group">
+            <h4>People</h4>
+            <ul>
+                <li><a href="/biblical-prophets">Biblical Prophets</a></li>
+                <li><a href="/the-twelve-apostles">The Twelve Apostles</a></li>
+                <li><a href="/women-of-the-bible">Women of the Bible</a></li>
+            </ul>
+        </div>
+
+        <div class="resource-group">
+            <h4>Theology</h4>
+            <ul>
+                <li><a href="/biblical-angels">Biblical Angels</a></li>
+                <li><a href="/names-of-god">Names of God</a></li>
+                <li><a href="/parables">Parables of Jesus</a></li>
+                <li><a href="/biblical-covenants">Biblical Covenants</a></li>
+            </ul>
+        </div>
+
+        <div class="resource-group">
+            <h4>History & Culture</h4>
+            <ul>
+                <li><a href="/biblical-festivals">Biblical Festivals</a></li>
+                <li><a href="/biblical-maps">Biblical Geography</a></li>
+                <li><a href="/biblical-timeline">Timeline</a></li>
+                <li><a href="/family-tree">Genealogies</a></li>
+            </ul>
+        </div>
+
+        <div class="resource-group">
+            <h4>Study Tools</h4>
+            <ul>
+                <li><a href="/study-guides">Study Guides</a></li>
+            </ul>
+        </div>
     </nav>
 
     <script type="text/javascript">
@@ -774,6 +937,103 @@
         toggle.addEventListener('change', function() {
           localStorage.setItem('sidebarExpanded', toggle.checked);
         });
+      })();
+
+      // Sidebar search functionality
+      (function() {
+        var searchInput = document.getElementById('sidebar-search-input');
+        if (!searchInput) return;
+
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter' && this.value.trim()) {
+            window.location.href = '/search?q=' + encodeURIComponent(this.value.trim());
+          }
+        });
+
+        // Filter sidebar items as user types
+        searchInput.addEventListener('input', function() {
+          var query = this.value.toLowerCase();
+          var sidebar = document.querySelector('.nav-sidebar');
+          var links = sidebar.querySelectorAll('a');
+
+          links.forEach(function(link) {
+            var text = link.textContent.toLowerCase();
+            var listItem = link.closest('li');
+            if (listItem) {
+              if (query === '' || text.includes(query)) {
+                listItem.style.display = '';
+              } else {
+                listItem.style.display = 'none';
+              }
+            }
+          });
+        });
+      })();
+
+      // Recently viewed tracking
+      (function() {
+        var MAX_RECENT = 5;
+
+        function getRecentPages() {
+          var recent = localStorage.getItem('recentPages');
+          return recent ? JSON.parse(recent) : [];
+        }
+
+        function saveRecentPages(pages) {
+          localStorage.setItem('recentPages', JSON.stringify(pages));
+        }
+
+        function addRecentPage(url, title) {
+          var pages = getRecentPages();
+
+          // Remove if already exists
+          pages = pages.filter(function(p) { return p.url !== url; });
+
+          // Add to beginning
+          pages.unshift({ url: url, title: title });
+
+          // Keep only MAX_RECENT
+          if (pages.length > MAX_RECENT) {
+            pages = pages.slice(0, MAX_RECENT);
+          }
+
+          saveRecentPages(pages);
+        }
+
+        function displayRecentPages() {
+          var list = document.getElementById('recently-viewed-list');
+          if (!list) return;
+
+          var pages = getRecentPages();
+
+          if (pages.length === 0) {
+            list.innerHTML = '<div class="empty-state">No recent pages</div>';
+            return;
+          }
+
+          list.innerHTML = '';
+          pages.forEach(function(page) {
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = page.url;
+            a.textContent = page.title;
+            a.title = page.title;
+            li.appendChild(a);
+            list.appendChild(li);
+          });
+        }
+
+        // Track current page
+        var currentPath = window.location.pathname;
+        var currentTitle = document.title.replace(' - KJV Study', '').replace('Authorized King James Version Bible', 'Home');
+
+        // Don't track search pages or the home page
+        if (currentPath !== '/' && !currentPath.startsWith('/search')) {
+          addRecentPage(currentPath, currentTitle);
+        }
+
+        // Display recent pages
+        displayRecentPages();
       })();
 
       // Keyboard shortcuts
