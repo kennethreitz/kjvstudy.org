@@ -24,6 +24,14 @@ except ImportError:
     GedcomReader = None
 
 
+def create_slug(text: str) -> str:
+    """Convert text to URL-friendly slug"""
+    # Remove special characters, lowercase, replace spaces with hyphens
+    slug = re.sub(r'[^\w\s-]', '', text.lower())
+    slug = re.sub(r'[-\s]+', '-', slug)
+    return slug.strip('-')
+
+
 def get_chapter_popularity_score(book: str, chapter: int) -> int:
     """Calculate popularity score for a chapter (1-10 scale) based on well-known verses"""
     # Define highly popular chapters with their scores
@@ -3223,7 +3231,8 @@ def read_book(request: Request, book: str):
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
-        {"text": book, "url": f"/book/{book}"}
+        {"text": "Books", "url": "/books"},
+        {"text": book, "url": None}
     ]
 
     return templates.TemplateResponse(
@@ -3324,8 +3333,9 @@ def read_chapter(request: Request, book: str, chapter: int):
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
+        {"text": "Books", "url": "/books"},
         {"text": book, "url": f"/book/{book}"},
-        {"text": f"Chapter {chapter}", "url": f"/book/{book}/chapter/{chapter}"}
+        {"text": f"Chapter {chapter}", "url": None}
     ]
 
     return templates.TemplateResponse(
@@ -3393,9 +3403,10 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
+        {"text": "Books", "url": "/books"},
         {"text": book, "url": f"/book/{book}"},
         {"text": f"Chapter {chapter}", "url": f"/book/{book}/chapter/{chapter}"},
-        {"text": f"Verse {verse_num}", "url": f"/book/{book}/chapter/{chapter}/verse/{verse_num}"}
+        {"text": f"Verse {verse_num}", "url": None}
     ]
 
     return templates.TemplateResponse(
