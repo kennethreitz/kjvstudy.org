@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Bible Reading Plans - KJV Study{% endblock %}
+{% block description %}Structured Bible reading schedules for systematic Scripture study{% endblock %}
+
+{% block head %}
+<style>
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 90%;
+    margin: 2rem 0;
+}
+
+.plan-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.plan-card:hover {
+    border-color: var(--border-color-darker);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.plan-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.plan-name a {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.plan-name a:hover {
+    color: var(--link-hover);
+}
+
+.plan-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0.5rem 0;
+}
+
+.plan-duration {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    font-style: italic;
+    margin-top: 0.75rem;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Bible Reading Plans</h1>
+<p class="subtitle">Structured Schedules for Systematic Scripture Study</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">Systematic Bible reading</span> provides structure for comprehensive Scripture engagement. These curated plans offer various approaches—chronological progression, thematic focus, or testament-specific study—each designed to facilitate sustained interaction with God's Word.</p>
+
+    <p class="intro-text">Whether pursuing canonical familiarity through complete Bible reading or concentrating on specific portions, these schedules provide daily guidance for disciplined Scripture intake. Select a plan suited to your current season and study objectives.</p>
+</section>
+
+<section>
+    <h2>Available Reading Plans</h2>
+
+    <div class="plan-grid">
+        {% for plan in plans %}
+        <div class="plan-card">
+            <div class="plan-name"><a href="/reading-plans/{{ plan.id }}">{{ plan.name }}</a></div>
+            <div class="plan-description">{{ plan.description }}</div>
+            <div class="plan-duration">{{ plan.days }} days</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>Using Reading Plans</h2>
+    <p class="intro-text">Select a plan above to view its complete schedule. Each plan provides daily readings with thematic notes. Consider marking your progress and maintaining consistency—even brief daily reading surpasses sporadic lengthy sessions in forming lasting Scripture engagement habits.</p>
+</section>
+{% endblock %}

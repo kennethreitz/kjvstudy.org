@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plan.name }} - KJV Study{% endblock %}
+{% block description %}{{ plan.description }}{% endblock %}
+
+{% block head %}
+<style>
+.plan-overview {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-left: 3px solid var(--border-color-darker);
+    background: var(--code-bg);
+}
+
+.sample-days {
+    max-width: 70%;
+    margin: 2rem 0;
+}
+
+.day-entry {
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.day-number {
+    font-weight: 600;
+    color: var(--link-color);
+    font-size: 1.1rem;
+}
+
+.day-readings {
+    margin: 0.5rem 0;
+}
+
+.reading-ref {
+    display: inline-block;
+    margin: 0.25rem 0.5rem 0.25rem 0;
+    padding: 0.25rem 0.5rem;
+    background: var(--code-bg);
+    border-radius: 3px;
+    font-size: 0.95rem;
+}
+
+.day-theme {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+.plan-stats {
+    display: flex;
+    gap: 2rem;
+    margin: 1.5rem 0;
+    max-width: 60%;
+}
+
+.stat-item {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--link-color);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>{{ plan.name }}</h1>
+<p class="subtitle">{{ plan.description }}</p>
+
+<section>
+    <div class="plan-stats">
+        <div class="stat-item">
+            <div class="stat-value">{{ plan.duration_days }}</div>
+            <div class="stat-label">Days</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ (plan.duration_days / 7) | round | int }}</div>
+            <div class="stat-label">Weeks</div>
+        </div>
+    </div>
+
+    <div class="plan-overview">
+        {{ plan.overview }}
+    </div>
+</section>
+
+<section>
+    <h2>Sample Daily Readings</h2>
+    <p class="intro-text">The following days provide a representative sample of this reading plan's structure and progression. The complete plan follows this pattern throughout its {{ plan.duration_days }}-day duration.</p>
+
+    <div class="sample-days">
+        {% for day in plan.sample_days %}
+        <div class="day-entry">
+            <div class="day-number">Day {{ day.day }}</div>
+            <div class="day-readings">
+                {% for reading in day.readings %}
+                <span class="reading-ref">{{ reading }}</span>
+                {% endfor %}
+            </div>
+            <div class="day-theme">Theme: {{ day.theme }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <h2>How to Use This Plan</h2>
+    <p class="intro-text"><span class="newthought">Consistency matters more</span> than perfection. If you miss a day, simply continue where you left off rather than attempting to catch up through extended readings. The goal is sustainable Scripture engagement, not merely completing a schedule.</p>
+
+    <p class="intro-text">Consider maintaining a journal to record insights, questions, and applications. Many find morning reading sets a godly tone for the day, though evening reflection suits others better. Discover what timing best facilitates your consistent engagement with God's Word.</p>
+
+    <p class="intro-text">Prayer should accompany reading. Ask the Holy Spirit for illumination, understanding, and application. Scripture study transforms when approached not merely as information gathering but as communion with the living God who speaks through His Word.</p>
+</section>
+
+<section>
+    <p><a href="/reading-plans">← Back to all reading plans</a></p>
+</section>
+{% endblock %}

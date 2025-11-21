@@ -15,6 +15,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .kjv import bible, VerseReference
 from .cross_references import get_cross_references
+from .reading_plans import get_plan, get_all_plans, get_plan_summary
 
 try:
     from ged4py import GedcomReader
@@ -3068,6 +3069,55 @@ def books_page(request: Request):
             "request": request,
             "old_testament": old_testament,
             "new_testament": new_testament,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@app.get("/reading-plans", response_class=HTMLResponse)
+def reading_plans_page(request: Request):
+    """Browse Bible reading plans"""
+    books = list(bible.iter_books())
+    plans = get_plan_summary()
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Reading Plans", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "reading_plans.html",
+        {
+            "request": request,
+            "plans": plans,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@app.get("/reading-plans/{plan_id}", response_class=HTMLResponse)
+def reading_plan_detail(request: Request, plan_id: str):
+    """View a specific reading plan"""
+    books = list(bible.iter_books())
+    plan = get_plan(plan_id)
+
+    if not plan:
+        raise HTTPException(status_code=404, detail="Reading plan not found")
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Reading Plans", "url": "/reading-plans"},
+        {"text": plan["name"], "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "reading_plan_detail.html",
+        {
+            "request": request,
+            "plan": plan,
+            "plan_id": plan_id,
             "books": books,
             "breadcrumbs": breadcrumbs
         }
