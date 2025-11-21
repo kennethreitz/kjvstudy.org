@@ -110,7 +110,7 @@
     {% for angel_name, angel in angels.items() %}
     <article class="angel-entry">
         <h3 class="angel-name">
-          <a href="/biblical-angels/{{ angel_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '')|replace('/', '') }}">{{ angel_name }}</a>
+          <a href="/biblical-angels/{{ angel_name|slugify }}">{{ angel_name }}</a>
         </h3>
         <p class="angel-title">{{ angel.title }}</p>
 

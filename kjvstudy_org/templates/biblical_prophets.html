@@ -110,7 +110,7 @@
     {% for prophet_name, prophet in prophets.items() %}
     <article class="prophet-entry">
         <h3 class="prophet-name">
-          <a href="/biblical-prophets/{{ prophet_name|lower|replace(' ', '-')|replace("'", '')|replace('(', '')|replace(')', '')|replace(',', '')|replace('/', '') }}">{{ prophet_name }}</a>
+          <a href="/biblical-prophets/{{ prophet_name|slugify }}">{{ prophet_name }}</a>
         </h3>
         <p class="prophet-title">{{ prophet.title }}</p>
 

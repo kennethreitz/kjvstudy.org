@@ -417,6 +417,9 @@ templates_dir = current_dir / "templates"
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 templates = Jinja2Templates(directory=str(templates_dir))
 
+# Register custom Jinja2 filters
+templates.env.filters['slugify'] = create_slug
+
 # Load Scofield commentary for cross-references
 scofield_commentary = {}
 try:
