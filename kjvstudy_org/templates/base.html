@@ -357,7 +357,7 @@
             content: '-';
         }
 
-        /* Hide sidebar and controls on smaller screens */
+        /* Responsive design for tablets and mobile */
         @media (max-width: 1200px) {
             .nav-sidebar {
                 display: none;
@@ -368,8 +368,166 @@
         }
 
         @media (max-width: 768px) {
+            /* Keep dark mode toggle on mobile, just reposition */
             .dark-mode-toggle {
-                display: none;
+                top: 1rem;
+                right: 1rem;
+                margin: 0;
+            }
+
+            /* Adjust article width for mobile */
+            article {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            /* Optimize typography for mobile */
+            body {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                line-height: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                line-height: 1.7rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            p {
+                font-size: 1rem;
+                line-height: 1.8;
+            }
+
+            /* Make max-width sections full width on mobile */
+            section p[style*="max-width"],
+            section div[style*="max-width"],
+            .intro-text,
+            .plan-overview,
+            .topic-overview,
+            .verse-lookup,
+            .share-container,
+            .sample-days,
+            .subtopics-container,
+            .plan-stats {
+                max-width: 100% !important;
+            }
+
+            /* Optimize sidenotes for mobile */
+            .sidenote,
+            .marginnote {
+                display: block;
+                float: none;
+                width: 100%;
+                margin: 1rem 0 1rem 2rem;
+                padding-left: 1rem;
+                border-left: 2px solid var(--border-color);
+                font-size: 0.9rem;
+            }
+
+            .sidenote-number,
+            .margin-toggle {
+                display: inline;
+            }
+
+            /* Stack plan stats vertically */
+            .plan-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            /* Optimize grids for mobile */
+            .book-grid,
+            .plan-grid,
+            .topic-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+                max-width: 100% !important;
+            }
+
+            /* Optimize verse lookup form */
+            .lookup-form {
+                flex-direction: column;
+            }
+
+            .lookup-input,
+            .lookup-btn {
+                width: 100%;
+            }
+
+            /* Optimize share buttons */
+            .share-buttons {
+                flex-direction: column;
+            }
+
+            .share-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Optimize breadcrumbs */
+            .breadcrumb {
+                font-size: 0.85rem;
+                flex-wrap: wrap;
+            }
+
+            /* Optimize verse text */
+            .verse-text {
+                font-size: 1.4rem;
+                line-height: 2rem;
+            }
+
+            /* Make tables responsive */
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            /* Optimize epigraph */
+            .epigraph {
+                margin: 2rem 0;
+            }
+
+            .epigraph blockquote {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Extra small screens (phones in portrait) */
+        @media (max-width: 480px) {
+            article {
+                width: 100%;
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .verse-text {
+                font-size: 1.2rem;
+                line-height: 1.8rem;
+            }
+
+            .dark-mode-toggle,
+            .sidebar-toggle-container {
+                top: 0.5rem;
+            }
+
+            .dark-mode-toggle {
+                right: 0.5rem;
             }
         }
 
