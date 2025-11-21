@@ -851,7 +851,7 @@ def study_guide_detail(request: Request, slug: str):
         }
     )
 
-@app.get("/random-verse", response_class=HTMLResponse)
+@app.get("/random-verse")
 def random_verse(request: Request):
     """Redirect to a random Bible verse"""
     # Get all books
@@ -867,7 +867,7 @@ def random_verse(request: Request):
     chapter = random.choice(chapters)
 
     # Get all verses for this chapter
-    verses = list(bible.iter_verses(book, chapter))
+    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
 
     # Pick a random verse
     verse = random.choice(verses)
