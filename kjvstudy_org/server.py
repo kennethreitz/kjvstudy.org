@@ -851,6 +851,31 @@ def study_guide_detail(request: Request, slug: str):
         }
     )
 
+@app.get("/random-verse", response_class=HTMLResponse)
+def random_verse(request: Request):
+    """Redirect to a random Bible verse"""
+    # Get all books
+    all_books = list(bible.iter_books())
+
+    # Pick a random book
+    book = random.choice(all_books)
+
+    # Get all chapters for this book
+    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+
+    # Pick a random chapter
+    chapter = random.choice(chapters)
+
+    # Get all verses for this chapter
+    verses = list(bible.iter_verses(book, chapter))
+
+    # Pick a random verse
+    verse = random.choice(verses)
+
+    # Redirect to the verse page
+    return RedirectResponse(url=f"/book/{book}/chapter/{chapter}/verse/{verse.verse}")
+
+
 @app.get("/verse-of-the-day", response_class=HTMLResponse)
 def verse_of_the_day_page(request: Request):
     """Verse of the day page"""

@@ -726,6 +726,7 @@
             <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
             <li><a href="/books">Books</a></li>
             <li><a href="/verse-of-the-day">Verse of the Day</a></li>
+            <li><a href="/random-verse">Random Verse</a></li>
             <li><a href="/reading-plans">Reading Plans</a></li>
             <li><a href="/topics">Topics</a></li>
             <li><a href="/search">Search</a></li>
@@ -814,6 +815,12 @@
           showVerseLookup();
         }
 
+        // r: Random verse
+        if (e.key === 'r') {
+          e.preventDefault();
+          window.location.href = '/random-verse';
+        }
+
         // ?: Show keyboard shortcuts help
         if (e.key === '?' && !e.shiftKey) {
           showKeyboardHelp();
@@ -859,6 +866,7 @@
       function showKeyboardHelp() {
         var helpText = 'Keyboard Shortcuts:\\n\\n' +
           'g             - Quick verse lookup\\n' +
+          'r             - Random verse\\n' +
           'Cmd/Ctrl + D  - Toggle dark mode\\n' +
           'Cmd/Ctrl + B  - Toggle sidebar\\n' +
           'Cmd/Ctrl + K  - Go to search\\n' +
