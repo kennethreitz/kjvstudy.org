@@ -147,19 +147,18 @@
         /* Floating Navigation Sidebar */
         .nav-sidebar {
             position: fixed;
-            top: 2rem;
-            left: 2rem;
-            width: 180px;
-            max-height: calc(100vh - 4rem);
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 100vh;
             overflow-y: auto;
             background: var(--bg-color);
-            padding: 1rem;
-            font-size: 0.8rem;
+            padding: 3rem 0.75rem 1rem 0.75rem;
+            font-size: 0.75rem;
             line-height: 1.5;
             z-index: 100;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-right: 1px solid var(--border-color);
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
         }
 
         .nav-sidebar::-webkit-scrollbar {
