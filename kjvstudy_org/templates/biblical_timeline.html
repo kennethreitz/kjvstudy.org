@@ -3,9 +3,67 @@
 {% block title %}Biblical Timeline - Major Bible Events - KJV Study{% endblock %}
 {% block description %}Explore the chronological timeline of major biblical events from Creation to the early Church.{% endblock %}
 
+{% block head %}
+<style>
+.timeline-nav {
+    max-width: 75%;
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid #666;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.timeline-nav strong {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.timeline-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.timeline-nav a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.timeline-nav-period {
+    margin: 0.5rem 0;
+}
+
+.timeline-nav-period-name {
+    font-weight: 600;
+}
+
+.timeline-nav-events {
+    margin-left: 1rem;
+    color: #666;
+    font-size: 0.85rem;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>Biblical Timeline</h1>
 <p class="subtitle">Major events from Creation to the early Church</p>
+
+<div class="timeline-nav">
+    <strong>Quick Reference:</strong>
+    {% for period_name, events in timeline_events.items() %}
+    <div class="timeline-nav-period">
+        <span class="timeline-nav-period-name"><a href="#{{ period_name | lower | replace(' ', '-') | replace('&', 'and') }}">{{ period_name }}</a></span> —
+        <span class="timeline-nav-events">{% for event in events %}<a href="#{{ (period_name + '-' + event.title) | lower | replace(' ', '-') | replace('&', 'and') | replace('\'', '') }}">{{ event.title }}</a>{% if not loop.last %} • {% endif %}{% endfor %}</span>
+    </div>
+    {% endfor %}
+</div>
 
 <section>
     <p>This timeline presents key events of biblical history with calculated dates and relevant scripture references.</p>
@@ -48,11 +106,11 @@
 </section>
 
 {% for period_name, events in timeline_events.items() %}
-<section>
+<section id="{{ period_name | lower | replace(' ', '-') | replace('&', 'and') }}">
     <h2>{{ period_name }}</h2>
 
     {% for event in events %}
-    <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span></h3>
+    <h3 id="{{ (period_name + '-' + event.title) | lower | replace(' ', '-') | replace('&', 'and') | replace('\'', '') }}">{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span></h3>
     <p>{{ event.description | link_verses | safe }}</p>
 
     {% if event.verses %}

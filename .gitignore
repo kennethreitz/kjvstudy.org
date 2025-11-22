@@ -10,3 +10,7 @@ wheels/
 # Virtual environments
 .venv
 .vscode/settings.json
+
+# Generated data files (too large for git)
+kjvstudy_org/interlinear_data.py
+kjvstudy_org/verse_collections.py
