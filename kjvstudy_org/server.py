@@ -4629,6 +4629,53 @@ def link_person_names_in_text(text: str) -> str:
 templates.env.filters['link_names'] = link_person_names_in_text
 
 
+def link_verse_references_in_text(text):
+    """Automatically link verse references in text (e.g., 'Genesis 1:1', 'Hebrews 9:22')"""
+    if not text:
+        return text
+
+    # Pattern to match verse references like "Genesis 1:1", "1 Corinthians 5:7", "Romans 4:3"
+    # Matches: BookName Chapter:Verse or BookName Chapter:Verse-Verse
+    pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
+
+    def replace_reference(match):
+        number_prefix = match.group(1) or ''  # "1 ", "2 ", "3 " or empty
+        book_name = match.group(2)  # "Corinthians", "Kings", "Genesis"
+        chapter = match.group(3)
+        verse_start = match.group(4)
+        verse_end = match.group(5)  # Could be None if no range
+
+        # Construct full book name
+        full_book = (number_prefix + book_name).strip()
+        full_reference = match.group(0)
+
+        # Check if this match is inside an HTML tag
+        start_pos = match.start()
+        text_before = text[:start_pos]
+        last_lt = text_before.rfind('<')
+        last_gt = text_before.rfind('>')
+
+        # If inside a tag, don't replace
+        if last_lt > last_gt:
+            return full_reference
+
+        # Also check if we're inside an href or other attribute
+        if last_lt != -1:
+            tag_content = text[last_lt:start_pos]
+            if 'href=' in tag_content or 'src=' in tag_content:
+                return full_reference
+
+        # Create link to verse page
+        url = f'/book/{full_book}/chapter/{chapter}/verse/{verse_start}'
+        return f'<a href="{url}">{full_reference}</a>'
+
+    return re.sub(pattern, replace_reference, text)
+
+
+# Register the verse reference linking filter
+templates.env.filters['link_verses'] = link_verse_references_in_text
+
+
 @app.get("/biblical-timeline", response_class=HTMLResponse)
 def biblical_timeline_page(request: Request):
     """Biblical timeline page showing major biblical events chronologically"""

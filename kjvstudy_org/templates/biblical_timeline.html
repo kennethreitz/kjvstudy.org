@@ -12,7 +12,7 @@
 
     {% if chronology_note %}
     <p style="font-size: 0.95rem; color: #555; margin-top: 1.5rem; padding: 1rem; background: #f9f9f9; border-left: 3px solid #666;">
-        {{ chronology_note | safe }}
+        {{ chronology_note | link_verses | safe }}
     </p>
     {% endif %}
 </section>
@@ -23,7 +23,7 @@
 
     {% for event in events %}
     <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }})</span></h3>
-    <p>{{ event.description | safe }}</p>
+    <p>{{ event.description | link_verses | safe }}</p>
 
     {% if event.verses %}
     <ul>
