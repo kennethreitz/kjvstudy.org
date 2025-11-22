@@ -82,6 +82,18 @@
     font-weight: 600;
 }
 
+.word-strongs a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+    transition: all 0.2s;
+}
+
+.word-strongs a:hover {
+    border-bottom-style: solid;
+    opacity: 0.8;
+}
+
 .word-english {
     font-size: 1rem;
     color: #111;
@@ -295,6 +307,10 @@
         color: #6699ff;
     }
 
+    .word-strongs a {
+        color: #6699ff;
+    }
+
     .word-english {
         color: #ddd;
     }
@@ -404,6 +420,10 @@
 }
 
 [data-theme="dark"] .word-strongs {
+    color: #6699ff;
+}
+
+[data-theme="dark"] .word-strongs a {
     color: #6699ff;
 }
 
@@ -520,7 +540,19 @@
                 <div class="word-position">#{{ word.position }}</div>
                 <div class="word-original">{{ word.original }}</div>
                 <div class="word-transliteration">{{ word.transliteration }}</div>
-                <div class="word-strongs">{{ word.strongs }}</div>
+                <div class="word-strongs">
+                    {% if word.strongs %}
+                        {% set lang = word.strongs[0]|lower %}
+                        {% set num = word.strongs[1:] %}
+                        {% if lang == 'g' %}
+                            <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener noreferrer">{{ word.strongs }}</a>
+                        {% elif lang == 'h' %}
+                            <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener noreferrer">{{ word.strongs }}</a>
+                        {% else %}
+                            {{ word.strongs }}
+                        {% endif %}
+                    {% endif %}
+                </div>
                 <div class="word-english">{{ word.english }}</div>
                 <div class="word-parsing">{{ word.parsing }}</div>
                 <div class="word-definition">{{ word.definition }}</div>
