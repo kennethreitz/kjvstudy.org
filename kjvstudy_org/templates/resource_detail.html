@@ -81,6 +81,11 @@
     <div class="resource-description">
         {{ item.description | safe }}
     </div>
+    {% if item.family_tree_link %}
+    <p style="margin-top: 1.5rem;">
+        <a href="{{ item.family_tree_link }}">View {{ item_name }} in Family Tree →</a>
+    </p>
+    {% endif %}
 </section>
 
 <section>
