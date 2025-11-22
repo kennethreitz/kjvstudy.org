@@ -161,6 +161,95 @@ section a[href^="/book/"] {
     border-color: var(--link-color);
     background: var(--code-bg);
 }
+
+/* Mobile responsive styles */
+@media (max-width: 760px) {
+    .title-page {
+        margin: 2rem 0;
+    }
+
+    .title-page h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .title-details {
+        font-size: 1rem;
+        margin: 0 0 2rem 0;
+    }
+
+    .verse-lookup {
+        max-width: 100%;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .verse-lookup h2 {
+        font-size: 1.2rem;
+    }
+
+    .lookup-form {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .lookup-input {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+
+    .lookup-btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .lookup-help {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .featured-resources {
+        max-width: 100%;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+
+    .featured-card {
+        padding: 1.25rem;
+    }
+
+    .featured-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .featured-card p {
+        font-size: 0.95rem;
+    }
+
+    .quick-links {
+        max-width: 100%;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin: 1.5rem 0;
+    }
+
+    .quick-link-btn {
+        padding: 0.875rem;
+        font-size: 0.95rem;
+    }
+
+    /* Adjust epigraph on mobile */
+    .epigraph {
+        margin: 2rem 0;
+    }
+
+    .epigraph blockquote {
+        font-size: 1rem;
+    }
+}
 </style>
 {% endblock %}
 
