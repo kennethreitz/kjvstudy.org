@@ -5430,6 +5430,42 @@ def escape_jinja2_syntax(text):
     
     return text
 
+def link_bible_references(text):
+    """Convert Bible references in text to clickable links
+
+    Handles formats like:
+    - Genesis 6:8
+    - 1 John 4:8
+    - Romans 5:1
+    - Ephesians 2:8-10
+    - Matthew 5:3-12
+    """
+    import re
+
+    # Pattern matches book names (including numbered books) + chapter + verse (with optional range)
+    # Examples: "Genesis 6:8", "1 John 4:8", "Romans 5:1", "Ephesians 2:8-10"
+    pattern = r'\b((?:[123]\s+)?[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
+
+    def replace_reference(match):
+        book_name = match.group(1)  # e.g., "Genesis", "1 John", "Song of Solomon"
+        chapter = match.group(2)    # e.g., "6"
+        verse_start = match.group(3)  # e.g., "8"
+        verse_end = match.group(4)  # e.g., "10" (optional)
+
+        # Full matched text (e.g., "Genesis 6:8" or "Romans 5:1-5")
+        full_ref = match.group(0)
+
+        # Create the link URL (link to the first verse in the range)
+        url = f'/book/{book_name}/chapter/{chapter}/verse/{verse_start}'
+
+        # Return the linked reference
+        return f'<a href="{url}">{full_ref}</a>'
+
+    # Replace all matches
+    linked_text = re.sub(pattern, replace_reference, text)
+    return linked_text
+
+
 def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
     """Generate Hebrew/Greek/Aramaic word study sidenotes for key terms in the verse
 
@@ -5685,7 +5721,7 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
                     "term": study['term'],
                     "translit": study['translit'],
                     "meaning": study['meaning'],
-                    "note": study['note']
+                    "note": link_bible_references(study['note'])
                 })
 
     # Intelligently select only 1-2 word studies per verse to avoid repetition
@@ -6595,6 +6631,588 @@ def generate_chapter_overview(book, chapter, verses):
     <p>When studying Revelation 1, it's essential to approach the text with awareness of its apocalyptic genre, historical context, and symbolic language. The chapter forms the foundation for understanding the entire book, introducing themes, symbols, and theological concepts that will be developed throughout the subsequent visions.</p>
 
     <p>For believers under persecution, whether in the first century or today, this chapter offers the profound assurance that Christ – the Alpha and Omega, the First and Last – remains sovereign over history and present with His church through all tribulations.</p>
+    """
+
+    # Genesis 1 - Creation
+    if book == "Genesis" and chapter == 1:
+        return """
+    <p><strong>Genesis 1</strong> is the majestic opening of Scripture, presenting the foundational account of creation. In stately, liturgical prose, this chapter establishes God as the sovereign Creator who brings order from chaos through the power of His word. The Hebrew title <em>Bereshit</em> ("In the beginning") captures the cosmic scope of this narrative, which addresses the fundamental questions of human existence: Where did we come from? Who is God? What is humanity's purpose?</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Literary Structure</h4>
+
+    <p>The chapter follows a carefully crafted seven-day structure, with each day building upon the previous in a divine architectural plan:</p>
+
+    <ol>
+        <li><strong>Day 1 (verses 3-5)</strong>: Light separated from darkness, establishing day and night</li>
+        <li><strong>Day 2 (verses 6-8)</strong>: The firmament (sky) dividing waters above from waters below</li>
+        <li><strong>Day 3 (verses 9-13)</strong>: Dry land appearing, vegetation created</li>
+        <li><strong>Day 4 (verses 14-19)</strong>: Sun, moon, and stars placed in the firmament</li>
+        <li><strong>Day 5 (verses 20-23)</strong>: Sea creatures and birds created</li>
+        <li><strong>Day 6 (verses 24-31)</strong>: Land animals created, then humanity as the pinnacle</li>
+        <li><strong>Day 7 (2:1-3)</strong>: God rests, sanctifying the Sabbath</li>
+    </ol>
+
+    <p>Note the parallel structure: Days 1-3 establish <em>realms</em> (light, sky, land), while Days 4-6 populate those realms with <em>rulers</em> (luminaries, birds/fish, animals/humans). This literary symmetry emphasizes divine order and purposefulness.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Creative Word</h4>
+
+    <p>The repeated phrase "And God said" (Hebrew <em>vayomer Elohim</em>) occurs ten times, corresponding to the Ten Commandments and emphasizing creation by divine fiat. God speaks, and reality conforms to His word. This establishes several crucial theological principles:</p>
+
+    <ul>
+        <li><strong>Divine transcendence</strong>: God exists independently of creation and is not identified with nature (contra pagan cosmologies)</li>
+        <li><strong>Purposeful design</strong>: Creation is intentional, not accidental or chaotic</li>
+        <li><strong>Inherent goodness</strong>: Seven times God declares creation "good" (<em>tov</em>), culminating in "very good" (<em>tov meod</em>) after creating humanity</li>
+        <li><strong>Word and power</strong>: God's word accomplishes what it declares (cf. Isaiah 55:11, John 1:1-3)</li>
+    </ul>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Humanity in God's Image</h4>
+
+    <p>The climax arrives in verses 26-28 with humanity's creation. Unlike other creatures, humans are made "in our image, after our likeness" (<em>b'tzelem Elohim</em>). This <em>imago Dei</em> establishes humanity's unique dignity and role:</p>
+
+    <ul>
+        <li><strong>Relational capacity</strong>: Able to know and commune with God</li>
+        <li><strong>Moral agency</strong>: Responsible to God's commands</li>
+        <li><strong>Creative reflection</strong>: Called to exercise dominion and stewardship</li>
+        <li><strong>Gender complementarity</strong>: "Male and female created he them" (verse 27) - both equally bear God's image</li>
+    </ul>
+
+    <p>The dual mandate given to humanity in verses 28-30 includes both procreation ("be fruitful and multiply") and stewardship ("have dominion"), establishing human vocation as both relational and responsible.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Historical and Ancient Near Eastern Context</h4>
+
+    <p>Genesis 1 emerged in a world filled with competing creation narratives. Unlike the Babylonian <em>Enuma Elish</em> (with its violent divine conflicts) or Egyptian cosmologies (with multiple creator deities), Genesis presents:</p>
+
+    <ul>
+        <li><strong>Monotheism</strong>: One God, not a pantheon</li>
+        <li><strong>Creation ex nihilo</strong>: God creates from nothing, not from pre-existing divine matter</li>
+        <li><strong>De-divinization of nature</strong>: Sun, moon, and stars are created objects, not gods to worship</li>
+        <li><strong>Human dignity</strong>: All people bear God's image, not just kings or priests</li>
+    </ul>
+
+    <p>These distinctions were revolutionary in the ancient world and remain foundational to Judeo-Christian thought.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological Significance</h4>
+
+    <p>This chapter establishes the theological foundation for the entire biblical narrative:</p>
+
+    <ol>
+        <li><strong>God's sovereignty</strong>: The Creator has ultimate authority over His creation</li>
+        <li><strong>Creation's dependence</strong>: All things exist by God's sustaining power</li>
+        <li><strong>Order from chaos</strong>: God brings <em>cosmos</em> (order) from <em>tohu vabohu</em> (formless void)</li>
+        <li><strong>Sabbath rest</strong>: God's rest establishes a pattern for human worship and rest</li>
+        <li><strong>Christological foreshadowing</strong>: The Word through whom all things were made (John 1:1-3; Colossians 1:16)</li>
+    </ol>
+
+    <p>Genesis 1 is not merely ancient cosmology but enduring theology: the declaration that the universe is not random, humanity is not accidental, and God is intimately involved with His creation. Whether read as literal history, literary framework, or theological proclamation, this chapter affirms the essential truth that "in the beginning God" – and that makes all the difference.</p>
+    """
+
+    # Psalm 23 - The Shepherd Psalm
+    if book == "Psalms" and chapter == 23:
+        return """
+    <p><strong>Psalm 23</strong> is perhaps the most beloved passage in all of Scripture, memorized and recited at bedsides, in hospital rooms, at funerals, and in moments of crisis across millennia. This brief six-verse psalm, attributed to David, presents God as the good shepherd who cares for His people with tender provision, faithful guidance, and protective presence.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Literary Structure and Imagery</h4>
+
+    <p>The psalm divides naturally into two complementary images:</p>
+
+    <ol>
+        <li><strong>The Shepherd (verses 1-4)</strong>: God as the caring shepherd tending His flock</li>
+        <li><strong>The Host (verses 5-6)</strong>: God as the generous host welcoming His guest</li>
+    </ol>
+
+    <p>Both metaphors emphasize God's provision, protection, and intimate care, but from different angles – pastoral and domestic.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Shepherd Metaphor (Verses 1-4)</h4>
+
+    <p><strong>"The LORD is my shepherd; I shall not want"</strong> (verse 1) – The opening declaration establishes a personal relationship. Not merely "the LORD is <em>a</em> shepherd," but "<em>my</em> shepherd." The Hebrew <em>Yahweh ro'i</em> emphasizes covenant intimacy. The result? "I shall not want" – complete sufficiency in God's care.</p>
+
+    <p><strong>"He maketh me to lie down in green pastures"</strong> (verse 2) – Sheep only lie down when four conditions are met: they are not hungry, not afraid, not bothered by pests, and not in conflict with other sheep. The good shepherd ensures all these needs are met. Green pastures (<em>ne'ot deshe</em>) were precious in the arid Palestinian landscape, signifying abundant provision.</p>
+
+    <p><strong>"He leadeth me beside the still waters"</strong> (verse 2) – Literally "waters of rest" (<em>mei menuchot</em>). Sheep fear fast-moving water and will not drink from turbulent streams. The shepherd finds calm pools where the flock can safely drink. This speaks to God's wisdom in providing rest and refreshment suited to our nature.</p>
+
+    <p><strong>"He restoreth my soul"</strong> (verse 3) – The Hebrew <em>naphshi yeshobeb</em> suggests returning, refreshing, or reviving. When sheep wander or fall, the shepherd restores them to the path. This is both physical revival and spiritual renewal.</p>
+
+    <p><strong>"He leadeth me in the paths of righteousness for his name's sake"</strong> (verse 3) – The shepherd doesn't merely find <em>any</em> path but <em>right</em> paths (<em>ma'gelei-tsedeq</em>) – straight tracks that lead to good destinations. God's guidance reflects His character ("for his name's sake") – He is faithful to His nature as the good shepherd.</p>
+
+    <p><strong>"Yea, though I walk through the valley of the shadow of death"</strong> (verse 4) – The famous <em>gey tsalmaveth</em>, literally "valley of deep darkness" or "death-shadow." Palestinian shepherds led flocks through narrow ravines where danger lurked – predators, bandits, treacherous footing. Yet the psalmist declares "I will fear no evil: for thou art with me." Not because danger is absent, but because the shepherd is present.</p>
+
+    <p><strong>"Thy rod and thy staff they comfort me"</strong> (verse 4) – The rod (<em>shevet</em>) was a club for defense against predators. The staff (<em>mish'enah</em>) was a long crook for guiding and rescuing sheep. Both instruments of the shepherd's care bring comfort – God both protects and guides.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Host Metaphor (Verses 5-6)</h4>
+
+    <p><strong>"Thou preparest a table before me in the presence of mine enemies"</strong> (verse 5) – The imagery shifts to God as generous host. In ancient Near Eastern culture, to share a meal meant covenant relationship and protection. God provides abundant hospitality even while enemies threaten – demonstrating His power to protect and His commitment to bless.</p>
+
+    <p><strong>"Thou anointest my head with oil"</strong> (verse 5) – Anointing honored special guests. Olive oil soothed sun-parched skin and signified joy and celebration. God doesn't merely provide necessities but lavishes honor and refreshment on His people.</p>
+
+    <p><strong>"My cup runneth over"</strong> (verse 5) – Not just full, but overflowing (<em>revayah</em>). This speaks to God's abundant, excessive generosity – more than sufficient, more than expected.</p>
+
+    <p><strong>"Surely goodness and mercy shall follow me all the days of my life"</strong> (verse 6) – The Hebrew <em>tov vachesed</em> ("goodness and covenant love") will <em>pursue</em> the psalmist. The verb <em>radaph</em> suggests active pursuit – God's blessings chase after His people. This continues "all the days of my life" – from now until death.</p>
+
+    <p><strong>"And I will dwell in the house of the LORD for ever"</strong> (verse 6) – The ultimate confidence: eternal residence in God's presence. Whether understood as temple worship in this life or heavenly dwelling in the next, the psalmist's hope terminates in unending communion with God.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">David's Pastoral Background</h4>
+
+    <p>If David authored this psalm (as the superscription indicates), his firsthand experience as a shepherd in Bethlehem's fields informs every image. He had protected sheep from lions and bears (1 Samuel 17:34-37), led them through dangerous terrain, and knew the shepherd's heart. Yet he also knew what it meant to be shepherded by God – through exile, persecution by Saul, personal failure, and restoration.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological and Christological Significance</h4>
+
+    <p>Psalm 23 establishes several enduring theological truths:</p>
+
+    <ol>
+        <li><strong>God's personal care</strong>: The LORD knows and tends each individual within His flock</li>
+        <li><strong>Sufficient provision</strong>: God supplies all needs according to His wisdom</li>
+        <li><strong>Faithful guidance</strong>: God leads in paths that reflect His righteous character</li>
+        <li><strong>Protective presence</strong>: God's companionship in danger brings courage</li>
+        <li><strong>Abundant blessing</strong>: God gives not merely enough but more than enough</li>
+        <li><strong>Eternal hope</strong>: God's care extends beyond this life into eternity</li>
+    </ol>
+
+    <p>The New Testament reveals the ultimate fulfillment in Jesus Christ, who declared "I am the good shepherd" (John 10:11, 14). He is the shepherd who "giveth his life for the sheep," who knows His own and is known by them, and who promises that no one can snatch His sheep from His hand (John 10:28-29). Hebrews 13:20 calls Him "that great shepherd of the sheep," and 1 Peter 2:25 identifies Him as "the Shepherd and Bishop of your souls."</p>
+
+    <p>For believers facing the valley of death's shadow – whether literal death, devastating loss, chronic suffering, or spiritual darkness – Psalm 23 offers the comfort that has sustained God's people for three millennia: "Thou art with me." In the end, the psalm's power rests not in the beauty of its poetry or the familiarity of its words, but in the character of the Shepherd it proclaims.</p>
+    """
+
+    # John 3 - Born Again, God So Loved the World
+    if book == "John" and chapter == 3:
+        return """
+    <p><strong>John 3</strong> contains some of the most memorable and theologically profound verses in Scripture, including the famous John 3:16 – "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life." This chapter records Jesus' nighttime conversation with Nicodemus about spiritual rebirth and presents the gospel message in its clearest, most concise form.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Nicodemus: The Seeker in the Night (Verses 1-21)</h4>
+
+    <p>Nicodemus is introduced as "a man of the Pharisees" and "a ruler of the Jews" (verse 1), making him a member of the Sanhedrin, the Jewish ruling council. He comes to Jesus "by night" – perhaps to avoid public scrutiny, or symbolizing his spiritual darkness seeking the light. He addresses Jesus respectfully as "Rabbi" and acknowledges Him as "a teacher come from God," evidenced by His miraculous signs (verse 2).</p>
+
+    <p><strong>The New Birth (Verses 3-8)</strong></p>
+
+    <p>Jesus' response is startling and direct: "Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God" (verse 3). The phrase "born again" translates Greek <em>gennēthē anōthen</em>, which can mean either "born again" or "born from above." Both meanings are significant – salvation requires both a second birth and a birth originating from God.</p>
+
+    <p>Nicodemus misunderstands, thinking of physical rebirth (verse 4), but Jesus clarifies: "Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God" (verse 5). The interpretation of "water and Spirit" has been debated:</p>
+
+    <ul>
+        <li><strong>Natural and spiritual birth</strong>: "Water" = physical birth, "Spirit" = spiritual birth</li>
+        <li><strong>Ezekiel's prophecy</strong>: Referring to Ezekiel 36:25-27 where God promises cleansing water and a new spirit</li>
+        <li><strong>Baptism and Spirit</strong>: Christian baptism and Holy Spirit regeneration</li>
+        <li><strong>Word and Spirit</strong>: The cleansing word of God (John 15:3; Ephesians 5:26) and the Spirit's work</li>
+    </ul>
+
+    <p>Jesus distinguishes between physical and spiritual generation: "That which is born of the flesh is flesh; and that which is born of the Spirit is spirit" (verse 6). Human effort cannot produce spiritual life – only the Spirit can regenerate.</p>
+
+    <p>The wind metaphor in verses 7-8 illustrates the Spirit's sovereignty: "The wind bloweth where it listeth, and thou hearest the sound thereof, but canst not tell whence it cometh, and whither it goeth: so is every one that is born of the Spirit." The same Greek word <em>pneuma</em> means both "wind" and "spirit." Like wind, the Spirit's work is real but mysterious, sovereign but evident in its effects.</p>
+
+    <p><strong>The Bronze Serpent Typology (Verses 14-15)</strong></p>
+
+    <p>Jesus refers to Numbers 21:4-9, where Moses lifted up a bronze serpent in the wilderness. Israelites dying from serpent bites were healed by looking at the bronze serpent on the pole. Similarly, "even so must the Son of man be lifted up: That whosoever believeth in him should not perish, but have eternal life" (verses 14-15).</p>
+
+    <p>This is the first explicit reference in John's Gospel to Jesus' crucifixion ("lifted up"). The parallel is profound:</p>
+
+    <ul>
+        <li>Both involve being lifted up on a pole/cross</li>
+        <li>Both require simple faith (looking/believing)</li>
+        <li>Both offer salvation from death</li>
+        <li>Both demonstrate God's provision for desperate need</li>
+    </ul>
+
+    <p><strong>John 3:16-17: The Gospel in Miniature</strong></p>
+
+    <p>Martin Luther called John 3:16 "the gospel in miniature" or "the Bible in a nutshell." It contains the essential elements of the Christian message:</p>
+
+    <ul>
+        <li><strong>God's character</strong>: "For God so loved" – divine love as motivation</li>
+        <li><strong>Love's scope</strong>: "the world" – universal offer, not limited to Israel</li>
+        <li><strong>Love's cost</strong>: "he gave his only begotten Son" – the supreme sacrifice</li>
+        <li><strong>Salvation's condition</strong>: "that whosoever believeth in him" – faith, not works</li>
+        <li><strong>Alternative destinies</strong>: "should not perish, but have everlasting life" – two eternal outcomes</li>
+    </ul>
+
+    <p>Verse 17 clarifies God's intent: "For God sent not his Son into the world to condemn the world; but that the world through him might be saved." Jesus' first coming was for salvation, not judgment (though judgment results from rejecting Him, verses 18-19).</p>
+
+    <p><strong>Light and Darkness (Verses 19-21)</strong></p>
+
+    <p>Jesus explains why some reject the light: "And this is the condemnation, that light is come into the world, and men loved darkness rather than light, because their deeds were evil" (verse 19). The problem isn't intellectual but moral – people prefer darkness because it hides their evil deeds. "For every one that doeth evil hateth the light, neither cometh to the light, lest his deeds should be reproved" (verse 20). Conversely, "he that doeth truth cometh to the light, that his deeds may be made manifest, that they are wrought in God" (verse 21).</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">John the Baptist's Final Testimony (Verses 22-36)</h4>
+
+    <p>The chapter concludes with John the Baptist's gracious response to his decreasing prominence as Jesus' ministry grows. When his disciples express concern about Jesus' increasing popularity (verses 25-26), John responds with humility and joy:</p>
+
+    <p><strong>"He must increase, but I must decrease"</strong> (verse 30) – This is the proper attitude of every believer and minister: Christ must have preeminence.</p>
+
+    <p>John's final testimony (verses 31-36) includes profound Christological affirmations:</p>
+
+    <ul>
+        <li><strong>Christ's origin</strong>: "He that cometh from above is above all" (verse 31)</li>
+        <li><strong>Christ's testimony</strong>: He speaks what He has seen and heard (verse 32)</li>
+        <li><strong>God's authentication</strong>: "He whom God hath sent speaketh the words of God: for God giveth not the Spirit by measure unto him" (verse 34)</li>
+        <li><strong>The Father's love</strong>: "The Father loveth the Son, and hath given all things into his hand" (verse 35)</li>
+        <li><strong>Eternal consequences</strong>: "He that believeth on the Son hath everlasting life: and he that believeth not the Son shall not see life; but the wrath of God abideth on him" (verse 36)</li>
+    </ul>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological Significance</h4>
+
+    <p>John 3 establishes essential Christian doctrines:</p>
+
+    <ol>
+        <li><strong>Necessity of regeneration</strong>: No one enters God's kingdom without spiritual rebirth</li>
+        <li><strong>Sovereignty of the Spirit</strong>: Salvation is God's work, not human achievement</li>
+        <li><strong>Centrality of the cross</strong>: Christ must be "lifted up" for salvation</li>
+        <li><strong>Universality of God's love</strong>: The gospel extends to "the world," not just one nation</li>
+        <li><strong>Exclusivity of Christ</strong>: Eternal life comes only through faith in God's Son</li>
+        <li><strong>Human responsibility</strong>: People must believe or face condemnation</li>
+        <li><strong>Moral dimension of unbelief</strong>: Rejection of Christ is moral, not merely intellectual</li>
+    </ol>
+
+    <p>Nicodemus appears twice more in John's Gospel – defending Jesus before the Sanhedrin (7:50-51) and helping Joseph of Arimathea bury Jesus (19:39). These references suggest he eventually became a secret disciple, demonstrating that even a hesitant seeker in the night can find the light of the world.</p>
+    """
+
+    # Romans 8 - No Condemnation
+    if book == "Romans" and chapter == 8:
+        return """
+    <p><strong>Romans 8</strong> is often considered the pinnacle of Paul's theological exposition in Romans, presenting the Christian life empowered by the Holy Spirit and secured by God's unchangeable love. After establishing human sinfulness (1:18-3:20), justification by faith (3:21-5:21), sanctification and the struggle with sin (6:1-7:25), Paul now presents the glorious reality of life in the Spirit.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">No Condemnation for Those in Christ (Verses 1-4)</h4>
+
+    <p>The chapter opens with one of Scripture's most comforting declarations: "There is therefore now no condemnation to them which are in Christ Jesus, who walk not after the flesh, but after the Spirit" (verse 1). The word "therefore" connects to chapter 7's struggle with indwelling sin. Despite ongoing moral struggle, believers face "no condemnation" (<em>ouden katakrima</em>) – no judicial verdict of guilt, no punishment, no separation from God.</p>
+
+    <p>Why? "For the law of the Spirit of life in Christ Jesus hath made me free from the law of sin and death" (verse 2). A new <em>principle</em> or <em>power</em> ("law") operates in believers – the Spirit's life-giving power liberates from sin and death's enslaving power.</p>
+
+    <p>Verses 3-4 explain the theological basis: "For what the law could not do, in that it was weak through the flesh, God sending his own Son in the likeness of sinful flesh, and for sin, condemned sin in the flesh: That the righteousness of the law might be fulfilled in us, who walk not after the flesh, but after the Spirit." The Law couldn't save because human weakness prevented obedience. So God sent His Son "in the likeness of sinful flesh" (truly human yet without sin) to condemn sin through His death, enabling the Law's righteous requirement to be fulfilled in Spirit-empowered believers.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Life in the Spirit vs. Life in the Flesh (Verses 5-11)</h4>
+
+    <p>Paul contrasts two ways of life:</p>
+
+    <ul>
+        <li><strong>Those "after the flesh"</strong>: Mind the things of the flesh, hostile to God, cannot please God, headed toward death (verses 5-8)</li>
+        <li><strong>Those "after the Spirit"</strong>: Mind the things of the Spirit, subject to God's law, pleasing to God, possess spiritual life (verses 5-6, 9)</li>
+    </ul>
+
+    <p>"But ye are not in the flesh, but in the Spirit, if so be that the Spirit of God dwell in you" (verse 9). The presence of the Spirit is the defining mark of believers. "Now if any man have not the Spirit of Christ, he is none of his" – not a Christian at all.</p>
+
+    <p>Verses 10-11 present resurrection hope: Though the body is dead because of sin, the Spirit gives life. And "if the Spirit of him that raised up Jesus from the dead dwell in you, he that raised up Christ from the dead shall also quicken your mortal bodies by his Spirit that dwelleth in you" (verse 11). The same Spirit who raised Jesus will resurrect believers.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Sons of God Led by the Spirit (Verses 12-17)</h4>
+
+    <p>Paul describes the believer's relationship to God as adoption: "For ye have not received the spirit of bondage again to fear; but ye have received the Spirit of adoption, whereby we cry, Abba, Father" (verse 15). The Spirit enables intimate address to God as "Abba" (Aramaic for "Father" or "Daddy"), the same term Jesus used (Mark 14:36).</p>
+
+    <p>"The Spirit itself beareth witness with our spirit, that we are the children of God" (verse 16) – internal assurance that we belong to God.</p>
+
+    <p>"And if children, then heirs; heirs of God, and joint-heirs with Christ; if so be that we suffer with him, that we may be also glorified together" (verse 17). As God's children, believers are heirs of all God's promises, sharing Christ's inheritance. But heirship includes suffering before glory – a crucial connection Paul develops next.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Present Suffering and Future Glory (Verses 18-25)</h4>
+
+    <p>"For I reckon that the sufferings of this present time are not worthy to be compared with the glory which shall be revealed in us" (verse 18). Paul doesn't minimize suffering but puts it in eternal perspective – future glory far outweighs present pain.</p>
+
+    <p>Remarkably, "the whole creation groaneth and travaileth in pain together until now" (verse 22), subjected to futility because of human sin (verse 20), awaiting "the glorious liberty of the children of God" (verse 21). Creation itself will be liberated when God's children are fully revealed.</p>
+
+    <p>Meanwhile, "we ourselves groan within ourselves, waiting for the adoption, to wit, the redemption of our body" (verse 23). Christians experience the Spirit as <em>firstfruits</em> – the initial installment guaranteeing full harvest. We await complete adoption: bodily resurrection.</p>
+
+    <p>"For we are saved by hope" (verse 24) – not yet possessing what we hope for, but confidently waiting.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Spirit's Help in Prayer (Verses 26-27)</h4>
+
+    <p>In our weakness, "the Spirit itself maketh intercession for us with groanings which cannot be uttered" (verse 26). When we don't know how to pray, the Spirit intercedes according to God's will (verse 27). This is profound comfort – our inadequate prayers are perfected by the Spirit's intercession.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Golden Chain of Salvation (Verses 28-30)</h4>
+
+    <p>"And we know that all things work together for good to them that love God, to them who are the called according to his purpose" (verse 28). Not that all things <em>are</em> good, but God works all things <em>together</em> for good for His people.</p>
+
+    <p>Verses 29-30 present salvation's unbreakable chain:</p>
+
+    <ol>
+        <li><strong>Foreknew</strong>: God knew His people beforehand in intimate, electing love</li>
+        <li><strong>Predestined</strong>: Predetermined to be conformed to Christ's image</li>
+        <li><strong>Called</strong>: Effectually summoned to salvation</li>
+        <li><strong>Justified</strong>: Declared righteous through Christ</li>
+        <li><strong>Glorified</strong>: Past tense for future event – so certain it's as good as done</li>
+    </ol>
+
+    <p>Those God foreknew will certainly be glorified – no one drops out of this chain.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Triumph of God's Love (Verses 31-39)</h4>
+
+    <p>Paul concludes with a magnificent doxology of rhetorical questions celebrating believers' security:</p>
+
+    <p><strong>"If God be for us, who can be against us?"</strong> (verse 31) – If the Almighty is our ally, no enemy can prevail.</p>
+
+    <p><strong>"He that spared not his own Son, but delivered him up for us all, how shall he not with him also freely give us all things?"</strong> (verse 32) – God gave the greatest gift (His Son); He'll certainly give lesser gifts.</p>
+
+    <p><strong>"Who shall lay any thing to the charge of God's elect?"</strong> (verse 33) – No accusation stands since "It is God that justifieth."</p>
+
+    <p><strong>"Who is he that condemneth?"</strong> (verse 34) – No condemnation is possible since Christ died, rose, and intercedes for us.</p>
+
+    <p><strong>"Who shall separate us from the love of Christ?"</strong> (verse 35) – Paul lists seven potential separators: tribulation, distress, persecution, famine, nakedness, peril, sword. These were real experiences for early Christians (verse 36 quotes Psalm 44:22). Yet "in all these things we are more than conquerors through him that loved us" (verse 37). Not merely conquerors but <em>hyper-conquerors</em> (<em>hypernikōmen</em>).</p>
+
+    <p>The chapter crescendos with Paul's absolute conviction (verses 38-39): "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come, Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord."</p>
+
+    <p>Ten potential separators – nothing in all creation can sever believers from God's love in Christ. This is the Christian's unshakeable confidence.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological Significance</h4>
+
+    <p>Romans 8 establishes crucial doctrines:</p>
+
+    <ol>
+        <li><strong>Justification's permanence</strong>: No condemnation for those in Christ</li>
+        <li><strong>The Spirit's indwelling</strong>: Defining mark of Christians</li>
+        <li><strong>Adoption into God's family</strong>: Believers are children and heirs</li>
+        <li><strong>Suffering as path to glory</strong>: Present pain doesn't negate future hope</li>
+        <li><strong>Creation's redemption</strong>: Cosmic restoration coming</li>
+        <li><strong>Divine sovereignty in salvation</strong>: God's purpose guarantees completion</li>
+        <li><strong>Eternal security</strong>: Nothing can separate believers from God's love</li>
+    </ol>
+
+    <p>For Christians facing suffering, doubt, or spiritual attack, Romans 8 provides rock-solid assurance: God is for us, Christ intercedes for us, the Spirit helps us, and nothing can separate us from divine love. This is the gospel's triumph song.</p>
+    """
+
+    # 1 Corinthians 13 - The Love Chapter
+    if book == "1 Corinthians" and chapter == 13:
+        return """
+    <p><strong>1 Corinthians 13</strong>, often called "the Love Chapter," is one of the most eloquent and beloved passages in all of Scripture. Frequently read at weddings, this chapter actually addresses a church wracked by division, pride, and spiritual immaturity. Paul interrupts his discussion of spiritual gifts (chapters 12-14) to present love as "a more excellent way" (12:31) – the indispensable foundation for all Christian life and ministry.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Supremacy of Love (Verses 1-3)</h4>
+
+    <p>Paul begins with three hyperbolic contrasts showing that even the most spectacular spiritual achievements are worthless without love:</p>
+
+    <p><strong>Eloquence without love is noise</strong> (verse 1): "Though I speak with the tongues of men and of angels, and have not charity, I am become as sounding brass, or a tinkling cymbal." The Greek word <em>agapē</em> (translated "charity" in KJV, "love" in modern versions) denotes self-giving, sacrificial love – not mere emotion or attraction. Without this love, even supernatural eloquence becomes irritating noise – like the clanging brass gongs and cymbals used in pagan worship at Corinth.</p>
+
+    <p><strong>Spiritual gifts without love are nothing</strong> (verse 2): "And though I have the gift of prophecy, and understand all mysteries, and all knowledge; and though I have all faith, so that I could remove mountains, and have not charity, I am nothing." Prophecy, supernatural knowledge, even mountain-moving faith (cf. Matthew 17:20) – all amount to zero without love. The most impressive spiritual powers become spiritually bankrupt when divorced from love.</p>
+
+    <p><strong>Sacrifice without love gains nothing</strong> (verse 3): "And though I bestow all my goods to feed the poor, and though I give my body to be burned, and have not charity, it profiteth me nothing." Even extreme acts of generosity (total divestment of possessions) and ultimate martyrdom (self-immolation) yield no spiritual profit without love as motivation. This is startling – even good deeds done without love are spiritually worthless.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Character of Love (Verses 4-7)</h4>
+
+    <p>Having established love's supremacy, Paul defines love not abstractly but practically, through fifteen specific characteristics (primarily verbs, not adjectives – love is active, not passive). These qualities directly address the Corinthians' specific problems:</p>
+
+    <p><strong>What love does</strong>:</p>
+    <ul>
+        <li><strong>"Charity suffereth long"</strong> – Patient endurance under provocation (the Corinthians were quick to take offense)</li>
+        <li><strong>"is kind"</strong> – Actively benevolent and gracious (Greek <em>chrēsteuomai</em>, sharing root with Christ)</li>
+        <li><strong>"rejoiceth not in iniquity, but rejoiceth in the truth"</strong> – Takes no pleasure in others' failures but celebrates truth and righteousness</li>
+        <li><strong>"Beareth all things"</strong> – Covers or protects (either bears up under difficulty or covers others' faults)</li>
+        <li><strong>"believeth all things"</strong> – Trusts, gives benefit of doubt, doesn't assume the worst</li>
+        <li><strong>"hopeth all things"</strong> – Remains optimistic about people and circumstances</li>
+        <li><strong>"endureth all things"</strong> – Perseveres under pressure without giving up</li>
+    </ul>
+
+    <p><strong>What love doesn't do</strong>:</p>
+    <ul>
+        <li><strong>"envieth not"</strong> – No jealousy over others' blessings or advantages (a major Corinthian problem)</li>
+        <li><strong>"vaunteth not itself"</strong> – Doesn't boast or brag (addressed to a boastful church: 1:29, 3:21, 4:7)</li>
+        <li><strong>"is not puffed up"</strong> – Not arrogant or inflated with pride (Corinth's cardinal sin: 4:6, 18-19, 5:2, 8:1)</li>
+        <li><strong>"doth not behave itself unseemly"</strong> – Not rude, disgraceful, or shameful (cf. their disorderly worship: 11:2-34, 14:40)</li>
+        <li><strong>"seeketh not her own"</strong> – Doesn't insist on its own way (vs. their selfish individualism: 10:24, 33)</li>
+        <li><strong>"is not easily provoked"</strong> – Not irritable or quick-tempered (literally "not sharp" or "bitter")</li>
+        <li><strong>"thinketh no evil"</strong> – Doesn't keep a mental ledger of wrongs suffered</li>
+    </ul>
+
+    <p>This description is both personally convicting and remarkably applicable to the Corinthians' specific issues: pride (puffed up), factionalism (envy), litigation (easily provoked), disorder (unseemly behavior), and division over spiritual gifts.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Permanence of Love (Verses 8-13)</h4>
+
+    <p>"Charity never faileth" (verse 8) – Love never falls, never fails, never ends. It's eternal, unlike spiritual gifts which are temporary:</p>
+
+    <ul>
+        <li><strong>Prophecies</strong> will be done away</li>
+        <li><strong>Tongues</strong> will cease</li>
+        <li><strong>Knowledge</strong> will vanish away</li>
+    </ul>
+
+    <p>Why? Because "we know in part, and we prophesy in part. But when that which is perfect is come, then that which is in part shall be done away" (verses 9-10). Current spiritual knowledge is fragmentary, like a child's understanding (verse 11) or seeing through a dim, ancient bronze mirror (verse 12). But when Christ returns and we see Him face to face, partial knowledge gives way to complete understanding.</p>
+
+    <p>The famous verse 12 captures this beautifully: "For now we see through a glass, darkly; but then face to face: now I know in part; but then shall I know even as also I am known." Corinthian bronze mirrors gave only dim, unclear reflections compared to seeing directly. Similarly, our current knowledge is clouded compared to the crystal clarity we'll have in eternity. Yet even now, God knows us fully – and then we'll know as we are known.</p>
+
+    <p>The chapter concludes with the triad: "And now abideth faith, hope, charity, these three; but the greatest of these is charity" (verse 13). These three Christian virtues endure into eternity (unlike temporary gifts), but love is supreme because:</p>
+
+    <ul>
+        <li>Faith will become sight (2 Corinthians 5:7)</li>
+        <li>Hope will be realized (Romans 8:24-25)</li>
+        <li>Love will continue forever in perfected form</li>
+    </ul>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Context in 1 Corinthians</h4>
+
+    <p>Chapter 13 sits strategically between Paul's discussion of the body of Christ and spiritual gifts (chapter 12) and proper use of tongues and prophecy (chapter 14). The Corinthians were obsessed with showy spiritual gifts, especially tongues, creating competition and division. Paul demonstrates that without love, even the most spectacular gifts are spiritually worthless.</p>
+
+    <p>This addresses their core problem: immaturity (3:1-3). Despite possessing spiritual gifts (1:7), they remained "carnal, and walk as men" (3:3) – characterized by envy, strife, and divisions. True spiritual maturity isn't measured by miraculous abilities but by Christlike love.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological and Practical Significance</h4>
+
+    <p>First Corinthians 13 establishes several crucial truths:</p>
+
+    <ol>
+        <li><strong>Love as the supreme virtue</strong>: Greater than faith or hope, more important than any spiritual gift</li>
+        <li><strong>Love as proof of maturity</strong>: The defining mark of spiritual growth</li>
+        <li><strong>Love as God's nature</strong>: This chapter describes not merely ideal human behavior but God's character revealed in Christ (1 John 4:8, 16)</li>
+        <li><strong>Love as eternally enduring</strong>: The one thing that survives into eternity unchanged</li>
+        <li><strong>Love as practical, not sentimental</strong>: Defined by actions and attitudes, not feelings</li>
+    </ol>
+
+    <p>When read carefully, this chapter becomes Christ's autobiography. Every characteristic Paul lists describes Jesus perfectly: patient, kind, not envious or boastful or proud, never rude or self-seeking, not easily angered, keeping no record of wrongs, never delighting in evil but rejoicing with truth, always protecting, trusting, hoping, and persevering.</p>
+
+    <p>The challenge for readers – whether Corinthian or contemporary – is to embody this love. Not through human effort alone (which inevitably fails) but through the Spirit's transforming work (Galatians 5:22 lists love as the Spirit's first fruit). This isn't a checklist for self-improvement but a portrait of Christ to which believers are being conformed (Romans 8:29).</p>
+
+    <p>In a church culture (then and now) often enamored with gifts, experiences, knowledge, and achievements, 1 Corinthians 13 redirects focus to what truly matters: love. For "if I have not love, I am nothing... I gain nothing." But with love as the foundation, all spiritual gifts find their proper purpose: building up the body of Christ in unity and maturity.</p>
+    """
+
+    # John 1 - The Word Became Flesh
+    if book == "John" and chapter == 1:
+        return """
+    <p><strong>John 1</strong> opens with one of the most theologically profound prologues in Scripture. Unlike the synoptic Gospels which begin with genealogies (Matthew, Luke) or John the Baptist's ministry (Mark), John's Gospel begins before creation itself: "In the beginning was the Word." This chapter establishes Christ's deity, preexistence, incarnation, and mission, while introducing key witnesses to His identity.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Eternal Word (Verses 1-5)</h4>
+
+    <p><strong>"In the beginning was the Word"</strong> (verse 1) – These opening words echo Genesis 1:1 ("In the beginning God created"), but with a crucial difference: Genesis describes creation's beginning; John describes what already existed before creation. The imperfect tense "was" (<em>ēn</em>) indicates continuous existence – the Word had no beginning but eternally was.</p>
+
+    <p><strong>"The Word was with God, and the Word was God"</strong> (verse 1) – Two staggering affirmations in one breath. The Word (<em>ho logos</em>) existed in relationship with God (Greek <em>pros ton theon</em> suggests "face to face with God") while simultaneously being God Himself. This establishes both distinction (the Word is with God) and identity (the Word is God) – foundational to Trinitarian theology.</p>
+
+    <p>Why "Word" (<em>logos</em>)? This term was rich with meaning for both Jewish and Greek audiences:</p>
+    <ul>
+        <li>For Jews: God's creative word in Genesis ("God said"), the personified Wisdom of Proverbs 8, the Torah as God's revealed word</li>
+        <li>For Greeks: The rational principle ordering the cosmos, the mediator between transcendent deity and material creation</li>
+        <li>For John: The perfect term to express how God communicates and reveals Himself – through Christ</li>
+    </ul>
+
+    <p><strong>"All things were made by him"</strong> (verse 3) – The Word is creator, not creature. "Without him was not any thing made that was made" – absolute statement excluding no created thing. This refutes any notion that Christ is a created being. If it was created, Christ created it.</p>
+
+    <p><strong>"In him was life; and the life was the light of men"</strong> (verse 4) – The Word possesses life inherently, not derivatively. This life illuminates humanity – spiritual, moral, intellectual enlightenment. Yet "the darkness comprehended it not" (verse 5) – darkness neither overcame nor understood the light. This introduces the Gospel's light/darkness motif (3:19-21, 8:12, 12:35-36, 12:46).</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Witness of John the Baptist (Verses 6-8, 15, 19-34)</h4>
+
+    <p>John the Baptist appears as the first witness to Christ's identity. "There was a man sent from God, whose name was John" (verse 6) – in stark contrast to the Word who eternally was, John has a beginning; he was sent. His mission? "To bear witness of the Light, that all men through him might believe" (verse 7). John himself wasn't the light but a pointer to the light.</p>
+
+    <p>When religious authorities interrogate John (verses 19-28), he consistently deflects attention from himself to Christ:</p>
+    <ul>
+        <li>"I am not the Christ" (verse 20)</li>
+        <li>Not Elijah or "that prophet" (verse 21)</li>
+        <li>Just "the voice of one crying in the wilderness" (verse 23, quoting Isaiah 40:3)</li>
+        <li>"I baptize with water: but there standeth one among you, whom ye know not... whose shoe's latchet I am not worthy to unloose" (verses 26-27)</li>
+    </ul>
+
+    <p>The next day, seeing Jesus approach, John declares: "Behold the Lamb of God, which taketh away the sin of the world" (verse 29). This title combines Isaiah's suffering servant (Isaiah 53:7) with the Passover lamb (Exodus 12) – Jesus is the sacrifice who removes (Greek <em>airō</em>: lifts up and carries away) the world's sin.</p>
+
+    <p>John testifies to witnessing the Spirit descend "like a dove" and remain on Jesus (verses 32-33) – the divine authentication. His conclusion: "I saw, and bare record that this is the Son of God" (verse 34).</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Incarnation (Verses 9-14)</h4>
+
+    <p>Verses 9-11 describe humanity's tragic response to the Light: "He was in the world, and the world was made by him, and the world knew him not. He came unto his own, and his own received him not." The Creator entered His creation, yet creation failed to recognize Him. He came to His own people (Israel), yet they rejected Him.</p>
+
+    <p>But not all rejected Him: "But as many as received him, to them gave he power to become the sons of God, even to them that believe on his name" (verse 12). Those who receive Christ gain the right/authority (<em>exousia</em>) to become God's children – not through natural descent or human will, but through divine birth (verse 13). This is spiritual regeneration, being "born again" (cf. John 3:3-8).</p>
+
+    <p>Verse 14 presents the incarnation with stunning simplicity: "And the Word was made flesh, and dwelt among us." The eternal, divine Word became <em>sarx</em> (flesh) – fully human. "Dwelt" (<em>eskēnōsen</em>) literally means "tabernacled" – the Word pitched His tent among humanity, evoking God's presence in the wilderness tabernacle (Exodus 40:34-35).</p>
+
+    <p>"And we beheld his glory, the glory as of the only begotten of the Father, full of grace and truth" (verse 14). Eyewitnesses saw divine glory revealed in human flesh – the same glory that filled the tabernacle now manifest in Christ. "Only begotten" (<em>monogenēs</em>) emphasizes Jesus' unique relationship to the Father – not "only created" but "uniquely generated," eternally begotten.</p>
+
+    <p>"Full of grace and truth" – grace (<em>charis</em>) is God's unmerited favor; truth (<em>alētheia</em>) is reality, faithfulness, reliability. These aren't opposing qualities but complementary expressions of God's character. Verse 17 contrasts Moses' law (which came through a mediator) with Jesus' grace and truth (which came directly through Him).</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The First Disciples (Verses 35-51)</h4>
+
+    <p>John recounts Jesus' first disciples being called:</p>
+
+    <ol>
+        <li><strong>Two of John's disciples</strong> (likely Andrew and John the author) follow Jesus after hearing John's testimony. They spend the day with Him (verse 39) – transformative hours that changed their lives.</li>
+        <li><strong>Andrew</strong> finds his brother Simon and declares: "We have found the Messias" (verse 41). Jesus renames Simon "Cephas" (Peter, "rock") – significant since ancient names conveyed identity and destiny.</li>
+        <li><strong>Philip</strong> is directly called by Jesus (verse 43) and immediately seeks Nathanael.</li>
+        <li><strong>Nathanael</strong> is skeptical ("Can there any good thing come out of Nazareth?" – verse 46) until Jesus demonstrates supernatural knowledge. Jesus sees Nathanael "under the fig tree" before Philip called him (verse 48) – possibly seeing not just physically but into Nathanael's heart/character. Convinced, Nathanael confesses: "Rabbi, thou art the Son of God; thou art the King of Israel" (verse 49).</li>
+    </ol>
+
+    <p>Jesus promises Nathanael (and all disciples): "Hereafter ye shall see heaven open, and the angels of God ascending and descending upon the Son of man" (verse 51). This alludes to Jacob's ladder (Genesis 28:12) with a crucial difference: angels ascend and descend not on a ladder but on the Son of Man – Jesus Himself is the connection between heaven and earth, the mediator between God and humanity.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological Significance</h4>
+
+    <p>John 1 establishes foundational Christian theology:</p>
+
+    <ol>
+        <li><strong>Christ's full deity</strong>: The Word was God, creator of all things, possessing eternal life</li>
+        <li><strong>Christ's full humanity</strong>: The Word became flesh and dwelt among us</li>
+        <li><strong>Christ's preexistence</strong>: He existed before creation, eternally with the Father</li>
+        <li><strong>Christ's creative power</strong>: All things were made through Him</li>
+        <li><strong>Christ's revelatory role</strong>: He makes the invisible God known (verse 18)</li>
+        <li><strong>Christ's saving work</strong>: The Lamb who takes away the world's sin</li>
+        <li><strong>Spiritual rebirth</strong>: Becoming God's children through believing in Christ's name</li>
+        <li><strong>Incarnation's purpose</strong>: To reveal God's glory, grace, and truth</li>
+    </ol>
+
+    <p>This chapter answers the fundamental question: Who is Jesus? The answer reverberates through every verse: He is the eternal Word, Creator God, life and light of humanity, the incarnate revelation of the Father, the Lamb of God, the Son of God, the King of Israel, the Messiah. John's Gospel will spend the next 20 chapters unpacking these magnificent opening declarations, showing through signs, teachings, and ultimately death and resurrection that Jesus is indeed who John 1 proclaims Him to be.</p>
+    """
+
+    # Matthew 5 - The Sermon on the Mount (Beatitudes)
+    if book == "Matthew" and chapter == 5:
+        return """
+    <p><strong>Matthew 5</strong> opens the Sermon on the Mount (chapters 5-7), Jesus' longest and most famous discourse. Delivered early in His ministry to crowds gathering on a Galilean hillside, this sermon presents the ethics and character of the kingdom of heaven – a radical reorientation of values that contrasts sharply with both prevailing religious practice and secular culture.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Beatitudes (Verses 3-12)</h4>
+
+    <p>Jesus begins with nine "blessed" statements (Greek <em>makarios</em>, meaning "happy," "fortunate," or "flourishing"). Unlike worldly values that celebrate power, wealth, and self-assertion, Jesus pronounces blessing on the seemingly unfortunate:</p>
+
+    <ol>
+        <li><strong>"Blessed are the poor in spirit: for theirs is the kingdom of heaven"</strong> (verse 3) – Not economically poor but spiritually bankrupt, recognizing their need for God. These possess the kingdom because they know they can't earn it.</li>
+
+        <li><strong>"Blessed are they that mourn: for they shall be comforted"</strong> (verse 4) – Those who grieve over sin (their own and the world's) will receive God's comfort. This isn't mere sadness but godly sorrow (2 Corinthians 7:10).</li>
+
+        <li><strong>"Blessed are the meek: for they shall inherit the earth"</strong> (verse 5) – Meekness isn't weakness but strength under control (cf. Moses in Numbers 12:3). The meek don't grasp for power yet will inherit everything (cf. Psalm 37:11).</li>
+
+        <li><strong>"Blessed are they which do hunger and thirst after righteousness: for they shall be filled"</strong> (verse 6) – Intense craving for right standing with God and righteous living will be satisfied. This isn't casual interest but desperate need.</li>
+
+        <li><strong>"Blessed are the merciful: for they shall obtain mercy"</strong> (verse 7) – Those who show compassion to others will receive God's mercy (cf. Matthew 6:14-15, 18:23-35).</li>
+
+        <li><strong>"Blessed are the pure in heart: for they shall see God"</strong> (verse 8) – Moral purity, undivided loyalty, single-minded devotion to God leads to knowing Him intimately. This references Psalm 24:3-4 and anticipates seeing God face-to-face (1 John 3:2).</li>
+
+        <li><strong>"Blessed are the peacemakers: for they shall be called the children of God"</strong> (verse 9) – Not merely peacekeepers but those actively reconciling others to God and each other. This reflects God's character (Romans 5:1, 2 Corinthians 5:18-19).</li>
+
+        <li><strong>"Blessed are they which are persecuted for righteousness' sake: for theirs is the kingdom of heaven"</strong> (verse 10) – Suffering for doing right (not for being obnoxious) brings blessing. Persecution confirms kingdom citizenship.</li>
+
+        <li><strong>"Blessed are ye, when men shall revile you, and persecute you, and shall say all manner of evil against you falsely, for my sake"</strong> (verses 11-12) – Direct application to disciples: expect insults, persecution, and slander. Yet "rejoice, and be exceeding glad: for great is your reward in heaven: for so persecuted they the prophets which were before you." Persecution places believers in the prophets' company.</li>
+    </ol>
+
+    <p>These Beatitudes describe kingdom citizens – not steps to salvation but characteristics of those who've received God's grace. They're counter-cultural then and now, reversing worldly values.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Salt and Light (Verses 13-16)</h4>
+
+    <p>Jesus gives disciples two metaphors defining their mission:</p>
+
+    <p><strong>"Ye are the salt of the earth"</strong> (verse 13) – Salt preserves, flavors, and in ancient times was used in purification and covenant-making (Leviticus 2:13). Disciples preserve society from moral decay, add "flavor" to bland existence, and represent God's covenant. But "if the salt have lost his savour... it is thenceforth good for nothing, but to be cast out, and to be trodden under foot of men." Tasteless salt is useless – so are ineffective disciples.</p>
+
+    <p><strong>"Ye are the light of the world"</strong> (verse 14) – Echoing Jesus' own identity (John 8:12), disciples reflect His light. "A city that is set on an hill cannot be hid" (verse 14) – visibility is inevitable, not optional. "Neither do men light a candle, and put it under a bushel, but on a candlestick; and it giveth light unto all that are in the house" (verse 15) – lamps exist to illuminate, not be hidden.</p>
+
+    <p>"Let your light so shine before men, that they may see your good works, and glorify your Father which is in heaven" (verse 16) – Good works should be visible (contrary to modern privatized faith) but the goal is glorifying God, not self-promotion.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Christ and the Law (Verses 17-20)</h4>
+
+    <p>Anticipating objections that His teaching undermines the Law, Jesus clarifies: "Think not that I am come to destroy the law, or the prophets: I am not come to destroy, but to fulfil" (verse 17). He doesn't abolish but completes, accomplishes, and brings to full meaning.</p>
+
+    <p>"For verily I say unto you, Till heaven and earth pass, one jot or one tittle shall in no wise pass from the law, till all be fulfilled" (verse 18) – The smallest Hebrew letter (yod, <em>jot</em>) and the tiniest stroke distinguishing letters (<em>tittle</em>) remain valid. The Law's moral principles are eternally binding.</p>
+
+    <p>"For I say unto you, That except your righteousness shall exceed the righteousness of the scribes and Pharisees, ye shall in no case enter into the kingdom of heaven" (verse 20) – Shocking statement since Pharisees were renowned for scrupulous law-keeping. But Jesus demands heart transformation, not mere external compliance. The following "antitheses" ("Ye have heard... but I say") demonstrate this deeper righteousness.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">The Antitheses: Deeper Righteousness (Verses 21-48)</h4>
+
+    <p>Jesus presents six contrasts between superficial law-keeping and heart righteousness:</p>
+
+    <p><strong>1. Murder and Anger (verses 21-26)</strong> – The Law forbids murder, but Jesus condemns the anger that produces it. "Whosoever is angry with his brother without a cause shall be in danger of the judgment" (verse 22). Insulting language ("Raca," "fool") reveals murderous hearts. Therefore, reconcile with offended brothers before offering worship (verses 23-24) – relationship trumps ritual.</p>
+
+    <p><strong>2. Adultery and Lust (verses 27-30)</strong> – The Law forbids adultery, but Jesus condemns lustful looking: "Whosoever looketh on a woman to lust after her hath committed adultery with her already in his heart" (verse 28). The solution is radical: "If thy right eye offend thee, pluck it out... if thy right hand offend thee, cut it off" (verses 29-30). Jesus isn't commanding literal self-mutilation but emphasizing that nothing is too precious to sacrifice to avoid sin.</p>
+
+    <p><strong>3. Divorce (verses 31-32)</strong> – The Law permitted divorce (Deuteronomy 24:1), but Jesus restricts it to cases of sexual immorality (<em>porneia</em>). Easy divorce treating spouses as disposable violates God's design for marriage permanence (cf. Matthew 19:3-9).</p>
+
+    <p><strong>4. Oaths (verses 33-37)</strong> – The Law required keeping oaths, but Jesus prohibits oath-taking entirely: "Swear not at all" (verse 34). Complex oath formulae created loopholes allowing people to break promises while technically complying. Instead: "let your communication be, Yea, yea; Nay, nay: for whatsoever is more than these cometh of evil" (verse 37). Simple honesty eliminates need for oaths.</p>
+
+    <p><strong>5. Retaliation (verses 38-42)</strong> – The Law limited vengeance to proportional justice ("eye for eye, tooth for tooth" – Exodus 21:24), but Jesus commands non-retaliation: "resist not evil: but whosoever shall smite thee on thy right cheek, turn to him the other also" (verse 39). Being sued for your coat? Give your cloak too (verse 40). Forced to carry a load one mile? Go two (verse 41). Give to those who ask (verse 42). This isn't endorsing injustice but refusing to perpetuate cycles of revenge.</p>
+
+    <p><strong>6. Love for Enemies (verses 43-48)</strong> – The Law commanded loving neighbors, but rabbis inferred hating enemies was permissible. Jesus commands: "Love your enemies, bless them that curse you, do good to them that hate you, and pray for them which despitefully use you, and persecute you" (verse 44). Why? "That ye may be the children of your Father which is in heaven: for he maketh his sun to rise on the evil and on the good, and sendeth rain on the just and on the unjust" (verse 45). God shows indiscriminate kindness – His children should too.</p>
+
+    <p>"For if ye love them which love you, what reward have ye? do not even the publicans the same?" (verse 46). Reciprocal love is common; enemy love is divine. "Be ye therefore perfect, even as your Father which is in heaven is perfect" (verse 48) – the goal is God's own perfect character, complete love that includes even enemies.</p>
+
+    <h4 style="color: var(--primary-color); margin-top: 1.5rem;">Theological Significance</h4>
+
+    <p>Matthew 5 establishes crucial truths:</p>
+
+    <ol>
+        <li><strong>Kingdom values reverse worldly values</strong>: The blessed are the poor in spirit, mourners, meek, persecuted</li>
+        <li><strong>Disciples are world-impacting</strong>: Salt and light influencing society</li>
+        <li><strong>Christ fulfills the Law</strong>: He doesn't abolish but brings to completion</li>
+        <li><strong>Righteousness is internal</strong>: Heart transformation, not mere external compliance</li>
+        <li><strong>God's standard is perfection</strong>: Like the Father Himself</li>
+        <li><strong>Love extends to enemies</strong>: Reflecting God's indiscriminate grace</li>
+    </ol>
+
+    <p>This chapter confronts both legalism (external rule-keeping) and antinomianism (lawless grace). Jesus raises the bar impossibly high – who can achieve this righteousness? No one through human effort. This drives us to the gospel: Christ perfectly fulfilled these demands, and through faith in Him, His righteousness becomes ours (2 Corinthians 5:21). The Sermon isn't a ladder to climb but a mirror revealing our need for grace and a portrait of Christ-likeness to which the Spirit conforms believers.</p>
     """
 
     # Simulated chapter overview for other chapters
