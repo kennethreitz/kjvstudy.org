@@ -5693,21 +5693,22 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
     if not potential_sidenotes:
         return []
 
-    # Deterministic selection based on chapter and verse for consistency
+    # Deterministic selection based on verse number for consistency
+    # Show sidenotes on every other verse (verses 1, 3, 5, 7, etc.)
+    # This ensures roughly 50% of verses show studies while being predictable
+    if verse_num % 2 == 0:
+        return []  # Skip even-numbered verses
+
     import random
     random.seed(f"{book}{chapter}{verse_num}")
 
-    # Show 1-2 sidenotes max, with preference for fewer
-    # Every 3rd verse gets 2 sidenotes, others get 0-1
-    max_sidenotes = 2 if (verse_num % 3 == 0) else 1
+    # Show 1-2 sidenotes max
+    # Every 3rd odd verse (1, 7, 13, etc.) gets 2 sidenotes, others get 1
+    max_sidenotes = 2 if (verse_num % 6 == 1) else 1
 
-    # Further limit: only show sidenotes on ~40% of verses to prevent overload
-    show_probability = random.random()
-    if show_probability < 0.4:  # 40% chance
-        selected = random.sample(potential_sidenotes, min(max_sidenotes, len(potential_sidenotes)))
-        return selected
-    else:
-        return []
+    # Randomly select which word studies to show from those available
+    selected = random.sample(potential_sidenotes, min(max_sidenotes, len(potential_sidenotes)))
+    return selected
 
 
 def generate_commentary(book, chapter, verse):
