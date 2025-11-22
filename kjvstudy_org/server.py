@@ -1,5 +1,6 @@
 import hashlib
 import json
+import os
 import re
 import random
 from datetime import datetime, timedelta
@@ -17,7 +18,7 @@ from .kjv import bible, VerseReference
 from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
 from .topics import get_all_topics, get_topic, search_topics
-from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses
+from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data
 
 try:
     from ged4py import GedcomReader
@@ -429,6 +430,13 @@ try:
         scofield_commentary = json.load(f)
 except Exception as e:
     print(f"Warning: Could not load Scofield commentary: {e}")
+
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize app on startup - preload data if enabled"""
+    if os.getenv("PRELOAD_INTERLINEAR", "false").lower() == "true":
+        preload_data()
 
 
 @app.exception_handler(StarletteHTTPException)

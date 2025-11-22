@@ -38,3 +38,6 @@ cpus = 2
 # Production optimizations
 PYTHONUNBUFFERED = "1"
 PYTHONDONTWRITEBYTECODE = "1"
+
+# Preload interlinear data on startup for fast first requests
+PRELOAD_INTERLINEAR = "true"

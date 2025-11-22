@@ -24,8 +24,9 @@ The app is configured for optimal performance on Fly.io:
 
 ### Data Optimization
 - Interlinear Bible data compressed to 13.5 MB (from 139 MB)
-- Lazy loading on first access
+- **Cache warming on startup** - data preloaded for fast first requests
 - Production logging with error handling
+- Configurable via `PRELOAD_INTERLINEAR` environment variable
 
 ## Deployment Steps
 
@@ -86,8 +87,13 @@ fly scale count 2
 
 ### Startup Time
 - Docker build: ~30-60 seconds
-- First request (data loading): ~2-3 seconds
-- Subsequent requests: <100ms
+- **With preload enabled** (default):
+  - App startup: ~7-10 seconds (loads data on startup)
+  - All requests: <100ms (cache is warm)
+- **With preload disabled**:
+  - App startup: ~5 seconds
+  - First interlinear request: ~2-3 seconds
+  - Subsequent requests: <100ms
 
 ### Auto-Scaling
 - Machines stop after 5 minutes of inactivity
@@ -96,6 +102,32 @@ fly scale count 2
   ```bash
   fly scale count 1 --max-per-region 1
   ```
+
+## Configuration Options
+
+### Disable Preload (if needed)
+If you want faster startup at the cost of slower first interlinear request:
+
+1. Edit `fly.toml`:
+```toml
+[env]
+PRELOAD_INTERLINEAR = "false"  # Disable cache warming
+```
+
+2. Deploy:
+```bash
+fly deploy
+```
+
+**When to disable:**
+- Testing/development environments
+- If startup time is critical
+- If interlinear feature is rarely used
+
+**When to keep enabled (default):**
+- Production environments
+- When users frequently access interlinear verses
+- When you want consistent fast performance
 
 ## Troubleshooting
 

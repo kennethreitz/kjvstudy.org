@@ -100,3 +100,16 @@ def get_all_interlinear_verses() -> List[Dict]:
             "ref": f"{book} {chapter}:{verse}"
         })
     return verses
+
+
+def preload_data():
+    """
+    Preload interlinear data at startup to warm the cache.
+    Call this during application initialization to avoid first-request delays.
+    """
+    logger.info("Preloading interlinear data to warm cache...")
+    data = _load_interlinear_data()
+    if data:
+        logger.info(f"Cache warmed successfully with {len(data)} verses")
+    else:
+        logger.warning("Cache warming completed but no data loaded")
