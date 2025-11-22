@@ -99,6 +99,15 @@
 <section>
     <p class="verse-text">{{ verse_text | link_names | safe }}</p>
 
+    <nav style="margin: 1.5rem 0;">
+        <p>
+            <a href="/book/{{ book }}">← {{ book }}</a> |
+            <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">View in Chapter {{ chapter }}</a>
+            {% if verse_num > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}">← Verse {{ verse_num - 1 }}</a>{% endif %}
+            {% if verse_num < total_verses %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}">Verse {{ verse_num + 1 }} →</a>{% endif %}
+        </p>
+    </nav>
+
     <div class="share-container">
         <div class="share-label">Share This Verse</div>
         <div class="share-buttons">
@@ -218,13 +227,4 @@
     </section>
     {% endif %}
 {% endif %}
-
-<nav>
-    <p>
-        <a href="/book/{{ book }}">← {{ book }}</a> |
-        <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">View in Chapter {{ chapter }}</a>
-        {% if verse_num > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}">← Verse {{ verse_num - 1 }}</a>{% endif %}
-        {% if verse_num < total_verses %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}">Verse {{ verse_num + 1 }} →</a>{% endif %}
-    </p>
-</nav>
 {% endblock %}

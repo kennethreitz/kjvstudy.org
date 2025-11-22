@@ -119,7 +119,37 @@
             <div class="day-number">Day {{ day.day }}</div>
             <div class="day-readings">
                 {% for reading in day.readings %}
-                <span class="reading-ref">{{ reading }}</span>
+                <span class="reading-ref">
+                    {% set ref_parts = reading.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {# Format: "Book Chapter:Verse" or "Book Chapter:Verse-Verse" #}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_part = chapter_verse.split(':')[1] %}
+                            {% if '-' in verse_part %}
+                                {% set verse_num = verse_part.split('-')[0] %}
+                            {% else %}
+                                {% set verse_num = verse_part %}
+                            {% endif %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ reading }}</a>
+                        {% elif '-' in chapter_verse %}
+                            {# Format: "Book Chapter-Chapter" (e.g., "Psalm 1-3") #}
+                            {% set first_chapter = chapter_verse.split('-')[0] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ first_chapter }}">{{ reading }}</a>
+                        {% else %}
+                            {# Format: "Book Chapter" (single chapter) #}
+                            {% set chapter = ref_parts[-1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ reading }}</a>
+                        {% endif %}
+                    {% else %}
+                        {# Fallback: just display as text #}
+                        {{ reading }}
+                    {% endif %}
+                </span>
                 {% endfor %}
             </div>
             <div class="day-theme">Theme: {{ day.theme }}</div>
