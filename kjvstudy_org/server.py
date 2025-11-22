@@ -493,6 +493,81 @@ def search_api(q: str = Query(..., description="Search query"), limit: Optional[
         "is_direct_verse": is_direct_verse
     }
 
+
+@app.get("/concordance", response_class=HTMLResponse)
+def concordance_page(request: Request, word: str = Query(None, description="Word to look up")):
+    """Concordance page showing all occurrences of a word"""
+    books = list(bible.iter_books())
+
+    if not word or len(word.strip()) < 2:
+        return templates.TemplateResponse(
+            "concordance.html",
+            {
+                "request": request,
+                "books": books,
+                "word": word or "",
+                "total_occurrences": 0,
+                "occurrences_by_book": {},
+                "books_with_word": []
+            }
+        )
+
+    search_word = word.strip()
+    occurrences = []
+    occurrences_by_book = {}
+    books_with_word = set()
+
+    # Search through all verses
+    import re
+    # Create a word boundary pattern for exact word matching
+    # This handles punctuation and word boundaries properly
+    pattern = re.compile(r'\b' + re.escape(search_word) + r'\b', re.IGNORECASE)
+
+    for book in bible.iter_books():
+        book_name = book.name
+        book_occurrences = []
+
+        for chapter_num in range(1, book.num_chapters + 1):
+            chapter = book.chapter(chapter_num)
+
+            for verse in chapter.verses:
+                # Check if the word appears in this verse
+                if pattern.search(verse.text):
+                    # Highlight the word in the text
+                    highlighted_text = pattern.sub(
+                        lambda m: f'<span class="highlight">{m.group()}</span>',
+                        verse.text
+                    )
+
+                    occurrence = {
+                        'book': book_name,
+                        'chapter': chapter_num,
+                        'verse': verse.verse,
+                        'text': verse.text,
+                        'highlighted_text': highlighted_text
+                    }
+
+                    occurrences.append(occurrence)
+                    book_occurrences.append(occurrence)
+                    books_with_word.add(book_name)
+
+        # Only add to occurrences_by_book if there are occurrences in this book
+        if book_occurrences:
+            occurrences_by_book[book_name] = book_occurrences
+
+    return templates.TemplateResponse(
+        "concordance.html",
+        {
+            "request": request,
+            "books": books,
+            "word": search_word,
+            "total_occurrences": len(occurrences),
+            "occurrences_by_book": occurrences_by_book,
+            "books_with_word": sorted(books_with_word)
+        }
+    )
+
+
 def parse_verse_reference(reference: str):
     """Parse a verse reference and return a URL for it.
 
