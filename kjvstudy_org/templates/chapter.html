@@ -163,12 +163,21 @@ hr::before {
     {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
     <p id="verse-{{ verse.verse }}">
         <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link">{{ verse.verse }}</a> {{ verse.text | link_names | safe }}
-        {% if commentary and commentary.cross_references %}
-            {% for ref in commentary.cross_references %}
-            <label for="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle">⊕</label>
-            <input type="checkbox" id="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle"/>
-            <span class="marginnote"><strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}</span>
-            {% endfor %}
+        {% if commentary %}
+            {% if commentary.word_studies %}
+                {% for study in commentary.word_studies %}
+                <label for="sn-{{ verse.verse }}-word-{{ loop.index }}" class="margin-toggle sidenote-number"></label>
+                <input type="checkbox" id="sn-{{ verse.verse }}-word-{{ loop.index }}" class="margin-toggle"/>
+                <span class="sidenote"><strong>{{ study.word }}:</strong> {{ study.term }} (<em>{{ study.translit }}</em>). {{ study.note | safe }}</span>
+                {% endfor %}
+            {% endif %}
+            {% if commentary.cross_references %}
+                {% for ref in commentary.cross_references %}
+                <label for="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle">⊕</label>
+                <input type="checkbox" id="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle"/>
+                <span class="marginnote"><strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}</span>
+                {% endfor %}
+            {% endif %}
         {% endif %}
     </p>
     {% endfor %}

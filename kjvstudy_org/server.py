@@ -5217,7 +5217,10 @@ def read_chapter(request: Request, book: str, chapter: int):
     # Generate AI commentary for the chapter
     commentaries = {}
     for verse in verses:
-        commentaries[verse.verse] = generate_commentary(book, chapter, verse)
+        commentary = generate_commentary(book, chapter, verse)
+        # Add word study sidenotes
+        commentary['word_studies'] = generate_word_study_sidenotes(verse.text, book)
+        commentaries[verse.verse] = commentary
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
@@ -5383,6 +5386,132 @@ def escape_jinja2_syntax(text):
     text = text.replace('#}', '&#35;&#125;')
     
     return text
+
+def generate_word_study_sidenotes(verse_text, book):
+    """Generate Hebrew/Greek/Aramaic word study sidenotes for key terms in the verse"""
+    verse_lower = verse_text.lower()
+
+    # Determine if Old Testament (Hebrew/Aramaic) or New Testament (Greek)
+    ot_books = ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth",
+                "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra",
+                "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Solomon",
+                "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos",
+                "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"]
+
+    is_ot = book in ot_books
+
+    # Comprehensive word study database
+    word_studies = {
+        # Divine names and titles
+        "god": {
+            "ot": {"term": "אֱלֹהִים", "translit": "Elohim", "meaning": "God (plural of majesty)", "note": "The Hebrew <strong>Elohim</strong> (אֱלֹהִים) is a plural form denoting majesty and fullness of deity. Though grammatically plural, it takes singular verbs when referring to the one true God, suggesting the Trinity's plurality within unity."},
+            "nt": {"term": "Θεός", "translit": "Theos", "meaning": "God", "note": "The Greek <strong>Theos</strong> (Θεός) refers to deity, used both for the one true God and false gods. Context determines whether it denotes the Father specifically or the Godhead generally."}
+        },
+        "lord": {
+            "ot": {"term": "יְהוָה / אֲדֹנָי", "translit": "YHWH / Adonai", "meaning": "The LORD / Lord", "note": "When 'LORD' appears in small capitals, it represents the Tetragrammaton <strong>YHWH</strong> (יְהוָה), God's personal covenant name meaning 'I AM.' When 'Lord' appears normally, it's <strong>Adonai</strong> (אֲדֹנָי), meaning 'my Lord,' emphasizing sovereignty."},
+            "nt": {"term": "Κύριος", "translit": "Kurios", "meaning": "Lord, Master", "note": "The Greek <strong>Kurios</strong> (Κύριος) means 'lord' or 'master,' used both for human masters and divinely for God the Father and Jesus Christ. Its application to Jesus affirms His deity, as it translates YHWH in the Septuagint."}
+        },
+        "love": {
+            "ot": {"term": "אַהֲבָה / חֶסֶד", "translit": "Ahavah / Chesed", "meaning": "Love / Loyal-love", "note": "Hebrew uses <strong>ahavah</strong> (אַהֲבָה) for love generally, but the covenant term <strong>chesed</strong> (חֶסֶד) describes God's steadfast, loyal love—faithful covenant commitment beyond mere emotion."},
+            "nt": {"term": "ἀγάπη", "translit": "Agape", "meaning": "Divine love", "note": "The Greek <strong>agape</strong> (ἀγάπη) denotes self-sacrificial, unconditional love—the highest form of love, characterizing God's nature (1 John 4:8) and the love Christians are called to demonstrate."}
+        },
+        "faith": {
+            "ot": {"term": "אֱמוּנָה", "translit": "Emunah", "meaning": "Faithfulness, trust", "note": "The Hebrew <strong>emunah</strong> (אֱמוּנָה) encompasses both faith and faithfulness—trusting God and being trustworthy. It implies steadfast reliability, as in 'The just shall live by his faith' (Habakkuk 2:4)."},
+            "nt": {"term": "πίστις", "translit": "Pistis", "meaning": "Faith, belief, trust", "note": "The Greek <strong>pistis</strong> (πίστις) denotes faith, belief, or trust—confidence in God's character and promises. It's both intellectual assent and relational trust, central to justification (Romans 5:1)."}
+        },
+        "grace": {
+            "ot": {"term": "חֵן", "translit": "Chen", "meaning": "Grace, favor", "note": "The Hebrew <strong>chen</strong> (חֵן) means grace or favor—unmerited kindness bestowed by a superior. Noah 'found grace in the eyes of the LORD' (Genesis 6:8), receiving undeserved favor."},
+            "nt": {"term": "χάρις", "translit": "Charis", "meaning": "Grace, favor", "note": "The Greek <strong>charis</strong> (χάρις) denotes unmerited divine favor—God's kindness toward the undeserving. Salvation is 'by grace through faith' (Ephesians 2:8), not human merit."}
+        },
+        "mercy": {
+            "ot": {"term": "רַחֲמִים", "translit": "Rachamim", "meaning": "Compassion, mercy", "note": "The Hebrew <strong>rachamim</strong> (רַחֲמִים) derives from 'womb' (<em>rechem</em>), suggesting tender, maternal compassion. God's mercies are 'new every morning' (Lamentations 3:23), showing His compassionate nature."},
+            "nt": {"term": "ἔλεος", "translit": "Eleos", "meaning": "Mercy, compassion", "note": "The Greek <strong>eleos</strong> (ἔλεος) denotes compassionate mercy—pity for those in distress. God is 'rich in mercy' (Ephesians 2:4), withholding deserved punishment and granting undeserved kindness."}
+        },
+        "righteous": {
+            "ot": {"term": "צַדִּיק", "translit": "Tzaddik", "meaning": "Righteous one", "note": "The Hebrew <strong>tzaddik</strong> (צַדִּיק) describes one who is righteous, just, or lawful—conforming to God's standard. From the root <em>tzedek</em> (צֶדֶק), meaning righteousness or justice."},
+            "nt": {"term": "δίκαιος", "translit": "Dikaios", "meaning": "Righteous, just", "note": "The Greek <strong>dikaios</strong> (δίκαιος) means righteous or just—conforming to God's standard. Christ's righteousness is imputed to believers through faith (Romans 4:5), making them legally righteous before God."}
+        },
+        "salvation": {
+            "ot": {"term": "יְשׁוּעָה", "translit": "Yeshuah", "meaning": "Salvation, deliverance", "note": "The Hebrew <strong>yeshuah</strong> (יְשׁוּעָה) means salvation or deliverance—rescue from danger or enemies. This is the root of 'Jesus' (<em>Yeshua</em>), meaning 'YHWH saves.'"},
+            "nt": {"term": "σωτηρία", "translit": "Soteria", "meaning": "Salvation, deliverance", "note": "The Greek <strong>soteria</strong> (σωτηρία) denotes salvation, deliverance, or preservation—rescue from sin's penalty and power. It encompasses justification, sanctification, and glorification."}
+        },
+        "redeem": {
+            "ot": {"term": "גָּאַל", "translit": "Gaal", "meaning": "To redeem, act as kinsman-redeemer", "note": "The Hebrew <strong>gaal</strong> (גָּאַל) means to redeem or act as kinsman-redeemer (<em>go'el</em>)—buying back family property or relatives. It foreshadows Christ redeeming His people through His blood."},
+            "nt": {"term": "λυτρόω", "translit": "Lutroo", "meaning": "To redeem, ransom", "note": "The Greek <strong>lutroo</strong> (λυτρόω) means to redeem or ransom—purchasing freedom by paying a price. Christ redeemed us 'with the precious blood' (1 Peter 1:18-19), the ransom for sin."}
+        },
+        "covenant": {
+            "ot": {"term": "בְּרִית", "translit": "Berit", "meaning": "Covenant, treaty", "note": "The Hebrew <strong>berit</strong> (בְּרִית) denotes a covenant—a binding agreement, often ratified by blood sacrifice. God's covenants (Abrahamic, Mosaic, Davidic) structure redemptive history, culminating in the New Covenant."},
+            "nt": {"term": "διαθήκη", "translit": "Diatheke", "meaning": "Covenant, testament", "note": "The Greek <strong>diatheke</strong> (διαθήκη) means covenant or testament—a binding arrangement. The New Covenant (Jeremiah 31:31-34) is ratified by Christ's blood, surpassing the old (Hebrews 8:6-13)."}
+        },
+        "glory": {
+            "ot": {"term": "כָּבוֹד", "translit": "Kavod", "meaning": "Glory, weight, honor", "note": "The Hebrew <strong>kavod</strong> (כָּבוֹד) literally means 'weight' or 'heaviness,' metaphorically denoting glory, honor, or majesty. God's glory (<em>Shekinah</em>) filled the tabernacle (Exodus 40:34) and temple (1 Kings 8:11)."},
+            "nt": {"term": "δόξα", "translit": "Doxa", "meaning": "Glory, majesty, splendor", "note": "The Greek <strong>doxa</strong> (δόξα) means glory, splendor, or magnificence—the radiant manifestation of God's perfection. Christ revealed the Father's glory: 'we beheld his glory' (John 1:14)."}
+        },
+        "holy": {
+            "ot": {"term": "קָדוֹשׁ", "translit": "Qadosh", "meaning": "Holy, set apart", "note": "The Hebrew <strong>qadosh</strong> (קָדוֹשׁ) means holy or set apart—separated from common use for God's purposes. God is 'the Holy One of Israel,' utterly distinct from creation in moral perfection."},
+            "nt": {"term": "ἅγιος", "translit": "Hagios", "meaning": "Holy, sacred, set apart", "note": "The Greek <strong>hagios</strong> (ἅγιος) denotes holiness—moral purity and separation unto God. Believers are called 'saints' (<em>hagioi</em>), those set apart for God through Christ's sanctifying work."}
+        },
+        "peace": {
+            "ot": {"term": "שָׁלוֹם", "translit": "Shalom", "meaning": "Peace, wholeness, prosperity", "note": "The Hebrew <strong>shalom</strong> (שָׁלוֹם) encompasses peace, wholeness, completeness, and welfare—not merely absence of conflict but positive flourishing. God is <em>Jehovah-Shalom</em>, 'the LORD is Peace' (Judges 6:24)."},
+            "nt": {"term": "εἰρήνη", "translit": "Eirene", "meaning": "Peace, harmony", "note": "The Greek <strong>eirene</strong> (εἰρήνη) means peace or harmony—both the inner tranquility of reconciliation with God and relational harmony. Christ is 'our peace' (Ephesians 2:14), reconciling us to God."}
+        },
+        "spirit": {
+            "ot": {"term": "רוּחַ", "translit": "Ruach", "meaning": "Spirit, wind, breath", "note": "The Hebrew <strong>ruach</strong> (רוּחַ) means spirit, wind, or breath—invisible but powerful. It describes both the Holy Spirit and the human spirit. God's Spirit gives life and empowers His people."},
+            "nt": {"term": "πνεῦμα", "translit": "Pneuma", "meaning": "Spirit, wind, breath", "note": "The Greek <strong>pneuma</strong> (πνεῦμα) means spirit, wind, or breath—the immaterial aspect of persons. The Holy Spirit (<em>Pneuma Hagion</em>) is the third person of the Trinity, dwelling in believers."}
+        },
+        "wisdom": {
+            "ot": {"term": "חָכְמָה", "translit": "Chokhmah", "meaning": "Wisdom, skill", "note": "The Hebrew <strong>chokhmah</strong> (חָכְמָה) denotes wisdom—practical skill in living righteously. 'The fear of the LORD is the beginning of wisdom' (Proverbs 9:10), grounding all true knowledge in reverence for God."},
+            "nt": {"term": "σοφία", "translit": "Sophia", "meaning": "Wisdom, insight", "note": "The Greek <strong>sophia</strong> (σοφία) means wisdom or insight—skillful living and right judgment. Christ is 'the wisdom of God' (1 Corinthians 1:24), and God gives wisdom liberally to those who ask (James 1:5)."}
+        },
+        "truth": {
+            "ot": {"term": "אֱמֶת", "translit": "Emet", "meaning": "Truth, faithfulness", "note": "The Hebrew <strong>emet</strong> (אֱמֶת) means truth or faithfulness—reliability and conformity to reality. God is true (<em>emet</em>), utterly faithful to His word and character."},
+            "nt": {"term": "ἀλήθεια", "translit": "Aletheia", "meaning": "Truth, reality", "note": "The Greek <strong>aletheia</strong> (ἀλήθεια) denotes truth or reality—that which corresponds to actuality. Jesus declared, 'I am the way, the truth, and the life' (John 14:6), embodying ultimate reality."}
+        },
+        "sin": {
+            "ot": {"term": "חַטָּאת", "translit": "Chatta'ah", "meaning": "Sin, missing the mark", "note": "The Hebrew <strong>chatta'ah</strong> (חַטָּאת) means sin—missing the mark of God's standard. It encompasses rebellion, transgression, and falling short of divine holiness."},
+            "nt": {"term": "ἁμαρτία", "translit": "Hamartia", "meaning": "Sin, missing the mark", "note": "The Greek <strong>hamartia</strong> (ἁμαρτία) means sin—missing the target of God's perfection. 'All have sinned and fall short of the glory of God' (Romans 3:23), requiring Christ's atoning sacrifice."}
+        },
+        "kingdom": {
+            "ot": {"term": "מַלְכוּת", "translit": "Malkhut", "meaning": "Kingdom, reign, royal power", "note": "The Hebrew <strong>malkhut</strong> (מַלְכוּת) denotes kingdom or royal rule—the realm and reign of a king. God's kingdom represents His sovereign rule over all creation."},
+            "nt": {"term": "βασιλεία", "translit": "Basileia", "meaning": "Kingdom, reign", "note": "The Greek <strong>basileia</strong> (βασιλεία) means kingdom—both the realm ruled and the exercise of royal authority. The 'kingdom of God' is central to Jesus' teaching, representing God's saving rule breaking into history."}
+        },
+        "sacrifice": {
+            "ot": {"term": "זֶבַח", "translit": "Zevach", "meaning": "Sacrifice, offering", "note": "The Hebrew <strong>zevach</strong> (זֶבַח) denotes a sacrifice or offering—an animal slaughtered for worship. Old Testament sacrifices foreshadowed Christ, 'the Lamb of God' (John 1:29)."},
+            "nt": {"term": "θυσία", "translit": "Thusia", "meaning": "Sacrifice, offering", "note": "The Greek <strong>thusia</strong> (θυσία) means sacrifice or offering. Christ offered Himself as the perfect sacrifice 'once for all' (Hebrews 10:10), ending the need for repeated animal sacrifices."}
+        },
+        "word": {
+            "ot": {"term": "דָּבָר", "translit": "Davar", "meaning": "Word, thing, matter", "note": "The Hebrew <strong>davar</strong> (דָּבָר) means word, thing, or matter—God's creative and authoritative speech. 'By the word of the LORD were the heavens made' (Psalm 33:6)."},
+            "nt": {"term": "λόγος", "translit": "Logos", "meaning": "Word, reason, message", "note": "The Greek <strong>Logos</strong> (Λόγος) means word, reason, or message—the rational principle underlying reality. John identifies Christ as the eternal Logos: 'In the beginning was the Word' (John 1:1)."}
+        },
+        "church": {
+            "nt": {"term": "ἐκκλησία", "translit": "Ekklesia", "meaning": "Assembly, church", "note": "The Greek <strong>ekklesia</strong> (ἐκκλησία) means assembly or called-out ones—the gathering of believers. Christ builds His church (Matthew 16:18), the body of Christ comprising all the redeemed."}
+        },
+        "baptize": {
+            "nt": {"term": "βαπτίζω", "translit": "Baptizo", "meaning": "To baptize, immerse", "note": "The Greek <strong>baptizo</strong> (βαπτίζω) means to dip, immerse, or baptize. Christian baptism symbolizes identification with Christ's death, burial, and resurrection (Romans 6:3-4)."}
+        },
+        "gospel": {
+            "nt": {"term": "εὐαγγέλιον", "translit": "Euangelion", "meaning": "Good news, gospel", "note": "The Greek <strong>euangelion</strong> (εὐαγγέλιον) means good news or gospel—the message of salvation through Christ's death and resurrection. It's 'the power of God unto salvation' (Romans 1:16)."}
+        }
+    }
+
+    sidenotes = []
+
+    # Check for each theological term in the verse
+    for word, studies in word_studies.items():
+        if word in verse_lower:
+            # Use appropriate testament
+            study = studies.get('ot' if is_ot else 'nt', studies.get('ot') or studies.get('nt'))
+            if study:
+                sidenotes.append({
+                    "word": word.title(),
+                    "term": study['term'],
+                    "translit": study['translit'],
+                    "meaning": study['meaning'],
+                    "note": study['note']
+                })
+
+    return sidenotes
+
 
 def generate_commentary(book, chapter, verse):
     """Generate AI-powered commentary for a specific verse"""
