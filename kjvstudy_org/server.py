@@ -5263,6 +5263,16 @@ def read_chapter(request: Request, book: str, chapter: int):
         commentary = generate_commentary(book, chapter, verse)
         # Add word study sidenotes
         commentary['word_studies'] = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse)
+        # Add cross-references with proper URLs
+        cross_refs = get_cross_references(book, chapter, verse.verse)
+        commentary['cross_references'] = [
+            {
+                'text': ref['ref'],
+                'url': f"/book/{ref['ref'].rsplit(' ', 1)[0]}/chapter/{ref['ref'].rsplit(' ', 1)[1].split(':')[0]}/verse/{ref['ref'].rsplit(' ', 1)[1].split(':')[1]}" if ' ' in ref['ref'] and ':' in ref['ref'] else '#',
+                'context': ref['note']
+            }
+            for ref in cross_refs
+        ]
         commentaries[verse.verse] = commentary
 
     # Generate chapter overview
