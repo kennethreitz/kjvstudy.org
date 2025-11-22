@@ -175,22 +175,22 @@ section a[href^="/book/"] {
 </div>
 
 <div class="verse-lookup">
-    <h2>Jump to Verse</h2>
-    <form class="lookup-form" onsubmit="return jumpToVerse(event)">
+    <h2>Search or Navigate</h2>
+    <form class="lookup-form" onsubmit="return handleSearch(event)">
         <input
             type="text"
             class="lookup-input"
             id="verse-lookup-input"
-            placeholder="Enter verse reference (e.g., John 3:16)"
+            placeholder="Search scripture or jump to verse..."
             autocomplete="off"
         />
         <button type="submit" class="lookup-btn">Go</button>
     </form>
-    <div class="lookup-help">Examples: Genesis 1:1, Romans 8:28, Psalm 23, Matthew 5-7</div>
+    <div class="lookup-help">Navigate: John 3:16, Romans 8, Genesis • Search: love, faith, salvation</div>
 </div>
 
 <script>
-function jumpToVerse(event) {
+function handleSearch(event) {
     event.preventDefault();
     const input = document.getElementById('verse-lookup-input').value.trim();
 
@@ -198,9 +198,9 @@ function jumpToVerse(event) {
         return false;
     }
 
-    // Parse the reference
-    // Formats: "Book Chapter:Verse", "Book Chapter", "Book Chapter-Chapter"
-    // Examples: "John 3:16", "Psalm 23", "Matthew 5-7"
+    // First, try to parse as a verse/chapter/book reference
+    // Formats: "Book Chapter:Verse", "Book Chapter", "Book"
+    // Examples: "John 3:16", "Psalm 23", "Genesis"
 
     // Try to match: Book Chapter:Verse
     let match = input.match(/^(.+?)\s+(\d+):(\d+)$/i);
@@ -221,20 +221,36 @@ function jumpToVerse(event) {
         return false;
     }
 
-    // Try to match: Book (go to book)
-    match = input.match(/^(.+)$/i);
-    if (match) {
-        const book = match[1].trim();
-        window.location.href = `/book/${encodeURIComponent(book)}`;
+    // Check if input looks like it might be a book name
+    // Only treat as book if it has: number prefix (1/2/3) OR multiple words OR matches common books
+    const hasNumberPrefix = /^[123]\s+/i.test(input);
+    const hasMultipleWords = /\s+/.test(input);
+    const commonBooks = ['genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
+                         'joshua', 'judges', 'ruth', 'samuel', 'kings', 'chronicles',
+                         'ezra', 'nehemiah', 'esther', 'job', 'psalms', 'proverbs',
+                         'ecclesiastes', 'isaiah', 'jeremiah', 'lamentations', 'ezekiel',
+                         'daniel', 'hosea', 'joel', 'amos', 'obadiah', 'jonah', 'micah',
+                         'nahum', 'habakkuk', 'zephaniah', 'haggai', 'zechariah', 'malachi',
+                         'matthew', 'mark', 'luke', 'john', 'acts', 'romans', 'corinthians',
+                         'galatians', 'ephesians', 'philippians', 'colossians', 'thessalonians',
+                         'timothy', 'titus', 'philemon', 'hebrews', 'james', 'peter',
+                         'jude', 'revelation'];
+    const matchesCommonBook = commonBooks.includes(input.toLowerCase());
+
+    if (hasNumberPrefix || hasMultipleWords || matchesCommonBook) {
+        // Try to navigate to book
+        window.location.href = `/book/${encodeURIComponent(input)}`;
         return false;
     }
 
+    // Otherwise, treat it as a search query
+    window.location.href = `/search?q=${encodeURIComponent(input)}`;
     return false;
 }
 
-// Add keyboard shortcut: Press 'g' to focus the lookup input
+// Add keyboard shortcut: Press '/' to focus the search input
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'g' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
         const activeElement = document.activeElement;
         if (activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
             e.preventDefault();
@@ -282,7 +298,6 @@ document.addEventListener('keydown', function(e) {
         <a href="/topics" class="quick-link-btn">Topical Index</a>
         <a href="/family-tree" class="quick-link-btn">Biblical Genealogies</a>
         <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
-        <a href="/search" class="quick-link-btn">Search Scripture</a>
         <a href="/random-verse" class="quick-link-btn">Random Verse</a>
     </div>
 </section>
