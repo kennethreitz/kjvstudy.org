@@ -5538,6 +5538,138 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
         },
         "gospel": {
             "nt": {"term": "εὐαγγέλιον", "translit": "Euangelion", "meaning": "Good news, gospel", "note": "The Greek <strong>euangelion</strong> (εὐαγγέλιον) means good news or gospel—the message of salvation through Christ's death and resurrection. It's 'the power of God unto salvation' (Romans 1:16)."}
+        },
+
+        # Worship and Religious Practice
+        "worship": {
+            "ot": {"term": "שָׁחָה", "translit": "Shachah", "meaning": "To bow down, worship", "note": "The Hebrew <strong>shachah</strong> (שָׁחָה) means to bow down or prostrate oneself in worship—physical expression of reverence and submission to God. True worship involves both outward posture and inward devotion."},
+            "nt": {"term": "προσκυνέω", "translit": "Proskuneo", "meaning": "To worship, bow down", "note": "The Greek <strong>proskuneo</strong> (προσκυνέω) means to worship or pay homage—literally 'to kiss toward.' Jesus taught that true worshipers must worship 'in spirit and in truth' (John 4:24)."}
+        },
+        "prayer": {
+            "ot": {"term": "תְּפִלָּה", "translit": "Tefillah", "meaning": "Prayer, intercession", "note": "The Hebrew <strong>tefillah</strong> (תְּפִלָּה) means prayer or intercession—communion with God through petition and praise. Solomon's temple was to be 'a house of prayer for all people' (Isaiah 56:7)."},
+            "nt": {"term": "προσευχή", "translit": "Proseuche", "meaning": "Prayer, petition", "note": "The Greek <strong>proseuche</strong> (προσευχή) denotes prayer—communication with God. Believers are exhorted to 'pray without ceasing' (1 Thessalonians 5:17) and 'in everything by prayer and supplication' present requests to God (Philippians 4:6)."}
+        },
+        "praise": {
+            "ot": {"term": "הָלַל", "translit": "Halal", "meaning": "To praise, celebrate", "note": "The Hebrew <strong>halal</strong> (הָלַל) means to praise or celebrate boisterously—the root of 'Hallelujah' (praise YHWH). The Psalms overflow with calls to praise God for His character and works."},
+            "nt": {"term": "αἰνέω", "translit": "Aineo", "meaning": "To praise, extol", "note": "The Greek <strong>aineo</strong> (αἰνέω) means to praise or extol—expressing admiration and gratitude. The early church devoted themselves to 'praising God' (Acts 2:47) continually."}
+        },
+        "temple": {
+            "ot": {"term": "הֵיכָל", "translit": "Heikhal", "meaning": "Temple, palace", "note": "The Hebrew <strong>heikhal</strong> (הֵיכָל) denotes God's temple or palace—the sacred dwelling place where God's presence resided. Solomon's temple was the center of Israel's worship until its destruction."},
+            "nt": {"term": "ναός", "translit": "Naos", "meaning": "Temple, sanctuary", "note": "The Greek <strong>naos</strong> (ναός) means temple or inner sanctuary. Paul declares believers are 'the temple of the living God' (2 Corinthians 6:16), individually (1 Corinthians 6:19) and corporately as the church."}
+        },
+        "altar": {
+            "ot": {"term": "מִזְבֵּחַ", "translit": "Mizbeach", "meaning": "Altar, place of sacrifice", "note": "The Hebrew <strong>mizbeach</strong> (מִזְבֵּחַ) means altar—from the root 'to slaughter.' Altars were places where sacrifices were offered to God, pointing forward to Christ's ultimate sacrifice."},
+            "nt": {"term": "θυσιαστήριον", "translit": "Thusiastērion", "meaning": "Altar", "note": "The Greek <strong>thusiastērion</strong> (θυσιαστήριον) denotes an altar for sacrifice. Hebrews 13:10 declares 'We have an altar' from which temple priests cannot eat—referring to Christ's sacrifice outside the camp."}
+        },
+        "priest": {
+            "ot": {"term": "כֹּהֵן", "translit": "Kohen", "meaning": "Priest", "note": "The Hebrew <strong>kohen</strong> (כֹּהֵן) denotes a priest—one who mediates between God and people through sacrifices and intercession. Aaron and his descendants served as Israel's priests, foreshadowing Christ the Great High Priest."},
+            "nt": {"term": "ἱερεύς", "translit": "Hiereus", "meaning": "Priest", "note": "The Greek <strong>hiereus</strong> (ἱερεύς) means priest. Christ is our eternal High Priest (Hebrews 4:14) after the order of Melchizedek, and believers form a 'royal priesthood' (1 Peter 2:9)."}
+        },
+
+        # Spiritual Beings and Realms
+        "angel": {
+            "ot": {"term": "מַלְאָךְ", "translit": "Mal'akh", "meaning": "Angel, messenger", "note": "The Hebrew <strong>mal'akh</strong> (מַלְאָךְ) means angel or messenger—a heavenly being sent by God. Angels serve as God's messengers, worship Him, and minister to believers (Hebrews 1:14)."},
+            "nt": {"term": "ἄγγελος", "translit": "Angelos", "meaning": "Angel, messenger", "note": "The Greek <strong>angelos</strong> (ἄγγελος) means angel or messenger. Angels announced Christ's birth (Luke 2:9-14), ministered to Him (Matthew 4:11), and will accompany His return (Matthew 25:31)."}
+        },
+        "heaven": {
+            "ot": {"term": "שָׁמַיִם", "translit": "Shamayim", "meaning": "Heaven, sky", "note": "The Hebrew <strong>shamayim</strong> (שָׁמַיִם) means heaven or sky—God's dwelling place and the realm above earth. 'The heaven, even the heavens, are the LORD's' (Psalm 115:16), yet 'the heaven of heavens cannot contain Him' (1 Kings 8:27)."},
+            "nt": {"term": "οὐρανός", "translit": "Ouranos", "meaning": "Heaven, sky", "note": "The Greek <strong>ouranos</strong> (οὐρανός) denotes heaven—God's throne and the believer's eternal home. Jesus taught His disciples to pray 'Our Father which art in heaven' (Matthew 6:9) and promised to prepare a place there (John 14:2)."}
+        },
+        "earth": {
+            "ot": {"term": "אֶרֶץ", "translit": "Eretz", "meaning": "Earth, land", "note": "The Hebrew <strong>eretz</strong> (אֶרֶץ) means earth or land—the physical world God created. 'The earth is the LORD's, and the fulness thereof' (Psalm 24:1), given to humanity as stewards."},
+            "nt": {"term": "γῆ", "translit": "Gē", "meaning": "Earth, land", "note": "The Greek <strong>gē</strong> (γῆ) denotes earth or land. While believers are 'strangers and pilgrims on the earth' (Hebrews 11:13), they await 'new heavens and a new earth' (2 Peter 3:13) where righteousness dwells."}
+        },
+
+        # Human Nature and Faculties
+        "soul": {
+            "ot": {"term": "נֶפֶשׁ", "translit": "Nephesh", "meaning": "Soul, life, self", "note": "The Hebrew <strong>nephesh</strong> (נֶפֶשׁ) denotes the soul or life—the immaterial essence of a person. It represents the whole person, their desires, emotions, and will. God breathed into man and he became 'a living soul' (Genesis 2:7)."},
+            "nt": {"term": "ψυχή", "translit": "Psuche", "meaning": "Soul, life, self", "note": "The Greek <strong>psuche</strong> (ψυχή) means soul or life—the seat of emotions and will. Jesus asked, 'What shall it profit a man, if he shall gain the whole world, and lose his own soul?' (Mark 8:36)."}
+        },
+        "heart": {
+            "ot": {"term": "לֵב", "translit": "Lev", "meaning": "Heart, mind, will", "note": "The Hebrew <strong>lev</strong> (לֵב) denotes the heart—the center of thought, emotion, and will. God commanded Israel to 'love the LORD thy God with all thine heart' (Deuteronomy 6:5), and He promised a 'new heart' (Ezekiel 36:26)."},
+            "nt": {"term": "καρδία", "translit": "Kardia", "meaning": "Heart, mind, inner self", "note": "The Greek <strong>kardia</strong> (καρδία) means heart—the inner person, seat of thoughts and affections. 'Out of the abundance of the heart the mouth speaketh' (Matthew 12:34), and believers must guard their hearts (Proverbs 4:23)."}
+        },
+        "flesh": {
+            "ot": {"term": "בָּשָׂר", "translit": "Basar", "meaning": "Flesh, body", "note": "The Hebrew <strong>basar</strong> (בָּשָׂר) means flesh or body—humanity's physical, mortal nature. 'All flesh is grass' (Isaiah 40:6), emphasizing human frailty and mortality before the eternal God."},
+            "nt": {"term": "σάρξ", "translit": "Sarx", "meaning": "Flesh, sinful nature", "note": "The Greek <strong>sarx</strong> (σάρξ) denotes flesh—both physical body and fallen human nature opposed to God. Paul contrasts walking 'after the flesh' versus 'after the Spirit' (Romans 8:4-5). The Word became flesh (John 1:14) in the incarnation."}
+        },
+        "mind": {
+            "nt": {"term": "νοῦς", "translit": "Nous", "meaning": "Mind, understanding", "note": "The Greek <strong>nous</strong> (νοῦς) means mind or understanding—the faculty of thought and perception. Believers are to be transformed by the 'renewing of your mind' (Romans 12:2) and have 'the mind of Christ' (1 Corinthians 2:16)."}
+        },
+
+        # Spiritual States and Actions
+        "blessing": {
+            "ot": {"term": "בְּרָכָה", "translit": "Berakhah", "meaning": "Blessing, prosperity", "note": "The Hebrew <strong>berakhah</strong> (בְּרָכָה) means blessing—divine favor bringing prosperity and well-being. God blessed Abraham to be a blessing (Genesis 12:2), and obedience brings blessing while disobedience brings curse (Deuteronomy 28)."},
+            "nt": {"term": "εὐλογία", "translit": "Eulogia", "meaning": "Blessing, praise", "note": "The Greek <strong>eulogia</strong> (εὐλογία) denotes blessing—divine favor or words of praise. Believers are blessed with 'all spiritual blessings in heavenly places in Christ' (Ephesians 1:3) and called to 'bless them which persecute you' (Romans 12:14)."}
+        },
+        "hope": {
+            "ot": {"term": "תִּקְוָה", "translit": "Tikvah", "meaning": "Hope, expectation", "note": "The Hebrew <strong>tikvah</strong> (תִּקְוָה) means hope or expectation—confident trust in God's promises. 'Happy is he that hath the God of Jacob for his help, whose hope is in the LORD his God' (Psalm 146:5)."},
+            "nt": {"term": "ἐλπίς", "translit": "Elpis", "meaning": "Hope, expectation", "note": "The Greek <strong>elpis</strong> (ἐλπίς) denotes hope—confident expectation of good. This hope is 'an anchor of the soul' (Hebrews 6:19), grounded in Christ's resurrection and the believer's future inheritance (1 Peter 1:3-4)."}
+        },
+        "joy": {
+            "ot": {"term": "שִׂמְחָה", "translit": "Simchah", "meaning": "Joy, gladness", "note": "The Hebrew <strong>simchah</strong> (שִׂמְחָה) means joy or gladness—deep delight in God. 'The joy of the LORD is your strength' (Nehemiah 8:10), and God's presence brings 'fulness of joy' (Psalm 16:11)."},
+            "nt": {"term": "χαρά", "translit": "Chara", "meaning": "Joy, gladness", "note": "The Greek <strong>chara</strong> (χαρά) denotes joy—deep spiritual gladness. This joy is a fruit of the Spirit (Galatians 5:22), independent of circumstances. Jesus promised that His joy would remain in believers, making their joy full (John 15:11)."}
+        },
+        "fear": {
+            "ot": {"term": "יִרְאָה", "translit": "Yirah", "meaning": "Fear, reverence", "note": "The Hebrew <strong>yirah</strong> (יִרְאָה) means fear or reverence—awe and respect before God. 'The fear of the LORD is the beginning of wisdom' (Proverbs 9:10), combining reverent awe with trust in God's goodness."},
+            "nt": {"term": "φόβος", "translit": "Phobos", "meaning": "Fear, reverence", "note": "The Greek <strong>phobos</strong> (φόβος) means fear—both terror and reverential awe. While perfect love casts out servile fear (1 John 4:18), believers are to 'fear God, and give glory to him' (Revelation 14:7) with holy reverence."}
+        },
+
+        # Religious Roles
+        "prophet": {
+            "ot": {"term": "נָבִיא", "translit": "Navi", "meaning": "Prophet, spokesman", "note": "The Hebrew <strong>navi</strong> (נָבִיא) means prophet—one who speaks God's word to the people. Prophets received divine revelation and declared God's message, often calling Israel to repentance and foretelling future events."},
+            "nt": {"term": "προφήτης", "translit": "Prophētēs", "meaning": "Prophet", "note": "The Greek <strong>prophētēs</strong> (προφήτης) denotes a prophet—one who speaks forth God's message. Jesus was recognized as 'a prophet mighty in deed and word' (Luke 24:19), fulfilling and surpassing the prophetic office."}
+        },
+        "apostle": {
+            "nt": {"term": "ἀπόστολος", "translit": "Apostolos", "meaning": "Apostle, sent one", "note": "The Greek <strong>apostolos</strong> (ἀπόστολος) means apostle or sent one—an authorized messenger. The twelve apostles were chosen by Christ and empowered as His witnesses, laying the foundation of the church (Ephesians 2:20)."}
+        },
+        "disciple": {
+            "nt": {"term": "μαθητής", "translit": "Mathētēs", "meaning": "Disciple, learner", "note": "The Greek <strong>mathētēs</strong> (μαθητής) means disciple or learner—one who follows a teacher. Jesus called His followers to deny themselves, take up their cross, and follow Him (Matthew 16:24), learning from Him continually."}
+        },
+
+        # Law and Judgment
+        "law": {
+            "ot": {"term": "תּוֹרָה", "translit": "Torah", "meaning": "Law, instruction", "note": "The Hebrew <strong>Torah</strong> (תּוֹרָה) means law or instruction—God's revealed will for His people. The Law includes moral, civil, and ceremonial commandments, revealing God's character and humanity's need for a Savior."},
+            "nt": {"term": "νόμος", "translit": "Nomos", "meaning": "Law", "note": "The Greek <strong>nomos</strong> (νόμος) denotes law—particularly the Mosaic law. While believers are not under law but under grace (Romans 6:14), Christ fulfilled the law (Matthew 5:17) and wrote it on believers' hearts (Hebrews 8:10)."}
+        },
+        "judgment": {
+            "ot": {"term": "מִשְׁפָּט", "translit": "Mishpat", "meaning": "Judgment, justice", "note": "The Hebrew <strong>mishpat</strong> (מִשְׁפָּט) means judgment or justice—God's righteous decisions and ordinances. God is the Judge of all the earth who 'shall do right' (Genesis 18:25), executing perfect justice."},
+            "nt": {"term": "κρίσις", "translit": "Krisis", "meaning": "Judgment, decision", "note": "The Greek <strong>krisis</strong> (κρίσις) denotes judgment—evaluation and sentence. All will stand before God's judgment seat (Romans 14:10), and Christ has been appointed Judge of the living and dead (Acts 10:42)."}
+        },
+        "wrath": {
+            "ot": {"term": "אַף", "translit": "Aph", "meaning": "Wrath, anger", "note": "The Hebrew <strong>aph</strong> (אַף) literally means 'nose' or 'nostrils,' idiomatically expressing wrath or anger—God's righteous indignation against sin. Yet God is 'slow to anger' (Exodus 34:6) and 'abundant in mercy.'"},
+            "nt": {"term": "ὀργή", "translit": "Orgē", "meaning": "Wrath, anger", "note": "The Greek <strong>orgē</strong> (ὀργή) means wrath—settled, righteous anger against sin. Believers are 'saved from wrath through him' (Romans 5:9), as Christ bore God's wrath on the cross, satisfying divine justice."}
+        },
+
+        # Eschatological Terms
+        "resurrection": {
+            "nt": {"term": "ἀνάστασις", "translit": "Anastasis", "meaning": "Resurrection, rising", "note": "The Greek <strong>anastasis</strong> (ἀνάστασις) means resurrection—rising from death to life. Christ's resurrection is the 'firstfruits' (1 Corinthians 15:20), guaranteeing believers' future bodily resurrection and victory over death."}
+        },
+        "eternal": {
+            "ot": {"term": "עוֹלָם", "translit": "Olam", "meaning": "Eternal, everlasting", "note": "The Hebrew <strong>olam</strong> (עוֹלָם) means eternal or everlasting—time stretching beyond human comprehension. God is the 'everlasting God' (Genesis 21:33), and His covenant love endures forever."},
+            "nt": {"term": "αἰώνιος", "translit": "Aiōnios", "meaning": "Eternal, everlasting", "note": "The Greek <strong>aiōnios</strong> (αἰώνιος) denotes eternal or everlasting—unending duration. Believers possess 'eternal life' (John 3:16) now and will dwell with God eternally, while the impenitent face 'eternal punishment' (Matthew 25:46)."}
+        },
+        "life": {
+            "ot": {"term": "חַיִּים", "translit": "Chayyim", "meaning": "Life, living", "note": "The Hebrew <strong>chayyim</strong> (חַיִּים) means life—existence, vitality, and well-being. God is the source of all life, and He offers 'the fountain of life' (Psalm 36:9) to those who seek Him."},
+            "nt": {"term": "ζωή", "translit": "Zōē", "meaning": "Life", "note": "The Greek <strong>zōē</strong> (ζωή) denotes life—particularly spiritual and eternal life. Jesus declared 'I am the way, the truth, and the life' (John 14:6) and came that believers 'might have life, and have it more abundantly' (John 10:10)."}
+        },
+        "death": {
+            "ot": {"term": "מָוֶת", "translit": "Mavet", "meaning": "Death", "note": "The Hebrew <strong>mavet</strong> (מָוֶת) means death—the cessation of physical life and separation from God. Death entered through sin (Genesis 2:17), but God promises deliverance: 'O death, I will be thy plagues' (Hosea 13:14)."},
+            "nt": {"term": "θάνατος", "translit": "Thanatos", "meaning": "Death", "note": "The Greek <strong>thanatos</strong> (θάνατος) denotes death—both physical death and spiritual separation from God. Christ conquered death through His resurrection, making death merely a transition for believers: 'to be absent from the body, and to be present with the Lord' (2 Corinthians 5:8)."}
+        },
+
+        # Additional Key Terms
+        "blood": {
+            "ot": {"term": "דָּם", "translit": "Dam", "meaning": "Blood", "note": "The Hebrew <strong>dam</strong> (דָּם) means blood—representing life itself. 'The life of the flesh is in the blood' (Leviticus 17:11), and blood was required for atonement, foreshadowing Christ's sacrifice."},
+            "nt": {"term": "αἷμα", "translit": "Haima", "meaning": "Blood", "note": "The Greek <strong>haima</strong> (αἷμα) denotes blood. Christ's blood 'cleanseth us from all sin' (1 John 1:7), securing 'eternal redemption' (Hebrews 9:12) through His once-for-all sacrifice. Believers have been 'purchased with his own blood' (Acts 20:28)."}
+        },
+        "power": {
+            "ot": {"term": "כֹּחַ", "translit": "Koach", "meaning": "Power, strength", "note": "The Hebrew <strong>koach</strong> (כֹּחַ) means power or strength—ability to accomplish. God's power is infinite: 'Hast thou not known? hast thou not heard, that the everlasting God, the LORD, the Creator of the ends of the earth, fainteth not, neither is weary?' (Isaiah 40:28)."},
+            "nt": {"term": "δύναμις", "translit": "Dunamis", "meaning": "Power, ability", "note": "The Greek <strong>dunamis</strong> (δύναμις) denotes power or ability—the source of 'dynamite.' The gospel is 'the power of God unto salvation' (Romans 1:16), and believers receive power when the Holy Spirit comes upon them (Acts 1:8)."}
+        },
+        "name": {
+            "ot": {"term": "שֵׁם", "translit": "Shem", "meaning": "Name, reputation", "note": "The Hebrew <strong>shem</strong> (שֵׁם) means name—representing character, authority, and reputation. God's name is holy (Leviticus 20:3), and He promised Abraham 'I will make thy name great' (Genesis 12:2)."},
+            "nt": {"term": "ὄνομα", "translit": "Onoma", "meaning": "Name, authority", "note": "The Greek <strong>onoma</strong> (ὄνομα) denotes name or authority. At Jesus' name 'every knee should bow' (Philippians 2:10), and 'there is none other name under heaven given among men, whereby we must be saved' (Acts 4:12)."}
         }
     }
 
