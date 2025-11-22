@@ -89,6 +89,57 @@
     color: white;
     border-color: #28a745;
 }
+
+/* Cross-reference tooltip styles */
+.cross-ref-link {
+    position: relative;
+    cursor: help;
+}
+
+.cross-ref-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    min-width: 300px;
+    max-width: 400px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color-darker);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.cross-ref-link:hover .cross-ref-tooltip {
+    display: block;
+}
+
+.tooltip-verse-text {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .cross-ref-tooltip {
+    background: #2a2a2a;
+    border-color: #444;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+    .cross-ref-tooltip {
+        background: #2a2a2a;
+        border-color: #444;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+}
 </style>
 {% endblock %}
 
@@ -156,7 +207,7 @@
 {% if cross_references %}
 <section>
     <h2>Cross References</h2>
-    <p>Related verses that illuminate this passage:</p>
+    <p>Related verses that illuminate this passage (hover to preview):</p>
     <ul style="max-width: 60%; list-style: none; padding: 0;">
         {% for ref in cross_references %}
         <li style="margin: 1rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
@@ -167,7 +218,15 @@
                 {% if ':' in chapter_verse %}
                     {% set ch = chapter_verse.split(':')[0] %}
                     {% set v = chapter_verse.split(':')[1] %}
-                    <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ ref.ref }}</a></strong>
+                    <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}" class="cross-ref-link">
+                        {{ ref.ref }}
+                        {% if ref.text %}
+                        <span class="cross-ref-tooltip">
+                            <strong>{{ ref.ref }}</strong>
+                            <div class="tooltip-verse-text">{{ ref.text }}</div>
+                        </span>
+                        {% endif %}
+                    </a></strong>
                 {% else %}
                     <strong>{{ ref.ref }}</strong>
                 {% endif %}

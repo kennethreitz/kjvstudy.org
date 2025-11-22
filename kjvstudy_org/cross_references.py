@@ -1175,7 +1175,7 @@ CROSS_REFERENCES = {
 
 def get_cross_references(book: str, chapter: int, verse: int) -> list:
     """
-    Get cross-references for a specific verse.
+    Get cross-references for a specific verse with verse text for tooltips.
 
     Args:
         book: Book name (e.g., "Genesis", "John")
@@ -1183,10 +1183,51 @@ def get_cross_references(book: str, chapter: int, verse: int) -> list:
         verse: Verse number
 
     Returns:
-        List of cross-reference dictionaries with 'ref' and 'note' keys
+        List of cross-reference dictionaries with 'ref', 'note', and 'text' keys
     """
+    from .bible_data import bible_data
+
     key = f"{book}:{chapter}:{verse}"
-    return CROSS_REFERENCES.get(key, [])
+    refs = CROSS_REFERENCES.get(key, [])
+
+    # Enhance each reference with the actual verse text
+    enhanced_refs = []
+    for ref in refs:
+        enhanced_ref = ref.copy()
+
+        # Parse the reference to get the verse text
+        ref_str = ref['ref']
+        parts = ref_str.rsplit(' ', 1)
+        if len(parts) == 2:
+            ref_book = parts[0]
+            chapter_verse = parts[1]
+
+            if ':' in chapter_verse:
+                ref_chapter, ref_verse = chapter_verse.split(':')
+                ref_chapter = int(ref_chapter)
+                ref_verse = int(ref_verse)
+
+                # Get the verse text from bible_data
+                if ref_book in bible_data:
+                    book_data = bible_data[ref_book]
+                    if ref_chapter <= len(book_data):
+                        verses = book_data[ref_chapter - 1]
+                        if ref_verse <= len(verses):
+                            enhanced_ref['text'] = verses[ref_verse - 1].text
+                        else:
+                            enhanced_ref['text'] = ""
+                    else:
+                        enhanced_ref['text'] = ""
+                else:
+                    enhanced_ref['text'] = ""
+            else:
+                enhanced_ref['text'] = ""
+        else:
+            enhanced_ref['text'] = ""
+
+        enhanced_refs.append(enhanced_ref)
+
+    return enhanced_refs
 
 
 def parse_reference(ref: str) -> dict:
