@@ -164,6 +164,26 @@
 </div>
 {% endif %}
 
+{% if person.siblings|length > 0 %}
+<div class="relationships-section">
+    <h2>Siblings ({{ person.siblings|length }})</h2>
+    <div class="relationship-list">
+        {% for sibling_id in person.siblings %}
+            {% if sibling_id in family_tree_data %}
+            <div class="relationship-item">
+                <span class="relationship-name"><a href="/family-tree/person/{{ sibling_id }}">{{ family_tree_data[sibling_id].name }}</a></span>
+                {% if family_tree_data[sibling_id].generation or family_tree_data[sibling_id].age_at_death != "Unknown" %}
+                <span class="relationship-meta">
+                    {% if family_tree_data[sibling_id].generation %}generation {{ family_tree_data[sibling_id].generation }}{% endif %}{% if family_tree_data[sibling_id].age_at_death != "Unknown" %}{% if family_tree_data[sibling_id].generation %}, {% endif %}lived {{ family_tree_data[sibling_id].age_at_death }}{% endif %}
+                </span>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
 {% if person.children|length > 0 %}
 <div class="relationships-section">
     <h2>Children ({{ person.children|length }})</h2>

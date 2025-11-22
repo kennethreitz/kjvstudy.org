@@ -3649,6 +3649,7 @@ def parse_gedcom_to_tree_data(gedcom_path):
                 "description": description,
                 "children": [],
                 "parents": [],
+                "siblings": [],
                 "spouse": None,
                 "verses": all_verses,
                 "birth_year": birth_year,
@@ -3694,6 +3695,23 @@ def parse_gedcom_to_tree_data(gedcom_path):
                         tree_data[wife_id]["children"].append(child_id)
                         if wife_id not in tree_data[child_id]["parents"]:
                             tree_data[child_id]["parents"].append(wife_id)
+
+    # Third pass: calculate siblings
+    # Siblings are people who share at least one parent
+    for person_id, person in tree_data.items():
+        siblings_set = set()
+
+        # Find all people who share a parent with this person
+        for parent_id in person["parents"]:
+            if parent_id in tree_data:
+                # Get all children of this parent
+                for sibling_id in tree_data[parent_id]["children"]:
+                    # Don't include the person themselves
+                    if sibling_id != person_id:
+                        siblings_set.add(sibling_id)
+
+        # Convert set to list and store
+        person["siblings"] = list(siblings_set)
 
     # Calculate generations using BFS from root people (those with no parents)
     generations = {}
