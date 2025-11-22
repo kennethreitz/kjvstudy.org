@@ -86,12 +86,59 @@
     line-height: 1.9;
     margin: 1rem 0;
 }
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid #666;
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>Women of the Bible</h1>
 <p class="subtitle">Faithful Witnesses Throughout Redemptive History</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
 
 <section>
     <p class="intro-text"><span class="newthought">The biblical narrative</span> features numerous women whose faith, courage, and devotion shaped Israel's history and the church's foundation. From Eden's first mother to the women who followed Christ, these accounts demonstrate that God uses both men and women to accomplish His purposes.<label for="sn-women" class="margin-toggle sidenote-number"></label>
@@ -160,4 +207,30 @@
     <input type="checkbox" id="sn-seed" class="margin-toggle"/>
     <span class="sidenote">Genesis 3:15's unusual phrase 'her seed' (rather than 'his seed') finds ultimate explanation in the virgin birth. Christ, born of woman without human father, crushed Satan through His death and resurrection—fulfilling the first gospel promise given to fallen humanity.</span></p>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Generate TOC from h2 and h3 headings
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3');
+
+    headings.forEach((heading, index) => {
+        // Create an ID for the heading if it doesn't have one
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+
+        // Create TOC entry
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
 {% endblock %}

@@ -86,12 +86,59 @@
     line-height: 1.9;
     margin: 1rem 0;
 }
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid #666;
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>Biblical Prophets</h1>
 <p class="subtitle">Messengers of the Most High</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
 
 <section>
     <p class="intro-text"><span class="newthought">The prophetic ministry</span> represents one of the most extraordinary phenomena in sacred history. These men, called by divine election and empowered by the Holy Spirit, declared "Thus saith the LORD" with absolute authority.<label for="sn-prophets" class="margin-toggle sidenote-number"></label>
@@ -158,4 +205,30 @@
 
     <p class="intro-text"><span class="newthought">Witnesses to Christ</span>, for the testimony of Jesus is the spirit of prophecy. All their varied ministries pointed forward to the coming Redeemer, who would Himself be the Prophet like unto Moses, speaking the Father's words with ultimate authority.</p>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Generate TOC from h2 and h3 headings
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3');
+
+    headings.forEach((heading, index) => {
+        // Create an ID for the heading if it doesn't have one
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+
+        // Create TOC entry
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
 {% endblock %}

@@ -86,12 +86,59 @@
     line-height: 1.9;
     margin: 1rem 0;
 }
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid #666;
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>The Twelve Apostles</h1>
 <p class="subtitle">Those Whom He Chose to Be With Him</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
 
 <section>
     <p class="intro-text"><span class="newthought">The calling of the Twelve</span> marked a pivotal moment in Christ's ministry. After a night of prayer, He summoned His disciples and chose twelve whom He named apostles (Greek ἀπόστολοι, <em>apostoloi</em>, meaning "sent ones")—men who would be with Him, witness His works, and carry His message to the world.<label for="sn-apostles" class="margin-toggle sidenote-number"></label>
@@ -160,4 +207,30 @@
     <input type="checkbox" id="sn-martyrdom" class="margin-toggle"/>
     <span class="sidenote">Early church tradition records Peter crucified upside down in Rome, Andrew on an X-shaped cross in Achaia, James beheaded in Jerusalem, and Thomas speared in India. While some details remain uncertain, the apostles' martyrdom testifies to their unwavering conviction in Christ's resurrection.</span></p>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Generate TOC from h2 and h3 headings
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3');
+
+    headings.forEach((heading, index) => {
+        // Create an ID for the heading if it doesn't have one
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+
+        // Create TOC entry
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
 {% endblock %}

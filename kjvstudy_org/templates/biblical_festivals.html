@@ -86,12 +86,59 @@
     line-height: 1.9;
     margin: 1rem 0;
 }
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid #666;
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>Biblical Festivals</h1>
 <p class="subtitle">The Sacred Feasts of Israel and Their Prophetic Significance</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
 
 <section>
     <p class="intro-text"><span class="newthought">The appointed feasts</span> of Israel, ordained by God in Leviticus 23, constitute far more than commemorations of historical events. These sacred assemblies (Hebrew מוֹעֲדִים, <em>mo'adim</em>—"appointed times") formed the liturgical calendar around which Israel's worship revolved, and each contains rich typological significance pointing to the Messiah.<label for="sn-feasts" class="margin-toggle sidenote-number"></label>
@@ -160,4 +207,30 @@
     <input type="checkbox" id="sn-application" class="margin-toggle"/>
     <span class="sidenote">Colossians 2:16-17 clarifies that festivals were "a shadow of things to come; but the body is of Christ." Believers need not observe Jewish feast days, yet studying them illuminates Christ's work and God's purposes. The shadow points to the substance; knowing both enriches understanding.</span></p>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Generate TOC from h2 and h3 headings
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3');
+
+    headings.forEach((heading, index) => {
+        // Create an ID for the heading if it doesn't have one
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+
+        // Create TOC entry
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
 {% endblock %}
