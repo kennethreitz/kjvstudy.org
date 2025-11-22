@@ -592,19 +592,46 @@ BIOGRAPHIES = {
 }
 
 
+# Alias mapping for alternate name forms
+BIOGRAPHY_ALIASES = {
+    "Noah or Noe": "Noah",
+    "Noe": "Noah",
+    "Sarah": "Abraham's wife Sarah",
+}
+
+
 def get_biography(person_name: str) -> dict:
     """
     Get biographical information for a biblical figure.
 
+    Handles alternate name forms through the BIOGRAPHY_ALIASES mapping.
+
     Args:
-        person_name: Name of the person (e.g., "Abraham", "David")
+        person_name: Name of the person (e.g., "Abraham", "David", "Noah or Noe")
 
     Returns:
         Dictionary with biography info, or None if not found
     """
-    return BIOGRAPHIES.get(person_name)
+    # Try exact match first
+    bio = BIOGRAPHIES.get(person_name)
+    if bio:
+        return bio
+
+    # Try aliases
+    canonical_name = BIOGRAPHY_ALIASES.get(person_name)
+    if canonical_name:
+        return BIOGRAPHIES.get(canonical_name)
+
+    return None
 
 
 def has_biography(person_name: str) -> bool:
     """Check if a person has detailed biographical information."""
-    return person_name in BIOGRAPHIES
+    # Check exact match
+    if person_name in BIOGRAPHIES:
+        return True
+    # Check aliases
+    canonical_name = BIOGRAPHY_ALIASES.get(person_name)
+    if canonical_name and canonical_name in BIOGRAPHIES:
+        return True
+    return False
