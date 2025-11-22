@@ -112,18 +112,6 @@
                 Found <strong>{{ total_results }}</strong> result{{ 's' if total_results != 1 else '' }} for "<strong>{{ query }}</strong>"
             </div>
 
-            {% if results %}
-            <h2 style="margin-top: 2rem;">Bible Verses</h2>
-            {% for result in results %}
-            <article class="search-result">
-                <div class="result-reference">
-                    <a href="{{ result.url }}">{{ result.reference }}</a>
-                </div>
-                <div class="result-text">{{ result.highlighted_text | link_names | safe }}</div>
-            </article>
-            {% endfor %}
-            {% endif %}
-
             {% if family_tree_results %}
             <h2 style="margin-top: 2rem;">People in Family Tree</h2>
             {% for result in family_tree_results %}
@@ -139,6 +127,18 @@
                         {% if result.death_year != "Unknown" %}{% if result.birth_year != "Unknown" %}, {% endif %}Died {{ result.death_year }}{% endif %}
                     {% endif %}
                 </div>
+            </article>
+            {% endfor %}
+            {% endif %}
+
+            {% if results %}
+            <h2 style="margin-top: 2rem;">Bible Verses</h2>
+            {% for result in results %}
+            <article class="search-result">
+                <div class="result-reference">
+                    <a href="{{ result.url }}">{{ result.reference }}</a>
+                </div>
+                <div class="result-text">{{ result.highlighted_text | link_names | safe }}</div>
             </article>
             {% endfor %}
             {% endif %}
