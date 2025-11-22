@@ -130,6 +130,62 @@
     {% endif %}
 </div>
 
+{# Biography Section - for notable figures #}
+{% if biography %}
+<div class="relationships-section">
+    <h2>Biography</h2>
+    <p style="line-height: 1.8; font-size: 1.05rem;">{{ biography.summary }}</p>
+
+    {% if biography.significance %}
+    <div style="margin-top: 1.5rem;">
+        <h3 style="font-size: 1.2rem; font-style: italic; margin-bottom: 0.5rem;">Biblical Significance</h3>
+        <p style="line-height: 1.8; font-style: italic; color: var(--text-secondary);">{{ biography.significance }}</p>
+    </div>
+    {% endif %}
+</div>
+
+{# Life Events Timeline #}
+{% if biography and biography.key_events %}
+<div class="relationships-section">
+    <h2>Life Events</h2>
+    <div style="border-left: 3px solid var(--border-color-darker); padding-left: 1.5rem; margin: 1rem 0;">
+        {% for event in biography.key_events %}
+        <div style="margin: 1.5rem 0;">
+            <div style="font-weight: 600; color: var(--text-color);">
+                Age {{ event.age }}{% if event.age == 0 %} (Birth){% endif %}
+            </div>
+            <div style="margin-top: 0.25rem; color: var(--text-secondary);">
+                {{ event.event }}
+            </div>
+            {% if event.verse %}
+            <div style="margin-top: 0.25rem; font-size: 0.9rem;">
+                {% set ref_parts = event.verse.split(' ') %}
+                {% if ref_parts|length >= 2 %}
+                    {% set chapter_verse = ref_parts[-1] %}
+                    {% if ':' in chapter_verse %}
+                        {% set chapter = chapter_verse.split(':')[0] %}
+                        {% set verse_part = chapter_verse.split(':')[1] %}
+                        {% if '-' in verse_part %}
+                            {% set verse_num = verse_part.split('-')[0] %}
+                        {% else %}
+                            {% set verse_num = verse_part %}
+                        {% endif %}
+                        {% set book = ' '.join(ref_parts[:-1]) %}
+                        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ event.verse }}</a>
+                    {% else %}
+                        <em>{{ event.verse }}</em>
+                    {% endif %}
+                {% else %}
+                    <em>{{ event.verse }}</em>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
 {# Family Diagram - Minimal Text Version #}
 {% if person.parents|length > 0 or person.children|length > 0 or person.spouse %}
 <div style="max-width: 55%; margin: 1.5rem 0; padding: 0.75rem 0; border-left: 3px solid #666; padding-left: 1rem; font-size: 0.95rem; line-height: 2;">

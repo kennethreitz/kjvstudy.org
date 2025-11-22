@@ -4107,6 +4107,8 @@ def family_tree_generation_page(request: Request, gen_num: int):
 @app.get("/family-tree/person/{person_id}", response_class=HTMLResponse)
 def family_tree_person_page(request: Request, person_id: str):
     """Individual person page"""
+    from .biblical_biographies import get_biography
+
     books = list(bible.iter_books())
 
     # Load GEDCOM file from static folder
@@ -4144,6 +4146,9 @@ def family_tree_person_page(request: Request, person_id: str):
 
     person = family_tree_data[person_id_lower]
 
+    # Get detailed biography if available
+    biography = get_biography(person["name"])
+
     return templates.TemplateResponse(
         "family_tree_person.html",
         {
@@ -4153,6 +4158,7 @@ def family_tree_person_page(request: Request, person_id: str):
             "person_id": person_id_lower,
             "family_tree_data": family_tree_data,
             "generations": generations,
+            "biography": biography,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Family Tree", "url": "/family-tree"},
