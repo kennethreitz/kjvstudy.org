@@ -848,6 +848,18 @@
             </ul>
         </div>
 
+        <!-- Navigation -->
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
+            <li><a href="/books">Books</a></li>
+            <li><a href="/verse-of-the-day">Verse of the Day</a></li>
+            <li><a href="/random-verse">Random Verse</a></li>
+            <li><a href="/reading-plans">Reading Plans</a></li>
+            <li><a href="/topics">Topics</a></li>
+            <li><a href="/search">Search</a></li>
+        </ul>
+
         <!-- Bible Books -->
         {% if books %}
         <details open>
@@ -872,18 +884,6 @@
             </ul>
         </details>
         {% endif %}
-
-        <!-- Navigation -->
-        <h3>Navigation</h3>
-        <ul>
-            <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
-            <li><a href="/books">Books</a></li>
-            <li><a href="/verse-of-the-day">Verse of the Day</a></li>
-            <li><a href="/random-verse">Random Verse</a></li>
-            <li><a href="/reading-plans">Reading Plans</a></li>
-            <li><a href="/topics">Topics</a></li>
-            <li><a href="/search">Search</a></li>
-        </ul>
 
         <!-- Resources organized by category -->
         <div class="resource-group">
