@@ -4226,6 +4226,136 @@ def family_tree_search_page(request: Request, q: str = ""):
     )
 
 
+@app.get("/family-tree/lineage", response_class=HTMLResponse)
+def family_tree_lineage_page(request: Request):
+    """Dedicated page for the Messianic lineage visualization"""
+    books = list(bible.iter_books())
+
+    return templates.TemplateResponse(
+        "family_tree_lineage.html",
+        {
+            "request": request,
+            "books": books,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": "Messianic Lineage", "url": None}
+            ]
+        }
+    )
+
+
+@app.get("/family-tree/lineage.svg")
+def family_tree_lineage_svg(request: Request):
+    """Generate SVG visualization of the Messianic lineage (Adam to Jesus)"""
+    static_dir = Path(__file__).parent / "static"
+    gedcom_path = static_dir / "adameve.ged"
+
+    if not gedcom_path.exists() or not GedcomReader:
+        raise HTTPException(status_code=404, detail="Family tree data not available")
+
+    try:
+        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to parse family tree: {str(e)}")
+
+    # Find Jesus and trace back through Kekulé #1 ancestors (powers of 2 in father line)
+    # Kekulé numbering: 1 = subject, 2 = father, 4 = paternal grandfather, 8 = paternal great-grandfather, etc.
+    lineage = []
+
+    # Find all people with Kekulé numbers that are powers of 2 (direct paternal line)
+    # This includes: 1, 2, 4, 8, 16, 32, 64, 128, etc.
+    for person_id, person in family_tree_data.items():
+        kekule = person.get("kekule_number")
+        if kekule and kekule > 0:
+            # Check if kekule is a power of 2
+            if kekule & (kekule - 1) == 0:
+                lineage.append({
+                    "id": person_id,
+                    "name": person["name"],
+                    "kekule": kekule,
+                    "generation": person.get("generation", 0),
+                    "birth_year": person.get("birth_year", "Unknown"),
+                    "death_year": person.get("death_year", "Unknown")
+                })
+
+    # Sort by Kekulé number (descending = Adam to Jesus)
+    lineage.sort(key=lambda x: -x["kekule"])
+
+    # Generate SVG
+    width = 800
+    node_height = 80
+    node_width = 700
+    margin_top = 40
+    margin_bottom = 40
+    vertical_spacing = 20
+
+    height = margin_top + (len(lineage) * (node_height + vertical_spacing)) + margin_bottom
+
+    svg_parts = [
+        f'<?xml version="1.0" encoding="UTF-8"?>',
+        f'<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">',
+        '<defs>',
+        '<style>',
+        '.person-box { fill: #f9f9f9; stroke: #333; stroke-width: 1.5; }',
+        '.person-box:hover { fill: #f0f8ff; stroke: #0066cc; }',
+        '.person-name { font-family: "ETBembo", Palatino, "Book Antiqua", serif; font-size: 18px; font-weight: 600; fill: #111; }',
+        '.person-dates { font-family: "ETBembo", Palatino, "Book Antiqua", serif; font-size: 14px; fill: #666; }',
+        '.person-meta { font-family: "ETBembo", Palatino, "Book Antiqua", serif; font-size: 12px; fill: #999; }',
+        '.connector-line { stroke: #999; stroke-width: 2; fill: none; }',
+        '</style>',
+        '</defs>',
+    ]
+
+    x = (width - node_width) / 2
+
+    # Draw connector lines first (so they appear behind boxes)
+    for i in range(len(lineage) - 1):
+        y1 = margin_top + (i * (node_height + vertical_spacing)) + node_height
+        y2 = margin_top + ((i + 1) * (node_height + vertical_spacing))
+        mid_x = x + (node_width / 2)
+        svg_parts.append(f'<line class="connector-line" x1="{mid_x}" y1="{y1}" x2="{mid_x}" y2="{y2}" />')
+
+    # Draw person boxes
+    for i, person in enumerate(lineage):
+        y = margin_top + (i * (node_height + vertical_spacing))
+
+        # Draw box with link
+        svg_parts.append(f'<a href="/family-tree/person/{person["id"]}">')
+        svg_parts.append(f'<rect class="person-box" x="{x}" y="{y}" width="{node_width}" height="{node_height}" rx="4" />')
+
+        # Name
+        name_y = y + 28
+        svg_parts.append(f'<text class="person-name" x="{x + node_width/2}" y="{name_y}" text-anchor="middle">{person["name"]}</text>')
+
+        # Dates
+        dates_text = ""
+        if person["birth_year"] != "Unknown" and person["death_year"] != "Unknown":
+            dates_text = f'{person["birth_year"]} – {person["death_year"]}'
+        elif person["birth_year"] != "Unknown":
+            dates_text = f'Born {person["birth_year"]}'
+        elif person["death_year"] != "Unknown":
+            dates_text = f'Died {person["death_year"]}'
+
+        if dates_text:
+            dates_y = y + 48
+            svg_parts.append(f'<text class="person-dates" x="{x + node_width/2}" y="{dates_y}" text-anchor="middle">{dates_text}</text>')
+
+        # Meta (generation and Kekulé number)
+        meta_text = f'Generation {person["generation"]}'
+        if person["kekule"] > 1:
+            meta_text += f' • Kekulé #{person["kekule"]}'
+        meta_y = y + 66
+        svg_parts.append(f'<text class="person-meta" x="{x + node_width/2}" y="{meta_y}" text-anchor="middle">{meta_text}</text>')
+
+        svg_parts.append('</a>')
+
+    svg_parts.append('</svg>')
+
+    svg_content = '\n'.join(svg_parts)
+    return Response(content=svg_content, media_type="image/svg+xml")
+
+
 def expand_book_abbreviation(abbrev):
     """Expand common Bible book abbreviations to full names"""
     abbreviations = {
