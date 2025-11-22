@@ -4013,29 +4013,13 @@ def family_tree_page(request: Request):
     """Biblical family tree page using GEDCOM file"""
     books = list(bible.iter_books())
 
-    # Load GEDCOM file from static folder
-    static_dir = Path(__file__).parent / "static"
-    gedcom_path = static_dir / "adameve.ged"
+    # Use cached family tree data
+    family_tree_data, generations = get_family_tree_data()
 
-    if not gedcom_path.exists():
-        raise HTTPException(
-            status_code=404,
-            detail=f"GEDCOM file not found. Please place 'adameve.ged' in the static folder."
-        )
-
-    if not GedcomReader:
+    if not family_tree_data:
         raise HTTPException(
             status_code=500,
-            detail="GEDCOM parser not available. Please install ged4py."
-        )
-
-    # Parse GEDCOM data
-    try:
-        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Failed to parse GEDCOM file: {str(e)}"
+            detail="Family tree data not available"
         )
 
     return templates.TemplateResponse(
@@ -4653,12 +4637,13 @@ def parse_gedcom_to_tree_data(gedcom_path):
 
 # Cache for family tree data to avoid reloading on every request
 _family_tree_cache = None
+_family_tree_generations_cache = None
 _name_to_person_id_cache = None
 
 
 def get_family_tree_data():
-    """Load and cache family tree data"""
-    global _family_tree_cache, _name_to_person_id_cache
+    """Load and cache family tree data (returns tree_data and generations)"""
+    global _family_tree_cache, _family_tree_generations_cache, _name_to_person_id_cache
 
     if _family_tree_cache is None:
         static_dir = Path(__file__).parent / "static"
@@ -4668,6 +4653,7 @@ def get_family_tree_data():
             try:
                 tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
                 _family_tree_cache = tree_data
+                _family_tree_generations_cache = generations
 
                 # Build name to person_id mapping (case-insensitive)
                 _name_to_person_id_cache = {}
@@ -4678,12 +4664,21 @@ def get_family_tree_data():
 
             except Exception:
                 _family_tree_cache = {}
+                _family_tree_generations_cache = {}
                 _name_to_person_id_cache = {}
         else:
             _family_tree_cache = {}
+            _family_tree_generations_cache = {}
             _name_to_person_id_cache = {}
 
-    return _family_tree_cache, _name_to_person_id_cache
+    return _family_tree_cache, _family_tree_generations_cache
+
+
+def get_person_name_mapping():
+    """Get the name to person ID mapping (ensures data is loaded first)"""
+    # Trigger loading if needed
+    get_family_tree_data()
+    return _name_to_person_id_cache
 
 
 def search_family_tree(query: str, limit: Optional[int] = None) -> List[Dict]:
@@ -4696,15 +4691,11 @@ def search_family_tree(query: str, limit: Optional[int] = None) -> List[Dict]:
         return results
 
     try:
-        # Load GEDCOM file from static folder
-        static_dir = Path(__file__).parent / "static"
-        gedcom_path = static_dir / "adameve.ged"
+        # Use cached family tree data
+        family_tree_data, generations = get_family_tree_data()
 
-        if not gedcom_path.exists() or not GedcomReader:
+        if not family_tree_data:
             return results
-
-        # Parse GEDCOM data
-        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
 
         # Search for people
         query_lower = query.lower().strip()
@@ -4782,7 +4773,7 @@ def link_person_names_in_text(text: str) -> str:
     text = re.sub(verse_pattern, verse_replace_callback, text)
 
     # Then, link person names to family tree
-    tree_data, name_to_id = get_family_tree_data()
+    name_to_id = get_person_name_mapping()
 
     if not name_to_id:
         return text
