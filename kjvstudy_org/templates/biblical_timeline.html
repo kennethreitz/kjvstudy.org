@@ -17,7 +17,7 @@
 
     {% for event in events %}
     <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }})</span></h3>
-    <p>{{ event.description }}</p>
+    <p>{{ event.description | safe }}</p>
 
     {% if event.verses %}
     <ul>
