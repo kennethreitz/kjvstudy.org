@@ -12,7 +12,9 @@ from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import HTMLResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.gzip import GZipMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from .kjv import bible, VerseReference
 from .cross_references import get_cross_references
@@ -32,6 +34,75 @@ def create_slug(text: str) -> str:
     slug = re.sub(r'[^\w\s-]', '', text.lower())
     slug = re.sub(r'[-\s]+', '-', slug)
     return slug.strip('-')
+
+
+def get_related_content(book: str, chapter: int = None, verse: int = None):
+    """Get related study guides, topics, and resources for a given passage"""
+    related = {
+        "study_guides": [],
+        "topics": [],
+        "people": [],
+        "resources": []
+    }
+
+    verse_ref = f"{book} {chapter}:{verse}" if chapter and verse else None
+
+    # Map books to related people
+    book_people_map = {
+        "Genesis": [{"name": "Abraham", "url": "/family-tree"}, {"name": "Jacob", "url": "/family-tree"}],
+        "Exodus": [{"name": "Moses", "url": "/biblical-prophets/moses"}],
+        "1 Samuel": [{"name": "Samuel", "url": "/biblical-prophets"}],
+        "2 Samuel": [{"name": "David", "url": "/family-tree"}],
+        "1 Kings": [{"name": "Elijah", "url": "/biblical-prophets/elijah"}],
+        "2 Kings": [{"name": "Elijah", "url": "/biblical-prophets/elijah"}, {"name": "Elisha", "url": "/biblical-prophets"}],
+        "Isaiah": [{"name": "Isaiah", "url": "/biblical-prophets/isaiah"}],
+        "Jeremiah": [{"name": "Jeremiah", "url": "/biblical-prophets/jeremiah"}],
+        "Ezekiel": [{"name": "Ezekiel", "url": "/biblical-prophets/ezekiel"}],
+        "Daniel": [{"name": "Daniel", "url": "/biblical-prophets/daniel"}],
+        "Jonah": [{"name": "Jonah", "url": "/biblical-prophets/jonah"}],
+        "Matthew": [{"name": "The Twelve Apostles", "url": "/the-twelve-apostles"}],
+        "Mark": [{"name": "The Twelve Apostles", "url": "/the-twelve-apostles"}],
+        "Luke": [{"name": "The Twelve Apostles", "url": "/the-twelve-apostles"}, {"name": "John the Baptist", "url": "/biblical-prophets/john-the-baptist"}],
+        "John": [{"name": "John", "url": "/the-twelve-apostles/john"}],
+        "Acts": [{"name": "Peter", "url": "/the-twelve-apostles/peter"}, {"name": "Paul", "url": "/the-twelve-apostles"}],
+        "Ruth": [{"name": "Ruth", "url": "/women-of-the-bible/ruth"}],
+        "Esther": [{"name": "Esther", "url": "/women-of-the-bible/esther"}],
+    }
+
+    if book in book_people_map:
+        related["people"] = book_people_map[book]
+
+    # Map books/passages to special resources
+    if book in ["Exodus", "Leviticus", "Numbers", "Deuteronomy"]:
+        related["resources"].append({"name": "Biblical Festivals", "url": "/biblical-festivals"})
+        related["resources"].append({"name": "Biblical Covenants", "url": "/biblical-covenants"})
+
+    if book in ["Genesis", "Exodus", "Numbers"]:
+        related["resources"].append({"name": "Biblical Timeline", "url": "/biblical-timeline"})
+
+    if book in ["Joshua", "Judges", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings"]:
+        related["resources"].append({"name": "Biblical Maps", "url": "/biblical-maps"})
+
+    if book in ["Matthew", "Mark", "Luke", "John"]:
+        related["resources"].append({"name": "Parables of Jesus", "url": "/parables"})
+
+    # Add topic links based on common themes
+    topic_keywords = {
+        "Salvation": ["John", "Romans", "Ephesians", "Titus"],
+        "Prayer": ["Matthew", "Luke", "1 Thessalonians", "James"],
+        "Love": ["John", "1 Corinthians", "1 John"],
+        "Faith": ["Hebrews", "James", "Romans"],
+        "Hope": ["Romans", "1 Peter", "Hebrews"],
+        "Peace": ["Philippians", "John", "Romans"],
+        "Wisdom": ["Proverbs", "Ecclesiastes", "James"],
+    }
+
+    topics_data = get_all_topics()
+    for topic_name in topics_data.keys():
+        if topic_name in topic_keywords and book in topic_keywords[topic_name]:
+            related["topics"].append({"name": topic_name, "url": f"/topics/{topic_name}"})
+
+    return related
 
 
 def get_chapter_popularity_score(book: str, chapter: int) -> int:
@@ -410,6 +481,51 @@ app = FastAPI(
     description="Study the King James Bible with AI-powered commentary and insights",
     version="1.0.0"
 )
+
+
+# Caching middleware for performance optimization
+class CacheControlMiddleware(BaseHTTPMiddleware):
+    """Add cache control headers to responses for better performance"""
+
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+
+        # Skip caching for API endpoints and dynamic content
+        if request.url.path.startswith("/api/") or request.url.path == "/verse-of-the-day":
+            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+            response.headers["Pragma"] = "no-cache"
+            response.headers["Expires"] = "0"
+        # Static files (CSS, JS, images) - cache for 1 year
+        elif request.url.path.startswith("/static/"):
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        # Bible content (verses, chapters, books) - cache for 1 week (rarely changes)
+        elif any(x in request.url.path for x in ["/book/", "/chapter/", "/verse/", "/interlinear/"]):
+            response.headers["Cache-Control"] = "public, max-age=604800"  # 1 week
+        # Study resources and special pages - cache for 1 day
+        elif any(x in request.url.path for x in ["/study-guides/", "/topics/", "/reading-plans/",
+                                                   "/biblical-", "/names-of-god", "/parables/",
+                                                   "/the-twelve-apostles/", "/women-of-the-bible/",
+                                                   "/tetragrammaton", "/commentary/"]):
+            response.headers["Cache-Control"] = "public, max-age=86400"  # 1 day
+        # Homepage and main sections - cache for 1 hour
+        elif request.url.path in ["/", "/books", "/search", "/resources", "/concordance"]:
+            response.headers["Cache-Control"] = "public, max-age=3600"  # 1 hour
+        # Sitemap and robots.txt - cache for 1 day
+        elif request.url.path in ["/sitemap.xml", "/robots.txt"]:
+            response.headers["Cache-Control"] = "public, max-age=86400"
+        # Default - cache for 10 minutes
+        else:
+            response.headers["Cache-Control"] = "public, max-age=600"
+
+        return response
+
+
+# Add GZip compression middleware (compress responses > 500 bytes)
+app.add_middleware(GZipMiddleware, minimum_size=500)
+
+# Add caching middleware
+app.add_middleware(CacheControlMiddleware)
+
 
 # Set up Jinja2 templates and static files
 current_dir = Path(__file__).parent
@@ -5769,6 +5885,9 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     # Check if interlinear data is available
     has_interlinear = has_interlinear_data(book, chapter, verse_num)
 
+    # Get related content for internal linking
+    related_content = get_related_content(book, chapter, verse_num)
+
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -5795,7 +5914,8 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "current_book": book,
             "current_chapter": chapter,
             "current_verse": verse_num,
-            "has_interlinear": has_interlinear
+            "has_interlinear": has_interlinear,
+            "related_content": related_content
         }
     )
 
