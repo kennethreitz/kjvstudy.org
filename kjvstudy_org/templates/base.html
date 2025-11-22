@@ -863,7 +863,7 @@
 
         <!-- Bible Books -->
         {% if books %}
-        <details open>
+        <details id="old-testament">
             <summary>Old Testament</summary>
             <ul class="book-list">
                 {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
@@ -874,7 +874,7 @@
             </ul>
         </details>
 
-        <details open>
+        <details id="new-testament">
             <summary>New Testament</summary>
             <ul class="book-list">
                 {% for book in ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'] %}
@@ -956,6 +956,9 @@
         var searchInput = document.getElementById('sidebar-search-input');
         if (!searchInput) return;
 
+        var oldTestament = document.getElementById('old-testament');
+        var newTestament = document.getElementById('new-testament');
+
         searchInput.addEventListener('keypress', function(e) {
           if (e.key === 'Enter' && this.value.trim()) {
             window.location.href = '/search?q=' + encodeURIComponent(this.value.trim());
@@ -967,6 +970,16 @@
           var query = this.value.toLowerCase();
           var sidebar = document.querySelector('.nav-sidebar');
           var links = sidebar.querySelectorAll('a');
+
+          // Auto-expand Bible book sections when searching
+          if (query !== '') {
+            if (oldTestament) oldTestament.open = true;
+            if (newTestament) newTestament.open = true;
+          } else {
+            // Collapse when search is cleared
+            if (oldTestament) oldTestament.open = false;
+            if (newTestament) newTestament.open = false;
+          }
 
           links.forEach(function(link) {
             var text = link.textContent.toLowerCase();
