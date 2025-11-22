@@ -170,11 +170,6 @@ hr::before {
             <span class="marginnote"><strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}</span>
             {% endfor %}
         {% endif %}
-        {% if commentary and commentary.historical %}
-        <label for="sn-{{ verse.verse }}-hist" class="margin-toggle">⊕</label>
-        <input type="checkbox" id="sn-{{ verse.verse }}-hist" class="margin-toggle"/>
-        <span class="marginnote"><em>Historical context:</em> {{ commentary.historical|safe }}</span>
-        {% endif %}
     </p>
     {% endfor %}
 </section>
