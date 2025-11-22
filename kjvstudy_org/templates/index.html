@@ -25,19 +25,19 @@ section a[href^="/book/"] {
     font-weight: 600;
 }
 
-/* Quick verse lookup */
+/* Quick verse lookup - Classical style */
 .verse-lookup {
-    max-width: 60%;
+    max-width: 55%;
     margin: 2rem 0;
-    padding: 2rem;
-    border: 2px solid var(--border-color-darker);
-    border-radius: 6px;
-    background: var(--code-bg);
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
 }
 
 .verse-lookup h2 {
     margin-top: 0;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 600;
 }
 
 .lookup-form {
@@ -49,9 +49,8 @@ section a[href^="/book/"] {
 .lookup-input {
     flex: 1;
     padding: 0.75rem 1rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
     background: var(--bg-color);
     color: var(--text-color);
     font-family: inherit;
@@ -59,23 +58,22 @@ section a[href^="/book/"] {
 
 .lookup-input:focus {
     outline: none;
-    border-color: var(--link-color);
+    border-color: var(--text-color);
 }
 
 .lookup-btn {
     padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    background: var(--link-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 400;
+    background: var(--text-color);
+    color: var(--bg-color);
+    border: 1px solid var(--text-color);
     cursor: pointer;
-    transition: background 0.2s;
 }
 
 .lookup-btn:hover {
-    background: var(--link-hover);
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
 .lookup-help {
@@ -85,81 +83,46 @@ section a[href^="/book/"] {
     font-style: italic;
 }
 
-/* Featured Resources */
-.featured-resources {
-    max-width: 70%;
-    margin: 3rem 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+/* Featured Studies - Classical List Style */
+.featured-studies {
+    max-width: 55%;
+    margin: 2rem 0;
 }
 
-.featured-card {
-    padding: 1.5rem;
-    border: 1px solid var(--border-color-dark);
-    border-radius: 6px;
-    background: var(--bg-color);
-    transition: all 0.3s;
+.study-entry {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border-color-dark);
 }
 
-.featured-card:hover {
-    border-color: var(--link-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-}
-
-.featured-card h3 {
-    margin: 0 0 0.75rem 0;
-    font-size: 1.2rem;
+.study-entry h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
     font-weight: 600;
+    font-style: italic;
 }
 
-.featured-card h3 a {
+.study-entry h3 a {
     border-bottom: none;
 }
 
-.featured-card p {
-    margin: 0.5rem 0;
+.study-entry p {
+    margin: 0.5rem 0 0 0;
     font-size: 1rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    line-height: 1.8;
+    color: var(--text-color);
 }
 
-.featured-badge {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: var(--link-color);
-    color: white;
-    border-radius: 3px;
-    margin-bottom: 0.5rem;
-}
-
-/* Quick Links Grid */
+/* Quick Links - Classical List */
 .quick-links {
-    max-width: 70%;
-    margin: 2rem 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    max-width: 55%;
+    margin: 1rem 0;
+    line-height: 2;
 }
 
 .quick-link-btn {
-    display: block;
-    padding: 1rem;
-    text-align: center;
-    border: 1px solid var(--border-color-dark);
-    border-radius: 4px;
-    background: var(--bg-color);
-    transition: all 0.2s;
-}
-
-.quick-link-btn:hover {
-    border-color: var(--link-color);
-    background: var(--code-bg);
+    display: inline;
+    margin-right: 1.5rem;
 }
 
 /* Mobile responsive styles */
@@ -180,12 +143,12 @@ section a[href^="/book/"] {
 
     .verse-lookup {
         max-width: 100%;
-        padding: 1.5rem;
-        margin: 1.5rem 5%;
+        padding: 1rem 0 1rem 1rem;
+        margin: 1.5rem 0;
     }
 
     .verse-lookup h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .lookup-form {
@@ -210,35 +173,33 @@ section a[href^="/book/"] {
         line-height: 1.5;
     }
 
-    .featured-resources {
+    .featured-studies {
         max-width: 100%;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin: 2rem 0;
+        margin: 1.5rem 0;
     }
 
-    .featured-card {
-        padding: 1.25rem;
+    .study-entry {
+        margin: 1.25rem 0;
+        padding-left: 1rem;
     }
 
-    .featured-card h3 {
-        font-size: 1.1rem;
+    .study-entry h3 {
+        font-size: 1.05rem;
     }
 
-    .featured-card p {
+    .study-entry p {
         font-size: 0.95rem;
+        line-height: 1.7;
     }
 
     .quick-links {
         max-width: 100%;
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-        margin: 1.5rem 0;
+        margin: 1rem 0;
     }
 
     .quick-link-btn {
-        padding: 0.875rem;
-        font-size: 0.95rem;
+        display: block;
+        margin: 0.5rem 0;
     }
 
     /* Adjust epigraph on mobile */
@@ -417,24 +378,23 @@ document.addEventListener('keydown', function(e) {
 </div>
 
 <section>
-    <h2><a href="/resources">Featured Resources</a></h2>
-    <div class="featured-resources">
-        <div class="featured-card">
-            <span class="featured-badge">New</span>
-            <h3><a href="/tetragrammaton">The Tetragrammaton</a></h3>
-            <p>An in-depth exploration of the sacred four-letter name of God (יהוה), examining its pronunciation, etymology, theological significance, and Christ's identification with YHWH.</p>
+    <h2>Select Theological Studies</h2>
+    <div class="featured-studies">
+        <div class="study-entry">
+            <h3><a href="/tetragrammaton">The Sacred Tetragrammaton</a></h3>
+            <p>An examination of the ineffable four-letter name of God (יהוה), exploring its pronunciation, etymology, and theological significance—wherein is demonstrated how Christ Himself claimed the divine name <em>ego eimi</em> (ἐγώ εἰμι, "I AM"), identifying Himself with YHWH of the Old Covenant.</p>
         </div>
-        <div class="featured-card">
-            <h3><a href="/biblical-covenants">Biblical Covenants</a></h3>
-            <p>Study the five major covenants God established throughout Scripture—from Noah to the New Covenant in Christ's blood—understanding their progressive revelation and redemptive significance.</p>
+        <div class="study-entry">
+            <h3><a href="/biblical-covenants">The Progressive Covenants</a></h3>
+            <p>A study of the five major covenants through which God progressively revealed His redemptive plan—from the Noahic covenant establishing the preservation of creation, through the Abrahamic, Mosaic, and Davidic dispensations, culminating in the New Covenant sealed by Christ's blood, wherein the promise of Jeremiah 31:31-34 finds its fulfillment.</p>
         </div>
-        <div class="featured-card">
-            <h3><a href="/parables">Parables of Jesus</a></h3>
-            <p>Comprehensive analysis of Christ's parables, each with detailed interpretation, Greek word studies, and theological application. From the Sower to the Pharisee and Publican.</p>
+        <div class="study-entry">
+            <h3><a href="/parables">The Parables of Our Lord</a></h3>
+            <p>Detailed expositions of Christ's teaching in parables—those earthly stories with heavenly meanings whereby He revealed the mysteries of the Kingdom. Each parable examined with attention to Greek lexical analysis, historical context, and theological application, from the Sower scattering seed upon various soils to the Pharisee and Publican ascending to the temple to pray.</p>
         </div>
-        <div class="featured-card">
-            <h3><a href="/names-of-god">Names of God</a></h3>
-            <p>Explore thirteen divine names and titles revealed in Scripture—Elohim, YHWH, Adonai, El Shaddai, Jehovah-Jireh, and more—each revealing distinct aspects of God's character.</p>
+        <div class="study-entry">
+            <h3><a href="/names-of-god">The Divine Names and Titles</a></h3>
+            <p>An exploration of the thirteen principal names and titles by which God revealed Himself in Scripture—<em>Elohim</em> (אֱלֹהִים), <em>YHWH</em> (יהוה), <em>Adonai</em> (אֲדֹנָי), <em>El Shaddai</em> (אֵל שַׁדַּי), and others—each unveiling distinct aspects of the divine character and demonstrating the progressive self-disclosure of the Eternal One to His covenant people.</p>
         </div>
     </div>
 </section>
@@ -451,11 +411,11 @@ document.addEventListener('keydown', function(e) {
 </section>
 
 <section>
-    <p><span class="newthought"><a href="/books">The Authorized Version</a></span>, commonly known as the King James Bible, stands as one of the most influential works in the English language. Commissioned by King James I of England in 1604 and completed seven years hence by a company of forty-seven scholars working from the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew), this translation has shaped not merely literature and law, but the very fabric of spiritual and moral discourse for more than four centuries.<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators consulted previous English versions (Tyndale, Coverdale, Geneva) while working primarily from original languages. Their Hebrew text derived from the <em>Ben Chayyim Masoretic tradition</em>; their Greek New Testament followed Erasmus, Stephanus, and Beza. The result: a translation of unsurpassed majesty and accuracy for its time.</span></p>
+    <p><span class="newthought"><a href="/books">The Authorized Version</a></span>, commonly designated the King James Bible, represents the culmination of England's Reformation heritage and stands among the most influential works in the English tongue. Commissioned by King James I in 1604 at the Hampton Court Conference and completed seven years thereafter by a learned company of forty-seven divines and scholars, this translation was wrought from the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew). It has shaped not merely our literature and jurisprudence, but the very idiom of spiritual discourse and the conscience of English-speaking Christendom for more than four centuries.<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators, working in six companies at Westminster, Oxford, and Cambridge, consulted the labors of their predecessors—Tyndale (whose felicity of phrase permeates the work), Coverdale, and the Geneva Bible—while maintaining fidelity to the original tongues. Their Hebrew derived from the <em>Ben Chayyim Masoretic tradition</em> (the received text of Judaism); their Greek New Testament followed the editions of Erasmus, Stephanus, and Beza. The result achieved a singular union of scholarly precision with majesty of expression.</span></p>
 
-    <p>The translators themselves, in their address "To the most high and mightie Prince, James," wrote that they sought to make "the very vulgar" acquainted with God's Word—not in crude simplicity, but with such scholarly exactitude and linguistic majesty that the sacred text might be apprehended by learned and unlearned alike. Drawing upon the Hebrew תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings)—the threefold division of the Old Testament—alongside the Greek διαθήκη καινή (<em>diathēkē kainē</em>, New Covenant), their labor produced a work of such enduring power that its cadences echo still through English prose.<label for="sn-canon" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-canon" class="margin-toggle"/><span class="sidenote">The Hebrew acronym <strong>TaNaKh</strong> (תנ״ך) derives from <strong>T</strong>orah, <strong>N</strong>evi'im, <strong>K</strong>etuvim—the three divisions of the Hebrew Bible. This ordering differs from Christian arrangements but reflects the historical development of the Hebrew canon, confirmed by Christ's reference to 'the law of Moses, and the prophets, and the psalms' (Luke 24:44).</span></p>
+    <p>The translators themselves, in their address "To the most high and mightie Prince, James," avowed their purpose: to render the sacred oracles accessible to "the very vulgar"—not through vulgarization, but by wedding scholarly exactitude to such nobility of language that both the learned doctor and the humble plowman might apprehend divine truth. Drawing upon the threefold Hebrew canon—תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings)—together with the Greek διαθήκη καινή (<em>diathēkē kainē</em>, New Testament), their translation achieved such felicity of expression that its cadences have become woven into the very fabric of English letters.<label for="sn-canon" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-canon" class="margin-toggle"/><span class="sidenote">The Hebrew acronym <strong>TaNaKh</strong> (תנ״ך) derives from <strong>T</strong>orah, <strong>N</strong>evi'im, <strong>K</strong>etuvim. While this Jewish ordering differs from Christian canonical arrangements, it reflects the historical development attested by Christ Himself: 'all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me' (Luke 24:44)—the three divisions of Hebrew Scripture bearing witness to the coming Messiah.</span></p>
 
-    <p>This digital edition presents the 1769 Oxford Standard text—the received form of the Authorized Version—integrated with commentary drawn from the most eminent divines and critical scholarship. Here the reader will find not merely the biblical text, but apparatus for its proper understanding: original language analysis (examining Hebrew שֹׁרֶשׁ <em>shoresh</em>, word roots, and Greek λέξις <em>lexis</em>, vocabulary), marginal notes explicating difficult passages, comprehensive cross-references tracing themes throughout Scripture, and such geographical and historical context as may illumine the sacred page. The goal remains that articulated by the translators themselves: that "the Scripture may speake like it selfe... that it may be understood even of the very vulgar."</p>
+    <p>This digital edition presents the 1769 Oxford Standard text—being the received and corrected form—enriched with apparatus drawn from the most judicious commentators and modern scholarship. The reader shall find herein not the bare text alone, but instruments for its profitable study: analysis of Hebrew שֹׁרֶשׁ (<em>shoresh</em>, word roots) and Greek λέξις (<em>lexis</em>, vocabulary), marginal annotations explicating passages of difficulty, comprehensive cross-references whereby Scripture interprets Scripture, and such historical and geographical context as may illumine the sacred narrative. Our purpose remains constant with that of the original translators: "that the Scripture may speake like it selfe... that it may be understood even of the very vulgar"—yet understood not superficially, but with that depth of comprehension befitting the oracles of the living God.<label for="sn-purpose" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-purpose" class="margin-toggle"/><span class="sidenote">Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16). Yet such profit requires more than cursory reading—it demands διδασκαλία (<em>didaskalia</em>, systematic teaching), aided by γραμματεύς (<em>grammateus</em>, scribal learning). Hence the provision of helps: that the diligent student might rightly divide the word of truth.</span></p>
 </section>
 
 <section>
