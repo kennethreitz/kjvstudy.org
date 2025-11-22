@@ -523,37 +523,31 @@ def concordance_page(request: Request, word: str = Query(None, description="Word
     # This handles punctuation and word boundaries properly
     pattern = re.compile(r'\b' + re.escape(search_word) + r'\b', re.IGNORECASE)
 
-    for book in bible.iter_books():
-        book_name = book.name
-        book_occurrences = []
+    # Use bible.iter_verses() to iterate through all verses
+    for verse in bible.iter_verses():
+        # Check if the word appears in this verse
+        if pattern.search(verse.text):
+            # Highlight the word in the text
+            highlighted_text = pattern.sub(
+                lambda m: f'<span class="highlight">{m.group()}</span>',
+                verse.text
+            )
 
-        for chapter_num in range(1, book.num_chapters + 1):
-            chapter = book.chapter(chapter_num)
+            occurrence = {
+                'book': verse.book,
+                'chapter': verse.chapter,
+                'verse': verse.verse,
+                'text': verse.text,
+                'highlighted_text': highlighted_text
+            }
 
-            for verse in chapter.verses:
-                # Check if the word appears in this verse
-                if pattern.search(verse.text):
-                    # Highlight the word in the text
-                    highlighted_text = pattern.sub(
-                        lambda m: f'<span class="highlight">{m.group()}</span>',
-                        verse.text
-                    )
+            occurrences.append(occurrence)
+            books_with_word.add(verse.book)
 
-                    occurrence = {
-                        'book': book_name,
-                        'chapter': chapter_num,
-                        'verse': verse.verse,
-                        'text': verse.text,
-                        'highlighted_text': highlighted_text
-                    }
-
-                    occurrences.append(occurrence)
-                    book_occurrences.append(occurrence)
-                    books_with_word.add(book_name)
-
-        # Only add to occurrences_by_book if there are occurrences in this book
-        if book_occurrences:
-            occurrences_by_book[book_name] = book_occurrences
+            # Group by book
+            if verse.book not in occurrences_by_book:
+                occurrences_by_book[verse.book] = []
+            occurrences_by_book[verse.book].append(occurrence)
 
     return templates.TemplateResponse(
         "concordance.html",
