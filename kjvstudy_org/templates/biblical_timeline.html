@@ -35,13 +35,25 @@
 
                 {% if ':' in chapter_verse_part %}
                     {% set chapter = chapter_verse_part.split(':')[0] %}
-                {% elif '-' in chapter_verse_part %}
-                    {% set chapter = chapter_verse_part.split('-')[0] %}
-                {% else %}
-                    {% set chapter = chapter_verse_part %}
-                {% endif %}
+                    {% set verse_part = chapter_verse_part.split(':')[1] %}
 
-                <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a> — {{ verse.text }}
+                    {# Check if verse part contains a range (e.g., "7-8") #}
+                    {% if '-' in verse_part %}
+                        {# Verse range - use anchor syntax like #verse-7-8 #}
+                        <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}">{{ verse.reference }}</a> — {{ verse.text }}
+                    {% else %}
+                        {# Single verse - use anchor syntax like #verse-7 #}
+                        <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}">{{ verse.reference }}</a> — {{ verse.text }}
+                    {% endif %}
+                {% elif '-' in chapter_verse_part %}
+                    {# Chapter range (e.g., "1-2") - just link to first chapter #}
+                    {% set chapter = chapter_verse_part.split('-')[0] %}
+                    <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a> — {{ verse.text }}
+                {% else %}
+                    {# Just chapter number #}
+                    {% set chapter = chapter_verse_part %}
+                    <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ verse.reference }}</a> — {{ verse.text }}
+                {% endif %}
             {% else %}
                 {{ verse.reference }} — {{ verse.text }}
             {% endif %}

@@ -164,7 +164,7 @@ section:nth-of-type(3) {
                 </div>
 
                 <div class="person-life">
-                    {% if person.generation %}Generation {{ person.generation }}{% endif %}{% if person.birth_year != "Unknown" %} • born {{ person.birth_year }}{% endif %}{% if person.age_at_death != "Unknown" %} • lived {{ person.age_at_death }}{% endif %}
+                    {% if person.generation %}Generation {{ person.generation }}{% endif %}{% if person.kekule_number is not none %} • Kekulé #{{ person.kekule_number }}{% endif %}{% if person.birth_year != "Unknown" %} • born {{ person.birth_year }}{% endif %}{% if person.age_at_death != "Unknown" %} • lived {{ person.age_at_death }}{% endif %}
                 </div>
 
                 <div class="person-info">

@@ -4142,7 +4142,7 @@ def parse_gedcom_to_tree_data(gedcom_path):
     # Find root people (no parents)
     roots = [pid for pid, person in tree_data.items() if len(person["parents"]) == 0]
 
-    # BFS to assign generation numbers
+    # BFS to assign generation numbers (from Adam forward)
     queue = [(pid, 1) for pid in roots]
     visited = set()
 
@@ -4164,6 +4164,49 @@ def parse_gedcom_to_tree_data(gedcom_path):
             for child_id in tree_data[person_id]["children"]:
                 if child_id not in visited:
                     queue.append((child_id, gen_num + 1))
+
+    # Calculate Kekulé numbers (Ahnentafel numbering) from Christ
+    # Find Jesus in the tree
+    jesus_id = None
+    for person_id, person in tree_data.items():
+        if person["name"].lower() in ["jesus", "jesus christ", "christ"]:
+            jesus_id = person_id
+            break
+
+    # Initialize all kekule_number to None
+    for person_id, person in tree_data.items():
+        person["kekule_number"] = None
+
+    if jesus_id:
+        # Kekulé numbering: person #1, father #2, mother #3
+        # For person #n: father = 2n, mother = 2n+1
+        # Work backwards from Christ using BFS
+        queue = [(jesus_id, 1)]
+        visited_reverse = set()
+
+        while queue:
+            person_id, kekule_num = queue.pop(0)
+            if person_id in visited_reverse:
+                continue
+            visited_reverse.add(person_id)
+
+            if person_id in tree_data:
+                tree_data[person_id]["kekule_number"] = kekule_num
+
+                # Get parents
+                parents = tree_data[person_id]["parents"]
+
+                # Assign Kekulé numbers to parents
+                # Father = 2n (even), Mother = 2n+1 (odd)
+                # We need to determine which parent is father/mother
+                for i, parent_id in enumerate(parents):
+                    if parent_id not in visited_reverse:
+                        # Heuristic: check if parent has "male" indicators or is listed first
+                        # For biblical genealogy, typically father is listed first
+                        if i == 0:  # First parent = father
+                            queue.append((parent_id, kekule_num * 2))
+                        else:  # Second parent = mother
+                            queue.append((parent_id, kekule_num * 2 + 1))
 
     return tree_data, generations
 
@@ -5219,7 +5262,7 @@ def read_chapter(request: Request, book: str, chapter: int):
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
         # Add word study sidenotes
-        commentary['word_studies'] = generate_word_study_sidenotes(verse.text, book)
+        commentary['word_studies'] = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse)
         commentaries[verse.verse] = commentary
 
     # Generate chapter overview
@@ -5387,8 +5430,12 @@ def escape_jinja2_syntax(text):
     
     return text
 
-def generate_word_study_sidenotes(verse_text, book):
-    """Generate Hebrew/Greek/Aramaic word study sidenotes for key terms in the verse"""
+def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
+    """Generate Hebrew/Greek/Aramaic word study sidenotes for key terms in the verse
+
+    Uses intelligent selection to show only 1-2 word studies per verse, creating variety
+    across chapters rather than showing every theological term.
+    """
     verse_lower = verse_text.lower()
 
     # Determine if Old Testament (Hebrew/Aramaic) or New Testament (Greek)
@@ -5494,15 +5541,14 @@ def generate_word_study_sidenotes(verse_text, book):
         }
     }
 
-    sidenotes = []
-
-    # Check for each theological term in the verse
+    # First, collect all potential word studies in this verse
+    potential_sidenotes = []
     for word, studies in word_studies.items():
         if word in verse_lower:
             # Use appropriate testament
             study = studies.get('ot' if is_ot else 'nt', studies.get('ot') or studies.get('nt'))
             if study:
-                sidenotes.append({
+                potential_sidenotes.append({
                     "word": word.title(),
                     "term": study['term'],
                     "translit": study['translit'],
@@ -5510,7 +5556,26 @@ def generate_word_study_sidenotes(verse_text, book):
                     "note": study['note']
                 })
 
-    return sidenotes
+    # Intelligently select only 1-2 word studies per verse to avoid repetition
+    # Use verse position to determine which studies to show
+    if not potential_sidenotes:
+        return []
+
+    # Deterministic selection based on chapter and verse for consistency
+    import random
+    random.seed(f"{book}{chapter}{verse_num}")
+
+    # Show 1-2 sidenotes max, with preference for fewer
+    # Every 3rd verse gets 2 sidenotes, others get 0-1
+    max_sidenotes = 2 if (verse_num % 3 == 0) else 1
+
+    # Further limit: only show sidenotes on ~40% of verses to prevent overload
+    show_probability = random.random()
+    if show_probability < 0.4:  # 40% chance
+        selected = random.sample(potential_sidenotes, min(max_sidenotes, len(potential_sidenotes)))
+        return selected
+    else:
+        return []
 
 
 def generate_commentary(book, chapter, verse):

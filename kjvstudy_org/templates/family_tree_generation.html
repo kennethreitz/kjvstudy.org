@@ -31,6 +31,10 @@
         <div style="margin: 3rem 0; padding-left: 1rem; border-left: 2px solid #ccc;">
             <h3>{{ person.name }}</h3>
 
+            {% if person.kekule_number is not none %}
+            <p><em>Kekulé #{{ person.kekule_number }}</em></p>
+            {% endif %}
+
             {% if person.birth_year != "Unknown" or person.death_year != "Unknown" or person.age_at_death != "Unknown" %}
             <p>
                 {% if person.birth_year != "Unknown" %}Born: {{ person.birth_year }}{% endif %}
@@ -48,8 +52,8 @@
                 {% for parent_id in person.parents %}
                     {% if parent_id in family_tree_data %}
                         <a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>
-                        {% if family_tree_data[parent_id].generation %}
-                            (Generation {{ family_tree_data[parent_id].generation }})
+                        {% if family_tree_data[parent_id].generation or family_tree_data[parent_id].kekule_number is not none %}
+                            (Generation {{ family_tree_data[parent_id].generation }}{% if family_tree_data[parent_id].kekule_number is not none %}, Kekulé #{{ family_tree_data[parent_id].kekule_number }}{% endif %})
                         {% endif %}
                         {% if not loop.last %}, {% endif %}
                     {% endif %}

@@ -107,8 +107,10 @@
 {% block content %}
 <div class="person-header">
     <h1 class="person-title">Family Tree: {{ person.name }}</h1>
-    {% if person.generation %}
-    <p class="person-subtitle">Generation {{ person.generation }} from Adam</p>
+    {% if person.generation or person.kekule_number is not none %}
+    <p class="person-subtitle">
+        {% if person.generation %}Generation {{ person.generation }} from Adam{% endif %}{% if person.kekule_number is not none %}{% if person.generation %} • {% endif %}Kekulé #{{ person.kekule_number }}{% endif %}
+    </p>
     {% endif %}
 </div>
 
@@ -152,9 +154,9 @@
             {% if parent_id in family_tree_data %}
             <div class="relationship-item">
                 <span class="relationship-name"><a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a></span>
-                {% if family_tree_data[parent_id].generation or family_tree_data[parent_id].age_at_death != "Unknown" %}
+                {% if family_tree_data[parent_id].generation or family_tree_data[parent_id].kekule_number is not none or family_tree_data[parent_id].age_at_death != "Unknown" %}
                 <span class="relationship-meta">
-                    {% if family_tree_data[parent_id].generation %}generation {{ family_tree_data[parent_id].generation }}{% endif %}{% if family_tree_data[parent_id].age_at_death != "Unknown" %}{% if family_tree_data[parent_id].generation %}, {% endif %}lived {{ family_tree_data[parent_id].age_at_death }}{% endif %}
+                    {% if family_tree_data[parent_id].generation %}generation {{ family_tree_data[parent_id].generation }}{% endif %}{% if family_tree_data[parent_id].kekule_number is not none %}{% if family_tree_data[parent_id].generation %}, {% endif %}Kekulé #{{ family_tree_data[parent_id].kekule_number }}{% endif %}{% if family_tree_data[parent_id].age_at_death != "Unknown" %}{% if family_tree_data[parent_id].generation or family_tree_data[parent_id].kekule_number is not none %}, {% endif %}lived {{ family_tree_data[parent_id].age_at_death }}{% endif %}
                 </span>
                 {% endif %}
             </div>
@@ -172,9 +174,9 @@
             {% if sibling_id in family_tree_data %}
             <div class="relationship-item">
                 <span class="relationship-name"><a href="/family-tree/person/{{ sibling_id }}">{{ family_tree_data[sibling_id].name }}</a></span>
-                {% if family_tree_data[sibling_id].generation or family_tree_data[sibling_id].age_at_death != "Unknown" %}
+                {% if family_tree_data[sibling_id].generation or family_tree_data[sibling_id].kekule_number is not none or family_tree_data[sibling_id].age_at_death != "Unknown" %}
                 <span class="relationship-meta">
-                    {% if family_tree_data[sibling_id].generation %}generation {{ family_tree_data[sibling_id].generation }}{% endif %}{% if family_tree_data[sibling_id].age_at_death != "Unknown" %}{% if family_tree_data[sibling_id].generation %}, {% endif %}lived {{ family_tree_data[sibling_id].age_at_death }}{% endif %}
+                    {% if family_tree_data[sibling_id].generation %}generation {{ family_tree_data[sibling_id].generation }}{% endif %}{% if family_tree_data[sibling_id].kekule_number is not none %}{% if family_tree_data[sibling_id].generation %}, {% endif %}Kekulé #{{ family_tree_data[sibling_id].kekule_number }}{% endif %}{% if family_tree_data[sibling_id].age_at_death != "Unknown" %}{% if family_tree_data[sibling_id].generation or family_tree_data[sibling_id].kekule_number is not none %}, {% endif %}lived {{ family_tree_data[sibling_id].age_at_death }}{% endif %}
                 </span>
                 {% endif %}
             </div>
@@ -192,9 +194,9 @@
             {% if child_id in family_tree_data %}
             <div class="relationship-item">
                 <span class="relationship-name"><a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a></span>
-                {% if family_tree_data[child_id].generation or family_tree_data[child_id].age_at_death != "Unknown" %}
+                {% if family_tree_data[child_id].generation or family_tree_data[child_id].kekule_number is not none or family_tree_data[child_id].age_at_death != "Unknown" %}
                 <span class="relationship-meta">
-                    {% if family_tree_data[child_id].generation %}generation {{ family_tree_data[child_id].generation }}{% endif %}{% if family_tree_data[child_id].age_at_death != "Unknown" %}{% if family_tree_data[child_id].generation %}, {% endif %}lived {{ family_tree_data[child_id].age_at_death }}{% endif %}
+                    {% if family_tree_data[child_id].generation %}generation {{ family_tree_data[child_id].generation }}{% endif %}{% if family_tree_data[child_id].kekule_number is not none %}{% if family_tree_data[child_id].generation %}, {% endif %}Kekulé #{{ family_tree_data[child_id].kekule_number }}{% endif %}{% if family_tree_data[child_id].age_at_death != "Unknown" %}{% if family_tree_data[child_id].generation or family_tree_data[child_id].kekule_number is not none %}, {% endif %}lived {{ family_tree_data[child_id].age_at_death }}{% endif %}
                 </span>
                 {% endif %}
             </div>
