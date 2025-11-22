@@ -1,0 +1,494 @@
+{% extends "base.html" %}
+
+{% block title %}{% if verse_data %}{{ verse_data.book }} {{ verse_data.chapter }}:{{ verse_data.verse }} - Interlinear Bible{% else %}Interlinear Bible{% endif %} - KJV Study{% endblock %}
+{% block description %}{% if verse_data %}Word-by-word Hebrew/Greek interlinear text for {{ verse_data.book }} {{ verse_data.chapter }}:{{ verse_data.verse }} with Strong's numbers and parsing.{% else %}Hebrew and Greek interlinear Bible with word-by-word translations and Strong's numbers.{% endif %}{% endblock %}
+
+{% block head %}
+<style>
+.interlinear-intro {
+    max-width: 55%;
+    margin: 2rem 0;
+}
+
+.verse-header {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem 0;
+    border-bottom: 2px solid #111;
+}
+
+.verse-header h2 {
+    margin: 0 0 0.5rem 0;
+}
+
+.kjv-text {
+    font-style: italic;
+    color: #333;
+    line-height: 1.8;
+    margin: 1rem 0;
+}
+
+.interlinear-container {
+    max-width: 90%;
+    margin: 2rem 0;
+    overflow-x: auto;
+}
+
+.interlinear-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.interlinear-word {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    max-width: 180px;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.word-position {
+    font-size: 0.7rem;
+    color: #999;
+    margin-bottom: 0.5rem;
+}
+
+.word-original {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    color: #111;
+    direction: ltr; /* Hebrew will display RTL via Unicode */
+}
+
+.word-transliteration {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin: 0.25rem 0;
+}
+
+.word-strongs {
+    font-size: 0.75rem;
+    color: #0066cc;
+    font-family: monospace;
+    margin: 0.25rem 0;
+    font-weight: 600;
+}
+
+.word-english {
+    font-size: 1rem;
+    color: #111;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.word-parsing {
+    font-size: 0.75rem;
+    color: #666;
+    margin: 0.25rem 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.word-definition {
+    font-size: 0.85rem;
+    color: #444;
+    margin: 0.5rem 0;
+    text-align: center;
+    line-height: 1.4;
+    border-top: 1px solid #ddd;
+    padding-top: 0.5rem;
+}
+
+.navigation-links {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #ccc;
+}
+
+.navigation-links a {
+    margin-right: 1.5rem;
+}
+
+.available-verses {
+    max-width: 55%;
+    margin: 2rem 0;
+}
+
+.verse-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.verse-link {
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #111;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s;
+}
+
+.verse-link:hover {
+    background: #e5e5e5;
+    border-color: #111;
+}
+
+.verse-link-ref {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.verse-link-preview {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.interlinear-help {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid #111;
+}
+
+.interlinear-help h3 {
+    margin-top: 0;
+}
+
+.interlinear-help ul {
+    line-height: 1.8;
+}
+
+.verse-selector {
+    max-width: 80%;
+    margin: 2rem 0;
+}
+
+.featured-link,
+.book-link {
+    display: block;
+    padding: 1rem;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #111;
+    transition: all 0.2s;
+}
+
+.featured-link:hover,
+.book-link:hover {
+    background: #e5e5e5;
+    border-color: #111;
+    transform: translateY(-2px);
+}
+
+.featured-link strong,
+.book-link {
+    font-weight: 600;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #111;
+}
+
+.search-box button:hover {
+    background: #333;
+}
+
+.breadcrumbs {
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.breadcrumbs a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+    color: #111;
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: #999;
+}
+
+@media (max-width: 760px) {
+    .interlinear-intro,
+    .verse-header,
+    .navigation-links,
+    .available-verses,
+    .interlinear-help {
+        max-width: 100%;
+    }
+
+    .interlinear-container {
+        max-width: 100%;
+    }
+
+    .interlinear-words {
+        gap: 1rem;
+    }
+
+    .interlinear-word {
+        min-width: 100px;
+        max-width: 140px;
+        padding: 0.75rem;
+    }
+
+    .word-original {
+        font-size: 1.5rem;
+    }
+
+    .verse-list {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Interlinear Bible</h1>
+<p class="subtitle">Hebrew and Greek text with word-by-word English translation</p>
+
+{% if verse_data and interlinear_words %}
+    <nav class="breadcrumbs" style="margin: 1rem 0; font-size: 0.9rem; color: #666;">
+        <a href="/">Home</a>
+        <span style="margin: 0 0.5rem;">/</span>
+        <a href="/interlinear">Interlinear</a>
+        <span style="margin: 0 0.5rem;">/</span>
+        <a href="/book/{{ verse_data.book }}">{{ verse_data.book }}</a>
+        <span style="margin: 0 0.5rem;">/</span>
+        <a href="/book/{{ verse_data.book }}/chapter/{{ verse_data.chapter }}">Chapter {{ verse_data.chapter }}</a>
+        <span style="margin: 0 0.5rem;">/</span>
+        <span style="color: #111; font-weight: 600;">Verse {{ verse_data.verse }}</span>
+    </nav>
+
+    <section class="verse-header">
+        <h2>{{ verse_data.book }} {{ verse_data.chapter }}:{{ verse_data.verse }}</h2>
+        <div class="kjv-text">{{ verse_data.text }}</div>
+    </section>
+
+    <section class="interlinear-container">
+        <h3>Word-by-Word Analysis</h3>
+        <div class="interlinear-words">
+            {% for word in interlinear_words %}
+            <div class="interlinear-word">
+                <div class="word-position">#{{ word.position }}</div>
+                <div class="word-original">{{ word.original }}</div>
+                <div class="word-transliteration">{{ word.transliteration }}</div>
+                <div class="word-strongs">{{ word.strongs }}</div>
+                <div class="word-english">{{ word.english }}</div>
+                <div class="word-parsing">{{ word.parsing }}</div>
+                <div class="word-definition">{{ word.definition }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="navigation-links">
+        <a href="/book/{{ verse_data.book }}/chapter/{{ verse_data.chapter }}/verse/{{ verse_data.verse }}">← Back to verse</a>
+        <a href="/book/{{ verse_data.book }}/chapter/{{ verse_data.chapter }}">View full chapter</a>
+    </section>
+
+{% elif verse_requested %}
+    <section class="interlinear-intro">
+        <p><strong>Interlinear data not yet available</strong> for {{ book }} {{ chapter }}:{{ verse }}.</p>
+        <p style="margin-top: 1rem; color: #666;">We're continually expanding our interlinear database. Check the verses below for currently available interlinear texts.</p>
+    </section>
+
+    <section class="navigation-links">
+        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse }}">← Back to verse</a>
+        <a href="/interlinear">Browse available interlinear verses</a>
+    </section>
+{% endif %}
+
+{% if not verse_data and not verse_requested %}
+<section class="verse-selector">
+    <h2>Explore the Interlinear Bible</h2>
+    <p>Browse by book or search for a specific passage:</p>
+
+    <div class="search-box">
+        <form action="/interlinear/search" method="get" style="display: flex; gap: 0.5rem; margin: 1.5rem 0;">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search: John 3:16, Genesis 1:1, Romans 8..."
+                style="flex: 1; padding: 0.75rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px;"
+                autofocus
+            />
+            <button
+                type="submit"
+                style="padding: 0.75rem 1.5rem; font-size: 1rem; background: #111; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Search
+            </button>
+        </form>
+    </div>
+
+    <h3 style="margin-top: 2rem;">Popular Passages</h3>
+    <div class="featured-passages" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+        <a href="/interlinear/book/Genesis/chapter/1/verse/1" class="featured-link">
+            <strong>Genesis 1:1</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">In the beginning...</span>
+        </a>
+        <a href="/interlinear/book/Psalms/chapter/23/verse/1" class="featured-link">
+            <strong>Psalm 23:1</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">The LORD is my shepherd...</span>
+        </a>
+        <a href="/interlinear/book/Isaiah/chapter/53/verse/5" class="featured-link">
+            <strong>Isaiah 53:5</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">He was wounded...</span>
+        </a>
+        <a href="/interlinear/book/Matthew/chapter/5/verse/3" class="featured-link">
+            <strong>Matthew 5:3</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">Blessed are the poor...</span>
+        </a>
+        <a href="/interlinear/book/John/chapter/1/verse/1" class="featured-link">
+            <strong>John 1:1</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">In the beginning was the Word...</span>
+        </a>
+        <a href="/interlinear/book/John/chapter/3/verse/16" class="featured-link">
+            <strong>John 3:16</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">For God so loved the world...</span>
+        </a>
+        <a href="/interlinear/book/Romans/chapter/3/verse/23" class="featured-link">
+            <strong>Romans 3:23</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">For all have sinned...</span>
+        </a>
+        <a href="/interlinear/book/Romans/chapter/8/verse/28" class="featured-link">
+            <strong>Romans 8:28</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">All things work together...</span>
+        </a>
+        <a href="/interlinear/book/Philippians/chapter/4/verse/13" class="featured-link">
+            <strong>Philippians 4:13</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">I can do all things...</span>
+        </a>
+        <a href="/interlinear/book/Revelation/chapter/1/verse/8" class="featured-link">
+            <strong>Revelation 1:8</strong><br>
+            <span style="font-size: 0.9rem; color: #666;">I am Alpha and Omega...</span>
+        </a>
+    </div>
+
+    <h3 style="margin-top: 2rem;">Browse by Book</h3>
+    <div class="book-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin: 1.5rem 0;">
+        <a href="/book/Genesis" class="book-link">Genesis</a>
+        <a href="/book/Exodus" class="book-link">Exodus</a>
+        <a href="/book/Leviticus" class="book-link">Leviticus</a>
+        <a href="/book/Numbers" class="book-link">Numbers</a>
+        <a href="/book/Deuteronomy" class="book-link">Deuteronomy</a>
+        <a href="/book/Joshua" class="book-link">Joshua</a>
+        <a href="/book/Judges" class="book-link">Judges</a>
+        <a href="/book/Ruth" class="book-link">Ruth</a>
+        <a href="/book/1 Samuel" class="book-link">1 Samuel</a>
+        <a href="/book/2 Samuel" class="book-link">2 Samuel</a>
+        <a href="/book/1 Kings" class="book-link">1 Kings</a>
+        <a href="/book/2 Kings" class="book-link">2 Kings</a>
+        <a href="/book/1 Chronicles" class="book-link">1 Chronicles</a>
+        <a href="/book/2 Chronicles" class="book-link">2 Chronicles</a>
+        <a href="/book/Ezra" class="book-link">Ezra</a>
+        <a href="/book/Nehemiah" class="book-link">Nehemiah</a>
+        <a href="/book/Esther" class="book-link">Esther</a>
+        <a href="/book/Job" class="book-link">Job</a>
+        <a href="/book/Psalms" class="book-link">Psalms</a>
+        <a href="/book/Proverbs" class="book-link">Proverbs</a>
+        <a href="/book/Ecclesiastes" class="book-link">Ecclesiastes</a>
+        <a href="/book/Song of Solomon" class="book-link">Song of Solomon</a>
+        <a href="/book/Isaiah" class="book-link">Isaiah</a>
+        <a href="/book/Jeremiah" class="book-link">Jeremiah</a>
+        <a href="/book/Lamentations" class="book-link">Lamentations</a>
+        <a href="/book/Ezekiel" class="book-link">Ezekiel</a>
+        <a href="/book/Daniel" class="book-link">Daniel</a>
+        <a href="/book/Hosea" class="book-link">Hosea</a>
+        <a href="/book/Joel" class="book-link">Joel</a>
+        <a href="/book/Amos" class="book-link">Amos</a>
+        <a href="/book/Obadiah" class="book-link">Obadiah</a>
+        <a href="/book/Jonah" class="book-link">Jonah</a>
+        <a href="/book/Micah" class="book-link">Micah</a>
+        <a href="/book/Nahum" class="book-link">Nahum</a>
+        <a href="/book/Habakkuk" class="book-link">Habakkuk</a>
+        <a href="/book/Zephaniah" class="book-link">Zephaniah</a>
+        <a href="/book/Haggai" class="book-link">Haggai</a>
+        <a href="/book/Zechariah" class="book-link">Zechariah</a>
+        <a href="/book/Malachi" class="book-link">Malachi</a>
+        <a href="/book/Matthew" class="book-link">Matthew</a>
+        <a href="/book/Mark" class="book-link">Mark</a>
+        <a href="/book/Luke" class="book-link">Luke</a>
+        <a href="/book/John" class="book-link">John</a>
+        <a href="/book/Acts" class="book-link">Acts</a>
+        <a href="/book/Romans" class="book-link">Romans</a>
+        <a href="/book/1 Corinthians" class="book-link">1 Corinthians</a>
+        <a href="/book/2 Corinthians" class="book-link">2 Corinthians</a>
+        <a href="/book/Galatians" class="book-link">Galatians</a>
+        <a href="/book/Ephesians" class="book-link">Ephesians</a>
+        <a href="/book/Philippians" class="book-link">Philippians</a>
+        <a href="/book/Colossians" class="book-link">Colossians</a>
+        <a href="/book/1 Thessalonians" class="book-link">1 Thessalonians</a>
+        <a href="/book/2 Thessalonians" class="book-link">2 Thessalonians</a>
+        <a href="/book/1 Timothy" class="book-link">1 Timothy</a>
+        <a href="/book/2 Timothy" class="book-link">2 Timothy</a>
+        <a href="/book/Titus" class="book-link">Titus</a>
+        <a href="/book/Philemon" class="book-link">Philemon</a>
+        <a href="/book/Hebrews" class="book-link">Hebrews</a>
+        <a href="/book/James" class="book-link">James</a>
+        <a href="/book/1 Peter" class="book-link">1 Peter</a>
+        <a href="/book/2 Peter" class="book-link">2 Peter</a>
+        <a href="/book/1 John" class="book-link">1 John</a>
+        <a href="/book/2 John" class="book-link">2 John</a>
+        <a href="/book/3 John" class="book-link">3 John</a>
+        <a href="/book/Jude" class="book-link">Jude</a>
+        <a href="/book/Revelation" class="book-link">Revelation</a>
+    </div>
+
+    <p style="margin-top: 2rem; color: #666; font-size: 0.95rem;">
+        <strong>Coverage:</strong> 31,031 verses with complete Hebrew and Greek interlinear text covering the entire Bible.
+    </p>
+</section>
+{% endif %}
+
+<section class="interlinear-help">
+    <h3>Understanding the Interlinear Display</h3>
+    <ul>
+        <li><strong>Original Text</strong> - The Hebrew (Old Testament) or Greek (New Testament) word as it appears in the original manuscripts</li>
+        <li><strong>Transliteration</strong> - How to pronounce the original word using English letters</li>
+        <li><strong>Strong's Number</strong> - A reference number (H for Hebrew, G for Greek) for looking up the word in concordances and lexicons</li>
+        <li><strong>English</strong> - The word's translation in the King James Version</li>
+        <li><strong>Parsing</strong> - Grammatical information (verb tenses, noun cases, etc.)</li>
+        <li><strong>Definition</strong> - The word's semantic range and possible meanings</li>
+        <li><strong>Word Order</strong> - Hebrew and Greek word order often differs from English; the position numbers show the original sequence</li>
+    </ul>
+</section>
+
+{% if not verse_data and not verse_requested %}
+<section class="interlinear-intro">
+    <h2>About the Interlinear Bible</h2>
+    <p>The interlinear Bible provides a word-by-word breakdown of the original Hebrew (Old Testament) and Greek (New Testament) text alongside the English translation. This tool is invaluable for:</p>
+    <ul>
+        <li>Understanding the precise meaning of the original language</li>
+        <li>Seeing grammatical structures and verb tenses</li>
+        <li>Discovering word connections through Strong's numbers</li>
+        <li>Gaining deeper insight into Scripture's original intent</li>
+        <li>Studying how translators rendered the text into English</li>
+    </ul>
+    <p style="margin-top: 1rem;">Select any verse above to see its word-by-word interlinear analysis. More verses are being added regularly to expand this resource.</p>
+</section>
+{% endif %}
+{% endblock %}

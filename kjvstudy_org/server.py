@@ -17,6 +17,7 @@ from .kjv import bible, VerseReference
 from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
 from .topics import get_all_topics, get_topic, search_topics
+from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses
 
 try:
     from ged4py import GedcomReader
@@ -560,6 +561,98 @@ def concordance_page(request: Request, word: str = Query(None, description="Word
             "books_with_word": sorted(books_with_word)
         }
     )
+
+
+@app.get("/interlinear/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
+def interlinear_verse_page(request: Request, book: str, chapter: int, verse_num: int):
+    """Interlinear view for a specific verse"""
+    books = list(bible.iter_books())
+    available_verses = get_all_interlinear_verses()
+
+    # Get the verse text from the Bible (same pattern as read_verse)
+    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+
+    if not verses:
+        raise HTTPException(status_code=404, detail=f"Chapter {chapter} of {book} was not found")
+
+    # Find the specific verse
+    verse = None
+    for v in verses:
+        if v.verse == verse_num:
+            verse = v
+            break
+
+    if not verse:
+        raise HTTPException(status_code=404, detail=f"Verse {verse_num} not found in {book} {chapter}")
+
+    verse_data = {
+        "book": book,
+        "chapter": chapter,
+        "verse": verse_num,
+        "text": verse.text
+    }
+
+    # Get interlinear data if available
+    interlinear_words = get_interlinear_data(book, chapter, verse_num)
+
+    return templates.TemplateResponse(
+        "interlinear.html",
+        {
+            "request": request,
+            "books": books,
+            "available_verses": available_verses,
+            "verse_data": verse_data,
+            "interlinear_words": interlinear_words,
+            "verse_requested": True,
+            "book": book,
+            "chapter": chapter,
+            "verse": verse_num
+        }
+    )
+
+
+@app.get("/interlinear", response_class=HTMLResponse)
+def interlinear_index_page(request: Request):
+    """Interlinear Bible main page showing available verses"""
+    books = list(bible.iter_books())
+    available_verses = []  # Don't load all 31k verses on homepage
+
+    return templates.TemplateResponse(
+        "interlinear.html",
+        {
+            "request": request,
+            "books": books,
+            "available_verses": available_verses,
+            "verse_data": None,
+            "interlinear_words": None,
+            "verse_requested": False
+        }
+    )
+
+
+@app.get("/interlinear/search", response_class=HTMLResponse)
+def interlinear_search(request: Request, q: str = Query(..., description="Search query")):
+    """Search for interlinear verses and redirect to the verse page"""
+    # Parse the query using the existing function
+    # Pattern: Book Chapter:Verse (e.g., "John 3:16")
+    match = re.match(r'^(.+?)\s+(\d+):(\d+)$', q.strip())
+
+    if match:
+        book = match.group(1).strip()
+        chapter = int(match.group(2))
+        verse = int(match.group(3))
+
+        # Normalize book name (handle "1 John" vs "1John", "Psalms" vs "Psalm", etc.)
+        book = book.replace('Psalm ', 'Psalms ').replace('Psalm', 'Psalms')
+
+        # Redirect to the interlinear verse page
+        return RedirectResponse(
+            url=f"/interlinear/book/{book}/chapter/{chapter}/verse/{verse}",
+            status_code=303
+        )
+
+    # If parsing fails, redirect back to homepage with error
+    return RedirectResponse(url="/interlinear", status_code=303)
 
 
 def parse_verse_reference(reference: str):
@@ -5417,6 +5510,9 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     # Get cross-references for this verse
     cross_refs = get_cross_references(book, chapter, verse_num)
 
+    # Check if interlinear data is available
+    has_interlinear = has_interlinear_data(book, chapter, verse_num)
+
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -5442,7 +5538,8 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "breadcrumbs": breadcrumbs,
             "current_book": book,
             "current_chapter": chapter,
-            "current_verse": verse_num
+            "current_verse": verse_num,
+            "has_interlinear": has_interlinear
         }
     )
 
