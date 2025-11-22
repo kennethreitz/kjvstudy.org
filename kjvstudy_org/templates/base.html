@@ -8,9 +8,42 @@
 
     <meta name="description" content="{% block description %}Study the Authorized King James Version Bible{% endblock %}"/>
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://kjvstudy.org{% block canonical_path %}{{ request.url.path }}{% endblock %}"/>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}"/>
+    <meta property="og:url" content="https://kjvstudy.org{{ request.url.path }}"/>
+    <meta property="og:title" content="{% block og_title %}{% block title_text %}Authorized King James Version Bible{% endblock %}{% endblock %}"/>
+    <meta property="og:description" content="{% block og_description %}{% block description_text %}Study the Authorized King James Version Bible{% endblock %}{% endblock %}"/>
+    <meta property="og:site_name" content="KJV Study"/>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:url" content="https://kjvstudy.org{{ request.url.path }}"/>
+    <meta name="twitter:title" content="{% block twitter_title %}{% block title_plain %}Authorized King James Version Bible{% endblock %}{% endblock %}"/>
+    <meta name="twitter:description" content="{% block twitter_description %}{% block description_plain %}Study the Authorized King James Version Bible{% endblock %}{% endblock %}"/>
+
     <link rel="stylesheet" href="/static/tufte.css"/>
 
     {% block head %}{% endblock %}
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "KJV Study",
+      "url": "https://kjvstudy.org",
+      "description": "Study the Authorized King James Version Bible with commentary, study guides, and biblical resources",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://kjvstudy.org/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    {% block structured_data %}{% endblock %}
 
     <style>
         /* Color scheme variables */

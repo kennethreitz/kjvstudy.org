@@ -9017,6 +9017,22 @@ def health_check():
     return {"status": "healthy", "service": "kjv-study"}
 
 
+@app.get("/robots.txt", response_class=Response)
+def robots_txt():
+    """Generate robots.txt for search engine crawlers"""
+    robots_content = """User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://kjvstudy.org/sitemap.xml
+
+# Crawl delay (be nice to our servers)
+Crawl-delay: 1
+"""
+    return Response(content=robots_content, media_type="text/plain")
+
+
 def generate_literary_features(book, genre):
     """Generate commentary on literary features of a book"""
 
