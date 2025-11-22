@@ -8,7 +8,13 @@
 <p class="subtitle">Major events from Creation to the early Church</p>
 
 <section>
-    <p>This timeline presents key events of biblical history with approximate dates and relevant scripture references.</p>
+    <p>This timeline presents key events of biblical history with calculated dates and relevant scripture references.</p>
+
+    {% if chronology_note %}
+    <p style="font-size: 0.95rem; color: #555; margin-top: 1.5rem; padding: 1rem; background: #f9f9f9; border-left: 3px solid #666;">
+        {{ chronology_note | safe }}
+    </p>
+    {% endif %}
 </section>
 
 {% for period_name, events in timeline_events.items() %}
