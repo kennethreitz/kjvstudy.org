@@ -1,5 +1,47 @@
+# Fly.io
 fly.toml
+
+# Git
 .git/
+.gitignore
+.gitattributes
+
+# Python
 __pycache__/
-.envrc
+*.py[cod]
+*$py.class
 .venv/
+env/
+venv/
+
+# Environment
+.envrc
+.env
+.env.local
+
+# Development
+.DS_Store
+.idea
+.vscode
+*.swp
+*.log
+
+# Testing
+.pytest_cache
+.coverage
+htmlcov/
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# Documentation
+*.md
+!README.md
+
+# Large uncompressed data (we use the .gz version)
+kjvstudy_org/interlinear_data.py
+
+# Temporary
+tmp/
+*.tmp
