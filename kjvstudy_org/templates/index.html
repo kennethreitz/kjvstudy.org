@@ -84,6 +84,83 @@ section a[href^="/book/"] {
     margin-top: 0.5rem;
     font-style: italic;
 }
+
+/* Featured Resources */
+.featured-resources {
+    max-width: 70%;
+    margin: 3rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.featured-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    background: var(--bg-color);
+    transition: all 0.3s;
+}
+
+.featured-card:hover {
+    border-color: var(--link-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.featured-card h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.featured-card h3 a {
+    border-bottom: none;
+}
+
+.featured-card p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.featured-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--link-color);
+    color: white;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+}
+
+/* Quick Links Grid */
+.quick-links {
+    max-width: 70%;
+    margin: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.quick-link-btn {
+    display: block;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 4px;
+    background: var(--bg-color);
+    transition: all 0.2s;
+}
+
+.quick-link-btn:hover {
+    border-color: var(--link-color);
+    background: var(--code-bg);
+}
 </style>
 {% endblock %}
 
@@ -177,6 +254,41 @@ document.addEventListener('keydown', function(e) {
         <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a> — <a href="/verse-of-the-day">Verse of the Day</a></footer>
     </blockquote>
 </div>
+
+<section>
+    <h2>Featured Resources</h2>
+    <div class="featured-resources">
+        <div class="featured-card">
+            <span class="featured-badge">New</span>
+            <h3><a href="/tetragrammaton">The Tetragrammaton</a></h3>
+            <p>An in-depth exploration of the sacred four-letter name of God (יהוה), examining its pronunciation, etymology, theological significance, and Christ's identification with YHWH.</p>
+        </div>
+        <div class="featured-card">
+            <h3><a href="/biblical-covenants">Biblical Covenants</a></h3>
+            <p>Study the five major covenants God established throughout Scripture—from Noah to the New Covenant in Christ's blood—understanding their progressive revelation and redemptive significance.</p>
+        </div>
+        <div class="featured-card">
+            <h3><a href="/parables">Parables of Jesus</a></h3>
+            <p>Comprehensive analysis of Christ's parables, each with detailed interpretation, Greek word studies, and theological application. From the Sower to the Pharisee and Publican.</p>
+        </div>
+        <div class="featured-card">
+            <h3><a href="/names-of-god">Names of God</a></h3>
+            <p>Explore thirteen divine names and titles revealed in Scripture—Elohim, YHWH, Adonai, El Shaddai, Jehovah-Jireh, and more—each revealing distinct aspects of God's character.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Quick Access</h2>
+    <div class="quick-links">
+        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
+        <a href="/topics" class="quick-link-btn">Topical Index</a>
+        <a href="/family-tree" class="quick-link-btn">Biblical Genealogies</a>
+        <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
+        <a href="/search" class="quick-link-btn">Search Scripture</a>
+        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
+    </div>
+</section>
 
 <section>
     <p><span class="newthought"><a href="/books">The Authorized Version</a></span>, commonly known as the King James Bible, stands as one of the most influential works in the English language. Commissioned by King James I of England in 1604 and completed seven years hence by a company of forty-seven scholars, this translation has shaped not merely literature and law, but the very fabric of spiritual and moral discourse for more than four centuries.</p>
