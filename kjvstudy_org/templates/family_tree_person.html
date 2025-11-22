@@ -130,6 +130,49 @@
     {% endif %}
 </div>
 
+{# Family Diagram - Minimal Text Version #}
+{% if person.parents|length > 0 or person.children|length > 0 or person.spouse %}
+<div style="max-width: 55%; margin: 1.5rem 0; padding: 0.75rem 0; border-left: 3px solid #666; padding-left: 1rem; font-size: 0.95rem; line-height: 2;">
+    {% if person.parents|length > 0 %}
+    <div style="margin-bottom: 0.5rem;">
+        {% for parent_id in person.parents %}
+            <a href="/family-tree/person/{{ parent_id }}" style="font-style: italic; color: #666;">{{ family_tree_data[parent_id].name }}</a>{% if not loop.last %} & {% endif %}
+        {% endfor %}
+        <span style="color: #999;">↓</span>
+    </div>
+    {% endif %}
+
+    <div style="margin: 0.5rem 0;">
+        <strong>{{ person.name }}</strong>{% if person.spouse %}
+        {% set spouse_id = None %}
+        {% for pid, p in family_tree_data.items() %}
+            {% if p.name == person.spouse %}
+                {% set spouse_id = pid %}
+            {% endif %}
+        {% endfor %}
+        & {% if spouse_id %}<a href="/family-tree/person/{{ spouse_id }}" style="font-style: italic;">{{ person.spouse }}</a>{% else %}<span style="font-style: italic;">{{ person.spouse }}</span>{% endif %}{% endif %}
+    </div>
+
+    {% if person.children|length > 0 %}
+    <div style="margin-top: 0.5rem;">
+        <span style="color: #999;">↓</span>
+        {% for child_id in person.children[:8] %}
+            <a href="/family-tree/person/{{ child_id }}" style="font-style: italic; color: #666;">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}{% if person.children|length > 8 %}, and {{ person.children|length - 8 }} more{% endif %}
+    </div>
+    {% endif %}
+
+    {% if person.siblings|length > 0 %}
+    <div style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: #666;">
+        Siblings:
+        {% for sibling_id in person.siblings[:8] %}
+            <a href="/family-tree/person/{{ sibling_id }}" style="color: #666;">{{ family_tree_data[sibling_id].name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}{% if person.siblings|length > 8 %}, and {{ person.siblings|length - 8 }} more{% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
 {% if person.parents|length > 0 %}
 <div class="relationships-section">
     <h2>Parents</h2>
