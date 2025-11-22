@@ -189,20 +189,6 @@
     </section>
     {% endif %}
 
-    {% if commentary.cross_references %}
-    <section>
-        <h2>Cross References</h2>
-        <ul>
-            {% for ref in commentary.cross_references %}
-            <li>
-                <strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>
-                {% if ref.context %} — {{ ref.context }}{% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    {% endif %}
-
     {% if commentary.historical %}
     <section>
         <h2>Historical Context</h2>
