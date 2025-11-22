@@ -4687,6 +4687,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Creation of the World",
                 "date": "11,013 BC",
+                "alt_dates": "Ussher/Scofield: 4004 BC",
                 "description": "God (אֱלֹהִים, <em>Elohim</em>—the plural of majesty) creates (<em>bara</em>, ברא—to bring into existence ex nihilo) the heavens and earth in six sequential days, establishing the sabbath pattern. The Hebrew <em>Bereshit</em> (בְּרֵאשִׁית, 'In the beginning') opens Scripture with God's sovereign act of creation, speaking all things into being by His Word (דָּבָר, <em>davar</em>). The creation account reveals God's triune nature (Genesis 1:26, 'Let us make man'), His absolute power, and His purposeful design. The six-day creation culminates in humanity made in the <em>imago Dei</em> (image of God), establishing man as God's vice-regent over creation and anticipating the incarnation of the eternal Word.",
                 "verses": [
                     {"reference": "Genesis 1:1", "text": "In the beginning God created the heaven and the earth."},
@@ -4713,6 +4714,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "The Great Flood",
                 "date": "4,990 BC",
+                "alt_dates": "Ussher/Scofield: 2348 BC",
                 "description": "As humanity's wickedness reaches catastrophic proportions—'every imagination of the thoughts of his heart was only evil continually' (Genesis 6:5)—God executes universal judgment through the <em>mabbul</em> (מַבּוּל, deluge), destroying all flesh except Noah's family. The Flood demonstrates God's holiness that cannot tolerate sin, yet also His grace in preserving a remnant through the ark (תֵּבָה, <em>tevah</em>). Noah's ark typifies Christ as the sole means of salvation, the rainbow covenant establishes God's promise never again to destroy earth by flood, and the event prefigures the final judgment by fire. Peter explicitly connects the Flood to baptism (1 Peter 3:20-21) and end-times eschatology (2 Peter 3:5-7).",
                 "verses": [
                     {"reference": "Genesis 7:17", "text": "And the flood was forty days upon the earth; and the waters increased, and bare up the ark, and it was lift up above the earth."},
@@ -4724,6 +4726,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Call of Abraham",
                 "date": "c. 2500 BC",
+                "alt_dates": "Ussher: 1921 BC • Scofield: 1996 BC",
                 "description": "YHWH calls Abram (אַבְרָם, 'exalted father,' later Abraham, אַבְרָהָם, 'father of multitudes') from Ur of the Chaldees to Canaan, establishing the Abrahamic Covenant—foundational to all subsequent redemptive history. God's unconditional promise includes land (Canaan), seed (innumerable descendants), and blessing (to all nations through Abraham's seed). This covenant, confirmed by blood ritual (Genesis 15) and the sign of circumcision (בְּרִית מִילָה, <em>brit milah</em>), establishes Israel's election and foreshadows justification by faith alone (Genesis 15:6, cited in Romans 4:3, Galatians 3:6). Abraham's call initiates the progressive revelation of redemption, ultimately fulfilled in Christ, Abraham's seed (Galatians 3:16).",
                 "verses": [
                     {"reference": "Genesis 12:1", "text": "Now the LORD had said unto Abram, Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee."},
@@ -4875,6 +4878,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Birth of Jesus Christ",
                 "date": "7 BC",
+                "alt_dates": "Ussher/Scofield: 4 BC",
                 "description": "'When the fulness of the time was come, God sent forth his Son, made of a woman, made under the law' (Galatians 4:4)—Jesus (Ἰησοῦς, Greek form of Hebrew יְהוֹשֻׁעַ <em>Yeshua</em>, 'YHWH saves') is born in Bethlehem, fulfilling Micah 5:2. The virgin birth (Isaiah 7:14) demonstrates His divine nature—conceived by the Holy Spirit in Mary's womb, He is <em>Immanuel</em> (עִמָּנוּ אֵל, 'God with us'). Born under Augustus Caesar's census, in David's city, to a virgin of David's line, Jesus fulfills centuries of messianic prophecy. His birth unites deity and humanity in one person—the hypostatic union—making Him the perfect mediator between God and man. Angels announce 'good tidings of great joy' (Luke 2:10), shepherds worship, and magi present gifts befitting a king. Yet Herod's infanticide forces the holy family to flee to Egypt, fulfilling Hosea 11:1: 'Out of Egypt have I called my son.'",
                 "verses": [
                     {"reference": "Luke 2:11", "text": "For unto you is born this day in the city of David a Saviour, which is Christ the Lord."},
@@ -4922,10 +4926,25 @@ def biblical_timeline_page(request: Request):
     direct father-son relationships or ancestral lines with generational gaps. Direct father-son relationships are identified
     by textual markers such as 'he named him' or 'he called him' (e.g., Adam naming Seth in Genesis 5:3, Noah naming his sons
     in Genesis 5:32). Absent such indicators, 'begat' may mean 'was an ancestor of,' allowing for gaps in the genealogies.
-    This yields dates of approximately 11,013 BC for Creation and 4,990 BC for the Flood. An alternative approach, Ussher's
-    chronology (1650), uses strict successive reckoning without gaps, yielding 4004 BC for Creation and 2348 BC for the Flood.
-    Both methods use the same biblical text but differ in their interpretation of genealogical relationships. Historical dates
-    from the Assyrian and Babylonian periods (8th-6th centuries BC) are confirmed by archaeological and extra-biblical sources."""
+    This yields dates of approximately 11,013 BC for Creation and 4,990 BC for the Flood.<br><br>
+    <strong>Alternative Chronologies:</strong> Other prominent biblical chronologies use strict successive reckoning without
+    allowing genealogical gaps. <strong>Ussher's Chronology</strong> (1650), found in many KJV margins, calculates 4004 BC
+    for Creation and 2348 BC for the Flood. <strong>Scofield's Chronology</strong> (1909, revised 1917), featured in the
+    influential Scofield Reference Bible used by evangelicals for generations, similarly dates Creation to 4004 BC and the
+    Flood to 2348 BC, with some variations in later patriarchal dates. All three methods use the same Masoretic text but
+    differ in their interpretation of genealogical relationships. Historical dates from the Assyrian and Babylonian periods
+    (8th-6th centuries BC) are confirmed by archaeological and extra-biblical sources across all chronologies."""
+
+    # Chronology comparison data for table
+    chronology_comparison = [
+        {"event": "Creation/Adam", "masoretic": "11,013 BC", "ussher": "4004 BC", "scofield": "4004 BC"},
+        {"event": "The Flood", "masoretic": "4,990 BC", "ussher": "2348 BC", "scofield": "2348 BC"},
+        {"event": "Call of Abraham", "masoretic": "c. 2500 BC", "ussher": "1921 BC", "scofield": "1996 BC"},
+        {"event": "The Exodus", "masoretic": "c. 1491 BC", "ussher": "1491 BC", "scofield": "1491 BC"},
+        {"event": "Solomon's Temple", "masoretic": "c. 1015 BC", "ussher": "1015 BC", "scofield": "1004 BC"},
+        {"event": "Fall of Jerusalem", "masoretic": "586 BC", "ussher": "586 BC", "scofield": "587 BC"},
+        {"event": "Birth of Christ", "masoretic": "7 BC", "ussher": "4 BC", "scofield": "4 BC"},
+    ]
 
     return templates.TemplateResponse(
         "biblical_timeline.html",
@@ -4934,6 +4953,7 @@ def biblical_timeline_page(request: Request):
             "books": books,
             "timeline_events": timeline_events,
             "chronology_note": chronology_note,
+            "chronology_comparison": chronology_comparison,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Biblical Timeline", "url": None}

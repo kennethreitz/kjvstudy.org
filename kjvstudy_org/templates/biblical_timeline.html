@@ -15,6 +15,36 @@
         {{ chronology_note | link_verses | safe }}
     </p>
     {% endif %}
+
+    {% if chronology_comparison %}
+    <details style="margin-top: 2rem; max-width: 75%;">
+        <summary style="cursor: pointer; font-weight: 600; font-size: 1.1rem; padding: 0.5rem 0; user-select: none;">
+            Compare Biblical Chronologies
+        </summary>
+        <div style="margin-top: 1rem; overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #333;">
+                        <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Event</th>
+                        <th style="text-align: center; padding: 0.75rem; font-weight: 600;">Masoretic (Gap-Allowing)</th>
+                        <th style="text-align: center; padding: 0.75rem; font-weight: 600;">Ussher (1650)</th>
+                        <th style="text-align: center; padding: 0.75rem; font-weight: 600;">Scofield (1909)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in chronology_comparison %}
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 0.75rem;">{{ row.event }}</td>
+                        <td style="text-align: center; padding: 0.75rem; font-weight: 600; background: #f0f8ff;">{{ row.masoretic }}</td>
+                        <td style="text-align: center; padding: 0.75rem;">{{ row.ussher }}</td>
+                        <td style="text-align: center; padding: 0.75rem;">{{ row.scofield }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </details>
+    {% endif %}
 </section>
 
 {% for period_name, events in timeline_events.items() %}
@@ -22,7 +52,7 @@
     <h2>{{ period_name }}</h2>
 
     {% for event in events %}
-    <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }})</span></h3>
+    <h3>{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span></h3>
     <p>{{ event.description | link_verses | safe }}</p>
 
     {% if event.verses %}
