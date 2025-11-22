@@ -5824,15 +5824,15 @@ def generate_commentary(book, chapter, verse):
         f"In what ways does this verse's emphasis on {key_concept} address {get_contemporary_theological_challenge(theme)}, and how should the church respond?"
     ]
 
-    # Generate cross-references (disabled for generic commentary to avoid repetition)
-    # cross_refs = get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
+    # Generate cross-references with variety per verse
+    cross_refs = get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
 
     # Return a dictionary with enhanced commentary components
     return {
         "analysis": random.choice(analysis_templates),
         "historical": random.choice(historical_templates),
         "questions": random.sample(question_templates, 3),
-        "cross_references": []  # Disabled generic cross-refs to prevent repetition
+        "cross_references": cross_refs
     }
 
 
@@ -5920,27 +5920,54 @@ def get_doctrinal_significance(concept, book):
     return f"connects to fundamental Christian doctrine about {concept}, contributing to our understanding of God's nature and relationship with humanity"
 
 def get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, concept):
-    """Generate enhanced cross-references based on theme and concept"""
-    # Theme-based cross-references
+    """Generate enhanced cross-references based on theme and concept with variety"""
+    # Expanded pool of cross-references for each theme
     theme_refs = {
         "salvation": [
-            {"text": "Romans 10:9", "url": "/book/Romans/chapter/10#verse-9", "context": "Confession and faith for salvation"},
-            {"text": "Ephesians 2:8-9", "url": "/book/Ephesians/chapter/2#verse-8", "context": "Salvation by grace through faith"}
+            {"text": "Romans 10:9", "url": "/book/Romans/chapter/10#verse-9", "context": "Confession and faith"},
+            {"text": "Ephesians 2:8-9", "url": "/book/Ephesians/chapter/2#verse-8", "context": "Salvation by grace"},
+            {"text": "Acts 4:12", "url": "/book/Acts/chapter/4#verse-12", "context": "No other name"},
+            {"text": "Titus 3:5", "url": "/book/Titus/chapter/3#verse-5", "context": "Not by works"},
+            {"text": "John 3:16", "url": "/book/John/chapter/3#verse-16", "context": "God's love and salvation"}
         ],
         "divine love": [
             {"text": "1 John 4:8", "url": "/book/1 John/chapter/4#verse-8", "context": "God is love"},
-            {"text": "Romans 5:8", "url": "/book/Romans/chapter/5#verse-8", "context": "God's love demonstrated in Christ"}
+            {"text": "Romans 5:8", "url": "/book/Romans/chapter/5#verse-8", "context": "Love in Christ's death"},
+            {"text": "Jeremiah 31:3", "url": "/book/Jeremiah/chapter/31#verse-3", "context": "Everlasting love"},
+            {"text": "John 15:13", "url": "/book/John/chapter/15#verse-13", "context": "Greater love"}
         ],
         "faith and obedience": [
             {"text": "Hebrews 11:1", "url": "/book/Hebrews/chapter/11#verse-1", "context": "Definition of faith"},
-            {"text": "James 2:17", "url": "/book/James/chapter/2#verse-17", "context": "Faith and works"}
+            {"text": "James 2:17", "url": "/book/James/chapter/2#verse-17", "context": "Faith and works"},
+            {"text": "Proverbs 3:5-6", "url": "/book/Proverbs/chapter/3#verse-5", "context": "Trust in the Lord"},
+            {"text": "John 14:15", "url": "/book/John/chapter/14#verse-15", "context": "Love and obedience"}
+        ],
+        "covenant": [
+            {"text": "Genesis 17:7", "url": "/book/Genesis/chapter/17#verse-7", "context": "Everlasting covenant"},
+            {"text": "Jeremiah 31:31", "url": "/book/Jeremiah/chapter/31#verse-31", "context": "New covenant"},
+            {"text": "Hebrews 8:6", "url": "/book/Hebrews/chapter/8#verse-6", "context": "Better covenant"}
+        ],
+        "kingdom of God": [
+            {"text": "Matthew 6:33", "url": "/book/Matthew/chapter/6#verse-33", "context": "Seek first the kingdom"},
+            {"text": "Luke 17:21", "url": "/book/Luke/chapter/17#verse-21", "context": "Kingdom within you"},
+            {"text": "Colossians 1:13", "url": "/book/Colossians/chapter/1#verse-13", "context": "Transferred to kingdom"}
         ]
     }
 
-    return theme_refs.get(theme, [
-        {"text": "John 1:1", "url": "/book/John/chapter/1#verse-1", "context": "Related theological concept"},
-        {"text": "Romans 8:28", "url": "/book/Romans/chapter/8#verse-28", "context": "God's sovereign purpose"}
-    ])[:2]
+    # Get available references for the theme
+    available_refs = theme_refs.get(theme, [
+        {"text": "Psalm 119:105", "url": "/book/Psalms/chapter/119#verse-105", "context": "Word is a lamp"},
+        {"text": "2 Timothy 3:16", "url": "/book/2 Timothy/chapter/3#verse-16", "context": "All Scripture inspired"},
+        {"text": "Isaiah 40:8", "url": "/book/Isaiah/chapter/40#verse-8", "context": "Word stands forever"},
+        {"text": "Matthew 24:35", "url": "/book/Matthew/chapter/24#verse-35", "context": "Words not pass away"}
+    ])
+
+    # Use verse number to create variety - different verses get different refs
+    import random
+    random.seed(f"{book}{chapter}{verse_number}")  # Deterministic but varied per verse
+    selected = random.sample(available_refs, min(2, len(available_refs)))
+
+    return selected
 
 
 def get_literary_analysis(verse_text, book, literary_context):
