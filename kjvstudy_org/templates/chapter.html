@@ -94,30 +94,32 @@ hr::before {
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
     font-weight: 600;
-    background: var(--link-color);
-    color: white;
-    border: none;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color-darker);
     border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
     display: inline-block;
 }
 
 .chapter-nav-btn:hover {
-    background: var(--link-hover);
+    background: var(--code-bg);
+    border-color: var(--text-secondary);
+    color: var(--link-hover);
 }
 
 .chapter-nav-btn.secondary {
-    background: var(--bg-color);
-    color: var(--text-color);
-    border: 1px solid var(--border-color-darker);
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
 }
 
 .chapter-nav-btn.secondary:hover {
     background: var(--code-bg);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    border-color: var(--border-color-darker);
+    color: var(--text-color);
 }
 
 .chapter-select {
