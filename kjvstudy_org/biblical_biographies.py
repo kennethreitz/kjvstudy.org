@@ -398,6 +398,196 @@ BIOGRAPHIES = {
             {"age": 58, "event": "Arrested in Jerusalem", "verse": "Acts 21:33"},
             {"age": 68, "event": "Martyrdom in Rome (tradition)", "verse": "2 Timothy 4:6-8"}
         ]
+    },
+
+    "Rebekah": {
+        "summary": "Isaac's wife, chosen by Abraham's servant through God's providence. Rebekah left her homeland to marry Isaac, whom she had never met. She was barren for twenty years before giving birth to twin sons, Esau and Jacob. Rebekah favored Jacob and helped him deceive Isaac to receive the blessing intended for Esau. Her actions, though deceptive, aligned with God's sovereign choice.",
+        "significance": "Rebekah demonstrates faith in God's providence and calling, though her methods were flawed. She shows how God works through imperfect people to accomplish His purposes.",
+        "key_events": [
+            {"age": 0, "event": "Met Abraham's servant at the well", "verse": "Genesis 24:15-27"},
+            {"age": 0, "event": "Agreed to marry Isaac", "verse": "Genesis 24:58"},
+            {"age": 0, "event": "Married Isaac", "verse": "Genesis 24:67"},
+            {"age": 20, "event": "Gave birth to Esau and Jacob", "verse": "Genesis 25:24-26"},
+            {"age": 97, "event": "Helped Jacob deceive Isaac", "verse": "Genesis 27:5-17"}
+        ]
+    },
+
+    "Rachel": {
+        "summary": "Jacob's beloved wife for whom he worked fourteen years. Beautiful and loved, Rachel was barren for many years while her sister Leah bore children. This caused great rivalry and heartache. God eventually remembered Rachel, and she bore Joseph and later Benjamin, dying in childbirth with Benjamin. Her tomb near Bethlehem became a memorial.",
+        "significance": "Rachel represents the pain of barrenness and God's faithfulness in answering prayer. Her sons Joseph and Benjamin became two important tribes of Israel.",
+        "key_events": [
+            {"age": 0, "event": "Met Jacob at the well", "verse": "Genesis 29:9-11"},
+            {"age": 7, "event": "Jacob worked seven years for her", "verse": "Genesis 29:20"},
+            {"age": 7, "event": "Laban deceived Jacob with Leah", "verse": "Genesis 29:23-25"},
+            {"age": 7, "event": "Married Jacob", "verse": "Genesis 29:28"},
+            {"age": 0, "event": "Birth of Joseph", "verse": "Genesis 30:22-24"},
+            {"age": 0, "event": "Died giving birth to Benjamin", "verse": "Genesis 35:16-19"}
+        ]
+    },
+
+    "Judah": {
+        "summary": "The fourth son of Jacob and Leah, Judah became the leader among his brothers. He proposed selling Joseph into slavery rather than killing him. After failures with his own sons and daughter-in-law Tamar, Judah demonstrated repentance and growth in character, offering himself as a slave in Benjamin's place. From Judah's line came King David and ultimately Jesus Christ.",
+        "significance": "Judah's line was chosen for the Messiah. His transformation from selling Joseph to offering himself for Benjamin shows redemption and change. The 'Lion of Judah' is Christ.",
+        "key_events": [
+            {"age": 0, "event": "Born to Jacob and Leah", "verse": "Genesis 29:35"},
+            {"age": 0, "event": "Proposed selling Joseph", "verse": "Genesis 37:26-27"},
+            {"age": 0, "event": "Affair with Tamar (unknowingly)", "verse": "Genesis 38:13-26"},
+            {"age": 0, "event": "Offered himself for Benjamin", "verse": "Genesis 44:33"},
+            {"age": 0, "event": "Blessed by Jacob as ruler", "verse": "Genesis 49:8-10"}
+        ]
+    },
+
+    "Caleb": {
+        "summary": "One of twelve spies who explored Canaan, Caleb and Joshua were the only two who trusted God to give Israel victory. For his faith, Caleb was promised he would enter the Promised Land. At age 85, he requested the hill country of Hebron with its fortified cities and giants, saying he was as strong as when Moses sent him. He conquered Hebron and received it as his inheritance.",
+        "significance": "Caleb exemplifies wholehearted devotion to God and enduring faith. His confidence in God's promises even in old age demonstrates that spiritual vitality is more important than physical age.",
+        "key_events": [
+            {"age": 40, "event": "Spied out Canaan", "verse": "Numbers 13:6"},
+            {"age": 40, "event": "Gave good report with Joshua", "verse": "Numbers 14:6-9"},
+            {"age": 40, "event": "Promised the land by God", "verse": "Numbers 14:24"},
+            {"age": 85, "event": "Claimed his inheritance at Hebron", "verse": "Joshua 14:10-12"},
+            {"age": 85, "event": "Drove out the giants", "verse": "Joshua 15:13-14"}
+        ]
+    },
+
+    "Ruth": {
+        "summary": "A Moabite woman who married into an Israelite family. After her husband died, Ruth chose to stay with her mother-in-law Naomi, returning to Bethlehem and declaring Naomi's God as her own. Through God's providence, Ruth married Boaz, a kinsman-redeemer, and became the great-grandmother of King David. Her story demonstrates covenant loyalty and God's inclusion of Gentiles.",
+        "significance": "Ruth, a Gentile, is in the Messianic line, showing God's grace extends to all nations. Her loyalty and faith demonstrate true conversion, and she prefigures the church as the Bride of Christ.",
+        "key_events": [
+            {"age": 0, "event": "Married Mahlon in Moab", "verse": "Ruth 1:4"},
+            {"age": 10, "event": "Death of her husband", "verse": "Ruth 1:5"},
+            {"age": 10, "event": "Chose to follow Naomi and her God", "verse": "Ruth 1:16-17"},
+            {"age": 10, "event": "Gleaned in Boaz's field", "verse": "Ruth 2:2-3"},
+            {"age": 10, "event": "Married Boaz", "verse": "Ruth 4:13"},
+            {"age": 11, "event": "Birth of Obed (David's grandfather)", "verse": "Ruth 4:17"}
+        ]
+    },
+
+    "Hannah": {
+        "summary": "The mother of Samuel, Hannah suffered the pain of barrenness and provocation from her husband's other wife. In deep anguish, she prayed fervently at the tabernacle, vowing to dedicate her son to God's service if He would grant her a child. God answered her prayer, and she faithfully fulfilled her vow, bringing young Samuel to serve under Eli. She then had five more children.",
+        "significance": "Hannah's prayer demonstrates persevering faith and sacrificial dedication. Her song of praise prefigures Mary's Magnificat and shows God's concern for the humble and afflicted.",
+        "key_events": [
+            {"age": 0, "event": "Provoked by Peninnah for barrenness", "verse": "1 Samuel 1:6-7"},
+            {"age": 0, "event": "Prayed desperately for a son", "verse": "1 Samuel 1:10-11"},
+            {"age": 0, "event": "Eli blessed her prayer", "verse": "1 Samuel 1:17"},
+            {"age": 0, "event": "Birth of Samuel", "verse": "1 Samuel 1:20"},
+            {"age": 3, "event": "Dedicated Samuel to the Lord", "verse": "1 Samuel 1:24-28"},
+            {"age": 3, "event": "Prayed her song of thanksgiving", "verse": "1 Samuel 2:1-10"}
+        ]
+    },
+
+    "Daniel": {
+        "summary": "A young Jewish nobleman taken captive to Babylon, Daniel purposed not to defile himself with the king's food. God gave him wisdom exceeding all the Babylonian wise men. Daniel interpreted dreams for kings and received visions of future kingdoms. Despite threats and a lion's den, Daniel remained faithful to God. He prophesied the seventy weeks and saw visions of the end times.",
+        "significance": "Daniel demonstrates unwavering faithfulness in exile and hostile culture. His prophecies reveal God's sovereign plan for history and the coming Messiah. He prefigures believers living faithfully in ungodly societies.",
+        "key_events": [
+            {"age": 15, "event": "Taken captive to Babylon", "verse": "Daniel 1:3-6"},
+            {"age": 18, "event": "Interpreted Nebuchadnezzar's dream", "verse": "Daniel 2:31-45"},
+            {"age": 81, "event": "Interpreted handwriting on wall", "verse": "Daniel 5:25-28"},
+            {"age": 82, "event": "Thrown into lion's den", "verse": "Daniel 6:16"},
+            {"age": 82, "event": "Delivered from the lions", "verse": "Daniel 6:22"},
+            {"age": 85, "event": "Vision of seventy weeks", "verse": "Daniel 9:24-27"}
+        ]
+    },
+
+    "Esther": {
+        "summary": "A Jewish orphan raised by her cousin Mordecai, Esther became queen of Persia through God's providence. When Haman plotted to destroy all Jews, Mordecai challenged Esther to use her position to save her people. Despite the risk, Esther approached the king unbidden, saying 'If I perish, I perish.' Her courage saved the Jewish people from genocide.",
+        "significance": "Esther shows God's providence working through unlikely means to preserve His people. Her courage and Mordecai's faith demonstrate trusting God in crisis. The Feast of Purim celebrates this deliverance.",
+        "key_events": [
+            {"age": 0, "event": "Chosen as queen", "verse": "Esther 2:17"},
+            {"age": 5, "event": "Learned of Haman's plot", "verse": "Esther 3:13-4:8"},
+            {"age": 5, "event": "Decided to approach the king", "verse": "Esther 4:15-16"},
+            {"age": 5, "event": "Revealed Haman's plot", "verse": "Esther 7:3-6"},
+            {"age": 5, "event": "Jews delivered, Purim established", "verse": "Esther 9:20-22"}
+        ]
+    },
+
+    "Jeremiah": {
+        "summary": "The weeping prophet called by God as a youth to prophesy Judah's destruction. Jeremiah faithfully proclaimed God's word for over forty years despite fierce opposition, imprisonment, and rejection. He witnessed Jerusalem's fall to Babylon and was forced to Egypt. His prophecies include the New Covenant written on hearts and the promise of restoration after seventy years of exile.",
+        "significance": "Jeremiah demonstrates faithful ministry despite rejection and suffering. His New Covenant prophecy points to Christ and the gospel. His Lamentations express godly sorrow over sin's consequences.",
+        "key_events": [
+            {"age": 0, "event": "Called by God as a youth", "verse": "Jeremiah 1:4-10"},
+            {"age": 0, "event": "Prophesied seventy years captivity", "verse": "Jeremiah 25:11-12"},
+            {"age": 0, "event": "Imprisoned for his prophecies", "verse": "Jeremiah 37:15"},
+            {"age": 0, "event": "Thrown into a muddy cistern", "verse": "Jeremiah 38:6"},
+            {"age": 0, "event": "Prophesied the New Covenant", "verse": "Jeremiah 31:31-34"},
+            {"age": 0, "event": "Witnessed fall of Jerusalem", "verse": "Jeremiah 39:1-10"}
+        ]
+    },
+
+    "Ezekiel": {
+        "summary": "A priest taken into Babylonian exile, Ezekiel received dramatic visions by the Chebar River. God called him to be a watchman to Israel, warning them of judgment. His prophecies include the vision of dry bones coming to life, the departure and return of God's glory, and detailed plans for a future temple. Despite being among the exiles, Ezekiel proclaimed both judgment and future restoration.",
+        "significance": "Ezekiel shows God's presence with His people even in exile. His visions of resurrection and restoration prefigure spiritual rebirth and the coming Kingdom. His ministry sustained hope during darkest days.",
+        "key_events": [
+            {"age": 30, "event": "Vision of God's glory", "verse": "Ezekiel 1:1-28"},
+            {"age": 30, "event": "Called as watchman to Israel", "verse": "Ezekiel 3:17-21"},
+            {"age": 31, "event": "Wife died as a sign", "verse": "Ezekiel 24:15-18"},
+            {"age": 37, "event": "Vision of dry bones", "verse": "Ezekiel 37:1-14"},
+            {"age": 50, "event": "Vision of the new temple", "verse": "Ezekiel 40-48"}
+        ]
+    },
+
+    "John": {
+        "summary": "The beloved disciple, son of Zebedee and brother of James. John was part of Jesus' inner circle and present at the Transfiguration. He leaned on Jesus at the Last Supper and was entrusted with caring for Mary at the crucifixion. John wrote the Gospel of John, three epistles, and Revelation. He emphasized love and abiding in Christ, outliving all other apostles.",
+        "significance": "John reveals Jesus as the Word made flesh and emphasizes intimate relationship with Christ. His writings provide deep theological insight into Jesus' deity and the nature of love and truth.",
+        "key_events": [
+            {"age": 25, "event": "Called by Jesus", "verse": "Mark 1:19-20"},
+            {"age": 28, "event": "At the Transfiguration", "verse": "Mark 9:2"},
+            {"age": 28, "event": "Leaned on Jesus at Last Supper", "verse": "John 13:23"},
+            {"age": 28, "event": "At the crucifixion, given care of Mary", "verse": "John 19:26-27"},
+            {"age": 28, "event": "First to believe at empty tomb", "verse": "John 20:8"},
+            {"age": 90, "event": "Received Revelation on Patmos", "verse": "Revelation 1:9"}
+        ]
+    },
+
+    "James": {
+        "summary": "The half-brother of Jesus who did not believe during Jesus' earthly ministry but was converted after the resurrection. James became a pillar of the Jerusalem church and presided over the Jerusalem Council. Known for his devotion to prayer, he wrote the epistle emphasizing practical faith and good works. Tradition says he was martyred by being thrown from the temple.",
+        "significance": "James shows that even family members must come to faith individually. His epistle balances Paul's emphasis on faith by showing that genuine faith produces works.",
+        "key_events": [
+            {"age": 0, "event": "Did not believe in Jesus initially", "verse": "John 7:5"},
+            {"age": 33, "event": "Jesus appeared to him after resurrection", "verse": "1 Corinthians 15:7"},
+            {"age": 33, "event": "Present at Pentecost", "verse": "Acts 1:14"},
+            {"age": 46, "event": "Led Jerusalem Council", "verse": "Acts 15:13-21"},
+            {"age": 59, "event": "Met with Paul in Jerusalem", "verse": "Acts 21:18"},
+            {"age": 62, "event": "Martyred (tradition)", "verse": ""}
+        ]
+    },
+
+    "Stephen": {
+        "summary": "The first Christian martyr, Stephen was one of seven men chosen to serve tables in the early church. Full of faith and the Holy Spirit, he performed great wonders and signs. When accused by the Jewish council, Stephen delivered a powerful sermon recounting Israel's history of rejecting God's messengers. As he was stoned, Stephen saw heaven opened and Jesus standing at God's right hand.",
+        "significance": "Stephen's martyrdom marks the beginning of great persecution and the spread of the gospel beyond Jerusalem. His death influenced Saul's conversion. His vision of Jesus standing shows Christ's advocacy for His witnesses.",
+        "key_events": [
+            {"age": 0, "event": "Chosen as first deacon", "verse": "Acts 6:5"},
+            {"age": 0, "event": "Performed signs and wonders", "verse": "Acts 6:8"},
+            {"age": 0, "event": "Accused before the Sanhedrin", "verse": "Acts 6:12-15"},
+            {"age": 0, "event": "Delivered defense sermon", "verse": "Acts 7:2-53"},
+            {"age": 0, "event": "Saw Jesus standing at God's right hand", "verse": "Acts 7:55-56"},
+            {"age": 0, "event": "Stoned to death", "verse": "Acts 7:58-60"}
+        ]
+    },
+
+    "Timothy": {
+        "summary": "Paul's beloved spiritual son and ministry companion. The son of a Greek father and Jewish mother Eunice, Timothy was trained in Scripture from childhood. Paul circumcised him for ministry among Jews and took him on missionary journeys. Despite being young and perhaps timid, Timothy pastored the church at Ephesus. Paul wrote two letters instructing him in ministry and doctrine.",
+        "significance": "Timothy exemplifies faithful discipleship and spiritual mentorship. His genuine faith passed down through generations shows the importance of faithful spiritual training.",
+        "key_events": [
+            {"age": 16, "event": "Well spoken of by believers", "verse": "Acts 16:1-2"},
+            {"age": 16, "event": "Joined Paul's missionary team", "verse": "Acts 16:3"},
+            {"age": 33, "event": "Sent to strengthen Thessalonians", "verse": "1 Thessalonians 3:1-2"},
+            {"age": 34, "event": "Pastored church at Ephesus", "verse": "1 Timothy 1:3"},
+            {"age": 34, "event": "Received Paul's first letter", "verse": "1 Timothy 1:1"},
+            {"age": 36, "event": "Received Paul's final letter", "verse": "2 Timothy 1:1"}
+        ]
+    },
+
+    "Barnabas": {
+        "summary": "A Levite from Cyprus whose name means 'son of encouragement.' Barnabas sold his land to help the early church and vouched for newly converted Saul when others feared him. He brought Paul to Antioch and traveled with him on the first missionary journey. Though he and Paul separated over taking John Mark, Barnabas's encouragement restored Mark to useful ministry.",
+        "significance": "Barnabas exemplifies the gift of encouragement and generosity. His willingness to give second chances shows grace and wisdom in ministry. He demonstrates the importance of restoring fallen believers.",
+        "key_events": [
+            {"age": 0, "event": "Sold land to help the church", "verse": "Acts 4:36-37"},
+            {"age": 0, "event": "Vouched for Saul in Jerusalem", "verse": "Acts 9:27"},
+            {"age": 0, "event": "Sent to Antioch, brought Paul", "verse": "Acts 11:22-26"},
+            {"age": 0, "event": "First missionary journey with Paul", "verse": "Acts 13:2-3"},
+            {"age": 0, "event": "Separated from Paul over Mark", "verse": "Acts 15:36-40"},
+            {"age": 0, "event": "Took Mark, sailed to Cyprus", "verse": "Acts 15:39"}
+        ]
     }
 }
 
