@@ -2687,7 +2687,7 @@ def women_of_the_bible_page(request: Request):
             "Eve": {
                 "title": "Mother of All Living",
                 "description": "The first woman, fashioned from Adam's rib, Eve bore the privilege and peril of being humanity's mother. Her deception by the serpent brought sin into the world, yet God's promise of the woman's seed crushing the serpent's head (Genesis 3:15) offered hope of redemption.<label for=\"sn-eve\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-eve\" class=\"margin-toggle\"/><span class=\"sidenote\">Eve's name חַוָּה (<em>Chavvah</em>) derives from the Hebrew word for 'life.' Despite the curse, Adam named her thus in faith, believing God's promise. The protevangelium (first gospel) in Genesis 3:15 finds ultimate fulfillment in Christ, born of a woman.</span>",
-                "family_tree_link": "/family-tree/person/eve",
+                "family_tree_link": "/family-tree/person/i2",
                 "verses": [
                     {"reference": "Genesis 2:23", "text": "And Adam said, This is now bone of my bones, and flesh of my flesh: she shall be called Woman, because she was taken out of Man."},
                     {"reference": "Genesis 3:20", "text": "And Adam called his wife's name Eve; because she was the mother of all living."}
@@ -2696,7 +2696,7 @@ def women_of_the_bible_page(request: Request):
             "Sarah": {
                 "title": "Princess, Mother of Nations",
                 "description": "Abraham's wife, originally named Sarai, received the promise that she would be mother of nations. Her laughter at the impossibility became joy when Isaac was born. Her faith, despite wavering, earned mention in Hebrews' hall of faith.<label for=\"sn-sarah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sarah\" class=\"margin-toggle\"/><span class=\"sidenote\">God changed Sarai ('my princess') to Sarah ('princess'—without the possessive), indicating her elevation from being merely Abraham's princess to princess over nations. Peter commends her submission to Abraham as an example for Christian wives (1 Peter 3:6).</span>",
-                "family_tree_link": "/family-tree/person/sarah",
+                "family_tree_link": "/family-tree/person/i69",
                 "verses": [
                     {"reference": "Genesis 17:15", "text": "And God said unto Abraham, As for Sarai thy wife, thou shalt not call her name Sarai, but Sarah shall her name be."},
                     {"reference": "Genesis 17:16", "text": "And I will bless her, and give thee a son also of her: yea, I will bless her, and she shall be a mother of nations; kings of people shall be of her."}
@@ -2705,6 +2705,7 @@ def women_of_the_bible_page(request: Request):
             "Rebekah": {
                 "title": "Chosen Bride of Isaac",
                 "description": "Selected by divine providence to be Isaac's wife, Rebekah's kindness at the well revealed her character. Her favoritism toward Jacob and complicity in deceiving Isaac demonstrated human weakness, yet God's purposes prevailed.",
+                "family_tree_link": "/family-tree/person/i170",
                 "verses": [
                     {"reference": "Genesis 24:16", "text": "And the damsel was very fair to look upon, a virgin, neither had any man known her: and she went down to the well, and filled her pitcher, and came up."},
                     {"reference": "Genesis 24:67", "text": "And Isaac brought her into his mother Sarah's tent, and took Rebekah, and she became his wife; and he loved her: and Isaac was comforted after his mother's death."}
@@ -2713,8 +2714,7 @@ def women_of_the_bible_page(request: Request):
             "Rachel": {
                 "title": "Beloved of Jacob",
                 "description": "Jacob's beloved wife, for whom he labored fourteen years, Rachel endured barrenness before bearing Joseph and Benjamin. Her death in childbirth brought sorrow, yet her sons became pivotal to Israel's history.<label for=\"sn-rachel\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-rachel\" class=\"margin-toggle\"/><span class=\"sidenote\">Jeremiah's prophecy of 'Rachel weeping for her children' (Jeremiah 31:15) found fulfillment in Herod's slaughter of Bethlehem's infants (Matthew 2:18). Rachel's tomb near Bethlehem made her an apt symbol of maternal grief over Israel's suffering.</span>",
-                "family_tree_link": "/family-tree/person/rachel",
-                "family_tree_link": "/family-tree/person/rebekah",
+                "family_tree_link": "/family-tree/person/i214",
                 "verses": [
                     {"reference": "Genesis 29:17", "text": "Leah was tender eyed; but Rachel was beautiful and well favoured."},
                     {"reference": "Genesis 29:20", "text": "And Jacob served seven years for Rachel; and they seemed unto him but a few days, for the love he had to her."}
@@ -2725,7 +2725,7 @@ def women_of_the_bible_page(request: Request):
             "Ruth": {
                 "title": "The Moabite Convert, Great-Grandmother of David",
                 "description": "A Moabitess who chose the God of Israel over her own people, Ruth's loyalty to Naomi and faith in Yahweh brought her into the Messianic line. Her account demonstrates that God's grace extends beyond ethnic Israel to all who trust Him.<label for=\"sn-ruth\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-ruth\" class=\"margin-toggle\"/><span class=\"sidenote\">Ruth's declaration—'thy people shall be my people, and thy God my God'—represents one of Scripture's clearest expressions of conversion. As a Moabite woman in Christ's genealogy (Matthew 1:5), she prefigures the gospel's inclusion of Gentiles.</span>",
-                "family_tree_link": "/family-tree/person/ruth",
+                "family_tree_link": "/family-tree/person/i520",
                 "verses": [
                     {"reference": "Ruth 1:16", "text": "And Ruth said, Intreat me not to leave thee, or to return from following after thee: for whither thou goest, I will go; and where thou lodgest, I will lodge: thy people shall be my people, and thy God my God:"},
                     {"reference": "Ruth 4:13", "text": "So Boaz took Ruth, and she was his wife: and when he went in unto her, the LORD gave her conception, and she bare a son."}
@@ -2752,7 +2752,7 @@ def women_of_the_bible_page(request: Request):
             "Mary, Mother of Jesus": {
                 "title": "The Virgin, Bearer of the Messiah",
                 "description": "Chosen to bear the Son of God, Mary's humble submission ('Behold the handmaid of the Lord') exemplifies godly surrender to divine will. Her Magnificat displays deep knowledge of Scripture and understanding of God's redemptive purposes.<label for=\"sn-mary\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-mary\" class=\"margin-toggle\"/><span class=\"sidenote\">Mary's perpetual virginity, venerated in some traditions, finds no biblical support. Scripture mentions Christ's brothers and sisters (Matthew 13:55-56). While worthy of honor as the Messiah's mother, Mary herself acknowledged her need for a Savior (Luke 1:47).</span>",
-                "family_tree_link": "/family-tree/person/mary",
+                "family_tree_link": "/family-tree/person/i277",
                 "verses": [
                     {"reference": "Luke 1:38", "text": "And Mary said, Behold the handmaid of the Lord; be it unto me according to thy word. And the angel departed from her."},
                     {"reference": "Luke 1:46", "text": "And Mary said, My soul doth magnify the Lord,"}
@@ -2811,7 +2811,7 @@ def woman_detail(request: Request, woman_slug: str):
             "Eve": {
                 "title": "Mother of All Living",
                 "description": "The first woman, fashioned from Adam's rib, Eve bore the privilege and peril of being humanity's mother. Her deception by the serpent brought sin into the world, yet God's promise of the woman's seed crushing the serpent's head (Genesis 3:15) offered hope of redemption.<label for=\"sn-eve\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-eve\" class=\"margin-toggle\"/><span class=\"sidenote\">Eve's name חַוָּה (<em>Chavvah</em>) derives from the Hebrew word for 'life.' Despite the curse, Adam named her thus in faith, believing God's promise. The protevangelium (first gospel) in Genesis 3:15 finds ultimate fulfillment in Christ, born of a woman.</span>",
-                "family_tree_link": "/family-tree/person/eve",
+                "family_tree_link": "/family-tree/person/i2",
                 "verses": [
                     {"reference": "Genesis 2:23", "text": "And Adam said, This is now bone of my bones, and flesh of my flesh: she shall be called Woman, because she was taken out of Man."},
                     {"reference": "Genesis 3:20", "text": "And Adam called his wife's name Eve; because she was the mother of all living."}
@@ -2820,7 +2820,7 @@ def woman_detail(request: Request, woman_slug: str):
             "Sarah": {
                 "title": "Princess, Mother of Nations",
                 "description": "Abraham's wife, originally named Sarai, received the promise that she would be mother of nations. Her laughter at the impossibility became joy when Isaac was born. Her faith, despite wavering, earned mention in Hebrews' hall of faith.<label for=\"sn-sarah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sarah\" class=\"margin-toggle\"/><span class=\"sidenote\">God changed Sarai ('my princess') to Sarah ('princess'—without the possessive), indicating her elevation from being merely Abraham's princess to princess over nations. Peter commends her submission to Abraham as an example for Christian wives (1 Peter 3:6).</span>",
-                "family_tree_link": "/family-tree/person/sarah",
+                "family_tree_link": "/family-tree/person/i69",
                 "verses": [
                     {"reference": "Genesis 17:15", "text": "And God said unto Abraham, As for Sarai thy wife, thou shalt not call her name Sarai, but Sarah shall her name be."},
                     {"reference": "Genesis 17:16", "text": "And I will bless her, and give thee a son also of her: yea, I will bless her, and she shall be a mother of nations; kings of people shall be of her."}
@@ -2829,6 +2829,7 @@ def woman_detail(request: Request, woman_slug: str):
             "Rebekah": {
                 "title": "Chosen Bride of Isaac",
                 "description": "Selected by divine providence to be Isaac's wife, Rebekah's kindness at the well revealed her character. Her favoritism toward Jacob and complicity in deceiving Isaac demonstrated human weakness, yet God's purposes prevailed.",
+                "family_tree_link": "/family-tree/person/i170",
                 "verses": [
                     {"reference": "Genesis 24:16", "text": "And the damsel was very fair to look upon, a virgin, neither had any man known her: and she went down to the well, and filled her pitcher, and came up."},
                     {"reference": "Genesis 24:67", "text": "And Isaac brought her into his mother Sarah's tent, and took Rebekah, and she became his wife; and he loved her: and Isaac was comforted after his mother's death."}
@@ -2837,8 +2838,7 @@ def woman_detail(request: Request, woman_slug: str):
             "Rachel": {
                 "title": "Beloved of Jacob",
                 "description": "Jacob's beloved wife, for whom he labored fourteen years, Rachel endured barrenness before bearing Joseph and Benjamin. Her death in childbirth brought sorrow, yet her sons became pivotal to Israel's history.<label for=\"sn-rachel\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-rachel\" class=\"margin-toggle\"/><span class=\"sidenote\">Jeremiah's prophecy of 'Rachel weeping for her children' (Jeremiah 31:15) found fulfillment in Herod's slaughter of Bethlehem's infants (Matthew 2:18). Rachel's tomb near Bethlehem made her an apt symbol of maternal grief over Israel's suffering.</span>",
-                "family_tree_link": "/family-tree/person/rachel",
-                "family_tree_link": "/family-tree/person/rebekah",
+                "family_tree_link": "/family-tree/person/i214",
                 "verses": [
                     {"reference": "Genesis 29:17", "text": "Leah was tender eyed; but Rachel was beautiful and well favoured."},
                     {"reference": "Genesis 29:20", "text": "And Jacob served seven years for Rachel; and they seemed unto him but a few days, for the love he had to her."}
@@ -2849,7 +2849,7 @@ def woman_detail(request: Request, woman_slug: str):
             "Ruth": {
                 "title": "The Moabite Convert, Great-Grandmother of David",
                 "description": "A Moabitess who chose the God of Israel over her own people, Ruth's loyalty to Naomi and faith in Yahweh brought her into the Messianic line. Her account demonstrates that God's grace extends beyond ethnic Israel to all who trust Him.<label for=\"sn-ruth\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-ruth\" class=\"margin-toggle\"/><span class=\"sidenote\">Ruth's declaration—'thy people shall be my people, and thy God my God'—represents one of Scripture's clearest expressions of conversion. As a Moabite woman in Christ's genealogy (Matthew 1:5), she prefigures the gospel's inclusion of Gentiles.</span>",
-                "family_tree_link": "/family-tree/person/ruth",
+                "family_tree_link": "/family-tree/person/i520",
                 "verses": [
                     {"reference": "Ruth 1:16", "text": "And Ruth said, Intreat me not to leave thee, or to return from following after thee: for whither thou goest, I will go; and where thou lodgest, I will lodge: thy people shall be my people, and thy God my God:"},
                     {"reference": "Ruth 4:13", "text": "So Boaz took Ruth, and she was his wife: and when he went in unto her, the LORD gave her conception, and she bare a son."}
@@ -2876,7 +2876,7 @@ def woman_detail(request: Request, woman_slug: str):
             "Mary, Mother of Jesus": {
                 "title": "The Virgin, Bearer of the Messiah",
                 "description": "Chosen to bear the Son of God, Mary's humble submission ('Behold the handmaid of the Lord') exemplifies godly surrender to divine will. Her Magnificat displays deep knowledge of Scripture and understanding of God's redemptive purposes.<label for=\"sn-mary\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-mary\" class=\"margin-toggle\"/><span class=\"sidenote\">Mary's perpetual virginity, venerated in some traditions, finds no biblical support. Scripture mentions Christ's brothers and sisters (Matthew 13:55-56). While worthy of honor as the Messiah's mother, Mary herself acknowledged her need for a Savior (Luke 1:47).</span>",
-                "family_tree_link": "/family-tree/person/mary",
+                "family_tree_link": "/family-tree/person/i277",
                 "verses": [
                     {"reference": "Luke 1:38", "text": "And Mary said, Behold the handmaid of the Lord; be it unto me according to thy word. And the angel departed from her."},
                     {"reference": "Luke 1:46", "text": "And Mary said, My soul doth magnify the Lord,"}
