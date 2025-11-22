@@ -112,6 +112,8 @@
                 Found <strong>{{ total_results }}</strong> result{{ 's' if total_results != 1 else '' }} for "<strong>{{ query }}</strong>"
             </div>
 
+            {% if results %}
+            <h2 style="margin-top: 2rem;">Bible Verses</h2>
             {% for result in results %}
             <article class="search-result">
                 <div class="result-reference">
@@ -120,7 +122,27 @@
                 <div class="result-text">{{ result.highlighted_text | link_names | safe }}</div>
             </article>
             {% endfor %}
-        {% else %}
+            {% endif %}
+
+            {% if family_tree_results %}
+            <h2 style="margin-top: 2rem;">People in Family Tree</h2>
+            {% for result in family_tree_results %}
+            <article class="search-result">
+                <div class="result-reference">
+                    <a href="{{ result.url }}">{{ result.name }}</a>
+                </div>
+                <div class="result-text" style="color: #666;">
+                    {{ result.description }}
+                    {% if result.birth_year != "Unknown" or result.death_year != "Unknown" %}
+                        •
+                        {% if result.birth_year != "Unknown" %}Born {{ result.birth_year }}{% endif %}
+                        {% if result.death_year != "Unknown" %}{% if result.birth_year != "Unknown" %}, {% endif %}Died {{ result.death_year }}{% endif %}
+                    {% endif %}
+                </div>
+            </article>
+            {% endfor %}
+            {% endif %}
+        {% elif total_results == 0 %}
             <div class="search-stats">
                 <p><strong>No results found</strong> for "{{ query }}". Try different words or check your spelling.</p>
             </div>

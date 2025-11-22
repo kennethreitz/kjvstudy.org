@@ -575,16 +575,21 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
 
 @app.get("/search", response_class=HTMLResponse)
 def search_page(request: Request, q: str = Query(None, description="Search query")):
-    """Search page with results"""
+    """Search page with results (includes Bible verses and family tree)"""
     books = list(bible.iter_books())
     search_results = []
+    family_tree_results = []
     is_direct_verse = False
 
     if q and len(q.strip()) >= 2:
+        # Search Bible verses
         search_results = perform_full_text_search(q.strip())
         # Check if this was a direct verse reference match
         if search_results and len(search_results) == 1 and search_results[0].get("score") == 100.0:
             is_direct_verse = True
+
+        # Also search family tree (limit to 5 results)
+        family_tree_results = search_family_tree(q.strip(), limit=5)
 
     return templates.TemplateResponse(
         "search.html",
@@ -592,8 +597,9 @@ def search_page(request: Request, q: str = Query(None, description="Search query
             "request": request,
             "query": q or "",
             "results": search_results,
+            "family_tree_results": family_tree_results,
             "books": books,
-            "total_results": len(search_results),
+            "total_results": len(search_results) + len(family_tree_results),
             "is_direct_verse": is_direct_verse
         }
     )
@@ -4203,6 +4209,7 @@ def family_tree_search_page(request: Request, q: str = ""):
 
     # Search for people
     results = []
+    exact_match_id = None
     if q:
         query_lower = q.lower()
         for person_id, person in family_tree_data.items():
@@ -4214,6 +4221,13 @@ def family_tree_search_page(request: Request, q: str = ""):
                     "birth_year": person.get("birth_year", "Unknown"),
                     "death_year": person.get("death_year", "Unknown")
                 })
+                # Check for exact match
+                if person["name"].lower() == query_lower:
+                    exact_match_id = person_id
+
+    # If there's exactly one result with an exact match, redirect to that person's page
+    if exact_match_id:
+        return RedirectResponse(url=f"/family-tree/person/{exact_match_id}", status_code=303)
 
     return templates.TemplateResponse(
         "family_tree_search.html",
@@ -4670,6 +4684,56 @@ def get_family_tree_data():
             _name_to_person_id_cache = {}
 
     return _family_tree_cache, _name_to_person_id_cache
+
+
+def search_family_tree(query: str, limit: Optional[int] = None) -> List[Dict]:
+    """
+    Search family tree for people matching the query.
+    Returns list of matching people with their info.
+    """
+    results = []
+    if not query or len(query.strip()) < 2:
+        return results
+
+    try:
+        # Load GEDCOM file from static folder
+        static_dir = Path(__file__).parent / "static"
+        gedcom_path = static_dir / "adameve.ged"
+
+        if not gedcom_path.exists() or not GedcomReader:
+            return results
+
+        # Parse GEDCOM data
+        family_tree_data, generations = parse_gedcom_to_tree_data(gedcom_path)
+
+        # Search for people
+        query_lower = query.lower().strip()
+        for person_id, person in family_tree_data.items():
+            if query_lower in person["name"].lower():
+                results.append({
+                    "type": "person",
+                    "id": person_id,
+                    "name": person["name"],
+                    "generation": person.get("generation"),
+                    "birth_year": person.get("birth_year", "Unknown"),
+                    "death_year": person.get("death_year", "Unknown"),
+                    "url": f"/family-tree/person/{person_id}",
+                    "description": f"Generation {person.get('generation', '?')} from Adam"
+                })
+
+        # Sort by relevance (exact matches first, then alphabetically)
+        results.sort(key=lambda x: (
+            0 if x["name"].lower() == query_lower else 1,
+            x["name"]
+        ))
+
+        # Limit results if specified
+        if limit is not None:
+            return results[:limit]
+        return results
+
+    except Exception:
+        return results
 
 
 def link_person_names_in_text(text: str) -> str:
