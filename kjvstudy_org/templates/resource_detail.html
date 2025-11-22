@@ -79,7 +79,7 @@
 <section>
     <h2>Description</h2>
     <div class="resource-description">
-        {{ item.description | safe }}
+        {{ item.description | link_names | safe }}
     </div>
     {% if item.family_tree_link %}
     <p style="margin-top: 1.5rem;">

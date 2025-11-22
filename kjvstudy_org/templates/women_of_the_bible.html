@@ -115,7 +115,7 @@
         <p class="woman-title">{{ woman.title }}</p>
 
         <div class="woman-description">
-            {{ woman.description | safe }}
+            {{ woman.description | link_names | safe }}
         </div>
 
         {% if woman.verses %}

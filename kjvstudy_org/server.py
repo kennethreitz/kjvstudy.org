@@ -2700,7 +2700,7 @@ def women_of_the_bible_page(request: Request):
             "Sarah": {
                 "title": "Princess, Mother of Nations",
                 "description": "Originally named Sarai, Abraham's wife walked beside him through his journey of faith from Ur of the Chaldees to Canaan, enduring both the trials of nomadic life and the peculiar burden of God's promise that she would bear the child of covenant despite her barrenness. For twenty-five years she waited for the promised seed, her womb remaining closed while God tested and refined the faith of both husband and wife. In her impatience, she gave her Egyptian handmaid Hagar to Abraham, producing Ishmael—a work of the flesh that introduced lasting strife. When God appeared to Abraham and renewed His covenant, He changed her name from Sarai ('my princess') to Sarah ('princess'), signifying her elevation from being merely Abraham's princess to mother of nations and kings. At ninety years old, long past natural childbearing, she laughed at the angel's announcement that she would conceive, questioning how pleasure could come to one so old. Yet God's power overcame nature's impossibility, and Isaac ('laughter') was born, transforming her incredulous laughter into the joy of fulfillment. Peter commends her submission to Abraham, noting that she called him 'lord,' while Hebrews celebrates her faith in judging God faithful to His promise. She died at 127 years and was buried in the cave of Machpelah, the first possession Abraham owned in the Promised Land.<label for=\"sn-sarah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sarah\" class=\"margin-toggle\"/><span class=\"sidenote\">Sarah's beauty remained remarkable even in old age, twice endangering her through Abraham's deceptive 'sister' scheme (Genesis 12, 20). These episodes demonstrate both human weakness and divine faithfulness—God protected the promised seed despite Abraham's failures. The name change from Sarai to Sarah parallels Abram to Abraham, both receiving covenant names. Her 127 years made her the only woman whose age at death Scripture records, emphasizing her significance in redemptive history.</span>",
-                "family_tree_link": "/family-tree/person/i69",
+                "family_tree_link": "/family-tree/person/i159",
                 "verses": [
                     {"reference": "Genesis 17:15", "text": "And God said unto Abraham, As for Sarai thy wife, thou shalt not call her name Sarai, but Sarah shall her name be."},
                     {"reference": "Genesis 17:16", "text": "And I will bless her, and give thee a son also of her: yea, I will bless her, and she shall be a mother of nations; kings of people shall be of her."},
@@ -2901,7 +2901,7 @@ def woman_detail(request: Request, woman_slug: str):
             "Sarah": {
                 "title": "Princess, Mother of Nations",
                 "description": "Originally named Sarai, Abraham's wife walked beside him through his journey of faith from Ur of the Chaldees to Canaan, enduring both the trials of nomadic life and the peculiar burden of God's promise that she would bear the child of covenant despite her barrenness. For twenty-five years she waited for the promised seed, her womb remaining closed while God tested and refined the faith of both husband and wife. In her impatience, she gave her Egyptian handmaid Hagar to Abraham, producing Ishmael—a work of the flesh that introduced lasting strife. When God appeared to Abraham and renewed His covenant, He changed her name from Sarai ('my princess') to Sarah ('princess'), signifying her elevation from being merely Abraham's princess to mother of nations and kings. At ninety years old, long past natural childbearing, she laughed at the angel's announcement that she would conceive, questioning how pleasure could come to one so old. Yet God's power overcame nature's impossibility, and Isaac ('laughter') was born, transforming her incredulous laughter into the joy of fulfillment. Peter commends her submission to Abraham, noting that she called him 'lord,' while Hebrews celebrates her faith in judging God faithful to His promise. She died at 127 years and was buried in the cave of Machpelah, the first possession Abraham owned in the Promised Land.<label for=\"sn-sarah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sarah\" class=\"margin-toggle\"/><span class=\"sidenote\">Sarah's beauty remained remarkable even in old age, twice endangering her through Abraham's deceptive 'sister' scheme (Genesis 12, 20). These episodes demonstrate both human weakness and divine faithfulness—God protected the promised seed despite Abraham's failures. The name change from Sarai to Sarah parallels Abram to Abraham, both receiving covenant names. Her 127 years made her the only woman whose age at death Scripture records, emphasizing her significance in redemptive history.</span>",
-                "family_tree_link": "/family-tree/person/i69",
+                "family_tree_link": "/family-tree/person/i159",
                 "verses": [
                     {"reference": "Genesis 17:15", "text": "And God said unto Abraham, As for Sarai thy wife, thou shalt not call her name Sarai, but Sarah shall her name be."},
                     {"reference": "Genesis 17:16", "text": "And I will bless her, and give thee a son also of her: yea, I will bless her, and she shall be a mother of nations; kings of people shall be of her."},
@@ -3766,12 +3766,50 @@ def get_family_tree_data():
 
 def link_person_names_in_text(text: str) -> str:
     """
-    Find person names in text and link them to family tree pages.
-    Avoids linking names that are already inside HTML tags.
+    Find person names and verse references in text and link them.
+    Links person names to family tree pages and verse references to verse pages.
+    Avoids linking content that's already inside HTML tags.
     """
     if not text:
         return text
 
+    # First, link verse references (e.g., "Genesis 3:15", "1 Samuel 2:1")
+    # Pattern matches: Book name + chapter:verse
+    verse_pattern = r'\b((?:1|2|3)\s)?([A-Z][a-z]+(?:\s+of\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
+
+    def verse_replace_callback(match):
+        matched_text = match.group(0)
+        start_pos = match.start()
+
+        # Check if we're inside an HTML tag
+        text_before = text[:start_pos]
+        last_lt = text_before.rfind('<')
+        last_gt = text_before.rfind('>')
+
+        if last_lt > last_gt:
+            return matched_text
+
+        if last_lt != -1:
+            tag_content = text[last_lt:start_pos]
+            if 'href=' in tag_content or 'src=' in tag_content:
+                return matched_text
+
+        # Extract parts
+        number_prefix = match.group(1) or ''  # "1 ", "2 ", etc.
+        book_name = match.group(2)  # Main book name
+        chapter = match.group(3)
+        verse_start = match.group(4)
+        verse_end = match.group(5)  # May be None
+
+        # Construct full book name
+        full_book = (number_prefix + book_name).strip()
+
+        # Link to the first verse in the range
+        return f'<a href="/book/{full_book}/chapter/{chapter}/verse/{verse_start}">{matched_text}</a>'
+
+    text = re.sub(verse_pattern, verse_replace_callback, text)
+
+    # Then, link person names to family tree
     tree_data, name_to_id = get_family_tree_data()
 
     if not name_to_id:
