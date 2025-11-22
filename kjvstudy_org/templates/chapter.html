@@ -150,13 +150,6 @@ hr::before {
 <h1>{{ book }} {{ chapter }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
-{% if chapter_overview %}
-<section>
-    {{ chapter_overview|safe }}
-</section>
-<hr/>
-{% endif %}
-
 <section>
     {% for verse in verses %}
     {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
@@ -181,6 +174,13 @@ hr::before {
     </p>
     {% endfor %}
 </section>
+
+{% if chapter_overview %}
+<hr/>
+<section>
+    {{ chapter_overview|safe }}
+</section>
+{% endif %}
 
 <nav class="chapter-nav">
     <div class="chapter-nav-controls">
