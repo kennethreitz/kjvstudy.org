@@ -52,7 +52,7 @@ body {
     counter-reset: sidenote-counter;
 }
 
-/* Adds dark mode */
+/* Adds dark mode - system preference */
 @media (prefers-color-scheme: dark) {
     body {
         background-color: #151515;
@@ -77,6 +77,33 @@ body {
     h1, h2, h3 {
         color: #ddd;
     }
+}
+
+/* Adds dark mode - manual toggle via data-theme attribute */
+[data-theme="dark"] body {
+    background-color: #151515;
+    color: #ddd;
+}
+
+[data-theme="dark"] .sidenote,
+[data-theme="dark"] .marginnote {
+    background-color: #151515;
+    color: #ddd;
+}
+
+[data-theme="dark"] a:link,
+[data-theme="dark"] a:visited {
+    color: #aaa;
+}
+
+[data-theme="dark"] hr {
+    border-top-color: #444;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3 {
+    color: #ddd;
 }
 
 h1 {

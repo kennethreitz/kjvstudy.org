@@ -264,7 +264,7 @@
     }
 }
 
-/* Dark mode support */
+/* Dark mode support - both system preference and manual toggle */
 @media (prefers-color-scheme: dark) {
     .verse-header {
         border-bottom-color: #444;
@@ -375,6 +375,117 @@
     button:hover {
         background: #444;
     }
+}
+
+/* Dark mode support via data-theme attribute */
+[data-theme="dark"] .verse-header {
+    border-bottom-color: #444;
+}
+
+[data-theme="dark"] .kjv-text {
+    color: #aaa;
+}
+
+[data-theme="dark"] .interlinear-word {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .word-position {
+    color: #666;
+}
+
+[data-theme="dark"] .word-original {
+    color: #ddd;
+}
+
+[data-theme="dark"] .word-transliteration {
+    color: #999;
+}
+
+[data-theme="dark"] .word-strongs {
+    color: #6699ff;
+}
+
+[data-theme="dark"] .word-english {
+    color: #ddd;
+}
+
+[data-theme="dark"] .word-parsing {
+    color: #999;
+}
+
+[data-theme="dark"] .word-definition {
+    color: #aaa;
+    border-top-color: #333;
+}
+
+[data-theme="dark"] .navigation-links {
+    border-top-color: #444;
+}
+
+[data-theme="dark"] .verse-link {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #ddd;
+}
+
+[data-theme="dark"] .verse-link:hover {
+    background: #222;
+    border-color: #666;
+}
+
+[data-theme="dark"] .verse-link-preview {
+    color: #999;
+}
+
+[data-theme="dark"] .interlinear-help {
+    background: #1a1a1a;
+    border-left-color: #666;
+}
+
+[data-theme="dark"] .featured-link,
+[data-theme="dark"] .book-link {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #ddd;
+}
+
+[data-theme="dark"] .featured-link:hover,
+[data-theme="dark"] .book-link:hover {
+    background: #222;
+    border-color: #666;
+}
+
+[data-theme="dark"] .breadcrumbs {
+    color: #999;
+}
+
+[data-theme="dark"] .breadcrumbs a {
+    color: #6699ff;
+}
+
+[data-theme="dark"] .breadcrumbs a:hover {
+    color: #aaa;
+}
+
+[data-theme="dark"] .breadcrumbs span:last-child {
+    color: #ddd;
+}
+
+[data-theme="dark"] input {
+    background: #1a1a1a;
+    border-color: #444;
+    color: #ddd;
+}
+
+[data-theme="dark"] button {
+    background: #333;
+    color: #ddd;
+}
+
+[data-theme="dark"] button:hover {
+    background: #444;
 }
 </style>
 {% endblock %}
