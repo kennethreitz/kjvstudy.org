@@ -36,16 +36,6 @@
     font-weight: 600;
 }
 
-.person-description {
-    max-width: 55%;
-    margin: 2rem 0;
-    padding: 1.5rem 0;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    font-size: 1.2rem;
-    line-height: 1.8;
-}
-
 .relationships-section {
     max-width: 55%;
     margin: 2.5rem 0;
@@ -139,12 +129,6 @@
     {% endif %}
     {% endif %}
 </div>
-
-{% if person.description and not person.description.startswith("Biblical figure from") %}
-<div class="person-description">
-    {{ person.description }}
-</div>
-{% endif %}
 
 {% if person.parents|length > 0 %}
 <div class="relationships-section">
