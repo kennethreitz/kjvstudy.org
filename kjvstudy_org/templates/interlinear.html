@@ -263,6 +263,119 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .verse-header {
+        border-bottom-color: #444;
+    }
+
+    .kjv-text {
+        color: #aaa;
+    }
+
+    .interlinear-word {
+        background: #1a1a1a;
+        border-color: #333;
+    }
+
+    .word-position {
+        color: #666;
+    }
+
+    .word-original {
+        color: #ddd;
+    }
+
+    .word-transliteration {
+        color: #999;
+    }
+
+    .word-strongs {
+        color: #6699ff;
+    }
+
+    .word-english {
+        color: #ddd;
+    }
+
+    .word-parsing {
+        color: #999;
+    }
+
+    .word-definition {
+        color: #aaa;
+        border-top-color: #333;
+    }
+
+    .navigation-links {
+        border-top-color: #444;
+    }
+
+    .verse-link {
+        background: #1a1a1a;
+        border-color: #333;
+        color: #ddd;
+    }
+
+    .verse-link:hover {
+        background: #222;
+        border-color: #666;
+    }
+
+    .verse-link-preview {
+        color: #999;
+    }
+
+    .interlinear-help {
+        background: #1a1a1a;
+        border-left-color: #666;
+    }
+
+    .featured-link,
+    .book-link {
+        background: #1a1a1a;
+        border-color: #333;
+        color: #ddd;
+    }
+
+    .featured-link:hover,
+    .book-link:hover {
+        background: #222;
+        border-color: #666;
+    }
+
+    .breadcrumbs {
+        color: #999;
+    }
+
+    .breadcrumbs a {
+        color: #6699ff;
+    }
+
+    .breadcrumbs a:hover {
+        color: #aaa;
+    }
+
+    .breadcrumbs span:last-child {
+        color: #ddd;
+    }
+
+    input {
+        background: #1a1a1a;
+        border-color: #444;
+        color: #ddd;
+    }
+
+    button {
+        background: #333;
+        color: #ddd;
+    }
+
+    button:hover {
+        background: #444;
+    }
+}
 </style>
 {% endblock %}
 

@@ -58,6 +58,25 @@ body {
         background-color: #151515;
         color: #ddd;
     }
+
+    .sidenote,
+    .marginnote {
+        background-color: #151515;
+        color: #ddd;
+    }
+
+    a:link,
+    a:visited {
+        color: #aaa;
+    }
+
+    hr {
+        border-top-color: #444;
+    }
+
+    h1, h2, h3 {
+        color: #ddd;
+    }
 }
 
 h1 {
