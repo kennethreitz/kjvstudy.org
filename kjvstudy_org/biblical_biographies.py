@@ -93,17 +93,6 @@ BIOGRAPHIES = {
         ]
     },
 
-    "Abraham's wife Sarah": {
-        "summary": "Originally named Sarai, Sarah was Abraham's wife who accompanied him from Ur to Canaan. Despite her barrenness and old age, God promised she would bear a son. At age 90, she gave birth to Isaac, the child of promise. Sarah is remembered for her faith and is mentioned in the New Testament as an example for godly women.",
-        "significance": "Sarah's miraculous conception of Isaac demonstrates God's power and faithfulness to His promises, even when circumstances seem impossible.",
-        "key_events": [
-            {"age": 65, "event": "Left Ur with Abraham", "verse": "Genesis 12:4-5"},
-            {"age": 90, "event": "God promised her a son", "verse": "Genesis 17:15-19"},
-            {"age": 90, "event": "Birth of Isaac", "verse": "Genesis 21:1-7"},
-            {"age": 127, "event": "Death", "verse": "Genesis 23:1-2"}
-        ]
-    },
-
     "Isaac": {
         "summary": "The son of promise born to Abraham and Sarah in their old age. Isaac was nearly sacrificed by his father in the ultimate test of faith but was spared when God provided a ram. He married Rebekah and fathered twin sons, Esau and Jacob. Isaac was more passive than his father but faithfully continued the covenant line.",
         "significance": "Isaac represents the fulfillment of God's promise and prefigures Christ as the obedient son offered in sacrifice.",
@@ -795,7 +784,9 @@ BIOGRAPHIES = {
 BIOGRAPHY_ALIASES = {
     "Noah or Noe": "Noah",
     "Noe": "Noah",
-    "Sarah": "Abraham's wife Sarah",
+    "Sarai or Sarah": "Sarah",
+    "Sarai": "Sarah",
+    "Abraham's wife Sarah": "Sarah",
 }
 
 
