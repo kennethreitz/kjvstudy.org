@@ -4871,7 +4871,7 @@ def get_daily_verse(date_str=None):
 
 @app.get("/sitemap.xml", response_class=Response)
 def sitemap():
-    """Generate sitemap.xml with all URLs"""
+    """Generate comprehensive sitemap.xml with all URLs"""
     base_url = "https://kjvstudy.org"
     current_date = datetime.now().strftime("%Y-%m-%d")
 
@@ -4890,15 +4890,51 @@ def sitemap():
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>{base_url}/books</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>{base_url}/study-guides</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>{base_url}/reading-plans</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>{base_url}/topics</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>{base_url}/resources</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>{base_url}/verse-of-the-day</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/concordance</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/interlinear</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
@@ -4918,6 +4954,181 @@ def sitemap():
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/biblical-angels</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/biblical-prophets</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/names-of-god</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/tetragrammaton</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/parables</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/biblical-covenants</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/the-twelve-apostles</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/women-of-the-bible</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/biblical-festivals</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+"""
+
+    # Study guide slugs
+    study_guide_slugs = [
+        "new-believer", "salvation", "gospel", "fruits-spirit",
+        "prayer-faith", "christian-living", "gods-love",
+        "hope-comfort", "wisdom-guidance"
+    ]
+    for slug in study_guide_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/study-guides/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    # Reading plan IDs
+    reading_plan_ids = [
+        "chronological", "one-year", "new-testament", "gospels-acts",
+        "psalms-proverbs", "pentateuch", "prophets", "paul-epistles"
+    ]
+    for plan_id in reading_plan_ids:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/reading-plans/{plan_id}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    # Topic names
+    topics = get_all_topics()
+    for topic_name in topics.keys():
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/topics/{topic_name}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    # Biblical angels, prophets, names of God, parables, covenants, apostles, women, festivals slugs
+    angel_slugs = ["michael", "gabriel", "lucifer", "abaddon"]
+    for slug in angel_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/biblical-angels/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    prophet_slugs = ["moses", "elijah", "isaiah", "jeremiah", "ezekiel", "daniel", "jonah", "john-the-baptist"]
+    for slug in prophet_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/biblical-prophets/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    god_name_slugs = ["elohim", "yahweh", "adonai", "el-shaddai", "yahweh-jireh", "yahweh-rapha", "yahweh-nissi", "yahweh-shalom", "yahweh-tsidkenu", "yahweh-shammah"]
+    for slug in god_name_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/names-of-god/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    parable_slugs = ["sower", "wheat-tares", "mustard-seed", "good-samaritan", "prodigal-son", "lost-sheep", "talents", "wise-foolish-builders"]
+    for slug in parable_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/parables/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    covenant_slugs = ["noahic", "abrahamic", "mosaic", "davidic", "new-covenant"]
+    for slug in covenant_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/biblical-covenants/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    apostle_slugs = ["peter", "andrew", "james-son-of-zebedee", "john", "philip", "bartholomew", "thomas", "matthew", "james-son-of-alphaeus", "thaddaeus", "simon-zealot", "judas-iscariot"]
+    for slug in apostle_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/the-twelve-apostles/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    women_slugs = ["eve", "sarah", "rebekah", "rachel", "miriam", "deborah", "ruth", "hannah", "esther", "mary-mother-of-jesus", "mary-magdalene", "martha"]
+    for slug in women_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/women-of-the-bible/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+"""
+
+    festival_slugs = ["passover", "unleavened-bread", "firstfruits", "pentecost", "trumpets", "atonement", "tabernacles"]
+    for slug in festival_slugs:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/biblical-festivals/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 """
 
@@ -4941,7 +5152,7 @@ def sitemap():
     </url>
 """
 
-        # Add all chapter URLs for each book
+        # Add all chapter URLs and verse URLs for each book
         chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
         for chapter in chapters:
             sitemap_xml += f"""    <url>
@@ -4951,6 +5162,43 @@ def sitemap():
         <priority>0.6</priority>
     </url>
 """
+            # Add chapter commentary
+            sitemap_xml += f"""    <url>
+        <loc>{base_url}/commentary/{book}/{chapter}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+"""
+
+            # Add all verse URLs for this chapter
+            verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+            for verse_num in range(1, len(verses) + 1):
+                sitemap_xml += f"""    <url>
+        <loc>{base_url}/book/{book}/chapter/{chapter}/verse/{verse_num}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+"""
+
+    # Add interlinear verse URLs
+    try:
+        interlinear_verses = get_all_interlinear_verses()
+        for verse_info in interlinear_verses:
+            book = verse_info['book']
+            chapter = verse_info['chapter']
+            verse = verse_info['verse']
+            sitemap_xml += f"""    <url>
+        <loc>{base_url}/interlinear/book/{book}/chapter/{chapter}/verse/{verse}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+"""
+    except Exception as e:
+        # If interlinear data fails to load, skip it
+        pass
 
     sitemap_xml += "</urlset>"
 
