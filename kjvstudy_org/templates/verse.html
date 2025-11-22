@@ -103,7 +103,7 @@
         <p>
             <a href="/book/{{ book }}">← {{ book }}</a> |
             <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">View in Chapter {{ chapter }}</a>
-            {% if has_interlinear %} | <a href="/interlinear/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">📖 Interlinear</a>{% endif %}
+            {% if has_interlinear %} | <a href="/interlinear/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">Interlinear</a>{% endif %}
             {% if verse_num > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}">← Verse {{ verse_num - 1 }}</a>{% endif %}
             {% if verse_num < total_verses %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}">Verse {{ verse_num + 1 }} →</a>{% endif %}
         </p>
