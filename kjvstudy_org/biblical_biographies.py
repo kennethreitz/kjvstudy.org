@@ -588,6 +588,205 @@ BIOGRAPHIES = {
             {"age": 0, "event": "Separated from Paul over Mark", "verse": "Acts 15:36-40"},
             {"age": 0, "event": "Took Mark, sailed to Cyprus", "verse": "Acts 15:39"}
         ]
+    },
+
+    "Sarah": {
+        "summary": "Originally named Sarai, Sarah was Abraham's wife who accompanied him from Ur to Canaan. Despite her barrenness and old age, God promised she would bear a son. At age 90, she gave birth to Isaac, the child of promise. Sarah is remembered for her faith and is mentioned in the New Testament as an example for godly women.",
+        "significance": "Sarah's miraculous conception of Isaac demonstrates God's power and faithfulness to His promises, even when circumstances seem impossible.",
+        "key_events": [
+            {"age": 65, "event": "Left Ur with Abraham", "verse": "Genesis 12:4-5"},
+            {"age": 90, "event": "God promised her a son", "verse": "Genesis 17:15-19"},
+            {"age": 90, "event": "Birth of Isaac", "verse": "Genesis 21:1-7"},
+            {"age": 127, "event": "Death", "verse": "Genesis 23:1-2"}
+        ]
+    },
+
+    "Leah": {
+        "summary": "The older daughter of Laban, Leah was given to Jacob through deception on his wedding night when he expected Rachel. Though unloved by Jacob, God blessed her with six sons and a daughter. Despite the pain of being second choice, Leah became the mother of Judah, through whom the Messiah would come.",
+        "significance": "Leah's story shows God's compassion for the unloved and rejected. Despite human rejection, God chose her line for the Messiah.",
+        "key_events": [
+            {"age": 0, "event": "Married Jacob through Laban's deception", "verse": "Genesis 29:23-25"},
+            {"age": 0, "event": "Birth of Reuben", "verse": "Genesis 29:32"},
+            {"age": 0, "event": "Birth of Judah", "verse": "Genesis 29:35"},
+            {"age": 0, "event": "Birth of Dinah", "verse": "Genesis 30:21"}
+        ]
+    },
+
+    "Boaz": {
+        "summary": "A wealthy landowner in Bethlehem, Boaz became the kinsman-redeemer of Ruth the Moabitess. He showed kindness to Ruth when she gleaned in his fields, protected her, and ultimately married her according to the levirate custom. Through their son Obed, Boaz became the great-grandfather of King David.",
+        "significance": "Boaz exemplifies the kinsman-redeemer role, prefiguring Christ who redeems His people. His inclusion of a Gentile in the Messianic line shows God's plan for all nations.",
+        "key_events": [
+            {"age": 0, "event": "Ruth gleaned in his field", "verse": "Ruth 2:3"},
+            {"age": 0, "event": "Showed kindness to Ruth", "verse": "Ruth 2:8-16"},
+            {"age": 0, "event": "Became her kinsman-redeemer", "verse": "Ruth 4:9-10"},
+            {"age": 0, "event": "Married Ruth", "verse": "Ruth 4:13"},
+            {"age": 0, "event": "Birth of Obed", "verse": "Ruth 4:17"}
+        ]
+    },
+
+    "Bathsheba": {
+        "summary": "The wife of Uriah the Hittite, Bathsheba was seen bathing by King David, who committed adultery with her. After David arranged Uriah's death, Bathsheba became David's wife. Their first child died as judgment, but their second son was Solomon, who became king and built the temple.",
+        "significance": "Despite being involved in David's greatest sin, Bathsheba became the mother of Solomon and is in the lineage of Christ, showing God's redemptive grace.",
+        "key_events": [
+            {"age": 0, "event": "Adultery with David", "verse": "2 Samuel 11:4"},
+            {"age": 0, "event": "Death of Uriah", "verse": "2 Samuel 11:17"},
+            {"age": 0, "event": "Married David", "verse": "2 Samuel 11:27"},
+            {"age": 0, "event": "First child died", "verse": "2 Samuel 12:18"},
+            {"age": 0, "event": "Birth of Solomon", "verse": "2 Samuel 12:24"}
+        ]
+    },
+
+    "Mark": {
+        "summary": "Also called John Mark, he was a companion of Paul and Barnabas on their first missionary journey but left them at Pamphylia. This caused a sharp disagreement between Paul and Barnabas. Later, Mark was restored and became useful to Paul. He authored the Gospel of Mark and tradition says he recorded Peter's teachings.",
+        "significance": "Mark's restoration shows that failure is not final. His Gospel is the shortest and fastest-paced, emphasizing Jesus as the suffering servant.",
+        "key_events": [
+            {"age": 0, "event": "Traveled with Paul and Barnabas", "verse": "Acts 12:25"},
+            {"age": 0, "event": "Left them at Pamphylia", "verse": "Acts 13:13"},
+            {"age": 0, "event": "Cause of Paul-Barnabas split", "verse": "Acts 15:36-40"},
+            {"age": 0, "event": "Restored and useful to Paul", "verse": "2 Timothy 4:11"}
+        ]
+    },
+
+    "Luke": {
+        "summary": "A physician and companion of Paul, Luke was a Gentile believer who carefully researched and wrote the Gospel of Luke and the book of Acts. He accompanied Paul on missionary journeys and was with him during his imprisonment. His writings provide detailed historical accounts of Jesus' life and the early church.",
+        "significance": "Luke's Gospel emphasizes Jesus' compassion for the poor and outcasts. As a Gentile, he shows Christianity's universal appeal. His historical accuracy validates the gospel accounts.",
+        "key_events": [
+            {"age": 0, "event": "Joined Paul's missionary team", "verse": "Acts 16:10"},
+            {"age": 0, "event": "Accompanied Paul to Rome", "verse": "Acts 27-28"},
+            {"age": 0, "event": "With Paul in prison", "verse": "2 Timothy 4:11"},
+            {"age": 0, "event": "Wrote Gospel of Luke and Acts", "verse": "Luke 1:1-4"}
+        ]
+    },
+
+    "Miriam": {
+        "summary": "The sister of Moses and Aaron, Miriam watched over baby Moses in the Nile and suggested her mother as a nurse. She led the women in worship after the Red Sea crossing and is called a prophetess. Later, she and Aaron challenged Moses' authority and she was struck with leprosy but healed after Moses interceded.",
+        "significance": "Miriam demonstrates both faithful service and the danger of pride. She was a worship leader and prophet who served God's purposes in Israel's deliverance.",
+        "key_events": [
+            {"age": 0, "event": "Watched over baby Moses", "verse": "Exodus 2:4-8"},
+            {"age": 0, "event": "Led worship after Red Sea crossing", "verse": "Exodus 15:20-21"},
+            {"age": 0, "event": "Challenged Moses with Aaron", "verse": "Numbers 12:1-2"},
+            {"age": 0, "event": "Struck with leprosy", "verse": "Numbers 12:10"},
+            {"age": 0, "event": "Healed after Moses' intercession", "verse": "Numbers 12:13-15"}
+        ]
+    },
+
+    "Deborah": {
+        "summary": "A prophetess and judge of Israel, Deborah led Israel during a time of Canaanite oppression. She summoned Barak to lead Israel's army against Sisera, and accompanied him into battle. Through her leadership, Israel defeated their oppressors and had peace for forty years.",
+        "significance": "Deborah shows that God can use women in leadership when men fail to step up. Her wisdom and courage brought deliverance to Israel.",
+        "key_events": [
+            {"age": 0, "event": "Judged Israel as prophetess", "verse": "Judges 4:4-5"},
+            {"age": 0, "event": "Summoned Barak to battle", "verse": "Judges 4:6-7"},
+            {"age": 0, "event": "Went with Barak to battle", "verse": "Judges 4:9"},
+            {"age": 0, "event": "Sang song of victory", "verse": "Judges 5:1"},
+            {"age": 0, "event": "Land had peace 40 years", "verse": "Judges 5:31"}
+        ]
+    },
+
+    "Gideon": {
+        "summary": "Called by God while threshing wheat in hiding, Gideon led Israel against the Midianites despite his doubts and fear. God reduced his army from 32,000 to 300 to show that victory came from God alone. Using trumpets and torches, Gideon's small band routed the Midianite army.",
+        "significance": "Gideon demonstrates that God uses weak instruments to accomplish His purposes, ensuring glory goes to Him alone. His story shows God's patience with doubters.",
+        "key_events": [
+            {"age": 0, "event": "Called by angel while threshing", "verse": "Judges 6:11-12"},
+            {"age": 0, "event": "Fleece test for God's will", "verse": "Judges 6:36-40"},
+            {"age": 0, "event": "Army reduced to 300 men", "verse": "Judges 7:2-7"},
+            {"age": 0, "event": "Defeated Midianites", "verse": "Judges 7:19-23"},
+            {"age": 0, "event": "Refused to be king", "verse": "Judges 8:22-23"}
+        ]
+    },
+
+    "Hezekiah": {
+        "summary": "A righteous king of Judah who removed idolatry and restored temple worship. When Assyria threatened Jerusalem, Hezekiah prayed and God destroyed 185,000 Assyrian soldiers in one night. He was granted 15 additional years of life after deadly illness.",
+        "significance": "Hezekiah exemplifies trust in God during crisis. His reforms brought revival to Judah. His Passover celebration reunited the people in worship.",
+        "key_events": [
+            {"age": 25, "event": "Became king of Judah", "verse": "2 Kings 18:1-2"},
+            {"age": 0, "event": "Restored temple worship", "verse": "2 Chronicles 29:3-11"},
+            {"age": 0, "event": "Celebrated Passover", "verse": "2 Chronicles 30:1-27"},
+            {"age": 39, "event": "Healed from deadly illness", "verse": "2 Kings 20:1-6"},
+            {"age": 0, "event": "Delivered from Assyria", "verse": "2 Kings 19:35"}
+        ]
+    },
+
+    "Josiah": {
+        "summary": "Became king at age 8, Josiah led the greatest reformation in Judah's history. During temple repairs, the Book of the Law was discovered. Upon hearing it, Josiah tore his clothes in repentance and led the nation in covenant renewal. He destroyed idols and high places throughout the land.",
+        "significance": "Josiah shows the power of God's Word to bring repentance and reform. His devotion to God delayed Judah's judgment.",
+        "key_events": [
+            {"age": 8, "event": "Became king", "verse": "2 Kings 22:1"},
+            {"age": 16, "event": "Began to seek God", "verse": "2 Chronicles 34:3"},
+            {"age": 20, "event": "Began purging idolatry", "verse": "2 Chronicles 34:3-7"},
+            {"age": 26, "event": "Book of Law discovered", "verse": "2 Kings 22:8"},
+            {"age": 26, "event": "Covenant renewal", "verse": "2 Kings 23:1-3"},
+            {"age": 39, "event": "Death in battle", "verse": "2 Kings 23:29"}
+        ]
+    },
+
+    "Mary Magdalene": {
+        "summary": "Delivered from seven demons by Jesus, Mary Magdalene became a devoted follower who supported His ministry. She witnessed the crucifixion when most disciples fled, and was the first to see the risen Christ. She announced His resurrection to the disciples.",
+        "significance": "Mary Magdalene exemplifies grateful devotion after deliverance. Her testimony as first resurrection witness highlights Jesus' inclusion of women.",
+        "key_events": [
+            {"age": 0, "event": "Delivered from seven demons", "verse": "Luke 8:2"},
+            {"age": 0, "event": "Supported Jesus' ministry", "verse": "Luke 8:3"},
+            {"age": 0, "event": "Witnessed the crucifixion", "verse": "Matthew 27:56"},
+            {"age": 0, "event": "First to see risen Christ", "verse": "John 20:14-18"},
+            {"age": 0, "event": "Announced resurrection to disciples", "verse": "John 20:18"}
+        ]
+    },
+
+    "Martha": {
+        "summary": "Sister of Mary and Lazarus, Martha welcomed Jesus into their Bethany home. She is known for being worried and upset about serving while Mary sat at Jesus' feet. When Lazarus died, Martha's confession of Jesus as Messiah preceded His greatest miracle.",
+        "significance": "Martha represents the tension between service and devotion. Her confession shows mature faith. She teaches the importance of choosing the better part.",
+        "key_events": [
+            {"age": 0, "event": "Welcomed Jesus to her home", "verse": "Luke 10:38"},
+            {"age": 0, "event": "Worried about serving", "verse": "Luke 10:40-42"},
+            {"age": 0, "event": "Confessed Jesus as Christ", "verse": "John 11:27"},
+            {"age": 0, "event": "Witnessed Lazarus raised", "verse": "John 11:43-44"},
+            {"age": 0, "event": "Served at dinner for Jesus", "verse": "John 12:2"}
+        ]
+    },
+
+    "Lazarus": {
+        "summary": "Brother of Mary and Martha, Lazarus was a friend of Jesus from Bethany. When he died of illness, Jesus waited two days before coming, then raised him after four days in the tomb. This miracle led many to believe in Jesus but also intensified the plot to kill Jesus.",
+        "significance": "Lazarus' resurrection was Jesus' greatest sign before His own resurrection, demonstrating power over death and prefiguring Christ's victory.",
+        "key_events": [
+            {"age": 0, "event": "Became sick", "verse": "John 11:1-3"},
+            {"age": 0, "event": "Died and was buried", "verse": "John 11:14-17"},
+            {"age": 0, "event": "Raised by Jesus after 4 days", "verse": "John 11:43-44"},
+            {"age": 0, "event": "Reclined with Jesus at dinner", "verse": "John 12:2"},
+            {"age": 0, "event": "Priests plotted to kill him", "verse": "John 12:10-11"}
+        ]
+    },
+
+    "Zacchaeus": {
+        "summary": "A wealthy chief tax collector in Jericho, Zacchaeus climbed a sycamore tree to see Jesus over the crowd. Jesus called him down and invited Himself to Zacchaeus' house. The encounter transformed Zacchaeus, who repented and pledged to restore fourfold what he had taken dishonestly.",
+        "significance": "Zacchaeus demonstrates that salvation brings true repentance and restitution. Jesus seeks and saves the lost, even despised tax collectors.",
+        "key_events": [
+            {"age": 0, "event": "Climbed tree to see Jesus", "verse": "Luke 19:3-4"},
+            {"age": 0, "event": "Jesus invited Himself to his house", "verse": "Luke 19:5"},
+            {"age": 0, "event": "Pledged to restore fourfold", "verse": "Luke 19:8"},
+            {"age": 0, "event": "Jesus declared salvation came", "verse": "Luke 19:9-10"}
+        ]
+    },
+
+    "Nicodemus": {
+        "summary": "A Pharisee and member of the Jewish ruling council, Nicodemus came to Jesus by night seeking truth. Jesus taught him about being born again. Later, Nicodemus defended Jesus before the council and helped Joseph of Arimathea bury Jesus, bringing expensive spices.",
+        "significance": "Nicodemus represents those who come to faith gradually. His nighttime visit shows the cost of discipleship for religious leaders. His actions at the burial show growing faith.",
+        "key_events": [
+            {"age": 0, "event": "Came to Jesus by night", "verse": "John 3:1-2"},
+            {"age": 0, "event": "Taught about new birth", "verse": "John 3:3-7"},
+            {"age": 0, "event": "Defended Jesus before council", "verse": "John 7:50-51"},
+            {"age": 0, "event": "Helped bury Jesus", "verse": "John 19:39-40"}
+        ]
+    },
+
+    "Silas": {
+        "summary": "A prophet and leader in the Jerusalem church, Silas was chosen to accompany Paul on his second missionary journey after Paul's split with Barnabas. He and Paul were beaten and imprisoned in Philippi but praised God at midnight, leading to the jailer's conversion. Silas helped write Paul's letters to the Thessalonians.",
+        "significance": "Silas demonstrates faithful partnership in ministry and joy in suffering. His prophetic gift and leadership strengthened the early churches.",
+        "key_events": [
+            {"age": 0, "event": "Chosen to deliver Jerusalem letter", "verse": "Acts 15:22"},
+            {"age": 0, "event": "Joined Paul's second journey", "verse": "Acts 15:40"},
+            {"age": 0, "event": "Beaten and imprisoned in Philippi", "verse": "Acts 16:22-24"},
+            {"age": 0, "event": "Praised God at midnight", "verse": "Acts 16:25"},
+            {"age": 0, "event": "Witnessed jailer's conversion", "verse": "Acts 16:29-34"}
+        ]
     }
 }
 
