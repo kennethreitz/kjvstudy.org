@@ -5824,15 +5824,15 @@ def generate_commentary(book, chapter, verse):
         f"In what ways does this verse's emphasis on {key_concept} address {get_contemporary_theological_challenge(theme)}, and how should the church respond?"
     ]
 
-    # Generate cross-references
-    cross_refs = get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
+    # Generate cross-references (disabled for generic commentary to avoid repetition)
+    # cross_refs = get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
 
     # Return a dictionary with enhanced commentary components
     return {
         "analysis": random.choice(analysis_templates),
         "historical": random.choice(historical_templates),
         "questions": random.sample(question_templates, 3),
-        "cross_references": cross_refs
+        "cross_references": []  # Disabled generic cross-refs to prevent repetition
     }
 
 
