@@ -1185,7 +1185,7 @@ def get_cross_references(book: str, chapter: int, verse: int) -> list:
     Returns:
         List of cross-reference dictionaries with 'ref', 'note', and 'text' keys
     """
-    from .bible_data import bible_data
+    from .kjv import bible
 
     key = f"{book}:{chapter}:{verse}"
     refs = CROSS_REFERENCES.get(key, [])
@@ -1207,18 +1207,11 @@ def get_cross_references(book: str, chapter: int, verse: int) -> list:
                 ref_chapter = int(ref_chapter)
                 ref_verse = int(ref_verse)
 
-                # Get the verse text from bible_data
-                if ref_book in bible_data:
-                    book_data = bible_data[ref_book]
-                    if ref_chapter <= len(book_data):
-                        verses = book_data[ref_chapter - 1]
-                        if ref_verse <= len(verses):
-                            enhanced_ref['text'] = verses[ref_verse - 1].text
-                        else:
-                            enhanced_ref['text'] = ""
-                    else:
-                        enhanced_ref['text'] = ""
-                else:
+                # Get the verse text using the bible object
+                try:
+                    verse_text = bible.get_verse_text(ref_book, ref_chapter, ref_verse)
+                    enhanced_ref['text'] = verse_text if verse_text else ""
+                except Exception:
                     enhanced_ref['text'] = ""
             else:
                 enhanced_ref['text'] = ""
