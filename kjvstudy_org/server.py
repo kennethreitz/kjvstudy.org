@@ -4311,7 +4311,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Creation of the World",
                 "date": "c. 4000 BC",
-                "description": "God creates the heavens and the earth in six days",
+                "description": "God (אֱלֹהִים, <em>Elohim</em>—the plural of majesty) creates (<em>bara</em>, ברא—to bring into existence ex nihilo) the heavens and earth in six sequential days, establishing the sabbath pattern. The Hebrew <em>Bereshit</em> (בְּרֵאשִׁית, 'In the beginning') opens Scripture with God's sovereign act of creation, speaking all things into being by His Word (דָּבָר, <em>davar</em>). The creation account reveals God's triune nature (Genesis 1:26, 'Let us make man'), His absolute power, and His purposeful design. The six-day creation culminates in humanity made in the <em>imago Dei</em> (image of God), establishing man as God's vice-regent over creation and anticipating the incarnation of the eternal Word.",
                 "verses": [
                     {"reference": "Genesis 1:1", "text": "In the beginning God created the heaven and the earth."},
                     {"reference": "Genesis 1:31", "text": "And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day."}
@@ -4320,7 +4320,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "The Fall of Man",
                 "date": "c. 4000 BC",
-                "description": "Adam and Eve disobey God and are expelled from Eden",
+                "description": "The serpent (נָחָשׁ, <em>nachash</em>—identified in Revelation 12:9 as Satan) deceives Eve, and Adam willfully transgresses God's command, introducing sin (חַטָּאת, <em>chattah</em>) and death (מָוֶת, <em>mavet</em>) into creation. This cosmic rebellion fractures humanity's relationship with God, necessitating expulsion from Eden and the curse upon creation. Yet God immediately announces the <em>protoevangelium</em> (first gospel)—the promise that the woman's seed would crush the serpent's head (Genesis 3:15), foreshadowing Christ's victory over Satan. The Fall establishes the theological foundation for understanding sin's universal guilt, humanity's depravity, and the absolute necessity of divine redemption through a substitute—themes pervading all Scripture.",
                 "verses": [
                     {"reference": "Genesis 3:6", "text": "And when the woman saw that the tree was good for food, and that it was pleasant to the eyes, and a tree to be desired to make one wise, she took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat."},
                     {"reference": "Genesis 3:23", "text": "Therefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken."}
@@ -4329,7 +4329,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Cain and Abel",
                 "date": "c. 3900 BC",
-                "description": "The first murder when Cain kills his brother Abel",
+                "description": "The first murder demonstrates sin's rapid progression—from rebellion against God to violence against man. Cain's offering of agricultural produce contrasts with Abel's blood sacrifice from the flock, establishing the biblical principle that 'without shedding of blood is no remission' (Hebrews 9:22). Abel's faith-based sacrifice (Hebrews 11:4) typifies Christ, the Lamb slain from the foundation of the world, while Cain prefigures those who approach God through works rather than grace. God's marking of Cain reveals both judgment and mercy, as He restrains complete vengeance while establishing that blood guilt cries out for justice—a cry ultimately answered at Calvary.",
                 "verses": [
                     {"reference": "Genesis 4:8", "text": "And Cain talked with Abel his brother: and it came to pass, when they were in the field, that Cain rose up against Abel his brother, and slew him."}
                 ]
@@ -4337,7 +4337,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "The Great Flood",
                 "date": "c. 2350 BC",
-                "description": "God destroys the world with a flood, saving only Noah's family",
+                "description": "As humanity's wickedness reaches catastrophic proportions—'every imagination of the thoughts of his heart was only evil continually' (Genesis 6:5)—God executes universal judgment through the <em>mabbul</em> (מַבּוּל, deluge), destroying all flesh except Noah's family. The Flood demonstrates God's holiness that cannot tolerate sin, yet also His grace in preserving a remnant through the ark (תֵּבָה, <em>tevah</em>). Noah's ark typifies Christ as the sole means of salvation, the rainbow covenant establishes God's promise never again to destroy earth by flood, and the event prefigures the final judgment by fire. Peter explicitly connects the Flood to baptism (1 Peter 3:20-21) and end-times eschatology (2 Peter 3:5-7).",
                 "verses": [
                     {"reference": "Genesis 7:17", "text": "And the flood was forty days upon the earth; and the waters increased, and bare up the ark, and it was lift up above the earth."},
                     {"reference": "Genesis 8:20", "text": "And Noah builded an altar unto the LORD; and took of every clean beast, and of every clean fowl, and offered burnt offerings on the altar."}
@@ -4348,7 +4348,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Call of Abraham",
                 "date": "c. 2100 BC",
-                "description": "God calls Abram to leave Ur and go to the Promised Land",
+                "description": "YHWH calls Abram (אַבְרָם, 'exalted father,' later Abraham, אַבְרָהָם, 'father of multitudes') from Ur of the Chaldees to Canaan, establishing the Abrahamic Covenant—foundational to all subsequent redemptive history. God's unconditional promise includes land (Canaan), seed (innumerable descendants), and blessing (to all nations through Abraham's seed). This covenant, confirmed by blood ritual (Genesis 15) and the sign of circumcision (בְּרִית מִילָה, <em>brit milah</em>), establishes Israel's election and foreshadows justification by faith alone (Genesis 15:6, cited in Romans 4:3, Galatians 3:6). Abraham's call initiates the progressive revelation of redemption, ultimately fulfilled in Christ, Abraham's seed (Galatians 3:16).",
                 "verses": [
                     {"reference": "Genesis 12:1", "text": "Now the LORD had said unto Abram, Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee."},
                     {"reference": "Genesis 12:7", "text": "And the LORD appeared unto Abram, and said, Unto thy seed will I give this land: and there builded he an altar unto the LORD, who appeared unto him."}
@@ -4357,7 +4357,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Birth of Isaac",
                 "date": "c. 2000 BC",
-                "description": "God fulfills His promise by giving Abraham and Sarah a son",
+                "description": "God fulfills His covenant promise by miraculously granting Abraham and Sarah a son in their old age—Sarah ninety, Abraham one hundred—demonstrating that divine purposes depend not on human ability but divine power. Isaac (יִצְחָק, <em>Yitzchak</em>, 'laughter') embodies the promise, prefiguring Christ as the child of promise, the beloved son whom the father willingly offers (Genesis 22). The Akedah (עֲקֵדָה, binding of Isaac) establishes substitutionary atonement theology, as God provides a ram in Isaac's place, declaring 'Jehovah-Jireh' (יְהוָה יִרְאֶה, 'the LORD will provide')—ultimately fulfilled when God provides His own Son as substitute for sinners.",
                 "verses": [
                     {"reference": "Genesis 21:2", "text": "For Sarah conceived, and bare Abraham a son in his old age, at the set time of which God had spoken to him."}
                 ]
@@ -4365,7 +4365,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Jacob and Esau",
                 "date": "c. 1900 BC",
-                "description": "Isaac's twin sons, with Jacob receiving the birthright",
+                "description": "Isaac's twin sons embody sovereign election and its mysterious purposes. God's pre-temporal choice—'Jacob have I loved, but Esau have I hated' (Malachi 1:2-3, cited Romans 9:13)—establishes that salvation depends on divine mercy, not human merit or effort. Jacob (יַעֲקֹב, 'heel-catcher' or 'supplanter'), despite his scheming nature, receives the covenant blessing, demonstrating grace to the undeserving. His wrestling with God at Peniel transforms him into Israel (יִשְׂרָאֵל, 'God prevails' or 'he struggles with God'), establishing the name by which God's covenant people would be known. The twelve sons of Jacob/Israel become the patriarchs of the twelve tribes.",
                 "verses": [
                     {"reference": "Genesis 25:23", "text": "And the LORD said unto her, Two nations are in thy womb, and two manner of people shall be separated from thy bowels; and the one people shall be stronger than the other people; and the elder shall serve the younger."}
                 ]
@@ -4373,7 +4373,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Joseph in Egypt",
                 "date": "c. 1700 BC",
-                "description": "Joseph is sold into slavery but becomes ruler in Egypt",
+                "description": "Joseph's life epitomizes divine providence working through human sin to accomplish redemptive purposes. Sold into Egyptian slavery by jealous brothers, Joseph's suffering and subsequent exaltation to Pharaoh's right hand typifies Christ's humiliation and glorification. His statement to his brothers—'ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive' (Genesis 50:20)—encapsulates the theological principle of divine sovereignty over human evil. Joseph preserves Jacob's family during famine, positioning Israel in Egypt where they multiply into a nation, setting the stage for the Exodus and establishing patterns of redemption through suffering.",
                 "verses": [
                     {"reference": "Genesis 41:40", "text": "Thou shalt be over my house, and according unto thy word shall all my people be ruled: only in the throne will I be greater than thou."},
                     {"reference": "Genesis 50:20", "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."}
@@ -4384,7 +4384,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Israelites in Egyptian Bondage",
                 "date": "c. 1600-1300 BC",
-                "description": "The descendants of Jacob become slaves in Egypt",
+                "description": "As Israel multiplies in Egypt, fulfilling God's promise to Abraham, a new Pharaoh 'which knew not Joseph' enslaves them with cruel bondage (עֲבֹדָה, <em>avodah</em>), forcing them to build treasure cities. The oppression intensifies through infanticide—Pharaoh commands Hebrew midwives to kill male children—yet God preserves His people, and they multiply abundantly. This bondage establishes the theological pattern of redemption from slavery, prefiguring humanity's bondage to sin and Satan from which only divine intervention can deliver. The groaning (אָנַח, <em>anach</em>) of Israel reaches God, who remembers His covenant with Abraham, Isaac, and Jacob, setting in motion the Exodus—Scripture's central redemptive event.",
                 "verses": [
                     {"reference": "Exodus 1:13-14", "text": "And the Egyptians made the children of Israel to serve with rigour: And they made their lives bitter with hard bondage, in morter, and in brick, and in all manner of service in the field: all their service, wherein they made them serve, was with rigour."}
                 ]
@@ -4392,7 +4392,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Birth of Moses",
                 "date": "c. 1350 BC",
-                "description": "Moses is born and saved from Pharaoh's decree",
+                "description": "God raises Moses (מֹשֶׁה, <em>Mosheh</em>, 'drawn out') to deliver Israel from bondage. His miraculous preservation in the Nile's bulrushes, adoption by Pharaoh's daughter, and education in Egyptian wisdom prepare him for covenant mediation. After forty years in Pharaoh's court and forty years as shepherd in Midian, God appears to Moses in the burning bush, revealing the Tetragrammaton (יהוה, YHWH) and commissioning him to confront Pharaoh. Moses' reluctance, Aaron's assistance, and the signs given demonstrate that divine calling equips despite human inadequacy. Moses typifies Christ as prophet, deliverer, and mediator of the covenant.",
                 "verses": [
                     {"reference": "Exodus 2:10", "text": "And the child grew, and she brought him unto Pharaoh's daughter, and he became her son. And she called his name Moses: and she said, Because I drew him out of the water."}
                 ]
@@ -4400,7 +4400,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "The Exodus from Egypt",
                 "date": "c. 1300 BC",
-                "description": "God delivers Israel from Egypt through Moses",
+                "description": "Through ten plagues demonstrating YHWH's supremacy over Egyptian gods, God breaks Pharaoh's will and delivers Israel from bondage. The Passover (פֶּסַח, <em>Pesach</em>)—lamb's blood on doorposts protecting from judgment—establishes the foundational type of Christ our Passover, sacrificed for us (1 Corinthians 5:7). The Red Sea crossing, where Israel passes through on dry ground while Egypt's army drowns, constitutes new creation imagery (baptismal waters of death and resurrection). This central Old Testament event establishes redemption theology: God delivers His people not by their merit but by His power, through blood sacrifice and sovereign intervention.",
                 "verses": [
                     {"reference": "Exodus 12:37", "text": "And the children of Israel journeyed from Rameses to Succoth, about six hundred thousand on foot that were men, beside children."},
                     {"reference": "Exodus 14:21", "text": "And Moses stretched out his hand over the sea; and the LORD caused the sea to go back by a strong east wind all that night, and made the sea dry land, and the waters were divided."}
@@ -4409,7 +4409,7 @@ def biblical_timeline_page(request: Request):
             {
                 "title": "Giving of the Law at Sinai",
                 "date": "c. 1300 BC",
-                "description": "God gives Moses the Ten Commandments and the Law",
+                "description": "At Mount Sinai (הַר סִינַי, <em>Har Sinai</em>), YHWH descends in fire and smoke, establishing the Mosaic Covenant through the Decalogue (עֲשֶׂרֶת הַדִּבְּרוֹת, <em>Aseret ha-Dibrot</em>, Ten Commandments) and comprehensive Torah. The covenant, mediated through Moses, establishes Israel as God's treasured possession (סְגֻלָּה, <em>segullah</em>), a kingdom of priests and holy nation. While the Abrahamic covenant was unconditional promise, the Mosaic covenant is conditional—'if ye will obey my voice indeed, and keep my covenant' (Exodus 19:5). The Law reveals God's holiness, exposes human sinfulness, and serves as παιδαγωγός (<em>paidagogos</em>, schoolmaster) to bring us to Christ (Galatians 3:24).",
                 "verses": [
                     {"reference": "Exodus 19:20", "text": "And the LORD came down upon mount Sinai, on the top of the mount: and the LORD called Moses up to the top of the mount; and Moses went up."},
                     {"reference": "Exodus 20:1-2", "text": "And God spake all these words, saying, I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage."}
