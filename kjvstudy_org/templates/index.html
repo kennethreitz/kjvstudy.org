@@ -190,10 +190,11 @@ section a[href^="/book/"] {
 </div>
 
 <script>
-// Helper function to properly capitalize book names
+// Helper function to properly capitalize book names and handle abbreviations
 function capitalizeBook(bookName) {
-    // Map of lowercase to proper case book names
+    // Map of lowercase to proper case book names (including common abbreviations)
     const bookMap = {
+        // Full names
         'genesis': 'Genesis', 'exodus': 'Exodus', 'leviticus': 'Leviticus', 'numbers': 'Numbers',
         'deuteronomy': 'Deuteronomy', 'joshua': 'Joshua', 'judges': 'Judges', 'ruth': 'Ruth',
         '1 samuel': '1 Samuel', '2 samuel': '2 Samuel', '1 kings': '1 Kings', '2 kings': '2 Kings',
@@ -210,7 +211,39 @@ function capitalizeBook(bookName) {
         '1 thessalonians': '1 Thessalonians', '2 thessalonians': '2 Thessalonians',
         '1 timothy': '1 Timothy', '2 timothy': '2 Timothy', 'titus': 'Titus', 'philemon': 'Philemon',
         'hebrews': 'Hebrews', 'james': 'James', '1 peter': '1 Peter', '2 peter': '2 Peter',
-        '1 john': '1 John', '2 john': '2 John', '3 john': '3 John', 'jude': 'Jude', 'revelation': 'Revelation'
+        '1 john': '1 John', '2 john': '2 John', '3 john': '3 John', 'jude': 'Jude', 'revelation': 'Revelation',
+        // Common abbreviations
+        'gen': 'Genesis', 'ge': 'Genesis', 'exo': 'Exodus', 'ex': 'Exodus', 'lev': 'Leviticus',
+        'le': 'Leviticus', 'num': 'Numbers', 'nu': 'Numbers', 'deut': 'Deuteronomy', 'dt': 'Deuteronomy',
+        'josh': 'Joshua', 'jos': 'Joshua', 'judg': 'Judges', 'jdg': 'Judges', 'ru': 'Ruth',
+        '1 sam': '1 Samuel', '1sam': '1 Samuel', '1s': '1 Samuel', '2 sam': '2 Samuel', '2sam': '2 Samuel', '2s': '2 Samuel',
+        '1 ki': '1 Kings', '1ki': '1 Kings', '1k': '1 Kings', '2 ki': '2 Kings', '2ki': '2 Kings', '2k': '2 Kings',
+        '1 chr': '1 Chronicles', '1chr': '1 Chronicles', '1ch': '1 Chronicles', '2 chr': '2 Chronicles', '2chr': '2 Chronicles', '2ch': '2 Chronicles',
+        'ezr': 'Ezra', 'neh': 'Nehemiah', 'ne': 'Nehemiah', 'est': 'Esther', 'ps': 'Psalms', 'psa': 'Psalms',
+        'prov': 'Proverbs', 'pr': 'Proverbs', 'eccl': 'Ecclesiastes', 'ec': 'Ecclesiastes',
+        'song': 'Song of Solomon', 'sos': 'Song of Solomon', 'ss': 'Song of Solomon',
+        'isa': 'Isaiah', 'is': 'Isaiah', 'jer': 'Jeremiah', 'je': 'Jeremiah', 'lam': 'Lamentations', 'la': 'Lamentations',
+        'ezek': 'Ezekiel', 'eze': 'Ezekiel', 'ezk': 'Ezekiel', 'dan': 'Daniel', 'da': 'Daniel',
+        'hos': 'Hosea', 'ho': 'Hosea', 'joe': 'Joel', 'jl': 'Joel', 'am': 'Amos', 'ob': 'Obadiah',
+        'jon': 'Jonah', 'mic': 'Micah', 'mi': 'Micah', 'nah': 'Nahum', 'na': 'Nahum',
+        'hab': 'Habakkuk', 'hb': 'Habakkuk', 'zep': 'Zephaniah', 'zph': 'Zephaniah',
+        'hag': 'Haggai', 'hg': 'Haggai', 'zech': 'Zechariah', 'zec': 'Zechariah', 'zch': 'Zechariah',
+        'mal': 'Malachi', 'mat': 'Matthew', 'mt': 'Matthew', 'mar': 'Mark', 'mk': 'Mark', 'mrk': 'Mark',
+        'luk': 'Luke', 'lk': 'Luke', 'joh': 'John', 'jn': 'John', 'act': 'Acts', 'ac': 'Acts',
+        'rom': 'Romans', 'ro': 'Romans', '1 cor': '1 Corinthians', '1cor': '1 Corinthians', '1co': '1 Corinthians',
+        '2 cor': '2 Corinthians', '2cor': '2 Corinthians', '2co': '2 Corinthians',
+        'gal': 'Galatians', 'ga': 'Galatians', 'eph': 'Ephesians', 'ep': 'Ephesians',
+        'phil': 'Philippians', 'php': 'Philippians', 'ph': 'Philippians',
+        'col': 'Colossians', 'co': 'Colossians', '1 thess': '1 Thessalonians', '1thess': '1 Thessalonians', '1th': '1 Thessalonians',
+        '2 thess': '2 Thessalonians', '2thess': '2 Thessalonians', '2th': '2 Thessalonians',
+        '1 tim': '1 Timothy', '1tim': '1 Timothy', '1ti': '1 Timothy', '2 tim': '2 Timothy', '2tim': '2 Timothy', '2ti': '2 Timothy',
+        'tit': 'Titus', 'ti': 'Titus', 'phm': 'Philemon', 'pm': 'Philemon',
+        'heb': 'Hebrews', 'he': 'Hebrews', 'jam': 'James', 'jas': 'James', 'jm': 'James',
+        '1 pet': '1 Peter', '1pet': '1 Peter', '1pe': '1 Peter', '1p': '1 Peter',
+        '2 pet': '2 Peter', '2pet': '2 Peter', '2pe': '2 Peter', '2p': '2 Peter',
+        '1 joh': '1 John', '1joh': '1 John', '1jn': '1 John', '2 joh': '2 John', '2joh': '2 John', '2jn': '2 John',
+        '3 joh': '3 John', '3joh': '3 John', '3jn': '3 John', 'jud': 'Jude',
+        'rev': 'Revelation', 're': 'Revelation'
     };
     return bookMap[bookName.toLowerCase()] || bookName;
 }
