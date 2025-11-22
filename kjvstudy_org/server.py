@@ -4192,6 +4192,9 @@ def family_tree_search_page(request: Request, q: str = ""):
             detail=f"Failed to parse GEDCOM file: {str(e)}"
         )
 
+    # Get all names for autocomplete
+    all_names = sorted([person["name"] for person in family_tree_data.values()])
+
     # Search for people
     results = []
     if q:
@@ -4213,6 +4216,7 @@ def family_tree_search_page(request: Request, q: str = ""):
             "books": books,
             "query": q,
             "results": results,
+            "all_names": all_names,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Family Tree", "url": "/family-tree"},
