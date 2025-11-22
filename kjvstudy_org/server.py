@@ -4318,6 +4318,111 @@ def topics_page(request: Request):
     )
 
 
+@app.get("/resources", response_class=HTMLResponse)
+def resources_page(request: Request):
+    """Browse all theological resources"""
+    books = list(bible.iter_books())
+
+    # Organize resources into categories
+    resources = {
+        "People": [
+            {
+                "name": "Biblical Prophets",
+                "url": "/biblical-prophets",
+                "description": "Explore the prophetic ministry throughout Scripture, from Isaiah to Malachi",
+                "count": "9 prophets"
+            },
+            {
+                "name": "The Twelve Apostles",
+                "url": "/the-twelve-apostles",
+                "description": "The twelve disciples chosen by Jesus to be witnesses of His ministry",
+                "count": "12 apostles"
+            },
+            {
+                "name": "Women of the Bible",
+                "url": "/women-of-the-bible",
+                "description": "Notable women of Scripture and their significance in redemptive history",
+                "count": "12 women"
+            }
+        ],
+        "Theology": [
+            {
+                "name": "Biblical Angels",
+                "url": "/biblical-angels",
+                "description": "Angelic beings mentioned in Scripture, including Michael, Gabriel, and the heavenly host",
+                "count": "12 entries"
+            },
+            {
+                "name": "Names of God",
+                "url": "/names-of-god",
+                "description": "The revelation of God's names throughout Scripture and their meanings",
+                "count": "14 names"
+            },
+            {
+                "name": "Parables of Jesus",
+                "url": "/parables",
+                "description": "The parables spoken by Christ to illustrate spiritual truths",
+                "count": "11 parables"
+            },
+            {
+                "name": "Biblical Covenants",
+                "url": "/biblical-covenants",
+                "description": "Divine covenants established between God and His people",
+                "count": "7 covenants"
+            }
+        ],
+        "History & Culture": [
+            {
+                "name": "Biblical Festivals",
+                "url": "/biblical-festivals",
+                "description": "The appointed feasts and holy days ordained in the Law of Moses",
+                "count": "7 festivals"
+            },
+            {
+                "name": "Biblical Geography",
+                "url": "/biblical-maps",
+                "description": "Locations mentioned in Scripture and their historical significance",
+                "count": "Maps & places"
+            },
+            {
+                "name": "Biblical Timeline",
+                "url": "/biblical-timeline",
+                "description": "Chronological overview of biblical events from Creation to Revelation",
+                "count": "Timeline"
+            },
+            {
+                "name": "Genealogies",
+                "url": "/family-tree",
+                "description": "Family trees and lineages traced through Scripture",
+                "count": "Family trees"
+            }
+        ],
+        "Study Tools": [
+            {
+                "name": "Study Guides",
+                "url": "/study-guides",
+                "description": "In-depth guides for studying biblical books, themes, and doctrines",
+                "count": "Multiple guides"
+            }
+        ]
+    }
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Resources", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "resources.html",
+        {
+            "request": request,
+            "resources": resources,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/topics/{topic_name}", response_class=HTMLResponse)
 def topic_detail(request: Request, topic_name: str):
     """View verses for a specific topic"""

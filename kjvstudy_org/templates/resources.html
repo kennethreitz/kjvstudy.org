@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Theological Resources - KJV Study{% endblock %}
+{% block description %}Explore comprehensive biblical resources including people, theology, history, and study tools{% endblock %}
+
+{% block head %}
+<style>
+.intro-text {
+    max-width: 65%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0 3rem 0;
+}
+
+.resource-category {
+    margin-bottom: 3rem;
+}
+
+.category-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.resource-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    transition: all 0.2s;
+}
+
+.resource-card:hover {
+    border-color: var(--border-color-darker);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.resource-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.resource-card h3 a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.resource-card h3 a:hover {
+    color: var(--link-hover);
+}
+
+.resource-count {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    font-style: italic;
+    margin-bottom: 0.75rem;
+}
+
+.resource-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .resource-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .intro-text {
+        max-width: 100%;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Theological Resources</h1>
+<p class="subtitle">A Curated Collection of Biblical Study Materials</p>
+
+<section>
+    <p class="intro-text"><span class="newthought">These resources</span> provide comprehensive explorations of biblical people, theological concepts, historical contexts, and study tools. Each section offers detailed treatments grounded in the Authorized King James Version, with careful attention to scriptural accuracy and theological precision.</p>
+</section>
+
+{% for category, items in resources.items() %}
+<section class="resource-category">
+    <h2 class="category-title">{{ category }}</h2>
+    <div class="resource-grid">
+        {% for resource in items %}
+        <div class="resource-card">
+            <h3><a href="{{ resource.url }}">{{ resource.name }}</a></h3>
+            <div class="resource-count">{{ resource.count }}</div>
+            <p class="resource-description">{{ resource.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endfor %}
+
+<section>
+    <h2>Additional Tools</h2>
+    <p>Beyond these theological resources, explore our <a href="/reading-plans">Reading Plans</a> for structured Bible study, browse the <a href="/topics">Topical Index</a> for thematic studies, or use the <a href="/search">Search</a> to find specific passages.</p>
+</section>
+{% endblock %}
