@@ -34,31 +34,30 @@
 }
 
 .resource-card {
+    display: block;
     padding: 1.5rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background: var(--bg-color);
     transition: all 0.2s;
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 .resource-card:hover {
     border-color: var(--border-color-darker);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
 }
 
 .resource-card h3 {
     font-size: 1.2rem;
     font-weight: 600;
     margin: 0 0 0.5rem 0;
-}
-
-.resource-card h3 a {
     color: var(--text-color);
-    text-decoration: none;
-    border-bottom: none;
 }
 
-.resource-card h3 a:hover {
+.resource-card:hover h3 {
     color: var(--link-hover);
 }
 
@@ -107,9 +106,6 @@
     .resource-card h3 {
         font-size: 1.15rem;
         margin-bottom: 0.6rem;
-    }
-
-    .resource-card h3 a {
         color: var(--text-color);
         font-weight: 600;
         border-bottom: 2px solid var(--border-color-darker);
@@ -149,11 +145,11 @@
     <h2 class="category-title">{{ category }}</h2>
     <div class="resource-grid">
         {% for resource in items %}
-        <div class="resource-card">
-            <h3><a href="{{ resource.url }}">{{ resource.name }}</a></h3>
+        <a href="{{ resource.url }}" class="resource-card">
+            <h3>{{ resource.name }}</h3>
             <div class="resource-count">{{ resource.count }}</div>
             <p class="resource-description">{{ resource.description }}</p>
-        </div>
+        </a>
         {% endfor %}
     </div>
 </div>
