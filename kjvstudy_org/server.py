@@ -4249,6 +4249,130 @@ def family_tree_lineage_page(request: Request):
     )
 
 
+@app.get("/family-tree/person/{person_id}/descendants", response_class=HTMLResponse)
+def family_tree_descendants_page(request: Request, person_id: str):
+    """View all descendants of a person"""
+    books = list(bible.iter_books())
+
+    # Use cached family tree data
+    family_tree_data, generations = get_family_tree_data()
+
+    if not family_tree_data:
+        raise HTTPException(status_code=500, detail="Family tree data not available")
+
+    # Get person data
+    person_id_lower = person_id.lower()
+    if person_id_lower not in family_tree_data:
+        raise HTTPException(status_code=404, detail=f"Person '{person_id}' not found")
+
+    person = family_tree_data[person_id_lower]
+
+    # Build descendants tree using BFS
+    def get_descendants_tree(pid, max_depth=10):
+        """Recursively get descendants tree"""
+        if max_depth <= 0:
+            return None
+
+        person_data = family_tree_data.get(pid)
+        if not person_data:
+            return None
+
+        children = []
+        for child_id in person_data.get("children", []):
+            child_tree = get_descendants_tree(child_id, max_depth - 1)
+            if child_tree:
+                children.append(child_tree)
+
+        return {
+            "id": pid,
+            "name": person_data["name"],
+            "generation": person_data.get("generation"),
+            "children": children,
+            "child_count": len(person_data.get("children", []))
+        }
+
+    descendants_tree = get_descendants_tree(person_id_lower)
+
+    return templates.TemplateResponse(
+        "family_tree_descendants.html",
+        {
+            "request": request,
+            "books": books,
+            "person": person,
+            "person_id": person_id_lower,
+            "descendants_tree": descendants_tree,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": person["name"], "url": f"/family-tree/person/{person_id_lower}"},
+                {"text": "Descendants", "url": None}
+            ]
+        }
+    )
+
+
+@app.get("/family-tree/person/{person_id}/ancestors", response_class=HTMLResponse)
+def family_tree_ancestors_page(request: Request, person_id: str):
+    """View all ancestors of a person"""
+    books = list(bible.iter_books())
+
+    # Use cached family tree data
+    family_tree_data, generations = get_family_tree_data()
+
+    if not family_tree_data:
+        raise HTTPException(status_code=500, detail="Family tree data not available")
+
+    # Get person data
+    person_id_lower = person_id.lower()
+    if person_id_lower not in family_tree_data:
+        raise HTTPException(status_code=404, detail=f"Person '{person_id}' not found")
+
+    person = family_tree_data[person_id_lower]
+
+    # Build ancestors tree using BFS
+    def get_ancestors_tree(pid, max_depth=20):
+        """Recursively get ancestors tree"""
+        if max_depth <= 0:
+            return None
+
+        person_data = family_tree_data.get(pid)
+        if not person_data:
+            return None
+
+        parents = []
+        for parent_id in person_data.get("parents", []):
+            parent_tree = get_ancestors_tree(parent_id, max_depth - 1)
+            if parent_tree:
+                parents.append(parent_tree)
+
+        return {
+            "id": pid,
+            "name": person_data["name"],
+            "generation": person_data.get("generation"),
+            "parents": parents,
+            "parent_count": len(person_data.get("parents", []))
+        }
+
+    ancestors_tree = get_ancestors_tree(person_id_lower)
+
+    return templates.TemplateResponse(
+        "family_tree_ancestors.html",
+        {
+            "request": request,
+            "books": books,
+            "person": person,
+            "person_id": person_id_lower,
+            "ancestors_tree": ancestors_tree,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": person["name"], "url": f"/family-tree/person/{person_id_lower}"},
+                {"text": "Ancestors", "url": None}
+            ]
+        }
+    )
+
+
 @app.get("/family-tree/lineage.svg")
 def family_tree_lineage_svg(request: Request):
     """Generate SVG visualization of the Messianic lineage (Adam to Jesus)"""
@@ -4639,6 +4763,10 @@ def parse_gedcom_to_tree_data(gedcom_path):
 _family_tree_cache = None
 _family_tree_generations_cache = None
 _name_to_person_id_cache = None
+
+# Cache for sitemap to avoid regenerating on every request
+_sitemap_cache = None
+_sitemap_cache_date = None
 
 
 def get_family_tree_data():
@@ -5283,9 +5411,17 @@ def get_daily_verse(date_str=None):
 
 @app.get("/sitemap.xml", response_class=Response)
 def sitemap():
-    """Generate comprehensive sitemap.xml with all URLs"""
-    base_url = "https://kjvstudy.org"
+    """Generate comprehensive sitemap.xml with all URLs (cached daily)"""
+    global _sitemap_cache, _sitemap_cache_date
+
     current_date = datetime.now().strftime("%Y-%m-%d")
+
+    # Return cached sitemap if it's from today
+    if _sitemap_cache is not None and _sitemap_cache_date == current_date:
+        return Response(content=_sitemap_cache, media_type="application/xml")
+
+    # Generate new sitemap
+    base_url = "https://kjvstudy.org"
 
     sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -5613,6 +5749,10 @@ def sitemap():
         pass
 
     sitemap_xml += "</urlset>"
+
+    # Cache the generated sitemap
+    _sitemap_cache = sitemap_xml
+    _sitemap_cache_date = current_date
 
     return Response(content=sitemap_xml, media_type="application/xml")
 
