@@ -356,7 +356,8 @@
             margin-bottom: 1.5rem;
         }
 
-        .resource-group h4 {
+        .resource-group summary {
+            cursor: pointer;
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -365,12 +366,17 @@
             margin: 1rem 0 0.5rem 0;
             padding-top: 0.5rem;
             border-top: 1px solid var(--border-color);
+            user-select: none;
         }
 
-        .resource-group:first-of-type h4 {
+        .resource-group:first-of-type summary {
             border-top: none;
             margin-top: 0;
             padding-top: 0;
+        }
+
+        .resource-group summary:hover {
+            color: var(--text-color);
         }
 
         /* Sidebar flourish */
@@ -1030,17 +1036,17 @@
         {% endif %}
 
         <!-- Resources organized by category -->
-        <div class="resource-group">
-            <h4>People</h4>
+        <details class="resource-group">
+            <summary>People</summary>
             <ul>
                 <li><a href="/biblical-prophets">Biblical Prophets</a></li>
                 <li><a href="/the-twelve-apostles">The Twelve Apostles</a></li>
                 <li><a href="/women-of-the-bible">Women of the Bible</a></li>
             </ul>
-        </div>
+        </details>
 
-        <div class="resource-group">
-            <h4>Theology</h4>
+        <details class="resource-group">
+            <summary>Theology</summary>
             <ul>
                 <li><a href="/biblical-angels">Biblical Angels</a></li>
                 <li><a href="/tetragrammaton">The Tetragrammaton</a></li>
@@ -1049,25 +1055,25 @@
                 <li><a href="/biblical-covenants">Biblical Covenants</a></li>
                 <li><a href="/fruits-of-the-spirit">Fruits of the Spirit</a></li>
             </ul>
-        </div>
+        </details>
 
-        <div class="resource-group">
-            <h4>History & Culture</h4>
+        <details class="resource-group">
+            <summary>History & Culture</summary>
             <ul>
                 <li><a href="/biblical-festivals">Biblical Festivals</a></li>
                 <li><a href="/biblical-maps">Biblical Geography</a></li>
                 <li><a href="/biblical-timeline">Timeline</a></li>
                 <li><a href="/family-tree">Genealogies</a></li>
             </ul>
-        </div>
+        </details>
 
-        <div class="resource-group">
-            <h4>Study Tools</h4>
+        <details class="resource-group">
+            <summary>Study Tools</summary>
             <ul>
                 <li><a href="/study-guides">Study Guides</a></li>
                 <li><a href="/topics/Parenting">Parenting</a></li>
             </ul>
-        </div>
+        </details>
 
         <!-- Source Code -->
         <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
