@@ -79,11 +79,58 @@
 @media (max-width: 768px) {
     .resource-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.25rem;
     }
 
     .intro-text {
         max-width: 100%;
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .category-title {
+        font-size: 1.3rem;
+        color: var(--text-color);
+        border-bottom: 2px solid var(--border-color-darker);
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .resource-card {
+        padding: 1.25rem;
+        border: 2px solid var(--border-color-darker);
+        border-radius: 6px;
+        background: var(--bg-color);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .resource-card h3 {
+        font-size: 1.15rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .resource-card h3 a {
+        color: var(--text-color);
+        font-weight: 600;
+        border-bottom: 2px solid var(--border-color-darker);
+        padding-bottom: 2px;
+    }
+
+    .resource-count {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+        margin-bottom: 0.65rem;
+    }
+
+    .resource-description {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: var(--text-color);
+    }
+
+    .resource-category {
+        margin-bottom: 2.5rem;
     }
 }
 </style>
