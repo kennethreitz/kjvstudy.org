@@ -140,6 +140,99 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 }
+
+/* Interlinear styles */
+.interlinear-container {
+    max-width: 90%;
+    margin: 2rem 0;
+    overflow-x: auto;
+}
+
+.interlinear-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.interlinear-word {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    max-width: 180px;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.word-position {
+    font-size: 0.7rem;
+    color: #999;
+    margin-bottom: 0.5rem;
+}
+
+.word-original {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    color: #111;
+    direction: ltr;
+}
+
+.word-transliteration {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin: 0.25rem 0;
+}
+
+.word-strongs {
+    font-size: 0.75rem;
+    color: #0066cc;
+    font-family: monospace;
+    margin: 0.25rem 0;
+    font-weight: 600;
+}
+
+.word-strongs a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+    transition: all 0.2s;
+}
+
+.word-strongs a:hover {
+    border-bottom-style: solid;
+    opacity: 0.8;
+}
+
+.word-english {
+    font-size: 1rem;
+    color: #111;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.word-parsing {
+    font-size: 0.75rem;
+    color: #666;
+    margin: 0.25rem 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.word-definition {
+    font-size: 0.85rem;
+    color: #444;
+    margin: 0.5rem 0;
+    text-align: center;
+    line-height: 1.4;
+    border-top: 1px solid #ddd;
+    padding-top: 0.5rem;
+}
 </style>
 {% endblock %}
 
@@ -150,11 +243,41 @@
 <section>
     <p class="verse-text">{{ verse_text | link_names | safe }}</p>
 
+    {% if interlinear_words %}
+    <div class="interlinear-container">
+        <h3>Word-by-Word Analysis</h3>
+        <div class="interlinear-words">
+            {% for word in interlinear_words %}
+            <div class="interlinear-word">
+                <div class="word-position">#{{ word.position }}</div>
+                <div class="word-original">{{ word.original }}</div>
+                <div class="word-transliteration">{{ word.transliteration }}</div>
+                <div class="word-strongs">
+                    {% if word.strongs %}
+                        {% set lang = word.strongs[0]|lower %}
+                        {% set num = word.strongs[1:] %}
+                        {% if lang == 'g' %}
+                            <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener noreferrer">{{ word.strongs }}</a>
+                        {% elif lang == 'h' %}
+                            <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener noreferrer">{{ word.strongs }}</a>
+                        {% else %}
+                            {{ word.strongs }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="word-english">{{ word.english }}</div>
+                <div class="word-parsing">{{ word.parsing }}</div>
+                <div class="word-definition">{{ word.definition }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
     <nav style="margin: 1.5rem 0;">
         <p>
             <a href="/book/{{ book }}">← {{ book }}</a> |
             <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">View in Chapter {{ chapter }}</a>
-            {% if has_interlinear %} | <a href="/interlinear/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">Interlinear</a>{% endif %}
             {% if verse_num > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}">← Verse {{ verse_num - 1 }}</a>{% endif %}
             {% if verse_num < total_verses %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}">Verse {{ verse_num + 1 }} →</a>{% endif %}
         </p>

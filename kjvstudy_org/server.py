@@ -6851,8 +6851,9 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     # Get cross-references for this verse
     cross_refs = get_cross_references(book, chapter, verse_num)
 
-    # Check if interlinear data is available
+    # Check if interlinear data is available and load it
     has_interlinear = has_interlinear_data(book, chapter, verse_num)
+    interlinear_words = get_interlinear_data(book, chapter, verse_num) if has_interlinear else None
 
     # Get related content for internal linking
     related_content = get_related_content(book, chapter, verse_num)
@@ -6884,6 +6885,7 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "current_chapter": chapter,
             "current_verse": verse_num,
             "has_interlinear": has_interlinear,
+            "interlinear_words": interlinear_words,
             "related_content": related_content
         }
     )
