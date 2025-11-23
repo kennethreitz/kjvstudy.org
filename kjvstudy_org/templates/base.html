@@ -798,6 +798,11 @@
             article {
                 width: 100%;
                 padding: 0.5rem;
+                transition: transform 0.3s ease;
+            }
+
+            #sidebar-toggle:checked ~ article {
+                transform: translateX(140px);
             }
 
             h1 {
@@ -820,6 +825,10 @@
 
             .dark-mode-toggle {
                 right: 0.5rem;
+            }
+
+            #sidebar-toggle:checked ~ .dark-mode-toggle {
+                transform: translateX(140px);
             }
         }
 
