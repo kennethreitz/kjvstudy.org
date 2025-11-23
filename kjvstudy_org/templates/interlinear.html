@@ -223,25 +223,28 @@
     background: #333;
 }
 
-.breadcrumbs {
-    margin: 1rem 0;
-    font-size: 0.9rem;
-    color: #666;
+.breadcrumb {
+    margin: 2rem 0 3rem 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
 }
 
-.breadcrumbs a {
-    color: #0066cc;
+.breadcrumb a {
+    color: var(--link-color);
     text-decoration: none;
     transition: color 0.2s;
 }
 
-.breadcrumbs a:hover {
-    color: #111;
-    text-decoration: underline;
+.breadcrumb a:hover {
+    color: var(--link-hover);
 }
 
-.breadcrumbs span {
-    color: #999;
+.breadcrumb-separator {
+    margin: 0 0.75rem;
+    color: var(--text-quaternary);
 }
 
 @media (max-width: 760px) {
@@ -361,20 +364,21 @@
         border-color: #666;
     }
 
-    .breadcrumbs {
-        color: #999;
+    .breadcrumb {
+        color: var(--text-secondary);
+        border-bottom-color: var(--border-color);
     }
 
-    .breadcrumbs a {
-        color: #6699ff;
+    .breadcrumb a {
+        color: var(--link-color);
     }
 
-    .breadcrumbs a:hover {
-        color: #aaa;
+    .breadcrumb a:hover {
+        color: var(--link-hover);
     }
 
-    .breadcrumbs span:last-child {
-        color: #ddd;
+    .breadcrumb-separator {
+        color: var(--text-quaternary);
     }
 
     input {
@@ -477,20 +481,21 @@
     border-color: #666;
 }
 
-[data-theme="dark"] .breadcrumbs {
-    color: #999;
+[data-theme="dark"] .breadcrumb {
+    color: var(--text-secondary);
+    border-bottom-color: var(--border-color);
 }
 
-[data-theme="dark"] .breadcrumbs a {
-    color: #6699ff;
+[data-theme="dark"] .breadcrumb a {
+    color: var(--link-color);
 }
 
-[data-theme="dark"] .breadcrumbs a:hover {
-    color: #aaa;
+[data-theme="dark"] .breadcrumb a:hover {
+    color: var(--link-hover);
 }
 
-[data-theme="dark"] .breadcrumbs span:last-child {
-    color: #ddd;
+[data-theme="dark"] .breadcrumb-separator {
+    color: var(--text-quaternary);
 }
 
 [data-theme="dark"] input {
@@ -515,16 +520,16 @@
 <p class="subtitle">Hebrew and Greek text with word-by-word English translation</p>
 
 {% if verse_data and interlinear_words %}
-    <nav class="breadcrumbs" style="margin: 1rem 0; font-size: 0.9rem; color: #666;">
+    <nav class="breadcrumb">
         <a href="/">Home</a>
-        <span style="margin: 0 0.5rem;">/</span>
+        <span class="breadcrumb-separator">&gt;</span>
         <a href="/interlinear">Interlinear</a>
-        <span style="margin: 0 0.5rem;">/</span>
+        <span class="breadcrumb-separator">&gt;</span>
         <a href="/book/{{ verse_data.book }}">{{ verse_data.book }}</a>
-        <span style="margin: 0 0.5rem;">/</span>
+        <span class="breadcrumb-separator">&gt;</span>
         <a href="/book/{{ verse_data.book }}/chapter/{{ verse_data.chapter }}">Chapter {{ verse_data.chapter }}</a>
-        <span style="margin: 0 0.5rem;">/</span>
-        <span style="color: #111; font-weight: 600;">Verse {{ verse_data.verse }}</span>
+        <span class="breadcrumb-separator">&gt;</span>
+        <span>Verse {{ verse_data.verse }}</span>
     </nav>
 
     <section class="verse-header">
