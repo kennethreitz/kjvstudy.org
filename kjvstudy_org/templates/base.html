@@ -345,36 +345,6 @@
         }
 
 
-        /* Recently viewed section */
-        .recently-viewed {
-            margin-bottom: 1.5rem;
-        }
-
-        .recently-viewed h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-
-        .recently-viewed ul {
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
-        .recently-viewed li {
-            font-size: 0.75rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .recently-viewed .empty-state {
-            font-size: 0.7rem;
-            color: var(--text-tertiary);
-            font-style: italic;
-            padding: 0.5rem 0;
-        }
 
         /* Resource grouping */
         .resource-group {
@@ -1014,14 +984,6 @@
             <input type="text" id="sidebar-search-input" placeholder="Search..." autocomplete="off">
         </div>
 
-        <!-- Recently Viewed -->
-        <div class="recently-viewed">
-            <h3>Recent</h3>
-            <ul id="recently-viewed-list">
-                <div class="empty-state">No recent pages</div>
-            </ul>
-        </div>
-
         <!-- Navigation -->
         <h3>Navigation</h3>
         <ul>
@@ -1183,72 +1145,6 @@
             }
           });
         });
-      })();
-
-      // Recently viewed tracking
-      (function() {
-        var MAX_RECENT = 5;
-
-        function getRecentPages() {
-          var recent = localStorage.getItem('recentPages');
-          return recent ? JSON.parse(recent) : [];
-        }
-
-        function saveRecentPages(pages) {
-          localStorage.setItem('recentPages', JSON.stringify(pages));
-        }
-
-        function addRecentPage(url, title) {
-          var pages = getRecentPages();
-
-          // Remove if already exists
-          pages = pages.filter(function(p) { return p.url !== url; });
-
-          // Add to beginning
-          pages.unshift({ url: url, title: title });
-
-          // Keep only MAX_RECENT
-          if (pages.length > MAX_RECENT) {
-            pages = pages.slice(0, MAX_RECENT);
-          }
-
-          saveRecentPages(pages);
-        }
-
-        function displayRecentPages() {
-          var list = document.getElementById('recently-viewed-list');
-          if (!list) return;
-
-          var pages = getRecentPages();
-
-          if (pages.length === 0) {
-            list.innerHTML = '<div class="empty-state">No recent pages</div>';
-            return;
-          }
-
-          list.innerHTML = '';
-          pages.forEach(function(page) {
-            var li = document.createElement('li');
-            var a = document.createElement('a');
-            a.href = page.url;
-            a.textContent = page.title;
-            a.title = page.title;
-            li.appendChild(a);
-            list.appendChild(li);
-          });
-        }
-
-        // Track current page
-        var currentPath = window.location.pathname;
-        var currentTitle = document.title.replace(' - KJV Study', '').replace('Authorized King James Version Bible', 'Home');
-
-        // Don't track search pages or the home page
-        if (currentPath !== '/' && !currentPath.startsWith('/search')) {
-          addRecentPage(currentPath, currentTitle);
-        }
-
-        // Display recent pages
-        displayRecentPages();
       })();
 
       // Keyboard shortcuts
