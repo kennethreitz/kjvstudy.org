@@ -14,30 +14,29 @@
 }
 
 .topic-card {
+    display: block;
     padding: 1.5rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     transition: all 0.2s;
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 .topic-card:hover {
     border-color: var(--border-color-darker);
     box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 .topic-name {
     font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-}
-
-.topic-name a {
     color: var(--link-color);
-    text-decoration: none;
-    border-bottom: none;
 }
 
-.topic-name a:hover {
+.topic-card:hover .topic-name {
     color: var(--link-hover);
 }
 
@@ -79,11 +78,11 @@
 
     <div class="topic-grid">
         {% for topic_name, topic_data in topics.items() %}
-        <div class="topic-card">
-            <div class="topic-name"><a href="/topics/{{ topic_name }}">{{ topic_name }}</a></div>
+        <a href="/topics/{{ topic_name }}" class="topic-card">
+            <div class="topic-name">{{ topic_name }}</div>
             <div class="topic-description">{{ topic_data.description }}</div>
             <div class="topic-subtopics">{{ topic_data.subtopics|length }} subtopics</div>
-        </div>
+        </a>
         {% endfor %}
     </div>
 </section>

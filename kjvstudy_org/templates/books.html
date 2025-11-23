@@ -14,30 +14,29 @@
 }
 
 .book-card {
+    display: block;
     padding: 1rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     transition: all 0.2s;
+    text-decoration: none;
+    color: var(--text-color);
 }
 
 .book-card:hover {
     border-color: var(--border-color-darker);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 .book-name {
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
-}
-
-.book-name a {
     color: var(--link-color);
-    text-decoration: none;
-    border-bottom: none;
 }
 
-.book-name a:hover {
+.book-card:hover .book-name {
     color: var(--link-hover);
 }
 
@@ -82,10 +81,10 @@
     <div class="book-grid">
         {% for book in old_testament %}
         {% if book.available %}
-        <div class="book-card">
-            <div class="book-name"><a href="/book/{{ book.name }}">{{ book.name }}</a></div>
+        <a href="/book/{{ book.name }}" class="book-card">
+            <div class="book-name">{{ book.name }}</div>
             <div class="book-info">{{ book.chapters }} {% if book.chapters == 1 %}chapter{% else %}chapters{% endif %}</div>
-        </div>
+        </a>
         {% endif %}
         {% endfor %}
     </div>
@@ -98,10 +97,10 @@
     <div class="book-grid">
         {% for book in new_testament %}
         {% if book.available %}
-        <div class="book-card">
-            <div class="book-name"><a href="/book/{{ book.name }}">{{ book.name }}</a></div>
+        <a href="/book/{{ book.name }}" class="book-card">
+            <div class="book-name">{{ book.name }}</div>
             <div class="book-info">{{ book.chapters }} {% if book.chapters == 1 %}chapter{% else %}chapters{% endif %}</div>
-        </div>
+        </a>
         {% endif %}
         {% endfor %}
     </div>
