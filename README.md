@@ -2,60 +2,60 @@
 
 A comprehensive web application for deep study of the King James Bible, featuring original language tools, extensive theological resources, and classical scholarly presentation.
 
-**Live Site:** [kjvstudy.fly.dev](https://kjvstudy.fly.dev)
+**Live Site:** [kjvstudy.org](https://kjvstudy.org)
 
 ## Features
 
 ### Bible Reading & Navigation
-- **[Complete KJV Text](https://kjvstudy.fly.dev/books)** - All 66 books, 1,189 chapters, 31,102 verses
-- **[Fast Search](https://kjvstudy.fly.dev/search)** - Full-text search with concordance functionality
-- **[Cross-References](https://kjvstudy.fly.dev/book/John/chapter/3/verse/16)** - Comprehensive verse cross-referencing throughout Scripture
+- **[Complete KJV Text](https://kjvstudy.org/books)** - All 66 books, 1,189 chapters, 31,102 verses
+- **[Fast Search](https://kjvstudy.org/search)** - Full-text search with concordance functionality
+- **[Cross-References](https://kjvstudy.org/book/John/chapter/3/verse/16)** - Comprehensive verse cross-referencing throughout Scripture
 - **Verse Linking** - Automatic URL generation for easy sharing and bookmarking
-- **[Random Verse](https://kjvstudy.fly.dev/random-verse)** - Discover Scripture serendipitously
-- **[Verse of the Day](https://kjvstudy.fly.dev/verse-of-the-day)** - Daily curated verses with reflection questions
+- **[Random Verse](https://kjvstudy.org/random-verse)** - Discover Scripture serendipitously
+- **[Verse of the Day](https://kjvstudy.org/verse-of-the-day)** - Daily curated verses with reflection questions
 
 ### Study Tools
 
-#### [Interlinear Bible](https://kjvstudy.fly.dev/interlinear)
-- [Greek and Hebrew original language texts](https://kjvstudy.fly.dev/interlinear/book/John/chapter/1/verse/1)
+#### [Interlinear Bible](https://kjvstudy.org/interlinear)
+- [Greek and Hebrew original language texts](https://kjvstudy.org/interlinear/book/John/chapter/1/verse/1)
 - Word-by-word translation analysis
 - Strong's concordance numbers
 - Etymology and root word exploration
 - Morphological tagging
 
-#### [Study Guides](https://kjvstudy.fly.dev/study-guides)
+#### [Study Guides](https://kjvstudy.org/study-guides)
 Comprehensive 8-section guides with extensive Scripture references:
-- **[The Gospel Message](https://kjvstudy.fly.dev/study-guides/gospel)** - Nature of gospel, Christ's atonement, repentance & faith
-- **[Salvation by Grace](https://kjvstudy.fly.dev/study-guides/salvation)** - Sin, penalty, grace, justification, eternal security
-- **[New Believer's Guide](https://kjvstudy.fly.dev/study-guides/new-believer)** - Foundational truths for new Christians
-- **[Fruits of the Spirit](https://kjvstudy.fly.dev/study-guides/fruits-spirit)** - Source, cultivation, and evidence of spiritual fruit
-- **[Prayer & Faith](https://kjvstudy.fly.dev/study-guides/prayer-faith)** - Nature of prayer, biblical faith, growing in both
-- **[Christian Living](https://kjvstudy.fly.dev/study-guides/christian-living)** - Holiness, separation, stewardship, perseverance
-- **[God's Love](https://kjvstudy.fly.dev/study-guides/gods-love)** - Essential nature, covenant faithfulness, responding to love
-- **[Hope & Comfort](https://kjvstudy.fly.dev/study-guides/hope-comfort)** - God as refuge, resurrection hope, blessed hope
-- **[Wisdom & Guidance](https://kjvstudy.fly.dev/study-guides/wisdom-guidance)** - Fear of the Lord, discerning God's will, godly counsel
+- **[The Gospel Message](https://kjvstudy.org/study-guides/gospel)** - Nature of gospel, Christ's atonement, repentance & faith
+- **[Salvation by Grace](https://kjvstudy.org/study-guides/salvation)** - Sin, penalty, grace, justification, eternal security
+- **[New Believer's Guide](https://kjvstudy.org/study-guides/new-believer)** - Foundational truths for new Christians
+- **[Fruits of the Spirit](https://kjvstudy.org/study-guides/fruits-spirit)** - Source, cultivation, and evidence of spiritual fruit
+- **[Prayer & Faith](https://kjvstudy.org/study-guides/prayer-faith)** - Nature of prayer, biblical faith, growing in both
+- **[Christian Living](https://kjvstudy.org/study-guides/christian-living)** - Holiness, separation, stewardship, perseverance
+- **[God's Love](https://kjvstudy.org/study-guides/gods-love)** - Essential nature, covenant faithfulness, responding to love
+- **[Hope & Comfort](https://kjvstudy.org/study-guides/hope-comfort)** - God as refuge, resurrection hope, blessed hope
+- **[Wisdom & Guidance](https://kjvstudy.org/study-guides/wisdom-guidance)** - Fear of the Lord, discerning God's will, godly counsel
 
 #### Biblical Resources
 
 **People & Characters:**
-- **[The Twelve Apostles](https://kjvstudy.fly.dev/the-twelve-apostles)** - Detailed profiles with biblical accounts
-- **[Women of the Bible](https://kjvstudy.fly.dev/women-of-the-bible)** - Key female figures and their significance
-- **[Biblical Prophets](https://kjvstudy.fly.dev/biblical-prophets)** - Major and minor prophets with historical context
-- **[Biblical Angels](https://kjvstudy.fly.dev/biblical-angels)** - Angelic beings and their roles
+- **[The Twelve Apostles](https://kjvstudy.org/the-twelve-apostles)** - Detailed profiles with biblical accounts
+- **[Women of the Bible](https://kjvstudy.org/women-of-the-bible)** - Key female figures and their significance
+- **[Biblical Prophets](https://kjvstudy.org/biblical-prophets)** - Major and minor prophets with historical context
+- **[Biblical Angels](https://kjvstudy.org/biblical-angels)** - Angelic beings and their roles
 
 **Themes & Topics:**
-- **[Parables of Jesus](https://kjvstudy.fly.dev/parables)** - Complete collection with interpretation
-- **[Names of God](https://kjvstudy.fly.dev/names-of-god)** - Revealing God's character through His names
-- **[The Tetragrammaton](https://kjvstudy.fly.dev/tetragrammaton)** - Deep dive into YHWH
-- **[Biblical Covenants](https://kjvstudy.fly.dev/biblical-covenants)** - Adamic, Noahic, Abrahamic, Mosaic, Davidic, New
-- **[Fruits of the Spirit](https://kjvstudy.fly.dev/fruits-of-the-spirit)** - Greek word studies and theological exposition
-- **[Biblical Festivals](https://kjvstudy.fly.dev/biblical-festivals)** - Passover, Pentecost, Tabernacles, and more
-- **[Topical Index](https://kjvstudy.fly.dev/topics)** - Scripture organized by theme and subtopic
+- **[Parables of Jesus](https://kjvstudy.org/parables)** - Complete collection with interpretation
+- **[Names of God](https://kjvstudy.org/names-of-god)** - Revealing God's character through His names
+- **[The Tetragrammaton](https://kjvstudy.org/tetragrammaton)** - Deep dive into YHWH
+- **[Biblical Covenants](https://kjvstudy.org/biblical-covenants)** - Adamic, Noahic, Abrahamic, Mosaic, Davidic, New
+- **[Fruits of the Spirit](https://kjvstudy.org/fruits-of-the-spirit)** - Greek word studies and theological exposition
+- **[Biblical Festivals](https://kjvstudy.org/biblical-festivals)** - Passover, Pentecost, Tabernacles, and more
+- **[Topical Index](https://kjvstudy.org/topics)** - Scripture organized by theme and subtopic
 
 **Historical Context:**
-- **[Biblical Timeline](https://kjvstudy.fly.dev/biblical-timeline)** - From Creation through the early Church
-- **[Biblical Maps](https://kjvstudy.fly.dev/biblical-maps)** - Geographic context for biblical narratives
-- **[Family Tree](https://kjvstudy.fly.dev/family-tree)** - Genealogies from Adam through biblical history with searchable lineages
+- **[Biblical Timeline](https://kjvstudy.org/biblical-timeline)** - From Creation through the early Church
+- **[Biblical Maps](https://kjvstudy.org/biblical-maps)** - Geographic context for biblical narratives
+- **[Family Tree](https://kjvstudy.org/family-tree)** - Genealogies from Adam through biblical history with searchable lineages
 
 ### Design & User Experience
 
