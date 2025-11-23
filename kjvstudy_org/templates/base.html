@@ -554,11 +554,19 @@
         }
 
         @media (max-width: 768px) {
+            /* iOS-specific optimizations */
+            body {
+                -webkit-text-size-adjust: 100%;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+            }
+
             /* Keep dark mode toggle on mobile, just reposition */
             .dark-mode-toggle {
                 top: 1rem;
                 right: 1rem;
                 margin: 0;
+                min-width: 44px;
+                min-height: 44px;
             }
 
             /* Adjust article width for mobile */
@@ -567,7 +575,7 @@
                 padding: 1rem;
             }
 
-            /* Optimize typography for mobile */
+            /* Optimize typography for mobile with better contrast */
             body {
                 font-size: 16px;
             }
@@ -575,20 +583,37 @@
             h1 {
                 font-size: 2rem;
                 line-height: 2.2rem;
+                font-weight: 500;
             }
 
             h2 {
                 font-size: 1.5rem;
                 line-height: 1.7rem;
+                font-weight: 500;
             }
 
             h3 {
                 font-size: 1.2rem;
+                font-weight: 600;
             }
 
             p {
                 font-size: 1rem;
                 line-height: 1.8;
+                color: var(--text-color);
+            }
+
+            /* Enhanced link visibility for mobile */
+            a {
+                border-bottom: 2px solid var(--border-color-darker);
+                padding-bottom: 1px;
+                min-height: 44px;
+                display: inline-block;
+                line-height: 1.6;
+            }
+
+            a:hover, a:active {
+                border-bottom-color: var(--text-color);
             }
 
             /* Make max-width sections full width on mobile */
@@ -605,16 +630,24 @@
                 max-width: 100% !important;
             }
 
-            /* Optimize sidenotes for mobile */
+            /* Optimize sidenotes for mobile with better visibility */
             .sidenote,
             .marginnote {
                 display: block;
                 float: none;
                 width: 100%;
-                margin: 1rem 0 1rem 2rem;
-                padding-left: 1rem;
-                border-left: 2px solid var(--border-color);
+                margin: 1rem 0 1rem 1.5rem;
+                padding: 0.75rem 0 0.75rem 1rem;
+                border-left: 3px solid var(--border-color-darker);
+                background: rgba(0, 0, 0, 0.02);
                 font-size: 0.9rem;
+                line-height: 1.6;
+                color: var(--text-color);
+            }
+
+            [data-theme="dark"] .sidenote,
+            [data-theme="dark"] .marginnote {
+                background: rgba(255, 255, 255, 0.03);
             }
 
             .sidenote-number,
@@ -657,10 +690,36 @@
                 justify-content: center;
             }
 
-            /* Optimize breadcrumbs */
+            /* Optimize breadcrumbs with better contrast */
             .breadcrumb {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
                 flex-wrap: wrap;
+                border-bottom: 2px solid var(--border-color-darker);
+                padding-bottom: 0.75rem;
+            }
+
+            .breadcrumb a {
+                font-weight: 500;
+                border-bottom: 1px dotted var(--border-color-darker);
+            }
+
+            /* Improve button visibility on mobile */
+            button, .btn, input[type="submit"] {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 0.75rem 1.25rem;
+                font-size: 1rem;
+                font-weight: 500;
+                border: 2px solid var(--text-color);
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+            }
+
+            /* Improve section dividers */
+            section:not(:first-of-type) {
+                border-top: 2px solid var(--border-color-darker);
+                padding-top: 2rem;
+                margin-top: 2.5rem;
             }
 
             /* Optimize verse text */

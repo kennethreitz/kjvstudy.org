@@ -143,12 +143,20 @@ section a[href^="/book/"] {
 
     .verse-lookup {
         max-width: 100%;
-        padding: 1rem 0 1rem 1rem;
+        padding: 1.25rem 0 1.25rem 1.25rem;
         margin: 1.5rem 0;
+        border-left: 4px solid var(--border-color-darker);
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="dark"] .verse-lookup {
+        background: rgba(255, 255, 255, 0.03);
     }
 
     .verse-lookup h2 {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--text-color);
     }
 
     .lookup-form {
@@ -159,18 +167,29 @@ section a[href^="/book/"] {
     .lookup-input {
         width: 100%;
         font-size: 1rem;
-        padding: 0.75rem;
+        padding: 0.875rem 1rem;
+        border: 2px solid var(--border-color-darker);
+        font-weight: 400;
+    }
+
+    .lookup-input:focus {
+        border-color: var(--text-color);
+        outline: none;
     }
 
     .lookup-btn {
         width: 100%;
-        padding: 0.75rem;
+        padding: 0.875rem;
         font-size: 1rem;
+        font-weight: 600;
+        min-height: 44px;
+        border: 2px solid var(--text-color);
     }
 
     .lookup-help {
-        font-size: 0.85rem;
-        line-height: 1.5;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
     }
 
     .featured-studies {
@@ -180,35 +199,80 @@ section a[href^="/book/"] {
 
     .study-entry {
         margin: 1.25rem 0;
-        padding-left: 1rem;
+        padding: 1rem 0 1rem 1.25rem;
+        border-left: 3px solid var(--border-color-darker);
+        background: rgba(0, 0, 0, 0.015);
+    }
+
+    [data-theme="dark"] .study-entry {
+        background: rgba(255, 255, 255, 0.02);
     }
 
     .study-entry h3 {
-        font-size: 1.05rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .study-entry h3 a {
+        color: var(--text-color);
+        border-bottom: 2px solid var(--border-color-darker);
     }
 
     .study-entry p {
         font-size: 0.95rem;
         line-height: 1.7;
+        color: var(--text-color);
     }
 
     .quick-links {
         max-width: 100%;
         margin: 1rem 0;
+        line-height: 1.8;
     }
 
     .quick-link-btn {
-        display: block;
-        margin: 0.5rem 0;
+        display: inline-block;
+        margin: 0.5rem 0.75rem 0.5rem 0;
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--border-color-darker);
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.02);
+        font-weight: 500;
+        min-height: 44px;
+        line-height: 1.6;
     }
 
-    /* Adjust epigraph on mobile */
+    [data-theme="dark"] .quick-link-btn {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Adjust epigraph on mobile with better visibility */
     .epigraph {
         margin: 2rem 0;
+        padding: 1rem;
+        border-left: 3px solid var(--border-color-darker);
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="dark"] .epigraph {
+        background: rgba(255, 255, 255, 0.03);
     }
 
     .epigraph blockquote {
-        font-size: 1rem;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: var(--text-color);
+    }
+
+    .epigraph footer {
+        margin-top: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .epigraph footer a {
+        font-weight: 500;
+        border-bottom: 1px dotted var(--border-color-darker);
     }
 }
 </style>
