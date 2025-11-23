@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Fruits of the Spirit - KJV Study{% endblock %}
+{% block description %}Explore the nine fruits of the Spirit from Galatians 5:22-23: Love, Joy, Peace, Longsuffering, Gentleness, Goodness, Faith, Meekness, and Temperance.{% endblock %}
+
+{% block head %}
+<style>
+.fruit-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.fruit-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.fruit-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.fruit-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.fruit-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.fruit-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.fruit-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.fruit-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Fruits of the Spirit</h1>
+<p class="subtitle">The Nine Graces of Galatians 5:22-23</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
+
+<section>
+    <p class="intro-text"><span class="newthought">But the fruit of the Spirit</span> is love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, temperance: against such there is no law.<label for="sn-galatians" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-galatians" class="margin-toggle"/>
+    <span class="sidenote">Galatians 5:22-23 presents these nine graces as singular "fruit" rather than plural "fruits," suggesting organic unity. Like segments of a single fruit, these qualities develop together in the believer's life through the Holy Spirit's work, not by human effort or legal observance.</span> This ninefold cluster of divine virtues marks those who walk in the Spirit, distinguishing them from those who fulfill the desires of the flesh.</p>
+
+    <p class="intro-text">The apostle Paul contrasts these spiritual graces with the works of the flesh enumerated in the preceding verses. While fleshly works result from human nature and effort, the Spirit's fruit grows supernaturally in yielded hearts.<label for="sn-contrast" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-contrast" class="margin-toggle"/>
+    <span class="sidenote">The contrast between "works of the flesh" (Galatians 5:19) and "fruit of the Spirit" proves significant. Works suggest labor and strain; fruit implies natural growth and development. Believers cannot manufacture spiritual fruit through self-effort—it results from abiding in Christ (John 15:4-5).</span> These qualities cannot be legislated or produced by willpower; they manifest as evidence of the Spirit's indwelling presence and transforming power.</p>
+</section>
+
+{% for category, fruits in fruits_data.items() %}
+<section class="fruit-section">
+    <h2>{{ category }}</h2>
+
+    {% for fruit_name, fruit in fruits.items() %}
+    <article class="fruit-entry">
+        <h3 class="fruit-name">
+          <a href="/fruits-of-the-spirit/{{ fruit_name|slugify }}">{{ fruit_name }}</a>
+        </h3>
+        <p class="fruit-title">{{ fruit.title }}</p>
+
+        <div class="fruit-description">
+            {{ fruit.description | safe }}
+        </div>
+
+        {% if fruit.verses %}
+        <div class="verse-list">
+            {% for verse in fruit.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<section>
+    <h2>The Spirit's Work in Sanctification</h2>
+    <p>Scripture reveals essential truths concerning the fruit of the Spirit:</p>
+
+    <p><span class="newthought">Supernatural origin</span>, not produced by human effort or religious observance but grown through the Spirit's transforming work in yielded hearts.<label for="sn-supernatural" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-supernatural" class="margin-toggle"/>
+    <span class="sidenote">Jesus declared, "Abide in me, and I in you. As the branch cannot bear fruit of itself, except it abide in the vine; no more can ye, except ye abide in me" (John 15:4). The Spirit reproduces Christ's character in believers as they maintain vital union with Him through faith and obedience.</span> These graces manifest as believers abide in Christ, drawing life from Him as branches from the vine.</p>
+
+    <p><span class="newthought">Progressive development</span>, increasing through spiritual maturity as believers walk in the Spirit and resist the flesh.<label for="sn-progressive" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-progressive" class="margin-toggle"/>
+    <span class="sidenote">Peter exhorts believers to "grow in grace, and in the knowledge of our Lord and Saviour Jesus Christ" (2 Peter 3:18). The Spirit's fruit develops gradually, not instantaneously, through ongoing surrender, biblical meditation, and practical obedience.</span> Like natural fruit, spiritual graces ripen over time through cultivation and care.</p>
+
+    <p><span class="newthought">Unified manifestation</span>, appearing together as one fruit rather than isolated virtues.<label for="sn-unified" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-unified" class="margin-toggle"/>
+    <span class="sidenote">The singular "fruit" suggests these nine qualities form an integrated whole. True spiritual love will express itself in joy, peace, and patience; genuine faith manifests through meekness and self-control. The Spirit develops all these graces together, not selectively.</span> Where one quality flourishes, others develop proportionally, revealing the Spirit's comprehensive work.</p>
+
+    <p><span class="newthought">Evidence of salvation</span>, demonstrating authentic faith and the Spirit's indwelling presence.<label for="sn-evidence" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-evidence" class="margin-toggle"/>
+    <span class="sidenote">Jesus taught, "Ye shall know them by their fruits" (Matthew 7:16). While works cannot save, genuine faith produces observable fruit. The presence or absence of spiritual fruit provides evidence concerning one's spiritual condition and the reality of conversion.</span> Christ declared that true disciples bear much fruit, glorifying the Father and proving their discipleship.</p>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Generate TOC from h2 and h3 headings
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3, section article h3');
+
+    headings.forEach((heading, index) => {
+        // Create an ID for the heading if it doesn't have one
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+
+        // Create TOC entry
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
+{% endblock %}

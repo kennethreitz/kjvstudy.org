@@ -4008,6 +4008,302 @@ def festival_detail(request: Request, festival_slug: str):
     )
 
 
+@app.get("/fruits-of-the-spirit", response_class=HTMLResponse)
+def fruits_of_spirit_page(request: Request):
+    """Fruits of the Spirit page from Galatians 5:22-23"""
+    books = list(bible.iter_books())
+
+    # Define the nine fruits of the Spirit with supporting Scripture
+    fruits_data = {
+        "The Fruits of the Spirit": {
+            "Love": {
+                "title": "The Supreme Christian Virtue",
+                "description": "Love, the first and greatest fruit of the Spirit, transcends mere human affection or romantic sentiment. This agape love represents God's own nature—selfless, sacrificial, and unconditional. It fulfills the whole law, never fails, and identifies Christ's true disciples.<label for=\"sn-love\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-love\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek word ἀγάπη (agape) differs from φιλέω (brotherly affection) and ἔρως (romantic love). It describes divine love that seeks the highest good of others regardless of their merit or response. This love originates in God's nature and flows through believers by the Holy Spirit (Romans 5:5).</span>",
+                "verses": [
+                    {"reference": "1 Corinthians 13:4-8", "text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up, Doth not behave itself unseemly, seeketh not her own, is not easily provoked, thinketh no evil; Rejoiceth not in iniquity, but rejoiceth in the truth; Beareth all things, believeth all things, hopeth all things, endureth all things. Charity never faileth."},
+                    {"reference": "John 13:34-35", "text": "A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another. By this shall all men know that ye are my disciples, if ye have love one to another."},
+                    {"reference": "Romans 13:10", "text": "Love worketh no ill to his neighbour: therefore love is the fulfilling of the law."},
+                    {"reference": "1 John 4:7-8", "text": "Beloved, let us love one another: for love is of God; and every one that loveth is born of God, and knoweth God. He that loveth not knoweth not God; for God is love."},
+                    {"reference": "Matthew 22:37-39", "text": "Jesus said unto him, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind. This is the first and great commandment. And the second is like unto it, Thou shalt love thy neighbour as thyself."},
+                    {"reference": "1 Peter 4:8", "text": "And above all things have fervent charity among yourselves: for charity shall cover the multitude of sins."},
+                    {"reference": "Ephesians 5:2", "text": "And walk in love, as Christ also hath loved us, and hath given himself for us an offering and a sacrifice to God for a sweetsmelling savour."}
+                ]
+            },
+            "Joy": {
+                "title": "The Gladness of Grace",
+                "description": "Joy differs from mere happiness, which depends upon happenings. This spiritual fruit springs from knowing God, delighting in His salvation, and maintaining fellowship with Christ. It persists through trials, fills believers in tribulation, and serves as evidence of the Spirit's indwelling presence.<label for=\"sn-joy\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-joy\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek χαρά (chara) denotes a deep-seated gladness independent of circumstances. This joy characterized the early church even amid persecution (Acts 13:52) and enabled Paul to rejoice while imprisoned (Philippians 4:4). It flows from confidence in God's sovereignty and goodness.</span>",
+                "verses": [
+                    {"reference": "Nehemiah 8:10", "text": "Then he said unto them, Go your way, eat the fat, and drink the sweet, and send portions unto them for whom nothing is prepared: for this day is holy unto our Lord: neither be ye sorry; for the joy of the LORD is your strength."},
+                    {"reference": "John 15:11", "text": "These things have I spoken unto you, that my joy might remain in you, and that your joy might be full."},
+                    {"reference": "Philippians 4:4", "text": "Rejoice in the Lord alway: and again I say, Rejoice."},
+                    {"reference": "1 Peter 1:8", "text": "Whom having not seen, ye love; in whom, though now ye see him not, yet believing, ye rejoice with joy unspeakable and full of glory."},
+                    {"reference": "Psalm 16:11", "text": "Thou wilt shew me the path of life: in thy presence is fulness of joy; at thy right hand there are pleasures for evermore."},
+                    {"reference": "Romans 14:17", "text": "For the kingdom of God is not meat and drink; but righteousness, and peace, and joy in the Holy Ghost."},
+                    {"reference": "James 1:2", "text": "My brethren, count it all joy when ye fall into divers temptations."}
+                ]
+            },
+            "Peace": {
+                "title": "The Tranquility of Trust",
+                "description": "Peace encompasses both reconciliation with God and inward tranquility of soul. It surpasses human understanding, guards hearts and minds, and characterizes the kingdom of God. This fruit manifests as believers rest in God's sovereignty, trusting His providence in all circumstances.<label for=\"sn-peace\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-peace\" class=\"margin-toggle\"/><span class=\"sidenote\">The Hebrew שָׁלוֹם (shalom) and Greek εἰρήνη (eirene) signify more than absence of conflict—they denote wholeness, completeness, and right relationship with God. Christ, our peace, reconciled us to God (Ephesians 2:14) and left His peace with believers (John 14:27).</span>",
+                "verses": [
+                    {"reference": "Philippians 4:6-7", "text": "Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus."},
+                    {"reference": "John 14:27", "text": "Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be afraid."},
+                    {"reference": "Isaiah 26:3", "text": "Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee."},
+                    {"reference": "Romans 5:1", "text": "Therefore being justified by faith, we have peace with God through our Lord Jesus Christ."},
+                    {"reference": "Colossians 3:15", "text": "And let the peace of God rule in your hearts, to the which also ye are called in one body; and be ye thankful."},
+                    {"reference": "Romans 8:6", "text": "For to be carnally minded is death; but to be spiritually minded is life and peace."}
+                ]
+            },
+            "Longsuffering (Patience)": {
+                "title": "Endurance Under Provocation",
+                "description": "Longsuffering, often translated patience, denotes steadfast endurance despite provocation or hardship. This fruit restrains vengeance, bears wrongs without retaliation, and perseveres in well-doing. It mirrors God's own patience toward sinners and characterizes those who await Christ's return.<label for=\"sn-longsuffering\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-longsuffering\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek μακροθυμία (makrothumia) literally means 'long-tempered,' the opposite of short-tempered. It describes the capacity to endure injuries or provocations for an extended time without yielding to anger or despair. God Himself is 'longsuffering to us-ward, not willing that any should perish' (2 Peter 3:9).</span>",
+                "verses": [
+                    {"reference": "2 Peter 3:9", "text": "The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish, but that all should come to repentance."},
+                    {"reference": "Colossians 3:12-13", "text": "Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering; Forbearing one another, and forgiving one another, if any man have a quarrel against any: even as Christ forgave you, so also do ye."},
+                    {"reference": "Ephesians 4:2", "text": "With all lowliness and meekness, with longsuffering, forbearing one another in love."},
+                    {"reference": "James 5:7-8", "text": "Be patient therefore, brethren, unto the coming of the Lord. Behold, the husbandman waiteth for the precious fruit of the earth, and hath long patience for it, until he receive the early and latter rain. Be ye also patient; stablish your hearts: for the coming of the Lord draweth nigh."},
+                    {"reference": "Proverbs 15:18", "text": "A wrathful man stirreth up strife: but he that is slow to anger appeaseth strife."},
+                    {"reference": "1 Timothy 1:16", "text": "Howbeit for this cause I obtained mercy, that in me first Jesus Christ might shew forth all longsuffering, for a pattern to them which should hereafter believe on him to life everlasting."}
+                ]
+            },
+            "Gentleness": {
+                "title": "Kindness and Compassion",
+                "description": "Gentleness, or kindness, manifests as tender regard for others' well-being. This fruit demonstrates practical goodwill, showing compassion and mercy in daily interactions. It reflects God's own gentleness toward His people and characterizes those who walk worthy of their calling.<label for=\"sn-gentleness\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-gentleness\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek χρηστότης (chrestotes) denotes kindness, benevolence, and goodness in action. It describes God's kindness toward us in Christ Jesus (Ephesians 2:7) and the gentle, gracious manner believers should display toward all, especially those who oppose them (2 Timothy 2:24-25).</span>",
+                "verses": [
+                    {"reference": "Ephesians 4:32", "text": "And be ye kind one to another, tenderhearted, forgiving one another, even as God for Christ's sake hath forgiven you."},
+                    {"reference": "Colossians 3:12", "text": "Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering."},
+                    {"reference": "2 Timothy 2:24", "text": "And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient."},
+                    {"reference": "Titus 3:4-5", "text": "But after that the kindness and love of God our Saviour toward man appeared, Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost."},
+                    {"reference": "1 Thessalonians 2:7", "text": "But we were gentle among you, even as a nurse cherisheth her children."},
+                    {"reference": "Proverbs 19:22", "text": "The desire of a man is his kindness: and a poor man is better than a liar."}
+                ]
+            },
+            "Goodness": {
+                "title": "Moral Excellence and Uprightness",
+                "description": "Goodness denotes moral excellence, uprightness of heart, and beneficent action. This fruit produces generosity, integrity, and practical righteousness in daily conduct. It flows from a transformed nature, demonstrating the Spirit's work in conforming believers to Christ's image.<label for=\"sn-goodness\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-goodness\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek ἀγαθωσύνη (agathosune) signifies active goodness, virtue that benefits others. It encompasses both moral excellence and generous action. While only God is inherently good (Mark 10:18), the Spirit reproduces this divine quality in believers, enabling them to be 'filled with all goodness' (Romans 15:14).</span>",
+                "verses": [
+                    {"reference": "Romans 15:14", "text": "And I myself also am persuaded of you, my brethren, that ye also are full of goodness, filled with all knowledge, able also to admonish one another."},
+                    {"reference": "Ephesians 5:9", "text": "For the fruit of the Spirit is in all goodness and righteousness and truth."},
+                    {"reference": "2 Thessalonians 1:11", "text": "Wherefore also we pray always for you, that our God would count you worthy of this calling, and fulfil all the good pleasure of his goodness, and the work of faith with power."},
+                    {"reference": "Psalm 23:6", "text": "Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever."},
+                    {"reference": "Matthew 5:16", "text": "Let your light so shine before men, that they may see your good works, and glorify your Father which is in heaven."},
+                    {"reference": "Galatians 6:10", "text": "As we have therefore opportunity, let us do good unto all men, especially unto them who are of the household of faith."}
+                ]
+            },
+            "Faith (Faithfulness)": {
+                "title": "Steadfast Loyalty and Trustworthiness",
+                "description": "Faith, or faithfulness, represents steadfast loyalty, reliability, and trustworthiness in all commitments. This fruit ensures believers prove dependable in their word, consistent in their walk, and persevering in their service. It mirrors God's own faithfulness and marks those who will receive the crown of life.<label for=\"sn-faith\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-faith\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek πίστις (pistis) can denote either faith (trust in God) or faithfulness (reliability and loyalty). In Galatians 5:22's context, it likely emphasizes faithfulness—the quality of being trustworthy, dependable, and steadfast. This faithfulness reflects God's own character, for 'he abideth faithful: he cannot deny himself' (2 Timothy 2:13).</span>",
+                "verses": [
+                    {"reference": "1 Corinthians 4:2", "text": "Moreover it is required in stewards, that a man be found faithful."},
+                    {"reference": "Revelation 2:10", "text": "Fear none of those things which thou shalt suffer: behold, the devil shall cast some of you into prison, that ye may be tried; and ye shall have tribulation ten days: be thou faithful unto death, and I will give thee a crown of life."},
+                    {"reference": "Proverbs 28:20", "text": "A faithful man shall abound with blessings: but he that maketh haste to be rich shall not be innocent."},
+                    {"reference": "3 John 1:5", "text": "Beloved, thou doest faithfully whatsoever thou doest to the brethren, and to strangers."},
+                    {"reference": "Matthew 25:21", "text": "His lord said unto him, Well done, thou good and faithful servant: thou hast been faithful over a few things, I will make thee ruler over many things: enter thou into the joy of thy lord."},
+                    {"reference": "Lamentations 3:22-23", "text": "It is of the LORD'S mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."}
+                ]
+            },
+            "Meekness": {
+                "title": "Strength Under Control",
+                "description": "Meekness denotes not weakness but strength under divine control—power harnessed by humility. This fruit manifests as gentleness of spirit, freedom from arrogance, and submission to God's will. Moses, called the meekest man on earth, demonstrated great strength tempered by dependence upon God.<label for=\"sn-meekness\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-meekness\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek πραΰτης (prautes) describes controlled strength, humble gentleness, and freedom from arrogance. Christ exemplified this quality, being 'meek and lowly in heart' (Matthew 11:29), yet displaying righteous authority when needed. Meekness represents power submitted to divine direction rather than absence of strength.</span>",
+                "verses": [
+                    {"reference": "Matthew 5:5", "text": "Blessed are the meek: for they shall inherit the earth."},
+                    {"reference": "Numbers 12:3", "text": "Now the man Moses was very meek, above all the men which were upon the face of the earth."},
+                    {"reference": "Matthew 11:29", "text": "Take my yoke upon you, and learn of me; for I am meek and lowly in heart: and ye shall find rest unto your souls."},
+                    {"reference": "James 1:21", "text": "Wherefore lay apart all filthiness and superfluity of naughtiness, and receive with meekness the engrafted word, which is able to save your souls."},
+                    {"reference": "1 Peter 3:15", "text": "But sanctify the Lord God in your hearts: and be ready always to give an answer to every man that asketh you a reason of the hope that is in you with meekness and fear."},
+                    {"reference": "Colossians 3:12", "text": "Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering."}
+                ]
+            },
+            "Temperance (Self-control)": {
+                "title": "Mastery Over Fleshly Desires",
+                "description": "Temperance, or self-control, represents mastery over fleshly appetites and passions. This fruit enables believers to govern their desires, discipline their bodies, and maintain spiritual vigilance. It proves essential for effective service, athletic metaphors in Scripture highlighting its importance for finishing the race set before us.<label for=\"sn-temperance\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-temperance\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek ἐγκράτεια (enkrateia) denotes self-mastery, the ability to control one's desires and impulses. Paul compared the Christian life to athletic discipline, noting that competitors exercise temperance in all things to obtain a corruptible crown, while believers pursue an incorruptible one (1 Corinthians 9:25). This self-control extends to all areas—appetites, speech, thoughts, and conduct.</span>",
+                "verses": [
+                    {"reference": "1 Corinthians 9:25-27", "text": "And every man that striveth for the mastery is temperate in all things. Now they do it to obtain a corruptible crown; but we an incorruptible. I therefore so run, not as uncertainly; so fight I, not as one that beateth the air: But I keep under my body, and bring it into subjection: lest that by any means, when I have preached to others, I myself should be a castaway."},
+                    {"reference": "2 Peter 1:5-6", "text": "And beside this, giving all diligence, add to your faith virtue; and to virtue knowledge; And to knowledge temperance; and to temperance patience; and to patience godliness."},
+                    {"reference": "Proverbs 25:28", "text": "He that hath no rule over his own spirit is like a city that is broken down, and without walls."},
+                    {"reference": "Titus 2:11-12", "text": "For the grace of God that bringeth salvation hath appeared to all men, Teaching us that, denying ungodliness and worldly lusts, we should live soberly, righteously, and godly, in this present world."},
+                    {"reference": "Acts 24:25", "text": "And as he reasoned of righteousness, temperance, and judgment to come, Felix trembled, and answered, Go thy way for this time; when I have a convenient season, I will call for thee."},
+                    {"reference": "1 Thessalonians 5:6", "text": "Therefore let us not sleep, as do others; but let us watch and be sober."}
+                ]
+            }
+        }
+    }
+
+    return templates.TemplateResponse(
+        "fruits_of_spirit.html",
+        {
+            "request": request,
+            "books": books,
+            "fruits_data": fruits_data,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Fruits of the Spirit", "url": None}
+            ]
+        }
+    )
+
+
+@app.get("/fruits-of-the-spirit/{fruit_slug}", response_class=HTMLResponse)
+def fruit_detail(request: Request, fruit_slug: str):
+    """Individual fruit of the Spirit detail page"""
+    books = list(bible.iter_books())
+
+    # Reuse data structure from main route
+    fruits_data = {
+        "The Fruits of the Spirit": {
+            "Love": {
+                "title": "The Supreme Christian Virtue",
+                "description": "Love, the first and greatest fruit of the Spirit, transcends mere human affection or romantic sentiment. This agape love represents God's own nature—selfless, sacrificial, and unconditional. It fulfills the whole law, never fails, and identifies Christ's true disciples.<label for=\"sn-love\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-love\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek word ἀγάπη (agape) differs from φιλέω (brotherly affection) and ἔρως (romantic love). It describes divine love that seeks the highest good of others regardless of their merit or response. This love originates in God's nature and flows through believers by the Holy Spirit (Romans 5:5).</span>",
+                "verses": [
+                    {"reference": "1 Corinthians 13:4-8", "text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up, Doth not behave itself unseemly, seeketh not her own, is not easily provoked, thinketh no evil; Rejoiceth not in iniquity, but rejoiceth in the truth; Beareth all things, believeth all things, hopeth all things, endureth all things. Charity never faileth."},
+                    {"reference": "John 13:34-35", "text": "A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another. By this shall all men know that ye are my disciples, if ye have love one to another."},
+                    {"reference": "Romans 13:10", "text": "Love worketh no ill to his neighbour: therefore love is the fulfilling of the law."},
+                    {"reference": "1 John 4:7-8", "text": "Beloved, let us love one another: for love is of God; and every one that loveth is born of God, and knoweth God. He that loveth not knoweth not God; for God is love."},
+                    {"reference": "Matthew 22:37-39", "text": "Jesus said unto him, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind. This is the first and great commandment. And the second is like unto it, Thou shalt love thy neighbour as thyself."},
+                    {"reference": "1 Peter 4:8", "text": "And above all things have fervent charity among yourselves: for charity shall cover the multitude of sins."},
+                    {"reference": "Ephesians 5:2", "text": "And walk in love, as Christ also hath loved us, and hath given himself for us an offering and a sacrifice to God for a sweetsmelling savour."}
+                ]
+            },
+            "Joy": {
+                "title": "The Gladness of Grace",
+                "description": "Joy differs from mere happiness, which depends upon happenings. This spiritual fruit springs from knowing God, delighting in His salvation, and maintaining fellowship with Christ. It persists through trials, fills believers in tribulation, and serves as evidence of the Spirit's indwelling presence.<label for=\"sn-joy\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-joy\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek χαρά (chara) denotes a deep-seated gladness independent of circumstances. This joy characterized the early church even amid persecution (Acts 13:52) and enabled Paul to rejoice while imprisoned (Philippians 4:4). It flows from confidence in God's sovereignty and goodness.</span>",
+                "verses": [
+                    {"reference": "Nehemiah 8:10", "text": "Then he said unto them, Go your way, eat the fat, and drink the sweet, and send portions unto them for whom nothing is prepared: for this day is holy unto our Lord: neither be ye sorry; for the joy of the LORD is your strength."},
+                    {"reference": "John 15:11", "text": "These things have I spoken unto you, that my joy might remain in you, and that your joy might be full."},
+                    {"reference": "Philippians 4:4", "text": "Rejoice in the Lord alway: and again I say, Rejoice."},
+                    {"reference": "1 Peter 1:8", "text": "Whom having not seen, ye love; in whom, though now ye see him not, yet believing, ye rejoice with joy unspeakable and full of glory."},
+                    {"reference": "Psalm 16:11", "text": "Thou wilt shew me the path of life: in thy presence is fulness of joy; at thy right hand there are pleasures for evermore."},
+                    {"reference": "Romans 14:17", "text": "For the kingdom of God is not meat and drink; but righteousness, and peace, and joy in the Holy Ghost."},
+                    {"reference": "James 1:2", "text": "My brethren, count it all joy when ye fall into divers temptations."}
+                ]
+            },
+            "Peace": {
+                "title": "The Tranquility of Trust",
+                "description": "Peace encompasses both reconciliation with God and inward tranquility of soul. It surpasses human understanding, guards hearts and minds, and characterizes the kingdom of God. This fruit manifests as believers rest in God's sovereignty, trusting His providence in all circumstances.<label for=\"sn-peace\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-peace\" class=\"margin-toggle\"/><span class=\"sidenote\">The Hebrew שָׁלוֹם (shalom) and Greek εἰρήνη (eirene) signify more than absence of conflict—they denote wholeness, completeness, and right relationship with God. Christ, our peace, reconciled us to God (Ephesians 2:14) and left His peace with believers (John 14:27).</span>",
+                "verses": [
+                    {"reference": "Philippians 4:6-7", "text": "Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus."},
+                    {"reference": "John 14:27", "text": "Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be afraid."},
+                    {"reference": "Isaiah 26:3", "text": "Thou wilt keep him in perfect peace, whose mind is stayed on thee: because he trusteth in thee."},
+                    {"reference": "Romans 5:1", "text": "Therefore being justified by faith, we have peace with God through our Lord Jesus Christ."},
+                    {"reference": "Colossians 3:15", "text": "And let the peace of God rule in your hearts, to the which also ye are called in one body; and be ye thankful."},
+                    {"reference": "Romans 8:6", "text": "For to be carnally minded is death; but to be spiritually minded is life and peace."}
+                ]
+            },
+            "Longsuffering (Patience)": {
+                "title": "Endurance Under Provocation",
+                "description": "Longsuffering, often translated patience, denotes steadfast endurance despite provocation or hardship. This fruit restrains vengeance, bears wrongs without retaliation, and perseveres in well-doing. It mirrors God's own patience toward sinners and characterizes those who await Christ's return.<label for=\"sn-longsuffering\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-longsuffering\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek μακροθυμία (makrothumia) literally means 'long-tempered,' the opposite of short-tempered. It describes the capacity to endure injuries or provocations for an extended time without yielding to anger or despair. God Himself is 'longsuffering to us-ward, not willing that any should perish' (2 Peter 3:9).</span>",
+                "verses": [
+                    {"reference": "2 Peter 3:9", "text": "The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish, but that all should come to repentance."},
+                    {"reference": "Colossians 3:12-13", "text": "Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering; Forbearing one another, and forgiving one another, if any man have a quarrel against any: even as Christ forgave you, so also do ye."},
+                    {"reference": "Ephesians 4:2", "text": "With all lowliness and meekness, with longsuffering, forbearing one another in love."},
+                    {"reference": "James 5:7-8", "text": "Be patient therefore, brethren, unto the coming of the Lord. Behold, the husbandman waiteth for the precious fruit of the earth, and hath long patience for it, until he receive the early and latter rain. Be ye also patient; stablish your hearts: for the coming of the Lord draweth nigh."},
+                    {"reference": "Proverbs 15:18", "text": "A wrathful man stirreth up strife: but he that is slow to anger appeaseth strife."},
+                    {"reference": "1 Timothy 1:16", "text": "Howbeit for this cause I obtained mercy, that in me first Jesus Christ might shew forth all longsuffering, for a pattern to them which should hereafter believe on him to life everlasting."}
+                ]
+            },
+            "Gentleness": {
+                "title": "Kindness and Compassion",
+                "description": "Gentleness, or kindness, manifests as tender regard for others' well-being. This fruit demonstrates practical goodwill, showing compassion and mercy in daily interactions. It reflects God's own gentleness toward His people and characterizes those who walk worthy of their calling.<label for=\"sn-gentleness\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-gentleness\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek χρηστότης (chrestotes) denotes kindness, benevolence, and goodness in action. It describes God's kindness toward us in Christ Jesus (Ephesians 2:7) and the gentle, gracious manner believers should display toward all, especially those who oppose them (2 Timothy 2:24-25).</span>",
+                "verses": [
+                    {"reference": "Ephesians 4:32", "text": "And be ye kind one to another, tenderhearted, forgiving one another, even as God for Christ's sake hath forgiven you."},
+                    {"reference": "Colossians 3:12", "text": "Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering."},
+                    {"reference": "2 Timothy 2:24", "text": "And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient."},
+                    {"reference": "Titus 3:4-5", "text": "But after that the kindness and love of God our Saviour toward man appeared, Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost."},
+                    {"reference": "1 Thessalonians 2:7", "text": "But we were gentle among you, even as a nurse cherisheth her children."},
+                    {"reference": "Proverbs 19:22", "text": "The desire of a man is his kindness: and a poor man is better than a liar."}
+                ]
+            },
+            "Goodness": {
+                "title": "Moral Excellence and Uprightness",
+                "description": "Goodness denotes moral excellence, uprightness of heart, and beneficent action. This fruit produces generosity, integrity, and practical righteousness in daily conduct. It flows from a transformed nature, demonstrating the Spirit's work in conforming believers to Christ's image.<label for=\"sn-goodness\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-goodness\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek ἀγαθωσύνη (agathosune) signifies active goodness, virtue that benefits others. It encompasses both moral excellence and generous action. While only God is inherently good (Mark 10:18), the Spirit reproduces this divine quality in believers, enabling them to be 'filled with all goodness' (Romans 15:14).</span>",
+                "verses": [
+                    {"reference": "Romans 15:14", "text": "And I myself also am persuaded of you, my brethren, that ye also are full of goodness, filled with all knowledge, able also to admonish one another."},
+                    {"reference": "Ephesians 5:9", "text": "For the fruit of the Spirit is in all goodness and righteousness and truth."},
+                    {"reference": "2 Thessalonians 1:11", "text": "Wherefore also we pray always for you, that our God would count you worthy of this calling, and fulfil all the good pleasure of his goodness, and the work of faith with power."},
+                    {"reference": "Psalm 23:6", "text": "Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever."},
+                    {"reference": "Matthew 5:16", "text": "Let your light so shine before men, that they may see your good works, and glorify your Father which is in heaven."},
+                    {"reference": "Galatians 6:10", "text": "As we have therefore opportunity, let us do good unto all men, especially unto them who are of the household of faith."}
+                ]
+            },
+            "Faith (Faithfulness)": {
+                "title": "Steadfast Loyalty and Trustworthiness",
+                "description": "Faith, or faithfulness, represents steadfast loyalty, reliability, and trustworthiness in all commitments. This fruit ensures believers prove dependable in their word, consistent in their walk, and persevering in their service. It mirrors God's own faithfulness and marks those who will receive the crown of life.<label for=\"sn-faith\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-faith\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek πίστις (pistis) can denote either faith (trust in God) or faithfulness (reliability and loyalty). In Galatians 5:22's context, it likely emphasizes faithfulness—the quality of being trustworthy, dependable, and steadfast. This faithfulness reflects God's own character, for 'he abideth faithful: he cannot deny himself' (2 Timothy 2:13).</span>",
+                "verses": [
+                    {"reference": "1 Corinthians 4:2", "text": "Moreover it is required in stewards, that a man be found faithful."},
+                    {"reference": "Revelation 2:10", "text": "Fear none of those things which thou shalt suffer: behold, the devil shall cast some of you into prison, that ye may be tried; and ye shall have tribulation ten days: be thou faithful unto death, and I will give thee a crown of life."},
+                    {"reference": "Proverbs 28:20", "text": "A faithful man shall abound with blessings: but he that maketh haste to be rich shall not be innocent."},
+                    {"reference": "3 John 1:5", "text": "Beloved, thou doest faithfully whatsoever thou doest to the brethren, and to strangers."},
+                    {"reference": "Matthew 25:21", "text": "His lord said unto him, Well done, thou good and faithful servant: thou hast been faithful over a few things, I will make thee ruler over many things: enter thou into the joy of thy lord."},
+                    {"reference": "Lamentations 3:22-23", "text": "It is of the LORD'S mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."}
+                ]
+            },
+            "Meekness": {
+                "title": "Strength Under Control",
+                "description": "Meekness denotes not weakness but strength under divine control—power harnessed by humility. This fruit manifests as gentleness of spirit, freedom from arrogance, and submission to God's will. Moses, called the meekest man on earth, demonstrated great strength tempered by dependence upon God.<label for=\"sn-meekness\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-meekness\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek πραΰτης (prautes) describes controlled strength, humble gentleness, and freedom from arrogance. Christ exemplified this quality, being 'meek and lowly in heart' (Matthew 11:29), yet displaying righteous authority when needed. Meekness represents power submitted to divine direction rather than absence of strength.</span>",
+                "verses": [
+                    {"reference": "Matthew 5:5", "text": "Blessed are the meek: for they shall inherit the earth."},
+                    {"reference": "Numbers 12:3", "text": "Now the man Moses was very meek, above all the men which were upon the face of the earth."},
+                    {"reference": "Matthew 11:29", "text": "Take my yoke upon you, and learn of me; for I am meek and lowly in heart: and ye shall find rest unto your souls."},
+                    {"reference": "James 1:21", "text": "Wherefore lay apart all filthiness and superfluity of naughtiness, and receive with meekness the engrafted word, which is able to save your souls."},
+                    {"reference": "1 Peter 3:15", "text": "But sanctify the Lord God in your hearts: and be ready always to give an answer to every man that asketh you a reason of the hope that is in you with meekness and fear."},
+                    {"reference": "Colossians 3:12", "text": "Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering."}
+                ]
+            },
+            "Temperance (Self-control)": {
+                "title": "Mastery Over Fleshly Desires",
+                "description": "Temperance, or self-control, represents mastery over fleshly appetites and passions. This fruit enables believers to govern their desires, discipline their bodies, and maintain spiritual vigilance. It proves essential for effective service, athletic metaphors in Scripture highlighting its importance for finishing the race set before us.<label for=\"sn-temperance\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-temperance\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek ἐγκράτεια (enkrateia) denotes self-mastery, the ability to control one's desires and impulses. Paul compared the Christian life to athletic discipline, noting that competitors exercise temperance in all things to obtain a corruptible crown, while believers pursue an incorruptible one (1 Corinthians 9:25). This self-control extends to all areas—appetites, speech, thoughts, and conduct.</span>",
+                "verses": [
+                    {"reference": "1 Corinthians 9:25-27", "text": "And every man that striveth for the mastery is temperate in all things. Now they do it to obtain a corruptible crown; but we an incorruptible. I therefore so run, not as uncertainly; so fight I, not as one that beateth the air: But I keep under my body, and bring it into subjection: lest that by any means, when I have preached to others, I myself should be a castaway."},
+                    {"reference": "2 Peter 1:5-6", "text": "And beside this, giving all diligence, add to your faith virtue; and to virtue knowledge; And to knowledge temperance; and to temperance patience; and to patience godliness."},
+                    {"reference": "Proverbs 25:28", "text": "He that hath no rule over his own spirit is like a city that is broken down, and without walls."},
+                    {"reference": "Titus 2:11-12", "text": "For the grace of God that bringeth salvation hath appeared to all men, Teaching us that, denying ungodliness and worldly lusts, we should live soberly, righteously, and godly, in this present world."},
+                    {"reference": "Acts 24:25", "text": "And as he reasoned of righteousness, temperance, and judgment to come, Felix trembled, and answered, Go thy way for this time; when I have a convenient season, I will call for thee."},
+                    {"reference": "1 Thessalonians 5:6", "text": "Therefore let us not sleep, as do others; but let us watch and be sober."}
+                ]
+            }
+        }
+    }
+
+    # Find the item by slug
+    item = None
+    item_name = None
+    category_name = None
+
+    for cat_name, category in fruits_data.items():
+        for name, data in category.items():
+            if create_slug(name) == fruit_slug:
+                item = data
+                item_name = name
+                category_name = cat_name
+                break
+        if item:
+            break
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Fruit of the Spirit not found")
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Fruits of the Spirit", "url": "/fruits-of-the-spirit"},
+        {"text": item_name, "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "resource_detail.html",
+        {
+            "request": request,
+            "books": books,
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Fruits of the Spirit",
+            "back_url": "/fruits-of-the-spirit",
+            "back_text": "Fruits of the Spirit",
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
 @app.get("/family-tree", response_class=HTMLResponse)
 def family_tree_page(request: Request):
     """Biblical family tree page using GEDCOM file"""
