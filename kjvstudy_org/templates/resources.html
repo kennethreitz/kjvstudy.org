@@ -140,12 +140,12 @@
 <h1>Theological Resources</h1>
 <p class="subtitle">A Curated Collection of Biblical Study Materials</p>
 
-<section>
+<div>
     <p class="intro-text"><span class="newthought">These resources</span> provide comprehensive explorations of biblical people, theological concepts, historical contexts, and study tools. Each section offers detailed treatments grounded in the Authorized King James Version, with careful attention to scriptural accuracy and theological precision.</p>
-</section>
+</div>
 
 {% for category, items in resources.items() %}
-<section class="resource-category">
+<div class="resource-category">
     <h2 class="category-title">{{ category }}</h2>
     <div class="resource-grid">
         {% for resource in items %}
@@ -156,11 +156,11 @@
         </div>
         {% endfor %}
     </div>
-</section>
+</div>
 {% endfor %}
 
-<section>
+<div>
     <h2>Additional Tools</h2>
     <p>Beyond these theological resources, explore our <a href="/reading-plans">Reading Plans</a> for structured Bible study, browse the <a href="/topics">Topical Index</a> for thematic studies, or use the <a href="/search">Search</a> to find specific passages.</p>
-</section>
+</div>
 {% endblock %}
