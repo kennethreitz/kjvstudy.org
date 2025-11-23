@@ -244,8 +244,8 @@
     <p class="verse-text">{{ verse_text | link_names | safe }}</p>
 
     {% if interlinear_words %}
-    <div class="interlinear-container">
-        <h3>Word-by-Word Analysis</h3>
+    <details class="interlinear-container">
+        <summary style="cursor: pointer; font-size: 1.2rem; font-weight: 600; margin: 1rem 0;">Word-by-Word Analysis</summary>
         <div class="interlinear-words">
             {% for word in interlinear_words %}
             <div class="interlinear-word">
@@ -271,7 +271,7 @@
             </div>
             {% endfor %}
         </div>
-    </div>
+    </details>
     {% endif %}
 
     <nav style="margin: 1.5rem 0;">
