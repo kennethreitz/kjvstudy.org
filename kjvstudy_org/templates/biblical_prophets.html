@@ -209,7 +209,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Generate TOC from h2 and h3 headings
     const tocList = document.getElementById('toc-list');
-    const headings = document.querySelectorAll('section h2, section h3');
+    const headings = document.querySelectorAll('section h2, section h3, section article h3');
 
     headings.forEach((heading, index) => {
         // Create an ID for the heading if it doesn't have one
