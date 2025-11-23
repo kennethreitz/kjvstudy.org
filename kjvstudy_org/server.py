@@ -499,7 +499,7 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         elif request.url.path.startswith("/static/"):
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         # Bible content (verses, chapters, books) - cache for 1 week (rarely changes)
-        elif any(x in request.url.path for x in ["/book/", "/chapter/", "/verse/", "/interlinear/"]):
+        elif any(x in request.url.path for x in ["/book/", "/chapter/", "/verse/"]):
             response.headers["Cache-Control"] = "public, max-age=604800"  # 1 week
         # Study resources and special pages - cache for 1 day
         elif any(x in request.url.path for x in ["/study-guides/", "/topics/", "/reading-plans/",
@@ -691,98 +691,6 @@ def concordance_page(request: Request, word: str = Query(None, description="Word
             "books_with_word": sorted(books_with_word)
         }
     )
-
-
-@app.get("/interlinear/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
-def interlinear_verse_page(request: Request, book: str, chapter: int, verse_num: int):
-    """Interlinear view for a specific verse"""
-    books = list(bible.iter_books())
-    available_verses = get_all_interlinear_verses()
-
-    # Get the verse text from the Bible (same pattern as read_verse)
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
-
-    if not verses:
-        raise HTTPException(status_code=404, detail=f"Chapter {chapter} of {book} was not found")
-
-    # Find the specific verse
-    verse = None
-    for v in verses:
-        if v.verse == verse_num:
-            verse = v
-            break
-
-    if not verse:
-        raise HTTPException(status_code=404, detail=f"Verse {verse_num} not found in {book} {chapter}")
-
-    verse_data = {
-        "book": book,
-        "chapter": chapter,
-        "verse": verse_num,
-        "text": verse.text
-    }
-
-    # Get interlinear data if available
-    interlinear_words = get_interlinear_data(book, chapter, verse_num)
-
-    return templates.TemplateResponse(
-        "interlinear.html",
-        {
-            "request": request,
-            "books": books,
-            "available_verses": available_verses,
-            "verse_data": verse_data,
-            "interlinear_words": interlinear_words,
-            "verse_requested": True,
-            "book": book,
-            "chapter": chapter,
-            "verse": verse_num
-        }
-    )
-
-
-@app.get("/interlinear", response_class=HTMLResponse)
-def interlinear_index_page(request: Request):
-    """Interlinear Bible main page showing available verses"""
-    books = list(bible.iter_books())
-    available_verses = []  # Don't load all 31k verses on homepage
-
-    return templates.TemplateResponse(
-        "interlinear.html",
-        {
-            "request": request,
-            "books": books,
-            "available_verses": available_verses,
-            "verse_data": None,
-            "interlinear_words": None,
-            "verse_requested": False
-        }
-    )
-
-
-@app.get("/interlinear/search", response_class=HTMLResponse)
-def interlinear_search(request: Request, q: str = Query(..., description="Search query")):
-    """Search for interlinear verses and redirect to the verse page"""
-    # Parse the query using the existing function
-    # Pattern: Book Chapter:Verse (e.g., "John 3:16")
-    match = re.match(r'^(.+?)\s+(\d+):(\d+)$', q.strip())
-
-    if match:
-        book = match.group(1).strip()
-        chapter = int(match.group(2))
-        verse = int(match.group(3))
-
-        # Normalize book name (handle "1 John" vs "1John", "Psalms" vs "Psalm", etc.)
-        book = book.replace('Psalm ', 'Psalms ').replace('Psalm', 'Psalms')
-
-        # Redirect to the interlinear verse page
-        return RedirectResponse(
-            url=f"/interlinear/book/{book}/chapter/{chapter}/verse/{verse}",
-            status_code=303
-        )
-
-    # If parsing fails, redirect back to homepage with error
-    return RedirectResponse(url="/interlinear", status_code=303)
 
 
 def parse_verse_reference(reference: str):
@@ -6001,12 +5909,6 @@ def sitemap():
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>{base_url}/interlinear</loc>
-        <lastmod>{current_date}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
         <loc>{base_url}/biblical-maps</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
@@ -6250,24 +6152,6 @@ def sitemap():
         <priority>0.5</priority>
     </url>
 """
-
-    # Add interlinear verse URLs
-    try:
-        interlinear_verses = get_all_interlinear_verses()
-        for verse_info in interlinear_verses:
-            book = verse_info['book']
-            chapter = verse_info['chapter']
-            verse = verse_info['verse']
-            sitemap_xml += f"""    <url>
-        <loc>{base_url}/interlinear/book/{book}/chapter/{chapter}/verse/{verse}</loc>
-        <lastmod>{current_date}</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-"""
-    except Exception as e:
-        # If interlinear data fails to load, skip it
-        pass
 
     sitemap_xml += "</urlset>"
 
