@@ -164,10 +164,6 @@
             padding-top: 2rem;
         }
 
-        section:not(:first-of-type) {
-            border-top: 1px solid var(--border-color);
-        }
-
         /* Ornamental breaks */
         .ornament {
             text-align: center;
@@ -759,16 +755,6 @@
             }
 
             /* Improve section dividers with strong contrast */
-            section:not(:first-of-type) {
-                border-top: 3px solid #999;
-                padding-top: 2rem;
-                margin-top: 2.5rem;
-            }
-
-            [data-theme="dark"] section:not(:first-of-type) {
-                border-top-color: #666;
-            }
-
             /* Optimize verse text */
             .verse-text {
                 font-size: 1.4rem;
@@ -930,12 +916,6 @@
             /* Don't show URLs for internal links */
             a[href^="/"]:after {
                 content: "";
-            }
-
-            /* Clean borders */
-            section:not(:first-of-type) {
-                border-top: 1px solid #ccc;
-                padding-top: 1rem;
             }
 
             /* Optimize verse display */
