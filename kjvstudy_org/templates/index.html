@@ -145,18 +145,21 @@ section a[href^="/book/"] {
         max-width: 100%;
         padding: 1.25rem 0 1.25rem 1.25rem;
         margin: 1.5rem 0;
-        border-left: 4px solid var(--border-color-darker);
-        background: rgba(0, 0, 0, 0.02);
-    }
-
-    [data-theme="dark"] .verse-lookup {
-        background: rgba(255, 255, 255, 0.03);
+        border-left: 5px solid #999;
     }
 
     .verse-lookup h2 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: var(--text-color);
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #000;
+    }
+
+    [data-theme="dark"] .verse-lookup {
+        border-left-color: #666;
+    }
+
+    [data-theme="dark"] .verse-lookup h2 {
+        color: #fff;
     }
 
     .lookup-form {
@@ -166,24 +169,42 @@ section a[href^="/book/"] {
 
     .lookup-input {
         width: 100%;
-        font-size: 1rem;
+        font-size: 1.05rem;
         padding: 0.875rem 1rem;
-        border: 2px solid var(--border-color-darker);
-        font-weight: 400;
+        border: 3px solid #999;
+        font-weight: 500;
+        color: #000;
+    }
+
+    [data-theme="dark"] .lookup-input {
+        border-color: #666;
+        color: #fff;
     }
 
     .lookup-input:focus {
-        border-color: var(--text-color);
+        border-color: #333;
         outline: none;
+    }
+
+    [data-theme="dark"] .lookup-input:focus {
+        border-color: #999;
     }
 
     .lookup-btn {
         width: 100%;
         padding: 0.875rem;
-        font-size: 1rem;
-        font-weight: 600;
+        font-size: 1.05rem;
+        font-weight: 700;
         min-height: 44px;
-        border: 2px solid var(--text-color);
+        border: 3px solid #111;
+        background: #111;
+        color: #fff;
+    }
+
+    [data-theme="dark"] .lookup-btn {
+        border-color: #ddd;
+        background: #ddd;
+        color: #111;
     }
 
     .lookup-help {
@@ -200,29 +221,38 @@ section a[href^="/book/"] {
     .study-entry {
         margin: 1.25rem 0;
         padding: 1rem 0 1rem 1.25rem;
-        border-left: 3px solid var(--border-color-darker);
-        background: rgba(0, 0, 0, 0.015);
+        border-left: 5px solid #999;
     }
 
     [data-theme="dark"] .study-entry {
-        background: rgba(255, 255, 255, 0.02);
+        border-left-color: #666;
     }
 
     .study-entry h3 {
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 1.15rem;
+        font-weight: 700;
         margin-bottom: 0.5rem;
     }
 
     .study-entry h3 a {
-        color: var(--text-color);
-        border-bottom: 2px solid var(--border-color-darker);
+        color: #000;
+        border-bottom: 3px solid #999;
+    }
+
+    [data-theme="dark"] .study-entry h3 a {
+        color: #fff;
+        border-bottom-color: #666;
     }
 
     .study-entry p {
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.7;
-        color: var(--text-color);
+        color: #000;
+        font-weight: 400;
+    }
+
+    [data-theme="dark"] .study-entry p {
+        color: #e0e0e0;
     }
 
     .quick-links {
@@ -234,45 +264,57 @@ section a[href^="/book/"] {
     .quick-link-btn {
         display: inline-block;
         margin: 0.5rem 0.75rem 0.5rem 0;
-        padding: 0.5rem 1rem;
-        border: 2px solid var(--border-color-darker);
+        padding: 0.6rem 1.2rem;
+        border: 3px solid #999;
         border-radius: 4px;
-        background: rgba(0, 0, 0, 0.02);
-        font-weight: 500;
+        font-weight: 600;
         min-height: 44px;
         line-height: 1.6;
+        color: #000;
     }
 
     [data-theme="dark"] .quick-link-btn {
-        background: rgba(255, 255, 255, 0.03);
+        border-color: #666;
+        color: #e0e0e0;
     }
 
-    /* Adjust epigraph on mobile with better visibility */
+    /* Adjust epigraph on mobile with strong contrast */
     .epigraph {
         margin: 2rem 0;
         padding: 1rem;
-        border-left: 3px solid var(--border-color-darker);
-        background: rgba(0, 0, 0, 0.02);
+        border-left: 5px solid #999;
     }
 
     [data-theme="dark"] .epigraph {
-        background: rgba(255, 255, 255, 0.03);
+        border-left-color: #666;
     }
 
     .epigraph blockquote {
-        font-size: 1.05rem;
+        font-size: 1.1rem;
         line-height: 1.8;
-        color: var(--text-color);
+        color: #000;
+        font-weight: 400;
+    }
+
+    [data-theme="dark"] .epigraph blockquote {
+        color: #e0e0e0;
     }
 
     .epigraph footer {
         margin-top: 0.75rem;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        font-weight: 500;
     }
 
     .epigraph footer a {
-        font-weight: 500;
-        border-bottom: 1px dotted var(--border-color-darker);
+        font-weight: 600;
+        border-bottom: 2px solid #999;
+        color: #000;
+    }
+
+    [data-theme="dark"] .epigraph footer a {
+        border-bottom-color: #666;
+        color: #e0e0e0;
     }
 }
 </style>

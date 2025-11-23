@@ -603,17 +603,29 @@
                 color: var(--text-color);
             }
 
-            /* Enhanced link visibility for mobile */
+            /* Enhanced link visibility for mobile - strong contrast */
             a {
-                border-bottom: 2px solid var(--border-color-darker);
+                border-bottom: 2px solid #999;
                 padding-bottom: 1px;
                 min-height: 44px;
                 display: inline-block;
                 line-height: 1.6;
+                color: #000;
+                font-weight: 500;
+            }
+
+            [data-theme="dark"] a {
+                border-bottom-color: #666;
+                color: #e0e0e0;
             }
 
             a:hover, a:active {
-                border-bottom-color: var(--text-color);
+                border-bottom-color: #333;
+            }
+
+            [data-theme="dark"] a:hover,
+            [data-theme="dark"] a:active {
+                border-bottom-color: #999;
             }
 
             /* Make max-width sections full width on mobile */
@@ -630,7 +642,7 @@
                 max-width: 100% !important;
             }
 
-            /* Optimize sidenotes for mobile with better visibility */
+            /* Optimize sidenotes for mobile with strong contrast */
             .sidenote,
             .marginnote {
                 display: block;
@@ -638,16 +650,17 @@
                 width: 100%;
                 margin: 1rem 0 1rem 1.5rem;
                 padding: 0.75rem 0 0.75rem 1rem;
-                border-left: 3px solid var(--border-color-darker);
-                background: rgba(0, 0, 0, 0.02);
-                font-size: 0.9rem;
+                border-left: 4px solid #999;
+                font-size: 0.95rem;
                 line-height: 1.6;
-                color: var(--text-color);
+                color: #000;
+                font-weight: 400;
             }
 
             [data-theme="dark"] .sidenote,
             [data-theme="dark"] .marginnote {
-                background: rgba(255, 255, 255, 0.03);
+                border-left-color: #666;
+                color: #e0e0e0;
             }
 
             .sidenote-number,
@@ -690,36 +703,60 @@
                 justify-content: center;
             }
 
-            /* Optimize breadcrumbs with better contrast */
+            /* Optimize breadcrumbs with strong contrast */
             .breadcrumb {
-                font-size: 0.9rem;
+                font-size: 0.95rem;
                 flex-wrap: wrap;
-                border-bottom: 2px solid var(--border-color-darker);
+                border-bottom: 3px solid #999;
                 padding-bottom: 0.75rem;
             }
 
-            .breadcrumb a {
-                font-weight: 500;
-                border-bottom: 1px dotted var(--border-color-darker);
+            [data-theme="dark"] .breadcrumb {
+                border-bottom-color: #666;
             }
 
-            /* Improve button visibility on mobile */
+            .breadcrumb a {
+                font-weight: 600;
+                border-bottom: 2px solid #999;
+                color: #000;
+            }
+
+            [data-theme="dark"] .breadcrumb a {
+                border-bottom-color: #666;
+                color: #e0e0e0;
+            }
+
+            /* Improve button visibility on mobile with strong contrast */
             button, .btn, input[type="submit"] {
                 min-height: 44px;
                 min-width: 44px;
                 padding: 0.75rem 1.25rem;
                 font-size: 1rem;
-                font-weight: 500;
-                border: 2px solid var(--text-color);
+                font-weight: 700;
+                border: 3px solid #111;
+                background: #111;
+                color: #fff;
                 cursor: pointer;
                 -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
             }
 
-            /* Improve section dividers */
+            [data-theme="dark"] button,
+            [data-theme="dark"] .btn,
+            [data-theme="dark"] input[type="submit"] {
+                border-color: #ddd;
+                background: #ddd;
+                color: #111;
+            }
+
+            /* Improve section dividers with strong contrast */
             section:not(:first-of-type) {
-                border-top: 2px solid var(--border-color-darker);
+                border-top: 3px solid #999;
                 padding-top: 2rem;
                 margin-top: 2.5rem;
+            }
+
+            [data-theme="dark"] section:not(:first-of-type) {
+                border-top-color: #666;
             }
 
             /* Optimize verse text */
