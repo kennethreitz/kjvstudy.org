@@ -240,7 +240,7 @@
 <h1>{{ book }} {{ chapter }}:{{ verse_num }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
-<section>
+<div>
     <p class="verse-text">{{ verse_text | link_names | safe }}</p>
 
     {% if interlinear_words %}
@@ -325,10 +325,10 @@
             });
         }
     </script>
-</section>
+</div>
 
 {% if cross_references %}
-<section>
+<div>
     <h2>Cross References</h2>
     <p>Related verses that illuminate this passage (hover to preview):</p>
     <ul style="max-width: 60%; list-style: none; padding: 0;">
@@ -360,46 +360,46 @@
         </li>
         {% endfor %}
     </ul>
-</section>
+</div>
 {% endif %}
 
 {% if commentary %}
     {% if commentary.analysis %}
-    <section>
+    <div>
         <h2>Analysis</h2>
         <p>{{ commentary.analysis|safe }}</p>
-    </section>
+    </div>
     {% endif %}
 
     {% if commentary.historical %}
-    <section>
+    <div>
         <h2>Historical Context</h2>
         <p>{{ commentary.historical|safe }}</p>
-    </section>
+    </div>
     {% endif %}
 
     {% if commentary.theological %}
-    <section>
+    <div>
         <h2>Theological Significance</h2>
         <p>{{ commentary.theological|safe }}</p>
-    </section>
+    </div>
     {% endif %}
 
     {% if commentary.questions %}
-    <section>
+    <div>
         <h2>Questions for Reflection</h2>
         <ul>
             {% for question in commentary.questions %}
             <li>{{ question }}</li>
             {% endfor %}
         </ul>
-    </section>
+    </div>
     {% endif %}
 {% endif %}
 
 <!-- Related Content for Internal Linking -->
 {% if related_content and (related_content.topics or related_content.people or related_content.resources) %}
-<section style="border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 3rem;">
+<div style="border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 3rem;">
     <h2>Related Resources</h2>
     <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
         Explore related topics, people, and study resources to deepen your understanding of this passage.
@@ -445,7 +445,7 @@
         </div>
         {% endif %}
     </div>
-</section>
+</div>
 {% endif %}
 
 {% endblock %}
