@@ -670,14 +670,24 @@
                 border-left: 4px solid #999;
                 font-size: 0.95rem;
                 line-height: 1.6;
-                color: #444;
+                color: #444 !important;
+                background-color: transparent !important;
                 font-weight: 400;
             }
 
             [data-theme="dark"] .sidenote,
             [data-theme="dark"] .marginnote {
                 border-left-color: #666;
-                color: #aaa;
+                color: #aaa !important;
+                background-color: #151515 !important;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .sidenote:not([data-theme]),
+                .marginnote:not([data-theme]) {
+                    color: #aaa !important;
+                    background-color: #151515 !important;
+                }
             }
 
             .sidenote-number,
