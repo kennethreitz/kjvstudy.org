@@ -310,6 +310,69 @@ TOPICS = {
                 ]
             }
         }
+    },
+    "Parenting": {
+        "description": "Biblical principles for raising children",
+        "subtopics": {
+            "Teaching Children": {
+                "description": "Instructing children in God's ways",
+                "verses": [
+                    {"ref": "Deuteronomy 6:6-7", "note": "Teach children diligently"},
+                    {"ref": "Proverbs 22:6", "note": "Train up a child in the way he should go"},
+                    {"ref": "Ephesians 6:4", "note": "Bring them up in nurture and admonition"},
+                    {"ref": "Psalms 78:4-6", "note": "Show children the praises of the LORD"},
+                    {"ref": "2 Timothy 3:15", "note": "Known the Scriptures from childhood"},
+                ]
+            },
+            "Discipline": {
+                "description": "Godly correction and discipline",
+                "verses": [
+                    {"ref": "Proverbs 13:24", "note": "He that spareth his rod hateth his son"},
+                    {"ref": "Proverbs 29:15", "note": "Rod and reproof give wisdom"},
+                    {"ref": "Proverbs 23:13-14", "note": "Withhold not correction from the child"},
+                    {"ref": "Hebrews 12:7", "note": "God dealeth with you as with sons"},
+                    {"ref": "Proverbs 29:17", "note": "Correct thy son, and he shall give thee rest"},
+                ]
+            },
+            "Father's Role": {
+                "description": "The father's responsibility",
+                "verses": [
+                    {"ref": "Ephesians 6:4", "note": "Fathers, provoke not your children to wrath"},
+                    {"ref": "Colossians 3:21", "note": "Fathers, provoke not your children"},
+                    {"ref": "1 Thessalonians 2:11-12", "note": "As a father doth his children"},
+                    {"ref": "Proverbs 4:1-4", "note": "Father's instruction to his son"},
+                ]
+            },
+            "Mother's Role": {
+                "description": "The mother's influence",
+                "verses": [
+                    {"ref": "Proverbs 31:1", "note": "Prophecy that his mother taught him"},
+                    {"ref": "Proverbs 31:26-28", "note": "Openeth her mouth with wisdom"},
+                    {"ref": "2 Timothy 1:5", "note": "Faith that dwelt in thy mother"},
+                    {"ref": "Proverbs 1:8", "note": "Forsake not the law of thy mother"},
+                ]
+            },
+            "Children's Obedience": {
+                "description": "Children honoring and obeying parents",
+                "verses": [
+                    {"ref": "Ephesians 6:1-3", "note": "Children, obey your parents"},
+                    {"ref": "Colossians 3:20", "note": "Obey your parents in all things"},
+                    {"ref": "Exodus 20:12", "note": "Honour thy father and thy mother"},
+                    {"ref": "Proverbs 6:20", "note": "Keep thy father's commandment"},
+                    {"ref": "Proverbs 23:22", "note": "Hearken unto thy father"},
+                ]
+            },
+            "Love and Provision": {
+                "description": "Caring for children's needs",
+                "verses": [
+                    {"ref": "Psalms 127:3", "note": "Children are an heritage of the LORD"},
+                    {"ref": "Psalms 103:13", "note": "As a father pitieth his children"},
+                    {"ref": "Matthew 7:11", "note": "Give good gifts unto your children"},
+                    {"ref": "2 Corinthians 12:14", "note": "Children ought not to lay up for parents"},
+                    {"ref": "1 Timothy 5:8", "note": "Provide for his own"},
+                ]
+            }
+        }
     }
 }
 
