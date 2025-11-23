@@ -161,7 +161,7 @@
         <p class="fruit-title">{{ fruit.title }}</p>
 
         <div class="fruit-description">
-            {{ fruit.description | safe }}
+            {{ fruit.description | link_verses | safe }}
         </div>
 
         {% if fruit.verses %}
