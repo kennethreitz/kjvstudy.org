@@ -624,9 +624,6 @@
             a {
                 border-bottom: 2px solid #999;
                 padding-bottom: 1px;
-                min-height: 44px;
-                display: inline-block;
-                line-height: 1.6;
                 color: #000;
                 font-weight: 500;
             }
@@ -643,6 +640,12 @@
             [data-theme="dark"] a:hover,
             [data-theme="dark"] a:active {
                 border-bottom-color: #999;
+            }
+
+            /* Touch target sizing only for interactive elements, not inline text links */
+            button, .btn, input[type="submit"], .quick-link-btn {
+                min-height: 44px;
+                min-width: 44px;
             }
 
             /* Make max-width sections full width on mobile */
