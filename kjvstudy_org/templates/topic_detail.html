@@ -85,9 +85,13 @@
 
 <section>
     <h2>Overview</h2>
+    {% if topic.overview %}
+        {{ topic.overview | safe }}
+    {% else %}
     <div class="topic-overview">
         This topical index organizes key Scripture passages related to {{ topic_name|lower }}. Each subtopic below addresses a specific aspect of this theme, with carefully selected verses that establish biblical teaching on the subject.
     </div>
+    {% endif %}
 </section>
 
 <section>

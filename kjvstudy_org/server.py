@@ -911,19 +911,44 @@ def study_guide_detail(request: Request, slug: str):
             "description": "Essential truths for new Christians to understand their faith",
             "sections": [
                 {
-                    "title": "God's Love for You",
-                    "verses": ["John 3:16", "1 John 4:9-10"],
-                    "content": "God loves you unconditionally. His love is not based on what you do, but on who He is."
+                    "title": "God's Infinite Love for You",
+                    "verses": ["John 3:16", "1 John 4:9-10", "Romans 5:8", "Ephesians 2:4-5"],
+                    "content": "Scripture reveals that God's love for you transcends human comprehension. This divine love is not contingent upon your merit, worthiness, or performance—it proceeds from God's very nature, for 'God is love' (1 John 4:8). While we were yet sinners, Christ died for the ungodly, demonstrating the Father's love in the most profound manner imaginable. This love is eternal, unchanging, and perfectly holy. It is not mere sentiment but covenant faithfulness, expressed supremely in the gift of His only begotten Son. Understanding this foundational truth transforms how you view yourself, your salvation, and your relationship with your Creator."
                 },
                 {
-                    "title": "Your New Life",
-                    "verses": ["2 Corinthians 5:17", "Ephesians 2:10"],
-                    "content": "When you accept Christ, you become a new creation. The old has passed away, and the new has come."
+                    "title": "The New Birth and Regeneration",
+                    "verses": ["John 3:3-7", "2 Corinthians 5:17", "Titus 3:5", "1 Peter 1:23"],
+                    "content": "Your conversion marks a supernatural transformation Scripture calls being 'born again.' This is no mere moral reformation or religious decision, but a divine act of regeneration wherein the Holy Spirit imparts spiritual life to one previously dead in trespasses and sins. You have become a new creation in Christ Jesus—the old nature with its affections and desires has passed away, and behold, all things have become new. This regeneration is not of your own doing, not of works lest any man should boast, but is the gift of God accomplished by the washing of regeneration and renewing of the Holy Ghost. You are now God's workmanship, created in Christ Jesus unto good works."
                 },
                 {
-                    "title": "Assurance of Salvation",
-                    "verses": ["Romans 10:9", "1 John 5:13"],
-                    "content": "You can know for certain that you have eternal life through faith in Jesus Christ."
+                    "title": "Assurance of Eternal Salvation",
+                    "verses": ["Romans 10:9-10", "1 John 5:11-13", "John 10:27-29", "Romans 8:38-39"],
+                    "content": "The Scriptures provide abundant grounds for assurance of your salvation. If you have confessed with your mouth the Lord Jesus and believed in your heart that God raised Him from the dead, you are saved. This is not presumption but faith resting upon God's promises. You can know that you have eternal life, for this testimony is given that God has provided life through His Son. Your salvation rests not upon your strength but upon Christ's finished work and God's faithfulness. No power in heaven or earth can separate you from God's love in Christ Jesus—neither tribulation, distress, persecution, nor any creature can pluck you from the Father's hand. Rest in these immutable promises."
+                },
+                {
+                    "title": "Growing in Grace Through God's Word",
+                    "verses": ["2 Peter 3:18", "1 Peter 2:2", "Psalm 119:105", "2 Timothy 3:16-17"],
+                    "content": "As a newborn babe desires milk, so you should desire the sincere milk of the Word that you may grow thereby. The Holy Scriptures are your spiritual nourishment, given by inspiration of God and profitable for doctrine, reproof, correction, and instruction in righteousness. Daily meditation upon God's Word renews your mind, strengthens your faith, and equips you for every good work. The Bible is not merely a religious text but the very words of the living God—a lamp unto your feet and a light unto your path. Commit yourself to regular, prayerful study of Scripture, allowing it to dwell in you richly and transform your understanding."
+                },
+                {
+                    "title": "The Ministry and Power of Prayer",
+                    "verses": ["1 Thessalonians 5:17", "Philippians 4:6-7", "Matthew 6:6-8", "Hebrews 4:16"],
+                    "content": "Prayer constitutes the believer's vital communion with the Almighty. Through Christ's mediation, you now have access to the throne of grace, where you may obtain mercy and find grace to help in time of need. Be anxious for nothing, but in everything by prayer and supplication with thanksgiving make your requests known unto God. Cultivate both private prayer in your closet and corporate prayer with fellow believers. Prayer is not merely asking for things but includes worship, confession, thanksgiving, and intercession. As you pray without ceasing, you maintain conscious fellowship with your Father and experience the peace of God which passes understanding."
+                },
+                {
+                    "title": "Fellowship with Other Believers",
+                    "verses": ["Hebrews 10:24-25", "Acts 2:42", "1 Corinthians 12:12-27", "Ephesians 4:11-16"],
+                    "content": "God has not called you to solitary Christianity but to membership in the body of Christ. Forsake not the assembling of yourselves together, as some do, but provoke one another unto love and good works. The early church continued steadfastly in the apostles' doctrine, fellowship, breaking of bread, and prayers. As members of Christ's body, believers possess diverse gifts intended for mutual edification. Find a Bible-believing church where the Word is faithfully preached, the ordinances properly administered, and church discipline maintained. There you will find encouragement, accountability, teaching, and opportunities for service as you grow in grace together with fellow saints."
+                },
+                {
+                    "title": "Walking in Obedience and Holiness",
+                    "verses": ["1 Peter 1:15-16", "1 John 2:3-6", "Romans 12:1-2", "Philippians 2:12-13"],
+                    "content": "Salvation is by grace through faith alone, yet genuine faith produces obedience. 'Be ye holy, for I am holy,' commands the Lord. This is not legalism but the natural fruit of regeneration—we keep His commandments because we know Him and love Him. Present your bodies a living sacrifice, holy and acceptable unto God, which is your reasonable service. Be not conformed to this world but be transformed by the renewing of your mind. Work out your salvation with fear and trembling, knowing that it is God who works in you both to will and to do of His good pleasure. Pursue holiness, without which no man shall see the Lord, not as a means of earning salvation but as evidence of your new nature in Christ."
+                },
+                {
+                    "title": "Your Commission to Share the Gospel",
+                    "verses": ["Matthew 28:19-20", "Acts 1:8", "2 Corinthians 5:18-20", "Romans 1:16"],
+                    "content": "Having received the gospel, you are now commissioned to share it. Christ's command to make disciples of all nations applies to every believer—you are His witness, called to proclaim the good news of salvation. God has given you the ministry of reconciliation, making you an ambassador for Christ. Be not ashamed of the gospel of Christ, for it is the power of God unto salvation to everyone who believes. Your testimony of God's grace in your life provides powerful evidence of the gospel's reality. As you grow in knowledge and experience, share with gentleness and respect the hope that is in you, trusting the Holy Spirit to use your witness for His glory."
                 }
             ]
         },
@@ -932,19 +957,44 @@ def study_guide_detail(request: Request, slug: str):
             "description": "Understanding how God saves us through His grace alone",
             "sections": [
                 {
-                    "title": "The Problem: Sin",
-                    "verses": ["Romans 3:23", "Romans 6:23"],
-                    "content": "All have sinned and fallen short of God's glory. The wages of sin is death."
+                    "title": "The Universal Problem of Sin",
+                    "verses": ["Romans 3:10-12", "Romans 3:23", "Ecclesiastes 7:20", "1 John 1:8"],
+                    "content": "Scripture declares the universal reality of human sinfulness—'there is none righteous, no, not one.' All have sinned and come short of the glory of God. This is not a matter of degree but of kind; even one sin separates us from the holy God. Sin is not merely moral failure but rebellion against our Creator, transgression of His law, and falling short of His perfect standard. The carnal mind is enmity against God, not subject to His law, neither indeed can be. Every imagination of man's heart is only evil continually. This diagnosis, though devastating to human pride, is essential for understanding our desperate need for divine intervention."
                 },
                 {
-                    "title": "The Solution: Grace",
-                    "verses": ["Ephesians 2:8-9", "Titus 3:5"],
-                    "content": "Salvation is by grace through faith, not by works. It is God's gift to us."
+                    "title": "The Just Penalty for Sin",
+                    "verses": ["Romans 6:23", "Ezekiel 18:4", "Hebrews 9:27", "Revelation 20:15"],
+                    "content": "God's holiness demands justice—'the wages of sin is death.' This death encompasses physical mortality, spiritual separation from God, and ultimately eternal punishment in the lake of fire. 'The soul that sinneth, it shall die,' declares the Lord. It is appointed unto men once to die, but after this the judgment. Divine justice cannot simply overlook sin or pretend it never occurred. God's righteousness requires that sin be punished, His law satisfied, and His holiness vindicated. The seriousness of sin is measured not merely by the act itself but by the infinite dignity of the One against whom it is committed. Understanding this penalty magnifies the wonder of God's salvation."
                 },
                 {
-                    "title": "The Response: Faith",
-                    "verses": ["Romans 10:9-10", "Acts 16:31"],
-                    "content": "We are saved by believing in Jesus Christ and confessing Him as Lord."
+                    "title": "The Impossibility of Self-Salvation",
+                    "verses": ["Ephesians 2:8-9", "Titus 3:5", "Isaiah 64:6", "Galatians 2:16"],
+                    "content": "Salvation cannot be earned through human effort, religious observance, or moral reformation. 'Not by works of righteousness which we have done,' Scripture declares emphatically. Our best efforts are as filthy rags in God's sight. No man is justified by the works of the law, for by the deeds of the law no flesh shall be justified. If righteousness came by the law, then Christ died in vain. This truth demolishes human pride and self-righteousness. We cannot save ourselves any more than a drowning man can pull himself up by his own hair. Recognizing our utter inability to save ourselves prepares us to receive God's gracious provision."
+                },
+                {
+                    "title": "The Glorious Gift of Grace",
+                    "verses": ["Ephesians 2:4-5", "Romans 5:8", "Titus 2:11", "2 Corinthians 8:9"],
+                    "content": "Grace is God's unmerited favor toward those who deserve His wrath. 'By grace are ye saved through faith, and that not of yourselves: it is the gift of God.' While we were yet sinners, dead in trespasses and sins, God demonstrated His love toward us in that Christ died for us. The grace of God that brings salvation has appeared to all men. This grace is not God's response to human goodness but His sovereign initiative toward the undeserving. For ye know the grace of our Lord Jesus Christ, that though He was rich, yet for your sakes He became poor, that ye through His poverty might be rich. Grace reigns through righteousness unto eternal life."
+                },
+                {
+                    "title": "Christ's Substitutionary Atonement",
+                    "verses": ["Isaiah 53:5-6", "2 Corinthians 5:21", "1 Peter 2:24", "1 Peter 3:18"],
+                    "content": "God's salvation centers upon Christ's substitutionary death on the cross. 'He was wounded for our transgressions, He was bruised for our iniquities; the chastisement of our peace was upon Him, and with His stripes we are healed.' God made Christ, who knew no sin, to be sin for us, that we might be made the righteousness of God in Him. Our sins were imputed to Christ; His righteousness is imputed to us. He bore our sins in His own body on the tree, suffering the just for the unjust to bring us to God. This exchange—our sin for His righteousness—constitutes the heart of the gospel. Christ satisfied divine justice, propitiated God's wrath, and purchased our redemption."
+                },
+                {
+                    "title": "Salvation Through Faith Alone",
+                    "verses": ["Romans 10:9-10", "Acts 16:31", "John 3:16", "Ephesians 2:8"],
+                    "content": "God's requirement for salvation is faith in Jesus Christ. 'Believe on the Lord Jesus Christ, and thou shalt be saved.' If you confess with your mouth the Lord Jesus and believe in your heart that God raised Him from the dead, you shall be saved. Whosoever believes in Him should not perish but have everlasting life. This faith is not mere intellectual assent but wholehearted trust in Christ's person and work. It involves repentance from sin, acknowledgment of Christ as Lord, and reliance upon His finished work rather than your own efforts. Faith is the empty hand that receives God's gift, the channel through which grace flows, the means by which Christ's righteousness becomes ours."
+                },
+                {
+                    "title": "The Eternal Security of the Believer",
+                    "verses": ["John 10:28-29", "Romans 8:38-39", "Philippians 1:6", "Jude 1:24"],
+                    "content": "Those whom God saves, He keeps eternally secure. 'I give unto them eternal life, and they shall never perish, neither shall any man pluck them out of my hand.' Nothing can separate us from the love of God which is in Christ Jesus our Lord. He who has begun a good work in you will perform it until the day of Jesus Christ. God is able to keep you from falling and to present you faultless before His presence with exceeding joy. Your salvation rests not upon your faithfulness but upon God's. You are kept by the power of God through faith unto salvation. This assurance flows not from presumption but from confidence in God's promises and Christ's completed work."
+                },
+                {
+                    "title": "Grace Produces Godly Living",
+                    "verses": ["Titus 2:11-14", "Ephesians 2:10", "James 2:17-18", "1 John 3:9"],
+                    "content": "Though salvation is by grace alone through faith alone, genuine faith produces transformed living. The grace of God teaches us to deny ungodliness and worldly lusts and to live soberly, righteously, and godly in this present world. We are God's workmanship, created in Christ Jesus unto good works. Faith without works is dead, being alone. True conversion results in a new nature that cannot continue in sin as a practice. This is not legalism but liberty—freedom from sin's dominion to serve righteousness. Good works do not produce salvation but provide evidence of it. Where the Spirit regenerates, holiness inevitably follows, not as condition but as consequence of saving grace."
                 }
             ]
         },
@@ -4018,7 +4068,7 @@ def fruits_of_spirit_page(request: Request):
         "The Fruits of the Spirit": {
             "Love": {
                 "title": "The Supreme Christian Virtue",
-                "description": "Love, the first and greatest fruit of the Spirit, transcends mere human affection or romantic sentiment. This agape love represents God's own nature—selfless, sacrificial, and unconditional. It fulfills the whole law, never fails, and identifies Christ's true disciples.<label for=\"sn-love\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-love\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek word ἀγάπη (agape) differs from φιλέω (brotherly affection) and ἔρως (romantic love). It describes divine love that seeks the highest good of others regardless of their merit or response. This love originates in God's nature and flows through believers by the Holy Spirit (Romans 5:5).</span>",
+                "description": "Love stands preeminent among the Spirit's fruits, for it encapsulates the very nature of God Himself. Scripture declares categorically that 'God is love' (1 John 4:8)—not merely that He loves, but that love constitutes His essential being. This divine ἀγάπη (agape) transcends all human affections, sentiments, or emotions. It represents selfless, sacrificial devotion that seeks the highest good of its object regardless of merit, response, or reciprocation. When the Holy Spirit reproduces this love in believers' hearts, He imparts nothing less than a participation in God's own character.<label for=\"sn-love\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-love\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek language employed three primary words for love: ἔρως (eros, romantic/passionate love), φιλέω (phileo, brotherly affection/friendship), and ἀγάπη (agape, selfless, volitional love). The New Testament writers, under divine inspiration, chose agape to describe God's love and the love commanded of Christians—a deliberate, determined commitment to another's welfare regardless of personal cost or their worthiness.</span><br/><br/>The Apostle Paul's magnificent exposition in 1 Corinthians 13 reveals love's essential characteristics and supreme value. This love 'suffereth long, and is kind; envieth not; vaunteth not itself, is not puffed up.' It does not behave unseemly, seeks not its own interests, is not easily provoked, and thinks no evil. Unlike human affection that often proves fickle and conditional, divine love 'beareth all things, believeth all things, hopeth all things, endureth all things.' Most remarkably, 'charity never faileth'—when prophecies cease, tongues fail, and knowledge vanishes, love abides eternally. Without this love, the most spectacular spiritual gifts, profound knowledge, mountain-moving faith, sacrificial generosity, and even martyrdom profit nothing. Love alone endures beyond the veil, for it reflects God's eternal nature.<br/><br/>Christ commanded His disciples, 'Love one another; as I have loved you' (John 13:34-35), establishing His own sacrificial death as both the pattern and power for Christian love. This proved no mere moral aspiration but the distinguishing mark of authentic discipleship: 'By this shall all men know that ye are my disciples, if ye have love one to another.' The Christian's love for God and neighbor does not originate in human will or effort but flows from the Holy Spirit's indwelling presence. Paul testified that 'the love of God is shed abroad in our hearts by the Holy Ghost which is given unto us' (Romans 5:5). This supernatural love enables believers to fulfill the law's demands, for 'love is the fulfilling of the law' (Romans 13:10). All divine commandments find their sum and substance in loving God supremely and loving one's neighbor as oneself.<br/><br/>Moreover, Scripture reveals that this love demonstrates authentication of salvation. 'We know that we have passed from death unto life, because we love the brethren' (1 John 3:14). Conversely, 'He that loveth not knoweth not God; for God is love.' The presence or absence of genuine love toward fellow believers provides evidence of one's spiritual condition. This is no peripheral matter but strikes at the heart of Christian profession. True love manifests practically—not in word or tongue merely, but in deed and truth. It covers a multitude of sins (1 Peter 4:8), edifies the church, seeks the profit of others, and reflects Christ's own heart toward His body.<br/><br/>The cultivation of this love requires intentional pursuit. Paul exhorted believers to 'put on charity, which is the bond of perfectness' (Colossians 3:14), and to 'follow after charity' as the 'more excellent way' (1 Corinthians 12:31; 14:1). As the Spirit produces this fruit, believers must cooperate by walking in love, actively choosing to love even the unlovely, forgiving those who wrong them, and extending compassion to all. This love proves costly, demanding death to self-interest and rejection of the world's quid pro quo mentality. Yet it brings profound reward: communion with God (for he that dwells in love dwells in God), joy in service, unity among brethren, and powerful witness to the watching world. Above all, it glorifies God, for in loving as Christ loved, believers manifest the invisible God to a dark and loveless age.",
                 "verses": [
                     {"reference": "1 Corinthians 13:4-8", "text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up, Doth not behave itself unseemly, seeketh not her own, is not easily provoked, thinketh no evil; Rejoiceth not in iniquity, but rejoiceth in the truth; Beareth all things, believeth all things, hopeth all things, endureth all things. Charity never faileth."},
                     {"reference": "John 13:34-35", "text": "A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another. By this shall all men know that ye are my disciples, if ye have love one to another."},
@@ -4153,7 +4203,7 @@ def fruit_detail(request: Request, fruit_slug: str):
         "The Fruits of the Spirit": {
             "Love": {
                 "title": "The Supreme Christian Virtue",
-                "description": "Love, the first and greatest fruit of the Spirit, transcends mere human affection or romantic sentiment. This agape love represents God's own nature—selfless, sacrificial, and unconditional. It fulfills the whole law, never fails, and identifies Christ's true disciples.<label for=\"sn-love\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-love\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek word ἀγάπη (agape) differs from φιλέω (brotherly affection) and ἔρως (romantic love). It describes divine love that seeks the highest good of others regardless of their merit or response. This love originates in God's nature and flows through believers by the Holy Spirit (Romans 5:5).</span>",
+                "description": "Love stands preeminent among the Spirit's fruits, for it encapsulates the very nature of God Himself. Scripture declares categorically that 'God is love' (1 John 4:8)—not merely that He loves, but that love constitutes His essential being. This divine ἀγάπη (agape) transcends all human affections, sentiments, or emotions. It represents selfless, sacrificial devotion that seeks the highest good of its object regardless of merit, response, or reciprocation. When the Holy Spirit reproduces this love in believers' hearts, He imparts nothing less than a participation in God's own character.<label for=\"sn-love\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-love\" class=\"margin-toggle\"/><span class=\"sidenote\">The Greek language employed three primary words for love: ἔρως (eros, romantic/passionate love), φιλέω (phileo, brotherly affection/friendship), and ἀγάπη (agape, selfless, volitional love). The New Testament writers, under divine inspiration, chose agape to describe God's love and the love commanded of Christians—a deliberate, determined commitment to another's welfare regardless of personal cost or their worthiness.</span><br/><br/>The Apostle Paul's magnificent exposition in 1 Corinthians 13 reveals love's essential characteristics and supreme value. This love 'suffereth long, and is kind; envieth not; vaunteth not itself, is not puffed up.' It does not behave unseemly, seeks not its own interests, is not easily provoked, and thinks no evil. Unlike human affection that often proves fickle and conditional, divine love 'beareth all things, believeth all things, hopeth all things, endureth all things.' Most remarkably, 'charity never faileth'—when prophecies cease, tongues fail, and knowledge vanishes, love abides eternally. Without this love, the most spectacular spiritual gifts, profound knowledge, mountain-moving faith, sacrificial generosity, and even martyrdom profit nothing. Love alone endures beyond the veil, for it reflects God's eternal nature.<br/><br/>Christ commanded His disciples, 'Love one another; as I have loved you' (John 13:34-35), establishing His own sacrificial death as both the pattern and power for Christian love. This proved no mere moral aspiration but the distinguishing mark of authentic discipleship: 'By this shall all men know that ye are my disciples, if ye have love one to another.' The Christian's love for God and neighbor does not originate in human will or effort but flows from the Holy Spirit's indwelling presence. Paul testified that 'the love of God is shed abroad in our hearts by the Holy Ghost which is given unto us' (Romans 5:5). This supernatural love enables believers to fulfill the law's demands, for 'love is the fulfilling of the law' (Romans 13:10). All divine commandments find their sum and substance in loving God supremely and loving one's neighbor as oneself.<br/><br/>Moreover, Scripture reveals that this love demonstrates authentication of salvation. 'We know that we have passed from death unto life, because we love the brethren' (1 John 3:14). Conversely, 'He that loveth not knoweth not God; for God is love.' The presence or absence of genuine love toward fellow believers provides evidence of one's spiritual condition. This is no peripheral matter but strikes at the heart of Christian profession. True love manifests practically—not in word or tongue merely, but in deed and truth. It covers a multitude of sins (1 Peter 4:8), edifies the church, seeks the profit of others, and reflects Christ's own heart toward His body.<br/><br/>The cultivation of this love requires intentional pursuit. Paul exhorted believers to 'put on charity, which is the bond of perfectness' (Colossians 3:14), and to 'follow after charity' as the 'more excellent way' (1 Corinthians 12:31; 14:1). As the Spirit produces this fruit, believers must cooperate by walking in love, actively choosing to love even the unlovely, forgiving those who wrong them, and extending compassion to all. This love proves costly, demanding death to self-interest and rejection of the world's quid pro quo mentality. Yet it brings profound reward: communion with God (for he that dwells in love dwells in God), joy in service, unity among brethren, and powerful witness to the watching world. Above all, it glorifies God, for in loving as Christ loved, believers manifest the invisible God to a dark and loveless age.",
                 "verses": [
                     {"reference": "1 Corinthians 13:4-8", "text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up, Doth not behave itself unseemly, seeketh not her own, is not easily provoked, thinketh no evil; Rejoiceth not in iniquity, but rejoiceth in the truth; Beareth all things, believeth all things, hopeth all things, endureth all things. Charity never faileth."},
                     {"reference": "John 13:34-35", "text": "A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another. By this shall all men know that ye are my disciples, if ye have love one to another."},
@@ -6327,6 +6377,12 @@ def resources_page(request: Request):
                 "url": "/biblical-covenants",
                 "description": "Divine covenants established between God and His people",
                 "count": "7 covenants"
+            },
+            {
+                "name": "Fruits of the Spirit",
+                "url": "/fruits-of-the-spirit",
+                "description": "The nine graces of Galatians 5:22-23 manifested in believers through the Holy Spirit",
+                "count": "9 fruits"
             }
         ],
         "History & Culture": [
@@ -6361,6 +6417,12 @@ def resources_page(request: Request):
                 "url": "/study-guides",
                 "description": "In-depth guides for studying biblical books, themes, and doctrines",
                 "count": "Multiple guides"
+            },
+            {
+                "name": "Parenting",
+                "url": "/topics/Parenting",
+                "description": "Biblical principles for raising children in the nurture and admonition of the Lord",
+                "count": "6 subtopics"
             }
         ]
     }
