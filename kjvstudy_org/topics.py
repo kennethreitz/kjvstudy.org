@@ -295,6 +295,19 @@ TOPICS = {
                     {"ref": "Hebrews 12:2", "note": "Looking unto Jesus"},
                     {"ref": "Philippians 3:10", "note": "Fellowship of His sufferings"},
                 ]
+            },
+            "Grief": {
+                "description": "Mourning and sorrow",
+                "verses": [
+                    {"ref": "Psalms 34:18", "note": "The LORD is nigh unto them of a broken heart"},
+                    {"ref": "Matthew 5:4", "note": "Blessed are they that mourn"},
+                    {"ref": "John 11:35", "note": "Jesus wept"},
+                    {"ref": "Psalms 30:5", "note": "Weeping may endure for a night"},
+                    {"ref": "2 Corinthians 1:3-4", "note": "Father of mercies and God of all comfort"},
+                    {"ref": "Revelation 21:4", "note": "God shall wipe away all tears"},
+                    {"ref": "1 Thessalonians 4:13", "note": "Sorrow not as others who have no hope"},
+                    {"ref": "Psalms 147:3", "note": "He heals the broken in heart"},
+                ]
             }
         }
     }
