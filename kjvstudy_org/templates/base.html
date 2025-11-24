@@ -1053,6 +1053,7 @@
         <h3>Quick Access</h3>
         <ul>
             <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
+            <li><a href="/books" {% if request.url.path == "/books" %}class="current"{% endif %}>Books</a></li>
             <li><a href="/search">Search</a></li>
         </ul>
 
