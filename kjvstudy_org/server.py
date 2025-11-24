@@ -682,9 +682,12 @@ def get_verse_text(book, chapter, verse):
 
 
 app = FastAPI(
-    title="KJV Study - Bible Commentary Platform",
-    description="Study the King James Bible with AI-powered commentary and insights",
-    version="1.0.0"
+    title="KJV Study API",
+    description="RESTful API for accessing King James Bible verses, chapters, and study resources",
+    version="1.0.0",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc",
+    openapi_url="/api/openapi.json"
 )
 
 
