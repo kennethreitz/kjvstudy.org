@@ -1386,6 +1386,10 @@ def verse_of_the_day_api():
 def api_get_verse(book: str, chapter: int, verse: int):
     """API endpoint to get a single verse text"""
     try:
+        # Normalize "Psalm" to "Psalms"
+        if book == "Psalm":
+            book = "Psalms"
+
         verse_text = bible.get_verse_text(book, chapter, verse)
         if not verse_text:
             raise HTTPException(status_code=404, detail="Verse not found")
@@ -1405,6 +1409,10 @@ def api_get_verse(book: str, chapter: int, verse: int):
 def api_get_verse_range(book: str, chapter: int, start: int, end: int):
     """API endpoint to get a range of verses"""
     try:
+        # Normalize "Psalm" to "Psalms"
+        if book == "Psalm":
+            book = "Psalms"
+
         verses = []
         verse_texts = []
 
