@@ -1430,7 +1430,7 @@
 
           if (!target || !target.href) return;
 
-          var verseInfo = parseVerseUrl(target.href);
+          var verseInfo = parseVerseUrl(target.pathname);
           if (!verseInfo) return;
 
           // Show loading state
