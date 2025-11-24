@@ -6628,6 +6628,10 @@ def topic_detail(request: Request, topic_name: str):
 
 @app.get("/book/{book}", response_class=HTMLResponse)
 def read_book(request: Request, book: str):
+    # Redirect "Psalm" to "Psalms"
+    if book == "Psalm":
+        return RedirectResponse(url=f"/book/Psalms", status_code=301)
+
     books = list(bible.iter_books())
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
 
@@ -6722,6 +6726,10 @@ def redirect_chapter_legacy(book: str, chapter: int):
 
 @app.get("/book/{book}/chapter/{chapter}", response_class=HTMLResponse)
 def read_chapter(request: Request, book: str, chapter: int):
+    # Redirect "Psalm" to "Psalms"
+    if book == "Psalm":
+        return RedirectResponse(url=f"/book/Psalms/chapter/{chapter}", status_code=301)
+
     books = list(bible.iter_books())
     verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
@@ -6791,6 +6799,10 @@ def read_chapter(request: Request, book: str, chapter: int):
 @app.get("/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
 def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     """Display a single verse with detailed commentary"""
+    # Redirect "Psalm" to "Psalms"
+    if book == "Psalm":
+        return RedirectResponse(url=f"/book/Psalms/chapter/{chapter}/verse/{verse_num}", status_code=301)
+
     books = list(bible.iter_books())
     verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
