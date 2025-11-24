@@ -7,40 +7,7 @@
 {% block og_description %}{{ guide.description }}{% endblock %}
 
 {% block structured_data %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "{{ guide.title }}",
-  "description": "{{ guide.description }}",
-  "author": {
-    "@type": "Organization",
-    "name": "KJV Study"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "KJV Study",
-    "url": "https://kjvstudy.org"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://kjvstudy.org{{ request.url.path }}"
-  },
-  "about": {
-    "@type": "Thing",
-    "name": "Bible Study"
-  },
-  "hasPart": [
-    {% for section in guide.sections %}
-    {
-      "@type": "WebPageElement",
-      "name": "{{ section.title }}",
-      "text": "{{ section.content[:200] | replace('"', '\\"') }}..."
-    }{% if not loop.last %},{% endif %}
-    {% endfor %}
-  ]
-}
-</script>
+<!-- Schema.org structured data temporarily disabled -->
 {% endblock %}
 
 {% block head %}
