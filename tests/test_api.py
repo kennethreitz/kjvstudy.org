@@ -9,7 +9,7 @@ import pytest
 class TestAPIHealth:
     """Tests for health check endpoints"""
 
-    def test_api_health(self):
+    def test_api_health(self, client):
         """Test /api/health endpoint"""
         response = client.get("/api/health")
         assert response.status_code == 200
@@ -22,7 +22,7 @@ class TestAPIHealth:
 class TestAPIIndex:
     """Tests for API index endpoint"""
 
-    def test_api_index(self):
+    def test_api_index(self, client):
         """Test /api/ endpoint returns index"""
         response = client.get("/api/")
         assert response.status_code == 200
@@ -36,7 +36,7 @@ class TestAPIIndex:
 class TestVerseEndpoints:
     """Tests for verse-related endpoints"""
 
-    def test_get_single_verse(self):
+    def test_get_single_verse(self, client):
         """Test /api/verse/{book}/{chapter}/{verse}"""
         response = client.get("/api/verse/John/3/16")
         assert response.status_code == 200
@@ -47,7 +47,7 @@ class TestVerseEndpoints:
         assert "text" in data
         assert "God so loved the world" in data["text"]
 
-    def test_get_verse_with_abbreviation(self):
+    def test_get_verse_with_abbreviation(self, client):
         """Test verse endpoint with book abbreviation"""
         response = client.get("/api/verse/Gen/1/1")
         assert response.status_code == 200
@@ -57,12 +57,12 @@ class TestVerseEndpoints:
         assert data["verse"] == 1
         assert "In the beginning" in data["text"]
 
-    def test_get_nonexistent_verse(self):
+    def test_get_nonexistent_verse(self, client):
         """Test verse endpoint with invalid verse"""
         response = client.get("/api/verse/John/3/999")
         assert response.status_code == 404
 
-    def test_get_verse_range(self):
+    def test_get_verse_range(self, client):
         """Test /api/verse-range/{book}/{chapter}/{start}/{end}"""
         response = client.get("/api/verse-range/Psalms/23/1/6")
         assert response.status_code == 200
@@ -74,7 +74,7 @@ class TestVerseEndpoints:
         assert "verses" in data
         assert len(data["verses"]) == 6
 
-    def test_verse_of_the_day(self):
+    def test_verse_of_the_day(self, client):
         """Test /api/verse-of-the-day"""
         response = client.get("/api/verse-of-the-day")
         assert response.status_code == 200
@@ -89,7 +89,7 @@ class TestVerseEndpoints:
 class TestBookEndpoints:
     """Tests for book-related endpoints"""
 
-    def test_get_all_books(self):
+    def test_get_all_books(self, client):
         """Test /api/books"""
         response = client.get("/api/books")
         assert response.status_code == 200
@@ -99,7 +99,7 @@ class TestBookEndpoints:
         assert "old_testament" in data
         assert "new_testament" in data
 
-    def test_get_book_details(self):
+    def test_get_book_details(self, client):
         """Test /api/books/{book}"""
         response = client.get("/api/books/Genesis")
         assert response.status_code == 200
@@ -108,7 +108,7 @@ class TestBookEndpoints:
         assert data["total_chapters"] == 50
         assert "chapters" in data
 
-    def test_get_chapter(self):
+    def test_get_chapter(self, client):
         """Test /api/books/{book}/chapters/{chapter}"""
         response = client.get("/api/books/John/chapters/1")
         assert response.status_code == 200
@@ -118,7 +118,7 @@ class TestBookEndpoints:
         assert "verses" in data
         assert data["total_verses"] > 0
 
-    def test_get_book_text(self):
+    def test_get_book_text(self, client):
         """Test /api/books/{book}/text"""
         response = client.get("/api/books/Philemon/text")
         assert response.status_code == 200
@@ -128,7 +128,7 @@ class TestBookEndpoints:
         assert data["total_verses"] == 25
         assert "chapters" in data
 
-    def test_get_nonexistent_book(self):
+    def test_get_nonexistent_book(self, client):
         """Test book endpoint with invalid book"""
         response = client.get("/api/books/FakeBook")
         assert response.status_code == 404
@@ -137,7 +137,7 @@ class TestBookEndpoints:
 class TestBibleEndpoint:
     """Tests for complete Bible endpoint"""
 
-    def test_get_entire_bible(self):
+    def test_get_entire_bible(self, client):
         """Test /api/bible"""
         response = client.get("/api/bible")
         assert response.status_code == 200
@@ -151,7 +151,7 @@ class TestBibleEndpoint:
 class TestSearchEndpoint:
     """Tests for search endpoint"""
 
-    def test_search_with_query(self):
+    def test_search_with_query(self, client):
         """Test /api/search with query"""
         response = client.get("/api/search?q=love")
         assert response.status_code == 200
@@ -159,7 +159,7 @@ class TestSearchEndpoint:
         assert "results" in data
         assert "total" in data
 
-    def test_search_with_limit(self):
+    def test_search_with_limit(self, client):
         """Test /api/search with limit"""
         response = client.get("/api/search?q=faith&limit=5")
         assert response.status_code == 200
@@ -167,7 +167,7 @@ class TestSearchEndpoint:
         assert "results" in data
         assert len(data["results"]) <= 5
 
-    def test_search_empty_query(self):
+    def test_search_empty_query(self, client):
         """Test /api/search with empty query"""
         response = client.get("/api/search?q=")
         assert response.status_code == 200
@@ -178,7 +178,7 @@ class TestSearchEndpoint:
 class TestInterlinearEndpoint:
     """Tests for interlinear data endpoint"""
 
-    def test_get_interlinear_new_testament(self):
+    def test_get_interlinear_new_testament(self, client):
         """Test /api/interlinear for NT verse"""
         response = client.get("/api/interlinear/John/1/1")
         assert response.status_code == 200
@@ -188,7 +188,7 @@ class TestInterlinearEndpoint:
         assert data["verse"] == 1
         assert "interlinear_available" in data
 
-    def test_get_interlinear_nonexistent_verse(self):
+    def test_get_interlinear_nonexistent_verse(self, client):
         """Test interlinear with invalid verse"""
         response = client.get("/api/interlinear/John/1/999")
         assert response.status_code == 404
@@ -197,7 +197,7 @@ class TestInterlinearEndpoint:
 class TestCrossReferencesEndpoint:
     """Tests for cross-references endpoint"""
 
-    def test_get_cross_references(self):
+    def test_get_cross_references(self, client):
         """Test /api/cross-references/{book}/{chapter}/{verse}"""
         response = client.get("/api/cross-references/John/3/16")
         assert response.status_code == 200
@@ -211,7 +211,7 @@ class TestCrossReferencesEndpoint:
 class TestTopicsEndpoints:
     """Tests for topics endpoints"""
 
-    def test_get_all_topics(self):
+    def test_get_all_topics(self, client):
         """Test /api/topics"""
         response = client.get("/api/topics")
         assert response.status_code == 200
@@ -219,7 +219,7 @@ class TestTopicsEndpoints:
         assert "total_topics" in data
         assert "topics" in data
 
-    def test_get_specific_topic(self):
+    def test_get_specific_topic(self, client):
         """Test /api/topics/{topic_name}"""
         response = client.get("/api/topics/faith")
         assert response.status_code == 200
@@ -230,7 +230,7 @@ class TestTopicsEndpoints:
 class TestReadingPlansEndpoints:
     """Tests for reading plans endpoints"""
 
-    def test_get_all_reading_plans(self):
+    def test_get_all_reading_plans(self, client):
         """Test /api/reading-plans"""
         response = client.get("/api/reading-plans")
         assert response.status_code == 200
@@ -239,7 +239,7 @@ class TestReadingPlansEndpoints:
         assert "plans" in data
         assert data["total_plans"] > 0
 
-    def test_get_specific_reading_plan(self):
+    def test_get_specific_reading_plan(self, client):
         """Test /api/reading-plans/{plan_id}"""
         response = client.get("/api/reading-plans/chronological")
         assert response.status_code == 200
@@ -247,7 +247,7 @@ class TestReadingPlansEndpoints:
         assert "name" in data
         assert "description" in data
 
-    def test_get_nonexistent_reading_plan(self):
+    def test_get_nonexistent_reading_plan(self, client):
         """Test reading plan endpoint with invalid plan"""
         response = client.get("/api/reading-plans/fake-plan")
         assert response.status_code == 404
@@ -256,7 +256,7 @@ class TestReadingPlansEndpoints:
 class TestBookNameNormalization:
     """Tests for book name normalization"""
 
-    def test_abbreviations(self):
+    def test_abbreviations(self, client):
         """Test various book abbreviations"""
         # Test Genesis abbreviations
         for abbrev in ["Gen", "Ge"]:
