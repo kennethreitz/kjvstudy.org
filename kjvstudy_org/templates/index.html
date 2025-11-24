@@ -4,38 +4,53 @@
 
 {% block head %}
 <style>
+/* Title Page - Classical Book Style */
 .title-page {
-    margin: 2.5rem 0;
-}
-
-.title-page h1 {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
     margin-bottom: 1rem;
 }
 
-.title-details {
+.title-page h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+}
+
+.title-page .subtitle {
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin: 0;
     line-height: 1.8;
-    color: #666;
-    margin: 0 0 1.5rem 0;
 }
 
-/* Make book names bold throughout */
-section a[href^="/book/"] {
-    font-weight: 600;
+/* Epigraph - Verse of the Day */
+.daily-epigraph {
+    margin: 2rem 0;
 }
 
-/* Quick verse lookup - Classical style */
+.daily-epigraph blockquote {
+    font-size: 1.25rem;
+    line-height: 1.9;
+    font-style: italic;
+}
+
+.daily-epigraph footer {
+    margin-top: 0.75rem;
+}
+
+/* Verse Lookup */
 .verse-lookup {
     max-width: 55%;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     padding: 1.5rem 0 1.5rem 1.5rem;
     border-left: 3px solid var(--border-color-darker);
 }
 
 .verse-lookup h2 {
     margin-top: 0;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-style: italic;
     font-weight: 600;
 }
@@ -64,7 +79,6 @@ section a[href^="/book/"] {
 .lookup-btn {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    font-weight: 400;
     background: var(--text-color);
     color: var(--bg-color);
     border: 1px solid var(--text-color);
@@ -78,189 +92,130 @@ section a[href^="/book/"] {
 
 .lookup-help {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     margin-top: 0.5rem;
     font-style: italic;
 }
 
-/* Quick Links - Card Grid */
-.quick-links {
+/* Navigation Links */
+.nav-links {
+    text-align: center;
+    margin: 1.5rem 0 2.5rem;
+    font-size: 1.05rem;
+}
+
+.nav-links a {
+    margin: 0 0.75rem;
+}
+
+/* Feature Cards */
+.feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    max-width: 90%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
     margin: 2rem 0;
 }
 
-.quick-link-btn {
+.feature-card {
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s;
+}
+
+.feature-card:hover {
+    border-color: var(--border-color-darker);
+}
+
+.feature-card h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.feature-card h3 a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.feature-card p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.55;
+}
+
+/* Explore Section */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.explore-link {
     display: block;
-    padding: 1.25rem;
+    padding: 1rem;
     text-align: center;
     text-decoration: none;
     color: var(--text-color);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    font-size: 0.95rem;
     transition: all 0.2s;
-    font-weight: 500;
 }
 
-.quick-link-btn:hover {
+.explore-link:hover {
     border-color: var(--border-color-darker);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     background: var(--code-bg);
 }
 
-/* Mobile responsive styles */
+/* Footer */
+.home-footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.home-footer p {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+}
+
+.home-footer a {
+    color: var(--text-tertiary);
+    border-bottom: 1px dotted var(--border-color-darker);
+}
+
+/* Mobile */
 @media (max-width: 760px) {
-    .title-page {
-        margin: 2rem 0;
-    }
-
     .title-page h1 {
-        font-size: 2.75rem;
-        margin-bottom: 1rem;
-        font-weight: 900;
-        color: #000;
-    }
-
-    [data-theme="dark"] .title-page h1 {
-        color: #fff;
-    }
-
-    .title-details {
-        font-size: 1rem;
-        margin: 0 0 2rem 0;
+        font-size: 2.5rem;
     }
 
     .verse-lookup {
         max-width: 100%;
         padding: 1.25rem 0 1.25rem 1.25rem;
-        margin: 1.5rem 0;
-        border-left: 5px solid #999;
-    }
-
-    .verse-lookup h2 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #000;
-    }
-
-    [data-theme="dark"] .verse-lookup {
-        border-left-color: #666;
-    }
-
-    [data-theme="dark"] .verse-lookup h2 {
-        color: #fff;
     }
 
     .lookup-form {
         flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .lookup-input {
-        width: 100%;
-        font-size: 1.05rem;
-        padding: 0.875rem 1rem;
-        border: 3px solid #999;
-        font-weight: 500;
-        color: #000;
-    }
-
-    [data-theme="dark"] .lookup-input {
-        border-color: #666;
-        color: #fff;
-    }
-
-    .lookup-input:focus {
-        border-color: #333;
-        outline: none;
-    }
-
-    [data-theme="dark"] .lookup-input:focus {
-        border-color: #999;
     }
 
     .lookup-btn {
         width: 100%;
-        padding: 0.875rem;
-        font-size: 1.05rem;
-        font-weight: 700;
-        min-height: 44px;
-        border: 3px solid #111;
-        background: #111;
-        color: #fff;
     }
 
-    [data-theme="dark"] .lookup-btn {
-        border-color: #ddd;
-        background: #ddd;
-        color: #111;
+    .nav-links a {
+        display: inline-block;
+        margin: 0.25rem 0.5rem;
     }
 
-    .lookup-help {
-        font-size: 0.9rem;
-        line-height: 1.6;
-        color: var(--text-secondary);
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
-    .quick-links {
-        max-width: 100%;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 0.75rem;
-        margin: 1.5rem 0;
-    }
-
-    .quick-link-btn {
-        padding: 0.875rem;
-        border: 3px solid #999;
-        font-weight: 600;
-        min-height: 44px;
-        color: #000;
-    }
-
-    [data-theme="dark"] .quick-link-btn {
-        border-color: #666;
-        color: #e0e0e0;
-    }
-
-    /* Adjust epigraph on mobile with strong contrast */
-    .epigraph {
-        margin: 2rem 0;
-        padding: 1rem;
-        border-left: 5px solid #999;
-    }
-
-    [data-theme="dark"] .epigraph {
-        border-left-color: #666;
-    }
-
-    .epigraph blockquote {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #000;
-        font-weight: 400;
-    }
-
-    [data-theme="dark"] .epigraph blockquote {
-        color: #e0e0e0;
-    }
-
-    .epigraph footer {
-        margin-top: 0.75rem;
-        font-size: 0.95rem;
-        font-weight: 500;
-    }
-
-    .epigraph footer a {
-        font-weight: 600;
-        border-bottom: 2px solid #999;
-        color: #000;
-    }
-
-    [data-theme="dark"] .epigraph footer a {
-        border-bottom-color: #666;
-        color: #e0e0e0;
+    .explore-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 </style>
@@ -269,13 +224,13 @@ section a[href^="/book/"] {
 {% block content %}
 <div class="title-page">
     <h1>The Holy Bible</h1>
-    <div class="title-details">
+    <p class="subtitle">
         Authorized King James Version<br/>
         <em>Anno Domini</em> 1611
-    </div>
+    </p>
 </div>
 
-<div class="epigraph">
+<div class="epigraph daily-epigraph">
     <blockquote>
         <p>{{ daily_verse.text | link_names | safe }}</p>
         <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a> — <a href="/verse-of-the-day">Verse of the Day</a></footer>
@@ -285,41 +240,112 @@ section a[href^="/book/"] {
 <div class="verse-lookup">
     <h2>Search or Navigate Scripture</h2>
     <form class="lookup-form" onsubmit="return handleSearch(event)">
-        <input
-            type="text"
-            class="lookup-input"
-            id="verse-lookup-input"
-            placeholder="Search scripture or jump to verse..."
-            autocomplete="off"
-        />
+        <input type="text" class="lookup-input" id="verse-lookup-input"
+               placeholder="Search scripture or jump to verse..." autocomplete="off" />
         <button type="submit" class="lookup-btn">Go</button>
     </form>
-    <div class="lookup-help">Navigate: John 3:16, Romans 8, Genesis • Search: love, faith, salvation</div>
+    <div class="lookup-help">Navigate: John 3:16, Romans 8, Genesis · Search: love, faith, salvation</div>
 </div>
 
-<p style="text-align: center; margin: 1rem 0; font-size: 1.1rem;"><strong><a href="/books">Browse All 66 Books →</a></strong></p>
+<p class="nav-links">
+    <strong><a href="/books">Browse All 66 Books</a></strong> ·
+    <a href="/random-verse">Random Verse</a> ·
+    <a href="/reading-plans">Reading Plans</a> ·
+    <a href="/topics">Topics</a> ·
+    <a href="/resources">Resources</a>
+</p>
 
 <section>
-    <h2>Quick Access</h2>
-    <div class="quick-links">
-        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
-        <a href="/study-guides" class="quick-link-btn">Study Guides</a>
-        <a href="/books" class="quick-link-btn">All Books</a>
-        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
-        <a href="/topics" class="quick-link-btn">Topical Index</a>
-        <a href="/resources" class="quick-link-btn">All Resources</a>
-        <a href="/biblical-angels" class="quick-link-btn">Angelology</a>
-        <a href="/family-tree" class="quick-link-btn">Genealogies</a>
-        <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
+    <p><span class="newthought">Welcome to KJV Study</span>, a digital resource for studying the Authorized Version of the Holy Scriptures.<label for="sn-welcome" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-welcome" class="margin-toggle"/><span class="sidenote">This digital edition presents the 1769 Oxford Standard text, enriched with apparatus drawn from judicious commentators and modern scholarship. Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16)—yet such profit requires more than cursory reading.</span> This site provides the complete text of the King James Bible enriched with original language analysis, cross-references, historical context, and theological commentary—instruments designed to help both the careful scholar and the earnest student understand God's Word more deeply.</p>
+</section>
+
+<section>
+    <h2>Study Resources</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3><a href="/interlinear">Original Languages</a></h3>
+            <p>Word-by-word Hebrew (תּוֹרָה) and Greek (Ἑλληνική) analysis with Strong's numbers, transliterations, parsing, and lexical definitions.</p>
+        </div>
+        <div class="feature-card">
+            <h3><a href="/concordance">Concordance</a></h3>
+            <p>Find every occurrence of any word throughout the entire biblical corpus. Trace terminology across both testaments.</p>
+        </div>
+        <div class="feature-card">
+            <h3><a href="/topics">Topical Index</a></h3>
+            <p>Scripture organized by subject—Salvation, Grace, Faith, Prayer, Forgiveness, the Holy Spirit, and other essential doctrines.</p>
+        </div>
+        <div class="feature-card">
+            <h3><a href="/study-guides">Study Guides</a></h3>
+            <p>Thematic studies exploring salvation, Christian living, prayer, and foundational doctrines with extensive Scripture references.</p>
+        </div>
+        <div class="feature-card">
+            <h3><a href="/reading-plans">Reading Plans</a></h3>
+            <p>Structured schedules for systematic Scripture study: chronological, one-year, New Testament, Gospels, Psalms & Proverbs.</p>
+        </div>
+        <div class="feature-card">
+            <h3><a href="/search">Search</a></h3>
+            <p>Full-text search across all 31,102 verses with relevance scoring. Find any word, phrase, or passage in Scripture.</p>
+        </div>
     </div>
 </section>
 
+<section>
+    <h2>The Sacred Scriptures</h2>
+
+    <p><span class="newthought">The Holy Bible</span> comprises sixty-six books penned by approximately forty authors over fifteen centuries—yet unified by one divine Author.<label for="sn-scriptures" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-scriptures" class="margin-toggle"/><span class="sidenote">The Hebrew Scriptures (תנ״ך, <em>TaNaKh</em>) consist of תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings). The Greek New Testament (καινὴ διαθήκη) records Christ's incarnation, the establishment of His church, and apostolic teaching.</span> These sacred writings preserve God's progressive self-revelation to humanity: His character, His purposes, and His redemptive plan accomplished through Jesus Christ. The Scriptures consist of two testaments, the Old and the New, which together form a coherent testimony to the gospel.</p>
+
+    <p><span class="newthought">The Old Testament</span> contains God's covenant with Israel, from creation through the prophetic age. It includes the Law of Moses (<em>Torah</em>), which establishes God's covenant and moral order; the Historical Books, which narrate Israel's history from conquest to exile and restoration; the Wisdom Literature, which explores the deepest questions of human existence; and the Prophets, who called Israel to faithfulness and foretold the coming Messiah.</p>
+
+    <p><span class="newthought">The New Testament</span> presents the fulfillment of Old Testament promises in Jesus Christ. The four Gospels provide comprehensive testimony to Christ's life, death, and resurrection from different perspectives. Acts chronicles the early church's establishment and growth. The Epistles expound Christian doctrine and provide pastoral instruction. Revelation unveils the consummation of God's redemptive plan.</p>
+
+    <p><strong><a href="/books">Browse all sixty-six books</a></strong> to read any chapter or verse.</p>
+</section>
+
+<section>
+    <h2>Theological Studies</h2>
+
+    <p><span class="newthought">Explore</span> the riches of Scripture through in-depth studies of major biblical themes, persons, and theological concepts:</p>
+
+    <div class="explore-grid">
+        <a href="/names-of-god" class="explore-link">Names of God</a>
+        <a href="/tetragrammaton" class="explore-link">The Tetragrammaton</a>
+        <a href="/biblical-covenants" class="explore-link">Biblical Covenants</a>
+        <a href="/parables" class="explore-link">Parables of Jesus</a>
+        <a href="/fruits-of-the-spirit" class="explore-link">Fruits of the Spirit</a>
+        <a href="/biblical-festivals" class="explore-link">Biblical Festivals</a>
+        <a href="/the-twelve-apostles" class="explore-link">The Twelve Apostles</a>
+        <a href="/biblical-prophets" class="explore-link">The Prophets</a>
+        <a href="/women-of-the-bible" class="explore-link">Women of the Bible</a>
+        <a href="/biblical-angels" class="explore-link">Angelology</a>
+        <a href="/biblical-timeline" class="explore-link">Biblical Timeline</a>
+        <a href="/family-tree" class="explore-link">Genealogies</a>
+    </div>
+</section>
+
+<section>
+    <h2>Study Guides</h2>
+
+    {% for category, guides in study_guides.items() %}
+    <p><span class="newthought">{{ category }}</span> —
+    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% endfor %}
+</section>
+
+<section>
+    <p><span class="newthought">About the Translation</span> — The Authorized Version, commissioned by King James I in 1604 and completed in 1611,<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators worked in six companies at Westminster, Oxford, and Cambridge. They consulted previous English translations—particularly Tyndale, whose felicity of phrase permeates the work—while maintaining fidelity to the original tongues.</span> represents the work of forty-seven learned divines and scholars working from the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew). This translation has shaped English-speaking Christianity for more than four centuries, achieving a remarkable union of scholarly precision with nobility of expression. This digital edition presents the 1769 Oxford Standard text.</p>
+</section>
+
+<div class="home-footer">
+    <p>
+        <a href="/api/docs">API Documentation</a> ·
+        <a href="https://github.com/kennethreitz/kjvstudy.org" target="_blank" rel="noopener">Source Code</a>
+    </p>
+</div>
+
 <script>
-// Helper function to properly capitalize book names and handle abbreviations
 function capitalizeBook(bookName) {
-    // Map of lowercase to proper case book names (including common abbreviations)
     const bookMap = {
-        // Full names
         'genesis': 'Genesis', 'exodus': 'Exodus', 'leviticus': 'Leviticus', 'numbers': 'Numbers',
         'deuteronomy': 'Deuteronomy', 'joshua': 'Joshua', 'judges': 'Judges', 'ruth': 'Ruth',
         '1 samuel': '1 Samuel', '2 samuel': '2 Samuel', '1 kings': '1 Kings', '2 kings': '2 Kings',
@@ -337,7 +363,6 @@ function capitalizeBook(bookName) {
         '1 timothy': '1 Timothy', '2 timothy': '2 Timothy', 'titus': 'Titus', 'philemon': 'Philemon',
         'hebrews': 'Hebrews', 'james': 'James', '1 peter': '1 Peter', '2 peter': '2 Peter',
         '1 john': '1 John', '2 john': '2 John', '3 john': '3 John', 'jude': 'Jude', 'revelation': 'Revelation',
-        // Common abbreviations
         'gen': 'Genesis', 'ge': 'Genesis', 'exo': 'Exodus', 'ex': 'Exodus', 'lev': 'Leviticus',
         'le': 'Leviticus', 'num': 'Numbers', 'nu': 'Numbers', 'deut': 'Deuteronomy', 'dt': 'Deuteronomy',
         'josh': 'Joshua', 'jos': 'Joshua', 'judg': 'Judges', 'jdg': 'Judges', 'ru': 'Ruth',
@@ -381,12 +406,7 @@ function handleSearch(event) {
         return false;
     }
 
-    // First, try to parse as a verse/chapter/book reference
-    // Formats: "Book Chapter:Verse", "Book Chapter", "Book"
-    // Examples: "John 3:16", "Psalm 23", "Genesis"
-
     // Try to match: Book Chapter:Verse
-    // Use greedy matching (.+) so it captures multi-word book names like "1 John" or "Song of Solomon"
     let match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
     if (match) {
         const book = capitalizeBook(match[1].trim());
@@ -396,7 +416,7 @@ function handleSearch(event) {
         return false;
     }
 
-    // Try to match: Book Chapter (go to chapter)
+    // Try to match: Book Chapter
     match = input.match(/^(.+)\s+(\d+)$/i);
     if (match) {
         const book = capitalizeBook(match[1].trim());
@@ -405,8 +425,7 @@ function handleSearch(event) {
         return false;
     }
 
-    // Check if input looks like it might be a book name
-    // Only treat as book if it has: number prefix (1/2/3) OR multiple words OR matches common books
+    // Check if input looks like a book name
     const hasNumberPrefix = /^[123]\s+/i.test(input);
     const hasMultipleWords = /\s+/.test(input);
     const commonBooks = ['genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
@@ -422,7 +441,6 @@ function handleSearch(event) {
     const matchesCommonBook = commonBooks.includes(input.toLowerCase());
 
     if (hasNumberPrefix || hasMultipleWords || matchesCommonBook) {
-        // Try to navigate to book
         const book = capitalizeBook(input);
         window.location.href = `/book/${encodeURIComponent(book)}`;
         return false;
@@ -433,7 +451,7 @@ function handleSearch(event) {
     return false;
 }
 
-// Add keyboard shortcut: Press '/' to focus the search input
+// Press '/' to focus the search input
 document.addEventListener('keydown', function(e) {
     if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
         const activeElement = document.activeElement;
@@ -444,59 +462,4 @@ document.addEventListener('keydown', function(e) {
     }
 });
 </script>
-
-<section>
-    <p><span class="newthought">Welcome to KJV Study</span>, a digital resource for studying the Authorized Version of the Holy Scriptures. This site provides the complete text of the King James Bible enriched with original language analysis, cross-references, historical context, and theological commentary—instruments designed to help both the careful scholar and the earnest student understand God's Word more deeply.</p>
-
-    <p>Here you will find not merely the sacred text, but helps for its profitable study:<label for="sn-purpose" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-purpose" class="margin-toggle"/><span class="sidenote">This digital edition presents the 1769 Oxford Standard text, enriched with apparatus drawn from judicious commentators and modern scholarship. Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16)—yet such profit requires more than cursory reading. Hence the provision of study helps.</span> Hebrew and Greek word analysis, comprehensive cross-references whereby Scripture interprets Scripture, topical indices, reading plans, and theological studies. Our purpose follows that of the original 1611 translators: "that the Scripture may speake like it selfe"—that it may be understood with the depth of comprehension befitting the oracles of the living God.</p>
-</section>
-
-<section>
-    <h2>The Sacred Scriptures</h2>
-
-    <p><span class="newthought">The Holy Bible</span> comprises sixty-six books penned by approximately forty authors over fifteen centuries—yet unified by one divine Author. These sacred writings preserve God's progressive self-revelation to humanity: His character, His purposes, and His redemptive plan accomplished through Jesus Christ. The Scriptures consist of two testaments,<label for="sn-testaments" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-testaments" class="margin-toggle"/><span class="sidenote">The Hebrew Scriptures (תנ״ך, <em>TaNaKh</em>) consist of תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings). The Greek New Testament (καινὴ διαθήκη) records Christ's incarnation, the establishment of His church, and apostolic teaching. Christ Himself testified: 'all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me' (Luke 24:44).</span> the Old and the New, which together form a coherent testimony to the gospel.</p>
-
-    <p><span class="newthought">The Old Testament</span> contains God's covenant with Israel, from creation through the prophetic age. It includes the Law of Moses (<em>Torah</em>), which establishes God's covenant and moral order; the Historical Books, which narrate Israel's history from conquest to exile and restoration; the Wisdom Literature, which explores the deepest questions of human existence; and the Prophets, who called Israel to faithfulness and foretold the coming Messiah.</p>
-
-    <p><span class="newthought">The New Testament</span> presents the fulfillment of Old Testament promises in Jesus Christ. The four Gospels provide comprehensive testimony to Christ's life, death, and resurrection from different perspectives. Acts chronicles the early church's establishment and growth. The Epistles expound Christian doctrine and provide pastoral instruction. Revelation unveils the consummation of God's redemptive plan.</p>
-
-    <p><strong><a href="/books">Browse all sixty-six books</a></strong> to read any chapter or verse.</p>
-</section>
-
-<section>
-    <h2>Study Resources</h2>
-
-    <p><span class="newthought">Word-by-Word Analysis</span> — Each verse may be examined at the word level, with access to the underlying Hebrew (תּוֹרָה) or Greek (Ἑλληνική) text, transliterations, Strong's concordance numbers, parsing information, and lexical definitions. This allows readers to understand the original languages without prior training.</p>
-
-    <p><span class="newthought">Cross-References</span> — Comprehensive cross-references connect related passages throughout Scripture, demonstrating how the Bible interprets itself. These references illuminate theological themes, typological connections, and parallel accounts across both testaments.</p>
-
-    <p><span class="newthought">Topical Studies</span> — In-depth <strong><a href="/resources">theological studies</a></strong> explore major biblical themes, persons, and concepts. Subjects include <strong><a href="/biblical-covenants">the biblical covenants</a></strong>, <strong><a href="/names-of-god">the names of God</a></strong>, <strong><a href="/tetragrammaton">the sacred Tetragrammaton</a></strong>, <strong><a href="/parables">Christ's parables</a></strong>, <strong><a href="/biblical-angels">angelology</a></strong>, <strong><a href="/biblical-prophets">the prophets</a></strong>, and many others.</p>
-
-    <p><span class="newthought">Topical Index</span> — A systematic <strong><a href="/topics">concordance of theological themes</a></strong> organizes Scripture by subject—Salvation, Prayer, Love, Faith, Forgiveness, the Holy Spirit, and other essential doctrines—with carefully selected verses and explanatory notes for each topic.</p>
-
-    <p><span class="newthought">Reading Plans</span> — Structured <strong><a href="/reading-plans">Bible reading schedules</a></strong> guide systematic Scripture study through chronological, thematic, and testament-specific approaches, helping establish regular engagement with God's Word.</p>
-
-    <p><span class="newthought">Concordance & Search</span> — A comprehensive <strong><a href="/concordance">concordance</a></strong> shows every occurrence of any word in Scripture. The <strong><a href="/search">search facility</a></strong> allows tracing words and phrases throughout the entire biblical corpus.</p>
-
-    <p><span class="newthought">Historical Context</span> — <strong><a href="/biblical-maps">Maps and geographical descriptions</a></strong> illuminate the places of Scripture. A <strong><a href="/biblical-timeline">chronological timeline</a></strong> presents biblical events in historical sequence. <strong><a href="/family-tree">Genealogical charts</a></strong> trace the line from Adam through the patriarchs to David and ultimately to Christ.</p>
-</section>
-
-<section>
-    <h2>Study Guides</h2>
-
-    {% for category, guides in study_guides.items() %}
-    <p><span class="newthought">{{ category }}</span> —
-    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
-    {% endfor %}
-</section>
-
-<section>
-    <p><span class="newthought">About the Translation</span> — The Authorized Version, commissioned by King James I in 1604 and completed in 1611,<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators worked in six companies at Westminster, Oxford, and Cambridge. They consulted previous English translations—particularly Tyndale, whose felicity of phrase permeates the work—while maintaining fidelity to the original tongues. The result became the foundation for English biblical language and theological discourse.</span> represents the work of forty-seven learned divines and scholars working from the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew). This translation has shaped English-speaking Christianity for more than four centuries, achieving a remarkable union of scholarly precision with nobility of expression. This digital edition presents the 1769 Oxford Standard text.</p>
-</section>
-
-<div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); text-align: center;">
-    <p style="font-size: 0.85rem; color: var(--text-tertiary);">
-        <a href="/api/docs" style="color: var(--text-tertiary); border-bottom: 1px dotted var(--border-color-dark);">API Documentation</a> · This project is open source. <a href="https://github.com/kennethreitz/kjvstudy.org" target="_blank" rel="noopener" style="color: var(--text-tertiary); border-bottom: 1px dotted var(--border-color-dark);">View the source code on GitHub</a>.
-    </p>
-</div>
 {% endblock %}
