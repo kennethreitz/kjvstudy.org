@@ -2,6 +2,39 @@
 
 {% block title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
 
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
+{% block og_description %}{{ verse.text[:150] }}...{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ book }} {{ chapter }}:{{ verse_num }}",
+  "articleBody": "{{ verse.text | replace('"', '\\"') }}",
+  "author": {
+    "@type": "Organization",
+    "name": "KJV Study"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KJV Study",
+    "url": "https://kjvstudy.org"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kjvstudy.org/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}"
+  },
+  "isPartOf": {
+    "@type": "Book",
+    "name": "{{ book }}",
+    "@id": "https://kjvstudy.org/book/{{ book }}"
+  }
+}
+</script>
+{% endblock %}
+
 {% block head %}
 <style>
 .verse-text {
