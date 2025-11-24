@@ -351,16 +351,18 @@ document.addEventListener('DOMContentLoaded', function() {
         'song of songs': 'Song of Solomon'
     };
 
-    // Check for apocryphal books first
+    // Check for apocryphal books first (must be in /book/ path)
     const pathLower = path.toLowerCase();
-    for (const [apocBook, explanation] of Object.entries(apocryphalBooks)) {
-        if (pathLower.includes(apocBook)) {
-            suggestions.push({
-                text: explanation,
-                url: null,
-                isInfo: true
-            });
-            break;
+    if (pathLower.includes('/book/')) {
+        for (const [apocBook, explanation] of Object.entries(apocryphalBooks)) {
+            if (pathLower.includes('/book/' + apocBook) || pathLower.includes('/book/' + apocBook.replace(/\s/g, ''))) {
+                suggestions.push({
+                    text: explanation,
+                    url: null,
+                    isInfo: true
+                });
+                break;
+            }
         }
     }
 
