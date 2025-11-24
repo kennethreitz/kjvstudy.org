@@ -85,6 +85,58 @@
             max-height: none !important;
         }
 
+        /* Verse tooltip styles */
+        .verse-tooltip {
+            position: absolute;
+            background: var(--bg-color);
+            border: 2px solid var(--border-color-darker);
+            border-radius: 6px;
+            padding: 1rem;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .verse-tooltip.show {
+            opacity: 1;
+        }
+
+        .verse-tooltip-reference {
+            font-weight: 600;
+            color: var(--link-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .verse-tooltip-text {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .verse-tooltip-loading {
+            color: var(--text-tertiary);
+        }
+
+        [data-theme="dark"] .verse-tooltip {
+            background: #2a2a2a;
+            border-color: #555;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .verse-tooltip:not([data-theme]) {
+                background: #2a2a2a;
+                border-color: #555;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            }
+        }
+
         /* Enhanced typography and spacing */
         body {
             counter-reset: sidenote-counter;
@@ -1255,6 +1307,151 @@
           'Esc           - Clear focus';
         alert(helpText);
       }
+
+      // Verse tooltip functionality
+      (function() {
+        // Create tooltip element
+        var tooltip = document.createElement('div');
+        tooltip.className = 'verse-tooltip';
+        document.body.appendChild(tooltip);
+
+        // Cache for fetched verses
+        var verseCache = {};
+
+        // Parse verse URL to extract book, chapter, and verse
+        function parseVerseUrl(url) {
+          var match = url.match(/\/book\/([^\/]+)\/chapter\/(\d+)\/verse\/(\d+)/);
+          if (match) {
+            return {
+              book: decodeURIComponent(match[1]),
+              chapter: match[2],
+              verse: match[3],
+              cacheKey: match[1] + '_' + match[2] + '_' + match[3]
+            };
+          }
+          return null;
+        }
+
+        // Fetch verse text from server
+        async function fetchVerseText(book, chapter, verse, cacheKey) {
+          // Check cache first
+          if (verseCache[cacheKey]) {
+            return verseCache[cacheKey];
+          }
+
+          try {
+            var url = '/book/' + encodeURIComponent(book) + '/chapter/' + chapter + '/verse/' + verse;
+            var response = await fetch(url);
+            if (!response.ok) throw new Error('Failed to fetch verse');
+
+            var html = await response.text();
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+
+            // Extract verse text from the page
+            var verseElement = doc.querySelector('.verse-text');
+            if (!verseElement) {
+              // Try alternative selectors
+              verseElement = doc.querySelector('[class*="verse"]');
+            }
+
+            var verseText = verseElement ? verseElement.textContent.trim() : 'Verse text not found';
+
+            // Cache the result
+            verseCache[cacheKey] = {
+              reference: book + ' ' + chapter + ':' + verse,
+              text: verseText
+            };
+
+            return verseCache[cacheKey];
+          } catch (error) {
+            console.error('Error fetching verse:', error);
+            return {
+              reference: book + ' ' + chapter + ':' + verse,
+              text: 'Error loading verse'
+            };
+          }
+        }
+
+        // Show tooltip
+        function showTooltip(verseData, mouseX, mouseY) {
+          tooltip.innerHTML =
+            '<span class="verse-tooltip-reference">' + verseData.reference + '</span>' +
+            '<span class="verse-tooltip-text">' + verseData.text + '</span>';
+
+          // Position tooltip
+          var tooltipRect = tooltip.getBoundingClientRect();
+          var x = mouseX + 15;
+          var y = mouseY + 15;
+
+          // Adjust if tooltip goes off right edge
+          if (x + tooltipRect.width > window.innerWidth) {
+            x = mouseX - tooltipRect.width - 15;
+          }
+
+          // Adjust if tooltip goes off bottom edge
+          if (y + tooltipRect.height > window.innerHeight) {
+            y = mouseY - tooltipRect.height - 15;
+          }
+
+          tooltip.style.left = x + 'px';
+          tooltip.style.top = y + 'px';
+          tooltip.classList.add('show');
+        }
+
+        // Hide tooltip
+        function hideTooltip() {
+          tooltip.classList.remove('show');
+        }
+
+        // Event delegation for verse links
+        document.addEventListener('mouseover', function(e) {
+          var target = e.target;
+
+          // Check if target is a link or inside a link
+          if (target.tagName !== 'A') {
+            target = target.closest('a');
+          }
+
+          if (!target || !target.href) return;
+
+          var verseInfo = parseVerseUrl(target.href);
+          if (!verseInfo) return;
+
+          // Show loading state
+          tooltip.innerHTML = '<span class="verse-tooltip-loading">Loading...</span>';
+          tooltip.style.left = (e.pageX + 15) + 'px';
+          tooltip.style.top = (e.pageY + 15) + 'px';
+          tooltip.classList.add('show');
+
+          // Fetch and display verse
+          fetchVerseText(verseInfo.book, verseInfo.chapter, verseInfo.verse, verseInfo.cacheKey)
+            .then(function(verseData) {
+              // Only show if still hovering
+              if (target.matches(':hover')) {
+                showTooltip(verseData, e.pageX, e.pageY);
+              }
+            });
+
+          // Track mouse movement for tooltip positioning
+          var mouseMoveHandler = function(e) {
+            if (tooltip.classList.contains('show')) {
+              var x = e.pageX + 15;
+              var y = e.pageY + 15;
+              tooltip.style.left = x + 'px';
+              tooltip.style.top = y + 'px';
+            }
+          };
+
+          target.addEventListener('mousemove', mouseMoveHandler);
+
+          // Hide tooltip on mouse leave
+          target.addEventListener('mouseleave', function() {
+            hideTooltip();
+            target.removeEventListener('mousemove', mouseMoveHandler);
+          }, { once: true });
+        });
+      })();
 
       // Gauges analytics
       var _gauges = _gauges || [];
