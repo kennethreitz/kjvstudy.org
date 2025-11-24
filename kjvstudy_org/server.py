@@ -708,12 +708,19 @@ def interlinear_landing_page(request: Request):
         {"reference": "1 Corinthians 13:4", "url": "/book/1 Corinthians/chapter/13/verse/4", "note": "Love is patient"},
     ]
 
+    # Build breadcrumbs
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Interlinear", "url": None}
+    ]
+
     return templates.TemplateResponse(
         "interlinear_landing.html",
         {
             "request": request,
             "books": books,
-            "featured_verses": featured_verses
+            "featured_verses": featured_verses,
+            "breadcrumbs": breadcrumbs
         }
     )
 
