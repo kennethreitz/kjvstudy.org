@@ -162,7 +162,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Link verse references in all intro-text paragraphs (the expanded overviews)
-    document.querySelectorAll('.intro-text').forEach(function(paragraph) {
+    const introTextParagraphs = document.querySelectorAll('.intro-text');
+    console.log('Found ' + introTextParagraphs.length + ' intro-text paragraphs');
+    introTextParagraphs.forEach(function(paragraph) {
+        console.log('Processing paragraph:', paragraph.textContent.substring(0, 100));
         linkVerseReferences(paragraph);
     });
 });

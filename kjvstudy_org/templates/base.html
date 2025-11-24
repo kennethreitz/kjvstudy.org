@@ -1516,6 +1516,88 @@
         });
       })();
 
+      // Site-wide verse linking
+      (function() {
+        function linkVerseReferences(element) {
+          if (!element) return;
+
+          // Get all text nodes
+          const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+          const textNodes = [];
+          let node;
+          while (node = walker.nextNode()) {
+            textNodes.push(node);
+          }
+
+          textNodes.forEach(function(textNode) {
+            let text = textNode.textContent;
+            let changed = false;
+
+            // First, handle comma-separated verse lists like "Psalms 7:17, 9:2, 18:13"
+            text = text.replace(/\b(\d?\s?[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+((?:\d+:\d+(?:-\d+)?(?:\s*,\s*)?)+)/g, function(match, book, verseList) {
+              book = book.trim();
+
+              if (!verseList.includes(',')) {
+                return match;
+              }
+
+              changed = true;
+
+              var verses = verseList.split(/\s*,\s*/);
+              var links = verses.map(function(verseRef) {
+                verseRef = verseRef.trim();
+                var parts = verseRef.match(/^(\d+):(\d+)(?:-(\d+))?$/);
+                if (parts) {
+                  var chapter = parts[1];
+                  var verseStart = parts[2];
+                  var verseEnd = parts[3];
+
+                  if (verseEnd) {
+                    return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + book + ' ' + chapter + ':' + verseStart + '-' + verseEnd + '</a>';
+                  } else {
+                    return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + book + ' ' + chapter + ':' + verseStart + '</a>';
+                  }
+                }
+                return verseRef;
+              });
+
+              return links.join(', ');
+            });
+
+            // Then handle individual verse references like "John 3:16" or "Romans 8:28-29"
+            text = text.replace(/\b(\d?\s?[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b/g, function(match, book, chapter, verseStart, verseEnd) {
+              changed = true;
+              book = book.trim();
+              if (verseEnd) {
+                return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
+              } else {
+                return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + match + '</a>';
+              }
+            });
+
+            if (changed) {
+              const span = document.createElement('span');
+              span.innerHTML = text;
+              textNode.parentNode.replaceChild(span, textNode);
+              while (span.firstChild) {
+                span.parentNode.insertBefore(span.firstChild, span);
+              }
+              span.parentNode.removeChild(span);
+            }
+          });
+        }
+
+        // Link verses in common content areas
+        document.querySelectorAll('.intro-text, .prophet-description, .angel-description, .covenant-description, p').forEach(function(element) {
+          // Skip if already processed or if it's in the sidebar
+          if (element.closest('.nav-sidebar') || element.dataset.verseLinked) {
+            return;
+          }
+          element.dataset.verseLinked = 'true';
+          linkVerseReferences(element);
+        });
+      })();
+
       // Gauges analytics
       var _gauges = _gauges || [];
       (function() {
