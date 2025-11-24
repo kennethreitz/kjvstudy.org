@@ -1055,7 +1055,7 @@
         <!-- Bible Books -->
         {% if books %}
         <h3>Bible Books</h3>
-        <details id="old-testament">
+        <details id="old-testament" open>
             <summary>Old Testament</summary>
             <ul class="book-list">
                 {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
@@ -1066,7 +1066,7 @@
             </ul>
         </details>
 
-        <details id="new-testament">
+        <details id="new-testament" open>
             <summary>New Testament</summary>
             <ul class="book-list">
                 {% for book in ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'] %}
@@ -1079,7 +1079,7 @@
         {% endif %}
 
         <!-- Daily Reading -->
-        <details class="resource-group">
+        <details class="resource-group" open>
             <summary>Daily Reading</summary>
             <ul>
                 <li><a href="/verse-of-the-day">Verse of the Day</a></li>
@@ -1089,7 +1089,7 @@
         </details>
 
         <!-- Study Resources -->
-        <details class="resource-group">
+        <details class="resource-group" open>
             <summary>Study Resources</summary>
             <ul>
                 <li><a href="/study-guides">Study Guides</a></li>
@@ -1098,7 +1098,7 @@
         </details>
 
         <!-- Reference Tools -->
-        <details class="resource-group">
+        <details class="resource-group" open>
             <summary>Reference Tools</summary>
             <ul>
                 <li><a href="/concordance">Concordance</a></li>
@@ -1107,7 +1107,7 @@
         </details>
 
         <!-- Biblical Content -->
-        <details class="resource-group">
+        <details class="resource-group" open>
             <summary>People</summary>
             <ul>
                 <li><a href="/biblical-prophets">Biblical Prophets</a></li>
@@ -1117,7 +1117,7 @@
             </ul>
         </details>
 
-        <details class="resource-group">
+        <details class="resource-group" open>
             <summary>Theology</summary>
             <ul>
                 <li><a href="/biblical-angels">Biblical Angels</a></li>
@@ -1129,7 +1129,7 @@
             </ul>
         </details>
 
-        <details class="resource-group">
+        <details class="resource-group" open>
             <summary>History & Culture</summary>
             <ul>
                 <li><a href="/biblical-festivals">Biblical Festivals</a></li>
