@@ -255,6 +255,13 @@ section a[href^="/book/"] {
 {% endblock %}
 
 {% block content %}
+<div class="epigraph">
+    <blockquote>
+        <p>{{ daily_verse.text | link_names | safe }}</p>
+        <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a> — <a href="/verse-of-the-day">Verse of the Day</a></footer>
+    </blockquote>
+</div>
+
 <div class="title-page">
     <h1>The Holy Bible</h1>
     <div class="title-details">
@@ -416,13 +423,6 @@ document.addEventListener('keydown', function(e) {
 
     <p>Here you will find not merely the sacred text, but helps for its profitable study:<label for="sn-purpose" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-purpose" class="margin-toggle"/><span class="sidenote">This digital edition presents the 1769 Oxford Standard text, enriched with apparatus drawn from judicious commentators and modern scholarship. Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16)—yet such profit requires more than cursory reading. Hence the provision of study helps.</span> Hebrew and Greek word analysis, comprehensive cross-references whereby Scripture interprets Scripture, topical indices, reading plans, and theological studies. Our purpose follows that of the original 1611 translators: "that the Scripture may speake like it selfe"—that it may be understood with the depth of comprehension befitting the oracles of the living God.</p>
 </section>
-
-<div class="epigraph">
-    <blockquote>
-        <p>{{ daily_verse.text | link_names | safe }}</p>
-        <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a> — <a href="/verse-of-the-day">Verse of the Day</a></footer>
-    </blockquote>
-</div>
 
 <section>
     <h2>Quick Access</h2>
