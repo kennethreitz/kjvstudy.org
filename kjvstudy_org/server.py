@@ -2067,6 +2067,188 @@ def api_get_interlinear(book: str, chapter: int, verse: int):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/books")
+def api_get_books():
+    """API endpoint to get list of all Bible books"""
+    books = list(bible.iter_books())
+
+    # Categorize by testament
+    old_testament = []
+    new_testament = []
+
+    ot_books = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua',
+                'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings',
+                '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job',
+                'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah',
+                'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel',
+                'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
+                'Haggai', 'Zechariah', 'Malachi']
+
+    for book in books:
+        chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+        book_info = {
+            "name": book,
+            "chapters": len(chapters),
+            "testament": "Old Testament" if book in ot_books else "New Testament"
+        }
+
+        if book in ot_books:
+            old_testament.append(book_info)
+        else:
+            new_testament.append(book_info)
+
+    return {
+        "total_books": len(books),
+        "old_testament": old_testament,
+        "new_testament": new_testament
+    }
+
+
+@app.get("/api/books/{book}")
+def api_get_book(book: str):
+    """API endpoint to get details about a specific book"""
+    # Normalize book name variations
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    if not chapters:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    # Get verse count for each chapter
+    chapter_details = []
+    for chapter in chapters:
+        verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+        chapter_details.append({
+            "chapter": chapter,
+            "verses": len(verses)
+        })
+
+    return {
+        "name": book,
+        "total_chapters": len(chapters),
+        "chapters": chapter_details
+    }
+
+
+@app.get("/api/books/{book}/chapters/{chapter}")
+def api_get_chapter(book: str, chapter: int):
+    """API endpoint to get all verses in a chapter"""
+    # Normalize book name variations
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+    if not verses:
+        raise HTTPException(status_code=404, detail="Chapter not found")
+
+    verse_list = []
+    for v in verses:
+        verse_list.append({
+            "verse": v.verse,
+            "text": v.text
+        })
+
+    return {
+        "book": book,
+        "chapter": chapter,
+        "total_verses": len(verses),
+        "verses": verse_list
+    }
+
+
+@app.get("/api/cross-references/{book}/{chapter}/{verse}")
+def api_get_cross_references(book: str, chapter: int, verse: int):
+    """API endpoint to get cross-references for a verse"""
+    # Normalize book name variations
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    # Check if verse exists
+    verse_text = bible.get_verse_text(book, chapter, verse)
+    if not verse_text:
+        raise HTTPException(status_code=404, detail="Verse not found")
+
+    cross_refs = get_cross_references(book, chapter, verse)
+
+    return {
+        "book": book,
+        "chapter": chapter,
+        "verse": verse,
+        "reference": f"{book} {chapter}:{verse}",
+        "cross_references": cross_refs
+    }
+
+
+@app.get("/api/topics")
+def api_get_topics():
+    """API endpoint to get list of all topics"""
+    topics = get_all_topics()
+
+    topic_list = []
+    for topic_name, topic_data in topics.items():
+        topic_list.append({
+            "name": topic_name,
+            "slug": topic_name,
+            "description": topic_data.get("description", ""),
+            "subtopics": list(topic_data.get("subtopics", {}).keys())
+        })
+
+    return {
+        "total_topics": len(topics),
+        "topics": topic_list
+    }
+
+
+@app.get("/api/topics/{topic_name}")
+def api_get_topic(topic_name: str):
+    """API endpoint to get details about a specific topic"""
+    topic = get_topic(topic_name)
+    if not topic:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return {
+        "name": topic_name,
+        "description": topic.get("description", ""),
+        "overview": topic.get("overview", ""),
+        "subtopics": topic.get("subtopics", {})
+    }
+
+
+@app.get("/api/reading-plans")
+def api_get_reading_plans():
+    """API endpoint to get list of all reading plans"""
+    plans = get_all_plans()
+
+    plan_list = []
+    for plan_id, plan_data in plans.items():
+        summary = get_plan_summary(plan_id)
+        plan_list.append({
+            "id": plan_id,
+            "name": plan_data["name"],
+            "description": plan_data["description"],
+            "total_days": summary["total_days"] if summary else 0
+        })
+
+    return {
+        "total_plans": len(plans),
+        "plans": plan_list
+    }
+
+
+@app.get("/api/reading-plans/{plan_id}")
+def api_get_reading_plan(plan_id: str):
+    """API endpoint to get details about a specific reading plan"""
+    plan = get_plan(plan_id)
+    if not plan:
+        raise HTTPException(status_code=404, detail="Reading plan not found")
+
+    return plan
+
+
 @app.get("/biblical-maps", response_class=HTMLResponse)
 def biblical_maps_page(request: Request):
     """Biblical maps page showing important biblical locations"""
