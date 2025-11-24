@@ -83,16 +83,31 @@ section a[href^="/book/"] {
     font-style: italic;
 }
 
-/* Quick Links - Classical List */
+/* Quick Links - Card Grid */
 .quick-links {
-    max-width: 55%;
-    margin: 1rem 0;
-    line-height: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 90%;
+    margin: 2rem 0;
 }
 
 .quick-link-btn {
-    display: inline;
-    margin-right: 1.5rem;
+    display: block;
+    padding: 1.25rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.quick-link-btn:hover {
+    border-color: var(--border-color-darker);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: var(--code-bg);
 }
 
 /* Mobile responsive styles */
@@ -191,19 +206,16 @@ section a[href^="/book/"] {
 
     .quick-links {
         max-width: 100%;
-        margin: 1rem 0;
-        line-height: 1.8;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 0.75rem;
+        margin: 1.5rem 0;
     }
 
     .quick-link-btn {
-        display: inline-block;
-        margin: 0.5rem 0.75rem 0.5rem 0;
-        padding: 0.6rem 1.2rem;
+        padding: 0.875rem;
         border: 3px solid #999;
-        border-radius: 4px;
         font-weight: 600;
         min-height: 44px;
-        line-height: 1.6;
         color: #000;
     }
 
@@ -286,6 +298,20 @@ section a[href^="/book/"] {
 </div>
 
 <p style="text-align: center; margin: 1rem 0; font-size: 1.1rem;"><strong><a href="/books">Browse All 66 Books →</a></strong></p>
+
+<section>
+    <h2>Quick Access</h2>
+    <div class="quick-links">
+        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
+        <a href="/study-guides" class="quick-link-btn">Study Guides</a>
+        <a href="/books" class="quick-link-btn">All Books</a>
+        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
+        <a href="/topics" class="quick-link-btn">Topical Index</a>
+        <a href="/resources" class="quick-link-btn">All Resources</a>
+        <a href="/family-tree" class="quick-link-btn">Genealogies</a>
+        <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
+    </div>
+</section>
 
 <script>
 // Helper function to properly capitalize book names and handle abbreviations
@@ -422,20 +448,6 @@ document.addEventListener('keydown', function(e) {
     <p><span class="newthought">Welcome to KJV Study</span>, a digital resource for studying the Authorized Version of the Holy Scriptures. This site provides the complete text of the King James Bible enriched with original language analysis, cross-references, historical context, and theological commentary—instruments designed to help both the careful scholar and the earnest student understand God's Word more deeply.</p>
 
     <p>Here you will find not merely the sacred text, but helps for its profitable study:<label for="sn-purpose" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-purpose" class="margin-toggle"/><span class="sidenote">This digital edition presents the 1769 Oxford Standard text, enriched with apparatus drawn from judicious commentators and modern scholarship. Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16)—yet such profit requires more than cursory reading. Hence the provision of study helps.</span> Hebrew and Greek word analysis, comprehensive cross-references whereby Scripture interprets Scripture, topical indices, reading plans, and theological studies. Our purpose follows that of the original 1611 translators: "that the Scripture may speake like it selfe"—that it may be understood with the depth of comprehension befitting the oracles of the living God.</p>
-</section>
-
-<section>
-    <h2>Quick Access</h2>
-    <div class="quick-links">
-        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
-        <a href="/study-guides" class="quick-link-btn">Study Guides</a>
-        <a href="/books" class="quick-link-btn">All Books</a>
-        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
-        <a href="/topics" class="quick-link-btn">Topical Index</a>
-        <a href="/resources" class="quick-link-btn">All Resources</a>
-        <a href="/family-tree" class="quick-link-btn">Genealogies</a>
-        <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
-    </div>
 </section>
 
 <section>
