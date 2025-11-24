@@ -1045,24 +1045,16 @@
             <input type="text" id="sidebar-search-input" placeholder="Search..." autocomplete="off">
         </div>
 
-        <!-- Navigation -->
-        <h3>Navigation</h3>
+        <!-- Quick Access -->
+        <h3>Quick Access</h3>
         <ul>
             <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
-            <li><a href="/books">Books</a></li>
-            <li><a href="/resources">Resources</a></li>
-            <li><a href="/verse-of-the-day">Verse of the Day</a></li>
-            <li><a href="/random-verse">Random Verse</a></li>
-            <li><a href="/reading-plans">Reading Plans</a></li>
-            <li><a href="/topics">Topics</a></li>
-            <li><a href="/concordance">Concordance</a></li>
-            <li><a href="/interlinear">Interlinear</a></li>
             <li><a href="/search">Search</a></li>
         </ul>
 
         <!-- Bible Books -->
         {% if books %}
-        <h3>Books</h3>
+        <h3>Bible Books</h3>
         <details id="old-testament">
             <summary>Old Testament</summary>
             <ul class="book-list">
@@ -1086,7 +1078,35 @@
         </details>
         {% endif %}
 
-        <!-- Resources organized by category -->
+        <!-- Daily Reading -->
+        <details class="resource-group">
+            <summary>Daily Reading</summary>
+            <ul>
+                <li><a href="/verse-of-the-day">Verse of the Day</a></li>
+                <li><a href="/random-verse">Random Verse</a></li>
+                <li><a href="/reading-plans">Reading Plans</a></li>
+            </ul>
+        </details>
+
+        <!-- Study Resources -->
+        <details class="resource-group">
+            <summary>Study Resources</summary>
+            <ul>
+                <li><a href="/study-guides">Study Guides</a></li>
+                <li><a href="/topics">Topics</a></li>
+            </ul>
+        </details>
+
+        <!-- Reference Tools -->
+        <details class="resource-group">
+            <summary>Reference Tools</summary>
+            <ul>
+                <li><a href="/concordance">Concordance</a></li>
+                <li><a href="/interlinear">Interlinear</a></li>
+            </ul>
+        </details>
+
+        <!-- Biblical Content -->
         <details class="resource-group">
             <summary>People</summary>
             <ul>
@@ -1115,14 +1135,6 @@
                 <li><a href="/biblical-festivals">Biblical Festivals</a></li>
                 <li><a href="/biblical-maps">Biblical Geography</a></li>
                 <li><a href="/biblical-timeline">Timeline</a></li>
-            </ul>
-        </details>
-
-        <details class="resource-group">
-            <summary>Study Tools</summary>
-            <ul>
-                <li><a href="/study-guides">Study Guides</a></li>
-                <li><a href="/topics/Parenting">Parenting</a></li>
             </ul>
         </details>
 
