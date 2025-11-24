@@ -83,36 +83,6 @@ section a[href^="/book/"] {
     font-style: italic;
 }
 
-/* Featured Studies - Classical List Style */
-.featured-studies {
-    max-width: 55%;
-    margin: 1.5rem 0;
-}
-
-.study-entry {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-    border-left: 2px solid var(--border-color-dark);
-}
-
-.study-entry h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    font-style: italic;
-}
-
-.study-entry h3 a {
-    border-bottom: none;
-}
-
-.study-entry p {
-    margin: 0.5rem 0 0 0;
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--text-color);
-}
-
 /* Quick Links - Classical List */
 .quick-links {
     max-width: 55%;
@@ -219,48 +189,6 @@ section a[href^="/book/"] {
         color: var(--text-secondary);
     }
 
-    .featured-studies {
-        max-width: 100%;
-        margin: 1.5rem 0;
-    }
-
-    .study-entry {
-        margin: 1.25rem 0;
-        padding: 1rem 0 1rem 1.25rem;
-        border-left: 5px solid #999;
-    }
-
-    [data-theme="dark"] .study-entry {
-        border-left-color: #666;
-    }
-
-    .study-entry h3 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-
-    .study-entry h3 a {
-        color: #000;
-        border-bottom: 3px solid #999;
-    }
-
-    [data-theme="dark"] .study-entry h3 a {
-        color: #fff;
-        border-bottom-color: #666;
-    }
-
-    .study-entry p {
-        font-size: 1rem;
-        line-height: 1.7;
-        color: #000;
-        font-weight: 400;
-    }
-
-    [data-theme="dark"] .study-entry p {
-        color: #e0e0e0;
-    }
-
     .quick-links {
         max-width: 100%;
         margin: 1rem 0;
@@ -330,14 +258,19 @@ section a[href^="/book/"] {
 <div class="title-page">
     <h1>The Holy Bible</h1>
     <div class="title-details">
-        Translated out of the Original Tongues and with the Former Translations Diligently Compared and Revised<br/>
-        by His Majesty's Special Command<br/>
+        Authorized King James Version<br/>
         <em>Anno Domini</em> 1611
     </div>
 </div>
 
+<section>
+    <p><span class="newthought">Welcome to KJV Study</span>, a digital resource for studying the Authorized Version of the Holy Scriptures. This site provides the complete text of the King James Bible enriched with original language analysis, cross-references, historical context, and theological commentary—instruments designed to help both the careful scholar and the earnest student understand God's Word more deeply.</p>
+
+    <p>Here you will find not merely the sacred text, but helps for its profitable study: Hebrew and Greek word analysis, comprehensive cross-references whereby Scripture interprets Scripture, topical indices, reading plans, and theological studies. Our purpose follows that of the original 1611 translators: "that the Scripture may speake like it selfe"—that it may be understood with the depth of comprehension befitting the oracles of the living God.<label for="sn-purpose" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-purpose" class="margin-toggle"/><span class="sidenote">This digital edition presents the 1769 Oxford Standard text, enriched with apparatus drawn from judicious commentators and modern scholarship. Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16)—yet such profit requires more than cursory reading. Hence the provision of study helps.</span></p>
+</section>
+
 <div class="verse-lookup">
-    <h2>Search or Navigate</h2>
+    <h2>Search or Navigate Scripture</h2>
     <form class="lookup-form" onsubmit="return handleSearch(event)">
         <input
             type="text"
@@ -490,66 +423,33 @@ document.addEventListener('keydown', function(e) {
 </div>
 
 <section>
-    <h2>Quick Access</h2>
-    <div class="quick-links">
-        <a href="/books" class="quick-link-btn">Books of the Bible</a>
-        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
-        <a href="/topics" class="quick-link-btn">Topical Index</a>
-        <a href="/family-tree" class="quick-link-btn">Biblical Genealogies</a>
-        <a href="/biblical-timeline" class="quick-link-btn">Timeline / Chronology</a>
-        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
-    </div>
+    <h2>The Sacred Scriptures</h2>
+
+    <p><span class="newthought">The Holy Bible</span> comprises sixty-six books penned by approximately forty authors over fifteen centuries—yet unified by one divine Author. These sacred writings preserve God's progressive self-revelation to humanity: His character, His purposes, and His redemptive plan accomplished through Jesus Christ. The Scriptures consist of two testaments, the Old and the New, which together form a coherent testimony to the gospel.<label for="sn-testaments" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-testaments" class="margin-toggle"/><span class="sidenote">The Hebrew Scriptures (תנ״ך, <em>TaNaKh</em>) consist of תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings). The Greek New Testament (καινὴ διαθήκη) records Christ's incarnation, the establishment of His church, and apostolic teaching. Christ Himself testified: 'all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me' (Luke 24:44).</span></p>
+
+    <p><span class="newthought">The Old Testament</span> contains God's covenant with Israel, from creation through the prophetic age. It includes the Law of Moses (<em>Torah</em>), which establishes God's covenant and moral order; the Historical Books, which narrate Israel's history from conquest to exile and restoration; the Wisdom Literature, which explores the deepest questions of human existence; and the Prophets, who called Israel to faithfulness and foretold the coming Messiah.</p>
+
+    <p><span class="newthought">The New Testament</span> presents the fulfillment of Old Testament promises in Jesus Christ. The four Gospels provide comprehensive testimony to Christ's life, death, and resurrection from different perspectives. Acts chronicles the early church's establishment and growth. The Epistles expound Christian doctrine and provide pastoral instruction. Revelation unveils the consummation of God's redemptive plan.</p>
+
+    <p><a href="/books">Browse all sixty-six books</a> to read any chapter or verse.</p>
 </section>
 
 <section>
-    <p><span class="newthought"><a href="/books">The Authorized Version</a></span>, commonly designated the King James Bible, represents the culmination of England's Reformation heritage and stands among the most influential works in the English tongue. Commissioned by King James I in 1604 at the Hampton Court Conference and completed seven years thereafter by a learned company of forty-seven divines and scholars, this translation was wrought from the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew). It has shaped not merely our literature and jurisprudence, but the very idiom of spiritual discourse and the conscience of English-speaking Christendom for more than four centuries.<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators, working in six companies at Westminster, Oxford, and Cambridge, consulted the labors of their predecessors—Tyndale (whose felicity of phrase permeates the work), Coverdale, and the Geneva Bible—while maintaining fidelity to the original tongues. Their Hebrew derived from the <em>Ben Chayyim Masoretic tradition</em> (the received text of Judaism); their Greek New Testament followed the editions of Erasmus, Stephanus, and Beza. The result achieved a singular union of scholarly precision with majesty of expression.</span></p>
+    <h2>Study Resources</h2>
 
-    <p>The translators themselves, in their address "To the most high and mightie Prince, James," avowed their purpose: to render the sacred oracles accessible to "the very vulgar"—not through vulgarization, but by wedding scholarly exactitude to such nobility of language that both the learned doctor and the humble plowman might apprehend divine truth. Drawing upon the threefold Hebrew canon—תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings)—together with the Greek διαθήκη καινή (<em>diathēkē kainē</em>, New Testament), their translation achieved such felicity of expression that its cadences have become woven into the very fabric of English letters.<label for="sn-canon" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-canon" class="margin-toggle"/><span class="sidenote">The Hebrew acronym <strong>TaNaKh</strong> (תנ״ך) derives from <strong>T</strong>orah, <strong>N</strong>evi'im, <strong>K</strong>etuvim. While this Jewish ordering differs from Christian canonical arrangements, it reflects the historical development attested by Christ Himself: 'all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me' (Luke 24:44)—the three divisions of Hebrew Scripture bearing witness to the coming Messiah.</span></p>
+    <p><span class="newthought">Word-by-Word Analysis</span> — Each verse may be examined at the word level, with access to the underlying Hebrew (תּוֹרָה) or Greek (Ἑλληνική) text, transliterations, Strong's concordance numbers, parsing information, and lexical definitions. This allows readers to understand the original languages without prior training.</p>
 
-    <p>This digital edition presents the 1769 Oxford Standard text—being the received and corrected form—enriched with apparatus drawn from the most judicious commentators and modern scholarship. The reader shall find herein not the bare text alone, but instruments for its profitable study: analysis of Hebrew שֹׁרֶשׁ (<em>shoresh</em>, word roots) and Greek λέξις (<em>lexis</em>, vocabulary), marginal annotations explicating passages of difficulty, comprehensive cross-references whereby Scripture interprets Scripture, and such historical and geographical context as may illumine the sacred narrative. Our purpose remains constant with that of the original translators: "that the Scripture may speake like it selfe... that it may be understood even of the very vulgar"—yet understood not superficially, but with that depth of comprehension befitting the oracles of the living God.<label for="sn-purpose" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-purpose" class="margin-toggle"/><span class="sidenote">Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16). Yet such profit requires more than cursory reading—it demands διδασκαλία (<em>didaskalia</em>, systematic teaching), aided by γραμματεύς (<em>grammateus</em>, scribal learning). Hence the provision of helps: that the diligent student might rightly divide the word of truth.</span></p>
-</section>
+    <p><span class="newthought">Cross-References</span> — Comprehensive cross-references connect related passages throughout Scripture, demonstrating how the Bible interprets itself. These references illuminate theological themes, typological connections, and parallel accounts across both testaments.</p>
 
-<section>
-    <h2>The Old Testament</h2>
+    <p><span class="newthought">Topical Studies</span> — In-depth <a href="/resources">theological studies</a> explore major biblical themes, persons, and concepts. Subjects include <a href="/biblical-covenants">the biblical covenants</a>, <a href="/names-of-god">the names of God</a>, <a href="/tetragrammaton">the sacred Tetragrammaton</a>, <a href="/parables">Christ's parables</a>, <a href="/biblical-angels">angelology</a>, <a href="/biblical-prophets">the prophets</a>, and many others.</p>
 
-    <p><span class="newthought">The Law</span>,<label for="sn-torah" class="margin-toggle sidenote-number"></label>
-    <input type="checkbox" id="sn-torah" class="margin-toggle"/>
-    <span class="sidenote">The Hebrew תּוֹרָה (<em>Torah</em>, 'instruction' or 'law'), or Pentateuch (Greek πεντάτευχος, 'five scrolls')—traditionally ascribed to Moses, the mediator of the old covenant. Jewish tradition subdivides Torah into 613 commandments (מִצְוֹת, <em>mitzvot</em>): 248 positive commands and 365 prohibitions. These form the foundation upon which all subsequent scripture rests, containing both the primeval history of mankind (Genesis 1-11) and the particular covenant established with Israel through Abraham, Isaac, and Jacob.</span>
-    or Books of Moses, constitute the foundation of divine revelation. Beginning with <em>Bereshit</em> (בְּרֵאשִׁית, 'In the beginning')—the very first word of Scripture—proceeding through the patriarchal dispensation, and culminating in the giving of the Law at Sinai where YHWH revealed His name and character, here is recorded the establishment of God's <em>brit</em> (בְּרִית, covenant) with His chosen people: <a href="/book/Genesis">Genesis</a>, <a href="/book/Exodus">Exodus</a>, <a href="/book/Leviticus">Leviticus</a>, <a href="/book/Numbers">Numbers</a>, <a href="/book/Deuteronomy">Deuteronomy</a>.</p>
+    <p><span class="newthought">Topical Index</span> — A systematic <a href="/topics">concordance of theological themes</a> organizes Scripture by subject—Salvation, Prayer, Love, Faith, Forgiveness, the Holy Spirit, and other essential doctrines—with carefully selected verses and explanatory notes for each topic.</p>
 
-    <p><span class="newthought">The Historical Books</span><label for="sn-history" class="margin-toggle sidenote-number"></label>
-    <input type="checkbox" id="sn-history" class="margin-toggle"/>
-    <span class="sidenote">These chronicles record Israel's history from Joshua's conquest of Canaan through the divided kingdom, the Babylonian captivity, and the restoration under Ezra and Nehemiah. They demonstrate God's faithfulness to His covenant despite Israel's repeated unfaithfulness.</span>
-    narrate the unfolding drama of Israel's occupation of Canaan, the establishment and dissolution of the monarchy, the exile to Babylon, and the subsequent restoration. Through triumph and tragedy alike, these records demonstrate the providence of God working through the affairs of nations: <a href="/book/Joshua">Joshua</a>, <a href="/book/Judges">Judges</a>, <a href="/book/Ruth">Ruth</a>, <a href="/book/1 Samuel">1 Samuel</a>, <a href="/book/2 Samuel">2 Samuel</a>, <a href="/book/1 Kings">1 Kings</a>, <a href="/book/2 Kings">2 Kings</a>, <a href="/book/1 Chronicles">1 Chronicles</a>, <a href="/book/2 Chronicles">2 Chronicles</a>, <a href="/book/Ezra">Ezra</a>, <a href="/book/Nehemiah">Nehemiah</a>, <a href="/book/Esther">Esther</a>.</p>
+    <p><span class="newthought">Reading Plans</span> — Structured <a href="/reading-plans">Bible reading schedules</a> guide systematic Scripture study through chronological, thematic, and testament-specific approaches, helping establish regular engagement with God's Word.</p>
 
-    <p><span class="newthought">The Wisdom Literature</span><label for="sn-wisdom" class="margin-toggle sidenote-number"></label>
-    <input type="checkbox" id="sn-wisdom" class="margin-toggle"/>
-    <span class="sidenote">The <em>Ḥokhmah</em>, or Wisdom books, explore the deepest questions of human existence: the problem of suffering, the nature of righteous living, the brevity of life, and the soul's relationship with God. Their poetic form elevates them to the highest achievements of Hebrew literature.</span>
-    comprises those books wherein are considered the weightiest questions of human existence—the nature of suffering, the vanity of earthly pursuits, the fear of the LORD as the beginning of wisdom, and the soul's yearning for communion with the Divine: <a href="/book/Job">Job</a>, <a href="/book/Psalms">Psalms</a>, <a href="/book/Proverbs">Proverbs</a>, <a href="/book/Ecclesiastes">Ecclesiastes</a>, <a href="/book/Song of Solomon">Song of Solomon</a>.</p>
+    <p><span class="newthought">Concordance & Search</span> — A comprehensive <a href="/concordance">concordance</a> shows every occurrence of any word in Scripture. The <a href="/search">search facility</a> allows tracing words and phrases throughout the entire biblical corpus.</p>
 
-    <p><span class="newthought">The Prophetic Books</span><label for="sn-prophets" class="margin-toggle sidenote-number"></label>
-    <input type="checkbox" id="sn-prophets" class="margin-toggle"/>
-    <span class="sidenote">The נְבִיאִים (<em>Nevi'im</em>, Prophets) spoke as God's mouthpieces—the Hebrew נָבִיא (<em>navi</em>) derives from a root meaning 'to bubble forth' or 'announce.' They functioned as covenant prosecutors, declaring 'Thus saith the LORD' (כֹּה אָמַר יְהוָה, <em>koh amar YHWH</em>). Their oracles combine fierce denunciation of sin with tender promises of restoration, containing numerous Messianic prophecies (הַמָּשִׁיחַ, <em>ha-Mashiach</em>) fulfilled in Christ.</span>
-    preserve the oracles of those men whom God raised up to call His people to repentance, to pronounce <em>mishpat</em> (מִשְׁפָּט, judgment) upon the nations, and to foretell the coming of Messiah. From Isaiah's vision of the suffering Servant (עֶבֶד, <em>eved</em>) to Malachi's promise of Elijah's return, these books contain some of the most sublime passages in all Scripture: <a href="/book/Isaiah">Isaiah</a>, <a href="/book/Jeremiah">Jeremiah</a>, <a href="/book/Lamentations">Lamentations</a>, <a href="/book/Ezekiel">Ezekiel</a>, <a href="/book/Daniel">Daniel</a>, <a href="/book/Hosea">Hosea</a>, <a href="/book/Joel">Joel</a>, <a href="/book/Amos">Amos</a>, <a href="/book/Obadiah">Obadiah</a>, <a href="/book/Jonah">Jonah</a>, <a href="/book/Micah">Micah</a>, <a href="/book/Nahum">Nahum</a>, <a href="/book/Habakkuk">Habakkuk</a>, <a href="/book/Zephaniah">Zephaniah</a>, <a href="/book/Haggai">Haggai</a>, <a href="/book/Zechariah">Zechariah</a>, <a href="/book/Malachi">Malachi</a>.</p>
-</section>
-
-<section>
-    <h2>The New Testament</h2>
-
-    <p><span class="newthought">The Holy Gospels</span><label for="sn-gospels" class="margin-toggle sidenote-number"></label>
-    <input type="checkbox" id="sn-gospels" class="margin-toggle"/>
-    <span class="sidenote">The εὐαγγέλιον (<em>euangelion</em>, 'good news')—four distinct accounts of the incarnation, ministry, passion, and resurrection of our Lord Jesus Christ. Matthew presents Christ as the βασιλεύς (<em>basileus</em>, King) of the Jews; Mark, as the suffering δοῦλος (<em>doulos</em>, Servant); Luke, as the perfect ἄνθρωπος (<em>anthropos</em>, Man); John, as the eternal Λόγος (<em>Logos</em>, Word) made flesh. These four 'living creatures' (Revelation 4:7) provide comprehensive witness to the God-man.</span>
-    present the life, teaching, death, and resurrection of our Lord Jesus Christ. These four witnesses—Matthew, Mark, Luke, and John—though writing from different perspectives and to different audiences, unite in their testimony to the central fact of human history: that the eternal Λόγος (Logos, Word) became σάρξ (<em>sarx</em>, flesh) and ἐσκήνωσεν (<em>eskenosen</em>, 'tabernacled') among us: <a href="/book/Matthew">Matthew</a>, <a href="/book/Mark">Mark</a>, <a href="/book/Luke">Luke</a>, <a href="/book/John">John</a>.</p>
-
-    <p><span class="newthought">The Acts of the Apostles</span><label for="sn-acts" class="margin-toggle sidenote-number"></label>
-    <input type="checkbox" id="sn-acts" class="margin-toggle"/>
-    <span class="sidenote">Luke's second treatise chronicles Christ's ἀνάληψις (<em>analepsis</em>, ascension), the descent of the Πνεῦμα Ἅγιον (<em>Pneuma Hagion</em>, Holy Spirit) at Pentecost, and the subsequent expansion of the ἐκκλησία (<em>ekklesia</em>, church) from Jerusalem to Rome. The book demonstrates how the εὐαγγέλιον (gospel) spread 'unto the uttermost part of the earth' through the μαρτυρία (<em>martyria</em>, witness) of the apostles—Peter representing ministry to Jews, Paul to Gentiles.</span>
-    and the Epistles contain the history of the primitive church and the doctrinal instruction given to the early Christian communities. Acts records the establishment and growth of the church following Pentecost, while the ἐπιστολαί (<em>epistolai</em>, letters) of Paul, Peter, John, James, and Jude expound Christian διδαχή (<em>didache</em>, doctrine)—justification by πίστις (<em>pistis</em>, faith), sanctification through the Spirit, the nature of ἀγάπη (<em>agape</em>, divine love), and the παρουσία (<em>parousia</em>, coming) of Christ—providing pastoral guidance for believers: <a href="/book/Acts">Acts</a>, <a href="/book/Romans">Romans</a>, <a href="/book/1 Corinthians">1 Corinthians</a>, <a href="/book/2 Corinthians">2 Corinthians</a>, <a href="/book/Galatians">Galatians</a>, <a href="/book/Ephesians">Ephesians</a>, <a href="/book/Philippians">Philippians</a>, <a href="/book/Colossians">Colossians</a>, <a href="/book/1 Thessalonians">1 Thessalonians</a>, <a href="/book/2 Thessalonians">2 Thessalonians</a>, <a href="/book/1 Timothy">1 Timothy</a>, <a href="/book/2 Timothy">2 Timothy</a>, <a href="/book/Titus">Titus</a>, <a href="/book/Philemon">Philemon</a>, <a href="/book/Hebrews">Hebrews</a>, <a href="/book/James">James</a>, <a href="/book/1 Peter">1 Peter</a>, <a href="/book/2 Peter">2 Peter</a>, <a href="/book/1 John">1 John</a>, <a href="/book/2 John">2 John</a>, <a href="/book/3 John">3 John</a>, <a href="/book/Jude">Jude</a>.</p>
-
-    <p><span class="newthought">The Revelation of St. John the Divine</span><label for="sn-revelation" class="margin-toggle sidenote-number"></label>
-    <input type="checkbox" id="sn-revelation" class="margin-toggle"/>
-    <span class="sidenote">The Ἀποκάλυψις (<em>Apokalypsis</em>, 'unveiling' or 'revelation')—presents in highly symbolic imagery the ultimate triumph of Christ over all earthly and spiritual powers. Written in a unique blend of Hebrew prophetic tradition and Greek apocalyptic style, it employs vivid symbolism: the ἀρνίον (<em>arnion</em>, Lamb), the θηρίον (<em>therion</em>, Beast), the πόρνη (<em>porne</em>, Harlot). It concludes the canon with visions of κρίσις (<em>krisis</em>, judgment) and the restoration of all things in the Καινὴ Ἱερουσαλήμ (<em>Kaine Hierousalem</em>, New Jerusalem).</span>
-    concludes the canon with visions of the ἔσχατα (<em>eschata</em>, last things), the final judgment, and the establishment of the καινὸς οὐρανὸς καὶ καινὴ γῆ (<em>kainos ouranos kai kaine ge</em>, new heaven and new earth). This prophetic book, given to John while exiled on Patmos, unveils the ultimate νίκη (<em>nike</em>, victory) of the Lamb and the τελείωσις (<em>teleiosis</em>, consummation) of God's redemptive plan: <a href="/book/Revelation">Revelation</a>.</p>
+    <p><span class="newthought">Historical Context</span> — <a href="/biblical-maps">Maps and geographical descriptions</a> illuminate the places of Scripture. A <a href="/biblical-timeline">chronological timeline</a> presents biblical events in historical sequence. <a href="/family-tree">Genealogical charts</a> trace the line from Adam through the patriarchs to David and ultimately to Christ.</p>
 </section>
 
 <section>
@@ -562,23 +462,20 @@ document.addEventListener('keydown', function(e) {
 </section>
 
 <section>
-    <h2>Resources</h2>
+    <h2>Quick Access</h2>
+    <div class="quick-links">
+        <a href="/books" class="quick-link-btn">All Books</a>
+        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
+        <a href="/topics" class="quick-link-btn">Topical Index</a>
+        <a href="/resources" class="quick-link-btn">All Resources</a>
+        <a href="/family-tree" class="quick-link-btn">Genealogies</a>
+        <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
+        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
+    </div>
+</section>
 
-    <p><span class="newthought">Browse all <a href="/resources">Theological Resources</a></span> — A comprehensive collection of biblical studies organized by category, including detailed explorations of people, theology, history, and study tools.</p>
-
-    <p><span class="newthought">Theological Studies</span> — Individual studies: <a href="/biblical-angels">Biblical Angels</a>, <a href="/biblical-prophets">Biblical Prophets</a>, <a href="/biblical-covenants">Biblical Covenants</a>, <a href="/biblical-festivals">Biblical Festivals</a>, <a href="/names-of-god">Names of God</a>, <a href="/parables">Parables of Jesus</a>, <a href="/tetragrammaton">The Tetragrammaton</a>, <a href="/the-twelve-apostles">The Twelve Apostles</a>, and <a href="/women-of-the-bible">Women of the Bible</a>.</p>
-
-    <p><span class="newthought">Topical Index</span> — A systematic <a href="/topics">concordance of major theological themes</a>, organizing Scripture by subject—Salvation, Prayer, Love, Faith, Forgiveness, the Holy Spirit, and other essential doctrines—each with carefully selected verses and explanatory notes.</p>
-
-    <p><span class="newthought">Reading Plans</span> — Structured <a href="/reading-plans">Bible reading schedules</a> for systematic Scripture study, including chronological, thematic, and testament-specific plans to guide sustained engagement with God's Word.</p>
-
-    <p><span class="newthought">Concordance and Search</span> — A comprehensive <a href="/concordance">concordance</a> showing every occurrence of any word in Scripture, and a <a href="/search">search facility</a> allowing the reader to trace any word or phrase throughout the entire corpus of Scripture, after the manner of Cruden's Complete Concordance.</p>
-
-    <p><span class="newthought">Biblical Geography</span> — <a href="/biblical-maps">Maps and descriptions</a> of those places mentioned in Holy Writ, from the rivers of Babylon to the shores of Galilee, illuminating the geographical context of sacred history.</p>
-
-    <p><span class="newthought">Genealogies</span> — <a href="/family-tree">The family tree</a> of biblical personages, tracing the line of descent from Adam through the patriarchs to the house of David and ultimately to Jesus Christ, the son of David, the son of Abraham.</p>
-
-    <p><span class="newthought">Chronology</span> — A <a href="/biblical-timeline">timeline of biblical events</a>, presenting in ordered sequence the principal occurrences recorded in Scripture, from the creation to the apostolic age.</p>
+<section>
+    <p><span class="newthought">About the Translation</span> — The Authorized Version, commissioned by King James I in 1604 and completed in 1611, represents the work of forty-seven learned divines and scholars working from the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew). This translation has shaped English-speaking Christianity for more than four centuries, achieving a remarkable union of scholarly precision with nobility of expression. This digital edition presents the 1769 Oxford Standard text.<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators worked in six companies at Westminster, Oxford, and Cambridge. They consulted previous English translations—particularly Tyndale, whose felicity of phrase permeates the work—while maintaining fidelity to the original tongues. The result became the foundation for English biblical language and theological discourse.</span></p>
 </section>
 
 <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color); text-align: center;">
