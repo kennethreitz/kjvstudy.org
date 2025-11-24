@@ -4,10 +4,10 @@ import os
 import re
 import random
 from datetime import datetime, timedelta
-from pathlib import Path
+from pathlib import Path as PathLib
 from typing import List, Dict, Optional
 
-from fastapi import FastAPI, HTTPException, Request, Query
+from fastapi import FastAPI, HTTPException, Request, Query, Path
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -763,7 +763,7 @@ app.add_middleware(CacheControlMiddleware)
 
 
 # Set up Jinja2 templates and static files
-current_dir = Path(__file__).parent
+current_dir = PathLib(__file__).parent
 static_dir = current_dir / "static"
 templates_dir = current_dir / "templates"
 
@@ -863,7 +863,7 @@ def api_index():
     }
 
 @app.get("/api/search")
-def search_api(q: str = Query(..., description="Search query"), limit: Optional[int] = Query(None, description="Max results")):
+def search_api(q: str = Query(..., description="Search query", example="faith"), limit: Optional[int] = Query(None, description="Max results", example=10)):
     """JSON API endpoint for search"""
     if not q or len(q.strip()) < 2:
         return {"query": q, "results": [], "total": 0}
@@ -1965,7 +1965,11 @@ def verse_of_the_day_api():
 
 
 @app.get("/api/verse/{book}/{chapter}/{verse}")
-def api_get_verse(book: str, chapter: int, verse: int):
+def api_get_verse(
+    book: str = Path(..., description="Book name", example="John"),
+    chapter: int = Path(..., description="Chapter number", example=3),
+    verse: int = Path(..., description="Verse number", example=16)
+):
     """API endpoint to get a single verse text"""
     try:
         # Normalize book name variations
@@ -1989,7 +1993,12 @@ def api_get_verse(book: str, chapter: int, verse: int):
 
 
 @app.get("/api/verse-range/{book}/{chapter}/{start}/{end}")
-def api_get_verse_range(book: str, chapter: int, start: int, end: int):
+def api_get_verse_range(
+    book: str = Path(..., description="Book name", example="Psalms"),
+    chapter: int = Path(..., description="Chapter number", example=23),
+    start: int = Path(..., description="Starting verse number", example=1),
+    end: int = Path(..., description="Ending verse number", example=6)
+):
     """API endpoint to get a range of verses"""
     try:
         # Normalize book name variations
@@ -2026,7 +2035,11 @@ def api_get_verse_range(book: str, chapter: int, start: int, end: int):
 
 
 @app.get("/api/interlinear/{book}/{chapter}/{verse}")
-def api_get_interlinear(book: str, chapter: int, verse: int):
+def api_get_interlinear(
+    book: str = Path(..., description="Book name", example="John"),
+    chapter: int = Path(..., description="Chapter number", example=1),
+    verse: int = Path(..., description="Verse number", example=1)
+):
     """API endpoint to get interlinear (word-by-word) data for a verse"""
     try:
         # Normalize book name variations
@@ -2105,7 +2118,7 @@ def api_get_books():
 
 
 @app.get("/api/books/{book}")
-def api_get_book(book: str):
+def api_get_book(book: str = Path(..., description="Book name", example="Genesis")):
     """API endpoint to get details about a specific book"""
     # Normalize book name variations
     canonical_name = normalize_book_name(book)
@@ -2133,7 +2146,10 @@ def api_get_book(book: str):
 
 
 @app.get("/api/books/{book}/chapters/{chapter}")
-def api_get_chapter(book: str, chapter: int):
+def api_get_chapter(
+    book: str = Path(..., description="Book name", example="Romans"),
+    chapter: int = Path(..., description="Chapter number", example=8)
+):
     """API endpoint to get all verses in a chapter"""
     # Normalize book name variations
     canonical_name = normalize_book_name(book)
@@ -2160,7 +2176,11 @@ def api_get_chapter(book: str, chapter: int):
 
 
 @app.get("/api/cross-references/{book}/{chapter}/{verse}")
-def api_get_cross_references(book: str, chapter: int, verse: int):
+def api_get_cross_references(
+    book: str = Path(..., description="Book name", example="John"),
+    chapter: int = Path(..., description="Chapter number", example=3),
+    verse: int = Path(..., description="Verse number", example=16)
+):
     """API endpoint to get cross-references for a verse"""
     # Normalize book name variations
     canonical_name = normalize_book_name(book)
@@ -2204,7 +2224,7 @@ def api_get_topics():
 
 
 @app.get("/api/topics/{topic_name}")
-def api_get_topic(topic_name: str):
+def api_get_topic(topic_name: str = Path(..., description="Topic name", example="faith")):
     """API endpoint to get details about a specific topic"""
     topic = get_topic(topic_name)
     if not topic:
@@ -2230,7 +2250,7 @@ def api_get_reading_plans():
 
 
 @app.get("/api/reading-plans/{plan_id}")
-def api_get_reading_plan(plan_id: str):
+def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID", example="chronological")):
     """API endpoint to get details about a specific reading plan"""
     plan = get_plan(plan_id)
     if not plan:
@@ -5361,7 +5381,7 @@ def family_tree_generation_page(request: Request, gen_num: int):
     books = list(bible.iter_books())
 
     # Load GEDCOM file from static folder
-    static_dir = Path(__file__).parent / "static"
+    static_dir = PathLib(__file__).parent / "static"
     gedcom_path = static_dir / "adameve.ged"
 
     if not gedcom_path.exists():
@@ -5420,7 +5440,7 @@ def family_tree_person_page(request: Request, person_id: str):
     books = list(bible.iter_books())
 
     # Load GEDCOM file from static folder
-    static_dir = Path(__file__).parent / "static"
+    static_dir = PathLib(__file__).parent / "static"
     gedcom_path = static_dir / "adameve.ged"
 
     if not gedcom_path.exists():
@@ -5482,7 +5502,7 @@ def family_tree_search_page(request: Request, q: str = ""):
     books = list(bible.iter_books())
 
     # Load GEDCOM file from static folder
-    static_dir = Path(__file__).parent / "static"
+    static_dir = PathLib(__file__).parent / "static"
     gedcom_path = static_dir / "adameve.ged"
 
     if not gedcom_path.exists():
@@ -5694,7 +5714,7 @@ def family_tree_ancestors_page(request: Request, person_id: str):
 @app.get("/family-tree/lineage.svg")
 def family_tree_lineage_svg(request: Request):
     """Generate SVG visualization of the Messianic lineage (Adam to Jesus)"""
-    static_dir = Path(__file__).parent / "static"
+    static_dir = PathLib(__file__).parent / "static"
     gedcom_path = static_dir / "adameve.ged"
 
     if not gedcom_path.exists() or not GedcomReader:
@@ -6092,7 +6112,7 @@ def get_family_tree_data():
     global _family_tree_cache, _family_tree_generations_cache, _name_to_person_id_cache
 
     if _family_tree_cache is None:
-        static_dir = Path(__file__).parent / "static"
+        static_dir = PathLib(__file__).parent / "static"
         gedcom_path = static_dir / "adameve.ged"
 
         if gedcom_path.exists():
