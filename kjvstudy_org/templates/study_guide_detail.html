@@ -7,7 +7,31 @@
 {% block og_description %}{{ guide.description }}{% endblock %}
 
 {% block structured_data %}
-<!-- Schema.org structured data temporarily disabled -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ guide.title | tojson }},
+  "description": {{ guide.description | tojson }},
+  "author": {
+    "@type": "Organization",
+    "name": "KJV Study"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KJV Study",
+    "url": "https://kjvstudy.org"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kjvstudy.org{{ request.url.path }}"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "Bible Study"
+  }
+}
+</script>
 {% endblock %}
 
 {% block head %}

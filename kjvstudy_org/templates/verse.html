@@ -7,7 +7,32 @@
 {% block og_description %}{{ verse_text[:150] if verse_text else '' }}...{% endblock %}
 
 {% block structured_data %}
-<!-- Schema.org structured data temporarily disabled -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ (book ~ " " ~ chapter|string ~ ":" ~ verse_num|string) | tojson }},
+  "articleBody": {{ verse_text | tojson }},
+  "author": {
+    "@type": "Organization",
+    "name": "KJV Study"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KJV Study",
+    "url": "https://kjvstudy.org"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kjvstudy.org/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}"
+  },
+  "isPartOf": {
+    "@type": "Book",
+    "name": {{ book | tojson }},
+    "@id": "https://kjvstudy.org/book/{{ book }}"
+  }
+}
+</script>
 {% endblock %}
 
 {% block head %}
