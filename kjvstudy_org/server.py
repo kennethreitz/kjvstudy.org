@@ -13,6 +13,7 @@ from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResp
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.openapi.utils import get_openapi
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -696,7 +697,12 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
 
-    openapi_schema = app.openapi()
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
 
     # Filter paths to only include /api routes
     filtered_paths = {
@@ -834,6 +840,26 @@ def search_page(request: Request, q: str = Query(None, description="Search query
             "is_direct_verse": is_direct_verse
         }
     )
+
+@app.get("/api/")
+def api_index():
+    """API index with links to documentation and available endpoints"""
+    return {
+        "name": "KJV Study API",
+        "version": "1.0.0",
+        "description": "RESTful API for accessing King James Bible verses and study resources",
+        "documentation": {
+            "swagger_ui": "/api/docs",
+            "redoc": "/api/redoc",
+            "openapi_json": "/api/openapi.json"
+        },
+        "endpoints": {
+            "search": "/api/search?q={query}",
+            "verse_of_the_day": "/api/verse-of-the-day",
+            "verse": "/api/verse/{book}/{chapter}/{verse}",
+            "verse_range": "/api/verse-range/{book}/{chapter}/{start}/{end}"
+        }
+    }
 
 @app.get("/api/search")
 def search_api(q: str = Query(..., description="Search query"), limit: Optional[int] = Query(None, description="Max results")):
