@@ -70,14 +70,8 @@
 <h1>Books of the Bible</h1>
 <p class="subtitle">The Authorized King James Version</p>
 
-<section>
-    <p class="intro-text"><span class="newthought">The Holy Bible</span> comprises sixty-six books penned by approximately forty authors over the span of fifteen centuries. These sacred writings divide into the Old and New Testaments—the former containing God's revelation to Israel from creation through the prophetic age, the latter recording Christ's incarnation, the establishment of His church, and the consummation of all things.</p>
-</section>
-
 <section class="testament-section">
     <h2 class="testament-header">Old Testament</h2>
-    <p class="intro-text">The thirty-nine books of the Old Testament preserve God's covenant with Israel, beginning with creation and extending through the return from Babylonian captivity. These writings encompass law, history, wisdom literature, and prophetic oracles.</p>
-
     <div class="book-grid">
         {% for book in old_testament %}
         {% if book.available %}
@@ -92,8 +86,6 @@
 
 <section class="testament-section">
     <h2 class="testament-header">New Testament</h2>
-    <p class="intro-text">The twenty-seven books of the New Testament reveal the incarnation of God's Son, the redemption accomplished through His death and resurrection, and the establishment and growth of His church. The apostolic writings conclude with visions of Christ's return and the restoration of all things.</p>
-
     <div class="book-grid">
         {% for book in new_testament %}
         {% if book.available %}
@@ -104,10 +96,5 @@
         {% endif %}
         {% endfor %}
     </div>
-</section>
-
-<section>
-    <h2>How to Navigate</h2>
-    <p class="intro-text">Select any book above to view its chapters and contents. Each book page includes chapter summaries, key themes, and scholarly notes to aid in understanding the sacred text.</p>
 </section>
 {% endblock %}
