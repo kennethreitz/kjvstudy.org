@@ -854,6 +854,7 @@ def api_index():
             "openapi_json": "/api/openapi.json"
         },
         "endpoints": {
+            "health": "/api/health",
             "search": "/api/search?q={query}",
             "verse_of_the_day": "/api/verse-of-the-day",
             "verse": "/api/verse/{book}/{chapter}/{verse}",
@@ -870,6 +871,15 @@ def api_index():
             "reading_plans": "/api/reading-plans",
             "reading_plan": "/api/reading-plans/{plan_id}"
         }
+    }
+
+@app.get("/api/health")
+def api_health_check():
+    """API health check endpoint for monitoring and status verification"""
+    return {
+        "status": "healthy",
+        "service": "KJV Study API",
+        "version": "1.0.0"
     }
 
 @app.get("/api/search")
