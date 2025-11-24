@@ -6453,14 +6453,11 @@ def sitemap():
     </url>
 """
 
-    # Study guide slugs
-    study_guide_slugs = [
-        "new-believer", "salvation", "gospel", "fruits-spirit",
-        "prayer-faith", "christian-living", "gods-love",
-        "hope-comfort", "wisdom-guidance"
-    ]
-    for slug in study_guide_slugs:
-        sitemap_xml += f"""    <url>
+    # Study guide slugs - dynamically extract from study_guides dictionary
+    for category in study_guides.values():
+        for guide in category:
+            slug = guide["slug"]
+            sitemap_xml += f"""    <url>
         <loc>{base_url}/study-guides/{slug}</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
