@@ -1385,15 +1385,29 @@
               var verseEndNum = parseInt(verseEnd);
 
               for (var i = verseStart; i <= verseEndNum; i++) {
-                var verseElement = doc.querySelector('#verse-' + i + ' .verse-text, [data-verse="' + i + '"] .verse-text');
-                if (verseElement) {
-                  verses.push(verseElement.textContent.trim());
+                var verseP = doc.querySelector('#verse-' + i);
+                if (verseP) {
+                  // Clone the element to avoid modifying the original
+                  var clone = verseP.cloneNode(true);
+
+                  // Remove verse number link
+                  var verseLink = clone.querySelector('.verse-number-link');
+                  if (verseLink) verseLink.remove();
+
+                  // Remove sidenotes and marginnotes
+                  var notes = clone.querySelectorAll('.sidenote, .marginnote, .margin-toggle, label.margin-toggle');
+                  notes.forEach(function(note) { note.remove(); });
+
+                  var text = clone.textContent.trim();
+                  if (text) {
+                    verses.push(text);
+                  }
                 }
               }
 
               verseText = verses.length > 0 ? verses.join(' ') : 'Verse range not found';
             } else {
-              // Extract single verse text
+              // Extract single verse text from verse page
               var verseElement = doc.querySelector('.verse-text');
               if (!verseElement) {
                 // Try alternative selectors
