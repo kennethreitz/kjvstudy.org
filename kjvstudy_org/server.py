@@ -691,6 +691,27 @@ app = FastAPI(
 )
 
 
+# Custom OpenAPI schema to only include /api routes
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+
+    openapi_schema = app.openapi()
+
+    # Filter paths to only include /api routes
+    filtered_paths = {
+        path: path_item
+        for path, path_item in openapi_schema["paths"].items()
+        if path.startswith("/api/")
+    }
+
+    openapi_schema["paths"] = filtered_paths
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
+
+
 # Caching middleware for performance optimization
 class CacheControlMiddleware(BaseHTTPMiddleware):
     """Add cache control headers to responses for better performance"""
