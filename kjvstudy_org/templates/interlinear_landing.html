@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Interlinear Bible Study - KJV Bible{% endblock %}
+
+{% block content %}
+<h1>Interlinear Bible Study</h1>
+<p class="subtitle">Explore Scripture word-by-word in the original languages</p>
+
+<div>
+    <h2>What is Interlinear Study?</h2>
+    <p>Interlinear Bible study allows you to examine Scripture in its original Hebrew (Old Testament) and Greek (New Testament) languages, word-by-word. Each word shows:</p>
+    <ul>
+        <li><strong>Original Text</strong> — The Hebrew or Greek word as written in ancient manuscripts</li>
+        <li><strong>Transliteration</strong> — How the word is pronounced in English letters</li>
+        <li><strong>Strong's Number</strong> — A reference number linking to detailed lexical information</li>
+        <li><strong>English Translation</strong> — How the word was translated in the KJV</li>
+        <li><strong>Parsing</strong> — Grammatical information (verb tense, noun case, etc.)</li>
+        <li><strong>Definition</strong> — The word's meaning and usage</li>
+    </ul>
+</div>
+
+<div>
+    <h2>How to Use</h2>
+    <p>Simply navigate to any verse page on this site. If interlinear data is available for that verse, you'll see a <strong>"Word-by-Word Analysis"</strong> section that you can expand to explore each word in detail.</p>
+    <p>Click on any Strong's number to view comprehensive lexical information at BibleHub.</p>
+</div>
+
+<div>
+    <h2>Featured Verses</h2>
+    <p>Explore these well-known passages with word-by-word analysis:</p>
+    <ul>
+        {% for verse in featured_verses %}
+        <li>
+            <a href="{{ verse.url }}"><strong>{{ verse.reference }}</strong></a> — {{ verse.note }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    <h2>Why Study Interlinearly?</h2>
+    <ul>
+        <li><strong>Deeper Understanding</strong> — Discover nuances lost in translation</li>
+        <li><strong>Word Studies</strong> — Trace how specific Greek or Hebrew words are used throughout Scripture</li>
+        <li><strong>Context</strong> — Understand the grammatical structure of passages</li>
+        <li><strong>Original Meaning</strong> — Get closer to what the original authors wrote</li>
+    </ul>
+</div>
+
+<nav>
+    <p><a href="/">← Home</a></p>
+</nav>
+{% endblock %}

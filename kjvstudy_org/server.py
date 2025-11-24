@@ -693,6 +693,31 @@ def concordance_page(request: Request, word: str = Query(None, description="Word
     )
 
 
+@app.get("/interlinear", response_class=HTMLResponse)
+def interlinear_landing_page(request: Request):
+    """Landing page explaining interlinear Bible study"""
+    books = list(bible.iter_books())
+
+    # Featured verses with interlinear data
+    featured_verses = [
+        {"reference": "John 3:16", "url": "/book/John/chapter/3/verse/16", "note": "God's love for the world"},
+        {"reference": "Genesis 1:1", "url": "/book/Genesis/chapter/1/verse/1", "note": "In the beginning"},
+        {"reference": "Psalm 23:1", "url": "/book/Psalms/chapter/23/verse/1", "note": "The Lord is my shepherd"},
+        {"reference": "Romans 8:28", "url": "/book/Romans/chapter/8/verse/28", "note": "All things work together for good"},
+        {"reference": "Matthew 28:19", "url": "/book/Matthew/chapter/28/verse/19", "note": "The Great Commission"},
+        {"reference": "1 Corinthians 13:4", "url": "/book/1 Corinthians/chapter/13/verse/4", "note": "Love is patient"},
+    ]
+
+    return templates.TemplateResponse(
+        "interlinear_landing.html",
+        {
+            "request": request,
+            "books": books,
+            "featured_verses": featured_verses
+        }
+    )
+
+
 def parse_verse_reference(reference: str):
     """Parse a verse reference and return a URL for it.
 
@@ -5904,6 +5929,12 @@ def sitemap():
     </url>
     <url>
         <loc>{base_url}/concordance</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/interlinear</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
