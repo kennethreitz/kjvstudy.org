@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% block content %}
 <h1>{{ guide.title }}</h1>
-<p class="subtitle"><a href="/">Home</a> › <a href="/study-guides">Study Guides</a> › {{ guide.category }}</p>
+<p class="subtitle">{{ guide.description }}</p>
 
 <section>
     <p><span class="newthought">{{ guide.description }}</span></p>

@@ -1641,6 +1641,28 @@ def study_guide_detail(request: Request, slug: str):
 
     guide = guides_content[slug]
 
+    # Find the category for this guide
+    study_guides_categories = {
+        "Foundational Studies": [
+            {"slug": "new-believer"},
+            {"slug": "salvation"},
+            {"slug": "gospel"}
+        ],
+        "Character & Living": [
+            {"slug": "fruits-spirit"},
+            {"slug": "prayer-faith"},
+            {"slug": "wisdom"},
+            {"slug": "forgiveness"},
+            {"slug": "stewardship"}
+        ]
+    }
+
+    category_name = None
+    for category, guides in study_guides_categories.items():
+        if any(g["slug"] == slug for g in guides):
+            category_name = category
+            break
+
     # Get verse texts
     for section in guide["sections"]:
         verse_texts = []
@@ -1684,12 +1706,22 @@ def study_guide_detail(request: Request, slug: str):
 
         section["verse_texts"] = verse_texts
 
+    # Build breadcrumbs
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Study Guides", "url": "/study-guides"},
+    ]
+    if category_name:
+        breadcrumbs.append({"text": category_name, "url": None})
+    breadcrumbs.append({"text": guide["title"], "url": None})
+
     return templates.TemplateResponse(
         "study_guide_detail.html",
         {
             "request": request,
             "books": books,
-            "guide": guide
+            "guide": guide,
+            "breadcrumbs": breadcrumbs
         }
     )
 
