@@ -36,6 +36,62 @@ def create_slug(text: str) -> str:
     return slug.strip('-')
 
 
+def normalize_book_name(book: str) -> Optional[str]:
+    """
+    Normalize book name variations to canonical form.
+    Returns the canonical book name if a variation is detected, None otherwise.
+    """
+    # Map of variations to canonical names
+    book_variations = {
+        # Psalm/Psalms
+        "Psalm": "Psalms",
+
+        # Roman numerals to Arabic numerals
+        "I Samuel": "1 Samuel",
+        "II Samuel": "2 Samuel",
+        "I Kings": "1 Kings",
+        "II Kings": "2 Kings",
+        "I Chronicles": "1 Chronicles",
+        "II Chronicles": "2 Chronicles",
+        "I Corinthians": "1 Corinthians",
+        "II Corinthians": "2 Corinthians",
+        "I Thessalonians": "1 Thessalonians",
+        "II Thessalonians": "2 Thessalonians",
+        "I Timothy": "1 Timothy",
+        "II Timothy": "2 Timothy",
+        "I Peter": "1 Peter",
+        "II Peter": "2 Peter",
+        "I John": "1 John",
+        "II John": "2 John",
+        "III John": "3 John",
+
+        # Full word numbers to Arabic numerals
+        "First Samuel": "1 Samuel",
+        "Second Samuel": "2 Samuel",
+        "First Kings": "1 Kings",
+        "Second Kings": "2 Kings",
+        "First Chronicles": "1 Chronicles",
+        "Second Chronicles": "2 Chronicles",
+        "First Corinthians": "1 Corinthians",
+        "Second Corinthians": "2 Corinthians",
+        "First Thessalonians": "1 Thessalonians",
+        "Second Thessalonians": "2 Thessalonians",
+        "First Timothy": "1 Timothy",
+        "Second Timothy": "2 Timothy",
+        "First Peter": "1 Peter",
+        "Second Peter": "2 Peter",
+        "First John": "1 John",
+        "Second John": "2 John",
+        "Third John": "3 John",
+
+        # Alternative names
+        "Song of Songs": "Song of Solomon",
+        "Canticles": "Song of Solomon",
+    }
+
+    return book_variations.get(book)
+
+
 def get_related_content(book: str, chapter: int = None, verse: int = None):
     """Get related study guides, topics, and resources for a given passage"""
     related = {
@@ -1386,9 +1442,10 @@ def verse_of_the_day_api():
 def api_get_verse(book: str, chapter: int, verse: int):
     """API endpoint to get a single verse text"""
     try:
-        # Normalize "Psalm" to "Psalms"
-        if book == "Psalm":
-            book = "Psalms"
+        # Normalize book name variations
+        canonical_name = normalize_book_name(book)
+        if canonical_name:
+            book = canonical_name
 
         verse_text = bible.get_verse_text(book, chapter, verse)
         if not verse_text:
@@ -1409,9 +1466,10 @@ def api_get_verse(book: str, chapter: int, verse: int):
 def api_get_verse_range(book: str, chapter: int, start: int, end: int):
     """API endpoint to get a range of verses"""
     try:
-        # Normalize "Psalm" to "Psalms"
-        if book == "Psalm":
-            book = "Psalms"
+        # Normalize book name variations
+        canonical_name = normalize_book_name(book)
+        if canonical_name:
+            book = canonical_name
 
         verses = []
         verse_texts = []
@@ -6628,9 +6686,10 @@ def topic_detail(request: Request, topic_name: str):
 
 @app.get("/book/{book}", response_class=HTMLResponse)
 def read_book(request: Request, book: str):
-    # Redirect "Psalm" to "Psalms"
-    if book == "Psalm":
-        return RedirectResponse(url=f"/book/Psalms", status_code=301)
+    # Redirect book name variations to canonical form
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        return RedirectResponse(url=f"/book/{canonical_name}", status_code=301)
 
     books = list(bible.iter_books())
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
@@ -6726,9 +6785,10 @@ def redirect_chapter_legacy(book: str, chapter: int):
 
 @app.get("/book/{book}/chapter/{chapter}", response_class=HTMLResponse)
 def read_chapter(request: Request, book: str, chapter: int):
-    # Redirect "Psalm" to "Psalms"
-    if book == "Psalm":
-        return RedirectResponse(url=f"/book/Psalms/chapter/{chapter}", status_code=301)
+    # Redirect book name variations to canonical form
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}", status_code=301)
 
     books = list(bible.iter_books())
     verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
@@ -6799,9 +6859,10 @@ def read_chapter(request: Request, book: str, chapter: int):
 @app.get("/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
 def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     """Display a single verse with detailed commentary"""
-    # Redirect "Psalm" to "Psalms"
-    if book == "Psalm":
-        return RedirectResponse(url=f"/book/Psalms/chapter/{chapter}/verse/{verse_num}", status_code=301)
+    # Redirect book name variations to canonical form
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/verse/{verse_num}", status_code=301)
 
     books = list(bible.iter_books())
     verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
