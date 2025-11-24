@@ -1164,6 +1164,35 @@
         });
       })();
 
+      // Details elements (subsections) collapse state persistence
+      (function() {
+        // Get all details elements in sidebar
+        var detailsElements = document.querySelectorAll('.nav-sidebar details');
+
+        // Restore saved states
+        detailsElements.forEach(function(details) {
+          var id = details.id || details.querySelector('summary')?.textContent.trim();
+          if (id) {
+            var savedState = localStorage.getItem('sidebar-details-' + id);
+            if (savedState === 'open') {
+              details.open = true;
+            } else if (savedState === 'closed') {
+              details.open = false;
+            }
+          }
+        });
+
+        // Save state on toggle
+        detailsElements.forEach(function(details) {
+          details.addEventListener('toggle', function() {
+            var id = this.id || this.querySelector('summary')?.textContent.trim();
+            if (id) {
+              localStorage.setItem('sidebar-details-' + id, this.open ? 'open' : 'closed');
+            }
+          });
+        });
+      })();
+
       // Sidebar search functionality
       (function() {
         var searchInput = document.getElementById('sidebar-search-input');
