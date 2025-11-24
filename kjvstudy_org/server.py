@@ -2221,21 +2221,11 @@ def api_get_topic(topic_name: str):
 @app.get("/api/reading-plans")
 def api_get_reading_plans():
     """API endpoint to get list of all reading plans"""
-    plans = get_all_plans()
-
-    plan_list = []
-    for plan_id, plan_data in plans.items():
-        summary = get_plan_summary(plan_id)
-        plan_list.append({
-            "id": plan_id,
-            "name": plan_data["name"],
-            "description": plan_data["description"],
-            "total_days": summary["total_days"] if summary else 0
-        })
+    plans = get_plan_summary()
 
     return {
         "total_plans": len(plans),
-        "plans": plan_list
+        "plans": plans
     }
 
 
