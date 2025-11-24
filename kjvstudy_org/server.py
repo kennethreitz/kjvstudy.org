@@ -857,7 +857,8 @@ def api_index():
             "search": "/api/search?q={query}",
             "verse_of_the_day": "/api/verse-of-the-day",
             "verse": "/api/verse/{book}/{chapter}/{verse}",
-            "verse_range": "/api/verse-range/{book}/{chapter}/{start}/{end}"
+            "verse_range": "/api/verse-range/{book}/{chapter}/{start}/{end}",
+            "interlinear": "/api/interlinear/{book}/{chapter}/{verse}"
         }
     }
 
@@ -2019,6 +2020,48 @@ def api_get_verse_range(book: str, chapter: int, start: int, end: int):
             "reference": f"{book} {chapter}:{start}-{end}",
             "verses": verses,
             "text": " ".join(verse_texts)
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/interlinear/{book}/{chapter}/{verse}")
+def api_get_interlinear(book: str, chapter: int, verse: int):
+    """API endpoint to get interlinear (word-by-word) data for a verse"""
+    try:
+        # Normalize book name variations
+        canonical_name = normalize_book_name(book)
+        if canonical_name:
+            book = canonical_name
+
+        # Check if verse exists
+        verse_text = bible.get_verse_text(book, chapter, verse)
+        if not verse_text:
+            raise HTTPException(status_code=404, detail="Verse not found")
+
+        # Check if interlinear data is available
+        if not has_interlinear_data(book, chapter, verse):
+            return JSONResponse({
+                "book": book,
+                "chapter": chapter,
+                "verse": verse,
+                "reference": f"{book} {chapter}:{verse}",
+                "text": verse_text,
+                "interlinear_available": False,
+                "words": []
+            })
+
+        # Get interlinear data
+        interlinear_words = get_interlinear_data(book, chapter, verse)
+
+        return JSONResponse({
+            "book": book,
+            "chapter": chapter,
+            "verse": verse,
+            "reference": f"{book} {chapter}:{verse}",
+            "text": verse_text,
+            "interlinear_available": True,
+            "words": interlinear_words
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
