@@ -11,6 +11,7 @@ dependencies = [
     "jinja2>=3.1.6",
     "parse>=1.20.2",
     "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
     "python-gedcom>=1.0.0",
     "requests>=2.32.3",
     "uvicorn>=0.34.2",
