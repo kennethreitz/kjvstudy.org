@@ -1475,6 +1475,9 @@
 
           if (!target || !target.href) return;
 
+          // Skip if this is a cross-reference link (has its own tooltip system)
+          if (target.classList.contains('cross-ref-link')) return;
+
           var verseInfo = parseVerseUrl(target.pathname + target.hash);
           if (!verseInfo) return;
 
