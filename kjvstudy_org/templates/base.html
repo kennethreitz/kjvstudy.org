@@ -1475,7 +1475,7 @@
 
           if (!target || !target.href) return;
 
-          var verseInfo = parseVerseUrl(target.pathname);
+          var verseInfo = parseVerseUrl(target.pathname + target.hash);
           if (!verseInfo) return;
 
           // Show loading state
