@@ -9,8 +9,23 @@
     max-height: 150px;
     overflow: hidden;
     cursor: pointer;
-    transition: max-height 0.3s ease;
+    transition: all 0.3s ease;
     position: relative;
+}
+
+/* Highlight sidenote when its checkbox is checked */
+.margin-toggle:checked + .sidenote,
+.margin-toggle:checked + .marginnote {
+    background-color: rgba(255, 237, 160, 0.3);
+    border-left: 3px solid rgba(255, 193, 7, 0.6);
+    padding-left: 0.5rem;
+    margin-left: -0.5rem;
+}
+
+[data-theme="dark"] .margin-toggle:checked + .sidenote,
+[data-theme="dark"] .margin-toggle:checked + .marginnote {
+    background-color: rgba(255, 193, 7, 0.15);
+    border-left: 3px solid rgba(255, 193, 7, 0.5);
 }
 
 .sidenote.expanded,
@@ -154,20 +169,13 @@ hr::before {
     {% for verse in verses %}
     {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
     <p id="verse-{{ verse.verse }}">
-        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link">{{ verse.verse }}</a> {{ verse.text | link_names | safe }}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link">{{ verse.verse }}</a> {{ verse.text | inject_word_markers(commentary.word_studies if commentary else [], verse.verse) | link_names | safe }}
         {% if commentary %}
-            {% if commentary.word_studies %}
-                {% for study in commentary.word_studies %}
-                <label for="sn-{{ verse.verse }}-word-{{ loop.index }}" class="margin-toggle sidenote-number"></label>
-                <input type="checkbox" id="sn-{{ verse.verse }}-word-{{ loop.index }}" class="margin-toggle"/>
-                <span class="sidenote"><strong>{{ study.word }}:</strong> {{ study.term }} (<em>{{ study.translit }}</em>). {{ study.note | safe }}</span>
-                {% endfor %}
-            {% endif %}
             {% if commentary.cross_references %}
                 {% for ref in commentary.cross_references %}
-                <label for="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle">⊕</label>
+                <label for="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle sidenote-number"></label>
                 <input type="checkbox" id="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle"/>
-                <span class="marginnote"><strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}</span>
+                <span class="sidenote"><strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}</span>
                 {% endfor %}
             {% endif %}
         {% endif %}
@@ -319,6 +327,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = nextBtn.href;
             }
         }
+    });
+
+    // Only allow one sidenote to be highlighted at a time
+    document.querySelectorAll('.margin-toggle').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Uncheck all other margin-toggle checkboxes
+                document.querySelectorAll('.margin-toggle').forEach(function(otherCheckbox) {
+                    if (otherCheckbox !== checkbox) {
+                        otherCheckbox.checked = false;
+                    }
+                });
+            }
+        });
     });
 });
 </script>

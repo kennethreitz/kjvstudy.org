@@ -23,6 +23,21 @@ from .reading_plans import get_plan, get_all_plans, get_plan_summary
 from .topics import get_all_topics, get_topic, search_topics
 from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data
 
+# Import from new modular structure
+from .utils.books import normalize_book_name, OT_BOOKS, NT_BOOKS
+from .utils.search import perform_full_text_search, calculate_relevance_score, highlight_search_terms
+from .utils.helpers import (
+    create_slug,
+    get_verse_text,
+    is_verse_reference,
+    parse_verse_reference,
+    get_related_content,
+    get_chapter_popularity_score,
+    get_chapter_popularity_explanation,
+    get_daily_verse,
+)
+from .routes.api import router as api_router
+
 try:
     from ged4py import GedcomReader
 except ImportError:
@@ -761,6 +776,9 @@ app.add_middleware(GZipMiddleware, minimum_size=500)
 # Add caching middleware
 app.add_middleware(CacheControlMiddleware)
 
+# Include API router from modular routes
+app.include_router(api_router)
+
 
 # Set up Jinja2 templates and static files
 current_dir = PathLib(__file__).parent
@@ -772,6 +790,28 @@ templates = Jinja2Templates(directory=str(templates_dir))
 
 # Register custom Jinja2 filters
 templates.env.filters['slugify'] = create_slug
+
+def inject_word_markers(text, word_studies, verse_num):
+    """Inject sidenote markers into verse text next to annotated words"""
+    if not word_studies:
+        return text
+
+    # Process each word study
+    for idx, study in enumerate(word_studies, 1):
+        word = study['word']
+        # Create the sidenote marker HTML
+        marker = f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/><span class="sidenote"><strong>{word}:</strong> {study["term"]} (<em>{study["translit"]}</em>). {study["note"]}</span>'
+
+        # Find and replace the word with word + marker
+        # Use a more precise replacement to avoid replacing partial matches
+        import re
+        # Match the word with word boundaries, case-insensitive
+        pattern = re.compile(r'\b(' + re.escape(word) + r')\b', re.IGNORECASE)
+        text = pattern.sub(r'\1' + marker, text, count=1)
+
+    return text
+
+templates.env.filters['inject_word_markers'] = inject_word_markers
 
 # Load Scofield commentary for cross-references
 scofield_commentary = {}
@@ -9722,6 +9762,13 @@ def generate_chapter_overview(book, chapter, verses):
     time_period = get_time_period(book)
     historical_context = get_historical_context(book)
 
+    # Helper function to create verse range links
+    def verse_link(start, end):
+        if start == end:
+            return f'<a href="#verse-{start}">Verse {start}</a>'
+        else:
+            return f'<a href="#verse-{start}-{end}">Verses {start}-{end}</a>'
+
     overview = f"""
     <p><strong>{book} {chapter}</strong> is a {chapter_type} chapter in the {get_testament_for_book(book)} that explores themes of {', '.join(unique_themes)}.
     Written during {time_period}, this chapter should be understood within its historical context: {historical_context}</p>
@@ -9729,10 +9776,10 @@ def generate_chapter_overview(book, chapter, verses):
     <p>The chapter can be divided into several sections:</p>
 
     <ol>
-        <li><strong>Verses 1-{min(5, len(verses))}</strong>: Introduction and setting the context</li>
-        {'<li><strong>Verses 6-' + str(min(12, len(verses))) + '</strong>: Development of key themes</li>' if len(verses) > 5 else ''}
-        {'<li><strong>Verses 13-' + str(min(20, len(verses))) + '</strong>: Central message and teachings</li>' if len(verses) > 12 else ''}
-        {'<li><strong>Verses ' + str(min(21, len(verses))) + '-' + str(len(verses)) + '</strong>: Conclusion and application</li>' if len(verses) > 20 else ''}
+        <li><strong>{verse_link(1, min(5, len(verses)))}</strong>: Introduction and setting the context</li>
+        {'<li><strong>' + verse_link(6, min(12, len(verses))) + '</strong>: Development of key themes</li>' if len(verses) > 5 else ''}
+        {'<li><strong>' + verse_link(13, min(20, len(verses))) + '</strong>: Central message and teachings</li>' if len(verses) > 12 else ''}
+        {'<li><strong>' + verse_link(min(21, len(verses)), len(verses)) + '</strong>: Conclusion and application</li>' if len(verses) > 20 else ''}
     </ol>
 
     <p>This chapter is significant because it {get_chapter_significance(book, chapter)}.
@@ -10091,6 +10138,13 @@ def generate_chapter_overview(book, chapter, verses):
     time_period = get_time_period(book)
     historical_context = get_historical_context(book)
 
+    # Helper function to create verse range links
+    def verse_link(start, end):
+        if start == end:
+            return f'<a href="#verse-{start}">Verse {start}</a>'
+        else:
+            return f'<a href="#verse-{start}-{end}">Verses {start}-{end}</a>'
+
     overview = f"""
     <p><strong>{book} {chapter}</strong> is a {chapter_type} chapter in the {get_testament_for_book(book)} that explores themes of {', '.join(unique_themes)}.
     Written during {time_period}, this chapter should be understood within its historical context: {historical_context}</p>
@@ -10098,10 +10152,10 @@ def generate_chapter_overview(book, chapter, verses):
     <p>The chapter can be divided into several sections:</p>
 
     <ol>
-        <li><strong>Verses 1-{min(5, len(verses))}</strong>: Introduction and setting the context</li>
-        {'<li><strong>Verses 6-' + str(min(12, len(verses))) + '</strong>: Development of key themes</li>' if len(verses) > 5 else ''}
-        {'<li><strong>Verses 13-' + str(min(20, len(verses))) + '</strong>: Central message and teachings</li>' if len(verses) > 12 else ''}
-        {'<li><strong>Verses ' + str(min(21, len(verses))) + '-' + str(len(verses)) + '</strong>: Conclusion and application</li>' if len(verses) > 20 else ''}
+        <li><strong>{verse_link(1, min(5, len(verses)))}</strong>: Introduction and setting the context</li>
+        {'<li><strong>' + verse_link(6, min(12, len(verses))) + '</strong>: Development of key themes</li>' if len(verses) > 5 else ''}
+        {'<li><strong>' + verse_link(13, min(20, len(verses))) + '</strong>: Central message and teachings</li>' if len(verses) > 12 else ''}
+        {'<li><strong>' + verse_link(min(21, len(verses)), len(verses)) + '</strong>: Conclusion and application</li>' if len(verses) > 20 else ''}
     </ol>
 
     <p>This chapter is significant because it {get_chapter_significance(book, chapter)}.
