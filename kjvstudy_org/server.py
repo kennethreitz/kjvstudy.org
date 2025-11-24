@@ -858,7 +858,17 @@ def api_index():
             "verse_of_the_day": "/api/verse-of-the-day",
             "verse": "/api/verse/{book}/{chapter}/{verse}",
             "verse_range": "/api/verse-range/{book}/{chapter}/{start}/{end}",
-            "interlinear": "/api/interlinear/{book}/{chapter}/{verse}"
+            "interlinear": "/api/interlinear/{book}/{chapter}/{verse}",
+            "books": "/api/books",
+            "book": "/api/books/{book}",
+            "chapter": "/api/books/{book}/chapters/{chapter}",
+            "book_text": "/api/books/{book}/text",
+            "bible": "/api/bible",
+            "cross_references": "/api/cross-references/{book}/{chapter}/{verse}",
+            "topics": "/api/topics",
+            "topic": "/api/topics/{topic_name}",
+            "reading_plans": "/api/reading-plans",
+            "reading_plan": "/api/reading-plans/{plan_id}"
         }
     }
 
@@ -2172,6 +2182,82 @@ def api_get_chapter(
         "chapter": chapter,
         "total_verses": len(verses),
         "verses": verse_list
+    }
+
+
+@app.get("/api/books/{book}/text")
+def api_get_book_text(book: str = Path(..., description="Book name", example="Philemon")):
+    """API endpoint to get all text content of a book"""
+    # Normalize book name variations
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    verses = [v for v in bible.iter_verses() if v.book == book]
+    if not verses:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    # Group verses by chapter
+    chapters = {}
+    for v in verses:
+        if v.chapter not in chapters:
+            chapters[v.chapter] = []
+        chapters[v.chapter].append({
+            "verse": v.verse,
+            "text": v.text
+        })
+
+    chapter_list = []
+    for chapter_num in sorted(chapters.keys()):
+        chapter_list.append({
+            "chapter": chapter_num,
+            "verses": chapters[chapter_num]
+        })
+
+    return {
+        "book": book,
+        "total_chapters": len(chapters),
+        "total_verses": len(verses),
+        "chapters": chapter_list
+    }
+
+
+@app.get("/api/bible")
+def api_get_bible():
+    """API endpoint to get the entire Bible text"""
+    # Group all verses by book and chapter
+    books_data = {}
+    for v in bible.iter_verses():
+        if v.book not in books_data:
+            books_data[v.book] = {}
+        if v.chapter not in books_data[v.book]:
+            books_data[v.book][v.chapter] = []
+        books_data[v.book][v.chapter].append({
+            "verse": v.verse,
+            "text": v.text
+        })
+
+    # Structure the data
+    books_list = []
+    for book_name in books_data:
+        chapter_list = []
+        for chapter_num in sorted(books_data[book_name].keys()):
+            chapter_list.append({
+                "chapter": chapter_num,
+                "verses": books_data[book_name][chapter_num]
+            })
+
+        books_list.append({
+            "book": book_name,
+            "chapters": chapter_list
+        })
+
+    total_verses = sum(len(books_data[book][ch]) for book in books_data for ch in books_data[book])
+
+    return {
+        "total_books": len(books_data),
+        "total_verses": total_verses,
+        "books": books_list
     }
 
 
