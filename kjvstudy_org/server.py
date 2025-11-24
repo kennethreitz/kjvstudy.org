@@ -615,12 +615,14 @@ async def startup_event():
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
     """Custom error handler that renders our error template"""
     if exc.status_code == 404:
+        books = list(bible.iter_books())
         return templates.TemplateResponse(
             "error.html",
             {
                 "request": request,
                 "status_code": exc.status_code,
                 "detail": exc.detail,
+                "books": books,
             },
             status_code=exc.status_code,
         )
