@@ -9,7 +9,7 @@ from typing import List, Dict, Optional
 
 from fastapi import FastAPI, HTTPException, Request, Query
 from fastapi.exception_handlers import http_exception_handler
-from fastapi.responses import HTMLResponse, Response, RedirectResponse
+from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.gzip import GZipMiddleware
@@ -1380,6 +1380,57 @@ def verse_of_the_day_page(request: Request):
 def verse_of_the_day_api():
     """API endpoint for verse of the day"""
     return get_daily_verse()
+
+
+@app.get("/api/verse/{book}/{chapter}/{verse}")
+def api_get_verse(book: str, chapter: int, verse: int):
+    """API endpoint to get a single verse text"""
+    try:
+        verse_text = bible.get_verse_text(book, chapter, verse)
+        if not verse_text:
+            raise HTTPException(status_code=404, detail="Verse not found")
+
+        return JSONResponse({
+            "book": book,
+            "chapter": chapter,
+            "verse": verse,
+            "reference": f"{book} {chapter}:{verse}",
+            "text": verse_text
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/verse-range/{book}/{chapter}/{start}/{end}")
+def api_get_verse_range(book: str, chapter: int, start: int, end: int):
+    """API endpoint to get a range of verses"""
+    try:
+        verses = []
+        verse_texts = []
+
+        for verse_num in range(start, end + 1):
+            verse_text = bible.get_verse_text(book, chapter, verse_num)
+            if verse_text:
+                verses.append({
+                    "verse": verse_num,
+                    "text": verse_text
+                })
+                verse_texts.append(verse_text)
+
+        if not verses:
+            raise HTTPException(status_code=404, detail="Verse range not found")
+
+        return JSONResponse({
+            "book": book,
+            "chapter": chapter,
+            "start": start,
+            "end": end,
+            "reference": f"{book} {chapter}:{start}-{end}",
+            "verses": verses,
+            "text": " ".join(verse_texts)
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/biblical-maps", response_class=HTMLResponse)
