@@ -1,36 +1,9 @@
 """
 Unit tests for KJV Study API endpoints
+
+Fixtures are imported from conftest.py
 """
 import pytest
-from fastapi.testclient import TestClient
-from kjvstudy_org.server import app
-
-
-@pytest.fixture
-def client():
-    """Create test client fixture"""
-    return TestClient(app)
-
-
-@pytest.fixture
-def sample_verses():
-    """Sample verse references for testing"""
-    return {
-        "john_3_16": {"book": "John", "chapter": 3, "verse": 16},
-        "genesis_1_1": {"book": "Genesis", "chapter": 1, "verse": 1},
-        "psalms_23": {"book": "Psalms", "chapter": 23, "start": 1, "end": 6},
-    }
-
-
-@pytest.fixture
-def sample_books():
-    """Sample book names for testing"""
-    return {
-        "short_book": "Philemon",
-        "long_book": "Genesis",
-        "new_testament": "John",
-        "old_testament": "Psalms",
-    }
 
 
 class TestAPIHealth:
