@@ -423,6 +423,19 @@ document.addEventListener('keydown', function(e) {
 </div>
 
 <section>
+    <h2>Quick Access</h2>
+    <div class="quick-links">
+        <a href="/books" class="quick-link-btn">All Books</a>
+        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
+        <a href="/topics" class="quick-link-btn">Topical Index</a>
+        <a href="/resources" class="quick-link-btn">All Resources</a>
+        <a href="/family-tree" class="quick-link-btn">Genealogies</a>
+        <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
+        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
+    </div>
+</section>
+
+<section>
     <h2>The Sacred Scriptures</h2>
 
     <p><span class="newthought">The Holy Bible</span> comprises sixty-six books penned by approximately forty authors over fifteen centuries—yet unified by one divine Author. These sacred writings preserve God's progressive self-revelation to humanity: His character, His purposes, and His redemptive plan accomplished through Jesus Christ. The Scriptures consist of two testaments,<label for="sn-testaments" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-testaments" class="margin-toggle"/><span class="sidenote">The Hebrew Scriptures (תנ״ך, <em>TaNaKh</em>) consist of תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings). The Greek New Testament (καινὴ διαθήκη) records Christ's incarnation, the establishment of His church, and apostolic teaching. Christ Himself testified: 'all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me' (Luke 24:44).</span> the Old and the New, which together form a coherent testimony to the gospel.</p>
@@ -459,19 +472,6 @@ document.addEventListener('keydown', function(e) {
     <p><span class="newthought">{{ category }}</span> —
     {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
     {% endfor %}
-</section>
-
-<section>
-    <h2>Quick Access</h2>
-    <div class="quick-links">
-        <a href="/books" class="quick-link-btn">All Books</a>
-        <a href="/reading-plans" class="quick-link-btn">Reading Plans</a>
-        <a href="/topics" class="quick-link-btn">Topical Index</a>
-        <a href="/resources" class="quick-link-btn">All Resources</a>
-        <a href="/family-tree" class="quick-link-btn">Genealogies</a>
-        <a href="/biblical-timeline" class="quick-link-btn">Timeline</a>
-        <a href="/random-verse" class="quick-link-btn">Random Verse</a>
-    </div>
 </section>
 
 <section>
