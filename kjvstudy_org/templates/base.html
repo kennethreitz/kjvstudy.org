@@ -1527,6 +1527,9 @@
           // Skip if this is a cross-reference link (has its own tooltip system)
           if (target.classList.contains('cross-ref-link')) return;
 
+          // Skip if this is a verse number link (the number at the start of each verse)
+          if (target.classList.contains('verse-number-link')) return;
+
           var verseInfo = parseVerseUrl(target.pathname + target.hash);
           if (!verseInfo) return;
 
