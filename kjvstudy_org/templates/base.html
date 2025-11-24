@@ -314,6 +314,52 @@
             font-weight: 600;
         }
 
+        /* Book type color indicators in sidebar */
+        .nav-sidebar .book-list a {
+            border-left: 3px solid transparent;
+            padding-left: 0.3rem;
+        }
+
+        .nav-sidebar .book-list a.law {
+            border-left-color: rgba(59, 130, 246, 0.6);
+        }
+
+        .nav-sidebar .book-list a.historical {
+            border-left-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .nav-sidebar .book-list a.wisdom {
+            border-left-color: rgba(168, 85, 247, 0.6);
+        }
+
+        .nav-sidebar .book-list a.major-prophets {
+            border-left-color: rgba(249, 115, 22, 0.6);
+        }
+
+        .nav-sidebar .book-list a.minor-prophets {
+            border-left-color: rgba(239, 68, 68, 0.6);
+        }
+
+        .nav-sidebar .book-list a.gospels {
+            border-left-color: rgba(234, 179, 8, 0.6);
+        }
+
+        .nav-sidebar .book-list a.acts {
+            border-left-color: rgba(20, 184, 166, 0.6);
+        }
+
+        .nav-sidebar .book-list a.pauline {
+            border-left-color: rgba(99, 102, 241, 0.6);
+        }
+
+        .nav-sidebar .book-list a.general {
+            border-left-color: rgba(236, 72, 153, 0.6);
+        }
+
+        .nav-sidebar .book-list a.apocalyptic {
+            border-left-color: rgba(220, 38, 38, 0.6);
+        }
+
         .nav-sidebar .testament-section {
             margin-bottom: 0.75rem;
         }
@@ -1063,9 +1109,10 @@
         <details id="old-testament">
             <summary>Old Testament</summary>
             <ul class="book-list">
+                {% set book_types = {'Genesis': 'law', 'Exodus': 'law', 'Leviticus': 'law', 'Numbers': 'law', 'Deuteronomy': 'law', 'Joshua': 'historical', 'Judges': 'historical', 'Ruth': 'historical', '1 Samuel': 'historical', '2 Samuel': 'historical', '1 Kings': 'historical', '2 Kings': 'historical', '1 Chronicles': 'historical', '2 Chronicles': 'historical', 'Ezra': 'historical', 'Nehemiah': 'historical', 'Esther': 'historical', 'Job': 'wisdom', 'Psalms': 'wisdom', 'Proverbs': 'wisdom', 'Ecclesiastes': 'wisdom', 'Song of Solomon': 'wisdom', 'Isaiah': 'major-prophets', 'Jeremiah': 'major-prophets', 'Lamentations': 'major-prophets', 'Ezekiel': 'major-prophets', 'Daniel': 'major-prophets', 'Hosea': 'minor-prophets', 'Joel': 'minor-prophets', 'Amos': 'minor-prophets', 'Obadiah': 'minor-prophets', 'Jonah': 'minor-prophets', 'Micah': 'minor-prophets', 'Nahum': 'minor-prophets', 'Habakkuk': 'minor-prophets', 'Zephaniah': 'minor-prophets', 'Haggai': 'minor-prophets', 'Zechariah': 'minor-prophets', 'Malachi': 'minor-prophets'} %}
                 {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
                     {% if book in books %}
-                    <li><a href="/book/{{ book }}" {% if current_book == book %}class="current"{% endif %}>{{ book }}</a></li>
+                    <li><a href="/book/{{ book }}" class="{{ book_types[book] }}{% if current_book == book %} current{% endif %}">{{ book }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -1074,9 +1121,10 @@
         <details id="new-testament">
             <summary>New Testament</summary>
             <ul class="book-list">
+                {% set nt_book_types = {'Matthew': 'gospels', 'Mark': 'gospels', 'Luke': 'gospels', 'John': 'gospels', 'Acts': 'acts', 'Romans': 'pauline', '1 Corinthians': 'pauline', '2 Corinthians': 'pauline', 'Galatians': 'pauline', 'Ephesians': 'pauline', 'Philippians': 'pauline', 'Colossians': 'pauline', '1 Thessalonians': 'pauline', '2 Thessalonians': 'pauline', '1 Timothy': 'pauline', '2 Timothy': 'pauline', 'Titus': 'pauline', 'Philemon': 'pauline', 'Hebrews': 'general', 'James': 'general', '1 Peter': 'general', '2 Peter': 'general', '1 John': 'general', '2 John': 'general', '3 John': 'general', 'Jude': 'general', 'Revelation': 'apocalyptic'} %}
                 {% for book in ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'] %}
                     {% if book in books %}
-                    <li><a href="/book/{{ book }}" {% if current_book == book %}class="current"{% endif %}>{{ book }}</a></li>
+                    <li><a href="/book/{{ book }}" class="{{ nt_book_types[book] }}{% if current_book == book %} current{% endif %}">{{ book }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
