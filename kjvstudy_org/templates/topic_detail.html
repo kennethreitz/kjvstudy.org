@@ -77,13 +77,68 @@
     margin: 1rem 0;
 }
 </style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to link verse references in text
+    function linkVerseReferences(element) {
+        if (!element) return;
+
+        // Get all text nodes
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+            textNodes.push(node);
+        }
+
+        textNodes.forEach(function(textNode) {
+            let text = textNode.textContent;
+            let changed = false;
+
+            // Match verse references like "John 3:16" or "Romans 8:28" or "1 John 3:14" or "2 Corinthians 5:17"
+            // This regex handles book names with optional numbers and spaces
+            text = text.replace(/\b(\d?\s?[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b/g, function(match, book, chapter, verseStart, verseEnd) {
+                changed = true;
+                book = book.trim();
+                if (verseEnd) {
+                    return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + match + '</a>';
+                } else {
+                    return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + match + '</a>';
+                }
+            });
+
+            if (changed) {
+                const span = document.createElement('span');
+                span.innerHTML = text;
+                textNode.parentNode.replaceChild(span, textNode);
+                // Replace the span's children with its contents
+                while (span.firstChild) {
+                    span.parentNode.insertBefore(span.firstChild, span);
+                }
+                span.parentNode.removeChild(span);
+            }
+        });
+    }
+
+    // Link verse references in overview section
+    const overviewSection = document.querySelector('.topic-overview');
+    if (overviewSection) {
+        linkVerseReferences(overviewSection);
+    }
+
+    // Link verse references in all intro-text paragraphs (the expanded overviews)
+    document.querySelectorAll('.intro-text').forEach(function(paragraph) {
+        linkVerseReferences(paragraph);
+    });
+});
+</script>
 {% endblock %}
 
 {% block content %}
 <h1>{{ topic_name }}</h1>
 <p class="subtitle">{{ topic.description }}</p>
 
-<section>
+<div>
     <h2>Overview</h2>
     {% if topic.overview %}
         {{ topic.overview | safe }}
@@ -92,9 +147,9 @@
         This topical index organizes key Scripture passages related to {{ topic_name|lower }}. Each subtopic below addresses a specific aspect of this theme, with carefully selected verses that establish biblical teaching on the subject.
     </div>
     {% endif %}
-</section>
+</div>
 
-<section>
+<div>
     <h2>Subtopics</h2>
 
     <div class="subtopics-container">
@@ -139,16 +194,16 @@
         </div>
         {% endfor %}
     </div>
-</section>
+</div>
 
-<section>
+<div>
     <h2>Study Guidance</h2>
     <p class="intro-text"><span class="newthought">Topical study benefits</span> from reading verses in their broader context. Click any reference above to view the complete passage and surrounding verses. Consider comparing how different biblical authors address the same theme across various contexts and time periods.</p>
 
     <p class="intro-text">Cross-reference study deepens understanding. Many verses listed here connect to other passages—use the cross-references provided on individual verse pages to trace theological themes throughout Scripture.</p>
-</section>
+</div>
 
-<section>
+<div>
     <p><a href="/topics">← Back to all topics</a></p>
-</section>
+</div>
 {% endblock %}
