@@ -1,91 +1,405 @@
 {% extends "base.html" %}
 
-{% block title %}Page Not Found - Authorized King James Version (KJV) Bible Study{% endblock %}
-{% block description %}The requested KJV Bible page could not be found. Browse the complete Authorized King James Version Bible with study tools and commentary.{% endblock %}
-{% block keywords %}KJV Bible, Authorized King James Version, Bible study, page not found, KJV online{% endblock %}
+{% block title %}
+    {% if status_code == 404 %}
+        Page Not Found - KJV Study
+    {% else %}
+        Error {{ status_code }} - KJV Study
+    {% endif %}
+{% endblock %}
+
+{% block description %}The requested page could not be found. Use our search to find Bible passages, topics, study guides, and more.{% endblock %}
+
+{% block head %}
+<style>
+.error-page {
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+.error-header {
+    margin: 3rem 0 2rem;
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1;
+    margin: 0;
+    font-variant-numeric: oldstyle-nums;
+}
+
+.error-title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 1rem 0 0.5rem;
+    line-height: 1.2;
+}
+
+.error-verse {
+    max-width: 60%;
+    font-size: 1.3rem;
+    line-height: 1.9;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin: 2rem 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.error-verse-ref {
+    display: block;
+    margin-top: 0.5rem;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.error-verse-ref a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.error-verse-ref a:hover {
+    border-bottom: 1px solid var(--link-color);
+}
+
+.error-explanation {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 2rem 0;
+}
+
+.search-container {
+    max-width: 60%;
+    margin: 3rem 0;
+    padding: 2rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+}
+
+.search-container h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+}
+
+.search-box {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--border-color-darker);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    border-radius: 2px;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--link-color);
+}
+
+.search-examples {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.search-examples code {
+    background: var(--bg-color);
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+}
+
+.suggestions-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #fffaed;
+    border-left: 3px solid #d4a574;
+}
+
+.suggestions-section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    color: #8b6914;
+}
+
+.suggestion-text {
+    margin: 0.5rem 0;
+}
+
+.suggestion-text a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.suggestion-text a:hover {
+    border-bottom: 1px solid var(--link-color);
+}
+
+.helpful-links {
+    margin: 3rem 0;
+}
+
+.helpful-links h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 60%;
+}
+
+.help-link {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    transition: all 0.2s;
+}
+
+.help-link:hover {
+    border-color: var(--link-color);
+    background: var(--code-bg);
+}
+
+.help-link-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--link-color);
+}
+
+.help-link-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.go-back {
+    margin: 2rem 0;
+}
+
+.go-back a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.go-back a:hover {
+    border-bottom: 1px solid var(--link-color);
+}
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="text-center">
-    <div style="font-size: 4rem; margin-bottom: 2rem;">
-        {% if status_code == 404 %}
-            📖❓
-        {% else %}
-            ⚠️
-        {% endif %}
-    </div>
-    
-    <h1 class="page-title">
-        {% if status_code == 404 %}
-            KJV Bible Page Not Found
-        {% else %}
-            Error {{ status_code }} - KJV Study
-        {% endif %}
-    </h1>
-    
-    <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem;">
-        {% if status_code == 404 %}
-            The Authorized King James Version (KJV) Bible passage or page you're looking for could not be found. 
-            The reference might be incorrect or the page may have been moved.
-        {% else %}
-            {{ detail or "An unexpected error occurred while accessing the KJV Bible study platform." }}
-        {% endif %}
-    </p>
-    
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="/" class="nav-button nav-button-primary">
-            📚 Browse KJV Bible Books
-        </a>
-        <button onclick="history.back()" class="nav-button">
-            ← Go Back
-        </button>
-    </div>
-</div>
+<article class="error-page">
+    {% if status_code == 404 %}
+    <header class="error-header">
+        <p class="error-code">404</p>
+        <h1 class="error-title">The Page You Seek Cannot Be Found</h1>
+    </header>
 
-<div class="text-center mt-4" style="padding: 2rem; background: var(--surface-color); border-radius: var(--radius-lg); margin-top: 3rem; border: 1px solid var(--border-light);">
-    <h3 style="color: var(--primary-color); margin: 0 0 1rem; font-family: var(--font-display);">
-        📖 Popular KJV Bible Passages
-    </h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
-        <a href="/book/Genesis/chapter/1" class="nav-button" style="text-decoration: none;">
-            Genesis 1 (KJV) - Creation
-        </a>
-        <a href="/book/Psalms/chapter/23" class="nav-button" style="text-decoration: none;">
-            Psalm 23 (KJV) - The Shepherd
-        </a>
-        <a href="/book/John/chapter/3" class="nav-button" style="text-decoration: none;">
-            John 3 (KJV) - Born Again
-        </a>
-        <a href="/book/Romans/chapter/8" class="nav-button" style="text-decoration: none;">
-            Romans 8 (KJV) - No Condemnation
-        </a>
-    </div>
-</div>
+    <blockquote class="error-verse">
+        What man of you, having an hundred sheep, if he lose one of them, doth not leave the ninety and nine in the wilderness, and go after that which is lost, until he find it?
+        <span class="error-verse-ref">
+            <a href="/book/Luke/chapter/15/verse/4">Luke 15:4</a>
+        </span>
+    </blockquote>
 
-<div class="text-center mt-4" style="padding: 1.5rem; background: var(--background-color); border-radius: var(--radius-lg); margin-top: 2rem;">
-    <p style="color: var(--text-secondary); margin: 0; font-style: italic;">
-        "Trust in the LORD with all thine heart; and lean not unto thine own understanding."
-        <br>
-        <strong style="color: var(--primary-color);">Proverbs 3:5</strong>
-    </p>
-</div>
+    <section class="error-explanation">
+        <p><span class="newthought">The path you requested</span> leads nowhere in our archives.<label for="sn-lost" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-lost" class="margin-toggle"/>
+        <span class="sidenote">In Scripture, being lost and found carries profound theological significance. The parables of Luke 15—the lost sheep, the lost coin, the lost son—all illustrate God's relentless pursuit of the lost and the joy of heaven when one is found.</span> The reference may be incorrect, the page may have been moved, or perhaps you followed an outdated link. Fear not—all who seek shall find.</p>
+    </section>
+
+    <div id="url-suggestions"></div>
+
+    <section class="search-container">
+        <h2>Search the Scriptures</h2>
+        <form action="/search" method="get" onsubmit="handleSearch(event)">
+            <input type="text"
+                   name="q"
+                   class="search-box"
+                   placeholder="Search verses, topics, or enter a reference like 'John 3:16'"
+                   autofocus>
+        </form>
+        <div class="search-examples">
+            Try: <code>John 3:16</code>, <code>faith</code>, <code>Psalm 23</code>, or <code>salvation</code>
+        </div>
+    </section>
+
+    <section class="helpful-links">
+        <h2>Continue Your Study</h2>
+        <div class="links-grid">
+            <a href="/" class="help-link">
+                <div class="help-link-title">Browse Books</div>
+                <div class="help-link-desc">Old and New Testament</div>
+            </a>
+            <a href="/topics" class="help-link">
+                <div class="help-link-title">Topical Index</div>
+                <div class="help-link-desc">Study by subject</div>
+            </a>
+            <a href="/study-guides" class="help-link">
+                <div class="help-link-title">Study Guides</div>
+                <div class="help-link-desc">Theological essays</div>
+            </a>
+            <a href="/biblical-prophets" class="help-link">
+                <div class="help-link-title">Biblical Prophets</div>
+                <div class="help-link-desc">Messengers of God</div>
+            </a>
+            <a href="/biblical-angels" class="help-link">
+                <div class="help-link-title">Biblical Angels</div>
+                <div class="help-link-desc">Heavenly beings</div>
+            </a>
+            <a href="/biblical-covenants" class="help-link">
+                <div class="help-link-title">Biblical Covenants</div>
+                <div class="help-link-desc">God's promises</div>
+            </a>
+        </div>
+    </section>
+
+    <section class="go-back">
+        <p><a href="javascript:history.back()">← Return to previous page</a> or <a href="/">go to homepage</a></p>
+    </section>
+
+    {% else %}
+    {# Other error codes #}
+    <header class="error-header">
+        <p class="error-code">{{ status_code }}</p>
+        <h1 class="error-title">An Error Has Occurred</h1>
+    </header>
+
+    <section class="error-explanation">
+        <p>{{ detail or "An unexpected error occurred. Please try again or return to the homepage." }}</p>
+    </section>
+
+    <section class="go-back">
+        <p><a href="javascript:history.back()">← Return to previous page</a> or <a href="/">go to homepage</a></p>
+    </section>
+    {% endif %}
+</article>
 {% endblock %}
 
 {% block scripts %}
 <script>
-// Auto-redirect from common URL patterns
 document.addEventListener('DOMContentLoaded', function() {
     const path = window.location.pathname;
-    
-    // Handle common URL patterns that might be 404s
-    if (path.includes('/chapter/') && path.includes('/verse/')) {
-        // Extract book and chapter from URL like /book/Genesis/chapter/1/verse/1
-        const match = path.match(/\/book\/([^\/]+)\/chapter\/(\d+)\/verse\/(\d+)/);
-        if (match) {
-            const [, book, chapter, verse] = match;
-            const newUrl = `/book/${book}/chapter/${chapter}#verse-${verse}`;
-            window.location.href = newUrl;
+    const suggestionsDiv = document.getElementById('url-suggestions');
+
+    // Try to parse the URL and suggest corrections
+    const suggestions = [];
+
+    // Check if URL contains book names
+    const bookNames = [
+        'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
+        'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings',
+        '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job',
+        'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon',
+        'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel',
+        'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum',
+        'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi',
+        'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans',
+        '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians',
+        'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians',
+        '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James',
+        '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+    ];
+
+    // Check for book references in the URL
+    for (const book of bookNames) {
+        if (path.toLowerCase().includes(book.toLowerCase().replace(/\s/g, ''))) {
+            // Try to extract chapter and verse
+            const chapterMatch = path.match(/chapter[\/\-]?(\d+)/i);
+            const verseMatch = path.match(/verse[\/\-]?(\d+)/i);
+
+            if (chapterMatch) {
+                const chapter = chapterMatch[1];
+                if (verseMatch) {
+                    const verse = verseMatch[1];
+                    suggestions.push({
+                        text: `Did you mean ${book} ${chapter}:${verse}?`,
+                        url: `/book/${book}/chapter/${chapter}/verse/${verse}`
+                    });
+                } else {
+                    suggestions.push({
+                        text: `Did you mean ${book} chapter ${chapter}?`,
+                        url: `/book/${book}/chapter/${chapter}`
+                    });
+                }
+            } else {
+                suggestions.push({
+                    text: `Did you mean the book of ${book}?`,
+                    url: `/book/${book}`
+                });
+            }
+            break;
         }
     }
+
+    // Check for common misspellings or old URLs
+    if (path.includes('/verse-of-the-day')) {
+        suggestions.push({
+            text: 'Looking for the Verse of the Day?',
+            url: '/'
+        });
+    }
+
+    if (path.includes('/search')) {
+        suggestions.push({
+            text: 'Try the search feature above',
+            url: null
+        });
+    }
+
+    // Display suggestions if any
+    if (suggestions.length > 0 && suggestionsDiv) {
+        let html = '<section class="suggestions-section"><h3>Perhaps You Were Looking For...</h3>';
+        for (const suggestion of suggestions) {
+            if (suggestion.url) {
+                html += `<p class="suggestion-text"><a href="${suggestion.url}">${suggestion.text}</a></p>`;
+            } else {
+                html += `<p class="suggestion-text">${suggestion.text}</p>`;
+            }
+        }
+        html += '</section>';
+        suggestionsDiv.innerHTML = html;
+    }
 });
+
+function handleSearch(event) {
+    event.preventDefault();
+    const query = event.target.querySelector('input[name="q"]').value.trim();
+
+    if (!query) return;
+
+    // Check if query looks like a verse reference (e.g., "John 3:16")
+    const versePattern = /^(\d?\s?[A-Za-z]+(?:\s+[A-Za-z]+)?)\s+(\d+)(?::(\d+))?$/;
+    const match = query.match(versePattern);
+
+    if (match) {
+        const book = match[1].trim();
+        const chapter = match[2];
+        const verse = match[3];
+
+        if (verse) {
+            window.location.href = `/book/${book}/chapter/${chapter}/verse/${verse}`;
+        } else {
+            window.location.href = `/book/${book}/chapter/${chapter}`;
+        }
+    } else {
+        // Regular search
+        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+    }
+}
 </script>
 {% endblock %}
