@@ -75,6 +75,16 @@
             --code-bg: #2a2a2a;
         }
 
+        /* Override Tufte CSS sidenote constraints */
+        .sidenote,
+        .marginnote {
+            max-height: none !important;
+        }
+
+        label.sidenote-number {
+            max-height: none !important;
+        }
+
         /* Enhanced typography and spacing */
         body {
             counter-reset: sidenote-counter;
