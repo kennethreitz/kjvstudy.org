@@ -255,19 +255,19 @@ section a[href^="/book/"] {
 {% endblock %}
 
 {% block content %}
-<div class="epigraph">
-    <blockquote>
-        <p>{{ daily_verse.text | link_names | safe }}</p>
-        <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a> — <a href="/verse-of-the-day">Verse of the Day</a></footer>
-    </blockquote>
-</div>
-
 <div class="title-page">
     <h1>The Holy Bible</h1>
     <div class="title-details">
         Authorized King James Version<br/>
         <em>Anno Domini</em> 1611
     </div>
+</div>
+
+<div class="epigraph">
+    <blockquote>
+        <p>{{ daily_verse.text | link_names | safe }}</p>
+        <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a> — <a href="/verse-of-the-day">Verse of the Day</a></footer>
+    </blockquote>
 </div>
 
 <div class="verse-lookup">
