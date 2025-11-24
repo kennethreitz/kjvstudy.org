@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Try to parse the URL and suggest corrections
     const suggestions = [];
 
-    // Check if URL contains book names
+    // Canonical KJV books
     const bookNames = [
         'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
         'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings',
@@ -309,34 +309,127 @@ document.addEventListener('DOMContentLoaded', function() {
         '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'
     ];
 
-    // Check for book references in the URL
-    for (const book of bookNames) {
-        if (path.toLowerCase().includes(book.toLowerCase().replace(/\s/g, ''))) {
-            // Try to extract chapter and verse
-            const chapterMatch = path.match(/chapter[\/\-]?(\d+)/i);
-            const verseMatch = path.match(/verse[\/\-]?(\d+)/i);
+    // Apocryphal/non-canonical books (Easter eggs!)
+    const apocryphalBooks = {
+        'enoch': 'The Book of Enoch is not part of the Protestant canon, though it is referenced in Jude 14-15.',
+        'tobit': 'The Book of Tobit is part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        'judith': 'The Book of Judith is part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        'wisdom': 'The Wisdom of Solomon is part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        'sirach': 'The Book of Sirach (Ecclesiasticus) is part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        'baruch': 'The Book of Baruch is part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        'maccabees': 'The Books of Maccabees are part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        '1maccabees': 'First Maccabees is part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        '2maccabees': 'Second Maccabees is part of the Catholic Deuterocanon but not included in Protestant Bibles.',
+        'thomas': 'The Gospel of Thomas is a Gnostic text not accepted as canonical by any major Christian tradition.',
+        'jasher': 'The Book of Jasher is mentioned in Joshua 10:13 and 2 Samuel 1:18, but the original text is lost. Modern versions are of disputed authenticity.',
+        'jubilees': 'The Book of Jubilees is considered canonical only by the Ethiopian Orthodox Church.'
+    };
 
-            if (chapterMatch) {
-                const chapter = chapterMatch[1];
-                if (verseMatch) {
-                    const verse = verseMatch[1];
-                    suggestions.push({
-                        text: `Did you mean ${book} ${chapter}:${verse}?`,
-                        url: `/book/${book}/chapter/${chapter}/verse/${verse}`
-                    });
-                } else {
-                    suggestions.push({
-                        text: `Did you mean ${book} chapter ${chapter}?`,
-                        url: `/book/${book}/chapter/${chapter}`
-                    });
-                }
-            } else {
-                suggestions.push({
-                    text: `Did you mean the book of ${book}?`,
-                    url: `/book/${book}`
-                });
-            }
+    // Common misspellings and their corrections
+    const commonMisspellings = {
+        'philipians': 'Philippians',
+        'philippeans': 'Philippians',
+        'collossians': 'Colossians',
+        'colosians': 'Colossians',
+        'thesselonians': 'Thessalonians',
+        'galations': 'Galatians',
+        'corintheans': 'Corinthians',
+        'ephesans': 'Ephesians',
+        'eclesiastes': 'Ecclesiastes',
+        'ecclesiates': 'Ecclesiastes',
+        'deutronomy': 'Deuteronomy',
+        'dueteronomy': 'Deuteronomy',
+        'levitcus': 'Leviticus',
+        'isiah': 'Isaiah',
+        'isaiah': 'Isaiah',
+        'jeremia': 'Jeremiah',
+        'ezekial': 'Ezekiel',
+        'revalation': 'Revelation',
+        'revelations': 'Revelation',
+        'psalm': 'Psalms',
+        'songs of solomon': 'Song of Solomon',
+        'song of songs': 'Song of Solomon'
+    };
+
+    // Check for apocryphal books first
+    const pathLower = path.toLowerCase();
+    for (const [apocBook, explanation] of Object.entries(apocryphalBooks)) {
+        if (pathLower.includes(apocBook)) {
+            suggestions.push({
+                text: explanation,
+                url: null,
+                isInfo: true
+            });
             break;
+        }
+    }
+
+    // If no apocryphal book found, check for canonical books or misspellings
+    if (suggestions.length === 0) {
+        // Check for common misspellings
+        let correctedBook = null;
+        for (const [misspelling, correction] of Object.entries(commonMisspellings)) {
+            if (pathLower.includes(misspelling)) {
+                correctedBook = correction;
+                break;
+            }
+        }
+
+        // Check for book references in the URL (exact or corrected)
+        for (const book of bookNames) {
+            const bookToCheck = correctedBook || book;
+            if (pathLower.includes(bookToCheck.toLowerCase().replace(/\s/g, ''))) {
+                // Try to extract chapter and verse
+                const chapterMatch = path.match(/chapter[\/\-]?(\d+)/i);
+                const verseMatch = path.match(/verse[\/\-]?(\d+)/i);
+
+                if (correctedBook) {
+                    // Show misspelling correction
+                    if (chapterMatch) {
+                        const chapter = chapterMatch[1];
+                        if (verseMatch) {
+                            const verse = verseMatch[1];
+                            suggestions.push({
+                                text: `Did you mean ${correctedBook} ${chapter}:${verse}?`,
+                                url: `/book/${correctedBook}/chapter/${chapter}/verse/${verse}`
+                            });
+                        } else {
+                            suggestions.push({
+                                text: `Did you mean ${correctedBook} chapter ${chapter}?`,
+                                url: `/book/${correctedBook}/chapter/${chapter}`
+                            });
+                        }
+                    } else {
+                        suggestions.push({
+                            text: `Did you mean the book of ${correctedBook}?`,
+                            url: `/book/${correctedBook}`
+                        });
+                    }
+                } else if (book === bookToCheck) {
+                    // Exact match found
+                    if (chapterMatch) {
+                        const chapter = chapterMatch[1];
+                        if (verseMatch) {
+                            const verse = verseMatch[1];
+                            suggestions.push({
+                                text: `Did you mean ${book} ${chapter}:${verse}?`,
+                                url: `/book/${book}/chapter/${chapter}/verse/${verse}`
+                            });
+                        } else {
+                            suggestions.push({
+                                text: `Did you mean ${book} chapter ${chapter}?`,
+                                url: `/book/${book}/chapter/${chapter}`
+                            });
+                        }
+                    } else {
+                        suggestions.push({
+                            text: `Did you mean the book of ${book}?`,
+                            url: `/book/${book}`
+                        });
+                    }
+                }
+                break;
+            }
         }
     }
 
