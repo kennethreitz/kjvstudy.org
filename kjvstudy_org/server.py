@@ -7300,6 +7300,33 @@ def books_page(request: Request):
     """Browse all books of the Bible"""
     books = list(bible.iter_books())
 
+    # Define book categories with types
+    book_types = {
+        # Old Testament
+        'Genesis': 'law', 'Exodus': 'law', 'Leviticus': 'law', 'Numbers': 'law', 'Deuteronomy': 'law',
+        'Joshua': 'historical', 'Judges': 'historical', 'Ruth': 'historical',
+        '1 Samuel': 'historical', '2 Samuel': 'historical', '1 Kings': 'historical', '2 Kings': 'historical',
+        '1 Chronicles': 'historical', '2 Chronicles': 'historical', 'Ezra': 'historical',
+        'Nehemiah': 'historical', 'Esther': 'historical',
+        'Job': 'wisdom', 'Psalms': 'wisdom', 'Proverbs': 'wisdom', 'Ecclesiastes': 'wisdom', 'Song of Solomon': 'wisdom',
+        'Isaiah': 'major-prophets', 'Jeremiah': 'major-prophets', 'Lamentations': 'major-prophets',
+        'Ezekiel': 'major-prophets', 'Daniel': 'major-prophets',
+        'Hosea': 'minor-prophets', 'Joel': 'minor-prophets', 'Amos': 'minor-prophets',
+        'Obadiah': 'minor-prophets', 'Jonah': 'minor-prophets', 'Micah': 'minor-prophets',
+        'Nahum': 'minor-prophets', 'Habakkuk': 'minor-prophets', 'Zephaniah': 'minor-prophets',
+        'Haggai': 'minor-prophets', 'Zechariah': 'minor-prophets', 'Malachi': 'minor-prophets',
+        # New Testament
+        'Matthew': 'gospels', 'Mark': 'gospels', 'Luke': 'gospels', 'John': 'gospels',
+        'Acts': 'acts',
+        'Romans': 'pauline', '1 Corinthians': 'pauline', '2 Corinthians': 'pauline',
+        'Galatians': 'pauline', 'Ephesians': 'pauline', 'Philippians': 'pauline', 'Colossians': 'pauline',
+        '1 Thessalonians': 'pauline', '2 Thessalonians': 'pauline',
+        '1 Timothy': 'pauline', '2 Timothy': 'pauline', 'Titus': 'pauline', 'Philemon': 'pauline',
+        'Hebrews': 'general', 'James': 'general', '1 Peter': 'general', '2 Peter': 'general',
+        '1 John': 'general', '2 John': 'general', '3 John': 'general', 'Jude': 'general',
+        'Revelation': 'apocalyptic'
+    }
+
     # Organize books by testament
     old_testament_books = [
         'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth',
@@ -7325,7 +7352,8 @@ def books_page(request: Request):
         {
             'name': book,
             'chapters': get_chapter_count(book),
-            'available': book in books
+            'available': book in books,
+            'type': book_types.get(book, '')
         }
         for book in old_testament_books
     ]
@@ -7334,7 +7362,8 @@ def books_page(request: Request):
         {
             'name': book,
             'chapters': get_chapter_count(book),
-            'available': book in books
+            'available': book in books,
+            'type': book_types.get(book, '')
         }
         for book in new_testament_books
     ]
