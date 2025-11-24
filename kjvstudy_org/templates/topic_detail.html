@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 changed = true;
                 book = book.trim();
                 if (verseEnd) {
-                    return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + match + '</a>';
+                    return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
                 } else {
                     return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + match + '</a>';
                 }
@@ -173,9 +173,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                     {# Single verse - make it a link #}
                                     <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ verse.ref }}</a>
                                 {% else %}
-                                    {# Verse range - link to first verse #}
+                                    {# Verse range - link to chapter with anchor #}
                                     {% set v_start = v.split('-')[0] %}
-                                    <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v_start }}">{{ verse.ref }}</a>
+                                    {% set v_end = v.split('-')[1] %}
+                                    <a href="/book/{{ book_name }}/chapter/{{ ch }}#verse-{{ v_start }}-{{ v_end }}">{{ verse.ref }}</a>
                                 {% endif %}
                             {% else %}
                                 {# No colon, just display text #}

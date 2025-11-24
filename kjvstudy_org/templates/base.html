@@ -1320,27 +1320,55 @@
 
         // Parse verse URL to extract book, chapter, and verse
         function parseVerseUrl(url) {
+          // Try to match single verse URL: /book/John/chapter/3/verse/16
           var match = url.match(/\/book\/([^\/]+)\/chapter\/(\d+)\/verse\/(\d+)/);
           if (match) {
             return {
               book: decodeURIComponent(match[1]),
               chapter: match[2],
               verse: match[3],
-              cacheKey: match[1] + '_' + match[2] + '_' + match[3]
+              verseEnd: null,
+              cacheKey: match[1] + '_' + match[2] + '_' + match[3],
+              isRange: false
             };
           }
+
+          // Try to match verse range URL: /book/Proverbs/chapter/31#verse-26-28
+          match = url.match(/\/book\/([^\/]+)\/chapter\/(\d+)#verse-(\d+)-(\d+)/);
+          if (match) {
+            return {
+              book: decodeURIComponent(match[1]),
+              chapter: match[2],
+              verse: match[3],
+              verseEnd: match[4],
+              cacheKey: match[1] + '_' + match[2] + '_' + match[3] + '-' + match[4],
+              isRange: true
+            };
+          }
+
           return null;
         }
 
         // Fetch verse text from server
-        async function fetchVerseText(book, chapter, verse, cacheKey) {
+        async function fetchVerseText(book, chapter, verse, verseEnd, cacheKey) {
           // Check cache first
           if (verseCache[cacheKey]) {
             return verseCache[cacheKey];
           }
 
           try {
-            var url = '/book/' + encodeURIComponent(book) + '/chapter/' + chapter + '/verse/' + verse;
+            var url, reference;
+
+            if (verseEnd) {
+              // Fetch chapter page for verse range
+              url = '/book/' + encodeURIComponent(book) + '/chapter/' + chapter;
+              reference = book + ' ' + chapter + ':' + verse + '-' + verseEnd;
+            } else {
+              // Fetch single verse page
+              url = '/book/' + encodeURIComponent(book) + '/chapter/' + chapter + '/verse/' + verse;
+              reference = book + ' ' + chapter + ':' + verse;
+            }
+
             var response = await fetch(url);
             if (!response.ok) throw new Error('Failed to fetch verse');
 
@@ -1348,18 +1376,35 @@
             var parser = new DOMParser();
             var doc = parser.parseFromString(html, 'text/html');
 
-            // Extract verse text from the page
-            var verseElement = doc.querySelector('.verse-text');
-            if (!verseElement) {
-              // Try alternative selectors
-              verseElement = doc.querySelector('[class*="verse"]');
-            }
+            var verseText;
 
-            var verseText = verseElement ? verseElement.textContent.trim() : 'Verse text not found';
+            if (verseEnd) {
+              // Extract verse range from chapter page
+              var verses = [];
+              var verseStart = parseInt(verse);
+              var verseEndNum = parseInt(verseEnd);
+
+              for (var i = verseStart; i <= verseEndNum; i++) {
+                var verseElement = doc.querySelector('#verse-' + i + ' .verse-text, [data-verse="' + i + '"] .verse-text');
+                if (verseElement) {
+                  verses.push(verseElement.textContent.trim());
+                }
+              }
+
+              verseText = verses.length > 0 ? verses.join(' ') : 'Verse range not found';
+            } else {
+              // Extract single verse text
+              var verseElement = doc.querySelector('.verse-text');
+              if (!verseElement) {
+                // Try alternative selectors
+                verseElement = doc.querySelector('[class*="verse"]');
+              }
+              verseText = verseElement ? verseElement.textContent.trim() : 'Verse text not found';
+            }
 
             // Cache the result
             verseCache[cacheKey] = {
-              reference: book + ' ' + chapter + ':' + verse,
+              reference: reference,
               text: verseText
             };
 
@@ -1367,7 +1412,7 @@
           } catch (error) {
             console.error('Error fetching verse:', error);
             return {
-              reference: book + ' ' + chapter + ':' + verse,
+              reference: verseEnd ? book + ' ' + chapter + ':' + verse + '-' + verseEnd : book + ' ' + chapter + ':' + verse,
               text: 'Error loading verse'
             };
           }
@@ -1425,7 +1470,7 @@
           tooltip.classList.add('show');
 
           // Fetch and display verse
-          fetchVerseText(verseInfo.book, verseInfo.chapter, verseInfo.verse, verseInfo.cacheKey)
+          fetchVerseText(verseInfo.book, verseInfo.chapter, verseInfo.verse, verseInfo.verseEnd, verseInfo.cacheKey)
             .then(function(verseData) {
               // Only show if still hovering
               if (target.matches(':hover')) {
