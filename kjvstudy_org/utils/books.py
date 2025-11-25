@@ -1,27 +1,29 @@
-"""Book name normalization and abbreviation handling."""
+"""Book name normalization and categorization utilities."""
 from typing import Optional
 
-# Old Testament books in order
+# Old Testament books
 OT_BOOKS = [
-    'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua',
-    'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings',
-    '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job',
-    'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah',
-    'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel',
-    'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
+    'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
+    'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
+    '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles',
+    'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
+    'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah',
+    'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
+    'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
     'Haggai', 'Zechariah', 'Malachi'
 ]
 
-# New Testament books in order
+# New Testament books
 NT_BOOKS = [
-    'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans',
-    '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians',
+    'Matthew', 'Mark', 'Luke', 'John', 'Acts',
+    'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians',
     'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians',
-    '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James',
-    '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+    '1 Timothy', '2 Timothy', 'Titus', 'Philemon',
+    'Hebrews', 'James', '1 Peter', '2 Peter',
+    '1 John', '2 John', '3 John', 'Jude', 'Revelation'
 ]
 
-# All book abbreviations and variations mapped to canonical names
+# Comprehensive book name abbreviations and variations
 BOOK_ABBREVIATIONS = {
     # Psalm/Psalms
     "Psalm": "Psalms",
@@ -68,7 +70,7 @@ BOOK_ABBREVIATIONS = {
     "Song of Songs": "Song of Solomon",
     "Canticles": "Song of Solomon",
 
-    # Common abbreviations
+    # Common abbreviations - Old Testament
     "Gen": "Genesis",
     "Ge": "Genesis",
     "Exo": "Exodus",
@@ -147,6 +149,8 @@ BOOK_ABBREVIATIONS = {
     "Zec": "Zechariah",
     "Zch": "Zechariah",
     "Mal": "Malachi",
+
+    # Common abbreviations - New Testament
     "Mat": "Matthew",
     "Mt": "Matthew",
     "Mar": "Mark",
@@ -229,18 +233,18 @@ def normalize_book_name(book: str) -> Optional[str]:
 
 def is_old_testament(book: str) -> bool:
     """Check if a book is in the Old Testament."""
-    canonical = normalize_book_name(book) or book
-    return canonical in OT_BOOKS
+    return book in OT_BOOKS
 
 
 def is_new_testament(book: str) -> bool:
     """Check if a book is in the New Testament."""
-    canonical = normalize_book_name(book) or book
-    return canonical in NT_BOOKS
+    return book in NT_BOOKS
 
 
 def get_testament(book: str) -> str:
-    """Get the testament for a book."""
+    """Return the testament name for a book."""
     if is_old_testament(book):
         return "Old Testament"
-    return "New Testament"
+    elif is_new_testament(book):
+        return "New Testament"
+    return "Unknown"
