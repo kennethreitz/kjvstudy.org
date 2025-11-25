@@ -27,7 +27,9 @@
 
 /* Epigraph - Verse of the Day */
 .daily-epigraph {
-    margin: 2rem 0;
+    margin: 2rem auto;
+    text-align: center;
+    max-width: 55%;
 }
 
 .daily-epigraph blockquote {
@@ -189,6 +191,10 @@
 @media (max-width: 760px) {
     .title-page h1 {
         font-size: 2.5rem;
+    }
+
+    .daily-epigraph {
+        max-width: 100%;
     }
 
     .verse-lookup {
