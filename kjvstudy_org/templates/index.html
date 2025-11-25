@@ -7,22 +7,46 @@
 /* Title Page - Classical Book Style */
 .title-page {
     text-align: center;
-    padding: 2rem 0 1.5rem;
-    margin-bottom: 1rem;
+    padding: 2.5rem 0 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .title-page h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.03em;
+    font-size: 2.6rem;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+    font-weight: 400;
 }
 
 .title-page .subtitle {
     font-style: italic;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
+    margin: 0 0 1.25rem 0;
+    line-height: 1.6;
+}
+
+.title-page .epigraph {
+    max-width: 34rem;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.title-page .epigraph p {
     margin: 0;
-    line-height: 1.8;
+}
+
+.title-page .epigraph footer {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.title-page .epigraph footer a {
+    color: var(--text-tertiary);
 }
 
 /* Verse Lookup */
@@ -172,8 +196,16 @@
 
 /* Mobile */
 @media (max-width: 760px) {
+    .title-page {
+        padding: 1.5rem 0 1rem;
+    }
+
     .title-page h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .title-page .epigraph {
+        font-size: 0.95rem;
     }
 
     .verse-lookup {
@@ -209,17 +241,14 @@
 {% block content %}
 <div class="title-page">
     <h1>The Holy Bible</h1>
-    <p class="subtitle">
-        Authorized King James Version<br/>
-        <em>Anno Domini</em> 1611
-    </p>
-    <blockquote style="font-size: 1.25rem; line-height: 1.9; font-style: italic; margin: 2rem 0 0;">
+    <p class="subtitle">Authorized King James Version · <em>Anno Domini</em> 1611</p>
+    <div class="epigraph">
         <p>{{ daily_verse.text | link_names | safe }}</p>
-        <footer style="margin-top: 0.75rem;"><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a> — <a href="/verse-of-the-day">Verse of the Day</a></footer>
-    </blockquote>
+        <footer>— <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a></footer>
+    </div>
 </div>
 
-<div class="verse-lookup">
+<section class="verse-lookup">
     <h2>Search or Navigate Scripture</h2>
     <form class="lookup-form" onsubmit="return handleSearch(event)">
         <input type="text" class="lookup-input" id="verse-lookup-input"
@@ -227,7 +256,7 @@
         <button type="submit" class="lookup-btn">Go</button>
     </form>
     <div class="lookup-help">Navigate: John 3:16, Romans 8, Genesis · Search: love, faith, salvation</div>
-</div>
+</section>
 
 <p class="nav-links">
     <strong><a href="/books">Browse All 66 Books</a></strong> ·
