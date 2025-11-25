@@ -6,6 +6,7 @@ from .resources import router as resources_router, init_templates as init_resour
 from .family_tree import router as family_tree_router, init_templates as init_family_tree_templates
 from .study_guides import router as study_guides_router, init_templates as init_study_guides_templates
 from .commentary import router as commentary_router, init_templates as init_commentary_templates
+from .utility import router as utility_router
 
 __all__ = [
     'api_router',
@@ -13,4 +14,5 @@ __all__ = [
     'family_tree_router', 'init_family_tree_templates',
     'study_guides_router', 'init_study_guides_templates',
     'commentary_router', 'init_commentary_templates',
+    'utility_router',
 ]
