@@ -7,50 +7,51 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
-    name: Run Test Suite
+  test-api:
+    name: API Tests
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
         with:
           version: "latest"
+      - run: uv python install 3.13
+      - run: uv sync
+      - run: uv run pytest tests/test_api.py -v --tb=short
 
-      - name: Set up Python
-        run: uv python install 3.13
+  test-edge-cases:
+    name: Edge Case Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+      - run: uv python install 3.13
+      - run: uv sync
+      - run: uv run pytest tests/test_edge_cases.py -v --tb=short
 
-      - name: Install dependencies
-        run: uv sync
-
-      - name: Run tests
-        run: uv run pytest tests/ -v --tb=short
-
-      - name: Run tests with coverage
-        run: uv run pytest tests/ --cov=kjvstudy_org --cov-report=term-missing
+  test-web-routes:
+    name: Web Route Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+      - run: uv python install 3.13
+      - run: uv sync
+      - run: uv run pytest tests/test_web_routes.py -v --tb=short
 
   lint:
     name: Code Quality
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
         with:
           version: "latest"
-
-      - name: Set up Python
-        run: uv python install 3.13
-
-      - name: Install dependencies
-        run: uv sync
-
-      - name: Check code formatting with ruff (if available)
-        run: uv run ruff check . || echo "Ruff not configured, skipping"
+      - run: uv python install 3.13
+      - run: uv sync
+      - run: uv run ruff check . || echo "Ruff not configured, skipping"
         continue-on-error: true

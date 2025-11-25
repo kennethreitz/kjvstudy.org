@@ -2,36 +2,17 @@
 
 name: Fly Deploy
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Tests"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
-  test:
-    name: Run tests before deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-        with:
-          version: "latest"
-
-      - name: Set up Python
-        run: uv python install 3.13
-
-      - name: Install dependencies
-        run: uv sync
-
-      - name: Run tests
-        run: uv run pytest tests/ -v --tb=short
-
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
-    needs: test  # Only deploy if tests pass
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4
