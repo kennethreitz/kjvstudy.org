@@ -10,6 +10,7 @@
     padding: 2.5rem 0 1.5rem;
     margin-bottom: 1.5rem;
     border-bottom: 1px solid var(--border-color);
+    margin-left: -100px;
 }
 
 .title-page h1 {
@@ -53,6 +54,7 @@
 .verse-lookup {
     max-width: 32rem;
     margin: 2rem auto;
+    margin-left: calc(50% - 16rem - 50px);
     padding: 1.5rem;
     border: 1px solid var(--border-color);
 }
@@ -112,6 +114,7 @@
 .nav-links {
     text-align: center;
     margin: 1.5rem 0 2.5rem;
+    margin-left: -100px;
     font-size: 1.05rem;
 }
 
@@ -200,6 +203,7 @@
 @media (max-width: 760px) {
     .title-page {
         padding: 1.5rem 0 1rem;
+        margin-left: 0;
     }
 
     .title-page h1 {
@@ -212,7 +216,12 @@
 
     .verse-lookup {
         max-width: 100%;
+        margin-left: auto;
         padding: 1.25rem;
+    }
+
+    .nav-links {
+        margin-left: 0;
     }
 
     .lookup-form {
