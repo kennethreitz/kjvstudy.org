@@ -169,9 +169,9 @@ def study_guides_page(request: Request):
             ]
 
     return templates.TemplateResponse(
-        "study_guides.html",
-        {
-            "request": request,
+            request,
+            "study_guides.html",
+            {
             "books": books,
             "study_guides": study_guides
         }
@@ -932,9 +932,9 @@ def study_guide_detail(request: Request, slug: str):
     ]
 
     return templates.TemplateResponse(
-        "study_guide_detail.html",
-        {
-            "request": request,
+            request,
+            "study_guide_detail.html",
+            {
             "books": books,
             "guide": guide,
             "breadcrumbs": breadcrumbs

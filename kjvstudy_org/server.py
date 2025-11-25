@@ -3,6 +3,7 @@ import json
 import os
 import re
 import random
+from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path as PathLib
 from typing import List, Dict, Optional
@@ -58,13 +59,24 @@ except ImportError:
 # are now imported from utils modules above.
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Lifespan context manager for startup/shutdown events"""
+    # Startup
+    if os.getenv("PRELOAD_INTERLINEAR", "false").lower() == "true":
+        preload_data()
+    yield
+    # Shutdown (nothing needed currently)
+
+
 app = FastAPI(
     title="KJV Study API",
     description="RESTful API for accessing King James Bible verses, chapters, and study resources",
     version="1.0.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json"
+    openapi_url="/api/openapi.json",
+    lifespan=lifespan
 )
 
 # Include the API router (routes defined in routes/api.py)
@@ -183,22 +195,15 @@ except Exception as e:
     print(f"Warning: Could not load Scofield commentary: {e}")
 
 
-@app.on_event("startup")
-async def startup_event():
-    """Initialize app on startup - preload data if enabled"""
-    if os.getenv("PRELOAD_INTERLINEAR", "false").lower() == "true":
-        preload_data()
-
-
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
     """Custom error handler that renders our error template"""
     if exc.status_code == 404:
         books = list(bible.iter_books())
         return templates.TemplateResponse(
+            request,
             "error.html",
             {
-                "request": request,
                 "status_code": exc.status_code,
                 "detail": exc.detail,
                 "books": books,
@@ -229,9 +234,9 @@ def search_page(request: Request, q: str = Query(None, description="Search query
         family_tree_results = search_family_tree(q.strip(), limit=5)
 
     return templates.TemplateResponse(
-        "search.html",
-        {
-            "request": request,
+            request,
+            "search.html",
+            {
             "query": q or "",
             "results": search_results,
             "family_tree_results": family_tree_results,
@@ -248,9 +253,9 @@ def concordance_page(request: Request, word: str = Query(None, description="Word
 
     if not word or len(word.strip()) < 2:
         return templates.TemplateResponse(
+            request,
             "concordance.html",
             {
-                "request": request,
                 "books": books,
                 "word": word or "",
                 "total_occurrences": 0,
@@ -297,9 +302,9 @@ def concordance_page(request: Request, word: str = Query(None, description="Word
             occurrences_by_book[verse.book].append(occurrence)
 
     return templates.TemplateResponse(
-        "concordance.html",
-        {
-            "request": request,
+            request,
+            "concordance.html",
+            {
             "books": books,
             "word": search_word,
             "total_occurrences": len(occurrences),
@@ -331,9 +336,9 @@ def interlinear_landing_page(request: Request):
     ]
 
     return templates.TemplateResponse(
-        "interlinear_landing.html",
-        {
-            "request": request,
+            request,
+            "interlinear_landing.html",
+            {
             "books": books,
             "featured_verses": featured_verses,
             "breadcrumbs": breadcrumbs
@@ -413,9 +418,9 @@ def verse_of_the_day_page(request: Request):
     ]
 
     return templates.TemplateResponse(
-        "verse_of_the_day.html",
-        {
-            "request": request,
+            request,
+            "verse_of_the_day.html",
+            {
             "books": books,
             "daily_verse": daily_verse,
             "past_verses": past_verses,
@@ -1253,9 +1258,9 @@ def biblical_timeline_page(request: Request):
     ]
 
     return templates.TemplateResponse(
-        "biblical_timeline.html",
-        {
-            "request": request,
+            request,
+            "biblical_timeline.html",
+            {
             "books": books,
             "timeline_events": timeline_events,
             "chronology_note": chronology_note,
@@ -1491,7 +1496,7 @@ def read_root(request: Request):
             ]
 
     return templates.TemplateResponse(
-        "index.html", {"request": request, "books": books, "daily_verse": daily_verse, "study_guides": study_guides}
+        request, "index.html", {"books": books, "daily_verse": daily_verse, "study_guides": study_guides}
     )
 
 
@@ -1574,9 +1579,9 @@ def books_page(request: Request):
     ]
 
     return templates.TemplateResponse(
-        "books.html",
-        {
-            "request": request,
+            request,
+            "books.html",
+            {
             "old_testament": old_testament,
             "new_testament": new_testament,
             "books": books,
@@ -1597,9 +1602,9 @@ def reading_plans_page(request: Request):
     ]
 
     return templates.TemplateResponse(
-        "reading_plans.html",
-        {
-            "request": request,
+            request,
+            "reading_plans.html",
+            {
             "plans": plans,
             "books": books,
             "breadcrumbs": breadcrumbs
@@ -1623,9 +1628,9 @@ def reading_plan_detail(request: Request, plan_id: str):
     ]
 
     return templates.TemplateResponse(
-        "reading_plan_detail.html",
-        {
-            "request": request,
+            request,
+            "reading_plan_detail.html",
+            {
             "plan": plan,
             "plan_id": plan_id,
             "books": books,
@@ -1646,9 +1651,9 @@ def topics_page(request: Request):
     ]
 
     return templates.TemplateResponse(
-        "topics.html",
-        {
-            "request": request,
+            request,
+            "topics.html",
+            {
             "topics": topics,
             "books": books,
             "breadcrumbs": breadcrumbs
@@ -1769,9 +1774,9 @@ def resources_page(request: Request):
     ]
 
     return templates.TemplateResponse(
-        "resources.html",
-        {
-            "request": request,
+            request,
+            "resources.html",
+            {
             "resources": resources,
             "books": books,
             "breadcrumbs": breadcrumbs
@@ -1795,9 +1800,9 @@ def topic_detail(request: Request, topic_name: str):
     ]
 
     return templates.TemplateResponse(
-        "topic_detail.html",
-        {
-            "request": request,
+            request,
+            "topic_detail.html",
+            {
             "topic": topic,
             "topic_name": topic_name,
             "books": books,
@@ -1840,9 +1845,9 @@ def read_book(request: Request, book: str):
     ]
 
     return templates.TemplateResponse(
-        "book.html",
-        {
-            "request": request,
+            request,
+            "book.html",
+            {
             "book": book,
             "chapters": chapters,
             "books": books,
@@ -1872,9 +1877,9 @@ def book_commentary(request: Request, book: str):
         commentary_data = generate_book_commentary(book, chapters)
 
         return templates.TemplateResponse(
+            request,
             "book_commentary.html",
             {
-                "request": request,
                 "book": book,
                 "chapters": chapters,
                 "books": books,
@@ -1889,9 +1894,9 @@ def book_commentary(request: Request, book: str):
 
         # Return a simple error page instead of 500
         return templates.TemplateResponse(
+            request,
             "error.html",
             {
-                "request": request,
                 "error_message": f"Sorry, there was an error loading the commentary for {book}. Please try again later.",
                 "book": book,
                 "books": list(bible.iter_books()) if 'bible' in globals() else []
@@ -1961,9 +1966,9 @@ def read_chapter(request: Request, book: str, chapter: int):
     ]
 
     return templates.TemplateResponse(
-        "chapter.html",
-        {
-            "request": request,
+            request,
+            "chapter.html",
+            {
             "book": book,
             "chapter": chapter,
             "verses": verses,
@@ -2044,9 +2049,9 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     ]
 
     return templates.TemplateResponse(
-        "verse.html",
-        {
-            "request": request,
+            request,
+            "verse.html",
+            {
             "book": book,
             "chapter": chapter,
             "verse_num": verse_num,

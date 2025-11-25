@@ -63,9 +63,9 @@ def commentary(request: Request, book: str, chapter: int):
     chapter_overview = generate_chapter_overview(book, chapter, verses)
 
     return templates.TemplateResponse(
-        "commentary.html",
-        {
-            "request": request,
+            request,
+            "commentary.html",
+            {
             "book": book,
             "chapter": chapter,
             "verses": verses,

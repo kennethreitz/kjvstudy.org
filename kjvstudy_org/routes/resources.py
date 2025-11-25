@@ -54,9 +54,9 @@ def find_item_by_slug(data: dict, slug: str):
 def biblical_maps_page(request: Request):
     """Biblical maps page showing important biblical locations."""
     return templates.TemplateResponse(
-        "biblical_maps.html",
-        {
-            "request": request,
+            request,
+            "biblical_maps.html",
+            {
             "books": get_books(),
             "biblical_locations": BIBLICAL_LOCATIONS,
             "breadcrumbs": [
@@ -74,9 +74,9 @@ def biblical_maps_page(request: Request):
 def biblical_angels_page(request: Request):
     """Biblical angels page exploring angels throughout Scripture."""
     return templates.TemplateResponse(
-        "biblical_angels.html",
-        {
-            "request": request,
+            request,
+            "biblical_angels.html",
+            {
             "books": get_books(),
             "angels_data": ANGELS_DATA,
             "breadcrumbs": [
@@ -96,9 +96,9 @@ def angel_detail(request: Request, angel_slug: str):
         raise HTTPException(status_code=404, detail="Biblical Angels item not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -122,9 +122,9 @@ def angel_detail(request: Request, angel_slug: str):
 def biblical_prophets_page(request: Request):
     """Biblical prophets page exploring the prophetic ministry throughout Scripture."""
     return templates.TemplateResponse(
-        "biblical_prophets.html",
-        {
-            "request": request,
+            request,
+            "biblical_prophets.html",
+            {
             "books": get_books(),
             "prophets_data": PROPHETS_DATA,
             "breadcrumbs": [
@@ -144,9 +144,9 @@ def prophet_detail(request: Request, prophet_slug: str):
         raise HTTPException(status_code=404, detail="Biblical Prophets item not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -170,9 +170,9 @@ def prophet_detail(request: Request, prophet_slug: str):
 def names_of_god_page(request: Request):
     """Names of God page exploring divine names throughout Scripture."""
     return templates.TemplateResponse(
-        "names_of_god.html",
-        {
-            "request": request,
+            request,
+            "names_of_god.html",
+            {
             "books": get_books(),
             "names_data": NAMES_DATA,
             "breadcrumbs": [
@@ -192,9 +192,9 @@ def name_of_god_detail(request: Request, name_slug: str):
         raise HTTPException(status_code=404, detail="Name of God not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -218,9 +218,9 @@ def name_of_god_detail(request: Request, name_slug: str):
 def parables_page(request: Request):
     """Parables of Jesus page."""
     return templates.TemplateResponse(
-        "parables.html",
-        {
-            "request": request,
+            request,
+            "parables.html",
+            {
             "books": get_books(),
             "parables_data": PARABLES_DATA,
             "breadcrumbs": [
@@ -240,9 +240,9 @@ def parable_detail(request: Request, parable_slug: str):
         raise HTTPException(status_code=404, detail="Parable not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -266,9 +266,9 @@ def parable_detail(request: Request, parable_slug: str):
 def biblical_covenants_page(request: Request):
     """Biblical covenants page."""
     return templates.TemplateResponse(
-        "biblical_covenants.html",
-        {
-            "request": request,
+            request,
+            "biblical_covenants.html",
+            {
             "books": get_books(),
             "covenants_data": COVENANTS_DATA,
             "breadcrumbs": [
@@ -288,9 +288,9 @@ def covenant_detail(request: Request, covenant_slug: str):
         raise HTTPException(status_code=404, detail="Biblical Covenant not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -314,9 +314,9 @@ def covenant_detail(request: Request, covenant_slug: str):
 def apostles_page(request: Request):
     """The Twelve Apostles page."""
     return templates.TemplateResponse(
-        "twelve_apostles.html",
-        {
-            "request": request,
+            request,
+            "twelve_apostles.html",
+            {
             "books": get_books(),
             "apostles_data": APOSTLES_DATA,
             "breadcrumbs": [
@@ -336,9 +336,9 @@ def apostle_detail(request: Request, apostle_slug: str):
         raise HTTPException(status_code=404, detail="Apostle not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -362,9 +362,9 @@ def apostle_detail(request: Request, apostle_slug: str):
 def women_of_the_bible_page(request: Request):
     """Women of the Bible page."""
     return templates.TemplateResponse(
-        "women_of_the_bible.html",
-        {
-            "request": request,
+            request,
+            "women_of_the_bible.html",
+            {
             "books": get_books(),
             "women_data": WOMEN_DATA,
             "breadcrumbs": [
@@ -384,9 +384,9 @@ def woman_detail(request: Request, woman_slug: str):
         raise HTTPException(status_code=404, detail="Woman of the Bible not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -410,9 +410,9 @@ def woman_detail(request: Request, woman_slug: str):
 def biblical_festivals_page(request: Request):
     """Biblical festivals page."""
     return templates.TemplateResponse(
-        "biblical_festivals.html",
-        {
-            "request": request,
+            request,
+            "biblical_festivals.html",
+            {
             "books": get_books(),
             "festivals_data": FESTIVALS_DATA,
             "breadcrumbs": [
@@ -432,9 +432,9 @@ def festival_detail(request: Request, festival_slug: str):
         raise HTTPException(status_code=404, detail="Biblical Festival not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -458,9 +458,9 @@ def festival_detail(request: Request, festival_slug: str):
 def fruits_of_the_spirit_page(request: Request):
     """Fruits of the Spirit page."""
     return templates.TemplateResponse(
-        "fruits_of_the_spirit.html",
-        {
-            "request": request,
+            request,
+            "fruits_of_the_spirit.html",
+            {
             "books": get_books(),
             "fruits_data": FRUITS_DATA,
             "breadcrumbs": [
@@ -480,9 +480,9 @@ def fruit_detail(request: Request, fruit_slug: str):
         raise HTTPException(status_code=404, detail="Fruit of the Spirit not found")
 
     return templates.TemplateResponse(
-        "resource_detail.html",
-        {
-            "request": request,
+            request,
+            "resource_detail.html",
+            {
             "books": get_books(),
             "item": item,
             "item_name": item_name,
@@ -548,9 +548,9 @@ TETRAGRAMMATON_CONTENT = {
 def tetragrammaton_page(request: Request):
     """The sacred Tetragrammaton - YHWH."""
     return templates.TemplateResponse(
-        "tetragrammaton.html",
-        {
-            "request": request,
+            request,
+            "tetragrammaton.html",
+            {
             "books": get_books(),
             "content": TETRAGRAMMATON_CONTENT,
             "breadcrumbs": [

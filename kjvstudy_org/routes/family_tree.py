@@ -378,9 +378,9 @@ def family_tree_page(request: Request):
         )
 
     return templates.TemplateResponse(
-        "family_tree.html",
-        {
-            "request": request,
+            request,
+            "family_tree.html",
+            {
             "books": get_books(),
             "family_tree_data": family_tree_data,
             "generations": generations,
@@ -426,9 +426,9 @@ def family_tree_generation_page(request: Request, gen_num: int):
         )
 
     return templates.TemplateResponse(
-        "family_tree_generation.html",
-        {
-            "request": request,
+            request,
+            "family_tree_generation.html",
+            {
             "books": get_books(),
             "family_tree_data": family_tree_data,
             "generation_num": gen_num,
@@ -481,9 +481,9 @@ def family_tree_person_page(request: Request, person_id: str):
     biography = get_biography(person["name"])
 
     return templates.TemplateResponse(
-        "family_tree_person.html",
-        {
-            "request": request,
+            request,
+            "family_tree_person.html",
+            {
             "books": get_books(),
             "person": person,
             "person_id": person_id_lower,
@@ -546,9 +546,9 @@ def family_tree_search_page(request: Request, q: str = ""):
         return RedirectResponse(url=f"/family-tree/person/{exact_match_id}", status_code=303)
 
     return templates.TemplateResponse(
-        "family_tree_search.html",
-        {
-            "request": request,
+            request,
+            "family_tree_search.html",
+            {
             "books": get_books(),
             "query": q,
             "results": results,
@@ -566,9 +566,9 @@ def family_tree_search_page(request: Request, q: str = ""):
 def family_tree_lineage_page(request: Request):
     """Dedicated page for the Messianic lineage visualization."""
     return templates.TemplateResponse(
-        "family_tree_lineage.html",
-        {
-            "request": request,
+            request,
+            "family_tree_lineage.html",
+            {
             "books": get_books(),
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
@@ -618,9 +618,9 @@ def family_tree_descendants_page(request: Request, person_id: str):
     descendants_tree = get_descendants_tree(person_id_lower)
 
     return templates.TemplateResponse(
-        "family_tree_descendants.html",
-        {
-            "request": request,
+            request,
+            "family_tree_descendants.html",
+            {
             "books": get_books(),
             "person": person,
             "person_id": person_id_lower,
@@ -674,9 +674,9 @@ def family_tree_ancestors_page(request: Request, person_id: str):
     ancestors_tree = get_ancestors_tree(person_id_lower)
 
     return templates.TemplateResponse(
-        "family_tree_ancestors.html",
-        {
-            "request": request,
+            request,
+            "family_tree_ancestors.html",
+            {
             "books": get_books(),
             "person": person,
             "person_id": person_id_lower,

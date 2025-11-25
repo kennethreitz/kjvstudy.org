@@ -61,8 +61,8 @@ def api_health_check():
 
 @router.get("/search")
 def search_api(
-    q: str = Query(..., description="Search query", example="faith"),
-    limit: Optional[int] = Query(None, description="Max results", example=10)
+    q: str = Query(..., description="Search query", examples=["faith"]),
+    limit: Optional[int] = Query(None, description="Max results", examples=[10])
 ):
     """JSON API endpoint for search."""
     if not q or len(q.strip()) < 2:
@@ -91,9 +91,9 @@ def verse_of_the_day_api():
 
 @router.get("/verse/{book}/{chapter}/{verse}")
 def api_get_verse(
-    book: str = Path(..., description="Book name", example="John"),
-    chapter: int = Path(..., description="Chapter number", example=3),
-    verse: int = Path(..., description="Verse number", example=16)
+    book: str = Path(..., description="Book name", examples=["John"]),
+    chapter: int = Path(..., description="Chapter number", examples=[3]),
+    verse: int = Path(..., description="Verse number", examples=[16])
 ):
     """Get a single verse text."""
     try:
@@ -120,10 +120,10 @@ def api_get_verse(
 
 @router.get("/verse-range/{book}/{chapter}/{start}/{end}")
 def api_get_verse_range(
-    book: str = Path(..., description="Book name", example="Psalms"),
-    chapter: int = Path(..., description="Chapter number", example=23),
-    start: int = Path(..., description="Starting verse number", example=1),
-    end: int = Path(..., description="Ending verse number", example=6)
+    book: str = Path(..., description="Book name", examples=["Psalms"]),
+    chapter: int = Path(..., description="Chapter number", examples=[23]),
+    start: int = Path(..., description="Starting verse number", examples=[1]),
+    end: int = Path(..., description="Ending verse number", examples=[6])
 ):
     """Get a range of verses."""
     try:
@@ -163,9 +163,9 @@ def api_get_verse_range(
 
 @router.get("/interlinear/{book}/{chapter}/{verse}")
 def api_get_interlinear(
-    book: str = Path(..., description="Book name", example="John"),
-    chapter: int = Path(..., description="Chapter number", example=1),
-    verse: int = Path(..., description="Verse number", example=1)
+    book: str = Path(..., description="Book name", examples=["John"]),
+    chapter: int = Path(..., description="Chapter number", examples=[1]),
+    verse: int = Path(..., description="Verse number", examples=[1])
 ):
     """Get interlinear (word-by-word) data for a verse."""
     try:
@@ -234,7 +234,7 @@ def api_get_books():
 
 
 @router.get("/books/{book}")
-def api_get_book(book: str = Path(..., description="Book name", example="Genesis")):
+def api_get_book(book: str = Path(..., description="Book name", examples=["Genesis"])):
     """Get details about a specific book."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -261,8 +261,8 @@ def api_get_book(book: str = Path(..., description="Book name", example="Genesis
 
 @router.get("/books/{book}/chapters/{chapter}")
 def api_get_chapter(
-    book: str = Path(..., description="Book name", example="Romans"),
-    chapter: int = Path(..., description="Chapter number", example=8)
+    book: str = Path(..., description="Book name", examples=["Romans"]),
+    chapter: int = Path(..., description="Chapter number", examples=[8])
 ):
     """Get all verses in a chapter."""
     canonical_name = normalize_book_name(book)
@@ -289,7 +289,7 @@ def api_get_chapter(
 
 
 @router.get("/books/{book}/text")
-def api_get_book_text(book: str = Path(..., description="Book name", example="Philemon")):
+def api_get_book_text(book: str = Path(..., description="Book name", examples=["Philemon"])):
     """Get all text content of a book."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -362,9 +362,9 @@ def api_get_bible():
 
 @router.get("/cross-references/{book}/{chapter}/{verse}")
 def api_get_cross_references(
-    book: str = Path(..., description="Book name", example="John"),
-    chapter: int = Path(..., description="Chapter number", example=3),
-    verse: int = Path(..., description="Verse number", example=16)
+    book: str = Path(..., description="Book name", examples=["John"]),
+    chapter: int = Path(..., description="Chapter number", examples=[3]),
+    verse: int = Path(..., description="Verse number", examples=[16])
 ):
     """Get cross-references for a verse."""
     canonical_name = normalize_book_name(book)
@@ -407,7 +407,7 @@ def api_get_topics():
 
 
 @router.get("/topics/{topic_name}")
-def api_get_topic(topic_name: str = Path(..., description="Topic name", example="faith")):
+def api_get_topic(topic_name: str = Path(..., description="Topic name", examples=["faith"])):
     """Get details about a specific topic."""
     topic = get_topic(topic_name)
     if not topic:
@@ -433,7 +433,7 @@ def api_get_reading_plans():
 
 
 @router.get("/reading-plans/{plan_id}")
-def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID", example="chronological")):
+def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID", examples=["chronological"])):
     """Get details about a specific reading plan."""
     plan = get_plan(plan_id)
     if not plan:
