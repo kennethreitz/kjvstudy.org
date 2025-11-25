@@ -250,7 +250,7 @@
 <h1>{{ book }} {{ chapter }}:{{ verse_num }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
-<div>
+<section>
     <p class="verse-text">{{ verse_text | link_names | safe }}</p>
 
     {% if interlinear_words %}
@@ -335,7 +335,7 @@
             });
         }
     </script>
-</div>
+</section>
 
 {% if cross_references %}
 <div>
