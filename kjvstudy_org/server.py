@@ -937,6 +937,29 @@ def link_verse_references_in_text(text):
 templates.env.filters['link_verses'] = link_verse_references_in_text
 
 
+def inject_word_markers(text, word_studies, verse_num):
+    """Inject sidenote markers into verse text next to annotated words"""
+    if not word_studies:
+        return text
+
+    # Process each word study
+    for idx, study in enumerate(word_studies, 1):
+        word = study['word']
+        # Create the sidenote marker HTML
+        marker = f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/><span class="sidenote"><strong>{word}:</strong> {study["term"]} (<em>{study["translit"]}</em>). {study["note"]}</span>'
+
+        # Find and replace the word with word + marker
+        # Use a more precise replacement to avoid replacing partial matches
+        import re
+        # Match the word with word boundaries, case-insensitive
+        pattern = re.compile(r'\b(' + re.escape(word) + r')\b', re.IGNORECASE)
+        text = pattern.sub(r'\1' + marker, text, count=1)
+
+    return text
+
+templates.env.filters['inject_word_markers'] = inject_word_markers
+
+
 @app.get("/biblical-timeline", response_class=HTMLResponse)
 def biblical_timeline_page(request: Request):
     """Biblical timeline page showing major biblical events chronologically"""
