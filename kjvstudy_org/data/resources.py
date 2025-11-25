@@ -449,6 +449,79 @@ PROPHETS_DATA = {
                     {"reference": "Micah 7:18", "text": "Who is a God like unto thee, that pardoneth iniquity, and passeth by the transgression of the remnant of his heritage? he retaineth not his anger for ever, because he delighteth in mercy."},
                     {"reference": "Micah 7:19", "text": "He will turn again, he will have compassion upon us; he will subdue our iniquities; and thou wilt cast all their sins into the depths of the sea."}
                 ]
+            },
+            "Obadiah": {
+                "title": "Prophet Against Edom",
+                "description": "Obadiah's prophecy, the shortest book in the Old Testament at only 21 verses, is entirely devoted to pronouncing judgment upon Edom, the nation descended from Esau, Jacob's twin brother. The ancient enmity between these brother nations, rooted in the womb where 'the elder shall serve the younger' (Genesis 25:23), culminated when Edom rejoiced over Jerusalem's destruction by Babylon in 586 BC, participated in the plunder, and cut off fleeing refugees. Obadiah's oracle declares that as Edom had done to Israel, so it would be done to them. The Edomites' pride in their seemingly impregnable mountain fortresses—'Thou that dwellest in the clefts of the rock, whose habitation is high; that saith in his heart, Who shall bring me down to the ground?'—would be their undoing, for God would bring them down. Though Edom thought itself wise and secure, divine judgment would strip away every refuge. The book concludes with eschatological hope: 'And saviours shall come up on mount Zion to judge the mount of Esau; and the kingdom shall be the LORD's.'",
+                "verses": [
+                    {"reference": "Obadiah 1:3-4", "text": "The pride of thine heart hath deceived thee, thou that dwellest in the clefts of the rock, whose habitation is high; that saith in his heart, Who shall bring me down to the ground? Though thou exalt thyself as the eagle, and though thou set thy nest among the stars, thence will I bring thee down, saith the LORD."},
+                    {"reference": "Obadiah 1:10", "text": "For thy violence against thy brother Jacob shame shall cover thee, and thou shalt be cut off for ever."},
+                    {"reference": "Obadiah 1:15", "text": "For the day of the LORD is near upon all the heathen: as thou hast done, it shall be done unto thee: thy reward shall return upon thine own head."},
+                    {"reference": "Obadiah 1:21", "text": "And saviours shall come up on mount Zion to judge the mount of Esau; and the kingdom shall be the LORD's."}
+                ]
+            },
+            "Nahum": {
+                "title": "Prophet of Nineveh's Doom",
+                "description": "Nahum the Elkoshite prophesied against Nineveh approximately a century after Jonah's preaching had prompted the city's temporary repentance. The Assyrian capital had returned to its brutal ways, becoming the most feared empire of the ancient world. Nahum's oracle—'the burden of Nineveh'—proclaimed the city's certain, irreversible destruction. While Jonah emphasized God's mercy to repentant sinners, Nahum reveals that mercy exhausted becomes judgment executed. The prophet's vivid imagery depicts attacking armies, flashing swords, galloping horses, and Nineveh's fall as divine vengeance for centuries of atrocities. Yet the message comforts Judah: 'The LORD is good, a strong hold in the day of trouble; and he knoweth them that trust in him.' Nineveh fell to the Babylonians and Medes in 612 BC, exactly as prophesied, and was so thoroughly destroyed that its location was lost until archaeological excavation in the nineteenth century.",
+                "verses": [
+                    {"reference": "Nahum 1:2-3", "text": "God is jealous, and the LORD revengeth; the LORD revengeth, and is furious; the LORD will take vengeance on his adversaries, and he reserveth wrath for his enemies. The LORD is slow to anger, and great in power, and will not at all acquit the wicked."},
+                    {"reference": "Nahum 1:7", "text": "The LORD is good, a strong hold in the day of trouble; and he knoweth them that trust in him."},
+                    {"reference": "Nahum 1:15", "text": "Behold upon the mountains the feet of him that bringeth good tidings, that publisheth peace! O Judah, keep thy solemn feasts, perform thy vows: for the wicked shall no more pass through thee; he is utterly cut off."},
+                    {"reference": "Nahum 3:19", "text": "There is no healing of thy bruise; thy wound is grievous: all that hear the bruit of thee shall clap the hands over thee: for upon whom hath not thy wickedness passed continually?"}
+                ]
+            },
+            "Habakkuk": {
+                "title": "The Questioning Prophet",
+                "description": "Habakkuk's prophecy uniquely presents a dialogue between the prophet and God, wrestling with the problem of evil and divine justice. Writing around 609-605 BC as Babylon rose to power, Habakkuk first complained that God tolerated violence and injustice in Judah without acting. God's startling response—He would use the even more wicked Babylonians as His instrument of judgment—provoked Habakkuk's deeper theological crisis: How could a holy God use such an unrighteous nation to punish His people? The prophet stationed himself on his watchtower to await God's answer. The divine response established a principle central to both Judaism and Christianity: 'The just shall live by his faith.' Though Babylon would indeed conquer, it too would face judgment. Habakkuk's concluding prayer-psalm expresses faith triumphant: though fig trees fail and fields yield no food, 'Yet I will rejoice in the LORD, I will joy in the God of my salvation.' Paul quotes Habakkuk 2:4 to establish justification by faith (Romans 1:17, Galatians 3:11).",
+                "verses": [
+                    {"reference": "Habakkuk 1:13", "text": "Thou art of purer eyes than to behold evil, and canst not look on iniquity: wherefore lookest thou upon them that deal treacherously, and holdest thy tongue when the wicked devoureth the man that is more righteous than he?"},
+                    {"reference": "Habakkuk 2:4", "text": "Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith."},
+                    {"reference": "Habakkuk 2:14", "text": "For the earth shall be filled with the knowledge of the glory of the LORD, as the waters cover the sea."},
+                    {"reference": "Habakkuk 3:17-18", "text": "Although the fig tree shall not blossom, neither shall fruit be in the vines; the labour of the olive shall fail, and the fields shall yield no meat; the flock shall be cut off from the fold, and there shall be no herd in the stalls: Yet I will rejoice in the LORD, I will joy in the God of my salvation."}
+                ]
+            },
+            "Zephaniah": {
+                "title": "Prophet of the Day of the LORD",
+                "description": "Zephaniah, a descendant of King Hezekiah, prophesied during the reign of Josiah (c. 640-609 BC), likely before the king's reforms. His message centers on 'the day of the LORD'—that eschatological day of divine judgment that would first fall on Judah and Jerusalem, then extend to surrounding nations, and ultimately encompass all the earth. Zephaniah's description of this day is among Scripture's most terrifying: 'A day of wrath, a day of trouble and distress, a day of wasteness and desolation, a day of darkness and gloominess, a day of clouds and thick darkness.' The medieval hymn 'Dies Irae' drew upon this passage. Yet Zephaniah's prophecy does not end in darkness. Following judgment comes restoration: God will purify a remnant, gathering the scattered, restoring the humble, and dwelling in Zion's midst. The book's conclusion portrays God rejoicing over His people with singing—a stunning image of divine delight in redeemed humanity.",
+                "verses": [
+                    {"reference": "Zephaniah 1:14-15", "text": "The great day of the LORD is near, it is near, and hasteth greatly, even the voice of the day of the LORD: the mighty man shall cry there bitterly. That day is a day of wrath, a day of trouble and distress, a day of wasteness and desolation, a day of darkness and gloominess, a day of clouds and thick darkness."},
+                    {"reference": "Zephaniah 2:3", "text": "Seek ye the LORD, all ye meek of the earth, which have wrought his judgment; seek righteousness, seek meekness: it may be ye shall be hid in the day of the LORD's anger."},
+                    {"reference": "Zephaniah 3:9", "text": "For then will I turn to the people a pure language, that they may all call upon the name of the LORD, to serve him with one consent."},
+                    {"reference": "Zephaniah 3:17", "text": "The LORD thy God in the midst of thee is mighty; he will save, he will rejoice over thee with joy; he will rest in his love, he will joy over thee with singing."}
+                ]
+            },
+            "Haggai": {
+                "title": "Prophet of Temple Rebuilding",
+                "description": "Haggai prophesied in 520 BC, eighteen years after the first exiles returned from Babylon under Zerubbabel. Though they had laid the temple's foundation, opposition and discouragement had halted construction while the people built their own 'cieled houses.' Haggai's pointed message challenged this misplaced priority: 'Is it time for you, O ye, to dwell in your cieled houses, and this house lie waste?' Economic hardship—sowing much but harvesting little, earning wages that disappeared 'into a bag with holes'—resulted from neglecting God's house. Haggai's four dated oracles (five specific dates within a four-month period make this one of Scripture's most precisely dated books) called for temple completion. The prophet encouraged the builders not to despair that this temple seemed inferior to Solomon's glory: 'The glory of this latter house shall be greater than of the former'—a prophecy fulfilled when Christ, 'the desire of all nations,' entered this very temple. Zerubbabel, the governor, is singled out as God's signet ring, a messianic type pointing to Christ.",
+                "verses": [
+                    {"reference": "Haggai 1:4", "text": "Is it time for you, O ye, to dwell in your cieled houses, and this house lie waste?"},
+                    {"reference": "Haggai 1:6", "text": "Ye have sown much, and bring in little; ye eat, but ye have not enough; ye drink, but ye are not filled with drink; ye clothe you, but there is none warm; and he that earneth wages earneth wages to put it into a bag with holes."},
+                    {"reference": "Haggai 2:7", "text": "And I will shake all nations, and the desire of all nations shall come: and I will fill this house with glory, saith the LORD of hosts."},
+                    {"reference": "Haggai 2:9", "text": "The glory of this latter house shall be greater than of the former, saith the LORD of hosts: and in this place will I give peace, saith the LORD of hosts."},
+                    {"reference": "Haggai 2:23", "text": "In that day, saith the LORD of hosts, will I take thee, O Zerubbabel, my servant, the son of Shealtiel, saith the LORD, and will make thee as a signet: for I have chosen thee, saith the LORD of hosts."}
+                ]
+            },
+            "Zechariah": {
+                "title": "Prophet of Messianic Visions",
+                "description": "Zechariah, a priest and prophet contemporary with Haggai, received his first oracle in 520 BC and continued prophesying into the early fifth century. His book divides into two distinct sections: chapters 1-8 contain eight night visions and prophetic oracles encouraging the temple rebuilders, while chapters 9-14 present apocalyptic prophecies of Messiah's coming and Israel's ultimate restoration. Zechariah's Messianic prophecies are remarkably detailed and frequently quoted in the New Testament: the Branch who is both priest and king, the king entering Jerusalem 'lowly, and riding upon an ass,' the thirty pieces of silver cast to the potter in the LORD's house, the pierced one upon whom Israel shall look and mourn, the smitten shepherd whose sheep scatter, living waters flowing from Jerusalem, and the LORD becoming king over all the earth. The New Testament applies these prophecies to Christ's triumphal entry, Judas's betrayal, the crucifixion, and the Second Coming. More than any other prophet, Zechariah bridges the testaments, his visions illuminating Christ's work in both advents.",
+                "verses": [
+                    {"reference": "Zechariah 4:6", "text": "Then he answered and spake unto me, saying, This is the word of the LORD unto Zerubbabel, saying, Not by might, nor by power, but by my spirit, saith the LORD of hosts."},
+                    {"reference": "Zechariah 9:9", "text": "Rejoice greatly, O daughter of Zion; shout, O daughter of Jerusalem: behold, thy King cometh unto thee: he is just, and having salvation; lowly, and riding upon an ass, and upon a colt the foal of an ass."},
+                    {"reference": "Zechariah 12:10", "text": "And I will pour upon the house of David, and upon the inhabitants of Jerusalem, the spirit of grace and of supplications: and they shall look upon me whom they have pierced, and they shall mourn for him, as one mourneth for his only son."},
+                    {"reference": "Zechariah 13:7", "text": "Awake, O sword, against my shepherd, and against the man that is my fellow, saith the LORD of hosts: smite the shepherd, and the sheep shall be scattered: and I will turn mine hand upon the little ones."},
+                    {"reference": "Zechariah 14:9", "text": "And the LORD shall be king over all the earth: in that day shall there be one LORD, and his name one."}
+                ]
+            },
+            "Malachi": {
+                "title": "The Last Old Testament Prophet",
+                "description": "Malachi ('my messenger'), the final prophetic voice before four centuries of silence, ministered around 460-430 BC during the post-exilic period when spiritual lethargy had replaced early enthusiasm. His prophecy employs a distinctive disputational style: God makes a statement, the people question it, and God elaborates. Through this format, Malachi exposed Israel's sins—defiled offerings, faithless priests, divorce, withholding tithes, and speaking against God—while affirming divine love and calling for repentance. His most famous passage concerning tithes—'Bring ye all the tithes into the storehouse... and prove me now herewith, saith the LORD of hosts, if I will not open you the windows of heaven, and pour you out a blessing'—promises supernatural provision for faithful givers. Malachi concludes the Old Testament with twin prophecies: Elijah would come before the great and dreadful day of the LORD (fulfilled in John the Baptist), and 'the Sun of righteousness' would arise 'with healing in his wings' (fulfilled in Christ). The final words—a curse unless hearts turn—leave Israel awaiting the messenger who would prepare Messiah's way.",
+                "verses": [
+                    {"reference": "Malachi 1:2", "text": "I have loved you, saith the LORD. Yet ye say, Wherein hast thou loved us? Was not Esau Jacob's brother? saith the LORD: yet I loved Jacob."},
+                    {"reference": "Malachi 3:1", "text": "Behold, I will send my messenger, and he shall prepare the way before me: and the Lord, whom ye seek, shall suddenly come to his temple, even the messenger of the covenant, whom ye delight in: behold, he shall come, saith the LORD of hosts."},
+                    {"reference": "Malachi 3:10", "text": "Bring ye all the tithes into the storehouse, that there may be meat in mine house, and prove me now herewith, saith the LORD of hosts, if I will not open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it."},
+                    {"reference": "Malachi 4:2", "text": "But unto you that fear my name shall the Sun of righteousness arise with healing in his wings; and ye shall go forth, and grow up as calves of the stall."},
+                    {"reference": "Malachi 4:5-6", "text": "Behold, I will send you Elijah the prophet before the coming of the great and dreadful day of the LORD: And he shall turn the heart of the fathers to the children, and the heart of the children to their fathers, lest I come and smite the earth with a curse."}
+                ]
             }
         }
     }
@@ -1349,6 +1422,13 @@ MIRACLES_DATA = {
             "verses": [
                 {"reference": "Mark 11:12-14, 20-21", "text": "And on the morrow, when they were come from Bethany, he was hungry: And seeing a fig tree afar off having leaves, he came, if haply he might find any thing thereon: and when he came to it, he found nothing but leaves; for the time of figs was not yet. And Jesus answered and said unto it, No man eat fruit of thee hereafter for ever... And in the morning, as they passed by, they saw the fig tree dried up from the roots."}
             ]
+        },
+        "The Second Miraculous Catch of Fish": {
+            "title": "Post-Resurrection Provision",
+            "description": "After His resurrection, Jesus appeared to seven disciples who had fished all night without success. At His command to cast the net on the right side, they caught 153 large fish, yet the net did not break—a sign of Christ's continued provision and the abundance of the coming harvest of souls.",
+            "verses": [
+                {"reference": "John 21:4-11", "text": "But when the morning was now come, Jesus stood on the shore: but the disciples knew not that it was Jesus. Then Jesus saith unto them, Children, have ye any meat? They answered him, No. And he said unto them, Cast the net on the right side of the ship, and ye shall find. They cast therefore, and now they were not able to draw it for the multitude of fishes... Simon Peter went up, and drew the net to land full of great fishes, an hundred and fifty and three: and for all there were so many, yet was not the net broken."}
+            ]
         }
     },
     "Healing Miracles": {
@@ -1468,6 +1548,21 @@ MIRACLES_DATA = {
             "description": "When Peter struck off the ear of the high priest's servant during Jesus' arrest, Jesus touched and healed it—His final miracle before the crucifixion, showing mercy even to His captors.",
             "verses": [
                 {"reference": "Luke 22:50-51", "text": "And one of them smote the servant of the high priest, and cut off his right ear. And Jesus answered and said, Suffer ye thus far. And he touched his ear, and healed him."}
+            ]
+        },
+        "Healing the Syrophoenician Woman's Daughter": {
+            "title": "Great Faith of a Gentile Mother",
+            "description": "A Canaanite woman pleaded persistently for her demon-possessed daughter's healing. Though Jesus initially tested her faith, her humble persistence and witty response won His commendation of her 'great faith,' and her daughter was healed instantly.",
+            "verses": [
+                {"reference": "Matthew 15:21-28", "text": "Then Jesus went thence, and departed into the coasts of Tyre and Sidon. And, behold, a woman of Canaan came out of the same coasts, and cried unto him, saying, Have mercy on me, O Lord, thou Son of David; my daughter is grievously vexed with a devil... Then Jesus answered and said unto her, O woman, great is thy faith: be it unto thee even as thou wilt. And her daughter was made whole from that very hour."}
+            ]
+        },
+        "Healing the Multitudes": {
+            "title": "Great Crowds Came to Him",
+            "description": "Beyond the specific miracles recorded, the Gospels testify that Jesus healed vast multitudes who came to Him—the lame, blind, mute, maimed, and many others—fulfilling Isaiah's prophecy and demonstrating messianic compassion.",
+            "verses": [
+                {"reference": "Matthew 15:30-31", "text": "And great multitudes came unto him, having with them those that were lame, blind, dumb, maimed, and many others, and cast them down at Jesus' feet; and he healed them: Insomuch that the multitude wondered, when they saw the dumb to speak, the maimed to be whole, the lame to walk, and the blind to see: and they glorified the God of Israel."},
+                {"reference": "Matthew 4:23-24", "text": "And Jesus went about all Galilee, teaching in their synagogues, and preaching the gospel of the kingdom, and healing all manner of sickness and all manner of disease among the people. And his fame went throughout all Syria: and they brought unto him all sick people that were taken with divers diseases and torments, and those which were possessed with devils, and those which were lunatick, and those that had the palsy; and he healed them."}
             ]
         }
     },
@@ -1699,6 +1794,27 @@ PRAYERS_DATA = {
             "verses": [
                 {"reference": "Colossians 1:9-14", "text": "For this cause we also, since the day we heard it, do not cease to pray for you, and to desire that ye might be filled with the knowledge of his will in all wisdom and spiritual understanding; That ye might walk worthy of the Lord unto all pleasing, being fruitful in every good work, and increasing in the knowledge of God; Strengthened with all might, according to his glorious power, unto all patience and longsuffering with joyfulness."}
             ]
+        },
+        "Paul's Prayer for the Philippians": {
+            "title": "Abounding Love and Discernment",
+            "description": "Paul prayed that the Philippians' love would abound more and more in knowledge and discernment, enabling them to approve excellent things and be filled with the fruits of righteousness through Jesus Christ.",
+            "verses": [
+                {"reference": "Philippians 1:9-11", "text": "And this I pray, that your love may abound yet more and more in knowledge and in all judgment; That ye may approve things that are excellent; that ye may be sincere and without offence till the day of Christ; Being filled with the fruits of righteousness, which are by Jesus Christ, unto the glory and praise of God."}
+            ]
+        },
+        "The Thief on the Cross": {
+            "title": "Remember Me",
+            "description": "The dying thief's prayer is perhaps the simplest yet most powerful prayer of salvation in Scripture—a desperate plea for mercy from a man with nothing to offer but his faith in Christ's kingship.",
+            "verses": [
+                {"reference": "Luke 23:42-43", "text": "And he said unto Jesus, Lord, remember me when thou comest into thy kingdom. And Jesus said unto him, Verily I say unto thee, To day shalt thou be with me in paradise."}
+            ]
+        },
+        "The Disciples' Prayer for Guidance": {
+            "title": "Choosing Matthias",
+            "description": "After Judas's death, the apostles prayed for divine guidance in selecting his replacement, acknowledging that only God who knows all hearts could reveal His chosen one.",
+            "verses": [
+                {"reference": "Acts 1:24-26", "text": "And they prayed, and said, Thou, Lord, which knowest the hearts of all men, shew whether of these two thou hast chosen, That he may take part of this ministry and apostleship, from which Judas by transgression fell, that he might go to his own place. And they gave forth their lots; and the lot fell upon Matthias; and he was numbered with the eleven apostles."}
+            ]
         }
     },
     "Psalms of Prayer": {
@@ -1731,6 +1847,37 @@ PRAYERS_DATA = {
             "verses": [
                 {"reference": "Psalm 91:1-4", "text": "He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty. I will say of the LORD, He is my refuge and my fortress: my God; in him will I trust. Surely he shall deliver thee from the snare of the fowler, and from the noisome pestilence. He shall cover thee with his feathers, and under his wings shalt thou trust: his truth shall be thy shield and buckler."},
                 {"reference": "Psalm 91:11-12", "text": "For he shall give his angels charge over thee, to keep thee in all thy ways. They shall bear thee up in their hands, lest thou dash thy foot against a stone."}
+            ]
+        },
+        "Psalm 63": {
+            "title": "Thirsting for God",
+            "description": "David's psalm from the wilderness of Judah expresses desperate longing for God's presence—a soul thirsting in dry and weary land, finding satisfaction only in communion with the Lord.",
+            "verses": [
+                {"reference": "Psalm 63:1-4", "text": "O God, thou art my God; early will I seek thee: my soul thirsteth for thee, my flesh longeth for thee in a dry and thirsty land, where no water is; To see thy power and thy glory, so as I have seen thee in the sanctuary. Because thy lovingkindness is better than life, my lips shall praise thee. Thus will I bless thee while I live: I will lift up my hands in thy name."}
+            ]
+        },
+        "Psalm 27": {
+            "title": "The LORD Is My Light",
+            "description": "David's psalm combines confident trust in God's protection with heartfelt petition to seek God's face and dwell in His house forever—expressing both courage and longing.",
+            "verses": [
+                {"reference": "Psalm 27:1", "text": "The LORD is my light and my salvation; whom shall I fear? the LORD is the strength of my life; of whom shall I be afraid?"},
+                {"reference": "Psalm 27:4", "text": "One thing have I desired of the LORD, that will I seek after; that I may dwell in the house of the LORD all the days of my life, to behold the beauty of the LORD, and to enquire in his temple."},
+                {"reference": "Psalm 27:14", "text": "Wait on the LORD: be of good courage, and he shall strengthen thine heart: wait, I say, on the LORD."}
+            ]
+        },
+        "Psalm 86": {
+            "title": "A Prayer of David",
+            "description": "This prayer psalm weaves together petition, praise, and profession of faith—David acknowledging his need, extolling God's character, and asking for mercy, strength, and a sign of God's favor.",
+            "verses": [
+                {"reference": "Psalm 86:1-5", "text": "Bow down thine ear, O LORD, hear me: for I am poor and needy. Preserve my soul; for I am holy: O thou my God, save thy servant that trusteth in thee. Be merciful unto me, O Lord: for I cry unto thee daily. Rejoice the soul of thy servant: for unto thee, O Lord, do I lift up my soul. For thou, Lord, art good, and ready to forgive; and plenteous in mercy unto all them that call upon thee."},
+                {"reference": "Psalm 86:11-12", "text": "Teach me thy way, O LORD; I will walk in thy truth: unite my heart to fear thy name. I will praise thee, O Lord my God, with all my heart: and I will glorify thy name for evermore."}
+            ]
+        },
+        "Psalm 143": {
+            "title": "A Cry for Guidance",
+            "description": "David pleads for God's faithfulness and righteousness in his distress, asking for deliverance from enemies and guidance in the way he should walk—acknowledging complete dependence on divine direction.",
+            "verses": [
+                {"reference": "Psalm 143:8-10", "text": "Cause me to hear thy lovingkindness in the morning; for in thee do I trust: cause me to know the way wherein I should walk; for I lift up my soul unto thee. Deliver me, O LORD, from mine enemies: I flee unto thee to hide me. Teach me to do thy will; for thou art my God: thy spirit is good; lead me into the land of uprightness."}
             ]
         }
     }
