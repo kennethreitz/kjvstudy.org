@@ -91,6 +91,12 @@
         }
 
         /* Verse tooltip styles */
+        /* Links to verses get help cursor (they show tooltips) */
+        a[href*="/book/"][href*="/chapter/"][href*="/verse/"],
+        a[href*="/book/"][href*="/chapter/"][href*="#verse-"] {
+            cursor: help;
+        }
+
         .verse-tooltip {
             position: absolute;
             background: var(--bg-color);
