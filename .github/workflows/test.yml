@@ -7,8 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test-api:
-    name: API Tests
+  test:
+    name: Run Test Suite
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,41 +17,5 @@ jobs:
           version: "latest"
       - run: uv python install 3.13
       - run: uv sync
-      - run: uv run pytest tests/test_api.py -v --tb=short
-
-  test-edge-cases:
-    name: Edge Case Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-        with:
-          version: "latest"
-      - run: uv python install 3.13
-      - run: uv sync
-      - run: uv run pytest tests/test_edge_cases.py -v --tb=short
-
-  test-web-routes:
-    name: Web Route Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-        with:
-          version: "latest"
-      - run: uv python install 3.13
-      - run: uv sync
-      - run: uv run pytest tests/test_web_routes.py -v --tb=short
-
-  lint:
-    name: Code Quality
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-        with:
-          version: "latest"
-      - run: uv python install 3.13
-      - run: uv sync
-      - run: uv run ruff check . || echo "Ruff not configured, skipping"
-        continue-on-error: true
+      - name: Run tests in parallel
+        run: uv run pytest tests/ -n auto -v --tb=short
