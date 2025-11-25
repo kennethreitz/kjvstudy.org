@@ -459,7 +459,7 @@ def fruits_of_the_spirit_page(request: Request):
     """Fruits of the Spirit page."""
     return templates.TemplateResponse(
             request,
-            "fruits_of_the_spirit.html",
+            "fruits_of_spirit.html",
             {
             "books": get_books(),
             "fruits_data": FRUITS_DATA,
