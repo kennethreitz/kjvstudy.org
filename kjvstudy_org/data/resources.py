@@ -1285,3 +1285,815 @@ FRUITS_DATA = {
     }
 
 
+# ============================================================================
+# MIRACLES OF JESUS
+# ============================================================================
+MIRACLES_DATA = {
+    "Nature Miracles": {
+        "Turning Water into Wine": {
+            "title": "The First Sign at Cana",
+            "description": "At a wedding feast in Cana of Galilee, Jesus performed His first recorded miracle, transforming approximately 120 gallons of water into wine of superior quality. This sign revealed His glory and caused His disciples to believe in Him.",
+            "verses": [
+                {"reference": "John 2:1-11", "text": "And the third day there was a marriage in Cana of Galilee; and the mother of Jesus was there: And both Jesus was called, and his disciples, to the marriage. And when they wanted wine, the mother of Jesus saith unto him, They have no wine... This beginning of miracles did Jesus in Cana of Galilee, and manifested forth his glory; and his disciples believed on him."}
+            ]
+        },
+        "Calming the Storm": {
+            "title": "Peace, Be Still",
+            "description": "While crossing the Sea of Galilee, a violent storm arose. Jesus, awakened by His terrified disciples, rebuked the wind and sea, bringing immediate calm. This miracle demonstrated His divine authority over creation itself.",
+            "verses": [
+                {"reference": "Mark 4:37-41", "text": "And there arose a great storm of wind, and the waves beat into the ship, so that it was now full. And he was in the hinder part of the ship, asleep on a pillow: and they awake him, and say unto him, Master, carest thou not that we perish? And he arose, and rebuked the wind, and said unto the sea, Peace, be still. And the wind ceased, and there was a great calm."},
+                {"reference": "Matthew 8:23-27", "text": "And when he was entered into a ship, his disciples followed him. And, behold, there arose a great tempest in the sea, insomuch that the ship was covered with the waves: but he was asleep."}
+            ]
+        },
+        "Walking on Water": {
+            "title": "It Is I; Be Not Afraid",
+            "description": "In the fourth watch of the night, Jesus walked upon the Sea of Galilee to meet His disciples in their boat. Peter briefly walked on water toward Jesus before his faith wavered.",
+            "verses": [
+                {"reference": "Matthew 14:25-33", "text": "And in the fourth watch of the night Jesus went unto them, walking on the sea. And when the disciples saw him walking on the sea, they were troubled, saying, It is a spirit; and they cried out for fear. But straightway Jesus spake unto them, saying, Be of good cheer; it is I; be not afraid."},
+                {"reference": "John 6:19-21", "text": "So when they had rowed about five and twenty or thirty furlongs, they see Jesus walking on the sea, and drawing nigh unto the ship: and they were afraid."}
+            ]
+        },
+        "Feeding the Five Thousand": {
+            "title": "The Multiplication of Loaves and Fishes",
+            "description": "With only five barley loaves and two small fishes, Jesus fed a multitude of five thousand men, besides women and children. Twelve baskets of fragments remained—more than the original supply.",
+            "verses": [
+                {"reference": "John 6:5-14", "text": "When Jesus then lifted up his eyes, and saw a great company come unto him, he saith unto Philip, Whence shall we buy bread, that these may eat?... There is a lad here, which hath five barley loaves, and two small fishes: but what are they among so many?... And Jesus took the loaves; and when he had given thanks, he distributed to the disciples, and the disciples to them that were set down; and likewise of the fishes as much as they would."},
+                {"reference": "Matthew 14:15-21", "text": "And they did all eat, and were filled: and they took up of the fragments that remained twelve baskets full."}
+            ]
+        },
+        "Feeding the Four Thousand": {
+            "title": "Compassion for the Multitude",
+            "description": "In a separate miracle, Jesus fed four thousand men with seven loaves and a few small fishes. Seven baskets of fragments were collected afterward.",
+            "verses": [
+                {"reference": "Matthew 15:32-38", "text": "Then Jesus called his disciples unto him, and said, I have compassion on the multitude, because they continue with me now three days, and have nothing to eat: and I will not send them away fasting, lest they faint in the way... And they did all eat, and were filled: and they took up of the broken meat that was left seven baskets full."},
+                {"reference": "Mark 8:1-9", "text": "In those days the multitude being very great, and having nothing to eat, Jesus called his disciples unto him, and saith unto them, I have compassion on the multitude."}
+            ]
+        },
+        "The Miraculous Catch of Fish": {
+            "title": "Let Down Your Nets",
+            "description": "After a fruitless night of fishing, Jesus instructed Peter to launch out into the deep. The resulting catch was so great that the nets began to break and two boats began to sink.",
+            "verses": [
+                {"reference": "Luke 5:4-7", "text": "Now when he had left speaking, he said unto Simon, Launch out into the deep, and let down your nets for a draught. And Simon answering said unto him, Master, we have toiled all the night, and have taken nothing: nevertheless at thy word I will let down the net. And when they had this done, they inclosed a great multitude of fishes: and their net brake."}
+            ]
+        },
+        "The Coin in the Fish's Mouth": {
+            "title": "Temple Tax Provision",
+            "description": "To pay the temple tax without causing offense, Jesus instructed Peter to cast a hook into the sea. In the mouth of the first fish caught, Peter found a coin sufficient for both their taxes.",
+            "verses": [
+                {"reference": "Matthew 17:24-27", "text": "Notwithstanding, lest we should offend them, go thou to the sea, and cast an hook, and take up the fish that first cometh up; and when thou hast opened his mouth, thou shalt find a piece of money: that take, and give unto them for me and thee."}
+            ]
+        },
+        "Cursing the Fig Tree": {
+            "title": "A Lesson on Faith and Fruitlessness",
+            "description": "Jesus cursed a fig tree that bore only leaves but no fruit. By the next morning, it had withered from the roots—an object lesson about genuine faith and the danger of mere outward religion.",
+            "verses": [
+                {"reference": "Mark 11:12-14, 20-21", "text": "And on the morrow, when they were come from Bethany, he was hungry: And seeing a fig tree afar off having leaves, he came, if haply he might find any thing thereon: and when he came to it, he found nothing but leaves; for the time of figs was not yet. And Jesus answered and said unto it, No man eat fruit of thee hereafter for ever... And in the morning, as they passed by, they saw the fig tree dried up from the roots."}
+            ]
+        }
+    },
+    "Healing Miracles": {
+        "Healing the Nobleman's Son": {
+            "title": "Thy Son Liveth",
+            "description": "A nobleman from Capernaum sought Jesus in Cana for his dying son. Jesus spoke the word only, and at that very hour the boy was healed—demonstrating that His power was not limited by distance.",
+            "verses": [
+                {"reference": "John 4:46-54", "text": "So Jesus came again into Cana of Galilee, where he made the water wine. And there was a certain nobleman, whose son was sick at Capernaum... Jesus saith unto him, Go thy way; thy son liveth. And the man believed the word that Jesus had spoken unto him, and he went his way."}
+            ]
+        },
+        "Healing Peter's Mother-in-law": {
+            "title": "Immediate Restoration",
+            "description": "Jesus touched the hand of Peter's mother-in-law, who lay sick with a fever. The fever immediately left her, and she arose and ministered to them.",
+            "verses": [
+                {"reference": "Matthew 8:14-15", "text": "And when Jesus was come into Peter's house, he saw his wife's mother laid, and sick of a fever. And he touched her hand, and the fever left her: and she arose, and ministered unto them."},
+                {"reference": "Mark 1:30-31", "text": "But Simon's wife's mother lay sick of a fever, and anon they tell him of her. And he came and took her by the hand, and lifted her up; and immediately the fever left her, and she ministered unto them."}
+            ]
+        },
+        "Cleansing the Leper": {
+            "title": "I Will; Be Thou Clean",
+            "description": "A leper approached Jesus saying, 'If thou wilt, thou canst make me clean.' Moved with compassion, Jesus touched him—an act of ceremonial defilement—and immediately the leprosy departed.",
+            "verses": [
+                {"reference": "Mark 1:40-42", "text": "And there came a leper to him, beseeching him, and kneeling down to him, and saying unto him, If thou wilt, thou canst make me clean. And Jesus, moved with compassion, put forth his hand, and touched him, and saith unto him, I will; be thou clean. And as soon as he had spoken, immediately the leprosy departed from him, and he was cleansed."},
+                {"reference": "Luke 5:12-13", "text": "And it came to pass, when he was in a certain city, behold a man full of leprosy: who seeing Jesus fell on his face, and besought him, saying, Lord, if thou wilt, thou canst make me clean."}
+            ]
+        },
+        "Healing the Paralytic": {
+            "title": "Thy Sins Be Forgiven Thee",
+            "description": "Four men lowered a paralyzed man through a roof to reach Jesus. Christ first forgave his sins, then commanded him to rise, take up his bed, and walk—demonstrating authority to forgive sins.",
+            "verses": [
+                {"reference": "Mark 2:3-12", "text": "And they come unto him, bringing one sick of the palsy, which was borne of four. And when they could not come nigh unto him for the press, they uncovered the roof where he was: and when they had broken it up, they let down the bed wherein the sick of the palsy lay. When Jesus saw their faith, he said unto the sick of the palsy, Son, thy sins be forgiven thee."},
+                {"reference": "Matthew 9:2-7", "text": "And, behold, they brought to him a man sick of the palsy, lying on a bed: and Jesus seeing their faith said unto the sick of the palsy; Son, be of good cheer; thy sins be forgiven thee."}
+            ]
+        },
+        "Healing at the Pool of Bethesda": {
+            "title": "Rise, Take Up Thy Bed, and Walk",
+            "description": "At the Pool of Bethesda, Jesus healed a man who had been infirm for thirty-eight years, commanding him to rise and walk. This healing on the Sabbath sparked controversy with Jewish leaders.",
+            "verses": [
+                {"reference": "John 5:2-9", "text": "Now there is at Jerusalem by the sheep market a pool, which is called in the Hebrew tongue Bethesda, having five porches. In these lay a great multitude of impotent folk, of blind, halt, withered, waiting for the moving of the water... Jesus saith unto him, Rise, take up thy bed, and walk. And immediately the man was made whole, and took up his bed, and walked."}
+            ]
+        },
+        "Healing the Man with the Withered Hand": {
+            "title": "Stretch Forth Thine Hand",
+            "description": "In a synagogue on the Sabbath, Jesus healed a man with a withered hand, first asking whether it was lawful to do good or evil on the Sabbath. When the man stretched forth his hand, it was restored whole.",
+            "verses": [
+                {"reference": "Mark 3:1-5", "text": "And he entered again into the synagogue; and there was a man there which had a withered hand... And he saith unto the man, Stretch forth thine hand. And he stretched it out: and his hand was restored whole as the other."},
+                {"reference": "Matthew 12:10-13", "text": "And, behold, there was a man which had his hand withered. And they asked him, saying, Is it lawful to heal on the sabbath days? that they might accuse him."}
+            ]
+        },
+        "Healing the Centurion's Servant": {
+            "title": "Great Faith in Israel",
+            "description": "A Roman centurion sought healing for his paralyzed servant but declared himself unworthy for Jesus to enter his home—only speak the word, and his servant would be healed. Jesus marveled at such faith.",
+            "verses": [
+                {"reference": "Matthew 8:5-13", "text": "And when Jesus was entered into Capernaum, there came unto him a centurion, beseeching him... The centurion answered and said, Lord, I am not worthy that thou shouldest come under my roof: but speak the word only, and my servant shall be healed... When Jesus heard it, he marvelled, and said to them that followed, Verily I say unto you, I have not found so great faith, no, not in Israel."},
+                {"reference": "Luke 7:1-10", "text": "Now when he had ended all his sayings in the audience of the people, he entered into Capernaum. And a certain centurion's servant, who was dear unto him, was sick, and ready to die."}
+            ]
+        },
+        "Healing the Woman with the Issue of Blood": {
+            "title": "Thy Faith Hath Made Thee Whole",
+            "description": "A woman who had suffered twelve years with an issue of blood touched the hem of Jesus' garment in faith and was immediately healed. Jesus perceived that power had gone out from Him.",
+            "verses": [
+                {"reference": "Mark 5:25-34", "text": "And a certain woman, which had an issue of blood twelve years, And had suffered many things of many physicians, and had spent all that she had, and was nothing bettered, but rather grew worse, When she had heard of Jesus, came in the press behind, and touched his garment. For she said, If I may touch but his clothes, I shall be whole. And straightway the fountain of her blood was dried up; and she felt in her body that she was healed of that plague."},
+                {"reference": "Luke 8:43-48", "text": "And a woman having an issue of blood twelve years, which had spent all her living upon physicians, neither could be healed of any, Came behind him, and touched the border of his garment: and immediately her issue of blood stanched."}
+            ]
+        },
+        "Healing Two Blind Men": {
+            "title": "According to Your Faith",
+            "description": "Two blind men followed Jesus, crying for mercy. When asked if they believed He could heal them, they affirmed their faith. Jesus touched their eyes saying, 'According to your faith be it unto you.'",
+            "verses": [
+                {"reference": "Matthew 9:27-31", "text": "And when Jesus departed thence, two blind men followed him, crying, and saying, Thou Son of David, have mercy on us. And when he was come into the house, the blind men came to him: and Jesus saith unto them, Believe ye that I am able to do this? They said unto him, Yea, Lord. Then touched he their eyes, saying, According to your faith be it unto you. And their eyes were opened."}
+            ]
+        },
+        "Healing the Deaf and Mute Man": {
+            "title": "Ephphatha—Be Opened",
+            "description": "In the region of Decapolis, Jesus healed a man who was deaf and had a speech impediment. Looking to heaven, He sighed and said 'Ephphatha'—and immediately the man's ears were opened and his tongue loosed.",
+            "verses": [
+                {"reference": "Mark 7:32-37", "text": "And they bring unto him one that was deaf, and had an impediment in his speech; and they beseech him to put his hand upon him. And he took him aside from the multitude, and put his fingers into his ears, and he spit, and touched his tongue; And looking up to heaven, he sighed, and saith unto him, Ephphatha, that is, Be opened. And straightway his ears were opened, and the string of his tongue was loosed, and he spake plain."}
+            ]
+        },
+        "Healing Blind Bartimaeus": {
+            "title": "Go Thy Way; Thy Faith Hath Made Thee Whole",
+            "description": "Blind Bartimaeus sat by the roadside near Jericho, crying out to Jesus for mercy despite the crowd's rebuke. Jesus called him, asked what he wanted, and restored his sight.",
+            "verses": [
+                {"reference": "Mark 10:46-52", "text": "And they came to Jericho: and as he went out of Jericho with his disciples and a great number of people, blind Bartimaeus, the son of Timaeus, sat by the highway side begging. And when he heard that it was Jesus of Nazareth, he began to cry out, and say, Jesus, thou Son of David, have mercy on me... And Jesus said unto him, Go thy way; thy faith hath made thee whole. And immediately he received his sight, and followed Jesus in the way."}
+            ]
+        },
+        "Healing the Man Born Blind": {
+            "title": "I Am the Light of the World",
+            "description": "Jesus anointed the eyes of a man blind from birth with clay made from spittle, then sent him to wash in the Pool of Siloam. The man returned seeing—prompting intense controversy and his eventual confession of faith.",
+            "verses": [
+                {"reference": "John 9:1-7", "text": "And as Jesus passed by, he saw a man which was blind from his birth. And his disciples asked him, saying, Master, who did sin, this man, or his parents, that he was born blind? Jesus answered, Neither hath this man sinned, nor his parents: but that the works of God should be made manifest in him... When he had thus spoken, he spat on the ground, and made clay of the spittle, and he anointed the eyes of the blind man with the clay, And said unto him, Go, wash in the pool of Siloam... He went his way therefore, and washed, and came seeing."}
+            ]
+        },
+        "Healing the Woman Bent Double": {
+            "title": "Loosed from Infirmity",
+            "description": "In a synagogue on the Sabbath, Jesus called to a woman who had been bent over for eighteen years, bound by a spirit of infirmity. He laid hands on her, and immediately she was made straight.",
+            "verses": [
+                {"reference": "Luke 13:11-13", "text": "And, behold, there was a woman which had a spirit of infirmity eighteen years, and was bowed together, and could in no wise lift up herself. And when Jesus saw her, he called her to him, and said unto her, Woman, thou art loosed from thine infirmity. And he laid his hands on her: and immediately she was made straight, and glorified God."}
+            ]
+        },
+        "Healing the Man with Dropsy": {
+            "title": "Healing on the Sabbath",
+            "description": "At a Pharisee's house on the Sabbath, Jesus healed a man with dropsy (edema), first asking the lawyers and Pharisees whether it was lawful to heal on the Sabbath. They remained silent.",
+            "verses": [
+                {"reference": "Luke 14:1-4", "text": "And it came to pass, as he went into the house of one of the chief Pharisees to eat bread on the sabbath day, that they watched him. And, behold, there was a certain man before him which had the dropsy. And Jesus answering spake unto the lawyers and Pharisees, saying, Is it lawful to heal on the sabbath day? And they held their peace. And he took him, and healed him, and let him go."}
+            ]
+        },
+        "Cleansing the Ten Lepers": {
+            "title": "Where Are the Nine?",
+            "description": "Ten lepers cried out to Jesus for mercy. He instructed them to show themselves to the priests, and as they went, they were cleansed. Only one—a Samaritan—returned to give thanks.",
+            "verses": [
+                {"reference": "Luke 17:12-19", "text": "And as he entered into a certain village, there met him ten men that were lepers, which stood afar off: And they lifted up their voices, and said, Jesus, Master, have mercy on us. And when he saw them, he said unto them, Go shew yourselves unto the priests. And it came to pass, that, as they went, they were cleansed. And one of them, when he saw that he was healed, turned back, and with a loud voice glorified God... And Jesus answering said, Were there not ten cleansed? but where are the nine?"}
+            ]
+        },
+        "Restoring Malchus's Ear": {
+            "title": "The Final Healing",
+            "description": "When Peter struck off the ear of the high priest's servant during Jesus' arrest, Jesus touched and healed it—His final miracle before the crucifixion, showing mercy even to His captors.",
+            "verses": [
+                {"reference": "Luke 22:50-51", "text": "And one of them smote the servant of the high priest, and cut off his right ear. And Jesus answered and said, Suffer ye thus far. And he touched his ear, and healed him."}
+            ]
+        }
+    },
+    "Casting Out Demons": {
+        "The Demoniac in the Synagogue": {
+            "title": "Authority Over Unclean Spirits",
+            "description": "In the synagogue at Capernaum, a man with an unclean spirit cried out, recognizing Jesus as 'the Holy One of God.' Jesus rebuked the spirit, commanding it to come out, astonishing all with His authority.",
+            "verses": [
+                {"reference": "Mark 1:23-27", "text": "And there was in their synagogue a man with an unclean spirit; and he cried out, Saying, Let us alone; what have we to do with thee, thou Jesus of Nazareth? art thou come to destroy us? I know thee who thou art, the Holy One of God. And Jesus rebuked him, saying, Hold thy peace, and come out of him. And when the unclean spirit had torn him, and cried with a loud voice, he came out of him."},
+                {"reference": "Luke 4:33-36", "text": "And in the synagogue there was a man, which had a spirit of an unclean devil, and cried out with a loud voice."}
+            ]
+        },
+        "The Gadarene Demoniacs": {
+            "title": "Legion: Many Devils",
+            "description": "Jesus encountered a man possessed by a legion of demons, living among tombs and breaking every chain. The demons, cast out at Christ's command, entered a herd of swine which ran into the sea.",
+            "verses": [
+                {"reference": "Mark 5:1-20", "text": "And they came over unto the other side of the sea, into the country of the Gadarenes. And when he was come out of the ship, immediately there met him out of the tombs a man with an unclean spirit... And he asked him, What is thy name? And he answered, saying, My name is Legion: for we are many... And forthwith Jesus gave them leave. And the unclean spirits went out, and entered into the swine: and the herd ran violently down a steep place into the sea."},
+                {"reference": "Matthew 8:28-34", "text": "And when he was come to the other side into the country of the Gergesenes, there met him two possessed with devils, coming out of the tombs, exceeding fierce, so that no man might pass by that way."}
+            ]
+        },
+        "The Syrophoenician Woman's Daughter": {
+            "title": "Great Is Thy Faith",
+            "description": "A Gentile woman persistently begged Jesus to cast a demon from her daughter. Despite initial rebuff, her humble faith prevailed, and her daughter was healed that very hour.",
+            "verses": [
+                {"reference": "Mark 7:25-30", "text": "For a certain woman, whose young daughter had an unclean spirit, heard of him, and came and fell at his feet: The woman was a Greek, a Syrophenician by nation; and she besought him that he would cast forth the devil out of her daughter... And he said unto her, For this saying go thy way; the devil is gone out of thy daughter."},
+                {"reference": "Matthew 15:22-28", "text": "And, behold, a woman of Canaan came out of the same coasts, and cried unto him, saying, Have mercy on me, O Lord, thou Son of David; my daughter is grievously vexed with a devil."}
+            ]
+        },
+        "The Epileptic Boy": {
+            "title": "All Things Are Possible to Him That Believeth",
+            "description": "A father brought his son, tormented by a spirit causing violent seizures, to Jesus' disciples, who could not cast it out. Jesus rebuked the unclean spirit and healed the boy, teaching on faith and prayer.",
+            "verses": [
+                {"reference": "Mark 9:17-29", "text": "And one of the multitude answered and said, Master, I have brought unto thee my son, which hath a dumb spirit; And wheresoever he taketh him, he teareth him: and he foameth, and gnasheth with his teeth, and pineth away... Jesus said unto him, If thou canst believe, all things are possible to him that believeth. And straightway the father of the child cried out, and said with tears, Lord, I believe; help thou mine unbelief."},
+                {"reference": "Matthew 17:14-21", "text": "And when they were come to the multitude, there came to him a certain man, kneeling down to him, and saying, Lord, have mercy on my son: for he is lunatick, and sore vexed."}
+            ]
+        },
+        "The Mute Demoniac": {
+            "title": "The Multitudes Marvelled",
+            "description": "Jesus cast out a devil from a man who was mute. When the demon departed, the man spoke, and the multitudes marveled, saying it was never so seen in Israel.",
+            "verses": [
+                {"reference": "Matthew 9:32-33", "text": "As they went out, behold, they brought to him a dumb man possessed with a devil. And when the devil was cast out, the dumb spake: and the multitudes marvelled, saying, It was never so seen in Israel."}
+            ]
+        },
+        "The Blind and Mute Demoniac": {
+            "title": "Is Not This the Son of David?",
+            "description": "Jesus healed a demon-possessed man who was both blind and mute. The crowds were amazed and asked if Jesus might be the Son of David—the Messiah.",
+            "verses": [
+                {"reference": "Matthew 12:22-23", "text": "Then was brought unto him one possessed with a devil, blind, and dumb: and he healed him, insomuch that the blind and dumb both spake and saw. And all the people were amazed, and said, Is not this the son of David?"}
+            ]
+        }
+    },
+    "Raising the Dead": {
+        "Raising Jairus's Daughter": {
+            "title": "Talitha Cumi—Damsel, Arise",
+            "description": "Jairus, a synagogue ruler, begged Jesus to heal his dying daughter. Though news came that she had died, Jesus said, 'Fear not: believe only.' Taking her by the hand, He called her back to life.",
+            "verses": [
+                {"reference": "Mark 5:22-24, 35-43", "text": "And, behold, there cometh one of the rulers of the synagogue, Jairus by name; and when he saw him, he fell at his feet, And besought him greatly, saying, My little daughter lieth at the point of death: I pray thee, come and lay thy hands on her, that she may be healed, and she shall live... And he took the damsel by the hand, and said unto her, Talitha cumi; which is, being interpreted, Damsel, I say unto thee, arise. And straightway the damsel arose, and walked."},
+                {"reference": "Luke 8:41-42, 49-56", "text": "And, behold, there came a man named Jairus, and he was a ruler of the synagogue: and he fell down at Jesus' feet, and besought him that he would come into his house: For he had one only daughter, about twelve years of age, and she lay a dying."}
+            ]
+        },
+        "Raising the Widow's Son at Nain": {
+            "title": "Young Man, I Say Unto Thee, Arise",
+            "description": "At the town of Nain, Jesus encountered a funeral procession for the only son of a widow. Moved with compassion, He touched the bier and commanded the young man to arise. He sat up and began to speak.",
+            "verses": [
+                {"reference": "Luke 7:11-17", "text": "And it came to pass the day after, that he went into a city called Nain; and many of his disciples went with him, and much people. Now when he came nigh to the gate of the city, behold, there was a dead man carried out, the only son of his mother, and she was a widow: and much people of the city was with her. And when the Lord saw her, he had compassion on her, and said unto her, Weep not. And he came and touched the bier: and they that bare him stood still. And he said, Young man, I say unto thee, Arise. And he that was dead sat up, and began to speak."}
+            ]
+        },
+        "Raising Lazarus": {
+            "title": "I Am the Resurrection and the Life",
+            "description": "Lazarus of Bethany had been dead four days when Jesus arrived. After weeping at the tomb and praying to the Father, Jesus cried with a loud voice, 'Lazarus, come forth!' And the dead man emerged, still bound in grave clothes.",
+            "verses": [
+                {"reference": "John 11:1-44", "text": "Now a certain man was sick, named Lazarus, of Bethany, the town of Mary and her sister Martha... Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live... Jesus therefore again groaning in himself cometh to the grave. It was a cave, and a stone lay upon it. Jesus said, Take ye away the stone... And when he thus had spoken, he cried with a loud voice, Lazarus, come forth. And he that was dead came forth, bound hand and foot with graveclothes."}
+            ]
+        }
+    }
+}
+
+
+# ============================================================================
+# PRAYERS OF THE BIBLE
+# ============================================================================
+PRAYERS_DATA = {
+    "Prayers of Jesus": {
+        "The Lord's Prayer": {
+            "title": "The Model Prayer",
+            "description": "When the disciples asked Jesus to teach them to pray, He gave them this pattern prayer—addressing God as Father, hallowing His name, seeking His kingdom and will, requesting daily provision, forgiveness, and protection from evil.",
+            "verses": [
+                {"reference": "Matthew 6:9-13", "text": "After this manner therefore pray ye: Our Father which art in heaven, Hallowed be thy name. Thy kingdom come. Thy will be done in earth, as it is in heaven. Give us this day our daily bread. And forgive us our debts, as we forgive our debtors. And lead us not into temptation, but deliver us from evil: For thine is the kingdom, and the power, and the glory, for ever. Amen."},
+                {"reference": "Luke 11:2-4", "text": "And he said unto them, When ye pray, say, Our Father which art in heaven, Hallowed be thy name. Thy kingdom come. Thy will be done, as in heaven, so in earth."}
+            ]
+        },
+        "Jesus' High Priestly Prayer": {
+            "title": "That They May Be One",
+            "description": "On the night before His crucifixion, Jesus prayed for Himself, His disciples, and all future believers—asking for their protection, sanctification, and unity, that the world might believe.",
+            "verses": [
+                {"reference": "John 17:1-26", "text": "These words spake Jesus, and lifted up his eyes to heaven, and said, Father, the hour is come; glorify thy Son, that thy Son also may glorify thee... I pray for them: I pray not for the world, but for them which thou hast given me; for they are thine... Neither pray I for these alone, but for them also which shall believe on me through their word; That they all may be one; as thou, Father, art in me, and I in thee, that they also may be one in us: that the world may believe that thou hast sent me."}
+            ]
+        },
+        "The Prayer in Gethsemane": {
+            "title": "Not My Will, But Thine Be Done",
+            "description": "In the garden of Gethsemane, facing imminent crucifixion, Jesus prayed in agony—sweating drops of blood—yet submitted perfectly to the Father's will, providing the supreme example of surrendered prayer.",
+            "verses": [
+                {"reference": "Matthew 26:39-44", "text": "And he went a little further, and fell on his face, and prayed, saying, O my Father, if it be possible, let this cup pass from me: nevertheless not as I will, but as thou wilt... He went away again the second time, and prayed, saying, O my Father, if this cup may not pass away from me, except I drink it, thy will be done."},
+                {"reference": "Luke 22:41-44", "text": "And he was withdrawn from them about a stone's cast, and kneeled down, and prayed, Saying, Father, if thou be willing, remove this cup from me: nevertheless not my will, but thine, be done. And there appeared an angel unto him from heaven, strengthening him. And being in an agony he prayed more earnestly: and his sweat was as it were great drops of blood falling down to the ground."}
+            ]
+        },
+        "Jesus' Prayer on the Cross": {
+            "title": "Father, Forgive Them",
+            "description": "Even while being crucified, Jesus prayed for His executioners, demonstrating perfect love for enemies and the forgiving heart that believers are called to emulate.",
+            "verses": [
+                {"reference": "Luke 23:34", "text": "Then said Jesus, Father, forgive them; for they know not what they do. And they parted his raiment, and cast lots."},
+                {"reference": "Luke 23:46", "text": "And when Jesus had cried with a loud voice, he said, Father, into thy hands I commend my spirit: and having said thus, he gave up the ghost."}
+            ]
+        }
+    },
+    "Old Testament Prayers": {
+        "Abraham's Prayer for Sodom": {
+            "title": "Shall Not the Judge of All the Earth Do Right?",
+            "description": "Abraham interceded boldly for Sodom, progressively asking if God would spare the city for fifty, forty-five, forty, thirty, twenty, and finally ten righteous people—demonstrating persistent, believing intercession.",
+            "verses": [
+                {"reference": "Genesis 18:23-32", "text": "And Abraham drew near, and said, Wilt thou also destroy the righteous with the wicked? Peradventure there be fifty righteous within the city: wilt thou also destroy and not spare the place for the fifty righteous that are therein? That be far from thee to do after this manner, to slay the righteous with the wicked... And he said, Oh let not the Lord be angry, and I will speak yet but this once: Peradventure ten shall be found there. And he said, I will not destroy it for ten's sake."}
+            ]
+        },
+        "Moses' Prayer After the Golden Calf": {
+            "title": "Blot Me Out of Thy Book",
+            "description": "After Israel's idolatry with the golden calf, Moses interceded so passionately that he offered to have his own name blotted from God's book if it would secure their forgiveness.",
+            "verses": [
+                {"reference": "Exodus 32:31-32", "text": "And Moses returned unto the LORD, and said, Oh, this people have sinned a great sin, and have made them gods of gold. Yet now, if thou wilt forgive their sin--; and if not, blot me, I pray thee, out of thy book which thou hast written."},
+                {"reference": "Exodus 33:12-18", "text": "And Moses said unto the LORD, See, thou sayest unto me, Bring up this people: and thou hast not let me know whom thou wilt send with me... And he said, I beseech thee, shew me thy glory."}
+            ]
+        },
+        "Hannah's Prayer": {
+            "title": "Pouring Out the Soul",
+            "description": "Hannah, childless and deeply distressed, poured out her soul before the Lord at Shiloh, vowing to dedicate any son to God's service. God answered, and Samuel was born.",
+            "verses": [
+                {"reference": "1 Samuel 1:10-17", "text": "And she was in bitterness of soul, and prayed unto the LORD, and wept sore. And she vowed a vow, and said, O LORD of hosts, if thou wilt indeed look on the affliction of thine handmaid, and remember me, and not forget thine handmaid, but wilt give unto thine handmaid a man child, then I will give him unto the LORD all the days of his life, and there shall no razor come upon his head."},
+                {"reference": "1 Samuel 2:1-10", "text": "And Hannah prayed, and said, My heart rejoiceth in the LORD, mine horn is exalted in the LORD: my mouth is enlarged over mine enemies; because I rejoice in thy salvation."}
+            ]
+        },
+        "Solomon's Prayer for Wisdom": {
+            "title": "Give Thy Servant an Understanding Heart",
+            "description": "When God offered Solomon anything he desired, the young king asked not for riches, honor, or long life, but for wisdom to govern God's people. Pleased, God granted wisdom and added the other blessings besides.",
+            "verses": [
+                {"reference": "1 Kings 3:5-14", "text": "In Gibeon the LORD appeared to Solomon in a dream by night: and God said, Ask what I shall give thee... Give therefore thy servant an understanding heart to judge thy people, that I may discern between good and bad: for who is able to judge this thy so great a people? And the speech pleased the Lord, that Solomon had asked this thing."}
+            ]
+        },
+        "Solomon's Temple Dedication Prayer": {
+            "title": "Hear Thou in Heaven",
+            "description": "At the temple's dedication, Solomon prayed an extensive prayer covering various situations—sin, defeat, drought, famine, plague—asking that whenever Israel prayed toward this house, God would hear from heaven and forgive.",
+            "verses": [
+                {"reference": "1 Kings 8:22-53", "text": "And Solomon stood before the altar of the LORD in the presence of all the congregation of Israel, and spread forth his hands toward heaven: And he said, LORD God of Israel, there is no God like thee, in heaven above, or on earth beneath, who keepest covenant and mercy with thy servants that walk before thee with all their heart... Hear thou in heaven thy dwelling place: and when thou hearest, forgive."}
+            ]
+        },
+        "Elijah on Mount Carmel": {
+            "title": "Hear Me, O LORD, Hear Me",
+            "description": "After the prophets of Baal failed to call down fire, Elijah prayed a brief but powerful prayer, and the fire of the LORD fell, consuming the sacrifice and convincing Israel that the LORD is God.",
+            "verses": [
+                {"reference": "1 Kings 18:36-39", "text": "And it came to pass at the time of the offering of the evening sacrifice, that Elijah the prophet came near, and said, LORD God of Abraham, Isaac, and of Israel, let it be known this day that thou art God in Israel, and that I am thy servant, and that I have done all these things at thy word. Hear me, O LORD, hear me, that this people may know that thou art the LORD God, and that thou hast turned their heart back again. Then the fire of the LORD fell, and consumed the burnt sacrifice, and the wood, and the stones, and the dust, and licked up the water that was in the trench."}
+            ]
+        },
+        "Hezekiah's Prayer Against Sennacherib": {
+            "title": "Save Us From His Hand",
+            "description": "When the Assyrian king Sennacherib threatened Jerusalem, Hezekiah spread the threatening letter before the LORD and prayed for deliverance. That night, an angel struck down 185,000 Assyrian soldiers.",
+            "verses": [
+                {"reference": "2 Kings 19:14-19", "text": "And Hezekiah received the letter of the hand of the messengers, and read it: and Hezekiah went up into the house of the LORD, and spread it before the LORD. And Hezekiah prayed before the LORD, and said, O LORD God of Israel, which dwellest between the cherubims, thou art the God, even thou alone, of all the kingdoms of the earth; thou hast made heaven and earth... Now therefore, O LORD our God, I beseech thee, save thou us out of his hand, that all the kingdoms of the earth may know that thou art the LORD God, even thou only."}
+            ]
+        },
+        "Jabez's Prayer": {
+            "title": "Enlarge My Coast",
+            "description": "Jabez, whose name meant 'pain,' prayed for God's blessing, enlarged territory, guidance, and protection from evil. God granted his request—a model of bold, believing prayer.",
+            "verses": [
+                {"reference": "1 Chronicles 4:10", "text": "And Jabez called on the God of Israel, saying, Oh that thou wouldest bless me indeed, and enlarge my coast, and that thine hand might be with me, and that thou wouldest keep me from evil, that it may not grieve me! And God granted him that which he requested."}
+            ]
+        },
+        "Nehemiah's Prayer": {
+            "title": "Remember Me, O My God",
+            "description": "Upon hearing of Jerusalem's broken walls, Nehemiah fasted and prayed—confessing Israel's sins, reminding God of His promises, and asking for favor with the Persian king to rebuild the city.",
+            "verses": [
+                {"reference": "Nehemiah 1:4-11", "text": "And it came to pass, when I heard these words, that I sat down and wept, and mourned certain days, and fasted, and prayed before the God of heaven, And said, I beseech thee, O LORD God of heaven, the great and terrible God, that keepeth covenant and mercy for them that love him and observe his commandments: Let thine ear now be attentive, and thine eyes open, that thou mayest hear the prayer of thy servant... O Lord, I beseech thee, let now thine ear be attentive to the prayer of thy servant."}
+            ]
+        },
+        "Daniel's Prayer of Confession": {
+            "title": "We Have Sinned",
+            "description": "Understanding from Jeremiah's prophecy that the exile would last seventy years, Daniel prayed—confessing Israel's sin, acknowledging God's righteousness, and pleading for Jerusalem's restoration.",
+            "verses": [
+                {"reference": "Daniel 9:3-19", "text": "And I set my face unto the Lord God, to seek by prayer and supplications, with fasting, and sackcloth, and ashes: And I prayed unto the LORD my God, and made my confession, and said, O Lord, the great and dreadful God, keeping the covenant and mercy to them that love him, and to them that keep his commandments; We have sinned, and have committed iniquity, and have done wickedly, and have rebelled... O Lord, hear; O Lord, forgive; O Lord, hearken and do; defer not, for thine own sake, O my God."}
+            ]
+        },
+        "Jonah's Prayer from the Fish": {
+            "title": "Out of the Belly of Hell",
+            "description": "Swallowed by a great fish, Jonah prayed from the depths—acknowledging God's discipline, remembering His temple, and vowing to pay his vows. God commanded the fish to release him.",
+            "verses": [
+                {"reference": "Jonah 2:1-10", "text": "Then Jonah prayed unto the LORD his God out of the fish's belly, And said, I cried by reason of mine affliction unto the LORD, and he heard me; out of the belly of hell cried I, and thou heardest my voice... When my soul fainted within me I remembered the LORD: and my prayer came in unto thee, into thine holy temple... But I will sacrifice unto thee with the voice of thanksgiving; I will pay that that I have vowed. Salvation is of the LORD."}
+            ]
+        }
+    },
+    "New Testament Prayers": {
+        "The Pharisee and the Publican": {
+            "title": "God Be Merciful to Me a Sinner",
+            "description": "Jesus contrasted two prayers—the Pharisee's self-righteous recitation and the tax collector's humble plea for mercy. The latter went home justified, teaching that God resists the proud but gives grace to the humble.",
+            "verses": [
+                {"reference": "Luke 18:10-14", "text": "Two men went up into the temple to pray; the one a Pharisee, and the other a publican. The Pharisee stood and prayed thus with himself, God, I thank thee, that I am not as other men are, extortioners, unjust, adulterers, or even as this publican. I fast twice in the week, I give tithes of all that I possess. And the publican, standing afar off, would not lift up so much as his eyes unto heaven, but smote upon his breast, saying, God be merciful to me a sinner. I tell you, this man went down to his house justified rather than the other."}
+            ]
+        },
+        "The Church's Prayer for Boldness": {
+            "title": "Grant Unto Thy Servants Boldness",
+            "description": "After Peter and John were threatened by the authorities, the early church gathered to pray—not for safety, but for boldness to continue speaking God's word with signs and wonders.",
+            "verses": [
+                {"reference": "Acts 4:24-31", "text": "And when they heard that, they lifted up their voice to God with one accord, and said, Lord, thou art God, which hast made heaven, and earth, and the sea, and all that in them is... And now, Lord, behold their threatenings: and grant unto thy servants, that with all boldness they may speak thy word, By stretching forth thine hand to heal; and that signs and wonders may be done by the name of thy holy child Jesus. And when they had prayed, the place was shaken where they were assembled together; and they were all filled with the Holy Ghost, and they spake the word of God with boldness."}
+            ]
+        },
+        "Stephen's Dying Prayer": {
+            "title": "Lord, Lay Not This Sin to Their Charge",
+            "description": "As Stephen was being stoned, he prayed two prayers—first committing his spirit to Jesus, then asking forgiveness for his murderers, echoing Christ's words on the cross.",
+            "verses": [
+                {"reference": "Acts 7:59-60", "text": "And they stoned Stephen, calling upon God, and saying, Lord Jesus, receive my spirit. And he kneeled down, and cried with a loud voice, Lord, lay not this sin to their charge. And when he had said this, he fell asleep."}
+            ]
+        },
+        "Paul's Prayer for the Ephesians": {
+            "title": "Strengthened with Might by His Spirit",
+            "description": "Paul prayed that believers would be strengthened in their inner being, rooted in love, able to comprehend Christ's immeasurable love, and filled with all the fullness of God.",
+            "verses": [
+                {"reference": "Ephesians 3:14-21", "text": "For this cause I bow my knees unto the Father of our Lord Jesus Christ, Of whom the whole family in heaven and earth is named, That he would grant you, according to the riches of his glory, to be strengthened with might by his Spirit in the inner man; That Christ may dwell in your hearts by faith; that ye, being rooted and grounded in love, May be able to comprehend with all saints what is the breadth, and length, and depth, and height; And to know the love of Christ, which passeth knowledge, that ye might be filled with all the fulness of God."}
+            ]
+        },
+        "Paul's Prayer for the Colossians": {
+            "title": "Filled with the Knowledge of His Will",
+            "description": "Paul prayed that the Colossians would be filled with spiritual wisdom and understanding, walking worthy of the Lord, fruitful in every good work, and strengthened with all might.",
+            "verses": [
+                {"reference": "Colossians 1:9-14", "text": "For this cause we also, since the day we heard it, do not cease to pray for you, and to desire that ye might be filled with the knowledge of his will in all wisdom and spiritual understanding; That ye might walk worthy of the Lord unto all pleasing, being fruitful in every good work, and increasing in the knowledge of God; Strengthened with all might, according to his glorious power, unto all patience and longsuffering with joyfulness."}
+            ]
+        }
+    },
+    "Psalms of Prayer": {
+        "Psalm 51": {
+            "title": "David's Prayer of Repentance",
+            "description": "After his sin with Bathsheba, David poured out this deeply penitent prayer—confessing his transgression, pleading for cleansing, and asking for a restored relationship with God.",
+            "verses": [
+                {"reference": "Psalm 51:1-4", "text": "Have mercy upon me, O God, according to thy lovingkindness: according unto the multitude of thy tender mercies blot out my transgressions. Wash me throughly from mine iniquity, and cleanse me from my sin. For I acknowledge my transgressions: and my sin is ever before me. Against thee, thee only, have I sinned, and done this evil in thy sight."},
+                {"reference": "Psalm 51:10-12", "text": "Create in me a clean heart, O God; and renew a right spirit within me. Cast me not away from thy presence; and take not thy holy spirit from me. Restore unto me the joy of thy salvation; and uphold me with thy free spirit."}
+            ]
+        },
+        "Psalm 23": {
+            "title": "The Shepherd Psalm",
+            "description": "David's beloved psalm expresses complete trust in the LORD as Shepherd—providing, guiding, protecting, and comforting through every circumstance of life, even death's shadow.",
+            "verses": [
+                {"reference": "Psalm 23:1-6", "text": "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever."}
+            ]
+        },
+        "Psalm 139": {
+            "title": "God's Omniscience and Omnipresence",
+            "description": "David marvels at God's complete knowledge of him—every thought, word, and way—and His inescapable presence everywhere. He concludes by inviting God to search and lead him.",
+            "verses": [
+                {"reference": "Psalm 139:1-4", "text": "O LORD, thou hast searched me, and known me. Thou knowest my downsitting and mine uprising, thou understandest my thought afar off. Thou compassest my path and my lying down, and art acquainted with all my ways. For there is not a word in my tongue, but, lo, O LORD, thou knowest it altogether."},
+                {"reference": "Psalm 139:23-24", "text": "Search me, O God, and know my heart: try me, and know my thoughts: And see if there be any wicked way in me, and lead me in the way everlasting."}
+            ]
+        },
+        "Psalm 91": {
+            "title": "The Psalm of Protection",
+            "description": "This psalm declares God's protection for those who dwell in His presence—promising deliverance from danger, plague, and evil, with angels guarding their way.",
+            "verses": [
+                {"reference": "Psalm 91:1-4", "text": "He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty. I will say of the LORD, He is my refuge and my fortress: my God; in him will I trust. Surely he shall deliver thee from the snare of the fowler, and from the noisome pestilence. He shall cover thee with his feathers, and under his wings shalt thou trust: his truth shall be thy shield and buckler."},
+                {"reference": "Psalm 91:11-12", "text": "For he shall give his angels charge over thee, to keep thee in all thy ways. They shall bear thee up in their hands, lest thou dash thy foot against a stone."}
+            ]
+        }
+    }
+}
+
+
+# ============================================================================
+# THE BEATITUDES
+# ============================================================================
+BEATITUDES_DATA = {
+    "The Eight Beatitudes": {
+        "Blessed Are the Poor in Spirit": {
+            "title": "Theirs Is the Kingdom of Heaven",
+            "description": "The first beatitude establishes the foundation of all spiritual blessing—poverty of spirit. This describes not material poverty but spiritual bankruptcy before God, the humble recognition that we possess nothing of merit and depend entirely upon divine grace. The poor in spirit have abandoned all self-righteousness and self-sufficiency, acknowledging their desperate need for God. This poverty opposes the Pharisaic pride that trusts in its own righteousness. Those who recognize their spiritual destitution receive the kingdom of heaven—not as reward for humility but because empty hands alone can receive God's gift.",
+            "verses": [
+                {"reference": "Matthew 5:3", "text": "Blessed are the poor in spirit: for theirs is the kingdom of heaven."},
+                {"reference": "Isaiah 66:2", "text": "But to this man will I look, even to him that is poor and of a contrite spirit, and trembleth at my word."},
+                {"reference": "Luke 18:13-14", "text": "And the publican, standing afar off, would not lift up so much as his eyes unto heaven, but smote upon his breast, saying, God be merciful to me a sinner. I tell you, this man went down to his house justified."}
+            ]
+        },
+        "Blessed Are They That Mourn": {
+            "title": "They Shall Be Comforted",
+            "description": "This beatitude pronounces blessing upon those who grieve—particularly over sin, both personal and corporate. While including natural sorrow, the primary meaning involves mourning over the sinful condition that separates humanity from God. Those who truly see their spiritual poverty will mourn over it. They weep over their own transgressions, the church's unfaithfulness, and the world's rebellion against God. Such mourners receive divine comfort—the consolation of forgiveness, the assurance of salvation, and the hope of glory.",
+            "verses": [
+                {"reference": "Matthew 5:4", "text": "Blessed are they that mourn: for they shall be comforted."},
+                {"reference": "Isaiah 61:1-3", "text": "The Spirit of the Lord GOD is upon me; because the LORD hath anointed me to preach good tidings unto the meek; he hath sent me to bind up the brokenhearted... to comfort all that mourn."},
+                {"reference": "2 Corinthians 7:10", "text": "For godly sorrow worketh repentance to salvation not to be repented of: but the sorrow of the world worketh death."}
+            ]
+        },
+        "Blessed Are the Meek": {
+            "title": "They Shall Inherit the Earth",
+            "description": "Meekness is not weakness but strength under divine control—the tamed power of a disciplined spirit. The meek are gentle, humble, and patient under provocation, submitting to God's will rather than asserting their own rights. Moses, the meekest man on earth, demonstrated tremendous leadership authority exercised with profound humility. The meek inherit the earth—not through aggressive conquest but through patient trust in God's sovereign disposition. While the proud grasp and lose, the meek receive and keep.",
+            "verses": [
+                {"reference": "Matthew 5:5", "text": "Blessed are the meek: for they shall inherit the earth."},
+                {"reference": "Psalm 37:11", "text": "But the meek shall inherit the earth; and shall delight themselves in the abundance of peace."},
+                {"reference": "Numbers 12:3", "text": "Now the man Moses was very meek, above all the men which were upon the face of the earth."}
+            ]
+        },
+        "Blessed Are They Which Do Hunger and Thirst After Righteousness": {
+            "title": "They Shall Be Filled",
+            "description": "This beatitude blesses those who intensely desire righteousness—both the imputed righteousness of justification and the practical righteousness of sanctification. The imagery of hunger and thirst conveys desperate longing, not casual preference. As starving people crave food and parched throats crave water, so the blessed intensely desire to be right with God and to live rightly before Him. Such seekers will be filled—satisfied with the righteousness of Christ and progressively transformed into His likeness.",
+            "verses": [
+                {"reference": "Matthew 5:6", "text": "Blessed are they which do hunger and thirst after righteousness: for they shall be filled."},
+                {"reference": "Psalm 42:1-2", "text": "As the hart panteth after the water brooks, so panteth my soul after thee, O God. My soul thirsteth for God, for the living God."},
+                {"reference": "Isaiah 55:1", "text": "Ho, every one that thirsteth, come ye to the waters, and he that hath no money; come ye, buy, and eat."}
+            ]
+        },
+        "Blessed Are the Merciful": {
+            "title": "They Shall Obtain Mercy",
+            "description": "Mercy extends compassionate help to the miserable, forgiving those who offend, assisting those in need, and showing kindness to the undeserving. The merciful reflect God's own character, for He delights in mercy. This beatitude does not teach that mercy earns mercy—such would contradict grace. Rather, those who have received God's mercy naturally extend it to others, and those who refuse mercy to others demonstrate they have never truly received it themselves. Mercy given becomes mercy received in the divine economy.",
+            "verses": [
+                {"reference": "Matthew 5:7", "text": "Blessed are the merciful: for they shall obtain mercy."},
+                {"reference": "Micah 6:8", "text": "He hath shewed thee, O man, what is good; and what doth the LORD require of thee, but to do justly, and to love mercy, and to walk humbly with thy God?"},
+                {"reference": "James 2:13", "text": "For he shall have judgment without mercy, that hath shewed no mercy; and mercy rejoiceth against judgment."}
+            ]
+        },
+        "Blessed Are the Pure in Heart": {
+            "title": "They Shall See God",
+            "description": "Purity of heart involves undivided devotion to God—singleness of purpose, unmixed motives, and internal integrity rather than mere external conformity. The pure in heart seek God Himself, not merely His gifts. They pursue holiness because they love the Holy One. Their reward exceeds all others: they shall see God—experiencing His presence now through faith and ultimately in the beatific vision of eternity. Only the pure can endure such sight, for God is 'of purer eyes than to behold evil.'",
+            "verses": [
+                {"reference": "Matthew 5:8", "text": "Blessed are the pure in heart: for they shall see God."},
+                {"reference": "Psalm 24:3-4", "text": "Who shall ascend into the hill of the LORD? or who shall stand in his holy place? He that hath clean hands, and a pure heart; who hath not lifted up his soul unto vanity, nor sworn deceitfully."},
+                {"reference": "Hebrews 12:14", "text": "Follow peace with all men, and holiness, without which no man shall see the Lord."}
+            ]
+        },
+        "Blessed Are the Peacemakers": {
+            "title": "They Shall Be Called the Children of God",
+            "description": "Peacemakers actively work to establish peace—reconciling enemies, resolving conflicts, and promoting harmony. They reflect the God of peace who reconciled rebellious sinners to Himself through Christ. Peacemaking requires courage, wisdom, and sacrifice; it proves far more demanding than mere peacekeeping. Those who make peace demonstrate their divine parentage, for they share their Father's character and continue His reconciling work in the world.",
+            "verses": [
+                {"reference": "Matthew 5:9", "text": "Blessed are the peacemakers: for they shall be called the children of God."},
+                {"reference": "Romans 12:18", "text": "If it be possible, as much as lieth in you, live peaceably with all men."},
+                {"reference": "James 3:17-18", "text": "But the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits, without partiality, and without hypocrisy. And the fruit of righteousness is sown in peace of them that make peace."}
+            ]
+        },
+        "Blessed Are They Which Are Persecuted for Righteousness' Sake": {
+            "title": "Theirs Is the Kingdom of Heaven",
+            "description": "The final beatitude pronounces blessing on those who suffer for doing right—not for wrongdoing or foolishness, but specifically for righteousness. The world hates righteousness because it exposes evil, and those who live righteously provoke opposition. Yet such persecution confirms kingdom citizenship and places sufferers in the noble company of the prophets. The promise returns to the first beatitude: theirs is the kingdom of heaven—forming an inclusio that encompasses all kingdom blessings.",
+            "verses": [
+                {"reference": "Matthew 5:10-12", "text": "Blessed are they which are persecuted for righteousness' sake: for theirs is the kingdom of heaven. Blessed are ye, when men shall revile you, and persecute you, and shall say all manner of evil against you falsely, for my sake. Rejoice, and be exceeding glad: for great is your reward in heaven: for so persecuted they the prophets which were before you."},
+                {"reference": "1 Peter 3:14", "text": "But and if ye suffer for righteousness' sake, happy are ye: and be not afraid of their terror, neither be troubled."},
+                {"reference": "1 Peter 4:14", "text": "If ye be reproached for the name of Christ, happy are ye; for the spirit of glory and of God resteth upon you."}
+            ]
+        }
+    }
+}
+
+
+# ============================================================================
+# THE TEN COMMANDMENTS
+# ============================================================================
+TEN_COMMANDMENTS_DATA = {
+    "Duties Toward God": {
+        "The First Commandment": {
+            "title": "Thou Shalt Have No Other Gods Before Me",
+            "description": "The first commandment establishes monotheism as the foundation of true religion—there is one God, and He alone deserves worship. This prohibits not only the worship of false deities but also any rival that occupies the place belonging to God alone: money, pleasure, self, career, or any created thing. The commandment flows from God's self-revelation: 'I am the LORD thy God'—the covenant name declaring His eternal, self-existent nature. Israel's God had demonstrated His supremacy by delivering them from Egypt; all other gods are nothing.",
+            "verses": [
+                {"reference": "Exodus 20:2-3", "text": "I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage. Thou shalt have no other gods before me."},
+                {"reference": "Deuteronomy 6:4-5", "text": "Hear, O Israel: The LORD our God is one LORD: And thou shalt love the LORD thy God with all thine heart, and with all thy soul, and with all thy might."},
+                {"reference": "Isaiah 45:5", "text": "I am the LORD, and there is none else, there is no God beside me."}
+            ]
+        },
+        "The Second Commandment": {
+            "title": "Thou Shalt Not Make Unto Thee Any Graven Image",
+            "description": "The second commandment prohibits idolatry—making or worshiping any representation of God or false deity. While the first commandment addresses whom we worship, the second addresses how we worship. God cannot be reduced to any created form; all images inevitably diminish and distort His infinite being. This commandment protects both God's honor and humanity's good, for idolatry degrades the worshiper. God describes Himself as 'jealous'—not with petty envy but with the righteous zeal of a husband protecting the marriage covenant.",
+            "verses": [
+                {"reference": "Exodus 20:4-6", "text": "Thou shalt not make unto thee any graven image, or any likeness of any thing that is in heaven above, or that is in the earth beneath, or that is in the water under the earth: Thou shalt not bow down thyself to them, nor serve them: for I the LORD thy God am a jealous God, visiting the iniquity of the fathers upon the children unto the third and fourth generation of them that hate me; And shewing mercy unto thousands of them that love me, and keep my commandments."},
+                {"reference": "Deuteronomy 4:15-16", "text": "Take ye therefore good heed unto yourselves; for ye saw no manner of similitude on the day that the LORD spake unto you in Horeb out of the midst of the fire: Lest ye corrupt yourselves, and make you a graven image, the similitude of any figure."},
+                {"reference": "Romans 1:22-23", "text": "Professing themselves to be wise, they became fools, And changed the glory of the uncorruptible God into an image made like to corruptible man, and to birds, and fourfooted beasts, and creeping things."}
+            ]
+        },
+        "The Third Commandment": {
+            "title": "Thou Shalt Not Take the Name of the LORD Thy God in Vain",
+            "description": "The third commandment protects God's name—His revealed character and reputation—from misuse and dishonor. This prohibits profanity and blasphemy but extends further: using God's name in false oaths, empty religious formulas, or hypocritical worship. To invoke God's name while living contrary to His character takes His name in vain. The commandment calls for reverence in all references to God, integrity in oaths sworn by His name, and consistency between profession and practice.",
+            "verses": [
+                {"reference": "Exodus 20:7", "text": "Thou shalt not take the name of the LORD thy God in vain; for the LORD will not hold him guiltless that taketh his name in vain."},
+                {"reference": "Leviticus 19:12", "text": "And ye shall not swear by my name falsely, neither shalt thou profane the name of thy God: I am the LORD."},
+                {"reference": "Matthew 6:9", "text": "After this manner therefore pray ye: Our Father which art in heaven, Hallowed be thy name."}
+            ]
+        },
+        "The Fourth Commandment": {
+            "title": "Remember the Sabbath Day, to Keep It Holy",
+            "description": "The fourth commandment establishes a sacred rhythm of work and rest, setting apart one day in seven for holy purposes. The Sabbath commemorates creation—God rested on the seventh day—and in Deuteronomy, redemption from Egypt. This commandment benefits humanity: providing physical rest, spiritual renewal, and time for worship. The principle of Sabbath rest points ultimately to the eternal rest that remains for God's people, the ceasing from works-righteousness and resting in Christ's finished work.",
+            "verses": [
+                {"reference": "Exodus 20:8-11", "text": "Remember the sabbath day, to keep it holy. Six days shalt thou labour, and do all thy work: But the seventh day is the sabbath of the LORD thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy stranger that is within thy gates: For in six days the LORD made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the LORD blessed the sabbath day, and hallowed it."},
+                {"reference": "Isaiah 58:13-14", "text": "If thou turn away thy foot from the sabbath, from doing thy pleasure on my holy day; and call the sabbath a delight, the holy of the LORD, honourable; and shalt honour him, not doing thine own ways, nor finding thine own pleasure, nor speaking thine own words: Then shalt thou delight thyself in the LORD."},
+                {"reference": "Hebrews 4:9-10", "text": "There remaineth therefore a rest to the people of God. For he that is entered into his rest, he also hath ceased from his own works, as God did from his."}
+            ]
+        }
+    },
+    "Duties Toward Others": {
+        "The Fifth Commandment": {
+            "title": "Honour Thy Father and Thy Mother",
+            "description": "The fifth commandment transitions from duties to God to duties toward others, beginning with the family—the foundational institution of human society. Honoring parents involves respect, obedience (for children), care (for aged parents), and gratitude. This commandment carries a promise: long life in the land. Honoring parents teaches submission to authority generally and ultimately to God Himself. The family structure reflects divine order; rebellion against parental authority often precedes rebellion against all authority.",
+            "verses": [
+                {"reference": "Exodus 20:12", "text": "Honour thy father and thy mother: that thy days may be long upon the land which the LORD thy God giveth thee."},
+                {"reference": "Ephesians 6:1-3", "text": "Children, obey your parents in the Lord: for this is right. Honour thy father and mother; which is the first commandment with promise; That it may be well with thee, and thou mayest live long on the earth."},
+                {"reference": "Proverbs 23:22", "text": "Hearken unto thy father that begat thee, and despise not thy mother when she is old."}
+            ]
+        },
+        "The Sixth Commandment": {
+            "title": "Thou Shalt Not Kill",
+            "description": "The sixth commandment protects human life, created in God's image. The Hebrew word specifically denotes unlawful killing—murder—rather than all taking of life. This prohibition encompasses not only the act of murder but its roots: hatred, anger, and contempt. Jesus taught that calling a brother 'fool' violates this commandment's spirit. Positively, the commandment requires preserving and protecting life, including our own bodies and the lives of others.",
+            "verses": [
+                {"reference": "Exodus 20:13", "text": "Thou shalt not kill."},
+                {"reference": "Matthew 5:21-22", "text": "Ye have heard that it was said by them of old time, Thou shalt not kill; and whosoever shall kill shall be in danger of the judgment: But I say unto you, That whosoever is angry with his brother without a cause shall be in danger of the judgment."},
+                {"reference": "Genesis 9:6", "text": "Whoso sheddeth man's blood, by man shall his blood be shed: for in the image of God made he man."},
+                {"reference": "1 John 3:15", "text": "Whosoever hateth his brother is a murderer: and ye know that no murderer hath eternal life abiding in him."}
+            ]
+        },
+        "The Seventh Commandment": {
+            "title": "Thou Shalt Not Commit Adultery",
+            "description": "The seventh commandment protects the marriage covenant and sexual purity. Adultery violates the sacred bond between husband and wife, breaking faith and destroying trust. Jesus extended this commandment to include lustful thoughts: whoever looks upon another with desire has already committed adultery in the heart. This commandment safeguards the family, protects children, and honors the divine design for human sexuality within the covenant of marriage.",
+            "verses": [
+                {"reference": "Exodus 20:14", "text": "Thou shalt not commit adultery."},
+                {"reference": "Matthew 5:27-28", "text": "Ye have heard that it was said by them of old time, Thou shalt not commit adultery: But I say unto you, That whosoever looketh on a woman to lust after her hath committed adultery with her already in his heart."},
+                {"reference": "Hebrews 13:4", "text": "Marriage is honourable in all, and the bed undefiled: but whoremongers and adulterers God will judge."},
+                {"reference": "Proverbs 6:32", "text": "But whoso committeth adultery with a woman lacketh understanding: he that doeth it destroyeth his own soul."}
+            ]
+        },
+        "The Eighth Commandment": {
+            "title": "Thou Shalt Not Steal",
+            "description": "The eighth commandment protects property rights—the fruit of one's labor belongs to the laborer. Stealing encompasses not only outright theft but fraud, deception, failure to pay just wages, and unjust business practices. Positively, this commandment requires honest work, fair dealing, contentment with one's possessions, and generosity toward those in need. The thief must steal no more but labor honestly to have something to give to others.",
+            "verses": [
+                {"reference": "Exodus 20:15", "text": "Thou shalt not steal."},
+                {"reference": "Ephesians 4:28", "text": "Let him that stole steal no more: but rather let him labour, working with his hands the thing which is good, that he may have to give to him that needeth."},
+                {"reference": "Leviticus 19:13", "text": "Thou shalt not defraud thy neighbour, neither rob him: the wages of him that is hired shall not abide with thee all night until the morning."},
+                {"reference": "Proverbs 11:1", "text": "A false balance is abomination to the LORD: but a just weight is his delight."}
+            ]
+        },
+        "The Ninth Commandment": {
+            "title": "Thou Shalt Not Bear False Witness",
+            "description": "The ninth commandment protects truth and reputation. Originally addressing testimony in legal proceedings, it extends to all communication: lying, slander, gossip, and deception of any kind. False witness destroys reputations, perverts justice, and undermines social trust. Positively, this commandment requires truthfulness in all speech, defending others' good names, and speaking the truth in love. Satan is the father of lies; God's people must be children of truth.",
+            "verses": [
+                {"reference": "Exodus 20:16", "text": "Thou shalt not bear false witness against thy neighbour."},
+                {"reference": "Proverbs 19:5", "text": "A false witness shall not be unpunished, and he that speaketh lies shall not escape."},
+                {"reference": "Colossians 3:9", "text": "Lie not one to another, seeing that ye have put off the old man with his deeds."},
+                {"reference": "Ephesians 4:25", "text": "Wherefore putting away lying, speak every man truth with his neighbour: for we are members one of another."}
+            ]
+        },
+        "The Tenth Commandment": {
+            "title": "Thou Shalt Not Covet",
+            "description": "The tenth commandment addresses the heart—the internal desires from which all external sins flow. Covetousness is discontentment with God's provision and desire for what belongs to another. This commandment reveals that sin originates within, not merely in outward actions. No one can perfectly keep even the external commandments while harboring covetous hearts. Paul testified that this commandment convicted him of sin, showing him the depth of his depravity and his need for grace.",
+            "verses": [
+                {"reference": "Exodus 20:17", "text": "Thou shalt not covet thy neighbour's house, thou shalt not covet thy neighbour's wife, nor his manservant, nor his maidservant, nor his ox, nor his ass, nor any thing that is thy neighbour's."},
+                {"reference": "Romans 7:7", "text": "What shall we say then? Is the law sin? God forbid. Nay, I had not known sin, but by the law: for I had not known lust, except the law had said, Thou shalt not covet."},
+                {"reference": "Hebrews 13:5", "text": "Let your conversation be without covetousness; and be content with such things as ye have: for he hath said, I will never leave thee, nor forsake thee."},
+                {"reference": "1 Timothy 6:6", "text": "But godliness with contentment is great gain."}
+            ]
+        }
+    }
+}
+
+
+# ============================================================================
+# THE ARMOR OF GOD
+# ============================================================================
+ARMOR_OF_GOD_DATA = {
+    "The Spiritual Warfare": {
+        "Introduction to Spiritual Warfare": {
+            "title": "Wrestling Against Principalities and Powers",
+            "description": "Paul's exposition of spiritual armor in Ephesians 6 reveals the true nature of the Christian's conflict. Believers battle not against flesh and blood—human opponents—but against spiritual forces of wickedness in heavenly places. This warfare requires spiritual weapons; human strategies and natural strength prove utterly insufficient. The devil employs cunning schemes (methodeia) requiring constant vigilance and complete dependence upon God's provision. Only by putting on the whole armor of God can believers stand against such formidable opposition.",
+            "verses": [
+                {"reference": "Ephesians 6:10-12", "text": "Finally, my brethren, be strong in the Lord, and in the power of his might. Put on the whole armour of God, that ye may be able to stand against the wiles of the devil. For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places."},
+                {"reference": "2 Corinthians 10:3-4", "text": "For though we walk in the flesh, we do not war after the flesh: For the weapons of our warfare are not carnal, but mighty through God to the pulling down of strong holds."},
+                {"reference": "1 Peter 5:8", "text": "Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour."}
+            ]
+        }
+    },
+    "The Defensive Armor": {
+        "The Belt of Truth": {
+            "title": "Girding the Loins with Truth",
+            "description": "The Roman soldier's belt (cingulum) gathered his tunic for freedom of movement and supported his sword. Truth serves a similar function in spiritual warfare—it holds everything together and enables effective action. This truth encompasses both doctrinal truth (believing what is true about God, Christ, salvation, and Scripture) and personal integrity (living honestly, rejecting self-deception, walking in the light). Satan is the father of lies; truth exposes his deceptions and enables the believer to stand firm.",
+            "verses": [
+                {"reference": "Ephesians 6:14a", "text": "Stand therefore, having your loins girt about with truth."},
+                {"reference": "John 8:32", "text": "And ye shall know the truth, and the truth shall make you free."},
+                {"reference": "John 14:6", "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."},
+                {"reference": "John 17:17", "text": "Sanctify them through thy truth: thy word is truth."}
+            ]
+        },
+        "The Breastplate of Righteousness": {
+            "title": "Guarding the Heart",
+            "description": "The breastplate protected the soldier's vital organs, particularly the heart. Righteousness serves as the believer's breastplate, guarding against Satan's accusations and attacks. This includes both imputed righteousness—Christ's righteousness credited to believers through faith—and practical righteousness—holy living that gives the devil no foothold. When Satan accuses, believers stand in Christ's perfect righteousness; when he tempts, they resist through righteous conduct that keeps conscience clear and provides no opening for his attacks.",
+            "verses": [
+                {"reference": "Ephesians 6:14b", "text": "And having on the breastplate of righteousness."},
+                {"reference": "Romans 3:22", "text": "Even the righteousness of God which is by faith of Jesus Christ unto all and upon all them that believe."},
+                {"reference": "Isaiah 59:17", "text": "For he put on righteousness as a breastplate, and an helmet of salvation upon his head."},
+                {"reference": "1 Thessalonians 5:8", "text": "But let us, who are of the day, be sober, putting on the breastplate of faith and love."}
+            ]
+        },
+        "The Shoes of the Gospel of Peace": {
+            "title": "Ready to Stand and Advance",
+            "description": "Roman soldiers wore caligae—heavy sandals with hobnailed soles providing firm footing on any terrain. The gospel of peace equips believers similarly: grounded in the peace Christ provides (peace with God through justification), ready to stand firmly against attack, and prepared to advance with the good news. This readiness involves both defensive stability and offensive mobility—standing firm in faith while moving forward in mission.",
+            "verses": [
+                {"reference": "Ephesians 6:15", "text": "And your feet shod with the preparation of the gospel of peace."},
+                {"reference": "Romans 5:1", "text": "Therefore being justified by faith, we have peace with God through our Lord Jesus Christ."},
+                {"reference": "Isaiah 52:7", "text": "How beautiful upon the mountains are the feet of him that bringeth good tidings, that publisheth peace; that bringeth good tidings of good, that publisheth salvation."},
+                {"reference": "Romans 10:15", "text": "And how shall they preach, except they be sent? as it is written, How beautiful are the feet of them that preach the gospel of peace, and bring glad tidings of good things!"}
+            ]
+        },
+        "The Shield of Faith": {
+            "title": "Quenching the Fiery Darts",
+            "description": "The Roman scutum was a large, door-shaped shield covered with leather that could be soaked in water to extinguish flaming arrows. Faith serves as the believer's shield, deflecting Satan's fiery darts—his temptations, accusations, doubts, fears, and lies. Active trust in God's promises, character, and power quenches every attack. This faith looks to Christ, rests on Scripture, and refuses to yield to circumstances or feelings. 'Above all' suggests the shield's supreme importance in spiritual combat.",
+            "verses": [
+                {"reference": "Ephesians 6:16", "text": "Above all, taking the shield of faith, wherewith ye shall be able to quench all the fiery darts of the wicked."},
+                {"reference": "1 John 5:4", "text": "For whatsoever is born of God overcometh the world: and this is the victory that overcometh the world, even our faith."},
+                {"reference": "Hebrews 11:1", "text": "Now faith is the substance of things hoped for, the evidence of things not seen."},
+                {"reference": "1 Peter 1:5", "text": "Who are kept by the power of God through faith unto salvation ready to be revealed in the last time."}
+            ]
+        },
+        "The Helmet of Salvation": {
+            "title": "Protecting the Mind",
+            "description": "The helmet protected the soldier's head—the command center. Salvation guards the believer's mind, providing assurance against doubt and hope against despair. This helmet involves confidence in present salvation (deliverance from sin's penalty and power) and hope of future salvation (complete deliverance at Christ's return). Satan attacks the mind with doubts, discouragement, and despair; the helmet of salvation protects by securing the believer's identity in Christ and hope of glory.",
+            "verses": [
+                {"reference": "Ephesians 6:17a", "text": "And take the helmet of salvation."},
+                {"reference": "1 Thessalonians 5:8", "text": "But let us, who are of the day, be sober, putting on the breastplate of faith and love; and for an helmet, the hope of salvation."},
+                {"reference": "Romans 8:24", "text": "For we are saved by hope: but hope that is seen is not hope: for what a man seeth, why doth he yet hope for?"},
+                {"reference": "Isaiah 59:17", "text": "For he put on righteousness as a breastplate, and an helmet of salvation upon his head."}
+            ]
+        }
+    },
+    "The Offensive Weapon": {
+        "The Sword of the Spirit": {
+            "title": "The Word of God",
+            "description": "The sword (machaira) was the Roman soldier's close-combat weapon. The Word of God serves as the believer's offensive weapon—the only piece of armor designed for attack. 'Word' here is rhema (spoken word), emphasizing Scripture applied to specific situations. Jesus demonstrated this weapon's effectiveness in His wilderness temptation, responding to each satanic attack with 'It is written.' The sword must be known (through study), drawn (through memorization), and wielded (through application) to be effective against the enemy.",
+            "verses": [
+                {"reference": "Ephesians 6:17b", "text": "And the sword of the Spirit, which is the word of God."},
+                {"reference": "Hebrews 4:12", "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."},
+                {"reference": "Matthew 4:4", "text": "But he answered and said, It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God."},
+                {"reference": "Psalm 119:11", "text": "Thy word have I hid in mine heart, that I might not sin against thee."}
+            ]
+        }
+    },
+    "The Essential Support": {
+        "Prayer and Supplication": {
+            "title": "Praying Always in the Spirit",
+            "description": "Prayer undergirds the entire armor—not another piece but the means by which all pieces are put on and employed. Paul calls for prayer that is constant ('always'), Spirit-guided ('in the Spirit'), varied ('prayer and supplication'), vigilant ('watching'), persevering ('with all perseverance'), and intercessory ('for all saints'). Spiritual warfare cannot be fought in human strength; prayer connects the believer to divine power, wisdom, and protection. Without prayer, the armor remains mere theory.",
+            "verses": [
+                {"reference": "Ephesians 6:18", "text": "Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance and supplication for all saints."},
+                {"reference": "1 Thessalonians 5:17", "text": "Pray without ceasing."},
+                {"reference": "Jude 1:20", "text": "But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Ghost."},
+                {"reference": "Romans 8:26", "text": "Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us with groanings which cannot be uttered."}
+            ]
+        }
+    }
+}
+
+
+# ============================================================================
+# I AM STATEMENTS OF JESUS
+# ============================================================================
+I_AM_STATEMENTS_DATA = {
+    "The Seven I AM Statements in John": {
+        "I Am the Bread of Life": {
+            "title": "Spiritual Sustenance",
+            "description": "After feeding the five thousand, Jesus declared Himself the true bread from heaven—the sustenance of eternal life. Just as physical bread sustains bodily life, Jesus sustains spiritual life. Unlike manna that sustained Israel temporarily in the wilderness, Jesus gives life eternally. Those who come to Him will never hunger; those who believe will never thirst. This statement emphasizes that Jesus alone satisfies the soul's deepest hunger and provides nourishment that endures to everlasting life.",
+            "verses": [
+                {"reference": "John 6:35", "text": "And Jesus said unto them, I am the bread of life: he that cometh to me shall never hunger; and he that believeth on me shall never thirst."},
+                {"reference": "John 6:48-51", "text": "I am that bread of life. Your fathers did eat manna in the wilderness, and are dead. This is the bread which cometh down from heaven, that a man may eat thereof, and not die. I am the living bread which came down from heaven: if any man eat of this bread, he shall live for ever: and the bread that I will give is my flesh, which I will give for the life of the world."}
+            ]
+        },
+        "I Am the Light of the World": {
+            "title": "Illumination and Guidance",
+            "description": "During the Feast of Tabernacles, when giant candelabras illuminated the temple courts, Jesus proclaimed Himself the true light. Light reveals, guides, and gives life; darkness conceals, confuses, and represents death. Jesus illuminates truth, exposes sin, guides the path of life, and overcomes the darkness of ignorance and evil. Those who follow Him escape the darkness of spiritual blindness and walk in the light of life.",
+            "verses": [
+                {"reference": "John 8:12", "text": "Then spake Jesus again unto them, saying, I am the light of the world: he that followeth me shall not walk in darkness, but shall have the light of life."},
+                {"reference": "John 9:5", "text": "As long as I am in the world, I am the light of the world."},
+                {"reference": "John 12:46", "text": "I am come a light into the world, that whosoever believeth on me should not abide in darkness."}
+            ]
+        },
+        "I Am the Door": {
+            "title": "The Only Entrance",
+            "description": "Using shepherd imagery familiar to His audience, Jesus declared Himself the door of the sheepfold—the only legitimate entrance to safety and salvation. Ancient shepherds often slept across the sheepfold's entrance, literally becoming the door. All who enter through Christ find salvation; those who climb in another way are thieves and robbers. This exclusive claim affirms that Jesus is the only way to God, the only access to the Father's fold.",
+            "verses": [
+                {"reference": "John 10:7", "text": "Then said Jesus unto them again, Verily, verily, I say unto you, I am the door of the sheep."},
+                {"reference": "John 10:9", "text": "I am the door: by me if any man enter in, he shall be saved, and shall go in and out, and find pasture."}
+            ]
+        },
+        "I Am the Good Shepherd": {
+            "title": "Sacrificial Care",
+            "description": "Building on the door imagery, Jesus identifies Himself as the Good Shepherd who lays down His life for the sheep. Unlike hired hands who flee when wolves attack, the Good Shepherd sacrifices Himself for His flock. He knows His sheep intimately—each by name—and they know His voice. This statement anticipates the cross where Jesus, the Shepherd, would be struck and die for His sheep, gathering them into one fold under one Shepherd.",
+            "verses": [
+                {"reference": "John 10:11", "text": "I am the good shepherd: the good shepherd giveth his life for the sheep."},
+                {"reference": "John 10:14-15", "text": "I am the good shepherd, and know my sheep, and am known of mine. As the Father knoweth me, even so know I the Father: and I lay down my life for the sheep."},
+                {"reference": "John 10:27-28", "text": "My sheep hear my voice, and I know them, and they follow me: And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand."}
+            ]
+        },
+        "I Am the Resurrection and the Life": {
+            "title": "Victory Over Death",
+            "description": "At Lazarus's tomb, Jesus made His most dramatic claim: He is not merely a future hope but the present reality of resurrection and life. Belief in Him transcends physical death—the believer who dies will live, and the one who lives and believes will never truly die. Jesus then demonstrated this claim by raising Lazarus from four days' death, proving His authority over death itself and foreshadowing His own resurrection.",
+            "verses": [
+                {"reference": "John 11:25-26", "text": "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live: And whosoever liveth and believeth in me shall never die. Believest thou this?"},
+                {"reference": "John 11:43-44", "text": "And when he thus had spoken, he cried with a loud voice, Lazarus, come forth. And he that was dead came forth, bound hand and foot with graveclothes: and his face was bound about with a napkin. Jesus saith unto them, Loose him, and let him go."}
+            ]
+        },
+        "I Am the Way, the Truth, and the Life": {
+            "title": "Exclusive Access to the Father",
+            "description": "In the upper room, responding to Thomas's question about the way, Jesus declared Himself the exclusive path to God. He is the way—the only route to the Father; the truth—the full revelation of God; the life—the source of eternal life. No one comes to the Father except through Him. This comprehensive claim excludes all other paths to God while opening wide the door through Christ alone.",
+            "verses": [
+                {"reference": "John 14:6", "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."},
+                {"reference": "John 14:7", "text": "If ye had known me, ye should have known my Father also: and from henceforth ye know him, and have seen him."}
+            ]
+        },
+        "I Am the True Vine": {
+            "title": "Vital Union",
+            "description": "Using Israel's symbol of the vine, Jesus declared Himself the true vine—the source of all spiritual life and fruitfulness. Believers are branches deriving their life from vital union with Him. Apart from Christ, they can do nothing; abiding in Him, they bear much fruit. The Father, as vinedresser, prunes fruitful branches for greater yield and removes fruitless ones. This statement emphasizes the necessity of continual dependence upon Christ for spiritual vitality and productivity.",
+            "verses": [
+                {"reference": "John 15:1", "text": "I am the true vine, and my Father is the husbandman."},
+                {"reference": "John 15:5", "text": "I am the vine, ye are the branches: He that abideth in me, and I in him, the same bringeth forth much fruit: for without me ye can do nothing."},
+                {"reference": "John 15:7-8", "text": "If ye abide in me, and my words abide in you, ye shall ask what ye will, and it shall be done unto you. Herein is my Father glorified, that ye bear much fruit; so shall ye be my disciples."}
+            ]
+        }
+    },
+    "The Absolute I AM": {
+        "Before Abraham Was, I AM": {
+            "title": "The Divine Name",
+            "description": "In His most shocking claim, Jesus appropriated the divine name revealed to Moses at the burning bush. 'I AM' (Greek: ego eimi) echoes God's self-revelation as 'I AM THAT I AM' (Hebrew: ehyeh asher ehyeh). By saying 'Before Abraham was, I am,' Jesus claimed not merely pre-existence but eternal, self-existent deity. The Jews understood perfectly—they took up stones to kill Him for blasphemy. This claim stands at the heart of Christ's identity: He is not a prophet pointing to God but God Himself incarnate.",
+            "verses": [
+                {"reference": "John 8:58", "text": "Jesus said unto them, Verily, verily, I say unto you, Before Abraham was, I am."},
+                {"reference": "Exodus 3:14", "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."},
+                {"reference": "John 8:24", "text": "I said therefore unto you, that ye shall die in your sins: for if ye believe not that I am he, ye shall die in your sins."},
+                {"reference": "John 18:5-6", "text": "They answered him, Jesus of Nazareth. Jesus saith unto them, I am he. And Judas also, which betrayed him, stood with them. As soon then as he had said unto them, I am he, they went backward, and fell to the ground."}
+            ]
+        }
+    }
+}
+

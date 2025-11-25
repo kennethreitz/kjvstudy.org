@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Prayers of the Bible - KJV Study{% endblock %}
+{% block description %}Explore the great prayers recorded in Scripture - from Abraham's intercession to Paul's epistolary prayers, including the Lord's Prayer and Jesus' High Priestly Prayer.{% endblock %}
+
+{% block head %}
+<style>
+.prayer-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.prayer-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.prayer-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.prayer-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.prayer-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.prayer-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.prayer-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.prayer-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Prayers of the Bible</h1>
+<p class="subtitle">Speaking with God Throughout the Scriptures</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
+
+<section>
+    <p class="intro-text"><span class="newthought">Prayer permeates Scripture</span> from Genesis to Revelation, revealing the intimate communion between God and His people.<label for="sn-prayer" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-prayer" class="margin-toggle"/>
+    <span class="sidenote">The Hebrew תְּפִלָּה (<em>tephillah</em>) emphasizes intercession and supplication, while the Greek προσευχή (<em>proseuchē</em>) conveys the broader concept of prayer as worship, petition, and communion with God. Both testaments present prayer as essential to the life of faith.</span> These recorded prayers teach us how to approach the Almighty—with reverence and boldness, confession and thanksgiving, petition and intercession.</p>
+
+    <p class="intro-text">From Abraham's intercession for Sodom to Paul's apostolic prayers for the churches, these examples demonstrate the breadth and depth of biblical prayer.<label for="sn-examples" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-examples" class="margin-toggle"/>
+    <span class="sidenote">Jesus Himself provided the supreme model, teaching His disciples the Lord's Prayer and spending entire nights in communion with His Father. His high priestly prayer in John 17 reveals the heart of intercessory prayer at its most profound.</span> They cover every human situation: joy and sorrow, triumph and defeat, thanksgiving and lament, personal need and corporate concern.</p>
+</section>
+
+{% for category, prayers in prayers_data.items() %}
+<section class="prayer-section">
+    <h2>{{ category }}</h2>
+
+    {% for prayer_name, prayer in prayers.items() %}
+    <article class="prayer-entry">
+        <h3 class="prayer-name"><a href="/prayers-of-the-bible/{{ prayer_name|lower|replace(' ', '-')|replace("'", '') }}">{{ prayer_name }}</a></h3>
+        <p class="prayer-title">{{ prayer.title }}</p>
+
+        <div class="prayer-description">
+            {{ prayer.description | safe }}
+        </div>
+
+        {% if prayer.verses %}
+        <div class="verse-list">
+            {% for verse in prayer.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3, section article h3');
+
+    headings.forEach((heading, index) => {
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}The Armor of God - KJV Study{% endblock %}
+{% block description %}Study the Armor of God from Ephesians 6 - the spiritual equipment believers need to stand against the wiles of the devil.{% endblock %}
+
+{% block head %}
+<style>
+.armor-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.armor-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.armor-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.armor-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.armor-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.armor-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.armor-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.armor-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>The Armor of God</h1>
+<p class="subtitle">Divine Equipment for Spiritual Warfare</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
+
+<section>
+    <p class="intro-text"><span class="newthought">The Armor of God</span>, described in Ephesians 6:10-18, provides believers with divine equipment for the spiritual warfare that characterizes the Christian life.<label for="sn-armor" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-armor" class="margin-toggle"/>
+    <span class="sidenote">Paul wrote from Roman imprisonment, likely observing the armor of his guards. He transformed this familiar military imagery into a powerful metaphor for spiritual protection and combat. Each piece corresponds to a Roman soldier's equipment, yet represents spiritual realities infinitely more powerful than any human armament.</span> This passage reminds believers that their true enemies are not flesh and blood but spiritual forces of wickedness.</p>
+
+    <p class="intro-text">Paul's command to "put on the whole armour of God" emphasizes that partial equipment leaves dangerous vulnerabilities.<label for="sn-whole" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-whole" class="margin-toggle"/>
+    <span class="sidenote">The Greek πανοπλία (<em>panoplia</em>), translated "whole armour," refers to the complete equipment of a heavily armed soldier. Against cunning spiritual foes, believers cannot afford gaps in their protection. Each piece serves an essential function, and neglecting any leaves one exposed to the enemy's attacks.</span> Only by taking up every piece of God's provision can believers stand firm against the devil's schemes.</p>
+</section>
+
+{% for category, items in armor_data.items() %}
+<section class="armor-section">
+    <h2>{{ category }}</h2>
+
+    {% for item_name, item in items.items() %}
+    <article class="armor-entry">
+        <h3 class="armor-name"><a href="/armor-of-god/{{ item_name|lower|replace(' ', '-')|replace("'", '') }}">{{ item_name }}</a></h3>
+        <p class="armor-title">{{ item.title }}</p>
+
+        <div class="armor-description">
+            {{ item.description | safe }}
+        </div>
+
+        {% if item.verses %}
+        <div class="verse-list">
+            {% for verse in item.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3, section article h3');
+
+    headings.forEach((heading, index) => {
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}The Beatitudes - KJV Study{% endblock %}
+{% block description %}Study the Beatitudes from Jesus' Sermon on the Mount in Matthew 5 - the eight blessings that describe the character of kingdom citizens.{% endblock %}
+
+{% block head %}
+<style>
+.beatitude-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.beatitude-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.beatitude-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.beatitude-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.beatitude-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.beatitude-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.beatitude-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.beatitude-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>The Beatitudes</h1>
+<p class="subtitle">The Character of Kingdom Citizens</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
+
+<section>
+    <p class="intro-text"><span class="newthought">The Beatitudes</span> open the Sermon on the Mount, presenting the revolutionary values of Christ's kingdom in direct contrast to worldly wisdom.<label for="sn-beatitudes" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-beatitudes" class="margin-toggle"/>
+    <span class="sidenote">The term "beatitude" derives from the Latin <em>beatitudo</em>, translating the Greek μακάριος (<em>makarios</em>), meaning "blessed," "happy," or "fortunate." Each beatitude begins with this pronouncement of divine favor upon those possessing the described quality.</span> These eight declarations describe not merely what kingdom citizens should do, but what they fundamentally are—transformed persons whose character reflects their King.</p>
+
+    <p class="intro-text">Christ spoke these words on a mountainside in Galilee, seated as a rabbi teaching His disciples while multitudes listened.<label for="sn-setting" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-setting" class="margin-toggle"/>
+    <span class="sidenote">The Sermon on the Mount (Matthew 5-7) constitutes the most comprehensive statement of kingdom ethics in Scripture. Some see parallels to Moses receiving the Law on Sinai—Jesus as the new Moses delivering the new law from a new mountain. Yet Christ came not to abolish the Law but to fulfill it, revealing its deepest spiritual intent.</span> The Beatitudes form a unity, each building upon the previous, together presenting the portrait of a true disciple.</p>
+</section>
+
+{% for category, beatitudes in beatitudes_data.items() %}
+<section class="beatitude-section">
+    <h2>{{ category }}</h2>
+
+    {% for beatitude_name, beatitude in beatitudes.items() %}
+    <article class="beatitude-entry">
+        <h3 class="beatitude-name"><a href="/beatitudes/{{ beatitude_name|lower|replace(' ', '-')|replace("'", '') }}">{{ beatitude_name }}</a></h3>
+        <p class="beatitude-title">{{ beatitude.title }}</p>
+
+        <div class="beatitude-description">
+            {{ beatitude.description | safe }}
+        </div>
+
+        {% if beatitude.verses %}
+        <div class="verse-list">
+            {% for verse in beatitude.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3, section article h3');
+
+    headings.forEach((heading, index) => {
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
+{% endblock %}

@@ -17,6 +17,12 @@ from ..data import (
     WOMEN_DATA,
     FESTIVALS_DATA,
     FRUITS_DATA,
+    MIRACLES_DATA,
+    PRAYERS_DATA,
+    BEATITUDES_DATA,
+    TEN_COMMANDMENTS_DATA,
+    ARMOR_OF_GOD_DATA,
+    I_AM_STATEMENTS_DATA,
 )
 from ..utils.helpers import create_slug
 
@@ -557,6 +563,294 @@ def tetragrammaton_page(request: Request):
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Tetragrammaton", "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# MIRACLES OF JESUS
+# ============================================================================
+@router.get("/miracles-of-jesus", response_class=HTMLResponse)
+def miracles_page(request: Request):
+    """Miracles of Jesus page."""
+    return templates.TemplateResponse(
+            request,
+            "miracles.html",
+            {
+            "books": get_books(),
+            "miracles_data": MIRACLES_DATA,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Miracles of Jesus", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/miracles-of-jesus/{miracle_slug}", response_class=HTMLResponse)
+def miracle_detail(request: Request, miracle_slug: str):
+    """Individual miracle detail page."""
+    item, item_name, category_name = find_item_by_slug(MIRACLES_DATA, miracle_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Miracle not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Miracles of Jesus",
+            "back_url": "/miracles-of-jesus",
+            "back_text": "Miracles of Jesus",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Miracles of Jesus", "url": "/miracles-of-jesus"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# PRAYERS OF THE BIBLE
+# ============================================================================
+@router.get("/prayers-of-the-bible", response_class=HTMLResponse)
+def prayers_page(request: Request):
+    """Prayers of the Bible page."""
+    return templates.TemplateResponse(
+            request,
+            "prayers.html",
+            {
+            "books": get_books(),
+            "prayers_data": PRAYERS_DATA,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Prayers of the Bible", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/prayers-of-the-bible/{prayer_slug}", response_class=HTMLResponse)
+def prayer_detail(request: Request, prayer_slug: str):
+    """Individual prayer detail page."""
+    item, item_name, category_name = find_item_by_slug(PRAYERS_DATA, prayer_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Prayer not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Prayers of the Bible",
+            "back_url": "/prayers-of-the-bible",
+            "back_text": "Prayers of the Bible",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Prayers of the Bible", "url": "/prayers-of-the-bible"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# THE BEATITUDES
+# ============================================================================
+@router.get("/beatitudes", response_class=HTMLResponse)
+def beatitudes_page(request: Request):
+    """The Beatitudes page."""
+    return templates.TemplateResponse(
+            request,
+            "beatitudes.html",
+            {
+            "books": get_books(),
+            "beatitudes_data": BEATITUDES_DATA,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Beatitudes", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/beatitudes/{beatitude_slug}", response_class=HTMLResponse)
+def beatitude_detail(request: Request, beatitude_slug: str):
+    """Individual beatitude detail page."""
+    item, item_name, category_name = find_item_by_slug(BEATITUDES_DATA, beatitude_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Beatitude not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "The Beatitudes",
+            "back_url": "/beatitudes",
+            "back_text": "The Beatitudes",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Beatitudes", "url": "/beatitudes"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# THE TEN COMMANDMENTS
+# ============================================================================
+@router.get("/ten-commandments", response_class=HTMLResponse)
+def ten_commandments_page(request: Request):
+    """The Ten Commandments page."""
+    return templates.TemplateResponse(
+            request,
+            "ten_commandments.html",
+            {
+            "books": get_books(),
+            "commandments_data": TEN_COMMANDMENTS_DATA,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Ten Commandments", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/ten-commandments/{commandment_slug}", response_class=HTMLResponse)
+def commandment_detail(request: Request, commandment_slug: str):
+    """Individual commandment detail page."""
+    item, item_name, category_name = find_item_by_slug(TEN_COMMANDMENTS_DATA, commandment_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Commandment not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "The Ten Commandments",
+            "back_url": "/ten-commandments",
+            "back_text": "The Ten Commandments",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Ten Commandments", "url": "/ten-commandments"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# THE ARMOR OF GOD
+# ============================================================================
+@router.get("/armor-of-god", response_class=HTMLResponse)
+def armor_of_god_page(request: Request):
+    """The Armor of God page."""
+    return templates.TemplateResponse(
+            request,
+            "armor_of_god.html",
+            {
+            "books": get_books(),
+            "armor_data": ARMOR_OF_GOD_DATA,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Armor of God", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/armor-of-god/{armor_slug}", response_class=HTMLResponse)
+def armor_detail(request: Request, armor_slug: str):
+    """Individual armor piece detail page."""
+    item, item_name, category_name = find_item_by_slug(ARMOR_OF_GOD_DATA, armor_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Armor piece not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "The Armor of God",
+            "back_url": "/armor-of-god",
+            "back_text": "The Armor of God",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Armor of God", "url": "/armor-of-god"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# I AM STATEMENTS OF JESUS
+# ============================================================================
+@router.get("/i-am-statements", response_class=HTMLResponse)
+def i_am_statements_page(request: Request):
+    """I Am Statements of Jesus page."""
+    return templates.TemplateResponse(
+            request,
+            "i_am_statements.html",
+            {
+            "books": get_books(),
+            "statements_data": I_AM_STATEMENTS_DATA,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "I Am Statements", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/i-am-statements/{statement_slug}", response_class=HTMLResponse)
+def i_am_statement_detail(request: Request, statement_slug: str):
+    """Individual I Am statement detail page."""
+    item, item_name, category_name = find_item_by_slug(I_AM_STATEMENTS_DATA, statement_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Statement not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "I Am Statements",
+            "back_url": "/i-am-statements",
+            "back_text": "I Am Statements",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "I Am Statements", "url": "/i-am-statements"},
+                {"text": item_name, "url": None}
             ]
         }
     )

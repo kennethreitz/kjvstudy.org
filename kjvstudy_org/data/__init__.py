@@ -11,6 +11,12 @@ from .resources import (
     WOMEN_DATA,
     FESTIVALS_DATA,
     FRUITS_DATA,
+    MIRACLES_DATA,
+    PRAYERS_DATA,
+    BEATITUDES_DATA,
+    TEN_COMMANDMENTS_DATA,
+    ARMOR_OF_GOD_DATA,
+    I_AM_STATEMENTS_DATA,
 )
 
 __all__ = [
@@ -24,4 +30,10 @@ __all__ = [
     'WOMEN_DATA',
     'FESTIVALS_DATA',
     'FRUITS_DATA',
+    'MIRACLES_DATA',
+    'PRAYERS_DATA',
+    'BEATITUDES_DATA',
+    'TEN_COMMANDMENTS_DATA',
+    'ARMOR_OF_GOD_DATA',
+    'I_AM_STATEMENTS_DATA',
 ]

@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}I Am Statements of Jesus - KJV Study{% endblock %}
+{% block description %}Study the seven "I Am" statements of Jesus in John's Gospel - profound declarations revealing His divine nature and mission.{% endblock %}
+
+{% block head %}
+<style>
+.statement-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.statement-section:not(:first-of-type) {
+    border-top: 1px solid #eee;
+}
+
+.statement-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.statement-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.statement-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.statement-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.statement-title {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.statement-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid #ddd;
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.verse-ref a:hover {
+    border-bottom-color: #333;
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: #444;
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>I Am Statements of Jesus</h1>
+<p class="subtitle">Divine Self-Revelation in the Gospel of John</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
+
+<section>
+    <p class="intro-text"><span class="newthought">The "I Am" statements</span> of Jesus in John's Gospel constitute some of the most profound declarations in all of Scripture, revealing Christ's divine nature and saving mission.<label for="sn-iam" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-iam" class="margin-toggle"/>
+    <span class="sidenote">The Greek ἐγώ εἰμι (<em>ego eimi</em>), "I am," echoes the divine name revealed to Moses at the burning bush—אֶהְיֶה אֲשֶׁר אֶהְיֶה (<em>ehyeh asher ehyeh</em>), "I AM THAT I AM" (Exodus 3:14). Jesus' use of this construction made explicit claims to deity that His Jewish audience understood perfectly.</span> Each statement reveals a different aspect of who Christ is and what He offers to those who believe.</p>
+
+    <p class="intro-text">John organized his Gospel around these "signs" and declarations to prove that Jesus is "the Christ, the Son of God; and that believing ye might have life through his name" (John 20:31).<label for="sn-purpose" class="margin-toggle sidenote-number"></label>
+    <input type="checkbox" id="sn-purpose" class="margin-toggle"/>
+    <span class="sidenote">The seven "I Am" statements with predicates (Bread of Life, Light of the World, Door, Good Shepherd, Resurrection and Life, Way/Truth/Life, True Vine) each use vivid imagery to communicate spiritual truths. The absolute "I AM" statement in John 8:58 makes the most direct claim to deity.</span> Together, these declarations present a comprehensive portrait of Christ as the answer to every human need.</p>
+</section>
+
+{% for category, statements in statements_data.items() %}
+<section class="statement-section">
+    <h2>{{ category }}</h2>
+
+    {% for statement_name, statement in statements.items() %}
+    <article class="statement-entry">
+        <h3 class="statement-name"><a href="/i-am-statements/{{ statement_name|lower|replace(' ', '-')|replace("'", '')|replace(',', '') }}">{{ statement_name }}</a></h3>
+        <p class="statement-title">{{ statement.title }}</p>
+
+        <div class="statement-description">
+            {{ statement.description | safe }}
+        </div>
+
+        {% if statement.verses %}
+        <div class="verse-list">
+            {% for verse in statement.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.split(' ') %}
+                    {% if ref_parts|length >= 2 %}
+                        {% set chapter_verse = ref_parts[-1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set chapter = chapter_verse.split(':')[0] %}
+                            {% set verse_num = chapter_verse.split(':')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3, section article h3');
+
+    headings.forEach((heading, index) => {
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
+{% endblock %}
