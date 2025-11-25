@@ -16,6 +16,6 @@ jobs:
         with:
           version: "latest"
       - run: uv python install 3.13
-      - run: uv sync
+      - run: uv sync --extra dev
       - name: Run tests in parallel
         run: uv run pytest tests/ -n auto -v --tb=short
