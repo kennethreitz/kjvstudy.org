@@ -7,31 +7,81 @@
   "category": "Pauline Epistles (Pastoral)",
   "author": "Paul the Apostle",
   "date_written": "c. AD 63-65",
-  "introduction": "Titus parallels First Timothy—both instruct Paul's co-workers about establishing church order. Paul left Titus on Crete to appoint elders and address false teaching. The letter emphasizes how sound doctrine produces godly living. The gospel is not just truth to believe but grace that trains us for righteous living. Titus contains beautiful summaries of Christ's redemptive work and calls for good works as faith's proper fruit.",
+  "introduction": "Titus is Paul's field manual for planting healthy churches in a challenging culture. After his release from the first Roman imprisonment, Paul and Titus evangelized the island of Crete—an infamous stronghold of lying, violence, and self-indulgence. Paul moved on and left Titus behind to finish organizing the young congregations. The letter equips Titus to appoint qualified elders, silence false teachers, and demonstrate how sound doctrine produces beautiful lives.\n\nPaul interweaves practical instructions for every demographic group with soaring summaries of the appearing grace of God (2:11-14) and the saving kindness of the triune God (3:4-7). Grace does not excuse sin; it trains believers to deny ungodliness, live uprightly, and be zealous for good works while they await Christ's blessed appearing. In three short chapters, Titus shows how gospel doctrine builds gospel culture.",
   "key_themes": [
-    "Appointing qualified elders",
-    "Sound doctrine producing godly living",
-    "The grace of God that transforms",
-    "Good works as faith's evidence",
-    "Silencing false teachers",
-    "Living godly in this present age"
+    {
+      "theme": "Order and Leadership in the Church",
+      "description": "Titus must 'set in order' what remains and appoint elders in every city. Character, hospitality, self-control, and adherence to sound doctrine mark qualified overseers who can both encourage and refute (1:5-9)."
+    },
+    {
+      "theme": "Sound Doctrine Producing Sound Living",
+      "description": "True teaching must shape behavior. Older men and women, younger believers, and bondservants all receive discipleship tailored to their station so that God's word is not blasphemed (2:1-10)."
+    },
+    {
+      "theme": "Grace as Transforming Power",
+      "description": "The grace that brings salvation has appeared in Christ and actively trains believers to live self-controlled, righteous, hope-filled lives in this present age (2:11-14)."
+    },
+    {
+      "theme": "Good Works as Evidence of Faith",
+      "description": "Titus repeatedly stresses the necessity of good deeds—not for earning salvation but as proof of a people redeemed, purified, and zealous for service (2:14; 3:1,8,14)."
+    },
+    {
+      "theme": "Refuting False Teachers",
+      "description": "Cretan churches faced rebellious talkers devoted to myths and legalistic speculation. Titus must silence them sharply so that households are not overturned and the faith remains healthy (1:10-16; 3:9-11)."
+    },
+    {
+      "theme": "Hope of Christ's Appearing",
+      "description": "Believers live between the epiphanies of grace already revealed and glory yet to appear. Expectation of the blessed hope motivates holy lives and persevering service."
+    }
   ],
   "key_verses": [
-    {"reference": "Titus 1:5", "text": "For this cause left I thee in Crete, that thou shouldest set in order the things that are wanting, and ordain elders in every city, as I had appointed thee."},
-    {"reference": "Titus 2:11-14", "text": "For the grace of God that bringeth salvation hath appeared to all men, Teaching us that, denying ungodliness and worldly lusts, we should live soberly, righteously, and godly, in this present world; Looking for that blessed hope, and the glorious appearing of the great God and our Saviour Jesus Christ; Who gave himself for us, that he might redeem us from all iniquity, and purify unto himself a peculiar people, zealous of good works."},
-    {"reference": "Titus 3:4-7", "text": "But after that the kindness and love of God our Saviour toward man appeared, Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost; Which he shed on us abundantly through Jesus Christ our Saviour; That being justified by his grace, we should be made heirs according to the hope of eternal life."},
-    {"reference": "Titus 3:8", "text": "This is a faithful saying, and these things I will that thou affirm constantly, that they which have believed in God might be careful to maintain good works."}
+    {
+      "reference": "Titus 1:5",
+      "text": "For this cause left I thee in Crete, that thou shouldest set in order the things that are wanting, and ordain elders in every city, as I had appointed thee:",
+      "significance": "The programmatic statement for the letter—Titus must finish organizing the churches by appointing qualified leadership across the island."
+    },
+    {
+      "reference": "Titus 2:11-14",
+      "text": "For the grace of God that bringeth salvation hath appeared to all men, Teaching us that, denying ungodliness and worldly lusts, we should live soberly, righteously, and godly, in this present world; Looking for that blessed hope, and the glorious appearing of the great God and our Saviour Jesus Christ; Who gave himself for us, that he might redeem us from all iniquity, and purify unto himself a peculiar people, zealous of good works.",
+      "significance": "This densely packed paragraph links Christ's redeeming work, present sanctification, and future hope. Grace is both saving and tutoring grace."
+    },
+    {
+      "reference": "Titus 3:4-7",
+      "text": "But after that the kindness and love of God our Saviour toward man appeared, Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost; Which he shed on us abundantly through Jesus Christ our Saviour; That being justified by his grace, we should be made heirs according to the hope of eternal life.",
+      "significance": "The Trinitarian summary of salvation: the Father's kindness, the Spirit's regenerating work, and the Son's mediation secure justification and heirship."
+    },
+    {
+      "reference": "Titus 3:8",
+      "text": "This is a faithful saying, and these things I will that thou affirm constantly, that they which have believed in God might be careful to maintain good works. These things are good and profitable unto men.",
+      "significance": "Sound doctrine must be insisted upon so that believers devote themselves to good works that benefit their neighbors."
+    }
   ],
   "outline": [
-    {"section": "Introduction", "chapters": "1:1-4", "description": "Greeting and purpose"},
-    {"section": "Elders and False Teachers", "chapters": "1:5-16", "description": "Qualifications for elders, rebuke of deceivers"},
-    {"section": "Instructions for Groups", "chapters": "2:1-10", "description": "Older men and women, younger, servants"},
-    {"section": "The Grace of God", "chapters": "2:11-15", "description": "Grace appearing and training us"},
-    {"section": "Christian Conduct", "chapters": "3:1-11", "description": "Submission, kindness, avoiding divisions"},
-    {"section": "Conclusion", "chapters": "3:12-15", "description": "Personal instructions and farewell"}
+    {
+      "section": "Opening Greeting and Mission Statement (1:1-4)",
+      "chapters": "1:1-4",
+      "description": "Paul, God's servant and apostle, greets Titus and frames his task in terms of God's truth that accords with godliness."
+    },
+    {
+      "section": "Establishing Order and Silencing False Teachers (1:5-16)",
+      "chapters": "1:5-16",
+      "description": "Qualifications for elders, their teaching responsibilities, and sharp rebuke of Cretan deceivers obsessed with myths and commandments of men."
+    },
+    {
+      "section": "Discipleship for Every Group and the Appearing Grace (2:1-15)",
+      "chapters": "2",
+      "description": "Instructions for men, women, and slaves flow into the majestic summary of grace that trains believers while they await the blessed hope."
+    },
+    {
+      "section": "Gospel-Shaped Citizenship and Final Instructions (3:1-15)",
+      "chapters": "3",
+      "description": "Believers must submit to rulers, avoid quarrels, remember God's mercy, devote themselves to good works, reject divisive people, and assist fellow workers."
+    }
   ],
-  "historical_context": "Crete was a large Mediterranean island with a reputation for dishonesty and immorality (hence Paul's quotation of the Cretan prophet in 1:12). Paul had apparently evangelized there with Titus after his first Roman imprisonment. The churches needed organization and protection from false teachers promoting Jewish myths and legalism. Titus was to appoint elders and establish healthy church life.",
-  "literary_style": "Titus is compact and practical. Two profound theological passages (2:11-14; 3:4-7) summarize the gospel with unusual beauty—often called 'faithful sayings.' The letter ties doctrine tightly to practice: sound teaching produces sound living. Paul's instructions are organized by social groups and situations. The emphasis on good works is striking (mentioned six times in three chapters) as evidence of genuine faith.",
-  "christ_in_book": "The two gospel summaries present Christ magnificently. He is our great God and Savior whose glorious appearing we await. He gave Himself for us to redeem us from all iniquity and purify a people for His own possession. God our Savior saved us through the washing of regeneration, pouring out the Holy Spirit abundantly through Jesus Christ. We are justified by His grace and made heirs of eternal life.",
-  "practical_application": "Titus shows that grace does not lead to carelessness but trains us for godly living. Sound doctrine and good works are inseparable—faith that does not transform conduct is not genuine faith. The letter provides qualifications for church leaders that remain applicable. Various groups—old, young, employees—have specific callings. Christians should be subject to authorities, avoid quarrels, and be gentle. The gospel makes us 'zealous for good works.'"
+  "historical_context": "Crete was notorious even among pagan writers for deceit, piracy, and indulgence. Paul quotes a Cretan poet calling his countrymen 'liars, evil beasts, slow bellies' (1:12). After Paul's first Roman imprisonment (Acts 28), he and Titus evangelized there briefly. The fledgling congregations faced Judaizing teachers and needed stable leadership. Titus, a Gentile convert who had proven steadfast during the Jerusalem Council debate (Galatians 2), was the right man to implement reforms.",
+  "literary_style": "The letter is concise yet rich. It alternates between household codes, ecclesial qualifications, and theological doxology. Paul's rhetoric is sharp when confronting error yet pastoral when urging Titus to teach with gravity and integrity. Two 'faithful sayings' (3:8, likely also 3:4-7) echo early confessional material. The vocabulary emphasizes moderation, self-control, and what is 'good' or 'healthy.'",
+  "theological_significance": "Titus ties together justification, regeneration, sanctification, and good works. It presents one of the clearest Trinitarian statements of salvation and clarifies that good works are the fruit, not the root, of redemption. The letter demonstrates how church order, leadership, and doctrine work together so the church can be a counterculture of grace in a corrupt society.",
+  "christ_in_book": "Jesus Christ is the great God and Savior whose glory believers await. He gave Himself to redeem from every lawless deed and to purify a treasured people. Through Him the Spirit is poured out richly, and through Him believers become heirs. Christ's authority also undergirds Titus' teaching mandate—he speaks with apostolic backing.",
+  "relationship_to_new_testament": "Titus parallels First Timothy in its concern for elders, doctrine, and false teachers. Acts mentions Paul's voyage through Crete, and Galatians highlights Titus as an uncircumcised Gentile whom Paul defended in Jerusalem. The emphasis on good works anticipates James, while the description of grace training believers harmonizes with Romans 6 and Ephesians 2, where salvation by grace leads to works prepared beforehand. The letter also feeds into later catholic teaching on church order and creedal summaries of salvation.",
+  "practical_application": "Christians today still minister in cultures marked by deception and indulgence. Titus reminds us that theology must produce observable godliness. Churches need qualified, hospitable leaders and teaching tailored to every life stage. Believers should be exemplary citizens, ready for every good work, and eager to meet urgent needs. Grace trains us to say 'no' to sin and 'yes' to serving others while our eyes stay fixed on Christ's appearing."
 }

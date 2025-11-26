@@ -7,31 +7,91 @@
   "category": "Minor Prophets",
   "author": "Zechariah son of Berechiah",
   "date_written": "c. 520-480 BC",
-  "introduction": "Zechariah is the most messianic of the Minor Prophets and the most quoted in the Gospel passion narratives. Like Haggai, he encouraged temple rebuilding, but his message extends far beyond—through symbolic visions and oracles, he reveals God's ultimate purposes: the cleansing of His people, the coming of the King-Priest, and the establishment of God's kingdom over all the earth. Zechariah's visions bridge present discouragement and future glory.",
+  "introduction": "Zechariah ministers to the small, discouraged post-exilic community in Jerusalem. Two decades after returning from Babylon, the people had laid the temple's foundation, faced opposition, and stalled. Into that gloom, Zechariah floods the people with night visions, symbolic acts, and sweeping promises that God remembers (the meaning of Zechariah's name). The prophet pulls back the curtain so weary builders can see priests cleansed, leaders empowered, nations judged, and the Lord enthroned over all the earth.\n\nThe first eight chapters revolve around eight interconnected visions explained by an interpreting angel. They assure the remnant that God patrols the earth, restrains the nations, and will once again dwell in Zion. The final chapters (9-14) shift into oracles that leap forward to the coming of the humble King, the pierced shepherd, the fountain that washes away sin, and the climactic Day of the Lord. Zechariah links present obedience with future glory, sustaining faith with vivid pictures of Messiah's triumph.",
   "key_themes": [
-    "Encouragement for rebuilding",
-    "Visions of God's protection and purposes",
-    "The coming Branch (Messiah)",
-    "The union of king and priest",
-    "The outpouring of the Spirit",
-    "The Lord's return and reign"
+    {
+      "theme": "God's Presence with the Remnant",
+      "description": "Through visions of the measuring line and the man among myrtles, God promises to return to Zion, dwell with His people, and protect Jerusalem with a wall of fire (1:7-2:13)."
+    },
+    {
+      "theme": "Purification of Priesthood and People",
+      "description": "Joshua's filthy garments are replaced with clean robes (3:1-10), the lampstand is supplied with oil, and a cleansing fountain will be opened for sin and uncleanness (13:1)."
+    },
+    {
+      "theme": "The Branch: Priest-King Messiah",
+      "description": "Zechariah introduces the Branch who will build the temple of the LORD, sit as both priest and king, and unite the offices in perfect harmony (3:8; 6:12-13)."
+    },
+    {
+      "theme": "Not by Might but by the Spirit",
+      "description": "Zerubbabel's mountain-leveling task will be completed not by human strength but by God's Spirit, symbolized by the continual oil feeding the menorah (4:6-10)."
+    },
+    {
+      "theme": "Judgment and Salvation on the Day of the LORD",
+      "description": "The climactic chapters describe nations gathered against Jerusalem, God's intervention, mourning for the pierced one, and the LORD becoming king over all the earth (12-14)."
+    },
+    {
+      "theme": "True Religion versus Empty Ritual",
+      "description": "When delegates ask about continued fasting, God answers that He desires justice, mercy, and truth; future feasts will replace fasts when hearts are right (7-8)."
+    }
   ],
   "key_verses": [
-    {"reference": "Zechariah 4:6", "text": "Then he answered and spake unto me, saying, This is the word of the LORD unto Zerubbabel, saying, Not by might, nor by power, but by my spirit, saith the LORD of hosts."},
-    {"reference": "Zechariah 9:9", "text": "Rejoice greatly, O daughter of Zion; shout, O daughter of Jerusalem: behold, thy King cometh unto thee: he is just, and having salvation; lowly, and riding upon an ass, and upon a colt the foal of an ass."},
-    {"reference": "Zechariah 12:10", "text": "And I will pour upon the house of David, and upon the inhabitants of Jerusalem, the spirit of grace and of supplications: and they shall look upon me whom they have pierced, and they shall mourn for him."},
-    {"reference": "Zechariah 13:1", "text": "In that day there shall be a fountain opened to the house of David and to the inhabitants of Jerusalem for sin and for uncleanness."},
-    {"reference": "Zechariah 14:9", "text": "And the LORD shall be king over all the earth: in that day shall there be one LORD, and his name one."}
+    {
+      "reference": "Zechariah 1:3",
+      "text": "Therefore say thou unto them, Thus saith the LORD of hosts; Turn ye unto me, saith the LORD of hosts, and I will turn unto you, saith the LORD of hosts.",
+      "significance": "The book opens with covenant invitation. God's promises are linked to wholehearted repentance from the remnant."
+    },
+    {
+      "reference": "Zechariah 4:6-7",
+      "text": "Then he answered and spake unto me, saying, This is the word of the LORD unto Zerubbabel, saying, Not by might, nor by power, but by my spirit, saith the LORD of hosts. Who art thou, O great mountain? before Zerubbabel thou shalt become a plain:",
+      "significance": "Discouraged builders hear the gospel of grace: God's Spirit will accomplish what human strength cannot, leveling every obstacle to complete the temple."
+    },
+    {
+      "reference": "Zechariah 9:9",
+      "text": "Rejoice greatly, O daughter of Zion; shout, O daughter of Jerusalem: behold, thy King cometh unto thee: he is just, and having salvation; lowly, and riding upon an ass, and upon a colt the foal of an ass.",
+      "significance": "The messianic King arrives in humility, bringing salvation—fulfilled in Jesus' triumphal entry (Matthew 21:5)."
+    },
+    {
+      "reference": "Zechariah 12:10",
+      "text": "And I will pour upon the house of David, and upon the inhabitants of Jerusalem, the spirit of grace and of supplications: and they shall look upon me whom they have pierced, and they shall mourn for him.",
+      "significance": "God speaks as the one who will be pierced, promising a future outpouring of grace and repentance that leads to deep mourning over sin."
+    },
+    {
+      "reference": "Zechariah 14:9",
+      "text": "And the LORD shall be king over all the earth: in that day shall there be one LORD, and his name one.",
+      "significance": "The prophetic horizon ends with universal acknowledgment of Yahweh's kingship—hope for a world united in worship."
+    }
   ],
   "outline": [
-    {"section": "Call to Repentance", "chapters": "1:1-6", "description": "Return to the LORD"},
-    {"section": "Eight Night Visions", "chapters": "1:7-6:15", "description": "Horses, horns, measuring line, Joshua, lampstand, scroll, woman, chariots"},
-    {"section": "Fasting Question", "chapters": "7-8", "description": "Justice over fasting, future blessings"},
-    {"section": "First Oracle: King Coming", "chapters": "9-11", "description": "Victories, shepherds, rejection of the Shepherd"},
-    {"section": "Second Oracle: Final Triumph", "chapters": "12-14", "description": "Jerusalem's deliverance, mourning, fountain, the LORD's reign"}
+    {
+      "section": "Call to Return and Introduction (1:1-6)",
+      "chapters": "1:1-6",
+      "description": "Historical reminder of the fathers' disobedience and summons to repentance."
+    },
+    {
+      "section": "Eight Night Visions and Symbolic Acts (1:7-6:15)",
+      "chapters": "1:7-6:15",
+      "description": "Horses among myrtles, four horns, measuring line, Joshua's cleansing, the lampstand and olive trees, flying scroll, woman in the basket, and the chariots—culminating in the crowning of Joshua as a picture of the Branch."
+    },
+    {
+      "section": "Question about Fasting and Promised Restoration (7-8)",
+      "chapters": "7-8",
+      "description": "Delegation from Bethel asks about mourning fasts. God indicts empty ritual and promises future joy, justice, and nations seeking the LORD in Jerusalem."
+    },
+    {
+      "section": "First Oracle: The Coming King and Rejected Shepherd (9-11)",
+      "chapters": "9-11",
+      "description": "Judgment on surrounding nations, the humble king arriving, covenant broken, thirty pieces of silver, and the foolish shepherd."
+    },
+    {
+      "section": "Second Oracle: Jerusalem's Refinement and the LORD's Reign (12-14)",
+      "chapters": "12-14",
+      "description": "Siege of Jerusalem, outpouring of grace, smitten shepherd, cleansing fountain, final battle, living waters flowing from Jerusalem, and the LORD reigning as king."
+    }
   ],
-  "historical_context": "Zechariah was a contemporary of Haggai, prophesying from 520 BC onwards. The returned exiles were a small, vulnerable community in a corner of the Persian Empire. The temple was being rebuilt but would be modest compared to Solomon's. Zechariah's visions assured them that present smallness did not limit God's grand purposes. The book's later oracles may extend into the following decades.",
-  "literary_style": "Zechariah divides into two sections: the night visions with their angelic interpreter (1-8) and the oracles or 'burdens' (9-14). The visions are symbolic and sometimes bizarre (flying scrolls, women in baskets). The later chapters move toward apocalyptic imagery. The book is rich in dialogue and explanation. Messianic prophecy reaches unusual specificity—the king on a donkey, thirty pieces of silver, the pierced one.",
-  "christ_in_book": "Zechariah provides a detailed portrait of Christ: the Branch, both king and priest (6:12-13); the humble king entering Jerusalem on a donkey (9:9, fulfilled in Matthew 21:5); the shepherd valued at thirty pieces of silver (11:12-13, fulfilled in Matthew 27:9-10); the one whom they pierced (12:10, fulfilled at the cross and referenced in John 19:37); the smitten shepherd (13:7, quoted by Jesus in Matthew 26:31). The fountain for sin (13:1) pictures Christ's cleansing blood.",
-  "practical_application": "Zechariah encourages believers that God accomplishes His purposes 'not by might, nor by power, but by my Spirit.' Small beginnings don't prevent great endings. The book calls for genuine religion—justice and compassion, not empty ritual. It assures us that God has not forgotten His purposes and that present difficulties are part of a larger story ending in universal worship of the LORD. The vision of the pierced one mourned over models repentant faith."
+  "historical_context": "Zechariah began prophesying in the second year of Darius I (520 BC), the same period as Haggai (Ezra 5:1-2). The returned exiles were politically insignificant, surrounded by hostile neighbors, and tempted to give up building the temple. Persia ruled the region, and Jerusalem's walls still lay in ruins. Zechariah's visions assured the remnant that God had not abandoned His covenant, that angelic forces patrolled on their behalf, and that their labor fit into a cosmic plan culminating in Messiah's reign.",
+  "literary_style": "The first half of the book employs apocalyptic imagery, angelic interpreters, and symbolic actions reminiscent of Ezekiel. The second half shifts to prophetic oracles rich in messianic and eschatological language. Zechariah delights in wordplay (Joshua and Jeshua meaning 'Yahweh saves'), uses chiastic structures, and blends immediate encouragement with far-reaching prophecy.",
+  "theological_significance": "Zechariah unites priestly and royal motifs by presenting the Branch as both king and priest. It emphasizes the necessity of cleansing before service, the primacy of God's Spirit over human might, and the certainty of God's kingdom. The book develops themes of repentance, restoration, and the global scope of salvation, preparing hearts for the Messiah.",
+  "christ_in_book": "Few Old Testament books paint Christ so vividly: He is the Branch who builds God's temple, the humble King on a donkey, the Shepherd valued at thirty pieces of silver, the pierced one who provides a cleansing fountain, and the coming Lord whose feet stand on the Mount of Olives. Zechariah anticipates both Christ's first coming in humility and His future reign in glory.",
+  "relationship_to_new_testament": "Zechariah is quoted or alluded to repeatedly in the Gospels and Revelation. Matthew cites 9:9 for the triumphal entry and 11:12-13 regarding Judas's betrayal. John references 12:10 at the crucifixion, and Revelation echoes Zechariah's horsemen, lampstands, and measuring line imagery. The merger of priest and king in 6:12-13 undergirds Hebrews' presentation of Christ as high priest seated on the throne.",
+  "practical_application": "God encourages weary saints by pulling back the curtain on His purposes. Zechariah calls us to repentance, perseverance, and reliance on the Spirit rather than human strength. It reminds believers that present obedience participates in a larger story leading to Christ's kingdom. The promise that the Lord remembers fuels hope when progress seems small."
 }

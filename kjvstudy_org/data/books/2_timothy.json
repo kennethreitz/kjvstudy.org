@@ -7,30 +7,86 @@
   "category": "Pauline Epistles (Pastoral)",
   "author": "Paul the Apostle",
   "date_written": "c. AD 66-67",
-  "introduction": "Second Timothy is Paul's final letter, written from a Roman dungeon awaiting execution. It is the apostle's last will and testament to his spiritual son. Facing death, Paul passes the torch to Timothy—guard the gospel, endure suffering, preach the Word, complete your ministry. The letter is deeply personal, marked by loneliness, abandonment, yet unwavering confidence. Paul has fought the fight, finished the race, kept the faith.",
+  "introduction": "Second Timothy reads like a final will and testament. Paul writes from a cold Roman dungeon knowing that the imperial court will soon sentence him to death. Yet the letter overflows with confidence in Christ and affection for Timothy. Paul looks back on decades of gospel toil, names friends and deserters, and passes the torch to his younger coworker. He urges Timothy to guard the gospel deposit, fan into flame his gift, and join Paul in suffering for the sake of Christ.\n\nThe letter also looks forward. Paul warns that self-loving, truth-rejecting teachers will multiply, so Timothy must hold fast to the Scriptures and preach the Word in every season. He must entrust the gospel to reliable disciples who will teach others also. Paul models what finishing well looks like—he has fought the good fight, finished the race, and anticipates the crown that awaits all who love the Lord's appearing.",
   "key_themes": [
-    "Enduring suffering for the gospel",
-    "Guarding the gospel deposit",
-    "The inspiration and authority of Scripture",
-    "Faithfulness amid apostasy",
-    "Paul's final testimony",
-    "Passing the torch to the next generation"
+    {
+      "theme": "Guarding the Gospel Deposit",
+      "description": "Timothy must hold fast the pattern of sound words he heard from Paul and guard the good deposit through the Holy Spirit (1:13-14). The apostolic gospel is a treasure to be preserved intact and passed along faithfully, not reshaped to fit cultural pressure."
+    },
+    {
+      "theme": "Suffering and Endurance",
+      "description": "Paul repeatedly invites Timothy to share in suffering for the gospel (1:8; 2:3). True ministry resembles a loyal soldier, disciplined athlete, and hardworking farmer who endure hardship for the promised reward."
+    },
+    {
+      "theme": "Generational Discipleship",
+      "description": "Timothy is to entrust what he heard from Paul to faithful people who will teach others also (2:2). Gospel ministry is multi-generational stewardship, ensuring the message outlives any single leader."
+    },
+    {
+      "theme": "Scripture's Inspiration and Sufficiency",
+      "description": "In an age of deceptive teachers, Timothy must continue in the sacred writings. All Scripture is God-breathed and thoroughly equips the believer for every good work (3:14-17)."
+    },
+    {
+      "theme": "Faithfulness amid Apostasy",
+      "description": "Paul warns about the last days when people will be lovers of self, rejecting sound doctrine and surrounding themselves with teachers who scratch itching ears (3:1-9; 4:3-4). Timothy must stay sober-minded and fulfill his ministry regardless of others' decline."
+    },
+    {
+      "theme": "Finishing Well",
+      "description": "Paul's testimony in 4:6-8—having fought, finished, and kept the faith—embodies persevering hope. He rests secure that the righteous Judge will award a crown not only to him but to all who love Christ's appearing."
+    }
   ],
   "key_verses": [
-    {"reference": "2 Timothy 1:7", "text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind."},
-    {"reference": "2 Timothy 2:15", "text": "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."},
-    {"reference": "2 Timothy 3:16-17", "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: That the man of God may be perfect, throughly furnished unto all good works."},
-    {"reference": "2 Timothy 4:2", "text": "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine."},
-    {"reference": "2 Timothy 4:7-8", "text": "I have fought a good fight, I have finished my course, I have kept the faith: Henceforth there is laid up for me a crown of righteousness, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing."}
+    {
+      "reference": "2 Timothy 1:7-8",
+      "text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind. Be not thou therefore ashamed of the testimony of our Lord, nor of me his prisoner: but be thou partaker of the afflictions of the gospel according to the power of God;",
+      "significance": "Courage must replace fear. Timothy is to embrace suffering for the gospel because God's Spirit empowers him with love, discipline, and holy boldness."
+    },
+    {
+      "reference": "2 Timothy 1:13-14",
+      "text": "Hold fast the form of sound words, which thou hast heard of me, in faith and love which is in Christ Jesus. That good thing which was committed unto thee keep by the Holy Ghost which dwelleth in us.",
+      "significance": "The gospel is a 'good deposit' that must be guarded. Paul's charge defines apostolic succession not as office but as fidelity to the revealed message."
+    },
+    {
+      "reference": "2 Timothy 2:1-2",
+      "text": "Thou therefore, my son, be strong in the grace that is in Christ Jesus. And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also.",
+      "significance": "Here is the New Testament blueprint for multiplying disciples and teachers: grace-fueled strength, faithful transmission, and intentional training."
+    },
+    {
+      "reference": "2 Timothy 3:16-17",
+      "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: That the man of God may be perfect, throughly furnished unto all good works.",
+      "significance": "This foundational doctrine establishes the divine origin and comprehensive usefulness of Scripture for shaping God's servants."
+    },
+    {
+      "reference": "2 Timothy 4:7-8",
+      "text": "I have fought a good fight, I have finished my course, I have kept the faith: Henceforth there is laid up for me a crown of righteousness, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing.",
+      "significance": "Paul's final testimony embodies faithful perseverance and anchors the believer's hope in the righteous Judge who rewards steadfast love for His appearing."
+    }
   ],
   "outline": [
-    {"section": "Thanksgiving and Encouragement", "chapters": "1", "description": "Memories of Timothy, call to courage, Paul's example"},
-    {"section": "Charge to Faithful Ministry", "chapters": "2", "description": "Soldier, athlete, farmer metaphors; approved worker"},
-    {"section": "Warning About Last Days", "chapters": "3", "description": "Coming apostasy, Scripture's sufficiency"},
-    {"section": "Final Charge and Farewell", "chapters": "4", "description": "Preach the Word, Paul's situation, final greetings"}
+    {
+      "section": "Opening Blessing and Call to Courage (1:1-18)",
+      "chapters": "1",
+      "description": "Paul greets Timothy, remembers his sincere faith, and urges him to fan into flame his gift, share in suffering, and guard the gospel despite widespread desertion."
+    },
+    {
+      "section": "Pictures of Faithful Ministry (2:1-26)",
+      "chapters": "2",
+      "description": "Strengthened by grace, Timothy must train others, endure hardship like a soldier, athlete, and farmer, avoid quarrels, rightly handle the word, and pursue purity as a vessel for honorable use."
+    },
+    {
+      "section": "Perilous Times and Scripture's Power (3:1-17)",
+      "chapters": "3",
+      "description": "Paul describes last-days depravity, contrasts counterfeit teachers with his own example, and urges Timothy to continue in the inspired Scriptures that alone equip for godliness."
+    },
+    {
+      "section": "Final Charge and Personal Matters (4:1-22)",
+      "chapters": "4",
+      "description": "In the presence of God, Timothy must preach the Word, endure opposition, and fulfill his ministry. Paul testifies to finishing his race, reports on companions, requests Timothy's visit, and closes with benediction."
+    }
   ],
-  "historical_context": "Paul wrote during his second Roman imprisonment, different from the house arrest in Acts 28. Nero's persecution following the AD 64 fire made Christianity dangerous. Paul was in a dungeon, cold, lonely, and abandoned by most friends. He expected imminent execution ('the time of my departure is at hand'). This letter represents his final words to his beloved disciple Timothy.",
-  "literary_style": "Second Timothy is the most personal of the Pastoral Epistles. Paul reminisces, expresses loneliness, requests his cloak and books, names those who have abandoned or helped him. The imagery is vivid—soldier, athlete, farmer, vessel, workman. The tone alternates between tender encouragement and urgent exhortation. The letter builds to Paul's triumphant testimony (4:6-8), a fitting conclusion to a remarkable ministry.",
-  "christ_in_book": "Christ Jesus abolished death and brought life and immortality to light through the gospel. He is the risen one of David's seed. He is the one who will judge the living and dead at His appearing. The Lord stood with Paul when others abandoned him. There is a crown of righteousness for all who love His appearing. Christ's grace is with Timothy's spirit.",
-  "practical_application": "Second Timothy challenges believers to endure suffering for the gospel without shame. Scripture is God-breathed and equips us for every good work. We must preach the Word in season and out of season, even when people prefer myths. The letter warns that the last days bring difficult times and religious pretenders. Paul's example inspires us to finish well—fighting the fight, finishing the course, keeping the faith. The crown awaits all who love Christ's appearing."
+  "historical_context": "Paul wrote during his second Roman imprisonment under Nero, probably around AD 66-67 after a renewed wave of persecution. Unlike his earlier house arrest (Acts 28), he now languishes in a dungeon, chained like a criminal and largely abandoned. Many Asian coworkers had turned away, and only a faithful remnant remained. Paul expected imminent execution and urgently summoned Timothy to Rome before winter with Mark, his cloak, and the Scriptures.",
+  "literary_style": "Second Timothy is the most intimate of the Pastoral Epistles. The tone combines exhortation, memoir, and personal correspondence. Paul weaves together metaphors (soldier, athlete, farmer, workman, vessel), trustworthy sayings, and liturgical fragments. The writing alternates between doctrinal clarity and heartfelt pleas, producing a moving farewell sermon to a beloved protégé.",
+  "theological_significance": "The letter crystallizes core doctrines of Christian ministry: the gospel is a sacred trust handed down the generations; suffering is normal rather than exceptional; and the written Word is divinely breathed, fully sufficient to shape the church. Paul frames salvation history around Christ's appearing (1:10; 4:1,8) and highlights the Spirit's enabling presence even when human support collapses.",
+  "christ_in_book": "Christ Jesus abolished death and brought life and immortality to light. He is the risen descendant of David for whom Paul suffers imprisonment. Christ will judge the living and the dead at His appearing and kingdom. The Lord stood with Paul when all forsook him and will deliver him safely into His heavenly kingdom. Timothy's strength and hope rest in union with Christ.",
+  "relationship_to_new_testament": "Second Timothy complements First Timothy and Titus by showing the cost of maintaining sound doctrine. It draws together themes from Acts (Paul's sufferings), Philippians (sharing in Christ's sufferings), and the broader New Testament emphasis on persevering amid false teaching. The testimony about Scripture's inspiration undergirds the canon for every later writer and church. Paul's expectation of reward ties into Revelation's crowns and the expectation of Christ's appearing expressed throughout the epistles.",
+  "practical_application": "Believers today must resist shame, suffer for the gospel if necessary, and guard the truth entrusted to us. Ministry requires multiplying disciples, rightly handling Scripture, and living holy lives amid a culture that rejects truth. Paul's transparent longing and fearless hope challenge us to finish our race with eyes on the righteous Judge who will keep us until that Day."
 }
