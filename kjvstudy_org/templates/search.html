@@ -324,18 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Verses
-            if (results.verses && results.verses.length > 0) {
-                html += '<div class="search-result-category">Verses</div>';
-                results.verses.forEach(function(verse) {
-                    currentResults.push(verse.url);
-                    html += '<a href="' + verse.url + '" class="search-result-item">';
-                    html += '<div class="search-result-title">' + verse.reference + '</div>';
-                    html += '<div class="search-result-subtitle">' + verse.text + '</div>';
-                    html += '</a>';
-                });
-            }
-
             // Topics
             if (results.topics && results.topics.length > 0) {
                 html += '<div class="search-result-category">Topics</div>';
@@ -347,6 +335,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
+            // Resources
+            if (results.resources && results.resources.length > 0) {
+                html += '<div class="search-result-category">Resources</div>';
+                results.resources.forEach(function(resource) {
+                    currentResults.push(resource.url);
+                    html += '<a href="' + resource.url + '" class="search-result-item">';
+                    html += '<div class="search-result-title">' + resource.name + '</div>';
+                    html += '</a>';
+                });
+            }
+
             // Stories
             if (results.stories && results.stories.length > 0) {
                 html += '<div class="search-result-category">Stories</div>';
@@ -354,6 +353,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     currentResults.push(story.url);
                     html += '<a href="' + story.url + '" class="search-result-item">';
                     html += '<div class="search-result-title">' + story.title + '</div>';
+                    html += '</a>';
+                });
+            }
+
+            // Verses (at the end)
+            if (results.verses && results.verses.length > 0) {
+                html += '<div class="search-result-category">Verses</div>';
+                results.verses.forEach(function(verse) {
+                    currentResults.push(verse.url);
+                    html += '<a href="' + verse.url + '" class="search-result-item">';
+                    html += '<div class="search-result-title">' + verse.reference + '</div>';
+                    html += '<div class="search-result-subtitle">' + verse.text + '</div>';
                     html += '</a>';
                 });
             }

@@ -172,6 +172,53 @@ def universal_search_api(
     if matching_plans:
         results["plans"] = matching_plans
 
+    # Search resources (theological studies, biblical figures, etc.)
+    resources_to_search = [
+        ("trinity", "/trinity", "The Trinity"),
+        ("christology", "/christology", "Christology"),
+        ("soteriology", "/soteriology", "Soteriology"),
+        ("pneumatology", "/pneumatology", "Pneumatology"),
+        ("eschatology", "/eschatology", "Eschatology"),
+        ("ecclesiology", "/ecclesiology", "Ecclesiology"),
+        ("types_and_shadows", "/types-and-shadows", "Types and Shadows"),
+        ("messianic_prophecies", "/messianic-prophecies", "Messianic Prophecies"),
+        ("blood_in_scripture", "/blood-in-scripture", "The Blood in Scripture"),
+        ("kingdom_of_god", "/kingdom-of-god", "The Kingdom of God"),
+        ("names_of_christ", "/names-of-christ", "Names of Christ"),
+        ("spirits_and_demons", "/spirits-and-demons", "Spirits and Demons"),
+        ("personifications", "/personifications", "Personifications"),
+        ("angels", "/biblical-angels", "Biblical Angels"),
+        ("prophets", "/biblical-prophets", "Biblical Prophets"),
+        ("names", "/names-of-god", "Names of God"),
+        ("parables", "/parables", "Parables of Jesus"),
+        ("covenants", "/biblical-covenants", "Biblical Covenants"),
+        ("apostles", "/the-twelve-apostles", "The Twelve Apostles"),
+        ("women", "/women-of-the-bible", "Women of the Bible"),
+        ("festivals", "/biblical-festivals", "Biblical Festivals"),
+        ("fruits", "/fruits-of-the-spirit", "Fruits of the Spirit"),
+        ("miracles", "/miracles-of-jesus", "Miracles of Jesus"),
+        ("prayers", "/prayers-of-the-bible", "Prayers of the Bible"),
+        ("beatitudes", "/beatitudes", "The Beatitudes"),
+        ("ten_commandments", "/ten-commandments", "Ten Commandments"),
+        ("armor_of_god", "/armor-of-god", "Armor of God"),
+        ("i_am_statements", "/i-am-statements", "I Am Statements"),
+        ("tetragrammaton", "/tetragrammaton", "The Tetragrammaton"),
+        ("timeline", "/biblical-timeline", "Biblical Timeline"),
+        ("family_tree", "/family-tree", "Biblical Genealogies"),
+        ("genealogy", "/family-tree", "Biblical Genealogies"),
+        ("interlinear", "/interlinear", "Interlinear Bible"),
+        ("concordance", "/concordance", "Concordance"),
+        ("study_guides", "/study-guides", "Study Guides"),
+        ("maps", "/maps", "Bible Maps"),
+    ]
+    matching_resources = [
+        {"name": name, "url": url}
+        for key, url, name in resources_to_search
+        if query in key.lower() or query in name.lower()
+    ][:limit]
+    if matching_resources:
+        results["resources"] = matching_resources
+
     return {"query": q, "results": results}
 
 

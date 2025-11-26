@@ -558,6 +558,7 @@ var categoryLabels = {
     books: 'Books',
     verses: 'Verses',
     topics: 'Topics',
+    resources: 'Resources',
     stories: 'Stories',
     plans: 'Reading Plans'
 };
@@ -651,7 +652,7 @@ function renderResults(data, query) {
     }
 
     // Render each category
-    var categories = ['books', 'verses', 'topics', 'stories', 'plans'];
+    var categories = ['books', 'topics', 'resources', 'stories', 'plans', 'verses'];
     categories.forEach(function(cat) {
         if (results[cat] && results[cat].length > 0) {
             html += '<div class="lookup-result-category">' + categoryLabels[cat] + '</div>';

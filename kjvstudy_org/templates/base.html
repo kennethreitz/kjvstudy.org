@@ -1419,6 +1419,7 @@
           books: 'Books',
           verses: 'Verses',
           topics: 'Topics',
+          resources: 'Resources',
           stories: 'Stories',
           plans: 'Reading Plans'
         };
@@ -1445,8 +1446,10 @@
           if (Object.keys(results).length === 0 && !verseUrl) {
             html = '<div class="search-no-results">No results found</div>';
           } else {
-            for (var category in results) {
-              if (results[category].length > 0) {
+            // Render categories in specific order: books, topics, resources, stories, plans, verses
+            var categoryOrder = ['books', 'topics', 'resources', 'stories', 'plans', 'verses'];
+            categoryOrder.forEach(function(category) {
+              if (results[category] && results[category].length > 0) {
                 html += '<div class="search-results-category">';
                 html += '<div class="search-results-category-title">' + (categoryLabels[category] || category) + '</div>';
 
@@ -1465,7 +1468,7 @@
 
                 html += '</div>';
               }
-            }
+            });
 
             // Add "View all results" link
             html += '<a href="/search?q=' + encodeURIComponent(data.query) + '" class="search-view-all">View all verse results →</a>';
