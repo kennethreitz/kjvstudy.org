@@ -346,9 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {% if book_intro and book_intro.introduction %}
 <section>
     <h2>Introduction</h2>
-    {% for paragraph in book_intro.introduction.split('\n\n') %}
-    <p>{{ paragraph }}</p>
-    {% endfor %}
+    {{ book_intro.introduction|md|safe }}
 </section>
 {% elif introduction %}
 <section>
@@ -412,9 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {% if book_intro and book_intro.historical_context %}
 <section>
     <h2>Historical Context</h2>
-    {% for paragraph in book_intro.historical_context.split('\n\n') %}
-    <p>{{ paragraph }}</p>
-    {% endfor %}
+    {{ book_intro.historical_context|md|safe }}
 </section>
 {% elif historical_context %}
 <section>
