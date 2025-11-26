@@ -163,6 +163,12 @@ def study_guides_page(request: Request):
                 "description": "The covenants as the framework of redemptive history",
                 "slug": "covenant-theology",
                 "verses": ["Genesis 3:15", "Genesis 17:7", "Jeremiah 31:31-34", "Hebrews 8:6"]
+            },
+            {
+                "title": "Spirits & Demons",
+                "description": "The biblical teaching on unclean spirits and spiritual warfare",
+                "slug": "spirits-demons",
+                "verses": ["Mark 5:9", "Ephesians 6:12", "1 John 4:1", "James 2:19"]
             }
         ],
         "Thematic Studies": [
@@ -1261,6 +1267,47 @@ def study_guide_detail(request: Request, slug: str):
                     "title": "The Lamb on the Throne",
                     "verses": ["Revelation 5:9-10", "Revelation 7:14", "Revelation 12:11", "Revelation 19:13"],
                     "content": "The book of Revelation consummates the scarlet thread, revealing the slain Lamb enthroned in glory, His blood-bought people worshipping forever. 'Thou wast slain, and hast redeemed us to God by thy blood out of every kindred, and tongue, and people, and nation; and hast made us unto our God kings and priests: and we shall reign on the earth.' The great multitude before the throne have washed their robes, and made them white in the blood of the Lamb. The saints overcome Satan by the blood of the Lamb, and by the word of their testimony. Christ returns clothed with a vesture dipped in blood: and his name is called The Word of God. Heaven's worship centers on the Lamb who was slain—His death is eternally remembered, His blood eternally celebrated. The scarlet thread that began with promise in Eden ends with praise in the New Jerusalem. From the first animal killed to clothe Adam and Eve to the Lamb standing as though slain in heaven's throne room, redemption through blood is Scripture's grand theme. Creation, fall, promise, sacrifice, fulfillment, consummation—every page is stained with the blood that cleanses from sin and purchases a people for God's eternal praise."
+                }
+            ]
+        },
+        "spirits-demons": {
+            "title": "Spirits & Demons",
+            "description": "The biblical teaching on unclean spirits and spiritual warfare",
+            "sections": [
+                {
+                    "title": "The Reality of Evil Spirits",
+                    "verses": ["Ephesians 6:12", "1 Peter 5:8", "Job 1:6-7", "2 Corinthians 4:4"],
+                    "content": "Scripture unambiguously affirms the existence of evil spirits—fallen angels who rebelled against God and now oppose His purposes. 'We wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places.' Your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour. Satan presented himself among the sons of God, going to and fro in the earth. The god of this world hath blinded the minds of them which believe not. These are not metaphors for psychological states or social evils but personal spiritual beings with intelligence, will, and malevolent purpose. They are organized hierarchically under Satan's leadership. While Scripture does not satisfy our curiosity about their origin, nature, or precise activities, it clearly teaches their reality and warns against their schemes. Denial of spiritual evil leaves believers vulnerable; obsession with demons distracts from Christ. The biblical balance acknowledges their reality while focusing on the victory already won."
+                },
+                {
+                    "title": "Satan: The Adversary",
+                    "verses": ["Isaiah 14:12-15", "Ezekiel 28:12-17", "Revelation 12:9", "John 8:44"],
+                    "content": "Satan, the chief of demons, is a fallen angel of great power and cunning who leads the rebellion against God. Isaiah's lament over the king of Babylon glimpses behind the earthly ruler to his spiritual master: 'How art thou fallen from heaven, O Lucifer, son of the morning! For thou hast said in thine heart, I will ascend into heaven, I will exalt my throne above the stars of God... I will be like the most High.' Ezekiel similarly addresses the prince of Tyre while describing one who was in Eden, perfect in beauty, until iniquity was found in him. That ancient serpent, called the Devil and Satan, deceives the whole world. Jesus said of him, 'He was a murderer from the beginning, and abode not in the truth, because there is no truth in him... he is a liar, and the father of it.' Satan's names reveal his character: Satan means 'adversary,' Devil means 'slanderer,' he is the tempter, the accuser of the brethren, the prince of this world. Yet he is a creature, not a second god—powerful but limited, active but restrained, doomed to ultimate defeat."
+                },
+                {
+                    "title": "Demon Possession in the Gospels",
+                    "verses": ["Mark 5:2-13", "Matthew 12:43-45", "Luke 8:2", "Mark 1:23-26"],
+                    "content": "The Gospels record numerous encounters between Jesus and demon-possessed individuals, demonstrating both the reality of demonic oppression and Christ's absolute authority over evil spirits. The Gadarene demoniac was possessed by many demons: 'My name is Legion: for we are many.' They tormented him terribly—he lived among tombs, crying out, cutting himself, possessing supernatural strength to break chains. Yet at Jesus' word, they immediately obeyed, entering the swine and perishing. When an unclean spirit leaves a man, it seeks rest; finding none, it returns with seven spirits more wicked, and the last state is worse than the first. Mary Magdalene had been delivered from seven devils. In the synagogue, a man with an unclean spirit cried out, recognizing Jesus: 'I know thee who thou art, the Holy One of God.' Jesus rebuked him, commanding, 'Hold thy peace, and come out of him.' The demons knew Jesus' identity, feared His judgment, and obeyed His commands instantly. His exorcisms authenticated His messiahship and demonstrated the arrival of God's kingdom."
+                },
+                {
+                    "title": "Christ's Victory Over Demons",
+                    "verses": ["Colossians 2:15", "Hebrews 2:14", "1 John 3:8", "Luke 10:18"],
+                    "content": "Through His death and resurrection, Christ decisively defeated Satan and his demons, stripping them of their ultimate power. 'Having spoiled principalities and powers, he made a shew of them openly, triumphing over them in it.' Through death he destroyed him that had the power of death, that is, the devil; and delivered them who through fear of death were all their lifetime subject to bondage. For this purpose the Son of God was manifested, that he might destroy the works of the devil. Jesus declared, 'I beheld Satan as lightning fall from heaven.' The cross was not Satan's victory but his defeat—what appeared to be Christ's humiliation was actually the enemy's overthrow. Satan's accusations are silenced by Christ's atoning blood. Death's sting is removed by resurrection. The strong man has been bound by a stronger. While demons remain active in this present age, they are defeated foes fighting a rearguard action against an outcome already determined. Believers share in Christ's victory; we overcome by the blood of the Lamb."
+                },
+                {
+                    "title": "Spiritual Warfare",
+                    "verses": ["Ephesians 6:10-18", "2 Corinthians 10:3-5", "James 4:7", "1 John 4:4"],
+                    "content": "Believers are called to stand firm against demonic opposition, armed with spiritual weapons provided by God. 'Be strong in the Lord, and in the power of his might. Put on the whole armour of God, that ye may be able to stand against the wiles of the devil.' The weapons of our warfare are not carnal, but mighty through God to the pulling down of strong holds, casting down imaginations and every high thing that exalteth itself against the knowledge of God. Submit yourselves therefore to God. Resist the devil, and he will flee from you. Greater is he that is in you, than he that is in the world. The armor includes truth, righteousness, the gospel of peace, faith, salvation, the Word of God, and prayer. Note that all pieces are defensive except the sword of the Spirit (Scripture)—our calling is to stand, not to attack. We do not seek demons to fight; we stand against their attacks. Victory comes through Christ's finished work appropriated by faith, the Word of God applied to specific temptations, and persistent prayer. We need not fear demons; neither should we be fascinated by them. Our focus is Christ, not Satan."
+                },
+                {
+                    "title": "Testing the Spirits",
+                    "verses": ["1 John 4:1-3", "2 Corinthians 11:14", "1 Timothy 4:1", "Matthew 24:24"],
+                    "content": "Scripture warns that demons deceive through false teaching and counterfeit spirituality, requiring believers to exercise discernment. 'Beloved, believe not every spirit, but try the spirits whether they are of God: because many false prophets are gone out into the world. Hereby know ye the Spirit of God: Every spirit that confesseth that Jesus Christ is come in the flesh is of God.' Satan himself is transformed into an angel of light; no wonder his ministers appear as ministers of righteousness. In latter times some shall depart from the faith, giving heed to seducing spirits, and doctrines of devils. False Christs and false prophets shall shew great signs and wonders, to deceive if possible even the elect. Demonic deception operates through false religions, heretical teaching within the church, counterfeit spiritual experiences, and occult practices. The test is always doctrinal: What does this teaching say about Christ? Experiences, miracles, and apparent spiritual power prove nothing apart from sound doctrine. The Spirit of truth leads to the Christ of Scripture; spirits that deny or diminish Christ are not from God."
+                },
+                {
+                    "title": "Demons' Final Doom",
+                    "verses": ["Matthew 25:41", "Revelation 20:10", "2 Peter 2:4", "Jude 1:6"],
+                    "content": "Scripture reveals that demons face certain and eternal judgment—the lake of fire was prepared specifically for Satan and his angels. 'Depart from me, ye cursed, into everlasting fire, prepared for the devil and his angels.' The devil that deceived them was cast into the lake of fire and brimstone, where the beast and the false prophet are, and shall be tormented day and night for ever and ever. God spared not the angels that sinned, but cast them down to hell, and delivered them into chains of darkness, to be reserved unto judgment. The angels which kept not their first estate, but left their own habitation, he hath reserved in everlasting chains under darkness unto the judgment of the great day. Demons know their doom is certain; they asked Jesus, 'Art thou come hither to torment us before the time?' Their present activity is that of condemned criminals awaiting execution. This certain judgment assures believers that evil will not triumph, that justice will be done, and that the spiritual war, however fierce now, has an ending already written. Maranatha—the Lord comes, and with Him, the end of all demonic opposition."
                 }
             ]
         }

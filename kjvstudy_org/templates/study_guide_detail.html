@@ -135,13 +135,18 @@ document.addEventListener('DOMContentLoaded', function() {
 <h1>{{ guide.title }}</h1>
 <p class="subtitle">{{ guide.description }}</p>
 
-<section>
-    <p><span class="newthought">{{ guide.description }}</span></p>
-</section>
+<nav class="toc">
+    <h2>Contents</h2>
+    <ul>
+        {% for section in guide.sections %}
+        <li><a href="#section-{{ loop.index }}">{{ section.title }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
 
 {% for section in guide.sections %}
 {% set section_index = loop.index %}
-<section>
+<section id="section-{{ section_index }}">
     <h2>{{ section.title }}</h2>
 
     {% for verse_data in section.verse_texts %}
