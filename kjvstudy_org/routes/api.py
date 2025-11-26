@@ -116,13 +116,49 @@ def universal_search_api(
     query = q.strip().lower()
     results = {}
 
-    # Search Bible books
+    # Search Bible books (with common synonyms/misspellings)
+    book_synonyms = {
+        "song of songs": "Song of Solomon",
+        "canticles": "Song of Solomon",
+        "revelations": "Revelation",
+        "apocalypse": "Revelation",
+        "psalters": "Psalms",
+        "proverb": "Proverbs",
+        "ecclesiast": "Ecclesiastes",
+        "lament": "Lamentations",
+        "phil": "Philippians",
+        "1 sam": "1 Samuel",
+        "2 sam": "2 Samuel",
+        "1 kin": "1 Kings",
+        "2 kin": "2 Kings",
+        "1 chron": "1 Chronicles",
+        "2 chron": "2 Chronicles",
+        "1 cor": "1 Corinthians",
+        "2 cor": "2 Corinthians",
+        "1 thess": "1 Thessalonians",
+        "2 thess": "2 Thessalonians",
+        "1 tim": "1 Timothy",
+        "2 tim": "2 Timothy",
+        "1 pet": "1 Peter",
+        "2 pet": "2 Peter",
+        "1 joh": "1 John",
+        "2 joh": "2 John",
+        "3 joh": "3 John",
+    }
     all_books = bible.get_books()
-    matching_books = [
-        {"name": book, "url": f"/book/{book}"}
-        for book in all_books
-        if query in book.lower()
-    ][:limit]
+    matching_books = []
+
+    # Check for synonym matches first
+    for synonym, book_name in book_synonyms.items():
+        if query in synonym and book_name not in [b["name"] for b in matching_books]:
+            matching_books.append({"name": book_name, "url": f"/book/{book_name}"})
+
+    # Then check direct book name matches
+    for book in all_books:
+        if query in book.lower() and book not in [b["name"] for b in matching_books]:
+            matching_books.append({"name": book, "url": f"/book/{book}"})
+
+    matching_books = matching_books[:limit]
     if matching_books:
         results["books"] = matching_books
 
@@ -174,41 +210,79 @@ def universal_search_api(
 
     # Search resources (theological studies, biblical figures, etc.)
     resources_to_search = [
-        ("trinity", "/trinity", "The Trinity"),
-        ("christology", "/christology", "Christology"),
-        ("soteriology", "/soteriology", "Soteriology"),
-        ("pneumatology", "/pneumatology", "Pneumatology"),
-        ("eschatology", "/eschatology", "Eschatology"),
-        ("ecclesiology", "/ecclesiology", "Ecclesiology"),
-        ("types_and_shadows", "/types-and-shadows", "Types and Shadows"),
-        ("messianic_prophecies", "/messianic-prophecies", "Messianic Prophecies"),
-        ("blood_in_scripture", "/blood-in-scripture", "The Blood in Scripture"),
-        ("kingdom_of_god", "/kingdom-of-god", "The Kingdom of God"),
-        ("names_of_christ", "/names-of-christ", "Names of Christ"),
-        ("spirits_and_demons", "/spirits-and-demons", "Spirits and Demons"),
-        ("personifications", "/personifications", "Personifications"),
-        ("angels", "/biblical-angels", "Biblical Angels"),
-        ("prophets", "/biblical-prophets", "Biblical Prophets"),
-        ("names", "/names-of-god", "Names of God"),
-        ("parables", "/parables", "Parables of Jesus"),
-        ("covenants", "/biblical-covenants", "Biblical Covenants"),
-        ("apostles", "/the-twelve-apostles", "The Twelve Apostles"),
-        ("women", "/women-of-the-bible", "Women of the Bible"),
-        ("festivals", "/biblical-festivals", "Biblical Festivals"),
-        ("fruits", "/fruits-of-the-spirit", "Fruits of the Spirit"),
-        ("miracles", "/miracles-of-jesus", "Miracles of Jesus"),
-        ("prayers", "/prayers-of-the-bible", "Prayers of the Bible"),
-        ("beatitudes", "/beatitudes", "The Beatitudes"),
-        ("ten_commandments", "/ten-commandments", "Ten Commandments"),
-        ("armor_of_god", "/armor-of-god", "Armor of God"),
-        ("i_am_statements", "/i-am-statements", "I Am Statements"),
-        ("tetragrammaton", "/tetragrammaton", "The Tetragrammaton"),
-        ("timeline", "/biblical-timeline", "Biblical Timeline"),
-        ("family_tree genealogy", "/family-tree", "Biblical Genealogies"),
-        ("interlinear", "/interlinear", "Interlinear Bible"),
-        ("concordance", "/concordance", "Concordance"),
+        # Theological studies with synonyms
+        ("trinity godhead three persons father son spirit", "/trinity", "The Trinity"),
+        ("christology jesus christ lord savior messiah", "/christology", "Christology"),
+        ("soteriology salvation saved redemption atonement", "/soteriology", "Soteriology"),
+        ("pneumatology holy spirit ghost comforter paraclete", "/pneumatology", "Pneumatology"),
+        ("eschatology end times last days rapture tribulation millennium", "/eschatology", "Eschatology"),
+        ("ecclesiology church body believers congregation", "/ecclesiology", "Ecclesiology"),
+        ("types_and_shadows typology foreshadow prefigure", "/types-and-shadows", "Types and Shadows"),
+        ("messianic_prophecies prophecy predictions foretold", "/messianic-prophecies", "Messianic Prophecies"),
+        ("blood_in_scripture sacrifice atonement covering", "/blood-in-scripture", "The Blood in Scripture"),
+        ("kingdom_of_god reign throne rule", "/kingdom-of-god", "The Kingdom of God"),
+        ("names_of_christ jesus titles lord savior", "/names-of-christ", "Names of Christ"),
+        ("spirits_and_demons devils satan evil unclean", "/spirits-and-demons", "Spirits and Demons"),
+        ("personifications wisdom folly death", "/personifications", "Personifications"),
+        ("angels cherubim seraphim michael gabriel", "/biblical-angels", "Biblical Angels"),
+        ("prophets elijah elisha isaiah jeremiah ezekiel daniel", "/biblical-prophets", "Biblical Prophets"),
+        ("names_of_god yahweh jehovah el shaddai adonai", "/names-of-god", "Names of God"),
+        ("parables stories teachings", "/parables", "Parables of Jesus"),
+        ("covenants abrahamic mosaic davidic new", "/biblical-covenants", "Biblical Covenants"),
+        ("apostles disciples twelve peter james john", "/the-twelve-apostles", "The Twelve Apostles"),
+        ("women ruth esther mary martha rahab", "/women-of-the-bible", "Women of the Bible"),
+        ("festivals passover pentecost tabernacles feast", "/biblical-festivals", "Biblical Festivals"),
+        ("fruits love joy peace patience kindness goodness faithfulness gentleness self-control", "/fruits-of-the-spirit", "Fruits of the Spirit"),
+        ("miracles healing signs wonders", "/miracles-of-jesus", "Miracles of Jesus"),
+        ("prayers lord's prayer model", "/prayers-of-the-bible", "Prayers of the Bible"),
+        ("beatitudes blessed sermon mount", "/beatitudes", "The Beatitudes"),
+        ("ten_commandments decalogue law sinai", "/ten-commandments", "Ten Commandments"),
+        ("armor_of_god warfare helmet breastplate shield sword", "/armor-of-god", "Armor of God"),
+        ("i_am_statements bread light door shepherd resurrection way truth life vine", "/i-am-statements", "I Am Statements"),
+        ("tetragrammaton yhwh yahweh jehovah lord", "/tetragrammaton", "The Tetragrammaton"),
+        ("timeline chronology history dates", "/biblical-timeline", "Biblical Timeline"),
+        ("family_tree genealogy lineage ancestors descendants", "/family-tree", "Biblical Genealogies"),
+        ("interlinear hebrew greek original language", "/interlinear", "Interlinear Bible"),
+        ("concordance word search find", "/concordance", "Concordance"),
         ("study_guides", "/study-guides", "Study Guides"),
-        ("maps", "/maps", "Bible Maps"),
+        ("maps geography places locations", "/maps", "Bible Maps"),
+        # Individual study guides
+        ("new believer faith basics beginner", "/study-guides/new-believer", "New Believer's Guide"),
+        ("salvation saved born again", "/study-guides/salvation", "Understanding Salvation"),
+        ("gospel good news", "/study-guides/gospel", "The Gospel Message"),
+        ("fruits spirit love joy peace", "/study-guides/fruits-spirit", "Fruits of the Spirit Guide"),
+        ("prayer faith praying", "/study-guides/prayer-faith", "Prayer & Faith"),
+        ("christian living walk daily", "/study-guides/christian-living", "Christian Living"),
+        ("god's love agape", "/study-guides/gods-love", "God's Love"),
+        ("hope comfort suffering trials", "/study-guides/hope-comfort", "Hope & Comfort"),
+        ("wisdom guidance direction decisions", "/study-guides/wisdom-guidance", "Wisdom & Guidance"),
+        ("trinity father son spirit", "/study-guides/trinity", "Trinity Study Guide"),
+        ("resurrection risen easter", "/study-guides/resurrection", "The Resurrection"),
+        ("heaven eternity afterlife", "/study-guides/heaven-eternity", "Heaven & Eternity"),
+        ("sovereignty of god control providence", "/study-guides/sovereignty-of-god", "Sovereignty of God"),
+        ("attributes of god character nature", "/study-guides/attributes-of-god", "Attributes of God"),
+        ("doctrine of scripture bible inspiration inerrancy", "/study-guides/doctrine-of-scripture", "Doctrine of Scripture"),
+        ("problem of evil theodicy suffering why", "/study-guides/problem-of-evil", "Problem of Evil"),
+        ("covenant theology dispensation", "/study-guides/covenant-theology", "Covenant Theology"),
+        ("spirits demons spiritual warfare", "/study-guides/spirits-demons", "Spirits & Demons Guide"),
+        ("gospel in old testament types shadows", "/study-guides/gospel-in-ot", "Gospel in the Old Testament"),
+        ("law and christian grace mosaic", "/study-guides/law-and-christian", "The Law and the Christian"),
+        ("faith and works james paul", "/study-guides/faith-and-works", "Faith and Works"),
+        ("scarlet thread redemption blood", "/study-guides/scarlet-thread", "Scarlet Thread of Redemption"),
+        ("biblical marriage husband wife", "/study-guides/biblical-marriage", "Biblical Marriage"),
+        ("raising children parenting family", "/study-guides/raising-children", "Raising Children"),
+        ("money stewardship finances tithe giving", "/study-guides/money-stewardship", "Money & Stewardship"),
+        # Biblical figures (link to family tree)
+        ("adam eve first man woman creation", "/family-tree/adam", "Adam"),
+        ("noah ark flood", "/family-tree/noah", "Noah"),
+        ("abraham abram father faith", "/family-tree/abraham", "Abraham"),
+        ("isaac son promise", "/family-tree/isaac", "Isaac"),
+        ("jacob israel twelve tribes", "/family-tree/jacob", "Jacob"),
+        ("joseph dreamer coat egypt", "/family-tree/joseph", "Joseph"),
+        ("moses exodus law lawgiver", "/family-tree/moses", "Moses"),
+        ("david king shepherd psalmist", "/family-tree/david", "David"),
+        ("solomon wisdom temple", "/family-tree/solomon", "Solomon"),
+        ("paul apostle gentiles saul tarsus", "/family-tree/paul", "Paul the Apostle"),
     ]
     matching_resources = [
         {"name": name, "url": url}
