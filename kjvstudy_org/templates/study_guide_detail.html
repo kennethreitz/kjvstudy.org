@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </p>
     {% endfor %}
 
-    <p>{{ section.content }}</p>
+    <p>{{ section.content | format_lists | safe }}</p>
 </section>
 {% endfor %}
 

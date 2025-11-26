@@ -965,6 +965,97 @@ def inject_word_markers(text, word_studies, verse_num):
 templates.env.filters['inject_word_markers'] = inject_word_markers
 
 
+def format_numbered_lists(text):
+    """Convert (1), (2), etc. patterns into HTML ordered lists"""
+    import re
+
+    # Pattern to find all numbered items like (1), (2), etc.
+    item_pattern = r'\((\d+)\)\s*'
+
+    # Find all numbered markers
+    markers = list(re.finditer(item_pattern, text))
+
+    if len(markers) < 2:
+        return text
+
+    # Check if markers are sequential starting from 1
+    numbers = [int(m.group(1)) for m in markers]
+    if numbers[0] != 1:
+        return text
+
+    # Find the longest sequential run starting from 1
+    seq_length = 1
+    for i in range(1, len(numbers)):
+        if numbers[i] == seq_length + 1:
+            seq_length += 1
+        else:
+            break
+
+    if seq_length < 2:
+        return text
+
+    # Use only the sequential markers
+    markers = markers[:seq_length]
+
+    # Extract content for each item
+    list_items = []
+    for i, marker in enumerate(markers):
+        start = marker.end()  # After the (N) marker
+
+        if i + 1 < len(markers):
+            # Content ends where next marker begins
+            end = markers[i + 1].start()
+        else:
+            # Last item - find where it ends (next sentence or end of reasonable content)
+            # Look for a period followed by a capital letter (new sentence) or end of text
+            remaining = text[start:]
+            # Find the end of this list item - look for period followed by space and capital
+            # or semicolon, but capture meaningful content
+            end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining)
+            if end_match:
+                end = start + end_match.start() + 1  # Include the period
+            else:
+                end = len(text)
+
+        item_text = text[start:end].strip()
+        # Clean up trailing punctuation
+        item_text = item_text.rstrip(';,.')
+        # Clean up trailing "and"
+        if item_text.endswith(' and'):
+            item_text = item_text[:-4]
+
+        list_items.append(f'<li>{item_text}</li>')
+
+    # Build the HTML list
+    html_list = '<ol>' + ''.join(list_items) + '</ol>'
+
+    # Find where to insert the list
+    list_start = markers[0].start()
+
+    # Find where the list content ends
+    last_marker = markers[-1]
+    last_item_start = last_marker.end()
+    remaining_after_last = text[last_item_start:]
+
+    # Find end of last item
+    end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining_after_last)
+    if end_match:
+        list_end = last_item_start + end_match.start() + 1
+    else:
+        list_end = len(text)
+
+    # Replace the numbered list portion with HTML
+    after_list = text[list_end:].strip()
+    if after_list:
+        result = text[:list_start] + html_list + '</p><p>' + after_list
+    else:
+        result = text[:list_start] + html_list
+
+    return result
+
+templates.env.filters['format_lists'] = format_numbered_lists
+
+
 @app.get("/biblical-timeline", response_class=HTMLResponse)
 def biblical_timeline_page(request: Request):
     """Biblical timeline page showing major biblical events chronologically"""
