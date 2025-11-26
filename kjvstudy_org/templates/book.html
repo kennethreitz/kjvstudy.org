@@ -252,11 +252,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 return match;
             });
 
-            // Match standalone cross-book references outside parentheses
+            // Match standalone cross-book verse references outside parentheses (with colon)
             const standaloneCrossBookRegex = new RegExp('(' + bookPattern + ')\\s+(\\d+):(\\d+)(?:-(\\d+))?', 'gi');
             text = text.replace(standaloneCrossBookRegex, function(match, book, chapter, verseStart, verseEnd) {
                 changed = true;
                 return createVerseLink(book, chapter, verseStart, verseEnd, match);
+            });
+
+            // Match cross-book chapter ranges like "Hebrews 5-7" (no colon = chapters, not verses)
+            const crossBookChapterRangeRegex = new RegExp('(' + bookPattern + ')\\s+(\\d+)-(\\d+)(?!:)', 'gi');
+            text = text.replace(crossBookChapterRangeRegex, function(match, book, chapterStart, chapterEnd) {
+                changed = true;
+                const normalizedBook = book.replace(/\s+/g, ' ');
+                return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapterStart + '">' + match + '</a>';
+            });
+
+            // Match cross-book single chapter like "Hebrews 11" (no colon)
+            const crossBookChapterRegex = new RegExp('(' + bookPattern + ')\\s+(\\d+)(?![:\\d-])', 'gi');
+            text = text.replace(crossBookChapterRegex, function(match, book, chapter) {
+                changed = true;
+                const normalizedBook = book.replace(/\s+/g, ' ');
+                return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapter + '">' + match + '</a>';
             });
 
             // Match remaining standalone verse ranges like "1:1-5" not in parentheses
