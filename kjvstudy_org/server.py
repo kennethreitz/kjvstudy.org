@@ -193,8 +193,8 @@ def markdown_to_html(text):
     text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
     # Convert paragraphs (split on double newlines)
     paragraphs = text.split('\n\n')
-    if len(paragraphs) > 1:
-        text = ''.join(f'<p>{p.strip()}</p>' for p in paragraphs if p.strip())
+    # Always wrap in <p> tags
+    text = ''.join(f'<p>{p.strip()}</p>' for p in paragraphs if p.strip())
     return text
 
 templates.env.filters['md'] = markdown_to_html
