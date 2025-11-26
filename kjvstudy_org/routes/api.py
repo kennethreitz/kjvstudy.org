@@ -276,8 +276,72 @@ def api_get_book(book: str = Path(..., description="Book name", examples=["Genes
     return {
         "name": book,
         "total_chapters": len(chapters),
-        "chapters": chapter_details
+        "chapters": chapter_details,
+        "links": {
+            "pdf": f"/api/books/{book}/pdf"
+        }
     }
+
+
+@router.get("/books/{book}/pdf")
+def api_book_pdf(book: str = Path(..., description="Book name", examples=["Genesis"])):
+    """Generate PDF for an entire Bible book."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    if not chapters:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    if not templates:
+        raise HTTPException(status_code=500, detail="Templates not initialized")
+
+    # Prepare data for template
+    chapters_data = []
+    total_verses = 0
+    for chapter in chapters:
+        verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+        if verses:
+            chapter_verses = []
+            for v in verses:
+                chapter_verses.append({
+                    "verse": v.verse,
+                    "text": v.text
+                })
+            chapters_data.append({
+                "chapter": chapter,
+                "verses": chapter_verses
+            })
+            total_verses += len(verses)
+
+    if not chapters_data:
+        raise HTTPException(status_code=404, detail="No verses found for this book")
+
+    # Render the PDF template
+    html_content = templates.get_template("book_pdf.html").render(
+        book=book,
+        chapters=chapters_data,
+        chapter_count=len(chapters_data),
+        verse_count=total_verses,
+    )
+
+    # Generate PDF
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    # Return as downloadable PDF
+    filename = f"{create_slug(book)}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
 
 
 @router.get("/books/{book}/chapters/{chapter}")
@@ -305,8 +369,62 @@ def api_get_chapter(
         "book": book,
         "chapter": chapter,
         "total_verses": len(verses),
-        "verses": verse_list
+        "verses": verse_list,
+        "links": {
+            "pdf": f"/api/books/{book}/chapters/{chapter}/pdf"
+        }
     }
+
+
+@router.get("/books/{book}/chapters/{chapter}/pdf")
+def api_chapter_pdf(
+    book: str = Path(..., description="Book name", examples=["Romans"]),
+    chapter: int = Path(..., description="Chapter number", examples=[8])
+):
+    """Generate PDF for a specific Bible chapter."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+    if not verses:
+        raise HTTPException(status_code=404, detail="Chapter not found")
+
+    if not templates:
+        raise HTTPException(status_code=500, detail="Templates not initialized")
+
+    # Prepare data for template
+    verse_list = []
+    for v in verses:
+        verse_list.append({
+            "verse": v.verse,
+            "text": v.text
+        })
+
+    # Render the PDF template
+    html_content = templates.get_template("chapter_pdf.html").render(
+        book=book,
+        chapter=chapter,
+        verses=verse_list,
+        verse_count=len(verses),
+    )
+
+    # Generate PDF
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    # Return as downloadable PDF
+    filename = f"{create_slug(book)}-chapter-{chapter}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
 
 
 @router.get("/books/{book}/text")

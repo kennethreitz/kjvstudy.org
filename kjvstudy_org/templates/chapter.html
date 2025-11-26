@@ -163,11 +163,6 @@ hr::before {
     margin: 1.5rem 0 1rem;
 }
 
-.chapter-actions-bottom {
-    margin: 2.5rem 0 0;
-    text-align: center;
-}
-
 .print-btn {
     display: inline-flex;
     align-items: center;
@@ -214,6 +209,17 @@ hr::before {
 {% block content %}
 <h1>{{ book }} {{ chapter }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
+
+{% if pdf_available %}
+<div class="chapter-actions">
+    <a href="/book/{{ book }}/chapter/{{ chapter }}/pdf" class="print-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Download PDF
+    </a>
+</div>
+{% endif %}
 
 <section>
     {% for verse in verses %}
@@ -273,14 +279,6 @@ hr::before {
 </nav>
 
 {% if pdf_available %}
-<div class="chapter-actions chapter-actions-bottom">
-    <a href="/book/{{ book }}/chapter/{{ chapter }}/pdf" class="print-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-        Download PDF
-    </a>
-</div>
 {% endif %}
 
 <script>
