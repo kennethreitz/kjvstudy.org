@@ -1363,8 +1363,7 @@ def study_guides_page(request: Request):
             "study_guides.html",
             {
             "books": books,
-            "study_guides": study_guides,
-            "pdf_available": WEASYPRINT_AVAILABLE
+            "study_guides": study_guides
         }
     )
 
