@@ -125,6 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Create a link for cross-chapter ranges (e.g., 2:17-3:5).
+    function createCrossChapterRangeLink(book, startChapter, startVerse, endChapter, endVerse, linkText) {
+        const normalizedBook = book.replace(/\s+/g, ' ');
+        return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + startChapter + '#verse-' + startVerse + '" data-end-chapter="' + endChapter + '" data-end-verse="' + endVerse + '">' + linkText + '</a>';
+    }
+
     // Function to link verse references in text
     function linkVerseReferences(element) {
         if (!element) return;
@@ -161,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Build cross-book regex for use in parenthetical processing
+            const crossBookRangeRegex = new RegExp('^(' + bookPattern + ')\\s+(\\d+):(\\d+)-(\\d+):(\\d+)$', 'i');
             const crossBookRegex = new RegExp('^(' + bookPattern + ')\\s+(\\d+):(\\d+)(?:-(\\d+))?$', 'i');
 
             // Process parenthetical groups containing verse references
@@ -195,6 +202,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         continue;
                     }
 
+                    // Check for cross-book cross-chapter range like "Malachi 2:17-3:5"
+                    const crossBookRangeMatch = part.match(crossBookRangeRegex);
+                    if (crossBookRangeMatch) {
+                        currentBook = crossBookRangeMatch[1].replace(/\s+/g, ' ');
+                        currentChapter = crossBookRangeMatch[4];
+                        localChanged = true;
+                        newParts.push(createCrossChapterRangeLink(currentBook, crossBookRangeMatch[2], crossBookRangeMatch[3], crossBookRangeMatch[4], crossBookRangeMatch[5], part));
+                        continue;
+                    }
+
                     // Check for cross-book reference like "Romans 5:12-21" or "1 Corinthians 15:21-22"
                     const crossBookMatch = part.match(crossBookRegex);
                     if (crossBookMatch) {
@@ -202,6 +219,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         currentChapter = crossBookMatch[2];
                         localChanged = true;
                         newParts.push(createVerseLink(currentBook, currentChapter, crossBookMatch[3], crossBookMatch[4], part));
+                        continue;
+                    }
+
+                    // Check for cross-chapter range within the current book like "2:17-3:5"
+                    const crossChapterRangeMatch = part.match(/^(\d+):(\d+)-(\d+):(\d+)$/);
+                    if (crossChapterRangeMatch) {
+                        currentBook = bookName;
+                        currentChapter = crossChapterRangeMatch[3];
+                        localChanged = true;
+                        newParts.push(createCrossChapterRangeLink(currentBook, crossChapterRangeMatch[1], crossChapterRangeMatch[2], crossChapterRangeMatch[3], crossChapterRangeMatch[4], part));
                         continue;
                     }
 
@@ -252,6 +279,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return match;
             });
 
+            // Match standalone cross-book cross-chapter ranges outside parentheses
+            const standaloneCrossBookRangeRegex = new RegExp('(' + bookPattern + ')\\s+(\\d+):(\\d+)-(\\d+):(\\d+)', 'gi');
+            text = text.replace(standaloneCrossBookRangeRegex, function(match, book, startChapter, startVerse, endChapter, endVerse) {
+                changed = true;
+                return createCrossChapterRangeLink(book, startChapter, startVerse, endChapter, endVerse, match);
+            });
+
             // Match standalone cross-book verse references outside parentheses (with colon)
             const standaloneCrossBookRegex = new RegExp('(' + bookPattern + ')\\s+(\\d+):(\\d+)(?:-(\\d+))?', 'gi');
             text = text.replace(standaloneCrossBookRegex, function(match, book, chapter, verseStart, verseEnd) {
@@ -273,6 +307,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 changed = true;
                 const normalizedBook = book.replace(/\s+/g, ' ');
                 return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapter + '">' + match + '</a>';
+            });
+
+            // Match remaining standalone cross-chapter ranges like "2:17-3:5"
+            text = text.replace(/(?<![>\d])(\d+):(\d+)-(\d+):(\d+)(?![<\d])/g, function(match, startChapter, startVerse, endChapter, endVerse) {
+                changed = true;
+                return createCrossChapterRangeLink(bookName, startChapter, startVerse, endChapter, endVerse, match);
             });
 
             // Match remaining standalone verse ranges like "1:1-5" not in parentheses
