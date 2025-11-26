@@ -426,9 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {% if book_intro and book_intro.literary_style %}
 <section>
     <h2>Literary Style</h2>
-    {% for paragraph in book_intro.literary_style.split('\n\n') %}
-    <p>{{ paragraph }}</p>
-    {% endfor %}
+    {{ book_intro.literary_style|md|safe }}
 </section>
 {% endif %}
 
