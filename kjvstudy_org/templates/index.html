@@ -110,75 +110,6 @@
     text-align: center;
 }
 
-/* Search Dropdown */
-.verse-lookup {
-    position: relative;
-}
-
-.lookup-results-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color-darker);
-    border-top: none;
-    max-height: 400px;
-    overflow-y: auto;
-    z-index: 1000;
-    display: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.lookup-results-dropdown.show {
-    display: block;
-}
-
-.lookup-result-category {
-    padding: 0.5rem 1rem 0.25rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-tertiary);
-    background: var(--code-bg);
-    border-bottom: 1px solid var(--border-color);
-}
-
-.lookup-result-item {
-    display: block;
-    padding: 0.6rem 1rem;
-    text-decoration: none;
-    color: var(--text-color);
-    border-bottom: 1px solid var(--border-color);
-    cursor: pointer;
-    transition: background 0.15s;
-}
-
-.lookup-result-item:hover,
-.lookup-result-item.selected {
-    background: var(--code-bg);
-}
-
-.lookup-result-item:last-child {
-    border-bottom: none;
-}
-
-.lookup-result-title {
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-.lookup-result-subtitle {
-    font-size: 0.8rem;
-    color: var(--text-tertiary);
-    margin-top: 0.15rem;
-}
-
-[data-theme="dark"] .lookup-results-dropdown {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
 /* Navigation Links */
 .nav-links {
     text-align: center;
@@ -516,15 +447,12 @@ function capitalizeBook(bookName) {
     return bookMap[bookName.toLowerCase()] || bookName;
 }
 
-// Parse verse reference and return URL or null
 function parseVerseReference(input) {
-    // Book Chapter:Verse
     var match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
     if (match) {
         var book = capitalizeBook(match[1].trim());
         return '/book/' + encodeURIComponent(book) + '/chapter/' + match[2] + '/verse/' + match[3];
     }
-    // Book Chapter
     match = input.match(/^(.+)\s+(\d+)$/i);
     if (match) {
         var book = capitalizeBook(match[1].trim());
@@ -533,234 +461,40 @@ function parseVerseReference(input) {
     return null;
 }
 
-// Format verse reference for display
-function formatVerseRef(input) {
-    var match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
-    if (match) {
-        return capitalizeBook(match[1].trim()) + ' ' + match[2] + ':' + match[3];
-    }
-    match = input.match(/^(.+)\s+(\d+)$/i);
-    if (match) {
-        return capitalizeBook(match[1].trim()) + ' ' + match[2];
-    }
-    return input;
-}
-
-// Dropdown state
-var lookupDropdown = null;
-var lookupInput = null;
-var currentResults = [];
-var selectedIndex = -1;
-var searchTimeout = null;
-
-var categoryLabels = {
-    books: 'Books',
-    verses: 'Verses',
-    topics: 'Topics',
-    resources: 'Resources',
-    stories: 'Stories',
-    plans: 'Reading Plans'
-};
-
-function initDropdown() {
-    lookupDropdown = document.getElementById('lookup-results-dropdown');
-    lookupInput = document.getElementById('verse-lookup-input');
-
-    if (!lookupInput || !lookupDropdown) return;
-
-    lookupInput.addEventListener('input', function() {
-        clearTimeout(searchTimeout);
-        var query = this.value.trim();
-
-        if (query.length < 2) {
-            hideDropdown();
-            return;
-        }
-
-        // Check if it's a verse reference first
-        var verseUrl = parseVerseReference(query);
-        if (verseUrl) {
-            showVerseRefResult(query, verseUrl);
-        }
-
-        // Debounce API call
-        searchTimeout = setTimeout(function() {
-            performUniversalSearch(query);
-        }, 200);
-    });
-
-    lookupInput.addEventListener('keydown', function(e) {
-        if (!lookupDropdown.classList.contains('show')) return;
-
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
-            updateSelection();
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            selectedIndex = Math.max(selectedIndex - 1, -1);
-            updateSelection();
-        } else if (e.key === 'Escape') {
-            hideDropdown();
-        }
-    });
-
-    // Click outside to close
-    document.addEventListener('click', function(e) {
-        if (!lookupDropdown.contains(e.target) && e.target !== lookupInput) {
-            hideDropdown();
-        }
-    });
-}
-
-function showVerseRefResult(query, url) {
-    var html = '<div class="lookup-result-category">Go to</div>';
-    currentResults = [url];
-    selectedIndex = 0;
-    html += '<a href="' + url + '" class="lookup-result-item selected">';
-    html += '<div class="lookup-result-title">' + formatVerseRef(query) + '</div>';
-    html += '</a>';
-    lookupDropdown.innerHTML = html;
-    lookupDropdown.classList.add('show');
-}
-
-function performUniversalSearch(query) {
-    fetch('/api/universal-search?q=' + encodeURIComponent(query) + '&limit=5')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            renderResults(data, query);
-        })
-        .catch(function(err) {
-            console.error('Search error:', err);
-        });
-}
-
-function renderResults(data, query) {
-    var results = data.results;
-    var html = '';
-    var newResults = [];
-
-    // If it's a verse reference, show that first
-    var verseUrl = parseVerseReference(query);
-    if (verseUrl) {
-        html += '<div class="lookup-result-category">Go to</div>';
-        newResults.push(verseUrl);
-        html += '<a href="' + verseUrl + '" class="lookup-result-item' + (newResults.length === 1 ? ' selected' : '') + '">';
-        html += '<div class="lookup-result-title">' + formatVerseRef(query) + '</div>';
-        html += '</a>';
-    }
-
-    // Render each category
-    var categories = ['books', 'topics', 'resources', 'stories', 'plans', 'verses'];
-    categories.forEach(function(cat) {
-        if (results[cat] && results[cat].length > 0) {
-            html += '<div class="lookup-result-category">' + categoryLabels[cat] + '</div>';
-            results[cat].forEach(function(item) {
-                var url = item.url;
-                newResults.push(url);
-                var isSelected = newResults.length === 1 && !verseUrl;
-                html += '<a href="' + url + '" class="lookup-result-item' + (isSelected ? ' selected' : '') + '">';
-                if (cat === 'verses') {
-                    html += '<div class="lookup-result-title">' + item.reference + '</div>';
-                    html += '<div class="lookup-result-subtitle">' + item.text + '</div>';
-                } else if (cat === 'stories') {
-                    html += '<div class="lookup-result-title">' + item.title + '</div>';
-                    if (item.category) {
-                        html += '<div class="lookup-result-subtitle">' + item.category + '</div>';
-                    }
-                } else {
-                    html += '<div class="lookup-result-title">' + item.name + '</div>';
-                }
-                html += '</a>';
-            });
-        }
-    });
-
-    currentResults = newResults;
-    selectedIndex = newResults.length > 0 ? 0 : -1;
-
-    if (html) {
-        lookupDropdown.innerHTML = html;
-        lookupDropdown.classList.add('show');
-    } else {
-        hideDropdown();
-    }
-}
-
-function updateSelection() {
-    var items = lookupDropdown.querySelectorAll('.lookup-result-item');
-    items.forEach(function(item, i) {
-        if (i === selectedIndex) {
-            item.classList.add('selected');
-        } else {
-            item.classList.remove('selected');
-        }
-    });
-}
-
-function hideDropdown() {
-    if (lookupDropdown) {
-        lookupDropdown.classList.remove('show');
-    }
-    currentResults = [];
-    selectedIndex = -1;
-}
-
 function handleSearch(event) {
     event.preventDefault();
     var input = document.getElementById('verse-lookup-input').value.trim();
+    if (!input) return false;
 
-    if (!input) {
-        return false;
-    }
-
-    // If dropdown is showing and we have a selection, go there
-    if (selectedIndex >= 0 && currentResults[selectedIndex]) {
-        window.location.href = currentResults[selectedIndex];
-        return false;
-    }
-
-    // Try verse reference first
     var verseUrl = parseVerseReference(input);
     if (verseUrl) {
         window.location.href = verseUrl;
         return false;
     }
 
-    // Check if input looks like a book name
     var hasNumberPrefix = /^[123]\s+/i.test(input);
-    var hasMultipleWords = /\s+/.test(input);
     var commonBooks = ['genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
-                       'joshua', 'judges', 'ruth', 'samuel', 'kings', 'chronicles',
-                       'ezra', 'nehemiah', 'esther', 'job', 'psalms', 'proverbs',
-                       'ecclesiastes', 'isaiah', 'jeremiah', 'lamentations', 'ezekiel',
-                       'daniel', 'hosea', 'joel', 'amos', 'obadiah', 'jonah', 'micah',
-                       'nahum', 'habakkuk', 'zephaniah', 'haggai', 'zechariah', 'malachi',
-                       'matthew', 'mark', 'luke', 'john', 'acts', 'romans', 'corinthians',
-                       'galatians', 'ephesians', 'philippians', 'colossians', 'thessalonians',
-                       'timothy', 'titus', 'philemon', 'hebrews', 'james', 'peter',
-                       'jude', 'revelation'];
-    var matchesCommonBook = commonBooks.includes(input.toLowerCase());
+        'joshua', 'judges', 'ruth', 'samuel', 'kings', 'chronicles', 'ezra', 'nehemiah',
+        'esther', 'job', 'psalms', 'proverbs', 'ecclesiastes', 'isaiah', 'jeremiah',
+        'lamentations', 'ezekiel', 'daniel', 'hosea', 'joel', 'amos', 'obadiah', 'jonah',
+        'micah', 'nahum', 'habakkuk', 'zephaniah', 'haggai', 'zechariah', 'malachi',
+        'matthew', 'mark', 'luke', 'john', 'acts', 'romans', 'corinthians', 'galatians',
+        'ephesians', 'philippians', 'colossians', 'thessalonians', 'timothy', 'titus',
+        'philemon', 'hebrews', 'james', 'peter', 'jude', 'revelation'];
 
-    if (hasNumberPrefix || hasMultipleWords || matchesCommonBook) {
-        var book = capitalizeBook(input);
-        window.location.href = '/book/' + encodeURIComponent(book);
+    if (hasNumberPrefix || commonBooks.includes(input.toLowerCase())) {
+        window.location.href = '/book/' + encodeURIComponent(capitalizeBook(input));
         return false;
     }
 
-    // Otherwise, treat it as a search query
     window.location.href = '/search?q=' + encodeURIComponent(input);
     return false;
 }
 
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', initDropdown);
-
-// Press '/' to focus the search input
 document.addEventListener('keydown', function(e) {
     if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        var activeElement = document.activeElement;
-        if (activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
+        var el = document.activeElement;
+        if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
             e.preventDefault();
             document.getElementById('verse-lookup-input').focus();
         }

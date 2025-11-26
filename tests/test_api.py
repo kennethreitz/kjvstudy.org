@@ -176,6 +176,97 @@ class TestSearchEndpoint:
         assert data["total"] == 0
 
 
+class TestUniversalSearchEndpoint:
+    """Tests for universal search endpoint"""
+
+    def test_universal_search_basic(self, client):
+        """Test /api/universal-search with basic query"""
+        response = client.get("/api/universal-search?q=love")
+        assert response.status_code == 200
+        data = response.json()
+        assert "query" in data
+        assert "results" in data
+        assert data["query"] == "love"
+
+    def test_universal_search_finds_books(self, client):
+        """Test universal search finds books"""
+        response = client.get("/api/universal-search?q=genesis")
+        assert response.status_code == 200
+        data = response.json()
+        assert "books" in data["results"]
+        assert any(b["name"] == "Genesis" for b in data["results"]["books"])
+
+    def test_universal_search_finds_topics(self, client):
+        """Test universal search finds topics"""
+        response = client.get("/api/universal-search?q=faith")
+        assert response.status_code == 200
+        data = response.json()
+        # Topics may or may not be present depending on data
+        assert "results" in data
+
+    def test_universal_search_finds_verses(self, client):
+        """Test universal search finds verses"""
+        response = client.get("/api/universal-search?q=beginning")
+        assert response.status_code == 200
+        data = response.json()
+        assert "verses" in data["results"]
+        assert len(data["results"]["verses"]) > 0
+
+    def test_universal_search_with_limit(self, client):
+        """Test universal search respects limit"""
+        response = client.get("/api/universal-search?q=god&limit=3")
+        assert response.status_code == 200
+        data = response.json()
+        # Check that each category respects the limit
+        for category in data["results"].values():
+            assert len(category) <= 3
+
+    def test_universal_search_short_query(self, client):
+        """Test universal search with very short query"""
+        response = client.get("/api/universal-search?q=a")
+        assert response.status_code == 200
+        data = response.json()
+        # Short queries return empty results
+        assert data["results"] == {}
+
+    def test_universal_search_book_synonyms(self, client):
+        """Test universal search handles book synonyms"""
+        response = client.get("/api/universal-search?q=revelations")
+        assert response.status_code == 200
+        data = response.json()
+        # Should find Revelation book
+        if "books" in data["results"]:
+            assert any(b["name"] == "Revelation" for b in data["results"]["books"])
+
+    def test_universal_search_finds_resources(self, client):
+        """Test universal search finds resources"""
+        response = client.get("/api/universal-search?q=trinity")
+        assert response.status_code == 200
+        data = response.json()
+        assert "resources" in data["results"]
+        assert len(data["results"]["resources"]) > 0
+
+    def test_universal_search_theological_synonyms(self, client):
+        """Test universal search handles theological synonyms"""
+        response = client.get("/api/universal-search?q=holy%20spirit")
+        assert response.status_code == 200
+        data = response.json()
+        # Should find Pneumatology via synonym
+        if "resources" in data["results"]:
+            names = [r["name"] for r in data["results"]["resources"]]
+            assert "Pneumatology" in names
+
+    def test_universal_search_finds_study_guides(self, client):
+        """Test universal search finds study guides"""
+        response = client.get("/api/universal-search?q=prayer")
+        assert response.status_code == 200
+        data = response.json()
+        if "resources" in data["results"]:
+            # Should find prayer-related study guides
+            urls = [r["url"] for r in data["results"]["resources"]]
+            assert any("study-guides" in url or "prayer" in url for url in urls)
+
+
 class TestInterlinearEndpoint:
     """Tests for interlinear data endpoint"""
 

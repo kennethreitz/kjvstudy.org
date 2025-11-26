@@ -308,26 +308,30 @@ def api_get_verse(
     verse: int = Path(..., description="Verse number", examples=[16])
 ):
     """Get a single verse text."""
-    try:
-        canonical_name = normalize_book_name(book)
-        if canonical_name:
-            book = canonical_name
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
 
-        verse_text = bible.get_verse_text(book, chapter, verse)
-        if not verse_text:
-            raise HTTPException(status_code=404, detail="Verse not found")
+    # Check if book exists
+    all_books = bible.get_books()
+    if book not in all_books:
+        raise HTTPException(status_code=404, detail=f"Book '{book}' not found")
 
-        return JSONResponse({
-            "book": book,
-            "chapter": chapter,
-            "verse": verse,
-            "reference": f"{book} {chapter}:{verse}",
-            "text": verse_text
-        })
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    # Check valid chapter/verse numbers
+    if chapter < 1 or verse < 1:
+        raise HTTPException(status_code=404, detail="Invalid chapter or verse number")
+
+    verse_text = bible.get_verse_text(book, chapter, verse)
+    if not verse_text:
+        raise HTTPException(status_code=404, detail="Verse not found")
+
+    return JSONResponse({
+        "book": book,
+        "chapter": chapter,
+        "verse": verse,
+        "reference": f"{book} {chapter}:{verse}",
+        "text": verse_text
+    })
 
 
 @router.get("/verse-range/{book}/{chapter}/{start}/{end}")
@@ -338,39 +342,43 @@ def api_get_verse_range(
     end: int = Path(..., description="Ending verse number", examples=[6])
 ):
     """Get a range of verses."""
-    try:
-        canonical_name = normalize_book_name(book)
-        if canonical_name:
-            book = canonical_name
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
 
-        verses = []
-        verse_texts = []
+    # Check if book exists
+    all_books = bible.get_books()
+    if book not in all_books:
+        raise HTTPException(status_code=404, detail=f"Book '{book}' not found")
 
-        for verse_num in range(start, end + 1):
-            verse_text = bible.get_verse_text(book, chapter, verse_num)
-            if verse_text:
-                verses.append({
-                    "verse": verse_num,
-                    "text": verse_text
-                })
-                verse_texts.append(verse_text)
+    # Check valid verse numbers
+    if chapter < 1 or start < 1 or end < 1:
+        raise HTTPException(status_code=404, detail="Invalid chapter or verse number")
 
-        if not verses:
-            raise HTTPException(status_code=404, detail="Verse range not found")
+    verses = []
+    verse_texts = []
 
-        return JSONResponse({
-            "book": book,
-            "chapter": chapter,
-            "start": start,
-            "end": end,
-            "reference": f"{book} {chapter}:{start}-{end}",
-            "verses": verses,
-            "text": " ".join(verse_texts)
-        })
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    for verse_num in range(start, end + 1):
+        verse_text = bible.get_verse_text(book, chapter, verse_num)
+        if verse_text:
+            verses.append({
+                "verse": verse_num,
+                "text": verse_text
+            })
+            verse_texts.append(verse_text)
+
+    if not verses:
+        raise HTTPException(status_code=404, detail="Verse range not found")
+
+    return JSONResponse({
+        "book": book,
+        "chapter": chapter,
+        "start": start,
+        "end": end,
+        "reference": f"{book} {chapter}:{start}-{end}",
+        "verses": verses,
+        "text": " ".join(verse_texts)
+    })
 
 
 @router.get("/interlinear/{book}/{chapter}/{verse}")
@@ -380,41 +388,45 @@ def api_get_interlinear(
     verse: int = Path(..., description="Verse number", examples=[1])
 ):
     """Get interlinear (word-by-word) data for a verse."""
-    try:
-        canonical_name = normalize_book_name(book)
-        if canonical_name:
-            book = canonical_name
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
 
-        verse_text = bible.get_verse_text(book, chapter, verse)
-        if not verse_text:
-            raise HTTPException(status_code=404, detail="Verse not found")
+    # Check if book exists
+    all_books = bible.get_books()
+    if book not in all_books:
+        raise HTTPException(status_code=404, detail=f"Book '{book}' not found")
 
-        if not has_interlinear_data(book, chapter, verse):
-            return JSONResponse({
-                "book": book,
-                "chapter": chapter,
-                "verse": verse,
-                "reference": f"{book} {chapter}:{verse}",
-                "text": verse_text,
-                "interlinear_available": False,
-                "words": []
-            })
+    # Check valid chapter/verse numbers
+    if chapter < 1 or verse < 1:
+        raise HTTPException(status_code=404, detail="Invalid chapter or verse number")
 
-        interlinear_words = get_interlinear_data(book, chapter, verse)
+    verse_text = bible.get_verse_text(book, chapter, verse)
+    if not verse_text:
+        raise HTTPException(status_code=404, detail="Verse not found")
 
+    if not has_interlinear_data(book, chapter, verse):
         return JSONResponse({
             "book": book,
             "chapter": chapter,
             "verse": verse,
             "reference": f"{book} {chapter}:{verse}",
             "text": verse_text,
-            "interlinear_available": True,
-            "words": interlinear_words
+            "interlinear_available": False,
+            "words": []
         })
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+
+    interlinear_words = get_interlinear_data(book, chapter, verse)
+
+    return JSONResponse({
+        "book": book,
+        "chapter": chapter,
+        "verse": verse,
+        "reference": f"{book} {chapter}:{verse}",
+        "text": verse_text,
+        "interlinear_available": True,
+        "words": interlinear_words
+    })
 
 
 @router.get("/books")
