@@ -7,27 +7,36 @@
 <style>
 .search-form {
     margin: 2rem 0;
+    position: relative;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 55%;
 }
 
 .search-input {
     width: 100%;
-    max-width: 55%;
     padding: 0.75rem;
     font-size: 1.1rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color, #ccc);
     border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
 .search-input:focus {
     outline: none;
-    border-color: #111;
+    border-color: var(--text-color, #111);
 }
 
 .search-button {
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
-    background: #111;
-    color: #fff;
+    background: var(--text-color, #111);
+    color: var(--bg-color, #fff);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -35,7 +44,68 @@
 }
 
 .search-button:hover {
-    background: #333;
+    opacity: 0.85;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color-darker, #999);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-dropdown.show {
+    display: block;
+}
+
+.search-result-category {
+    padding: 0.5rem 0.75rem 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    background: var(--code-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-result-item {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.search-result-item:hover,
+.search-result-item.selected {
+    background: var(--code-bg);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.search-result-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-top: 0.1rem;
 }
 
 .search-stats {
@@ -95,14 +165,19 @@
 
 <section>
     <form class="search-form" method="get" action="/search">
-        <input
-            type="text"
-            name="q"
-            value="{{ query }}"
-            placeholder="Enter words or phrases to search..."
-            class="search-input"
-            autofocus
-        >
+        <div class="search-input-wrapper">
+            <input
+                type="text"
+                name="q"
+                id="search-input"
+                value="{{ query }}"
+                placeholder="Enter words or phrases to search..."
+                class="search-input"
+                autocomplete="off"
+                autofocus
+            >
+            <div id="search-dropdown" class="search-dropdown"></div>
+        </div>
         <button type="submit" class="search-button">Search</button>
     </form>
 
@@ -162,4 +237,191 @@
     </div>
     {% endif %}
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.getElementById('search-input');
+    var dropdown = document.getElementById('search-dropdown');
+    var currentResults = [];
+    var selectedIndex = -1;
+    var searchTimeout = null;
+
+    var bookMap = {
+        'gen': 'Genesis', 'ex': 'Exodus', 'lev': 'Leviticus', 'num': 'Numbers', 'deut': 'Deuteronomy',
+        'josh': 'Joshua', 'judg': 'Judges', 'ruth': 'Ruth', 'ps': 'Psalms', 'prov': 'Proverbs',
+        'isa': 'Isaiah', 'jer': 'Jeremiah', 'dan': 'Daniel', 'matt': 'Matthew', 'mk': 'Mark',
+        'lk': 'Luke', 'jn': 'John', 'acts': 'Acts', 'rom': 'Romans', 'rev': 'Revelation',
+        'genesis': 'Genesis', 'exodus': 'Exodus', 'matthew': 'Matthew', 'mark': 'Mark',
+        'luke': 'Luke', 'john': 'John', 'romans': 'Romans', 'revelation': 'Revelation'
+    };
+
+    function capitalizeBook(name) {
+        return bookMap[name.toLowerCase()] || name;
+    }
+
+    function parseVerseReference(input) {
+        var match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
+        if (match) {
+            var book = capitalizeBook(match[1].trim());
+            return { url: '/book/' + encodeURIComponent(book) + '/chapter/' + match[2] + '/verse/' + match[3], display: book + ' ' + match[2] + ':' + match[3] };
+        }
+        match = input.match(/^(.+)\s+(\d+)$/i);
+        if (match) {
+            var book = capitalizeBook(match[1].trim());
+            return { url: '/book/' + encodeURIComponent(book) + '/chapter/' + match[2], display: book + ' ' + match[2] };
+        }
+        return null;
+    }
+
+    function showDropdown(html) {
+        dropdown.innerHTML = html;
+        dropdown.classList.add('show');
+    }
+
+    function hideDropdown() {
+        dropdown.classList.remove('show');
+        currentResults = [];
+        selectedIndex = -1;
+    }
+
+    function updateSelection() {
+        var items = dropdown.querySelectorAll('.search-result-item');
+        items.forEach(function(item, i) {
+            if (i === selectedIndex) {
+                item.classList.add('selected');
+            } else {
+                item.classList.remove('selected');
+            }
+        });
+    }
+
+    function renderDropdown(query, apiResults) {
+        var html = '';
+        currentResults = [];
+
+        // Check for verse reference
+        var verseRef = parseVerseReference(query);
+        if (verseRef) {
+            html += '<div class="search-result-category">Go to Verse</div>';
+            currentResults.push(verseRef.url);
+            html += '<a href="' + verseRef.url + '" class="search-result-item selected">';
+            html += '<div class="search-result-title">' + verseRef.display + '</div>';
+            html += '</a>';
+        }
+
+        // API results
+        if (apiResults && apiResults.results) {
+            var results = apiResults.results;
+
+            // Books
+            if (results.books && results.books.length > 0) {
+                html += '<div class="search-result-category">Books</div>';
+                results.books.forEach(function(book) {
+                    currentResults.push(book.url);
+                    html += '<a href="' + book.url + '" class="search-result-item">';
+                    html += '<div class="search-result-title">' + book.name + '</div>';
+                    html += '</a>';
+                });
+            }
+
+            // Verses
+            if (results.verses && results.verses.length > 0) {
+                html += '<div class="search-result-category">Verses</div>';
+                results.verses.forEach(function(verse) {
+                    currentResults.push(verse.url);
+                    html += '<a href="' + verse.url + '" class="search-result-item">';
+                    html += '<div class="search-result-title">' + verse.reference + '</div>';
+                    html += '<div class="search-result-subtitle">' + verse.text + '</div>';
+                    html += '</a>';
+                });
+            }
+
+            // Topics
+            if (results.topics && results.topics.length > 0) {
+                html += '<div class="search-result-category">Topics</div>';
+                results.topics.forEach(function(topic) {
+                    currentResults.push(topic.url);
+                    html += '<a href="' + topic.url + '" class="search-result-item">';
+                    html += '<div class="search-result-title">' + topic.name + '</div>';
+                    html += '</a>';
+                });
+            }
+
+            // Stories
+            if (results.stories && results.stories.length > 0) {
+                html += '<div class="search-result-category">Stories</div>';
+                results.stories.forEach(function(story) {
+                    currentResults.push(story.url);
+                    html += '<a href="' + story.url + '" class="search-result-item">';
+                    html += '<div class="search-result-title">' + story.title + '</div>';
+                    html += '</a>';
+                });
+            }
+        }
+
+        if (html) {
+            selectedIndex = currentResults.length > 0 ? 0 : -1;
+            showDropdown(html);
+        } else {
+            hideDropdown();
+        }
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            var query = this.value.trim();
+            clearTimeout(searchTimeout);
+
+            if (query.length < 2) {
+                hideDropdown();
+                return;
+            }
+
+            // Show verse reference immediately if detected
+            var verseRef = parseVerseReference(query);
+            if (verseRef) {
+                renderDropdown(query, null);
+            }
+
+            // Fetch API results with debounce
+            searchTimeout = setTimeout(function() {
+                fetch('/api/universal-search?q=' + encodeURIComponent(query) + '&limit=5')
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        renderDropdown(query, data);
+                    })
+                    .catch(function(err) {
+                        console.error('Search error:', err);
+                    });
+            }, 200);
+        });
+
+        searchInput.addEventListener('keydown', function(e) {
+            if (!dropdown.classList.contains('show')) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
+                updateSelection();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, -1);
+                updateSelection();
+            } else if (e.key === 'Enter' && selectedIndex >= 0 && currentResults[selectedIndex]) {
+                e.preventDefault();
+                window.location.href = currentResults[selectedIndex];
+            } else if (e.key === 'Escape') {
+                hideDropdown();
+            }
+        });
+
+        // Click outside to close dropdown
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target) && e.target !== searchInput) {
+                hideDropdown();
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

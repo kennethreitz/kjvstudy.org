@@ -74,6 +74,7 @@
 .story-search {
     max-width: 400px;
     margin: 1.5rem auto;
+    position: relative;
 }
 .story-search input {
     width: 100%;
@@ -89,6 +90,60 @@
 }
 .story-search input::placeholder {
     color: #9ca3af;
+}
+.story-search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 2px solid #e5e7eb;
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    max-height: 350px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+.story-search-dropdown.show {
+    display: block;
+}
+.search-result-category {
+    padding: 0.5rem 1rem 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #9ca3af;
+    background: linear-gradient(135deg, #f0f9ff 0%, #faf5ff 100%);
+    border-bottom: 1px solid #e5e7eb;
+}
+.search-result-item {
+    display: block;
+    padding: 0.6rem 1rem;
+    text-decoration: none;
+    color: #4338ca;
+    border-bottom: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.search-result-item:hover,
+.search-result-item.selected {
+    background: linear-gradient(135deg, #f0f9ff 0%, #faf5ff 100%);
+}
+.search-result-item:last-child {
+    border-bottom: none;
+    border-radius: 0 0 14px 14px;
+}
+.search-result-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+.search-result-subtitle {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-top: 0.1rem;
 }
 
 .stories-grid {
@@ -230,6 +285,7 @@
 
 <div class="story-search">
     <input type="text" id="story-search" placeholder="Search for a story..." autocomplete="off">
+    <div id="story-search-dropdown" class="story-search-dropdown"></div>
 </div>
 
 <section>
@@ -288,33 +344,33 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('story-search');
-    const stories = document.querySelectorAll('.kids-story-card');
-    const categories = document.querySelectorAll('.category-section');
-    const noResults = document.getElementById('no-results');
+    var searchInput = document.getElementById('story-search');
+    var dropdown = document.getElementById('story-search-dropdown');
+    var stories = document.querySelectorAll('.kids-story-card');
+    var categorySections = document.querySelectorAll('.category-section');
+    var noResults = document.getElementById('no-results');
+    var currentResults = [];
+    var selectedIndex = -1;
 
-    searchInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase().trim();
-
+    function filterStories(query) {
         if (!query) {
-            stories.forEach(s => s.classList.remove('hidden'));
-            categories.forEach(c => c.classList.remove('hidden'));
+            stories.forEach(function(s) { s.classList.remove('hidden'); });
+            categorySections.forEach(function(c) { c.classList.remove('hidden'); });
             noResults.classList.remove('visible');
             return;
         }
 
-        let matchCount = 0;
+        var matchCount = 0;
+        stories.forEach(function(story) {
+            var title = story.dataset.title || '';
+            var description = story.dataset.description || '';
+            var characters = story.dataset.characters || '';
+            var themes = story.dataset.themes || '';
 
-        stories.forEach(story => {
-            const title = story.dataset.title || '';
-            const description = story.dataset.description || '';
-            const characters = story.dataset.characters || '';
-            const themes = story.dataset.themes || '';
-
-            const matches = title.includes(query) ||
-                           description.includes(query) ||
-                           characters.includes(query) ||
-                           themes.includes(query);
+            var matches = title.includes(query) ||
+                         description.includes(query) ||
+                         characters.includes(query) ||
+                         themes.includes(query);
 
             if (matches) {
                 story.classList.remove('hidden');
@@ -324,8 +380,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        categories.forEach(category => {
-            const visibleStories = category.querySelectorAll('.kids-story-card:not(.hidden)');
+        categorySections.forEach(function(category) {
+            var visibleStories = category.querySelectorAll('.kids-story-card:not(.hidden)');
             if (visibleStories.length === 0) {
                 category.classList.add('hidden');
             } else {
@@ -337,6 +393,116 @@ document.addEventListener('DOMContentLoaded', function() {
             noResults.classList.add('visible');
         } else {
             noResults.classList.remove('visible');
+        }
+    }
+
+    function getMatchingStories(query) {
+        var matches = [];
+        stories.forEach(function(story) {
+            var title = story.dataset.title || '';
+            var description = story.dataset.description || '';
+            var characters = story.dataset.characters || '';
+            var themes = story.dataset.themes || '';
+
+            if (title.includes(query) || description.includes(query) ||
+                characters.includes(query) || themes.includes(query)) {
+                var link = story.querySelector('h3 a');
+                if (link) {
+                    matches.push({
+                        title: link.textContent,
+                        url: link.getAttribute('href'),
+                        description: story.querySelector('.description')?.textContent?.substring(0, 50) + '...'
+                    });
+                }
+            }
+        });
+        return matches.slice(0, 5);
+    }
+
+    function showDropdown(html) {
+        dropdown.innerHTML = html;
+        dropdown.classList.add('show');
+    }
+
+    function hideDropdown() {
+        dropdown.classList.remove('show');
+        currentResults = [];
+        selectedIndex = -1;
+    }
+
+    function updateSelection() {
+        var items = dropdown.querySelectorAll('.search-result-item');
+        items.forEach(function(item, i) {
+            if (i === selectedIndex) {
+                item.classList.add('selected');
+            } else {
+                item.classList.remove('selected');
+            }
+        });
+    }
+
+    function renderDropdown(query) {
+        var html = '';
+        currentResults = [];
+
+        var matchingStories = getMatchingStories(query.toLowerCase());
+        if (matchingStories.length > 0) {
+            html += '<div class="search-result-category">Stories</div>';
+            matchingStories.forEach(function(story) {
+                currentResults.push(story.url);
+                var isSelected = currentResults.length === 1;
+                html += '<a href="' + story.url + '" class="search-result-item' + (isSelected ? ' selected' : '') + '">';
+                html += '<div class="search-result-title">' + story.title + '</div>';
+                if (story.description) {
+                    html += '<div class="search-result-subtitle">' + story.description + '</div>';
+                }
+                html += '</a>';
+            });
+        }
+
+        if (html) {
+            selectedIndex = currentResults.length > 0 ? 0 : -1;
+            showDropdown(html);
+        } else {
+            hideDropdown();
+        }
+    }
+
+    searchInput.addEventListener('input', function() {
+        var query = this.value.trim();
+
+        filterStories(query.toLowerCase());
+
+        if (query.length < 2) {
+            hideDropdown();
+            return;
+        }
+
+        renderDropdown(query);
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+        if (!dropdown.classList.contains('show')) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
+            updateSelection();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = Math.max(selectedIndex - 1, -1);
+            updateSelection();
+        } else if (e.key === 'Enter' && selectedIndex >= 0 && currentResults[selectedIndex]) {
+            e.preventDefault();
+            window.location.href = currentResults[selectedIndex];
+        } else if (e.key === 'Escape') {
+            hideDropdown();
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target) && e.target !== searchInput) {
+            hideDropdown();
         }
     });
 });

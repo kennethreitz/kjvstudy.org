@@ -96,6 +96,18 @@
             cursor: help;
         }
 
+        /* But not in search dropdowns */
+        .search-results-dropdown a,
+        .search-results-dropdown a[href*="/book/"],
+        .search-dropdown a,
+        .search-dropdown a[href*="/book/"],
+        .lookup-results-dropdown a,
+        .lookup-results-dropdown a[href*="/book/"],
+        .story-search-dropdown a,
+        .story-search-dropdown a[href*="/book/"] {
+            cursor: pointer !important;
+        }
+
         .verse-tooltip {
             position: absolute;
             background: var(--bg-color);
@@ -1776,6 +1788,10 @@
 
           // Skip if this is a verse number link (the number at the start of each verse)
           if (target.classList.contains('verse-number-link')) return;
+
+          // Skip links in search dropdowns
+          if (target.closest('.search-results-dropdown') || target.closest('.search-dropdown') ||
+              target.closest('.lookup-results-dropdown') || target.closest('.story-search-dropdown')) return;
 
           var verseInfo = parseVerseUrl(target.pathname + target.hash);
           if (!verseInfo) return;

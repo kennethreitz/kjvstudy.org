@@ -280,35 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var noResults = document.getElementById('no-results');
     var currentResults = [];
     var selectedIndex = -1;
-    var searchTimeout = null;
-
-    // Book name mapping for verse references
-    var bookMap = {
-        'gen': 'Genesis', 'ex': 'Exodus', 'lev': 'Leviticus', 'num': 'Numbers', 'deut': 'Deuteronomy',
-        'josh': 'Joshua', 'judg': 'Judges', 'ruth': 'Ruth', 'ps': 'Psalms', 'prov': 'Proverbs',
-        'isa': 'Isaiah', 'jer': 'Jeremiah', 'dan': 'Daniel', 'matt': 'Matthew', 'mk': 'Mark',
-        'lk': 'Luke', 'jn': 'John', 'acts': 'Acts', 'rom': 'Romans', 'rev': 'Revelation',
-        'genesis': 'Genesis', 'exodus': 'Exodus', 'matthew': 'Matthew', 'mark': 'Mark',
-        'luke': 'Luke', 'john': 'John', 'romans': 'Romans', 'revelation': 'Revelation'
-    };
-
-    function capitalizeBook(name) {
-        return bookMap[name.toLowerCase()] || name;
-    }
-
-    function parseVerseReference(input) {
-        var match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
-        if (match) {
-            var book = capitalizeBook(match[1].trim());
-            return { url: '/book/' + encodeURIComponent(book) + '/chapter/' + match[2] + '/verse/' + match[3], display: book + ' ' + match[2] + ':' + match[3] };
-        }
-        match = input.match(/^(.+)\s+(\d+)$/i);
-        if (match) {
-            var book = capitalizeBook(match[1].trim());
-            return { url: '/book/' + encodeURIComponent(book) + '/chapter/' + match[2], display: book + ' ' + match[2] };
-        }
-        return null;
-    }
 
     function filterStories(query) {
         if (!query) {
@@ -399,27 +370,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function renderDropdown(query, apiResults) {
+    function renderDropdown(query) {
         var html = '';
         currentResults = [];
-
-        // Check for verse reference
-        var verseRef = parseVerseReference(query);
-        if (verseRef) {
-            html += '<div class="search-result-category">Go to Verse</div>';
-            currentResults.push(verseRef.url);
-            html += '<a href="' + verseRef.url + '" class="search-result-item' + (currentResults.length === 1 ? ' selected' : '') + '">';
-            html += '<div class="search-result-title">' + verseRef.display + '</div>';
-            html += '</a>';
-        }
 
         // Matching stories on this page
         var matchingStories = getMatchingStories(query.toLowerCase());
         if (matchingStories.length > 0) {
-            html += '<div class="search-result-category">Stories on this page</div>';
+            html += '<div class="search-result-category">Stories</div>';
             matchingStories.forEach(function(story) {
                 currentResults.push(story.url);
-                var isSelected = currentResults.length === 1 && !verseRef;
+                var isSelected = currentResults.length === 1;
                 html += '<a href="' + story.url + '" class="search-result-item' + (isSelected ? ' selected' : '') + '">';
                 html += '<div class="search-result-title">' + story.title + '</div>';
                 if (story.description) {
@@ -427,34 +388,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 html += '</a>';
             });
-        }
-
-        // API results for other content
-        if (apiResults && apiResults.results) {
-            var results = apiResults.results;
-
-            // Topics
-            if (results.topics && results.topics.length > 0) {
-                html += '<div class="search-result-category">Topics</div>';
-                results.topics.slice(0, 3).forEach(function(topic) {
-                    currentResults.push(topic.url);
-                    html += '<a href="' + topic.url + '" class="search-result-item">';
-                    html += '<div class="search-result-title">' + topic.name + '</div>';
-                    html += '</a>';
-                });
-            }
-
-            // Verses
-            if (results.verses && results.verses.length > 0) {
-                html += '<div class="search-result-category">Verses</div>';
-                results.verses.slice(0, 3).forEach(function(verse) {
-                    currentResults.push(verse.url);
-                    html += '<a href="' + verse.url + '" class="search-result-item">';
-                    html += '<div class="search-result-title">' + verse.reference + '</div>';
-                    html += '<div class="search-result-subtitle">' + verse.text + '</div>';
-                    html += '</a>';
-                });
-            }
         }
 
         if (html) {
@@ -467,7 +400,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     searchInput.addEventListener('input', function() {
         var query = this.value.trim();
-        clearTimeout(searchTimeout);
 
         // Filter stories on page
         filterStories(query.toLowerCase());
@@ -477,20 +409,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Show immediate results (verse ref + matching stories)
-        renderDropdown(query, null);
-
-        // Fetch API results with debounce
-        searchTimeout = setTimeout(function() {
-            fetch('/api/universal-search?q=' + encodeURIComponent(query) + '&limit=3')
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    renderDropdown(query, data);
-                })
-                .catch(function(err) {
-                    console.error('Search error:', err);
-                });
-        }, 200);
+        // Show matching stories in dropdown
+        renderDropdown(query);
     });
 
     searchInput.addEventListener('keydown', function(e) {
