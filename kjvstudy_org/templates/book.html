@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <h2>Book Outline</h2>
     <ul>
         {% for item in book_intro.outline %}
-        <li><strong>{{ item.section }}</strong> ({{ item.chapters }}) — {{ item.description }}</li>
+        <li><strong>{{ item.section }}</strong> ({{ item.chapters }}) — {{ item.description|mdi|safe }}</li>
         {% endfor %}
     </ul>
 </section>
