@@ -2,8 +2,9 @@
 
 Routes for browsing Bible stories with adult and kids versions.
 """
+import io
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from ..kjv import bible
 from ..data.stories import (
     get_categories,
@@ -11,6 +12,14 @@ from ..data.stories import (
     get_story_count,
     get_category_count,
 )
+
+# Try to import WeasyPrint (requires system libraries)
+try:
+    from weasyprint import HTML
+    WEASYPRINT_AVAILABLE = True
+except (ImportError, OSError):
+    WEASYPRINT_AVAILABLE = False
+    HTML = None
 
 router = APIRouter(tags=["Bible Stories"])
 
@@ -75,6 +84,71 @@ def stories_kids_index(request: Request):
                 {"text": "Kids", "url": None}
             ]
         }
+    )
+
+
+@router.get("/stories/{slug}/pdf")
+def story_pdf(request: Request, slug: str):
+    """Generate PDF for a story (adult version)."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    story = get_story_by_slug(slug)
+
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
+    # Render the PDF template
+    html_content = templates.get_template("story_pdf.html").render(story=story)
+
+    # Generate PDF
+    pdf_buffer = io.BytesIO()
+    HTML(string=html_content).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+
+    # Return as downloadable PDF
+    filename = f"{slug}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
+@router.get("/stories/{slug}/kids/pdf")
+def story_kids_pdf(request: Request, slug: str):
+    """Generate PDF for a story (kids version)."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    story = get_story_by_slug(slug)
+
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
+    if not story.get("kids_narrative"):
+        raise HTTPException(status_code=404, detail="Kids version not available for this story")
+
+    # Render the PDF template
+    html_content = templates.get_template("story_kids_pdf.html").render(story=story)
+
+    # Generate PDF
+    pdf_buffer = io.BytesIO()
+    HTML(string=html_content).write_pdf(pdf_buffer)
+    pdf_buffer.seek(0)
+
+    # Return as downloadable PDF
+    filename = f"{slug}-kids.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
 
 

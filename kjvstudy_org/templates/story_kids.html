@@ -203,6 +203,33 @@ hr.story-divider::before {
     color: #d1d5db;
 }
 
+/* PDF download button */
+.print-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    color: #7c3aed;
+    background: #fff;
+    border: 2px solid #c4b5fd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 1.5rem auto;
+    text-decoration: none;
+}
+.print-btn:hover {
+    background: #f5f0ff;
+    border-color: #8b5cf6;
+    text-decoration: none;
+}
+.print-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
 /* Print styles */
 @media print {
     .kids-header {
@@ -320,6 +347,13 @@ hr.story-divider::before {
         <p>Want to read the full story with more details?<br/>
         Check out the <a href="/stories/{{ story.slug }}">grown-up version</a> of this story!</p>
     </aside>
+
+    <a href="/stories/{{ story.slug }}/kids/pdf" class="print-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Download PDF
+    </a>
 </article>
 
 <nav class="kids-nav">

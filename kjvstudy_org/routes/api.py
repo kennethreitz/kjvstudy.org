@@ -12,6 +12,13 @@ from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse
+from ..data.stories import (
+    get_categories,
+    get_story_by_slug,
+    get_story_count,
+    get_category_count,
+    get_all_stories_flat,
+)
 
 router = APIRouter(prefix="/api", tags=["API"])
 
@@ -44,7 +51,9 @@ def api_index():
             "topics": "/api/topics",
             "topic": "/api/topics/{topic_name}",
             "reading_plans": "/api/reading-plans",
-            "reading_plan": "/api/reading-plans/{plan_id}"
+            "reading_plan": "/api/reading-plans/{plan_id}",
+            "stories": "/api/stories",
+            "story": "/api/stories/{slug}"
         }
     }
 
@@ -440,3 +449,71 @@ def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID",
         raise HTTPException(status_code=404, detail="Reading plan not found")
 
     return plan
+
+
+@router.get("/stories")
+def api_get_stories():
+    """Get list of all Bible stories organized by category."""
+    categories = get_categories()
+    story_count = get_story_count()
+    category_count = get_category_count()
+
+    # Format categories for API response
+    categories_list = []
+    for category in categories:
+        stories_list = []
+        for story in category.get("stories", []):
+            stories_list.append({
+                "title": story.get("title"),
+                "slug": story.get("slug"),
+                "description": story.get("description"),
+                "verses": story.get("verses", []),
+                "characters": story.get("characters", []),
+                "themes": story.get("themes", []),
+                "kids_title": story.get("kids_title"),
+                "kids_description": story.get("kids_description"),
+                "has_kids_version": bool(story.get("kids_narrative"))
+            })
+        categories_list.append({
+            "category": category.get("category"),
+            "slug": category.get("slug"),
+            "description": category.get("description"),
+            "story_count": len(stories_list),
+            "stories": stories_list
+        })
+
+    return {
+        "total_stories": story_count,
+        "total_categories": category_count,
+        "categories": categories_list
+    }
+
+
+@router.get("/stories/{slug}")
+def api_get_story(slug: str = Path(..., description="Story slug", examples=["creation-of-the-world"])):
+    """Get a specific Bible story by slug."""
+    story = get_story_by_slug(slug)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
+    return {
+        "title": story.get("title"),
+        "slug": story.get("slug"),
+        "description": story.get("description"),
+        "category": story.get("category_name"),
+        "category_slug": story.get("category_slug"),
+        "verses": story.get("verses", []),
+        "characters": story.get("characters", []),
+        "themes": story.get("themes", []),
+        "narrative": story.get("narrative"),
+        "kids_title": story.get("kids_title"),
+        "kids_description": story.get("kids_description"),
+        "kids_narrative": story.get("kids_narrative"),
+        "has_kids_version": bool(story.get("kids_narrative")),
+        "links": {
+            "web": f"/stories/{slug}",
+            "kids_web": f"/stories/{slug}/kids" if story.get("kids_narrative") else None,
+            "pdf": f"/stories/{slug}/pdf",
+            "kids_pdf": f"/stories/{slug}/kids/pdf" if story.get("kids_narrative") else None
+        }
+    }
