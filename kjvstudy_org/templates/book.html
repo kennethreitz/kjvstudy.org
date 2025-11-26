@@ -391,8 +391,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <h2>Key Verses</h2>
     {% for verse in book_intro.key_verses %}
     <blockquote>
-        <p>{{ verse.text }}</p>
-        <footer>— {{ verse.reference }}{% if verse.significance %} <em>({{ verse.significance }})</em>{% endif %}</footer>
+        <p>{{ verse.text|mdi|safe }}</p>
+        <footer>— {{ verse.reference }}{% if verse.significance %} <em>({{ verse.significance|mdi|safe }})</em>{% endif %}</footer>
     </blockquote>
     {% endfor %}
 </section>
