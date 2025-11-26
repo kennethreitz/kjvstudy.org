@@ -3,14 +3,20 @@ Bible reading plans for structured Scripture study.
 Provides various reading schedules for different goals.
 """
 
-from .data.reading_plans import (
-    ONE_YEAR_PLAN,
-    CHRONOLOGICAL_PLAN,
-    NT_90_DAYS,
-    PSALMS_PROVERBS,
-    GOSPELS_ACTS_30,
-    PAUL_EPISTLES_30,
-)
+import json
+from pathlib import Path
+
+# Load reading plans from JSON data file
+_data_path = Path(__file__).parent / "data" / "reading_plans.json"
+with open(_data_path, "r", encoding="utf-8") as f:
+    _data = json.load(f)
+
+ONE_YEAR_PLAN = _data["one_year_plan"]
+CHRONOLOGICAL_PLAN = _data["chronological_plan"]
+NT_90_DAYS = _data["nt_90_days"]
+PSALMS_PROVERBS = _data["psalms_proverbs"]
+GOSPELS_ACTS_30 = _data["gospels_acts_30"]
+PAUL_EPISTLES_30 = _data["paul_epistles_30"]
 
 # Reading plans database
 READING_PLANS = {

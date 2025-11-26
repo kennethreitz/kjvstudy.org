@@ -8,7 +8,7 @@ from typing import Optional
 
 
 # Path to stories directory
-STORIES_DIR = Path(__file__).parent / "stories"
+STORIES_DIR = Path(__file__).parent / "data" / "stories"
 
 
 def load_all_stories() -> list[dict]:

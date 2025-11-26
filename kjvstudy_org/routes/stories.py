@@ -5,7 +5,7 @@ Routes for browsing Bible stories with adult and kids versions.
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse, StreamingResponse
 from ..kjv import bible
-from ..data.stories import (
+from ..stories import (
     get_categories,
     get_story_by_slug,
     get_story_count,
@@ -150,7 +150,7 @@ def story_detail(request: Request, slug: str):
         raise HTTPException(status_code=404, detail="Story not found")
 
     # Find previous and next stories for navigation
-    from ..data.stories import get_all_stories_flat
+    from ..stories import get_all_stories_flat
     all_stories = get_all_stories_flat()
     current_index = None
 
@@ -194,7 +194,7 @@ def story_kids(request: Request, slug: str):
         raise HTTPException(status_code=404, detail="Kids version not available for this story")
 
     # Find previous and next stories for navigation
-    from ..data.stories import get_all_stories_flat
+    from ..stories import get_all_stories_flat
     all_stories = get_all_stories_flat()
     current_index = None
 

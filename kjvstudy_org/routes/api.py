@@ -15,7 +15,7 @@ from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse, create_slug
-from ..data.stories import (
+from ..stories import (
     get_categories,
     get_story_by_slug,
     get_story_count,

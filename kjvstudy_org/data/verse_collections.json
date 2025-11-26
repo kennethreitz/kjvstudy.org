@@ -1,0 +1,176 @@
+{
+  "salvation": {
+    "title": "Salvation Verses",
+    "description": "Essential verses about salvation, grace, and redemption through Jesus Christ.",
+    "icon": "cross",
+    "verses": [
+      {"ref": "John 3:16", "note": "The most famous verse in the Bible - God's love and the gift of eternal life"},
+      {"ref": "Romans 3:23", "note": "All have sinned and fall short of God's glory"},
+      {"ref": "Romans 6:23", "note": "The wages of sin is death, but the gift of God is eternal life"},
+      {"ref": "Romans 5:8", "note": "God demonstrates His love - Christ died for us while we were still sinners"},
+      {"ref": "Romans 10:9", "note": "Confess with your mouth and believe in your heart"},
+      {"ref": "Romans 10:13", "note": "Whoever calls on the name of the Lord shall be saved"},
+      {"ref": "Ephesians 2:8-9", "note": "Saved by grace through faith, not by works"},
+      {"ref": "Acts 4:12", "note": "No other name under heaven by which we must be saved"},
+      {"ref": "1 John 1:9", "note": "If we confess our sins, He is faithful to forgive"},
+      {"ref": "2 Corinthians 5:17", "note": "In Christ, we are a new creation"},
+      {"ref": "Titus 3:5", "note": "Not by works of righteousness, but according to His mercy"},
+      {"ref": "John 14:6", "note": "Jesus is the way, the truth, and the life"}
+    ]
+  },
+  "comfort": {
+    "title": "Comfort and Peace",
+    "description": "Verses that bring comfort, peace, and assurance in difficult times.",
+    "icon": "dove",
+    "verses": [
+      {"ref": "Psalms 23:1", "note": "The LORD is my shepherd - I shall not want"},
+      {"ref": "Psalms 46:1", "note": "God is our refuge and strength, a very present help"},
+      {"ref": "Matthew 11:28", "note": "Come to Me, all who are weary and burdened"},
+      {"ref": "John 14:27", "note": "Peace I leave with you; My peace I give to you"},
+      {"ref": "Philippians 4:6-7", "note": "Be anxious for nothing - the peace of God will guard your hearts"},
+      {"ref": "Romans 8:28", "note": "All things work together for good to those who love God"},
+      {"ref": "2 Corinthians 1:3-4", "note": "God of all comfort who comforts us in all our troubles"},
+      {"ref": "Isaiah 41:10", "note": "Fear not, for I am with you; I will strengthen and help you"},
+      {"ref": "Psalms 34:18", "note": "The LORD is near to the brokenhearted"},
+      {"ref": "Matthew 5:4", "note": "Blessed are those who mourn, for they shall be comforted"},
+      {"ref": "1 Peter 5:7", "note": "Cast all your anxiety on Him because He cares for you"},
+      {"ref": "Revelation 21:4", "note": "God will wipe away every tear from their eyes"}
+    ]
+  },
+  "strength": {
+    "title": "Strength and Courage",
+    "description": "Verses about God's strength, courage in trials, and perseverance.",
+    "icon": "strength",
+    "verses": [
+      {"ref": "Philippians 4:13", "note": "I can do all things through Christ who strengthens me"},
+      {"ref": "Isaiah 40:31", "note": "Those who wait on the LORD shall renew their strength"},
+      {"ref": "Joshua 1:9", "note": "Be strong and courageous - the LORD your God is with you"},
+      {"ref": "Psalms 46:1", "note": "God is our refuge and strength"},
+      {"ref": "2 Corinthians 12:9", "note": "My grace is sufficient - My strength is made perfect in weakness"},
+      {"ref": "Ephesians 6:10", "note": "Be strong in the Lord and in His mighty power"},
+      {"ref": "Nehemiah 8:10", "note": "The joy of the LORD is your strength"},
+      {"ref": "Psalms 27:1", "note": "The LORD is my light and salvation - whom shall I fear?"},
+      {"ref": "Isaiah 41:10", "note": "I will strengthen you and help you"},
+      {"ref": "Deuteronomy 31:6", "note": "Be strong and of good courage - He will not fail you"}
+    ]
+  },
+  "love": {
+    "title": "God's Love",
+    "description": "Verses about God's unfailing love and our call to love others.",
+    "icon": "heart",
+    "verses": [
+      {"ref": "1 John 4:8", "note": "God is love"},
+      {"ref": "John 3:16", "note": "For God so loved the world"},
+      {"ref": "Romans 5:8", "note": "God demonstrates His love - Christ died for us"},
+      {"ref": "1 Corinthians 13:4-7", "note": "Love is patient, love is kind - the nature of love"},
+      {"ref": "1 John 4:19", "note": "We love because He first loved us"},
+      {"ref": "Jeremiah 31:3", "note": "I have loved you with an everlasting love"},
+      {"ref": "Romans 8:38-39", "note": "Nothing can separate us from the love of God"},
+      {"ref": "John 15:13", "note": "Greater love has no one than to lay down his life"},
+      {"ref": "Matthew 22:37-39", "note": "Love the Lord your God and love your neighbor"},
+      {"ref": "1 John 3:1", "note": "See what great love the Father has lavished on us"}
+    ]
+  },
+  "prayer": {
+    "title": "Prayer and Communion",
+    "description": "Verses about prayer, seeking God, and communion with Him.",
+    "icon": "prayer",
+    "verses": [
+      {"ref": "Matthew 6:9-13", "note": "The Lord's Prayer - Our Father who art in heaven"},
+      {"ref": "Philippians 4:6", "note": "Be anxious for nothing, but in everything by prayer"},
+      {"ref": "1 Thessalonians 5:17", "note": "Pray without ceasing"},
+      {"ref": "James 5:16", "note": "The prayer of a righteous person is powerful and effective"},
+      {"ref": "Matthew 7:7", "note": "Ask, and it will be given to you; seek, and you will find"},
+      {"ref": "1 John 5:14", "note": "This is the confidence we have in approaching God"},
+      {"ref": "Jeremiah 33:3", "note": "Call to Me and I will answer you"},
+      {"ref": "Psalms 145:18", "note": "The LORD is near to all who call upon Him"},
+      {"ref": "Matthew 21:22", "note": "Whatever you ask in prayer, believing, you will receive"},
+      {"ref": "Colossians 4:2", "note": "Continue steadfastly in prayer, being watchful"}
+    ]
+  },
+  "faith": {
+    "title": "Faith and Trust",
+    "description": "Verses about faith, trust in God, and believing His promises.",
+    "icon": "star",
+    "verses": [
+      {"ref": "Hebrews 11:1", "note": "Faith is the substance of things hoped for"},
+      {"ref": "Proverbs 3:5-6", "note": "Trust in the LORD with all your heart"},
+      {"ref": "Mark 11:24", "note": "Whatever you ask in prayer, believe that you have received it"},
+      {"ref": "Romans 10:17", "note": "Faith comes by hearing the word of God"},
+      {"ref": "Hebrews 11:6", "note": "Without faith it is impossible to please God"},
+      {"ref": "2 Corinthians 5:7", "note": "We walk by faith, not by sight"},
+      {"ref": "Matthew 17:20", "note": "Faith as small as a mustard seed can move mountains"},
+      {"ref": "James 2:17", "note": "Faith by itself, if it does not have works, is dead"},
+      {"ref": "Galatians 2:20", "note": "The life I now live, I live by faith in the Son of God"},
+      {"ref": "Psalms 37:5", "note": "Commit your way to the LORD; trust in Him"}
+    ]
+  },
+  "promises": {
+    "title": "God's Promises",
+    "description": "Key promises God has made to His people throughout Scripture.",
+    "icon": "star",
+    "verses": [
+      {"ref": "Jeremiah 29:11", "note": "I know the plans I have for you - plans to prosper you"},
+      {"ref": "Romans 8:28", "note": "All things work together for good"},
+      {"ref": "Hebrews 13:5", "note": "I will never leave you nor forsake you"},
+      {"ref": "Matthew 28:20", "note": "I am with you always, even to the end of the age"},
+      {"ref": "John 14:2-3", "note": "I go to prepare a place for you"},
+      {"ref": "Philippians 4:19", "note": "My God shall supply all your need"},
+      {"ref": "Isaiah 26:3", "note": "Perfect peace to those whose mind is stayed on You"},
+      {"ref": "1 Corinthians 10:13", "note": "No temptation beyond what you can bear"},
+      {"ref": "2 Chronicles 7:14", "note": "If My people pray, I will heal their land"},
+      {"ref": "Joel 2:32", "note": "Whoever calls on the name of the LORD shall be saved"}
+    ]
+  },
+  "wisdom": {
+    "title": "Wisdom and Guidance",
+    "description": "Verses about seeking wisdom, God's guidance, and making wise choices.",
+    "icon": "light",
+    "verses": [
+      {"ref": "James 1:5", "note": "If any of you lacks wisdom, let him ask God"},
+      {"ref": "Proverbs 3:5-6", "note": "Trust in the LORD and He will direct your paths"},
+      {"ref": "Proverbs 9:10", "note": "The fear of the LORD is the beginning of wisdom"},
+      {"ref": "Psalms 119:105", "note": "Your word is a lamp to my feet and a light to my path"},
+      {"ref": "Proverbs 2:6", "note": "The LORD gives wisdom; from His mouth come knowledge"},
+      {"ref": "Colossians 3:16", "note": "Let the word of Christ dwell in you richly"},
+      {"ref": "Proverbs 4:7", "note": "Wisdom is the principal thing; get wisdom"},
+      {"ref": "Psalms 32:8", "note": "I will instruct you and teach you in the way you should go"},
+      {"ref": "Isaiah 30:21", "note": "Your ears shall hear a word: This is the way, walk in it"},
+      {"ref": "Proverbs 16:3", "note": "Commit your works to the LORD and your plans will succeed"}
+    ]
+  },
+  "hope": {
+    "title": "Hope and Assurance",
+    "description": "Verses about hope, eternal life, and confident expectation in God.",
+    "icon": "sunrise",
+    "verses": [
+      {"ref": "Romans 15:13", "note": "May the God of hope fill you with all joy and peace"},
+      {"ref": "Jeremiah 29:11", "note": "Plans to give you hope and a future"},
+      {"ref": "Hebrews 6:19", "note": "This hope we have as an anchor of the soul"},
+      {"ref": "Psalms 42:11", "note": "Hope in God, for I shall yet praise Him"},
+      {"ref": "Romans 5:5", "note": "Hope does not disappoint"},
+      {"ref": "1 Peter 1:3", "note": "A living hope through the resurrection of Jesus Christ"},
+      {"ref": "Lamentations 3:22-23", "note": "His mercies are new every morning"},
+      {"ref": "Titus 2:13", "note": "Looking for the blessed hope and appearing of our God"},
+      {"ref": "Psalms 62:5", "note": "My soul, wait silently for God; my hope is from Him"},
+      {"ref": "Romans 8:24-25", "note": "We were saved in this hope"}
+    ]
+  },
+  "forgiveness": {
+    "title": "Forgiveness and Mercy",
+    "description": "Verses about God's forgiveness and our call to forgive others.",
+    "icon": "dove",
+    "verses": [
+      {"ref": "1 John 1:9", "note": "If we confess our sins, He is faithful and just to forgive"},
+      {"ref": "Ephesians 4:32", "note": "Be kind and forgiving, as God in Christ forgave you"},
+      {"ref": "Colossians 3:13", "note": "Forgive as the Lord forgave you"},
+      {"ref": "Matthew 6:14-15", "note": "If you forgive others, your Father will forgive you"},
+      {"ref": "Psalms 103:12", "note": "As far as the east is from the west, He has removed our sins"},
+      {"ref": "Isaiah 43:25", "note": "I am He who blots out your transgressions"},
+      {"ref": "Micah 7:18-19", "note": "He will cast all our sins into the depths of the sea"},
+      {"ref": "Acts 3:19", "note": "Repent and be converted, that your sins may be blotted out"},
+      {"ref": "Psalms 32:5", "note": "I acknowledged my sin and You forgave the iniquity"},
+      {"ref": "Luke 7:47", "note": "He who is forgiven much, loves much"}
+    ]
+  }
+}
