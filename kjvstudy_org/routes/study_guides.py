@@ -173,12 +173,6 @@ def study_guides_page(request: Request):
                 "verses": ["Luke 24:27", "John 5:39", "1 Peter 1:10-12", "Galatians 3:8"]
             },
             {
-                "title": "Christ in Every Book",
-                "description": "How each of the 66 books points to Jesus",
-                "slug": "christ-in-every-book",
-                "verses": ["Luke 24:44", "John 5:46", "Hebrews 10:7", "Revelation 19:10"]
-            },
-            {
                 "title": "The Law and the Christian",
                 "description": "The three uses of the law and its ongoing relevance",
                 "slug": "law-and-christian",
@@ -1157,42 +1151,6 @@ def study_guide_detail(request: Request, slug: str):
                 }
             ]
         },
-        "christ-in-every-book": {
-            "title": "Christ in Every Book",
-            "description": "How each of the 66 books points to Jesus",
-            "sections": [
-                {
-                    "title": "Christ in the Pentateuch",
-                    "verses": ["John 5:46", "Deuteronomy 18:15", "Genesis 3:15", "Numbers 21:9"],
-                    "content": "The five books of Moses lay the foundation for understanding Christ. Jesus said, 'Moses wrote of me.' In Genesis, Christ is the Seed of the woman who crushes the serpent, the Seed of Abraham through whom all nations are blessed, the Shiloh to whom the scepter belongs, and the ladder connecting heaven and earth in Jacob's dream. In Exodus, He is the Passover Lamb, the Rock that followed Israel, the Manna from heaven, and the Tabernacle where God dwells with His people. In Leviticus, He is the High Priest who offers sacrifice and the sacrifice itself—the burnt offering, sin offering, and peace offering. In Numbers, He is the bronze serpent lifted up for healing (as Christ was lifted on the cross), the smitten Rock, and the Cities of Refuge. In Deuteronomy, Moses prophesies: 'The LORD thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken.' Every institution, sacrifice, and promise in the Pentateuch finds its fulfillment in Christ."
-                },
-                {
-                    "title": "Christ in the Historical Books",
-                    "verses": ["Joshua 5:14", "Ruth 4:14", "2 Samuel 7:12-13", "1 Kings 8:56"],
-                    "content": "The historical books reveal Christ through types, promises, and anticipations of His reign. In Joshua, Christ appears as the Captain of the LORD's host who leads His people into their inheritance—as Jesus leads us into heavenly rest. Joshua's very name (Yeshua/Jesus) means 'The LORD saves.' In Judges, Christ is the true Judge and Deliverer who rescues His people from oppression. In Ruth, He is the Kinsman-Redeemer (Boaz foreshadows Him) who redeems His bride from poverty and shame. The women bless Naomi: 'Blessed be the LORD, which hath not left thee this day without a kinsman.' In 1 & 2 Samuel, Christ is the anointed King prefigured in David—the shepherd-king after God's heart. God promises David: 'I will set up thy seed after thee... I will establish the throne of his kingdom for ever.' This finds ultimate fulfillment in Christ, David's greater Son. In Kings and Chronicles, Solomon's glory, wisdom, and temple-building point to Christ, the greater Solomon. 'There hath not failed one word of all his good promise'—and Christ is the Yes to all God's promises."
-                },
-                {
-                    "title": "Christ in the Wisdom Literature",
-                    "verses": ["Job 19:25", "Psalm 22:1", "Proverbs 8:22-31", "Ecclesiastes 12:13-14"],
-                    "content": "The wisdom books reveal Christ as Redeemer, Sufferer, Divine Wisdom, and Judge. Job declared, 'I know that my redeemer liveth, and that he shall stand at the latter day upon the earth: and though after my skin worms destroy this body, yet in my flesh shall I see God.' Job's suffering and restoration picture Christ's suffering and vindication. The Psalms are filled with Christ: Psalm 2 presents the divine Son enthroned; Psalm 22 describes crucifixion ('My God, my God, why hast thou forsaken me?'); Psalm 110 reveals the eternal Priest-King; Psalm 16 prophesies resurrection; Psalm 45 celebrates the King's wedding; Psalm 72 describes His glorious reign. In Proverbs, Christ is personified Wisdom present at creation: 'The LORD possessed me in the beginning of his way, before his works of old... when he prepared the heavens, I was there.' Ecclesiastes' conclusion—'Fear God, and keep his commandments... God shall bring every work into judgment'—points to Christ the Judge. Song of Solomon pictures Christ's love for His bride, the Church."
-                },
-                {
-                    "title": "Christ in the Major Prophets",
-                    "verses": ["Isaiah 9:6", "Jeremiah 23:5-6", "Ezekiel 34:23", "Daniel 7:13-14"],
-                    "content": "The major prophets speak extensively and explicitly of the coming Messiah. Isaiah is the 'gospel prophet,' presenting Christ as the virgin-born Immanuel (7:14), the Child who is Mighty God (9:6), the Branch from Jesse's roots (11:1), the Suffering Servant who bears our sins (53), and the Anointed Preacher of good tidings (61:1). 'Unto us a child is born, unto us a son is given: and the government shall be upon his shoulder: and his name shall be called Wonderful, Counsellor, The mighty God, The everlasting Father, The Prince of Peace.' Jeremiah prophesies: 'I will raise unto David a righteous Branch, and a King shall reign and prosper... and this is his name whereby he shall be called, THE LORD OUR RIGHTEOUSNESS.' Ezekiel foretells: 'I will set up one shepherd over them, and he shall feed them, even my servant David.' Daniel saw 'one like the Son of man' coming with the clouds of heaven, given everlasting dominion over all peoples and nations."
-                },
-                {
-                    "title": "Christ in the Minor Prophets",
-                    "verses": ["Hosea 11:1", "Micah 5:2", "Zechariah 9:9", "Malachi 4:2"],
-                    "content": "The twelve minor prophets each contribute to the composite portrait of Christ. Hosea reveals God's faithful love that redeems an unfaithful bride—'Out of Egypt have I called my son' (fulfilled in Matthew 2:15). Joel promises the Spirit's outpouring that Christ fulfills at Pentecost. Amos speaks of the restoration of David's tabernacle. Obadiah announces the kingdom shall be the LORD's. Jonah provides a sign of Christ's death and resurrection—three days in the fish's belly. Micah names Bethlehem as Messiah's birthplace: 'Out of thee shall he come forth unto me that is to be ruler in Israel; whose goings forth have been from of old, from everlasting.' Nahum, Habakkuk, and Zephaniah proclaim coming judgment and ultimate deliverance. Haggai and Zechariah promise the temple's greater glory when Messiah comes. Zechariah is particularly rich: the Branch, the Shepherd struck down, the King entering Jerusalem on a donkey, the one pierced whom Israel will mourn. Malachi announces the messenger who prepares the way and 'the Sun of righteousness' who will arise 'with healing in his wings.'"
-                },
-                {
-                    "title": "Christ in the New Testament",
-                    "verses": ["Matthew 1:1", "John 1:1", "Hebrews 1:1-3", "Revelation 22:13"],
-                    "content": "The New Testament presents Christ directly in His incarnation, ministry, death, resurrection, ascension, and promised return. The Gospels record His life: Matthew presents Him as King of the Jews (the book of the generation of Jesus Christ, the son of David); Mark as the Servant; Luke as the Son of Man; John as the Son of God ('In the beginning was the Word, and the Word was God'). Acts records Christ building His church through the Spirit. The Epistles explain Christ's work: Romans expounds justification in Him; Corinthians presents Him as wisdom and the resurrection firstfruits; Galatians as our liberty; Ephesians as head of the church; Philippians as our joy; Colossians as preeminent over all; the Thessalonian letters present His return; the Pastoral Epistles His sound doctrine; Hebrews His superior priesthood ('the brightness of his glory, and the express image of his person'); James His practical wisdom; Peter His example in suffering; John His love and truth; Jude preserves us in Him. Revelation unveils Christ triumphant: 'I am Alpha and Omega, the beginning and the end, the first and the last.'"
-                }
-            ]
-        },
         "law-and-christian": {
             "title": "The Law and the Christian",
             "description": "The three uses of the law and its ongoing relevance",
@@ -1318,6 +1276,7 @@ def study_guide_detail(request: Request, slug: str):
         verse_texts = []
         for verse_ref in section["verses"]:
             try:
+                verse_text = None
                 # Parse verse reference (simplified)
                 parts = verse_ref.split(" ")
                 if len(parts) >= 2:
@@ -1341,16 +1300,23 @@ def study_guide_detail(request: Request, slug: str):
                         chapter = int(chapter_verse)
                         verse_text = f"(See {book} {chapter})"
 
-                    if verse_text:
-                        verse_texts.append({
-                            "reference": verse_ref,
-                            "text": verse_text,
-                            "url": verse_reference_to_url(verse_ref) or "#"
-                        })
-            except:
+                if verse_text:
+                    verse_texts.append({
+                        "reference": verse_ref,
+                        "text": verse_text,
+                        "url": verse_reference_to_url(verse_ref) or "#"
+                    })
+                else:
+                    verse_texts.append({
+                        "reference": verse_ref,
+                        "text": f"(See {verse_ref})",
+                        "url": verse_reference_to_url(verse_ref) or "#"
+                    })
+            except Exception as e:
+                print(f"Error parsing verse {verse_ref}: {e}")
                 verse_texts.append({
                     "reference": verse_ref,
-                    "text": "Text not found",
+                    "text": f"(See {verse_ref})",
                     "url": "#"
                 })
 
