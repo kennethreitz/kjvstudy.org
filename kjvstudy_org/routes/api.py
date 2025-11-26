@@ -104,6 +104,77 @@ def search_api(
     }
 
 
+@router.get("/universal-search")
+def universal_search_api(
+    q: str = Query(..., description="Search query", examples=["love"]),
+    limit: int = Query(5, description="Max results per category", examples=[5])
+):
+    """Universal search across all content types."""
+    if not q or len(q.strip()) < 2:
+        return {"query": q, "results": {}}
+
+    query = q.strip().lower()
+    results = {}
+
+    # Search Bible books
+    all_books = bible.get_books()
+    matching_books = [
+        {"name": book, "url": f"/book/{book}"}
+        for book in all_books
+        if query in book.lower()
+    ][:limit]
+    if matching_books:
+        results["books"] = matching_books
+
+    # Search Bible verses (limit to top results for speed)
+    verse_results = perform_full_text_search(q.strip(), limit)
+    if verse_results:
+        results["verses"] = [
+            {
+                "reference": r["reference"],
+                "text": r["text"][:100] + "..." if len(r.get("text", "")) > 100 else r.get("text", ""),
+                "url": f"/book/{r['book']}/chapter/{r['chapter']}/verse/{r['verse']}"
+            }
+            for r in verse_results
+        ]
+
+    # Search topics
+    all_topics = get_all_topics()
+    matching_topics = [
+        {"name": name.replace("_", " ").title(), "url": f"/topics/{name}"}
+        for name, data in all_topics.items()
+        if query in name.lower() or query in data.get("description", "").lower()
+    ][:limit]
+    if matching_topics:
+        results["topics"] = matching_topics
+
+    # Search stories
+    all_stories = get_all_stories_flat()
+    matching_stories = [
+        {
+            "title": s["title"],
+            "url": f"/stories/{s['slug']}",
+            "category": s.get("category_name", "")
+        }
+        for s in all_stories
+        if query in s.get("title", "").lower() or query in s.get("description", "").lower()
+    ][:limit]
+    if matching_stories:
+        results["stories"] = matching_stories
+
+    # Search reading plans
+    from ..reading_plans import READING_PLANS
+    matching_plans = [
+        {"name": plan["name"], "url": f"/reading-plans/{plan_id}"}
+        for plan_id, plan in READING_PLANS.items()
+        if query in plan["name"].lower() or query in plan.get("description", "").lower()
+    ][:limit]
+    if matching_plans:
+        results["plans"] = matching_plans
+
+    return {"query": q, "results": results}
+
+
 @router.get("/verse-of-the-day")
 def verse_of_the_day_api():
     """API endpoint for verse of the day."""

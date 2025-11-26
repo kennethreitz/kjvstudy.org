@@ -110,6 +110,75 @@
     text-align: center;
 }
 
+/* Search Dropdown */
+.verse-lookup {
+    position: relative;
+}
+
+.lookup-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color-darker);
+    border-top: none;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lookup-results-dropdown.show {
+    display: block;
+}
+
+.lookup-result-category {
+    padding: 0.5rem 1rem 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    background: var(--code-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.lookup-result-item {
+    display: block;
+    padding: 0.6rem 1rem;
+    text-decoration: none;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.lookup-result-item:hover,
+.lookup-result-item.selected {
+    background: var(--code-bg);
+}
+
+.lookup-result-item:last-child {
+    border-bottom: none;
+}
+
+.lookup-result-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.lookup-result-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-top: 0.15rem;
+}
+
+[data-theme="dark"] .lookup-results-dropdown {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 /* Navigation Links */
 .nav-links {
     text-align: center;
@@ -266,6 +335,7 @@
                placeholder="Search scripture or jump to verse..." autocomplete="off" />
         <button type="submit" class="lookup-btn">Go</button>
     </form>
+    <div id="lookup-results-dropdown" class="lookup-results-dropdown"></div>
     <div class="lookup-help">Navigate: John 3:16, Romans 8, Genesis · Search: love, faith, salvation</div>
 </section>
 
@@ -392,120 +462,307 @@
 </div>
 
 <script>
+var bookMap = {
+    'genesis': 'Genesis', 'exodus': 'Exodus', 'leviticus': 'Leviticus', 'numbers': 'Numbers',
+    'deuteronomy': 'Deuteronomy', 'joshua': 'Joshua', 'judges': 'Judges', 'ruth': 'Ruth',
+    '1 samuel': '1 Samuel', '2 samuel': '2 Samuel', '1 kings': '1 Kings', '2 kings': '2 Kings',
+    '1 chronicles': '1 Chronicles', '2 chronicles': '2 Chronicles', 'ezra': 'Ezra', 'nehemiah': 'Nehemiah',
+    'esther': 'Esther', 'job': 'Job', 'psalms': 'Psalms', 'psalm': 'Psalms', 'proverbs': 'Proverbs',
+    'ecclesiastes': 'Ecclesiastes', 'song of solomon': 'Song of Solomon', 'isaiah': 'Isaiah',
+    'jeremiah': 'Jeremiah', 'lamentations': 'Lamentations', 'ezekiel': 'Ezekiel', 'daniel': 'Daniel',
+    'hosea': 'Hosea', 'joel': 'Joel', 'amos': 'Amos', 'obadiah': 'Obadiah', 'jonah': 'Jonah',
+    'micah': 'Micah', 'nahum': 'Nahum', 'habakkuk': 'Habakkuk', 'zephaniah': 'Zephaniah',
+    'haggai': 'Haggai', 'zechariah': 'Zechariah', 'malachi': 'Malachi', 'matthew': 'Matthew',
+    'mark': 'Mark', 'luke': 'Luke', 'john': 'John', 'acts': 'Acts', 'romans': 'Romans',
+    '1 corinthians': '1 Corinthians', '2 corinthians': '2 Corinthians', 'galatians': 'Galatians',
+    'ephesians': 'Ephesians', 'philippians': 'Philippians', 'colossians': 'Colossians',
+    '1 thessalonians': '1 Thessalonians', '2 thessalonians': '2 Thessalonians',
+    '1 timothy': '1 Timothy', '2 timothy': '2 Timothy', 'titus': 'Titus', 'philemon': 'Philemon',
+    'hebrews': 'Hebrews', 'james': 'James', '1 peter': '1 Peter', '2 peter': '2 Peter',
+    '1 john': '1 John', '2 john': '2 John', '3 john': '3 John', 'jude': 'Jude', 'revelation': 'Revelation',
+    'gen': 'Genesis', 'ge': 'Genesis', 'exo': 'Exodus', 'ex': 'Exodus', 'lev': 'Leviticus',
+    'le': 'Leviticus', 'num': 'Numbers', 'nu': 'Numbers', 'deut': 'Deuteronomy', 'dt': 'Deuteronomy',
+    'josh': 'Joshua', 'jos': 'Joshua', 'judg': 'Judges', 'jdg': 'Judges', 'ru': 'Ruth',
+    '1 sam': '1 Samuel', '1sam': '1 Samuel', '1s': '1 Samuel', '2 sam': '2 Samuel', '2sam': '2 Samuel', '2s': '2 Samuel',
+    '1 ki': '1 Kings', '1ki': '1 Kings', '1k': '1 Kings', '2 ki': '2 Kings', '2ki': '2 Kings', '2k': '2 Kings',
+    '1 chr': '1 Chronicles', '1chr': '1 Chronicles', '1ch': '1 Chronicles', '2 chr': '2 Chronicles', '2chr': '2 Chronicles', '2ch': '2 Chronicles',
+    'ezr': 'Ezra', 'neh': 'Nehemiah', 'ne': 'Nehemiah', 'est': 'Esther', 'ps': 'Psalms', 'psa': 'Psalms',
+    'prov': 'Proverbs', 'pr': 'Proverbs', 'eccl': 'Ecclesiastes', 'ec': 'Ecclesiastes',
+    'song': 'Song of Solomon', 'sos': 'Song of Solomon', 'ss': 'Song of Solomon',
+    'isa': 'Isaiah', 'is': 'Isaiah', 'jer': 'Jeremiah', 'je': 'Jeremiah', 'lam': 'Lamentations', 'la': 'Lamentations',
+    'ezek': 'Ezekiel', 'eze': 'Ezekiel', 'ezk': 'Ezekiel', 'dan': 'Daniel', 'da': 'Daniel',
+    'hos': 'Hosea', 'ho': 'Hosea', 'joe': 'Joel', 'jl': 'Joel', 'am': 'Amos', 'ob': 'Obadiah',
+    'jon': 'Jonah', 'mic': 'Micah', 'mi': 'Micah', 'nah': 'Nahum', 'na': 'Nahum',
+    'hab': 'Habakkuk', 'hb': 'Habakkuk', 'zep': 'Zephaniah', 'zph': 'Zephaniah',
+    'hag': 'Haggai', 'hg': 'Haggai', 'zech': 'Zechariah', 'zec': 'Zechariah', 'zch': 'Zechariah',
+    'mal': 'Malachi', 'mat': 'Matthew', 'mt': 'Matthew', 'mar': 'Mark', 'mk': 'Mark', 'mrk': 'Mark',
+    'luk': 'Luke', 'lk': 'Luke', 'joh': 'John', 'jn': 'John', 'act': 'Acts', 'ac': 'Acts',
+    'rom': 'Romans', 'ro': 'Romans', '1 cor': '1 Corinthians', '1cor': '1 Corinthians', '1co': '1 Corinthians',
+    '2 cor': '2 Corinthians', '2cor': '2 Corinthians', '2co': '2 Corinthians',
+    'gal': 'Galatians', 'ga': 'Galatians', 'eph': 'Ephesians', 'ep': 'Ephesians',
+    'phil': 'Philippians', 'php': 'Philippians', 'ph': 'Philippians',
+    'col': 'Colossians', 'co': 'Colossians', '1 thess': '1 Thessalonians', '1thess': '1 Thessalonians', '1th': '1 Thessalonians',
+    '2 thess': '2 Thessalonians', '2thess': '2 Thessalonians', '2th': '2 Thessalonians',
+    '1 tim': '1 Timothy', '1tim': '1 Timothy', '1ti': '1 Timothy', '2 tim': '2 Timothy', '2tim': '2 Timothy', '2ti': '2 Timothy',
+    'tit': 'Titus', 'ti': 'Titus', 'phm': 'Philemon', 'pm': 'Philemon',
+    'heb': 'Hebrews', 'he': 'Hebrews', 'jam': 'James', 'jas': 'James', 'jm': 'James',
+    '1 pet': '1 Peter', '1pet': '1 Peter', '1pe': '1 Peter', '1p': '1 Peter',
+    '2 pet': '2 Peter', '2pet': '2 Peter', '2pe': '2 Peter', '2p': '2 Peter',
+    '1 joh': '1 John', '1joh': '1 John', '1jn': '1 John', '2 joh': '2 John', '2joh': '2 John', '2jn': '2 John',
+    '3 joh': '3 John', '3joh': '3 John', '3jn': '3 John', 'jud': 'Jude',
+    'rev': 'Revelation', 're': 'Revelation'
+};
+
 function capitalizeBook(bookName) {
-    const bookMap = {
-        'genesis': 'Genesis', 'exodus': 'Exodus', 'leviticus': 'Leviticus', 'numbers': 'Numbers',
-        'deuteronomy': 'Deuteronomy', 'joshua': 'Joshua', 'judges': 'Judges', 'ruth': 'Ruth',
-        '1 samuel': '1 Samuel', '2 samuel': '2 Samuel', '1 kings': '1 Kings', '2 kings': '2 Kings',
-        '1 chronicles': '1 Chronicles', '2 chronicles': '2 Chronicles', 'ezra': 'Ezra', 'nehemiah': 'Nehemiah',
-        'esther': 'Esther', 'job': 'Job', 'psalms': 'Psalms', 'psalm': 'Psalms', 'proverbs': 'Proverbs',
-        'ecclesiastes': 'Ecclesiastes', 'song of solomon': 'Song of Solomon', 'isaiah': 'Isaiah',
-        'jeremiah': 'Jeremiah', 'lamentations': 'Lamentations', 'ezekiel': 'Ezekiel', 'daniel': 'Daniel',
-        'hosea': 'Hosea', 'joel': 'Joel', 'amos': 'Amos', 'obadiah': 'Obadiah', 'jonah': 'Jonah',
-        'micah': 'Micah', 'nahum': 'Nahum', 'habakkuk': 'Habakkuk', 'zephaniah': 'Zephaniah',
-        'haggai': 'Haggai', 'zechariah': 'Zechariah', 'malachi': 'Malachi', 'matthew': 'Matthew',
-        'mark': 'Mark', 'luke': 'Luke', 'john': 'John', 'acts': 'Acts', 'romans': 'Romans',
-        '1 corinthians': '1 Corinthians', '2 corinthians': '2 Corinthians', 'galatians': 'Galatians',
-        'ephesians': 'Ephesians', 'philippians': 'Philippians', 'colossians': 'Colossians',
-        '1 thessalonians': '1 Thessalonians', '2 thessalonians': '2 Thessalonians',
-        '1 timothy': '1 Timothy', '2 timothy': '2 Timothy', 'titus': 'Titus', 'philemon': 'Philemon',
-        'hebrews': 'Hebrews', 'james': 'James', '1 peter': '1 Peter', '2 peter': '2 Peter',
-        '1 john': '1 John', '2 john': '2 John', '3 john': '3 John', 'jude': 'Jude', 'revelation': 'Revelation',
-        'gen': 'Genesis', 'ge': 'Genesis', 'exo': 'Exodus', 'ex': 'Exodus', 'lev': 'Leviticus',
-        'le': 'Leviticus', 'num': 'Numbers', 'nu': 'Numbers', 'deut': 'Deuteronomy', 'dt': 'Deuteronomy',
-        'josh': 'Joshua', 'jos': 'Joshua', 'judg': 'Judges', 'jdg': 'Judges', 'ru': 'Ruth',
-        '1 sam': '1 Samuel', '1sam': '1 Samuel', '1s': '1 Samuel', '2 sam': '2 Samuel', '2sam': '2 Samuel', '2s': '2 Samuel',
-        '1 ki': '1 Kings', '1ki': '1 Kings', '1k': '1 Kings', '2 ki': '2 Kings', '2ki': '2 Kings', '2k': '2 Kings',
-        '1 chr': '1 Chronicles', '1chr': '1 Chronicles', '1ch': '1 Chronicles', '2 chr': '2 Chronicles', '2chr': '2 Chronicles', '2ch': '2 Chronicles',
-        'ezr': 'Ezra', 'neh': 'Nehemiah', 'ne': 'Nehemiah', 'est': 'Esther', 'ps': 'Psalms', 'psa': 'Psalms',
-        'prov': 'Proverbs', 'pr': 'Proverbs', 'eccl': 'Ecclesiastes', 'ec': 'Ecclesiastes',
-        'song': 'Song of Solomon', 'sos': 'Song of Solomon', 'ss': 'Song of Solomon',
-        'isa': 'Isaiah', 'is': 'Isaiah', 'jer': 'Jeremiah', 'je': 'Jeremiah', 'lam': 'Lamentations', 'la': 'Lamentations',
-        'ezek': 'Ezekiel', 'eze': 'Ezekiel', 'ezk': 'Ezekiel', 'dan': 'Daniel', 'da': 'Daniel',
-        'hos': 'Hosea', 'ho': 'Hosea', 'joe': 'Joel', 'jl': 'Joel', 'am': 'Amos', 'ob': 'Obadiah',
-        'jon': 'Jonah', 'mic': 'Micah', 'mi': 'Micah', 'nah': 'Nahum', 'na': 'Nahum',
-        'hab': 'Habakkuk', 'hb': 'Habakkuk', 'zep': 'Zephaniah', 'zph': 'Zephaniah',
-        'hag': 'Haggai', 'hg': 'Haggai', 'zech': 'Zechariah', 'zec': 'Zechariah', 'zch': 'Zechariah',
-        'mal': 'Malachi', 'mat': 'Matthew', 'mt': 'Matthew', 'mar': 'Mark', 'mk': 'Mark', 'mrk': 'Mark',
-        'luk': 'Luke', 'lk': 'Luke', 'joh': 'John', 'jn': 'John', 'act': 'Acts', 'ac': 'Acts',
-        'rom': 'Romans', 'ro': 'Romans', '1 cor': '1 Corinthians', '1cor': '1 Corinthians', '1co': '1 Corinthians',
-        '2 cor': '2 Corinthians', '2cor': '2 Corinthians', '2co': '2 Corinthians',
-        'gal': 'Galatians', 'ga': 'Galatians', 'eph': 'Ephesians', 'ep': 'Ephesians',
-        'phil': 'Philippians', 'php': 'Philippians', 'ph': 'Philippians',
-        'col': 'Colossians', 'co': 'Colossians', '1 thess': '1 Thessalonians', '1thess': '1 Thessalonians', '1th': '1 Thessalonians',
-        '2 thess': '2 Thessalonians', '2thess': '2 Thessalonians', '2th': '2 Thessalonians',
-        '1 tim': '1 Timothy', '1tim': '1 Timothy', '1ti': '1 Timothy', '2 tim': '2 Timothy', '2tim': '2 Timothy', '2ti': '2 Timothy',
-        'tit': 'Titus', 'ti': 'Titus', 'phm': 'Philemon', 'pm': 'Philemon',
-        'heb': 'Hebrews', 'he': 'Hebrews', 'jam': 'James', 'jas': 'James', 'jm': 'James',
-        '1 pet': '1 Peter', '1pet': '1 Peter', '1pe': '1 Peter', '1p': '1 Peter',
-        '2 pet': '2 Peter', '2pet': '2 Peter', '2pe': '2 Peter', '2p': '2 Peter',
-        '1 joh': '1 John', '1joh': '1 John', '1jn': '1 John', '2 joh': '2 John', '2joh': '2 John', '2jn': '2 John',
-        '3 joh': '3 John', '3joh': '3 John', '3jn': '3 John', 'jud': 'Jude',
-        'rev': 'Revelation', 're': 'Revelation'
-    };
     return bookMap[bookName.toLowerCase()] || bookName;
+}
+
+// Parse verse reference and return URL or null
+function parseVerseReference(input) {
+    // Book Chapter:Verse
+    var match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
+    if (match) {
+        var book = capitalizeBook(match[1].trim());
+        return '/book/' + encodeURIComponent(book) + '/chapter/' + match[2] + '/verse/' + match[3];
+    }
+    // Book Chapter
+    match = input.match(/^(.+)\s+(\d+)$/i);
+    if (match) {
+        var book = capitalizeBook(match[1].trim());
+        return '/book/' + encodeURIComponent(book) + '/chapter/' + match[2];
+    }
+    return null;
+}
+
+// Format verse reference for display
+function formatVerseRef(input) {
+    var match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
+    if (match) {
+        return capitalizeBook(match[1].trim()) + ' ' + match[2] + ':' + match[3];
+    }
+    match = input.match(/^(.+)\s+(\d+)$/i);
+    if (match) {
+        return capitalizeBook(match[1].trim()) + ' ' + match[2];
+    }
+    return input;
+}
+
+// Dropdown state
+var lookupDropdown = null;
+var lookupInput = null;
+var currentResults = [];
+var selectedIndex = -1;
+var searchTimeout = null;
+
+var categoryLabels = {
+    books: 'Books',
+    verses: 'Verses',
+    topics: 'Topics',
+    stories: 'Stories',
+    plans: 'Reading Plans'
+};
+
+function initDropdown() {
+    lookupDropdown = document.getElementById('lookup-results-dropdown');
+    lookupInput = document.getElementById('verse-lookup-input');
+
+    if (!lookupInput || !lookupDropdown) return;
+
+    lookupInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        var query = this.value.trim();
+
+        if (query.length < 2) {
+            hideDropdown();
+            return;
+        }
+
+        // Check if it's a verse reference first
+        var verseUrl = parseVerseReference(query);
+        if (verseUrl) {
+            showVerseRefResult(query, verseUrl);
+        }
+
+        // Debounce API call
+        searchTimeout = setTimeout(function() {
+            performUniversalSearch(query);
+        }, 200);
+    });
+
+    lookupInput.addEventListener('keydown', function(e) {
+        if (!lookupDropdown.classList.contains('show')) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
+            updateSelection();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = Math.max(selectedIndex - 1, -1);
+            updateSelection();
+        } else if (e.key === 'Escape') {
+            hideDropdown();
+        }
+    });
+
+    // Click outside to close
+    document.addEventListener('click', function(e) {
+        if (!lookupDropdown.contains(e.target) && e.target !== lookupInput) {
+            hideDropdown();
+        }
+    });
+}
+
+function showVerseRefResult(query, url) {
+    var html = '<div class="lookup-result-category">Go to</div>';
+    currentResults = [url];
+    selectedIndex = 0;
+    html += '<a href="' + url + '" class="lookup-result-item selected">';
+    html += '<div class="lookup-result-title">' + formatVerseRef(query) + '</div>';
+    html += '</a>';
+    lookupDropdown.innerHTML = html;
+    lookupDropdown.classList.add('show');
+}
+
+function performUniversalSearch(query) {
+    fetch('/api/universal-search?q=' + encodeURIComponent(query) + '&limit=5')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            renderResults(data, query);
+        })
+        .catch(function(err) {
+            console.error('Search error:', err);
+        });
+}
+
+function renderResults(data, query) {
+    var results = data.results;
+    var html = '';
+    var newResults = [];
+
+    // If it's a verse reference, show that first
+    var verseUrl = parseVerseReference(query);
+    if (verseUrl) {
+        html += '<div class="lookup-result-category">Go to</div>';
+        newResults.push(verseUrl);
+        html += '<a href="' + verseUrl + '" class="lookup-result-item' + (newResults.length === 1 ? ' selected' : '') + '">';
+        html += '<div class="lookup-result-title">' + formatVerseRef(query) + '</div>';
+        html += '</a>';
+    }
+
+    // Render each category
+    var categories = ['books', 'verses', 'topics', 'stories', 'plans'];
+    categories.forEach(function(cat) {
+        if (results[cat] && results[cat].length > 0) {
+            html += '<div class="lookup-result-category">' + categoryLabels[cat] + '</div>';
+            results[cat].forEach(function(item) {
+                var url = item.url;
+                newResults.push(url);
+                var isSelected = newResults.length === 1 && !verseUrl;
+                html += '<a href="' + url + '" class="lookup-result-item' + (isSelected ? ' selected' : '') + '">';
+                if (cat === 'verses') {
+                    html += '<div class="lookup-result-title">' + item.reference + '</div>';
+                    html += '<div class="lookup-result-subtitle">' + item.text + '</div>';
+                } else if (cat === 'stories') {
+                    html += '<div class="lookup-result-title">' + item.title + '</div>';
+                    if (item.category) {
+                        html += '<div class="lookup-result-subtitle">' + item.category + '</div>';
+                    }
+                } else {
+                    html += '<div class="lookup-result-title">' + item.name + '</div>';
+                }
+                html += '</a>';
+            });
+        }
+    });
+
+    currentResults = newResults;
+    selectedIndex = newResults.length > 0 ? 0 : -1;
+
+    if (html) {
+        lookupDropdown.innerHTML = html;
+        lookupDropdown.classList.add('show');
+    } else {
+        hideDropdown();
+    }
+}
+
+function updateSelection() {
+    var items = lookupDropdown.querySelectorAll('.lookup-result-item');
+    items.forEach(function(item, i) {
+        if (i === selectedIndex) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+}
+
+function hideDropdown() {
+    if (lookupDropdown) {
+        lookupDropdown.classList.remove('show');
+    }
+    currentResults = [];
+    selectedIndex = -1;
 }
 
 function handleSearch(event) {
     event.preventDefault();
-    const input = document.getElementById('verse-lookup-input').value.trim();
+    var input = document.getElementById('verse-lookup-input').value.trim();
 
     if (!input) {
         return false;
     }
 
-    // Try to match: Book Chapter:Verse
-    let match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
-    if (match) {
-        const book = capitalizeBook(match[1].trim());
-        const chapter = match[2];
-        const verse = match[3];
-        window.location.href = `/book/${encodeURIComponent(book)}/chapter/${chapter}/verse/${verse}`;
+    // If dropdown is showing and we have a selection, go there
+    if (selectedIndex >= 0 && currentResults[selectedIndex]) {
+        window.location.href = currentResults[selectedIndex];
         return false;
     }
 
-    // Try to match: Book Chapter
-    match = input.match(/^(.+)\s+(\d+)$/i);
-    if (match) {
-        const book = capitalizeBook(match[1].trim());
-        const chapter = match[2];
-        window.location.href = `/book/${encodeURIComponent(book)}/chapter/${chapter}`;
+    // Try verse reference first
+    var verseUrl = parseVerseReference(input);
+    if (verseUrl) {
+        window.location.href = verseUrl;
         return false;
     }
 
     // Check if input looks like a book name
-    const hasNumberPrefix = /^[123]\s+/i.test(input);
-    const hasMultipleWords = /\s+/.test(input);
-    const commonBooks = ['genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
-                         'joshua', 'judges', 'ruth', 'samuel', 'kings', 'chronicles',
-                         'ezra', 'nehemiah', 'esther', 'job', 'psalms', 'proverbs',
-                         'ecclesiastes', 'isaiah', 'jeremiah', 'lamentations', 'ezekiel',
-                         'daniel', 'hosea', 'joel', 'amos', 'obadiah', 'jonah', 'micah',
-                         'nahum', 'habakkuk', 'zephaniah', 'haggai', 'zechariah', 'malachi',
-                         'matthew', 'mark', 'luke', 'john', 'acts', 'romans', 'corinthians',
-                         'galatians', 'ephesians', 'philippians', 'colossians', 'thessalonians',
-                         'timothy', 'titus', 'philemon', 'hebrews', 'james', 'peter',
-                         'jude', 'revelation'];
-    const matchesCommonBook = commonBooks.includes(input.toLowerCase());
+    var hasNumberPrefix = /^[123]\s+/i.test(input);
+    var hasMultipleWords = /\s+/.test(input);
+    var commonBooks = ['genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
+                       'joshua', 'judges', 'ruth', 'samuel', 'kings', 'chronicles',
+                       'ezra', 'nehemiah', 'esther', 'job', 'psalms', 'proverbs',
+                       'ecclesiastes', 'isaiah', 'jeremiah', 'lamentations', 'ezekiel',
+                       'daniel', 'hosea', 'joel', 'amos', 'obadiah', 'jonah', 'micah',
+                       'nahum', 'habakkuk', 'zephaniah', 'haggai', 'zechariah', 'malachi',
+                       'matthew', 'mark', 'luke', 'john', 'acts', 'romans', 'corinthians',
+                       'galatians', 'ephesians', 'philippians', 'colossians', 'thessalonians',
+                       'timothy', 'titus', 'philemon', 'hebrews', 'james', 'peter',
+                       'jude', 'revelation'];
+    var matchesCommonBook = commonBooks.includes(input.toLowerCase());
 
     if (hasNumberPrefix || hasMultipleWords || matchesCommonBook) {
-        const book = capitalizeBook(input);
-        window.location.href = `/book/${encodeURIComponent(book)}`;
+        var book = capitalizeBook(input);
+        window.location.href = '/book/' + encodeURIComponent(book);
         return false;
     }
 
     // Otherwise, treat it as a search query
-    window.location.href = `/search?q=${encodeURIComponent(input)}`;
+    window.location.href = '/search?q=' + encodeURIComponent(input);
     return false;
 }
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', initDropdown);
 
 // Press '/' to focus the search input
 document.addEventListener('keydown', function(e) {
     if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        const activeElement = document.activeElement;
+        var activeElement = document.activeElement;
         if (activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
             e.preventDefault();
-            document.getElementById('verse-lookup-input')?.focus();
+            document.getElementById('verse-lookup-input').focus();
         }
     }
 });
