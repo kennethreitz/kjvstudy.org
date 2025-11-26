@@ -95,23 +95,18 @@
     font-size: 0.7rem;
 }
 
-.kids-story {
-    max-width: 650px;
-    margin: 2rem auto;
+/* Story divider */
+hr.story-divider {
+    border: 0;
+    height: 0;
+    text-align: center;
+    margin: 2rem 0;
 }
-.kids-story p {
-    font-size: 1.2rem;
-    line-height: 2;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-}
-.kids-story p:first-of-type::first-letter {
-    font-size: 4rem;
-    float: left;
-    line-height: 1;
-    padding-right: 0.5rem;
-    color: #8b5cf6;
-    font-weight: 700;
+hr.story-divider::before {
+    content: "* * *";
+    font-size: 1rem;
+    letter-spacing: 0.6em;
+    color: #c4b5fd;
 }
 
 .themes-section {
@@ -207,6 +202,43 @@
     font-size: 0.95rem;
     color: #d1d5db;
 }
+
+/* Print styles */
+@media print {
+    .kids-header {
+        background: none;
+        padding: 0;
+        text-align: left;
+    }
+
+    .kids-header .category-link,
+    .kids-meta,
+    .characters-row,
+    .themes-section,
+    .adult-callout,
+    .kids-nav {
+        display: none;
+    }
+
+    .kids-header h1 {
+        color: #000;
+        font-size: 1.8rem;
+    }
+
+    .kids-header .subtitle {
+        color: #666;
+    }
+
+    hr.story-divider {
+        display: none;
+    }
+
+    section p {
+        font-size: 11pt;
+        line-height: 1.6;
+        color: #000;
+    }
+}
 </style>
 {% endblock %}
 
@@ -261,11 +293,19 @@
         {% endfor %}
     </div>
 
-    <section class="kids-story">
+    <hr class="story-divider">
+
+    <section>
         {% for paragraph in story.kids_narrative.split('\n\n') %}
+        {% if loop.first %}
+        <p><span class="newthought">{{ paragraph.split(' ')[:3] | join(' ') }}</span> {{ paragraph.split(' ')[3:] | join(' ') }}</p>
+        {% else %}
         <p>{{ paragraph }}</p>
+        {% endif %}
         {% endfor %}
     </section>
+
+    <hr class="story-divider">
 
     <section class="themes-section">
         <h3>What We Learn From This Story</h3>

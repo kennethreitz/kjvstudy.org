@@ -37,6 +37,7 @@
 
 {% block head %}
 <style>
+/* Story header */
 .story-header {
     margin-bottom: 2rem;
 }
@@ -55,11 +56,12 @@
 }
 .story-header .description {
     font-size: 1.2rem;
-    color: #555;
+    color: var(--text-secondary, #555);
     line-height: 1.6;
     max-width: 55ch;
 }
 
+/* Story metadata grid */
 .story-meta {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -74,7 +76,7 @@
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #888;
+    color: var(--text-secondary, #888);
 }
 .meta-section ul {
     list-style: none;
@@ -104,23 +106,21 @@
     color: #5a7a2a;
 }
 
-.story-narrative {
+/* Story divider */
+hr.story-divider {
+    border: 0;
+    height: 0;
+    text-align: center;
     margin: 2.5rem 0;
 }
-.story-narrative p {
-    font-size: 1.1rem;
-    line-height: 1.9;
-    margin-bottom: 1.5rem;
-}
-.story-narrative p:first-of-type::first-letter {
-    font-size: 3.5rem;
-    float: left;
-    line-height: 1;
-    padding-right: 0.5rem;
-    color: var(--link-color);
-    font-weight: 600;
+hr.story-divider::before {
+    content: "* * *";
+    font-size: 1rem;
+    letter-spacing: 0.6em;
+    color: var(--text-secondary, #888);
 }
 
+/* Kids callout */
 .kids-callout {
     background: linear-gradient(135deg, #f5f0ff 0%, #efe8ff 100%);
     border-left: 4px solid #8b5cf6;
@@ -135,13 +135,14 @@
 }
 .kids-callout p {
     margin: 0;
-    color: #555;
+    color: var(--text-secondary, #555);
 }
 .kids-callout a {
     color: #7c3aed;
     font-weight: 600;
 }
 
+/* Story navigation */
 .story-nav {
     display: flex;
     justify-content: space-between;
@@ -170,7 +171,7 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #888;
+    color: var(--text-secondary, #888);
     margin-bottom: 0.25rem;
 }
 .story-nav .nav-title {
@@ -182,7 +183,35 @@
     text-decoration: underline;
 }
 .story-nav .nav-disabled {
-    color: #ccc;
+    color: var(--text-secondary, #ccc);
+}
+
+/* Print styles */
+@media print {
+    .story-meta,
+    .kids-callout,
+    .story-nav {
+        display: none;
+    }
+
+    .story-header .category-link {
+        display: none;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .story-header .description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    section p {
+        font-size: 11pt;
+        line-height: 1.6;
+    }
 }
 </style>
 {% endblock %}
@@ -208,18 +237,14 @@
                         {% set chapter = chapter_verse.split(':')[0] %}
                         {% set verse_part = chapter_verse.split(':')[1] %}
                         {% if '-' in verse_part %}
-                            {# Verse range like "16:23-31" - use anchor syntax #}
                             <li><a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}" class="scripture-ref">{{ verse }}</a></li>
                         {% else %}
-                            {# Single verse like "3:16" #}
                             <li><a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}" class="scripture-ref">{{ verse }}</a></li>
                         {% endif %}
                     {% elif '-' in chapter_verse %}
-                        {# Chapter range like "1-2" - link to first chapter #}
                         {% set chapter = chapter_verse.split('-')[0] %}
                         <li><a href="/book/{{ book }}/chapter/{{ chapter }}" class="scripture-ref">{{ verse }}</a></li>
                     {% else %}
-                        {# Just a chapter number #}
                         <li><a href="/book/{{ book }}/chapter/{{ chapter_verse }}" class="scripture-ref">{{ verse }}</a></li>
                     {% endif %}
                 {% else %}
@@ -246,9 +271,15 @@
         </div>
     </div>
 
-    <section class="story-narrative">
+    <hr class="story-divider">
+
+    <section>
         {% for paragraph in story.narrative.split('\n\n') %}
+        {% if loop.first %}
+        <p><span class="newthought">{{ paragraph.split(' ')[:3] | join(' ') }}</span> {{ paragraph.split(' ')[3:] | join(' ') }}</p>
+        {% else %}
         <p>{{ paragraph }}</p>
+        {% endif %}
         {% endfor %}
     </section>
 
