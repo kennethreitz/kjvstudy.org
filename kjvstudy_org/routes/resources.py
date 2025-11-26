@@ -147,6 +147,30 @@ def _resource_detail_pdf_response(
     )
 
 
+def _resource_index_pdf_response(resource_data: dict, page_title: str, page_subtitle: str, page_description: str):
+    """Generate PDF for resource index-style pages."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    html_content = templates.get_template("resource_index_pdf.html").render(
+        resource_data=resource_data,
+        page_title=page_title,
+        page_subtitle=page_subtitle,
+        page_description=page_description,
+    )
+
+    pdf_buffer = render_html_to_pdf(html_content)
+    filename = f"{create_slug(page_title)}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
 # ============================================================================
 # BIBLICAL MAPS
 # ============================================================================
@@ -180,12 +204,23 @@ def biblical_angels_page(request: Request):
             {
             "books": get_books(),
             "angels_data": ANGELS_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Angels", "url": None}
             ]
         }
+    )
+
+
+@router.get("/biblical-angels/pdf")
+def biblical_angels_page_pdf():
+    return _resource_index_pdf_response(
+        ANGELS_DATA,
+        page_title="Biblical Angels",
+        page_subtitle="Heavenly messengers throughout Scripture",
+        page_description="Explore angels and angelic beings mentioned in the King James Bible, including Michael, Gabriel, and the heavenly host."
     )
 
 
@@ -226,12 +261,32 @@ def biblical_prophets_page(request: Request):
             {
             "books": get_books(),
             "prophets_data": PROPHETS_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Prophets", "url": None}
             ]
         }
+    )
+
+
+@router.get("/biblical-prophets/pdf")
+def biblical_prophets_pdf():
+    """PDF export for the prophets index."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    html_content = templates.get_template("biblical_prophets_pdf.html").render(prophets_data=PROPHETS_DATA)
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=biblical-prophets.pdf"}
     )
 
 
@@ -272,12 +327,23 @@ def names_of_god_page(request: Request):
             {
             "books": get_books(),
             "names_data": NAMES_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Names of God", "url": None}
             ]
         }
+    )
+
+
+@router.get("/names-of-god/pdf")
+def names_of_god_page_pdf():
+    return _resource_index_pdf_response(
+        NAMES_DATA,
+        page_title="Names of God",
+        page_subtitle="Divine titles revealed in Scripture",
+        page_description="Explore the revelation of God's names throughout Scripture and their meanings."
     )
 
 
@@ -384,12 +450,23 @@ def biblical_covenants_page(request: Request):
             {
             "books": get_books(),
             "covenants_data": COVENANTS_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Covenants", "url": None}
             ]
         }
+    )
+
+
+@router.get("/biblical-covenants/pdf")
+def biblical_covenants_page_pdf():
+    return _resource_index_pdf_response(
+        COVENANTS_DATA,
+        page_title="Biblical Covenants",
+        page_subtitle="Divine promises across redemptive history",
+        page_description="Survey the major covenants established between God and His people throughout Scripture."
     )
 
 
@@ -430,12 +507,32 @@ def apostles_page(request: Request):
             {
             "books": get_books(),
             "apostles_data": APOSTLES_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Twelve Apostles", "url": None}
             ]
         }
+    )
+
+
+@router.get("/the-twelve-apostles/pdf")
+def apostles_page_pdf():
+    """PDF export for the apostles index."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    html_content = templates.get_template("twelve_apostles_pdf.html").render(apostles_data=APOSTLES_DATA)
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=twelve-apostles.pdf"}
     )
 
 
@@ -476,12 +573,23 @@ def women_of_the_bible_page(request: Request):
             {
             "books": get_books(),
             "women_data": WOMEN_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Women of the Bible", "url": None}
             ]
         }
+    )
+
+
+@router.get("/women-of-the-bible/pdf")
+def women_of_the_bible_page_pdf():
+    return _resource_index_pdf_response(
+        WOMEN_DATA,
+        page_title="Women of the Bible",
+        page_subtitle="Faithful witnesses throughout redemptive history",
+        page_description="Explore the lives, faith, and legacies of notable women throughout Scripture."
     )
 
 
@@ -522,12 +630,23 @@ def biblical_festivals_page(request: Request):
             {
             "books": get_books(),
             "festivals_data": FESTIVALS_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Festivals", "url": None}
             ]
         }
+    )
+
+
+@router.get("/biblical-festivals/pdf")
+def biblical_festivals_page_pdf():
+    return _resource_index_pdf_response(
+        FESTIVALS_DATA,
+        page_title="Biblical Festivals",
+        page_subtitle="Appointed feasts of the Lord",
+        page_description="Learn about the appointed feasts and holy days ordained in the Law of Moses."
     )
 
 
@@ -568,12 +687,23 @@ def fruits_of_the_spirit_page(request: Request):
             {
             "books": get_books(),
             "fruits_data": FRUITS_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Fruits of the Spirit", "url": None}
             ]
         }
+    )
+
+
+@router.get("/fruits-of-the-spirit/pdf")
+def fruits_of_the_spirit_page_pdf():
+    return _resource_index_pdf_response(
+        FRUITS_DATA,
+        page_title="Fruits of the Spirit",
+        page_subtitle="Developing Christian character",
+        page_description="Meditate on the Spirit-produced virtues described in Galatians 5."
     )
 
 
@@ -681,12 +811,23 @@ def miracles_page(request: Request):
             "page_subtitle": "Signs and Wonders Manifesting Divine Authority",
             "page_description": "Explore the miracles of Jesus Christ recorded in the Gospels - healings, nature miracles, exorcisms, and raisings from the dead.",
             "base_url": "/miracles-of-jesus",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Miracles of Jesus", "url": None}
             ]
         }
+    )
+
+
+@router.get("/miracles-of-jesus/pdf")
+def miracles_page_pdf():
+    return _resource_index_pdf_response(
+        MIRACLES_DATA,
+        page_title="Miracles of Jesus",
+        page_subtitle="Signs and Wonders Manifesting Divine Authority",
+        page_description="Explore the miracles of Jesus Christ recorded in the Gospels - healings, nature miracles, exorcisms, and raisings from the dead."
     )
 
 
@@ -731,12 +872,23 @@ def prayers_page(request: Request):
             "page_subtitle": "Sacred Conversations with the Almighty",
             "page_description": "Explore the prayers recorded in Scripture - from the Psalms to the prayers of Jesus, Paul, and the early church.",
             "base_url": "/prayers-of-the-bible",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Prayers of the Bible", "url": None}
             ]
         }
+    )
+
+
+@router.get("/prayers-of-the-bible/pdf")
+def prayers_page_pdf():
+    return _resource_index_pdf_response(
+        PRAYERS_DATA,
+        page_title="Prayers of the Bible",
+        page_subtitle="Sacred Conversations with the Almighty",
+        page_description="Explore the prayers recorded in Scripture - from the Psalms to the prayers of Jesus, Paul, and the early church."
     )
 
 
@@ -781,12 +933,23 @@ def beatitudes_page(request: Request):
             "page_subtitle": "The Blessings of the Kingdom",
             "page_description": "Explore the Beatitudes from Jesus's Sermon on the Mount - the foundational blessings that describe the character of kingdom citizens.",
             "base_url": "/beatitudes",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Beatitudes", "url": None}
             ]
         }
+    )
+
+
+@router.get("/beatitudes/pdf")
+def beatitudes_page_pdf():
+    return _resource_index_pdf_response(
+        BEATITUDES_DATA,
+        page_title="The Beatitudes",
+        page_subtitle="The Blessings of the Kingdom",
+        page_description="Explore the Beatitudes from Jesus's Sermon on the Mount - the foundational blessings that describe the character of kingdom citizens."
     )
 
 
@@ -831,12 +994,23 @@ def ten_commandments_page(request: Request):
             "page_subtitle": "The Moral Law of God",
             "page_description": "Study the Ten Commandments given by God to Moses on Mount Sinai - the foundation of biblical morality and divine law.",
             "base_url": "/ten-commandments",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Ten Commandments", "url": None}
             ]
         }
+    )
+
+
+@router.get("/ten-commandments/pdf")
+def ten_commandments_page_pdf():
+    return _resource_index_pdf_response(
+        TEN_COMMANDMENTS_DATA,
+        page_title="The Ten Commandments",
+        page_subtitle="The Moral Law of God",
+        page_description="Study the Ten Commandments given by God to Moses on Mount Sinai - the foundation of biblical morality and divine law."
     )
 
 
@@ -881,12 +1055,23 @@ def armor_of_god_page(request: Request):
             "page_subtitle": "Divine Equipment for Spiritual Warfare",
             "page_description": "Study the Armor of God from Ephesians 6 - the spiritual equipment believers need to stand against the wiles of the devil.",
             "base_url": "/armor-of-god",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Armor of God", "url": None}
             ]
         }
+    )
+
+
+@router.get("/armor-of-god/pdf")
+def armor_of_god_page_pdf():
+    return _resource_index_pdf_response(
+        ARMOR_OF_GOD_DATA,
+        page_title="The Armor of God",
+        page_subtitle="Divine Equipment for Spiritual Warfare",
+        page_description="Study the Armor of God from Ephesians 6 - the spiritual equipment believers need to stand against the wiles of the devil."
     )
 
 
@@ -931,12 +1116,23 @@ def i_am_statements_page(request: Request):
             "page_subtitle": "Divine Self-Revelations in the Gospel of John",
             "page_description": "Explore the seven 'I Am' statements of Jesus in John's Gospel - profound declarations of His divine nature and mission.",
             "base_url": "/i-am-statements",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "I Am Statements", "url": None}
             ]
         }
+    )
+
+
+@router.get("/i-am-statements/pdf")
+def i_am_statements_page_pdf():
+    return _resource_index_pdf_response(
+        I_AM_STATEMENTS_DATA,
+        page_title="I Am Statements of Jesus",
+        page_subtitle="Divine Self-Revelations in the Gospel of John",
+        page_description="Explore the seven 'I Am' statements of Jesus in John's Gospel - profound declarations of His divine nature and mission."
     )
 
 
@@ -981,12 +1177,23 @@ def trinity_page(request: Request):
             "page_subtitle": "The Doctrine of One God in Three Persons",
             "page_description": "An expansive theological study of the Trinity - the doctrine that God eternally exists as Father, Son, and Holy Spirit, three distinct Persons sharing one divine essence.",
             "base_url": "/trinity",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Trinity", "url": None}
             ]
         }
+    )
+
+
+@router.get("/trinity/pdf")
+def trinity_page_pdf():
+    return _resource_index_pdf_response(
+        TRINITY_DATA,
+        page_title="The Trinity",
+        page_subtitle="The Doctrine of One God in Three Persons",
+        page_description="An expansive theological study of the Trinity - the doctrine that God eternally exists as Father, Son, and Holy Spirit, three distinct Persons sharing one divine essence."
     )
 
 
@@ -1031,12 +1238,23 @@ def christology_page(request: Request):
             "page_subtitle": "The Doctrine of the Person and Work of Christ",
             "page_description": "An expansive theological study of Christology - the doctrine concerning Jesus Christ, His divine-human nature, His offices, and His saving work.",
             "base_url": "/christology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Christology", "url": None}
             ]
         }
+    )
+
+
+@router.get("/christology/pdf")
+def christology_page_pdf():
+    return _resource_index_pdf_response(
+        CHRISTOLOGY_DATA,
+        page_title="Christology",
+        page_subtitle="The Doctrine of the Person and Work of Christ",
+        page_description="An expansive theological study of Christology - the doctrine concerning Jesus Christ, His divine-human nature, His offices, and His saving work."
     )
 
 
@@ -1081,12 +1299,23 @@ def soteriology_page(request: Request):
             "page_subtitle": "The Doctrine of Salvation",
             "page_description": "An expansive theological study of Soteriology - the doctrine of salvation, covering election, atonement, regeneration, justification, sanctification, and glorification.",
             "base_url": "/soteriology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Soteriology", "url": None}
             ]
         }
+    )
+
+
+@router.get("/soteriology/pdf")
+def soteriology_page_pdf():
+    return _resource_index_pdf_response(
+        SOTERIOLOGY_DATA,
+        page_title="Soteriology",
+        page_subtitle="The Doctrine of Salvation",
+        page_description="An expansive theological study of Soteriology - the doctrine of salvation, covering election, atonement, regeneration, justification, sanctification, and glorification."
     )
 
 
@@ -1131,12 +1360,23 @@ def pneumatology_page(request: Request):
             "page_subtitle": "The Doctrine of the Holy Spirit",
             "page_description": "An expansive theological study of Pneumatology - the doctrine of the Holy Spirit, His person, deity, work in salvation, and ministry to believers.",
             "base_url": "/pneumatology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Pneumatology", "url": None}
             ]
         }
+    )
+
+
+@router.get("/pneumatology/pdf")
+def pneumatology_page_pdf():
+    return _resource_index_pdf_response(
+        PNEUMATOLOGY_DATA,
+        page_title="Pneumatology",
+        page_subtitle="The Doctrine of the Holy Spirit",
+        page_description="An expansive theological study of Pneumatology - the doctrine of the Holy Spirit, His person, deity, work in salvation, and ministry to believers."
     )
 
 
@@ -1181,12 +1421,23 @@ def eschatology_page(request: Request):
             "page_subtitle": "The Doctrine of Last Things",
             "page_description": "An expansive theological study of Eschatology - the doctrine of death, resurrection, the second coming of Christ, final judgment, and eternal destinies.",
             "base_url": "/eschatology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Eschatology", "url": None}
             ]
         }
+    )
+
+
+@router.get("/eschatology/pdf")
+def eschatology_page_pdf():
+    return _resource_index_pdf_response(
+        ESCHATOLOGY_DATA,
+        page_title="Eschatology",
+        page_subtitle="The Doctrine of Last Things",
+        page_description="An expansive theological study of Eschatology - the doctrine of death, resurrection, the second coming of Christ, final judgment, and eternal destinies."
     )
 
 
@@ -1231,12 +1482,23 @@ def ecclesiology_page(request: Request):
             "page_subtitle": "The Doctrine of the Church",
             "page_description": "An expansive theological study of Ecclesiology - the doctrine of the church, its nature, marks, government, mission, and ordinances.",
             "base_url": "/ecclesiology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Ecclesiology", "url": None}
             ]
         }
+    )
+
+
+@router.get("/ecclesiology/pdf")
+def ecclesiology_page_pdf():
+    return _resource_index_pdf_response(
+        ECCLESIOLOGY_DATA,
+        page_title="Ecclesiology",
+        page_subtitle="The Doctrine of the Church",
+        page_description="An expansive theological study of Ecclesiology - the doctrine of the church, its nature, marks, government, mission, and ordinances."
     )
 
 
@@ -1281,12 +1543,23 @@ def types_and_shadows_page(request: Request):
             "page_subtitle": "Old Testament Figures Fulfilled in Christ",
             "page_description": "An expansive study of Old Testament types and shadows pointing to Christ - persons, events, and institutions that prefigure and find their fulfillment in Jesus.",
             "base_url": "/types-and-shadows",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Types and Shadows", "url": None}
             ]
         }
+    )
+
+
+@router.get("/types-and-shadows/pdf")
+def types_and_shadows_page_pdf():
+    return _resource_index_pdf_response(
+        TYPES_AND_SHADOWS_DATA,
+        page_title="Types and Shadows of Christ",
+        page_subtitle="Old Testament Figures Fulfilled in Christ",
+        page_description="An expansive study of Old Testament types and shadows pointing to Christ - persons, events, and institutions that prefigure and find their fulfillment in Jesus."
     )
 
 
@@ -1331,12 +1604,23 @@ def messianic_prophecies_page(request: Request):
             "page_subtitle": "Old Testament Predictions Fulfilled in Christ",
             "page_description": "An expansive study of Messianic prophecies - Old Testament predictions concerning the Messiah's coming, ministry, suffering, and triumph, all fulfilled in Jesus Christ.",
             "base_url": "/messianic-prophecies",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Messianic Prophecies", "url": None}
             ]
         }
+    )
+
+
+@router.get("/messianic-prophecies/pdf")
+def messianic_prophecies_page_pdf():
+    return _resource_index_pdf_response(
+        MESSIANIC_PROPHECIES_DATA,
+        page_title="Messianic Prophecies",
+        page_subtitle="Old Testament Predictions Fulfilled in Christ",
+        page_description="An expansive study of Messianic prophecies - Old Testament predictions concerning the Messiah's coming, ministry, suffering, and triumph, all fulfilled in Jesus Christ."
     )
 
 
@@ -1381,12 +1665,23 @@ def blood_in_scripture_page(request: Request):
             "page_subtitle": "The Theology of Redemption Through Blood",
             "page_description": "An expansive study of the blood in Scripture - its significance, Old Testament foundations, and ultimate fulfillment in the blood of Christ for redemption, justification, and cleansing.",
             "base_url": "/blood-in-scripture",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Blood in Scripture", "url": None}
             ]
         }
+    )
+
+
+@router.get("/blood-in-scripture/pdf")
+def blood_in_scripture_page_pdf():
+    return _resource_index_pdf_response(
+        BLOOD_IN_SCRIPTURE_DATA,
+        page_title="The Blood in Scripture",
+        page_subtitle="The Theology of Redemption Through Blood",
+        page_description="An expansive study of the blood in Scripture - its significance, Old Testament foundations, and ultimate fulfillment in the blood of Christ for redemption, justification, and cleansing."
     )
 
 
@@ -1431,12 +1726,23 @@ def kingdom_of_god_page(request: Request):
             "page_subtitle": "The Reign of God Through Christ",
             "page_description": "An expansive study of the Kingdom of God - its nature, King, entrance requirements, growth, and ultimate consummation at Christ's return.",
             "base_url": "/kingdom-of-god",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Kingdom of God", "url": None}
             ]
         }
+    )
+
+
+@router.get("/kingdom-of-god/pdf")
+def kingdom_of_god_page_pdf():
+    return _resource_index_pdf_response(
+        KINGDOM_OF_GOD_DATA,
+        page_title="The Kingdom of God",
+        page_subtitle="The Reign of God Through Christ",
+        page_description="An expansive study of the Kingdom of God - its nature, King, entrance requirements, growth, and ultimate consummation at Christ's return."
     )
 
 
@@ -1481,12 +1787,23 @@ def names_of_christ_page(request: Request):
             "page_subtitle": "The Glorious Designations of Our Lord",
             "page_description": "An expansive study of the names and titles of Jesus Christ - divine names, messianic titles, redemptive designations, and relational names revealing His person and work.",
             "base_url": "/names-of-christ",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Names of Christ", "url": None}
             ]
         }
+    )
+
+
+@router.get("/names-of-christ/pdf")
+def names_of_christ_page_pdf():
+    return _resource_index_pdf_response(
+        NAMES_OF_CHRIST_DATA,
+        page_title="Names and Titles of Christ",
+        page_subtitle="The Glorious Designations of Our Lord",
+        page_description="An expansive study of the names and titles of Jesus Christ - divine names, messianic titles, redemptive designations, and relational names revealing His person and work."
     )
 
 
@@ -1531,12 +1848,23 @@ def spirits_and_demons_page(request: Request):
             "page_subtitle": "Biblical Demonology and Spiritual Warfare",
             "page_description": "A comprehensive study of demons, Satan, evil spirits, and spiritual warfare in Scripture—from Legion to the Lake of Fire.",
             "base_url": "/spirits-and-demons",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Spirits & Demons", "url": None}
             ]
         }
+    )
+
+
+@router.get("/spirits-and-demons/pdf")
+def spirits_and_demons_page_pdf():
+    return _resource_index_pdf_response(
+        SPIRITS_AND_DEMONS_DATA,
+        page_title="Spirits & Demons",
+        page_subtitle="Biblical Demonology and Spiritual Warfare",
+        page_description="A comprehensive study of demons, Satan, evil spirits, and spiritual warfare in Scripture—from Legion to the Lake of Fire."
     )
 
 
@@ -1581,12 +1909,23 @@ def personifications_page(request: Request):
             "page_subtitle": "Abstract Concepts Given Human Form",
             "page_description": "A study of biblical personifications—Wisdom, Folly, Death, Sin, and other abstract concepts portrayed as persons throughout Scripture.",
             "base_url": "/personifications",
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "Personifications", "url": None}
             ]
         }
+    )
+
+
+@router.get("/personifications/pdf")
+def personifications_page_pdf():
+    return _resource_index_pdf_response(
+        PERSONIFICATIONS_DATA,
+        page_title="Personifications in Scripture",
+        page_subtitle="Abstract Concepts Given Human Form",
+        page_description="A study of biblical personifications—Wisdom, Folly, Death, Sin, and other abstract concepts portrayed as persons throughout Scripture."
     )
 
 

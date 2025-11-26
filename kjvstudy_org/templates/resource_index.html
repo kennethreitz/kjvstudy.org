@@ -77,6 +77,10 @@
     margin: 1.5rem 0;
 }
 
+.resource-index-actions {
+    margin: 1rem 0 1.5rem;
+}
+
 .verse-list {
     margin: 1.5rem 0 0 0;
 }
@@ -172,6 +176,17 @@
 <h1>{{ page_title }}</h1>
 <p class="subtitle">{{ page_subtitle }}</p>
 
+{% if pdf_available %}
+<div class="resource-index-actions">
+    <a class="resource-download-btn" href="{{ base_url }}/pdf">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Download All (PDF)
+    </a>
+</div>
+{% endif %}
+
 <nav class="toc" id="toc">
     <h2>Contents</h2>
     <ul id="toc-list"></ul>
@@ -193,17 +208,6 @@
     <article class="resource-entry">
         <h3 class="resource-name"><a href="{{ base_url }}/{{ item_name|slugify }}">{{ item_name }}</a></h3>
         <p class="resource-item-title">{{ item.title }}</p>
-
-        {% if resource_pdf_available %}
-        <div class="resource-entry-actions">
-            <a class="resource-download-btn" href="{{ base_url }}/{{ item_name|slugify }}/pdf">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Download
-            </a>
-        </div>
-        {% endif %}
 
         <div class="resource-item-description">
             {{ item.description | link_names | link_verses | safe }}

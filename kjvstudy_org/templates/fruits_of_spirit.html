@@ -80,6 +80,35 @@
     line-height: 1.8;
 }
 
+.fruits-actions {
+    margin: 1rem 0 1.5rem;
+}
+
+.fruits-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #666);
+    background: var(--code-bg, #f8f8f8);
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.fruits-download-btn:hover {
+    background: var(--bg-color, #fff);
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+.fruits-download-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
 .intro-text {
     max-width: 60%;
     font-size: 1.2rem;
@@ -133,6 +162,17 @@
 {% block content %}
 <h1>Fruits of the Spirit</h1>
 <p class="subtitle">The Nine Graces of Galatians 5:22-23</p>
+
+{% if pdf_available %}
+<div class="fruits-actions">
+    <a class="fruits-download-btn" href="/fruits-of-the-spirit/pdf">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Download All Studies (PDF)
+    </a>
+</div>
+{% endif %}
 
 <nav class="toc" id="toc">
     <h2>Contents</h2>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblical Prophets (KJV)</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.85in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "et-book", Georgia, serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: "et-book", Georgia, "Times New Roman", serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 24pt;
+            font-weight: normal;
+            margin: 0 0 0.2in 0;
+        }
+
+        h2 {
+            font-size: 16pt;
+            font-weight: normal;
+            margin-top: 0.35in;
+        }
+
+        h3 {
+            font-size: 13pt;
+            font-weight: normal;
+            margin-bottom: 0.05in;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 0.3in;
+        }
+
+        .prophet-description {
+            margin-bottom: 0.15in;
+        }
+
+        .verses {
+            margin: 0.15in 0;
+        }
+
+        .verse-item {
+            margin-bottom: 0.1in;
+            padding-left: 0.25in;
+            border-left: 2px solid #ddd;
+        }
+
+        .verse-ref {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .verse-text {
+            font-style: italic;
+            color: #555;
+        }
+
+        .footer {
+            margin-top: 0.4in;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Biblical Prophets</h1>
+    <p class="subtitle">Messengers of the Most High</p>
+
+    {% for category, prophets in prophets_data.items() %}
+    <section>
+        <h2>{{ category }}</h2>
+        {% for name, prophet in prophets.items() %}
+        <article>
+            <h3>{{ name }} — {{ prophet.title }}</h3>
+            <div class="prophet-description">{{ prophet.description | safe }}</div>
+
+            {% if prophet.verses %}
+            <div class="verses">
+                {% for verse in prophet.verses %}
+                <div class="verse-item">
+                    <div class="verse-ref">{{ verse.reference }}</div>
+                    <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </section>
+    {% endfor %}
+
+    <div class="footer">From KJV Study &bull; kjvstudy.org</div>
+</body>
+</html>

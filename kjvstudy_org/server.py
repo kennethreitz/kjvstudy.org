@@ -1732,8 +1732,34 @@ def reading_plan_detail(request: Request, plan_id: str):
             "plan": plan,
             "plan_id": plan_id,
             "books": books,
-            "breadcrumbs": breadcrumbs
+            "breadcrumbs": breadcrumbs,
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "pdf_url": f"/reading-plans/{plan_id}/pdf" if WEASYPRINT_AVAILABLE else None
         }
+    )
+
+
+@app.get("/reading-plans/{plan_id}/pdf")
+def reading_plan_pdf(plan_id: str):
+    """Generate a PDF export for a reading plan."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    plan = get_plan(plan_id)
+    if not plan:
+        raise HTTPException(status_code=404, detail="Reading plan not found")
+
+    html_content = templates.get_template("reading_plan_pdf.html").render(plan=plan)
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    filename = f"reading-plan-{plan_id}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
 
 
