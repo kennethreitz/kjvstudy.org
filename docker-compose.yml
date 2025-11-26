@@ -5,6 +5,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+      - /app/.venv
     environment:
       - PYTHONUNBUFFERED=1
       - PRELOAD_INTERLINEAR=true

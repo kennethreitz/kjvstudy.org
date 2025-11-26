@@ -4,6 +4,7 @@ This module contains the study guides routes and content.
 """
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse
+from ..kjv import bible
 
 router = APIRouter(tags=["Study Guides"])
 
@@ -19,7 +20,6 @@ def init_templates(app_templates):
 
 def get_books():
     """Get list of Bible books."""
-    from ..kjv import bible
     return list(bible.iter_books())
 
 
