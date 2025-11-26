@@ -1762,6 +1762,74 @@ def resources_page(request: Request):
                 "count": "9 fruits"
             }
         ],
+        "Systematic Theology": [
+            {
+                "name": "The Trinity",
+                "url": "/trinity",
+                "description": "The mystery of God revealed as Father, Son, and Holy Spirit—three Persons, one God",
+                "count": "4 categories"
+            },
+            {
+                "name": "Christology",
+                "url": "/christology",
+                "description": "The Person and work of Jesus Christ—His deity, humanity, and offices",
+                "count": "4 categories"
+            },
+            {
+                "name": "Pneumatology",
+                "url": "/pneumatology",
+                "description": "The doctrine of the Holy Spirit—His Person, deity, and work in believers",
+                "count": "4 categories"
+            },
+            {
+                "name": "Soteriology",
+                "url": "/soteriology",
+                "description": "The doctrine of salvation—from election to glorification",
+                "count": "5 categories"
+            },
+            {
+                "name": "Ecclesiology",
+                "url": "/ecclesiology",
+                "description": "The doctrine of the Church—its nature, mission, and governance",
+                "count": "4 categories"
+            },
+            {
+                "name": "Eschatology",
+                "url": "/eschatology",
+                "description": "The doctrine of last things—Christ's return, judgment, and eternal state",
+                "count": "5 categories"
+            },
+            {
+                "name": "The Kingdom of God",
+                "url": "/kingdom-of-god",
+                "description": "God's sovereign reign inaugurated in Christ and consummated at His return",
+                "count": "5 categories"
+            },
+            {
+                "name": "Types and Shadows",
+                "url": "/types-and-shadows",
+                "description": "Old Testament persons, events, and institutions that prefigure Christ",
+                "count": "5 categories"
+            },
+            {
+                "name": "Messianic Prophecies",
+                "url": "/messianic-prophecies",
+                "description": "Old Testament prophecies fulfilled in Jesus Christ",
+                "count": "5 categories"
+            },
+            {
+                "name": "The Blood in Scripture",
+                "url": "/blood-in-scripture",
+                "description": "The theology of blood, sacrifice, and redemption throughout Scripture",
+                "count": "5 categories"
+            },
+            {
+                "name": "Names and Titles of Christ",
+                "url": "/names-of-christ",
+                "description": "The names and titles ascribed to Jesus revealing His Person and work",
+                "count": "5 categories"
+            }
+        ],
         "History & Culture": [
             {
                 "name": "Biblical Festivals",

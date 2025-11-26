@@ -23,6 +23,17 @@ from ..data import (
     TEN_COMMANDMENTS_DATA,
     ARMOR_OF_GOD_DATA,
     I_AM_STATEMENTS_DATA,
+    TRINITY_DATA,
+    CHRISTOLOGY_DATA,
+    SOTERIOLOGY_DATA,
+    PNEUMATOLOGY_DATA,
+    ESCHATOLOGY_DATA,
+    ECCLESIOLOGY_DATA,
+    TYPES_AND_SHADOWS_DATA,
+    MESSIANIC_PROPHECIES_DATA,
+    BLOOD_IN_SCRIPTURE_DATA,
+    KINGDOM_OF_GOD_DATA,
+    NAMES_OF_CHRIST_DATA,
 )
 from ..utils.helpers import create_slug
 
@@ -874,6 +885,578 @@ def i_am_statement_detail(request: Request, statement_slug: str):
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "I Am Statements", "url": "/i-am-statements"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# THE TRINITY
+# ============================================================================
+@router.get("/trinity", response_class=HTMLResponse)
+def trinity_page(request: Request):
+    """The Trinity - doctrine of God page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": TRINITY_DATA,
+            "page_title": "The Trinity",
+            "page_subtitle": "The Doctrine of One God in Three Persons",
+            "page_description": "An expansive theological study of the Trinity - the doctrine that God eternally exists as Father, Son, and Holy Spirit, three distinct Persons sharing one divine essence.",
+            "base_url": "/trinity",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Trinity", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/trinity/{item_slug}", response_class=HTMLResponse)
+def trinity_detail(request: Request, item_slug: str):
+    """Individual Trinity topic detail page."""
+    item, item_name, category_name = find_item_by_slug(TRINITY_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "The Trinity",
+            "back_url": "/trinity",
+            "back_text": "The Trinity",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Trinity", "url": "/trinity"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# CHRISTOLOGY
+# ============================================================================
+@router.get("/christology", response_class=HTMLResponse)
+def christology_page(request: Request):
+    """Christology - the doctrine of Christ page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": CHRISTOLOGY_DATA,
+            "page_title": "Christology",
+            "page_subtitle": "The Doctrine of the Person and Work of Christ",
+            "page_description": "An expansive theological study of Christology - the doctrine concerning Jesus Christ, His divine-human nature, His offices, and His saving work.",
+            "base_url": "/christology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Christology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/christology/{item_slug}", response_class=HTMLResponse)
+def christology_detail(request: Request, item_slug: str):
+    """Individual Christology topic detail page."""
+    item, item_name, category_name = find_item_by_slug(CHRISTOLOGY_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Christology",
+            "back_url": "/christology",
+            "back_text": "Christology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Christology", "url": "/christology"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# SOTERIOLOGY
+# ============================================================================
+@router.get("/soteriology", response_class=HTMLResponse)
+def soteriology_page(request: Request):
+    """Soteriology - the doctrine of salvation page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": SOTERIOLOGY_DATA,
+            "page_title": "Soteriology",
+            "page_subtitle": "The Doctrine of Salvation",
+            "page_description": "An expansive theological study of Soteriology - the doctrine of salvation, covering election, atonement, regeneration, justification, sanctification, and glorification.",
+            "base_url": "/soteriology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Soteriology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/soteriology/{item_slug}", response_class=HTMLResponse)
+def soteriology_detail(request: Request, item_slug: str):
+    """Individual Soteriology topic detail page."""
+    item, item_name, category_name = find_item_by_slug(SOTERIOLOGY_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Soteriology",
+            "back_url": "/soteriology",
+            "back_text": "Soteriology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Soteriology", "url": "/soteriology"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# PNEUMATOLOGY
+# ============================================================================
+@router.get("/pneumatology", response_class=HTMLResponse)
+def pneumatology_page(request: Request):
+    """Pneumatology - the doctrine of the Holy Spirit page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": PNEUMATOLOGY_DATA,
+            "page_title": "Pneumatology",
+            "page_subtitle": "The Doctrine of the Holy Spirit",
+            "page_description": "An expansive theological study of Pneumatology - the doctrine of the Holy Spirit, His person, deity, work in salvation, and ministry to believers.",
+            "base_url": "/pneumatology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Pneumatology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/pneumatology/{item_slug}", response_class=HTMLResponse)
+def pneumatology_detail(request: Request, item_slug: str):
+    """Individual Pneumatology topic detail page."""
+    item, item_name, category_name = find_item_by_slug(PNEUMATOLOGY_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Pneumatology",
+            "back_url": "/pneumatology",
+            "back_text": "Pneumatology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Pneumatology", "url": "/pneumatology"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# ESCHATOLOGY
+# ============================================================================
+@router.get("/eschatology", response_class=HTMLResponse)
+def eschatology_page(request: Request):
+    """Eschatology - the doctrine of last things page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": ESCHATOLOGY_DATA,
+            "page_title": "Eschatology",
+            "page_subtitle": "The Doctrine of Last Things",
+            "page_description": "An expansive theological study of Eschatology - the doctrine of death, resurrection, the second coming of Christ, final judgment, and eternal destinies.",
+            "base_url": "/eschatology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Eschatology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/eschatology/{item_slug}", response_class=HTMLResponse)
+def eschatology_detail(request: Request, item_slug: str):
+    """Individual Eschatology topic detail page."""
+    item, item_name, category_name = find_item_by_slug(ESCHATOLOGY_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Eschatology",
+            "back_url": "/eschatology",
+            "back_text": "Eschatology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Eschatology", "url": "/eschatology"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# ECCLESIOLOGY
+# ============================================================================
+@router.get("/ecclesiology", response_class=HTMLResponse)
+def ecclesiology_page(request: Request):
+    """Ecclesiology - the doctrine of the church page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": ECCLESIOLOGY_DATA,
+            "page_title": "Ecclesiology",
+            "page_subtitle": "The Doctrine of the Church",
+            "page_description": "An expansive theological study of Ecclesiology - the doctrine of the church, its nature, marks, government, mission, and ordinances.",
+            "base_url": "/ecclesiology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Ecclesiology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/ecclesiology/{item_slug}", response_class=HTMLResponse)
+def ecclesiology_detail(request: Request, item_slug: str):
+    """Individual Ecclesiology topic detail page."""
+    item, item_name, category_name = find_item_by_slug(ECCLESIOLOGY_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Ecclesiology",
+            "back_url": "/ecclesiology",
+            "back_text": "Ecclesiology",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Ecclesiology", "url": "/ecclesiology"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# TYPES AND SHADOWS OF CHRIST
+# ============================================================================
+@router.get("/types-and-shadows", response_class=HTMLResponse)
+def types_and_shadows_page(request: Request):
+    """Types and Shadows of Christ page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": TYPES_AND_SHADOWS_DATA,
+            "page_title": "Types and Shadows of Christ",
+            "page_subtitle": "Old Testament Figures Fulfilled in Christ",
+            "page_description": "An expansive study of Old Testament types and shadows pointing to Christ - persons, events, and institutions that prefigure and find their fulfillment in Jesus.",
+            "base_url": "/types-and-shadows",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Types and Shadows", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/types-and-shadows/{item_slug}", response_class=HTMLResponse)
+def types_and_shadows_detail(request: Request, item_slug: str):
+    """Individual Types and Shadows topic detail page."""
+    item, item_name, category_name = find_item_by_slug(TYPES_AND_SHADOWS_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Types and Shadows",
+            "back_url": "/types-and-shadows",
+            "back_text": "Types and Shadows",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Types and Shadows", "url": "/types-and-shadows"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# MESSIANIC PROPHECIES
+# ============================================================================
+@router.get("/messianic-prophecies", response_class=HTMLResponse)
+def messianic_prophecies_page(request: Request):
+    """Messianic Prophecies page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": MESSIANIC_PROPHECIES_DATA,
+            "page_title": "Messianic Prophecies",
+            "page_subtitle": "Old Testament Predictions Fulfilled in Christ",
+            "page_description": "An expansive study of Messianic prophecies - Old Testament predictions concerning the Messiah's coming, ministry, suffering, and triumph, all fulfilled in Jesus Christ.",
+            "base_url": "/messianic-prophecies",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Messianic Prophecies", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/messianic-prophecies/{item_slug}", response_class=HTMLResponse)
+def messianic_prophecies_detail(request: Request, item_slug: str):
+    """Individual Messianic Prophecy topic detail page."""
+    item, item_name, category_name = find_item_by_slug(MESSIANIC_PROPHECIES_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Messianic Prophecies",
+            "back_url": "/messianic-prophecies",
+            "back_text": "Messianic Prophecies",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Messianic Prophecies", "url": "/messianic-prophecies"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# THE BLOOD IN SCRIPTURE
+# ============================================================================
+@router.get("/blood-in-scripture", response_class=HTMLResponse)
+def blood_in_scripture_page(request: Request):
+    """The Blood in Scripture page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": BLOOD_IN_SCRIPTURE_DATA,
+            "page_title": "The Blood in Scripture",
+            "page_subtitle": "The Theology of Redemption Through Blood",
+            "page_description": "An expansive study of the blood in Scripture - its significance, Old Testament foundations, and ultimate fulfillment in the blood of Christ for redemption, justification, and cleansing.",
+            "base_url": "/blood-in-scripture",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Blood in Scripture", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/blood-in-scripture/{item_slug}", response_class=HTMLResponse)
+def blood_in_scripture_detail(request: Request, item_slug: str):
+    """Individual Blood in Scripture topic detail page."""
+    item, item_name, category_name = find_item_by_slug(BLOOD_IN_SCRIPTURE_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "The Blood in Scripture",
+            "back_url": "/blood-in-scripture",
+            "back_text": "The Blood in Scripture",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Blood in Scripture", "url": "/blood-in-scripture"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# THE KINGDOM OF GOD
+# ============================================================================
+@router.get("/kingdom-of-god", response_class=HTMLResponse)
+def kingdom_of_god_page(request: Request):
+    """The Kingdom of God page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": KINGDOM_OF_GOD_DATA,
+            "page_title": "The Kingdom of God",
+            "page_subtitle": "The Reign of God Through Christ",
+            "page_description": "An expansive study of the Kingdom of God - its nature, King, entrance requirements, growth, and ultimate consummation at Christ's return.",
+            "base_url": "/kingdom-of-god",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Kingdom of God", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/kingdom-of-god/{item_slug}", response_class=HTMLResponse)
+def kingdom_of_god_detail(request: Request, item_slug: str):
+    """Individual Kingdom of God topic detail page."""
+    item, item_name, category_name = find_item_by_slug(KINGDOM_OF_GOD_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "The Kingdom of God",
+            "back_url": "/kingdom-of-god",
+            "back_text": "The Kingdom of God",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "The Kingdom of God", "url": "/kingdom-of-god"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# NAMES AND TITLES OF CHRIST
+# ============================================================================
+@router.get("/names-of-christ", response_class=HTMLResponse)
+def names_of_christ_page(request: Request):
+    """Names and Titles of Christ page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": NAMES_OF_CHRIST_DATA,
+            "page_title": "Names and Titles of Christ",
+            "page_subtitle": "The Glorious Designations of Our Lord",
+            "page_description": "An expansive study of the names and titles of Jesus Christ - divine names, messianic titles, redemptive designations, and relational names revealing His person and work.",
+            "base_url": "/names-of-christ",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Names of Christ", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/names-of-christ/{item_slug}", response_class=HTMLResponse)
+def names_of_christ_detail(request: Request, item_slug: str):
+    """Individual Names of Christ topic detail page."""
+    item, item_name, category_name = find_item_by_slug(NAMES_OF_CHRIST_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Names of Christ",
+            "back_url": "/names-of-christ",
+            "back_text": "Names of Christ",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Names of Christ", "url": "/names-of-christ"},
                 {"text": item_name, "url": None}
             ]
         }

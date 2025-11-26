@@ -2251,3 +2251,1776 @@ I_AM_STATEMENTS_DATA = {
     }
 }
 
+
+# ============================================================================
+# THE TRINITY
+# ============================================================================
+TRINITY_DATA = {
+    "The One God in Three Persons": {
+        "The Unity of the Godhead": {
+            "title": "One God, One Divine Essence",
+            "description": "The foundational truth of biblical monotheism declares that there is one and only one God. This is the Shema of Israel, the creed recited daily by devout Jews: 'Hear, O Israel: The LORD our God is one LORD.' Yet this unity is not mere mathematical singularity but a rich, complex unity—the Hebrew word 'echad' can denote a composite unity (as in 'one flesh' of husband and wife). The New Testament affirms this monotheism while revealing that within the one divine essence exist three distinct persons—Father, Son, and Holy Spirit—each fully and equally God, yet not three Gods but one. This mystery transcends human comprehension yet is consistently revealed throughout Scripture.",
+            "verses": [
+                {"reference": "Deuteronomy 6:4", "text": "Hear, O Israel: The LORD our God is one LORD."},
+                {"reference": "Isaiah 45:5", "text": "I am the LORD, and there is none else, there is no God beside me: I girded thee, though thou hast not known me."},
+                {"reference": "1 Corinthians 8:4", "text": "We know that an idol is nothing in the world, and that there is none other God but one."},
+                {"reference": "James 2:19", "text": "Thou believest that there is one God; thou doest well: the devils also believe, and tremble."},
+                {"reference": "1 Timothy 2:5", "text": "For there is one God, and one mediator between God and men, the man Christ Jesus."},
+                {"reference": "Mark 12:29", "text": "And Jesus answered him, The first of all the commandments is, Hear, O Israel; The Lord our God is one Lord."}
+            ]
+        },
+        "The Three Persons Distinguished": {
+            "title": "Father, Son, and Holy Spirit",
+            "description": "While affirming one God, Scripture clearly distinguishes three persons within the Godhead. The Father is not the Son, the Son is not the Spirit, and the Spirit is not the Father—yet each is fully God. These distinctions are not modes or manifestations that God assumes at different times (modalism), nor are they three separate beings (tritheism). Rather, they are eternal, personal distinctions within the one divine being. The Father eternally begets the Son, the Spirit eternally proceeds from the Father (and the Son, in Western theology), yet none is before or after another in time or dignity. This tri-personal existence is essential to God's nature as love—for love requires an object, and God has loved within Himself from all eternity.",
+            "verses": [
+                {"reference": "Matthew 28:19", "text": "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost."},
+                {"reference": "2 Corinthians 13:14", "text": "The grace of the Lord Jesus Christ, and the love of God, and the communion of the Holy Ghost, be with you all. Amen."},
+                {"reference": "1 Peter 1:2", "text": "Elect according to the foreknowledge of God the Father, through sanctification of the Spirit, unto obedience and sprinkling of the blood of Jesus Christ."},
+                {"reference": "John 14:26", "text": "But the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things, and bring all things to your remembrance, whatsoever I have said unto you."},
+                {"reference": "John 15:26", "text": "But when the Comforter is come, whom I will send unto you from the Father, even the Spirit of truth, which proceedeth from the Father, he shall testify of me."},
+                {"reference": "Galatians 4:6", "text": "And because ye are sons, God hath sent forth the Spirit of his Son into your hearts, crying, Abba, Father."}
+            ]
+        },
+        "Trinitarian Theophanies": {
+            "title": "The Trinity Revealed in the Old Testament",
+            "description": "Though the full revelation of the Trinity awaited the New Testament, the Old Testament contains profound hints of plurality within the Godhead. God speaks of Himself in the plural ('Let us make man in our image'), the Angel of the LORD appears as God Himself yet distinct from God, and the Spirit of God operates distinctly from YHWH. The Shema's use of 'echad' (composite unity) rather than 'yachid' (absolute singularity) allows for this plurality. These passages, read in the light of New Testament revelation, show that the Trinity was not an innovation but the fuller unveiling of what was always true about God's nature.",
+            "verses": [
+                {"reference": "Genesis 1:26", "text": "And God said, Let us make man in our image, after our likeness."},
+                {"reference": "Genesis 3:22", "text": "And the LORD God said, Behold, the man is become as one of us, to know good and evil."},
+                {"reference": "Genesis 11:7", "text": "Go to, let us go down, and there confound their language, that they may not understand one another's speech."},
+                {"reference": "Isaiah 6:8", "text": "Also I heard the voice of the Lord, saying, Whom shall I send, and who will go for us? Then said I, Here am I; send me."},
+                {"reference": "Genesis 18:1-2", "text": "And the LORD appeared unto him in the plains of Mamre... he lift up his eyes and looked, and, lo, three men stood by him."},
+                {"reference": "Genesis 19:24", "text": "Then the LORD rained upon Sodom and upon Gomorrah brimstone and fire from the LORD out of heaven."}
+            ]
+        }
+    },
+    "God the Father": {
+        "The Father as Source and Origin": {
+            "title": "The Unbegotten Father",
+            "description": "Within the Trinity, the Father holds a certain primacy—not of time, essence, or dignity, but of order and origin. He is the 'fount of deity' (fons divinitatis), the unbegotten source from whom the Son is eternally begotten and from whom the Spirit eternally proceeds. This does not make the Father 'more God' than the Son or Spirit, for all three share the identical divine essence. Rather, it speaks to the eternal relations of origin within the Godhead. The Father initiates, sends, and gives; the Son is sent and reveals the Father; the Spirit proceeds and applies. This order reflects the inner life of God from all eternity.",
+            "verses": [
+                {"reference": "John 5:26", "text": "For as the Father hath life in himself; so hath he given to the Son to have life in himself."},
+                {"reference": "1 Corinthians 8:6", "text": "But to us there is but one God, the Father, of whom are all things, and we in him; and one Lord Jesus Christ, by whom are all things, and we by him."},
+                {"reference": "Ephesians 4:6", "text": "One God and Father of all, who is above all, and through all, and in you all."},
+                {"reference": "John 1:14", "text": "And the Word was made flesh, and dwelt among us, (and we beheld his glory, the glory as of the only begotten of the Father,) full of grace and truth."},
+                {"reference": "John 6:57", "text": "As the living Father hath sent me, and I live by the Father: so he that eateth me, even he shall live by me."},
+                {"reference": "1 John 4:14", "text": "And we have seen and do testify that the Father sent the Son to be the Saviour of the world."}
+            ]
+        },
+        "The Father's Love": {
+            "title": "The God Who Loves",
+            "description": "The Father is revealed supremely as the God of love—love that existed within the Trinity before creation, love that moved Him to create, and love that sent His Son for redemption. The Father's love is not mere sentiment but active, sacrificial, electing grace. He loved the Son before the foundation of the world, and He set His love upon His elect people in eternity past. This love reaches its apex at Calvary, where the Father gave His only begotten Son. Such love is the very essence of God's character, for 'God is love,' and this love flows eternally between the persons of the Trinity and overflows to creation.",
+            "verses": [
+                {"reference": "John 3:16", "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."},
+                {"reference": "1 John 4:8", "text": "He that loveth not knoweth not God; for God is love."},
+                {"reference": "1 John 4:9-10", "text": "In this was manifested the love of God toward us, because that God sent his only begotten Son into the world, that we might live through him. Herein is love, not that we loved God, but that he loved us, and sent his Son to be the propitiation for our sins."},
+                {"reference": "John 17:24", "text": "Father, I will that they also, whom thou hast given me, be with me where I am; that they may behold my glory, which thou hast given me: for thou lovedst me before the foundation of the world."},
+                {"reference": "Romans 5:8", "text": "But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us."},
+                {"reference": "Ephesians 2:4-5", "text": "But God, who is rich in mercy, for his great love wherewith he loved us, Even when we were dead in sins, hath quickened us together with Christ."}
+            ]
+        },
+        "The Father of Believers": {
+            "title": "Adoption into the Family of God",
+            "description": "One of the supreme privileges of salvation is adoption into God's family, whereby believers receive the right to call the Almighty 'Father.' This is no natural relationship—by nature all are children of wrath—but a gracious adoption accomplished through union with Christ, the natural Son. Through the Son's redemptive work and the Spirit's regenerating power, believers are brought into the Father's household, made heirs of God and joint-heirs with Christ. The Spirit Himself witnesses with our spirits that we are children of God, enabling us to cry 'Abba, Father' with the same intimacy Jesus displayed.",
+            "verses": [
+                {"reference": "Romans 8:15", "text": "For ye have not received the spirit of bondage again to fear; but ye have received the Spirit of adoption, whereby we cry, Abba, Father."},
+                {"reference": "Galatians 4:4-5", "text": "But when the fulness of the time was come, God sent forth his Son, made of a woman, made under the law, To redeem them that were under the law, that we might receive the adoption of sons."},
+                {"reference": "John 1:12", "text": "But as many as received him, to them gave he power to become the sons of God, even to them that believe on his name."},
+                {"reference": "1 John 3:1", "text": "Behold, what manner of love the Father hath bestowed upon us, that we should be called the sons of God."},
+                {"reference": "Romans 8:16-17", "text": "The Spirit itself beareth witness with our spirit, that we are the children of God: And if children, then heirs; heirs of God, and joint-heirs with Christ."},
+                {"reference": "Matthew 6:9", "text": "After this manner therefore pray ye: Our Father which art in heaven, Hallowed be thy name."}
+            ]
+        }
+    },
+    "God the Son": {
+        "The Eternal Son": {
+            "title": "Begotten, Not Made",
+            "description": "The Son of God is not a created being but eternally begotten of the Father—a distinction the Nicene Creed articulates as 'begotten, not made, of one substance with the Father.' This eternal generation means the Son has always existed as Son; there was never a time when He was not. He is the 'only begotten' (monogenes) in the unique sense of sharing the Father's very nature. As the Logos (Word), He is the Father's perfect self-expression from all eternity. The Son is God of God, Light of Light, very God of very God—fully sharing the divine essence while remaining a distinct person within the Trinity.",
+            "verses": [
+                {"reference": "John 1:1-3", "text": "In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made."},
+                {"reference": "John 1:14", "text": "And the Word was made flesh, and dwelt among us, (and we beheld his glory, the glory as of the only begotten of the Father,) full of grace and truth."},
+                {"reference": "John 1:18", "text": "No man hath seen God at any time; the only begotten Son, which is in the bosom of the Father, he hath declared him."},
+                {"reference": "Colossians 1:15-17", "text": "Who is the image of the invisible God, the firstborn of every creature: For by him were all things created... all things were created by him, and for him: And he is before all things, and by him all things consist."},
+                {"reference": "Hebrews 1:3", "text": "Who being the brightness of his glory, and the express image of his person, and upholding all things by the word of his power."},
+                {"reference": "Micah 5:2", "text": "But thou, Bethlehem Ephratah... out of thee shall he come forth unto me that is to be ruler in Israel; whose goings forth have been from of old, from everlasting."}
+            ]
+        },
+        "The Deity of Christ": {
+            "title": "True God and True Man",
+            "description": "Jesus Christ is not merely a great teacher, prophet, or even the highest created being—He is God incarnate, the second person of the Trinity clothed in human flesh. Scripture ascribes to Him every divine attribute: eternality, omniscience, omnipotence, omnipresence, immutability. He receives worship, forgives sins, and claims equality with the Father. Thomas's confession 'My Lord and my God' represents the proper response to the risen Christ. The deity of Christ is not an optional doctrine but the foundation upon which Christianity stands—if Christ is not God, His sacrifice cannot atone for sins, and Christianity collapses.",
+            "verses": [
+                {"reference": "John 20:28", "text": "And Thomas answered and said unto him, My Lord and my God."},
+                {"reference": "Titus 2:13", "text": "Looking for that blessed hope, and the glorious appearing of the great God and our Saviour Jesus Christ."},
+                {"reference": "Hebrews 1:8", "text": "But unto the Son he saith, Thy throne, O God, is for ever and ever: a sceptre of righteousness is the sceptre of thy kingdom."},
+                {"reference": "John 10:30", "text": "I and my Father are one."},
+                {"reference": "Philippians 2:6", "text": "Who, being in the form of God, thought it not robbery to be equal with God."},
+                {"reference": "Colossians 2:9", "text": "For in him dwelleth all the fulness of the Godhead bodily."},
+                {"reference": "Romans 9:5", "text": "Of whom as concerning the flesh Christ came, who is over all, God blessed for ever. Amen."},
+                {"reference": "1 John 5:20", "text": "And we know that the Son of God is come, and hath given us an understanding, that we may know him that is true, and we are in him that is true, even in his Son Jesus Christ. This is the true God, and eternal life."}
+            ]
+        },
+        "The Son as Mediator": {
+            "title": "The One Mediator Between God and Men",
+            "description": "As the God-man, Jesus Christ uniquely qualifies to mediate between holy God and sinful humanity. He must be God to satisfy divine justice and represent the infinite value required for atonement. He must be man to represent humanity, bear human guilt, and die in humanity's place. In His one person, two complete natures—divine and human—are united without confusion, change, division, or separation (as Chalcedon declared). This hypostatic union enables Christ to bridge the infinite chasm between Creator and creature, bringing God to man and man to God. He is the ladder Jacob saw, connecting heaven and earth.",
+            "verses": [
+                {"reference": "1 Timothy 2:5", "text": "For there is one God, and one mediator between God and men, the man Christ Jesus."},
+                {"reference": "Hebrews 8:6", "text": "But now hath he obtained a more excellent ministry, by how much also he is the mediator of a better covenant, which was established upon better promises."},
+                {"reference": "Hebrews 9:15", "text": "And for this cause he is the mediator of the new testament, that by means of death, for the redemption of the transgressions that were under the first testament, they which are called might receive the promise of eternal inheritance."},
+                {"reference": "Hebrews 12:24", "text": "And to Jesus the mediator of the new covenant, and to the blood of sprinkling, that speaketh better things than that of Abel."},
+                {"reference": "John 14:6", "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."},
+                {"reference": "John 1:51", "text": "And he saith unto him, Verily, verily, I say unto you, Hereafter ye shall see heaven open, and the angels of God ascending and descending upon the Son of man."}
+            ]
+        }
+    },
+    "God the Holy Spirit": {
+        "The Personality of the Spirit": {
+            "title": "The Third Person, Not a Force",
+            "description": "The Holy Spirit is not an impersonal force, influence, or energy but a divine person possessing intellect, will, and emotions. He can be lied to, grieved, blasphemed, and resisted—responses impossible toward a mere power. He speaks, teaches, guides, intercedes, and makes decisions ('it seemed good to the Holy Ghost and to us'). Christ referred to Him with personal pronouns ('He,' 'Him') even when the grammatical gender of 'Spirit' (pneuma) is neuter. The Spirit's personhood is essential to understanding His work—He does not merely empower believers mechanically but personally indwells, teaches, comforts, and sanctifies them.",
+            "verses": [
+                {"reference": "Acts 5:3-4", "text": "But Peter said, Ananias, why hath Satan filled thine heart to lie to the Holy Ghost... thou hast not lied unto men, but unto God."},
+                {"reference": "Ephesians 4:30", "text": "And grieve not the holy Spirit of God, whereby ye are sealed unto the day of redemption."},
+                {"reference": "Acts 13:2", "text": "As they ministered to the Lord, and fasted, the Holy Ghost said, Separate me Barnabas and Saul for the work whereunto I have called them."},
+                {"reference": "Romans 8:26-27", "text": "Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us with groanings which cannot be uttered. And he that searcheth the hearts knoweth what is the mind of the Spirit, because he maketh intercession for the saints according to the will of God."},
+                {"reference": "John 16:13", "text": "Howbeit when he, the Spirit of truth, is come, he will guide you into all truth: for he shall not speak of himself; but whatsoever he shall hear, that shall he speak: and he will shew you things to come."},
+                {"reference": "Acts 15:28", "text": "For it seemed good to the Holy Ghost, and to us, to lay upon you no greater burden than these necessary things."}
+            ]
+        },
+        "The Deity of the Spirit": {
+            "title": "The Spirit Who Is God",
+            "description": "The Holy Spirit is not a lesser deity or created being but fully God, co-equal and co-eternal with the Father and Son. Scripture directly identifies Him as God (Acts 5:3-4), attributes divine perfections to Him (omnipresence, omniscience, eternality), credits Him with divine works (creation, inspiration, regeneration), and places Him alongside the Father and Son in the Trinitarian formula. Blaspheming the Spirit is the unforgivable sin—not because the Spirit is greater than the Father or Son, but because rejecting His testimony to Christ leaves no avenue for forgiveness. The Spirit is the Lord, and where the Spirit of the Lord is, there is liberty.",
+            "verses": [
+                {"reference": "Acts 5:3-4", "text": "But Peter said, Ananias, why hath Satan filled thine heart to lie to the Holy Ghost... thou hast not lied unto men, but unto God."},
+                {"reference": "2 Corinthians 3:17", "text": "Now the Lord is that Spirit: and where the Spirit of the Lord is, there is liberty."},
+                {"reference": "Psalm 139:7-8", "text": "Whither shall I go from thy spirit? or whither shall I flee from thy presence? If I ascend up into heaven, thou art there: if I make my bed in hell, behold, thou art there."},
+                {"reference": "1 Corinthians 2:10-11", "text": "But God hath revealed them unto us by his Spirit: for the Spirit searcheth all things, yea, the deep things of God. For what man knoweth the things of a man, save the spirit of man which is in him? even so the things of God knoweth no man, but the Spirit of God."},
+                {"reference": "Hebrews 9:14", "text": "How much more shall the blood of Christ, who through the eternal Spirit offered himself without spot to God, purge your conscience from dead works to serve the living God?"},
+                {"reference": "Matthew 12:31-32", "text": "Wherefore I say unto you, All manner of sin and blasphemy shall be forgiven unto men: but the blasphemy against the Holy Ghost shall not be forgiven unto men."}
+            ]
+        },
+        "The Procession of the Spirit": {
+            "title": "The Spirit Who Proceeds",
+            "description": "As the Son is eternally begotten of the Father, so the Spirit eternally proceeds from the Father (and, according to Western theology, from the Son as well—the filioque). This procession is not a temporal event but an eternal relation, defining the Spirit's personal mode of subsistence within the Trinity. The Spirit is sent by both Father and Son in the economy of redemption, reflecting this eternal procession. He is called both 'the Spirit of God' and 'the Spirit of Christ,' belonging equally to both. The Spirit does not speak of Himself but glorifies Christ, even as Christ glorifies the Father—a beautiful mutual glorification within the Trinity.",
+            "verses": [
+                {"reference": "John 15:26", "text": "But when the Comforter is come, whom I will send unto you from the Father, even the Spirit of truth, which proceedeth from the Father, he shall testify of me."},
+                {"reference": "John 14:26", "text": "But the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things."},
+                {"reference": "Galatians 4:6", "text": "And because ye are sons, God hath sent forth the Spirit of his Son into your hearts, crying, Abba, Father."},
+                {"reference": "Romans 8:9", "text": "But ye are not in the flesh, but in the Spirit, if so be that the Spirit of God dwell in you. Now if any man have not the Spirit of Christ, he is none of his."},
+                {"reference": "John 16:14", "text": "He shall glorify me: for he shall receive of mine, and shall shew it unto you."},
+                {"reference": "Philippians 1:19", "text": "For I know that this shall turn to my salvation through your prayer, and the supply of the Spirit of Jesus Christ."}
+            ]
+        }
+    },
+    "The Trinity in Redemption": {
+        "The Father's Plan": {
+            "title": "Salvation Purposed by the Father",
+            "description": "The triune God works harmoniously in redemption, with each person playing a distinct role. The Father is the architect of salvation, planning redemption before the foundation of the world. He chose a people for Himself, predestined them to adoption, and sent His Son as the appointed Redeemer. The Father's eternal decree set in motion the entire drama of redemption. He gave the Son a people to save, promising that none of them would be lost. This sovereign purpose originates in the Father's love and wisdom, ensuring that salvation is not a divine afterthought but the unfolding of an eternal plan.",
+            "verses": [
+                {"reference": "Ephesians 1:3-5", "text": "Blessed be the God and Father of our Lord Jesus Christ, who hath blessed us with all spiritual blessings in heavenly places in Christ: According as he hath chosen us in him before the foundation of the world, that we should be holy and without blame before him in love: Having predestinated us unto the adoption of children by Jesus Christ to himself, according to the good pleasure of his will."},
+                {"reference": "1 Peter 1:20", "text": "Who verily was foreordained before the foundation of the world, but was manifest in these last times for you."},
+                {"reference": "John 6:37", "text": "All that the Father giveth me shall come to me; and him that cometh to me I will in no wise cast out."},
+                {"reference": "Acts 2:23", "text": "Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain."},
+                {"reference": "Romans 8:29-30", "text": "For whom he did foreknow, he also did predestinate to be conformed to the image of his Son... Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified."}
+            ]
+        },
+        "The Son's Accomplishment": {
+            "title": "Salvation Achieved by the Son",
+            "description": "The Son executes the Father's redemptive plan through His incarnation, life, death, and resurrection. He accomplished what no creature could—perfect obedience to God's law and substitutionary satisfaction of God's justice. The Son did not merely make salvation possible; He actually saved His people from their sins. His cry 'It is finished' declared the completion of redemption's work. All that the Father required, the Son provided; all that justice demanded, the Son paid. The atonement is not merely an offer extended but a purchase accomplished, securing every blessing for those the Father gave to the Son.",
+            "verses": [
+                {"reference": "John 19:30", "text": "When Jesus therefore had received the vinegar, he said, It is finished: and he bowed his head, and gave up the ghost."},
+                {"reference": "Hebrews 10:12", "text": "But this man, after he had offered one sacrifice for sins for ever, sat down on the right hand of God."},
+                {"reference": "1 Peter 2:24", "text": "Who his own self bare our sins in his own body on the tree, that we, being dead to sins, should live unto righteousness: by whose stripes ye were healed."},
+                {"reference": "Romans 5:19", "text": "For as by one man's disobedience many were made sinners, so by the obedience of one shall many be made righteous."},
+                {"reference": "Galatians 3:13", "text": "Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree."},
+                {"reference": "Hebrews 9:12", "text": "Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."}
+            ]
+        },
+        "The Spirit's Application": {
+            "title": "Salvation Applied by the Spirit",
+            "description": "The Holy Spirit applies to individuals what the Son accomplished for them. He convicts of sin, regenerates dead hearts, grants faith and repentance, unites believers to Christ, sanctifies them progressively, and seals them for the day of redemption. Without the Spirit's work, Christ's objective atonement would benefit no one—the Spirit makes it subjectively effective. He takes what is Christ's and declares it to believers, opening blind eyes to see gospel glory. The same Spirit who hovered over creation's waters now hovers over spiritually dead souls, bringing forth new creation in Christ.",
+            "verses": [
+                {"reference": "John 16:8", "text": "And when he is come, he will reprove the world of sin, and of righteousness, and of judgment."},
+                {"reference": "Titus 3:5", "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost."},
+                {"reference": "1 Corinthians 12:13", "text": "For by one Spirit are we all baptized into one body, whether we be Jews or Gentiles, whether we be bond or free; and have been all made to drink into one Spirit."},
+                {"reference": "Romans 8:11", "text": "But if the Spirit of him that raised up Jesus from the dead dwell in you, he that raised up Christ from the dead shall also quicken your mortal bodies by his Spirit that dwelleth in you."},
+                {"reference": "Ephesians 1:13-14", "text": "In whom ye also trusted, after that ye heard the word of truth, the gospel of your salvation: in whom also after that ye believed, ye were sealed with that holy Spirit of promise, Which is the earnest of our inheritance until the redemption of the purchased possession."},
+                {"reference": "2 Thessalonians 2:13", "text": "God hath from the beginning chosen you to salvation through sanctification of the Spirit and belief of the truth."}
+            ]
+        }
+    }
+}
+
+
+# ============================================================================
+# CHRISTOLOGY - THE DOCTRINE OF CHRIST
+# ============================================================================
+CHRISTOLOGY_DATA = {
+    "The Pre-Incarnate Christ": {
+        "The Eternal Word": {
+            "title": "Christ Before Bethlehem",
+            "description": "Before the Word became flesh, He existed eternally as the second person of the Trinity. John's Gospel opens with this staggering truth: 'In the beginning was the Word'—not 'came to be' but 'was,' indicating eternal pre-existence. This Logos was both 'with God' (distinct person) and 'was God' (same essence). All creation came into being through Him; He is the agent of creation, not a creature. The pre-incarnate Christ appeared throughout the Old Testament as the Angel of the LORD, the Commander of the LORD's army, and in various theophanies. Bethlehem was not His beginning but His arrival—the eternal entering time.",
+            "verses": [
+                {"reference": "John 1:1-3", "text": "In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made."},
+                {"reference": "John 17:5", "text": "And now, O Father, glorify thou me with thine own self with the glory which I had with thee before the world was."},
+                {"reference": "Colossians 1:16-17", "text": "For by him were all things created, that are in heaven, and that are in earth, visible and invisible, whether they be thrones, or dominions, or principalities, or powers: all things were created by him, and for him: And he is before all things, and by him all things consist."},
+                {"reference": "Micah 5:2", "text": "But thou, Bethlehem Ephratah, though thou be little among the thousands of Judah, yet out of thee shall he come forth unto me that is to be ruler in Israel; whose goings forth have been from of old, from everlasting."},
+                {"reference": "Proverbs 8:22-23", "text": "The LORD possessed me in the beginning of his way, before his works of old. I was set up from everlasting, from the beginning, or ever the earth was."},
+                {"reference": "Isaiah 9:6", "text": "For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder: and his name shall be called Wonderful, Counsellor, The mighty God, The everlasting Father, The Prince of Peace."}
+            ]
+        },
+        "The Angel of the LORD": {
+            "title": "The Pre-Incarnate Theophanies",
+            "description": "Throughout the Old Testament, a mysterious figure called 'the Angel of the LORD' appears—distinct from ordinary angels and identified with YHWH Himself. He speaks as God, accepts worship, and exercises divine prerogatives. This Angel appeared to Hagar, Abraham, Jacob, Moses, Gideon, and Manoah's wife, among others. He is called 'God' yet is sent by God, speaks for God yet is God. The early church fathers identified this Angel as the pre-incarnate Christ—the second person of the Trinity manifesting visibly before the incarnation. These appearances foreshadowed and prepared for the full incarnation in Bethlehem.",
+            "verses": [
+                {"reference": "Genesis 16:10-13", "text": "And the angel of the LORD said unto her, I will multiply thy seed exceedingly... And she called the name of the LORD that spake unto her, Thou God seest me."},
+                {"reference": "Genesis 22:11-12", "text": "And the angel of the LORD called unto him out of heaven, and said, Abraham, Abraham... now I know that thou fearest God, seeing thou hast not withheld thy son, thine only son from me."},
+                {"reference": "Exodus 3:2-6", "text": "And the angel of the LORD appeared unto him in a flame of fire out of the midst of a bush... Moreover he said, I am the God of thy father, the God of Abraham, the God of Isaac, and the God of Jacob."},
+                {"reference": "Judges 13:18-22", "text": "And the angel of the LORD said unto him, Why askest thou thus after my name, seeing it is secret?... And Manoah said unto his wife, We shall surely die, because we have seen God."},
+                {"reference": "Genesis 32:30", "text": "And Jacob called the name of the place Peniel: for I have seen God face to face, and my life is preserved."},
+                {"reference": "Joshua 5:14-15", "text": "And he said, Nay; but as captain of the host of the LORD am I now come... Loose thy shoe from off thy foot; for the place whereon thou standest is holy."}
+            ]
+        }
+    },
+    "The Incarnation": {
+        "The Virgin Birth": {
+            "title": "Conceived by the Holy Spirit, Born of the Virgin Mary",
+            "description": "The incarnation began with a miracle: the eternal Son took human nature through conception in the womb of the Virgin Mary by the power of the Holy Spirit, without a human father. This was not a mythological divine-human mating but a supernatural creative act. The virgin birth protected Christ from inheriting Adam's guilt through natural generation while ensuring His true humanity through Mary. He was born of a woman, born under the law, fully human in every respect yet without sin. The miracle of the virgin birth signals the newness of what God was doing—beginning the new creation in the womb of a virgin.",
+            "verses": [
+                {"reference": "Matthew 1:18", "text": "Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost."},
+                {"reference": "Matthew 1:20-23", "text": "But while he thought on these things, behold, the angel of the Lord appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost. And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins."},
+                {"reference": "Luke 1:34-35", "text": "Then said Mary unto the angel, How shall this be, seeing I know not a man? And the angel answered and said unto her, The Holy Ghost shall come upon thee, and the power of the Highest shall overshadow thee: therefore also that holy thing which shall be born of thee shall be called the Son of God."},
+                {"reference": "Isaiah 7:14", "text": "Therefore the Lord himself shall give you a sign; Behold, a virgin shall conceive, and bear a son, and shall call his name Immanuel."},
+                {"reference": "Galatians 4:4", "text": "But when the fulness of the time was come, God sent forth his Son, made of a woman, made under the law."},
+                {"reference": "Hebrews 10:5", "text": "Wherefore when he cometh into the world, he saith, Sacrifice and offering thou wouldest not, but a body hast thou prepared me."}
+            ]
+        },
+        "The Hypostatic Union": {
+            "title": "Two Natures in One Person",
+            "description": "In the incarnation, the divine and human natures were united in one person without confusion, change, division, or separation (the Chalcedonian Definition). Christ did not cease to be God when He became man; He did not have a human person added to His divine person. Rather, the eternal Son assumed human nature into personal union with Himself. He is one person with two complete natures—fully God and fully man. Each nature retains its own properties: as God He is omniscient, as man He grew in wisdom; as God He cannot die, as man He suffered death. This union is permanent—Christ remains the God-man forever.",
+            "verses": [
+                {"reference": "John 1:14", "text": "And the Word was made flesh, and dwelt among us, (and we beheld his glory, the glory as of the only begotten of the Father,) full of grace and truth."},
+                {"reference": "Philippians 2:6-8", "text": "Who, being in the form of God, thought it not robbery to be equal with God: But made himself of no reputation, and took upon him the form of a servant, and was made in the likeness of men: And being found in fashion as a man, he humbled himself, and became obedient unto death, even the death of the cross."},
+                {"reference": "Colossians 2:9", "text": "For in him dwelleth all the fulness of the Godhead bodily."},
+                {"reference": "1 Timothy 3:16", "text": "And without controversy great is the mystery of godliness: God was manifest in the flesh, justified in the Spirit, seen of angels, preached unto the Gentiles, believed on in the world, received up into glory."},
+                {"reference": "Hebrews 2:14", "text": "Forasmuch then as the children are partakers of flesh and blood, he also himself likewise took part of the same; that through death he might destroy him that had the power of death, that is, the devil."},
+                {"reference": "Romans 1:3-4", "text": "Concerning his Son Jesus Christ our Lord, which was made of the seed of David according to the flesh; And declared to be the Son of God with power, according to the spirit of holiness, by the resurrection from the dead."}
+            ]
+        },
+        "The Humiliation of Christ": {
+            "title": "The Kenosis - Self-Emptying",
+            "description": "The incarnation involved a profound humiliation, described in Philippians 2 as Christ 'emptying Himself.' This kenosis does not mean He ceased to be God or surrendered divine attributes; rather, He voluntarily veiled His glory, declined to exercise certain divine prerogatives independently, and submitted to human limitations. The eternal, infinite, omnipotent God became a helpless infant, grew tired, thirsted, and ultimately died. He who was rich became poor; He who was served became a servant; He who was worshiped was mocked. This self-emptying reached its nadir at Calvary, where the Lord of glory hung naked between criminals.",
+            "verses": [
+                {"reference": "Philippians 2:5-8", "text": "Let this mind be in you, which was also in Christ Jesus: Who, being in the form of God, thought it not robbery to be equal with God: But made himself of no reputation, and took upon him the form of a servant, and was made in the likeness of men: And being found in fashion as a man, he humbled himself, and became obedient unto death, even the death of the cross."},
+                {"reference": "2 Corinthians 8:9", "text": "For ye know the grace of our Lord Jesus Christ, that, though he was rich, yet for your sakes he became poor, that ye through his poverty might be rich."},
+                {"reference": "John 17:5", "text": "And now, O Father, glorify thou me with thine own self with the glory which I had with thee before the world was."},
+                {"reference": "Matthew 8:20", "text": "And Jesus saith unto him, The foxes have holes, and the birds of the air have nests; but the Son of man hath not where to lay his head."},
+                {"reference": "Hebrews 5:8", "text": "Though he were a Son, yet learned he obedience by the things which he suffered."},
+                {"reference": "Isaiah 53:3", "text": "He is despised and rejected of men; a man of sorrows, and acquainted with grief: and we hid as it were our faces from him; he was despised, and we esteemed him not."}
+            ]
+        }
+    },
+    "The Offices of Christ": {
+        "Christ as Prophet": {
+            "title": "The Word of God to Man",
+            "description": "Christ fulfills the prophetic office as the ultimate revelation of God to humanity. Moses predicted a prophet like himself whom Israel must heed. Jesus is that Prophet—greater than Moses, for He is not merely a messenger but the Message itself, the Word made flesh. As Prophet, He reveals the Father perfectly ('He who has seen Me has seen the Father'), declares God's truth authoritatively, and pronounces divine judgment on sin. His prophetic ministry continues through His Spirit illuminating Scripture to His church. He is prophet not by calling but by nature—the eternal Word who makes the Father known.",
+            "verses": [
+                {"reference": "Deuteronomy 18:15", "text": "The LORD thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken."},
+                {"reference": "Acts 3:22-23", "text": "For Moses truly said unto the fathers, A prophet shall the Lord your God raise up unto you of your brethren, like unto me; him shall ye hear in all things whatsoever he shall say unto you."},
+                {"reference": "John 1:18", "text": "No man hath seen God at any time; the only begotten Son, which is in the bosom of the Father, he hath declared him."},
+                {"reference": "Hebrews 1:1-2", "text": "God, who at sundry times and in divers manners spake in time past unto the fathers by the prophets, Hath in these last days spoken unto us by his Son."},
+                {"reference": "John 14:9", "text": "Jesus saith unto him, Have I been so long time with you, and yet hast thou not known me, Philip? he that hath seen me hath seen the Father."},
+                {"reference": "Luke 24:19", "text": "And they said unto him, Concerning Jesus of Nazareth, which was a prophet mighty in deed and word before God and all the people."}
+            ]
+        },
+        "Christ as Priest": {
+            "title": "The Mediator Between God and Man",
+            "description": "Christ is our great High Priest who offered Himself as the perfect sacrifice for sin and now intercedes for His people at the Father's right hand. Unlike Levitical priests who offered repeatedly and for their own sins first, Christ offered one sacrifice—Himself—once for all. He is both the priest who offers and the lamb who is offered. His priesthood is not Levitical but after the order of Melchizedek—eternal, royal, and without predecessor or successor. Having passed through the heavens, He sympathizes with our weaknesses, having been tempted in all points yet without sin. We therefore approach the throne of grace boldly through Him.",
+            "verses": [
+                {"reference": "Hebrews 4:14-15", "text": "Seeing then that we have a great high priest, that is passed into the heavens, Jesus the Son of God, let us hold fast our profession. For we have not an high priest which cannot be touched with the feeling of our infirmities; but was in all points tempted like as we are, yet without sin."},
+                {"reference": "Hebrews 7:24-25", "text": "But this man, because he continueth ever, hath an unchangeable priesthood. Wherefore he is able also to save them to the uttermost that come unto God by him, seeing he ever liveth to make intercession for them."},
+                {"reference": "Hebrews 9:11-12", "text": "But Christ being come an high priest of good things to come, by a greater and more perfect tabernacle, not made with hands... Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."},
+                {"reference": "Hebrews 10:12", "text": "But this man, after he had offered one sacrifice for sins for ever, sat down on the right hand of God."},
+                {"reference": "1 John 2:1", "text": "My little children, these things write I unto you, that ye sin not. And if any man sin, we have an advocate with the Father, Jesus Christ the righteous."},
+                {"reference": "Romans 8:34", "text": "Who is he that condemneth? It is Christ that died, yea rather, that is risen again, who is even at the right hand of God, who also maketh intercession for us."}
+            ]
+        },
+        "Christ as King": {
+            "title": "The Ruler of All",
+            "description": "Christ is the anointed King, heir to David's throne, yet His kingdom far surpasses any earthly monarchy. He is 'King of kings and Lord of lords,' exercising sovereign authority over all creation. His kingdom is 'not of this world'—not established by worldly power but by the Spirit's work in human hearts. Yet it is real, present (in the church), and future (in consummation). As King, He protects His people, conquers their enemies, and governs them by His Word and Spirit. Every knee shall bow to this King—willingly now in worship or unwillingly at judgment.",
+            "verses": [
+                {"reference": "Revelation 19:16", "text": "And he hath on his vesture and on his thigh a name written, KING OF KINGS, AND LORD OF LORDS."},
+                {"reference": "Matthew 28:18", "text": "And Jesus came and spake unto them, saying, All power is given unto me in heaven and in earth."},
+                {"reference": "John 18:36-37", "text": "Jesus answered, My kingdom is not of this world: if my kingdom were of this world, then would my servants fight... Pilate therefore said unto him, Art thou a king then? Jesus answered, Thou sayest that I am a king. To this end was I born, and for this cause came I into the world."},
+                {"reference": "Luke 1:32-33", "text": "He shall be great, and shall be called the Son of the Highest: and the Lord God shall give unto him the throne of his father David: And he shall reign over the house of Jacob for ever; and of his kingdom there shall be no end."},
+                {"reference": "Psalm 2:6-7", "text": "Yet have I set my king upon my holy hill of Zion. I will declare the decree: the LORD hath said unto me, Thou art my Son; this day have I begotten thee."},
+                {"reference": "Philippians 2:9-11", "text": "Wherefore God also hath highly exalted him, and given him a name which is above every name: That at the name of Jesus every knee should bow, of things in heaven, and things in earth, and things under the earth."}
+            ]
+        }
+    },
+    "The Atonement": {
+        "Penal Substitutionary Atonement": {
+            "title": "Christ Bearing Our Punishment",
+            "description": "At the heart of the gospel stands the cross, where Christ died as a substitute for sinners, bearing the penalty they deserved. This is penal substitution: 'penal' because He bore the legal penalty due to sin; 'substitution' because He took our place. God's justice required that sin be punished; God's love provided a substitute. On the cross, the Father imputed our sins to Christ and punished Him in our stead. The sinless One became sin for us. He was wounded for our transgressions, bruised for our iniquities. The wrath we deserved fell upon Him. This is not cosmic child abuse but the Father and Son together executing the plan of redemption.",
+            "verses": [
+                {"reference": "Isaiah 53:5-6", "text": "But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed. All we like sheep have gone astray; we have turned every one to his own way; and the LORD hath laid on him the iniquity of us all."},
+                {"reference": "2 Corinthians 5:21", "text": "For he hath made him to be sin for us, who knew no sin; that we might be made the righteousness of God in him."},
+                {"reference": "1 Peter 2:24", "text": "Who his own self bare our sins in his own body on the tree, that we, being dead to sins, should live unto righteousness: by whose stripes ye were healed."},
+                {"reference": "Romans 3:25-26", "text": "Whom God hath set forth to be a propitiation through faith in his blood, to declare his righteousness for the remission of sins that are past, through the forbearance of God; To declare, I say, at this time his righteousness: that he might be just, and the justifier of him which believeth in Jesus."},
+                {"reference": "Galatians 3:13", "text": "Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree."},
+                {"reference": "1 Peter 3:18", "text": "For Christ also hath once suffered for sins, the just for the unjust, that he might bring us to God."}
+            ]
+        },
+        "Propitiation and Expiation": {
+            "title": "Satisfying God's Wrath and Removing Sin",
+            "description": "Christ's death accomplished both propitiation (satisfying God's righteous wrath against sin) and expiation (removing the guilt of sin). Propitiation addresses the Godward aspect—the holy God who must punish sin has been appeased; His wrath has been turned away through the sacrifice of Christ. Expiation addresses the manward aspect—our sins have been covered, removed, blotted out. The mercy seat (hilasterion) was where blood was sprinkled on the Day of Atonement; Christ is our mercy seat, the place where God's wrath and mercy meet. In Him, justice is satisfied and sinners are cleansed.",
+            "verses": [
+                {"reference": "Romans 3:25", "text": "Whom God hath set forth to be a propitiation through faith in his blood."},
+                {"reference": "1 John 2:2", "text": "And he is the propitiation for our sins: and not for ours only, but also for the sins of the whole world."},
+                {"reference": "1 John 4:10", "text": "Herein is love, not that we loved God, but that he loved us, and sent his Son to be the propitiation for our sins."},
+                {"reference": "Hebrews 2:17", "text": "Wherefore in all things it behoved him to be made like unto his brethren, that he might be a merciful and faithful high priest in things pertaining to God, to make reconciliation for the sins of the people."},
+                {"reference": "Leviticus 16:15-16", "text": "Then shall he kill the goat of the sin offering, that is for the people, and bring his blood within the vail... and make an atonement for the holy place, because of the uncleanness of the children of Israel."},
+                {"reference": "Psalm 103:12", "text": "As far as the east is from the west, so far hath he removed our transgressions from us."}
+            ]
+        },
+        "Redemption and Ransom": {
+            "title": "Purchased with a Price",
+            "description": "Redemption language pervades Scripture's description of Christ's work. We were slaves to sin, held captive by Satan, under the curse of the law—and Christ paid the ransom price to set us free. This redemption is not paid to Satan (as if he had legitimate claims) but represents the costly price of our deliverance. Christ's blood is the purchase price. We are bought with a price and no longer belong to ourselves. This redemption is comprehensive—delivering us from sin's penalty, power, and ultimately its presence. The Exodus from Egypt foreshadowed this greater exodus accomplished through Christ's blood.",
+            "verses": [
+                {"reference": "1 Peter 1:18-19", "text": "Forasmuch as ye know that ye were not redeemed with corruptible things, as silver and gold, from your vain conversation received by tradition from your fathers; But with the precious blood of Christ, as of a lamb without blemish and without spot."},
+                {"reference": "Mark 10:45", "text": "For even the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many."},
+                {"reference": "Galatians 3:13", "text": "Christ hath redeemed us from the curse of the law, being made a curse for us."},
+                {"reference": "Ephesians 1:7", "text": "In whom we have redemption through his blood, the forgiveness of sins, according to the riches of his grace."},
+                {"reference": "Titus 2:14", "text": "Who gave himself for us, that he might redeem us from all iniquity, and purify unto himself a peculiar people, zealous of good works."},
+                {"reference": "Revelation 5:9", "text": "And they sung a new song, saying, Thou art worthy to take the book, and to open the seals thereof: for thou wast slain, and hast redeemed us to God by thy blood out of every kindred, and tongue, and people, and nation."},
+                {"reference": "1 Corinthians 6:20", "text": "For ye are bought with a price: therefore glorify God in your body, and in your spirit, which are God's."}
+            ]
+        },
+        "Reconciliation": {
+            "title": "Enemies Made Friends",
+            "description": "Sin made us enemies of God—not merely estranged but actively hostile, under His wrath. Reconciliation is the restoration of this broken relationship. Through Christ's death, the enmity is abolished, the barrier removed, and peace established between God and man. God was in Christ reconciling the world to Himself, not counting their trespasses against them. This reconciliation is not mutual negotiation but one-sided initiative—God reconciles us to Himself while we were enemies. Having been reconciled by Christ's death, we shall be saved by His life. We are now ambassadors of reconciliation, proclaiming this peace to a hostile world.",
+            "verses": [
+                {"reference": "Romans 5:10-11", "text": "For if, when we were enemies, we were reconciled to God by the death of his Son, much more, being reconciled, we shall be saved by his life. And not only so, but we also joy in God through our Lord Jesus Christ, by whom we have now received the atonement."},
+                {"reference": "2 Corinthians 5:18-19", "text": "And all things are of God, who hath reconciled us to himself by Jesus Christ, and hath given to us the ministry of reconciliation; To wit, that God was in Christ, reconciling the world unto himself, not imputing their trespasses unto them."},
+                {"reference": "Colossians 1:20-21", "text": "And, having made peace through the blood of his cross, by him to reconcile all things unto himself; by him, I say, whether they be things in earth, or things in heaven. And you, that were sometime alienated and enemies in your mind by wicked works, yet now hath he reconciled."},
+                {"reference": "Ephesians 2:14-16", "text": "For he is our peace, who hath made both one, and hath broken down the middle wall of partition between us; Having abolished in his flesh the enmity, even the law of commandments contained in ordinances; for to make in himself of twain one new man, so making peace; And that he might reconcile both unto God in one body by the cross, having slain the enmity thereby."},
+                {"reference": "Romans 8:7", "text": "Because the carnal mind is enmity against God: for it is not subject to the law of God, neither indeed can be."}
+            ]
+        }
+    },
+    "The Exaltation of Christ": {
+        "The Resurrection": {
+            "title": "Raised for Our Justification",
+            "description": "Christ's resurrection is not merely a happy ending to a tragic story but the vindication of His person and work. The resurrection declared Him to be the Son of God with power, demonstrated the Father's acceptance of His sacrifice, and guaranteed our justification. He was delivered for our offenses and raised for our justification. The empty tomb proclaims that death could not hold Him, sin's penalty was fully paid, and the new creation has begun. Christ is the firstfruits of those who sleep—His resurrection guarantees the resurrection of all who are in Him. The resurrection transformed a band of terrified disciples into bold witnesses who turned the world upside down.",
+            "verses": [
+                {"reference": "Romans 1:4", "text": "And declared to be the Son of God with power, according to the spirit of holiness, by the resurrection from the dead."},
+                {"reference": "Romans 4:25", "text": "Who was delivered for our offences, and was raised again for our justification."},
+                {"reference": "1 Corinthians 15:17", "text": "And if Christ be not raised, your faith is vain; ye are yet in your sins."},
+                {"reference": "1 Corinthians 15:20", "text": "But now is Christ risen from the dead, and become the firstfruits of them that slept."},
+                {"reference": "Acts 2:24", "text": "Whom God hath raised up, having loosed the pains of death: because it was not possible that he should be holden of it."},
+                {"reference": "1 Peter 1:3", "text": "Blessed be the God and Father of our Lord Jesus Christ, which according to his abundant mercy hath begotten us again unto a lively hope by the resurrection of Jesus Christ from the dead."},
+                {"reference": "Romans 6:9", "text": "Knowing that Christ being raised from the dead dieth no more; death hath no more dominion over him."}
+            ]
+        },
+        "The Ascension": {
+            "title": "Exalted to the Right Hand of God",
+            "description": "Forty days after His resurrection, Christ ascended visibly into heaven, received up in glory, and seated at the Father's right hand—the position of supreme honor and authority. The ascension completes the humiliation-exaltation pattern: He who descended is the same who ascended far above all heavens. From this throne He pours out the Spirit, intercedes for His people, and rules over all creation. The ascension marks the beginning of His heavenly session, where He awaits the subjugation of all enemies under His feet. He ascended to prepare a place for us and promised to return in the same manner—visibly, bodily, gloriously.",
+            "verses": [
+                {"reference": "Acts 1:9-11", "text": "And when he had spoken these things, while they beheld, he was taken up; and a cloud received him out of their sight. And while they looked stedfastly toward heaven as he went up, behold, two men stood by them in white apparel; Which also said, Ye men of Galilee, why stand ye gazing up into heaven? this same Jesus, which is taken up from you into heaven, shall so come in like manner as ye have seen him go into heaven."},
+                {"reference": "Ephesians 4:8-10", "text": "Wherefore he saith, When he ascended up on high, he led captivity captive, and gave gifts unto men... He that descended is the same also that ascended up far above all heavens, that he might fill all things."},
+                {"reference": "Hebrews 1:3", "text": "Who being the brightness of his glory, and the express image of his person, and upholding all things by the word of his power, when he had by himself purged our sins, sat down on the right hand of the Majesty on high."},
+                {"reference": "Ephesians 1:20-21", "text": "Which he wrought in Christ, when he raised him from the dead, and set him at his own right hand in the heavenly places, Far above all principality, and power, and might, and dominion, and every name that is named."},
+                {"reference": "Philippians 2:9-11", "text": "Wherefore God also hath highly exalted him, and given him a name which is above every name: That at the name of Jesus every knee should bow."},
+                {"reference": "Hebrews 4:14", "text": "Seeing then that we have a great high priest, that is passed into the heavens, Jesus the Son of God, let us hold fast our profession."}
+            ]
+        },
+        "The Session and Return": {
+            "title": "Reigning Until He Comes Again",
+            "description": "Christ currently reigns at the Father's right hand, exercising dominion over all creation and interceding for His people. This heavenly session continues until all enemies are made His footstool. He is now putting all things under His feet through the preaching of the gospel and the advance of His kingdom. Yet this present reign is not the consummation—Christ will return personally, visibly, and gloriously to judge the living and dead, resurrect His people, and establish His eternal kingdom. The same Jesus who ascended will return in like manner. This blessed hope animates Christian living, fuels evangelistic urgency, and comforts suffering saints.",
+            "verses": [
+                {"reference": "Hebrews 10:12-13", "text": "But this man, after he had offered one sacrifice for sins for ever, sat down on the right hand of God; From henceforth expecting till his enemies be made his footstool."},
+                {"reference": "1 Corinthians 15:25-26", "text": "For he must reign, till he hath put all enemies under his feet. The last enemy that shall be destroyed is death."},
+                {"reference": "Acts 3:21", "text": "Whom the heaven must receive until the times of restitution of all things, which God hath spoken by the mouth of all his holy prophets since the world began."},
+                {"reference": "Matthew 24:30", "text": "And then shall appear the sign of the Son of man in heaven: and then shall all the tribes of the earth mourn, and they shall see the Son of man coming in the clouds of heaven with power and great glory."},
+                {"reference": "1 Thessalonians 4:16-17", "text": "For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first: Then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord."},
+                {"reference": "Revelation 22:20", "text": "He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus."}
+            ]
+        }
+    }
+}
+
+# Soteriology - The Doctrine of Salvation
+SOTERIOLOGY_DATA = {
+    "The Need for Salvation": {
+        "The Fall of Man": {
+            "title": "Sin Entered Through Adam",
+            "description": "The doctrine of salvation begins with understanding why salvation is necessary. In Adam, all humanity fell from original righteousness into sin and misery. By one man's disobedience, many were made sinners. The fall was not merely a bad example but a federal headship—Adam represented all his posterity, and when he sinned, we sinned in him. The result is total depravity: not that humans are as bad as possible, but that every faculty—mind, will, emotions, body—is corrupted by sin. We are by nature children of wrath, dead in trespasses and sins, unable to save ourselves or even desire salvation apart from grace.",
+            "verses": [
+                {"reference": "Romans 5:12", "text": "Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned."},
+                {"reference": "Romans 5:19", "text": "For as by one man's disobedience many were made sinners, so by the obedience of one shall many be made righteous."},
+                {"reference": "Genesis 3:6-7", "text": "And when the woman saw that the tree was good for food, and that it was pleasant to the eyes, and a tree to be desired to make one wise, she took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat. And the eyes of them both were opened, and they knew that they were naked."},
+                {"reference": "Ephesians 2:1-3", "text": "And you hath he quickened, who were dead in trespasses and sins; Wherein in time past ye walked according to the course of this world... and were by nature the children of wrath, even as others."},
+                {"reference": "Psalm 51:5", "text": "Behold, I was shapen in iniquity; and in sin did my mother conceive me."},
+                {"reference": "Romans 3:23", "text": "For all have sinned, and come short of the glory of God."}
+            ]
+        },
+        "Total Depravity": {
+            "title": "The Corruption of Human Nature",
+            "description": "Total depravity describes the extent of sin's corruption in human nature. It does not mean that humans are utterly depraved in every act, but that sin has affected every part of our being. The heart is deceitful above all things and desperately wicked. The mind is hostile to God, unable to submit to His law. The will is enslaved to sin—we are free to choose, but our choices are limited by our sinful nature. No one seeks God; no one does good. This condition is universal and inescapable apart from sovereign grace. Understanding depravity is essential because those who think themselves well have no need of a physician.",
+            "verses": [
+                {"reference": "Jeremiah 17:9", "text": "The heart is deceitful above all things, and desperately wicked: who can know it?"},
+                {"reference": "Romans 8:7-8", "text": "Because the carnal mind is enmity against God: for it is not subject to the law of God, neither indeed can be. So then they that are in the flesh cannot please God."},
+                {"reference": "Romans 3:10-12", "text": "As it is written, There is none righteous, no, not one: There is none that understandeth, there is none that seeketh after God. They are all gone out of the way, they are together become unprofitable; there is none that doeth good, no, not one."},
+                {"reference": "John 6:44", "text": "No man can come to me, except the Father which hath sent me draw him: and I will raise him up at the last day."},
+                {"reference": "1 Corinthians 2:14", "text": "But the natural man receiveth not the things of the Spirit of God: for they are foolishness unto him: neither can he know them, because they are spiritually discerned."},
+                {"reference": "Genesis 6:5", "text": "And GOD saw that the wickedness of man was great in the earth, and that every imagination of the thoughts of his heart was only evil continually."}
+            ]
+        },
+        "Spiritual Death": {
+            "title": "Dead in Trespasses and Sins",
+            "description": "Scripture describes the unregenerate state as spiritual death—not merely sickness or weakness, but death. The dead cannot respond, cannot feel, cannot act. This is our condition apart from Christ: dead in trespasses and sins, alienated from the life of God, having no hope and without God in the world. We were children of wrath, fulfilling the desires of the flesh and mind. This death is not annihilation but separation from God, the source of all life and blessing. Only the voice of the Son of God can call the spiritually dead to life, just as He called Lazarus from the tomb. Regeneration is resurrection—the giving of new life to those who were dead.",
+            "verses": [
+                {"reference": "Ephesians 2:1", "text": "And you hath he quickened, who were dead in trespasses and sins."},
+                {"reference": "Ephesians 2:5", "text": "Even when we were dead in sins, hath quickened us together with Christ, (by grace ye are saved;)"},
+                {"reference": "Colossians 2:13", "text": "And you, being dead in your sins and the uncircumcision of your flesh, hath he quickened together with him, having forgiven you all trespasses."},
+                {"reference": "Ephesians 4:18", "text": "Having the understanding darkened, being alienated from the life of God through the ignorance that is in them, because of the blindness of their heart."},
+                {"reference": "John 5:25", "text": "Verily, verily, I say unto you, The hour is coming, and now is, when the dead shall hear the voice of the Son of God: and they that hear shall live."},
+                {"reference": "Romans 6:23", "text": "For the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord."}
+            ]
+        }
+    },
+    "The Accomplishment of Salvation": {
+        "Election and Predestination": {
+            "title": "Chosen Before the Foundation of the World",
+            "description": "Before time began, God the Father, in His sovereign grace, chose a people for Himself. This election was not based on foreseen faith or merit but on His own purpose and grace given us in Christ Jesus before the world began. He predestinated us unto adoption as children according to the good pleasure of His will. Election is the fountain of all saving benefits—calling, justification, sanctification, glorification all flow from this eternal decree. This doctrine humbles human pride (we contributed nothing to our salvation), magnifies divine grace (salvation is wholly of the Lord), and provides unshakable assurance (whom He predestinated, He also glorified—past tense certainty).",
+            "verses": [
+                {"reference": "Ephesians 1:4-5", "text": "According as he hath chosen us in him before the foundation of the world, that we should be holy and without blame before him in love: Having predestinated us unto the adoption of children by Jesus Christ to himself, according to the good pleasure of his will."},
+                {"reference": "Romans 8:29-30", "text": "For whom he did foreknow, he also did predestinate to be conformed to the image of his Son, that he might be the firstborn among many brethren. Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified."},
+                {"reference": "2 Timothy 1:9", "text": "Who hath saved us, and called us with an holy calling, not according to our works, but according to his own purpose and grace, which was given us in Christ Jesus before the world began."},
+                {"reference": "Romans 9:11-13", "text": "For the children being not yet born, neither having done any good or evil, that the purpose of God according to election might stand, not of works, but of him that calleth; It was said unto her, The elder shall serve the younger. As it is written, Jacob have I loved, but Esau have I hated."},
+                {"reference": "John 15:16", "text": "Ye have not chosen me, but I have chosen you, and ordained you, that ye should go and bring forth fruit, and that your fruit should remain."},
+                {"reference": "Acts 13:48", "text": "And when the Gentiles heard this, they were glad, and glorified the word of the Lord: and as many as were ordained to eternal life believed."}
+            ]
+        },
+        "The Atonement": {
+            "title": "Christ's Substitutionary Work",
+            "description": "At the cross, Jesus Christ accomplished the salvation of His people by offering Himself as a substitute, bearing the penalty they deserved. He was wounded for our transgressions, bruised for our iniquities; the chastisement of our peace was upon Him, and by His stripes we are healed. The Lord laid on Him the iniquity of us all. This is penal substitutionary atonement: Christ bore the penalty (penal) in our place (substitutionary). His sacrifice propitiated God's wrath, redeemed us from sin's slavery, and reconciled us to God. He ransomed us not with silver and gold but with His precious blood. The cross is the wisdom and power of God unto salvation.",
+            "verses": [
+                {"reference": "Isaiah 53:5-6", "text": "But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed. All we like sheep have gone astray; we have turned every one to his own way; and the LORD hath laid on him the iniquity of us all."},
+                {"reference": "2 Corinthians 5:21", "text": "For he hath made him to be sin for us, who knew no sin; that we might be made the righteousness of God in him."},
+                {"reference": "1 Peter 2:24", "text": "Who his own self bare our sins in his own body on the tree, that we, being dead to sins, should live unto righteousness: by whose stripes ye were healed."},
+                {"reference": "Romans 3:25", "text": "Whom God hath set forth to be a propitiation through faith in his blood, to declare his righteousness for the remission of sins that are past, through the forbearance of God."},
+                {"reference": "Galatians 3:13", "text": "Christ hath redeemed us from the curse of the law, being made a curse for us: for it is written, Cursed is every one that hangeth on a tree."},
+                {"reference": "1 Peter 1:18-19", "text": "Forasmuch as ye know that ye were not redeemed with corruptible things, as silver and gold, from your vain conversation received by tradition from your fathers; But with the precious blood of Christ, as of a lamb without blemish and without spot."}
+            ]
+        },
+        "Redemption Accomplished": {
+            "title": "The Finished Work of Christ",
+            "description": "When Christ cried 'It is finished,' He declared the completion of redemption. His work on the cross was not a potential salvation waiting for human acceptance but an actual redemption that accomplished its purpose. He obtained eternal redemption—not temporary or conditional, but eternal and complete. By one offering He perfected forever those who are sanctified. Nothing can be added to His finished work; nothing needs to be repeated. The sacrifice was offered once for all. Christ sat down at God's right hand because His priestly work of atonement was complete. We rest in a finished redemption, not in ongoing efforts to secure what Christ has already accomplished.",
+            "verses": [
+                {"reference": "John 19:30", "text": "When Jesus therefore had received the vinegar, he said, It is finished: and he bowed his head, and gave up the ghost."},
+                {"reference": "Hebrews 9:12", "text": "Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."},
+                {"reference": "Hebrews 10:14", "text": "For by one offering he hath perfected for ever them that are sanctified."},
+                {"reference": "Hebrews 10:12", "text": "But this man, after he had offered one sacrifice for sins for ever, sat down on the right hand of God."},
+                {"reference": "Hebrews 7:27", "text": "Who needeth not daily, as those high priests, to offer up sacrifice, first for his own sins, and then for the people's: for this he did once, when he offered up himself."},
+                {"reference": "Romans 5:9-10", "text": "Much more then, being now justified by his blood, we shall be saved from wrath through him. For if, when we were enemies, we were reconciled to God by the death of his Son, much more, being reconciled, we shall be saved by his life."}
+            ]
+        }
+    },
+    "The Application of Salvation": {
+        "Effectual Calling": {
+            "title": "Called Out of Darkness into Light",
+            "description": "Effectual calling is the Holy Spirit's work of drawing sinners to Christ through the gospel. While the general call goes out to all who hear the gospel, the effectual call actually accomplishes its purpose—it brings the spiritually dead to life. God calls us out of darkness into His marvelous light. This call is irresistible not in the sense of coercion but of transformation: God changes the heart so that we willingly and joyfully come to Christ. Whom He predestinated, He called. The called ones are those who perceive Christ as the power and wisdom of God. This calling is according to His purpose, not our merit.",
+            "verses": [
+                {"reference": "1 Peter 2:9", "text": "But ye are a chosen generation, a royal priesthood, an holy nation, a peculiar people; that ye should shew forth the praises of him who hath called you out of darkness into his marvellous light."},
+                {"reference": "Romans 8:30", "text": "Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified."},
+                {"reference": "1 Corinthians 1:23-24", "text": "But we preach Christ crucified, unto the Jews a stumblingblock, and unto the Greeks foolishness; But unto them which are called, both Jews and Greeks, Christ the power of God, and the wisdom of God."},
+                {"reference": "2 Timothy 1:9", "text": "Who hath saved us, and called us with an holy calling, not according to our works, but according to his own purpose and grace, which was given us in Christ Jesus before the world began."},
+                {"reference": "John 6:37", "text": "All that the Father giveth me shall come to me; and him that cometh to me I will in no wise cast out."},
+                {"reference": "Romans 1:6-7", "text": "Among whom are ye also the called of Jesus Christ: To all that be in Rome, beloved of God, called to be saints."}
+            ]
+        },
+        "Regeneration": {
+            "title": "Born Again by the Spirit",
+            "description": "Regeneration is the supernatural work of the Holy Spirit by which a spiritually dead sinner is made alive. It is being born again, born from above, born of the Spirit. This new birth is not of blood, nor of the will of the flesh, nor of the will of man, but of God. Regeneration precedes faith—we must be made alive before we can believe, just as Lazarus had to be made alive before he could respond to Christ's call. The wind blows where it wishes—regeneration is a sovereign act of God. In regeneration, God removes the heart of stone and gives a heart of flesh, writing His law on our hearts and causing us to walk in His statutes.",
+            "verses": [
+                {"reference": "John 3:3", "text": "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God."},
+                {"reference": "John 3:5-6", "text": "Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God. That which is born of the flesh is flesh; and that which is born of the Spirit is spirit."},
+                {"reference": "John 1:12-13", "text": "But as many as received him, to them gave he power to become the sons of God, even to them that believe on his name: Which were born, not of blood, nor of the will of the flesh, nor of the will of man, but of God."},
+                {"reference": "Ezekiel 36:26-27", "text": "A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh. And I will put my spirit within you, and cause you to walk in my statutes."},
+                {"reference": "Titus 3:5", "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost."},
+                {"reference": "1 Peter 1:23", "text": "Being born again, not of corruptible seed, but of incorruptible, by the word of God, which liveth and abideth for ever."}
+            ]
+        },
+        "Faith and Repentance": {
+            "title": "The Response of the Renewed Heart",
+            "description": "Faith and repentance are the twin graces by which we respond to the gospel. They are inseparable—there is no true faith without repentance, no genuine repentance without faith. Faith is not merely intellectual assent but wholehearted trust in Christ alone for salvation. It is the empty hand that receives the gift of righteousness. Repentance is a change of mind that leads to a change of life—turning from sin to God. Both faith and repentance are gifts of God, not human achievements. We are saved by grace through faith, and that not of ourselves; it is the gift of God. God grants repentance unto life. These graces flow from regeneration—the new heart believes and repents.",
+            "verses": [
+                {"reference": "Ephesians 2:8-9", "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."},
+                {"reference": "Acts 11:18", "text": "When they heard these things, they held their peace, and glorified God, saying, Then hath God also to the Gentiles granted repentance unto life."},
+                {"reference": "Acts 20:21", "text": "Testifying both to the Jews, and also to the Greeks, repentance toward God, and faith toward our Lord Jesus Christ."},
+                {"reference": "Philippians 1:29", "text": "For unto you it is given in the behalf of Christ, not only to believe on him, but also to suffer for his sake."},
+                {"reference": "Mark 1:15", "text": "And saying, The time is fulfilled, and the kingdom of God is at hand: repent ye, and believe the gospel."},
+                {"reference": "Hebrews 11:1", "text": "Now faith is the substance of things hoped for, the evidence of things not seen."},
+                {"reference": "Romans 10:17", "text": "So then faith cometh by hearing, and hearing by the word of God."}
+            ]
+        },
+        "Justification": {
+            "title": "Declared Righteous in Christ",
+            "description": "Justification is God's legal declaration that sinners are righteous in His sight. It is not making us righteous but declaring us righteous on the basis of Christ's righteousness imputed to us. This is the great exchange: our sins were imputed to Christ on the cross; His righteousness is imputed to us through faith. Justification is by grace alone, through faith alone, in Christ alone. We contribute nothing but the sin that made it necessary. Being justified by faith, we have peace with God. Justification is complete and irreversible—there is no condemnation for those in Christ Jesus. The justified cannot be unjustified; the verdict stands forever.",
+            "verses": [
+                {"reference": "Romans 3:24", "text": "Being justified freely by his grace through the redemption that is in Christ Jesus."},
+                {"reference": "Romans 5:1", "text": "Therefore being justified by faith, we have peace with God through our Lord Jesus Christ."},
+                {"reference": "Romans 4:5", "text": "But to him that worketh not, but believeth on him that justifieth the ungodly, his faith is counted for righteousness."},
+                {"reference": "Romans 8:1", "text": "There is therefore now no condemnation to them which are in Christ Jesus, who walk not after the flesh, but after the Spirit."},
+                {"reference": "2 Corinthians 5:21", "text": "For he hath made him to be sin for us, who knew no sin; that we might be made the righteousness of God in him."},
+                {"reference": "Galatians 2:16", "text": "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ, even we have believed in Jesus Christ, that we might be justified by the faith of Christ, and not by the works of the law: for by the works of the law shall no flesh be justified."},
+                {"reference": "Romans 8:33-34", "text": "Who shall lay any thing to the charge of God's elect? It is God that justifieth. Who is he that condemneth?"}
+            ]
+        }
+    },
+    "The Progress of Salvation": {
+        "Adoption": {
+            "title": "Received as Sons and Daughters",
+            "description": "Adoption is the act of grace by which God receives us into the number and privileges of His children. We were by nature children of wrath, but through Christ we become children of God with all the rights and privileges of sons. We receive the Spirit of adoption, by whom we cry 'Abba, Father.' Adoption means we are no longer strangers and foreigners but members of God's household. We are fellow heirs with Christ—if children, then heirs. The Father loves us as He loves His only-begotten Son. Adoption secures not only our present standing but our future inheritance—an inheritance incorruptible, undefiled, and unfading.",
+            "verses": [
+                {"reference": "Galatians 4:4-5", "text": "But when the fulness of the time was come, God sent forth his Son, made of a woman, made under the law, To redeem them that were under the law, that we might receive the adoption of sons."},
+                {"reference": "Romans 8:15-16", "text": "For ye have not received the spirit of bondage again to fear; but ye have received the Spirit of adoption, whereby we cry, Abba, Father. The Spirit itself beareth witness with our spirit, that we are the children of God."},
+                {"reference": "Romans 8:17", "text": "And if children, then heirs; heirs of God, and joint-heirs with Christ; if so be that we suffer with him, that we may be also glorified together."},
+                {"reference": "Ephesians 1:5", "text": "Having predestinated us unto the adoption of children by Jesus Christ to himself, according to the good pleasure of his will."},
+                {"reference": "John 1:12", "text": "But as many as received him, to them gave he power to become the sons of God, even to them that believe on his name."},
+                {"reference": "1 John 3:1", "text": "Behold, what manner of love the Father hath bestowed upon us, that we should be called the sons of God: therefore the world knoweth us not, because it knew him not."}
+            ]
+        },
+        "Sanctification": {
+            "title": "Growing in Holiness",
+            "description": "Sanctification is the ongoing work of God by which He makes us actually holy in heart and life. While justification is a legal declaration made once for all, sanctification is a process that continues throughout our earthly lives. It is God's work in us—He works in us both to will and to do His good pleasure. Yet we are also called to work out our salvation, to put off the old man and put on the new, to mortify the deeds of the body. Sanctification involves both dying to sin and living to righteousness. We are being transformed into Christ's image from glory to glory. This process will be completed only at glorification.",
+            "verses": [
+                {"reference": "1 Thessalonians 4:3", "text": "For this is the will of God, even your sanctification, that ye should abstain from fornication."},
+                {"reference": "Philippians 2:12-13", "text": "Wherefore, my beloved, as ye have always obeyed, not as in my presence only, but now much more in my absence, work out your own salvation with fear and trembling. For it is God which worketh in you both to will and to do of his good pleasure."},
+                {"reference": "2 Corinthians 3:18", "text": "But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord."},
+                {"reference": "Hebrews 12:14", "text": "Follow peace with all men, and holiness, without which no man shall see the Lord."},
+                {"reference": "Romans 6:22", "text": "But now being made free from sin, and become servants to God, ye have your fruit unto holiness, and the end everlasting life."},
+                {"reference": "1 Peter 1:15-16", "text": "But as he which hath called you is holy, so be ye holy in all manner of conversation; Because it is written, Be ye holy; for I am holy."}
+            ]
+        },
+        "Perseverance of the Saints": {
+            "title": "Kept by the Power of God",
+            "description": "Those whom God effectually calls and justifies He also preserves to the end. True believers cannot finally and totally fall away from grace but will certainly persevere to salvation. This perseverance is not due to our own strength but to God's faithfulness. He who began a good work will complete it. We are kept by the power of God through faith. Christ loses none of those the Father gives Him. Nothing can separate us from the love of God in Christ Jesus. Our perseverance is grounded in God's electing purpose, Christ's intercession, and the Spirit's indwelling. The saints persevere because God preserves.",
+            "verses": [
+                {"reference": "Philippians 1:6", "text": "Being confident of this very thing, that he which hath begun a good work in you will perform it until the day of Jesus Christ."},
+                {"reference": "1 Peter 1:5", "text": "Who are kept by the power of God through faith unto salvation ready to be revealed in the last time."},
+                {"reference": "John 10:28-29", "text": "And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand. My Father, which gave them me, is greater than all; and no man is able to pluck them out of my Father's hand."},
+                {"reference": "Romans 8:38-39", "text": "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come, Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord."},
+                {"reference": "Jude 24", "text": "Now unto him that is able to keep you from falling, and to present you faultless before the presence of his glory with exceeding joy."},
+                {"reference": "John 6:39", "text": "And this is the Father's will which hath sent me, that of all which he hath given me I should lose nothing, but should raise it up again at the last day."}
+            ]
+        }
+    },
+    "The Consummation of Salvation": {
+        "Glorification": {
+            "title": "The Final Transformation",
+            "description": "Glorification is the final step in salvation's golden chain—whom He justified, them He also glorified. It is the completion of our redemption when, at Christ's return or our death, we are made perfectly holy in body and soul. We shall be like Him, for we shall see Him as He is. Our lowly bodies will be transformed to be like His glorious body. Mortality will put on immortality; corruption will put on incorruption. Death, the last enemy, will be swallowed up in victory. Glorification is the resurrection hope—we groan within ourselves, waiting for the adoption, the redemption of our body. What we shall be has not yet appeared, but it will be glorious beyond imagination.",
+            "verses": [
+                {"reference": "Romans 8:30", "text": "Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified."},
+                {"reference": "1 John 3:2", "text": "Beloved, now are we the sons of God, and it doth not yet appear what we shall be: but we know that, when he shall appear, we shall be like him; for we shall see him as he is."},
+                {"reference": "Philippians 3:21", "text": "Who shall change our vile body, that it may be fashioned like unto his glorious body, according to the working whereby he is able even to subdue all things unto himself."},
+                {"reference": "1 Corinthians 15:53-54", "text": "For this corruptible must put on incorruption, and this mortal must put on immortality. So when this corruptible shall have put on incorruption, and this mortal shall have put on immortality, then shall be brought to pass the saying that is written, Death is swallowed up in victory."},
+                {"reference": "Romans 8:23", "text": "And not only they, but ourselves also, which have the firstfruits of the Spirit, even we ourselves groan within ourselves, waiting for the adoption, to wit, the redemption of our body."},
+                {"reference": "2 Corinthians 5:4", "text": "For we that are in this tabernacle do groan, being burdened: not for that we would be unclothed, but clothed upon, that mortality might be swallowed up of life."}
+            ]
+        },
+        "Eternal Life": {
+            "title": "Life Forevermore with God",
+            "description": "Eternal life is not merely endless existence but the quality of life belonging to the age to come—knowing the only true God and Jesus Christ whom He has sent. This life is a present possession (he that believes has eternal life) and a future hope (in the world to come, life everlasting). It is abundant life, overflowing life, the water of life springing up into everlasting life. This life is in Christ—he who has the Son has life. The gift of God is eternal life through Jesus Christ our Lord. This life can never be lost, for it is eternal by nature. It is the consummation of salvation—to dwell in the house of the Lord forever.",
+            "verses": [
+                {"reference": "John 17:3", "text": "And this is life eternal, that they might know thee the only true God, and Jesus Christ, whom thou hast sent."},
+                {"reference": "John 3:36", "text": "He that believeth on the Son hath everlasting life: and he that believeth not the Son shall not see life; but the wrath of God abideth on him."},
+                {"reference": "John 10:28", "text": "And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand."},
+                {"reference": "Romans 6:23", "text": "For the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord."},
+                {"reference": "1 John 5:11-12", "text": "And this is the record, that God hath given to us eternal life, and this life is in his Son. He that hath the Son hath life; and he that hath not the Son of God hath not life."},
+                {"reference": "John 4:14", "text": "But whosoever drinketh of the water that I shall give him shall never thirst; but the water that I shall give him shall be in him a well of water springing up into everlasting life."}
+            ]
+        }
+    }
+}
+
+# Pneumatology - The Doctrine of the Holy Spirit
+PNEUMATOLOGY_DATA = {
+    "The Person of the Holy Spirit": {
+        "The Spirit is God": {
+            "title": "The Third Person of the Trinity",
+            "description": "The Holy Spirit is not merely a force or influence but a divine Person—the third Person of the Trinity, coequal and coeternal with the Father and the Son. He possesses all the attributes of deity: omniscience, omnipresence, omnipotence, and eternality. To lie to the Holy Spirit is to lie to God. He is called the Lord, the Spirit. He was present at creation, hovering over the face of the waters. He is the Spirit of God and the Spirit of Christ. The Spirit searches all things, even the deep things of God. Blaspheming the Holy Spirit is the unforgivable sin, testifying to His full deity.",
+            "verses": [
+                {"reference": "Acts 5:3-4", "text": "But Peter said, Ananias, why hath Satan filled thine heart to lie to the Holy Ghost, and to keep back part of the price of the land? Whiles it remained, was it not thine own? and after it was sold, was it not in thine own power? why hast thou conceived this thing in thine heart? thou hast not lied unto men, but unto God."},
+                {"reference": "2 Corinthians 3:17-18", "text": "Now the Lord is that Spirit: and where the Spirit of the Lord is, there is liberty. But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord."},
+                {"reference": "Genesis 1:2", "text": "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters."},
+                {"reference": "1 Corinthians 2:10-11", "text": "But God hath revealed them unto us by his Spirit: for the Spirit searcheth all things, yea, the deep things of God. For what man knoweth the things of a man, save the spirit of man which is in him? even so the things of God knoweth no man, but the Spirit of God."},
+                {"reference": "Psalm 139:7-8", "text": "Whither shall I go from thy spirit? or whither shall I flee from thy presence? If I ascend up into heaven, thou art there: if I make my bed in hell, behold, thou art there."},
+                {"reference": "Hebrews 9:14", "text": "How much more shall the blood of Christ, who through the eternal Spirit offered himself without spot to God, purge your conscience from dead works to serve the living God?"}
+            ]
+        },
+        "The Personality of the Spirit": {
+            "title": "He, Not It",
+            "description": "The Holy Spirit is a Person, not an impersonal force. He has all the marks of personality: intellect (He knows and teaches), emotions (He can be grieved), and will (He distributes gifts as He wills). He speaks, testifies, guides, commands, forbids, intercedes, and can be lied to, resisted, and blasphemed—all personal activities. Jesus consistently used personal pronouns for the Spirit, calling Him 'He' and 'Him,' not 'it.' The Spirit is the Comforter, the Advocate, who comes alongside believers. Recognizing His personhood transforms our relationship with Him from using a power to knowing a Person.",
+            "verses": [
+                {"reference": "John 14:16-17", "text": "And I will pray the Father, and he shall give you another Comforter, that he may abide with you for ever; Even the Spirit of truth; whom the world cannot receive, because it seeth him not, neither knoweth him: but ye know him; for he dwelleth with you, and shall be in you."},
+                {"reference": "John 16:13", "text": "Howbeit when he, the Spirit of truth, is come, he will guide you into all truth: for he shall not speak of himself; but whatsoever he shall hear, that shall he speak: and he will shew you things to come."},
+                {"reference": "Ephesians 4:30", "text": "And grieve not the holy Spirit of God, whereby ye are sealed unto the day of redemption."},
+                {"reference": "1 Corinthians 12:11", "text": "But all these worketh that one and the selfsame Spirit, dividing to every man severally as he will."},
+                {"reference": "Acts 13:2", "text": "As they ministered to the Lord, and fasted, the Holy Ghost said, Separate me Barnabas and Saul for the work whereunto I have called them."},
+                {"reference": "Romans 8:26-27", "text": "Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us with groanings which cannot be uttered. And he that searcheth the hearts knoweth what is the mind of the Spirit, because he maketh intercession for the saints according to the will of God."}
+            ]
+        },
+        "Names and Titles of the Spirit": {
+            "title": "The Many Names Revealing His Nature",
+            "description": "Scripture gives the Holy Spirit numerous names that reveal His nature and work. He is the Spirit of God and the Spirit of Christ, showing His relationship to the other Persons of the Trinity. He is the Spirit of Truth who guides into all truth. He is the Comforter (Parakletos)—one called alongside to help, advocate, and encourage. He is the Spirit of holiness, of grace, of glory, of life, of adoption, of wisdom and revelation. He is the Spirit of promise, the guarantee of our inheritance. Each name illuminates a facet of His glorious person and ministry.",
+            "verses": [
+                {"reference": "Romans 8:9", "text": "But ye are not in the flesh, but in the Spirit, if so be that the Spirit of God dwell in you. Now if any man have not the Spirit of Christ, he is none of his."},
+                {"reference": "John 14:17", "text": "Even the Spirit of truth; whom the world cannot receive, because it seeth him not, neither knoweth him: but ye know him; for he dwelleth with you, and shall be in you."},
+                {"reference": "John 14:26", "text": "But the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things, and bring all things to your remembrance, whatsoever I have said unto you."},
+                {"reference": "Romans 1:4", "text": "And declared to be the Son of God with power, according to the spirit of holiness, by the resurrection from the dead."},
+                {"reference": "Hebrews 10:29", "text": "Of how much sorer punishment, suppose ye, shall he be thought worthy, who hath trodden under foot the Son of God, and hath counted the blood of the covenant, wherewith he was sanctified, an unholy thing, and hath done despite unto the Spirit of grace?"},
+                {"reference": "Ephesians 1:13-14", "text": "In whom ye also trusted, after that ye heard the word of truth, the gospel of your salvation: in whom also after that ye believed, ye were sealed with that holy Spirit of promise, Which is the earnest of our inheritance until the redemption of the purchased possession, unto the praise of his glory."}
+            ]
+        }
+    },
+    "The Work of the Spirit in Salvation": {
+        "Conviction of Sin": {
+            "title": "Convincing the World",
+            "description": "The Holy Spirit's first work in salvation is conviction—He convinces the world of sin, righteousness, and judgment. Without this divine work, no one would feel their need of Christ. The Spirit shows sinners that their fundamental sin is unbelief in Christ, that true righteousness is found only in Christ who ascended to the Father, and that judgment is certain because Satan has already been judged. This conviction is not merely guilt feelings but a Spirit-wrought understanding of one's true condition before God. It is the necessary precursor to repentance and faith.",
+            "verses": [
+                {"reference": "John 16:8-11", "text": "And when he is come, he will reprove the world of sin, and of righteousness, and of judgment: Of sin, because they believe not on me; Of righteousness, because I go to my Father, and ye see me no more; Of judgment, because the prince of this world is judged."},
+                {"reference": "Acts 2:37", "text": "Now when they heard this, they were pricked in their heart, and said unto Peter and to the rest of the apostles, Men and brethren, what shall we do?"},
+                {"reference": "1 Thessalonians 1:5", "text": "For our gospel came not unto you in word only, but also in power, and in the Holy Ghost, and in much assurance; as ye know what manner of men we were among you for your sake."},
+                {"reference": "Acts 7:51", "text": "Ye stiffnecked and uncircumcised in heart and ears, ye do always resist the Holy Ghost: as your fathers did, so do ye."},
+                {"reference": "John 6:63", "text": "It is the spirit that quickeneth; the flesh profiteth nothing: the words that I speak unto you, they are spirit, and they are life."}
+            ]
+        },
+        "Regeneration": {
+            "title": "The Spirit Gives New Life",
+            "description": "Regeneration is the Spirit's work of imparting new life to spiritually dead sinners. Jesus told Nicodemus that one must be born of the Spirit to enter the kingdom of God. The wind blows where it wishes—this sovereign act cannot be controlled or predicted by human effort. The Spirit breathes life into dead souls just as God breathed life into Adam. He creates clean hearts and renews right spirits within us. This new birth produces new creatures—old things pass away, all things become new. Regeneration is instantaneous, supernatural, and transformative.",
+            "verses": [
+                {"reference": "John 3:5-8", "text": "Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God. That which is born of the flesh is flesh; and that which is born of the Spirit is spirit. Marvel not that I said unto thee, Ye must be born again. The wind bloweth where it listeth, and thou hearest the sound thereof, but canst not tell whence it cometh, and whither it goeth: so is every one that is born of the Spirit."},
+                {"reference": "Titus 3:5", "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost."},
+                {"reference": "Ezekiel 37:14", "text": "And shall put my spirit in you, and ye shall live, and I shall place you in your own land: then shall ye know that I the LORD have spoken it, and performed it, saith the LORD."},
+                {"reference": "Psalm 51:10", "text": "Create in me a clean heart, O God; and renew a right spirit within me."},
+                {"reference": "2 Corinthians 5:17", "text": "Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new."},
+                {"reference": "John 6:63", "text": "It is the spirit that quickeneth; the flesh profiteth nothing: the words that I speak unto you, they are spirit, and they are life."}
+            ]
+        },
+        "Indwelling and Sealing": {
+            "title": "The Spirit Lives Within",
+            "description": "Every believer is indwelt by the Holy Spirit from the moment of conversion. Our bodies become temples of the Holy Spirit. This indwelling is not temporary but permanent—He will abide with us forever. The Spirit's indwelling distinguishes the new covenant from the old, when the Spirit came upon people for specific tasks but did not permanently indwell. We are also sealed with the Spirit, marked as God's possession, secured until the day of redemption. This seal is the guarantee of our inheritance, the down payment of heaven. No one can break God's seal.",
+            "verses": [
+                {"reference": "1 Corinthians 6:19-20", "text": "What? know ye not that your body is the temple of the Holy Ghost which is in you, which ye have of God, and ye are not your own? For ye are bought with a price: therefore glorify God in your body, and in your spirit, which are God's."},
+                {"reference": "John 14:16-17", "text": "And I will pray the Father, and he shall give you another Comforter, that he may abide with you for ever; Even the Spirit of truth; whom the world cannot receive, because it seeth him not, neither knoweth him: but ye know him; for he dwelleth with you, and shall be in you."},
+                {"reference": "Ephesians 1:13-14", "text": "In whom ye also trusted, after that ye heard the word of truth, the gospel of your salvation: in whom also after that ye believed, ye were sealed with that holy Spirit of promise, Which is the earnest of our inheritance until the redemption of the purchased possession, unto the praise of his glory."},
+                {"reference": "Ephesians 4:30", "text": "And grieve not the holy Spirit of God, whereby ye are sealed unto the day of redemption."},
+                {"reference": "Romans 8:9", "text": "But ye are not in the flesh, but in the Spirit, if so be that the Spirit of God dwell in you. Now if any man have not the Spirit of Christ, he is none of his."},
+                {"reference": "2 Corinthians 1:21-22", "text": "Now he which stablisheth us with you in Christ, and hath anointed us, is God; Who hath also sealed us, and given the earnest of the Spirit in our hearts."}
+            ]
+        }
+    },
+    "The Spirit's Ministry to Believers": {
+        "Teaching and Illumination": {
+            "title": "The Spirit of Truth",
+            "description": "The Holy Spirit teaches believers and guides them into all truth. He takes the things of Christ and reveals them to us. He illuminates Scripture, opening our understanding to perceive spiritual truths that the natural mind cannot receive. He brings to remembrance the words of Christ. The Spirit is the anointing that teaches us concerning all things—we need not that any man teach us, for His anointing teaches truth. This does not eliminate human teachers but means the Spirit enables us to discern truth from error. He gives wisdom and revelation in the knowledge of Christ.",
+            "verses": [
+                {"reference": "John 16:13-14", "text": "Howbeit when he, the Spirit of truth, is come, he will guide you into all truth: for he shall not speak of himself; but whatsoever he shall hear, that shall he speak: and he will shew you things to come. He shall glorify me: for he shall receive of mine, and shall shew it unto you."},
+                {"reference": "John 14:26", "text": "But the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things, and bring all things to your remembrance, whatsoever I have said unto you."},
+                {"reference": "1 Corinthians 2:12-14", "text": "Now we have received, not the spirit of the world, but the spirit which is of God; that we might know the things that are freely given to us of God. Which things also we speak, not in the words which man's wisdom teacheth, but which the Holy Ghost teacheth; comparing spiritual things with spiritual."},
+                {"reference": "1 John 2:27", "text": "But the anointing which ye have received of him abideth in you, and ye need not that any man teach you: but as the same anointing teacheth you of all things, and is truth, and is no lie, and even as it hath taught you, ye shall abide in him."},
+                {"reference": "Ephesians 1:17-18", "text": "That the God of our Lord Jesus Christ, the Father of glory, may give unto you the spirit of wisdom and revelation in the knowledge of him: The eyes of your understanding being enlightened."}
+            ]
+        },
+        "Sanctification": {
+            "title": "Growing in Holiness by the Spirit",
+            "description": "The Holy Spirit is the primary agent of sanctification in the believer's life. We are sanctified by the Spirit. He produces holiness by conforming us to the image of Christ, transforming us from glory to glory. The flesh and Spirit are at war—the Spirit helps us mortify the deeds of the body. If we walk in the Spirit, we will not fulfill the lusts of the flesh. The Spirit produces His fruit in us: love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, and temperance. Sanctification is not self-improvement but Spirit-empowerment.",
+            "verses": [
+                {"reference": "2 Thessalonians 2:13", "text": "But we are bound to give thanks alway to God for you, brethren beloved of the Lord, because God hath from the beginning chosen you to salvation through sanctification of the Spirit and belief of the truth."},
+                {"reference": "2 Corinthians 3:18", "text": "But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord."},
+                {"reference": "Galatians 5:16-17", "text": "This I say then, Walk in the Spirit, and ye shall not fulfil the lust of the flesh. For the flesh lusteth against the Spirit, and the Spirit against the flesh: and these are contrary the one to the other: so that ye cannot do the things that ye would."},
+                {"reference": "Romans 8:13", "text": "For if ye live after the flesh, ye shall die: but if ye through the Spirit do mortify the deeds of the body, ye shall live."},
+                {"reference": "Galatians 5:22-23", "text": "But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, Meekness, temperance: against such there is no law."},
+                {"reference": "1 Peter 1:2", "text": "Elect according to the foreknowledge of God the Father, through sanctification of the Spirit, unto obedience and sprinkling of the blood of Jesus Christ."}
+            ]
+        },
+        "Assurance and Witness": {
+            "title": "The Spirit Bears Witness",
+            "description": "The Holy Spirit provides assurance of salvation to believers. He bears witness with our spirit that we are children of God. This internal testimony is not mere subjective feeling but the Spirit's supernatural work of confirming our adoption. He cries 'Abba, Father' within us. By the Spirit we know that Christ abides in us. The Spirit is the earnest—the down payment—of our inheritance, guaranteeing that God will complete what He began. This assurance enables us to approach God with confidence and to endure trials knowing our eternal destiny is secure.",
+            "verses": [
+                {"reference": "Romans 8:16", "text": "The Spirit itself beareth witness with our spirit, that we are the children of God."},
+                {"reference": "Galatians 4:6", "text": "And because ye are sons, God hath sent forth the Spirit of his Son into your hearts, crying, Abba, Father."},
+                {"reference": "1 John 3:24", "text": "And he that keepeth his commandments dwelleth in him, and he in him. And hereby we know that he abideth in us, by the Spirit which he hath given us."},
+                {"reference": "1 John 4:13", "text": "Hereby know we that we dwell in him, and he in us, because he hath given us of his Spirit."},
+                {"reference": "2 Corinthians 5:5", "text": "Now he that hath wrought us for the selfsame thing is God, who also hath given unto us the earnest of the Spirit."},
+                {"reference": "Romans 8:15", "text": "For ye have not received the spirit of bondage again to fear; but ye have received the Spirit of adoption, whereby we cry, Abba, Father."}
+            ]
+        },
+        "Intercession": {
+            "title": "The Spirit Prays for Us",
+            "description": "The Holy Spirit helps our weakness in prayer. We do not know what to pray for as we ought, but the Spirit intercedes for us with groanings that cannot be uttered. He who searches hearts knows the mind of the Spirit, for the Spirit intercedes for the saints according to God's will. This means our prayers, even when feeble and confused, are transformed by the Spirit into perfect petitions aligned with God's purposes. We have two intercessors: Christ at God's right hand and the Spirit within our hearts. We never pray alone.",
+            "verses": [
+                {"reference": "Romans 8:26-27", "text": "Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us with groanings which cannot be uttered. And he that searcheth the hearts knoweth what is the mind of the Spirit, because he maketh intercession for the saints according to the will of God."},
+                {"reference": "Ephesians 6:18", "text": "Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance and supplication for all saints."},
+                {"reference": "Jude 20", "text": "But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Ghost."},
+                {"reference": "Zechariah 12:10", "text": "And I will pour upon the house of David, and upon the inhabitants of Jerusalem, the spirit of grace and of supplications."},
+                {"reference": "Romans 8:34", "text": "Who is he that condemneth? It is Christ that died, yea rather, that is risen again, who is even at the right hand of God, who also maketh intercession for us."}
+            ]
+        }
+    },
+    "The Gifts of the Spirit": {
+        "Spiritual Gifts Given": {
+            "title": "Gifts for Ministry",
+            "description": "The Holy Spirit distributes spiritual gifts to every believer for the common good of the church. These gifts are not natural talents but supernatural endowments for ministry. The Spirit divides to every man severally as He wills—we do not choose our gifts, but we are to earnestly desire the best gifts. The purpose of gifts is not personal edification or display but building up the body of Christ. Every member has at least one gift; no member has all gifts. The diversity of gifts creates interdependence within the body.",
+            "verses": [
+                {"reference": "1 Corinthians 12:4-7", "text": "Now there are diversities of gifts, but the same Spirit. And there are differences of administrations, but the same Lord. And there are diversities of operations, but it is the same God which worketh all in all. But the manifestation of the Spirit is given to every man to profit withal."},
+                {"reference": "1 Corinthians 12:11", "text": "But all these worketh that one and the selfsame Spirit, dividing to every man severally as he will."},
+                {"reference": "Romans 12:6-8", "text": "Having then gifts differing according to the grace that is given to us, whether prophecy, let us prophesy according to the proportion of faith; Or ministry, let us wait on our ministering: or he that teacheth, on teaching; Or he that exhorteth, on exhortation: he that giveth, let him do it with simplicity; he that ruleth, with diligence; he that sheweth mercy, with cheerfulness."},
+                {"reference": "1 Peter 4:10-11", "text": "As every man hath received the gift, even so minister the same one to another, as good stewards of the manifold grace of God. If any man speak, let him speak as the oracles of God; if any man minister, let him do it as of the ability which God giveth."},
+                {"reference": "1 Corinthians 14:12", "text": "Even so ye, forasmuch as ye are zealous of spiritual gifts, seek that ye may excel to the edifying of the church."},
+                {"reference": "Ephesians 4:11-12", "text": "And he gave some, apostles; and some, prophets; and some, evangelists; and some, pastors and teachers; For the perfecting of the saints, for the work of the ministry, for the edifying of the body of Christ."}
+            ]
+        },
+        "The Fruit of the Spirit": {
+            "title": "Character Produced by the Spirit",
+            "description": "While gifts are what we do for God, fruit is what God produces in us—the character of Christ formed within. The fruit of the Spirit is singular—one cluster with nine manifestations: love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, and temperance. This fruit stands in stark contrast to the works of the flesh. Fruit is not produced by human effort but by abiding in Christ—the branch cannot bear fruit of itself. Against such fruit there is no law—it is the fulfillment of all that the law required. The Spirit's fruit is the evidence of genuine salvation.",
+            "verses": [
+                {"reference": "Galatians 5:22-23", "text": "But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, Meekness, temperance: against such there is no law."},
+                {"reference": "Galatians 5:19-21", "text": "Now the works of the flesh are manifest, which are these; Adultery, fornication, uncleanness, lasciviousness, Idolatry, witchcraft, hatred, variance, emulations, wrath, strife, seditions, heresies, Envyings, murders, drunkenness, revellings, and such like."},
+                {"reference": "John 15:4-5", "text": "Abide in me, and I in you. As the branch cannot bear fruit of itself, except it abide in the vine; no more can ye, except ye abide in me. I am the vine, ye are the branches: He that abideth in me, and I in him, the same bringeth forth much fruit: for without me ye can do nothing."},
+                {"reference": "John 15:8", "text": "Herein is my Father glorified, that ye bear much fruit; so shall ye be my disciples."},
+                {"reference": "Colossians 1:10", "text": "That ye might walk worthy of the Lord unto all pleasing, being fruitful in every good work, and increasing in the knowledge of God."},
+                {"reference": "Matthew 7:20", "text": "Wherefore by their fruits ye shall know them."}
+            ]
+        }
+    },
+    "Being Filled with the Spirit": {
+        "The Command to Be Filled": {
+            "title": "Continuously Controlled by the Spirit",
+            "description": "While every believer is indwelt by the Spirit, not every believer is filled with the Spirit. We are commanded: 'Be filled with the Spirit'—a present imperative indicating continuous, ongoing action. This is not a second blessing but a repeated appropriation of the Spirit's control. Being filled means being controlled by, directed by, empowered by the Spirit. It contrasts with being drunk with wine—as alcohol controls the intoxicated person, so the Spirit is to control the believer. The evidence of filling is not spectacular manifestations but speaking to one another in psalms and hymns, giving thanks always, and submitting to one another.",
+            "verses": [
+                {"reference": "Ephesians 5:18-21", "text": "And be not drunk with wine, wherein is excess; but be filled with the Spirit; Speaking to yourselves in psalms and hymns and spiritual songs, singing and making melody in your heart to the Lord; Giving thanks always for all things unto God and the Father in the name of our Lord Jesus Christ; Submitting yourselves one to another in the fear of God."},
+                {"reference": "Acts 4:31", "text": "And when they had prayed, the place was shaken where they were assembled together; and they were all filled with the Holy Ghost, and they spake the word of God with boldness."},
+                {"reference": "Acts 13:52", "text": "And the disciples were filled with joy, and with the Holy Ghost."},
+                {"reference": "Colossians 3:16", "text": "Let the word of Christ dwell in you richly in all wisdom; teaching and admonishing one another in psalms and hymns and spiritual songs, singing with grace in your hearts to the Lord."},
+                {"reference": "Acts 6:3", "text": "Wherefore, brethren, look ye out among you seven men of honest report, full of the Holy Ghost and wisdom, whom we may appoint over this business."},
+                {"reference": "Acts 11:24", "text": "For he was a good man, and full of the Holy Ghost and of faith: and much people was added unto the Lord."}
+            ]
+        },
+        "Walking in the Spirit": {
+            "title": "Daily Dependence on the Spirit",
+            "description": "Walking in the Spirit describes the moment-by-moment dependence on the Spirit's guidance and power. If we walk in the Spirit, we will not fulfill the lust of the flesh. Walking implies progress, direction, and consistent movement. We are to live by the Spirit, be led by the Spirit, and keep in step with the Spirit. This is not passive but active—following where He leads, obeying what He reveals, depending on His strength. Those who are led by the Spirit are sons of God. The Spirit-led life is the normal Christian life, not an exceptional level of spirituality.",
+            "verses": [
+                {"reference": "Galatians 5:16", "text": "This I say then, Walk in the Spirit, and ye shall not fulfil the lust of the flesh."},
+                {"reference": "Galatians 5:25", "text": "If we live in the Spirit, let us also walk in the Spirit."},
+                {"reference": "Romans 8:14", "text": "For as many as are led by the Spirit of God, they are the sons of God."},
+                {"reference": "Galatians 5:18", "text": "But if ye be led of the Spirit, ye are not under the law."},
+                {"reference": "Romans 8:4", "text": "That the righteousness of the law might be fulfilled in us, who walk not after the flesh, but after the Spirit."},
+                {"reference": "Romans 8:5-6", "text": "For they that are after the flesh do mind the things of the flesh; but they that are after the Spirit the things of the Spirit. For to be carnally minded is death; but to be spiritually minded is life and peace."}
+            ]
+        }
+    }
+}
+
+# Eschatology - The Doctrine of Last Things
+ESCHATOLOGY_DATA = {
+    "Death and the Intermediate State": {
+        "The Reality of Death": {
+            "title": "The Wages of Sin",
+            "description": "Death entered the world through sin—by one man sin entered, and death by sin. It is appointed unto men once to die, and after this the judgment. Death is the separation of soul from body, the dissolution of our earthly tent. Yet for the believer, death has lost its sting. Christ has abolished death and brought life and immortality to light through the gospel. To be absent from the body is to be present with the Lord. For the Christian, death is gain—to depart and be with Christ is far better. The last enemy to be destroyed is death itself, which will be swallowed up in victory at the resurrection.",
+            "verses": [
+                {"reference": "Romans 5:12", "text": "Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned."},
+                {"reference": "Hebrews 9:27", "text": "And as it is appointed unto men once to die, but after this the judgment."},
+                {"reference": "2 Corinthians 5:8", "text": "We are confident, I say, and willing rather to be absent from the body, and to be present with the Lord."},
+                {"reference": "Philippians 1:21-23", "text": "For to me to live is Christ, and to die is gain. For I am in a strait betwixt two, having a desire to depart, and to be with Christ; which is far better."},
+                {"reference": "1 Corinthians 15:55-56", "text": "O death, where is thy sting? O grave, where is thy victory? The sting of death is sin; and the strength of sin is the law."},
+                {"reference": "2 Timothy 1:10", "text": "But is now made manifest by the appearing of our Saviour Jesus Christ, who hath abolished death, and hath brought life and immortality to light through the gospel."}
+            ]
+        },
+        "The Intermediate State": {
+            "title": "Between Death and Resurrection",
+            "description": "Between death and the final resurrection, the souls of believers are made perfect in holiness and enter into the presence of Christ in heaven. This is the intermediate state—conscious blessedness awaiting the resurrection of the body. The souls under the altar cry out to God, showing conscious awareness. Paradise is where the departed righteous dwell with Christ. Abraham's bosom depicts the comfort of the righteous dead. While the body sleeps in the grave, the spirit returns to God who gave it. This state, though blessed, is incomplete—we await the redemption of our bodies and the consummation of all things.",
+            "verses": [
+                {"reference": "Luke 23:43", "text": "And Jesus said unto him, Verily I say unto thee, To day shalt thou be with me in paradise."},
+                {"reference": "Revelation 6:9-10", "text": "And when he had opened the fifth seal, I saw under the altar the souls of them that were slain for the word of God, and for the testimony which they held: And they cried with a loud voice, saying, How long, O Lord, holy and true, dost thou not judge and avenge our blood on them that dwell on the earth?"},
+                {"reference": "Luke 16:22-23", "text": "And it came to pass, that the beggar died, and was carried by the angels into Abraham's bosom: the rich man also died, and was buried; And in hell he lift up his eyes, being in torments."},
+                {"reference": "Ecclesiastes 12:7", "text": "Then shall the dust return to the earth as it was: and the spirit shall return unto God who gave it."},
+                {"reference": "2 Corinthians 5:1", "text": "For we know that if our earthly house of this tabernacle were dissolved, we have a building of God, an house not made with hands, eternal in the heavens."},
+                {"reference": "Hebrews 12:23", "text": "To the general assembly and church of the firstborn, which are written in heaven, and to God the Judge of all, and to the spirits of just men made perfect."}
+            ]
+        }
+    },
+    "The Second Coming of Christ": {
+        "The Promise of His Return": {
+            "title": "He Will Come Again",
+            "description": "The same Jesus who ascended will return in like manner—personally, visibly, bodily, and gloriously. This is the blessed hope of the church, the promise that sustains believers through tribulation. He who testified these things says, 'Surely I come quickly.' The early church lived in eager expectation: 'Even so, come, Lord Jesus.' His coming will be sudden, unexpected by the world—like a thief in the night, like lightning flashing across the sky. Every eye shall see Him, and all tribes of the earth will mourn. This is not metaphor but the actual, physical return of Christ to earth.",
+            "verses": [
+                {"reference": "Acts 1:11", "text": "Which also said, Ye men of Galilee, why stand ye gazing up into heaven? this same Jesus, which is taken up from you into heaven, shall so come in like manner as ye have seen him go into heaven."},
+                {"reference": "Titus 2:13", "text": "Looking for that blessed hope, and the glorious appearing of the great God and our Saviour Jesus Christ."},
+                {"reference": "Revelation 22:20", "text": "He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus."},
+                {"reference": "1 Thessalonians 5:2", "text": "For yourselves know perfectly that the day of the Lord so cometh as a thief in the night."},
+                {"reference": "Matthew 24:27", "text": "For as the lightning cometh out of the east, and shineth even unto the west; so shall also the coming of the Son of man be."},
+                {"reference": "Revelation 1:7", "text": "Behold, he cometh with clouds; and every eye shall see him, and they also which pierced him: and all kindreds of the earth shall wail because of him. Even so, Amen."}
+            ]
+        },
+        "The Manner of His Coming": {
+            "title": "With Power and Great Glory",
+            "description": "Christ's return will be in power and great glory, a stark contrast to His humble first advent. He will come on the clouds of heaven with His mighty angels in flaming fire. The Lord Himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God. He will be revealed from heaven, taking vengeance on those who know not God. His coming will shake the heavens and earth. The sign of the Son of Man will appear in heaven, and all nations will see Him coming. This glorious appearing will vindicate the faith of all who trusted Him.",
+            "verses": [
+                {"reference": "Matthew 24:30", "text": "And then shall appear the sign of the Son of man in heaven: and then shall all the tribes of the earth mourn, and they shall see the Son of man coming in the clouds of heaven with power and great glory."},
+                {"reference": "2 Thessalonians 1:7-8", "text": "And to you who are troubled rest with us, when the Lord Jesus shall be revealed from heaven with his mighty angels, In flaming fire taking vengeance on them that know not God, and that obey not the gospel of our Lord Jesus Christ."},
+                {"reference": "1 Thessalonians 4:16", "text": "For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first."},
+                {"reference": "Matthew 25:31", "text": "When the Son of man shall come in his glory, and all the holy angels with him, then shall he sit upon the throne of his glory."},
+                {"reference": "Mark 13:26", "text": "And then shall they see the Son of man coming in the clouds with great power and glory."},
+                {"reference": "Hebrews 12:26", "text": "Whose voice then shook the earth: but now he hath promised, saying, Yet once more I shake not the earth only, but also heaven."}
+            ]
+        },
+        "The Time Unknown": {
+            "title": "Watch and Be Ready",
+            "description": "Of that day and hour knows no man—not the angels of heaven, nor the Son in His humiliation, but the Father only. Christ's return will catch the world unaware, as in the days of Noah. Therefore we are commanded to watch, for we know not what hour our Lord comes. The wise virgins had oil in their lamps; the foolish were unprepared. We are to be found faithful when He comes, occupying till He returns. The uncertainty of timing is intentional—it keeps believers vigilant and holy, always ready for His appearing. Those who love His appearing will receive the crown of righteousness.",
+            "verses": [
+                {"reference": "Matthew 24:36", "text": "But of that day and hour knoweth no man, no, not the angels of heaven, but my Father only."},
+                {"reference": "Matthew 24:42-44", "text": "Watch therefore: for ye know not what hour your Lord doth come. But know this, that if the goodman of the house had known in what watch the thief would come, he would have watched, and would not have suffered his house to be broken up. Therefore be ye also ready: for in such an hour as ye think not the Son of man cometh."},
+                {"reference": "Matthew 24:37-39", "text": "But as the days of Noe were, so shall also the coming of the Son of man be. For as in the days that were before the flood they were eating and drinking, marrying and giving in marriage, until the day that Noe entered into the ark, And knew not until the flood came, and took them all away; so shall also the coming of the Son of man be."},
+                {"reference": "Matthew 25:13", "text": "Watch therefore, for ye know neither the day nor the hour wherein the Son of man cometh."},
+                {"reference": "Luke 19:13", "text": "And he called his ten servants, and delivered them ten pounds, and said unto them, Occupy till I come."},
+                {"reference": "2 Timothy 4:8", "text": "Henceforth there is laid up for me a crown of righteousness, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing."}
+            ]
+        }
+    },
+    "The Resurrection": {
+        "The Resurrection of Christ": {
+            "title": "The Firstfruits of Those Who Sleep",
+            "description": "Christ's resurrection is the foundation of our hope. If Christ be not risen, our faith is vain and we are still in our sins. But now is Christ risen from the dead and become the firstfruits of them that slept. His resurrection guarantees ours—as in Adam all die, so in Christ shall all be made alive. The same power that raised Christ from the dead will raise us. His resurrection was bodily—He invited Thomas to touch His wounds, ate fish with His disciples, and declared He was not a spirit. The resurrection body is real, physical, yet glorified and transformed.",
+            "verses": [
+                {"reference": "1 Corinthians 15:17-20", "text": "And if Christ be not raised, your faith is vain; ye are yet in your sins. Then they also which are fallen asleep in Christ are perished. If in this life only we have hope in Christ, we are of all men most miserable. But now is Christ risen from the dead, and become the firstfruits of them that slept."},
+                {"reference": "1 Corinthians 15:22-23", "text": "For as in Adam all die, even so in Christ shall all be made alive. But every man in his own order: Christ the firstfruits; afterward they that are Christ's at his coming."},
+                {"reference": "Romans 8:11", "text": "But if the Spirit of him that raised up Jesus from the dead dwell in you, he that raised up Christ from the dead shall also quicken your mortal bodies by his Spirit that dwelleth in you."},
+                {"reference": "John 20:27", "text": "Then saith he to Thomas, Reach hither thy finger, and behold my hands; and reach hither thy hand, and thrust it into my side: and be not faithless, but believing."},
+                {"reference": "Luke 24:39", "text": "Behold my hands and my feet, that it is I myself: handle me, and see; for a spirit hath not flesh and bones, as ye see me have."},
+                {"reference": "Acts 2:24", "text": "Whom God hath raised up, having loosed the pains of death: because it was not possible that he should be holden of it."}
+            ]
+        },
+        "The Resurrection of Believers": {
+            "title": "Raised in Glory",
+            "description": "At Christ's coming, the dead in Christ shall rise first. This mortal must put on immortality; this corruptible must put on incorruption. The resurrection body will be like Christ's glorious body—sown in corruption, raised in incorruption; sown in dishonor, raised in glory; sown in weakness, raised in power; sown a natural body, raised a spiritual body. We shall be changed in a moment, in the twinkling of an eye, at the last trump. Those alive at His coming will be caught up together with the risen saints to meet the Lord in the air. So shall we ever be with the Lord.",
+            "verses": [
+                {"reference": "1 Thessalonians 4:16-17", "text": "For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first: Then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord."},
+                {"reference": "1 Corinthians 15:42-44", "text": "So also is the resurrection of the dead. It is sown in corruption; it is raised in incorruption: It is sown in dishonour; it is raised in glory: it is sown in weakness; it is raised in power: It is sown a natural body; it is raised a spiritual body. There is a natural body, and there is a spiritual body."},
+                {"reference": "1 Corinthians 15:51-52", "text": "Behold, I shew you a mystery; We shall not all sleep, but we shall all be changed, In a moment, in the twinkling of an eye, at the last trump: for the trumpet shall sound, and the dead shall be raised incorruptible, and we shall be changed."},
+                {"reference": "Philippians 3:21", "text": "Who shall change our vile body, that it may be fashioned like unto his glorious body, according to the working whereby he is able even to subdue all things unto himself."},
+                {"reference": "1 John 3:2", "text": "Beloved, now are we the sons of God, and it doth not yet appear what we shall be: but we know that, when he shall appear, we shall be like him; for we shall see him as he is."},
+                {"reference": "John 5:28-29", "text": "Marvel not at this: for the hour is coming, in the which all that are in the graves shall hear his voice, And shall come forth; they that have done good, unto the resurrection of life; and they that have done evil, unto the resurrection of damnation."}
+            ]
+        }
+    },
+    "The Final Judgment": {
+        "The Judgment Seat of Christ": {
+            "title": "Believers Judged for Rewards",
+            "description": "All believers will stand before the judgment seat of Christ to give account for deeds done in the body, whether good or bad. This is not a judgment of condemnation—there is no condemnation for those in Christ Jesus—but a judgment of works for rewards. Our works will be tested by fire; some will receive rewards, some will suffer loss though saved. This judgment will reveal the quality of each one's work. Faithful service will be rewarded; wood, hay, and stubble will be burned up. Every secret thing will come to light. We labor to be accepted of Him at that day.",
+            "verses": [
+                {"reference": "2 Corinthians 5:10", "text": "For we must all appear before the judgment seat of Christ; that every one may receive the things done in his body, according to that he hath done, whether it be good or bad."},
+                {"reference": "Romans 14:10-12", "text": "But why dost thou judge thy brother? or why dost thou set at nought thy brother? for we shall all stand before the judgment seat of Christ. For it is written, As I live, saith the Lord, every knee shall bow to me, and every tongue shall confess to God. So then every one of us shall give account of himself to God."},
+                {"reference": "1 Corinthians 3:13-15", "text": "Every man's work shall be made manifest: for the day shall declare it, because it shall be revealed by fire; and the fire shall try every man's work of what sort it is. If any man's work abide which he hath built thereupon, he shall receive a reward. If any man's work shall be burned, he shall suffer loss: but he himself shall be saved; yet so as by fire."},
+                {"reference": "1 Corinthians 4:5", "text": "Therefore judge nothing before the time, until the Lord come, who both will bring to light the hidden things of darkness, and will make manifest the counsels of the hearts: and then shall every man have praise of God."},
+                {"reference": "2 Corinthians 5:9", "text": "Wherefore we labour, that, whether present or absent, we may be accepted of him."},
+                {"reference": "Revelation 22:12", "text": "And, behold, I come quickly; and my reward is with me, to give every man according as his work shall be."}
+            ]
+        },
+        "The Great White Throne": {
+            "title": "Final Judgment of the Lost",
+            "description": "John saw a great white throne and Him who sat on it, from whose face the earth and heaven fled away. The dead, small and great, stood before God. Books were opened, and another book—the book of life. The dead were judged according to their works. Death and hell were cast into the lake of fire. Whoever was not found in the book of life was cast into the lake of fire. This is the second death. This final judgment is terrifying in its finality—there is no appeal, no excuse, no escape. Every idle word will be accounted for. God will render to every man according to his deeds.",
+            "verses": [
+                {"reference": "Revelation 20:11-12", "text": "And I saw a great white throne, and him that sat on it, from whose face the earth and the heaven fled away; and there was found no place for them. And I saw the dead, small and great, stand before God; and the books were opened: and another book was opened, which is the book of life: and the dead were judged out of those things which were written in the books, according to their works."},
+                {"reference": "Revelation 20:14-15", "text": "And death and hell were cast into the lake of fire. This is the second death. And whosoever was not found written in the book of life was cast into the lake of fire."},
+                {"reference": "Matthew 12:36", "text": "But I say unto you, That every idle word that men shall speak, they shall give account thereof in the day of judgment."},
+                {"reference": "Romans 2:5-6", "text": "But after thy hardness and impenitent heart treasurest up unto thyself wrath against the day of wrath and revelation of the righteous judgment of God; Who will render to every man according to his deeds."},
+                {"reference": "Ecclesiastes 12:14", "text": "For God shall bring every work into judgment, with every secret thing, whether it be good, or whether it be evil."},
+                {"reference": "Acts 17:31", "text": "Because he hath appointed a day, in the which he will judge the world in righteousness by that man whom he hath ordained; whereof he hath given assurance unto all men, in that he hath raised him from the dead."}
+            ]
+        }
+    },
+    "Eternal Destinies": {
+        "Hell and Eternal Punishment": {
+            "title": "The Lake of Fire",
+            "description": "Scripture teaches the reality of eternal punishment for those who reject Christ. Hell is described as a lake burning with fire and brimstone, where the worm dies not and the fire is not quenched. The smoke of their torment ascends forever and ever; they have no rest day or night. This is everlasting punishment, as eternal as the life of the righteous. It was prepared for the devil and his angels but awaits all whose names are not in the book of life. The severity of this doctrine underscores the urgency of the gospel and the infinite cost of rejecting Christ.",
+            "verses": [
+                {"reference": "Revelation 20:10", "text": "And the devil that deceived them was cast into the lake of fire and brimstone, where the beast and the false prophet are, and shall be tormented day and night for ever and ever."},
+                {"reference": "Mark 9:43-44", "text": "And if thy hand offend thee, cut it off: it is better for thee to enter into life maimed, than having two hands to go into hell, into the fire that never shall be quenched: Where their worm dieth not, and the fire is not quenched."},
+                {"reference": "Revelation 14:11", "text": "And the smoke of their torment ascendeth up for ever and ever: and they have no rest day nor night, who worship the beast and his image, and whosoever receiveth the mark of his name."},
+                {"reference": "Matthew 25:41", "text": "Then shall he say also unto them on the left hand, Depart from me, ye cursed, into everlasting fire, prepared for the devil and his angels."},
+                {"reference": "Matthew 25:46", "text": "And these shall go away into everlasting punishment: but the righteous into life eternal."},
+                {"reference": "2 Thessalonians 1:9", "text": "Who shall be punished with everlasting destruction from the presence of the Lord, and from the glory of his power."}
+            ]
+        },
+        "Heaven and Eternal Life": {
+            "title": "The New Jerusalem",
+            "description": "For the redeemed, eternity brings unimaginable blessing. God shall wipe away all tears; there shall be no more death, sorrow, crying, or pain. The holy city, New Jerusalem, comes down from God out of heaven, prepared as a bride adorned for her husband. God Himself will dwell with His people. We shall see His face; His name shall be on our foreheads. There shall be no night there; no need of sun or moon, for the glory of God and the Lamb are its light. The tree of life yields its fruit, and the nations are healed. Forever we shall reign with Christ, enjoying the beatific vision.",
+            "verses": [
+                {"reference": "Revelation 21:4", "text": "And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away."},
+                {"reference": "Revelation 21:2-3", "text": "And I John saw the holy city, new Jerusalem, coming down from God out of heaven, prepared as a bride adorned for her husband. And I heard a great voice out of heaven saying, Behold, the tabernacle of God is with men, and he will dwell with them, and they shall be his people, and God himself shall be with them, and be their God."},
+                {"reference": "Revelation 22:3-5", "text": "And there shall be no more curse: but the throne of God and of the Lamb shall be in it; and his servants shall serve him: And they shall see his face; and his name shall be in their foreheads. And there shall be no night there; and they need no candle, neither light of the sun; for the Lord God giveth them light: and they shall reign for ever and ever."},
+                {"reference": "Revelation 21:23", "text": "And the city had no need of the sun, neither of the moon, to shine in it: for the glory of God did lighten it, and the Lamb is the light thereof."},
+                {"reference": "1 Corinthians 2:9", "text": "But as it is written, Eye hath not seen, nor ear heard, neither have entered into the heart of man, the things which God hath prepared for them that love him."},
+                {"reference": "John 14:2-3", "text": "In my Father's house are many mansions: if it were not so, I would have told you. I go to prepare a place for you. And if I go and prepare a place for you, I will come again, and receive you unto myself; that where I am, there ye may be also."}
+            ]
+        },
+        "New Heavens and New Earth": {
+            "title": "All Things Made New",
+            "description": "God has promised new heavens and a new earth wherein dwells righteousness. The present heavens and earth will be dissolved by fire, making way for the new creation. The elements shall melt with fervent heat; the earth and its works shall be burned up. But God will create new heavens and a new earth. The first things will pass away; He makes all things new. This is not mere renovation but new creation—the restoration of all things, the cosmic redemption anticipated since the fall. Creation itself will be delivered from the bondage of corruption into the glorious liberty of the children of God.",
+            "verses": [
+                {"reference": "2 Peter 3:13", "text": "Nevertheless we, according to his promise, look for new heavens and a new earth, wherein dwelleth righteousness."},
+                {"reference": "2 Peter 3:10-12", "text": "But the day of the Lord will come as a thief in the night; in the which the heavens shall pass away with a great noise, and the elements shall melt with fervent heat, the earth also and the works that are therein shall be burned up. Seeing then that all these things shall be dissolved, what manner of persons ought ye to be in all holy conversation and godliness, Looking for and hasting unto the coming of the day of God, wherein the heavens being on fire shall be dissolved, and the elements shall melt with fervent heat?"},
+                {"reference": "Revelation 21:1", "text": "And I saw a new heaven and a new earth: for the first heaven and the first earth were passed away; and there was no more sea."},
+                {"reference": "Revelation 21:5", "text": "And he that sat upon the throne said, Behold, I make all things new. And he said unto me, Write: for these words are true and faithful."},
+                {"reference": "Isaiah 65:17", "text": "For, behold, I create new heavens and a new earth: and the former shall not be remembered, nor come into mind."},
+                {"reference": "Romans 8:21", "text": "Because the creature itself also shall be delivered from the bondage of corruption into the glorious liberty of the children of God."}
+            ]
+        }
+    }
+}
+
+# Ecclesiology - The Doctrine of the Church
+ECCLESIOLOGY_DATA = {
+    "The Nature of the Church": {
+        "The Definition of the Church": {
+            "title": "The Called-Out Assembly",
+            "description": "The word 'church' (ekklesia) means 'called-out assembly'—those whom God has called out of the world unto Himself. The church is not a building but a people, not an organization but an organism. It is the body of Christ, the household of God, the pillar and ground of truth. The church exists wherever believers gather in Christ's name—for where two or three are gathered in His name, there He is in the midst. The church is both local (congregations in specific places) and universal (all believers throughout all time). Christ loved the church and gave Himself for it.",
+            "verses": [
+                {"reference": "Matthew 16:18", "text": "And I say also unto thee, That thou art Peter, and upon this rock I will build my church; and the gates of hell shall not prevail against it."},
+                {"reference": "Ephesians 5:25", "text": "Husbands, love your wives, even as Christ also loved the church, and gave himself for it."},
+                {"reference": "1 Timothy 3:15", "text": "But if I tarry long, that thou mayest know how thou oughtest to behave thyself in the house of God, which is the church of the living God, the pillar and ground of the truth."},
+                {"reference": "Matthew 18:20", "text": "For where two or three are gathered together in my name, there am I in the midst of them."},
+                {"reference": "Acts 2:47", "text": "Praising God, and having favour with all the people. And the Lord added to the church daily such as should be saved."},
+                {"reference": "Colossians 1:18", "text": "And he is the head of the body, the church: who is the beginning, the firstborn from the dead; that in all things he might have the preeminence."}
+            ]
+        },
+        "The Body of Christ": {
+            "title": "One Body, Many Members",
+            "description": "The church is the body of Christ—He is the head, believers are the members. This is not mere metaphor but mystical union. By one Spirit we were all baptized into one body, whether Jews or Gentiles, bond or free. The body has many members with different functions, yet all are necessary. The eye cannot say to the hand, 'I have no need of you.' There is one body, one Spirit, one hope, one Lord, one faith, one baptism, one God and Father of all. The body grows and builds itself up in love as each part does its work. We are members one of another.",
+            "verses": [
+                {"reference": "1 Corinthians 12:12-13", "text": "For as the body is one, and hath many members, and all the members of that one body, being many, are one body: so also is Christ. For by one Spirit are we all baptized into one body, whether we be Jews or Gentiles, whether we be bond or free; and have been all made to drink into one Spirit."},
+                {"reference": "1 Corinthians 12:21-22", "text": "And the eye cannot say unto the hand, I have no need of thee: nor again the head to the feet, I have no need of you. Nay, much more those members of the body, which seem to be more feeble, are necessary."},
+                {"reference": "Ephesians 4:4-6", "text": "There is one body, and one Spirit, even as ye are called in one hope of your calling; One Lord, one faith, one baptism, One God and Father of all, who is above all, and through all, and in you all."},
+                {"reference": "Ephesians 4:15-16", "text": "But speaking the truth in love, may grow up into him in all things, which is the head, even Christ: From whom the whole body fitly joined together and compacted by that which every joint supplieth, according to the effectual working in the measure of every part, maketh increase of the body unto the edifying of itself in love."},
+                {"reference": "Romans 12:4-5", "text": "For as we have many members in one body, and all members have not the same office: So we, being many, are one body in Christ, and every one members one of another."},
+                {"reference": "Colossians 1:24", "text": "Who now rejoice in my sufferings for you, and fill up that which is behind of the afflictions of Christ in my flesh for his body's sake, which is the church."}
+            ]
+        },
+        "The Bride of Christ": {
+            "title": "Prepared for the Bridegroom",
+            "description": "The church is the bride of Christ, betrothed to Him and awaiting the marriage supper of the Lamb. Christ loved the church and gave Himself for her, that He might sanctify and cleanse her, presenting her to Himself as a glorious church without spot or wrinkle. The marriage relationship between husband and wife is a mystery that points to Christ and the church. John saw the holy city, New Jerusalem, coming down from God out of heaven, prepared as a bride adorned for her husband. The Spirit and the bride say, 'Come.' This imagery speaks of intimacy, covenant faithfulness, and eternal union.",
+            "verses": [
+                {"reference": "Ephesians 5:25-27", "text": "Husbands, love your wives, even as Christ also loved the church, and gave himself for it; That he might sanctify and cleanse it with the washing of water by the word, That he might present it to himself a glorious church, not having spot, or wrinkle, or any such thing; but that it should be holy and without blemish."},
+                {"reference": "Ephesians 5:31-32", "text": "For this cause shall a man leave his father and mother, and shall be joined unto his wife, and they two shall be one flesh. This is a great mystery: but I speak concerning Christ and the church."},
+                {"reference": "Revelation 19:7-8", "text": "Let us be glad and rejoice, and give honour to him: for the marriage of the Lamb is come, and his wife hath made herself ready. And to her was granted that she should be arrayed in fine linen, clean and white: for the fine linen is the righteousness of saints."},
+                {"reference": "Revelation 21:2", "text": "And I John saw the holy city, new Jerusalem, coming down from God out of heaven, prepared as a bride adorned for her husband."},
+                {"reference": "Revelation 22:17", "text": "And the Spirit and the bride say, Come. And let him that heareth say, Come. And let him that is athirst come. And whosoever will, let him take the water of life freely."},
+                {"reference": "2 Corinthians 11:2", "text": "For I am jealous over you with godly jealousy: for I have espoused you to one husband, that I may present you as a chaste virgin to Christ."}
+            ]
+        }
+    },
+    "The Marks of the Church": {
+        "The Unity of the Church": {
+            "title": "That They May Be One",
+            "description": "Christ prayed that His followers would be one, even as He and the Father are one—that the world might believe. This unity is not organizational uniformity but spiritual oneness in Christ. There is one body, one Spirit, one hope, one Lord, one faith, one baptism, one God. We are to endeavor to keep the unity of the Spirit in the bond of peace. Division is carnal; factions indicate spiritual immaturity. The church's unity should reflect the unity of the Godhead—diverse persons in perfect harmony. This unity is both a gift to be received and a goal to be pursued.",
+            "verses": [
+                {"reference": "John 17:21-23", "text": "That they all may be one; as thou, Father, art in me, and I in thee, that they also may be one in us: that the world may believe that thou hast sent me. And the glory which thou gavest me I have given them; that they may be one, even as we are one: I in them, and thou in me, that they may be made perfect in one; and that the world may know that thou hast sent me."},
+                {"reference": "Ephesians 4:3-6", "text": "Endeavouring to keep the unity of the Spirit in the bond of peace. There is one body, and one Spirit, even as ye are called in one hope of your calling; One Lord, one faith, one baptism, One God and Father of all, who is above all, and through all, and in you all."},
+                {"reference": "1 Corinthians 1:10", "text": "Now I beseech you, brethren, by the name of our Lord Jesus Christ, that ye all speak the same thing, and that there be no divisions among you; but that ye be perfectly joined together in the same mind and in the same judgment."},
+                {"reference": "1 Corinthians 3:3", "text": "For ye are yet carnal: for whereas there is among you envying, and strife, and divisions, are ye not carnal, and walk as men?"},
+                {"reference": "Psalm 133:1", "text": "Behold, how good and how pleasant it is for brethren to dwell together in unity!"},
+                {"reference": "Philippians 2:2", "text": "Fulfil ye my joy, that ye be likeminded, having the same love, being of one accord, of one mind."}
+            ]
+        },
+        "The Holiness of the Church": {
+            "title": "A Holy Nation",
+            "description": "The church is called to be holy, set apart from the world for God's purposes. We are a chosen generation, a royal priesthood, a holy nation, a peculiar people. Christ gave Himself for the church that He might sanctify and cleanse her. The church is the temple of the Holy Spirit—God's dwelling place. Therefore we are to cleanse ourselves from all filthiness of the flesh and spirit, perfecting holiness in the fear of God. The church must maintain moral purity through discipline, putting away from yourselves that wicked person. Holiness is not optional but essential to the church's identity.",
+            "verses": [
+                {"reference": "1 Peter 2:9", "text": "But ye are a chosen generation, a royal priesthood, an holy nation, a peculiar people; that ye should shew forth the praises of him who hath called you out of darkness into his marvellous light."},
+                {"reference": "Ephesians 5:25-26", "text": "Husbands, love your wives, even as Christ also loved the church, and gave himself for it; That he might sanctify and cleanse it with the washing of water by the word."},
+                {"reference": "1 Corinthians 3:16-17", "text": "Know ye not that ye are the temple of God, and that the Spirit of God dwelleth in you? If any man defile the temple of God, him shall God destroy; for the temple of God is holy, which temple ye are."},
+                {"reference": "2 Corinthians 7:1", "text": "Having therefore these promises, dearly beloved, let us cleanse ourselves from all filthiness of the flesh and spirit, perfecting holiness in the fear of God."},
+                {"reference": "1 Corinthians 5:13", "text": "But them that are without God judgeth. Therefore put away from among yourselves that wicked person."},
+                {"reference": "Hebrews 12:14", "text": "Follow peace with all men, and holiness, without which no man shall see the Lord."}
+            ]
+        }
+    },
+    "The Government of the Church": {
+        "Christ the Head": {
+            "title": "The Supreme Authority",
+            "description": "Christ alone is the head of the church—He has all authority in heaven and on earth. God put all things under His feet and gave Him to be head over all things to the church. No human being, council, or tradition can usurp His headship. The church submits to Christ as a wife submits to her husband. Christ directs the church through His Word and Spirit. Every knee must bow to Him; every tongue confess that He is Lord. The church has no king but Jesus. All earthly leadership in the church derives from and is accountable to His authority.",
+            "verses": [
+                {"reference": "Ephesians 1:22-23", "text": "And hath put all things under his feet, and gave him to be the head over all things to the church, Which is his body, the fulness of him that filleth all in all."},
+                {"reference": "Colossians 1:18", "text": "And he is the head of the body, the church: who is the beginning, the firstborn from the dead; that in all things he might have the preeminence."},
+                {"reference": "Matthew 28:18", "text": "And Jesus came and spake unto them, saying, All power is given unto me in heaven and in earth."},
+                {"reference": "Ephesians 5:23-24", "text": "For the husband is the head of the wife, even as Christ is the head of the church: and he is the saviour of the body. Therefore as the church is subject unto Christ, so let the wives be to their own husbands in every thing."},
+                {"reference": "Philippians 2:10-11", "text": "That at the name of Jesus every knee should bow, of things in heaven, and things in earth, and things under the earth; And that every tongue should confess that Jesus Christ is Lord, to the glory of God the Father."},
+                {"reference": "Colossians 2:10", "text": "And ye are complete in him, which is the head of all principality and power."}
+            ]
+        },
+        "Elders and Deacons": {
+            "title": "Servant Leadership",
+            "description": "Christ has given the church officers for its government and care. Elders (also called bishops, pastors, overseers) are to shepherd the flock of God, exercising oversight not by constraint but willingly. They must be blameless, able to teach, not given to wine, not greedy, ruling their own houses well. Deacons are servants who care for practical needs, freeing elders for prayer and the ministry of the Word. They too must be grave, not doubletongued, holding the mystery of faith in a pure conscience. These offices are qualifications-based, not merely appointed positions.",
+            "verses": [
+                {"reference": "1 Peter 5:1-3", "text": "The elders which are among you I exhort, who am also an elder, and a witness of the sufferings of Christ, and also a partaker of the glory that shall be revealed: Feed the flock of God which is among you, taking the oversight thereof, not by constraint, but willingly; not for filthy lucre, but of a ready mind; Neither as being lords over God's heritage, but being ensamples to the flock."},
+                {"reference": "1 Timothy 3:1-2", "text": "This is a true saying, If a man desire the office of a bishop, he desireth a good work. A bishop then must be blameless, the husband of one wife, vigilant, sober, of good behaviour, given to hospitality, apt to teach."},
+                {"reference": "Acts 6:3-4", "text": "Wherefore, brethren, look ye out among you seven men of honest report, full of the Holy Ghost and wisdom, whom we may appoint over this business. But we will give ourselves continually to prayer, and to the ministry of the word."},
+                {"reference": "1 Timothy 3:8-9", "text": "Likewise must the deacons be grave, not doubletongued, not given to much wine, not greedy of filthy lucre; Holding the mystery of the faith in a pure conscience."},
+                {"reference": "Titus 1:5-6", "text": "For this cause left I thee in Crete, that thou shouldest set in order the things that are wanting, and ordain elders in every city, as I had appointed thee: If any be blameless, the husband of one wife, having faithful children not accused of riot or unruly."},
+                {"reference": "Hebrews 13:17", "text": "Obey them that have the rule over you, and submit yourselves: for they watch for your souls, as they that must give account, that they may do it with joy, and not with grief: for that is unprofitable for you."}
+            ]
+        }
+    },
+    "The Mission of the Church": {
+        "The Great Commission": {
+            "title": "Go and Make Disciples",
+            "description": "Christ commissioned His church to make disciples of all nations, baptizing them and teaching them to observe all that He commanded. This is the church's primary mission—not social reform, political action, or cultural engagement, though these may flow from it. The gospel must be preached to every creature. We are Christ's ambassadors, imploring the world to be reconciled to God. The harvest is plentiful but the laborers are few—we must pray the Lord of the harvest to send workers. This commission remains until the end of the age.",
+            "verses": [
+                {"reference": "Matthew 28:19-20", "text": "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost: Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world."},
+                {"reference": "Mark 16:15", "text": "And he said unto them, Go ye into all the world, and preach the gospel to every creature."},
+                {"reference": "2 Corinthians 5:20", "text": "Now then we are ambassadors for Christ, as though God did beseech you by us: we pray you in Christ's stead, be ye reconciled to God."},
+                {"reference": "Acts 1:8", "text": "But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth."},
+                {"reference": "Matthew 9:37-38", "text": "Then saith he unto his disciples, The harvest truly is plenteous, but the labourers are few; Pray ye therefore the Lord of the harvest, that he will send forth labourers into his harvest."},
+                {"reference": "Romans 10:14-15", "text": "How then shall they call on him in whom they have not believed? and how shall they believe in him of whom they have not heard? and how shall they hear without a preacher? And how shall they preach, except they be sent?"}
+            ]
+        },
+        "Worship and Edification": {
+            "title": "Building Up the Body",
+            "description": "The church gathers for the worship of God and the mutual edification of believers. We are to let the word of Christ dwell in us richly, teaching and admonishing one another. Forsake not the assembling of yourselves together. When the church gathers, each one has a psalm, a doctrine, a tongue, a revelation—let all things be done unto edifying. The purpose of spiritual gifts is the building up of the body. We are to grow up into Christ in all things. Worship is not entertainment; edification is not self-help. Both center on Christ and His Word.",
+            "verses": [
+                {"reference": "Colossians 3:16", "text": "Let the word of Christ dwell in you richly in all wisdom; teaching and admonishing one another in psalms and hymns and spiritual songs, singing with grace in your hearts to the Lord."},
+                {"reference": "Hebrews 10:24-25", "text": "And let us consider one another to provoke unto love and to good works: Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another: and so much the more, as ye see the day approaching."},
+                {"reference": "1 Corinthians 14:26", "text": "How is it then, brethren? when ye come together, every one of you hath a psalm, hath a doctrine, hath a tongue, hath a revelation, hath an interpretation. Let all things be done unto edifying."},
+                {"reference": "Ephesians 4:15-16", "text": "But speaking the truth in love, may grow up into him in all things, which is the head, even Christ: From whom the whole body fitly joined together and compacted by that which every joint supplieth."},
+                {"reference": "1 Corinthians 14:12", "text": "Even so ye, forasmuch as ye are zealous of spiritual gifts, seek that ye may excel to the edifying of the church."},
+                {"reference": "Acts 2:42", "text": "And they continued stedfastly in the apostles' doctrine and fellowship, and in breaking of bread, and in prayers."}
+            ]
+        }
+    },
+    "The Ordinances of the Church": {
+        "Baptism": {
+            "title": "Buried with Christ",
+            "description": "Baptism is the initiatory ordinance of the church, commanded by Christ and practiced from the church's beginning. It is the outward sign of inward grace—a public confession of faith in Christ. In baptism we identify with Christ's death, burial, and resurrection. We are buried with Him by baptism into death, that like as Christ was raised, even so we should walk in newness of life. Baptism does not save but demonstrates salvation already received. It pictures the washing of regeneration and marks entrance into the visible community of faith.",
+            "verses": [
+                {"reference": "Matthew 28:19", "text": "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost."},
+                {"reference": "Romans 6:3-4", "text": "Know ye not, that so many of us as were baptized into Jesus Christ were baptized into his death? Therefore we are buried with him by baptism into death: that like as Christ was raised up from the dead by the glory of the Father, even so we also should walk in newness of life."},
+                {"reference": "Acts 2:38", "text": "Then Peter said unto them, Repent, and be baptized every one of you in the name of Jesus Christ for the remission of sins, and ye shall receive the gift of the Holy Ghost."},
+                {"reference": "Acts 8:36-38", "text": "And as they went on their way, they came unto a certain water: and the eunuch said, See, here is water; what doth hinder me to be baptized? And Philip said, If thou believest with all thine heart, thou mayest."},
+                {"reference": "Colossians 2:12", "text": "Buried with him in baptism, wherein also ye are risen with him through the faith of the operation of God, who hath raised him from the dead."},
+                {"reference": "1 Peter 3:21", "text": "The like figure whereunto even baptism doth also now save us (not the putting away of the filth of the flesh, but the answer of a good conscience toward God,) by the resurrection of Jesus Christ."}
+            ]
+        },
+        "The Lord's Supper": {
+            "title": "Proclaiming His Death",
+            "description": "The Lord's Supper is the ongoing ordinance by which the church remembers Christ's death until He comes. On the night He was betrayed, Jesus took bread and the cup, establishing this memorial: 'This do in remembrance of me.' As often as we eat this bread and drink this cup, we proclaim the Lord's death. It is communion—participation in the body and blood of Christ. The church is to examine itself before partaking, discerning the Lord's body. Those who eat and drink unworthily eat and drink judgment to themselves. It is a solemn, sacred feast of remembrance and proclamation.",
+            "verses": [
+                {"reference": "1 Corinthians 11:23-26", "text": "For I have received of the Lord that which also I delivered unto you, That the Lord Jesus the same night in which he was betrayed took bread: And when he had given thanks, he brake it, and said, Take, eat: this is my body, which is broken for you: this do in remembrance of me. After the same manner also he took the cup, when he had supped, saying, This cup is the new testament in my blood: this do ye, as oft as ye drink it, in remembrance of me. For as often as ye eat this bread, and drink this cup, ye do shew the Lord's death till he come."},
+                {"reference": "1 Corinthians 10:16", "text": "The cup of blessing which we bless, is it not the communion of the blood of Christ? The bread which we break, is it not the communion of the body of Christ?"},
+                {"reference": "1 Corinthians 11:28-29", "text": "But let a man examine himself, and so let him eat of that bread, and drink of that cup. For he that eateth and drinketh unworthily, eateth and drinketh damnation to himself, not discerning the Lord's body."},
+                {"reference": "Matthew 26:26-28", "text": "And as they were eating, Jesus took bread, and blessed it, and brake it, and gave it to the disciples, and said, Take, eat; this is my body. And he took the cup, and gave thanks, and gave it to them, saying, Drink ye all of it; For this is my blood of the new testament, which is shed for many for the remission of sins."},
+                {"reference": "Luke 22:19", "text": "And he took bread, and gave thanks, and brake it, and gave unto them, saying, This is my body which is given for you: this do in remembrance of me."},
+                {"reference": "Acts 2:42", "text": "And they continued stedfastly in the apostles' doctrine and fellowship, and in breaking of bread, and in prayers."}
+            ]
+        }
+    }
+}
+
+# Types and Shadows of Christ - Old Testament Figures Fulfilled in Christ
+TYPES_AND_SHADOWS_DATA = {
+    "Old Testament Persons": {
+        "Adam as Type of Christ": {
+            "title": "The Last Adam",
+            "description": "Adam was a type of Him who was to come. As the first Adam was the federal head of humanity, bringing sin and death to all his posterity, so Christ is the last Adam, the head of the new humanity, bringing righteousness and life. Adam was formed from the earth; Christ is the Lord from heaven. By the first Adam came death; by the last Adam came resurrection. The first man was made a living soul; the last Adam was made a quickening spirit. What Adam lost, Christ restores—and more. In Adam all die; in Christ shall all be made alive.",
+            "verses": [
+                {"reference": "Romans 5:14", "text": "Nevertheless death reigned from Adam to Moses, even over them that had not sinned after the similitude of Adam's transgression, who is the figure of him that was to come."},
+                {"reference": "1 Corinthians 15:45", "text": "And so it is written, The first man Adam was made a living soul; the last Adam was made a quickening spirit."},
+                {"reference": "1 Corinthians 15:22", "text": "For as in Adam all die, even so in Christ shall all be made alive."},
+                {"reference": "1 Corinthians 15:47-49", "text": "The first man is of the earth, earthy: the second man is the Lord from heaven. As is the earthy, such are they also that are earthy: and as is the heavenly, such are they also that are heavenly. And as we have borne the image of the earthy, we shall also bear the image of the heavenly."},
+                {"reference": "Romans 5:17-19", "text": "For if by one man's offence death reigned by one; much more they which receive abundance of grace and of the gift of righteousness shall reign in life by one, Jesus Christ."}
+            ]
+        },
+        "Melchizedek as Type of Christ": {
+            "title": "Priest of the Most High God",
+            "description": "Melchizedek, the mysterious king-priest of Salem, appears without genealogy, without beginning or end of days—made like unto the Son of God, abiding a priest continually. Abraham paid tithes to him, showing Melchizedek's superiority to the Levitical priesthood. Christ is a priest forever after the order of Melchizedek, not after the Levitical order of Aaron. This eternal priesthood is superior because it is not based on physical descent but on the power of an endless life. Christ is both King of righteousness and King of peace—the true Melchizedek.",
+            "verses": [
+                {"reference": "Hebrews 7:1-3", "text": "For this Melchisedec, king of Salem, priest of the most high God, who met Abraham returning from the slaughter of the kings, and blessed him; To whom also Abraham gave a tenth part of all; first being by interpretation King of righteousness, and after that also King of Salem, which is, King of peace; Without father, without mother, without descent, having neither beginning of days, nor end of life; but made like unto the Son of God; abideth a priest continually."},
+                {"reference": "Psalm 110:4", "text": "The LORD hath sworn, and will not repent, Thou art a priest for ever after the order of Melchizedek."},
+                {"reference": "Hebrews 7:15-17", "text": "And it is yet far more evident: for that after the similitude of Melchisedec there ariseth another priest, Who is made, not after the law of a carnal commandment, but after the power of an endless life. For he testifieth, Thou art a priest for ever after the order of Melchisedec."},
+                {"reference": "Hebrews 5:6", "text": "As he saith also in another place, Thou art a priest for ever after the order of Melchisedec."},
+                {"reference": "Genesis 14:18-20", "text": "And Melchizedek king of Salem brought forth bread and wine: and he was the priest of the most high God. And he blessed him, and said, Blessed be Abram of the most high God, possessor of heaven and earth."}
+            ]
+        },
+        "Isaac as Type of Christ": {
+            "title": "The Beloved Son Offered Up",
+            "description": "Isaac, the son of promise, miraculously born to aged parents, pictures Christ in remarkable ways. Abraham offered up his only begotten son, figuratively receiving him back from the dead. Isaac willingly submitted to his father's will, carrying the wood for his own sacrifice up Mount Moriah. God provided a substitute—a ram caught in the thicket. The place was named Jehovah-jireh: 'In the mount of the LORD it shall be seen.' Isaac's near-sacrifice foreshadows Christ, the beloved Son, willingly offered on that same mountain region, with no substitute provided—for He Himself was the substitute.",
+            "verses": [
+                {"reference": "Hebrews 11:17-19", "text": "By faith Abraham, when he was tried, offered up Isaac: and he that had received the promises offered up his only begotten son, Of whom it was said, That in Isaac shall thy seed be called: Accounting that God was able to raise him up, even from the dead; from whence also he received him in a figure."},
+                {"reference": "Genesis 22:2", "text": "And he said, Take now thy son, thine only son Isaac, whom thou lovest, and get thee into the land of Moriah; and offer him there for a burnt offering upon one of the mountains which I will tell thee of."},
+                {"reference": "Genesis 22:6-8", "text": "And Abraham took the wood of the burnt offering, and laid it upon Isaac his son... And Isaac spake unto Abraham his father, and said, My father: and he said, Here am I, my son. And he said, Behold the fire and the wood: but where is the lamb for a burnt offering? And Abraham said, My son, God will provide himself a lamb for a burnt offering."},
+                {"reference": "Genesis 22:13-14", "text": "And Abraham lifted up his eyes, and looked, and behold behind him a ram caught in a thicket by his horns: and Abraham went and took the ram, and offered him up for a burnt offering in the stead of his son. And Abraham called the name of that place Jehovahjireh."},
+                {"reference": "John 3:16", "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."}
+            ]
+        },
+        "Joseph as Type of Christ": {
+            "title": "Rejected by Brothers, Exalted to Save",
+            "description": "Joseph, beloved of his father, hated by his brethren, sold for silver, and exalted to save the world from famine, is one of the clearest types of Christ. His dreams prophesied his exaltation; his brothers rejected him; he was cast into a pit and sold to Gentiles. Yet through suffering he rose to glory at Pharaoh's right hand. He saved those who had rejected him, revealing himself to his brothers with tears and forgiveness. Joseph's life remarkably parallels Christ's rejection by Israel, His suffering, His exaltation, and His ultimate reconciliation with His people.",
+            "verses": [
+                {"reference": "Genesis 37:4", "text": "And when his brethren saw that their father loved him more than all his brethren, they hated him, and could not speak peaceably unto him."},
+                {"reference": "Genesis 37:28", "text": "Then there passed by Midianites merchantmen; and they drew and lifted up Joseph out of the pit, and sold Joseph to the Ishmeelites for twenty pieces of silver: and they brought Joseph into Egypt."},
+                {"reference": "Genesis 41:41-43", "text": "And Pharaoh said unto Joseph, See, I have set thee over all the land of Egypt. And Pharaoh took off his ring from his hand, and put it upon Joseph's hand... and they cried before him, Bow the knee."},
+                {"reference": "Genesis 45:4-5", "text": "And Joseph said unto his brethren, Come near to me, I pray you. And they came near. And he said, I am Joseph your brother, whom ye sold into Egypt. Now therefore be not grieved, nor angry with yourselves, that ye sold me hither: for God did send me before you to preserve life."},
+                {"reference": "Genesis 50:20", "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."},
+                {"reference": "Acts 7:9-10", "text": "And the patriarchs, moved with envy, sold Joseph into Egypt: but God was with him, And delivered him out of all his afflictions, and gave him favour and wisdom in the sight of Pharaoh king of Egypt."}
+            ]
+        },
+        "Moses as Type of Christ": {
+            "title": "The Prophet Like Unto Moses",
+            "description": "Moses was a type of Christ as prophet, mediator, and deliverer. God promised to raise up a Prophet like unto Moses from among the brethren. Like Christ, Moses was preserved from death as an infant, called out of Egypt, performed miraculous signs, mediated between God and man, and led God's people to deliverance. Yet Moses was but a servant in God's house; Christ is the Son over His own house. Moses brought the old covenant; Christ brings the new. Moses led Israel through the Red Sea; Christ leads His people through death to resurrection life.",
+            "verses": [
+                {"reference": "Deuteronomy 18:15", "text": "The LORD thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken."},
+                {"reference": "Acts 3:22-23", "text": "For Moses truly said unto the fathers, A prophet shall the Lord your God raise up unto you of your brethren, like unto me; him shall ye hear in all things whatsoever he shall say unto you. And it shall come to pass, that every soul, which will not hear that prophet, shall be destroyed from among the people."},
+                {"reference": "Hebrews 3:2-6", "text": "Who was faithful to him that appointed him, as also Moses was faithful in all his house. For this man was counted worthy of more glory than Moses, inasmuch as he who hath builded the house hath more honour than the house... And Moses verily was faithful in all his house, as a servant, for a testimony of those things which were to be spoken after; But Christ as a son over his own house."},
+                {"reference": "Acts 7:35-37", "text": "This Moses whom they refused, saying, Who made thee a ruler and a judge? the same did God send to be a ruler and a deliverer... This is that Moses, which said unto the children of Israel, A prophet shall the Lord your God raise up unto you of your brethren, like unto me."},
+                {"reference": "John 1:17", "text": "For the law was given by Moses, but grace and truth came by Jesus Christ."}
+            ]
+        },
+        "David as Type of Christ": {
+            "title": "The Shepherd King",
+            "description": "David, the shepherd who became king, is a profound type of Christ. He was anointed but not yet enthroned, rejected by Saul, gathering a band of mighty men in the wilderness. David was both shepherd and warrior, musician and prophet. God promised David an everlasting kingdom—fulfilled in Christ, the Son of David, who sits on David's throne forever. David's suffering, rejection, and eventual triumph mirror Christ's path to glory. The sweet psalmist of Israel prophesied Christ's death and resurrection in his psalms.",
+            "verses": [
+                {"reference": "Acts 2:29-31", "text": "Men and brethren, let me freely speak unto you of the patriarch David... Therefore being a prophet, and knowing that God had sworn with an oath to him, that of the fruit of his loins, according to the flesh, he would raise up Christ to sit on his throne; He seeing this before spake of the resurrection of Christ."},
+                {"reference": "2 Samuel 7:12-13", "text": "And when thy days be fulfilled, and thou shalt sleep with thy fathers, I will set up thy seed after thee, which shall proceed out of thy bowels, and I will establish his kingdom. He shall build an house for my name, and I will stablish the throne of his kingdom for ever."},
+                {"reference": "Luke 1:32-33", "text": "He shall be great, and shall be called the Son of the Highest: and the Lord God shall give unto him the throne of his father David: And he shall reign over the house of Jacob for ever; and of his kingdom there shall be no end."},
+                {"reference": "Ezekiel 34:23-24", "text": "And I will set up one shepherd over them, and he shall feed them, even my servant David; he shall feed them, and he shall be their shepherd. And I the LORD will be their God, and my servant David a prince among them."},
+                {"reference": "Revelation 5:5", "text": "And one of the elders saith unto me, Weep not: behold, the Lion of the tribe of Juda, the Root of David, hath prevailed to open the book, and to loose the seven seals thereof."}
+            ]
+        }
+    },
+    "Old Testament Events": {
+        "The Passover Lamb": {
+            "title": "Christ Our Passover",
+            "description": "The Passover lamb is one of the most explicit types of Christ. In Egypt, the lamb without blemish was slain, its blood applied to the doorposts, and the destroyer passed over those households. Israel was to eat the lamb with unleavened bread and bitter herbs, ready for departure. Christ our Passover is sacrificed for us. He is the Lamb of God who takes away the sin of the world. His blood, applied by faith, causes God's judgment to pass over the believer. Not a bone of the Passover lamb was broken; neither were Christ's bones broken on the cross.",
+            "verses": [
+                {"reference": "1 Corinthians 5:7", "text": "Purge out therefore the old leaven, that ye may be a new lump, as ye are unleavened. For even Christ our passover is sacrificed for us."},
+                {"reference": "Exodus 12:5-7", "text": "Your lamb shall be without blemish, a male of the first year: ye shall take it out from the sheep, or from the goats: And ye shall keep it up until the fourteenth day of the same month: and the whole assembly of the congregation of Israel shall kill it in the evening. And they shall take of the blood, and strike it on the two side posts and on the upper door post of the houses."},
+                {"reference": "John 1:29", "text": "The next day John seeth Jesus coming unto him, and saith, Behold the Lamb of God, which taketh away the sin of the world."},
+                {"reference": "Exodus 12:46", "text": "In one house shall it be eaten; thou shalt not carry forth ought of the flesh abroad out of the house; neither shall ye break a bone thereof."},
+                {"reference": "John 19:36", "text": "For these things were done, that the scripture should be fulfilled, A bone of him shall not be broken."},
+                {"reference": "1 Peter 1:18-19", "text": "Forasmuch as ye know that ye were not redeemed with corruptible things, as silver and gold... But with the precious blood of Christ, as of a lamb without blemish and without spot."}
+            ]
+        },
+        "The Bronze Serpent": {
+            "title": "Lifted Up for Healing",
+            "description": "When fiery serpents plagued Israel in the wilderness, God commanded Moses to make a bronze serpent and set it on a pole. Everyone who was bitten and looked upon the bronze serpent lived. Jesus explicitly identified this as a type of His crucifixion: 'As Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up: that whosoever believeth in him should not perish.' The serpent represents sin; bronze represents judgment. Christ became sin for us and bore God's judgment. All who look to Him in faith are saved.",
+            "verses": [
+                {"reference": "John 3:14-15", "text": "And as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up: That whosoever believeth in him should not perish, but have eternal life."},
+                {"reference": "Numbers 21:8-9", "text": "And the LORD said unto Moses, Make thee a fiery serpent, and set it upon a pole: and it shall come to pass, that every one that is bitten, when he looketh upon it, shall live. And Moses made a serpent of brass, and put it upon a pole, and it came to pass, that if a serpent had bitten any man, when he beheld the serpent of brass, he lived."},
+                {"reference": "2 Corinthians 5:21", "text": "For he hath made him to be sin for us, who knew no sin; that we might be made the righteousness of God in him."},
+                {"reference": "John 12:32", "text": "And I, if I be lifted up from the earth, will draw all men unto me."},
+                {"reference": "Isaiah 45:22", "text": "Look unto me, and be ye saved, all the ends of the earth: for I am God, and there is none else."}
+            ]
+        },
+        "The Manna from Heaven": {
+            "title": "The Bread of Life",
+            "description": "When Israel hungered in the wilderness, God sent manna from heaven—bread appearing each morning with the dew. Jesus declared Himself the true bread from heaven, superior to the manna that Moses gave. The manna sustained physical life temporarily; Christ gives eternal life. Those who ate manna eventually died; those who eat of Christ live forever. The manna was gathered daily, picturing our daily dependence on Christ. The hidden manna is promised to overcomers. Christ is the bread of life—whoever comes to Him shall never hunger.",
+            "verses": [
+                {"reference": "John 6:48-51", "text": "I am that bread of life. Your fathers did eat manna in the wilderness, and are dead. This is the bread which cometh down from heaven, that a man may eat thereof, and not die. I am the living bread which came down from heaven: if any man eat of this bread, he shall live for ever: and the bread that I will give is my flesh, which I will give for the life of the world."},
+                {"reference": "John 6:32-33", "text": "Then Jesus said unto them, Verily, verily, I say unto you, Moses gave you not that bread from heaven; but my Father giveth you the true bread from heaven. For the bread of God is he which cometh down from heaven, and giveth life unto the world."},
+                {"reference": "Exodus 16:14-15", "text": "And when the dew that lay was gone up, behold, upon the face of the wilderness there lay a small round thing, as small as the hoar frost on the ground. And when the children of Israel saw it, they said one to another, It is manna: for they wist not what it was. And Moses said unto them, This is the bread which the LORD hath given you to eat."},
+                {"reference": "Revelation 2:17", "text": "He that hath an ear, let him hear what the Spirit saith unto the churches; To him that overcometh will I give to eat of the hidden manna."},
+                {"reference": "John 6:35", "text": "And Jesus said unto them, I am the bread of life: he that cometh to me shall never hunger; and he that believeth on me shall never thirst."}
+            ]
+        },
+        "The Rock Smitten for Water": {
+            "title": "Christ the Spiritual Rock",
+            "description": "When Israel thirsted at Horeb, Moses struck the rock and water gushed forth. Paul explicitly identifies this rock as Christ: 'That Rock was Christ.' The rock was smitten once, and water flowed—Christ was struck once on the cross, and from His side flowed blood and water. The rock followed Israel through the wilderness, providing continuous water. Christ accompanies His people through their wilderness journey. Later, at Meribah, Moses struck the rock again instead of speaking to it, forfeiting entrance to Canaan. Christ need not be crucified again; we now approach Him by speaking—by prayer.",
+            "verses": [
+                {"reference": "1 Corinthians 10:4", "text": "And did all drink the same spiritual drink: for they drank of that spiritual Rock that followed them: and that Rock was Christ."},
+                {"reference": "Exodus 17:6", "text": "Behold, I will stand before thee there upon the rock in Horeb; and thou shalt smite the rock, and there shall come water out of it, that the people may drink. And Moses did so in the sight of the elders of Israel."},
+                {"reference": "John 19:34", "text": "But one of the soldiers with a spear pierced his side, and forthwith came there out blood and water."},
+                {"reference": "John 7:37-38", "text": "In the last day, that great day of the feast, Jesus stood and cried, saying, If any man thirst, let him come unto me, and drink. He that believeth on me, as the scripture hath said, out of his belly shall flow rivers of living water."},
+                {"reference": "Isaiah 48:21", "text": "And they thirsted not when he led them through the deserts: he caused the waters to flow out of the rock for them: he clave the rock also, and the waters gushed out."}
+            ]
+        }
+    },
+    "Tabernacle and Temple": {
+        "The Tabernacle as Type": {
+            "title": "God Dwelling Among His People",
+            "description": "The entire tabernacle system points to Christ. 'The Word was made flesh and dwelt (tabernacled) among us.' Every piece of furniture, every measurement, every material speaks of Christ. The tabernacle was God's dwelling place among His people—Christ is Immanuel, God with us. The veil separated the Holy Place from the Most Holy Place; Christ's flesh was that veil, torn at His death to open access to God. The tabernacle was built according to the pattern shown Moses on the mount—the heavenly reality of which the earthly was but a shadow.",
+            "verses": [
+                {"reference": "John 1:14", "text": "And the Word was made flesh, and dwelt among us, (and we beheld his glory, the glory as of the only begotten of the Father,) full of grace and truth."},
+                {"reference": "Hebrews 9:11", "text": "But Christ being come an high priest of good things to come, by a greater and more perfect tabernacle, not made with hands, that is to say, not of this building."},
+                {"reference": "Hebrews 10:19-20", "text": "Having therefore, brethren, boldness to enter into the holiest by the blood of Jesus, By a new and living way, which he hath consecrated for us, through the veil, that is to say, his flesh."},
+                {"reference": "Hebrews 8:5", "text": "Who serve unto the example and shadow of heavenly things, as Moses was admonished of God when he was about to make the tabernacle: for, See, saith he, that thou make all things according to the pattern shewed to thee in the mount."},
+                {"reference": "Exodus 25:8-9", "text": "And let them make me a sanctuary; that I may dwell among them. According to all that I shew thee, after the pattern of the tabernacle, and the pattern of all the instruments thereof, even so shall ye make it."},
+                {"reference": "Colossians 2:17", "text": "Which are a shadow of things to come; but the body is of Christ."}
+            ]
+        },
+        "The High Priest as Type": {
+            "title": "Our Great High Priest",
+            "description": "The Levitical high priest, robed in garments of glory and beauty, bearing the names of the tribes on his shoulders and breastplate, entering annually into the Most Holy Place with blood—all this pointed to Christ our great High Priest. He passed through the heavens into God's presence. He offered not the blood of bulls and goats but His own blood. He lives forever to make intercession for us. We have a High Priest who can be touched with the feeling of our infirmities, tempted in all points as we are, yet without sin. We may come boldly to the throne of grace.",
+            "verses": [
+                {"reference": "Hebrews 4:14-16", "text": "Seeing then that we have a great high priest, that is passed into the heavens, Jesus the Son of God, let us hold fast our profession. For we have not an high priest which cannot be touched with the feeling of our infirmities; but was in all points tempted like as we are, yet without sin. Let us therefore come boldly unto the throne of grace, that we may obtain mercy, and find grace to help in time of need."},
+                {"reference": "Hebrews 9:11-12", "text": "But Christ being come an high priest of good things to come, by a greater and more perfect tabernacle, not made with hands, that is to say, not of this building; Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."},
+                {"reference": "Hebrews 7:25", "text": "Wherefore he is able also to save them to the uttermost that come unto God by him, seeing he ever liveth to make intercession for them."},
+                {"reference": "Hebrews 7:26-27", "text": "For such an high priest became us, who is holy, harmless, undefiled, separate from sinners, and made higher than the heavens; Who needeth not daily, as those high priests, to offer up sacrifice, first for his own sins, and then for the people's: for this he did once, when he offered up himself."},
+                {"reference": "Exodus 28:29", "text": "And Aaron shall bear the names of the children of Israel in the breastplate of judgment upon his heart, when he goeth in unto the holy place, for a memorial before the LORD continually."}
+            ]
+        },
+        "The Sacrificial System": {
+            "title": "The One Perfect Sacrifice",
+            "description": "The entire sacrificial system of the Old Testament was a shadow of the good things to come. The burnt offering pointed to Christ's total consecration. The sin offering pictured Christ bearing our sins. The trespass offering showed Christ paying for specific transgressions. The peace offering anticipated fellowship restored through Christ. Yet all these sacrifices could never take away sins—they were offered year after year, continually reminding of sin. Christ offered one sacrifice for sins forever, then sat down, His work complete. The blood of bulls and goats could not take away sins; the blood of Christ can.",
+            "verses": [
+                {"reference": "Hebrews 10:1-4", "text": "For the law having a shadow of good things to come, and not the very image of the things, can never with those sacrifices which they offered year by year continually make the comers thereunto perfect. For then would they not have ceased to be offered? because that the worshippers once purged should have had no more conscience of sins. But in those sacrifices there is a remembrance again made of sins every year. For it is not possible that the blood of bulls and of goats should take away sins."},
+                {"reference": "Hebrews 10:10-12", "text": "By the which will we are sanctified through the offering of the body of Jesus Christ once for all. And every priest standeth daily ministering and offering oftentimes the same sacrifices, which can never take away sins: But this man, after he had offered one sacrifice for sins for ever, sat down on the right hand of God."},
+                {"reference": "Hebrews 9:26", "text": "But now once in the end of the world hath he appeared to put away sin by the sacrifice of himself."},
+                {"reference": "Isaiah 53:10", "text": "Yet it pleased the LORD to bruise him; he hath put him to grief: when thou shalt make his soul an offering for sin, he shall see his seed, he shall prolong his days, and the pleasure of the LORD shall prosper in his hand."},
+                {"reference": "Ephesians 5:2", "text": "And walk in love, as Christ also hath loved us, and hath given himself for us an offering and a sacrifice to God for a sweetsmelling savour."}
+            ]
+        },
+        "The Day of Atonement": {
+            "title": "The Great Day Fulfilled",
+            "description": "Yom Kippur, the Day of Atonement, was the most solemn day in Israel's calendar. Only on this day could the high priest enter the Most Holy Place, and only with blood. Two goats were presented: one slain as a sin offering, its blood sprinkled on the mercy seat; the other, the scapegoat, had the sins of the people confessed over it and was sent into the wilderness, never to return. Christ fulfilled both: He died as our sin offering; He carried our sins far away, never to be remembered again. He entered once into the true Most Holy Place, having obtained eternal redemption.",
+            "verses": [
+                {"reference": "Hebrews 9:7", "text": "But into the second went the high priest alone once every year, not without blood, which he offered for himself, and for the errors of the people."},
+                {"reference": "Hebrews 9:12", "text": "Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."},
+                {"reference": "Leviticus 16:21-22", "text": "And Aaron shall lay both his hands upon the head of the live goat, and confess over him all the iniquities of the children of Israel... and shall send him away by the hand of a fit man into the wilderness: And the goat shall bear upon him all their iniquities unto a land not inhabited."},
+                {"reference": "Hebrews 9:24-26", "text": "For Christ is not entered into the holy places made with hands, which are the figures of the true; but into heaven itself, now to appear in the presence of God for us... but now once in the end of the world hath he appeared to put away sin by the sacrifice of himself."},
+                {"reference": "Hebrews 10:3-4", "text": "But in those sacrifices there is a remembrance again made of sins every year. For it is not possible that the blood of bulls and of goats should take away sins."},
+                {"reference": "Micah 7:19", "text": "He will turn again, he will have compassion upon us; he will subdue our iniquities; and thou wilt cast all their sins into the depths of the sea."}
+            ]
+        }
+    }
+}
+
+# Messianic Prophecies - Old Testament Predictions Fulfilled in Christ
+MESSIANIC_PROPHECIES_DATA = {
+    "Prophecies of His Coming": {
+        "Born of a Virgin": {
+            "title": "The Sign of Immanuel",
+            "description": "Seven hundred years before Christ's birth, Isaiah prophesied that a virgin would conceive and bear a son called Immanuel—'God with us.' This miraculous sign was fulfilled when the Holy Spirit overshadowed Mary, and she conceived without knowing a man. The virgin birth is essential to Christ's sinless humanity and deity. He was not born of natural generation, inheriting Adam's sin, but was holy from conception. Matthew explicitly cites Isaiah's prophecy as fulfilled in Jesus' birth. God truly became man—Immanuel—dwelling among His people.",
+            "verses": [
+                {"reference": "Isaiah 7:14", "text": "Therefore the Lord himself shall give you a sign; Behold, a virgin shall conceive, and bear a son, and shall call his name Immanuel."},
+                {"reference": "Matthew 1:22-23", "text": "Now all this was done, that it might be fulfilled which was spoken of the Lord by the prophet, saying, Behold, a virgin shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us."},
+                {"reference": "Luke 1:34-35", "text": "Then said Mary unto the angel, How shall this be, seeing I know not a man? And the angel answered and said unto her, The Holy Ghost shall come upon thee, and the power of the Highest shall overshadow thee: therefore also that holy thing which shall be born of thee shall be called the Son of God."},
+                {"reference": "Galatians 4:4", "text": "But when the fulness of the time was come, God sent forth his Son, made of a woman, made under the law."},
+                {"reference": "Genesis 3:15", "text": "And I will put enmity between thee and the woman, and between thy seed and her seed; it shall bruise thy head, and thou shalt bruise his heel."}
+            ]
+        },
+        "Born in Bethlehem": {
+            "title": "Out of Thee Shall Come a Ruler",
+            "description": "Micah prophesied that the Messiah would be born in Bethlehem Ephratah, though it was little among the thousands of Judah. His goings forth were from of old, from everlasting—indicating the Messiah's eternal preexistence. When the Magi sought the newborn King, the chief priests and scribes immediately pointed to Bethlehem based on Micah's prophecy. Caesar's census providentially brought Mary and Joseph to Bethlehem at the appointed time. The humble birth in David's city fulfilled both the prophecy of location and the prophecy of David's greater Son.",
+            "verses": [
+                {"reference": "Micah 5:2", "text": "But thou, Bethlehem Ephratah, though thou be little among the thousands of Judah, yet out of thee shall he come forth unto me that is to be ruler in Israel; whose goings forth have been from of old, from everlasting."},
+                {"reference": "Matthew 2:4-6", "text": "And when he had gathered all the chief priests and scribes of the people together, he demanded of them where Christ should be born. And they said unto him, In Bethlehem of Judaea: for thus it is written by the prophet, And thou Bethlehem, in the land of Juda, art not the least among the princes of Juda: for out of thee shall come a Governor, that shall rule my people Israel."},
+                {"reference": "Luke 2:4-7", "text": "And Joseph also went up from Galilee, out of the city of Nazareth, into Judaea, unto the city of David, which is called Bethlehem; (because he was of the house and lineage of David:) To be taxed with Mary his espoused wife, being great with child. And so it was, that, while they were there, the days were accomplished that she should be delivered. And she brought forth her firstborn son."},
+                {"reference": "John 7:42", "text": "Hath not the scripture said, That Christ cometh of the seed of David, and out of the town of Bethlehem, where David was?"}
+            ]
+        },
+        "Called Out of Egypt": {
+            "title": "My Son from Egypt",
+            "description": "Hosea's prophecy 'Out of Egypt have I called my son' originally referred to Israel's exodus, but Matthew applies it to Christ—the true Israel, the perfect Son. When Joseph fled to Egypt with Mary and the child Jesus to escape Herod's massacre, they remained until Herod's death. The return from Egypt fulfilled Hosea's words. As Israel was called out of Egypt to become God's son and servant, so Christ, the true Israel, came out of Egypt to accomplish what Israel could not. He succeeded where Israel failed.",
+            "verses": [
+                {"reference": "Hosea 11:1", "text": "When Israel was a child, then I loved him, and called my son out of Egypt."},
+                {"reference": "Matthew 2:14-15", "text": "When he arose, he took the young child and his mother by night, and departed into Egypt: And was there until the death of Herod: that it might be fulfilled which was spoken of the Lord by the prophet, saying, Out of Egypt have I called my son."},
+                {"reference": "Matthew 2:19-21", "text": "But when Herod was dead, behold, an angel of the Lord appeareth in a dream to Joseph in Egypt, Saying, Arise, and take the young child and his mother, and go into the land of Israel: for they are dead which sought the young child's life. And he arose, and took the young child and his mother, and came into the land of Israel."},
+                {"reference": "Numbers 24:8", "text": "God brought him forth out of Egypt; he hath as it were the strength of an unicorn: he shall eat up the nations his enemies, and shall break their bones, and pierce them through with his arrows."}
+            ]
+        }
+    },
+    "Prophecies of His Ministry": {
+        "A Prophet Like Moses": {
+            "title": "The Prophet Whom They Must Hear",
+            "description": "Moses prophesied that God would raise up a Prophet like him from among the brethren—and commanded Israel to heed this Prophet. Peter and Stephen both identified Jesus as this Prophet. Like Moses, Jesus was preserved from death as an infant, performed miraculous signs, mediated a covenant, and led God's people. Yet Jesus is greater than Moses: Moses was a servant in God's house; Christ is the Son over His own house. Moses brought the Law; Christ brings grace and truth. All who refuse to hear this Prophet will be destroyed.",
+            "verses": [
+                {"reference": "Deuteronomy 18:15", "text": "The LORD thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken."},
+                {"reference": "Deuteronomy 18:18-19", "text": "I will raise them up a Prophet from among their brethren, like unto thee, and will put my words in his mouth; and he shall speak unto them all that I shall command him. And it shall come to pass, that whosoever will not hearken unto my words which he shall speak in my name, I will require it of him."},
+                {"reference": "Acts 3:22-23", "text": "For Moses truly said unto the fathers, A prophet shall the Lord your God raise up unto you of your brethren, like unto me; him shall ye hear in all things whatsoever he shall say unto you. And it shall come to pass, that every soul, which will not hear that prophet, shall be destroyed from among the people."},
+                {"reference": "Acts 7:37", "text": "This is that Moses, which said unto the children of Israel, A prophet shall the Lord your God raise up unto you of your brethren, like unto me; him shall ye hear."},
+                {"reference": "John 6:14", "text": "Then those men, when they had seen the miracle that Jesus did, said, This is of a truth that prophet that should come into the world."}
+            ]
+        },
+        "Preaching in Galilee": {
+            "title": "Light to Those in Darkness",
+            "description": "Isaiah prophesied that Galilee of the Gentiles, the region of Zebulun and Naphtali, would see a great light. This land, first to be conquered by Assyria, would be first to see Messiah's glory. Matthew notes that Jesus' ministry in Galilee—beginning in Capernaum—fulfilled this prophecy. The people who sat in darkness saw great light; upon those in the shadow of death, light dawned. Christ's primary ministry was not in religious Jerusalem but in despised Galilee, bringing light to those considered spiritually inferior.",
+            "verses": [
+                {"reference": "Isaiah 9:1-2", "text": "Nevertheless the dimness shall not be such as was in her vexation, when at the first he lightly afflicted the land of Zebulun and the land of Naphtali, and afterward did more grievously afflict her by the way of the sea, beyond Jordan, in Galilee of the nations. The people that walked in darkness have seen a great light: they that dwell in the land of the shadow of death, upon them hath the light shined."},
+                {"reference": "Matthew 4:13-16", "text": "And leaving Nazareth, he came and dwelt in Capernaum, which is upon the sea coast, in the borders of Zabulon and Nephthalim: That it might be fulfilled which was spoken by Esaias the prophet, saying, The land of Zabulon, and the land of Nephthalim, by the way of the sea, beyond Jordan, Galilee of the Gentiles; The people which sat in darkness saw great light; and to them which sat in the region and shadow of death light is sprung up."},
+                {"reference": "John 8:12", "text": "Then spake Jesus again unto them, saying, I am the light of the world: he that followeth me shall not walk in darkness, but shall have the light of life."},
+                {"reference": "John 1:4-5", "text": "In him was life; and the life was the light of men. And the light shineth in darkness; and the darkness comprehended it not."}
+            ]
+        },
+        "Teaching in Parables": {
+            "title": "Dark Sayings of Old",
+            "description": "The Psalmist prophesied that Messiah would open His mouth in parables, uttering dark sayings from of old. Matthew explicitly cites this as fulfilled in Jesus' parabolic teaching. Jesus spoke to the multitudes in parables, revealing mysteries hidden from the foundation of the world to His disciples while concealing truth from the hard-hearted. The parables were not merely illustrations but vehicles of revelation and judgment—revealing the secrets of the kingdom to some while hardening others in their unbelief.",
+            "verses": [
+                {"reference": "Psalm 78:2", "text": "I will open my mouth in a parable: I will utter dark sayings of old."},
+                {"reference": "Matthew 13:34-35", "text": "All these things spake Jesus unto the multitude in parables; and without a parable spake he not unto them: That it might be fulfilled which was spoken by the prophet, saying, I will open my mouth in parables; I will utter things which have been kept secret from the foundation of the world."},
+                {"reference": "Matthew 13:10-11", "text": "And the disciples came, and said unto him, Why speakest thou unto them in parables? He answered and said unto them, Because it is given unto you to know the mysteries of the kingdom of heaven, but to them it is not given."},
+                {"reference": "Mark 4:33-34", "text": "And with many such parables spake he the word unto them, as they were able to hear it. But without a parable spake he not unto them: and when they were alone, he expounded all things to his disciples."}
+            ]
+        }
+    },
+    "Prophecies of His Suffering": {
+        "Betrayed by a Friend": {
+            "title": "Mine Own Familiar Friend",
+            "description": "David prophesied that Messiah would be betrayed by His own familiar friend who ate bread with Him. Jesus explicitly applied this to Judas at the Last Supper. The betrayal price—thirty pieces of silver—was also prophesied, as was its ultimate use to purchase a potter's field. Zechariah foretold this as the 'goodly price' at which Messiah was valued. The treachery of Judas fulfilled multiple prophecies, demonstrating that even Christ's betrayal occurred according to God's determined counsel.",
+            "verses": [
+                {"reference": "Psalm 41:9", "text": "Yea, mine own familiar friend, in whom I trusted, which did eat of my bread, hath lifted up his heel against me."},
+                {"reference": "John 13:18", "text": "I speak not of you all: I know whom I have chosen: but that the scripture may be fulfilled, He that eateth bread with me hath lifted up his heel against me."},
+                {"reference": "Zechariah 11:12-13", "text": "And I said unto them, If ye think good, give me my price; and if not, forbear. So they weighed for my price thirty pieces of silver. And the LORD said unto me, Cast it unto the potter: a goodly price that I was prised at of them. And I took the thirty pieces of silver, and cast them to the potter in the house of the LORD."},
+                {"reference": "Matthew 26:14-16", "text": "Then one of the twelve, called Judas Iscariot, went unto the chief priests, And said unto them, What will ye give me, and I will deliver him unto you? And they covenanted with him for thirty pieces of silver."},
+                {"reference": "Matthew 27:9-10", "text": "Then was fulfilled that which was spoken by Jeremy the prophet, saying, And they took the thirty pieces of silver, the price of him that was valued, whom they of the children of Israel did value; And gave them for the potter's field."}
+            ]
+        },
+        "Forsaken by God": {
+            "title": "My God, Why Hast Thou Forsaken Me?",
+            "description": "Psalm 22 begins with the cry Jesus uttered on the cross: 'My God, my God, why hast thou forsaken me?' This psalm, written a thousand years before crucifixion existed, describes it in remarkable detail: hands and feet pierced, bones out of joint, casting lots for garments. The forsaking was real—at the cross, the Father turned His face from the Son who had become sin for us. Christ experienced the full weight of divine abandonment that sinners deserve. Yet the psalm ends in triumph, pointing to the resurrection victory.",
+            "verses": [
+                {"reference": "Psalm 22:1", "text": "My God, my God, why hast thou forsaken me? why art thou so far from helping me, and from the words of my roaring?"},
+                {"reference": "Matthew 27:46", "text": "And about the ninth hour Jesus cried with a loud voice, saying, Eli, Eli, lama sabachthani? that is to say, My God, my God, why hast thou forsaken me?"},
+                {"reference": "Psalm 22:16-18", "text": "For dogs have compassed me: the assembly of the wicked have inclosed me: they pierced my hands and my feet. I may tell all my bones: they look and stare upon me. They part my garments among them, and cast lots upon my vesture."},
+                {"reference": "John 19:23-24", "text": "Then the soldiers, when they had crucified Jesus, took his garments, and made four parts... They said therefore among themselves, Let us not rend it, but cast lots for it, whose it shall be: that the scripture might be fulfilled."},
+                {"reference": "2 Corinthians 5:21", "text": "For he hath made him to be sin for us, who knew no sin; that we might be made the righteousness of God in him."}
+            ]
+        },
+        "The Suffering Servant": {
+            "title": "Wounded for Our Transgressions",
+            "description": "Isaiah 53 stands as the most detailed prophecy of Christ's atoning death, written seven centuries before Calvary. The Servant would be despised and rejected, a man of sorrows. He would be wounded for our transgressions, bruised for our iniquities. The chastisement of our peace was upon Him; by His stripes we are healed. The Lord laid on Him the iniquity of us all. He was oppressed yet opened not His mouth. He made His grave with the wicked and the rich. He made His soul an offering for sin. Philip used this passage to preach Jesus to the Ethiopian eunuch.",
+            "verses": [
+                {"reference": "Isaiah 53:3-6", "text": "He is despised and rejected of men; a man of sorrows, and acquainted with grief: and we hid as it were our faces from him; he was despised, and we esteemed him not. Surely he hath borne our griefs, and carried our sorrows: yet we did esteem him stricken, smitten of God, and afflicted. But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed. All we like sheep have gone astray; we have turned every one to his own way; and the LORD hath laid on him the iniquity of us all."},
+                {"reference": "Isaiah 53:7", "text": "He was oppressed, and he was afflicted, yet he opened not his mouth: he is brought as a lamb to the slaughter, and as a sheep before her shearers is dumb, so he openeth not his mouth."},
+                {"reference": "Isaiah 53:9-10", "text": "And he made his grave with the wicked, and with the rich in his death; because he had done no violence, neither was any deceit in his mouth. Yet it pleased the LORD to bruise him; he hath put him to grief: when thou shalt make his soul an offering for sin."},
+                {"reference": "Acts 8:32-35", "text": "The place of the scripture which he read was this, He was led as a sheep to the slaughter... Then Philip opened his mouth, and began at the same scripture, and preached unto him Jesus."},
+                {"reference": "1 Peter 2:24", "text": "Who his own self bare our sins in his own body on the tree, that we, being dead to sins, should live unto righteousness: by whose stripes ye were healed."}
+            ]
+        }
+    },
+    "Prophecies of His Triumph": {
+        "The Resurrection Foretold": {
+            "title": "Thou Wilt Not Leave My Soul in Hell",
+            "description": "David prophesied that God would not leave the Messiah's soul in Sheol nor allow His Holy One to see corruption. Peter at Pentecost declared this fulfilled in Christ's resurrection—David died and saw corruption, but the One he prophesied about did not. Christ's body did not decay in the tomb; on the third day He rose victoriously. The resurrection vindicates Christ's person and work, proving Him to be the Son of God with power. Death could not hold Him because He had conquered sin, the sting of death.",
+            "verses": [
+                {"reference": "Psalm 16:10", "text": "For thou wilt not leave my soul in hell; neither wilt thou suffer thine Holy One to see corruption."},
+                {"reference": "Acts 2:25-31", "text": "For David speaketh concerning him... Because thou wilt not leave my soul in hell, neither wilt thou suffer thine Holy One to see corruption... He seeing this before spake of the resurrection of Christ, that his soul was not left in hell, neither his flesh did see corruption."},
+                {"reference": "Acts 13:35-37", "text": "Wherefore he saith also in another psalm, Thou shalt not suffer thine Holy One to see corruption. For David, after he had served his own generation by the will of God, fell on sleep, and was laid unto his fathers, and saw corruption: But he, whom God raised again, saw no corruption."},
+                {"reference": "Romans 1:4", "text": "And declared to be the Son of God with power, according to the spirit of holiness, by the resurrection from the dead."},
+                {"reference": "1 Corinthians 15:55-57", "text": "O death, where is thy sting? O grave, where is thy victory? The sting of death is sin; and the strength of sin is the law. But thanks be to God, which giveth us the victory through our Lord Jesus Christ."}
+            ]
+        },
+        "Ascension and Session": {
+            "title": "Sit Thou at My Right Hand",
+            "description": "Psalm 110, the most quoted psalm in the New Testament, prophesies Messiah's ascension and heavenly session. The LORD said to David's Lord, 'Sit at my right hand until I make thine enemies thy footstool.' Jesus used this psalm to demonstrate His deity—David calls Him Lord. Peter declared this fulfilled in Christ's ascension. He now sits at God's right hand, ruling until all enemies are subdued. From this throne He exercises His priesthood after the order of Melchizedek, interceding for His people forever.",
+            "verses": [
+                {"reference": "Psalm 110:1", "text": "The LORD said unto my Lord, Sit thou at my right hand, until I make thine enemies thy footstool."},
+                {"reference": "Matthew 22:43-45", "text": "He saith unto them, How then doth David in spirit call him Lord, saying, The LORD said unto my Lord, Sit thou on my right hand, till I make thine enemies thy footstool? If David then call him Lord, how is he his son?"},
+                {"reference": "Acts 2:34-36", "text": "For David is not ascended into the heavens: but he saith himself, The LORD said unto my Lord, Sit thou on my right hand, Until I make thy foes thy footstool. Therefore let all the house of Israel know assuredly, that God hath made that same Jesus, whom ye have crucified, both Lord and Christ."},
+                {"reference": "Hebrews 1:13", "text": "But to which of the angels said he at any time, Sit on my right hand, until I make thine enemies thy footstool?"},
+                {"reference": "Hebrews 10:12-13", "text": "But this man, after he had offered one sacrifice for sins for ever, sat down on the right hand of God; From henceforth expecting till his enemies be made his footstool."},
+                {"reference": "Psalm 110:4", "text": "The LORD hath sworn, and will not repent, Thou art a priest for ever after the order of Melchizedek."}
+            ]
+        },
+        "His Eternal Kingdom": {
+            "title": "His Kingdom Shall Have No End",
+            "description": "Daniel saw one like a Son of Man coming with the clouds of heaven, receiving an everlasting dominion that shall not pass away. The stone cut without hands struck the image and became a great mountain filling the earth—the kingdom of God crushing all earthly kingdoms. Gabriel announced to Mary that God would give Jesus the throne of His father David, and of His kingdom there shall be no end. Christ's kingdom is not of this world, yet it conquers all worldly powers and endures eternally.",
+            "verses": [
+                {"reference": "Daniel 7:13-14", "text": "I saw in the night visions, and, behold, one like the Son of man came with the clouds of heaven, and came to the Ancient of days, and they brought him near before him. And there was given him dominion, and glory, and a kingdom, that all people, nations, and languages, should serve him: his dominion is an everlasting dominion, which shall not pass away, and his kingdom that which shall not be destroyed."},
+                {"reference": "Daniel 2:44", "text": "And in the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed: and the kingdom shall not be left to other people, but it shall break in pieces and consume all these kingdoms, and it shall stand for ever."},
+                {"reference": "Luke 1:32-33", "text": "He shall be great, and shall be called the Son of the Highest: and the Lord God shall give unto him the throne of his father David: And he shall reign over the house of Jacob for ever; and of his kingdom there shall be no end."},
+                {"reference": "Revelation 11:15", "text": "And the seventh angel sounded; and there were great voices in heaven, saying, The kingdoms of this world are become the kingdoms of our Lord, and of his Christ; and he shall reign for ever and ever."},
+                {"reference": "Isaiah 9:6-7", "text": "For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder... Of the increase of his government and peace there shall be no end, upon the throne of David, and upon his kingdom, to order it, and to establish it with judgment and with justice from henceforth even for ever."}
+            ]
+        }
+    }
+}
+
+# The Blood in Scripture
+BLOOD_IN_SCRIPTURE_DATA = {
+    "The Significance of Blood": {
+        "Life is in the Blood": {
+            "title": "The Soul of the Flesh",
+            "description": "Scripture declares that the life of the flesh is in the blood. This is why God prohibited eating blood—the blood represents the life, and life belongs to God alone. Blood is sacred because life is sacred. When blood is shed, life is poured out. This biological and theological truth underlies the entire sacrificial system. Atonement is made by blood because atonement requires the giving of life. The blood of Christ is precious because it represents His perfect, sinless life given for us. Without the shedding of blood, there is no remission of sins.",
+            "verses": [
+                {"reference": "Leviticus 17:11", "text": "For the life of the flesh is in the blood: and I have given it to you upon the altar to make an atonement for your souls: for it is the blood that maketh an atonement for the soul."},
+                {"reference": "Leviticus 17:14", "text": "For it is the life of all flesh; the blood of it is for the life thereof: therefore I said unto the children of Israel, Ye shall eat the blood of no manner of flesh: for the life of all flesh is the blood thereof: whosoever eateth it shall be cut off."},
+                {"reference": "Genesis 9:4", "text": "But flesh with the life thereof, which is the blood thereof, shall ye not eat."},
+                {"reference": "Hebrews 9:22", "text": "And almost all things are by the law purged with blood; and without shedding of blood is no remission."},
+                {"reference": "1 Peter 1:19", "text": "But with the precious blood of Christ, as of a lamb without blemish and without spot."},
+                {"reference": "Deuteronomy 12:23", "text": "Only be sure that thou eat not the blood: for the blood is the life; and thou mayest not eat the life with the flesh."}
+            ]
+        },
+        "Blood Cries from the Ground": {
+            "title": "The Voice of Blood",
+            "description": "When Cain murdered Abel, God declared that Abel's blood cried from the ground. Blood has a voice—it testifies, it cries for justice, it speaks. The blood of martyrs throughout history cries to God for vindication. But the blood of Jesus speaks better things than the blood of Abel. Abel's blood cried for vengeance; Christ's blood speaks forgiveness. Abel's blood condemned his murderer; Christ's blood cleanses the guilty. The voice of Christ's blood drowns out the accusations of our sins, pleading mercy and reconciliation.",
+            "verses": [
+                {"reference": "Genesis 4:10", "text": "And he said, What hast thou done? the voice of thy brother's blood crieth unto me from the ground."},
+                {"reference": "Hebrews 12:24", "text": "And to Jesus the mediator of the new covenant, and to the blood of sprinkling, that speaketh better things than that of Abel."},
+                {"reference": "Revelation 6:10", "text": "And they cried with a loud voice, saying, How long, O Lord, holy and true, dost thou not judge and avenge our blood on them that dwell on the earth?"},
+                {"reference": "Matthew 23:35", "text": "That upon you may come all the righteous blood shed upon the earth, from the blood of righteous Abel unto the blood of Zacharias son of Barachias, whom ye slew between the temple and the altar."},
+                {"reference": "Hebrews 11:4", "text": "By faith Abel offered unto God a more excellent sacrifice than Cain, by which he obtained witness that he was righteous, God testifying of his gifts: and by it he being dead yet speaketh."}
+            ]
+        }
+    },
+    "Blood in the Old Testament": {
+        "The Passover Blood": {
+            "title": "When I See the Blood",
+            "description": "The Passover is the foundational blood narrative of the Old Testament. The lamb was slain, and its blood applied to the doorposts. When the destroyer saw the blood, he passed over that house. The blood was not merely a sign but a propitiation—it satisfied the demands of divine justice. God said, 'When I see the blood, I will pass over you.' The blood alone averted judgment. Christ our Passover is sacrificed for us, and His blood applied to our hearts causes God's wrath to pass over us.",
+            "verses": [
+                {"reference": "Exodus 12:13", "text": "And the blood shall be to you for a token upon the houses where ye are: and when I see the blood, I will pass over you, and the plague shall not be upon you to destroy you, when I smite the land of Egypt."},
+                {"reference": "Exodus 12:22-23", "text": "And ye shall take a bunch of hyssop, and dip it in the blood that is in the bason, and strike the lintel and the two side posts with the blood that is in the bason; and none of you shall go out at the door of his house until the morning. For the LORD will pass through to smite the Egyptians; and when he seeth the blood upon the lintel, and on the two side posts, the LORD will pass over the door, and will not suffer the destroyer to come in unto your houses to smite you."},
+                {"reference": "1 Corinthians 5:7", "text": "Purge out therefore the old leaven, that ye may be a new lump, as ye are unleavened. For even Christ our passover is sacrificed for us."},
+                {"reference": "1 Peter 1:18-19", "text": "Forasmuch as ye know that ye were not redeemed with corruptible things, as silver and gold... But with the precious blood of Christ, as of a lamb without blemish and without spot."},
+                {"reference": "Hebrews 11:28", "text": "Through faith he kept the passover, and the sprinkling of blood, lest he that destroyed the firstborn should touch them."}
+            ]
+        },
+        "The Covenant Blood": {
+            "title": "The Blood of the Covenant",
+            "description": "The Mosaic covenant was ratified with blood. Moses took the blood of sacrifices and sprinkled half on the altar (representing God) and half on the people, declaring, 'Behold the blood of the covenant.' Covenants were sealed in blood because they were matters of life and death. Christ established the new covenant in His blood—the cup represents His blood of the new testament shed for many for the remission of sins. We enter covenant relationship with God through Christ's blood.",
+            "verses": [
+                {"reference": "Exodus 24:8", "text": "And Moses took the blood, and sprinkled it on the people, and said, Behold the blood of the covenant, which the LORD hath made with you concerning all these words."},
+                {"reference": "Hebrews 9:18-20", "text": "Whereupon neither the first testament was dedicated without blood. For when Moses had spoken every precept to all the people according to the law, he took the blood of calves and of goats, with water, and scarlet wool, and hyssop, and sprinkled both the book, and all the people, Saying, This is the blood of the testament which God hath enjoined unto you."},
+                {"reference": "Matthew 26:28", "text": "For this is my blood of the new testament, which is shed for many for the remission of sins."},
+                {"reference": "Hebrews 13:20", "text": "Now the God of peace, that brought again from the dead our Lord Jesus, that great shepherd of the sheep, through the blood of the everlasting covenant."},
+                {"reference": "Zechariah 9:11", "text": "As for thee also, by the blood of thy covenant I have sent forth thy prisoners out of the pit wherein is no water."}
+            ]
+        },
+        "The Day of Atonement Blood": {
+            "title": "Blood Upon the Mercy Seat",
+            "description": "On the Day of Atonement, the high priest entered the Most Holy Place with blood and sprinkled it on the mercy seat—the cover of the ark where God's presence dwelt. The blood came between God's holiness and the law's condemnation. This annual ritual demonstrated that access to God requires blood. The blood did not merely cover sins but propitiated God's wrath. Christ entered the true Most Holy Place with His own blood, obtaining eternal redemption, appearing in God's presence for us.",
+            "verses": [
+                {"reference": "Leviticus 16:14-15", "text": "And he shall take of the blood of the bullock, and sprinkle it with his finger upon the mercy seat eastward; and before the mercy seat shall he sprinkle of the blood with his finger seven times. Then shall he kill the goat of the sin offering, that is for the people, and bring his blood within the vail, and do with that blood as he did with the blood of the bullock, and sprinkle it upon the mercy seat, and before the mercy seat."},
+                {"reference": "Hebrews 9:7", "text": "But into the second went the high priest alone once every year, not without blood, which he offered for himself, and for the errors of the people."},
+                {"reference": "Hebrews 9:11-12", "text": "But Christ being come an high priest of good things to come, by a greater and more perfect tabernacle, not made with hands, that is to say, not of this building; Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."},
+                {"reference": "Romans 3:25", "text": "Whom God hath set forth to be a propitiation through faith in his blood, to declare his righteousness for the remission of sins that are past, through the forbearance of God."},
+                {"reference": "Hebrews 9:24", "text": "For Christ is not entered into the holy places made with hands, which are the figures of the true; but into heaven itself, now to appear in the presence of God for us."}
+            ]
+        }
+    },
+    "The Blood of Christ": {
+        "Redemption Through His Blood": {
+            "title": "Purchased with Blood",
+            "description": "Redemption means to purchase back, to liberate by paying a price. We were not redeemed with corruptible things like silver and gold but with the precious blood of Christ. His blood is the ransom price that freed us from slavery to sin. In Him we have redemption through His blood, the forgiveness of sins. The church was purchased with His own blood. This redemption is eternal—not temporary like the redemption pictured in Old Testament sacrifices. Christ's blood secures our freedom forever.",
+            "verses": [
+                {"reference": "Ephesians 1:7", "text": "In whom we have redemption through his blood, the forgiveness of sins, according to the riches of his grace."},
+                {"reference": "1 Peter 1:18-19", "text": "Forasmuch as ye know that ye were not redeemed with corruptible things, as silver and gold, from your vain conversation received by tradition from your fathers; But with the precious blood of Christ, as of a lamb without blemish and without spot."},
+                {"reference": "Acts 20:28", "text": "Take heed therefore unto yourselves, and to all the flock, over the which the Holy Ghost hath made you overseers, to feed the church of God, which he hath purchased with his own blood."},
+                {"reference": "Colossians 1:14", "text": "In whom we have redemption through his blood, even the forgiveness of sins."},
+                {"reference": "Revelation 5:9", "text": "And they sung a new song, saying, Thou art worthy to take the book, and to open the seals thereof: for thou wast slain, and hast redeemed us to God by thy blood out of every kindred, and tongue, and people, and nation."},
+                {"reference": "Hebrews 9:12", "text": "Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."}
+            ]
+        },
+        "Justification by His Blood": {
+            "title": "Justified by Blood",
+            "description": "Justification is God's declaration that guilty sinners are righteous in His sight. This legal verdict is rendered on the basis of Christ's blood. Being now justified by His blood, we shall be saved from wrath through Him. The blood satisfies divine justice, paying the penalty our sins deserved. God is both just and the justifier of those who believe in Jesus—just because the penalty was paid, justifier because He declares believers righteous. The blood-bought justification ensures our salvation from wrath.",
+            "verses": [
+                {"reference": "Romans 5:9", "text": "Much more then, being now justified by his blood, we shall be saved from wrath through him."},
+                {"reference": "Romans 3:24-26", "text": "Being justified freely by his grace through the redemption that is in Christ Jesus: Whom God hath set forth to be a propitiation through faith in his blood, to declare his righteousness for the remission of sins that are past, through the forbearance of God; To declare, I say, at this time his righteousness: that he might be just, and the justifier of him which believeth in Jesus."},
+                {"reference": "Romans 5:1", "text": "Therefore being justified by faith, we have peace with God through our Lord Jesus Christ."},
+                {"reference": "Galatians 2:16", "text": "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ, even we have believed in Jesus Christ, that we might be justified by the faith of Christ, and not by the works of the law."},
+                {"reference": "Titus 3:7", "text": "That being justified by his grace, we should be made heirs according to the hope of eternal life."}
+            ]
+        },
+        "Cleansing by His Blood": {
+            "title": "Washed in the Blood",
+            "description": "The blood of Jesus Christ cleanses us from all sin. This cleansing is not merely ceremonial but actual—it purges the conscience from dead works to serve the living God. The great multitude in white robes have washed their robes and made them white in the blood of the Lamb. This cleansing is ongoing—if we walk in the light, His blood keeps on cleansing us. No stain is too deep, no sin too scarlet, for the blood of Christ to wash white as snow.",
+            "verses": [
+                {"reference": "1 John 1:7", "text": "But if we walk in the light, as he is in the light, we have fellowship one with another, and the blood of Jesus Christ his Son cleanseth us from all sin."},
+                {"reference": "Hebrews 9:14", "text": "How much more shall the blood of Christ, who through the eternal Spirit offered himself without spot to God, purge your conscience from dead works to serve the living God?"},
+                {"reference": "Revelation 7:14", "text": "And I said unto him, Sir, thou knowest. And he said to me, These are they which came out of great tribulation, and have washed their robes, and made them white in the blood of the Lamb."},
+                {"reference": "Revelation 1:5", "text": "And from Jesus Christ, who is the faithful witness, and the first begotten of the dead, and the prince of the kings of the earth. Unto him that loved us, and washed us from our sins in his own blood."},
+                {"reference": "Hebrews 10:22", "text": "Let us draw near with a true heart in full assurance of faith, having our hearts sprinkled from an evil conscience, and our bodies washed with pure water."},
+                {"reference": "Isaiah 1:18", "text": "Come now, and let us reason together, saith the LORD: though your sins be as scarlet, they shall be as white as snow; though they be red like crimson, they shall be as wool."}
+            ]
+        },
+        "Access Through His Blood": {
+            "title": "Boldness to Enter",
+            "description": "The blood of Christ provides access to God that was impossible under the old covenant. We have boldness to enter the holiest by the blood of Jesus. The veil that barred access was torn when Christ died. We who were far off are made nigh by the blood of Christ. Through Him we both have access by one Spirit unto the Father. The blood opens the way to the throne of grace. We come boldly, not presumptuously, because the blood has made the way.",
+            "verses": [
+                {"reference": "Hebrews 10:19-22", "text": "Having therefore, brethren, boldness to enter into the holiest by the blood of Jesus, By a new and living way, which he hath consecrated for us, through the veil, that is to say, his flesh; And having an high priest over the house of God; Let us draw near with a true heart in full assurance of faith."},
+                {"reference": "Ephesians 2:13", "text": "But now in Christ Jesus ye who sometimes were far off are made nigh by the blood of Christ."},
+                {"reference": "Ephesians 2:18", "text": "For through him we both have access by one Spirit unto the Father."},
+                {"reference": "Hebrews 4:16", "text": "Let us therefore come boldly unto the throne of grace, that we may obtain mercy, and find grace to help in time of need."},
+                {"reference": "Romans 5:2", "text": "By whom also we have access by faith into this grace wherein we stand, and rejoice in hope of the glory of God."},
+                {"reference": "Colossians 1:20", "text": "And, having made peace through the blood of his cross, by him to reconcile all things unto himself; by him, I say, whether they be things in earth, or things in heaven."}
+            ]
+        }
+    }
+}
+
+# The Kingdom of God
+KINGDOM_OF_GOD_DATA = {
+    "The Nature of the Kingdom": {
+        "The Kingdom Defined": {
+            "title": "God's Sovereign Rule",
+            "description": "The kingdom of God is the reign of God over all creation—His sovereign rule exercised through His appointed King, Jesus Christ. It is not primarily a place but a reign, not territory but authority. The kingdom is wherever God's will is done, wherever His rule is acknowledged. It is both a present reality (the kingdom is at hand, the kingdom is within you) and a future consummation (thy kingdom come). The kingdom was the central theme of Jesus' preaching and the burden of apostolic proclamation.",
+            "verses": [
+                {"reference": "Matthew 4:17", "text": "From that time Jesus began to preach, and to say, Repent: for the kingdom of heaven is at hand."},
+                {"reference": "Luke 17:20-21", "text": "And when he was demanded of the Pharisees, when the kingdom of God should come, he answered them and said, The kingdom of God cometh not with observation: Neither shall they say, Lo here! or, lo there! for, behold, the kingdom of God is within you."},
+                {"reference": "Matthew 6:10", "text": "Thy kingdom come. Thy will be done in earth, as it is in heaven."},
+                {"reference": "Psalm 103:19", "text": "The LORD hath prepared his throne in the heavens; and his kingdom ruleth over all."},
+                {"reference": "Daniel 4:34-35", "text": "I blessed the most High, and I praised and honoured him that liveth for ever, whose dominion is an everlasting dominion, and his kingdom is from generation to generation: And all the inhabitants of the earth are reputed as nothing: and he doeth according to his will."},
+                {"reference": "Acts 28:31", "text": "Preaching the kingdom of God, and teaching those things which concern the Lord Jesus Christ, with all confidence, no man forbidding him."}
+            ]
+        },
+        "Not of This World": {
+            "title": "A Spiritual Kingdom",
+            "description": "Jesus declared to Pilate that His kingdom is not of this world. If it were, His servants would fight. The kingdom of God is not meat and drink but righteousness, peace, and joy in the Holy Ghost. It does not come with outward observation—no one can point and say 'here it is' or 'there it is.' The kingdom conquers not through political power or military might but through the preaching of the gospel and the work of the Spirit. It is entered not by birth or citizenship but by new birth—being born again of water and Spirit.",
+            "verses": [
+                {"reference": "John 18:36", "text": "Jesus answered, My kingdom is not of this world: if my kingdom were of this world, then would my servants fight, that I should not be delivered to the Jews: but now is my kingdom not from hence."},
+                {"reference": "Romans 14:17", "text": "For the kingdom of God is not meat and drink; but righteousness, and peace, and joy in the Holy Ghost."},
+                {"reference": "John 3:3-5", "text": "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God... Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God."},
+                {"reference": "1 Corinthians 4:20", "text": "For the kingdom of God is not in word, but in power."},
+                {"reference": "Luke 17:20-21", "text": "The kingdom of God cometh not with observation: Neither shall they say, Lo here! or, lo there! for, behold, the kingdom of God is within you."},
+                {"reference": "Colossians 1:13", "text": "Who hath delivered us from the power of darkness, and hath translated us into the kingdom of his dear Son."}
+            ]
+        }
+    },
+    "The King of the Kingdom": {
+        "Christ the King": {
+            "title": "King of Kings",
+            "description": "Jesus Christ is the King of the kingdom. He was born King of the Jews, lived as the rejected King, died with 'King of the Jews' above His head, rose as the victorious King, and will return as King of kings and Lord of lords. All authority in heaven and earth has been given to Him. He is the King eternal, immortal, invisible. Every knee shall bow and every tongue confess that Jesus Christ is Lord. His kingdom is not of this world, yet His dominion is universal and His reign eternal.",
+            "verses": [
+                {"reference": "Matthew 2:2", "text": "Saying, Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him."},
+                {"reference": "John 19:19", "text": "And Pilate wrote a title, and put it on the cross. And the writing was, JESUS OF NAZARETH THE KING OF THE JEWS."},
+                {"reference": "Revelation 19:16", "text": "And he hath on his vesture and on his thigh a name written, KING OF KINGS, AND LORD OF LORDS."},
+                {"reference": "Matthew 28:18", "text": "And Jesus came and spake unto them, saying, All power is given unto me in heaven and in earth."},
+                {"reference": "1 Timothy 1:17", "text": "Now unto the King eternal, immortal, invisible, the only wise God, be honour and glory for ever and ever. Amen."},
+                {"reference": "Philippians 2:10-11", "text": "That at the name of Jesus every knee should bow, of things in heaven, and things in earth, and things under the earth; And that every tongue should confess that Jesus Christ is Lord, to the glory of God the Father."}
+            ]
+        },
+        "The Davidic Throne": {
+            "title": "On the Throne of David Forever",
+            "description": "God promised David that his throne would be established forever. The angel Gabriel announced to Mary that God would give Jesus the throne of His father David, and He would reign over the house of Jacob forever. Peter at Pentecost declared that God raised Christ to sit on David's throne. Christ is the root and offspring of David, the righteous Branch who shall reign and prosper. The kingdom promised to David finds its ultimate fulfillment in the eternal reign of David's greater Son.",
+            "verses": [
+                {"reference": "2 Samuel 7:12-13", "text": "And when thy days be fulfilled, and thou shalt sleep with thy fathers, I will set up thy seed after thee, which shall proceed out of thy bowels, and I will establish his kingdom. He shall build an house for my name, and I will stablish the throne of his kingdom for ever."},
+                {"reference": "Luke 1:32-33", "text": "He shall be great, and shall be called the Son of the Highest: and the Lord God shall give unto him the throne of his father David: And he shall reign over the house of Jacob for ever; and of his kingdom there shall be no end."},
+                {"reference": "Acts 2:30-31", "text": "Therefore being a prophet, and knowing that God had sworn with an oath to him, that of the fruit of his loins, according to the flesh, he would raise up Christ to sit on his throne; He seeing this before spake of the resurrection of Christ."},
+                {"reference": "Jeremiah 23:5-6", "text": "Behold, the days come, saith the LORD, that I will raise unto David a righteous Branch, and a King shall reign and prosper, and shall execute judgment and justice in the earth. In his days Judah shall be saved, and Israel shall dwell safely."},
+                {"reference": "Revelation 22:16", "text": "I Jesus have sent mine angel to testify unto you these things in the churches. I am the root and the offspring of David, and the bright and morning star."},
+                {"reference": "Isaiah 9:7", "text": "Of the increase of his government and peace there shall be no end, upon the throne of David, and upon his kingdom, to order it, and to establish it with judgment and with justice from henceforth even for ever."}
+            ]
+        }
+    },
+    "Entering the Kingdom": {
+        "Through the New Birth": {
+            "title": "Born Again to See",
+            "description": "Jesus declared that no one can see or enter the kingdom of God unless born again—born of water and Spirit. The kingdom is not inherited naturally but supernaturally. Flesh and blood cannot inherit the kingdom of God. Entrance requires spiritual rebirth, a radical transformation by the Holy Spirit. This new birth produces citizens of heaven, strangers and pilgrims on earth. The kingdom is entered not by human effort or religious works but by sovereign grace working new life in dead sinners.",
+            "verses": [
+                {"reference": "John 3:3", "text": "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God."},
+                {"reference": "John 3:5", "text": "Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God."},
+                {"reference": "1 Corinthians 15:50", "text": "Now this I say, brethren, that flesh and blood cannot inherit the kingdom of God; neither doth corruption inherit incorruption."},
+                {"reference": "Titus 3:5", "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost."},
+                {"reference": "1 Peter 1:23", "text": "Being born again, not of corruptible seed, but of incorruptible, by the word of God, which liveth and abideth for ever."},
+                {"reference": "Philippians 3:20", "text": "For our conversation is in heaven; from whence also we look for the Saviour, the Lord Jesus Christ."}
+            ]
+        },
+        "As Little Children": {
+            "title": "Humble Like a Child",
+            "description": "Jesus said that unless we become like little children, we cannot enter the kingdom of heaven. The kingdom belongs to such as these. The greatest in the kingdom is whoever humbles himself like a child. Children model the dependent, trusting, humble posture required for kingdom entrance. The proud and self-sufficient are excluded; the poor in spirit inherit. Those who think they are something cannot receive the kingdom as a gift. It must be received with childlike faith and humility.",
+            "verses": [
+                {"reference": "Matthew 18:3-4", "text": "And said, Verily I say unto you, Except ye be converted, and become as little children, ye shall not enter into the kingdom of heaven. Whosoever therefore shall humble himself as this little child, the same is greatest in the kingdom of heaven."},
+                {"reference": "Mark 10:14-15", "text": "But when Jesus saw it, he was much displeased, and said unto them, Suffer the little children to come unto me, and forbid them not: for of such is the kingdom of God. Verily I say unto you, Whosoever shall not receive the kingdom of God as a little child, he shall not enter therein."},
+                {"reference": "Matthew 5:3", "text": "Blessed are the poor in spirit: for theirs is the kingdom of heaven."},
+                {"reference": "Luke 18:17", "text": "Verily I say unto you, Whosoever shall not receive the kingdom of God as a little child shall in no wise enter therein."},
+                {"reference": "James 4:6", "text": "But he giveth more grace. Wherefore he saith, God resisteth the proud, but giveth grace unto the humble."},
+                {"reference": "1 Peter 5:5", "text": "Likewise, ye younger, submit yourselves unto the elder. Yea, all of you be subject one to another, and be clothed with humility: for God resisteth the proud, and giveth grace to the humble."}
+            ]
+        }
+    },
+    "The Kingdom's Growth": {
+        "From Small Beginnings": {
+            "title": "The Mustard Seed",
+            "description": "Jesus compared the kingdom to a mustard seed—the smallest of seeds that grows into the greatest of herbs, providing shelter for birds. The kingdom begins small and seemingly insignificant but grows to worldwide influence. The church began with twelve disciples and has spread to every nation. The kingdom grows organically, not through human programs or political power but through the mysterious working of God. The seed grows while the sower sleeps—first the blade, then the ear, then the full corn.",
+            "verses": [
+                {"reference": "Matthew 13:31-32", "text": "Another parable put he forth unto them, saying, The kingdom of heaven is like to a grain of mustard seed, which a man took, and sowed in his field: Which indeed is the least of all seeds: but when it is grown, it is the greatest among herbs, and becometh a tree, so that the birds of the air come and lodge in the branches thereof."},
+                {"reference": "Mark 4:26-28", "text": "And he said, So is the kingdom of God, as if a man should cast seed into the ground; And should sleep, and rise night and day, and the seed should spring and grow up, he knoweth not how. For the earth bringeth forth fruit of herself; first the blade, then the ear, after that the full corn in the ear."},
+                {"reference": "Daniel 2:35", "text": "Then was the iron, the clay, the brass, the silver, and the gold, broken to pieces together, and became like the chaff of the summer threshingfloors; and the wind carried them away, that no place was found for them: and the stone that smote the image became a great mountain, and filled the whole earth."},
+                {"reference": "Zechariah 4:10", "text": "For who hath despised the day of small things?"},
+                {"reference": "Isaiah 9:7", "text": "Of the increase of his government and peace there shall be no end."}
+            ]
+        },
+        "The Hidden Leaven": {
+            "title": "Permeating Influence",
+            "description": "The kingdom is like leaven hidden in meal until the whole is leavened. Though invisible, leaven works pervasively, transforming everything it touches. The kingdom's influence penetrates society, culture, and individual hearts. It works silently but powerfully, changing hearts from within rather than reforming behavior from without. The kingdom transforms families, communities, and eventually the whole world. Though hidden from sight, its effects are undeniable.",
+            "verses": [
+                {"reference": "Matthew 13:33", "text": "Another parable spake he unto them; The kingdom of heaven is like unto leaven, which a woman took, and hid in three measures of meal, till the whole was leavened."},
+                {"reference": "Luke 13:20-21", "text": "And again he said, Whereunto shall I liken the kingdom of God? It is like leaven, which a woman took and hid in three measures of meal, till the whole was leavened."},
+                {"reference": "Romans 12:2", "text": "And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."},
+                {"reference": "2 Corinthians 3:18", "text": "But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord."},
+                {"reference": "Galatians 5:9", "text": "A little leaven leaveneth the whole lump."}
+            ]
+        }
+    },
+    "The Kingdom Consummated": {
+        "Christ's Return": {
+            "title": "The King Shall Return",
+            "description": "The kingdom will be consummated when Christ returns in glory. He will gather His elect, judge the nations, destroy His enemies, and establish His eternal reign. The kingdoms of this world will become the kingdom of our Lord and of His Christ. What is now invisible will become visible; what is now contested will be uncontested. Every knee will bow, every tongue confess. The meek shall inherit the earth, and the saints shall reign with Christ forever.",
+            "verses": [
+                {"reference": "Revelation 11:15", "text": "And the seventh angel sounded; and there were great voices in heaven, saying, The kingdoms of this world are become the kingdoms of our Lord, and of his Christ; and he shall reign for ever and ever."},
+                {"reference": "Matthew 25:31-34", "text": "When the Son of man shall come in his glory, and all the holy angels with him, then shall he sit upon the throne of his glory: And before him shall be gathered all nations... Then shall the King say unto them on his right hand, Come, ye blessed of my Father, inherit the kingdom prepared for you from the foundation of the world."},
+                {"reference": "2 Timothy 4:1", "text": "I charge thee therefore before God, and the Lord Jesus Christ, who shall judge the quick and the dead at his appearing and his kingdom."},
+                {"reference": "1 Corinthians 15:24-25", "text": "Then cometh the end, when he shall have delivered up the kingdom to God, even the Father; when he shall have put down all rule and all authority and power. For he must reign, till he hath put all enemies under his feet."},
+                {"reference": "Matthew 5:5", "text": "Blessed are the meek: for they shall inherit the earth."},
+                {"reference": "Daniel 7:27", "text": "And the kingdom and dominion, and the greatness of the kingdom under the whole heaven, shall be given to the people of the saints of the most High, whose kingdom is an everlasting kingdom, and all dominions shall serve and obey him."}
+            ]
+        },
+        "The Eternal Kingdom": {
+            "title": "Everlasting Dominion",
+            "description": "The kingdom of God is everlasting—it shall never be destroyed, never pass away, never end. Unlike earthly kingdoms that rise and fall, God's kingdom endures forever. Daniel saw that the kingdom given to the Son of Man was an everlasting dominion that shall not be destroyed. We receive a kingdom that cannot be shaken. This eternal kingdom is the ultimate hope of believers—to reign with Christ forever in the new heavens and new earth where righteousness dwells.",
+            "verses": [
+                {"reference": "Daniel 7:14", "text": "And there was given him dominion, and glory, and a kingdom, that all people, nations, and languages, should serve him: his dominion is an everlasting dominion, which shall not pass away, and his kingdom that which shall not be destroyed."},
+                {"reference": "Daniel 2:44", "text": "And in the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed: and the kingdom shall not be left to other people, but it shall break in pieces and consume all these kingdoms, and it shall stand for ever."},
+                {"reference": "Hebrews 12:28", "text": "Wherefore we receiving a kingdom which cannot be moved, let us have grace, whereby we may serve God acceptably with reverence and godly fear."},
+                {"reference": "2 Peter 1:11", "text": "For so an entrance shall be ministered unto you abundantly into the everlasting kingdom of our Lord and Saviour Jesus Christ."},
+                {"reference": "Revelation 22:5", "text": "And there shall be no night there; and they need no candle, neither light of the sun; for the Lord God giveth them light: and they shall reign for ever and ever."},
+                {"reference": "Luke 1:33", "text": "And he shall reign over the house of Jacob for ever; and of his kingdom there shall be no end."}
+            ]
+        }
+    }
+}
+
+# Names and Titles of Christ
+NAMES_OF_CHRIST_DATA = {
+    "Divine Names": {
+        "I AM": {
+            "title": "The Eternal Self-Existent One",
+            "description": "When Jesus declared 'Before Abraham was, I AM,' He claimed the divine name revealed to Moses at the burning bush. The Jews understood this claim to deity—they took up stones to kill Him for blasphemy. Throughout John's Gospel, Jesus uses 'I AM' statements that echo Yahweh's self-revelation: I am the bread of life, the light of the world, the door, the good shepherd, the resurrection and the life, the way, the truth, and the life, the true vine. Each 'I AM' reveals Christ's sufficiency for every human need.",
+            "verses": [
+                {"reference": "John 8:58", "text": "Jesus said unto them, Verily, verily, I say unto you, Before Abraham was, I am."},
+                {"reference": "Exodus 3:14", "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."},
+                {"reference": "John 6:35", "text": "And Jesus said unto them, I am the bread of life: he that cometh to me shall never hunger; and he that believeth on me shall never thirst."},
+                {"reference": "John 8:12", "text": "Then spake Jesus again unto them, saying, I am the light of the world: he that followeth me shall not walk in darkness, but shall have the light of life."},
+                {"reference": "John 11:25", "text": "Jesus said unto her, I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live."},
+                {"reference": "John 14:6", "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."}
+            ]
+        },
+        "Lord": {
+            "title": "Kurios - Master and Ruler",
+            "description": "The title 'Lord' (Kurios) is used throughout the New Testament for Jesus. In the Septuagint, Kurios translates Yahweh—applying this title to Jesus affirms His deity. Thomas confessed the risen Christ as 'My Lord and my God.' Paul declares that every tongue will confess Jesus Christ is Lord. To call Jesus 'Lord' is to acknowledge His absolute authority, His deity, and His right to rule every area of life. Jesus asked, 'Why call ye me Lord, Lord, and do not the things which I say?'",
+            "verses": [
+                {"reference": "John 20:28", "text": "And Thomas answered and said unto him, My Lord and my God."},
+                {"reference": "Philippians 2:11", "text": "And that every tongue should confess that Jesus Christ is Lord, to the glory of God the Father."},
+                {"reference": "Romans 10:9", "text": "That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved."},
+                {"reference": "Acts 2:36", "text": "Therefore let all the house of Israel know assuredly, that God hath made that same Jesus, whom ye have crucified, both Lord and Christ."},
+                {"reference": "Luke 6:46", "text": "And why call ye me, Lord, Lord, and do not the things which I say?"},
+                {"reference": "1 Corinthians 12:3", "text": "Wherefore I give you to understand, that no man speaking by the Spirit of God calleth Jesus accursed: and that no man can say that Jesus is the Lord, but by the Holy Ghost."}
+            ]
+        },
+        "Son of God": {
+            "title": "The Only Begotten",
+            "description": "Jesus is the Son of God in a unique sense—the only begotten of the Father. While believers become children of God by adoption, Jesus is Son by nature, eternally begotten. He is in the bosom of the Father, the exact representation of His being. The Father declared at Jesus' baptism and transfiguration, 'This is my beloved Son.' Jesus' Sonship means He shares the Father's divine nature. To deny the Son is to deny the Father; to honor the Son is to honor the Father.",
+            "verses": [
+                {"reference": "John 1:14", "text": "And the Word was made flesh, and dwelt among us, (and we beheld his glory, the glory as of the only begotten of the Father,) full of grace and truth."},
+                {"reference": "John 3:16", "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."},
+                {"reference": "Matthew 3:17", "text": "And lo a voice from heaven, saying, This is my beloved Son, in whom I am well pleased."},
+                {"reference": "Hebrews 1:3", "text": "Who being the brightness of his glory, and the express image of his person, and upholding all things by the word of his power, when he had by himself purged our sins, sat down on the right hand of the Majesty on high."},
+                {"reference": "1 John 2:23", "text": "Whosoever denieth the Son, the same hath not the Father: (but) he that acknowledgeth the Son hath the Father also."},
+                {"reference": "Matthew 16:16", "text": "And Simon Peter answered and said, Thou art the Christ, the Son of the living God."}
+            ]
+        }
+    },
+    "Messianic Titles": {
+        "Christ / Messiah": {
+            "title": "The Anointed One",
+            "description": "Christ (Greek) and Messiah (Hebrew) both mean 'Anointed One.' In the Old Testament, prophets, priests, and kings were anointed for service. Jesus is the ultimate Anointed One—anointed by the Spirit without measure to fulfill all three offices. Peter's confession—'Thou art the Christ'—acknowledged Jesus as the long-awaited Messiah promised throughout Scripture. The title 'Jesus Christ' combines His personal name (Savior) with His office (Anointed King). He is the Christ, the Son of the living God.",
+            "verses": [
+                {"reference": "Matthew 16:16", "text": "And Simon Peter answered and said, Thou art the Christ, the Son of the living God."},
+                {"reference": "John 1:41", "text": "He first findeth his own brother Simon, and saith unto him, We have found the Messias, which is, being interpreted, the Christ."},
+                {"reference": "Luke 4:18", "text": "The Spirit of the Lord is upon me, because he hath anointed me to preach the gospel to the poor; he hath sent me to heal the brokenhearted, to preach deliverance to the captives, and recovering of sight to the blind, to set at liberty them that are bruised."},
+                {"reference": "Acts 10:38", "text": "How God anointed Jesus of Nazareth with the Holy Ghost and with power: who went about doing good, and healing all that were oppressed of the devil; for God was with him."},
+                {"reference": "John 4:25-26", "text": "The woman saith unto him, I know that Messias cometh, which is called Christ: when he is come, he will tell us all things. Jesus saith unto her, I that speak unto thee am he."},
+                {"reference": "Daniel 9:25", "text": "Know therefore and understand, that from the going forth of the commandment to restore and to build Jerusalem unto the Messiah the Prince shall be seven weeks, and threescore and two weeks."}
+            ]
+        },
+        "Son of Man": {
+            "title": "The Human-Divine One",
+            "description": "Jesus' favorite self-designation was 'Son of Man'—used over eighty times in the Gospels. The title emphasizes His true humanity while echoing Daniel's vision of one 'like the Son of Man' who receives everlasting dominion. The Son of Man has authority to forgive sins, is Lord of the Sabbath, came to seek and save the lost, and will come again in glory. This title captures both Christ's humble identification with humanity and His exalted position as the heavenly ruler.",
+            "verses": [
+                {"reference": "Daniel 7:13-14", "text": "I saw in the night visions, and, behold, one like the Son of man came with the clouds of heaven, and came to the Ancient of days... And there was given him dominion, and glory, and a kingdom, that all people, nations, and languages, should serve him."},
+                {"reference": "Matthew 9:6", "text": "But that ye may know that the Son of man hath power on earth to forgive sins, (then saith he to the sick of the palsy,) Arise, take up thy bed, and go unto thine house."},
+                {"reference": "Luke 19:10", "text": "For the Son of man is come to seek and to save that which was lost."},
+                {"reference": "Matthew 26:64", "text": "Jesus saith unto him, Thou hast said: nevertheless I say unto you, Hereafter shall ye see the Son of man sitting on the right hand of power, and coming in the clouds of heaven."},
+                {"reference": "John 3:13-14", "text": "And no man hath ascended up to heaven, but he that came down from heaven, even the Son of man which is in heaven. And as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up."},
+                {"reference": "Matthew 20:28", "text": "Even as the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many."}
+            ]
+        },
+        "Son of David": {
+            "title": "Heir to the Throne",
+            "description": "Jesus is the Son of David—the rightful heir to David's throne, fulfilling God's promise of an eternal kingdom. Matthew opens his Gospel establishing Jesus as 'the son of David.' The crowds hailed Him as Son of David when He entered Jerusalem. The blind called out for mercy from the Son of David. Yet Jesus posed the puzzle: if David calls Him Lord, how is He merely his Son? The answer: Jesus is both David's descendant according to the flesh and David's Lord by His divine nature.",
+            "verses": [
+                {"reference": "Matthew 1:1", "text": "The book of the generation of Jesus Christ, the son of David, the son of Abraham."},
+                {"reference": "Matthew 21:9", "text": "And the multitudes that went before, and that followed, cried, saying, Hosanna to the Son of David: Blessed is he that cometh in the name of the Lord; Hosanna in the highest."},
+                {"reference": "Matthew 22:42-45", "text": "Saying, What think ye of Christ? whose son is he? They say unto him, The Son of David. He saith unto them, How then doth David in spirit call him Lord... If David then call him Lord, how is he his son?"},
+                {"reference": "Romans 1:3", "text": "Concerning his Son Jesus Christ our Lord, which was made of the seed of David according to the flesh."},
+                {"reference": "Revelation 22:16", "text": "I Jesus have sent mine angel to testify unto you these things in the churches. I am the root and the offspring of David, and the bright and morning star."},
+                {"reference": "2 Timothy 2:8", "text": "Remember that Jesus Christ of the seed of David was raised from the dead according to my gospel."}
+            ]
+        }
+    },
+    "Redemptive Titles": {
+        "Lamb of God": {
+            "title": "The Sacrificial Lamb",
+            "description": "John the Baptist introduced Jesus as 'the Lamb of God who takes away the sin of the world.' This title evokes the Passover lamb, the daily sacrifices, and Isaiah's suffering Servant led as a lamb to slaughter. Christ is our Passover, sacrificed for us. In Revelation, the Lamb who was slain is worthy to open the seals, and the redeemed praise Him who washed them in His blood. The Lamb on the throne receives the worship of all creation.",
+            "verses": [
+                {"reference": "John 1:29", "text": "The next day John seeth Jesus coming unto him, and saith, Behold the Lamb of God, which taketh away the sin of the world."},
+                {"reference": "1 Peter 1:18-19", "text": "Forasmuch as ye know that ye were not redeemed with corruptible things, as silver and gold... But with the precious blood of Christ, as of a lamb without blemish and without spot."},
+                {"reference": "Revelation 5:12", "text": "Saying with a loud voice, Worthy is the Lamb that was slain to receive power, and riches, and wisdom, and strength, and honour, and glory, and blessing."},
+                {"reference": "1 Corinthians 5:7", "text": "Purge out therefore the old leaven, that ye may be a new lump, as ye are unleavened. For even Christ our passover is sacrificed for us."},
+                {"reference": "Isaiah 53:7", "text": "He was oppressed, and he was afflicted, yet he opened not his mouth: he is brought as a lamb to the slaughter, and as a sheep before her shearers is dumb, so he openeth not his mouth."},
+                {"reference": "Revelation 7:17", "text": "For the Lamb which is in the midst of the throne shall feed them, and shall lead them unto living fountains of waters: and God shall wipe away all tears from their eyes."}
+            ]
+        },
+        "Savior": {
+            "title": "Jesus - Yahweh Saves",
+            "description": "The name 'Jesus' means 'Yahweh saves' or 'Yahweh is salvation.' He was given this name because He would save His people from their sins. There is no other name under heaven given among men whereby we must be saved. He is the Savior of the world, not just of Israel. He came to seek and save the lost. God sent not His Son to condemn the world but that the world through Him might be saved. He is able to save to the uttermost all who come to God through Him.",
+            "verses": [
+                {"reference": "Matthew 1:21", "text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins."},
+                {"reference": "Acts 4:12", "text": "Neither is there salvation in any other: for there is none other name under heaven given among men, whereby we must be saved."},
+                {"reference": "1 John 4:14", "text": "And we have seen and do testify that the Father sent the Son to be the Saviour of the world."},
+                {"reference": "Luke 19:10", "text": "For the Son of man is come to seek and to save that which was lost."},
+                {"reference": "John 3:17", "text": "For God sent not his Son into the world to condemn the world; but that the world through him might be saved."},
+                {"reference": "Hebrews 7:25", "text": "Wherefore he is able also to save them to the uttermost that come unto God by him, seeing he ever liveth to make intercession for them."}
+            ]
+        },
+        "Mediator": {
+            "title": "The One Between",
+            "description": "There is one God and one Mediator between God and men—the man Christ Jesus. A mediator stands between two parties to reconcile them. Jesus bridges the infinite gap between holy God and sinful humanity. He is qualified to mediate because He is both God and man—able to represent both parties. He is the mediator of the new covenant, securing eternal redemption. Through Him we have access to the Father. No one comes to the Father except through Him.",
+            "verses": [
+                {"reference": "1 Timothy 2:5", "text": "For there is one God, and one mediator between God and men, the man Christ Jesus."},
+                {"reference": "Hebrews 9:15", "text": "And for this cause he is the mediator of the new testament, that by means of death, for the redemption of the transgressions that were under the first testament, they which are called might receive the promise of eternal inheritance."},
+                {"reference": "Hebrews 12:24", "text": "And to Jesus the mediator of the new covenant, and to the blood of sprinkling, that speaketh better things than that of Abel."},
+                {"reference": "Hebrews 8:6", "text": "But now hath he obtained a more excellent ministry, by how much also he is the mediator of a better covenant, which was established upon better promises."},
+                {"reference": "John 14:6", "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."},
+                {"reference": "Ephesians 2:18", "text": "For through him we both have access by one Spirit unto the Father."}
+            ]
+        }
+    },
+    "Relational Titles": {
+        "Good Shepherd": {
+            "title": "The Shepherd of Our Souls",
+            "description": "Jesus declared Himself the Good Shepherd who lays down His life for the sheep. The shepherd imagery runs throughout Scripture—the LORD is my shepherd. Jesus is the Chief Shepherd, the Great Shepherd of the sheep brought back from death by the blood of the everlasting covenant. He knows His sheep and is known by them. He calls them by name and leads them out. His sheep hear His voice and follow Him. He gives them eternal life, and they shall never perish.",
+            "verses": [
+                {"reference": "John 10:11", "text": "I am the good shepherd: the good shepherd giveth his life for the sheep."},
+                {"reference": "John 10:14", "text": "I am the good shepherd, and know my sheep, and am known of mine."},
+                {"reference": "Psalm 23:1", "text": "The LORD is my shepherd; I shall not want."},
+                {"reference": "1 Peter 5:4", "text": "And when the chief Shepherd shall appear, ye shall receive a crown of glory that fadeth not away."},
+                {"reference": "Hebrews 13:20", "text": "Now the God of peace, that brought again from the dead our Lord Jesus, that great shepherd of the sheep, through the blood of the everlasting covenant."},
+                {"reference": "John 10:27-28", "text": "My sheep hear my voice, and I know them, and they follow me: And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand."}
+            ]
+        },
+        "Friend of Sinners": {
+            "title": "Welcomer of the Outcast",
+            "description": "The Pharisees used 'friend of sinners' as a slur against Jesus, but it became a title of glory. He came not to call the righteous but sinners to repentance. He ate with tax collectors and sinners, scandalizing the religious elite. The Son of Man came eating and drinking, welcoming those whom others rejected. He called His disciples friends, not servants. Greater love has no man than this—that a man lay down his life for his friends. He befriended us while we were yet sinners.",
+            "verses": [
+                {"reference": "Matthew 11:19", "text": "The Son of man came eating and drinking, and they say, Behold a man gluttonous, and a winebibber, a friend of publicans and sinners. But wisdom is justified of her children."},
+                {"reference": "Luke 15:2", "text": "And the Pharisees and scribes murmured, saying, This man receiveth sinners, and eateth with them."},
+                {"reference": "Mark 2:17", "text": "When Jesus heard it, he saith unto them, They that are whole have no need of the physician, but they that are sick: I came not to call the righteous, but sinners to repentance."},
+                {"reference": "John 15:13-15", "text": "Greater love hath no man than this, that a man lay down his life for his friends. Ye are my friends, if ye do whatsoever I command you. Henceforth I call you not servants; for the servant knoweth not what his lord doeth: but I have called you friends."},
+                {"reference": "Romans 5:8", "text": "But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us."},
+                {"reference": "Luke 7:34", "text": "The Son of man is come eating and drinking; and ye say, Behold a gluttonous man, and a winebibber, a friend of publicans and sinners!"}
+            ]
+        }
+    }
+}
+
