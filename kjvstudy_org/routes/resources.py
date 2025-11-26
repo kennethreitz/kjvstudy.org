@@ -576,10 +576,14 @@ def miracles_page(request: Request):
     """Miracles of Jesus page."""
     return templates.TemplateResponse(
             request,
-            "miracles.html",
+            "resource_index.html",
             {
             "books": get_books(),
-            "miracles_data": MIRACLES_DATA,
+            "resource_data": MIRACLES_DATA,
+            "page_title": "Miracles of Jesus",
+            "page_subtitle": "Signs and Wonders Manifesting Divine Authority",
+            "page_description": "Explore the miracles of Jesus Christ recorded in the Gospels - healings, nature miracles, exorcisms, and raisings from the dead.",
+            "base_url": "/miracles-of-jesus",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Miracles of Jesus", "url": None}
@@ -624,10 +628,14 @@ def prayers_page(request: Request):
     """Prayers of the Bible page."""
     return templates.TemplateResponse(
             request,
-            "prayers.html",
+            "resource_index.html",
             {
             "books": get_books(),
-            "prayers_data": PRAYERS_DATA,
+            "resource_data": PRAYERS_DATA,
+            "page_title": "Prayers of the Bible",
+            "page_subtitle": "Sacred Conversations with the Almighty",
+            "page_description": "Explore the prayers recorded in Scripture - from the Psalms to the prayers of Jesus, Paul, and the early church.",
+            "base_url": "/prayers-of-the-bible",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Prayers of the Bible", "url": None}
@@ -672,10 +680,14 @@ def beatitudes_page(request: Request):
     """The Beatitudes page."""
     return templates.TemplateResponse(
             request,
-            "beatitudes.html",
+            "resource_index.html",
             {
             "books": get_books(),
-            "beatitudes_data": BEATITUDES_DATA,
+            "resource_data": BEATITUDES_DATA,
+            "page_title": "The Beatitudes",
+            "page_subtitle": "The Blessings of the Kingdom",
+            "page_description": "Explore the Beatitudes from Jesus's Sermon on the Mount - the foundational blessings that describe the character of kingdom citizens.",
+            "base_url": "/beatitudes",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "The Beatitudes", "url": None}
@@ -720,10 +732,14 @@ def ten_commandments_page(request: Request):
     """The Ten Commandments page."""
     return templates.TemplateResponse(
             request,
-            "ten_commandments.html",
+            "resource_index.html",
             {
             "books": get_books(),
-            "commandments_data": TEN_COMMANDMENTS_DATA,
+            "resource_data": TEN_COMMANDMENTS_DATA,
+            "page_title": "The Ten Commandments",
+            "page_subtitle": "The Moral Law of God",
+            "page_description": "Study the Ten Commandments given by God to Moses on Mount Sinai - the foundation of biblical morality and divine law.",
+            "base_url": "/ten-commandments",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "The Ten Commandments", "url": None}
@@ -768,10 +784,14 @@ def armor_of_god_page(request: Request):
     """The Armor of God page."""
     return templates.TemplateResponse(
             request,
-            "armor_of_god.html",
+            "resource_index.html",
             {
             "books": get_books(),
-            "armor_data": ARMOR_OF_GOD_DATA,
+            "resource_data": ARMOR_OF_GOD_DATA,
+            "page_title": "The Armor of God",
+            "page_subtitle": "Divine Equipment for Spiritual Warfare",
+            "page_description": "Study the Armor of God from Ephesians 6 - the spiritual equipment believers need to stand against the wiles of the devil.",
+            "base_url": "/armor-of-god",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "The Armor of God", "url": None}
@@ -816,10 +836,14 @@ def i_am_statements_page(request: Request):
     """I Am Statements of Jesus page."""
     return templates.TemplateResponse(
             request,
-            "i_am_statements.html",
+            "resource_index.html",
             {
             "books": get_books(),
-            "statements_data": I_AM_STATEMENTS_DATA,
+            "resource_data": I_AM_STATEMENTS_DATA,
+            "page_title": "I Am Statements of Jesus",
+            "page_subtitle": "Divine Self-Revelations in the Gospel of John",
+            "page_description": "Explore the seven 'I Am' statements of Jesus in John's Gospel - profound declarations of His divine nature and mission.",
+            "base_url": "/i-am-statements",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "I Am Statements", "url": None}

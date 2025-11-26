@@ -36,3 +36,8 @@ kjvstudy_org = ["static/*", "templates/*"]
 
 [tool.uv]
 package = true
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]

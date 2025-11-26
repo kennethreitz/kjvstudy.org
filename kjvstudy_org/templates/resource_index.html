@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - KJV Study{% endblock %}
+{% block description %}{{ page_description }}{% endblock %}
+
+{% block head %}
+<style>
+.resource-section {
+    margin: 1.5rem 0;
+    padding-top: 1rem;
+}
+
+.resource-section:not(:first-of-type) {
+    border-top: 1px solid var(--border-color);
+}
+
+.resource-entry {
+    margin: 1.5rem 0 2rem 0;
+}
+
+.resource-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.resource-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.resource-name a:hover {
+    color: var(--link-hover);
+    border-bottom: 1px solid var(--link-hover);
+}
+
+.resource-item-title {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.resource-item-description {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0;
+}
+
+.verse-list {
+    margin: 1.5rem 0 0 0;
+}
+
+.verse-item {
+    margin: 1.2rem 0;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border-color-darker);
+}
+
+.verse-ref {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.verse-ref a {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.verse-ref a:hover {
+    border-bottom-color: var(--link-hover);
+}
+
+.verse-text {
+    max-width: 60%;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.intro-text {
+    max-width: 60%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1rem 0;
+}
+
+.toc {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid var(--border-color-darker);
+}
+
+.toc h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.toc a:hover {
+    color: var(--link-color);
+    border-bottom-color: var(--link-color);
+}
+
+.toc li.toc-h3 {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .resource-item-description,
+    .verse-text,
+    .intro-text,
+    .toc {
+        max-width: 100%;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>{{ page_title }}</h1>
+<p class="subtitle">{{ page_subtitle }}</p>
+
+<nav class="toc" id="toc">
+    <h2>Contents</h2>
+    <ul id="toc-list"></ul>
+</nav>
+
+{% if intro_sidenotes %}
+<section>
+    {% for intro in intro_sidenotes %}
+    <p class="intro-text">{{ intro.text | link_names | link_verses | safe }}</p>
+    {% endfor %}
+</section>
+{% endif %}
+
+{% for category, items in resource_data.items() %}
+<section class="resource-section">
+    <h2>{{ category }}</h2>
+
+    {% for item_name, item in items.items() %}
+    <article class="resource-entry">
+        <h3 class="resource-name"><a href="{{ base_url }}/{{ item_name|lower|replace(' ', '-')|replace("'", '') }}">{{ item_name }}</a></h3>
+        <p class="resource-item-title">{{ item.title }}</p>
+
+        <div class="resource-item-description">
+            {{ item.description | link_names | link_verses | safe }}
+        </div>
+
+        {% if item.verses %}
+        <div class="verse-list">
+            {% for verse in item.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">
+                    {% set ref_parts = verse.reference.rsplit(' ', 1) %}
+                    {% if ref_parts|length == 2 %}
+                        {% set book_name = ref_parts[0] %}
+                        {% set chapter_verse = ref_parts[1] %}
+                        {% if ':' in chapter_verse %}
+                            {% set ch = chapter_verse.split(':')[0] %}
+                            {% set v = chapter_verse.split(':')[1].split('-')[0] %}
+                            <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ verse.reference }}</a>
+                        {% else %}
+                            {{ verse.reference }}
+                        {% endif %}
+                    {% else %}
+                        {{ verse.reference }}
+                    {% endif %}
+                </div>
+                <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tocList = document.getElementById('toc-list');
+    const headings = document.querySelectorAll('section h2, section h3, section article h3');
+
+    headings.forEach((heading, index) => {
+        if (!heading.id) {
+            heading.id = 'section-' + heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        }
+        const li = document.createElement('li');
+        if (heading.tagName === 'H3') {
+            li.classList.add('toc-h3');
+        }
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+    });
+});
+</script>
+{% endblock %}

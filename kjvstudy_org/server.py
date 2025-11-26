@@ -1714,6 +1714,42 @@ def resources_page(request: Request):
                 "count": "11 parables"
             },
             {
+                "name": "Miracles of Jesus",
+                "url": "/miracles-of-jesus",
+                "description": "Signs and wonders manifesting divine authority over nature, disease, demons, and death",
+                "count": "35+ miracles"
+            },
+            {
+                "name": "I Am Statements",
+                "url": "/i-am-statements",
+                "description": "The seven 'I Am' statements of Jesus in John's Gospel revealing His divine nature",
+                "count": "7 statements"
+            },
+            {
+                "name": "The Beatitudes",
+                "url": "/beatitudes",
+                "description": "The blessings proclaimed by Jesus in the Sermon on the Mount",
+                "count": "8 beatitudes"
+            },
+            {
+                "name": "Ten Commandments",
+                "url": "/ten-commandments",
+                "description": "The moral law given by God to Moses on Mount Sinai",
+                "count": "10 commandments"
+            },
+            {
+                "name": "Armor of God",
+                "url": "/armor-of-god",
+                "description": "The spiritual equipment for warfare described in Ephesians 6",
+                "count": "7 pieces"
+            },
+            {
+                "name": "Prayers of the Bible",
+                "url": "/prayers-of-the-bible",
+                "description": "Sacred prayers from the Psalms, Jesus, Paul, and the early church",
+                "count": "20+ prayers"
+            },
+            {
                 "name": "Biblical Covenants",
                 "url": "/biblical-covenants",
                 "description": "Divine covenants established between God and His people",
