@@ -53,6 +53,31 @@ def stories_index(request: Request):
     )
 
 
+@router.get("/stories/kids", response_class=HTMLResponse)
+def stories_kids_index(request: Request):
+    """Bible stories index page for kids - shows all categories and kid-friendly stories."""
+    books = get_books()
+    categories = get_categories()
+    story_count = get_story_count()
+    category_count = get_category_count()
+
+    return templates.TemplateResponse(
+        request,
+        "stories_kids_index.html",
+        {
+            "books": books,
+            "categories": categories,
+            "story_count": story_count,
+            "category_count": category_count,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Bible Stories", "url": "/stories"},
+                {"text": "Kids", "url": None}
+            ]
+        }
+    )
+
+
 @router.get("/stories/{slug}", response_class=HTMLResponse)
 def story_detail(request: Request, slug: str):
     """Individual story page (adult version)."""
