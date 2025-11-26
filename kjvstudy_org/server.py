@@ -1063,11 +1063,9 @@ def format_numbered_lists(text):
 templates.env.filters['format_lists'] = format_numbered_lists
 
 
-@app.get("/biblical-timeline", response_class=HTMLResponse)
-def biblical_timeline_page(request: Request):
-    """Biblical timeline page showing major biblical events chronologically"""
-    books = list(bible.iter_books())
 
+
+def get_biblical_timeline_context():
     # Define biblical timeline events
     timeline_events = {
         "Creation and Early History": [
@@ -1355,6 +1353,22 @@ def biblical_timeline_page(request: Request):
         {"event": "Birth of Christ", "masoretic": "7 BC", "ussher": "4 BC", "scofield": "4 BC"},
     ]
 
+    return timeline_events, chronology_note, chronology_comparison
+
+
+@app.get("/biblical-timeline", response_class=HTMLResponse)
+def biblical_timeline_page(request: Request):
+    """Biblical timeline page showing major biblical events chronologically"""
+    books = list(bible.iter_books())
+
+    timeline_events, chronology_note, chronology_comparison = get_biblical_timeline_context()
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Resources", "url": "/resources"},
+        {"text": "Biblical Timeline", "url": None}
+    ]
+
     return templates.TemplateResponse(
             request,
             "biblical_timeline.html",
@@ -1363,11 +1377,34 @@ def biblical_timeline_page(request: Request):
             "timeline_events": timeline_events,
             "chronology_note": chronology_note,
             "chronology_comparison": chronology_comparison,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Biblical Timeline", "url": None}
-            ]
+            "breadcrumbs": breadcrumbs,
+            "pdf_available": WEASYPRINT_AVAILABLE
         }
+    )
+
+
+@app.get("/biblical-timeline/pdf")
+def biblical_timeline_pdf():
+    """Generate PDF export for the biblical timeline."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    timeline_events, chronology_note, chronology_comparison = get_biblical_timeline_context()
+
+    html_content = templates.get_template("biblical_timeline_pdf.html").render(
+        timeline_events=timeline_events,
+        chronology_note=chronology_note,
+        chronology_comparison=chronology_comparison
+    )
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=biblical-timeline.pdf"}
     )
 
 

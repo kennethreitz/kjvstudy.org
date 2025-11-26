@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblical Timeline</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.75in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "et-book", Georgia, serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: "et-book", Georgia, "Times New Roman", serif;
+            font-size: 11pt;
+            line-height: 1.55;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 24pt;
+            font-weight: normal;
+            margin: 0 0 0.2in 0;
+        }
+
+        h2 {
+            font-size: 16pt;
+            font-weight: normal;
+            margin-top: 0.35in;
+        }
+
+        h3 {
+            font-size: 13pt;
+            margin-bottom: 0.05in;
+        }
+
+        .chronology-note,
+        .chronology-table {
+            margin: 0.2in 0;
+        }
+
+        .event-description {
+            margin-bottom: 0.1in;
+        }
+
+        .verses {
+            margin-left: 0.2in;
+            border-left: 2px solid #ddd;
+            padding-left: 0.15in;
+        }
+
+        .verse-ref {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .verse-text {
+            font-style: italic;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.1in;
+            text-align: left;
+        }
+
+        th {
+            background: #f5f5f5;
+        }
+
+        .footer {
+            margin-top: 0.4in;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Biblical Timeline</h1>
+    <p class="chronology-note">{{ chronology_note | safe }}</p>
+
+    {% if chronology_comparison %}
+    <div class="chronology-table">
+        <h2>Chronology Comparison</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Masoretic</th>
+                    <th>Ussher</th>
+                    <th>Scofield</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in chronology_comparison %}
+                <tr>
+                    <td>{{ row.event }}</td>
+                    <td>{{ row.masoretic }}</td>
+                    <td>{{ row.ussher }}</td>
+                    <td>{{ row.scofield }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    {% for period_name, events in timeline_events.items() %}
+    <section>
+        <h2>{{ period_name }}</h2>
+        {% for event in events %}
+        <article>
+            <h3>{{ event.title }} {% if event.date %}<span style="font-size:10pt; color:#666;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span>{% endif %}</h3>
+            <div class="event-description">{{ event.description | safe }}</div>
+            {% if event.verses %}
+            <div class="verses">
+                {% for verse in event.verses %}
+                <p>
+                    <span class="verse-ref">{{ verse.reference }}</span><br/>
+                    <span class="verse-text">{{ verse.text }}</span>
+                </p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </section>
+    {% endfor %}
+
+    <div class="footer">From KJV Study &bull; kjvstudy.org</div>
+</body>
+</html>
