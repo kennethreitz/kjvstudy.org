@@ -35,62 +35,250 @@
 </script>
 {% endblock %}
 
+{% block head %}
+<style>
+.story-header {
+    margin-bottom: 2rem;
+}
+.story-header .category-link {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--link-color);
+    text-decoration: none;
+}
+.story-header .category-link:hover {
+    text-decoration: underline;
+}
+.story-header h1 {
+    margin: 0.5rem 0;
+}
+.story-header .description {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 55ch;
+}
+
+.story-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--code-bg, #f8f8f8);
+    border-radius: 6px;
+}
+.meta-section h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+}
+.meta-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.meta-section li {
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+}
+.meta-section .scripture-ref {
+    color: var(--link-color);
+}
+.meta-section .tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    margin: 0.2rem 0.2rem 0.2rem 0;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
+.meta-section .tag.character {
+    background: #e8f4f8;
+    color: #2a6f8f;
+}
+.meta-section .tag.theme {
+    background: #f0f4e8;
+    color: #5a7a2a;
+}
+
+.story-narrative {
+    margin: 2.5rem 0;
+}
+.story-narrative p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+}
+.story-narrative p:first-of-type::first-letter {
+    font-size: 3.5rem;
+    float: left;
+    line-height: 1;
+    padding-right: 0.5rem;
+    color: var(--link-color);
+    font-weight: 600;
+}
+
+.kids-callout {
+    background: linear-gradient(135deg, #f5f0ff 0%, #efe8ff 100%);
+    border-left: 4px solid #8b5cf6;
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    border-radius: 0 6px 6px 0;
+}
+.kids-callout h3 {
+    margin: 0 0 0.5rem 0;
+    color: #6d28d9;
+    font-size: 1.1rem;
+}
+.kids-callout p {
+    margin: 0;
+    color: #555;
+}
+.kids-callout a {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.story-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color, #ddd);
+    gap: 1rem;
+}
+.story-nav .nav-prev,
+.story-nav .nav-next {
+    flex: 1;
+    max-width: 40%;
+}
+.story-nav .nav-prev {
+    text-align: left;
+}
+.story-nav .nav-next {
+    text-align: right;
+}
+.story-nav .nav-center {
+    text-align: center;
+}
+.story-nav .nav-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    margin-bottom: 0.25rem;
+}
+.story-nav .nav-title {
+    font-size: 0.95rem;
+    color: var(--link-color);
+    text-decoration: none;
+}
+.story-nav .nav-title:hover {
+    text-decoration: underline;
+}
+.story-nav .nav-disabled {
+    color: #ccc;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>{{ story.title }}</h1>
-<p class="subtitle">{{ story.category_name }}</p>
+<article>
+    <header class="story-header">
+        <a href="/stories#{{ story.category_slug }}" class="category-link">{{ story.category_name }}</a>
+        <h1>{{ story.title }}</h1>
+        <p class="description">{{ story.description }}</p>
+    </header>
 
-<section>
-    <p style="font-size: 0.95rem; color: #555; margin-bottom: 1rem;">{{ story.description }}</p>
+    <div class="story-meta">
+        <div class="meta-section">
+            <h4>Scripture</h4>
+            <ul>
+                {% for verse in story.verses %}
+                {% set ref_parts = verse.split(' ') %}
+                {% if ref_parts|length >= 2 %}
+                    {% set chapter_verse = ref_parts[-1] %}
+                    {% set book = ' '.join(ref_parts[:-1]) %}
+                    {% if ':' in chapter_verse %}
+                        {% set chapter = chapter_verse.split(':')[0] %}
+                        {% set verse_part = chapter_verse.split(':')[1] %}
+                        {% if '-' in verse_part %}
+                            {# Verse range like "16:23-31" - use anchor syntax #}
+                            <li><a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}" class="scripture-ref">{{ verse }}</a></li>
+                        {% else %}
+                            {# Single verse like "3:16" #}
+                            <li><a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}" class="scripture-ref">{{ verse }}</a></li>
+                        {% endif %}
+                    {% elif '-' in chapter_verse %}
+                        {# Chapter range like "1-2" - link to first chapter #}
+                        {% set chapter = chapter_verse.split('-')[0] %}
+                        <li><a href="/book/{{ book }}/chapter/{{ chapter }}" class="scripture-ref">{{ verse }}</a></li>
+                    {% else %}
+                        {# Just a chapter number #}
+                        <li><a href="/book/{{ book }}/chapter/{{ chapter_verse }}" class="scripture-ref">{{ verse }}</a></li>
+                    {% endif %}
+                {% else %}
+                    <li class="scripture-ref">{{ verse }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="meta-section">
+            <h4>Key Characters</h4>
+            <div>
+                {% for character in story.characters %}
+                <span class="tag character">{{ character }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="meta-section">
+            <h4>Themes</h4>
+            <div>
+                {% for theme in story.themes %}
+                <span class="tag theme">{{ theme }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-    <p>
-        <label for="mn-scripture" class="margin-toggle">&#8853;</label>
-        <input type="checkbox" id="mn-scripture" class="margin-toggle"/>
-        <span class="marginnote">
-            <strong>Scripture References:</strong><br/>
-            {% for verse in story.verses %}
-                {{ verse }}{% if not loop.last %}<br/>{% endif %}
-            {% endfor %}
-            <br/><br/>
-            <strong>Themes:</strong><br/>
-            {% for theme in story.themes %}
-                {{ theme }}{% if not loop.last %}, {% endif %}
-            {% endfor %}
-            <br/><br/>
-            <strong>Key Characters:</strong><br/>
-            {% for character in story.characters %}
-                {{ character }}{% if not loop.last %}, {% endif %}
-            {% endfor %}
-        </span>
-    </p>
-</section>
+    <section class="story-narrative">
+        {% for paragraph in story.narrative.split('\n\n') %}
+        <p>{{ paragraph }}</p>
+        {% endfor %}
+    </section>
 
-<section>
-    <h2>The Story</h2>
-    {% for paragraph in story.narrative.split('\n\n') %}
-    <p>{{ paragraph }}</p>
-    {% endfor %}
-</section>
+    <aside class="kids-callout">
+        <h3>Reading with Children?</h3>
+        <p>This story is also available in a kid-friendly version: <a href="/stories/{{ story.slug }}/kids">{{ story.kids_title }}</a> — written with simpler language and engaging narration perfect for young readers or family devotions.</p>
+    </aside>
+</article>
 
-<section style="background: #f9f9f9; padding: 1.5rem; margin: 2rem 0; border-left: 3px solid #666;">
-    <h3 style="margin-top: 0;">For Kids</h3>
-    <p>Looking for a version for children? <a href="/stories/{{ story.slug }}/kids"><strong>{{ story.kids_title }}</strong></a> tells this same story in a way that's perfect for young readers.</p>
-</section>
-
-<nav style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #ddd;">
-    <p>
+<nav class="story-nav">
+    <div class="nav-prev">
         {% if prev_story %}
-        <a href="/stories/{{ prev_story.slug }}">← {{ prev_story.title }}</a>
+        <span class="nav-label">Previous Story</span>
+        <a href="/stories/{{ prev_story.slug }}" class="nav-title">← {{ prev_story.title }}</a>
         {% else %}
-        <span style="color: #999;">← Previous</span>
+        <span class="nav-label">Previous Story</span>
+        <span class="nav-disabled">← No previous story</span>
         {% endif %}
-        &nbsp;|&nbsp;
-        <a href="/stories">All Stories</a>
-        &nbsp;|&nbsp;
+    </div>
+    <div class="nav-center">
+        <a href="/stories" class="nav-title">All Stories</a>
+    </div>
+    <div class="nav-next">
         {% if next_story %}
-        <a href="/stories/{{ next_story.slug }}">{{ next_story.title }} →</a>
+        <span class="nav-label">Next Story</span>
+        <a href="/stories/{{ next_story.slug }}" class="nav-title">{{ next_story.title }} →</a>
         {% else %}
-        <span style="color: #999;">Next →</span>
+        <span class="nav-label">Next Story</span>
+        <span class="nav-disabled">No next story →</span>
         {% endif %}
-    </p>
+    </div>
 </nav>
 {% endblock %}
