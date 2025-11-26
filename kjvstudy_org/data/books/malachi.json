@@ -1,0 +1,39 @@
+{
+  "name": "Malachi",
+  "abbreviation": "Mal",
+  "testament": "Old Testament",
+  "position": 39,
+  "chapters": 4,
+  "category": "Minor Prophets",
+  "author": "Malachi",
+  "date_written": "c. 450-400 BC",
+  "introduction": "Malachi is the last voice of Old Testament prophecy, speaking to a discouraged post-exilic community. The temple had been rebuilt, but the anticipated glory had not come. The people and priests had grown cynical, offering defective sacrifices and questioning God's love and justice. Through a series of disputations, Malachi exposes their failures while promising that the Lord will suddenly come to His temple, preceded by a messenger preparing the way. Then 400 years of prophetic silence until John the Baptist.",
+  "key_themes": [
+    "God's persistent love for Israel",
+    "Corrupt worship and unfaithful priests",
+    "Faithlessness in marriage and tithing",
+    "The coming Day of the LORD",
+    "The messenger who prepares the way",
+    "Blessing for those who fear the LORD"
+  ],
+  "key_verses": [
+    {"reference": "Malachi 1:2", "text": "I have loved you, saith the LORD. Yet ye say, Wherein hast thou loved us?"},
+    {"reference": "Malachi 3:1", "text": "Behold, I will send my messenger, and he shall prepare the way before me: and the LORD, whom ye seek, shall suddenly come to his temple, even the messenger of the covenant, whom ye delight in: behold, he shall come, saith the LORD of hosts."},
+    {"reference": "Malachi 3:8", "text": "Will a man rob God? Yet ye have robbed me. But ye say, Wherein have we robbed thee? In tithes and offerings."},
+    {"reference": "Malachi 3:10", "text": "Bring ye all the tithes into the storehouse, that there may be meat in mine house, and prove me now herewith, saith the LORD of hosts, if I will not open you the windows of heaven, and pour you out a blessing, that there shall not be room enough to receive it."},
+    {"reference": "Malachi 4:2", "text": "But unto you that fear my name shall the Sun of righteousness arise with healing in his wings."},
+    {"reference": "Malachi 4:5-6", "text": "Behold, I will send you Elijah the prophet before the coming of the great and dreadful day of the LORD: And he shall turn the heart of the fathers to the children, and the heart of the children to their fathers, lest I come and smite the earth with a curse."}
+  ],
+  "outline": [
+    {"section": "God's Love Affirmed", "chapters": "1:1-5", "description": "Jacob loved, Esau rejected"},
+    {"section": "Priests Rebuked", "chapters": "1:6-2:9", "description": "Defiled offerings, broken covenant of Levi"},
+    {"section": "People Rebuked", "chapters": "2:10-16", "description": "Faithless marriages, divorce condemned"},
+    {"section": "The Coming Judgment", "chapters": "2:17-3:5", "description": "Questions of justice, the messenger coming"},
+    {"section": "Call to Return", "chapters": "3:6-12", "description": "Robbing God in tithes, promise of blessing"},
+    {"section": "The Righteous and Wicked", "chapters": "3:13-4:6", "description": "Book of remembrance, sun of righteousness, Elijah coming"}
+  ],
+  "historical_context": "Malachi prophesied about a century after the temple's completion, during or after the time of Ezra and Nehemiah (around 450-400 BC). The initial enthusiasm had faded. Priests offered blemished animals; people married pagans and divorced covenant wives; tithes were withheld. The promised messianic age had not materialized, leading to cynicism. Malachi addresses this spiritual malaise.",
+  "literary_style": "Malachi uses a distinctive disputation format: God makes a statement, the people challenge it ('Wherein...?'), and God responds with explanation and accusation. This dialogue style engages readers directly. The book alternates between rebuke and promise. The final verses—Elijah coming, fathers' and children's hearts turning—set up the New Testament's opening act perfectly.",
+  "christ_in_book": "John the Baptist is explicitly identified as the 'Elijah' Malachi predicted (Matthew 11:14, 17:12). The messenger preparing the way (3:1) is John; the Lord suddenly coming to His temple is Christ. The 'Sun of righteousness with healing in his wings' is Jesus. The 'messenger of the covenant' points to Christ the mediator of a new covenant. Malachi's questions about justice are answered at the cross.",
+  "practical_application": "Malachi exposes the subtle decline from passionate devotion to cynical religion—giving God our leftovers rather than our best. It warns against rationalizing sin while expecting blessing. The book challenges us in practical areas: honoring God with our offerings, maintaining marriage covenants, speaking rightly about God's faithfulness. Yet it promises that those who fear the LORD are precious to Him—their names written in His book of remembrance. The Old Testament ends looking forward to someone coming."
+}

@@ -13,6 +13,29 @@ section h2 + p a {
     font-weight: bold;
 }
 
+.book-meta {
+    color: var(--text-secondary, #666);
+    font-size: 0.95rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+section blockquote {
+    margin: 1rem 0 1.5rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--border-color, #ddd);
+}
+
+section blockquote p {
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+section blockquote footer {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+}
+
 .book-actions {
     margin: 1.5rem 0 1.5rem;
 }
@@ -125,6 +148,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <h1>{{ book }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
+{% if book_intro %}
+<p class="book-meta">
+    {% if book_intro.author %}<strong>Author:</strong> {{ book_intro.author }}{% endif %}
+    {% if book_intro.date_written %} · <strong>Written:</strong> {{ book_intro.date_written }}{% endif %}
+    {% if book_intro.category %} · <strong>Category:</strong> {{ book_intro.category }}{% endif %}
+</p>
+{% endif %}
+
 {% if pdf_available %}
 <div class="book-actions">
     <a href="/book/{{ book }}/pdf" class="print-btn">
@@ -148,28 +179,56 @@ document.addEventListener('DOMContentLoaded', function() {
     </p>
 </section>
 
-{% if introduction %}
+{% if book_intro and book_intro.introduction %}
+<section>
+    <h2>Introduction</h2>
+    <p>{{ book_intro.introduction }}</p>
+</section>
+{% elif introduction %}
 <section>
     <h2>Introduction</h2>
     {{ introduction|safe }}
 </section>
 {% endif %}
 
-{% if historical_context %}
+{% if book_intro and book_intro.outline %}
 <section>
-    <h2>Historical Context</h2>
-    {{ historical_context|safe }}
+    <h2>Book Outline</h2>
+    <ul>
+        {% for item in book_intro.outline %}
+        <li><strong>{{ item.section }}</strong> ({{ item.chapters }}) — {{ item.description }}</li>
+        {% endfor %}
+    </ul>
 </section>
 {% endif %}
 
-{% if themes %}
+{% if book_intro and book_intro.key_themes %}
+<section>
+    <h2>Key Themes</h2>
+    <ul>
+        {% for theme in book_intro.key_themes %}
+        <li>{{ theme }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% elif themes %}
 <section>
     <h2>Major Themes</h2>
     {{ themes|safe }}
 </section>
 {% endif %}
 
-{% if key_passages %}
+{% if book_intro and book_intro.key_verses %}
+<section>
+    <h2>Key Verses</h2>
+    {% for verse in book_intro.key_verses %}
+    <blockquote>
+        <p>{{ verse.text }}</p>
+        <footer>— {{ verse.reference }}</footer>
+    </blockquote>
+    {% endfor %}
+</section>
+{% elif key_passages %}
 <section>
     <h2>Key Passages</h2>
     <ul>
@@ -177,6 +236,39 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="{{ passage.url }}">{{ passage.reference }}</a> — {{ passage.description }}</li>
         {% endfor %}
     </ul>
+</section>
+{% endif %}
+
+{% if book_intro and book_intro.historical_context %}
+<section>
+    <h2>Historical Context</h2>
+    <p>{{ book_intro.historical_context }}</p>
+</section>
+{% elif historical_context %}
+<section>
+    <h2>Historical Context</h2>
+    {{ historical_context|safe }}
+</section>
+{% endif %}
+
+{% if book_intro and book_intro.literary_style %}
+<section>
+    <h2>Literary Style</h2>
+    <p>{{ book_intro.literary_style }}</p>
+</section>
+{% endif %}
+
+{% if book_intro and book_intro.christ_in_book %}
+<section>
+    <h2>Christ in {{ book }}</h2>
+    <p>{{ book_intro.christ_in_book }}</p>
+</section>
+{% endif %}
+
+{% if book_intro and book_intro.practical_application %}
+<section>
+    <h2>Practical Application</h2>
+    <p>{{ book_intro.practical_application }}</p>
 </section>
 {% endif %}
 

@@ -23,6 +23,7 @@ from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
 from .topics import get_all_topics, get_topic, search_topics
 from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data
+from .books import get_book_data, has_book_data
 
 # Import from modular packages
 from .routes import (
@@ -2144,6 +2145,9 @@ def read_book(request: Request, book: str):
         chapter_popularity[chapter] = get_chapter_popularity_score(book, chapter)
         chapter_explanations[chapter] = get_chapter_popularity_explanation(book, chapter)
 
+    # Get book introduction data if available
+    book_intro = get_book_data(book) if has_book_data(book) else None
+
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -2163,6 +2167,7 @@ def read_book(request: Request, book: str):
             "breadcrumbs": breadcrumbs,
             "current_book": book,
             "pdf_available": WEASYPRINT_AVAILABLE,
+            "book_intro": book_intro,
             **commentary_data
         },
     )

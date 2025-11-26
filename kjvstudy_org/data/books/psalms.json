@@ -1,0 +1,38 @@
+{
+  "name": "Psalms",
+  "abbreviation": "Ps",
+  "testament": "Old Testament",
+  "position": 19,
+  "chapters": 150,
+  "category": "Wisdom/Poetry",
+  "author": "David (73), Asaph (12), Sons of Korah (11), Solomon (2), Moses (1), Ethan (1), Anonymous (50)",
+  "date_written": "c. 1410-450 BC (collected over 1000 years)",
+  "introduction": "Psalms is the hymnbook of ancient Israel and the prayer book of the church for millennia. These 150 poems express the full range of human emotion before God—praise and lament, thanksgiving and complaint, confidence and despair. The Psalms teach us how to pray, how to worship, and how to pour out our hearts honestly to God. Jesus quoted Psalms more than any other Old Testament book, and the early church sang these songs.",
+  "key_themes": [
+    "Praise and worship of God",
+    "Lament and trust in suffering",
+    "The righteous and the wicked",
+    "God's kingship and the Davidic king",
+    "Creation and providence",
+    "The Word of God"
+  ],
+  "key_verses": [
+    {"reference": "Psalm 1:1-2", "text": "Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful. But his delight is in the law of the LORD; and in his law doth he meditate day and night."},
+    {"reference": "Psalm 23:1", "text": "The LORD is my shepherd; I shall not want."},
+    {"reference": "Psalm 46:10", "text": "Be still, and know that I am God: I will be exalted among the heathen, I will be exalted in the earth."},
+    {"reference": "Psalm 51:10", "text": "Create in me a clean heart, O God; and renew a right spirit within me."},
+    {"reference": "Psalm 119:105", "text": "Thy word is a lamp unto my feet, and a light unto my path."},
+    {"reference": "Psalm 139:14", "text": "I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well."}
+  ],
+  "outline": [
+    {"section": "Book I", "chapters": "1-41", "description": "Primarily Davidic psalms, personal in nature"},
+    {"section": "Book II", "chapters": "42-72", "description": "Psalms of David and Korah, ending with Solomon"},
+    {"section": "Book III", "chapters": "73-89", "description": "Asaph's psalms and corporate concerns"},
+    {"section": "Book IV", "chapters": "90-106", "description": "Begins with Moses, emphasizes God's kingship"},
+    {"section": "Book V", "chapters": "107-150", "description": "Includes Songs of Ascent, concludes with praise"}
+  ],
+  "historical_context": "The Psalms were composed over roughly a millennium, from Moses (Psalm 90) through the post-exilic period. David established temple worship and commissioned Levitical musicians. The five-book division mirrors the Pentateuch. Many psalms include superscriptions indicating authorship, musical instructions, or historical setting. They were used in temple worship, pilgrimage festivals, royal ceremonies, and private devotion.",
+  "literary_style": "Hebrew poetry uses parallelism (synonymous, antithetical, synthetic) rather than rhyme. The Psalms include various genres: hymns of praise, individual and communal laments, thanksgiving psalms, royal psalms, wisdom psalms, and others. Acrostic patterns (like Psalm 119) demonstrate artistic craft. Vivid imagery, emotional intensity, and theological depth characterize the collection.",
+  "christ_in_book": "The New Testament quotes Psalms extensively concerning Christ: His eternal sonship (2:7), betrayal (41:9), crucifixion (22), resurrection (16:10), ascension (68:18), and eternal priesthood (110:4). Jesus quoted Psalm 22:1 from the cross and Psalm 31:5 at His death. The messianic psalms (2, 22, 45, 72, 89, 110, 132) present Christ as David's Lord and Son, the suffering servant, and the eternal King.",
+  "practical_application": "The Psalms give us language for every season of life—words when we don't know how to pray. They model honest expression of emotion to God, including anger, confusion, and fear. They teach us to worship by rehearsing God's attributes and acts. They show that trust grows through lament, not around it. The Psalms shape our interior life and attune our hearts to God's heart. They invite us to join the chorus of all creation praising the LORD."
+}

@@ -1,0 +1,34 @@
+{
+  "name": "II Thessalonians",
+  "abbreviation": "2Thess",
+  "testament": "New Testament",
+  "position": 53,
+  "chapters": 3,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 51-52",
+  "introduction": "Second Thessalonians follows up on the first letter, addressing two problems. First, persecution had intensified, requiring further encouragement. Second, some believed the Day of the Lord had already come, leading to panic and disorderly conduct—some even quit working. Paul clarifies that certain events must precede Christ's return and commands believers to live responsibly while waiting. Eschatological hope should inspire diligence, not idleness.",
+  "key_themes": [
+    "Encouragement under persecution",
+    "Events preceding the Day of the Lord",
+    "The man of lawlessness",
+    "The need for diligent work",
+    "Standing firm in tradition",
+    "God's justice in judgment"
+  ],
+  "key_verses": [
+    {"reference": "2 Thessalonians 1:7-8", "text": "And to you who are troubled rest with us, when the Lord Jesus shall be revealed from heaven with his mighty angels, In flaming fire taking vengeance on them that know not God, and that obey not the gospel of our Lord Jesus Christ."},
+    {"reference": "2 Thessalonians 2:3-4", "text": "Let no man deceive you by any means: for that day shall not come, except there come a falling away first, and that man of sin be revealed, the son of perdition; Who opposeth and exalteth himself above all that is called God, or that is worshipped; so that he as God sitteth in the temple of God, shewing himself that he is God."},
+    {"reference": "2 Thessalonians 2:15", "text": "Therefore, brethren, stand fast, and hold the traditions which ye have been taught, whether by word, or our epistle."},
+    {"reference": "2 Thessalonians 3:10", "text": "For even when we were with you, this we commanded you, that if any would not work, neither should he eat."}
+  ],
+  "outline": [
+    {"section": "Thanksgiving and Encouragement", "chapters": "1", "description": "Perseverance praised, judgment promised"},
+    {"section": "The Day of the Lord Clarified", "chapters": "2", "description": "Events preceding, man of lawlessness, stand firm"},
+    {"section": "Exhortation to Orderly Living", "chapters": "3", "description": "Prayer request, work command, conclusion"}
+  ],
+  "historical_context": "Written shortly after First Thessalonians, this letter addresses ongoing and new problems. The persecution had not abated. More troubling, some claim (possibly through a forged letter, 2:2) that the Day of the Lord had arrived. This caused alarm and apparently led some to stop working. Paul corrects the eschatological confusion and commands disciplined, productive living while awaiting Christ's return.",
+  "literary_style": "Second Thessalonians is more formal than the first letter. The apocalyptic section (2:1-12) introduces mysterious figures—the man of lawlessness, the restrainer—that have puzzled interpreters. Paul's tone becomes firm when addressing the idle: 'If any would not work, neither should he eat.' The letter concludes with Paul's authenticating signature, suggesting concern about forgeries.",
+  "christ_in_book": "Jesus will be revealed from heaven with mighty angels in flaming fire, bringing justice—relief for the persecuted, punishment for persecutors. He will destroy the lawless one with the breath of His mouth. The Lord is faithful to establish and guard believers. Believers wait for Him while standing firm in what they have been taught. His grace and eternal comfort strengthen hearts for good work.",
+  "practical_application": "Second Thessalonians balances eschatological expectation with present responsibility. Christ's return is certain but not imminent in the sense of 'any moment without preceding signs.' Believers should not be deceived or shaken. Standing firm means holding to apostolic teaching. Idleness is unacceptable—work is dignified and commanded. Church discipline may be necessary for the persistently disorderly. We work faithfully while waiting eagerly."
+}

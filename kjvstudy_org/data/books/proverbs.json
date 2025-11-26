@@ -1,0 +1,39 @@
+{
+  "name": "Proverbs",
+  "abbreviation": "Prov",
+  "testament": "Old Testament",
+  "position": 20,
+  "chapters": 31,
+  "category": "Wisdom/Poetry",
+  "author": "Solomon (primarily), Agur, Lemuel",
+  "date_written": "c. 970-700 BC",
+  "introduction": "Proverbs is practical wisdom for daily living. The book teaches that true wisdom begins with fearing the LORD and expresses itself in skillful, righteous living. While Job and Ecclesiastes wrestle with wisdom's limits, Proverbs confidently asserts that wise choices generally lead to blessing and foolish ones to ruin. These memorable sayings cover relationships, work, speech, wealth, and character—timeless guidance for navigating life successfully.",
+  "key_themes": [
+    "The fear of the LORD as wisdom's foundation",
+    "Wisdom personified and calling",
+    "The contrast between wisdom and folly",
+    "Practical guidance for daily decisions",
+    "Speech—its power and proper use",
+    "Diligence, integrity, and discipline"
+  ],
+  "key_verses": [
+    {"reference": "Proverbs 1:7", "text": "The fear of the LORD is the beginning of knowledge: but fools despise wisdom and instruction."},
+    {"reference": "Proverbs 3:5-6", "text": "Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths."},
+    {"reference": "Proverbs 4:23", "text": "Keep thy heart with all diligence; for out of it are the issues of life."},
+    {"reference": "Proverbs 9:10", "text": "The fear of the LORD is the beginning of wisdom: and the knowledge of the holy is understanding."},
+    {"reference": "Proverbs 22:6", "text": "Train up a child in the way he should go: and when he is old, he will not depart from it."},
+    {"reference": "Proverbs 31:30", "text": "Favour is deceitful, and beauty is vain: but a woman that feareth the LORD, she shall be praised."}
+  ],
+  "outline": [
+    {"section": "Preamble: Purpose", "chapters": "1:1-7", "description": "Introduction and foundation"},
+    {"section": "Wisdom's Call", "chapters": "1-9", "description": "Father to son instructions, Wisdom personified"},
+    {"section": "Solomon's Proverbs I", "chapters": "10-22:16", "description": "Contrasts between righteous and wicked"},
+    {"section": "Words of the Wise", "chapters": "22:17-24:34", "description": "Additional wisdom sayings"},
+    {"section": "Solomon's Proverbs II", "chapters": "25-29", "description": "Compiled by Hezekiah's men"},
+    {"section": "Agur and Lemuel", "chapters": "30-31", "description": "Numerical sayings, the excellent wife"}
+  ],
+  "historical_context": "Solomon spoke 3,000 proverbs (1 Kings 4:32), and this book contains a selection. Wisdom literature was common in the ancient Near East; Israel's distinctive contribution was grounding wisdom in covenant relationship with the LORD. Hezekiah's scholars compiled additional material (25:1). The book addresses universal human experience while assuming Israel's covenant context.",
+  "literary_style": "Proverbs primarily uses the Hebrew mashal—a pithy, memorable saying using parallelism. Chapters 1-9 contain longer wisdom poems personifying Wisdom and Folly as women calling out to the simple. The sentence proverbs (10-29) typically use antithetical parallelism, contrasting the wise/righteous with the foolish/wicked. Numerical sayings and acrostic patterns add variety. The language is concrete and vivid.",
+  "christ_in_book": "Christ is 'the wisdom of God' (1 Corinthians 1:24). The personified Wisdom of chapters 1-9 finds fulfillment in Christ, who was 'with God' before creation (8:22-31; cf. John 1:1-3). Christ embodies perfect wisdom and offers it to all who ask (James 1:5). The call of Wisdom mirrors Christ's invitation to come and find life. In Christ 'are hid all the treasures of wisdom and knowledge' (Colossians 2:3).",
+  "practical_application": "Proverbs offers guidance for every area of life: choosing friends, using money, controlling the tongue, working diligently, raising children, and building character. It teaches that small, daily choices shape our destiny. The book warns against the seductions of folly—the shortcuts that lead to ruin. It encourages us to seek wisdom actively, to welcome correction, and to fear the LORD in all we do. Wisdom is more valuable than silver and gold."
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Nehemiah",
+  "abbreviation": "Neh",
+  "testament": "Old Testament",
+  "position": 16,
+  "chapters": 13,
+  "category": "History",
+  "author": "Nehemiah (with additions)",
+  "date_written": "c. 430-400 BC",
+  "introduction": "Nehemiah records the rebuilding of Jerusalem's walls and the social and spiritual reforms that followed. Nehemiah, cupbearer to the Persian king, received permission to return and lead the construction project. Despite intense opposition, the walls were completed in just 52 days. The book then describes the spiritual renewal that followed, with Ezra reading the law and the people recommitting to the covenant.",
+  "key_themes": [
+    "Burden for God's people and city",
+    "Prayer as the foundation of action",
+    "Leadership amid opposition",
+    "Community cooperation and sacrifice",
+    "Covenant renewal and reformation",
+    "The integration of work and worship"
+  ],
+  "key_verses": [
+    {"reference": "Nehemiah 1:4", "text": "And it came to pass, when I heard these words, that I sat down and wept, and mourned certain days, and fasted, and prayed before the God of heaven."},
+    {"reference": "Nehemiah 2:20", "text": "Then answered I them, and said unto them, The God of heaven, he will prosper us; therefore we his servants will arise and build."},
+    {"reference": "Nehemiah 4:14", "text": "Be not ye afraid of them: remember the LORD, which is great and terrible, and fight for your brethren, your sons, and your daughters, your wives, and your houses."},
+    {"reference": "Nehemiah 8:10", "text": "Then he said unto them, Go your way, eat the fat, and drink the sweet, and send portions unto them for whom nothing is prepared: for this day is holy unto our Lord: neither be ye sorry; for the joy of the LORD is your strength."}
+  ],
+  "outline": [
+    {"section": "Nehemiah's Burden and Journey", "chapters": "1-2", "description": "News from Jerusalem, prayer, royal permission, inspection"},
+    {"section": "Rebuilding the Walls", "chapters": "3-7", "description": "Workers listed, opposition faced, creative solutions, completion"},
+    {"section": "Spiritual Renewal", "chapters": "8-10", "description": "Law read, confession, covenant renewed"},
+    {"section": "Population and Dedication", "chapters": "11-12", "description": "Jerusalem resettled, walls dedicated with celebration"},
+    {"section": "Final Reforms", "chapters": "13", "description": "Nehemiah's second term and corrective measures"}
+  ],
+  "historical_context": "Nehemiah arrived in Jerusalem in 445 BC, about thirteen years after Ezra. The Persian Empire was stable under Artaxerxes I. Jerusalem's walls had remained broken since Nebuchadnezzar's destruction 141 years earlier, leaving the community vulnerable and demoralized. Samaritan and regional leaders opposed the rebuilding, seeing it as a threat to their influence. Nehemiah's position as royal cupbearer gave him unusual access and credibility.",
+  "literary_style": "Much of Nehemiah is first-person memoir, giving intimate access to his prayers, strategies, and frustrations. The famous 'arrow prayers' (quick petitions amid activity) reveal a life of constant communion with God. The book includes lists, prayers, and narrative. The contrast between Nehemiah's vigorous action and his deep spirituality is striking. His final repeated refrain, 'Remember me, O my God,' provides a personal note.",
+  "christ_in_book": "Nehemiah as the king's cupbearer who becomes his people's deliverer pictures Christ who left heaven's glory to save His people. The rebuilt walls that protect God's people foreshadow Christ building His church. The covenant renewal points to the new covenant in Christ's blood. The integration of spiritual and physical restoration anticipates the gospel's comprehensive salvation.",
+  "practical_application": "Nehemiah models leadership that combines prayer and action, vision and practical organization, personal sacrifice and community mobilization. It teaches that opposition should be expected but need not defeat God's work. The book shows how to handle criticism, conspiracy, and compromise without losing focus. The joy of the LORD as strength (8:10) encourages believers facing difficult circumstances. Nehemiah's reforms remind us that spiritual gains require ongoing vigilance."
+}

@@ -1,0 +1,35 @@
+{
+  "name": "II Kings",
+  "abbreviation": "2Kgs",
+  "testament": "Old Testament",
+  "position": 12,
+  "chapters": 25,
+  "category": "History",
+  "author": "Unknown (possibly Jeremiah or a prophetic school)",
+  "date_written": "c. 560-540 BC",
+  "introduction": "Second Kings continues the parallel history of Israel and Judah to their tragic ends. The northern kingdom falls to Assyria in 722 BC, while Judah survives another 136 years before Babylon destroys Jerusalem and the temple in 586 BC. Despite moments of revival under kings like Hezekiah and Josiah, the overall trajectory is downward. The book explains that exile came as God's judgment for persistent covenant violation.",
+  "key_themes": [
+    "The prophetic ministry of Elisha",
+    "The inevitable judgment for covenant unfaithfulness",
+    "The fall of Israel and Judah",
+    "Momentary revivals and continuing decline",
+    "God's patience and ultimate justice",
+    "The end of the Davidic kingdom in Jerusalem"
+  ],
+  "key_verses": [
+    {"reference": "2 Kings 2:9", "text": "And it came to pass, when they were gone over, that Elijah said unto Elisha, Ask what I shall do for thee, before I be taken away from thee. And Elisha said, I pray thee, let a double portion of thy spirit be upon me."},
+    {"reference": "2 Kings 17:7", "text": "For so it was, that the children of Israel had sinned against the LORD their God, which had brought them up out of the land of Egypt."},
+    {"reference": "2 Kings 22:13", "text": "Go ye, inquire of the LORD for me, and for the people, and for all Judah, concerning the words of this book that is found: for great is the wrath of the LORD that is kindled against us, because our fathers have not hearkened unto the words of this book."},
+    {"reference": "2 Kings 25:21", "text": "And the king of Babylon smote them, and slew them at Riblah in the land of Hamath. So Judah was carried away out of their land."}
+  ],
+  "outline": [
+    {"section": "Elisha's Ministry", "chapters": "1-8", "description": "Elijah's departure, Elisha's miracles, Naaman's healing"},
+    {"section": "Israel's Final Years", "chapters": "9-17", "description": "Jehu's purge, declining kings, Assyrian conquest"},
+    {"section": "Judah Alone", "chapters": "18-21", "description": "Hezekiah's faithfulness and crisis, Manasseh's evil"},
+    {"section": "Josiah's Revival and Judah's End", "chapters": "22-25", "description": "Book found, reforms, Babylon's conquest, exile"}
+  ],
+  "historical_context": "Second Kings covers about 280 years (850-570 BC), from Elisha's ministry through the Babylonian exile. The major imperial powers—Assyria and Babylon—dominated the ancient Near East. Assyria deported Israel's population (722 BC), ending the northern kingdom. Babylon later destroyed Jerusalem (586 BC), deporting Judah's population. The book was completed in exile, possibly by Jeremiah, explaining the catastrophe theologically.",
+  "literary_style": "Like First Kings, the book evaluates monarchs theologically. The Elisha narratives are rich with miracle stories demonstrating God's power and compassion. Chapter 17 provides theological commentary on Israel's fall. The Hezekiah and Josiah sections are more expansive, highlighting these faithful kings. The book ends abruptly with Jerusalem's destruction and a note of hope—Jehoiachin released from prison—suggesting future restoration.",
+  "christ_in_book": "Elisha's miracles anticipate Christ's ministry: multiplying food, healing the sick, raising the dead, cleansing lepers. Naaman's cleansing points to salvation by grace through faith, available to Gentiles. The faithful remnant who survive judgment foreshadow those who receive Christ. The exile itself becomes a type of humanity's separation from God, awaiting the greater restoration Christ brings.",
+  "practical_application": "Second Kings solemnly warns that God's patience has limits and that persistent rebellion brings judgment. It shows that revival, however genuine, cannot undo generations of accumulated sin. The book challenges us to respond to God's Word when we encounter it, as Josiah did. It reminds us that nations rise and fall according to God's purposes and that faithfulness matters even when it cannot prevent disaster. The exile points to hope beyond judgment."
+}

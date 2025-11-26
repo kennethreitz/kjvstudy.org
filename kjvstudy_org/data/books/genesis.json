@@ -1,0 +1,38 @@
+{
+  "name": "Genesis",
+  "abbreviation": "Gen",
+  "testament": "Old Testament",
+  "position": 1,
+  "chapters": 50,
+  "category": "Law (Torah/Pentateuch)",
+  "author": "Moses",
+  "date_written": "c. 1446-1406 BC",
+  "introduction": "Genesis, meaning 'beginning' or 'origin,' is the foundational book of the Bible. It answers life's most fundamental questions: Where did we come from? Why are we here? What went wrong with the world? Genesis establishes God as the sovereign Creator of all things and introduces His plan to redeem humanity through a chosen people. The book spans more time than all other biblical books combined, covering creation to the death of Joseph—a period of at least 2,300 years.",
+  "key_themes": [
+    "Creation and the sovereignty of God",
+    "The fall of humanity and the origin of sin",
+    "God's covenant promises",
+    "The beginnings of the chosen people (Israel)",
+    "Divine providence and human responsibility",
+    "Family dynamics and God's redemptive work through flawed people"
+  ],
+  "key_verses": [
+    {"reference": "Genesis 1:1", "text": "In the beginning God created the heaven and the earth."},
+    {"reference": "Genesis 1:27", "text": "So God created man in his own image, in the image of God created he him; male and female created he them."},
+    {"reference": "Genesis 3:15", "text": "And I will put enmity between thee and the woman, and between thy seed and her seed; it shall bruise thy head, and thou shalt bruise his heel."},
+    {"reference": "Genesis 12:2-3", "text": "And I will make of thee a great nation, and I will bless thee, and make thy name great; and thou shalt be a blessing: And I will bless them that bless thee, and curse him that curseth thee: and in thee shall all families of the earth be blessed."},
+    {"reference": "Genesis 15:6", "text": "And he believed in the LORD; and he counted it to him for righteousness."},
+    {"reference": "Genesis 50:20", "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."}
+  ],
+  "outline": [
+    {"section": "Primeval History", "chapters": "1-11", "description": "Creation, Fall, Flood, and the Tower of Babel—the origin of the world and nations"},
+    {"section": "Abraham's Story", "chapters": "12-25", "description": "God's covenant with Abraham, the father of faith"},
+    {"section": "Isaac's Story", "chapters": "25-27", "description": "The son of promise and the continuation of the covenant"},
+    {"section": "Jacob's Story", "chapters": "27-36", "description": "The supplanter becomes Israel, father of the twelve tribes"},
+    {"section": "Joseph's Story", "chapters": "37-50", "description": "Betrayal, slavery, and exaltation in Egypt—God's providence displayed"}
+  ],
+  "historical_context": "Genesis was written during Israel's wilderness wanderings after the Exodus from Egypt. Moses wrote to help the Israelites understand their identity as God's chosen people and the origins of the promises God had made to their ancestors. The book provides essential background for understanding God's covenant relationship with Israel and His plan for all humanity.",
+  "literary_style": "Genesis employs narrative prose with genealogies, poetry (such as the Song of Lamech and various blessings), and theological commentary. The book is structured around the Hebrew word 'toledot' (generations/account of), which appears eleven times and organizes the material into distinct sections.",
+  "christ_in_book": "Christ is foreshadowed throughout Genesis: in the 'seed of the woman' who will crush the serpent's head (3:15), in Abel's acceptable sacrifice, in the ark of Noah, in Melchizedek the priest-king, in Isaac as the beloved son offered on Mount Moriah, in Joseph the beloved son rejected by his brothers yet becoming their savior, and in the scarlet cord theme of redemption.",
+  "practical_application": "Genesis teaches us about our identity as image-bearers of God, the reality and consequences of sin, the faithfulness of God to His promises despite human failure, and the sovereignty of God working all things for good. It reminds us that God specializes in new beginnings and that His redemptive purposes cannot be thwarted."
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Ecclesiastes",
+  "abbreviation": "Eccl",
+  "testament": "Old Testament",
+  "position": 21,
+  "chapters": 12,
+  "category": "Wisdom/Poetry",
+  "author": "Solomon (the Preacher/Qoheleth)",
+  "date_written": "c. 935 BC",
+  "introduction": "Ecclesiastes confronts life's apparent meaninglessness with unflinching honesty. The 'Preacher' explores wisdom, pleasure, work, wealth, and achievement—and declares them all 'vanity' (hebel—vapor, breath, fleeting). Yet this is not nihilism but a sober assessment that leads to wisdom: Fear God, enjoy His simple gifts, and remember your Creator. The book strips away illusions so that true meaning can be found in God alone.",
+  "key_themes": [
+    "The vanity (futility) of life 'under the sun'",
+    "The limits of human wisdom and achievement",
+    "The gift of simple pleasures from God",
+    "Death as the great equalizer",
+    "Time and chance in human affairs",
+    "The fear of God as life's conclusion"
+  ],
+  "key_verses": [
+    {"reference": "Ecclesiastes 1:2", "text": "Vanity of vanities, saith the Preacher, vanity of vanities; all is vanity."},
+    {"reference": "Ecclesiastes 3:1", "text": "To every thing there is a season, and a time to every purpose under the heaven."},
+    {"reference": "Ecclesiastes 3:11", "text": "He hath made every thing beautiful in his time: also he hath set the world in their heart, so that no man can find out the work that God maketh from the beginning to the end."},
+    {"reference": "Ecclesiastes 12:1", "text": "Remember now thy Creator in the days of thy youth, while the evil days come not, nor the years draw nigh, when thou shalt say, I have no pleasure in them."},
+    {"reference": "Ecclesiastes 12:13-14", "text": "Let us hear the conclusion of the whole matter: Fear God, and keep his commandments: for this is the whole duty of man. For God shall bring every work into judgment, with every secret thing, whether it be good, or whether it be evil."}
+  ],
+  "outline": [
+    {"section": "Theme: All is Vanity", "chapters": "1:1-11", "description": "Introduction and the cycles of nature"},
+    {"section": "The Quest for Meaning", "chapters": "1:12-2:26", "description": "Testing wisdom, pleasure, and work"},
+    {"section": "Time and Injustice", "chapters": "3-4", "description": "Seasons, death, oppression, rivalry"},
+    {"section": "Wisdom for Living", "chapters": "5-8", "description": "Worship, wealth, wisdom's limits, authorities"},
+    {"section": "Life's Uncertainties", "chapters": "9-11", "description": "Death, chance, practical wisdom"},
+    {"section": "Conclusion", "chapters": "12", "description": "Remember your Creator; fear God"}
+  ],
+  "historical_context": "Solomon's unparalleled wisdom, wealth, and experience uniquely positioned him to evaluate all that life 'under the sun' could offer. His conclusion after exhaustive searching was that nothing earthly provides lasting satisfaction. The book was likely written in his later years, perhaps reflecting on the emptiness his compromises had produced. It was read at the Feast of Tabernacles, reminding Israel of life's transience.",
+  "literary_style": "Ecclesiastes uses the Hebrew term hebel (vapor/breath/vanity) 38 times to describe life's fleeting nature. The phrase 'under the sun' (29 times) denotes the earthly, horizontal perspective apart from God's eternal purposes. The book mixes poetry and prose, proverbs and personal reflection. Its dialectical style presents apparent contradictions that drive readers toward the concluding resolution.",
+  "christ_in_book": "Ecclesiastes reveals humanity's need for something beyond what this world offers—a need Christ fulfills. The Teacher's search for meaning ends in frustration; Christ offers abundant life (John 10:10). The book's emphasis on death as the end of earthly striving points to Christ's victory over death. Where Ecclesiastes offers 'fear God,' Christ offers relationship with the Father. The 'eternity in their hearts' that Ecclesiastes mentions is satisfied in Christ.",
+  "practical_application": "Ecclesiastes liberates us from the tyranny of achievement and acquisition by exposing their ultimate emptiness. It frees us to enjoy simple pleasures—food, drink, work, relationships—as God's gifts without making them ultimate. The book warns against workaholism, materialism, and the illusion that 'more' will satisfy. It calls us to remember our Creator while young and to fear God all our days. Its brutal honesty about life's frustrations validates our experiences while pointing us to transcendent hope."
+}

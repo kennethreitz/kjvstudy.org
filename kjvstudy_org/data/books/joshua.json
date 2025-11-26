@@ -1,0 +1,35 @@
+{
+  "name": "Joshua",
+  "abbreviation": "Josh",
+  "testament": "Old Testament",
+  "position": 6,
+  "chapters": 24,
+  "category": "History",
+  "author": "Joshua (with possible later additions)",
+  "date_written": "c. 1400-1350 BC",
+  "introduction": "Joshua records the fulfillment of God's promise to Abraham—Israel's conquest and settlement of Canaan. After forty years of wilderness wandering, a new generation under new leadership crosses the Jordan and takes possession of the land. The book demonstrates that God is faithful to His promises and fights for His people when they trust and obey Him. Joshua's name, meaning 'The LORD saves,' is the Hebrew form of Jesus.",
+  "key_themes": [
+    "Fulfillment of God's covenant promises",
+    "Faith, courage, and obedience in conquest",
+    "Holy war and God fighting for Israel",
+    "The importance of following God's instructions exactly",
+    "The danger of compromise with evil",
+    "Rest and inheritance in the Promised Land"
+  ],
+  "key_verses": [
+    {"reference": "Joshua 1:8-9", "text": "This book of the law shall not depart out of thy mouth; but thou shalt meditate therein day and night, that thou mayest observe to do according to all that is written therein: for then thou shalt make thy way prosperous, and then thou shalt have good success. Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest."},
+    {"reference": "Joshua 21:45", "text": "There failed not ought of any good thing which the LORD had spoken unto the house of Israel; all came to pass."},
+    {"reference": "Joshua 24:15", "text": "And if it seem evil unto you to serve the LORD, choose you this day whom ye will serve... but as for me and my house, we will serve the LORD."},
+    {"reference": "Joshua 23:14", "text": "Behold, this day I am going the way of all the earth: and ye know in all your hearts and in all your souls, that not one thing hath failed of all the good things which the LORD your God spake concerning you; all are come to pass unto you, and not one thing hath failed thereof."}
+  ],
+  "outline": [
+    {"section": "Entering the Land", "chapters": "1-5", "description": "Preparation, Rahab and the spies, crossing Jordan, Gilgal ceremonies"},
+    {"section": "Conquering the Land", "chapters": "6-12", "description": "Jericho, Ai, southern and northern campaigns, list of defeated kings"},
+    {"section": "Dividing the Land", "chapters": "13-21", "description": "Tribal allotments, Caleb's inheritance, Levitical cities, cities of refuge"},
+    {"section": "Serving the LORD", "chapters": "22-24", "description": "Eastern tribes' altar, Joshua's farewell, covenant renewal at Shechem"}
+  ],
+  "historical_context": "The conquest of Canaan occurred approximately 1400 BC during the Late Bronze Age. The Canaanite city-states were politically fragmented, having no unified resistance to offer. Archaeological evidence shows significant destruction at various sites during this period. The book must be understood in light of God's judgment on Canaanite wickedness (see Genesis 15:16) and His determination to establish a holy people in a holy land.",
+  "literary_style": "Joshua combines dramatic battle narratives with detailed geographical lists. The book is structured around three major themes: entrance, conquest, and division. Key episodes (Jericho, Achan, Gibeon) are told with vivid detail, while campaigns are summarized efficiently. Joshua's speeches frame the book, echoing Moses' charges in Deuteronomy. The geographical catalogs, while seemingly tedious, affirm the reality of possession.",
+  "christ_in_book": "Joshua himself is a type of Christ—his very name anticipates Jesus, and his role as the one who leads God's people into their inheritance foreshadows Christ leading believers into salvation's fullness. The scarlet cord of Rahab pictures redemption through blood. The Captain of the LORD's host (5:13-15) is a Christophany. The cities of refuge point to Christ as our refuge from judgment. The rest Joshua provided foreshadows the rest Christ gives (Hebrews 4).",
+  "practical_application": "Joshua teaches that God's promises require our active participation—faith without works is dead. It shows the importance of meditating on Scripture for success in spiritual warfare. The book warns against partial obedience (Achan) and hasty decisions without seeking God (Gibeon). It calls each generation to renew their commitment to the LORD. The allocation of inheritance reminds us that God has specific purposes for each of His people."
+}

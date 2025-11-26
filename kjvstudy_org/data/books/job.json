@@ -1,0 +1,37 @@
+{
+  "name": "Job",
+  "abbreviation": "Job",
+  "testament": "Old Testament",
+  "position": 18,
+  "chapters": 42,
+  "category": "Wisdom/Poetry",
+  "author": "Unknown",
+  "date_written": "Unknown (possibly very ancient)",
+  "introduction": "Job tackles the most profound human question: Why do the righteous suffer? A blameless man loses everything—children, wealth, health—yet refuses to curse God. His friends argue that suffering must indicate hidden sin, but Job maintains his innocence. When God finally speaks, He does not explain Job's suffering but reveals His overwhelming majesty and wisdom. Job's response is humble trust, and God vindicates him while rebuking his friends.",
+  "key_themes": [
+    "The problem of innocent suffering",
+    "The inadequacy of simple answers",
+    "Satan's accusations and God's sovereignty",
+    "The limits of human wisdom",
+    "God's majesty and man's humility",
+    "Faith that trusts without understanding"
+  ],
+  "key_verses": [
+    {"reference": "Job 1:21", "text": "Naked came I out of my mother's womb, and naked shall I return thither: the LORD gave, and the LORD hath taken away; blessed be the name of the LORD."},
+    {"reference": "Job 13:15", "text": "Though he slay me, yet will I trust in him: but I will maintain mine own ways before him."},
+    {"reference": "Job 19:25-26", "text": "For I know that my redeemer liveth, and that he shall stand at the latter day upon the earth: And though after my skin worms destroy this body, yet in my flesh shall I see God."},
+    {"reference": "Job 38:4", "text": "Where wast thou when I laid the foundations of the earth? declare, if thou hast understanding."},
+    {"reference": "Job 42:5-6", "text": "I have heard of thee by the hearing of the ear: but now mine eye seeth thee. Wherefore I abhor myself, and repent in dust and ashes."}
+  ],
+  "outline": [
+    {"section": "Prologue: The Test", "chapters": "1-2", "description": "Job's prosperity, Satan's challenge, Job's losses, his integrity"},
+    {"section": "Dialogue: The Debate", "chapters": "3-31", "description": "Three cycles with Eliphaz, Bildad, Zophar; Job's responses"},
+    {"section": "Elihu's Speeches", "chapters": "32-37", "description": "A younger voice offers different perspective"},
+    {"section": "God Speaks", "chapters": "38-41", "description": "The LORD's questions from the whirlwind"},
+    {"section": "Epilogue: The Restoration", "chapters": "42", "description": "Job's repentance, friends rebuked, blessings restored"}
+  ],
+  "historical_context": "Job's setting appears to be the patriarchal era—he offers sacrifices as family priest, his wealth is measured in livestock, and no reference is made to Israel's covenant history. The land of Uz was likely east of Israel. The book's wisdom tradition connects it with similar literature from the ancient Near East that grappled with theodicy (the justice of God amid suffering).",
+  "literary_style": "Job is primarily Hebrew poetry of the highest quality, framed by prose prologue and epilogue. The dialogues use parallelism, imagery, and rhetorical questions extensively. God's speeches in chapters 38-41 contain some of Scripture's most magnificent nature poetry. The irony of the book is profound—the reader knows what Job cannot (the heavenly council scene), creating dramatic tension throughout the dialogues.",
+  "christ_in_book": "Job's cry for a mediator (9:33) and his confidence in a living Redeemer (19:25) point to Christ. Job's undeserved suffering anticipates Christ's innocent suffering. The pattern of suffering followed by vindication and restoration parallels Christ's death and resurrection. Job's intercession for his friends (42:8-10) foreshadows Christ's intercession. The book prepares us for a suffering Messiah who does not explain evil but defeats it.",
+  "practical_application": "Job teaches that not all suffering is punishment and that platitudes can wound rather than heal. It warns against presuming to know God's reasons for allowing pain. The book invites us into a faith that trusts God's character when we cannot understand His ways. It shows that honest wrestling with God is not sin but that demanding answers can be presumptuous. Job models moving from secondhand knowledge to personal encounter with God."
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Ruth",
+  "abbreviation": "Ruth",
+  "testament": "Old Testament",
+  "position": 8,
+  "chapters": 4,
+  "category": "History",
+  "author": "Unknown (possibly Samuel)",
+  "date_written": "c. 1050-1000 BC",
+  "introduction": "Ruth is a beautiful love story set against the dark backdrop of the Judges period. This short book follows a Moabite widow who chooses to embrace Israel's God and finds redemption through a kinsman-redeemer named Boaz. Ruth's inclusion in the lineage of David and ultimately Jesus demonstrates God's grace extending to all peoples and His sovereignty in weaving ordinary faithfulness into extraordinary purposes.",
+  "key_themes": [
+    "Loyal love (hesed) in human relationships",
+    "God's providence in ordinary events",
+    "The kinsman-redeemer concept",
+    "Inclusion of Gentiles in God's plan",
+    "Redemption and restoration",
+    "Faithfulness in difficult circumstances"
+  ],
+  "key_verses": [
+    {"reference": "Ruth 1:16-17", "text": "And Ruth said, Intreat me not to leave thee, or to return from following after thee: for whither thou goest, I will go; and where thou lodgest, I will lodge: thy people shall be my people, and thy God my God: Where thou diest, will I die, and there will I be buried: the LORD do so to me, and more also, if ought but death part thee and me."},
+    {"reference": "Ruth 2:12", "text": "The LORD recompense thy work, and a full reward be given thee of the LORD God of Israel, under whose wings thou art come to trust."},
+    {"reference": "Ruth 4:14", "text": "And the women said unto Naomi, Blessed be the LORD, which hath not left thee this day without a kinsman, that his name may be famous in Israel."},
+    {"reference": "Ruth 3:9", "text": "And he said, Who art thou? And she answered, I am Ruth thine handmaid: spread therefore thy skirt over thine handmaid; for thou art a near kinsman."}
+  ],
+  "outline": [
+    {"section": "Tragedy in Moab", "chapters": "1", "description": "Naomi's losses and Ruth's commitment"},
+    {"section": "Providence in the Field", "chapters": "2", "description": "Ruth gleans in Boaz's field"},
+    {"section": "Proposal at the Threshing Floor", "chapters": "3", "description": "Ruth appeals to Boaz as kinsman-redeemer"},
+    {"section": "Redemption at the Gate", "chapters": "4", "description": "Boaz redeems Ruth, their marriage, and Obed's birth"}
+  ],
+  "historical_context": "The events occurred 'in the days when the judges ruled,' likely during a period of relative peace. Bethlehem faced famine, causing Elimelech's family to sojourn in Moab—Israel's traditional enemy. The story illustrates the levirate marriage custom and the role of the kinsman-redeemer (goel), who had the right and responsibility to redeem property and protect family members. Ruth became the great-grandmother of King David.",
+  "literary_style": "Ruth is a masterpiece of Hebrew narrative art—compact, symmetrical, and perfectly crafted. It moves from emptiness to fullness, from death to life, from despair to hope. Key words (return, rest, wings, redeem) weave through the text. Dialogue dominates, revealing character with economy. The story's placement in the Hebrew Bible varies—either with the historical books or among the Writings (Megilloth), read at the Feast of Weeks.",
+  "christ_in_book": "Boaz is one of Scripture's clearest types of Christ as the kinsman-redeemer. He had the right to redeem (he was a relative), the resources to redeem (he was wealthy), and the resolve to redeem (he chose to marry Ruth). Christ likewise became our kinsman through incarnation, paid our redemption price with His blood, and claims His bride the Church. Ruth the Gentile finding grace foreshadows Gentile inclusion in salvation.",
+  "practical_application": "Ruth teaches that faithfulness in small, ordinary duties can have extraordinary consequences. It shows that God includes outsiders in His family through faith. The book demonstrates how godly character (Ruth's loyalty, Boaz's integrity) attracts blessing. It encourages trust in God's providence during bitter times—what begins with 'don't call me Naomi' (pleasant) ends with a grandmother's joy. Ruth's choice to abandon her old gods and embrace the LORD models true conversion."
+}

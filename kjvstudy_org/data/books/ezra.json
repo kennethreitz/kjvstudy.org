@@ -1,0 +1,33 @@
+{
+  "name": "Ezra",
+  "abbreviation": "Ezra",
+  "testament": "Old Testament",
+  "position": 15,
+  "chapters": 10,
+  "category": "History",
+  "author": "Ezra",
+  "date_written": "c. 450-400 BC",
+  "introduction": "Ezra records the return of Jewish exiles from Babylon and the rebuilding of the temple. After seventy years of captivity, God stirred Cyrus to release the Jews, fulfilling Jeremiah's prophecy. The book divides into two returns: Zerubbabel's group rebuilt the temple (536-516 BC), and Ezra's group restored the law and spiritual life (458 BC). It demonstrates God's faithfulness to His promises and the importance of God's Word in community renewal.",
+  "key_themes": [
+    "Fulfillment of prophetic promises",
+    "God's sovereignty over pagan rulers",
+    "Rebuilding the temple",
+    "The centrality of Scripture",
+    "Spiritual reformation and purity",
+    "Separation from pagan influences"
+  ],
+  "key_verses": [
+    {"reference": "Ezra 1:1", "text": "Now in the first year of Cyrus king of Persia, that the word of the LORD by the mouth of Jeremiah might be fulfilled, the LORD stirred up the spirit of Cyrus king of Persia."},
+    {"reference": "Ezra 7:10", "text": "For Ezra had prepared his heart to seek the law of the LORD, and to do it, and to teach in Israel statutes and judgments."},
+    {"reference": "Ezra 6:22", "text": "And kept the feast of unleavened bread seven days with joy: for the LORD had made them joyful, and turned the heart of the king of Assyria unto them, to strengthen their hands in the work of the house of God, the God of Israel."},
+    {"reference": "Ezra 9:6", "text": "And said, O my God, I am ashamed and blush to lift up my face to thee, my God: for our iniquities are increased over our head, and our trespass is grown up unto the heavens."}
+  ],
+  "outline": [
+    {"section": "First Return: Temple Rebuilt", "chapters": "1-6", "description": "Cyrus's decree, returnees listed, altar and temple foundation, opposition, completion"},
+    {"section": "Second Return: People Restored", "chapters": "7-10", "description": "Ezra's journey, his commission, the mixed marriage crisis"}
+  ],
+  "historical_context": "Ezra spans about 80 years (538-458 BC) during the Persian Empire's dominance. Cyrus's policy of allowing exiled peoples to return home served Persian interests by creating loyal subjects. The Jews faced opposition from local populations who had settled during their absence. The temple completion (516 BC) and Ezra's reforms (458 BC) were crucial for reestablishing Jewish identity and practice.",
+  "literary_style": "Ezra includes Persian imperial documents in Aramaic (the international language) alongside Hebrew narrative. The book alternates between third-person narration and Ezra's first-person account. Official lists, letters, and genealogies provide historical documentation. Ezra's prayer of confession (chapter 9) is a model of intercessory prayer that takes corporate sin seriously.",
+  "christ_in_book": "The return from exile pictures spiritual redemption and the new exodus Christ accomplishes. The rebuilt temple points to Christ as God's dwelling with humanity. Ezra as priest and scribe who taught God's Word foreshadows Christ's prophetic ministry. The separation from foreign influences anticipates the church's call to holiness. God's faithfulness to restore His people despite their failures reflects the gospel's promise.",
+  "practical_application": "Ezra teaches that God fulfills His promises in His time and uses unlikely instruments (pagan kings) to accomplish His purposes. It shows the vital connection between God's Word and spiritual renewal—Ezra's personal devotion to Scripture enabled his public ministry. The book addresses the difficulty of maintaining distinctiveness in a hostile environment. Ezra's model of study, practice, and teaching provides a pattern for spiritual leadership."
+}

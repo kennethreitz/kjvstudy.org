@@ -1,0 +1,39 @@
+{
+  "name": "Revelation",
+  "abbreviation": "Rev",
+  "testament": "New Testament",
+  "position": 66,
+  "chapters": 22,
+  "category": "Prophecy/Apocalyptic",
+  "author": "John the Apostle",
+  "date_written": "c. AD 95",
+  "introduction": "Revelation is the Bible's dramatic conclusion—the unveiling of Jesus Christ in glory and the consummation of God's redemptive plan. Written to seven churches in Asia Minor facing persecution, it assures them that Christ reigns, evil will be defeated, and God's people will triumph. Through vivid symbolism, John portrays the conflict between good and evil, culminating in Christ's return, final judgment, and the new heavens and new earth where God dwells with His people forever.",
+  "key_themes": [
+    "The sovereignty and glory of Christ",
+    "The conflict between God's kingdom and evil",
+    "The vindication of suffering saints",
+    "The fall of Babylon and worldly powers",
+    "The final judgment",
+    "The new creation and eternal life"
+  ],
+  "key_verses": [
+    {"reference": "Revelation 1:7-8", "text": "Behold, he cometh with clouds; and every eye shall see him, and they also which pierced him: and all kindreds of the earth shall wail because of him. Even so, Amen. I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty."},
+    {"reference": "Revelation 5:9-10", "text": "And they sung a new song, saying, Thou art worthy to take the book, and to open the seals thereof: for thou wast slain, and hast redeemed us to God by thy blood out of every kindred, and tongue, and people, and nation; And hast made us unto our God kings and priests: and we shall reign on the earth."},
+    {"reference": "Revelation 19:16", "text": "And he hath on his vesture and on his thigh a name written, KING OF KINGS, AND LORD OF LORDS."},
+    {"reference": "Revelation 21:3-4", "text": "And I heard a great voice out of heaven saying, Behold, the tabernacle of God is with men, and he will dwell with them, and they shall be his people, and God himself shall be with them, and be their God. And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away."},
+    {"reference": "Revelation 22:20", "text": "He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus."}
+  ],
+  "outline": [
+    {"section": "Introduction and Vision of Christ", "chapters": "1", "description": "Prologue, the Son of Man among the lampstands"},
+    {"section": "Letters to Seven Churches", "chapters": "2-3", "description": "Ephesus, Smyrna, Pergamos, Thyatira, Sardis, Philadelphia, Laodicea"},
+    {"section": "Throne Room and Scroll", "chapters": "4-5", "description": "Worship in heaven, the Lamb worthy to open"},
+    {"section": "Seals, Trumpets, and Bowls", "chapters": "6-16", "description": "Judgments, interludes, conflict with evil"},
+    {"section": "Fall of Babylon", "chapters": "17-18", "description": "The harlot and the beast destroyed"},
+    {"section": "Christ's Return and Final Judgment", "chapters": "19-20", "description": "Marriage supper, battle, millennium, great white throne"},
+    {"section": "New Creation", "chapters": "21-22", "description": "New heaven and earth, New Jerusalem, epilogue"}
+  ],
+  "historical_context": "John received this revelation while exiled on Patmos during Domitian's persecution (around AD 95). The seven churches faced various challenges: false teaching, persecution, complacency. Emperor worship was increasingly demanded. The book encouraged perseverance by showing Christ's ultimate victory and the certainty of God's justice. Its symbols drew from Old Testament imagery (Daniel, Ezekiel, Zechariah) and would be familiar to Jewish Christians.",
+  "literary_style": "Revelation is apocalyptic literature, using symbolic visions, numbers, and dramatic imagery to convey spiritual realities. Numbers are significant (7 = completeness, 12 = God's people, 666 = ultimate imperfection). Colors, creatures, and cosmic events all carry meaning. The structure includes cycles of seven (seals, trumpets, bowls). The book is also a letter (to seven churches) and prophecy. Rich in Old Testament allusions, it draws heavily from Daniel, Isaiah, and Ezekiel.",
+  "christ_in_book": "Revelation is 'the revelation of Jesus Christ.' He is the faithful witness, firstborn from the dead, ruler of kings. He is the First and Last, who died and lives. He is the Lion of Judah and the Lamb who was slain. He is the Alpha and Omega, Beginning and End. He is the Root and Offspring of David, the bright Morning Star. He is King of kings and Lord of lords, coming on a white horse to judge and reign.",
+  "practical_application": "Revelation assures suffering believers that Christ has already won—the outcome is certain even when circumstances seem otherwise. The letters to the seven churches call for self-examination: Do we have first love? Are we faithful unto death? Have we become lukewarm? The book calls for patient endurance and faithful witness. It warns against compromise with the world system (Babylon). Above all, it directs our hope to Christ's return, the new creation, and eternal life in God's presence. 'Even so, come, Lord Jesus.'"
+}

@@ -1,0 +1,36 @@
+{
+  "name": "I Peter",
+  "abbreviation": "1Pet",
+  "testament": "New Testament",
+  "position": 60,
+  "chapters": 5,
+  "category": "General Epistles",
+  "author": "Peter the Apostle",
+  "date_written": "c. AD 62-64",
+  "introduction": "First Peter addresses Christians facing persecution for their faith, probably the early stages of Nero's reign of terror. Peter writes to encourage faithful endurance by grounding believers' identity in God's grace and Christ's example. Suffering is not strange for Christians—Christ suffered for us, leaving an example to follow. The letter is full of hope: a living hope through resurrection, an inheritance that cannot fade, and glory to be revealed.",
+  "key_themes": [
+    "Hope in the midst of suffering",
+    "Living as strangers and exiles",
+    "Christ's example in suffering",
+    "The privilege of being God's people",
+    "Submissive living in hostile settings",
+    "Standing firm in grace"
+  ],
+  "key_verses": [
+    {"reference": "1 Peter 1:3-4", "text": "Blessed be the God and Father of our Lord Jesus Christ, which according to his abundant mercy hath begotten us again unto a lively hope by the resurrection of Jesus Christ from the dead, To an inheritance incorruptible, and undefiled, and that fadeth not away, reserved in heaven for you."},
+    {"reference": "1 Peter 2:9", "text": "But ye are a chosen generation, a royal priesthood, an holy nation, a peculiar people; that ye should shew forth the praises of him who hath called you out of darkness into his marvellous light."},
+    {"reference": "1 Peter 2:21", "text": "For even hereunto were ye called: because Christ also suffered for us, leaving us an example, that ye should follow his steps."},
+    {"reference": "1 Peter 3:15", "text": "But sanctify the Lord God in your hearts: and be ready always to give an answer to every man that asketh you a reason of the hope that is in you with meekness and fear."},
+    {"reference": "1 Peter 5:7", "text": "Casting all your care upon him; for he careth for you."}
+  ],
+  "outline": [
+    {"section": "Living Hope and Holy Living", "chapters": "1:1-2:10", "description": "New birth, holiness, spiritual house"},
+    {"section": "Submission in Society", "chapters": "2:11-3:12", "description": "Citizens, servants, wives, husbands"},
+    {"section": "Suffering for Righteousness", "chapters": "3:13-4:19", "description": "Blessed in suffering, living for God"},
+    {"section": "Instructions for Elders and Conclusion", "chapters": "5", "description": "Shepherding, standing firm, final greetings"}
+  ],
+  "historical_context": "Peter writes to Christians scattered throughout five Roman provinces in Asia Minor (modern Turkey). They faced social ostracism and possibly official persecution as Christianity became distinguished from Judaism. 'Babylon' (5:13) probably refers to Rome. Silvanus (Silas) helped compose the letter. Peter would be martyred under Nero around AD 64-67.",
+  "literary_style": "First Peter is carefully structured, moving from doctrine to practice. The Greek is polished, possibly reflecting Silvanus's assistance. The letter draws heavily on Old Testament imagery—exodus, living stones, spiritual house, royal priesthood. Household codes address various social relationships. The suffering theme dominates: the word 'suffer' appears sixteen times. Baptismal imagery suggests the letter may incorporate early Christian catechesis.",
+  "christ_in_book": "Christ's sufferings and subsequent glory frame the letter. He was foreknown before creation, revealed in the last times. He is the precious cornerstone, rejected by men but chosen by God. His example of patient suffering guides believers. He bore our sins in His body on the tree. He died for sins once for all, the righteous for the unrighteous. He is now at God's right hand with angels subject to Him.",
+  "practical_application": "First Peter redefines suffering—it is expected for Christians, not strange, and leads to glory. Our identity as God's chosen people sustains us when the world rejects us. We are to live as strangers here, with conduct that silences critics and wins some over. Submission in various relationships reflects Christ's example. We should always be ready to explain our hope graciously. Suffering for doing good is better than suffering for doing evil."
+}

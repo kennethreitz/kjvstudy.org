@@ -1,0 +1,40 @@
+{
+  "name": "Isaiah",
+  "abbreviation": "Isa",
+  "testament": "Old Testament",
+  "position": 23,
+  "chapters": 66,
+  "category": "Major Prophets",
+  "author": "Isaiah son of Amoz",
+  "date_written": "c. 740-680 BC",
+  "introduction": "Isaiah is the Bible's most comprehensive prophetic book, spanning judgment and hope, history and eschatology. Writing during Judah's crisis with Assyria, Isaiah proclaimed that God is the 'Holy One of Israel' who judges sin but also provides salvation. The book contains the Bible's clearest Old Testament prophecies of the Messiah—His virgin birth, suffering, and coming kingdom. Isaiah is quoted more than any other prophet in the New Testament.",
+  "key_themes": [
+    "The holiness of God (the Holy One of Israel)",
+    "Judgment for sin and hope for restoration",
+    "The remnant who will be saved",
+    "The Servant of the LORD",
+    "The coming Messiah and His kingdom",
+    "Trust in God versus worldly alliances"
+  ],
+  "key_verses": [
+    {"reference": "Isaiah 1:18", "text": "Come now, and let us reason together, saith the LORD: though your sins be as scarlet, they shall be as white as snow; though they be red like crimson, they shall be as wool."},
+    {"reference": "Isaiah 6:3", "text": "And one cried unto another, and said, Holy, holy, holy, is the LORD of hosts: the whole earth is full of his glory."},
+    {"reference": "Isaiah 7:14", "text": "Therefore the Lord himself shall give you a sign; Behold, a virgin shall conceive, and bear a son, and shall call his name Immanuel."},
+    {"reference": "Isaiah 9:6", "text": "For unto us a child is born, unto us a son is given: and the government shall be upon his shoulder: and his name shall be called Wonderful, Counsellor, The mighty God, The everlasting Father, The Prince of Peace."},
+    {"reference": "Isaiah 40:31", "text": "But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint."},
+    {"reference": "Isaiah 53:5", "text": "But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed."}
+  ],
+  "outline": [
+    {"section": "Judgment on Judah and Nations", "chapters": "1-12", "description": "Indictments, Immanuel prophecies, messianic hope"},
+    {"section": "Oracles Against Nations", "chapters": "13-23", "description": "Babylon, Assyria, Philistia, Moab, and others"},
+    {"section": "The Little Apocalypse", "chapters": "24-27", "description": "Worldwide judgment and ultimate salvation"},
+    {"section": "Woes and Hezekiah's Crisis", "chapters": "28-39", "description": "Warnings, Assyrian threat, Hezekiah's illness"},
+    {"section": "Comfort and Restoration", "chapters": "40-48", "description": "God's sovereignty, Cyrus, return from exile"},
+    {"section": "The Servant and Redemption", "chapters": "49-55", "description": "Servant Songs, substitutionary atonement"},
+    {"section": "Future Glory", "chapters": "56-66", "description": "True worship, new heavens and earth"}
+  ],
+  "historical_context": "Isaiah prophesied during the reigns of Uzziah, Jotham, Ahaz, and Hezekiah (roughly 740-680 BC). The northern kingdom fell to Assyria in 722 BC. Judah faced Assyrian pressure, and Ahaz foolishly sought alliance with Assyria while Hezekiah trusted God during Sennacherib's siege. Isaiah also foresaw Babylon's future role and the eventual restoration under Cyrus (named 150 years before his birth).",
+  "literary_style": "Isaiah is Hebrew poetry and prose of the highest literary quality. The poetry features vivid imagery, wordplay, and parallelism. Key metaphors include vineyard, highway, wilderness blooming, and streams in the desert. The Servant Songs (42, 49, 50, 52-53) are particularly striking. The book's 66 chapters have been compared to the Bible's 66 books—39 in the first section (like the OT), 27 in the second (like the NT).",
+  "christ_in_book": "Isaiah is the 'fifth Gospel' for its messianic prophecies. The virgin birth (7:14), the child who is God (9:6), the shoot from Jesse's stump (11:1), the Servant who dies for sins (52:13-53:12), the anointed one proclaiming good news (61:1-2)—all find fulfillment in Jesus. Christ inaugurated His ministry by reading Isaiah 61 in Nazareth. The Ethiopian eunuch was reading Isaiah 53 when Philip explained the gospel.",
+  "practical_application": "Isaiah calls us to trust God alone rather than human schemes and alliances. It reveals God's holiness that exposes our sin and His grace that cleanses it. The book comforts those in distress with promises of restoration while warning the complacent of coming judgment. Isaiah's vision of the future kingdom motivates present faithfulness. The Servant Songs invite us to embrace the cross before the crown, suffering before glory."
+}

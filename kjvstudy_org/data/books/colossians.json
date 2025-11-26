@@ -1,0 +1,37 @@
+{
+  "name": "Colossians",
+  "abbreviation": "Col",
+  "testament": "New Testament",
+  "position": 51,
+  "chapters": 4,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 60-62",
+  "introduction": "Colossians presents the supremacy and sufficiency of Christ against false teaching that threatened the church. False teachers were adding requirements—dietary laws, festivals, mystical experiences, angel worship—to faith in Christ. Paul responds with the highest Christology in his letters: Christ is the image of the invisible God, creator and sustainer of all, head of the church, and fullness of deity in bodily form. In Him believers are complete.",
+  "key_themes": [
+    "The supremacy of Christ over all",
+    "The sufficiency of Christ for salvation",
+    "Warning against false teaching",
+    "Hidden with Christ in God",
+    "The new life in Christ",
+    "Christ in you, the hope of glory"
+  ],
+  "key_verses": [
+    {"reference": "Colossians 1:15-17", "text": "Who is the image of the invisible God, the firstborn of every creature: For by him were all things created, that are in heaven, and that are in earth, visible and invisible, whether they be thrones, or dominions, or principalities, or powers: all things were created by him, and for him: And he is before all things, and by him all things consist."},
+    {"reference": "Colossians 1:27", "text": "To whom God would make known what is the riches of the glory of this mystery among the Gentiles; which is Christ in you, the hope of glory."},
+    {"reference": "Colossians 2:9-10", "text": "For in him dwelleth all the fulness of the Godhead bodily. And ye are complete in him, which is the head of all principality and power."},
+    {"reference": "Colossians 3:1-2", "text": "If ye then be risen with Christ, seek those things which are above, where Christ sitteth on the right hand of God. Set your affection on things above, not on things on the earth."},
+    {"reference": "Colossians 3:17", "text": "And whatsoever ye do in word or deed, do all in the name of the Lord Jesus, giving thanks to God and the Father by him."}
+  ],
+  "outline": [
+    {"section": "Introduction", "chapters": "1:1-14", "description": "Greetings, thanksgiving, prayer"},
+    {"section": "The Supremacy of Christ", "chapters": "1:15-2:5", "description": "Christ-hymn, Paul's ministry, the mystery revealed"},
+    {"section": "Warning Against False Teaching", "chapters": "2:6-23", "description": "Complete in Christ, empty philosophy rejected"},
+    {"section": "The New Life in Christ", "chapters": "3:1-4:6", "description": "Risen with Christ, relationships transformed"},
+    {"section": "Conclusion", "chapters": "4:7-18", "description": "Personal greetings and final words"}
+  ],
+  "historical_context": "Colossae was a small city in the Lycus Valley of Asia Minor, near Laodicea and Hierapolis. Paul had not visited personally; the church was founded by Epaphras, his co-worker. The 'Colossian heresy' combined Jewish elements (festivals, food laws) with proto-Gnostic ideas (secret knowledge, spirit hierarchies, asceticism). Paul wrote from prison to counter this syncretism with the all-sufficiency of Christ.",
+  "literary_style": "Colossians features a magnificent Christ-hymn (1:15-20) parallel to Philippians 2. Paul's style is dense, with long sentences packed with theological content. The letter moves from Christology (who Christ is) to ethics (how to live). The household codes (3:18-4:1) show how the gospel transforms everyday relationships. The contrast between the 'old man' and 'new man' structures the ethical section.",
+  "christ_in_book": "Colossians presents perhaps Scripture's highest Christology. Christ is the image of the invisible God, firstborn over creation, creator of all things, before all things, the one holding all things together, head of the church, first to rise from the dead, possessing all fullness, reconciler of all things. In Him the fullness of deity dwells bodily. Believers are complete in Him—nothing more is needed.",
+  "practical_application": "Colossians warns against anything that adds to or diminishes Christ's sufficiency. No experience, discipline, or knowledge completes what is already complete in Him. The new life means putting off the old—anger, malice, lying—and putting on compassion, kindness, forgiveness. Every relationship and activity should be done 'in the name of the Lord Jesus.' The letter calls us to set our minds on things above where Christ is seated—our life is hidden with Him in God."
+}

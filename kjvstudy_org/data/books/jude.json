@@ -1,0 +1,35 @@
+{
+  "name": "Jude",
+  "abbreviation": "Jude",
+  "testament": "New Testament",
+  "position": 65,
+  "chapters": 1,
+  "category": "General Epistles",
+  "author": "Jude, brother of James (and Jesus)",
+  "date_written": "c. AD 65-80",
+  "introduction": "Jude intended to write about salvation but felt compelled to address an urgent threat: false teachers had infiltrated the church. These 'ungodly men' turned grace into license for immorality and denied Christ. Jude calls believers to contend earnestly for the faith once delivered to the saints. Drawing on vivid examples from Jewish history and tradition, he warns of the doom awaiting such apostates while encouraging believers to remain in God's love.",
+  "key_themes": [
+    "Contending for the faith",
+    "Warning against false teachers",
+    "Judgment of the ungodly",
+    "Keeping oneself in God's love",
+    "The certainty of apostolic teaching",
+    "Doxology to the one who keeps us"
+  ],
+  "key_verses": [
+    {"reference": "Jude 1:3", "text": "Beloved, when I gave all diligence to write unto you of the common salvation, it was needful for me to write unto you, and exhort you that ye should earnestly contend for the faith which was once delivered unto the saints."},
+    {"reference": "Jude 1:4", "text": "For there are certain men crept in unawares, who were before of old ordained to this condemnation, ungodly men, turning the grace of our God into lasciviousness, and denying the only Lord God, and our Lord Jesus Christ."},
+    {"reference": "Jude 1:20-21", "text": "But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Ghost, Keep yourselves in the love of God, looking for the mercy of our Lord Jesus Christ unto eternal life."},
+    {"reference": "Jude 1:24-25", "text": "Now unto him that is able to keep you from falling, and to present you faultless before the presence of his glory with exceeding joy, To the only wise God our Saviour, be glory and majesty, dominion and power, both now and ever. Amen."}
+  ],
+  "outline": [
+    {"section": "Greeting and Purpose", "chapters": "1:1-4", "description": "To the called, contend for the faith"},
+    {"section": "Condemnation of False Teachers", "chapters": "1:5-16", "description": "Historical examples, their character and doom"},
+    {"section": "Exhortation to Believers", "chapters": "1:17-23", "description": "Remember predictions, keep in God's love, show mercy"},
+    {"section": "Doxology", "chapters": "1:24-25", "description": "To Him who is able to keep you"}
+  ],
+  "historical_context": "Jude identifies himself as James's brother, making him Jesus' half-brother. False teachers with antinomian (anti-law) tendencies had infiltrated the church, using grace as excuse for immorality. Jude draws on Jewish tradition (Enoch, the assumption of Moses) familiar to his audience. The letter shares significant material with 2 Peter 2, suggesting literary dependence or common source.",
+  "literary_style": "Jude is vividly rhetorical. He employs triads throughout: three Old Testament examples (Israel in wilderness, angels, Sodom), three individual types (Cain, Balaam, Korah), three descriptions (dreamers who defile, reject, blaspheme). His illustrations are graphic—clouds without rain, autumn trees doubly dead, wild waves foaming shame. The letter builds to one of Scripture's great doxologies.",
+  "christ_in_book": "Jesus Christ is 'our only Master and Lord' whom the false teachers deny. He is the 'Lord' who destroyed unbelievers from Egypt and rescued His people. Believers look for His mercy that leads to eternal life. He will come with myriads of holy ones to execute judgment. Through our Lord Jesus Christ, God is able to keep us from stumbling and present us faultless with exceeding joy.",
+  "practical_application": "Jude calls for active defense of the faith—not passive acceptance of every teaching claiming Christian label. False teachers can be recognized by their character and conduct, not just doctrine. The examples of judgment warn of the seriousness of apostasy. Believers must build themselves up in faith, pray in the Spirit, keep in God's love, and show mercy to the wavering. The doxology assures us: God is able to keep us from falling."
+}

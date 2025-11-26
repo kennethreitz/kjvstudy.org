@@ -1,0 +1,40 @@
+{
+  "name": "Jeremiah",
+  "abbreviation": "Jer",
+  "testament": "Old Testament",
+  "position": 24,
+  "chapters": 52,
+  "category": "Major Prophets",
+  "author": "Jeremiah (with Baruch as scribe)",
+  "date_written": "c. 627-580 BC",
+  "introduction": "Jeremiah, the 'weeping prophet,' ministered during Judah's final tragic decades before Babylon destroyed Jerusalem. Called as a young man, he preached repentance for forty years to a nation that would not listen. His message was deeply unpopular—submit to Babylon as God's judgment—and brought him imprisonment, beatings, and near death. Yet through the tears, Jeremiah proclaimed hope: a new covenant written on hearts, and restoration after exile.",
+  "key_themes": [
+    "The certainty of judgment for persistent sin",
+    "The call to repentance and true religion",
+    "The new covenant promise",
+    "Suffering in faithful ministry",
+    "God's sovereignty over nations",
+    "Hope beyond judgment"
+  ],
+  "key_verses": [
+    {"reference": "Jeremiah 1:5", "text": "Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I sanctified thee, and I ordained thee a prophet unto the nations."},
+    {"reference": "Jeremiah 17:9", "text": "The heart is deceitful above all things, and desperately wicked: who can know it?"},
+    {"reference": "Jeremiah 29:11", "text": "For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end."},
+    {"reference": "Jeremiah 31:31-33", "text": "Behold, the days come, saith the LORD, that I will make a new covenant with the house of Israel... I will put my law in their inward parts, and write it in their hearts; and will be their God, and they shall be my people."},
+    {"reference": "Jeremiah 33:3", "text": "Call unto me, and I will answer thee, and shew thee great and mighty things, which thou knowest not."}
+  ],
+  "outline": [
+    {"section": "Jeremiah's Call and Early Ministry", "chapters": "1-6", "description": "Commission, indictments against Judah"},
+    {"section": "Temple Sermon and Conflicts", "chapters": "7-20", "description": "False trust exposed, symbolic acts, persecution"},
+    {"section": "Oracles Against Kings and Prophets", "chapters": "21-25", "description": "Messages to rulers, seventy-year exile predicted"},
+    {"section": "Biographical Narratives", "chapters": "26-29", "description": "Temple sermon response, conflict with false prophets"},
+    {"section": "Book of Consolation", "chapters": "30-33", "description": "Restoration promises, new covenant"},
+    {"section": "Fall of Jerusalem", "chapters": "34-45", "description": "Final events, Gedaliah, flight to Egypt"},
+    {"section": "Oracles Against Nations", "chapters": "46-51", "description": "Egypt, Philistia, Moab, Babylon, and others"},
+    {"section": "Appendix", "chapters": "52", "description": "Jerusalem's fall recounted"}
+  ],
+  "historical_context": "Jeremiah prophesied from 627 to after 586 BC, under Judah's last five kings. The great powers shifted—Assyria fell to Babylon, Egypt vied for influence. Judah foolishly rebelled against Babylon despite Jeremiah's warnings. Jerusalem was besieged three times (605, 597, 586 BC), with deportations each time. After Jerusalem's destruction, Jeremiah was taken against his will to Egypt, where he likely died.",
+  "literary_style": "Jeremiah combines poetry (oracles) with prose (narrative, sermons). The book is not arranged chronologically, creating a sometimes disorienting effect that mirrors the chaos of Judah's final years. Jeremiah's 'confessions' (11:18-23; 12:1-6; 15:10-21; 17:14-18; 18:18-23; 20:7-18) provide rare glimpses into a prophet's inner struggle. The new covenant passage (31:31-34) is the longest Old Testament passage quoted in the New (Hebrews 8).",
+  "christ_in_book": "Jeremiah's suffering anticipates Christ—rejected by his own, persecuted for speaking truth, weeping over Jerusalem. The new covenant (31:31-34) is explicitly fulfilled in Christ (Hebrews 8-10). Jesus is the Righteous Branch (23:5-6). The potter and clay imagery (18) speaks to God's sovereignty in salvation. Jeremiah's purchase of a field during siege (32) models faith in God's future, as Christ purchased the church through His death.",
+  "practical_application": "Jeremiah shows that faithful ministry may appear to fail while actually succeeding in God's eyes. It teaches that authentic religion is internal, not ritual, and that judgment is certain for persistent rebellion. The new covenant promise offers hope that God will do for us what we cannot do for ourselves—write His law on our hearts. Jeremiah's honest struggles encourage us that faith and doubt can coexist. The book calls us to trust God's good plans even when circumstances are dire."
+}

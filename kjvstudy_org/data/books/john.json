@@ -1,0 +1,35 @@
+{
+  "name": "John",
+  "abbreviation": "John",
+  "testament": "New Testament",
+  "position": 43,
+  "chapters": 21,
+  "category": "Gospels",
+  "author": "John, the beloved disciple and apostle",
+  "date_written": "c. AD 85-95",
+  "introduction": "John's Gospel is unique among the four, written 'that ye might believe that Jesus is the Christ, the Son of God; and that believing ye might have life through his name.' Rather than following the synoptic outline, John selects seven signs and records extensive discourses revealing Jesus' divine identity through seven 'I AM' statements. The Gospel plumbs theological depths while remaining accessible, presenting Jesus as the eternal Word made flesh.",
+  "key_themes": [
+    "Jesus as the divine Son of God",
+    "The seven 'I AM' statements",
+    "Signs revealing Jesus' glory",
+    "Belief and eternal life",
+    "Light versus darkness",
+    "The Holy Spirit as Comforter"
+  ],
+  "key_verses": [
+    {"reference": "John 1:1,14", "text": "In the beginning was the Word, and the Word was with God, and the Word was God... And the Word was made flesh, and dwelt among us, (and we beheld his glory, the glory as of the only begotten of the Father,) full of grace and truth."},
+    {"reference": "John 3:16", "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."},
+    {"reference": "John 14:6", "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."},
+    {"reference": "John 20:31", "text": "But these are written, that ye might believe that Jesus is the Christ, the Son of God; and that believing ye might have life through his name."}
+  ],
+  "outline": [
+    {"section": "Prologue", "chapters": "1:1-18", "description": "The Word made flesh"},
+    {"section": "Book of Signs", "chapters": "1:19-12:50", "description": "Seven signs, public ministry, responses of faith and unbelief"},
+    {"section": "Book of Glory", "chapters": "13-20", "description": "Farewell discourse, passion, resurrection"},
+    {"section": "Epilogue", "chapters": "21", "description": "Resurrection appearances, Peter restored"}
+  ],
+  "historical_context": "John wrote late in the first century, perhaps from Ephesus. He assumes readers know the synoptic accounts and supplements them with material they lack (the Judean ministry, extended discourses). The Gospel addresses both Jewish controversy about Jesus' identity and early church needs for theological depth. John's eyewitness claim (19:35; 21:24) and intimate knowledge of events support traditional authorship.",
+  "literary_style": "John is both simple and profound—using basic vocabulary (light, life, truth, love) to express deep theology. The 'I AM' statements echo God's self-revelation to Moses. Signs reveal Jesus' glory to those with eyes to see. The dialogues often feature misunderstanding that Jesus clarifies. Irony pervades the passion narrative. The Gospel is highly structured, with symbolic numbers (7 signs, 7 'I AM' statements) and careful organization.",
+  "christ_in_book": "John presents the highest Christology: Jesus is the pre-existent Word who is God, creator of all, who became flesh. The 'I AM' statements echo Exodus 3:14—Jesus claims divine identity. He is the Lamb of God, the Resurrection and the Life, the Way, Truth, and Life. Yet He is also fully human—weeping at Lazarus's tomb, thirsting on the cross. The crucifixion is His glorification, the hour for which He came.",
+  "practical_application": "John calls for decision—belief or unbelief, light or darkness, life or death. The Gospel shows what it means to 'believe in' Jesus (over 90 occurrences)—not just intellectual assent but trusting relationship. The Farewell Discourse teaches about the Spirit's ongoing presence, answered prayer, and abiding in Christ. John assures believers of eternal life as a present possession and future hope. To know Jesus is to know God."
+}

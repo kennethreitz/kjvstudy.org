@@ -1,0 +1,36 @@
+{
+  "name": "Lamentations",
+  "abbreviation": "Lam",
+  "testament": "Old Testament",
+  "position": 25,
+  "chapters": 5,
+  "category": "Major Prophets",
+  "author": "Traditionally Jeremiah",
+  "date_written": "c. 586-580 BC",
+  "introduction": "Lamentations is a funeral dirge for Jerusalem, destroyed by Babylon in 586 BC. In five poems of raw grief, the author weeps over the city's devastation, the temple's destruction, and the people's suffering. The book acknowledges that judgment was deserved but does not suppress the agony. At its center stands a confession of faith: God's mercies are new every morning. Lamentations teaches us how to grieve with hope.",
+  "key_themes": [
+    "Grief over Jerusalem's destruction",
+    "Acknowledgment of sin and judgment",
+    "God's faithfulness amid suffering",
+    "The sovereignty and justice of God",
+    "Prayer in desolation",
+    "Hope beyond judgment"
+  ],
+  "key_verses": [
+    {"reference": "Lamentations 1:1", "text": "How doth the city sit solitary, that was full of people! how is she become as a widow! she that was great among the nations, and princess among the provinces, how is she become tributary!"},
+    {"reference": "Lamentations 3:22-23", "text": "It is of the LORD's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."},
+    {"reference": "Lamentations 3:39-40", "text": "Wherefore doth a living man complain, a man for the punishment of his sins? Let us search and try our ways, and turn again to the LORD."},
+    {"reference": "Lamentations 3:31-33", "text": "For the Lord will not cast off for ever: But though he cause grief, yet will he have compassion according to the multitude of his mercies. For he doth not afflict willingly nor grieve the children of men."}
+  ],
+  "outline": [
+    {"section": "Jerusalem's Desolation", "chapters": "1", "description": "The lonely, weeping city; she has no comforter"},
+    {"section": "God's Judgment", "chapters": "2", "description": "The LORD as enemy; He has destroyed without pity"},
+    {"section": "Hope in Darkness", "chapters": "3", "description": "Personal suffering, yet God's mercies are new"},
+    {"section": "The Siege Recalled", "chapters": "4", "description": "Horrors of the siege; leaders' failure"},
+    {"section": "Prayer for Restoration", "chapters": "5", "description": "Remember us, O LORD; restore us"}
+  ],
+  "historical_context": "Lamentations was written in the immediate aftermath of Jerusalem's destruction in 586 BC. The Babylonians had breached the walls, burned the temple, and deported most of the population. Those who remained faced starvation and violence. The poems may have been composed for memorial services on the temple site. They became part of Jewish liturgy for the Ninth of Av, commemorating the temple's destruction.",
+  "literary_style": "Lamentations consists of five acrostic poems—the first four follow the 22-letter Hebrew alphabet (chapter 3 has three verses per letter, totaling 66). The acrostic structure suggests the author is working through grief systematically, 'A to Z.' The qinah (funeral dirge) meter gives a limping, sobbing rhythm. Chapter 3 stands at the center, where personal grief transforms into hope. The final chapter breaks the acrostic, perhaps suggesting incomplete resolution.",
+  "christ_in_book": "Jesus wept over Jerusalem as Jeremiah did (Luke 19:41-44). The suffering righteous one in chapter 3 anticipates Christ's innocent suffering. The destruction of Jerusalem points to Christ's prophecy of the temple's second destruction (70 AD). Christ's resurrection provides the ultimate answer to Lamentations' question: Will God restore? The book's theology of judgment for sin prepares us to understand Christ bearing the curse for us.",
+  "practical_application": "Lamentations gives us permission to grieve deeply and honestly before God. It models prayer that acknowledges sin while still crying out in pain. The book teaches that faith does not deny suffering but finds God in its midst. The central affirmation—God's mercies are new every morning—has sustained countless believers through their darkest nights. Lamentations reminds us that judgment is real but not God's final word; His compassions never fail."
+}

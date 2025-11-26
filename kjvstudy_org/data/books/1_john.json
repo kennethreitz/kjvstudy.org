@@ -1,0 +1,40 @@
+{
+  "name": "I John",
+  "abbreviation": "1John",
+  "testament": "New Testament",
+  "position": 62,
+  "chapters": 5,
+  "category": "General Epistles",
+  "author": "John the Apostle",
+  "date_written": "c. AD 85-95",
+  "introduction": "First John combats false teaching that denied the incarnation—that Jesus Christ came in the flesh. These proto-Gnostic teachers claimed special knowledge while living immorally. John provides tests of genuine Christianity: believing Jesus is the Christ come in flesh, obeying His commands, and loving fellow believers. The letter assures true believers of their salvation while exposing counterfeits. God is light and love; His children walk accordingly.",
+  "key_themes": [
+    "The incarnation of Jesus Christ",
+    "Fellowship with God",
+    "Walking in the light",
+    "Love as evidence of new life",
+    "Assurance of salvation",
+    "Tests of genuine faith"
+  ],
+  "key_verses": [
+    {"reference": "1 John 1:5", "text": "This then is the message which we have heard of him, and declare unto you, that God is light, and in him is no darkness at all."},
+    {"reference": "1 John 1:9", "text": "If we confess our sins, he is faithful and just to forgive us our sins, and to cleanse us from all unrighteousness."},
+    {"reference": "1 John 3:1", "text": "Behold, what manner of love the Father hath bestowed upon us, that we should be called the sons of God: therefore the world knoweth us not, because it knew him not."},
+    {"reference": "1 John 4:8", "text": "He that loveth not knoweth not God; for God is love."},
+    {"reference": "1 John 4:10", "text": "Herein is love, not that we loved God, but that he loved us, and sent his Son to be the propitiation for our sins."},
+    {"reference": "1 John 5:13", "text": "These things have I written unto you that believe on the name of the Son of God; that ye may know that ye have eternal life, and that ye may believe on the name of the Son of God."}
+  ],
+  "outline": [
+    {"section": "Prologue: The Word of Life", "chapters": "1:1-4", "description": "What we have seen and heard"},
+    {"section": "Walking in the Light", "chapters": "1:5-2:17", "description": "Fellowship with God, sin and forgiveness, love versus worldliness"},
+    {"section": "Warning Against Antichrists", "chapters": "2:18-27", "description": "Denial of Christ, the anointing teaches"},
+    {"section": "Children of God", "chapters": "2:28-3:24", "description": "Righteous living, love in action, confidence before God"},
+    {"section": "Testing the Spirits", "chapters": "4:1-6", "description": "Confessing Christ in flesh"},
+    {"section": "God is Love", "chapters": "4:7-21", "description": "Love defined, perfected, and practiced"},
+    {"section": "Assurance of Eternal Life", "chapters": "5", "description": "Faith's victory, testimony, confidence in prayer"}
+  ],
+  "historical_context": "John wrote late in the first century, probably from Ephesus, to churches he had oversight of. False teachers had left the fellowship, denying that Jesus Christ had come in flesh—an early form of Gnosticism that separated the divine Christ from the human Jesus. This heresy severed connection between faith and ethics. John writes to fortify believers against this threat.",
+  "literary_style": "First John lacks typical letter features (no greeting, no named recipients). It's more a sermon or tract. John's style is simple but profound, using basic vocabulary—light, darkness, love, hate, truth, lie—in stark contrasts. The argument spirals rather than progresses linearly, returning to themes of belief, obedience, and love. The intimate tone ('my little children') reflects pastoral concern.",
+  "christ_in_book": "Jesus is the Word of life that was from the beginning, seen, heard, and touched. He is the Son sent by the Father as propitiation for sins. He is the Christ who came in flesh—denying this is antichrist. He is the righteous Advocate if we sin. He is the Son of God who gives eternal life. He came by water and blood, and the Spirit testifies. To have the Son is to have life.",
+  "practical_application": "First John provides assurance tests: Do I believe Jesus is the Christ come in flesh? Do I keep His commands? Do I love fellow believers? True faith transforms conduct. Walking in the light means confession and forgiveness when we fail. Love is not sentiment but sacrificial action modeled on Christ. Fear gives way to confidence as love is perfected. The letter assures genuine believers while exposing false faith."
+}

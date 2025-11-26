@@ -1,0 +1,38 @@
+{
+  "name": "Hebrews",
+  "abbreviation": "Heb",
+  "testament": "New Testament",
+  "position": 58,
+  "chapters": 13,
+  "category": "General Epistles",
+  "author": "Unknown (possibly Paul, Apollos, Barnabas, or others)",
+  "date_written": "c. AD 64-68",
+  "introduction": "Hebrews demonstrates the absolute supremacy of Christ over every aspect of Old Testament religion. To believers tempted to return to Judaism under persecution, the author shows that Jesus is superior to angels, Moses, Joshua, and the Levitical priesthood. His sacrifice is once-for-all, establishing a new and better covenant. Going back is impossible—Christ is the fulfillment to which all Scripture pointed. The letter calls for persevering faith.",
+  "key_themes": [
+    "The supremacy of Christ",
+    "Christ's superior priesthood (Melchizedek order)",
+    "The new covenant and better promises",
+    "The once-for-all sacrifice for sin",
+    "Faith and perseverance",
+    "Warning against falling away"
+  ],
+  "key_verses": [
+    {"reference": "Hebrews 1:1-3", "text": "God, who at sundry times and in divers manners spake in time past unto the fathers by the prophets, Hath in these last days spoken unto us by his Son, whom he hath appointed heir of all things, by whom also he made the worlds; Who being the brightness of his glory, and the express image of his person, and upholding all things by the word of his power, when he had by himself purged our sins, sat down on the right hand of the Majesty on high."},
+    {"reference": "Hebrews 4:12", "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."},
+    {"reference": "Hebrews 4:15-16", "text": "For we have not an high priest which cannot be touched with the feeling of our infirmities; but was in all points tempted like as we are, yet without sin. Let us therefore come boldly unto the throne of grace, that we may obtain mercy, and find grace to help in time of need."},
+    {"reference": "Hebrews 11:1", "text": "Now faith is the substance of things hoped for, the evidence of things not seen."},
+    {"reference": "Hebrews 12:1-2", "text": "Wherefore seeing we also are compassed about with so great a cloud of witnesses, let us lay aside every weight, and the sin which doth so easily beset us, and let us run with patience the race that is set before us, Looking unto Jesus the author and finisher of our faith."}
+  ],
+  "outline": [
+    {"section": "Christ Superior to Prophets and Angels", "chapters": "1:1-2:18", "description": "Final revelation, above angels, incarnation's purpose"},
+    {"section": "Christ Superior to Moses and Joshua", "chapters": "3:1-4:13", "description": "Greater than Moses, entering God's rest"},
+    {"section": "Christ Superior High Priest", "chapters": "4:14-7:28", "description": "Sympathetic priest, Melchizedek order"},
+    {"section": "Christ Superior Ministry and Covenant", "chapters": "8-10", "description": "Better covenant, once-for-all sacrifice"},
+    {"section": "Faith and Perseverance", "chapters": "11-12", "description": "Hall of faith, running the race"},
+    {"section": "Practical Instructions", "chapters": "13", "description": "Love, conduct, final exhortations"}
+  ],
+  "historical_context": "The recipients were Jewish Christians facing persecution and tempted to abandon faith in Christ for the relative safety of Judaism (a legally recognized religion in Rome). The letter may have been written before the temple's destruction in AD 70, as the sacrificial system is discussed as ongoing. The recipients had endured earlier persecution but were growing weary.",
+  "literary_style": "Hebrews is sophisticated Greek, more oratorical than epistolary. The author calls it a 'word of exhortation' (13:22). Exposition of Old Testament texts alternates with pastoral warnings. The five warning passages (2:1-4; 3:12-4:13; 5:11-6:12; 10:26-39; 12:25-29) punctuate the argument. The faith chapter (11) is a rhetorical tour de force, building momentum through repetition.",
+  "christ_in_book": "Hebrews presents the most complete Christology in Scripture. Christ is God's final Word, the radiance of His glory, exact imprint of His nature, creator, sustainer, and purifier of sins. He is better than angels, faithful as Son over God's house. He is the great high priest who sympathizes with our weaknesses, offering Himself once for all. He is the mediator of a new covenant, seated at God's right hand.",
+  "practical_application": "Hebrews calls us to hold fast our confession and draw near to God through Christ. The warnings are sobering—neglecting so great a salvation has consequences. Faith perseveres through trials, looking to Jesus as the author and perfecter. We approach God's throne with confidence because our high priest understands our struggles. The letter encourages weary believers to run the race with endurance, fixing our eyes on Jesus."
+}

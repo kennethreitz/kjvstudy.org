@@ -1,0 +1,35 @@
+{
+  "name": "Joel",
+  "abbreviation": "Joel",
+  "testament": "Old Testament",
+  "position": 29,
+  "chapters": 3,
+  "category": "Minor Prophets",
+  "author": "Joel son of Pethuel",
+  "date_written": "Uncertain (possibly c. 835-800 BC or later)",
+  "introduction": "Joel uses a devastating locust plague as a lens for understanding the Day of the LORD—both its terrors and its blessings. The prophet calls for repentance, promising that God will restore what the locusts have eaten. Joel's prophecy of the Spirit being poured out on all flesh was fulfilled at Pentecost, making this short book foundational for understanding the church age.",
+  "key_themes": [
+    "The Day of the LORD—judgment and salvation",
+    "Repentance and return to God",
+    "Restoration after judgment",
+    "The outpouring of the Spirit",
+    "God's compassion for His people",
+    "Final judgment of the nations"
+  ],
+  "key_verses": [
+    {"reference": "Joel 2:12-13", "text": "Therefore also now, saith the LORD, turn ye even to me with all your heart, and with fasting, and with weeping, and with mourning: And rend your heart, and not your garments, and turn unto the LORD your God: for he is gracious and merciful, slow to anger, and of great kindness, and repenteth him of the evil."},
+    {"reference": "Joel 2:25", "text": "And I will restore to you the years that the locust hath eaten, the cankerworm, and the caterpiller, and the palmerworm, my great army which I sent among you."},
+    {"reference": "Joel 2:28-29", "text": "And it shall come to pass afterward, that I will pour out my spirit upon all flesh; and your sons and your daughters shall prophesy, your old men shall dream dreams, your young men shall see visions: And also upon the servants and upon the handmaids in those days will I pour out my spirit."},
+    {"reference": "Joel 2:32", "text": "And it shall come to pass, that whosoever shall call on the name of the LORD shall be delivered."}
+  ],
+  "outline": [
+    {"section": "The Locust Plague", "chapters": "1:1-20", "description": "Description and call to lament"},
+    {"section": "The Day of the LORD", "chapters": "2:1-17", "description": "Invasion described, call to repentance"},
+    {"section": "God's Response", "chapters": "2:18-32", "description": "Restoration promised, Spirit outpoured"},
+    {"section": "Final Judgment and Blessing", "chapters": "3", "description": "Nations judged, Judah restored"}
+  ],
+  "historical_context": "Joel's date is disputed because the book lacks historical markers. The locust plague was a real disaster that prompted Joel's message. The agricultural devastation affected every aspect of life, including temple worship. Joel uses this crisis to teach about the ultimate Day of the LORD—when God will judge evil and vindicate His people.",
+  "literary_style": "Joel moves from immediate crisis (locusts) to cosmic eschatology (the Day of the LORD). The imagery is vivid—locusts as an invading army, darkened sun, blood moon. The structure is concentric: lament-call to repentance-promise-fulfillment. Joel quotes and alludes to other prophets, weaving together prophetic tradition. The book contains some of Scripture's most memorable lines about restoration and the Spirit.",
+  "christ_in_book": "Peter explicitly applies Joel 2:28-32 to Christ's work at Pentecost (Acts 2:16-21). The Spirit poured out is Christ's gift after His ascension. 'Whoever calls on the name of the LORD will be saved' becomes a central gospel promise (Romans 10:13). The cosmic signs (sun darkened, moon to blood) appear in Christ's apocalyptic discourse (Matthew 24:29). The Day of the LORD ultimately centers on Christ's return.",
+  "practical_application": "Joel teaches that natural disasters can be calls to repentance—occasions to seek the Lord. It promises that God can restore wasted years, giving hope to those who have squandered time or opportunity. The call to 'rend your heart, not your garments' emphasizes internal transformation over external religion. Joel's promise of the Spirit assures believers that God equips His people supernaturally. The invitation to call on the LORD offers salvation to all."
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Deuteronomy",
+  "abbreviation": "Deut",
+  "testament": "Old Testament",
+  "position": 5,
+  "chapters": 34,
+  "category": "Law (Torah/Pentateuch)",
+  "author": "Moses",
+  "date_written": "c. 1406 BC",
+  "introduction": "Deuteronomy, meaning 'second law,' contains Moses' final sermons to Israel as they prepared to enter the Promised Land without him. It is not new legislation but a restatement and application of the Sinai covenant for a new generation. Deuteronomy is the most quoted Old Testament book in the New Testament, forming the theological heart of biblical faith. It calls for whole-hearted love and loyalty to the one true God.",
+  "key_themes": [
+    "The one God deserving exclusive loyalty",
+    "Love as the foundation of obedience",
+    "Remembering God's faithfulness",
+    "Covenant renewal and commitment",
+    "Blessings for obedience, curses for disobedience",
+    "The choice between life and death"
+  ],
+  "key_verses": [
+    {"reference": "Deuteronomy 6:4-5", "text": "Hear, O Israel: The LORD our God is one LORD: And thou shalt love the LORD thy God with all thine heart, and with all thy soul, and with all thy might."},
+    {"reference": "Deuteronomy 8:3", "text": "And he humbled thee, and suffered thee to hunger, and fed thee with manna, which thou knewest not, neither did thy fathers know; that he might make thee know that man doth not live by bread only, but by every word that proceedeth out of the mouth of the LORD doth man live."},
+    {"reference": "Deuteronomy 18:15", "text": "The LORD thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken."},
+    {"reference": "Deuteronomy 30:19", "text": "I call heaven and earth to record this day against you, that I have set before you life and death, blessing and cursing: therefore choose life, that both thou and thy seed may live."},
+    {"reference": "Deuteronomy 31:6", "text": "Be strong and of a good courage, fear not, nor be afraid of them: for the LORD thy God, he it is that doth go with thee; he will not fail thee, nor forsake thee."}
+  ],
+  "outline": [
+    {"section": "First Address: Historical Prologue", "chapters": "1-4", "description": "Review of the wilderness journey and call to obedience"},
+    {"section": "Second Address: The Law Expounded", "chapters": "5-26", "description": "The Ten Commandments restated, the Shema, and detailed laws"},
+    {"section": "Third Address: Covenant Renewal", "chapters": "27-30", "description": "Blessings and curses, the choice of life or death"},
+    {"section": "Final Acts of Moses", "chapters": "31-34", "description": "Joshua commissioned, the Song of Moses, final blessing, and death"}
+  ],
+  "historical_context": "Moses delivered these sermons during the final weeks of his life on the plains of Moab, across the Jordan from Jericho. The original audience was the second generation—children of those who died in the wilderness. They needed to understand the covenant they were inheriting and the land they were about to possess. The book follows the pattern of ancient Near Eastern suzerainty treaties, establishing Israel's covenant relationship with their Divine King.",
+  "literary_style": "Deuteronomy is primarily sermonic discourse, with Moses as preacher passionately urging covenant faithfulness. It features repetition for emphasis, rhetorical questions, and frequent appeals to remember. The book includes some of the Bible's most beautiful poetry (chapters 32-33) and profound theological reflection. Its treaty format (preamble, historical prologue, stipulations, blessings and curses, witnesses) reflects its covenant nature.",
+  "christ_in_book": "Jesus quoted Deuteronomy to counter Satan's temptations and identified the Shema as the greatest commandment. The promised Prophet 'like unto Moses' (18:15) is fulfilled in Christ, acknowledged by Peter (Acts 3:22) and Stephen (Acts 7:37). The curses of Deuteronomy fell upon Christ on the cross, 'for cursed is every one that hangeth on a tree' (Galatians 3:13, quoting Deuteronomy 21:23). Christ's teaching ministry parallels Moses' final instruction to Israel.",
+  "practical_application": "Deuteronomy teaches that love for God must be whole-hearted, not compartmentalized. It emphasizes passing faith to the next generation through intentional teaching. The book warns against prosperity's spiritual dangers and calls us to remember God's past faithfulness as motivation for present obedience. Its vision of covenant community shaped by God's Word remains relevant for the church today. The choice it presents—life or death, blessing or curse—confronts every generation."
+}

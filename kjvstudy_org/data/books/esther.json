@@ -1,0 +1,35 @@
+{
+  "name": "Esther",
+  "abbreviation": "Esth",
+  "testament": "Old Testament",
+  "position": 17,
+  "chapters": 10,
+  "category": "History",
+  "author": "Unknown (possibly Mordecai)",
+  "date_written": "c. 460-400 BC",
+  "introduction": "Esther is a dramatic story of providence, courage, and deliverance. A Jewish orphan becomes queen of Persia and risks her life to save her people from genocide. Though God's name never appears in the book, His sovereign hand is evident throughout. Esther explains the origin of Purim, the Jewish festival celebrating this remarkable rescue. The book demonstrates that God works behind the scenes to preserve His people even when He seems absent.",
+  "key_themes": [
+    "God's hidden providence",
+    "Courage to act at the right moment",
+    "Reversal of fortunes",
+    "The preservation of God's people",
+    "The danger of pride and hatred",
+    "Divine timing and positioning"
+  ],
+  "key_verses": [
+    {"reference": "Esther 4:14", "text": "For if thou altogether holdest thy peace at this time, then shall there enlargement and deliverance arise to the Jews from another place; but thou and thy father's house shall be destroyed: and who knoweth whether thou art come to the kingdom for such a time as this?"},
+    {"reference": "Esther 4:16", "text": "Go, gather together all the Jews that are present in Shushan, and fast ye for me, and neither eat nor drink three days, night or day: I also and my maidens will fast likewise; and so will I go in unto the king, which is not according to the law: and if I perish, I perish."},
+    {"reference": "Esther 6:1", "text": "On that night could not the king sleep, and he commanded to bring the book of records of the chronicles; and they were read before the king."},
+    {"reference": "Esther 9:1", "text": "Now in the twelfth month... in the day that the enemies of the Jews hoped to have power over them, (though it was turned to the contrary, that the Jews had rule over them that hated them)."}
+  ],
+  "outline": [
+    {"section": "Esther Becomes Queen", "chapters": "1-2", "description": "Vashti deposed, Esther chosen, Mordecai's loyalty"},
+    {"section": "Haman's Plot", "chapters": "3-4", "description": "Haman's promotion, his hatred, the decree, Mordecai's challenge"},
+    {"section": "Esther's Courage", "chapters": "5-7", "description": "First banquet, Haman's gallows, sleepless night, Haman's fall"},
+    {"section": "The Jews' Deliverance", "chapters": "8-10", "description": "New decree, victory, Purim established, Mordecai exalted"}
+  ],
+  "historical_context": "The events occur during the reign of Xerxes I (486-465 BC), between the first return under Zerubbabel and Ezra's return. Most Jews had not returned to Judea but remained scattered throughout the Persian Empire. The story is set in Susa, the Persian winter capital. The detailed knowledge of Persian customs and court life suggests an author familiar with that setting.",
+  "literary_style": "Esther is a masterpiece of narrative art. Irony pervades the story: Haman is honored on the gallows he built; the date he chose for the Jews' destruction becomes their victory. The reversals are complete—mourning becomes joy, victims become victors, Mordecai replaces Haman. The structure is chiastic, with the king's sleepless night at the center. The absence of God's name makes His providential presence all the more striking.",
+  "christ_in_book": "Esther as advocate who risks everything to save her people pictures Christ as our advocate. Mordecai's exaltation after suffering reflects Christ's pattern. The deliverance from certain death foreshadows salvation. The feast of Purim, celebrating rescue from an enemy's plot, anticipates the Lord's Supper celebrating Christ's victory. The reversal theme points to the cross, where apparent defeat became ultimate triumph.",
+  "practical_application": "Esther teaches that God is at work even when we cannot see or hear Him. It challenges us to consider whether we have been placed in our positions 'for such a time as this.' The book encourages courageous action when God's people are threatened. It warns against the poison of pride and hatred (Haman) and shows that evil schemes ultimately backfire. Esther and Mordecai model wisdom, patience, and decisive action in their timing."
+}

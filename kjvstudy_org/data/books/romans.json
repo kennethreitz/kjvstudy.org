@@ -1,0 +1,39 @@
+{
+  "name": "Romans",
+  "abbreviation": "Rom",
+  "testament": "New Testament",
+  "position": 45,
+  "chapters": 16,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 57",
+  "introduction": "Romans is Paul's theological masterpiece, the most systematic presentation of the gospel in Scripture. Written to a church he had not founded, Paul explains how God saves sinners—Jew and Gentile alike—through faith in Christ. From universal condemnation to justification, sanctification, and glorification, Romans unfolds the righteousness of God revealed in the gospel. It has sparked revivals and transformed individuals throughout church history.",
+  "key_themes": [
+    "The righteousness of God revealed in the gospel",
+    "Justification by faith alone",
+    "Universal human sinfulness",
+    "Union with Christ and new life",
+    "God's sovereign purpose in salvation",
+    "Living sacrifice and love in community"
+  ],
+  "key_verses": [
+    {"reference": "Romans 1:16-17", "text": "For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation to every one that believeth; to the Jew first, and also to the Greek. For therein is the righteousness of God revealed from faith to faith: as it is written, The just shall live by faith."},
+    {"reference": "Romans 3:23-24", "text": "For all have sinned, and come short of the glory of God; Being justified freely by his grace through the redemption that is in Christ Jesus."},
+    {"reference": "Romans 8:28", "text": "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."},
+    {"reference": "Romans 8:38-39", "text": "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come, Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord."},
+    {"reference": "Romans 12:1-2", "text": "I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service. And be not conformed to this world: but be ye transformed by the renewing of your mind."}
+  ],
+  "outline": [
+    {"section": "Introduction", "chapters": "1:1-17", "description": "Greetings, thanksgiving, theme statement"},
+    {"section": "Condemnation: The Need", "chapters": "1:18-3:20", "description": "Gentile guilt, Jewish guilt, all under sin"},
+    {"section": "Justification: The Provision", "chapters": "3:21-5:21", "description": "Righteousness through faith, Abraham's example, peace with God"},
+    {"section": "Sanctification: The Process", "chapters": "6-8", "description": "Dead to sin, struggle with flesh, life in the Spirit"},
+    {"section": "Israel: The Problem", "chapters": "9-11", "description": "God's sovereignty, Israel's failure, future restoration"},
+    {"section": "Application: The Practice", "chapters": "12-15", "description": "Living sacrifices, love, government, weak and strong"},
+    {"section": "Conclusion", "chapters": "16", "description": "Greetings, warnings, doxology"}
+  ],
+  "historical_context": "Paul wrote Romans from Corinth around AD 57, near the end of his third missionary journey. He planned to visit Rome en route to Spain and wrote to introduce himself and his gospel to a church with both Jewish and Gentile members. The letter addresses tensions between these groups and establishes common ground in the gospel that saves all who believe.",
+  "literary_style": "Romans is carefully argued theological discourse, building logically from premise to conclusion. Paul uses diatribe style (anticipating and answering objections), Old Testament quotations, rhetorical questions, and vivid imagery. The letter moves from indicative (what God has done) to imperative (how we should live). Chapter 8's conclusion and 11's doxology are rhetorical and emotional high points.",
+  "christ_in_book": "Christ is central throughout Romans. He is descended from David, declared Son of God by resurrection, the means of justification, the one to whom we are united in death and life, the end of the law for righteousness, the Lord over all who saves all who call upon Him, and the servant example we follow. God's righteousness is revealed through faith in Christ. Nothing can separate us from His love.",
+  "practical_application": "Romans grounds Christian ethics in gospel indicatives—we live transformed lives because God has transformed us. It calls for presenting our bodies as living sacrifices, being renewed in mind rather than conformed to the world. The letter teaches love in community, submission to authorities, and bearing with weaker believers. It humbles us with our total need and lifts us with God's complete provision. Understanding Romans means understanding the gospel."
+}

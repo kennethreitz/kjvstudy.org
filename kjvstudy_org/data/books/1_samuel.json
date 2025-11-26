@@ -1,0 +1,34 @@
+{
+  "name": "I Samuel",
+  "abbreviation": "1Sam",
+  "testament": "Old Testament",
+  "position": 9,
+  "chapters": 31,
+  "category": "History",
+  "author": "Samuel, Nathan, and Gad (see 1 Chronicles 29:29)",
+  "date_written": "c. 1050-900 BC",
+  "introduction": "First Samuel bridges the period of the judges and the monarchy. It introduces three pivotal figures: Samuel, the last judge and kingmaker; Saul, the people's choice who became a tragic failure; and David, God's choice who would become Israel's greatest king. The book explores the nature of true leadership, the dangers of pride and jealousy, and God's sovereignty in raising up and tearing down rulers.",
+  "key_themes": [
+    "The transition from judges to monarchy",
+    "God's sovereignty over human kingdoms",
+    "The contrast between outward appearance and the heart",
+    "Obedience versus sacrifice",
+    "The consequences of pride and jealousy",
+    "God's choice versus human choice"
+  ],
+  "key_verses": [
+    {"reference": "1 Samuel 2:2", "text": "There is none holy as the LORD: for there is none beside thee: neither is there any rock like our God."},
+    {"reference": "1 Samuel 15:22", "text": "And Samuel said, Hath the LORD as great delight in burnt offerings and sacrifices, as in obeying the voice of the LORD? Behold, to obey is better than sacrifice, and to hearken than the fat of rams."},
+    {"reference": "1 Samuel 16:7", "text": "But the LORD said unto Samuel, Look not on his countenance, or on the height of his stature; because I have refused him: for the LORD seeth not as man seeth; for man looketh on the outward appearance, but the LORD looketh on the heart."},
+    {"reference": "1 Samuel 17:47", "text": "And all this assembly shall know that the LORD saveth not with sword and spear: for the battle is the LORD's, and he will give you into our hands."}
+  ],
+  "outline": [
+    {"section": "Samuel: Last of the Judges", "chapters": "1-7", "description": "Hannah's prayer, Samuel's birth and call, the Philistine threat"},
+    {"section": "Saul: First of the Kings", "chapters": "8-15", "description": "Israel demands a king, Saul's rise and failure, rejection"},
+    {"section": "David: King in Waiting", "chapters": "16-31", "description": "David's anointing, Goliath, friendship with Jonathan, flight from Saul"}
+  ],
+  "historical_context": "The events span approximately 1100-1010 BC, transitioning from the late judges period to the early monarchy. The Philistines posed Israel's greatest threat, possessing iron weapons technology. Israel's request for a king reflected both legitimate needs and sinful motivations. The book explains how Israel acquired and lost its first king and how God prepared David for the throne through years of testing and waiting.",
+  "literary_style": "First Samuel excels in character portrayal through action and dialogue. The contrasts are masterful: Hannah's faith versus Eli's passivity, Samuel's integrity versus his sons' corruption, Saul's impressive start versus tragic end, David's humble trust versus Saul's paranoid jealousy. The book employs dramatic irony (the reader knows David is anointed king while Saul pursues him). Key episodes like David and Goliath are told with memorable vividness.",
+  "christ_in_book": "David is the primary type of Christ—the shepherd-king, the anointed one (messiah), the man after God's own heart. David's humble beginning, his opposition from the ruling power, his eventual vindication, and his shepherding of God's people all foreshadow Christ. Hannah's song anticipates Mary's Magnificat and speaks of the LORD's anointed. The rejected stone becoming chief cornerstone reflects David's path to kingship.",
+  "practical_application": "First Samuel teaches that God looks at the heart, not outward appearance or credentials. It warns of the danger of demanding our own way rather than waiting for God's timing. Saul's story shows how small compromises lead to great falls, while David demonstrates patient endurance under unjust treatment. The book challenges leaders to servant-hearted humility and followers to trust God's providence even when circumstances seem contrary to His promises."
+}

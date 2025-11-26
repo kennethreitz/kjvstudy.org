@@ -1,0 +1,34 @@
+{
+  "name": "II Peter",
+  "abbreviation": "2Pet",
+  "testament": "New Testament",
+  "position": 61,
+  "chapters": 3,
+  "category": "General Epistles",
+  "author": "Peter the Apostle",
+  "date_written": "c. AD 64-67",
+  "introduction": "Second Peter is Peter's final letter, written as he faced imminent death. While First Peter addressed external persecution, this letter confronts internal threats: false teachers who deny the Lord and mock His return. Peter reminds readers of apostolic testimony, warns against destructive heresies, and reaffirms that the Lord will return—His apparent delay is patience for repentance. The letter calls for growing in grace and knowledge.",
+  "key_themes": [
+    "Growing in grace and knowledge",
+    "True versus false knowledge",
+    "Warning against false teachers",
+    "The certainty of Christ's return",
+    "Divine patience and the Day of the Lord",
+    "Scripture's authority and interpretation"
+  ],
+  "key_verses": [
+    {"reference": "2 Peter 1:3-4", "text": "According as his divine power hath given unto us all things that pertain unto life and godliness, through the knowledge of him that hath called us to glory and virtue: Whereby are given unto us exceeding great and precious promises: that by these ye might be partakers of the divine nature, having escaped the corruption that is in the world through lust."},
+    {"reference": "2 Peter 1:20-21", "text": "Knowing this first, that no prophecy of the scripture is of any private interpretation. For the prophecy came not in old time by the will of man: but holy men of God spake as they were moved by the Holy Ghost."},
+    {"reference": "2 Peter 3:8-9", "text": "But, beloved, be not ignorant of this one thing, that one day is with the Lord as a thousand years, and a thousand years as one day. The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish, but that all should come to repentance."},
+    {"reference": "2 Peter 3:18", "text": "But grow in grace, and in the knowledge of our Lord and Saviour Jesus Christ. To him be glory both now and for ever. Amen."}
+  ],
+  "outline": [
+    {"section": "Growing in Godliness", "chapters": "1", "description": "Divine promises, Christian virtues, Peter's testimony"},
+    {"section": "Warning Against False Teachers", "chapters": "2", "description": "Their character, judgment, and danger"},
+    {"section": "The Day of the Lord", "chapters": "3", "description": "Scoffers answered, destruction and new creation"}
+  ],
+  "historical_context": "Peter writes knowing his death is near (1:14). False teachers had infiltrated the church, combining immoral living with denial of future judgment. They mocked Christ's promised return: 'Where is the promise of His coming?' Peter appeals to eyewitness apostolic testimony (the Transfiguration) and prophetic Scripture. The letter shows awareness of Paul's writings, acknowledging their authority while noting they are sometimes misused.",
+  "literary_style": "Second Peter has the most elaborate Greek style in the New Testament, suggesting careful composition for this final testament. Chapter 2 shares extensive material with Jude. Peter builds his argument: chapter 1 establishes true knowledge; chapter 2 exposes false teachers; chapter 3 addresses the return. The letter moves from the personal ('I know my death is near') to the cosmic ('the day of the Lord').",
+  "christ_in_book": "Jesus is Savior and Lord whose divine power provides everything for life and godliness. The Transfiguration vindicated His glory; Scripture prophesied His coming. False teachers deny 'the Lord who bought them.' The Day of the Lord will bring judgment and the new heavens and earth where righteousness dwells. The letter opens and closes with 'the knowledge of our Lord and Savior Jesus Christ.'",
+  "practical_application": "Second Peter calls for diligence in spiritual growth—adding virtue, knowledge, self-control, steadfastness, godliness, brotherly affection, and love. It warns that false teachers are identifiable by their conduct, not just doctrine. The apparent delay of Christ's return is divine patience, not failure. Each day is opportunity for repentance. We should live holy lives, hastening the Day of God, looking for new heavens and earth. Growth in grace and knowledge is the proper response."
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Zechariah",
+  "abbreviation": "Zech",
+  "testament": "Old Testament",
+  "position": 38,
+  "chapters": 14,
+  "category": "Minor Prophets",
+  "author": "Zechariah son of Berechiah",
+  "date_written": "c. 520-480 BC",
+  "introduction": "Zechariah is the most messianic of the Minor Prophets and the most quoted in the Gospel passion narratives. Like Haggai, he encouraged temple rebuilding, but his message extends far beyond—through symbolic visions and oracles, he reveals God's ultimate purposes: the cleansing of His people, the coming of the King-Priest, and the establishment of God's kingdom over all the earth. Zechariah's visions bridge present discouragement and future glory.",
+  "key_themes": [
+    "Encouragement for rebuilding",
+    "Visions of God's protection and purposes",
+    "The coming Branch (Messiah)",
+    "The union of king and priest",
+    "The outpouring of the Spirit",
+    "The Lord's return and reign"
+  ],
+  "key_verses": [
+    {"reference": "Zechariah 4:6", "text": "Then he answered and spake unto me, saying, This is the word of the LORD unto Zerubbabel, saying, Not by might, nor by power, but by my spirit, saith the LORD of hosts."},
+    {"reference": "Zechariah 9:9", "text": "Rejoice greatly, O daughter of Zion; shout, O daughter of Jerusalem: behold, thy King cometh unto thee: he is just, and having salvation; lowly, and riding upon an ass, and upon a colt the foal of an ass."},
+    {"reference": "Zechariah 12:10", "text": "And I will pour upon the house of David, and upon the inhabitants of Jerusalem, the spirit of grace and of supplications: and they shall look upon me whom they have pierced, and they shall mourn for him."},
+    {"reference": "Zechariah 13:1", "text": "In that day there shall be a fountain opened to the house of David and to the inhabitants of Jerusalem for sin and for uncleanness."},
+    {"reference": "Zechariah 14:9", "text": "And the LORD shall be king over all the earth: in that day shall there be one LORD, and his name one."}
+  ],
+  "outline": [
+    {"section": "Call to Repentance", "chapters": "1:1-6", "description": "Return to the LORD"},
+    {"section": "Eight Night Visions", "chapters": "1:7-6:15", "description": "Horses, horns, measuring line, Joshua, lampstand, scroll, woman, chariots"},
+    {"section": "Fasting Question", "chapters": "7-8", "description": "Justice over fasting, future blessings"},
+    {"section": "First Oracle: King Coming", "chapters": "9-11", "description": "Victories, shepherds, rejection of the Shepherd"},
+    {"section": "Second Oracle: Final Triumph", "chapters": "12-14", "description": "Jerusalem's deliverance, mourning, fountain, the LORD's reign"}
+  ],
+  "historical_context": "Zechariah was a contemporary of Haggai, prophesying from 520 BC onwards. The returned exiles were a small, vulnerable community in a corner of the Persian Empire. The temple was being rebuilt but would be modest compared to Solomon's. Zechariah's visions assured them that present smallness did not limit God's grand purposes. The book's later oracles may extend into the following decades.",
+  "literary_style": "Zechariah divides into two sections: the night visions with their angelic interpreter (1-8) and the oracles or 'burdens' (9-14). The visions are symbolic and sometimes bizarre (flying scrolls, women in baskets). The later chapters move toward apocalyptic imagery. The book is rich in dialogue and explanation. Messianic prophecy reaches unusual specificity—the king on a donkey, thirty pieces of silver, the pierced one.",
+  "christ_in_book": "Zechariah provides a detailed portrait of Christ: the Branch, both king and priest (6:12-13); the humble king entering Jerusalem on a donkey (9:9, fulfilled in Matthew 21:5); the shepherd valued at thirty pieces of silver (11:12-13, fulfilled in Matthew 27:9-10); the one whom they pierced (12:10, fulfilled at the cross and referenced in John 19:37); the smitten shepherd (13:7, quoted by Jesus in Matthew 26:31). The fountain for sin (13:1) pictures Christ's cleansing blood.",
+  "practical_application": "Zechariah encourages believers that God accomplishes His purposes 'not by might, nor by power, but by my Spirit.' Small beginnings don't prevent great endings. The book calls for genuine religion—justice and compassion, not empty ritual. It assures us that God has not forgotten His purposes and that present difficulties are part of a larger story ending in universal worship of the LORD. The vision of the pierced one mourned over models repentant faith."
+}

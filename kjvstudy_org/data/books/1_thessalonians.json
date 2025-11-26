@@ -1,0 +1,33 @@
+{
+  "name": "I Thessalonians",
+  "abbreviation": "1Thess",
+  "testament": "New Testament",
+  "position": 52,
+  "chapters": 5,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 50-51",
+  "introduction": "First Thessalonians is likely Paul's earliest letter, written to encourage a young church facing persecution. Paul had been forced to leave Thessalonica prematurely and worried about the believers' faith. Timothy's positive report prompted this letter of thanksgiving, defense of Paul's ministry, and instruction about holy living and Christ's return. Every chapter ends with reference to Jesus' coming—the hope that sustains believers through present trials.",
+  "key_themes": [
+    "Thanksgiving for the Thessalonians' faith",
+    "Paul's defense of his ministry",
+    "Holy living in anticipation of Christ's return",
+    "The fate of believers who die before Christ returns",
+    "The Day of the Lord",
+    "Comfort and encouragement"
+  ],
+  "key_verses": [
+    {"reference": "1 Thessalonians 1:9-10", "text": "For they themselves shew of us what manner of entering in we had unto you, and how ye turned to God from idols to serve the living and true God; And to wait for his Son from heaven, whom he raised from the dead, even Jesus, which delivered us from the wrath to come."},
+    {"reference": "1 Thessalonians 4:13-14", "text": "But I would not have you to be ignorant, brethren, concerning them which are asleep, that ye sorrow not, even as others which have no hope. For if we believe that Jesus died and rose again, even so them also which sleep in Jesus will God bring with him."},
+    {"reference": "1 Thessalonians 4:16-17", "text": "For the Lord himself shall descend from heaven with a shout, with the voice of the archangel, and with the trump of God: and the dead in Christ shall rise first: Then we which are alive and remain shall be caught up together with them in the clouds, to meet the Lord in the air: and so shall we ever be with the Lord."},
+    {"reference": "1 Thessalonians 5:16-18", "text": "Rejoice evermore. Pray without ceasing. In every thing give thanks: for this is the will of God in Christ Jesus concerning you."}
+  ],
+  "outline": [
+    {"section": "Thanksgiving and Reflection", "chapters": "1-3", "description": "Faith remembered, ministry defended, Timothy's report"},
+    {"section": "Instruction and Exhortation", "chapters": "4-5", "description": "Holy living, Christ's return, final instructions"}
+  ],
+  "historical_context": "Paul founded the Thessalonian church on his second missionary journey (Acts 17), but Jewish opposition forced his departure after only a few weeks. He worried about the young believers facing persecution. Unable to return himself, he sent Timothy to strengthen them. Timothy's encouraging report prompted this letter from Corinth around AD 50-51, making it likely the earliest New Testament document.",
+  "literary_style": "First Thessalonians is warm and pastoral, more personal than systematic. Paul reminisces about his time with them, defends his conduct against accusations, and expresses deep affection ('as a nurse cherisheth her children'). The eschatological sections (4:13-18; 5:1-11) respond to specific questions. The letter ends with a series of rapid-fire exhortations. Each chapter's conclusion mentions Christ's return.",
+  "christ_in_book": "Christ is the one raised from the dead who delivers from coming wrath. He is the Lord who returns from heaven with a shout, accompanied by archangel and trumpet. The dead in Christ rise first; the living are caught up to meet Him. Believers will always be with the Lord. He is the source of holiness and the one who sanctifies completely. Our destiny is salvation through Him, whether we wake or sleep.",
+  "practical_application": "First Thessalonians teaches that Christ's return should motivate holy living, diligent work, and mutual encouragement. Grief for the dead is natural but transformed by hope—we will be reunited forever. The Day of the Lord comes unexpectedly; believers should live as children of light. The final instructions—rejoice always, pray constantly, give thanks in all circumstances—summarize the Christian life. We comfort one another with the truth of Christ's coming."
+}

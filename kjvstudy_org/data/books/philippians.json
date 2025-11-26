@@ -1,0 +1,36 @@
+{
+  "name": "Philippians",
+  "abbreviation": "Phil",
+  "testament": "New Testament",
+  "position": 50,
+  "chapters": 4,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 61-62",
+  "introduction": "Philippians is Paul's letter of joy, written from prison to his beloved church in Philippi. Despite imprisonment, Paul overflows with joy because Christ is proclaimed and the gospel advances. The letter contains the great Christ-hymn describing Jesus' self-emptying and exaltation. Paul calls believers to have the same humble mind as Christ, to rejoice always, and to find contentment in all circumstances through Christ's strength.",
+  "key_themes": [
+    "Joy in all circumstances",
+    "The example of Christ's humility",
+    "Partnership in the gospel",
+    "Pressing on toward the goal",
+    "Contentment through Christ",
+    "Unity and like-mindedness"
+  ],
+  "key_verses": [
+    {"reference": "Philippians 1:21", "text": "For to me to live is Christ, and to die is gain."},
+    {"reference": "Philippians 2:5-8", "text": "Let this mind be in you, which was also in Christ Jesus: Who, being in the form of God, thought it not robbery to be equal with God: But made himself of no reputation, and took upon him the form of a servant, and was made in the likeness of men: And being found in fashion as a man, he humbled himself, and became obedient unto death, even the death of the cross."},
+    {"reference": "Philippians 3:13-14", "text": "Brethren, I count not myself to have apprehended: but this one thing I do, forgetting those things which are behind, and reaching forth unto those things which are before, I press toward the mark for the prize of the high calling of God in Christ Jesus."},
+    {"reference": "Philippians 4:6-7", "text": "Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus."},
+    {"reference": "Philippians 4:13", "text": "I can do all things through Christ which strengtheneth me."}
+  ],
+  "outline": [
+    {"section": "Paul's Circumstances and Joy", "chapters": "1", "description": "Thanksgiving, imprisonment advances gospel, to live is Christ"},
+    {"section": "Christ's Example and Our Response", "chapters": "2", "description": "The Christ-hymn, working out salvation, Timothy and Epaphroditus"},
+    {"section": "Pressing Toward the Goal", "chapters": "3", "description": "Warning against Judaizers, Paul's testimony, heavenly citizenship"},
+    {"section": "Practical Exhortations", "chapters": "4", "description": "Rejoice, pray, contentment, thanksgiving for gift"}
+  ],
+  "historical_context": "Philippi was a Roman colony in Macedonia where Paul founded Europe's first church (Acts 16). Lydia and the Philippian jailer were early converts. The church had a special relationship with Paul, supporting him financially multiple times. Paul wrote from imprisonment (likely Rome) after receiving a gift through Epaphroditus, who had become ill while serving Paul. The letter thanks them and updates his situation.",
+  "literary_style": "Philippians is warm and personal, more like a friend's letter than a treatise. The Christ-hymn (2:6-11) is poetic and may reflect early Christian worship. The letter's structure is informal, moving between thanksgiving, exhortation, personal updates, and practical instruction. Joy/rejoice vocabulary appears sixteen times. Paul's affection for the Philippians is evident throughout.",
+  "christ_in_book": "The Christ-hymn (2:6-11) is Philippians' theological center—Christ's pre-existence, incarnation, humiliation, death, and exaltation. He is both example and enabler of Christian living. Paul knows Him (3:10), gains through Him (4:13), and finds life in Him (1:21). The name of Jesus receives universal homage. Christ is the goal Paul presses toward and the one through whom he can do all things.",
+  "practical_application": "Philippians shows that joy is possible in any circumstance when Christ is central. It calls for unity through humility, taking Christ's self-emptying as our example. Paul models pressing forward rather than resting on past achievements or failures. The antidote to anxiety is prayer with thanksgiving. Contentment is learned, not automatic. The peace of God guards our hearts and minds. Philippians invites us to make Christ our life's summary: 'For to me to live is Christ.'"
+}

@@ -1,0 +1,35 @@
+{
+  "name": "II Samuel",
+  "abbreviation": "2Sam",
+  "testament": "Old Testament",
+  "position": 10,
+  "chapters": 24,
+  "category": "History",
+  "author": "Nathan, Gad, and others (see 1 Chronicles 29:29)",
+  "date_written": "c. 1000-900 BC",
+  "introduction": "Second Samuel records David's reign over Israel—his triumphs and tragedies. It begins with David's lament over Saul and Jonathan and ends with him purchasing the future temple site. Between these bookends lie David's greatest achievements and his greatest sin. The book establishes the Davidic covenant, God's promise of an eternal throne that finds its ultimate fulfillment in Jesus Christ.",
+  "key_themes": [
+    "The establishment of David's kingdom",
+    "The Davidic covenant and eternal throne",
+    "Sin's devastating consequences, even for the forgiven",
+    "God's grace in discipline and restoration",
+    "Leadership's privileges and responsibilities",
+    "The faithfulness of God to His promises"
+  ],
+  "key_verses": [
+    {"reference": "2 Samuel 7:12-13", "text": "And when thy days be fulfilled, and thou shalt sleep with thy fathers, I will set up thy seed after thee, which shall proceed out of thy bowels, and I will establish his kingdom. He shall build an house for my name, and I will stablish the throne of his kingdom for ever."},
+    {"reference": "2 Samuel 7:16", "text": "And thine house and thy kingdom shall be established for ever before thee: thy throne shall be established for ever."},
+    {"reference": "2 Samuel 12:13", "text": "And David said unto Nathan, I have sinned against the LORD. And Nathan said unto David, The LORD also hath put away thy sin; thou shalt not die."},
+    {"reference": "2 Samuel 22:2-3", "text": "And he said, The LORD is my rock, and my fortress, and my deliverer; The God of my rock; in him will I trust: he is my shield, and the horn of my salvation, my high tower, and my refuge, my saviour; thou savest me from violence."}
+  ],
+  "outline": [
+    {"section": "David's Rise", "chapters": "1-10", "description": "King over Judah, then all Israel, Jerusalem captured, covenant established, military victories"},
+    {"section": "David's Fall", "chapters": "11-12", "description": "Bathsheba, Uriah's murder, Nathan's confrontation"},
+    {"section": "David's Troubles", "chapters": "13-20", "description": "Amnon and Tamar, Absalom's rebellion and death, Sheba's revolt"},
+    {"section": "David's Final Years", "chapters": "21-24", "description": "Famine, heroes, psalms, census plague, temple site purchased"}
+  ],
+  "historical_context": "David reigned approximately 1010-970 BC. He united the twelve tribes, conquered Jerusalem as his capital, extended Israel's borders to their greatest extent, and prepared for the temple. This was Israel's golden age. Yet David's sin with Bathsheba introduced chaos into his family and kingdom—fulfilling Nathan's prophecy that 'the sword shall never depart from thine house.' The book honestly portrays the greatest king's greatest failures.",
+  "literary_style": "Second Samuel is masterfully constructed narrative. The book's center—David's sin with Bathsheba—creates a dramatic before and after. David's victories give way to family tragedies that mirror his own sins (Amnon's lust, Absalom's murder and rebellion). Nathan's parable and David's unwitting self-condemnation demonstrate sophisticated literary art. The final chapters form an appendix with poetic material (David's song and last words) framed by narrative accounts.",
+  "christ_in_book": "The Davidic covenant (chapter 7) is the theological heart of Scripture's messianic expectation. God's promise of an eternal throne, an eternal kingdom, and an eternal dynasty finds its fulfillment only in Christ, David's greater Son. Jesus is repeatedly called 'Son of David.' David's role as shepherd-king, his suffering before glory, his compassion for enemies, and his desire to build God's house all anticipate Christ. Even David's sins point to humanity's need for a sinless King.",
+  "practical_application": "Second Samuel teaches that even great saints can fall greatly, and that sin—though forgiven—carries lasting consequences. It shows that leadership brings both opportunity and accountability. David's response to Nathan models genuine repentance (see Psalm 51). The book demonstrates that God's purposes prevail despite human failure and that His grace can restore broken lives. It warns against the pride that precedes a fall and the passivity that allows sin to compound."
+}

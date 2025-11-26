@@ -784,5 +784,902 @@
         ]
       }
     }
+  },
+  "Grace": {
+    "description": "God's unmerited favor toward sinners through Jesus Christ",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Grace stands</span> as one of the most glorious words in Scripture, capturing the essence of God's character and the foundation of salvation. Unlike mercy, which withholds deserved punishment, grace bestows undeserved blessing. It represents God's free and sovereign favor toward those who merit only condemnation—the divine disposition to give what cannot be earned, purchased, or repaid.</p>\n\n<p class=\"intro-text\">The biblical concept of grace encompasses multiple dimensions. <strong>Saving grace</strong> brings sinners from death to life, from condemnation to justification, from alienation to adoption. \"By grace are ye saved through faith; and that not of yourselves: it is the gift of God\" (Ephesians 2:8). This saving grace excludes human contribution and silences all boasting. <strong>Sustaining grace</strong> empowers believers for daily living, providing strength sufficient for every trial. \"My grace is sufficient for thee: for my strength is made perfect in weakness\" (2 Corinthians 12:9). <strong>Sanctifying grace</strong> progressively transforms believers into Christ's likeness, producing holiness that human effort cannot achieve.</p>\n\n<p class=\"intro-text\">Grace does not compromise God's justice but satisfies it through Christ's substitutionary death. At the cross, grace and righteousness kiss—God demonstrates both His hatred of sin and His love for sinners. Grace is not cheap sentimentalism that ignores transgression but costly redemption that paid sin's full penalty. \"Being justified freely by his grace through the redemption that is in Christ Jesus\" (Romans 3:24). The grace that saves also sanctifies, for it \"teacheth us that, denying ungodliness and worldly lusts, we should live soberly, righteously, and godly, in this present world\" (Titus 2:12).</p>\n\n<p class=\"intro-text\">Understanding grace transforms Christian living. It produces humility (recognizing we deserve nothing), gratitude (appreciating what we've received), generosity (extending to others what God extended to us), and confidence (trusting God's ongoing provision). Grace motivates obedience more powerfully than law ever could, for love compels what duty cannot force. Those who truly grasp grace cannot remain unchanged—they become channels of grace to others.</p>",
+    "subtopics": {
+      "Saving Grace": {
+        "description": "Grace that brings salvation",
+        "verses": [
+          {"ref": "Ephesians 2:8-9", "note": "Saved by grace through faith"},
+          {"ref": "Romans 3:24", "note": "Justified freely by His grace"},
+          {"ref": "Titus 2:11", "note": "Grace that bringeth salvation"},
+          {"ref": "Romans 5:15", "note": "The gift by grace"}
+        ]
+      },
+      "Sustaining Grace": {
+        "description": "Grace for daily strength",
+        "verses": [
+          {"ref": "2 Corinthians 12:9", "note": "My grace is sufficient"},
+          {"ref": "Hebrews 4:16", "note": "Find grace to help in time of need"},
+          {"ref": "James 4:6", "note": "He giveth more grace"},
+          {"ref": "1 Peter 5:10", "note": "The God of all grace"}
+        ]
+      },
+      "Growing in Grace": {
+        "description": "Maturing through grace",
+        "verses": [
+          {"ref": "2 Peter 3:18", "note": "Grow in grace and knowledge"},
+          {"ref": "John 1:16", "note": "Grace for grace"},
+          {"ref": "Colossians 4:6", "note": "Speech with grace"},
+          {"ref": "2 Corinthians 8:7", "note": "Abound in this grace also"}
+        ]
+      }
+    }
+  },
+  "Joy": {
+    "description": "Deep gladness rooted in God's character and promises",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Joy in Scripture</span> differs fundamentally from worldly happiness. While happiness depends on favorable circumstances, biblical joy remains steadfast regardless of external conditions. This supernatural gladness flows from relationship with God, confidence in His sovereignty, and hope in eternal promises. Joy is simultaneously a gift of the Spirit and a discipline of faith—something received and something cultivated.</p>\n\n<p class=\"intro-text\">The sources of Christian joy are manifold. <strong>Joy in salvation</strong> celebrates the greatest reality: reconciliation with God and deliverance from condemnation. \"We also joy in God through our Lord Jesus Christ, by whom we have now received the atonement\" (Romans 5:11). <strong>Joy in God Himself</strong> delights in His character, finding satisfaction in who He is rather than merely what He gives. \"Whom having not seen, ye love; in whom, though now ye see him not, yet believing, ye rejoice with joy unspeakable\" (1 Peter 1:8). <strong>Joy in hope</strong> anticipates future glory, transforming present suffering into light affliction. \"Rejoicing in hope; patient in tribulation\" (Romans 12:12).</p>\n\n<p class=\"intro-text\">Remarkably, Scripture commands joy even amid trials. \"Count it all joy when ye fall into divers temptations\" (James 1:2). This is possible because joy depends not on circumstances but on unchanging realities: God's love, Christ's victory, the Spirit's presence, and heaven's certainty. Paul wrote his epistle of joy from prison, demonstrating that external chains cannot bind internal gladness. The joy of the Lord becomes the believer's strength (Nehemiah 8:10), enabling endurance when human resources fail.</p>\n\n<p class=\"intro-text\">Joy manifests in worship, gratitude, generosity, and witness. Joyful believers attract others to Christ more effectively than dutiful ones. Joy is contagious—it overflows to bless others and glorify God. \"These things have I spoken unto you, that my joy might remain in you, and that your joy might be full\" (John 15:11).</p>",
+    "subtopics": {
+      "Joy in Salvation": {
+        "description": "Rejoicing in redemption",
+        "verses": [
+          {"ref": "Luke 10:20", "note": "Rejoice that your names are written in heaven"},
+          {"ref": "Romans 5:11", "note": "Joy in God through Christ"},
+          {"ref": "Psalms 51:12", "note": "Restore unto me the joy of thy salvation"},
+          {"ref": "Isaiah 61:10", "note": "My soul shall be joyful in my God"}
+        ]
+      },
+      "Joy in Trials": {
+        "description": "Finding joy amid suffering",
+        "verses": [
+          {"ref": "James 1:2", "note": "Count it all joy"},
+          {"ref": "Romans 5:3", "note": "Glory in tribulations"},
+          {"ref": "1 Peter 4:13", "note": "Rejoice in Christ's sufferings"},
+          {"ref": "Acts 5:41", "note": "Rejoicing to suffer for His name"}
+        ]
+      },
+      "Fullness of Joy": {
+        "description": "Complete joy in God",
+        "verses": [
+          {"ref": "John 15:11", "note": "That your joy might be full"},
+          {"ref": "Psalms 16:11", "note": "Fullness of joy in thy presence"},
+          {"ref": "John 16:24", "note": "Ask, that your joy may be full"},
+          {"ref": "1 John 1:4", "note": "That your joy may be full"}
+        ]
+      }
+    }
+  },
+  "Obedience": {
+    "description": "Submitting to God's commands out of love and reverence",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Obedience represents</span> the practical demonstration of faith, the visible evidence of invisible grace. Biblical obedience is not mere external compliance but wholehearted submission flowing from love. \"If ye love me, keep my commandments\" (John 14:15). This obedience does not earn salvation but expresses it—the grateful response of those who have received immeasurable grace.</p>\n\n<p class=\"intro-text\">Scripture presents obedience as <strong>better than sacrifice</strong> (1 Samuel 15:22), revealing that God desires hearts, not merely rituals. True obedience involves both attitude and action, inner motivation and outward conformity. It extends to all areas of life—thought, word, and deed—and grows from recognition of God's wisdom, goodness, and authority. \"Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths\" (Proverbs 3:5-6).</p>\n\n<p class=\"intro-text\">Christ provides the perfect model of obedience. He \"became obedient unto death, even the death of the cross\" (Philippians 2:8), demonstrating absolute submission to the Father's will. His obedience secured our justification—\"by the obedience of one shall many be made righteous\" (Romans 5:19). Now believers are called to follow His example, walking in obedience not to earn His favor but because they already possess it.</p>\n\n<p class=\"intro-text\">The blessings of obedience are numerous: peace, protection, provision, and intimacy with God. \"If ye be willing and obedient, ye shall eat the good of the land\" (Isaiah 1:19). Yet even apart from blessings, obedience remains right because God is worthy of our submission. His commands are not burdensome but beneficial, expressions of love from One who knows what is best for His creatures.</p>",
+    "subtopics": {
+      "Called to Obey": {
+        "description": "The command to obedience",
+        "verses": [
+          {"ref": "John 14:15", "note": "If ye love me, keep my commandments"},
+          {"ref": "Deuteronomy 11:13", "note": "Diligently hearken to my commandments"},
+          {"ref": "1 Samuel 15:22", "note": "To obey is better than sacrifice"},
+          {"ref": "Acts 5:29", "note": "We ought to obey God rather than men"}
+        ]
+      },
+      "Christ's Obedience": {
+        "description": "Jesus as our example",
+        "verses": [
+          {"ref": "Philippians 2:8", "note": "Obedient unto death"},
+          {"ref": "Romans 5:19", "note": "By the obedience of one"},
+          {"ref": "Hebrews 5:8", "note": "Learned obedience by suffering"},
+          {"ref": "John 6:38", "note": "Not my will, but thy will"}
+        ]
+      },
+      "Blessings of Obedience": {
+        "description": "The rewards of following God",
+        "verses": [
+          {"ref": "Deuteronomy 28:1-2", "note": "Blessings shall come upon thee"},
+          {"ref": "Isaiah 1:19", "note": "If willing and obedient"},
+          {"ref": "John 14:23", "note": "Father will love him"},
+          {"ref": "James 1:25", "note": "Blessed in his deed"}
+        ]
+      }
+    }
+  },
+  "Humility": {
+    "description": "Lowliness of mind that exalts God and serves others",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Humility occupies</span> a unique place among virtues—it is both the foundation of all other graces and the most elusive to attain. The moment one considers oneself humble, pride has already crept in. Biblical humility involves accurate self-assessment in light of God's greatness and grace: recognizing our dependence, limitations, and unworthiness while trusting completely in God's sufficiency.</p>\n\n<p class=\"intro-text\">Scripture consistently <strong>exalts the humble and resists the proud</strong>. \"God resisteth the proud, but giveth grace unto the humble\" (James 4:6). This pattern pervades both testaments: Pharaoh is humbled while Moses, the meekest man on earth (Numbers 12:3), leads Israel. Nebuchadnezzar loses his throne until humbled. The proud Pharisee goes home unjustified while the humble tax collector receives mercy (Luke 18:9-14). God's kingdom operates on inverted values—the last shall be first, the servant shall be greatest.</p>\n\n<p class=\"intro-text\">Christ Jesus embodies perfect humility. \"Being in the form of God, thought it not robbery to be equal with God: But made himself of no reputation, and took upon him the form of a servant\" (Philippians 2:6-7). The infinite became finite, the Creator served creatures, the King washed feet. His humility was not weakness but strength—the voluntary condescension of absolute power for love's sake.</p>\n\n<p class=\"intro-text\">Practical humility manifests in multiple ways: esteeming others better than ourselves (Philippians 2:3), serving without seeking recognition, receiving correction graciously, acknowledging wrongs readily, and giving God glory for all accomplishments. Humility opens us to learn, frees us from defensiveness, and positions us for God's exaltation. \"Humble yourselves in the sight of the Lord, and he shall lift you up\" (James 4:10).</p>",
+    "subtopics": {
+      "God Exalts the Humble": {
+        "description": "Divine blessing on humility",
+        "verses": [
+          {"ref": "James 4:6", "note": "Giveth grace unto the humble"},
+          {"ref": "1 Peter 5:5-6", "note": "Humble yourselves under God's hand"},
+          {"ref": "Matthew 23:12", "note": "Whosoever shall humble himself"},
+          {"ref": "Luke 14:11", "note": "He that humbleth himself shall be exalted"}
+        ]
+      },
+      "Christ's Humility": {
+        "description": "Jesus as our example",
+        "verses": [
+          {"ref": "Philippians 2:5-8", "note": "Mind of Christ, made himself of no reputation"},
+          {"ref": "Matthew 11:29", "note": "I am meek and lowly in heart"},
+          {"ref": "John 13:14-15", "note": "Washed the disciples' feet"},
+          {"ref": "Zechariah 9:9", "note": "Lowly, and riding upon an ass"}
+        ]
+      },
+      "Walking in Humility": {
+        "description": "Practical humility",
+        "verses": [
+          {"ref": "Philippians 2:3", "note": "Esteem other better than themselves"},
+          {"ref": "Romans 12:3", "note": "Not to think more highly"},
+          {"ref": "Micah 6:8", "note": "Walk humbly with thy God"},
+          {"ref": "Colossians 3:12", "note": "Put on humbleness of mind"}
+        ]
+      }
+    }
+  },
+  "Holiness": {
+    "description": "Being set apart for God and conformed to His character",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Holiness defines</span> God's essential character and describes the life He calls His people to live. The Hebrew word <em>qadosh</em> and Greek <em>hagios</em> convey the idea of being set apart, separated from the common for sacred purposes. God is supremely holy—utterly distinct from creation, morally perfect, and worthy of absolute reverence. His holiness is not merely one attribute among many but the atmosphere in which all His attributes exist.</p>\n\n<p class=\"intro-text\">Because God is holy, He commands His people: \"Be ye holy; for I am holy\" (1 Peter 1:16). This call to holiness involves both <strong>positional sanctification</strong> (being set apart as God's possession through Christ) and <strong>progressive sanctification</strong> (growing in actual holiness of life). Believers are simultaneously declared holy in Christ and called to become holy in practice—to increasingly reflect the character of the One who saved them.</p>\n\n<p class=\"intro-text\">Practical holiness requires both separation from sin and consecration to God. \"Come out from among them, and be ye separate, saith the Lord, and touch not the unclean thing\" (2 Corinthians 6:17). Yet holiness is not merely negative—avoiding evil—but positive: pursuing righteousness, love, purity, and Christlikeness. The Holy Spirit empowers this pursuit, producing fruit that mere human effort cannot generate.</p>\n\n<p class=\"intro-text\">Without holiness, no one will see the Lord (Hebrews 12:14). This sobering truth underscores holiness as essential, not optional. Yet God graciously provides what He demands, sanctifying believers through His Word, His Spirit, and His providential working. The goal is not self-righteous perfection but Christ-centered transformation—becoming like Jesus for the glory of the Father.</p>",
+    "subtopics": {
+      "God's Holiness": {
+        "description": "The holy character of God",
+        "verses": [
+          {"ref": "Isaiah 6:3", "note": "Holy, holy, holy is the LORD"},
+          {"ref": "Revelation 4:8", "note": "Holy, holy, holy, Lord God Almighty"},
+          {"ref": "1 Samuel 2:2", "note": "None holy as the LORD"},
+          {"ref": "Psalms 99:9", "note": "The LORD our God is holy"}
+        ]
+      },
+      "Called to Holiness": {
+        "description": "The command to be holy",
+        "verses": [
+          {"ref": "1 Peter 1:15-16", "note": "Be ye holy; for I am holy"},
+          {"ref": "1 Thessalonians 4:7", "note": "God hath called us unto holiness"},
+          {"ref": "Hebrews 12:14", "note": "Follow peace and holiness"},
+          {"ref": "2 Corinthians 7:1", "note": "Perfecting holiness in the fear of God"}
+        ]
+      },
+      "Pursuing Holiness": {
+        "description": "Growing in sanctification",
+        "verses": [
+          {"ref": "Romans 6:22", "note": "Fruit unto holiness"},
+          {"ref": "2 Timothy 2:21", "note": "Sanctified and meet for the master's use"},
+          {"ref": "1 Thessalonians 5:23", "note": "Sanctify you wholly"},
+          {"ref": "Romans 12:1", "note": "Present your bodies a living sacrifice"}
+        ]
+      }
+    }
+  },
+  "Repentance": {
+    "description": "Turning from sin to God with genuine sorrow and changed life",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Repentance marks</span> the beginning of the Christian life and characterizes its continuation. The Greek word <em>metanoia</em> signifies a change of mind that produces a change of direction—not merely feeling sorry for sin but actually turning from it to God. John the Baptist, Jesus, and the apostles all proclaimed repentance as essential to salvation. \"Except ye repent, ye shall all likewise perish\" (Luke 13:3).</p>\n\n<p class=\"intro-text\">True repentance involves several elements. First, <strong>recognition of sin</strong>—seeing transgression as God sees it, as rebellion against His holy law and character. Second, <strong>godly sorrow</strong>—genuine grief over having offended God, not merely regret over consequences. \"Godly sorrow worketh repentance to salvation not to be repented of\" (2 Corinthians 7:10). Third, <strong>confession</strong>—acknowledging sin specifically to God and, where appropriate, to others. Fourth, <strong>turning</strong>—actual change of behavior, forsaking the sin that grieves God.</p>\n\n<p class=\"intro-text\">Repentance is itself a gift from God, not something humans produce by their own will. \"Him hath God exalted with his right hand to be a Prince and a Saviour, for to give repentance to Israel\" (Acts 5:31). This understanding humbles us—even our repentance flows from grace. Yet this does not excuse delay, for God \"now commandeth all men every where to repent\" (Acts 17:30).</p>\n\n<p class=\"intro-text\">Repentance is not a one-time event but an ongoing posture. Believers continually turn from newly discovered sins, deepening in awareness of their need for Christ. The repentant life grows increasingly sensitive to sin while simultaneously more confident in grace. True repentance produces joy, not despair, because it leads to forgiveness and restoration.</p>",
+    "subtopics": {
+      "Call to Repentance": {
+        "description": "God's command to repent",
+        "verses": [
+          {"ref": "Acts 17:30", "note": "Commandeth all men everywhere to repent"},
+          {"ref": "Luke 13:3", "note": "Except ye repent, ye shall perish"},
+          {"ref": "Matthew 4:17", "note": "Repent: for the kingdom is at hand"},
+          {"ref": "Acts 2:38", "note": "Repent, and be baptized"}
+        ]
+      },
+      "True Repentance": {
+        "description": "The nature of genuine repentance",
+        "verses": [
+          {"ref": "2 Corinthians 7:10", "note": "Godly sorrow worketh repentance"},
+          {"ref": "Joel 2:13", "note": "Rend your heart, not your garments"},
+          {"ref": "Isaiah 55:7", "note": "Let the wicked forsake his way"},
+          {"ref": "Psalms 51:17", "note": "Broken and contrite heart"}
+        ]
+      },
+      "God's Response": {
+        "description": "Divine grace toward the repentant",
+        "verses": [
+          {"ref": "1 John 1:9", "note": "Faithful to forgive"},
+          {"ref": "Isaiah 1:18", "note": "Though your sins be as scarlet"},
+          {"ref": "Luke 15:7", "note": "Joy in heaven over one sinner"},
+          {"ref": "Acts 3:19", "note": "Times of refreshing"}
+        ]
+      }
+    }
+  },
+  "Worship": {
+    "description": "Ascribing worth to God through adoration and service",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Worship constitutes</span> humanity's highest calling and creation's ultimate purpose. The English word derives from \"worth-ship\"—declaring and demonstrating God's supreme value. True worship involves the whole person: mind comprehending God's greatness, heart responding with love and awe, will submitting in obedience, and body expressing reverence through posture and action.</p>\n\n<p class=\"intro-text\">Scripture reveals that God seeks worshippers who worship \"in spirit and in truth\" (John 4:24). Worship \"in spirit\" means genuine, heartfelt engagement—not mere external ritual but internal reality. Worship \"in truth\" means worship informed by Scripture, responding to God as He has revealed Himself rather than as we imagine Him. Both dimensions are essential; one without the other produces either empty formalism or misguided enthusiasm.</p>\n\n<p class=\"intro-text\">While worship includes corporate gatherings, it extends to all of life. \"Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God\" (1 Corinthians 10:31). Every activity can become worship when offered to God with gratitude and performed for His glory. Work becomes worship, relationships become worship, even rest becomes worship when consciously rendered to God.</p>\n\n<p class=\"intro-text\">The worshipping life produces profound benefits: intimacy with God, transformation of character, liberation from self-focus, and joy that transcends circumstances. Yet these benefits are not worship's goal—God Himself is. We worship not to get something from God but to give something to God: the honor, praise, and devotion He infinitely deserves.</p>",
+    "subtopics": {
+      "Spirit and Truth": {
+        "description": "How God desires worship",
+        "verses": [
+          {"ref": "John 4:23-24", "note": "In spirit and in truth"},
+          {"ref": "Psalms 95:6", "note": "Come, let us worship and bow down"},
+          {"ref": "Hebrews 12:28", "note": "Serve God acceptably with reverence"},
+          {"ref": "Romans 12:1", "note": "Your reasonable service"}
+        ]
+      },
+      "God Alone": {
+        "description": "Exclusive worship of God",
+        "verses": [
+          {"ref": "Matthew 4:10", "note": "Worship the Lord thy God only"},
+          {"ref": "Exodus 20:3-5", "note": "No other gods before me"},
+          {"ref": "Revelation 22:9", "note": "Worship God"},
+          {"ref": "Psalms 29:2", "note": "Worship the LORD in the beauty of holiness"}
+        ]
+      },
+      "Expressions of Worship": {
+        "description": "Ways to worship",
+        "verses": [
+          {"ref": "Psalms 150:1-6", "note": "Praise Him with instruments"},
+          {"ref": "Psalms 100:1-2", "note": "Serve the LORD with gladness"},
+          {"ref": "Colossians 3:16", "note": "Psalms, hymns, spiritual songs"},
+          {"ref": "1 Chronicles 16:29", "note": "Worship the LORD in the beauty of holiness"}
+        ]
+      }
+    }
+  },
+  "Heaven": {
+    "description": "The eternal dwelling place of God and His redeemed people",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Heaven represents</span> the Christian's eternal home, the ultimate destination of all who trust in Christ. Scripture presents heaven both as God's present dwelling and as the future inheritance of believers. It is described as a place of unimaginable beauty, perfect fellowship, and complete joy—where sorrow, pain, and death are forever banished.</p>\n\n<p class=\"intro-text\">Central to heaven's glory is the <strong>presence of God</strong>. \"In thy presence is fulness of joy; at thy right hand there are pleasures for evermore\" (Psalms 16:11). Heaven's supreme attraction is not golden streets or pearly gates but face-to-face communion with the Triune God. \"They shall see his face\" (Revelation 22:4)—the beatific vision that satisfies every longing and surpasses every earthly pleasure.</p>\n\n<p class=\"intro-text\">The Bible reveals that believers who die go immediately to be with Christ, which is \"far better\" (Philippians 1:23) than earthly existence. Yet this intermediate state awaits the final resurrection when glorified bodies reunite with perfected souls. The new heavens and new earth will provide the eternal dwelling place where righteousness dwells and God's kingdom is fully consummated.</p>\n\n<p class=\"intro-text\">Heavenly hope transforms earthly living. Those who truly anticipate heaven hold earthly possessions loosely, endure suffering patiently, serve sacrificially, and witness urgently. \"Set your affection on things above, not on things on the earth\" (Colossians 3:2). This is not escapism but proper perspective—living in light of eternity.</p>",
+    "subtopics": {
+      "God's Dwelling": {
+        "description": "Heaven as God's throne",
+        "verses": [
+          {"ref": "Psalms 11:4", "note": "The LORD's throne is in heaven"},
+          {"ref": "Matthew 6:9", "note": "Our Father which art in heaven"},
+          {"ref": "Isaiah 66:1", "note": "Heaven is my throne"},
+          {"ref": "Revelation 4:2", "note": "A throne was set in heaven"}
+        ]
+      },
+      "Believers' Hope": {
+        "description": "Heaven as inheritance",
+        "verses": [
+          {"ref": "John 14:2-3", "note": "I go to prepare a place for you"},
+          {"ref": "1 Peter 1:4", "note": "Inheritance reserved in heaven"},
+          {"ref": "Philippians 3:20", "note": "Our conversation is in heaven"},
+          {"ref": "2 Corinthians 5:1", "note": "House not made with hands"}
+        ]
+      },
+      "Heaven's Glory": {
+        "description": "The beauty of heaven",
+        "verses": [
+          {"ref": "Revelation 21:4", "note": "No more death, sorrow, or crying"},
+          {"ref": "Revelation 22:5", "note": "No need of sun"},
+          {"ref": "Revelation 21:21", "note": "Streets of pure gold"},
+          {"ref": "1 Corinthians 2:9", "note": "Eye hath not seen"}
+        ]
+      }
+    }
+  },
+  "Judgment": {
+    "description": "God's righteous evaluation of all human beings",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Divine judgment</span> stands as a sobering reality that all humanity must face. \"It is appointed unto men once to die, but after this the judgment\" (Hebrews 9:27). Scripture consistently teaches that God will hold every person accountable for their lives—thoughts, words, and deeds. This truth, while unsettling to the impenitent, provides comfort to those who trust in Christ's righteousness.</p>\n\n<p class=\"intro-text\">God's judgment is <strong>certain</strong>—no one will escape. It is <strong>just</strong>—perfectly fair, without favoritism or error. It is <strong>comprehensive</strong>—including even secret things. \"God shall bring every work into judgment, with every secret thing, whether it be good, or whether it be evil\" (Ecclesiastes 12:14). It is <strong>final</strong>—no appeals, no second chances. The Judge of all the earth will do right (Genesis 18:25).</p>\n\n<p class=\"intro-text\">For unbelievers, judgment means condemnation based on their works, which inevitably fall short of God's perfect standard. For believers, judgment has two aspects: Christ bore their condemnation at the cross (\"There is therefore now no condemnation to them which are in Christ Jesus\" - Romans 8:1), yet they will still face evaluation of their works for rewards at Christ's judgment seat (2 Corinthians 5:10).</p>\n\n<p class=\"intro-text\">The doctrine of judgment motivates holy living, urgent evangelism, and humble gratitude. Those who grasp the reality of judgment flee to Christ for refuge and warn others to do the same. Far from producing morbid fear, proper understanding of judgment produces wisdom: \"The fear of the LORD is the beginning of wisdom\" (Proverbs 9:10).</p>",
+    "subtopics": {
+      "Certainty of Judgment": {
+        "description": "Judgment is unavoidable",
+        "verses": [
+          {"ref": "Hebrews 9:27", "note": "Appointed unto men to die, then judgment"},
+          {"ref": "Romans 14:12", "note": "Give account of himself to God"},
+          {"ref": "Ecclesiastes 12:14", "note": "Every work into judgment"},
+          {"ref": "Acts 17:31", "note": "Appointed a day to judge"}
+        ]
+      },
+      "Christ the Judge": {
+        "description": "Jesus as righteous judge",
+        "verses": [
+          {"ref": "John 5:22", "note": "Father committed all judgment unto the Son"},
+          {"ref": "2 Timothy 4:1", "note": "Judge the quick and the dead"},
+          {"ref": "Acts 10:42", "note": "Ordained to be the Judge"},
+          {"ref": "Matthew 25:31-32", "note": "Shall sit upon the throne of his glory"}
+        ]
+      },
+      "Believers' Judgment": {
+        "description": "Evaluation of Christians' works",
+        "verses": [
+          {"ref": "2 Corinthians 5:10", "note": "Judgment seat of Christ"},
+          {"ref": "Romans 8:1", "note": "No condemnation in Christ"},
+          {"ref": "1 Corinthians 3:13-15", "note": "Fire shall try every man's work"},
+          {"ref": "Romans 14:10", "note": "Stand before the judgment seat"}
+        ]
+      }
+    }
+  },
+  "The Church": {
+    "description": "The body of Christ, the community of all believers",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">The church constitutes</span> God's new covenant community, comprised of all who have been redeemed by Christ's blood and regenerated by His Spirit. The Greek word <em>ekklesia</em> means \"called out ones\"—those whom God has summoned from darkness into His marvelous light. The church exists both universally (all believers everywhere) and locally (visible congregations in specific places).</p>\n\n<p class=\"intro-text\">Scripture employs rich metaphors to describe the church. It is <strong>Christ's body</strong>, with Jesus as Head and believers as interdependent members (1 Corinthians 12). It is <strong>God's temple</strong>, a spiritual house where the Holy Spirit dwells (Ephesians 2:21-22). It is <strong>Christ's bride</strong>, loved and purified by Him for presentation in splendor (Ephesians 5:25-27). It is <strong>God's family</strong>, with believers as brothers and sisters adopted by the Father (Galatians 3:26).</p>\n\n<p class=\"intro-text\">Christ established the church and promised that the gates of hell would not prevail against it (Matthew 16:18). He gave the church its ordinances (baptism and the Lord's Supper), its mission (making disciples of all nations), its leaders (pastors, elders, deacons), and its spiritual gifts for mutual edification. The church is not a human organization but a divine organism, though it takes organizational form in local expressions.</p>\n\n<p class=\"intro-text\">Active participation in a local church is not optional for believers. Scripture commands us not to forsake assembling together (Hebrews 10:25) and describes Christians using one another to build up the body. Isolated Christianity contradicts biblical Christianity. The church, with all its imperfections, remains God's primary instrument for evangelism, discipleship, and displaying His glory to the world.</p>",
+    "subtopics": {
+      "Body of Christ": {
+        "description": "The church as Christ's body",
+        "verses": [
+          {"ref": "1 Corinthians 12:27", "note": "Ye are the body of Christ"},
+          {"ref": "Ephesians 1:22-23", "note": "Church, which is his body"},
+          {"ref": "Colossians 1:18", "note": "Head of the body, the church"},
+          {"ref": "Romans 12:5", "note": "One body in Christ"}
+        ]
+      },
+      "Gathering Together": {
+        "description": "The importance of assembly",
+        "verses": [
+          {"ref": "Hebrews 10:25", "note": "Not forsaking the assembling"},
+          {"ref": "Matthew 18:20", "note": "Where two or three are gathered"},
+          {"ref": "Acts 2:42", "note": "Continued steadfastly in fellowship"},
+          {"ref": "1 Corinthians 14:26", "note": "When ye come together"}
+        ]
+      },
+      "Christ's Love for the Church": {
+        "description": "Jesus' devotion to His bride",
+        "verses": [
+          {"ref": "Ephesians 5:25", "note": "Christ loved the church"},
+          {"ref": "Acts 20:28", "note": "Purchased with his own blood"},
+          {"ref": "Ephesians 5:27", "note": "Present it to himself glorious"},
+          {"ref": "Matthew 16:18", "note": "I will build my church"}
+        ]
+      }
+    }
+  },
+  "Stewardship": {
+    "description": "Managing God's resources faithfully for His glory",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Stewardship recognizes</span> a fundamental reality: everything belongs to God. \"The earth is the LORD's, and the fulness thereof; the world, and they that dwell therein\" (Psalms 24:1). Humans are not owners but stewards—managers entrusted with resources that ultimately belong to Another. This truth transforms how we view possessions, time, abilities, and even our very lives.</p>\n\n<p class=\"intro-text\">Biblical stewardship extends beyond finances (though it certainly includes them). We are stewards of <strong>time</strong>—\"redeeming the time, because the days are evil\" (Ephesians 5:16). We are stewards of <strong>talents</strong>—spiritual gifts given for building up Christ's body. We are stewards of <strong>truth</strong>—the gospel entrusted to us for proclamation. We are stewards of <strong>treasure</strong>—material resources to be used for God's kingdom purposes.</p>\n\n<p class=\"intro-text\">The parable of the talents (Matthew 25:14-30) teaches crucial principles. God distributes resources according to His wisdom, not equally but appropriately. He expects multiplication, not mere preservation. He will call us to account for how we used what He provided. Faithful stewardship leads to increased responsibility and reward; unfaithfulness leads to loss and condemnation.</p>\n\n<p class=\"intro-text\">Generous giving demonstrates trust in God's provision and reflects His own generous character. \"God loveth a cheerful giver\" (2 Corinthians 9:7). Yet stewardship involves not just giving but wise management of what we retain. Christians should work diligently, spend thoughtfully, save prudently, and give liberally—all as acts of worship to the Owner of all things.</p>",
+    "subtopics": {
+      "God Owns Everything": {
+        "description": "Divine ownership",
+        "verses": [
+          {"ref": "Psalms 24:1", "note": "The earth is the LORD's"},
+          {"ref": "Haggai 2:8", "note": "Silver and gold are mine"},
+          {"ref": "1 Chronicles 29:14", "note": "All things come of thee"},
+          {"ref": "Deuteronomy 8:18", "note": "He giveth thee power to get wealth"}
+        ]
+      },
+      "Faithful Management": {
+        "description": "Using resources wisely",
+        "verses": [
+          {"ref": "Luke 16:10", "note": "Faithful in that which is least"},
+          {"ref": "Matthew 25:21", "note": "Well done, good and faithful servant"},
+          {"ref": "1 Corinthians 4:2", "note": "Required in stewards to be faithful"},
+          {"ref": "1 Peter 4:10", "note": "Good stewards of the grace of God"}
+        ]
+      },
+      "Generous Giving": {
+        "description": "The joy of liberality",
+        "verses": [
+          {"ref": "2 Corinthians 9:7", "note": "God loveth a cheerful giver"},
+          {"ref": "Proverbs 11:25", "note": "Liberal soul shall be made fat"},
+          {"ref": "Luke 6:38", "note": "Give, and it shall be given"},
+          {"ref": "Malachi 3:10", "note": "Bring ye all the tithes"}
+        ]
+      }
+    }
+  },
+  "Marriage": {
+    "description": "The sacred covenant between husband and wife instituted by God",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Marriage stands</span> as God's first human institution, established in Eden before the fall. \"Therefore shall a man leave his father and his mother, and shall cleave unto his wife: and they shall be one flesh\" (Genesis 2:24). This foundational relationship pictures an even greater reality—Christ's love for His church (Ephesians 5:31-32). Marriage is thus both practically significant and profoundly symbolic.</p>\n\n<p class=\"intro-text\">Scripture defines marriage as a <strong>covenant</strong> between one man and one woman for life. Jesus affirmed this creation pattern: \"From the beginning of the creation God made them male and female\" (Mark 10:6). This exclusive, permanent union reflects God's faithful love and provides the context for sexual intimacy, procreation, and companionship. \"Marriage is honourable in all\" (Hebrews 13:4).</p>\n\n<p class=\"intro-text\">God assigns complementary roles within marriage. Husbands are called to love their wives sacrificially, as Christ loved the church—leading with gentleness, providing protection, and caring for her needs (Ephesians 5:25-28). Wives are called to respect and submit to their husbands, supporting their leadership and helping them fulfill their calling (Ephesians 5:22-24, 33). These roles do not imply inequality but reflect God's beautiful design for unity in diversity.</p>\n\n<p class=\"intro-text\">Christian marriage requires continual cultivation: communication, forgiveness, prayer, service, and renewed commitment. Divorce, while permitted in certain circumstances, was never God's intent—\"What therefore God hath joined together, let not man put asunder\" (Matthew 19:6). A godly marriage glorifies God, blesses the couple, provides stability for children, and witnesses to the world of gospel realities.</p>",
+    "subtopics": {
+      "God's Design": {
+        "description": "Marriage as God intended",
+        "verses": [
+          {"ref": "Genesis 2:24", "note": "Leave and cleave, one flesh"},
+          {"ref": "Matthew 19:4-6", "note": "What God hath joined together"},
+          {"ref": "Hebrews 13:4", "note": "Marriage is honourable"},
+          {"ref": "Proverbs 18:22", "note": "Findeth a wife findeth a good thing"}
+        ]
+      },
+      "Husbands and Wives": {
+        "description": "Roles in marriage",
+        "verses": [
+          {"ref": "Ephesians 5:25", "note": "Husbands, love your wives"},
+          {"ref": "Ephesians 5:22", "note": "Wives, submit unto your husbands"},
+          {"ref": "Colossians 3:19", "note": "Love your wives, be not bitter"},
+          {"ref": "1 Peter 3:7", "note": "Dwell with them according to knowledge"}
+        ]
+      },
+      "Christ and the Church": {
+        "description": "Marriage as gospel picture",
+        "verses": [
+          {"ref": "Ephesians 5:31-32", "note": "A great mystery: Christ and church"},
+          {"ref": "Revelation 19:7", "note": "Marriage of the Lamb"},
+          {"ref": "2 Corinthians 11:2", "note": "Espoused to one husband"},
+          {"ref": "Isaiah 54:5", "note": "Thy Maker is thine husband"}
+        ]
+      }
+    }
+  },
+  "Work": {
+    "description": "Labor as calling, service to God, and care for others",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Work is not</span> a consequence of the fall but a pre-fall blessing. God placed Adam in Eden \"to dress it and to keep it\" (Genesis 2:15) before sin entered the world. The curse affected work—adding toil, sweat, and frustration—but did not create it. Work reflects the image of God, who Himself works in creating, sustaining, and redeeming. Therefore, human labor possesses inherent dignity and purpose.</p>\n\n<p class=\"intro-text\">Scripture transforms our understanding of work. Every legitimate occupation becomes a <strong>calling</strong> when pursued for God's glory. \"Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God\" (1 Corinthians 10:31). The carpenter, teacher, farmer, and administrator all serve God through their labors. This \"Protestant work ethic\" elevates ordinary work to sacred significance.</p>\n\n<p class=\"intro-text\">Christian workers should be marked by <strong>excellence</strong> (\"whatsoever ye do, do it heartily, as to the Lord\" - Colossians 3:23), <strong>integrity</strong> (honest dealings, keeping commitments), <strong>diligence</strong> (\"not slothful in business\" - Romans 12:11), and <strong>contentment</strong> (neither workaholism nor laziness). Work provides for family needs (\"if any provide not for his own... he hath denied the faith\" - 1 Timothy 5:8) and enables generosity to others.</p>\n\n<p class=\"intro-text\">Yet work is not ultimate. The Sabbath principle reminds us that we are more than our productivity. Rest acknowledges our dependence on God and anticipates the eternal rest to come. A balanced life integrates work, rest, worship, and relationships—all ordered under God's lordship.</p>",
+    "subtopics": {
+      "Work as Worship": {
+        "description": "Laboring for God's glory",
+        "verses": [
+          {"ref": "Colossians 3:23-24", "note": "Do it heartily, as to the Lord"},
+          {"ref": "1 Corinthians 10:31", "note": "Do all to the glory of God"},
+          {"ref": "Ephesians 6:7", "note": "With good will doing service"},
+          {"ref": "Ecclesiastes 9:10", "note": "Whatsoever thy hand findeth to do"}
+        ]
+      },
+      "Diligence": {
+        "description": "Working faithfully",
+        "verses": [
+          {"ref": "Proverbs 10:4", "note": "Hand of the diligent maketh rich"},
+          {"ref": "Proverbs 12:24", "note": "Hand of the diligent shall bear rule"},
+          {"ref": "2 Thessalonians 3:10", "note": "If any would not work"},
+          {"ref": "Proverbs 6:6-8", "note": "Go to the ant, thou sluggard"}
+        ]
+      },
+      "Rest": {
+        "description": "Sabbath and restoration",
+        "verses": [
+          {"ref": "Exodus 20:8-10", "note": "Remember the sabbath day"},
+          {"ref": "Mark 6:31", "note": "Come apart and rest a while"},
+          {"ref": "Matthew 11:28", "note": "I will give you rest"},
+          {"ref": "Hebrews 4:9-10", "note": "A rest to the people of God"}
+        ]
+      }
+    }
+  },
+  "Spiritual Warfare": {
+    "description": "The believer's battle against Satan and spiritual forces of evil",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Spiritual warfare</span> is not metaphor but reality. Behind visible human conflicts lies an invisible cosmic battle. \"We wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places\" (Ephesians 6:12). Christians who ignore this dimension remain vulnerable to attacks they do not understand.</p>\n\n<p class=\"intro-text\">The enemy is real. Satan, a fallen angel of great power and cunning, leads demonic forces in opposition to God's purposes. He is called \"the prince of this world\" (John 12:31), \"the god of this world\" (2 Corinthians 4:4), and \"the accuser of our brethren\" (Revelation 12:10). His strategies include deception, temptation, accusation, and persecution. Yet his power is limited, his doom is certain, and his defeat was accomplished at the cross.</p>\n\n<p class=\"intro-text\">God provides comprehensive armor for His soldiers (Ephesians 6:13-17): the belt of <strong>truth</strong> (doctrinal integrity), the breastplate of <strong>righteousness</strong> (holy living), the shoes of the <strong>gospel</strong> (readiness to witness), the shield of <strong>faith</strong> (trust in God's promises), the helmet of <strong>salvation</strong> (assurance of identity), and the sword of the <strong>Spirit</strong> (Scripture's offensive power). Prayer undergirds all warfare, accessing divine resources for the battle.</p>\n\n<p class=\"intro-text\">Victory is already secured in Christ. \"Greater is he that is in you, than he that is in the world\" (1 John 4:4). \"Resist the devil, and he will flee from you\" (James 4:7). Christians fight from victory, not for victory. While vigilance remains necessary, fear is not, for nothing can separate believers from Christ's triumphant love.</p>",
+    "subtopics": {
+      "The Enemy": {
+        "description": "Understanding Satan's schemes",
+        "verses": [
+          {"ref": "1 Peter 5:8", "note": "Adversary the devil walketh about"},
+          {"ref": "2 Corinthians 11:14", "note": "Satan transformed as angel of light"},
+          {"ref": "John 8:44", "note": "Father of lies"},
+          {"ref": "Ephesians 6:11", "note": "Wiles of the devil"}
+        ]
+      },
+      "The Armor of God": {
+        "description": "Divine protection and weapons",
+        "verses": [
+          {"ref": "Ephesians 6:13-17", "note": "The whole armour of God"},
+          {"ref": "2 Corinthians 10:4", "note": "Weapons mighty through God"},
+          {"ref": "Romans 13:12", "note": "Put on the armour of light"},
+          {"ref": "1 Thessalonians 5:8", "note": "Breastplate of faith and love"}
+        ]
+      },
+      "Victory in Christ": {
+        "description": "Assured triumph",
+        "verses": [
+          {"ref": "1 John 4:4", "note": "Greater is he that is in you"},
+          {"ref": "James 4:7", "note": "Resist the devil"},
+          {"ref": "Colossians 2:15", "note": "Triumphing over them"},
+          {"ref": "Revelation 12:11", "note": "They overcame by the blood"}
+        ]
+      }
+    }
+  },
+  "Temptation": {
+    "description": "Enticement to sin and God's provision for victory",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Temptation is universal</span>—every believer faces it. Yet temptation is not sin; yielding to temptation is. Jesus Himself \"was in all points tempted like as we are, yet without sin\" (Hebrews 4:15). Understanding temptation's nature and God's provision enables Christians to resist and overcome rather than fall and despair.</p>\n\n<p class=\"intro-text\">Temptation's sources are threefold: the <strong>world</strong> (external pressures from a godless culture), the <strong>flesh</strong> (internal desires from our fallen nature), and the <strong>devil</strong> (spiritual attacks from Satan and demons). \"Each man is tempted when he is drawn away by his own lust, and enticed\" (James 1:14). Temptation exploits legitimate desires, twisting them toward illegitimate fulfillments.</p>\n\n<p class=\"intro-text\">God's provision against temptation is comprehensive. He promises that no temptation is irresistible: \"God is faithful, who will not suffer you to be tempted above that ye are able; but will with the temptation also make a way to escape\" (1 Corinthians 10:13). Christ's sympathy ensures understanding intercession (Hebrews 4:15-16). Scripture provides the sword to resist lies (Matthew 4:4, 7, 10). Prayer keeps us from entering temptation (Matthew 26:41).</p>\n\n<p class=\"intro-text\">Practical wisdom includes fleeing certain temptations (2 Timothy 2:22), avoiding exposure to known triggers, cultivating godly friendships, maintaining spiritual disciplines, and confessing struggles to trusted believers. Repeated failure does not mean permanent defeat—God's grace extends to restore the fallen and strengthen against future attacks.</p>",
+    "subtopics": {
+      "Nature of Temptation": {
+        "description": "Understanding how temptation works",
+        "verses": [
+          {"ref": "James 1:14-15", "note": "Drawn away by his own lust"},
+          {"ref": "1 John 2:16", "note": "Lust of the flesh, eyes, pride"},
+          {"ref": "Genesis 3:6", "note": "Good for food, pleasant, desired"},
+          {"ref": "Matthew 4:1-11", "note": "Jesus tempted by the devil"}
+        ]
+      },
+      "Way of Escape": {
+        "description": "God's provision for victory",
+        "verses": [
+          {"ref": "1 Corinthians 10:13", "note": "Will make a way to escape"},
+          {"ref": "James 4:7", "note": "Resist the devil"},
+          {"ref": "Hebrews 4:15-16", "note": "Grace to help in time of need"},
+          {"ref": "Matthew 26:41", "note": "Watch and pray"}
+        ]
+      },
+      "Fleeing Temptation": {
+        "description": "Practical wisdom",
+        "verses": [
+          {"ref": "2 Timothy 2:22", "note": "Flee also youthful lusts"},
+          {"ref": "1 Corinthians 6:18", "note": "Flee fornication"},
+          {"ref": "Genesis 39:12", "note": "Joseph fled from Potiphar's wife"},
+          {"ref": "Proverbs 4:14-15", "note": "Enter not the path of the wicked"}
+        ]
+      }
+    }
+  },
+  "Contentment": {
+    "description": "Satisfaction in God regardless of circumstances",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Contentment represents</span> one of the rarest and most valuable graces in Christian experience. In a culture driven by endless acquisition and comparison, biblical contentment stands as countercultural witness. It is not complacency or lack of ambition but deep satisfaction in God that liberates from the tyranny of want.</p>\n\n<p class=\"intro-text\">The apostle Paul declared: \"I have learned, in whatsoever state I am, therewith to be content\" (Philippians 4:11). Notice he \"learned\" contentment—it was not automatic but cultivated through experience and faith. He specified both abundance and want, prosperity and need (4:12). True contentment does not depend on circumstances because its foundation is unchanging: God Himself and His promises.</p>\n\n<p class=\"intro-text\">Scripture identifies covetousness as both idolatry and a root of many evils. \"The love of money is the root of all evil\" (1 Timothy 6:10). \"Covetousness, which is idolatry\" (Colossians 3:5). In contrast, \"godliness with contentment is great gain\" (1 Timothy 6:6). The truly rich person is not one who has the most but one who needs the least, being satisfied in God.</p>\n\n<p class=\"intro-text\">Cultivating contentment requires focus on eternal realities, gratitude for present blessings, trust in God's provision, and freedom from comparison. \"Having food and raiment let us be therewith content\" (1 Timothy 6:8). This simplicity liberates for generosity, ministry, and enjoyment of God without the burden of insatiable desire.</p>",
+    "subtopics": {
+      "Learning Contentment": {
+        "description": "Paul's example",
+        "verses": [
+          {"ref": "Philippians 4:11-12", "note": "I have learned to be content"},
+          {"ref": "Philippians 4:13", "note": "I can do all things through Christ"},
+          {"ref": "1 Timothy 6:6", "note": "Godliness with contentment"},
+          {"ref": "1 Timothy 6:8", "note": "Food and raiment, be content"}
+        ]
+      },
+      "Freedom from Covetousness": {
+        "description": "Avoiding the love of money",
+        "verses": [
+          {"ref": "Hebrews 13:5", "note": "Be content, He will never leave"},
+          {"ref": "Luke 12:15", "note": "Life consisteth not in abundance"},
+          {"ref": "1 Timothy 6:10", "note": "Love of money is root of evil"},
+          {"ref": "Proverbs 30:8-9", "note": "Give me neither poverty nor riches"}
+        ]
+      },
+      "Trust in God's Provision": {
+        "description": "Confidence in divine care",
+        "verses": [
+          {"ref": "Matthew 6:31-33", "note": "Seek first the kingdom"},
+          {"ref": "Psalms 37:25", "note": "Never seen the righteous forsaken"},
+          {"ref": "Philippians 4:19", "note": "God shall supply all your need"},
+          {"ref": "Psalms 23:1", "note": "The LORD is my shepherd; I shall not want"}
+        ]
+      }
+    }
+  },
+  "Patience": {
+    "description": "Enduring trials and waiting on God with steadfast faith",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Patience stands</span> among the most necessary yet difficult Christian virtues. In a culture of instant gratification, biblical patience requires supernatural grace. The Greek word <em>makrothumia</em> (longsuffering) combines \"long\" and \"temper\"—the ability to sustain composure over extended periods of trial. Scripture presents patience both as a command to obey and a fruit the Spirit produces.</p>\n\n<p class=\"intro-text\">Patience operates in multiple directions. <strong>Patience with God</strong> waits on His timing, trusting that His delays are not denials. \"Wait on the LORD: be of good courage, and he shall strengthen thine heart\" (Psalms 27:14). <strong>Patience with people</strong> forbears offenses, extending grace to those who frustrate or harm us. <strong>Patience in trials</strong> endures suffering without demanding immediate relief or abandoning faith.</p>\n\n<p class=\"intro-text\">Scripture reveals patience's fruit. \"The trying of your faith worketh patience. But let patience have her perfect work, that ye may be perfect and entire, wanting nothing\" (James 1:3-4). Trials develop patience, and patience produces maturity. There is no shortcut to spiritual depth—it requires time under pressure, sustained by grace.</p>\n\n<p class=\"intro-text\">God Himself models perfect patience. \"The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish\" (2 Peter 3:9). His patience with sinners demonstrates both mercy and justice—providing time for repentance while guaranteeing eventual judgment. Believers reflect God's character when they extend similar patience to others.</p>",
+    "subtopics": {
+      "Waiting on God": {
+        "description": "Patient trust in God's timing",
+        "verses": [
+          {"ref": "Psalms 27:14", "note": "Wait on the LORD"},
+          {"ref": "Isaiah 40:31", "note": "They that wait upon the LORD"},
+          {"ref": "Lamentations 3:25", "note": "Good to them that wait"},
+          {"ref": "Psalms 37:7", "note": "Rest in the LORD, wait patiently"}
+        ]
+      },
+      "Patience in Trials": {
+        "description": "Endurance through suffering",
+        "verses": [
+          {"ref": "James 1:3-4", "note": "Trying of faith worketh patience"},
+          {"ref": "Romans 5:3-4", "note": "Tribulation worketh patience"},
+          {"ref": "Hebrews 10:36", "note": "Ye have need of patience"},
+          {"ref": "James 5:10-11", "note": "Example of the prophets"}
+        ]
+      },
+      "Patience with Others": {
+        "description": "Forbearing one another",
+        "verses": [
+          {"ref": "Colossians 3:12-13", "note": "Forbearing one another"},
+          {"ref": "Ephesians 4:2", "note": "Longsuffering, forbearing in love"},
+          {"ref": "1 Thessalonians 5:14", "note": "Be patient toward all men"},
+          {"ref": "2 Timothy 2:24", "note": "Gentle unto all, patient"}
+        ]
+      }
+    }
+  },
+  "Baptism": {
+    "description": "The ordinance signifying identification with Christ in His death, burial, and resurrection",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Baptism marks</span> the public beginning of the Christian life. From the Greek <em>baptizo</em> (to immerse, submerge), this ordinance pictures spiritual reality through physical action. When believers go under the water, they identify with Christ's death and burial; when they emerge, they proclaim His resurrection and their new life in Him.</p>\n\n<p class=\"intro-text\">Scripture presents baptism as the normal response to saving faith. \"Then Peter said unto them, Repent, and be baptized every one of you in the name of Jesus Christ\" (Acts 2:38). Throughout Acts, new believers were baptized immediately upon profession of faith—the Ethiopian eunuch, the Philippian jailer, Lydia, and thousands at Pentecost. Baptism follows faith; it does not produce it.</p>\n\n<p class=\"intro-text\">The meaning of baptism encompasses multiple truths. It symbolizes <strong>union with Christ</strong>: \"buried with him in baptism, wherein also ye are risen with him\" (Colossians 2:12). It signifies <strong>cleansing from sin</strong>, though not as the cause but as the picture: \"the washing of regeneration\" (Titus 3:5). It represents <strong>entrance into the visible church</strong>, publicly identifying with Christ's body.</p>\n\n<p class=\"intro-text\">Jesus Himself was baptized, not for His own sins but to \"fulfil all righteousness\" (Matthew 3:15). His baptism inaugurated His public ministry and received divine approval: \"This is my beloved Son, in whom I am well pleased.\" Believers follow their Lord's example, obeying His command: \"Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost\" (Matthew 28:19).</p>",
+    "subtopics": {
+      "Christ's Baptism": {
+        "description": "Jesus' baptism and its significance",
+        "verses": [
+          {"ref": "Matthew 3:13-17", "note": "Jesus baptized by John"},
+          {"ref": "Mark 1:9-11", "note": "Spirit descending like a dove"},
+          {"ref": "Luke 3:21-22", "note": "Heaven opened after baptism"},
+          {"ref": "John 1:31-34", "note": "John's witness of Christ's baptism"}
+        ]
+      },
+      "The Command to Baptize": {
+        "description": "Christ's instruction for the church",
+        "verses": [
+          {"ref": "Matthew 28:19", "note": "Baptizing in name of Trinity"},
+          {"ref": "Mark 16:16", "note": "He that believeth and is baptized"},
+          {"ref": "Acts 2:38", "note": "Repent and be baptized"},
+          {"ref": "Acts 22:16", "note": "Arise and be baptized"}
+        ]
+      },
+      "Meaning of Baptism": {
+        "description": "Spiritual significance of the ordinance",
+        "verses": [
+          {"ref": "Romans 6:3-4", "note": "Buried with him by baptism"},
+          {"ref": "Colossians 2:12", "note": "Buried and risen with Christ"},
+          {"ref": "Galatians 3:27", "note": "Put on Christ in baptism"},
+          {"ref": "1 Peter 3:21", "note": "Answer of a good conscience"}
+        ]
+      },
+      "Examples of Baptism": {
+        "description": "Baptisms recorded in Acts",
+        "verses": [
+          {"ref": "Acts 2:41", "note": "Three thousand baptized at Pentecost"},
+          {"ref": "Acts 8:36-38", "note": "Ethiopian eunuch baptized"},
+          {"ref": "Acts 16:14-15", "note": "Lydia and her household"},
+          {"ref": "Acts 16:33", "note": "Philippian jailer baptized"}
+        ]
+      }
+    }
+  },
+  "Communion": {
+    "description": "The Lord's Supper commemorating Christ's sacrifice and anticipating His return",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">The Lord's Supper</span> stands as the church's central act of worship and remembrance. Instituted by Christ on the night before His crucifixion, this meal proclaims His death until He comes again. \"This do in remembrance of me\" (Luke 22:19) commands believers to perpetuate this sacred meal throughout church history.</p>\n\n<p class=\"intro-text\">The elements carry profound meaning. The <strong>bread</strong> represents Christ's body, broken for our redemption: \"This is my body which is given for you\" (Luke 22:19). The <strong>cup</strong> signifies His blood, poured out for sin's forgiveness: \"This cup is the new testament in my blood\" (Luke 22:20). Together they proclaim the gospel in visible form—Christ's atoning death securing eternal life for all who believe.</p>\n\n<p class=\"intro-text\">Communion is both backward-looking and forward-looking. It <strong>remembers</strong> Calvary: \"as often as ye eat this bread, and drink this cup, ye do shew the Lord's death\" (1 Corinthians 11:26). It also <strong>anticipates</strong> Christ's return: \"till he come.\" The church celebrates between the cross and the crown, between redemption accomplished and redemption consummated.</p>\n\n<p class=\"intro-text\">Scripture calls for serious self-examination before partaking. \"Let a man examine himself, and so let him eat of that bread, and drink of that cup\" (1 Corinthians 11:28). Those who eat and drink unworthily bring judgment upon themselves. The table calls for confession, reconciliation, and renewed commitment. This solemn joy marks the communion of saints with their Lord and with one another.</p>",
+    "subtopics": {
+      "Institution of the Supper": {
+        "description": "Christ establishing the ordinance",
+        "verses": [
+          {"ref": "Matthew 26:26-28", "note": "Take, eat; this is my body"},
+          {"ref": "Mark 14:22-24", "note": "This is my blood of the new testament"},
+          {"ref": "Luke 22:19-20", "note": "This do in remembrance of me"},
+          {"ref": "1 Corinthians 11:23-25", "note": "The Lord's own words"}
+        ]
+      },
+      "Meaning of the Elements": {
+        "description": "Significance of bread and cup",
+        "verses": [
+          {"ref": "1 Corinthians 10:16", "note": "Communion of Christ's body and blood"},
+          {"ref": "John 6:53-56", "note": "Eat my flesh, drink my blood"},
+          {"ref": "1 Corinthians 11:26", "note": "Shew the Lord's death"},
+          {"ref": "Exodus 12:14", "note": "Passover memorial foreshadowing"}
+        ]
+      },
+      "Worthy Participation": {
+        "description": "Self-examination and preparation",
+        "verses": [
+          {"ref": "1 Corinthians 11:27-29", "note": "Examine himself"},
+          {"ref": "1 Corinthians 11:30-32", "note": "Judgment for unworthiness"},
+          {"ref": "Matthew 5:23-24", "note": "Reconciliation before worship"},
+          {"ref": "1 Corinthians 10:21", "note": "Cannot partake of Lord's table and devils"}
+        ]
+      },
+      "Unity of the Church": {
+        "description": "Communion expressing fellowship",
+        "verses": [
+          {"ref": "1 Corinthians 10:17", "note": "One bread, one body"},
+          {"ref": "Acts 2:42", "note": "Breaking of bread together"},
+          {"ref": "Acts 20:7", "note": "Gathered to break bread"},
+          {"ref": "1 Corinthians 11:33", "note": "Tarry one for another"}
+        ]
+      }
+    }
+  },
+  "Fasting": {
+    "description": "Voluntary abstinence from food for spiritual purposes",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Fasting disciplines</span> the body to strengthen the soul. This ancient practice, found throughout Scripture, involves voluntarily abstaining from food (and sometimes drink) to intensify prayer, express repentance, or seek divine guidance. Jesus fasted, the apostles fasted, and the early church fasted—establishing a pattern for believers throughout history.</p>\n\n<p class=\"intro-text\">Biblical fasting serves multiple purposes. It accompanies <strong>urgent prayer</strong>, as when Nehemiah fasted and prayed for Jerusalem's restoration. It expresses <strong>mourning and repentance</strong>, as when Nineveh fasted at Jonah's preaching. It precedes <strong>major decisions</strong>, as when the church fasted before sending out Paul and Barnabas. Physical hunger reminds the soul of its deeper hunger for God.</p>\n\n<p class=\"intro-text\">Jesus taught that fasting should be done secretly, not for public admiration. \"When thou fastest, anoint thine head, and wash thy face; That thou appear not unto men to fast, but unto thy Father which is in secret\" (Matthew 6:17-18). Hypocrites fast to be seen by others; disciples fast to be heard by God. The reward comes from the Father who sees in secret.</p>\n\n<p class=\"intro-text\">True fasting must accompany genuine heart change. Isaiah rebuked Israel's empty fasts: \"Is not this the fast that I have chosen? to loose the bands of wickedness... to deal thy bread to the hungry\" (Isaiah 58:6-7). Fasting without justice and mercy is worthless. The discipline of the body must produce transformation of character and compassion for others.</p>",
+    "subtopics": {
+      "Jesus' Teaching on Fasting": {
+        "description": "Christ's instructions for fasting",
+        "verses": [
+          {"ref": "Matthew 6:16-18", "note": "Fast in secret to the Father"},
+          {"ref": "Matthew 9:14-15", "note": "Bridegroom taken away, then fast"},
+          {"ref": "Matthew 4:1-2", "note": "Jesus fasted forty days"},
+          {"ref": "Mark 9:29", "note": "This kind goeth not out but by prayer and fasting"}
+        ]
+      },
+      "Fasting for Prayer": {
+        "description": "Intensifying prayer through fasting",
+        "verses": [
+          {"ref": "Acts 13:2-3", "note": "Church fasted before sending missionaries"},
+          {"ref": "Acts 14:23", "note": "Fasted when ordaining elders"},
+          {"ref": "Nehemiah 1:4", "note": "Nehemiah fasted and prayed"},
+          {"ref": "Daniel 9:3", "note": "Daniel sought God with fasting"}
+        ]
+      },
+      "Fasting in Repentance": {
+        "description": "Expressing sorrow for sin",
+        "verses": [
+          {"ref": "Jonah 3:5-8", "note": "Nineveh's fast of repentance"},
+          {"ref": "Joel 2:12", "note": "Turn with fasting and weeping"},
+          {"ref": "1 Samuel 7:6", "note": "Israel fasted in repentance"},
+          {"ref": "Ezra 8:21", "note": "Proclaimed a fast to seek God"}
+        ]
+      },
+      "True vs. False Fasting": {
+        "description": "Heart attitude in fasting",
+        "verses": [
+          {"ref": "Isaiah 58:3-7", "note": "The fast God chooses"},
+          {"ref": "Zechariah 7:5-6", "note": "Did ye at all fast unto me?"},
+          {"ref": "Luke 18:12", "note": "Pharisee's boastful fasting"},
+          {"ref": "Jeremiah 14:12", "note": "Fasting rejected without obedience"}
+        ]
+      }
+    }
+  },
+  "Service": {
+    "description": "Using one's gifts and abilities to serve God and others",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Christian service</span> flows from gratitude for grace received. Jesus revolutionized leadership by modeling servant-hood: \"Whosoever will be great among you, let him be your minister; And whosoever will be chief among you, let him be your servant\" (Matthew 20:26-27). The greatest in God's kingdom serve the lowliest—this inverts worldly hierarchies entirely.</p>\n\n<p class=\"intro-text\">Every believer is gifted for service. \"As every man hath received the gift, even so minister the same one to another, as good stewards of the manifold grace of God\" (1 Peter 4:10). Spiritual gifts—teaching, helping, giving, mercy, leadership, and others—equip the body of Christ for mutual edification. No gift is insignificant; no member is dispensable.</p>\n\n<p class=\"intro-text\">Service to others is service to Christ. In the parable of the sheep and goats, Jesus identifies Himself with the hungry, thirsty, stranger, naked, sick, and imprisoned: \"Inasmuch as ye have done it unto one of the least of these my brethren, ye have done it unto me\" (Matthew 25:40). This transforms menial tasks into sacred ministry—every cup of water given becomes an offering to Christ.</p>\n\n<p class=\"intro-text\">True service requires humility. Jesus girded Himself with a towel and washed His disciples' feet—the task of the lowest household servant. \"If I then, your Lord and Master, have washed your feet; ye also ought to wash one another's feet\" (John 13:14). Position never exempts from service; rather, position increases the obligation to serve.</p>",
+    "subtopics": {
+      "Christ Our Example": {
+        "description": "Jesus modeling servant leadership",
+        "verses": [
+          {"ref": "Mark 10:45", "note": "Came not to be ministered unto"},
+          {"ref": "John 13:12-17", "note": "Washing disciples' feet"},
+          {"ref": "Philippians 2:5-8", "note": "Took the form of a servant"},
+          {"ref": "Matthew 20:26-28", "note": "Whosoever will be great, serve"}
+        ]
+      },
+      "Gifts for Service": {
+        "description": "Spiritual gifts equipping the church",
+        "verses": [
+          {"ref": "1 Peter 4:10-11", "note": "Minister gifts to one another"},
+          {"ref": "Romans 12:6-8", "note": "Gifts differing according to grace"},
+          {"ref": "1 Corinthians 12:4-7", "note": "Diversities of gifts, same Spirit"},
+          {"ref": "Ephesians 4:11-12", "note": "Gifts for equipping saints"}
+        ]
+      },
+      "Serving the Least": {
+        "description": "Ministry to those in need",
+        "verses": [
+          {"ref": "Matthew 25:35-40", "note": "Did it unto the least of these"},
+          {"ref": "James 1:27", "note": "Visit orphans and widows"},
+          {"ref": "Galatians 6:10", "note": "Do good unto all men"},
+          {"ref": "Proverbs 19:17", "note": "He that hath pity on the poor"}
+        ]
+      },
+      "Attitude in Service": {
+        "description": "Heart posture for serving",
+        "verses": [
+          {"ref": "Colossians 3:23-24", "note": "Whatsoever ye do, do heartily"},
+          {"ref": "Galatians 5:13", "note": "By love serve one another"},
+          {"ref": "1 Corinthians 15:58", "note": "Labour is not in vain"},
+          {"ref": "Ephesians 6:7", "note": "With good will doing service"}
+        ]
+      }
+    }
+  },
+  "Generosity": {
+    "description": "Giving freely and liberally as stewards of God's blessings",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Biblical generosity</span> begins with recognizing God's ownership of all things. \"The earth is the LORD's, and the fulness thereof\" (Psalms 24:1). We are stewards, not owners—managers of resources that belong to another. This perspective transforms giving from reluctant obligation to joyful privilege.</p>\n\n<p class=\"intro-text\">God's generosity sets the standard for ours. \"For God so loved the world, that he gave his only begotten Son\" (John 3:16). The Father gave His best; the Son gave His life. Such lavish divine giving calls forth proportionate human response. \"Ye know the grace of our Lord Jesus Christ, that, though he was rich, yet for your sakes he became poor, that ye through his poverty might be rich\" (2 Corinthians 8:9).</p>\n\n<p class=\"intro-text\">Scripture promises that generosity produces blessing. \"Give, and it shall be given unto you; good measure, pressed down, and shaken together, and running over\" (Luke 6:38). This is not prosperity gospel but divine principle: those who sow bountifully reap bountifully. God entrusts more to those who prove faithful in giving, not to enrich them but to expand their capacity for generosity.</p>\n\n<p class=\"intro-text\">The heart matters more than the amount. The widow's two mites exceeded the rich men's offerings because \"she of her want did cast in all that she had\" (Mark 12:44). God measures giving by sacrifice, not sum. Cheerful, willing, sacrificial giving honors God regardless of the dollar amount.</p>",
+    "subtopics": {
+      "God's Generosity": {
+        "description": "Divine giving as our model",
+        "verses": [
+          {"ref": "John 3:16", "note": "God gave His only Son"},
+          {"ref": "2 Corinthians 8:9", "note": "Christ became poor for us"},
+          {"ref": "Romans 8:32", "note": "Freely give us all things"},
+          {"ref": "James 1:17", "note": "Every good gift from above"}
+        ]
+      },
+      "Principles of Giving": {
+        "description": "How to give biblically",
+        "verses": [
+          {"ref": "2 Corinthians 9:6-7", "note": "Sow bountifully, cheerful giver"},
+          {"ref": "Mark 12:41-44", "note": "Widow's mites, giving sacrificially"},
+          {"ref": "Matthew 6:3-4", "note": "Give in secret"},
+          {"ref": "1 Corinthians 16:2", "note": "Give as God has prospered"}
+        ]
+      },
+      "Promises to the Generous": {
+        "description": "Blessings for those who give",
+        "verses": [
+          {"ref": "Luke 6:38", "note": "Give and it shall be given"},
+          {"ref": "Proverbs 11:25", "note": "Liberal soul made fat"},
+          {"ref": "Malachi 3:10", "note": "Prove me, open windows of heaven"},
+          {"ref": "Acts 20:35", "note": "More blessed to give than receive"}
+        ]
+      },
+      "Supporting Ministry": {
+        "description": "Giving to the Lord's work",
+        "verses": [
+          {"ref": "Galatians 6:6", "note": "Share with those who teach"},
+          {"ref": "1 Timothy 5:17-18", "note": "Elders worthy of double honor"},
+          {"ref": "Philippians 4:15-18", "note": "Supporting Paul's ministry"},
+          {"ref": "3 John 1:5-8", "note": "Fellow helpers to the truth"}
+        ]
+      }
+    }
+  },
+  "Rest": {
+    "description": "Ceasing from labor to worship God and restore the soul",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Rest is</span> not laziness but obedience. God rested on the seventh day—not from exhaustion but from completion. \"And God blessed the seventh day, and sanctified it: because that in it he had rested from all his work\" (Genesis 2:3). This divine pattern establishes rest as sacred, built into creation's rhythm.</p>\n\n<p class=\"intro-text\">The Sabbath command protected workers and pointed to greater rest. \"Remember the sabbath day, to keep it holy\" (Exodus 20:8). Israel's weekly rest testified that life depends on God, not endless labor. The sabbath was gift, not burden: \"The sabbath was made for man, and not man for the sabbath\" (Mark 2:27).</p>\n\n<p class=\"intro-text\">Christ offers rest for weary souls. \"Come unto me, all ye that labour and are heavy laden, and I will give you rest. Take my yoke upon you, and learn of me; for I am meek and lowly in heart: and ye shall find rest unto your souls\" (Matthew 11:28-29). This rest comes not from ceasing activity but from ceasing self-effort—resting in Christ's finished work rather than our own striving.</p>\n\n<p class=\"intro-text\">Hebrews speaks of \"a rest to the people of God\" (Hebrews 4:9)—the ultimate sabbath of eternal fellowship with God. Present rest in Christ anticipates future rest in glory. \"There remaineth therefore a rest to the people of God. For he that is entered into his rest, he also hath ceased from his own works, as God did from his\" (Hebrews 4:9-10). Christians labor to enter that rest through faith, not works.</p>",
+    "subtopics": {
+      "God's Rest": {
+        "description": "The divine pattern of sabbath",
+        "verses": [
+          {"ref": "Genesis 2:2-3", "note": "God rested on the seventh day"},
+          {"ref": "Exodus 20:8-11", "note": "Remember the sabbath day"},
+          {"ref": "Exodus 31:17", "note": "Sign between God and Israel"},
+          {"ref": "Deuteronomy 5:12-15", "note": "Keep the sabbath holy"}
+        ]
+      },
+      "Rest in Christ": {
+        "description": "Spiritual rest Jesus offers",
+        "verses": [
+          {"ref": "Matthew 11:28-30", "note": "Come unto me and rest"},
+          {"ref": "Hebrews 4:9-10", "note": "Rest for the people of God"},
+          {"ref": "Hebrews 4:3", "note": "We which believe do enter rest"},
+          {"ref": "Jeremiah 6:16", "note": "Find rest for your souls"}
+        ]
+      },
+      "Trusting God's Provision": {
+        "description": "Rest as expression of faith",
+        "verses": [
+          {"ref": "Psalms 127:2", "note": "Vain to rise up early"},
+          {"ref": "Psalms 37:7", "note": "Rest in the LORD"},
+          {"ref": "Isaiah 30:15", "note": "In quietness and confidence"},
+          {"ref": "Psalms 46:10", "note": "Be still and know that I am God"}
+        ]
+      },
+      "Eternal Rest": {
+        "description": "The ultimate sabbath in glory",
+        "verses": [
+          {"ref": "Revelation 14:13", "note": "Blessed are the dead, rest from labours"},
+          {"ref": "Hebrews 4:11", "note": "Labour to enter that rest"},
+          {"ref": "Isaiah 57:2", "note": "Enter into peace, rest"},
+          {"ref": "2 Thessalonians 1:7", "note": "Rest with us"}
+        ]
+      }
+    }
+  },
+  "Anxiety": {
+    "description": "Overcoming worry and fear through trust in God's sovereign care",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Anxiety afflicts</span> even the strongest believers. The rapid heartbeat, racing thoughts, and overwhelming dread that accompany worry are part of fallen human experience. Scripture neither minimizes anxiety nor merely tells us to \"just stop worrying.\" Instead, it provides the remedy: redirecting our focus from circumstances to the God who controls all circumstances.</p>\n\n<p class=\"intro-text\">Jesus addressed anxiety directly in the Sermon on the Mount. \"Take no thought for your life, what ye shall eat, or what ye shall drink; nor yet for your body, what ye shall put on\" (Matthew 6:25). His argument moves from greater to lesser: if God feeds birds and clothes lilies, will He not much more care for His children? Anxiety questions God's wisdom or goodness; trust affirms both.</p>\n\n<p class=\"intro-text\">The biblical antidote to anxiety is prayer combined with thanksgiving. \"Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus\" (Philippians 4:6-7). This is not passive resignation but active transfer of burdens to the One who can bear them.</p>\n\n<p class=\"intro-text\">Fear in its various forms—fear of man, fear of the future, fear of death—finds its answer in the fear of God. \"The fear of man bringeth a snare: but whoso putteth his trust in the LORD shall be safe\" (Proverbs 29:25). When God looms larger than our problems, anxiety loses its grip. \"Fear not\" appears throughout Scripture because God knows our tendency to fear—and commands us to counter it with faith.</p>",
+    "subtopics": {
+      "Jesus on Worry": {
+        "description": "Christ's teaching on anxiety",
+        "verses": [
+          {"ref": "Matthew 6:25-27", "note": "Take no thought for your life"},
+          {"ref": "Matthew 6:31-34", "note": "Seek first the kingdom"},
+          {"ref": "Luke 12:22-26", "note": "Consider the ravens"},
+          {"ref": "John 14:27", "note": "Let not your heart be troubled"}
+        ]
+      },
+      "Prayer for Peace": {
+        "description": "Exchanging anxiety for prayer",
+        "verses": [
+          {"ref": "Philippians 4:6-7", "note": "Be careful for nothing"},
+          {"ref": "1 Peter 5:7", "note": "Casting all your care upon him"},
+          {"ref": "Psalms 55:22", "note": "Cast thy burden upon the LORD"},
+          {"ref": "Psalms 94:19", "note": "Thy comforts delight my soul"}
+        ]
+      },
+      "Fear of Man": {
+        "description": "Overcoming people-pleasing anxiety",
+        "verses": [
+          {"ref": "Proverbs 29:25", "note": "Fear of man bringeth a snare"},
+          {"ref": "Isaiah 51:7", "note": "Fear not the reproach of men"},
+          {"ref": "Hebrews 13:6", "note": "The Lord is my helper; I will not fear"},
+          {"ref": "Matthew 10:28", "note": "Fear not them which kill the body"}
+        ]
+      },
+      "God's Promises to the Fearful": {
+        "description": "Assurances for the anxious",
+        "verses": [
+          {"ref": "Isaiah 41:10", "note": "Fear not; I am with thee"},
+          {"ref": "Psalms 23:4", "note": "I will fear no evil"},
+          {"ref": "Psalms 56:3", "note": "When I am afraid, I will trust"},
+          {"ref": "Romans 8:15", "note": "Not received spirit of bondage to fear"}
+        ]
+      }
+    }
+  },
+  "Wisdom": {
+    "description": "Skill for living according to God's design and truth",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Biblical wisdom</span> differs fundamentally from worldly intelligence. While the world prizes clever strategy and self-advancement, Scripture defines wisdom as \"the fear of the LORD\" (Proverbs 9:10). This wisdom begins with right relationship to God and produces right living before men.</p>\n\n<p class=\"intro-text\">Wisdom is personified in Proverbs, calling out in the streets: \"How long, ye simple ones, will ye love simplicity?\" (Proverbs 1:22). This literary device emphasizes wisdom's availability and urgency. She offers life to those who find her: \"Whoso findeth me findeth life, and shall obtain favour of the LORD\" (Proverbs 8:35). Christ Himself is \"the wisdom of God\" (1 Corinthians 1:24), the ultimate revelation of divine truth.</p>\n\n<p class=\"intro-text\">James distinguishes two kinds of wisdom. Earthly wisdom is \"sensual, devilish\" and produces \"envying and strife\" (James 3:14-15). But \"the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits\" (James 3:17). The source determines the character—wisdom from below serves self; wisdom from above serves God and others.</p>\n\n<p class=\"intro-text\">God promises wisdom to those who ask. \"If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him\" (James 1:5). This liberality encourages persistent prayer for discernment. Solomon asked for wisdom above all else and received not only wisdom but riches and honor as well (1 Kings 3:9-13).</p>",
+    "subtopics": {
+      "The Fear of the Lord": {
+        "description": "Beginning of wisdom",
+        "verses": [
+          {"ref": "Proverbs 9:10", "note": "Fear of the LORD is beginning of wisdom"},
+          {"ref": "Proverbs 1:7", "note": "Fear of the LORD beginning of knowledge"},
+          {"ref": "Job 28:28", "note": "Fear of the Lord, that is wisdom"},
+          {"ref": "Psalms 111:10", "note": "Good understanding to all who do them"}
+        ]
+      },
+      "Seeking Wisdom": {
+        "description": "How to obtain wisdom",
+        "verses": [
+          {"ref": "James 1:5", "note": "Ask of God liberally"},
+          {"ref": "Proverbs 2:1-6", "note": "Seek as silver, search as treasure"},
+          {"ref": "Proverbs 4:7", "note": "Wisdom is the principal thing"},
+          {"ref": "1 Kings 3:9-12", "note": "Solomon's request for wisdom"}
+        ]
+      },
+      "Christ Our Wisdom": {
+        "description": "Jesus as God's wisdom",
+        "verses": [
+          {"ref": "1 Corinthians 1:24", "note": "Christ the wisdom of God"},
+          {"ref": "1 Corinthians 1:30", "note": "Made unto us wisdom"},
+          {"ref": "Colossians 2:3", "note": "All treasures of wisdom hidden in Christ"},
+          {"ref": "Matthew 12:42", "note": "Greater than Solomon"}
+        ]
+      },
+      "Wisdom vs. Folly": {
+        "description": "The two paths",
+        "verses": [
+          {"ref": "James 3:13-17", "note": "Earthly vs. heavenly wisdom"},
+          {"ref": "Proverbs 14:12", "note": "Way seemeth right but ends in death"},
+          {"ref": "1 Corinthians 3:19", "note": "Wisdom of world is foolishness"},
+          {"ref": "Proverbs 12:15", "note": "Fool is right in own eyes"}
+        ]
+      }
+    }
   }
 }

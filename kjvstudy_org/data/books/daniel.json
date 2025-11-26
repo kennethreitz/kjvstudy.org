@@ -1,0 +1,36 @@
+{
+  "name": "Daniel",
+  "abbreviation": "Dan",
+  "testament": "Old Testament",
+  "position": 27,
+  "chapters": 12,
+  "category": "Major Prophets",
+  "author": "Daniel",
+  "date_written": "c. 536-530 BC",
+  "introduction": "Daniel is both historical narrative and apocalyptic prophecy. A young Jewish exile rises to prominence in the Babylonian and Persian courts while remaining faithful to God. The book's visions survey world history from Babylon to Christ's coming kingdom. Daniel demonstrates that God is sovereign over all nations and that faithfulness will be vindicated. The book provides foundational concepts for New Testament eschatology.",
+  "key_themes": [
+    "God's sovereignty over kingdoms and history",
+    "Faithfulness under pressure",
+    "The rise and fall of world empires",
+    "The coming kingdom of God",
+    "Prayer and spiritual warfare",
+    "The final resurrection and judgment"
+  ],
+  "key_verses": [
+    {"reference": "Daniel 2:44", "text": "And in the days of these kings shall the God of heaven set up a kingdom, which shall never be destroyed: and the kingdom shall not be left to other people, but it shall break in pieces and consume all these kingdoms, and it shall stand for ever."},
+    {"reference": "Daniel 3:17-18", "text": "If it be so, our God whom we serve is able to deliver us from the burning fiery furnace, and he will deliver us out of thine hand, O king. But if not, be it known unto thee, O king, that we will not serve thy gods, nor worship the golden image which thou hast set up."},
+    {"reference": "Daniel 4:35", "text": "And all the inhabitants of the earth are reputed as nothing: and he doeth according to his will in the army of heaven, and among the inhabitants of the earth: and none can stay his hand, or say unto him, What doest thou?"},
+    {"reference": "Daniel 7:13-14", "text": "I saw in the night visions, and, behold, one like the Son of man came with the clouds of heaven... And there was given him dominion, and glory, and a kingdom, that all people, nations, and languages, should serve him."},
+    {"reference": "Daniel 12:2", "text": "And many of them that sleep in the dust of the earth shall awake, some to everlasting life, and some to shame and everlasting contempt."}
+  ],
+  "outline": [
+    {"section": "Daniel's Rise in Babylon", "chapters": "1", "description": "Training, faithfulness in diet, God's favor"},
+    {"section": "Nebuchadnezzar's Dreams", "chapters": "2-4", "description": "The statue, fiery furnace, Nebuchadnezzar's humbling"},
+    {"section": "Babylon's Fall", "chapters": "5-6", "description": "Belshazzar's feast, Daniel in the lions' den"},
+    {"section": "Apocalyptic Visions", "chapters": "7-12", "description": "Four beasts, ram and goat, seventy weeks, final conflicts"}
+  ],
+  "historical_context": "Daniel was deported to Babylon in 605 BC as a teenager and served in royal courts for over 65 years. He witnessed Babylon's fall to Persia in 539 BC and continued serving under Persian rule. The book's visions accurately portray the succession of empires: Babylon, Medo-Persia, Greece (with its division), and Rome. The '70 weeks' prophecy (9:24-27) provides a timeline extending to the Messiah.",
+  "literary_style": "Daniel divides into court narratives (1-6) and apocalyptic visions (7-12). Chapters 2:4-7:28 are in Aramaic (the international language), while the rest is Hebrew. The apocalyptic sections feature symbolic beasts, angelic interpreters, and cosmic conflict. Numbers carry significance (seventy weeks, time/times/half a time). The structure is chiastic, with matching elements in chapters 2-7.",
+  "christ_in_book": "The 'Son of man' who receives an everlasting kingdom (7:13-14) is Jesus' favorite self-designation. The stone cut without hands that destroys worldly kingdoms (2:44-45) is Christ's kingdom. The seventy weeks prophecy (9:24-27) points to Messiah's coming and death. The three Hebrew men's deliverance from fire and Daniel from lions picture Christ's deliverance from death. The archangel Michael (10:13, 21; 12:1) anticipates Christ's cosmic victory.",
+  "practical_application": "Daniel models faithful living in a hostile culture—engaged but not compromised. It encourages believers that God is sovereign over all earthly powers and that kingdoms rise and fall at His command. The book calls us to prayerful dependence, even when prayer is dangerous. It assures us that faithful witness may bring persecution but will ultimately be vindicated. Daniel's hope in resurrection and final judgment grounds present faithfulness."
+}

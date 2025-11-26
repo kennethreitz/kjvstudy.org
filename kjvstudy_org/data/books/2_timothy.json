@@ -1,0 +1,36 @@
+{
+  "name": "II Timothy",
+  "abbreviation": "2Tim",
+  "testament": "New Testament",
+  "position": 55,
+  "chapters": 4,
+  "category": "Pauline Epistles (Pastoral)",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 66-67",
+  "introduction": "Second Timothy is Paul's final letter, written from a Roman dungeon awaiting execution. It is the apostle's last will and testament to his spiritual son. Facing death, Paul passes the torch to Timothy—guard the gospel, endure suffering, preach the Word, complete your ministry. The letter is deeply personal, marked by loneliness, abandonment, yet unwavering confidence. Paul has fought the fight, finished the race, kept the faith.",
+  "key_themes": [
+    "Enduring suffering for the gospel",
+    "Guarding the gospel deposit",
+    "The inspiration and authority of Scripture",
+    "Faithfulness amid apostasy",
+    "Paul's final testimony",
+    "Passing the torch to the next generation"
+  ],
+  "key_verses": [
+    {"reference": "2 Timothy 1:7", "text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind."},
+    {"reference": "2 Timothy 2:15", "text": "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."},
+    {"reference": "2 Timothy 3:16-17", "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: That the man of God may be perfect, throughly furnished unto all good works."},
+    {"reference": "2 Timothy 4:2", "text": "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine."},
+    {"reference": "2 Timothy 4:7-8", "text": "I have fought a good fight, I have finished my course, I have kept the faith: Henceforth there is laid up for me a crown of righteousness, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing."}
+  ],
+  "outline": [
+    {"section": "Thanksgiving and Encouragement", "chapters": "1", "description": "Memories of Timothy, call to courage, Paul's example"},
+    {"section": "Charge to Faithful Ministry", "chapters": "2", "description": "Soldier, athlete, farmer metaphors; approved worker"},
+    {"section": "Warning About Last Days", "chapters": "3", "description": "Coming apostasy, Scripture's sufficiency"},
+    {"section": "Final Charge and Farewell", "chapters": "4", "description": "Preach the Word, Paul's situation, final greetings"}
+  ],
+  "historical_context": "Paul wrote during his second Roman imprisonment, different from the house arrest in Acts 28. Nero's persecution following the AD 64 fire made Christianity dangerous. Paul was in a dungeon, cold, lonely, and abandoned by most friends. He expected imminent execution ('the time of my departure is at hand'). This letter represents his final words to his beloved disciple Timothy.",
+  "literary_style": "Second Timothy is the most personal of the Pastoral Epistles. Paul reminisces, expresses loneliness, requests his cloak and books, names those who have abandoned or helped him. The imagery is vivid—soldier, athlete, farmer, vessel, workman. The tone alternates between tender encouragement and urgent exhortation. The letter builds to Paul's triumphant testimony (4:6-8), a fitting conclusion to a remarkable ministry.",
+  "christ_in_book": "Christ Jesus abolished death and brought life and immortality to light through the gospel. He is the risen one of David's seed. He is the one who will judge the living and dead at His appearing. The Lord stood with Paul when others abandoned him. There is a crown of righteousness for all who love His appearing. Christ's grace is with Timothy's spirit.",
+  "practical_application": "Second Timothy challenges believers to endure suffering for the gospel without shame. Scripture is God-breathed and equips us for every good work. We must preach the Word in season and out of season, even when people prefer myths. The letter warns that the last days bring difficult times and religious pretenders. Paul's example inspires us to finish well—fighting the fight, finishing the course, keeping the faith. The crown awaits all who love Christ's appearing."
+}

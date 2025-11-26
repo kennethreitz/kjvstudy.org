@@ -1,0 +1,37 @@
+{
+  "name": "Song of Solomon",
+  "abbreviation": "Song",
+  "testament": "Old Testament",
+  "position": 22,
+  "chapters": 8,
+  "category": "Wisdom/Poetry",
+  "author": "Solomon",
+  "date_written": "c. 965 BC",
+  "introduction": "The Song of Solomon is an exquisite love poem celebrating the beauty of marital love. Its frank celebration of romantic and physical love affirms God's design for marriage as expressed in Genesis. The book has also been read allegorically throughout Jewish and Christian history as depicting the love between God and His people, or Christ and the church. Both readings have value—earthly love at its best reflects divine love.",
+  "key_themes": [
+    "The beauty and dignity of romantic love",
+    "The exclusivity and commitment of marriage",
+    "Desire, longing, and union",
+    "The beloved's beauty celebrated",
+    "The power and permanence of love",
+    "Love as God's gift"
+  ],
+  "key_verses": [
+    {"reference": "Song of Solomon 2:16", "text": "My beloved is mine, and I am his: he feedeth among the lilies."},
+    {"reference": "Song of Solomon 8:6-7", "text": "Set me as a seal upon thine heart, as a seal upon thine arm: for love is strong as death; jealousy is cruel as the grave: the coals thereof are coals of fire, which hath a most vehement flame. Many waters cannot quench love, neither can the floods drown it: if a man would give all the substance of his house for love, it would utterly be contemned."},
+    {"reference": "Song of Solomon 2:4", "text": "He brought me to the banqueting house, and his banner over me was love."},
+    {"reference": "Song of Solomon 4:7", "text": "Thou art all fair, my love; there is no spot in thee."}
+  ],
+  "outline": [
+    {"section": "The Beginning of Love", "chapters": "1:1-2:7", "description": "Mutual admiration and longing"},
+    {"section": "Love's Development", "chapters": "2:8-3:5", "description": "Visits, dreams, and anticipation"},
+    {"section": "The Wedding", "chapters": "3:6-5:1", "description": "Solomon's procession, the wedding night"},
+    {"section": "Love Tested", "chapters": "5:2-6:3", "description": "A conflict and reconciliation"},
+    {"section": "Love Deepened", "chapters": "6:4-8:4", "description": "Renewed praise and desire"},
+    {"section": "Love Affirmed", "chapters": "8:5-14", "description": "Love's permanence and final longing"}
+  ],
+  "historical_context": "Solomon wrote 1,005 songs (1 Kings 4:32), and this is the 'Song of Songs'—the greatest of them. Written likely early in Solomon's reign, before his many marriages corrupted his understanding of love, it presents the ideal of exclusive, committed love. The agricultural and pastoral imagery suggests a rural setting. The book was read at Passover, connecting covenant redemption with covenant love.",
+  "literary_style": "The Song is lyric poetry of the highest order, using rich imagery drawn from nature—gardens, vineyards, orchards, animals, spices. It employs the wasf genre (elaborate praise of the beloved's physical beauty). The dialogue shifts between the man, the woman, and the 'daughters of Jerusalem.' Dream sequences, refrains, and parallel structures create unity. The language is sensuous but never crude.",
+  "christ_in_book": "Jewish tradition read the Song as depicting God's love for Israel; Christians have seen Christ and the church. Paul uses marriage as a metaphor for Christ and the church (Ephesians 5:25-32). The bridegroom's passionate pursuit mirrors Christ's love. The refrain 'My beloved is mine, and I am his' expresses covenant relationship. The book celebrates the ultimate marriage feast anticipated in Revelation 19.",
+  "practical_application": "The Song affirms that physical love within marriage is God's good gift, not something shameful. It encourages couples to cultivate romance, to express admiration verbally, and to delight in one another. The exclusive language ('my beloved is mine') guards against the promiscuity that plagued Solomon's later life. The book warns against awakening love prematurely (2:7, 3:5, 8:4). For all readers, it pictures the passionate, pursuing love God has for His people."
+}

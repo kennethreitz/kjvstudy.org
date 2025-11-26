@@ -1,0 +1,36 @@
+{
+  "name": "Hosea",
+  "abbreviation": "Hos",
+  "testament": "Old Testament",
+  "position": 28,
+  "chapters": 14,
+  "category": "Minor Prophets",
+  "author": "Hosea",
+  "date_written": "c. 755-710 BC",
+  "introduction": "Hosea is a love story and a tragedy. God commands the prophet to marry an unfaithful woman as a living parable of Israel's spiritual adultery. Despite Gomer's repeated unfaithfulness, Hosea pursues and redeems her—just as God pursues faithless Israel. The book exposes Israel's idolatry while revealing the depth of God's wounded love. It demonstrates that covenant love persists even when spurned.",
+  "key_themes": [
+    "God's covenant love (hesed) for His people",
+    "Israel's spiritual adultery (idolatry)",
+    "Judgment as the consequence of unfaithfulness",
+    "God's relentless pursuing love",
+    "The call to repentance and return",
+    "Restoration through grace"
+  ],
+  "key_verses": [
+    {"reference": "Hosea 2:19-20", "text": "And I will betroth thee unto me for ever; yea, I will betroth thee unto me in righteousness, and in judgment, and in lovingkindness, and in mercies. I will even betroth thee unto me in faithfulness: and thou shalt know the LORD."},
+    {"reference": "Hosea 4:6", "text": "My people are destroyed for lack of knowledge: because thou hast rejected knowledge, I will also reject thee."},
+    {"reference": "Hosea 6:6", "text": "For I desired mercy, and not sacrifice; and the knowledge of God more than burnt offerings."},
+    {"reference": "Hosea 11:8", "text": "How shall I give thee up, Ephraim? how shall I deliver thee, Israel?... mine heart is turned within me, my repentings are kindled together."},
+    {"reference": "Hosea 14:4", "text": "I will heal their backsliding, I will love them freely: for mine anger is turned away from him."}
+  ],
+  "outline": [
+    {"section": "Hosea's Marriage", "chapters": "1-3", "description": "Marriage to Gomer, children's symbolic names, redemption"},
+    {"section": "Israel's Unfaithfulness", "chapters": "4-7", "description": "Indictments against priests, people, and leaders"},
+    {"section": "Judgment Announced", "chapters": "8-10", "description": "Reaping the whirlwind, captivity coming"},
+    {"section": "God's Love Persists", "chapters": "11-14", "description": "Father's love, call to return, promise of restoration"}
+  ],
+  "historical_context": "Hosea prophesied in the northern kingdom during its final, turbulent decades (roughly 755-710 BC). It was a time of prosperity under Jeroboam II, followed by rapid decline—six kings in 25 years, four by assassination. Baal worship was rampant, often syncretized with worship of the LORD. Hosea witnessed the Assyrian conquest (722 BC) that ended the northern kingdom.",
+  "literary_style": "Hosea's style is passionate and sometimes abrupt, reflecting emotional intensity. The imagery is domestic and agricultural—marriage, childbirth, farming, baking. God is portrayed as husband, father, and shepherd. Wordplay and double meanings abound, including the symbolic names of Hosea's children (Jezreel, Lo-Ruhamah, Lo-Ammi). The book alternates between accusation and tender appeal.",
+  "christ_in_book": "Hosea foreshadows Christ as the faithful husband who redeems an unfaithful bride at great cost. Matthew 2:15 applies Hosea 11:1 ('Out of Egypt have I called my son') to Christ. The declaration 'I will ransom them from the power of the grave' (13:14) anticipates resurrection. The new covenant theme—knowing the LORD intimately—is fulfilled in Christ. Hosea's children's names reversed ('My people,' 'Mercy') point to Gentile inclusion (Romans 9:25-26).",
+  "practical_application": "Hosea reveals how seriously God takes spiritual unfaithfulness—idolatry is adultery against our covenant Lord. Yet it also shows that no amount of unfaithfulness exhausts God's pursuing love. The book calls us to genuine knowledge of God, not mere religious ritual ('mercy, not sacrifice'). It warns that blessing can lead to forgetfulness of God. Hosea's redemption of Gomer pictures the gospel—bought back at a price to be His alone."
+}

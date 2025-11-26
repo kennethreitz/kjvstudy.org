@@ -1,0 +1,38 @@
+{
+  "name": "Luke",
+  "abbreviation": "Luke",
+  "testament": "New Testament",
+  "position": 42,
+  "chapters": 24,
+  "category": "Gospels",
+  "author": "Luke, the physician and companion of Paul",
+  "date_written": "c. AD 60-80",
+  "introduction": "Luke is the longest Gospel and part one of a two-volume work (Luke-Acts). Written by a Gentile physician for a wider Gentile audience, Luke emphasizes Jesus' universal significance—the Savior of all people regardless of ethnicity, gender, or social status. Luke highlights Jesus' compassion for outcasts, His attention to women, His warnings about wealth, and the role of the Holy Spirit. The Gospel presents Jesus as the perfect human who brings salvation to all.",
+  "key_themes": [
+    "Jesus as Savior of all people",
+    "Compassion for outcasts and marginalized",
+    "The role of women in Jesus' ministry",
+    "Joy and celebration",
+    "The Holy Spirit's work",
+    "Prayer and Jesus' prayer life"
+  ],
+  "key_verses": [
+    {"reference": "Luke 1:4", "text": "That thou mightest know the certainty of those things, wherein thou hast been instructed."},
+    {"reference": "Luke 4:18-19", "text": "The Spirit of the Lord is upon me, because he hath anointed me to preach the gospel to the poor; he hath sent me to heal the brokenhearted, to preach deliverance to the captives, and recovering of sight to the blind, to set at liberty them that are bruised, To preach the acceptable year of the Lord."},
+    {"reference": "Luke 19:10", "text": "For the Son of man is come to seek and to save that which was lost."},
+    {"reference": "Luke 24:46-47", "text": "And said unto them, Thus it is written, and thus it behoved Christ to suffer, and to rise from the dead the third day: And that repentance and remission of sins should be preached in his name among all nations, beginning at Jerusalem."}
+  ],
+  "outline": [
+    {"section": "Prologue", "chapters": "1:1-4", "description": "Purpose and dedication to Theophilus"},
+    {"section": "Birth Narratives", "chapters": "1:5-2:52", "description": "John and Jesus' births, childhood"},
+    {"section": "Preparation", "chapters": "3:1-4:13", "description": "John's ministry, Jesus' baptism, genealogy, temptation"},
+    {"section": "Galilean Ministry", "chapters": "4:14-9:50", "description": "Nazareth sermon, miracles, disciples called, teaching"},
+    {"section": "Travel to Jerusalem", "chapters": "9:51-19:27", "description": "Unique parables and teaching, extensive journey section"},
+    {"section": "Jerusalem Ministry", "chapters": "19:28-21:38", "description": "Entry, temple, Olivet discourse"},
+    {"section": "Passion and Resurrection", "chapters": "22-24", "description": "Last Supper, arrest, trial, crucifixion, resurrection, ascension"}
+  ],
+  "historical_context": "Luke wrote for Theophilus (possibly a patron or representative Gentile believer) to provide an orderly, well-researched account of Jesus' life. Writing as a second-generation Christian, Luke consulted eyewitnesses and earlier accounts. His Gospel may have been completed before Acts, which ends around AD 62. Luke's careful historical notes (dating by Roman rulers, governors) demonstrate his concern for accuracy.",
+  "literary_style": "Luke writes polished Greek with literary sophistication. He includes unique material: the birth narratives from Mary's perspective, parables like the Good Samaritan and Prodigal Son, and the Emmaus road encounter. The extended travel section (9:51-19:27) is unique to Luke. His narrative shows Jesus steadfastly 'setting His face toward Jerusalem.' The Gospel begins and ends in the temple, completing a literary circle.",
+  "christ_in_book": "Luke presents Jesus as the ideal human, perfect in His dependence on the Spirit and in prayer. He is the Prophet mighty in deed and word, the compassionate Healer who touches lepers and raises the dead. He is the friend of sinners who eats with outcasts. His genealogy traces to Adam (not just Abraham), emphasizing universal significance. He is the ascending Lord who blesses His followers and sends the Spirit.",
+  "practical_application": "Luke challenges comfortable religion with Jesus' radical inclusion of outcasts and warnings about wealth. The parables teach extravagant grace (Prodigal Son) and practical compassion (Good Samaritan). Jesus' prayer life models dependence on the Father. Luke encourages believers that the gospel is for all—Jew and Gentile, rich and poor, male and female. The certainty Luke offers remains vital: we can know the truth about Jesus."
+}

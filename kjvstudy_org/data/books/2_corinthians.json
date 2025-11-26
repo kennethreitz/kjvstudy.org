@@ -1,0 +1,35 @@
+{
+  "name": "II Corinthians",
+  "abbreviation": "2Cor",
+  "testament": "New Testament",
+  "position": 47,
+  "chapters": 13,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 56",
+  "introduction": "Second Corinthians is Paul's most personal letter, revealing his heart like no other. After a painful visit and a severe letter, Paul writes with relief that the church has largely responded well. He defends his ministry against false apostles, explains the glory of the new covenant, and describes the paradox of power through weakness. The letter teaches that authentic ministry flows from suffering, that God's grace is sufficient, and that strength is perfected in weakness.",
+  "key_themes": [
+    "Authentic ministry and apostolic authority",
+    "Comfort in suffering",
+    "The new covenant's glory",
+    "Treasure in earthen vessels",
+    "The ministry of reconciliation",
+    "Power perfected in weakness"
+  ],
+  "key_verses": [
+    {"reference": "2 Corinthians 1:3-4", "text": "Blessed be God, even the Father of our Lord Jesus Christ, the Father of mercies, and the God of all comfort; Who comforteth us in all our tribulation, that we may be able to comfort them which are in any trouble, by the comfort wherewith we ourselves are comforted of God."},
+    {"reference": "2 Corinthians 4:7", "text": "But we have this treasure in earthen vessels, that the excellency of the power may be of God, and not of us."},
+    {"reference": "2 Corinthians 5:17", "text": "Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new."},
+    {"reference": "2 Corinthians 5:21", "text": "For he hath made him to be sin for us, who knew no sin; that we might be made the righteousness of God in him."},
+    {"reference": "2 Corinthians 12:9", "text": "And he said unto me, My grace is sufficient for thee: for my strength is made perfect in weakness. Most gladly therefore will I rather glory in my infirmities, that the power of Christ may rest upon me."}
+  ],
+  "outline": [
+    {"section": "Paul's Ministry Defended", "chapters": "1-7", "description": "Comfort, change of plans, new covenant glory, reconciliation"},
+    {"section": "The Collection for Jerusalem", "chapters": "8-9", "description": "Generosity, grace of giving, cheerful giver"},
+    {"section": "Paul's Apostolic Authority", "chapters": "10-13", "description": "Defense against opponents, boasting in weakness, final warnings"}
+  ],
+  "historical_context": "After First Corinthians, the situation worsened. Paul made a painful visit (2:1), wrote a severe letter (now lost, 2:4), and sent Titus to assess the situation. Titus brought good news of their repentance, prompting this thankful letter. However, false apostles had infiltrated the church, attacking Paul's credentials and ministry. The letter addresses both the reconciled majority and the rebellious minority.",
+  "literary_style": "Second Corinthians shifts tone dramatically—from tender consolation to stern warning, from transparent vulnerability to passionate self-defense. Paul's grammar is sometimes broken by emotion. The autobiographical sections reveal his hardships, anxieties, and spiritual experiences. The 'fool's speech' (11-12) is ironic boasting that subverts his opponents' criteria. The paradoxes (power in weakness, rich through poverty) mark Paul's rhetoric.",
+  "christ_in_book": "Christ is the image of God, the Lord of glory, the one who though rich became poor, the one who had no sin but was made sin for us. He is the triumphant Lord who leads His people in procession. He is the glory we reflect with unveiled faces. He is the one whose power is made perfect in weakness. The letter reveals how union with Christ shapes ministry—dying daily that life may flow to others.",
+  "practical_application": "Second Corinthians teaches that authentic ministry involves suffering, not just success. God comforts us so we can comfort others. Our weakness displays God's power better than our strength. The call to be reconciled to God remains urgent. Generous giving reflects God's indescribable gift. The letter warns against false teachers who preach 'another Jesus.' Paul's vulnerability encourages leaders to be transparent about struggles while maintaining confidence in God's sufficient grace."
+}

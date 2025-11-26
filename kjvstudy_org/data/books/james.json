@@ -1,0 +1,41 @@
+{
+  "name": "James",
+  "abbreviation": "Jas",
+  "testament": "New Testament",
+  "position": 59,
+  "chapters": 5,
+  "category": "General Epistles",
+  "author": "James, the brother of Jesus",
+  "date_written": "c. AD 45-49",
+  "introduction": "James is practical Christianity—faith that works. Often called the 'Proverbs of the New Testament,' the letter addresses trials, temptation, partiality, the tongue, worldliness, and prayer. James insists that genuine faith produces action; faith without works is dead. The letter has sometimes been contrasted with Paul, but they address different problems: Paul opposed works-righteousness; James opposed faith that remained theoretical. Both agree that true faith transforms.",
+  "key_themes": [
+    "Faith that produces works",
+    "Trials and perseverance",
+    "Controlling the tongue",
+    "Worldliness versus godliness",
+    "Rich and poor in the church",
+    "The prayer of faith"
+  ],
+  "key_verses": [
+    {"reference": "James 1:2-4", "text": "My brethren, count it all joy when ye fall into divers temptations; Knowing this, that the trying of your faith worketh patience. But let patience have her perfect work, that ye may be perfect and entire, wanting nothing."},
+    {"reference": "James 1:22", "text": "But be ye doers of the word, and not hearers only, deceiving your own selves."},
+    {"reference": "James 2:17", "text": "Even so faith, if it hath not works, is dead, being alone."},
+    {"reference": "James 3:8-10", "text": "But the tongue can no man tame; it is an unruly evil, full of deadly poison. Therewith bless we God, even the Father; and therewith curse we men, which are made after the similitude of God. Out of the same mouth proceedeth blessing and cursing. My brethren, these things ought not so to be."},
+    {"reference": "James 4:7-8", "text": "Submit yourselves therefore to God. Resist the devil, and he will flee from you. Draw nigh to God, and he will draw nigh to you."},
+    {"reference": "James 5:16", "text": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."}
+  ],
+  "outline": [
+    {"section": "Trials and Temptations", "chapters": "1:1-18", "description": "Joy in trials, wisdom, endurance"},
+    {"section": "Hearing and Doing", "chapters": "1:19-27", "description": "Be doers, not just hearers"},
+    {"section": "Partiality Condemned", "chapters": "2:1-13", "description": "The royal law of love"},
+    {"section": "Faith and Works", "chapters": "2:14-26", "description": "Faith without works is dead"},
+    {"section": "The Tongue", "chapters": "3:1-12", "description": "The power and danger of speech"},
+    {"section": "True Wisdom", "chapters": "3:13-18", "description": "Heavenly versus earthly wisdom"},
+    {"section": "Worldliness and Pride", "chapters": "4", "description": "Friendship with the world, judging others"},
+    {"section": "Various Instructions", "chapters": "5", "description": "Patience, oaths, prayer, restoration"}
+  ],
+  "historical_context": "James was likely the first New Testament book written, around AD 45-49, before the Jerusalem Council. The author is James, Jesus' half-brother, who became a leader of the Jerusalem church. He writes to Jewish Christians scattered throughout the Roman Empire (the 'twelve tribes in the Dispersion'). The practical, ethical focus reflects Jewish wisdom tradition and shows strong echoes of Jesus' Sermon on the Mount.",
+  "literary_style": "James resembles Jewish wisdom literature more than typical letters. It is a collection of teachings on various topics, loosely connected by keywords and themes. The style is direct, even blunt, with vivid illustrations (mirror, bridle, rudder, fire, spring, fig tree). James asks rhetorical questions and anticipates objections. The teaching echoes Jesus' words frequently, suggesting firsthand familiarity.",
+  "christ_in_book": "James mentions Jesus explicitly only twice (1:1; 2:1), but Christ's teaching permeates the letter. The echoes of the Sermon on the Mount are extensive. Jesus is 'Lord of glory.' The wisdom James commends reflects the wisdom Jesus embodied. The royal law to love neighbor fulfills Christ's summary of the law. The coming of the Lord frames patient endurance.",
+  "practical_application": "James asks hard questions: Does my faith produce action? Can I control my tongue? Do I favor the rich over the poor? Am I a friend of the world? The letter refuses to let us divorce belief from behavior. Trials develop maturity; wisdom is available for the asking. The tongue must be tamed. Friendship with the world is enmity with God. Prayer, confession, and caring for one another characterize authentic faith. Faith without works is dead."
+}

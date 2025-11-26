@@ -1,0 +1,34 @@
+{
+  "name": "Nahum",
+  "abbreviation": "Nah",
+  "testament": "Old Testament",
+  "position": 34,
+  "chapters": 3,
+  "category": "Minor Prophets",
+  "author": "Nahum the Elkoshite",
+  "date_written": "c. 660-612 BC",
+  "introduction": "Nahum announces the doom of Nineveh, capital of the Assyrian Empire. Unlike Jonah, which records Nineveh's repentance a century earlier, Nahum pronounces irrevocable judgment on a city that had returned to cruelty and arrogance. The Assyrians had destroyed the northern kingdom and terrorized the ancient world. Now their turn had come. Nahum declares that God is both avenging judge and refuge for those who trust Him.",
+  "key_themes": [
+    "God's righteous vengeance against evil",
+    "The fall of oppressive empires",
+    "Divine justice and patience",
+    "God as refuge for His people",
+    "The certainty of judgment",
+    "The end of Assyrian cruelty"
+  ],
+  "key_verses": [
+    {"reference": "Nahum 1:2-3", "text": "God is jealous, and the LORD revengeth; the LORD revengeth, and is furious; the LORD will take vengeance on his adversaries, and he reserveth wrath for his enemies. The LORD is slow to anger, and great in power, and will not at all acquit the wicked."},
+    {"reference": "Nahum 1:7", "text": "The LORD is good, a strong hold in the day of trouble; and he knoweth them that trust in him."},
+    {"reference": "Nahum 1:15", "text": "Behold upon the mountains the feet of him that bringeth good tidings, that publisheth peace! O Judah, keep thy solemn feasts, perform thy vows: for the wicked shall no more pass through thee; he is utterly cut off."},
+    {"reference": "Nahum 3:19", "text": "There is no healing of thy bruise; thy wound is grievous: all that hear the bruit of thee shall clap the hands over thee: for upon whom hath not thy wickedness passed continually?"}
+  ],
+  "outline": [
+    {"section": "God's Majesty and Wrath", "chapters": "1", "description": "Theophany, God as avenger and refuge"},
+    {"section": "The Siege of Nineveh", "chapters": "2", "description": "Vivid description of the city's fall"},
+    {"section": "Reasons for Judgment", "chapters": "3", "description": "Nineveh's crimes, no escape from doom"}
+  ],
+  "historical_context": "Nahum prophesied between the fall of Thebes to Assyria (663 BC, referenced in 3:8) and Nineveh's destruction (612 BC). Assyria's century of dominance had been marked by unprecedented cruelty. They impaled enemies, deported populations, and systematically terrorized conquered peoples. Their own monuments boasted of atrocities. But empires rise and fall—Nineveh was destroyed by Babylon and the Medes in 612 BC, exactly as Nahum predicted.",
+  "literary_style": "Nahum is powerful Hebrew poetry. The first chapter contains an acrostic hymn celebrating God's power. The battle scenes in chapters 2-3 are cinematically vivid—chariots, flashing swords, piled corpses, rivers of blood. The irony is biting: Nineveh, which plundered cities, will be plundered; the lion's den will have no more prey. The book's conclusion pictures the world applauding Nineveh's fall.",
+  "christ_in_book": "Nahum 1:15 ('the feet of him who brings good tidings') is echoed in Isaiah 52:7 and applied to gospel preachers in Romans 10:15. God's patience followed by decisive judgment anticipates the pattern of Christ's first and second comings. The refuge found in God (1:7) is fully available in Christ. The judgment of oppressive powers points toward the final judgment Christ will execute.",
+  "practical_application": "Nahum assures sufferers that God sees injustice and will act—His patience is not indifference. It warns the powerful that cruelty and arrogance will be repaid. The book prevents us from thinking God's mercy means immunity from consequences—Nineveh repented once but returned to wickedness. For believers, Nahum provides comfort: 'The LORD is good, a stronghold in the day of trouble.' Empires fall; God remains."
+}

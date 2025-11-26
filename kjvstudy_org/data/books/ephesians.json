@@ -1,0 +1,34 @@
+{
+  "name": "Ephesians",
+  "abbreviation": "Eph",
+  "testament": "New Testament",
+  "position": 49,
+  "chapters": 6,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 60-62",
+  "introduction": "Ephesians presents the grand scope of God's eternal purpose—to unite all things in Christ and create a new humanity, the church. From eternity past to the heavenly places, Paul unfolds the riches of grace and believers' exalted position in Christ. The letter moves from doctrine to duty, from our wealth in Christ to our walk in the world. Ephesians is perhaps Paul's most sublime theological achievement.",
+  "key_themes": [
+    "God's eternal purpose in Christ",
+    "Spiritual blessings in heavenly places",
+    "Salvation by grace through faith",
+    "Unity of Jew and Gentile in Christ",
+    "The church as Christ's body and bride",
+    "Spiritual warfare"
+  ],
+  "key_verses": [
+    {"reference": "Ephesians 1:3", "text": "Blessed be the God and Father of our Lord Jesus Christ, who hath blessed us with all spiritual blessings in heavenly places in Christ."},
+    {"reference": "Ephesians 2:8-9", "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."},
+    {"reference": "Ephesians 2:10", "text": "For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them."},
+    {"reference": "Ephesians 4:4-6", "text": "There is one body, and one Spirit, even as ye are called in one hope of your calling; One Lord, one faith, one baptism, One God and Father of all, who is above all, and through all, and in you all."},
+    {"reference": "Ephesians 6:12", "text": "For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places."}
+  ],
+  "outline": [
+    {"section": "Doctrinal: Our Wealth in Christ", "chapters": "1-3", "description": "Spiritual blessings, salvation by grace, mystery of the church"},
+    {"section": "Practical: Our Walk in the World", "chapters": "4-6", "description": "Unity, new life, relationships, spiritual warfare"}
+  ],
+  "historical_context": "Paul wrote Ephesians from Roman imprisonment (around AD 60-62). The letter may have been a circular letter to multiple churches in Asia Minor, which would explain the absence of personal greetings to a church where Paul spent three years. Ephesus was a major city, home to the temple of Artemis and known for magic arts. Paul's Ephesian ministry is detailed in Acts 19.",
+  "literary_style": "Ephesians is noted for its elevated, liturgical style. The opening blessing (1:3-14) is one long sentence in Greek—a cascade of praise. The prayer sections (1:15-23; 3:14-21) are magnificent. Paul's typical pattern of indicative (what is true) followed by imperative (what to do) is clearly structured: chapters 1-3 establish identity; chapters 4-6 call for conduct that matches. The armor of God passage (6:10-18) is memorable imagery.",
+  "christ_in_book": "Christ is central throughout. All spiritual blessings are 'in Christ.' He is seated at God's right hand, head over all things to the church. He broke down the dividing wall between Jew and Gentile. He gave gifts to the church. His love for the church models husbands' love for wives. Believers are to put on Christ's armor. From election before foundation of the world to final victory, Christ is supreme.",
+  "practical_application": "Ephesians calls believers to live worthy of their calling—rooted in the knowledge of who we are in Christ. Unity is essential; we are one body with one Lord. The new life means putting off the old self and putting on the new. Every relationship (marriage, family, work) is transformed by Christ. We are in a spiritual battle requiring God's full armor. The letter grounds ethics in identity—we act on what we already are in Christ."
+}

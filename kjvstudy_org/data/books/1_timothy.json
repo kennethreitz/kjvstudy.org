@@ -1,0 +1,37 @@
+{
+  "name": "I Timothy",
+  "abbreviation": "1Tim",
+  "testament": "New Testament",
+  "position": 54,
+  "chapters": 6,
+  "category": "Pauline Epistles (Pastoral)",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 62-65",
+  "introduction": "First Timothy is the first of the Pastoral Epistles—letters from Paul to his younger colleagues Timothy and Titus about church leadership and organization. Paul left Timothy in Ephesus to confront false teaching and establish proper order. The letter provides qualifications for church leaders, instructions for various groups, and guidance on combating error. It is a manual for church health in the absence of apostolic presence.",
+  "key_themes": [
+    "Combating false teaching",
+    "Qualifications for church leaders",
+    "Proper conduct in God's household",
+    "The importance of sound doctrine",
+    "Godliness and contentment",
+    "Guarding the deposit of faith"
+  ],
+  "key_verses": [
+    {"reference": "1 Timothy 1:15", "text": "This is a faithful saying, and worthy of all acceptation, that Christ Jesus came into the world to save sinners; of whom I am chief."},
+    {"reference": "1 Timothy 2:5-6", "text": "For there is one God, and one mediator between God and men, the man Christ Jesus; Who gave himself a ransom for all, to be testified in due time."},
+    {"reference": "1 Timothy 3:15", "text": "But if I tarry long, that thou mayest know how thou oughtest to behave thyself in the house of God, which is the church of the living God, the pillar and ground of the truth."},
+    {"reference": "1 Timothy 4:12", "text": "Let no man despise thy youth; but be thou an example of the believers, in word, in conversation, in charity, in spirit, in faith, in purity."},
+    {"reference": "1 Timothy 6:10", "text": "For the love of money is the root of all evil: which while some coveted after, they have erred from the faith, and pierced themselves through with many sorrows."}
+  ],
+  "outline": [
+    {"section": "Introduction and False Teaching", "chapters": "1", "description": "Greetings, charge to Timothy, Paul's testimony"},
+    {"section": "Worship and Leadership", "chapters": "2-3", "description": "Prayer, women, overseers, deacons"},
+    {"section": "False Teaching and Timothy's Ministry", "chapters": "4", "description": "Later apostasy, Timothy's example"},
+    {"section": "Various Groups", "chapters": "5-6:2", "description": "Widows, elders, slaves"},
+    {"section": "Final Charges", "chapters": "6:3-21", "description": "False teachers, contentment, Timothy's charge"}
+  ],
+  "historical_context": "After his first Roman imprisonment (Acts 28), Paul apparently continued ministry, including leaving Timothy in Ephesus. The Ephesian church faced false teachers promoting myths, genealogies, and ascetic practices. Without established church structures, Timothy needed guidance on leadership selection and organizational matters. The letter addresses a specific church situation but has wider application.",
+  "literary_style": "The Pastoral Epistles have a distinctive vocabulary and style compared to Paul's earlier letters, reflecting different circumstances and topics. First Timothy alternates between personal charge to Timothy and instructions for the church. 'Faithful sayings' appear as doctrinal summaries. The letter is practical and organizational rather than deeply theological, though grounded in gospel truth.",
+  "christ_in_book": "Christ Jesus came into the world to save sinners—Paul's testimony. He is the one mediator between God and men, who gave Himself as ransom for all. He appeared in the flesh, was vindicated by the Spirit, seen by angels, preached among nations, believed in the world, taken up in glory. He is the blessed and only Sovereign, King of kings, Lord of lords, dwelling in unapproachable light.",
+  "practical_application": "First Timothy provides timeless wisdom for church leadership and organization. Elders and deacons must meet character qualifications, not just competency. The church is God's household where conduct matters. Young leaders should earn respect through example, not demand it through position. Contentment with godliness is great gain; the love of money leads astray. Timothy must guard the deposit entrusted to him—the pattern of sound words."
+}

@@ -15,6 +15,7 @@ from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse, create_slug
+from ..books import get_book_data, get_all_books_metadata, has_book_data
 from ..stories import (
     get_categories,
     get_story_by_slug,
@@ -431,7 +432,7 @@ def api_get_interlinear(
 
 @router.get("/books")
 def api_get_books():
-    """Get list of all Bible books."""
+    """Get list of all Bible books with metadata."""
     books = list(bible.iter_books())
 
     old_testament = []
@@ -439,11 +440,20 @@ def api_get_books():
 
     for book in books:
         chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+        book_data = get_book_data(book) if has_book_data(book) else None
+
         book_info = {
             "name": book,
             "chapters": len(chapters),
             "testament": "Old Testament" if book in OT_BOOKS else "New Testament"
         }
+
+        # Add metadata from book introductions if available
+        if book_data:
+            book_info["abbreviation"] = book_data.get("abbreviation")
+            book_info["category"] = book_data.get("category")
+            book_info["author"] = book_data.get("author")
+            book_info["position"] = book_data.get("position")
 
         if book in OT_BOOKS:
             old_testament.append(book_info)
@@ -459,7 +469,7 @@ def api_get_books():
 
 @router.get("/books/{book}")
 def api_get_book(book: str = Path(..., description="Book name", examples=["Genesis"])):
-    """Get details about a specific book."""
+    """Get details about a specific book including introduction and study material."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
         book = canonical_name
@@ -476,7 +486,7 @@ def api_get_book(book: str = Path(..., description="Book name", examples=["Genes
             "verses": len(verses)
         })
 
-    return {
+    result = {
         "name": book,
         "total_chapters": len(chapters),
         "chapters": chapter_details,
@@ -484,6 +494,26 @@ def api_get_book(book: str = Path(..., description="Book name", examples=["Genes
             "pdf": f"/api/books/{book}/pdf"
         }
     }
+
+    # Add book introduction data if available
+    book_data = get_book_data(book) if has_book_data(book) else None
+    if book_data:
+        result["abbreviation"] = book_data.get("abbreviation")
+        result["testament"] = book_data.get("testament")
+        result["position"] = book_data.get("position")
+        result["category"] = book_data.get("category")
+        result["author"] = book_data.get("author")
+        result["date_written"] = book_data.get("date_written")
+        result["introduction"] = book_data.get("introduction")
+        result["key_themes"] = book_data.get("key_themes")
+        result["key_verses"] = book_data.get("key_verses")
+        result["outline"] = book_data.get("outline")
+        result["historical_context"] = book_data.get("historical_context")
+        result["literary_style"] = book_data.get("literary_style")
+        result["christ_in_book"] = book_data.get("christ_in_book")
+        result["practical_application"] = book_data.get("practical_application")
+
+    return result
 
 
 @router.get("/books/{book}/pdf")

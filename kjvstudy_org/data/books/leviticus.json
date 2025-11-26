@@ -1,0 +1,38 @@
+{
+  "name": "Leviticus",
+  "abbreviation": "Lev",
+  "testament": "Old Testament",
+  "position": 3,
+  "chapters": 27,
+  "category": "Law (Torah/Pentateuch)",
+  "author": "Moses",
+  "date_written": "c. 1446-1406 BC",
+  "introduction": "Leviticus, named after the tribe of Levi from whom the priests came, is God's handbook for holy living. Often overlooked by modern readers, this book answers the crucial question: How can a holy God dwell among sinful people? The answer involves sacrifice, priesthood, and sanctification. Leviticus reveals God's holiness more intensely than perhaps any other book and provides the theological vocabulary for understanding Christ's atoning work.",
+  "key_themes": [
+    "The holiness of God",
+    "Sacrifice and atonement for sin",
+    "The priesthood and mediation",
+    "Clean and unclean distinctions",
+    "Sanctification and holy living",
+    "The Day of Atonement (Yom Kippur)"
+  ],
+  "key_verses": [
+    {"reference": "Leviticus 11:44", "text": "For I am the LORD your God: ye shall therefore sanctify yourselves, and ye shall be holy; for I am holy."},
+    {"reference": "Leviticus 17:11", "text": "For the life of the flesh is in the blood: and I have given it to you upon the altar to make an atonement for your souls: for it is the blood that maketh an atonement for the soul."},
+    {"reference": "Leviticus 19:2", "text": "Speak unto all the congregation of the children of Israel, and say unto them, Ye shall be holy: for I the LORD your God am holy."},
+    {"reference": "Leviticus 19:18", "text": "Thou shalt not avenge, nor bear any grudge against the children of thy people, but thou shalt love thy neighbour as thyself: I am the LORD."},
+    {"reference": "Leviticus 16:30", "text": "For on that day shall the priest make an atonement for you, to cleanse you, that ye may be clean from all your sins before the LORD."}
+  ],
+  "outline": [
+    {"section": "The Offerings", "chapters": "1-7", "description": "Five types of sacrifices: burnt, grain, peace, sin, and trespass offerings"},
+    {"section": "The Priesthood", "chapters": "8-10", "description": "Consecration of Aaron and his sons; Nadab and Abihu's judgment"},
+    {"section": "Purity Laws", "chapters": "11-15", "description": "Clean and unclean distinctions, dietary laws, and bodily discharges"},
+    {"section": "The Day of Atonement", "chapters": "16", "description": "The annual ceremony for national cleansing from sin"},
+    {"section": "The Holiness Code", "chapters": "17-26", "description": "Practical instructions for holy living in all areas of life"},
+    {"section": "Vows and Tithes", "chapters": "27", "description": "Regulations for dedications and valuations"}
+  ],
+  "historical_context": "Leviticus contains instructions given at Mount Sinai during the month between the erection of the Tabernacle (Exodus 40) and Israel's departure from Sinai (Numbers 10). These laws distinguished Israel from surrounding pagan nations and created a holy community centered on the worship of the one true God. The elaborate sacrificial system acknowledged sin's seriousness while pointing to a future perfect sacrifice.",
+  "literary_style": "Leviticus is primarily legal literature, consisting of detailed instructions for worship, sacrifice, and daily living. The repeated phrase 'I am the LORD' (over 45 times) emphasizes divine authority. The chiastic structure of the book centers on chapter 16 (the Day of Atonement), highlighting its theological importance. The laws often follow a pattern of command, rationale, and consequence.",
+  "christ_in_book": "Leviticus is the book of Hebrews' primary Old Testament source. Every sacrifice points to Christ: the burnt offering to His complete dedication, the grain offering to His perfect life, the peace offering to the reconciliation He brings, the sin offering to His bearing our guilt, the trespass offering to His payment for specific sins. The Day of Atonement's two goats picture Christ's sacrifice and the removal of our sins. The high priest represents Christ our Mediator, and the holy place foreshadows our access to God through Him.",
+  "practical_application": "Leviticus teaches that approaching God requires both reverence for His holiness and trust in His provided means of atonement. It shows that all of life—food, relationships, business, sexuality—falls under God's lordship. The call to 'be holy as I am holy' remains binding for Christians, now fulfilled not through ceremonial law but through the indwelling Holy Spirit. The book also establishes that 'without shedding of blood is no remission' (Hebrews 9:22), preparing us to appreciate Christ's sacrifice."
+}

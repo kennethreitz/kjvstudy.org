@@ -1,0 +1,39 @@
+{
+  "name": "Acts",
+  "abbreviation": "Acts",
+  "testament": "New Testament",
+  "position": 44,
+  "chapters": 28,
+  "category": "History",
+  "author": "Luke, the physician and companion of Paul",
+  "date_written": "c. AD 63-80",
+  "introduction": "Acts is the sequel to Luke's Gospel, recording how the risen Christ continued His work through His apostles by the Holy Spirit. From Jerusalem to Rome, from 120 believers to a movement spanning the Roman Empire, Acts traces the gospel's advance across barriers of culture, race, and geography. It is the story of the Spirit's power, the church's growth, and the unstoppable spread of the Word of God.",
+  "key_themes": [
+    "The Holy Spirit empowering the church",
+    "The spread of the gospel from Jerusalem to Rome",
+    "Bold witness despite persecution",
+    "The inclusion of Gentiles",
+    "The church's expansion and organization",
+    "The sovereignty of God in history"
+  ],
+  "key_verses": [
+    {"reference": "Acts 1:8", "text": "But ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me both in Jerusalem, and in all Judaea, and in Samaria, and unto the uttermost part of the earth."},
+    {"reference": "Acts 2:42", "text": "And they continued stedfastly in the apostles' doctrine and fellowship, and in breaking of bread, and in prayers."},
+    {"reference": "Acts 4:12", "text": "Neither is there salvation in any other: for there is none other name under heaven given among men, whereby we must be saved."},
+    {"reference": "Acts 16:31", "text": "And they said, Believe on the Lord Jesus Christ, and thou shalt be saved, and thy house."},
+    {"reference": "Acts 28:31", "text": "Preaching the kingdom of God, and teaching those things which concern the Lord Jesus Christ, with all confidence, no man forbidding him."}
+  ],
+  "outline": [
+    {"section": "The Church in Jerusalem", "chapters": "1-7", "description": "Ascension, Pentecost, early community, Stephen's martyrdom"},
+    {"section": "Expansion to Judea and Samaria", "chapters": "8-12", "description": "Philip, Saul's conversion, Cornelius, Antioch"},
+    {"section": "Paul's First Missionary Journey", "chapters": "13-14", "description": "Cyprus, Galatia, return to Antioch"},
+    {"section": "Jerusalem Council", "chapters": "15", "description": "Gentile inclusion debated and affirmed"},
+    {"section": "Paul's Second Journey", "chapters": "16-18", "description": "Philippi, Thessalonica, Athens, Corinth"},
+    {"section": "Paul's Third Journey", "chapters": "19-21", "description": "Ephesus, Greece, return to Jerusalem"},
+    {"section": "Paul's Trials and Journey to Rome", "chapters": "22-28", "description": "Arrest, defense speeches, voyage, Rome"}
+  ],
+  "historical_context": "Acts covers approximately thirty years (AD 30-62), from Jesus' ascension to Paul's Roman imprisonment. This was a pivotal era as the church emerged from Jewish roots, spread throughout the Roman Empire, and established its distinct identity. The book may have been written before Paul's death, explaining the abrupt ending without resolution of his case. Luke traveled with Paul on portions of the journeys (the 'we' sections).",
+  "literary_style": "Acts is ancient historiography with theological purpose. Luke provides geographical and chronological markers for historical grounding. The sermons (Peter's at Pentecost, Paul's at Athens) present apostolic preaching. The narrative shifts from Peter's prominence (chapters 1-12) to Paul's (chapters 13-28). The repeated theme of the Word spreading and believers increasing provides structural markers. The book ends with Paul preaching 'unhindered'—the gospel cannot be chained.",
+  "christ_in_book": "Though ascended, Jesus remains Acts' central figure. He pours out the Spirit, adds to the church, and directs the mission. His name brings healing, His authority demands obedience, His return frames Christian hope. The apostles preach 'the things concerning Jesus' everywhere. He is the fulfillment of Israel's hopes, the Lord of all, the only Savior. Acts shows Christ building His church through human witnesses empowered by His Spirit.",
+  "practical_application": "Acts models Spirit-empowered witness that crosses every barrier. It shows the church as a community of Word, fellowship, breaking bread, and prayer. The book demonstrates that suffering and opposition accompany gospel advance. It encourages believers that God's purposes cannot be thwarted. Acts raises questions about church practice that Christians continue to discuss. Above all, it calls us to be witnesses to Jesus 'unto the uttermost part of the earth.'"
+}

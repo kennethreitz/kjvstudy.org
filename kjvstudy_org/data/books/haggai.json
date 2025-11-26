@@ -1,0 +1,36 @@
+{
+  "name": "Haggai",
+  "abbreviation": "Hag",
+  "testament": "Old Testament",
+  "position": 37,
+  "chapters": 2,
+  "category": "Minor Prophets",
+  "author": "Haggai",
+  "date_written": "c. 520 BC",
+  "introduction": "Haggai is the first post-exilic prophet, calling the returned exiles to rebuild the temple they had neglected for sixteen years. His message is simple and urgent: consider your ways—you have neglected God's house while pursuing your own comfort, and it has left you unsatisfied. When the people respond in obedience, God promises His presence and future glory that will surpass Solomon's temple. Small beginnings can have magnificent endings.",
+  "key_themes": [
+    "Priorities—God's house before our own",
+    "The connection between obedience and blessing",
+    "The presence of God with His people",
+    "Future glory exceeding present limitations",
+    "The shaking of nations and God's kingdom",
+    "Encouragement for discouraged workers"
+  ],
+  "key_verses": [
+    {"reference": "Haggai 1:4", "text": "Is it time for you, O ye, to dwell in your cieled houses, and this house lie waste?"},
+    {"reference": "Haggai 1:7-8", "text": "Thus saith the LORD of hosts; Consider your ways. Go up to the mountain, and bring wood, and build the house; and I will take pleasure in it, and I will be glorified, saith the LORD."},
+    {"reference": "Haggai 2:4-5", "text": "Yet now be strong, O Zerubbabel, saith the LORD; and be strong, O Joshua, son of Josedech, the high priest; and be strong, all ye people of the land, saith the LORD, and work: for I am with you, saith the LORD of hosts... my spirit remaineth among you: fear ye not."},
+    {"reference": "Haggai 2:9", "text": "The glory of this latter house shall be greater than of the former, saith the LORD of hosts: and in this place will I give peace, saith the LORD of hosts."}
+  ],
+  "outline": [
+    {"section": "First Message: Rebuke", "chapters": "1:1-11", "description": "Call to consider misplaced priorities"},
+    {"section": "The People's Response", "chapters": "1:12-15", "description": "Obedience and work begins"},
+    {"section": "Second Message: Encouragement", "chapters": "2:1-9", "description": "Be strong, greater glory coming"},
+    {"section": "Third Message: Blessing", "chapters": "2:10-19", "description": "Holiness and contamination, blessing promised"},
+    {"section": "Fourth Message: Zerubbabel", "chapters": "2:20-23", "description": "God's signet ring, shaking of nations"}
+  ],
+  "historical_context": "The exiles had returned from Babylon in 538 BC and laid the temple foundation in 536 BC. Opposition stopped the work for sixteen years. In 520 BC, Haggai and Zechariah stirred up the people to resume building. The Persian king Darius I was consolidating power. The temple was completed in 516 BC—seventy years after its destruction, fulfilling Jeremiah's prophecy.",
+  "literary_style": "Haggai is precisely dated (four messages in four months), giving it a journalistic quality. The rhetorical question 'Consider your ways' (literally 'set your heart on your roads') recurs. The prophet's direct, practical style contrasts with the symbolic visions of his contemporary Zechariah. The phrase 'Thus saith the LORD of hosts' appears 26 times in just 38 verses, emphasizing divine authority.",
+  "christ_in_book": "The promise that the latter house's glory will exceed the former finds fulfillment when Christ enters the temple—bringing the very presence of God in human flesh. The 'shaking of nations' anticipates the upheaval surrounding Christ's coming and ultimate return. Zerubbabel as God's 'signet ring' suggests royal authority and points to his descendant Jesus, the true King.",
+  "practical_application": "Haggai exposes how easily we prioritize our comfort over God's purposes. The unfulfilling cycle—working hard yet never satisfied—results from misplaced priorities. When we put God first, blessing follows. The book encourages those doing God's work with small resources: be strong, for God is with you, and greater things are coming. It reminds us that present faithfulness in small things leads to future glory."
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Mark",
+  "abbreviation": "Mark",
+  "testament": "New Testament",
+  "position": 41,
+  "chapters": 16,
+  "category": "Gospels",
+  "author": "John Mark, companion of Peter and Paul",
+  "date_written": "c. AD 55-65",
+  "introduction": "Mark is the shortest and likely earliest Gospel, presenting Jesus as the powerful Son of God who came to serve and give His life as a ransom. The narrative moves rapidly, using 'immediately' over 40 times. Mark emphasizes Jesus' actions more than His teachings, showing His authority over disease, demons, nature, and death. Yet this powerful Lord chose suffering—the cross is central to Mark's portrait of Jesus and His call to discipleship.",
+  "key_themes": [
+    "Jesus as the powerful Son of God",
+    "The suffering Servant who gives His life",
+    "The messianic secret",
+    "Discipleship as following the crucified Christ",
+    "The kingdom of God",
+    "Faith and fear"
+  ],
+  "key_verses": [
+    {"reference": "Mark 1:1", "text": "The beginning of the gospel of Jesus Christ, the Son of God."},
+    {"reference": "Mark 8:34-35", "text": "And when he had called the people unto him with his disciples also, he said unto them, Whosoever will come after me, let him deny himself, and take up his cross, and follow me. For whosoever will save his life shall lose it; but whosoever shall lose his life for my sake and the gospel's, the same shall save it."},
+    {"reference": "Mark 10:45", "text": "For even the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many."},
+    {"reference": "Mark 15:39", "text": "And when the centurion, which stood over against him, saw that he so cried out, and gave up the ghost, he said, Truly this man was the Son of God."}
+  ],
+  "outline": [
+    {"section": "Preparation and Early Ministry", "chapters": "1:1-13", "description": "John the Baptist, baptism, temptation"},
+    {"section": "Galilean Ministry", "chapters": "1:14-6:29", "description": "Calling disciples, miracles, controversies, parables"},
+    {"section": "Wider Ministry", "chapters": "6:30-8:26", "description": "Feeding 5000, walking on water, feeding 4000"},
+    {"section": "Journey to Jerusalem", "chapters": "8:27-10:52", "description": "Peter's confession, passion predictions, discipleship teaching"},
+    {"section": "Ministry in Jerusalem", "chapters": "11-13", "description": "Triumphal entry, temple cleansing, Olivet discourse"},
+    {"section": "Passion and Resurrection", "chapters": "14-16", "description": "Last Supper, Gethsemane, trial, crucifixion, empty tomb"}
+  ],
+  "historical_context": "Early church tradition identifies John Mark as Peter's interpreter who wrote down Peter's preaching in Rome. Mark may have been written shortly before the destruction of Jerusalem in AD 70, possibly during Nero's persecution when Roman Christians needed encouragement for suffering. The Gospel's explanations of Jewish customs suggest a Gentile audience.",
+  "literary_style": "Mark's style is vivid and fast-paced. Present tense verbs, concrete details, and emotional notes bring scenes to life. The 'messianic secret'—Jesus' commands to silence about His identity—creates narrative tension. The Gospel is structured around three passion predictions, each followed by disciples' misunderstanding and teaching on true discipleship. The ending (whether at 16:8 or with the longer ending) has been debated throughout church history.",
+  "christ_in_book": "Mark's opening verse announces Jesus as 'Christ' (Messiah) and 'Son of God'—titles the narrative progressively reveals. The first half shows His power over every opposing force; the second half reveals His choice to suffer. The centurion's confession at the cross completes what demons knew from the beginning. Jesus is the Servant Lord who conquers through suffering and calls followers to the same path.",
+  "practical_application": "Mark confronts us with the cost of following Jesus—denying self, taking up the cross, losing life to find it. The disciples' repeated failures encourage us that Jesus patiently works with flawed followers. The Gospel challenges our desire for status with Jesus' model of servant leadership. Mark's Jesus is powerful enough to trust and humble enough to imitate. The call is clear: 'Follow me.'"
+}

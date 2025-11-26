@@ -1,0 +1,41 @@
+{
+  "name": "I Corinthians",
+  "abbreviation": "1Cor",
+  "testament": "New Testament",
+  "position": 46,
+  "chapters": 16,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 55",
+  "introduction": "First Corinthians addresses a church in crisis. The Corinthian believers were divided by factions, tolerating gross immorality, suing each other in court, abusing the Lord's Supper, misusing spiritual gifts, and even denying the resurrection. Paul's letter is the most extensive New Testament treatment of practical church problems. He calls them to unity in Christ, holiness in conduct, and love as the greatest virtue.",
+  "key_themes": [
+    "Unity in the body of Christ",
+    "True wisdom versus worldly wisdom",
+    "Sexual purity and the body as temple",
+    "Freedom and responsibility",
+    "Spiritual gifts and love",
+    "The resurrection of the body"
+  ],
+  "key_verses": [
+    {"reference": "1 Corinthians 1:18", "text": "For the preaching of the cross is to them that perish foolishness; but unto us which are saved it is the power of God."},
+    {"reference": "1 Corinthians 6:19-20", "text": "What? know ye not that your body is the temple of the Holy Ghost which is in you, which ye have of God, and ye are not your own? For ye are bought with a price: therefore glorify God in your body, and in your spirit, which are God's."},
+    {"reference": "1 Corinthians 13:13", "text": "And now abideth faith, hope, charity, these three; but the greatest of these is charity."},
+    {"reference": "1 Corinthians 15:3-4", "text": "For I delivered unto you first of all that which I also received, how that Christ died for our sins according to the scriptures; And that he was buried, and that he rose again the third day according to the scriptures."},
+    {"reference": "1 Corinthians 15:55", "text": "O death, where is thy sting? O grave, where is thy victory?"}
+  ],
+  "outline": [
+    {"section": "Introduction", "chapters": "1:1-9", "description": "Greetings and thanksgiving"},
+    {"section": "Divisions in the Church", "chapters": "1:10-4:21", "description": "Wisdom of cross versus worldly wisdom"},
+    {"section": "Moral Disorders", "chapters": "5-6", "description": "Immorality, lawsuits, sexual ethics"},
+    {"section": "Marriage Questions", "chapters": "7", "description": "Marriage, celibacy, divorce, singleness"},
+    {"section": "Food Offered to Idols", "chapters": "8-10", "description": "Freedom and stumbling blocks"},
+    {"section": "Worship Disorders", "chapters": "11", "description": "Head coverings, Lord's Supper abuses"},
+    {"section": "Spiritual Gifts", "chapters": "12-14", "description": "Body of Christ, love chapter, orderly worship"},
+    {"section": "The Resurrection", "chapters": "15", "description": "Christ's resurrection, believers' resurrection"},
+    {"section": "Conclusion", "chapters": "16", "description": "Collection, plans, final greetings"}
+  ],
+  "historical_context": "Corinth was a prosperous, cosmopolitan port city known for commerce and immorality. Paul founded the church on his second missionary journey (Acts 18) and stayed eighteen months. The city's secular values infiltrated the church. Paul wrote from Ephesus after receiving reports of problems and written questions. This letter is part of extensive correspondence—at least four letters total.",
+  "literary_style": "First Corinthians is pastoral theology—responding to real problems with theological principles. Paul alternates between addressing reported issues and answering their questions ('Now concerning...'). His rhetoric ranges from gentle appeal to sharp rebuke to eloquent poetry (chapter 13). The letter demonstrates how the gospel applies to everyday church life.",
+  "christ_in_book": "Christ is the foundation (3:11), our Passover lamb (5:7), the spiritual Rock who followed Israel (10:4), and the firstfruits of resurrection (15:20-23). The wisdom of God is Christ crucified. The church is His body. The Lord's Supper proclaims His death. His resurrection guarantees ours. When we eat or drink, we do it for Him. He will subject all things and hand the kingdom to the Father.",
+  "practical_application": "First Corinthians addresses problems that churches still face: divisions, celebrity leaders, moral compromise, litigation between believers, questions about marriage and singleness, Christian liberty's limits, worship practices, and spiritual gifts. The love chapter (13) provides the test for all ministry. The resurrection chapter (15) grounds Christian hope. Paul's principle—becoming all things to all people—guides evangelism and cultural engagement."
+}

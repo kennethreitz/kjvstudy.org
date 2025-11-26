@@ -1,0 +1,37 @@
+{
+  "name": "Numbers",
+  "abbreviation": "Num",
+  "testament": "Old Testament",
+  "position": 4,
+  "chapters": 36,
+  "category": "Law (Torah/Pentateuch)",
+  "author": "Moses",
+  "date_written": "c. 1446-1406 BC",
+  "introduction": "Numbers, named for the two censuses of Israel it contains, chronicles the wilderness wanderings from Sinai to the plains of Moab. It is a book of transition—and tragedy. A journey that should have taken weeks stretched to forty years due to unbelief. Numbers reveals both God's patience with a complaining people and His justice that kept an entire generation from the Promised Land. Yet it also demonstrates His unwavering faithfulness to His promises.",
+  "key_themes": [
+    "The consequences of unbelief and disobedience",
+    "God's faithfulness despite human failure",
+    "The journey of faith through wilderness seasons",
+    "Leadership challenges and God's provision",
+    "Holiness in the camp",
+    "The second generation's hope"
+  ],
+  "key_verses": [
+    {"reference": "Numbers 6:24-26", "text": "The LORD bless thee, and keep thee: The LORD make his face shine upon thee, and be gracious unto thee: The LORD lift up his countenance upon thee, and give thee peace."},
+    {"reference": "Numbers 14:18", "text": "The LORD is longsuffering, and of great mercy, forgiving iniquity and transgression, and by no means clearing the guilty, visiting the iniquity of the fathers upon the children unto the third and fourth generation."},
+    {"reference": "Numbers 23:19", "text": "God is not a man, that he should lie; neither the son of man, that he should repent: hath he said, and shall he not do it? or hath he spoken, and shall he not make it good?"},
+    {"reference": "Numbers 14:21", "text": "But as truly as I live, all the earth shall be filled with the glory of the LORD."}
+  ],
+  "outline": [
+    {"section": "At Sinai: Preparation", "chapters": "1-10", "description": "Census, camp organization, Levite duties, and departure from Sinai"},
+    {"section": "Sinai to Kadesh: Failure", "chapters": "11-12", "description": "Complaints, quail judgment, and Miriam's rebellion"},
+    {"section": "At Kadesh: Rejection", "chapters": "13-14", "description": "The twelve spies and Israel's refusal to enter Canaan"},
+    {"section": "Wilderness Wanderings", "chapters": "15-19", "description": "Korah's rebellion, Aaron's rod, and the red heifer"},
+    {"section": "Kadesh to Moab: Transition", "chapters": "20-21", "description": "Miriam and Aaron's deaths, the bronze serpent"},
+    {"section": "On the Plains of Moab", "chapters": "22-36", "description": "Balaam's oracles, final preparations, and tribal inheritances"}
+  ],
+  "historical_context": "Numbers covers approximately 39 years, from the second year after the Exodus to the fortieth year, when the new generation stood ready to enter Canaan. The book bridges the giving of the Law at Sinai with the final instructions in Deuteronomy. It records actual historical events that shaped Israel's national consciousness and became frequent points of reference in later Scripture.",
+  "literary_style": "Numbers alternates between census data, legal material, and dramatic narrative. The travel itinerary provides structure, while key events (the spy report, Korah's rebellion, Balaam's oracles) are told with vivid detail. The contrast between divine blessing through Balaam and Israel's subsequent sin at Baal Peor creates powerful irony. Poetry appears in the priestly blessing and Balaam's prophecies.",
+  "christ_in_book": "The bronze serpent lifted up in the wilderness is directly applied to Christ by Jesus Himself (John 3:14-15). The cities of refuge point to Christ as our refuge from the avenger. The smitten rock pictures Christ smitten for us. Balaam's prophecy of a 'Star out of Jacob' and a 'Sceptre out of Israel' anticipates the Messiah. The red heifer's ashes for purification foreshadow Christ's cleansing sacrifice.",
+  "practical_application": "Numbers warns against the dangers of complaining, unbelief, and presumption. It shows that wilderness experiences, though difficult, can be times of growth and preparation. The book encourages faithfulness in the face of opposition and teaches that God's promises remain certain even when human failure delays their fulfillment. It reminds us that how we respond to trials determines whether hardship becomes a brief test or a prolonged wandering."
+}

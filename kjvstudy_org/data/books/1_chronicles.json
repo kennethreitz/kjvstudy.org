@@ -1,0 +1,35 @@
+{
+  "name": "I Chronicles",
+  "abbreviation": "1Chr",
+  "testament": "Old Testament",
+  "position": 13,
+  "chapters": 29,
+  "category": "History",
+  "author": "Traditionally Ezra",
+  "date_written": "c. 450-400 BC",
+  "introduction": "First Chronicles retells Israel's history from a post-exilic perspective, emphasizing David and the temple worship he established. Writing for returned exiles who needed to reconnect with their heritage, the Chronicler traces the genealogical line from Adam to the restoration. This book focuses on God's faithfulness to David's line and the importance of proper worship, encouraging a discouraged community that their identity and calling remain intact.",
+  "key_themes": [
+    "Genealogical continuity from Adam to Israel",
+    "David as the ideal king and worship leader",
+    "Preparation for temple worship",
+    "The Levites and proper worship",
+    "Davidic covenant promises",
+    "Seeking God with the whole heart"
+  ],
+  "key_verses": [
+    {"reference": "1 Chronicles 16:11", "text": "Seek the LORD and his strength, seek his face continually."},
+    {"reference": "1 Chronicles 17:14", "text": "But I will settle him in mine house and in my kingdom for ever: and his throne shall be established for evermore."},
+    {"reference": "1 Chronicles 28:9", "text": "And thou, Solomon my son, know thou the God of thy father, and serve him with a perfect heart and with a willing mind: for the LORD searcheth all hearts, and understandeth all the imaginations of the thoughts."},
+    {"reference": "1 Chronicles 29:11", "text": "Thine, O LORD, is the greatness, and the power, and the glory, and the victory, and the majesty: for all that is in the heaven and in the earth is thine; thine is the kingdom, O LORD, and thou art exalted as head above all."}
+  ],
+  "outline": [
+    {"section": "Genealogies", "chapters": "1-9", "description": "From Adam through the tribes of Israel to the returnees"},
+    {"section": "Death of Saul", "chapters": "10", "description": "Transition to David's reign"},
+    {"section": "David's Reign", "chapters": "11-21", "description": "Jerusalem captured, ark brought, covenant, military victories"},
+    {"section": "Temple Preparations", "chapters": "22-29", "description": "Materials gathered, Levites organized, Solomon charged"}
+  ],
+  "historical_context": "Chronicles was written for Jews who returned from Babylonian exile (after 538 BC). The community faced discouragement—they had no king, a small territory, and a modest temple. The Chronicler reminded them of their glorious heritage and assured them that God's promises to David still stood. The emphasis on proper worship addressed the community's primary identity: they were the worshipping people of God.",
+  "literary_style": "Chronicles parallels Samuel-Kings but with different emphases. It omits negative material about David (Bathsheba, family troubles) while expanding temple-related content. The genealogies, though challenging to modern readers, establish continuity and legitimacy. The book features extensive speeches, prayers, and lists that emphasize theological points. David's final prayer (chapter 29) is liturgical high point.",
+  "christ_in_book": "David as the idealized king points to Christ, David's perfect Son. The Davidic covenant promises find ultimate fulfillment in Christ's eternal kingdom. The temple David longed to build and prepared for points to Christ as God's dwelling with humanity. The genealogies in Matthew 1 and Luke 3 draw from Chronicles, establishing Jesus' rightful claim to David's throne.",
+  "practical_application": "Chronicles teaches that worship is central to God's people's identity and purpose. It shows that even when external circumstances are discouraging, God's promises remain sure. The book emphasizes that God seeks whole-hearted devotion, not mere ritual. David's extensive preparations for what he would not complete himself model faithful service that blesses future generations. The genealogies remind us that we are part of a larger story spanning all of history."
+}

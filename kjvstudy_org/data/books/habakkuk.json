@@ -1,0 +1,35 @@
+{
+  "name": "Habakkuk",
+  "abbreviation": "Hab",
+  "testament": "Old Testament",
+  "position": 35,
+  "chapters": 3,
+  "category": "Minor Prophets",
+  "author": "Habakkuk",
+  "date_written": "c. 608-598 BC",
+  "introduction": "Habakkuk is unique among the prophets—rather than speaking God's message to the people, he voices the people's questions to God. Why does God allow injustice among His people? Why would He use wicked Babylon as His instrument of judgment? The prophet's journey from complaint to worship models faithful wrestling with hard questions. His conclusion—'the just shall live by faith'—becomes foundational for Paul's theology of justification.",
+  "key_themes": [
+    "Wrestling with God's justice and providence",
+    "Faith amid unanswered questions",
+    "God's sovereignty over evil nations",
+    "The just shall live by faith",
+    "God's glory filling the earth",
+    "Joy in God despite circumstances"
+  ],
+  "key_verses": [
+    {"reference": "Habakkuk 1:2", "text": "O LORD, how long shall I cry, and thou wilt not hear! even cry out unto thee of violence, and thou wilt not save!"},
+    {"reference": "Habakkuk 1:13", "text": "Thou art of purer eyes than to behold evil, and canst not look on iniquity: wherefore lookest thou upon them that deal treacherously, and holdest thy tongue when the wicked devoureth the man that is more righteous than he?"},
+    {"reference": "Habakkuk 2:4", "text": "Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith."},
+    {"reference": "Habakkuk 2:14", "text": "For the earth shall be filled with the knowledge of the glory of the LORD, as the waters cover the sea."},
+    {"reference": "Habakkuk 3:17-18", "text": "Although the fig tree shall not blossom, neither shall fruit be in the vines... Yet I will rejoice in the LORD, I will joy in the God of my salvation."}
+  ],
+  "outline": [
+    {"section": "First Complaint and Response", "chapters": "1:1-11", "description": "Why does God tolerate injustice? Answer: Babylon is coming"},
+    {"section": "Second Complaint and Response", "chapters": "1:12-2:20", "description": "Why use wicked Babylon? Answer: Babylon will also be judged"},
+    {"section": "Habakkuk's Prayer", "chapters": "3", "description": "Theophany, fear, and rejoicing in God"}
+  ],
+  "historical_context": "Habakkuk prophesied as Babylon was rising to power, likely during Jehoiakim's reign (608-598 BC). Judah was corrupt, justice was perverted, and the righteous were oppressed. Babylon, under Nebuchadnezzar, would soon invade and ultimately destroy Jerusalem (586 BC). Habakkuk struggled with both the internal injustice and God's use of an even more wicked nation as His instrument.",
+  "literary_style": "Habakkuk takes the form of a dialogue—the prophet asks, God answers, the prophet responds. This structure makes it accessible for readers with similar questions. The five 'woes' against Babylon (2:6-20) are structured as taunts the nations will eventually sing over fallen Babylon. Chapter 3 is a powerful psalm (note the musical notation) describing God's appearance in language echoing the Exodus.",
+  "christ_in_book": "The declaration 'the just shall live by faith' is quoted three times in the New Testament (Romans 1:17; Galatians 3:11; Hebrews 10:38) as the foundation of justification by faith in Christ. The vision that awaits fulfillment but 'will surely come' (2:3) is applied to Christ's return in Hebrews 10:37. Habakkuk's rejoicing despite loss models the faith that Christ's suffering and victory make possible.",
+  "practical_application": "Habakkuk gives us permission to question God honestly. It shows that faith is not the absence of doubt but trust that persists through doubt. The prophet's journey from 'how long?' to 'yet I will rejoice' maps the path for sufferers. The book teaches that God may use strange instruments in His providence but that His justice will ultimately prevail. Living by faith means trusting God's character when we cannot understand His ways."
+}

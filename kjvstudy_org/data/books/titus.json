@@ -1,0 +1,37 @@
+{
+  "name": "Titus",
+  "abbreviation": "Titus",
+  "testament": "New Testament",
+  "position": 56,
+  "chapters": 3,
+  "category": "Pauline Epistles (Pastoral)",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 63-65",
+  "introduction": "Titus parallels First Timothy—both instruct Paul's co-workers about establishing church order. Paul left Titus on Crete to appoint elders and address false teaching. The letter emphasizes how sound doctrine produces godly living. The gospel is not just truth to believe but grace that trains us for righteous living. Titus contains beautiful summaries of Christ's redemptive work and calls for good works as faith's proper fruit.",
+  "key_themes": [
+    "Appointing qualified elders",
+    "Sound doctrine producing godly living",
+    "The grace of God that transforms",
+    "Good works as faith's evidence",
+    "Silencing false teachers",
+    "Living godly in this present age"
+  ],
+  "key_verses": [
+    {"reference": "Titus 1:5", "text": "For this cause left I thee in Crete, that thou shouldest set in order the things that are wanting, and ordain elders in every city, as I had appointed thee."},
+    {"reference": "Titus 2:11-14", "text": "For the grace of God that bringeth salvation hath appeared to all men, Teaching us that, denying ungodliness and worldly lusts, we should live soberly, righteously, and godly, in this present world; Looking for that blessed hope, and the glorious appearing of the great God and our Saviour Jesus Christ; Who gave himself for us, that he might redeem us from all iniquity, and purify unto himself a peculiar people, zealous of good works."},
+    {"reference": "Titus 3:4-7", "text": "But after that the kindness and love of God our Saviour toward man appeared, Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost; Which he shed on us abundantly through Jesus Christ our Saviour; That being justified by his grace, we should be made heirs according to the hope of eternal life."},
+    {"reference": "Titus 3:8", "text": "This is a faithful saying, and these things I will that thou affirm constantly, that they which have believed in God might be careful to maintain good works."}
+  ],
+  "outline": [
+    {"section": "Introduction", "chapters": "1:1-4", "description": "Greeting and purpose"},
+    {"section": "Elders and False Teachers", "chapters": "1:5-16", "description": "Qualifications for elders, rebuke of deceivers"},
+    {"section": "Instructions for Groups", "chapters": "2:1-10", "description": "Older men and women, younger, servants"},
+    {"section": "The Grace of God", "chapters": "2:11-15", "description": "Grace appearing and training us"},
+    {"section": "Christian Conduct", "chapters": "3:1-11", "description": "Submission, kindness, avoiding divisions"},
+    {"section": "Conclusion", "chapters": "3:12-15", "description": "Personal instructions and farewell"}
+  ],
+  "historical_context": "Crete was a large Mediterranean island with a reputation for dishonesty and immorality (hence Paul's quotation of the Cretan prophet in 1:12). Paul had apparently evangelized there with Titus after his first Roman imprisonment. The churches needed organization and protection from false teachers promoting Jewish myths and legalism. Titus was to appoint elders and establish healthy church life.",
+  "literary_style": "Titus is compact and practical. Two profound theological passages (2:11-14; 3:4-7) summarize the gospel with unusual beauty—often called 'faithful sayings.' The letter ties doctrine tightly to practice: sound teaching produces sound living. Paul's instructions are organized by social groups and situations. The emphasis on good works is striking (mentioned six times in three chapters) as evidence of genuine faith.",
+  "christ_in_book": "The two gospel summaries present Christ magnificently. He is our great God and Savior whose glorious appearing we await. He gave Himself for us to redeem us from all iniquity and purify a people for His own possession. God our Savior saved us through the washing of regeneration, pouring out the Holy Spirit abundantly through Jesus Christ. We are justified by His grace and made heirs of eternal life.",
+  "practical_application": "Titus shows that grace does not lead to carelessness but trains us for godly living. Sound doctrine and good works are inseparable—faith that does not transform conduct is not genuine faith. The letter provides qualifications for church leaders that remain applicable. Various groups—old, young, employees—have specific callings. Christians should be subject to authorities, avoid quarrels, and be gentle. The gospel makes us 'zealous for good works.'"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Ezekiel",
+  "abbreviation": "Ezek",
+  "testament": "Old Testament",
+  "position": 26,
+  "chapters": 48,
+  "category": "Major Prophets",
+  "author": "Ezekiel",
+  "date_written": "c. 593-571 BC",
+  "introduction": "Ezekiel prophesied from Babylon to fellow exiles, explaining why Jerusalem fell and offering hope for restoration. His visions are among Scripture's most dramatic—God's glory departing the temple, the valley of dry bones coming to life, and a new temple in a restored land. The book's central message: The LORD will vindicate His holy name by judging sin and then restoring His people, so that all will 'know that I am the LORD.'",
+  "key_themes": [
+    "The glory of God and His holiness",
+    "Personal responsibility for sin",
+    "Judgment on Judah and the nations",
+    "The new heart and new spirit",
+    "Resurrection and restoration of Israel",
+    "The future temple and God's dwelling"
+  ],
+  "key_verses": [
+    {"reference": "Ezekiel 1:28", "text": "As the appearance of the bow that is in the cloud in the day of rain, so was the appearance of the brightness round about. This was the appearance of the likeness of the glory of the LORD."},
+    {"reference": "Ezekiel 18:4", "text": "Behold, all souls are mine; as the soul of the father, so also the soul of the son is mine: the soul that sinneth, it shall die."},
+    {"reference": "Ezekiel 36:26-27", "text": "A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh. And I will put my spirit within you, and cause you to walk in my statutes."},
+    {"reference": "Ezekiel 37:3-4", "text": "And he said unto me, Son of man, can these bones live? And I answered, O Lord GOD, thou knowest. Again he said unto me, Prophesy upon these bones, and say unto them, O ye dry bones, hear the word of the LORD."},
+    {"reference": "Ezekiel 48:35", "text": "It was round about eighteen thousand measures: and the name of the city from that day shall be, The LORD is there."}
+  ],
+  "outline": [
+    {"section": "Ezekiel's Call and Commission", "chapters": "1-3", "description": "Vision of God's glory, eating the scroll"},
+    {"section": "Judgment on Jerusalem", "chapters": "4-24", "description": "Symbolic acts, visions of abominations, glory departs"},
+    {"section": "Oracles Against Nations", "chapters": "25-32", "description": "Ammon, Moab, Edom, Philistia, Tyre, Egypt"},
+    {"section": "Restoration Promises", "chapters": "33-39", "description": "Watchman, shepherds, valley of dry bones, Gog and Magog"},
+    {"section": "The New Temple", "chapters": "40-48", "description": "Temple vision, regulations, river of life, land division"}
+  ],
+  "historical_context": "Ezekiel was among the 10,000 exiles deported to Babylon in 597 BC, including King Jehoiachin. He prophesied from Babylon while Jeremiah prophesied in Jerusalem. His ministry spanned 593-571 BC, before and after Jerusalem's final destruction in 586. The exiles struggled with despair and false hope; Ezekiel addressed both. His priestly background shapes his concern for the temple and God's glory.",
+  "literary_style": "Ezekiel is highly visual and symbolic. The prophet performs elaborate sign-acts (lying on his side, shaving his head, packing exile's baggage). His visions are cosmic and surreal (the wheel within a wheel, the valley of bones). The phrase 'they shall know that I am the LORD' appears over 70 times, emphasizing God's self-revelation through judgment and salvation. The book is systematically dated, providing chronological anchors.",
+  "christ_in_book": "The divine figure on the throne (chapter 1) anticipates Christ's glory. The true Shepherd who will tend God's flock (34) is fulfilled in Christ the Good Shepherd. The new heart and spirit promise (36) comes through Christ's redemption and the Spirit's work. The resurrection imagery of dry bones points to Christ's resurrection power. The temple where God dwells (48:35—'The LORD is there') anticipates Christ as God with us.",
+  "practical_application": "Ezekiel emphasizes personal responsibility—each person stands before God for their own choices. The new heart promise encourages us that transformation is God's work, not mere human effort. The dry bones vision assures us that God can bring life from death and hope from despair. The glory of God departing the temple warns against presuming on God's presence while tolerating sin. The river flowing from the temple (47) inspires us with the life-giving presence of God."
+}

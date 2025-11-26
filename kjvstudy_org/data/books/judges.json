@@ -1,0 +1,34 @@
+{
+  "name": "Judges",
+  "abbreviation": "Judg",
+  "testament": "Old Testament",
+  "position": 7,
+  "chapters": 21,
+  "category": "History",
+  "author": "Unknown (possibly Samuel)",
+  "date_written": "c. 1050-1000 BC",
+  "introduction": "Judges chronicles Israel's darkest period—a downward spiral of sin, suffering, supplication, and salvation repeated in cycles across some 350 years. After Joshua's generation died, Israel abandoned the LORD and served the gods of Canaan. The book's refrain, 'everyone did what was right in his own eyes,' captures the moral chaos that resulted. Yet even in Israel's unfaithfulness, God raised up deliverers, demonstrating His patience and commitment to His covenant people.",
+  "key_themes": [
+    "The cycle of sin, oppression, crying out, and deliverance",
+    "The consequences of incomplete obedience",
+    "Moral and spiritual decline without godly leadership",
+    "God's grace in raising up deliverers",
+    "The danger of cultural compromise",
+    "The need for a godly king"
+  ],
+  "key_verses": [
+    {"reference": "Judges 2:10-12", "text": "And also all that generation were gathered unto their fathers: and there arose another generation after them, which knew not the LORD, nor yet the works which he had done for Israel. And the children of Israel did evil in the sight of the LORD, and served Baalim: And they forsook the LORD God of their fathers."},
+    {"reference": "Judges 17:6", "text": "In those days there was no king in Israel, but every man did that which was right in his own eyes."},
+    {"reference": "Judges 21:25", "text": "In those days there was no king in Israel: every man did that which was right in his own eyes."},
+    {"reference": "Judges 2:16", "text": "Nevertheless the LORD raised up judges, which delivered them out of the hand of those that spoiled them."}
+  ],
+  "outline": [
+    {"section": "Introduction: Incomplete Conquest", "chapters": "1-2", "description": "Failure to drive out the Canaanites and the cycle explained"},
+    {"section": "The Judges", "chapters": "3-16", "description": "Othniel, Ehud, Deborah/Barak, Gideon, Jephthah, Samson, and others"},
+    {"section": "Appendices: Moral Chaos", "chapters": "17-21", "description": "Micah's idolatry, Dan's apostasy, the Levite's concubine, civil war against Benjamin"}
+  ],
+  "historical_context": "The period of the judges spans from Joshua's death to Samuel's ministry, roughly 1380-1050 BC. This was the Late Bronze Age transitioning to the Iron Age. Israel existed as a loose confederation of tribes with no central government. The surrounding peoples—Moabites, Ammonites, Philistines, Canaanites—constantly pressured Israel. The judges were regional leaders raised up by God for specific crises, not a continuous succession.",
+  "literary_style": "Judges employs a distinctive cyclical structure: apostasy, oppression, cry for help, deliverance, rest. The narratives are vivid and often violent, reflecting the brutal era. Irony and dark humor appear throughout (Ehud's assassination of Eglon, Sisera's death). The book deliberately deteriorates—later judges are increasingly flawed, and the final chapters descend into near-Sodom levels of depravity. This literary strategy argues for the necessity of godly monarchy.",
+  "christ_in_book": "The judges themselves foreshadow Christ as the ultimate Deliverer who saves His people from spiritual oppression. Each judge's partial and temporary salvation points to Christ's complete and eternal deliverance. Samson, despite his flaws, pictures Christ's victory through apparent defeat—destroying more enemies in his death than in his life. The book's cry for a righteous king anticipates the coming of David's greater Son.",
+  "practical_application": "Judges warns of the danger of forgetting God's works and of the rapid spiritual decline that follows. It shows how easily one generation's faith can be lost. The book exposes the folly of everyone doing what is right in their own eyes—the very definition of moral relativism. It demonstrates that compromise with sin leads to enslavement, and that only God can truly deliver. The pattern challenges us to examine our own cycles of sin and return."
+}

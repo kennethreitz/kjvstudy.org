@@ -1,0 +1,33 @@
+{
+  "name": "Obadiah",
+  "abbreviation": "Obad",
+  "testament": "Old Testament",
+  "position": 31,
+  "chapters": 1,
+  "category": "Minor Prophets",
+  "author": "Obadiah",
+  "date_written": "c. 586-550 BC (or possibly earlier)",
+  "introduction": "Obadiah is the shortest book in the Old Testament—just 21 verses—but delivers a powerful message against Edom. When Babylon destroyed Jerusalem, Edom (descendants of Esau) rejoiced over their brother Jacob's calamity and even participated in the destruction. Obadiah announces Edom's complete annihilation while promising that God's kingdom will ultimately prevail. The ancient sibling rivalry between Jacob and Esau reaches its divine resolution.",
+  "key_themes": [
+    "Judgment on Edom for betraying Israel",
+    "The sin of pride and its consequences",
+    "God's justice against those who harm His people",
+    "The Day of the LORD and universal judgment",
+    "The ultimate triumph of God's kingdom"
+  ],
+  "key_verses": [
+    {"reference": "Obadiah 1:3-4", "text": "The pride of thine heart hath deceived thee, thou that dwellest in the clefts of the rock, whose habitation is high; that saith in his heart, Who shall bring me down to the ground? Though thou exalt thyself as the eagle, and though thou set thy nest among the stars, thence will I bring thee down, saith the LORD."},
+    {"reference": "Obadiah 1:10", "text": "For thy violence against thy brother Jacob shame shall cover thee, and thou shalt be cut off for ever."},
+    {"reference": "Obadiah 1:15", "text": "For the day of the LORD is near upon all the heathen: as thou hast done, it shall be done unto thee: thy reward shall return upon thine own head."},
+    {"reference": "Obadiah 1:21", "text": "And saviours shall come up on mount Zion to judge the mount of Esau; and the kingdom shall be the LORD's."}
+  ],
+  "outline": [
+    {"section": "Edom's Coming Destruction", "chapters": "1:1-9", "description": "Edom's pride and coming humiliation"},
+    {"section": "Edom's Crimes", "chapters": "1:10-14", "description": "Violence against brother Jacob"},
+    {"section": "The Day of the LORD", "chapters": "1:15-21", "description": "Universal judgment, Israel's restoration"}
+  ],
+  "historical_context": "Edom occupied the mountainous region southeast of the Dead Sea, with their capital Petra carved into rock cliffs. The Edomites descended from Esau, Jacob's twin brother, making them Israel's closest relatives. Despite this kinship, Edom consistently opposed Israel throughout history. Their worst betrayal came in 586 BC, when they assisted Babylon and gloated over Jerusalem's destruction (see Psalm 137:7).",
+  "literary_style": "Despite its brevity, Obadiah is artistically crafted. The book moves from Edom's arrogance (dwelling in rocky heights) to their humiliation (brought down). Vivid imagery depicts Edom's allies turning against them and their complete plunder. The ironic reversals are striking—Edom who stood at crossroads to cut off escapees will themselves have no survivors. The book ends with the grand vision of God's kingdom.",
+  "christ_in_book": "The 'saviors' who judge Esau's mountain (v. 21) find ultimate fulfillment in Christ, the Savior who judges all nations. The kingdom that belongs to the LORD is Christ's kingdom. The principle of nations being judged for how they treated Israel extends to how nations treat Christ's people. Edom's pride brought down anticipates the humbling of all who exalt themselves against God.",
+  "practical_application": "Obadiah warns that pride leads to downfall and that violence against God's people will not go unpunished. The principle 'as you have done, it will be done to you' affirms divine justice. The book cautions against taking pleasure in others' misfortune, especially family or those who share our heritage. It encourages the persecuted that God sees injustice and will act. The final word—'the kingdom shall be the LORD's'—grounds hope in God's ultimate triumph."
+}

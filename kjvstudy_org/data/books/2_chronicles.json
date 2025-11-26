@@ -1,0 +1,35 @@
+{
+  "name": "II Chronicles",
+  "abbreviation": "2Chr",
+  "testament": "Old Testament",
+  "position": 14,
+  "chapters": 36,
+  "category": "History",
+  "author": "Traditionally Ezra",
+  "date_written": "c. 450-400 BC",
+  "introduction": "Second Chronicles covers the same period as First and Second Kings but focuses exclusively on Judah and the Davidic line. The temple dominates the narrative—Solomon builds it, faithful kings restore it, and unfaithful kings neglect it. The book traces worship's central place in Judah's life and ends with Cyrus's decree allowing return from exile, connecting destruction to restoration and encouraging the post-exilic community.",
+  "key_themes": [
+    "The temple and proper worship",
+    "Judah's kings and their faithfulness",
+    "Seeking God brings blessing; forsaking Him brings disaster",
+    "Revival and reformation",
+    "The pattern of humility, prayer, and restoration",
+    "Hope beyond judgment"
+  ],
+  "key_verses": [
+    {"reference": "2 Chronicles 7:14", "text": "If my people, which are called by my name, shall humble themselves, and pray, and seek my face, and turn from their wicked ways; then will I hear from heaven, and will forgive their sin, and will heal their land."},
+    {"reference": "2 Chronicles 16:9", "text": "For the eyes of the LORD run to and fro throughout the whole earth, to shew himself strong in the behalf of them whose heart is perfect toward him."},
+    {"reference": "2 Chronicles 20:12", "text": "O our God, wilt thou not judge them? for we have no might against this great company that cometh against us; neither know we what to do: but our eyes are upon thee."},
+    {"reference": "2 Chronicles 36:22-23", "text": "Now in the first year of Cyrus king of Persia... The LORD God of heaven hath given me all the kingdoms of the earth; and he hath charged me to build him an house in Jerusalem, which is in Judah. Who is there among you of all his people? The LORD his God be with him, and let him go up."}
+  ],
+  "outline": [
+    {"section": "Solomon's Reign", "chapters": "1-9", "description": "Wisdom received, temple built and dedicated, prosperity"},
+    {"section": "Judah's Kings: Rehoboam to Ahaz", "chapters": "10-28", "description": "Division, cycles of faithfulness and apostasy"},
+    {"section": "Hezekiah's Reforms", "chapters": "29-32", "description": "Temple cleansed, Passover restored, Assyrian threat"},
+    {"section": "Final Kings and Exile", "chapters": "33-36", "description": "Manasseh, Josiah's reforms, Babylon's conquest, Cyrus's decree"}
+  ],
+  "historical_context": "Second Chronicles covers approximately 970-538 BC, from Solomon to Cyrus's decree. Unlike Kings, it ignores the northern kingdom except where it intersects with Judah. Written for post-exilic Jews, it encourages them by showing that God responded to repentance with restoration throughout Judah's history. The closing verses connect directly to Ezra, showing that history continues despite the exile.",
+  "literary_style": "The Chronicler frequently adds theological commentary to explain why things happened. The formula 'because they forsook/sought the LORD' appears repeatedly. Revival accounts receive extensive treatment. Speeches and prayers are prominent, often addressing the post-exilic audience's concerns. The book's placement at the end of the Hebrew Bible (different from English order) means it ends Scripture with hope—'let him go up!'",
+  "christ_in_book": "Solomon's temple, where God's glory dwelt, anticipates Christ in whom 'dwelleth all the fulness of the Godhead bodily' (Colossians 2:9). The pattern of judgment and restoration points to humanity's need for a Savior. The faithful kings foreshadow Christ's perfect reign. The book's ending—release from captivity and commission to rebuild—anticipates the gospel's message of liberation and new life.",
+  "practical_application": "Second Chronicles offers the beloved promise of 2 Chronicles 7:14—humility, prayer, and repentance lead to healing. It teaches that seeking God with the whole heart is the key to blessing and that half-hearted commitment leads to failure. The book shows that it's never too late to turn back to God (even Manasseh was restored) but also that accumulated sin has consequences. Its ending encourages us that God always provides a way forward."
+}

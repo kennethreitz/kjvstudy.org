@@ -1,0 +1,34 @@
+{
+  "name": "Zephaniah",
+  "abbreviation": "Zeph",
+  "testament": "Old Testament",
+  "position": 36,
+  "chapters": 3,
+  "category": "Minor Prophets",
+  "author": "Zephaniah",
+  "date_written": "c. 640-609 BC",
+  "introduction": "Zephaniah announces the Day of the LORD with terrifying intensity—a day of wrath, darkness, and universal judgment. Writing during the moral darkness before Josiah's reforms, he exposes Judah's syncretism, violence, and complacency. Yet the book ends with one of Scripture's most beautiful pictures of God rejoicing over His redeemed people with singing. Judgment and salvation, wrath and love—both belong to the Day of the LORD.",
+  "key_themes": [
+    "The Day of the LORD as universal judgment",
+    "Syncretism and religious corruption",
+    "The humble remnant who seek the LORD",
+    "Judgment on the nations",
+    "Restoration and joy",
+    "God rejoicing over His people"
+  ],
+  "key_verses": [
+    {"reference": "Zephaniah 1:14-15", "text": "The great day of the LORD is near, it is near, and hasteth greatly, even the voice of the day of the LORD: the mighty man shall cry there bitterly. That day is a day of wrath, a day of trouble and distress, a day of wasteness and desolation, a day of darkness and gloominess."},
+    {"reference": "Zephaniah 2:3", "text": "Seek ye the LORD, all ye meek of the earth, which have wrought his judgment; seek righteousness, seek meekness: it may be ye shall be hid in the day of the LORD's anger."},
+    {"reference": "Zephaniah 3:9", "text": "For then will I turn to the people a pure language, that they may all call upon the name of the LORD, to serve him with one consent."},
+    {"reference": "Zephaniah 3:17", "text": "The LORD thy God in the midst of thee is mighty; he will save, he will rejoice over thee with joy; he will rest in his love, he will joy over thee with singing."}
+  ],
+  "outline": [
+    {"section": "Judgment on Judah", "chapters": "1:1-2:3", "description": "Day of wrath described, call to seek the LORD"},
+    {"section": "Judgment on Nations", "chapters": "2:4-15", "description": "Philistia, Moab, Ammon, Cush, Assyria"},
+    {"section": "Jerusalem's Sin and Restoration", "chapters": "3", "description": "Woe to the city, promise of purified remnant, rejoicing"}
+  ],
+  "historical_context": "Zephaniah was of royal descent (great-great-grandson of Hezekiah) and prophesied during Josiah's reign (640-609 BC), likely before the reforms of 621 BC. Manasseh's 55-year reign had institutionalized idolatry. Pagan worship flourished alongside worship of the LORD—Baal, host of heaven, and Molech were served. The international scene was also unstable as Assyria weakened and new powers emerged.",
+  "literary_style": "Zephaniah is characterized by urgency and intensity. The Day of the LORD terminology dominates, painted in darkest colors. The universal scope of judgment is striking—from Judah outward to all nations and back to Jerusalem. The book's structure moves from judgment to hope, from wrath to singing. The dramatic contrast between 1:15's 'day of darkness' and 3:17's 'God rejoicing' is theologically profound.",
+  "christ_in_book": "The Day of the LORD encompasses both Christ's first and second comings. The humble remnant who seek righteousness anticipates those who receive Christ. The promise of 'pure speech' (3:9) suggests Pentecost's reversal of Babel. God 'in the midst' of His people, mighty to save and rejoicing over them, finds fulfillment in Immanuel—God with us. The King of Israel in their midst (3:15) is Christ.",
+  "practical_application": "Zephaniah warns against religious complacency and syncretism—mixing faith with worldly values. The call to seek the LORD in humility before judgment comes remains urgent. The book exposes the folly of thinking 'The LORD will do nothing, either good or bad' (1:12). Yet its final vision of God singing over His people with joy assures believers of His deep delight in them. We are not merely tolerated but celebrated by our Redeemer."
+}

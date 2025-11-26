@@ -1,0 +1,40 @@
+{
+  "name": "Matthew",
+  "abbreviation": "Matt",
+  "testament": "New Testament",
+  "position": 40,
+  "chapters": 28,
+  "category": "Gospels",
+  "author": "Matthew (Levi), the tax collector and apostle",
+  "date_written": "c. AD 50-70",
+  "introduction": "Matthew presents Jesus as the long-awaited King of the Jews, the fulfillment of Old Testament prophecy. Written primarily for a Jewish audience, the Gospel traces Jesus' lineage to Abraham and David, demonstrates His messianic credentials through fulfilled prophecy, and presents His authoritative teaching in five major discourses. Matthew bridges the Testaments, showing how Jesus inaugurates the kingdom of heaven while founding His church.",
+  "key_themes": [
+    "Jesus as the promised Messiah and King",
+    "Fulfillment of Old Testament prophecy",
+    "The kingdom of heaven",
+    "Jesus as the new Moses",
+    "The church founded by Jesus",
+    "The Great Commission"
+  ],
+  "key_verses": [
+    {"reference": "Matthew 1:21", "text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins."},
+    {"reference": "Matthew 5:17", "text": "Think not that I am come to destroy the law, or the prophets: I am not come to destroy, but to fulfil."},
+    {"reference": "Matthew 16:16-18", "text": "And Simon Peter answered and said, Thou art the Christ, the Son of the living God... And I say also unto thee, That thou art Peter, and upon this rock I will build my church; and the gates of hell shall not prevail against it."},
+    {"reference": "Matthew 28:18-20", "text": "And Jesus came and spake unto them, saying, All power is given unto me in heaven and in earth. Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost: Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world."}
+  ],
+  "outline": [
+    {"section": "Birth and Preparation", "chapters": "1-4", "description": "Genealogy, nativity, John the Baptist, temptation"},
+    {"section": "Sermon on the Mount", "chapters": "5-7", "description": "Kingdom ethics and righteousness"},
+    {"section": "Mighty Works", "chapters": "8-9", "description": "Miracles demonstrating Jesus' authority"},
+    {"section": "Mission Discourse", "chapters": "10", "description": "Sending and instructions for the Twelve"},
+    {"section": "Opposition and Parables", "chapters": "11-13", "description": "Rejection, kingdom parables"},
+    {"section": "Private Ministry", "chapters": "14-18", "description": "Feeding multitudes, Peter's confession, Transfiguration"},
+    {"section": "Journey to Jerusalem", "chapters": "19-23", "description": "Teaching, entry, temple cleansing, woes"},
+    {"section": "Olivet Discourse", "chapters": "24-25", "description": "End times, parables of readiness"},
+    {"section": "Passion and Resurrection", "chapters": "26-28", "description": "Last Supper, arrest, trial, crucifixion, resurrection, commission"}
+  ],
+  "historical_context": "Matthew wrote primarily for Jewish readers, explaining how Jesus fulfilled messianic expectations while founding a community that would include Gentiles. The book addresses the church's relationship to Judaism after Jesus' rejection by Israel's leaders. Early church tradition unanimously attributes the Gospel to the apostle Matthew, also called Levi the tax collector.",
+  "literary_style": "Matthew organizes Jesus' teaching into five major discourses, possibly paralleling the five books of Moses. The formula 'that it might be fulfilled' connects Jesus to Old Testament prophecy. Matthew includes more of Jesus' teaching than Mark, with extensive ethical instruction. The Gospel moves from Jesus' presentation to Israel to His founding of the church to His commissioning the mission to all nations.",
+  "christ_in_book": "Matthew presents Jesus as Prophet, Priest, and King. He is 'God with us' (Emmanuel) at His birth and promises to be with His people 'always' at the end. He is David's Son and Lord, the suffering Servant who gives His life as ransom, the Son of Man who will return in glory. His five discourses establish Him as the new Moses giving the law of the kingdom. He is the rejected cornerstone who builds His church.",
+  "practical_application": "Matthew teaches what it means to live under Christ's kingship. The Sermon on the Mount provides the ethic of the kingdom—deeper righteousness that exceeds external conformity. The parables reveal how the kingdom works in surprising ways. The Great Commission gives the church its ongoing mission. Matthew challenges us to recognize Jesus as King, follow His teaching, and make disciples of all nations."
+}

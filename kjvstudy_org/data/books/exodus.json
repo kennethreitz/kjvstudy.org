@@ -1,0 +1,38 @@
+{
+  "name": "Exodus",
+  "abbreviation": "Ex",
+  "testament": "Old Testament",
+  "position": 2,
+  "chapters": 40,
+  "category": "Law (Torah/Pentateuch)",
+  "author": "Moses",
+  "date_written": "c. 1446-1406 BC",
+  "introduction": "Exodus, meaning 'departure' or 'going out,' records Israel's dramatic liberation from Egyptian slavery and their formation as a nation under God's covenant at Sinai. This pivotal book reveals God as the great Redeemer who hears the cries of His people and acts powerfully on their behalf. The Exodus event becomes the defining moment of Israel's history, referenced throughout Scripture as the supreme example of God's saving power.",
+  "key_themes": [
+    "God's redemption and deliverance",
+    "The revelation of God's name and character (I AM)",
+    "Judgment against false gods",
+    "The Passover and blood atonement",
+    "Covenant relationship and the Law",
+    "God's presence dwelling among His people"
+  ],
+  "key_verses": [
+    {"reference": "Exodus 3:14", "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."},
+    {"reference": "Exodus 12:13", "text": "And the blood shall be to you for a token upon the houses where ye are: and when I see the blood, I will pass over you, and the plague shall not be upon you to destroy you, when I smite the land of Egypt."},
+    {"reference": "Exodus 14:13-14", "text": "And Moses said unto the people, Fear ye not, stand still, and see the salvation of the LORD... The LORD shall fight for you, and ye shall hold your peace."},
+    {"reference": "Exodus 19:5-6", "text": "Now therefore, if ye will obey my voice indeed, and keep my covenant, then ye shall be a peculiar treasure unto me above all people: for all the earth is mine: And ye shall be unto me a kingdom of priests, and an holy nation."},
+    {"reference": "Exodus 20:2-3", "text": "I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage. Thou shalt have no other gods before me."}
+  ],
+  "outline": [
+    {"section": "Israel in Egypt", "chapters": "1-12", "description": "Slavery, Moses' call, the plagues, and the Passover"},
+    {"section": "Israel's Deliverance", "chapters": "13-18", "description": "Crossing the Red Sea, wilderness journey, and arrival at Sinai"},
+    {"section": "Israel at Sinai", "chapters": "19-24", "description": "The giving of the Law and establishment of the covenant"},
+    {"section": "The Tabernacle Instructions", "chapters": "25-31", "description": "God's detailed plans for His dwelling place"},
+    {"section": "The Golden Calf", "chapters": "32-34", "description": "Israel's apostasy and God's gracious renewal"},
+    {"section": "The Tabernacle Construction", "chapters": "35-40", "description": "Building the Tabernacle and God's glory filling it"}
+  ],
+  "historical_context": "The events of Exodus took place during Egypt's powerful 18th Dynasty. Israel had been in Egypt for 430 years, growing from 70 people to over two million. The ten plagues directly challenged the Egyptian gods, demonstrating the LORD's supremacy. The book establishes the patterns of worship, sacrifice, and priesthood that would define Israel's relationship with God for centuries.",
+  "literary_style": "Exodus combines dramatic narrative (the plague accounts, Red Sea crossing), legal material (the Ten Commandments and the Book of the Covenant), liturgical instructions (Passover regulations), and detailed architectural specifications (Tabernacle plans). The Song of Moses (chapter 15) is one of Scripture's earliest and finest examples of Hebrew poetry.",
+  "christ_in_book": "Exodus is rich in Christological imagery: Moses as mediator foreshadows Christ the ultimate Mediator; the Passover lamb points to Christ our Passover (1 Corinthians 5:7); the manna speaks of Christ the Bread of Life; the smitten rock pictures Christ from whom living water flows; the Tabernacle represents God dwelling among His people, fulfilled in the Incarnation; and the high priest foreshadows Christ our great High Priest.",
+  "practical_application": "Exodus reminds us that God hears our cries and delivers us from bondage—whether physical, spiritual, or emotional. It teaches that redemption is by blood (the Passover), that God desires intimate relationship with His people (the Tabernacle), and that holiness is the expected response to grace. The pattern of redemption before law shows that obedience flows from gratitude, not as a means of earning salvation."
+}

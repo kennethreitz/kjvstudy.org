@@ -1,0 +1,36 @@
+{
+  "name": "Jonah",
+  "abbreviation": "Jonah",
+  "testament": "Old Testament",
+  "position": 32,
+  "chapters": 4,
+  "category": "Minor Prophets",
+  "author": "Unknown (about Jonah)",
+  "date_written": "c. 780-750 BC (events), written possibly later",
+  "introduction": "Jonah is unique among the prophets—it focuses not on the prophet's message but on his struggle with God's mercy. Commanded to preach to Nineveh, Israel's dreaded enemy, Jonah flees in the opposite direction. Through storm, fish, and withered plant, God teaches Jonah (and Israel) that His compassion extends to all nations, even enemies. The book challenges narrow nationalism and reveals God's heart for the whole world.",
+  "key_themes": [
+    "God's compassion for all nations",
+    "The futility of running from God",
+    "Second chances and God's patience",
+    "The danger of religious nationalism",
+    "Repentance and its power",
+    "God's sovereignty over creation"
+  ],
+  "key_verses": [
+    {"reference": "Jonah 1:2", "text": "Arise, go to Nineveh, that great city, and cry against it; for their wickedness is come up before me."},
+    {"reference": "Jonah 2:9", "text": "But I will sacrifice unto thee with the voice of thanksgiving; I will pay that that I have vowed. Salvation is of the LORD."},
+    {"reference": "Jonah 3:10", "text": "And God saw their works, that they turned from their evil way; and God repented of the evil, that he had said that he would do unto them; and he did it not."},
+    {"reference": "Jonah 4:2", "text": "I knew that thou art a gracious God, and merciful, slow to anger, and of great kindness, and repentest thee of the evil."},
+    {"reference": "Jonah 4:11", "text": "And should not I spare Nineveh, that great city, wherein are more than sixscore thousand persons that cannot discern between their right hand and their left hand; and also much cattle?"}
+  ],
+  "outline": [
+    {"section": "Jonah's Flight", "chapters": "1", "description": "Call, flight, storm, thrown overboard"},
+    {"section": "Jonah's Prayer", "chapters": "2", "description": "In the fish's belly, thanksgiving, deliverance"},
+    {"section": "Nineveh's Repentance", "chapters": "3", "description": "Preaching, city-wide repentance, God relents"},
+    {"section": "Jonah's Anger", "chapters": "4", "description": "Prophet's complaint, object lesson of the plant"}
+  ],
+  "historical_context": "Jonah prophesied during the reign of Jeroboam II (2 Kings 14:25), around 760 BC. Nineveh was the capital of Assyria, the brutal empire that would destroy Israel in 722 BC. Assyrian cruelty was legendary—impalement, mass deportations, skinning captives alive. Jonah's reluctance to offer mercy to such enemies is humanly understandable, which makes God's compassion all the more remarkable.",
+  "literary_style": "Jonah is narrative rather than oracular prophecy, told with masterful irony and humor. The prophet who proclaims 'salvation is of the LORD' is angry when God saves. Pagan sailors and Ninevites respond better than the prophet. The fish is a vehicle of mercy, not punishment. The book ends with an unanswered question, inviting readers to examine their own hearts. Every element teaches—storm, fish, plant, worm, wind.",
+  "christ_in_book": "Jesus cited Jonah as 'the sign' given to His generation—three days in the fish's belly corresponding to three days in the tomb (Matthew 12:39-41). Jesus declared Himself 'greater than Jonah.' Where Jonah reluctantly preached judgment, Jesus willingly brought salvation. Where Jonah fled from God's mission, Jesus embraced His. Where Jonah resented Gentile mercy, Jesus died for the world. Nineveh's repentance at one prophet's preaching condemns those who reject Jesus.",
+  "practical_application": "Jonah exposes the self-righteousness that wants mercy for ourselves but judgment for others. It challenges believers to embrace God's heart for enemies and outsiders. The book shows that God's sovereignty extends everywhere—we cannot escape Him, and He can use any means to accomplish His purposes. Jonah teaches that we can obey outwardly while harboring wrong attitudes. The final question—do we care about people as God does?—remains unanswered for each reader to answer."
+}

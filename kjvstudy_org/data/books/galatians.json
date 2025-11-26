@@ -1,0 +1,36 @@
+{
+  "name": "Galatians",
+  "abbreviation": "Gal",
+  "testament": "New Testament",
+  "position": 48,
+  "chapters": 6,
+  "category": "Pauline Epistles",
+  "author": "Paul the Apostle",
+  "date_written": "c. AD 49-55",
+  "introduction": "Galatians is Paul's passionate defense of the gospel of grace. False teachers were requiring Gentile believers to be circumcised and keep the Mosaic law. Paul responds with his most forceful letter, defending both his apostleship and the truth that justification is by faith alone, not by works of the law. The Reformation's watchword—sola fide (faith alone)—echoes Galatians. Liberty in Christ must never be compromised.",
+  "key_themes": [
+    "Justification by faith alone",
+    "The truth of the gospel defended",
+    "Freedom from the law",
+    "The fruit of the Spirit versus works of the flesh",
+    "The sufficiency of Christ",
+    "Living by the Spirit"
+  ],
+  "key_verses": [
+    {"reference": "Galatians 2:16", "text": "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ, even we have believed in Jesus Christ, that we might be justified by the faith of Christ, and not by the works of the law: for by the works of the law shall no flesh be justified."},
+    {"reference": "Galatians 2:20", "text": "I am crucified with Christ: nevertheless I live; yet not I, but Christ liveth in me: and the life which I now live in the flesh I live by the faith of the Son of God, who loved me, and gave himself for me."},
+    {"reference": "Galatians 3:28", "text": "There is neither Jew nor Greek, there is neither bond nor free, there is neither male nor female: for ye are all one in Christ Jesus."},
+    {"reference": "Galatians 5:1", "text": "Stand fast therefore in the liberty wherewith Christ hath made us free, and be not entangled again with the yoke of bondage."},
+    {"reference": "Galatians 5:22-23", "text": "But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, Meekness, temperance: against such there is no law."}
+  ],
+  "outline": [
+    {"section": "Introduction", "chapters": "1:1-10", "description": "No other gospel"},
+    {"section": "Paul's Gospel Defended", "chapters": "1:11-2:21", "description": "Autobiographical defense, confrontation with Peter"},
+    {"section": "Paul's Gospel Explained", "chapters": "3-4", "description": "Faith versus law, Abraham's example, adoption as sons"},
+    {"section": "Paul's Gospel Applied", "chapters": "5-6", "description": "Freedom, Spirit versus flesh, bearing burdens"}
+  ],
+  "historical_context": "The Galatian churches were founded on Paul's first missionary journey. After his departure, Judaizers arrived teaching that faith in Christ was not enough—Gentiles must also be circumcised and follow Jewish law. This was not a secondary issue but a fundamental perversion of the gospel. The Jerusalem Council (Acts 15) addressed the same question. Galatians may be Paul's earliest letter.",
+  "literary_style": "Galatians is urgent, even fierce. The letter lacks Paul's typical thanksgiving—he moves directly to rebuke ('I marvel that ye are so soon removed'). The argument alternates between personal narrative, scriptural interpretation, and ethical exhortation. Paul's emotions surface—astonishment, anguish ('O foolish Galatians!'), even sarcasm about the circumcisers. The Spirit-flesh contrast in chapter 5 is foundational for Christian ethics.",
+  "christ_in_book": "Christ gave Himself for our sins to deliver us from this evil age. He is the seed of Abraham in whom all nations are blessed. He redeems those under the law that we might receive adoption. We are crucified with Christ—He lives in us. He has set us free. The truth that 'a man is not justified by the works of the law, but by the faith of Jesus Christ' puts Christ at the center of salvation.",
+  "practical_application": "Galatians warns against any addition to faith in Christ for salvation—whether religious rituals, moral achievement, or cultural conformity. Freedom in Christ is precious and easily lost. Yet freedom is not license; we are called to serve one another through love. Walking by the Spirit produces His fruit and overcomes the flesh's desires. The letter calls us to examine whether we have drifted from grace back to performance-based religion."
+}
