@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ guide.title }} - Study Guide</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.85in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "et-book", Georgia, serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: "et-book", Georgia, "Times New Roman", serif;
+            font-size: 11pt;
+            line-height: 1.65;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 24pt;
+            font-weight: normal;
+            margin: 0 0 0.15in 0;
+            letter-spacing: 0.04em;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 0.3in;
+        }
+
+        section {
+            margin-bottom: 0.35in;
+        }
+
+        section h2 {
+            font-size: 16pt;
+            font-weight: normal;
+            margin-bottom: 0.15in;
+        }
+
+        .verses {
+            margin-bottom: 0.2in;
+        }
+
+        .verse-item {
+            margin-bottom: 0.12in;
+            padding-left: 0.2in;
+            border-left: 2px solid #ddd;
+        }
+
+        .verse-ref {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .verse-text {
+            font-style: italic;
+            color: #555;
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .footer {
+            margin-top: 0.4in;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ guide.title }}</h1>
+    <p class="subtitle">{{ guide.description }}</p>
+
+    {% for section in guide.sections %}
+    <section>
+        <h2>{{ section.title }}</h2>
+
+        {% if section.verse_texts %}
+        <div class="verses">
+            {% for verse in section.verse_texts %}
+            <div class="verse-item">
+                <div class="verse-ref">{{ verse.reference }}</div>
+                <div class="verse-text">{{ verse.text }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="content">{{ section.content | format_lists | safe }}</div>
+    </section>
+    {% endfor %}
+
+    <div class="footer">From KJV Study &bull; kjvstudy.org</div>
+</body>
+</html>

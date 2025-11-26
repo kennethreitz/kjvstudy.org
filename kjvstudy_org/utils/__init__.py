@@ -5,4 +5,5 @@ __all__ = [
     'books',
     'search',
     'helpers',
+    'pdf',
 ]

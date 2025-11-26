@@ -10,7 +10,7 @@ from typing import List, Dict, Optional
 
 from fastapi import FastAPI, HTTPException, Request, Query, Path
 from fastapi.exception_handlers import http_exception_handler
-from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse
+from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.gzip import GZipMiddleware
@@ -26,7 +26,7 @@ from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_
 
 # Import from modular packages
 from .routes import (
-    api_router,
+    api_router, init_api_templates,
     resources_router, init_resources_templates,
     family_tree_router, init_family_tree_templates,
     study_guides_router, init_study_guides_templates,
@@ -46,6 +46,7 @@ from .utils.helpers import (
     get_chapter_popularity_score, get_chapter_popularity_explanation,
     get_daily_verse, FEATURED_VERSES, is_verse_reference, parse_verse_reference
 )
+from .utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf
 from .utils.search import perform_full_text_search
 
 try:
@@ -184,6 +185,7 @@ templates = Jinja2Templates(directory=str(templates_dir))
 templates.env.filters['slugify'] = create_slug
 
 # Initialize templates for route modules
+init_api_templates(templates)
 init_resources_templates(templates)
 init_family_tree_templates(templates)
 init_study_guides_templates(templates)
@@ -1752,7 +1754,8 @@ def topics_page(request: Request):
             {
             "topics": topics,
             "books": books,
-            "breadcrumbs": breadcrumbs
+            "breadcrumbs": breadcrumbs,
+            "pdf_available": WEASYPRINT_AVAILABLE
         }
     )
 
@@ -2018,8 +2021,37 @@ def topic_detail(request: Request, topic_name: str):
             "topic": topic,
             "topic_name": topic_name,
             "books": books,
-            "breadcrumbs": breadcrumbs
+            "breadcrumbs": breadcrumbs,
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "pdf_url": f"/topics/{topic_name}/pdf" if WEASYPRINT_AVAILABLE else None
         }
+    )
+
+
+@app.get("/topics/{topic_name}/pdf")
+def topic_detail_pdf(topic_name: str):
+    """Generate a PDF export for a topic detail page."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    topic = get_topic(topic_name)
+    if not topic:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    html_content = templates.get_template("topic_pdf.html").render(
+        topic=topic,
+        topic_name=topic_name,
+    )
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    filename = f"{topic_name}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
 
 
@@ -2067,8 +2099,64 @@ def read_book(request: Request, book: str):
             "chapter_explanations": chapter_explanations,
             "breadcrumbs": breadcrumbs,
             "current_book": book,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             **commentary_data
         },
+    )
+
+
+@app.get("/book/{book}/pdf")
+def book_pdf(request: Request, book: str):
+    """Generate a PDF export for an entire Bible book."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        return RedirectResponse(url=f"/book/{canonical_name}/pdf", status_code=301)
+
+    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    if not chapters:
+        raise HTTPException(
+            status_code=404,
+            detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
+        )
+
+    chapters_data = []
+    total_verses = 0
+    for chapter_num in chapters:
+        verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter_num]
+        if not verses:
+            continue
+        total_verses += len(verses)
+        chapters_data.append({
+            "chapter": chapter_num,
+            "verses": verses
+        })
+
+    if not chapters_data:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No verses found for the book '{book}'."
+        )
+
+    html_content = templates.get_template("book_pdf.html").render(
+        book=book,
+        chapters=chapters_data,
+        chapter_count=len(chapters_data),
+        verse_count=total_verses,
+    )
+
+    pdf_buffer = render_html_to_pdf(html_content)
+    filename = f"{create_slug(book)}.pdf"
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
 
 
@@ -2190,8 +2278,53 @@ def read_chapter(request: Request, book: str, chapter: int):
             "chapter_overview": chapter_overview,
             "breadcrumbs": breadcrumbs,
             "current_book": book,
-            "current_chapter": chapter
+            "current_chapter": chapter,
+            "pdf_available": WEASYPRINT_AVAILABLE
         }
+    )
+
+
+@app.get("/book/{book}/chapter/{chapter}/pdf")
+def chapter_pdf(request: Request, book: str, chapter: int):
+    """Generate a PDF export for a specific Bible chapter."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/pdf", status_code=301)
+
+    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+
+    if not verses:
+        if not chapters:
+            raise HTTPException(
+                status_code=404,
+                detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
+            )
+        raise HTTPException(
+            status_code=404,
+            detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
+        )
+
+    html_content = templates.get_template("chapter_pdf.html").render(
+        book=book,
+        chapter=chapter,
+        verses=verses,
+        verse_count=len(verses),
+    )
+
+    pdf_buffer = render_html_to_pdf(html_content)
+    filename = f"{create_slug(book)}-chapter-{chapter}.pdf"
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
 
 
@@ -2282,4 +2415,3 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "related_content": related_content
         }
     )
-

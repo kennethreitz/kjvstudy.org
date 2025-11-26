@@ -2,7 +2,10 @@
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException, Query, Path
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, HTTPException, Query, Path
+from fastapi.responses import JSONResponse, StreamingResponse
+
+from ..utils.pdf import render_html_to_pdf, WEASYPRINT_AVAILABLE
 
 from ..kjv import bible
 from ..cross_references import get_cross_references
@@ -11,7 +14,7 @@ from ..topics import get_all_topics, get_topic
 from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
-from ..utils.helpers import get_daily_verse
+from ..utils.helpers import get_daily_verse, create_slug
 from ..data.stories import (
     get_categories,
     get_story_by_slug,
@@ -21,6 +24,15 @@ from ..data.stories import (
 )
 
 router = APIRouter(prefix="/api", tags=["API"])
+
+# Templates will be set by the main app
+templates = None
+
+
+def init_templates(app_templates):
+    """Initialize templates from the main app."""
+    global templates
+    templates = app_templates
 
 
 @router.get("/")
@@ -513,7 +525,74 @@ def api_get_story(slug: str = Path(..., description="Story slug", examples=["cre
         "links": {
             "web": f"/stories/{slug}",
             "kids_web": f"/stories/{slug}/kids" if story.get("kids_narrative") else None,
-            "pdf": f"/stories/{slug}/pdf",
-            "kids_pdf": f"/stories/{slug}/kids/pdf" if story.get("kids_narrative") else None
+            "pdf": f"/api/stories/{slug}/pdf",
+            "kids_pdf": f"/api/stories/{slug}/kids/pdf" if story.get("kids_narrative") else None
         }
     }
+
+
+@router.get("/stories/{slug}/pdf")
+def api_story_pdf(slug: str = Path(..., description="Story slug")):
+    """Generate PDF for a story (adult version)."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    story = get_story_by_slug(slug)
+
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
+    if not templates:
+        raise HTTPException(status_code=500, detail="Templates not initialized")
+
+    # Render the PDF template
+    html_content = templates.get_template("story_pdf.html").render(story=story)
+
+    # Generate PDF
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    # Return as downloadable PDF
+    filename = f"{slug}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
+@router.get("/stories/{slug}/kids/pdf")
+def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
+    """Generate PDF for a story (kids version)."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    story = get_story_by_slug(slug)
+
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+
+    if not story.get("kids_narrative"):
+        raise HTTPException(status_code=404, detail="Kids version not available for this story")
+
+    if not templates:
+        raise HTTPException(status_code=500, detail="Templates not initialized")
+
+    # Render the PDF template
+    html_content = templates.get_template("story_kids_pdf.html").render(story=story)
+
+    # Generate PDF
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    # Return as downloadable PDF
+    filename = f"{slug}-kids.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )

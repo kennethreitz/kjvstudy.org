@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ topic_name }} - Topical Study</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.85in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "et-book", Georgia, serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: "et-book", Georgia, "Times New Roman", serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 24pt;
+            font-weight: normal;
+            margin: 0 0 0.15in 0;
+        }
+
+        h2 {
+            font-size: 16pt;
+            font-weight: normal;
+            margin-top: 0.35in;
+        }
+
+        h3 {
+            font-size: 13pt;
+            margin-bottom: 0.1in;
+        }
+
+        .overview {
+            margin-bottom: 0.3in;
+            padding-left: 0.25in;
+            border-left: 3px solid #ddd;
+        }
+
+        .verse-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.15in 0;
+        }
+
+        .verse-item {
+            margin-bottom: 0.12in;
+            padding-left: 0.2in;
+            border-left: 2px solid #eee;
+        }
+
+        .verse-ref {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .verse-note {
+            font-style: italic;
+            color: #666;
+            margin-left: 0.2in;
+        }
+
+        .footer {
+            margin-top: 0.5in;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ topic_name }}</h1>
+    <p class="overview">{{ topic.description }}</p>
+
+    {% if topic.overview %}
+    <div class="overview">{{ topic.overview | safe }}</div>
+    {% endif %}
+
+    {% for subtopic_name, subtopic in topic.subtopics.items() %}
+    <section>
+        <h2>{{ subtopic_name }}</h2>
+        <p>{{ subtopic.description }}</p>
+        {% if subtopic.verses %}
+        <ul class="verse-list">
+            {% for verse in subtopic.verses %}
+            <li class="verse-item">
+                <span class="verse-ref">{{ verse.ref }}</span>
+                {% if verse.note %}<span class="verse-note">— {{ verse.note }}</span>{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </section>
+    {% endfor %}
+
+    <div class="footer">From KJV Study &bull; kjvstudy.org</div>
+</body>
+</html>

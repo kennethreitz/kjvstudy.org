@@ -66,6 +66,45 @@
     line-height: 1.9;
     margin: 1rem 0;
 }
+
+.resource-actions {
+    margin: 1.5rem 0;
+}
+
+
+.print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.print-btn:hover {
+    background: var(--bg-color);
+    border-color: var(--link-color);
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.print-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+@media print {
+    .resource-actions,
+    .print-btn {
+        display: none;
+    }
+}
 </style>
 {% endblock %}
 
@@ -75,6 +114,17 @@
 {% endif %}
 <h1>{{ item_name }}</h1>
 <p class="resource-title">{{ item.title }}</p>
+
+{% if pdf_available and pdf_url %}
+<div class="resource-actions">
+    <a href="{{ pdf_url }}" class="print-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Download PDF
+    </a>
+</div>
+{% endif %}
 
 <section>
     <h2>Description</h2>
@@ -114,7 +164,6 @@
         {% endfor %}
     </div>
 </section>
-
 <section>
     <p><a href="{{ back_url }}">← Back to {{ back_text }}</a></p>
 </section>

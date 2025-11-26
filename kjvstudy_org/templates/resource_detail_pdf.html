@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ item_name }} - {{ resource_title }}</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.85in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "et-book", Georgia, serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: "et-book", Georgia, "Times New Roman", serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 24pt;
+            font-weight: normal;
+            margin: 0 0 0.1in 0;
+            letter-spacing: 0.04em;
+        }
+
+        .resource-title {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 0.25in;
+        }
+
+        .description {
+            margin-bottom: 0.4in;
+            font-size: 12pt;
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 15pt;
+            margin-bottom: 0.15in;
+            font-weight: normal;
+        }
+
+        .verse-list {
+            margin-top: 0.2in;
+        }
+
+        .verse-item {
+            margin-bottom: 0.15in;
+            padding-left: 0.2in;
+            border-left: 2px solid #ddd;
+        }
+
+        .verse-ref {
+            font-weight: 600;
+            font-variant-numeric: lining-nums;
+            color: #444;
+            margin-bottom: 0.05in;
+        }
+
+        .verse-text {
+            font-style: italic;
+            color: #555;
+        }
+
+        .footer {
+            margin-top: 0.5in;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ item_name }}</h1>
+    {% if category_name %}
+    <p class="resource-title">{{ category_name }} · {{ resource_title }}</p>
+    {% else %}
+    <p class="resource-title">{{ resource_title }}</p>
+    {% endif %}
+
+    {% if item.description %}
+    <div class="description">
+        {{ item.description | link_names | link_verses | safe }}
+    </div>
+    {% endif %}
+
+    {% if item.verses %}
+    <section>
+        <h2 class="section-title">Key Verses</h2>
+        <div class="verse-list">
+            {% for verse in item.verses %}
+            <div class="verse-item">
+                <div class="verse-ref">{{ verse.reference }}</div>
+                <div class="verse-text">{{ verse.text }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <div class="footer">From KJV Study &bull; kjvstudy.org</div>
+</body>
+</html>

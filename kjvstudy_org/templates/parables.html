@@ -48,6 +48,39 @@
     margin: 1.5rem 0;
 }
 
+.parable-actions {
+    margin: 0.5rem 0 1rem;
+}
+
+.parables-actions {
+    margin: 1rem 0 1.5rem;
+}
+
+.parable-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #666);
+    background: var(--code-bg, #f8f8f8);
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.parable-download-btn:hover {
+    background: var(--bg-color, #fff);
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+.parable-download-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
 .verse-list {
     margin: 1.5rem 0 0 0;
 }
@@ -134,6 +167,17 @@
 <h1>Parables of Jesus</h1>
 <p class="subtitle">Teaching in Earthly Stories with Heavenly Meanings</p>
 
+{% if resource_pdf_available %}
+<div class="parables-actions">
+    <a class="parable-download-btn" href="/parables/pdf">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Download All Parables (PDF)
+    </a>
+</div>
+{% endif %}
+
 <nav class="toc" id="toc">
     <h2>Contents</h2>
     <ul id="toc-list"></ul>
@@ -155,8 +199,19 @@
 
     {% for parable_name, parable in parables.items() %}
     <article class="parable-entry">
-        <h3 class="parable-name"><a href="/parables/{{ parable_name|lower|replace(' ', '-')|replace("'", '') }}">{{ parable_name }}</a></h3>
+        <h3 class="parable-name"><a href="/parables/{{ parable_name|slugify }}">{{ parable_name }}</a></h3>
         <p class="parable-title">{{ parable.title }}</p>
+
+        {% if resource_pdf_available %}
+        <div class="parable-actions">
+            <a class="parable-download-btn" href="/parables/{{ parable_name|slugify }}/pdf">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download PDF
+            </a>
+        </div>
+        {% endif %}
 
         <div class="parable-description">
             {{ parable.description | safe }}

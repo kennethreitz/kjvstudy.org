@@ -2,7 +2,6 @@
 
 Routes for browsing Bible stories with adult and kids versions.
 """
-import io
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse, StreamingResponse
 from ..kjv import bible
@@ -12,14 +11,7 @@ from ..data.stories import (
     get_story_count,
     get_category_count,
 )
-
-# Try to import WeasyPrint (requires system libraries)
-try:
-    from weasyprint import HTML
-    WEASYPRINT_AVAILABLE = True
-except (ImportError, OSError):
-    WEASYPRINT_AVAILABLE = False
-    HTML = None
+from ..utils.pdf import render_html_to_pdf, WEASYPRINT_AVAILABLE
 
 router = APIRouter(tags=["Bible Stories"])
 
@@ -105,9 +97,7 @@ def story_pdf(request: Request, slug: str):
     html_content = templates.get_template("story_pdf.html").render(story=story)
 
     # Generate PDF
-    pdf_buffer = io.BytesIO()
-    HTML(string=html_content).write_pdf(pdf_buffer)
-    pdf_buffer.seek(0)
+    pdf_buffer = render_html_to_pdf(html_content)
 
     # Return as downloadable PDF
     filename = f"{slug}.pdf"
@@ -139,9 +129,7 @@ def story_kids_pdf(request: Request, slug: str):
     html_content = templates.get_template("story_kids_pdf.html").render(story=story)
 
     # Generate PDF
-    pdf_buffer = io.BytesIO()
-    HTML(string=html_content).write_pdf(pdf_buffer)
-    pdf_buffer.seek(0)
+    pdf_buffer = render_html_to_pdf(html_content)
 
     # Return as downloadable PDF
     filename = f"{slug}-kids.pdf"

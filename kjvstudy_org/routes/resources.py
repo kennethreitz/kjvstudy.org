@@ -4,7 +4,7 @@ These routes handle the biblical reference and study resources pages.
 Data is imported from the centralized data module to avoid duplication.
 """
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 
 from ..data import (
     BIBLICAL_LOCATIONS,
@@ -38,6 +38,7 @@ from ..data import (
     PERSONIFICATIONS_DATA,
 )
 from ..utils.helpers import create_slug
+from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf
 
 router = APIRouter(tags=["Biblical Resources"])
 
@@ -49,6 +50,7 @@ def init_templates(app_templates):
     """Initialize templates from the main app."""
     global templates
     templates = app_templates
+    templates.env.globals['resource_pdf_available'] = WEASYPRINT_AVAILABLE
 
 
 def get_books():
@@ -64,6 +66,85 @@ def find_item_by_slug(data: dict, slug: str):
             if create_slug(item_name) == slug:
                 return item_data, item_name, category_name
     return None, None, None
+
+
+def _get_resource_item_or_404(data: dict, slug: str, not_found_message: str):
+    """Fetch a resource item by slug or raise a 404 error."""
+    item, item_name, category_name = find_item_by_slug(data, slug)
+    if not item:
+        raise HTTPException(status_code=404, detail=not_found_message)
+    return item, item_name, category_name
+
+
+def _resource_detail_response(
+    request: Request,
+    data: dict,
+    slug: str,
+    *,
+    resource_title: str,
+    back_url: str,
+    back_text: str,
+    not_found_message: str,
+):
+    """Render the shared resource detail template with optional PDF controls."""
+    item, item_name, category_name = _get_resource_item_or_404(data, slug, not_found_message)
+
+    pdf_url = f"{request.url.path.rstrip('/')}/pdf" if WEASYPRINT_AVAILABLE else None
+
+    return templates.TemplateResponse(
+        request,
+        "resource_detail.html",
+        {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": resource_title,
+            "back_url": back_url,
+            "back_text": back_text,
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "pdf_url": pdf_url,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": resource_title, "url": back_url},
+                {"text": item_name, "url": None},
+            ],
+        }
+    )
+
+
+def _resource_detail_pdf_response(
+    data: dict,
+    slug: str,
+    *,
+    resource_title: str,
+    not_found_message: str,
+):
+    """Generate a PDF export for a resource detail entry."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    item, item_name, category_name = _get_resource_item_or_404(data, slug, not_found_message)
+
+    html_content = templates.get_template("resource_detail_pdf.html").render(
+        item=item,
+        item_name=item_name,
+        category_name=category_name,
+        resource_title=resource_title,
+    )
+
+    pdf_buffer = render_html_to_pdf(html_content)
+    filename = f"{create_slug(item_name)}-{create_slug(resource_title)}.pdf"
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
 
 
 # ============================================================================
@@ -111,29 +192,25 @@ def biblical_angels_page(request: Request):
 @router.get("/biblical-angels/{angel_slug}", response_class=HTMLResponse)
 def angel_detail(request: Request, angel_slug: str):
     """Individual biblical angels detail page."""
-    item, item_name, category_name = find_item_by_slug(ANGELS_DATA, angel_slug)
+    return _resource_detail_response(
+        request,
+        ANGELS_DATA,
+        angel_slug,
+        resource_title="Biblical Angels",
+        back_url="/biblical-angels",
+        back_text="Biblical Angels",
+        not_found_message="Biblical Angels item not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Biblical Angels item not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Biblical Angels",
-            "back_url": "/biblical-angels",
-            "back_text": "Biblical Angels",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Angels", "url": "/biblical-angels"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/biblical-angels/{angel_slug}/pdf")
+def angel_detail_pdf(angel_slug: str):
+    """PDF export for a biblical angel detail page."""
+    return _resource_detail_pdf_response(
+        ANGELS_DATA,
+        angel_slug,
+        resource_title="Biblical Angels",
+        not_found_message="Biblical Angels item not found",
     )
 
 
@@ -161,29 +238,25 @@ def biblical_prophets_page(request: Request):
 @router.get("/biblical-prophets/{prophet_slug}", response_class=HTMLResponse)
 def prophet_detail(request: Request, prophet_slug: str):
     """Individual biblical prophets detail page."""
-    item, item_name, category_name = find_item_by_slug(PROPHETS_DATA, prophet_slug)
+    return _resource_detail_response(
+        request,
+        PROPHETS_DATA,
+        prophet_slug,
+        resource_title="Biblical Prophets",
+        back_url="/biblical-prophets",
+        back_text="Biblical Prophets",
+        not_found_message="Biblical Prophets item not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Biblical Prophets item not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Biblical Prophets",
-            "back_url": "/biblical-prophets",
-            "back_text": "Biblical Prophets",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Prophets", "url": "/biblical-prophets"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/biblical-prophets/{prophet_slug}/pdf")
+def prophet_detail_pdf(prophet_slug: str):
+    """PDF export for a biblical prophet entry."""
+    return _resource_detail_pdf_response(
+        PROPHETS_DATA,
+        prophet_slug,
+        resource_title="Biblical Prophets",
+        not_found_message="Biblical Prophets item not found",
     )
 
 
@@ -211,29 +284,25 @@ def names_of_god_page(request: Request):
 @router.get("/names-of-god/{name_slug}", response_class=HTMLResponse)
 def name_of_god_detail(request: Request, name_slug: str):
     """Individual name of God detail page."""
-    item, item_name, category_name = find_item_by_slug(NAMES_DATA, name_slug)
+    return _resource_detail_response(
+        request,
+        NAMES_DATA,
+        name_slug,
+        resource_title="Names of God",
+        back_url="/names-of-god",
+        back_text="Names of God",
+        not_found_message="Name of God not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Name of God not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Names of God",
-            "back_url": "/names-of-god",
-            "back_text": "Names of God",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Names of God", "url": "/names-of-god"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/names-of-god/{name_slug}/pdf")
+def name_of_god_detail_pdf(name_slug: str):
+    """PDF export for a Name of God entry."""
+    return _resource_detail_pdf_response(
+        NAMES_DATA,
+        name_slug,
+        resource_title="Names of God",
+        not_found_message="Name of God not found",
     )
 
 
@@ -249,6 +318,7 @@ def parables_page(request: Request):
             {
             "books": get_books(),
             "parables_data": PARABLES_DATA,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
@@ -258,32 +328,47 @@ def parables_page(request: Request):
     )
 
 
+@router.get("/parables/pdf")
+def parables_pdf():
+    """PDF export for the parables index."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    html_content = templates.get_template("parables_pdf.html").render(parables_data=PARABLES_DATA)
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=parables.pdf"}
+    )
+
+
 @router.get("/parables/{parable_slug}", response_class=HTMLResponse)
 def parable_detail(request: Request, parable_slug: str):
     """Individual parable detail page."""
-    item, item_name, category_name = find_item_by_slug(PARABLES_DATA, parable_slug)
+    return _resource_detail_response(
+        request,
+        PARABLES_DATA,
+        parable_slug,
+        resource_title="Parables of Jesus",
+        back_url="/parables",
+        back_text="Parables of Jesus",
+        not_found_message="Parable not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Parable not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Parables of Jesus",
-            "back_url": "/parables",
-            "back_text": "Parables of Jesus",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Parables of Jesus", "url": "/parables"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/parables/{parable_slug}/pdf")
+def parable_detail_pdf(parable_slug: str):
+    """PDF export for a parable entry."""
+    return _resource_detail_pdf_response(
+        PARABLES_DATA,
+        parable_slug,
+        resource_title="Parables of Jesus",
+        not_found_message="Parable not found",
     )
 
 
@@ -311,29 +396,25 @@ def biblical_covenants_page(request: Request):
 @router.get("/biblical-covenants/{covenant_slug}", response_class=HTMLResponse)
 def covenant_detail(request: Request, covenant_slug: str):
     """Individual covenant detail page."""
-    item, item_name, category_name = find_item_by_slug(COVENANTS_DATA, covenant_slug)
+    return _resource_detail_response(
+        request,
+        COVENANTS_DATA,
+        covenant_slug,
+        resource_title="Biblical Covenants",
+        back_url="/biblical-covenants",
+        back_text="Biblical Covenants",
+        not_found_message="Biblical Covenant not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Biblical Covenant not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Biblical Covenants",
-            "back_url": "/biblical-covenants",
-            "back_text": "Biblical Covenants",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Covenants", "url": "/biblical-covenants"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/biblical-covenants/{covenant_slug}/pdf")
+def covenant_detail_pdf(covenant_slug: str):
+    """PDF export for covenant entries."""
+    return _resource_detail_pdf_response(
+        COVENANTS_DATA,
+        covenant_slug,
+        resource_title="Biblical Covenants",
+        not_found_message="Biblical Covenant not found",
     )
 
 
@@ -361,29 +442,25 @@ def apostles_page(request: Request):
 @router.get("/the-twelve-apostles/{apostle_slug}", response_class=HTMLResponse)
 def apostle_detail(request: Request, apostle_slug: str):
     """Individual apostle detail page."""
-    item, item_name, category_name = find_item_by_slug(APOSTLES_DATA, apostle_slug)
+    return _resource_detail_response(
+        request,
+        APOSTLES_DATA,
+        apostle_slug,
+        resource_title="The Twelve Apostles",
+        back_url="/the-twelve-apostles",
+        back_text="The Twelve Apostles",
+        not_found_message="Apostle not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Apostle not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "The Twelve Apostles",
-            "back_url": "/the-twelve-apostles",
-            "back_text": "The Twelve Apostles",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Twelve Apostles", "url": "/the-twelve-apostles"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/the-twelve-apostles/{apostle_slug}/pdf")
+def apostle_detail_pdf(apostle_slug: str):
+    """PDF export for apostle entries."""
+    return _resource_detail_pdf_response(
+        APOSTLES_DATA,
+        apostle_slug,
+        resource_title="The Twelve Apostles",
+        not_found_message="Apostle not found",
     )
 
 
@@ -411,29 +488,25 @@ def women_of_the_bible_page(request: Request):
 @router.get("/women-of-the-bible/{woman_slug}", response_class=HTMLResponse)
 def woman_detail(request: Request, woman_slug: str):
     """Individual woman of the Bible detail page."""
-    item, item_name, category_name = find_item_by_slug(WOMEN_DATA, woman_slug)
+    return _resource_detail_response(
+        request,
+        WOMEN_DATA,
+        woman_slug,
+        resource_title="Women of the Bible",
+        back_url="/women-of-the-bible",
+        back_text="Women of the Bible",
+        not_found_message="Woman of the Bible not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Woman of the Bible not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Women of the Bible",
-            "back_url": "/women-of-the-bible",
-            "back_text": "Women of the Bible",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Women of the Bible", "url": "/women-of-the-bible"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/women-of-the-bible/{woman_slug}/pdf")
+def woman_detail_pdf(woman_slug: str):
+    """PDF export for Women of the Bible entries."""
+    return _resource_detail_pdf_response(
+        WOMEN_DATA,
+        woman_slug,
+        resource_title="Women of the Bible",
+        not_found_message="Woman of the Bible not found",
     )
 
 
@@ -461,29 +534,25 @@ def biblical_festivals_page(request: Request):
 @router.get("/biblical-festivals/{festival_slug}", response_class=HTMLResponse)
 def festival_detail(request: Request, festival_slug: str):
     """Individual biblical festival detail page."""
-    item, item_name, category_name = find_item_by_slug(FESTIVALS_DATA, festival_slug)
+    return _resource_detail_response(
+        request,
+        FESTIVALS_DATA,
+        festival_slug,
+        resource_title="Biblical Festivals",
+        back_url="/biblical-festivals",
+        back_text="Biblical Festivals",
+        not_found_message="Biblical Festival not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Biblical Festival not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Biblical Festivals",
-            "back_url": "/biblical-festivals",
-            "back_text": "Biblical Festivals",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Festivals", "url": "/biblical-festivals"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/biblical-festivals/{festival_slug}/pdf")
+def festival_detail_pdf(festival_slug: str):
+    """PDF export for biblical festival entries."""
+    return _resource_detail_pdf_response(
+        FESTIVALS_DATA,
+        festival_slug,
+        resource_title="Biblical Festivals",
+        not_found_message="Biblical Festival not found",
     )
 
 
@@ -511,29 +580,25 @@ def fruits_of_the_spirit_page(request: Request):
 @router.get("/fruits-of-the-spirit/{fruit_slug}", response_class=HTMLResponse)
 def fruit_detail(request: Request, fruit_slug: str):
     """Individual fruit of the Spirit detail page."""
-    item, item_name, category_name = find_item_by_slug(FRUITS_DATA, fruit_slug)
+    return _resource_detail_response(
+        request,
+        FRUITS_DATA,
+        fruit_slug,
+        resource_title="Fruits of the Spirit",
+        back_url="/fruits-of-the-spirit",
+        back_text="Fruits of the Spirit",
+        not_found_message="Fruit of the Spirit not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Fruit of the Spirit not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Fruits of the Spirit",
-            "back_url": "/fruits-of-the-spirit",
-            "back_text": "Fruits of the Spirit",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Fruits of the Spirit", "url": "/fruits-of-the-spirit"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/fruits-of-the-spirit/{fruit_slug}/pdf")
+def fruit_detail_pdf(fruit_slug: str):
+    """PDF export for Fruits of the Spirit entries."""
+    return _resource_detail_pdf_response(
+        FRUITS_DATA,
+        fruit_slug,
+        resource_title="Fruits of the Spirit",
+        not_found_message="Fruit of the Spirit not found",
     )
 
 
@@ -628,29 +693,25 @@ def miracles_page(request: Request):
 @router.get("/miracles-of-jesus/{miracle_slug}", response_class=HTMLResponse)
 def miracle_detail(request: Request, miracle_slug: str):
     """Individual miracle detail page."""
-    item, item_name, category_name = find_item_by_slug(MIRACLES_DATA, miracle_slug)
+    return _resource_detail_response(
+        request,
+        MIRACLES_DATA,
+        miracle_slug,
+        resource_title="Miracles of Jesus",
+        back_url="/miracles-of-jesus",
+        back_text="Miracles of Jesus",
+        not_found_message="Miracle not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Miracle not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Miracles of Jesus",
-            "back_url": "/miracles-of-jesus",
-            "back_text": "Miracles of Jesus",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Miracles of Jesus", "url": "/miracles-of-jesus"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/miracles-of-jesus/{miracle_slug}/pdf")
+def miracle_detail_pdf(miracle_slug: str):
+    """PDF export for miracle entries."""
+    return _resource_detail_pdf_response(
+        MIRACLES_DATA,
+        miracle_slug,
+        resource_title="Miracles of Jesus",
+        not_found_message="Miracle not found",
     )
 
 
@@ -682,29 +743,25 @@ def prayers_page(request: Request):
 @router.get("/prayers-of-the-bible/{prayer_slug}", response_class=HTMLResponse)
 def prayer_detail(request: Request, prayer_slug: str):
     """Individual prayer detail page."""
-    item, item_name, category_name = find_item_by_slug(PRAYERS_DATA, prayer_slug)
+    return _resource_detail_response(
+        request,
+        PRAYERS_DATA,
+        prayer_slug,
+        resource_title="Prayers of the Bible",
+        back_url="/prayers-of-the-bible",
+        back_text="Prayers of the Bible",
+        not_found_message="Prayer not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Prayer not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Prayers of the Bible",
-            "back_url": "/prayers-of-the-bible",
-            "back_text": "Prayers of the Bible",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Prayers of the Bible", "url": "/prayers-of-the-bible"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/prayers-of-the-bible/{prayer_slug}/pdf")
+def prayer_detail_pdf(prayer_slug: str):
+    """PDF export for prayer entries."""
+    return _resource_detail_pdf_response(
+        PRAYERS_DATA,
+        prayer_slug,
+        resource_title="Prayers of the Bible",
+        not_found_message="Prayer not found",
     )
 
 
@@ -736,29 +793,25 @@ def beatitudes_page(request: Request):
 @router.get("/beatitudes/{beatitude_slug}", response_class=HTMLResponse)
 def beatitude_detail(request: Request, beatitude_slug: str):
     """Individual beatitude detail page."""
-    item, item_name, category_name = find_item_by_slug(BEATITUDES_DATA, beatitude_slug)
+    return _resource_detail_response(
+        request,
+        BEATITUDES_DATA,
+        beatitude_slug,
+        resource_title="The Beatitudes",
+        back_url="/beatitudes",
+        back_text="The Beatitudes",
+        not_found_message="Beatitude not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Beatitude not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "The Beatitudes",
-            "back_url": "/beatitudes",
-            "back_text": "The Beatitudes",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Beatitudes", "url": "/beatitudes"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/beatitudes/{beatitude_slug}/pdf")
+def beatitude_detail_pdf(beatitude_slug: str):
+    """PDF export for Beatitudes entries."""
+    return _resource_detail_pdf_response(
+        BEATITUDES_DATA,
+        beatitude_slug,
+        resource_title="The Beatitudes",
+        not_found_message="Beatitude not found",
     )
 
 
@@ -790,29 +843,25 @@ def ten_commandments_page(request: Request):
 @router.get("/ten-commandments/{commandment_slug}", response_class=HTMLResponse)
 def commandment_detail(request: Request, commandment_slug: str):
     """Individual commandment detail page."""
-    item, item_name, category_name = find_item_by_slug(TEN_COMMANDMENTS_DATA, commandment_slug)
+    return _resource_detail_response(
+        request,
+        TEN_COMMANDMENTS_DATA,
+        commandment_slug,
+        resource_title="The Ten Commandments",
+        back_url="/ten-commandments",
+        back_text="The Ten Commandments",
+        not_found_message="Commandment not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Commandment not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "The Ten Commandments",
-            "back_url": "/ten-commandments",
-            "back_text": "The Ten Commandments",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Ten Commandments", "url": "/ten-commandments"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/ten-commandments/{commandment_slug}/pdf")
+def commandment_detail_pdf(commandment_slug: str):
+    """PDF export for Ten Commandments entries."""
+    return _resource_detail_pdf_response(
+        TEN_COMMANDMENTS_DATA,
+        commandment_slug,
+        resource_title="The Ten Commandments",
+        not_found_message="Commandment not found",
     )
 
 
@@ -844,29 +893,25 @@ def armor_of_god_page(request: Request):
 @router.get("/armor-of-god/{armor_slug}", response_class=HTMLResponse)
 def armor_detail(request: Request, armor_slug: str):
     """Individual armor piece detail page."""
-    item, item_name, category_name = find_item_by_slug(ARMOR_OF_GOD_DATA, armor_slug)
+    return _resource_detail_response(
+        request,
+        ARMOR_OF_GOD_DATA,
+        armor_slug,
+        resource_title="The Armor of God",
+        back_url="/armor-of-god",
+        back_text="The Armor of God",
+        not_found_message="Armor piece not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Armor piece not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "The Armor of God",
-            "back_url": "/armor-of-god",
-            "back_text": "The Armor of God",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Armor of God", "url": "/armor-of-god"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/armor-of-god/{armor_slug}/pdf")
+def armor_detail_pdf(armor_slug: str):
+    """PDF export for Armor of God entries."""
+    return _resource_detail_pdf_response(
+        ARMOR_OF_GOD_DATA,
+        armor_slug,
+        resource_title="The Armor of God",
+        not_found_message="Armor piece not found",
     )
 
 
@@ -898,29 +943,25 @@ def i_am_statements_page(request: Request):
 @router.get("/i-am-statements/{statement_slug}", response_class=HTMLResponse)
 def i_am_statement_detail(request: Request, statement_slug: str):
     """Individual I Am statement detail page."""
-    item, item_name, category_name = find_item_by_slug(I_AM_STATEMENTS_DATA, statement_slug)
+    return _resource_detail_response(
+        request,
+        I_AM_STATEMENTS_DATA,
+        statement_slug,
+        resource_title="I Am Statements",
+        back_url="/i-am-statements",
+        back_text="I Am Statements",
+        not_found_message="Statement not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Statement not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "I Am Statements",
-            "back_url": "/i-am-statements",
-            "back_text": "I Am Statements",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "I Am Statements", "url": "/i-am-statements"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/i-am-statements/{statement_slug}/pdf")
+def i_am_statement_detail_pdf(statement_slug: str):
+    """PDF export for I Am statement entries."""
+    return _resource_detail_pdf_response(
+        I_AM_STATEMENTS_DATA,
+        statement_slug,
+        resource_title="I Am Statements",
+        not_found_message="Statement not found",
     )
 
 
@@ -952,29 +993,25 @@ def trinity_page(request: Request):
 @router.get("/trinity/{item_slug}", response_class=HTMLResponse)
 def trinity_detail(request: Request, item_slug: str):
     """Individual Trinity topic detail page."""
-    item, item_name, category_name = find_item_by_slug(TRINITY_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        TRINITY_DATA,
+        item_slug,
+        resource_title="The Trinity",
+        back_url="/trinity",
+        back_text="The Trinity",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "The Trinity",
-            "back_url": "/trinity",
-            "back_text": "The Trinity",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Trinity", "url": "/trinity"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/trinity/{item_slug}/pdf")
+def trinity_detail_pdf(item_slug: str):
+    """PDF export for Trinity topics."""
+    return _resource_detail_pdf_response(
+        TRINITY_DATA,
+        item_slug,
+        resource_title="The Trinity",
+        not_found_message="Topic not found",
     )
 
 
@@ -1006,29 +1043,25 @@ def christology_page(request: Request):
 @router.get("/christology/{item_slug}", response_class=HTMLResponse)
 def christology_detail(request: Request, item_slug: str):
     """Individual Christology topic detail page."""
-    item, item_name, category_name = find_item_by_slug(CHRISTOLOGY_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        CHRISTOLOGY_DATA,
+        item_slug,
+        resource_title="Christology",
+        back_url="/christology",
+        back_text="Christology",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Christology",
-            "back_url": "/christology",
-            "back_text": "Christology",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Christology", "url": "/christology"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/christology/{item_slug}/pdf")
+def christology_detail_pdf(item_slug: str):
+    """PDF export for Christology topics."""
+    return _resource_detail_pdf_response(
+        CHRISTOLOGY_DATA,
+        item_slug,
+        resource_title="Christology",
+        not_found_message="Topic not found",
     )
 
 
@@ -1060,29 +1093,25 @@ def soteriology_page(request: Request):
 @router.get("/soteriology/{item_slug}", response_class=HTMLResponse)
 def soteriology_detail(request: Request, item_slug: str):
     """Individual Soteriology topic detail page."""
-    item, item_name, category_name = find_item_by_slug(SOTERIOLOGY_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        SOTERIOLOGY_DATA,
+        item_slug,
+        resource_title="Soteriology",
+        back_url="/soteriology",
+        back_text="Soteriology",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Soteriology",
-            "back_url": "/soteriology",
-            "back_text": "Soteriology",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Soteriology", "url": "/soteriology"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/soteriology/{item_slug}/pdf")
+def soteriology_detail_pdf(item_slug: str):
+    """PDF export for Soteriology topics."""
+    return _resource_detail_pdf_response(
+        SOTERIOLOGY_DATA,
+        item_slug,
+        resource_title="Soteriology",
+        not_found_message="Topic not found",
     )
 
 
@@ -1114,29 +1143,25 @@ def pneumatology_page(request: Request):
 @router.get("/pneumatology/{item_slug}", response_class=HTMLResponse)
 def pneumatology_detail(request: Request, item_slug: str):
     """Individual Pneumatology topic detail page."""
-    item, item_name, category_name = find_item_by_slug(PNEUMATOLOGY_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        PNEUMATOLOGY_DATA,
+        item_slug,
+        resource_title="Pneumatology",
+        back_url="/pneumatology",
+        back_text="Pneumatology",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Pneumatology",
-            "back_url": "/pneumatology",
-            "back_text": "Pneumatology",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Pneumatology", "url": "/pneumatology"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/pneumatology/{item_slug}/pdf")
+def pneumatology_detail_pdf(item_slug: str):
+    """PDF export for Pneumatology topics."""
+    return _resource_detail_pdf_response(
+        PNEUMATOLOGY_DATA,
+        item_slug,
+        resource_title="Pneumatology",
+        not_found_message="Topic not found",
     )
 
 
@@ -1168,29 +1193,25 @@ def eschatology_page(request: Request):
 @router.get("/eschatology/{item_slug}", response_class=HTMLResponse)
 def eschatology_detail(request: Request, item_slug: str):
     """Individual Eschatology topic detail page."""
-    item, item_name, category_name = find_item_by_slug(ESCHATOLOGY_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        ESCHATOLOGY_DATA,
+        item_slug,
+        resource_title="Eschatology",
+        back_url="/eschatology",
+        back_text="Eschatology",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Eschatology",
-            "back_url": "/eschatology",
-            "back_text": "Eschatology",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Eschatology", "url": "/eschatology"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/eschatology/{item_slug}/pdf")
+def eschatology_detail_pdf(item_slug: str):
+    """PDF export for Eschatology topics."""
+    return _resource_detail_pdf_response(
+        ESCHATOLOGY_DATA,
+        item_slug,
+        resource_title="Eschatology",
+        not_found_message="Topic not found",
     )
 
 
@@ -1222,29 +1243,25 @@ def ecclesiology_page(request: Request):
 @router.get("/ecclesiology/{item_slug}", response_class=HTMLResponse)
 def ecclesiology_detail(request: Request, item_slug: str):
     """Individual Ecclesiology topic detail page."""
-    item, item_name, category_name = find_item_by_slug(ECCLESIOLOGY_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        ECCLESIOLOGY_DATA,
+        item_slug,
+        resource_title="Ecclesiology",
+        back_url="/ecclesiology",
+        back_text="Ecclesiology",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Ecclesiology",
-            "back_url": "/ecclesiology",
-            "back_text": "Ecclesiology",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Ecclesiology", "url": "/ecclesiology"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/ecclesiology/{item_slug}/pdf")
+def ecclesiology_detail_pdf(item_slug: str):
+    """PDF export for Ecclesiology topics."""
+    return _resource_detail_pdf_response(
+        ECCLESIOLOGY_DATA,
+        item_slug,
+        resource_title="Ecclesiology",
+        not_found_message="Topic not found",
     )
 
 
@@ -1276,29 +1293,25 @@ def types_and_shadows_page(request: Request):
 @router.get("/types-and-shadows/{item_slug}", response_class=HTMLResponse)
 def types_and_shadows_detail(request: Request, item_slug: str):
     """Individual Types and Shadows topic detail page."""
-    item, item_name, category_name = find_item_by_slug(TYPES_AND_SHADOWS_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        TYPES_AND_SHADOWS_DATA,
+        item_slug,
+        resource_title="Types and Shadows",
+        back_url="/types-and-shadows",
+        back_text="Types and Shadows",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Types and Shadows",
-            "back_url": "/types-and-shadows",
-            "back_text": "Types and Shadows",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Types and Shadows", "url": "/types-and-shadows"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/types-and-shadows/{item_slug}/pdf")
+def types_and_shadows_detail_pdf(item_slug: str):
+    """PDF export for Types and Shadows topics."""
+    return _resource_detail_pdf_response(
+        TYPES_AND_SHADOWS_DATA,
+        item_slug,
+        resource_title="Types and Shadows",
+        not_found_message="Topic not found",
     )
 
 
@@ -1330,29 +1343,25 @@ def messianic_prophecies_page(request: Request):
 @router.get("/messianic-prophecies/{item_slug}", response_class=HTMLResponse)
 def messianic_prophecies_detail(request: Request, item_slug: str):
     """Individual Messianic Prophecy topic detail page."""
-    item, item_name, category_name = find_item_by_slug(MESSIANIC_PROPHECIES_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        MESSIANIC_PROPHECIES_DATA,
+        item_slug,
+        resource_title="Messianic Prophecies",
+        back_url="/messianic-prophecies",
+        back_text="Messianic Prophecies",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Messianic Prophecies",
-            "back_url": "/messianic-prophecies",
-            "back_text": "Messianic Prophecies",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Messianic Prophecies", "url": "/messianic-prophecies"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/messianic-prophecies/{item_slug}/pdf")
+def messianic_prophecies_detail_pdf(item_slug: str):
+    """PDF export for Messianic Prophecies topics."""
+    return _resource_detail_pdf_response(
+        MESSIANIC_PROPHECIES_DATA,
+        item_slug,
+        resource_title="Messianic Prophecies",
+        not_found_message="Topic not found",
     )
 
 
@@ -1384,29 +1393,25 @@ def blood_in_scripture_page(request: Request):
 @router.get("/blood-in-scripture/{item_slug}", response_class=HTMLResponse)
 def blood_in_scripture_detail(request: Request, item_slug: str):
     """Individual Blood in Scripture topic detail page."""
-    item, item_name, category_name = find_item_by_slug(BLOOD_IN_SCRIPTURE_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        BLOOD_IN_SCRIPTURE_DATA,
+        item_slug,
+        resource_title="The Blood in Scripture",
+        back_url="/blood-in-scripture",
+        back_text="The Blood in Scripture",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "The Blood in Scripture",
-            "back_url": "/blood-in-scripture",
-            "back_text": "The Blood in Scripture",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Blood in Scripture", "url": "/blood-in-scripture"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/blood-in-scripture/{item_slug}/pdf")
+def blood_in_scripture_detail_pdf(item_slug: str):
+    """PDF export for Blood in Scripture topics."""
+    return _resource_detail_pdf_response(
+        BLOOD_IN_SCRIPTURE_DATA,
+        item_slug,
+        resource_title="The Blood in Scripture",
+        not_found_message="Topic not found",
     )
 
 
@@ -1438,29 +1443,25 @@ def kingdom_of_god_page(request: Request):
 @router.get("/kingdom-of-god/{item_slug}", response_class=HTMLResponse)
 def kingdom_of_god_detail(request: Request, item_slug: str):
     """Individual Kingdom of God topic detail page."""
-    item, item_name, category_name = find_item_by_slug(KINGDOM_OF_GOD_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        KINGDOM_OF_GOD_DATA,
+        item_slug,
+        resource_title="The Kingdom of God",
+        back_url="/kingdom-of-god",
+        back_text="The Kingdom of God",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "The Kingdom of God",
-            "back_url": "/kingdom-of-god",
-            "back_text": "The Kingdom of God",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Kingdom of God", "url": "/kingdom-of-god"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/kingdom-of-god/{item_slug}/pdf")
+def kingdom_of_god_detail_pdf(item_slug: str):
+    """PDF export for Kingdom of God topics."""
+    return _resource_detail_pdf_response(
+        KINGDOM_OF_GOD_DATA,
+        item_slug,
+        resource_title="The Kingdom of God",
+        not_found_message="Topic not found",
     )
 
 
@@ -1492,29 +1493,25 @@ def names_of_christ_page(request: Request):
 @router.get("/names-of-christ/{item_slug}", response_class=HTMLResponse)
 def names_of_christ_detail(request: Request, item_slug: str):
     """Individual Names of Christ topic detail page."""
-    item, item_name, category_name = find_item_by_slug(NAMES_OF_CHRIST_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        NAMES_OF_CHRIST_DATA,
+        item_slug,
+        resource_title="Names of Christ",
+        back_url="/names-of-christ",
+        back_text="Names of Christ",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Names of Christ",
-            "back_url": "/names-of-christ",
-            "back_text": "Names of Christ",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Names of Christ", "url": "/names-of-christ"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/names-of-christ/{item_slug}/pdf")
+def names_of_christ_detail_pdf(item_slug: str):
+    """PDF export for Names of Christ topics."""
+    return _resource_detail_pdf_response(
+        NAMES_OF_CHRIST_DATA,
+        item_slug,
+        resource_title="Names of Christ",
+        not_found_message="Topic not found",
     )
 
 
@@ -1546,29 +1543,25 @@ def spirits_and_demons_page(request: Request):
 @router.get("/spirits-and-demons/{item_slug}", response_class=HTMLResponse)
 def spirits_and_demons_detail(request: Request, item_slug: str):
     """Individual Spirits and Demons topic detail page."""
-    item, item_name, category_name = find_item_by_slug(SPIRITS_AND_DEMONS_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        SPIRITS_AND_DEMONS_DATA,
+        item_slug,
+        resource_title="Spirits & Demons",
+        back_url="/spirits-and-demons",
+        back_text="Spirits & Demons",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Spirits & Demons",
-            "back_url": "/spirits-and-demons",
-            "back_text": "Spirits & Demons",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Spirits & Demons", "url": "/spirits-and-demons"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/spirits-and-demons/{item_slug}/pdf")
+def spirits_and_demons_detail_pdf(item_slug: str):
+    """PDF export for Spirits & Demons topics."""
+    return _resource_detail_pdf_response(
+        SPIRITS_AND_DEMONS_DATA,
+        item_slug,
+        resource_title="Spirits & Demons",
+        not_found_message="Topic not found",
     )
 
 
@@ -1600,27 +1593,23 @@ def personifications_page(request: Request):
 @router.get("/personifications/{item_slug}", response_class=HTMLResponse)
 def personifications_detail(request: Request, item_slug: str):
     """Individual Personification topic detail page."""
-    item, item_name, category_name = find_item_by_slug(PERSONIFICATIONS_DATA, item_slug)
+    return _resource_detail_response(
+        request,
+        PERSONIFICATIONS_DATA,
+        item_slug,
+        resource_title="Personifications",
+        back_url="/personifications",
+        back_text="Personifications",
+        not_found_message="Topic not found",
+    )
 
-    if not item:
-        raise HTTPException(status_code=404, detail="Topic not found")
 
-    return templates.TemplateResponse(
-            request,
-            "resource_detail.html",
-            {
-            "books": get_books(),
-            "item": item,
-            "item_name": item_name,
-            "category_name": category_name,
-            "resource_title": "Personifications",
-            "back_url": "/personifications",
-            "back_text": "Personifications",
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Personifications", "url": "/personifications"},
-                {"text": item_name, "url": None}
-            ]
-        }
+@router.get("/personifications/{item_slug}/pdf")
+def personifications_detail_pdf(item_slug: str):
+    """PDF export for Personifications topics."""
+    return _resource_detail_pdf_response(
+        PERSONIFICATIONS_DATA,
+        item_slug,
+        resource_title="Personifications",
+        not_found_message="Topic not found",
     )
