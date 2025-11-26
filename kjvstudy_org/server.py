@@ -2236,11 +2236,15 @@ def book_pdf(request: Request, book: str):
             detail=f"No verses found for the book '{book}'."
         )
 
+    # Get book introduction data if available
+    book_intro = get_book_data(book) if has_book_data(book) else None
+
     html_content = templates.get_template("book_pdf.html").render(
         book=book,
         chapters=chapters_data,
         chapter_count=len(chapters_data),
         verse_count=total_verses,
+        book_intro=book_intro,
     )
 
     pdf_buffer = render_html_to_pdf(html_content)

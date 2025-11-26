@@ -84,12 +84,157 @@
             color: #888;
             text-align: center;
         }
+
+        /* Introduction sections */
+        .intro-section {
+            margin-bottom: 0.3in;
+            page-break-inside: avoid;
+        }
+
+        .intro-section h2 {
+            font-size: 14pt;
+            margin: 0.2in 0 0.1in 0;
+            font-weight: normal;
+        }
+
+        .intro-section p {
+            margin: 0 0 0.12in 0;
+            text-align: justify;
+        }
+
+        .intro-section ul {
+            margin: 0.1in 0;
+            padding-left: 0.25in;
+        }
+
+        .intro-section li {
+            margin-bottom: 0.08in;
+        }
+
+        .intro-section blockquote {
+            margin: 0.15in 0.2in;
+            padding-left: 0.15in;
+            border-left: 2px solid #ddd;
+        }
+
+        .intro-section blockquote p {
+            font-style: italic;
+            margin-bottom: 0.05in;
+        }
+
+        .intro-section blockquote footer {
+            font-size: 9pt;
+            color: #666;
+        }
+
+        .chapters-divider {
+            margin: 0.4in 0;
+            border-bottom: 2px solid #333;
+            page-break-before: always;
+        }
     </style>
 </head>
 <body>
     <h1>{{ book }}</h1>
     <p class="subtitle">Authorized King James Version (KJV)</p>
-    <p class="book-meta">{{ chapter_count }} chapters &middot; {{ verse_count }} verses</p>
+    <p class="book-meta">
+        {% if book_intro and book_intro.author %}Author: {{ book_intro.author }}{% endif %}
+        {% if book_intro and book_intro.date_written %} &middot; Written: {{ book_intro.date_written }}{% endif %}
+        {% if book_intro and book_intro.category %} &middot; Category: {{ book_intro.category }}{% endif %}
+    </p>
+
+    {% if book_intro %}
+    <!-- Introduction Sections -->
+    {% if book_intro.introduction %}
+    <section class="intro-section">
+        <h2>Introduction</h2>
+        {{ book_intro.introduction|md|safe }}
+    </section>
+    {% endif %}
+
+    {% if book_intro.outline %}
+    <section class="intro-section">
+        <h2>Book Outline</h2>
+        <ul>
+            {% for item in book_intro.outline %}
+            <li><strong>{{ item.section }}</strong> ({{ item.chapters }}) — {{ item.description|mdi|safe }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if book_intro.key_themes %}
+    <section class="intro-section">
+        <h2>Key Themes</h2>
+        <ul>
+            {% for theme in book_intro.key_themes %}
+            {% if theme is mapping %}
+            <li><strong>{{ theme.theme }}</strong>: {{ theme.description|mdi|safe }}</li>
+            {% else %}
+            <li>{{ theme }}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if book_intro.key_verses %}
+    <section class="intro-section">
+        <h2>Key Verses</h2>
+        {% for verse in book_intro.key_verses %}
+        <blockquote>
+            <p>{{ verse.text|mdi|safe }}</p>
+            <footer>— {{ verse.reference }}{% if verse.significance %} ({{ verse.significance|mdi|safe }}){% endif %}</footer>
+        </blockquote>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if book_intro.historical_context %}
+    <section class="intro-section">
+        <h2>Historical Context</h2>
+        {{ book_intro.historical_context|md|safe }}
+    </section>
+    {% endif %}
+
+    {% if book_intro.literary_style %}
+    <section class="intro-section">
+        <h2>Literary Style</h2>
+        {{ book_intro.literary_style|md|safe }}
+    </section>
+    {% endif %}
+
+    {% if book_intro.theological_significance %}
+    <section class="intro-section">
+        <h2>Theological Significance</h2>
+        {{ book_intro.theological_significance|md|safe }}
+    </section>
+    {% endif %}
+
+    {% if book_intro.christ_in_book %}
+    <section class="intro-section">
+        <h2>Christ in {{ book }}</h2>
+        {{ book_intro.christ_in_book|md|safe }}
+    </section>
+    {% endif %}
+
+    {% if book_intro.relationship_to_new_testament %}
+    <section class="intro-section">
+        <h2>Relationship to the New Testament</h2>
+        {{ book_intro.relationship_to_new_testament|md|safe }}
+    </section>
+    {% endif %}
+
+    {% if book_intro.practical_application %}
+    <section class="intro-section">
+        <h2>Practical Application</h2>
+        {{ book_intro.practical_application|md|safe }}
+    </section>
+    {% endif %}
+
+    <!-- Divider before chapters -->
+    <div class="chapters-divider"></div>
+    {% endif %}
 
     {% for chapter in chapters %}
     <section class="chapter-block">
