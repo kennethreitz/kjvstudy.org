@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <ul>
         {% for theme in book_intro.key_themes %}
         {% if theme is mapping %}
-        <li><strong>{{ theme.theme }}</strong>: {{ theme.description }}</li>
+        <li><strong>{{ theme.theme }}</strong>: {{ theme.description|mdi|safe }}</li>
         {% else %}
         <li>{{ theme }}</li>
         {% endif %}

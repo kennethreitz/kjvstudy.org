@@ -185,14 +185,22 @@ templates = Jinja2Templates(directory=str(templates_dir))
 # Register custom Jinja2 filters
 templates.env.filters['slugify'] = create_slug
 
-def markdown_to_html(text):
-    """Convert simple markdown to HTML (bold, italic, and paragraphs)."""
+def markdown_inline(text):
+    """Convert inline markdown to HTML (bold and italic only, no paragraph wrapping)."""
     if not text:
         return text
     # Convert **bold** to <strong>bold</strong> (must be done before italic)
     text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
     # Convert *italic* to <em>italic</em>
     text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
+    return text
+
+def markdown_to_html(text):
+    """Convert simple markdown to HTML (bold, italic, and paragraphs)."""
+    if not text:
+        return text
+    # First apply inline markdown
+    text = markdown_inline(text)
     # Convert paragraphs (split on double newlines)
     paragraphs = text.split('\n\n')
     # Always wrap in <p> tags
@@ -200,6 +208,7 @@ def markdown_to_html(text):
     return text
 
 templates.env.filters['md'] = markdown_to_html
+templates.env.filters['mdi'] = markdown_inline
 
 # Initialize templates for route modules
 init_api_templates(templates)
