@@ -186,11 +186,13 @@ templates = Jinja2Templates(directory=str(templates_dir))
 templates.env.filters['slugify'] = create_slug
 
 def markdown_to_html(text):
-    """Convert simple markdown to HTML (bold and paragraphs)."""
+    """Convert simple markdown to HTML (bold, italic, and paragraphs)."""
     if not text:
         return text
-    # Convert **bold** to <strong>bold</strong>
+    # Convert **bold** to <strong>bold</strong> (must be done before italic)
     text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    # Convert *italic* to <em>italic</em>
+    text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
     # Convert paragraphs (split on double newlines)
     paragraphs = text.split('\n\n')
     # Always wrap in <p> tags
