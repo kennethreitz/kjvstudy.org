@@ -17,7 +17,7 @@ _load_failed = False
 
 
 def _load_interlinear_data():
-    """Load and decompress interlinear data from gzipped file"""
+    """Load and decompress interlinear data from gzipped JSON file"""
     global _interlinear_data, _load_failed
 
     if _interlinear_data is not None:
@@ -28,7 +28,7 @@ def _load_interlinear_data():
         logger.warning("Interlinear data loading previously failed, returning empty data")
         return {}
 
-    data_file = Path(__file__).parent / "interlinear_data.py.gz"
+    data_file = Path(__file__).parent / "data" / "interlinear.json.gz"
 
     try:
         logger.info(f"Loading interlinear data from {data_file}...")
@@ -37,31 +37,7 @@ def _load_interlinear_data():
             raise FileNotFoundError(f"Interlinear data file not found: {data_file}")
 
         with gzip.open(data_file, 'rt', encoding='utf-8') as f:
-            # Read the file and extract the JSON data
-            content = f.read()
-
-            # Find the INTERLINEAR_DATA = {...} section
-            start = content.find('INTERLINEAR_DATA = ')
-            if start == -1:
-                raise ValueError("Could not find INTERLINEAR_DATA in compressed file")
-
-            # Extract just the JSON part
-            json_start = content.find('{', start)
-
-            # Find the matching closing brace (simple approach - assumes well-formed JSON)
-            brace_count = 0
-            json_end = json_start
-            for i, char in enumerate(content[json_start:], start=json_start):
-                if char == '{':
-                    brace_count += 1
-                elif char == '}':
-                    brace_count -= 1
-                    if brace_count == 0:
-                        json_end = i + 1
-                        break
-
-            json_str = content[json_start:json_end]
-            _interlinear_data = json.loads(json_str)
+            _interlinear_data = json.load(f)
 
         logger.info(f"Successfully loaded {len(_interlinear_data)} verses")
         return _interlinear_data
