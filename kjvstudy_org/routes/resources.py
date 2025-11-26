@@ -34,6 +34,8 @@ from ..data import (
     BLOOD_IN_SCRIPTURE_DATA,
     KINGDOM_OF_GOD_DATA,
     NAMES_OF_CHRIST_DATA,
+    SPIRITS_AND_DEMONS_DATA,
+    PERSONIFICATIONS_DATA,
 )
 from ..utils.helpers import create_slug
 
@@ -78,6 +80,7 @@ def biblical_maps_page(request: Request):
             "biblical_locations": BIBLICAL_LOCATIONS,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Geography", "url": None}
             ]
         }
@@ -98,6 +101,7 @@ def biblical_angels_page(request: Request):
             "angels_data": ANGELS_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Angels", "url": None}
             ]
         }
@@ -125,6 +129,7 @@ def angel_detail(request: Request, angel_slug: str):
             "back_text": "Biblical Angels",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Angels", "url": "/biblical-angels"},
                 {"text": item_name, "url": None}
             ]
@@ -146,6 +151,7 @@ def biblical_prophets_page(request: Request):
             "prophets_data": PROPHETS_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Prophets", "url": None}
             ]
         }
@@ -173,6 +179,7 @@ def prophet_detail(request: Request, prophet_slug: str):
             "back_text": "Biblical Prophets",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Prophets", "url": "/biblical-prophets"},
                 {"text": item_name, "url": None}
             ]
@@ -194,6 +201,7 @@ def names_of_god_page(request: Request):
             "names_data": NAMES_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Names of God", "url": None}
             ]
         }
@@ -221,6 +229,7 @@ def name_of_god_detail(request: Request, name_slug: str):
             "back_text": "Names of God",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Names of God", "url": "/names-of-god"},
                 {"text": item_name, "url": None}
             ]
@@ -242,6 +251,7 @@ def parables_page(request: Request):
             "parables_data": PARABLES_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Parables of Jesus", "url": None}
             ]
         }
@@ -269,6 +279,7 @@ def parable_detail(request: Request, parable_slug: str):
             "back_text": "Parables of Jesus",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Parables of Jesus", "url": "/parables"},
                 {"text": item_name, "url": None}
             ]
@@ -290,6 +301,7 @@ def biblical_covenants_page(request: Request):
             "covenants_data": COVENANTS_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Covenants", "url": None}
             ]
         }
@@ -317,6 +329,7 @@ def covenant_detail(request: Request, covenant_slug: str):
             "back_text": "Biblical Covenants",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Covenants", "url": "/biblical-covenants"},
                 {"text": item_name, "url": None}
             ]
@@ -338,6 +351,7 @@ def apostles_page(request: Request):
             "apostles_data": APOSTLES_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Twelve Apostles", "url": None}
             ]
         }
@@ -365,6 +379,7 @@ def apostle_detail(request: Request, apostle_slug: str):
             "back_text": "The Twelve Apostles",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Twelve Apostles", "url": "/the-twelve-apostles"},
                 {"text": item_name, "url": None}
             ]
@@ -386,6 +401,7 @@ def women_of_the_bible_page(request: Request):
             "women_data": WOMEN_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Women of the Bible", "url": None}
             ]
         }
@@ -413,6 +429,7 @@ def woman_detail(request: Request, woman_slug: str):
             "back_text": "Women of the Bible",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Women of the Bible", "url": "/women-of-the-bible"},
                 {"text": item_name, "url": None}
             ]
@@ -434,6 +451,7 @@ def biblical_festivals_page(request: Request):
             "festivals_data": FESTIVALS_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Festivals", "url": None}
             ]
         }
@@ -461,6 +479,7 @@ def festival_detail(request: Request, festival_slug: str):
             "back_text": "Biblical Festivals",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Biblical Festivals", "url": "/biblical-festivals"},
                 {"text": item_name, "url": None}
             ]
@@ -482,6 +501,7 @@ def fruits_of_the_spirit_page(request: Request):
             "fruits_data": FRUITS_DATA,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Fruits of the Spirit", "url": None}
             ]
         }
@@ -509,6 +529,7 @@ def fruit_detail(request: Request, fruit_slug: str):
             "back_text": "Fruits of the Spirit",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Fruits of the Spirit", "url": "/fruits-of-the-spirit"},
                 {"text": item_name, "url": None}
             ]
@@ -597,6 +618,7 @@ def miracles_page(request: Request):
             "base_url": "/miracles-of-jesus",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Miracles of Jesus", "url": None}
             ]
         }
@@ -624,6 +646,7 @@ def miracle_detail(request: Request, miracle_slug: str):
             "back_text": "Miracles of Jesus",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Miracles of Jesus", "url": "/miracles-of-jesus"},
                 {"text": item_name, "url": None}
             ]
@@ -649,6 +672,7 @@ def prayers_page(request: Request):
             "base_url": "/prayers-of-the-bible",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Prayers of the Bible", "url": None}
             ]
         }
@@ -676,6 +700,7 @@ def prayer_detail(request: Request, prayer_slug: str):
             "back_text": "Prayers of the Bible",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Prayers of the Bible", "url": "/prayers-of-the-bible"},
                 {"text": item_name, "url": None}
             ]
@@ -701,6 +726,7 @@ def beatitudes_page(request: Request):
             "base_url": "/beatitudes",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Beatitudes", "url": None}
             ]
         }
@@ -728,6 +754,7 @@ def beatitude_detail(request: Request, beatitude_slug: str):
             "back_text": "The Beatitudes",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Beatitudes", "url": "/beatitudes"},
                 {"text": item_name, "url": None}
             ]
@@ -753,6 +780,7 @@ def ten_commandments_page(request: Request):
             "base_url": "/ten-commandments",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Ten Commandments", "url": None}
             ]
         }
@@ -780,6 +808,7 @@ def commandment_detail(request: Request, commandment_slug: str):
             "back_text": "The Ten Commandments",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Ten Commandments", "url": "/ten-commandments"},
                 {"text": item_name, "url": None}
             ]
@@ -805,6 +834,7 @@ def armor_of_god_page(request: Request):
             "base_url": "/armor-of-god",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Armor of God", "url": None}
             ]
         }
@@ -832,6 +862,7 @@ def armor_detail(request: Request, armor_slug: str):
             "back_text": "The Armor of God",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Armor of God", "url": "/armor-of-god"},
                 {"text": item_name, "url": None}
             ]
@@ -857,6 +888,7 @@ def i_am_statements_page(request: Request):
             "base_url": "/i-am-statements",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "I Am Statements", "url": None}
             ]
         }
@@ -884,6 +916,7 @@ def i_am_statement_detail(request: Request, statement_slug: str):
             "back_text": "I Am Statements",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "I Am Statements", "url": "/i-am-statements"},
                 {"text": item_name, "url": None}
             ]
@@ -909,6 +942,7 @@ def trinity_page(request: Request):
             "base_url": "/trinity",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Trinity", "url": None}
             ]
         }
@@ -936,6 +970,7 @@ def trinity_detail(request: Request, item_slug: str):
             "back_text": "The Trinity",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Trinity", "url": "/trinity"},
                 {"text": item_name, "url": None}
             ]
@@ -961,6 +996,7 @@ def christology_page(request: Request):
             "base_url": "/christology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Christology", "url": None}
             ]
         }
@@ -988,6 +1024,7 @@ def christology_detail(request: Request, item_slug: str):
             "back_text": "Christology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Christology", "url": "/christology"},
                 {"text": item_name, "url": None}
             ]
@@ -1013,6 +1050,7 @@ def soteriology_page(request: Request):
             "base_url": "/soteriology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Soteriology", "url": None}
             ]
         }
@@ -1040,6 +1078,7 @@ def soteriology_detail(request: Request, item_slug: str):
             "back_text": "Soteriology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Soteriology", "url": "/soteriology"},
                 {"text": item_name, "url": None}
             ]
@@ -1065,6 +1104,7 @@ def pneumatology_page(request: Request):
             "base_url": "/pneumatology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Pneumatology", "url": None}
             ]
         }
@@ -1092,6 +1132,7 @@ def pneumatology_detail(request: Request, item_slug: str):
             "back_text": "Pneumatology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Pneumatology", "url": "/pneumatology"},
                 {"text": item_name, "url": None}
             ]
@@ -1117,6 +1158,7 @@ def eschatology_page(request: Request):
             "base_url": "/eschatology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Eschatology", "url": None}
             ]
         }
@@ -1144,6 +1186,7 @@ def eschatology_detail(request: Request, item_slug: str):
             "back_text": "Eschatology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Eschatology", "url": "/eschatology"},
                 {"text": item_name, "url": None}
             ]
@@ -1169,6 +1212,7 @@ def ecclesiology_page(request: Request):
             "base_url": "/ecclesiology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Ecclesiology", "url": None}
             ]
         }
@@ -1196,6 +1240,7 @@ def ecclesiology_detail(request: Request, item_slug: str):
             "back_text": "Ecclesiology",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Ecclesiology", "url": "/ecclesiology"},
                 {"text": item_name, "url": None}
             ]
@@ -1221,6 +1266,7 @@ def types_and_shadows_page(request: Request):
             "base_url": "/types-and-shadows",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Types and Shadows", "url": None}
             ]
         }
@@ -1248,6 +1294,7 @@ def types_and_shadows_detail(request: Request, item_slug: str):
             "back_text": "Types and Shadows",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Types and Shadows", "url": "/types-and-shadows"},
                 {"text": item_name, "url": None}
             ]
@@ -1273,6 +1320,7 @@ def messianic_prophecies_page(request: Request):
             "base_url": "/messianic-prophecies",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Messianic Prophecies", "url": None}
             ]
         }
@@ -1300,6 +1348,7 @@ def messianic_prophecies_detail(request: Request, item_slug: str):
             "back_text": "Messianic Prophecies",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Messianic Prophecies", "url": "/messianic-prophecies"},
                 {"text": item_name, "url": None}
             ]
@@ -1325,6 +1374,7 @@ def blood_in_scripture_page(request: Request):
             "base_url": "/blood-in-scripture",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Blood in Scripture", "url": None}
             ]
         }
@@ -1352,6 +1402,7 @@ def blood_in_scripture_detail(request: Request, item_slug: str):
             "back_text": "The Blood in Scripture",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Blood in Scripture", "url": "/blood-in-scripture"},
                 {"text": item_name, "url": None}
             ]
@@ -1377,6 +1428,7 @@ def kingdom_of_god_page(request: Request):
             "base_url": "/kingdom-of-god",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Kingdom of God", "url": None}
             ]
         }
@@ -1404,6 +1456,7 @@ def kingdom_of_god_detail(request: Request, item_slug: str):
             "back_text": "The Kingdom of God",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "The Kingdom of God", "url": "/kingdom-of-god"},
                 {"text": item_name, "url": None}
             ]
@@ -1429,6 +1482,7 @@ def names_of_christ_page(request: Request):
             "base_url": "/names-of-christ",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Names of Christ", "url": None}
             ]
         }
@@ -1456,7 +1510,116 @@ def names_of_christ_detail(request: Request, item_slug: str):
             "back_text": "Names of Christ",
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
                 {"text": "Names of Christ", "url": "/names-of-christ"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# SPIRITS AND DEMONS
+# ============================================================================
+@router.get("/spirits-and-demons", response_class=HTMLResponse)
+def spirits_and_demons_page(request: Request):
+    """Spirits and Demons - biblical demonology page."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": SPIRITS_AND_DEMONS_DATA,
+            "page_title": "Spirits & Demons",
+            "page_subtitle": "Biblical Demonology and Spiritual Warfare",
+            "page_description": "A comprehensive study of demons, Satan, evil spirits, and spiritual warfare in Scripture—from Legion to the Lake of Fire.",
+            "base_url": "/spirits-and-demons",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Spirits & Demons", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/spirits-and-demons/{item_slug}", response_class=HTMLResponse)
+def spirits_and_demons_detail(request: Request, item_slug: str):
+    """Individual Spirits and Demons topic detail page."""
+    item, item_name, category_name = find_item_by_slug(SPIRITS_AND_DEMONS_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Spirits & Demons",
+            "back_url": "/spirits-and-demons",
+            "back_text": "Spirits & Demons",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Spirits & Demons", "url": "/spirits-and-demons"},
+                {"text": item_name, "url": None}
+            ]
+        }
+    )
+
+
+# ============================================================================
+# PERSONIFICATIONS IN SCRIPTURE
+# ============================================================================
+@router.get("/personifications", response_class=HTMLResponse)
+def personifications_page(request: Request):
+    """Personifications in Scripture - abstract concepts given human form."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": PERSONIFICATIONS_DATA,
+            "page_title": "Personifications in Scripture",
+            "page_subtitle": "Abstract Concepts Given Human Form",
+            "page_description": "A study of biblical personifications—Wisdom, Folly, Death, Sin, and other abstract concepts portrayed as persons throughout Scripture.",
+            "base_url": "/personifications",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Personifications", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/personifications/{item_slug}", response_class=HTMLResponse)
+def personifications_detail(request: Request, item_slug: str):
+    """Individual Personification topic detail page."""
+    item, item_name, category_name = find_item_by_slug(PERSONIFICATIONS_DATA, item_slug)
+
+    if not item:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    return templates.TemplateResponse(
+            request,
+            "resource_detail.html",
+            {
+            "books": get_books(),
+            "item": item,
+            "item_name": item_name,
+            "category_name": category_name,
+            "resource_title": "Personifications",
+            "back_url": "/personifications",
+            "back_text": "Personifications",
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Personifications", "url": "/personifications"},
                 {"text": item_name, "url": None}
             ]
         }

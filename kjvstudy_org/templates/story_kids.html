@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}{{ story.kids_title }} - Bible Stories for Kids - KJV Study{% endblock %}
+{% block description %}{{ story.kids_description }}{% endblock %}
+
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ story.kids_title }} - Bible Story for Kids{% endblock %}
+{% block og_description %}{{ story.kids_description }}{% endblock %}
+
+{% block head %}
+<style>
+.kids-story {
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.kids-story p {
+    margin-bottom: 1.5rem;
+}
+
+.kids-header {
+    background: linear-gradient(135deg, #e8f4fc 0%, #f0f8ff 100%);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.kids-header h1 {
+    color: #2c5282;
+    margin-bottom: 0.5rem;
+}
+
+.kids-header .subtitle {
+    color: #4a6fa5;
+}
+
+.adult-link {
+    background: #fff;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.scripture-box {
+    background: #fffde7;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid #ffc107;
+    margin: 1.5rem 0;
+    font-style: italic;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="kids-header">
+    <h1>{{ story.kids_title }}</h1>
+    <p class="subtitle">A Bible Story for Kids</p>
+</div>
+
+<section>
+    <p style="font-size: 1rem; color: #555; margin-bottom: 1.5rem;">{{ story.kids_description }}</p>
+
+    <div class="scripture-box">
+        <strong>Find it in the Bible:</strong> {{ story.verses | join(', ') }}
+    </div>
+</section>
+
+<section class="kids-story">
+    <h2>The Story</h2>
+    {% for paragraph in story.kids_narrative.split('\n\n') %}
+    <p>{{ paragraph }}</p>
+    {% endfor %}
+</section>
+
+<section>
+    <h3>What We Learn</h3>
+    <ul>
+        {% for theme in story.themes %}
+        <li>{{ theme }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<div class="adult-link">
+    <p>Want to read the full story with more details?<br/>
+    <a href="/stories/{{ story.slug }}"><strong>Read the Adult Version</strong></a></p>
+</div>
+
+<nav style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #ddd;">
+    <p>
+        {% if prev_story %}
+        <a href="/stories/{{ prev_story.slug }}/kids">← {{ prev_story.kids_title or prev_story.title }}</a>
+        {% else %}
+        <span style="color: #999;">← Previous</span>
+        {% endif %}
+        &nbsp;|&nbsp;
+        <a href="/stories">All Stories</a>
+        &nbsp;|&nbsp;
+        {% if next_story %}
+        <a href="/stories/{{ next_story.slug }}/kids">{{ next_story.kids_title or next_story.title }} →</a>
+        {% else %}
+        <span style="color: #999;">Next →</span>
+        {% endif %}
+    </p>
+</nav>
+{% endblock %}

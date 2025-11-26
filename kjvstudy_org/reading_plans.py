@@ -3,6 +3,15 @@ Bible reading plans for structured Scripture study.
 Provides various reading schedules for different goals.
 """
 
+from .data.reading_plans import (
+    ONE_YEAR_PLAN,
+    CHRONOLOGICAL_PLAN,
+    NT_90_DAYS,
+    PSALMS_PROVERBS,
+    GOSPELS_ACTS_30,
+    PAUL_EPISTLES_30,
+)
+
 # Reading plans database
 READING_PLANS = {
     "chronological": {
@@ -10,6 +19,7 @@ READING_PLANS = {
         "description": "Read the Bible in the order events occurred historically",
         "duration_days": 365,
         "overview": "This plan arranges Scripture in chronological order, allowing you to read the Bible as a narrative of God's redemptive plan. Job is read with Genesis, Psalms with the life of David, prophets with the kings, and Gospels are harmonized.",
+        "days": CHRONOLOGICAL_PLAN,
         "sample_days": [
             {"day": 1, "readings": ["Genesis 1-3"], "theme": "Creation and Fall"},
             {"day": 2, "readings": ["Genesis 4-7"], "theme": "From Cain to Noah"},
@@ -26,6 +36,7 @@ READING_PLANS = {
         "description": "Read through the entire Bible in one year",
         "duration_days": 365,
         "overview": "This classic plan divides Scripture into daily readings of approximately 3-4 chapters, systematically progressing through the Old and New Testaments, Psalms, and Proverbs.",
+        "days": ONE_YEAR_PLAN,
         "sample_days": [
             {"day": 1, "readings": ["Genesis 1-3", "Matthew 1", "Psalms 1"], "theme": "In the beginning"},
             {"day": 7, "readings": ["Genesis 16-18", "Matthew 7", "Psalms 7"], "theme": "Week one complete"},
@@ -41,6 +52,7 @@ READING_PLANS = {
         "description": "Read the entire New Testament in three months",
         "duration_days": 90,
         "overview": "Focus on Christ and the early church by reading through all 27 New Testament books in 90 days. Ideal for new believers or those wanting to deepen their understanding of Christian doctrine.",
+        "days": NT_90_DAYS,
         "sample_days": [
             {"day": 1, "readings": ["Matthew 1-3"], "theme": "Christ's genealogy and birth"},
             {"day": 10, "readings": ["Matthew 22-24"], "theme": "Olivet Discourse"},
@@ -59,6 +71,7 @@ READING_PLANS = {
         "description": "Immerse yourself in the life of Christ and the early church",
         "duration_days": 30,
         "overview": "Read the four Gospels and Acts in one month, gaining a comprehensive view of Christ's ministry, death, resurrection, and the establishment of His church.",
+        "days": GOSPELS_ACTS_30,
         "sample_days": [
             {"day": 1, "readings": ["Matthew 1-4"], "theme": "Birth and temptation of Christ"},
             {"day": 5, "readings": ["Matthew 17-20"], "theme": "Transfiguration and teachings"},
@@ -74,6 +87,7 @@ READING_PLANS = {
         "description": "Read through wisdom literature multiple times per year",
         "duration_days": 31,
         "overview": "Read one Psalm and one chapter of Proverbs each day. The 31-day cycle allows you to read Proverbs 12 times and Psalms 5 times per year.",
+        "days": PSALMS_PROVERBS,
         "sample_days": [
             {"day": 1, "readings": ["Psalms 1", "Proverbs 1"], "theme": "Wisdom's foundation"},
             {"day": 15, "readings": ["Psalms 15", "Proverbs 15"], "theme": "Righteous living"},
@@ -111,6 +125,7 @@ READING_PLANS = {
         "description": "Study apostolic doctrine through Paul's epistles",
         "duration_days": 30,
         "overview": "Read all thirteen letters attributed to Paul, from Romans to Philemon, grasping the depth of Christian theology and practical living.",
+        "days": PAUL_EPISTLES_30,
         "sample_days": [
             {"day": 1, "readings": ["Romans 1-3"], "theme": "Justification by faith"},
             {"day": 5, "readings": ["Romans 12-14"], "theme": "Christian living"},

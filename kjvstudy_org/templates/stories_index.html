@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Bible Stories - KJV Study{% endblock %}
+{% block description %}Explore {{ story_count }} Bible stories from Creation to the early Church, with both adult narratives and kid-friendly versions.{% endblock %}
+
+{% block og_type %}website{% endblock %}
+{% block og_title %}Bible Stories - KJV Study{% endblock %}
+{% block og_description %}Explore {{ story_count }} Bible stories from Creation to the early Church, with both adult narratives and kid-friendly versions.{% endblock %}
+
+{% block content %}
+<h1>Bible Stories</h1>
+<p class="subtitle">{{ story_count }} stories across {{ category_count }} categories</p>
+
+<section>
+    <p><span class="newthought">These Bible stories</span> bring Scripture to life through engaging narratives that remain faithful to God's Word. Each story includes both an adult version with theological depth and a kid-friendly version perfect for family devotions or Sunday school.</p>
+</section>
+
+{% for category in categories %}
+<section id="{{ category.slug }}">
+    <h2>{{ category.category }}</h2>
+    <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem;">{{ category.description }}</p>
+
+    {% for story in category.stories %}
+    <p>
+        <strong><a href="/stories/{{ story.slug }}">{{ story.title }}</a></strong>
+        <label for="sn-{{ story.slug }}" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-{{ story.slug }}" class="margin-toggle"/>
+        <span class="sidenote">
+            <strong>Scripture:</strong><br/>
+            {% for verse in story.verses[:3] %}
+                {{ verse }}{% if not loop.last %}<br/>{% endif %}
+            {% endfor %}
+            {% if story.verses|length > 3 %}
+                <br/><em>+{{ story.verses|length - 3 }} more passages</em>
+            {% endif %}
+            <br/><br/>
+            <a href="/stories/{{ story.slug }}/kids">Read Kids Version</a>
+        </span>
+        — {{ story.description }}
+    </p>
+    {% endfor %}
+</section>
+{% endfor %}
+
+<nav>
+    <p><a href="/">← Home</a></p>
+</nav>
+{% endblock %}

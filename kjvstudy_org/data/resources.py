@@ -4024,3 +4024,434 @@ NAMES_OF_CHRIST_DATA = {
     }
 }
 
+
+SPIRITS_AND_DEMONS_DATA = {
+    "The Reality of Evil Spirits": {
+        "Demons Are Real": {
+            "title": "The Existence of Evil Spirits",
+            "description": "Scripture affirms the reality of demons—fallen angels who rebelled against God and now oppose His purposes. They are not metaphors or primitive superstition but actual spiritual beings with intellect, will, and power. Jesus treated demons as real entities, conversing with them, commanding them, and casting them out. The apostles continued this ministry. Paul declares that believers wrestle not against flesh and blood but against principalities, powers, and spiritual wickedness in high places. Denying demonic reality leaves believers unprepared for spiritual warfare.",
+            "verses": [
+                {"reference": "Ephesians 6:12", "text": "For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places."},
+                {"reference": "Matthew 12:43-45", "text": "When the unclean spirit is gone out of a man, he walketh through dry places, seeking rest, and findeth none. Then he saith, I will return into my house from whence I came out; and when he is come, he findeth it empty, swept, and garnished. Then goeth he, and taketh with himself seven other spirits more wicked than himself, and they enter in and dwell there."},
+                {"reference": "1 Timothy 4:1", "text": "Now the Spirit speaketh expressly, that in the latter times some shall depart from the faith, giving heed to seducing spirits, and doctrines of devils."},
+                {"reference": "James 2:19", "text": "Thou believest that there is one God; thou doest well: the devils also believe, and tremble."},
+                {"reference": "Revelation 16:14", "text": "For they are the spirits of devils, working miracles, which go forth unto the kings of the earth and of the whole world, to gather them to the battle of that great day of God Almighty."}
+            ]
+        },
+        "Origin of Demons": {
+            "title": "Fallen Angels",
+            "description": "While Scripture does not provide a complete origin narrative for demons, it indicates they are angels who fell with Satan in his primordial rebellion. Jude speaks of angels who 'kept not their first estate' and are reserved in chains for judgment. Peter references angels that sinned whom God cast down to hell. Revelation depicts the dragon drawing a third of heaven's stars (angels) in his fall. These fallen angels became the demons who now serve Satan's kingdom of darkness, opposing God and afflicting humanity.",
+            "verses": [
+                {"reference": "Jude 1:6", "text": "And the angels which kept not their first estate, but left their own habitation, he hath reserved in everlasting chains under darkness unto the judgment of the great day."},
+                {"reference": "2 Peter 2:4", "text": "For if God spared not the angels that sinned, but cast them down to hell, and delivered them into chains of darkness, to be reserved unto judgment."},
+                {"reference": "Revelation 12:4", "text": "And his tail drew the third part of the stars of heaven, and did cast them to the earth: and the dragon stood before the woman which was ready to be delivered, for to devour her child as soon as it was born."},
+                {"reference": "Revelation 12:9", "text": "And the great dragon was cast out, that old serpent, called the Devil, and Satan, which deceiveth the whole world: he was cast out into the earth, and his angels were cast out with him."},
+                {"reference": "Matthew 25:41", "text": "Then shall he say also unto them on the left hand, Depart from me, ye cursed, into everlasting fire, prepared for the devil and his angels."}
+            ]
+        },
+        "Demonic Hierarchy": {
+            "title": "Organized Evil",
+            "description": "The demonic realm is not chaotic but organized under Satan's authority. Paul identifies ranks within the kingdom of darkness: principalities, powers, rulers of darkness, and spiritual wickedness in high places. Daniel reveals 'princes' over nations—the prince of Persia and prince of Grecia—suggesting territorial assignments. Some demons are more wicked than others; Jesus spoke of one kind that goes out only by prayer and fasting. This hierarchy mirrors the angelic order—archangels, cherubim, seraphim—suggesting demons retain their original ranks.",
+            "verses": [
+                {"reference": "Ephesians 6:12", "text": "For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places."},
+                {"reference": "Daniel 10:13", "text": "But the prince of the kingdom of Persia withstood me one and twenty days: but, lo, Michael, one of the chief princes, came to help me; and I remained there with the kings of Persia."},
+                {"reference": "Daniel 10:20", "text": "Then said he, Knowest thou wherefore I come unto thee? and now will I return to fight with the prince of Persia: and when I am gone forth, lo, the prince of Grecia shall come."},
+                {"reference": "Matthew 12:45", "text": "Then goeth he, and taketh with himself seven other spirits more wicked than himself, and they enter in and dwell there: and the last state of that man is worse than the first."},
+                {"reference": "Mark 9:29", "text": "And he said unto them, This kind can come forth by nothing, but by prayer and fasting."}
+            ]
+        }
+    },
+    "Satan: The Adversary": {
+        "Names of Satan": {
+            "title": "The Devil's Many Titles",
+            "description": "Scripture reveals Satan through many names, each unveiling an aspect of his malevolent character. He is Satan (adversary), the one who opposes God and His people. He is the Devil (slanderer), accusing the brethren before God day and night. He is the serpent, the tempter in Eden. He is Beelzebub, lord of demons. He is Belial, worthlessness personified. He is the dragon, the prince of this world, the god of this age, the prince of the power of the air, the evil one, the father of lies, and a murderer from the beginning.",
+            "verses": [
+                {"reference": "Revelation 12:9", "text": "And the great dragon was cast out, that old serpent, called the Devil, and Satan, which deceiveth the whole world: he was cast out into the earth, and his angels were cast out with him."},
+                {"reference": "John 8:44", "text": "Ye are of your father the devil, and the lusts of your father ye will do. He was a murderer from the beginning, and abode not in the truth, because there is no truth in him. When he speaketh a lie, he speaketh of his own: for he is a liar, and the father of it."},
+                {"reference": "2 Corinthians 4:4", "text": "In whom the god of this world hath blinded the minds of them which believe not, lest the light of the glorious gospel of Christ, who is the image of God, should shine unto them."},
+                {"reference": "Ephesians 2:2", "text": "Wherein in time past ye walked according to the course of this world, according to the prince of the power of the air, the spirit that now worketh in the children of disobedience."},
+                {"reference": "Revelation 12:10", "text": "And I heard a loud voice saying in heaven, Now is come salvation, and strength, and the kingdom of our God, and the power of his Christ: for the accuser of our brethren is cast down, which accused them before our God day and night."},
+                {"reference": "1 Peter 5:8", "text": "Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour."}
+            ]
+        },
+        "Satan's Fall": {
+            "title": "Pride Before Destruction",
+            "description": "Satan was not created evil but fell through pride. Ezekiel's lament over the king of Tyre transcends the human ruler to describe a cherub who was perfect in beauty, full of wisdom, in Eden the garden of God, walking among stones of fire on God's holy mountain—until iniquity was found in him. Isaiah prophesies against the king of Babylon but penetrates to Lucifer, son of the morning, who said in his heart 'I will ascend into heaven, I will exalt my throne above the stars of God... I will be like the most High.' His five 'I wills' epitomize creaturely rebellion against the Creator.",
+            "verses": [
+                {"reference": "Ezekiel 28:14-15", "text": "Thou art the anointed cherub that covereth; and I have set thee so: thou wast upon the holy mountain of God; thou hast walked up and down in the midst of the stones of fire. Thou wast perfect in thy ways from the day that thou wast created, till iniquity was found in thee."},
+                {"reference": "Ezekiel 28:17", "text": "Thine heart was lifted up because of thy beauty, thou hast corrupted thy wisdom by reason of thy brightness: I will cast thee to the ground, I will lay thee before kings, that they may behold thee."},
+                {"reference": "Isaiah 14:12-14", "text": "How art thou fallen from heaven, O Lucifer, son of the morning! how art thou cut down to the ground, which didst weaken the nations! For thou hast said in thine heart, I will ascend into heaven, I will exalt my throne above the stars of God: I will sit also upon the mount of the congregation, in the sides of the north: I will ascend above the heights of the clouds; I will be like the most High."},
+                {"reference": "Luke 10:18", "text": "And he said unto them, I beheld Satan as lightning fall from heaven."},
+                {"reference": "1 Timothy 3:6", "text": "Not a novice, lest being lifted up with pride he fall into the condemnation of the devil."}
+            ]
+        },
+        "Satan's Limitations": {
+            "title": "A Defeated Foe Under God's Sovereignty",
+            "description": "Satan is powerful but not omnipotent; cunning but not omniscient; pervasive but not omnipresent. He operates only within boundaries God permits. In Job, Satan must obtain divine permission before afflicting the patriarch, and even then cannot take his life. Satan requested to sift Peter as wheat, but Jesus prayed for Peter's faith. The devil flees when resisted. Greater is He that is in believers than he that is in the world. Though Satan prowls as a roaring lion, he was decisively defeated at the cross and awaits his final doom.",
+            "verses": [
+                {"reference": "Job 1:12", "text": "And the LORD said unto Satan, Behold, all that he hath is in thy power; only upon himself put not forth thine hand. So Satan went forth from the presence of the LORD."},
+                {"reference": "Job 2:6", "text": "And the LORD said unto Satan, Behold, he is in thine hand; but save his life."},
+                {"reference": "Luke 22:31-32", "text": "And the Lord said, Simon, Simon, behold, Satan hath desired to have you, that he may sift you as wheat: But I have prayed for thee, that thy faith fail not: and when thou art converted, strengthen thy brethren."},
+                {"reference": "James 4:7", "text": "Submit yourselves therefore to God. Resist the devil, and he will flee from you."},
+                {"reference": "1 John 4:4", "text": "Ye are of God, little children, and have overcome them: because greater is he that is in you, than he that is in the world."},
+                {"reference": "Colossians 2:15", "text": "And having spoiled principalities and powers, he made a shew of them openly, triumphing over them in it."}
+            ]
+        }
+    },
+    "Demon Possession in Scripture": {
+        "Legion: The Gadarene Demoniac": {
+            "title": "A Multitude of Demons",
+            "description": "The account of Legion stands as Scripture's most dramatic demon possession narrative. A man dwelling among tombs, crying out day and night, cutting himself with stones, breaking chains and fetters—controlled by a multitude of unclean spirits who identified themselves as 'Legion, for we are many.' When Jesus commanded the demons to depart, they begged not to be sent into the abyss but into a herd of swine, which then rushed into the sea and drowned. The healed man, clothed and in his right mind, became a witness to Christ's power.",
+            "verses": [
+                {"reference": "Mark 5:2-5", "text": "And when he was come out of the ship, immediately there met him out of the tombs a man with an unclean spirit, Who had his dwelling among the tombs; and no man could bind him, no, not with chains: Because that he had been often bound with fetters and chains, and the chains had been plucked asunder by him, and the fetters broken in pieces: neither could any man tame him. And always, night and day, he was in the mountains, and in the tombs, crying, and cutting himself with stones."},
+                {"reference": "Mark 5:9", "text": "And he asked him, What is thy name? And he answered, saying, My name is Legion: for we are many."},
+                {"reference": "Mark 5:12-13", "text": "And all the devils besought him, saying, Send us into the swine, that we may enter into them. And forthwith Jesus gave them leave. And the unclean spirits went out, and entered into the swine: and the herd ran violently down a steep place into the sea, (they were about two thousand;) and were choked in the sea."},
+                {"reference": "Mark 5:15", "text": "And they come to Jesus, and see him that was possessed with the devil, and had the legion, sitting, and clothed, and in his right mind: and they were afraid."},
+                {"reference": "Luke 8:39", "text": "Return to thine own house, and shew how great things God hath done unto thee. And he went his way, and published throughout the whole city how great things Jesus had done unto him."}
+            ]
+        },
+        "The Syrophoenician's Daughter": {
+            "title": "Deliverance for a Gentile Child",
+            "description": "A Gentile woman—a Greek, a Syrophoenician—came to Jesus on behalf of her demon-possessed daughter. Initially Jesus tested her faith with apparent rejection: 'It is not meet to take the children's bread, and to cast it unto the dogs.' Her humble yet bold response—'Yes, Lord: yet the dogs under the table eat of the children's crumbs'—demonstrated the faith Jesus commended. He cast out the demon at a distance; when she returned home, she found her daughter lying on the bed, the demon departed. This account demonstrates Christ's authority extends even beyond His physical presence.",
+            "verses": [
+                {"reference": "Mark 7:25-26", "text": "For a certain woman, whose young daughter had an unclean spirit, heard of him, and came and fell at his feet: The woman was a Greek, a Syrophenician by nation; and she besought him that he would cast forth the devil out of her daughter."},
+                {"reference": "Mark 7:27-28", "text": "But Jesus said unto her, Let the children first be filled: for it is not meet to take the children's bread, and to cast it unto the dogs. And she answered and said unto him, Yes, Lord: yet the dogs under the table eat of the children's crumbs."},
+                {"reference": "Mark 7:29-30", "text": "And he said unto her, For this saying go thy way; the devil is gone out of thy daughter. And when she was come to her house, she found the devil gone out, and her daughter laid upon the bed."},
+                {"reference": "Matthew 15:28", "text": "Then Jesus answered and said unto her, O woman, great is thy faith: be it unto thee even as thou wilt. And her daughter was made whole from that very hour."}
+            ]
+        },
+        "The Epileptic Boy": {
+            "title": "A Spirit of Infirmity",
+            "description": "A father brought his son, possessed since childhood by a spirit causing seizures, convulsions, muteness, and self-destruction through fire and water. The disciples had failed to cast it out. Jesus rebuked their faithlessness, then commanded the deaf and dumb spirit to depart and enter no more. After a final violent convulsion, the boy lay as dead until Jesus took his hand and lifted him up. When the disciples asked why they had failed, Jesus explained: 'This kind can come forth by nothing, but by prayer and fasting.'",
+            "verses": [
+                {"reference": "Mark 9:17-18", "text": "And one of the multitude answered and said, Master, I have brought unto thee my son, which hath a dumb spirit; And wheresoever he taketh him, he teareth him: and he foameth, and gnasheth with his teeth, and pineth away: and I spake to thy disciples that they should cast him out; and they could not."},
+                {"reference": "Mark 9:21-22", "text": "And he asked his father, How long is it ago since this came unto him? And he said, Of a child. And ofttimes it hath cast him into the fire, and into the waters, to destroy him: but if thou canst do any thing, have compassion on us, and help us."},
+                {"reference": "Mark 9:25-26", "text": "When Jesus saw that the people came running together, he rebuked the foul spirit, saying unto him, Thou dumb and deaf spirit, I charge thee, come out of him, and enter no more into him. And the spirit cried, and rent him sore, and came out of him: and he was as one dead; insomuch that many said, He is dead."},
+                {"reference": "Mark 9:27", "text": "But Jesus took him by the hand, and lifted him up; and he arose."},
+                {"reference": "Mark 9:29", "text": "And he said unto them, This kind can come forth by nothing, but by prayer and fasting."}
+            ]
+        },
+        "Mary Magdalene": {
+            "title": "Delivered from Seven Devils",
+            "description": "Mary Magdalene, later one of Christ's most devoted followers, had been possessed by seven demons before Jesus delivered her. Scripture provides no details of her possession or deliverance, only the remarkable fact that seven unclean spirits had inhabited her. After her deliverance, she became part of the company of women who supported Jesus' ministry from their own means. She stood at the cross when most disciples fled, came first to the tomb on resurrection morning, and became the first witness of the risen Christ. Her transformation from severe demonic bondage to faithful discipleship exemplifies the completeness of Christ's deliverance.",
+            "verses": [
+                {"reference": "Luke 8:2", "text": "And certain women, which had been healed of evil spirits and infirmities, Mary called Magdalene, out of whom went seven devils."},
+                {"reference": "Mark 16:9", "text": "Now when Jesus was risen early the first day of the week, he appeared first to Mary Magdalene, out of whom he had cast seven devils."},
+                {"reference": "Luke 8:3", "text": "And Joanna the wife of Chuza Herod's steward, and Susanna, and many others, which ministered unto him of their substance."},
+                {"reference": "John 19:25", "text": "Now there stood by the cross of Jesus his mother, and his mother's sister, Mary the wife of Cleophas, and Mary Magdalene."},
+                {"reference": "John 20:16-18", "text": "Jesus saith unto her, Mary. She turned herself, and saith unto him, Rabboni; which is to say, Master. Jesus saith unto her, Touch me not; for I am not yet ascended to my Father: but go to my brethren, and say unto them, I ascend unto my Father, and your Father; and to my God, and your God. Mary Magdalene came and told the disciples that she had seen the Lord."}
+            ]
+        }
+    },
+    "Christ's Victory Over Demons": {
+        "Authority Over Unclean Spirits": {
+            "title": "The Demons Obey Him",
+            "description": "From the beginning of His ministry, Jesus demonstrated absolute authority over demons. Unlike Jewish exorcists who used elaborate rituals and incantations, Jesus simply commanded demons to depart—and they obeyed. The demons recognized His identity, crying out 'Thou art the Son of God!' and 'What have we to do with thee, Jesus, thou Son of the most high God?' They feared Him, asking 'Art thou come to destroy us?' and begging not to be sent into the abyss before the appointed time. His authority astonished the crowds: 'What thing is this? what new doctrine is this? for with authority commandeth he even the unclean spirits, and they do obey him.'",
+            "verses": [
+                {"reference": "Mark 1:27", "text": "And they were all amazed, insomuch that they questioned among themselves, saying, What thing is this? what new doctrine is this? for with authority commandeth he even the unclean spirits, and they do obey him."},
+                {"reference": "Mark 1:34", "text": "And he healed many that were sick of divers diseases, and cast out many devils; and suffered not the devils to speak, because they knew him."},
+                {"reference": "Luke 4:41", "text": "And devils also came out of many, crying out, and saying, Thou art Christ the Son of God. And he rebuking them suffered them not to speak: for they knew that he was Christ."},
+                {"reference": "Mark 5:7", "text": "And cried with a loud voice, and said, What have I to do with thee, Jesus, thou Son of the most high God? I adjure thee by God, that thou torment me not."},
+                {"reference": "Luke 8:31", "text": "And they besought him that he would not command them to go out into the deep."},
+                {"reference": "Matthew 8:29", "text": "And, behold, they cried out, saying, What have we to do with thee, Jesus, thou Son of God? art thou come hither to torment us before the time?"}
+            ]
+        },
+        "Binding the Strong Man": {
+            "title": "Plundering Satan's Kingdom",
+            "description": "When the Pharisees accused Jesus of casting out demons by Beelzebub, He exposed their illogic and revealed a deeper truth. A kingdom divided against itself cannot stand—if Satan casts out Satan, his kingdom falls. But if Jesus casts out demons by the Spirit of God, then the kingdom of God has come upon them. The true explanation: Jesus is the One who binds the strong man (Satan) and plunders his house, rescuing those held captive. Every deliverance Jesus performed was an invasion of Satan's territory, a liberation of prisoners, a demonstration that a stronger than Satan had come.",
+            "verses": [
+                {"reference": "Matthew 12:28-29", "text": "But if I cast out devils by the Spirit of God, then the kingdom of God is come unto you. Or else how can one enter into a strong man's house, and spoil his goods, except he first bind the strong man? and then he will spoil his house."},
+                {"reference": "Mark 3:26-27", "text": "And if Satan rise up against himself, and be divided, he cannot stand, but hath an end. No man can enter into a strong man's house, and spoil his goods, except he will first bind the strong man; and then he will spoil his house."},
+                {"reference": "Luke 11:21-22", "text": "When a strong man armed keepeth his palace, his goods are in peace: But when a stronger than he shall come upon him, and overcome him, he taketh from him all his armour wherein he trusted, and divideth his spoils."},
+                {"reference": "1 John 3:8", "text": "He that committeth sin is of the devil; for the devil sinneth from the beginning. For this purpose the Son of God was manifested, that he might destroy the works of the devil."},
+                {"reference": "Hebrews 2:14-15", "text": "Forasmuch then as the children are partakers of flesh and blood, he also himself likewise took part of the same; that through death he might destroy him that had the power of death, that is, the devil; And deliver them who through fear of death were all their lifetime subject to bondage."}
+            ]
+        },
+        "Authority Delegated to Disciples": {
+            "title": "In His Name",
+            "description": "Jesus delegated authority over demons to His followers. He gave the twelve power over unclean spirits to cast them out. He sent the seventy who returned rejoicing: 'Lord, even the devils are subject unto us through thy name.' Jesus confirmed: 'I beheld Satan as lightning fall from heaven. Behold, I give unto you power to tread on serpents and scorpions, and over all the power of the enemy.' The Great Commission includes: 'In my name shall they cast out devils.' This authority continues in the church—not in our own power but in the name of Jesus.",
+            "verses": [
+                {"reference": "Matthew 10:1", "text": "And when he had called unto him his twelve disciples, he gave them power against unclean spirits, to cast them out, and to heal all manner of sickness and all manner of disease."},
+                {"reference": "Luke 10:17", "text": "And the seventy returned again with joy, saying, Lord, even the devils are subject unto us through thy name."},
+                {"reference": "Luke 10:18-19", "text": "And he said unto them, I beheld Satan as lightning fall from heaven. Behold, I give unto you power to tread on serpents and scorpions, and over all the power of the enemy: and nothing shall by any means hurt you."},
+                {"reference": "Mark 16:17", "text": "And these signs shall follow them that believe; In my name shall they cast out devils; they shall speak with new tongues."},
+                {"reference": "Acts 16:18", "text": "And this did she many days. But Paul, being grieved, turned and said to the spirit, I command thee in the name of Jesus Christ to come out of her. And he came out the same hour."},
+                {"reference": "Acts 19:15-16", "text": "And the evil spirit answered and said, Jesus I know, and Paul I know; but who are ye? And the man in whom the evil spirit was leaped on them, and overcame them, and prevailed against them, so that they fled out of that house naked and wounded."}
+            ]
+        }
+    },
+    "Spiritual Warfare": {
+        "The Armor of God": {
+            "title": "Equipped for Battle",
+            "description": "Paul commands believers to put on the whole armor of God to stand against the devil's schemes. The armor is not offensive but defensive—we stand, having done all to stand. The belt of truth secures all other pieces. The breastplate of righteousness guards the heart. Feet shod with the gospel of peace provide stable footing. The shield of faith quenches fiery darts. The helmet of salvation protects the mind. The sword of the Spirit—the Word of God—is our only offensive weapon. Prayer with supplication in the Spirit undergirds all. This armor is God's provision; we merely put it on.",
+            "verses": [
+                {"reference": "Ephesians 6:11", "text": "Put on the whole armour of God, that ye may be able to stand against the wiles of the devil."},
+                {"reference": "Ephesians 6:13-17", "text": "Wherefore take unto you the whole armour of God, that ye may be able to withstand in the evil day, and having done all, to stand. Stand therefore, having your loins girt about with truth, and having on the breastplate of righteousness; And your feet shod with the preparation of the gospel of peace; Above all, taking the shield of faith, wherewith ye shall be able to quench all the fiery darts of the wicked. And take the helmet of salvation, and the sword of the Spirit, which is the word of God."},
+                {"reference": "Ephesians 6:18", "text": "Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance and supplication for all saints."},
+                {"reference": "2 Corinthians 10:4", "text": "For the weapons of our warfare are not carnal, but mighty through God to the pulling down of strong holds."},
+                {"reference": "1 Peter 5:9", "text": "Whom resist stedfast in the faith, knowing that the same afflictions are accomplished in your brethren that are in the world."}
+            ]
+        },
+        "Resisting the Devil": {
+            "title": "Submission and Resistance",
+            "description": "Scripture provides clear instruction for engaging spiritual enemies. James commands: 'Submit yourselves therefore to God. Resist the devil, and he will flee from you.' The order matters—submission precedes resistance. We resist not in our own strength but from a position of submission to God's authority. Peter warns: 'Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour: Whom resist stedfast in the faith.' Satan is dangerous but defeatable. Those who resist him in faith find he flees. The battle is real but the victory is assured.",
+            "verses": [
+                {"reference": "James 4:7", "text": "Submit yourselves therefore to God. Resist the devil, and he will flee from you."},
+                {"reference": "1 Peter 5:8-9", "text": "Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour: Whom resist stedfast in the faith, knowing that the same afflictions are accomplished in your brethren that are in the world."},
+                {"reference": "Revelation 12:11", "text": "And they overcame him by the blood of the Lamb, and by the word of their testimony; and they loved not their lives unto the death."},
+                {"reference": "Romans 16:20", "text": "And the God of peace shall bruise Satan under your feet shortly. The grace of our Lord Jesus Christ be with you. Amen."},
+                {"reference": "1 John 5:18", "text": "We know that whosoever is born of God sinneth not; but he that is begotten of God keepeth himself, and that wicked one toucheth him not."}
+            ]
+        },
+        "Demonic Deception": {
+            "title": "Wolves in Sheep's Clothing",
+            "description": "Satan's primary weapon is deception—he is the father of lies who deceives the whole world. He disguises himself as an angel of light, and his servants as ministers of righteousness. Demons promote false doctrines through seducing spirits. They work counterfeit signs and wonders through false prophets. They infiltrate churches through false teachers. They corrupt minds from the simplicity in Christ. Therefore believers must test the spirits, comparing all teaching to Scripture, for many false prophets have gone into the world. Discernment is essential; not all that appears spiritual is of God.",
+            "verses": [
+                {"reference": "2 Corinthians 11:14-15", "text": "And no marvel; for Satan himself is transformed into an angel of light. Therefore it is no great thing if his ministers also be transformed as the ministers of righteousness; whose end shall be according to their works."},
+                {"reference": "1 Timothy 4:1", "text": "Now the Spirit speaketh expressly, that in the latter times some shall depart from the faith, giving heed to seducing spirits, and doctrines of devils."},
+                {"reference": "1 John 4:1", "text": "Beloved, believe not every spirit, but try the spirits whether they are of God: because many false prophets are gone out into the world."},
+                {"reference": "2 Thessalonians 2:9", "text": "Even him, whose coming is after the working of Satan with all power and signs and lying wonders."},
+                {"reference": "2 Corinthians 11:3", "text": "But I fear, lest by any means, as the serpent beguiled Eve through his subtilty, so your minds should be corrupted from the simplicity that is in Christ."},
+                {"reference": "Revelation 12:9", "text": "And the great dragon was cast out, that old serpent, called the Devil, and Satan, which deceiveth the whole world."}
+            ]
+        }
+    },
+    "Testing the Spirits": {
+        "Discerning True from False": {
+            "title": "By Their Fruits",
+            "description": "Not every spiritual manifestation is from God. Jesus warned of false prophets in sheep's clothing and taught that we know them by their fruits. John commands testing the spirits: 'Every spirit that confesseth that Jesus Christ is come in the flesh is of God: And every spirit that confesseth not that Jesus Christ is come in the flesh is not of God: and this is that spirit of antichrist.' The test is Christological—does the teaching honor Christ's person and work? Additionally, fruit of the Spirit versus works of the flesh distinguishes divine from demonic. Sound doctrine and godly character together mark the Spirit's work.",
+            "verses": [
+                {"reference": "1 John 4:1-3", "text": "Beloved, believe not every spirit, but try the spirits whether they are of God: because many false prophets are gone out into the world. Hereby know ye the Spirit of God: Every spirit that confesseth that Jesus Christ is come in the flesh is of God: And every spirit that confesseth not that Jesus Christ is come in the flesh is not of God: and this is that spirit of antichrist."},
+                {"reference": "Matthew 7:15-16", "text": "Beware of false prophets, which come to you in sheep's clothing, but inwardly they are ravening wolves. Ye shall know them by their fruits."},
+                {"reference": "Matthew 7:20", "text": "Wherefore by their fruits ye shall know them."},
+                {"reference": "Galatians 5:22-23", "text": "But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, Meekness, temperance: against such there is no law."},
+                {"reference": "1 Corinthians 12:3", "text": "Wherefore I give you to understand, that no man speaking by the Spirit of God calleth Jesus accursed: and that no man can say that Jesus is the Lord, but by the Holy Ghost."}
+            ]
+        },
+        "Avoiding the Occult": {
+            "title": "Forbidden Practices",
+            "description": "Scripture absolutely forbids any involvement with the occult. The Mosaic law condemns witchcraft, divination, necromancy, enchantments, and consulting familiar spirits—all are abominations to the LORD. Saul's consultation with the witch of Endor was a sin for which he died. The Ephesian converts burned their magic books worth fifty thousand pieces of silver. Believers must have no fellowship with the unfruitful works of darkness. What communion has light with darkness? What concord has Christ with Belial? All occult practices open doors to demonic influence and must be completely forsaken.",
+            "verses": [
+                {"reference": "Deuteronomy 18:10-12", "text": "There shall not be found among you any one that maketh his son or his daughter to pass through the fire, or that useth divination, or an observer of times, or an enchanter, or a witch, Or a charmer, or a consulter with familiar spirits, or a wizard, or a necromancer. For all that do these things are an abomination unto the LORD."},
+                {"reference": "1 Chronicles 10:13-14", "text": "So Saul died for his transgression which he committed against the LORD, even against the word of the LORD, which he kept not, and also for asking counsel of one that had a familiar spirit, to enquire of it; And enquired not of the LORD: therefore he slew him."},
+                {"reference": "Acts 19:19", "text": "Many of them also which used curious arts brought their books together, and burned them before all men: and they counted the price of them, and found it fifty thousand pieces of silver."},
+                {"reference": "2 Corinthians 6:14-15", "text": "Be ye not unequally yoked together with unbelievers: for what fellowship hath righteousness with unrighteousness? and what communion hath light with darkness? And what concord hath Christ with Belial?"},
+                {"reference": "Ephesians 5:11", "text": "And have no fellowship with the unfruitful works of darkness, but rather reprove them."},
+                {"reference": "Galatians 5:20-21", "text": "Idolatry, witchcraft, hatred, variance, emulations, wrath, strife, seditions, heresies, Envyings, murders, drunkenness, revellings, and such like: of the which I tell you before, as I have also told you in time past, that they which do such things shall not inherit the kingdom of God."}
+            ]
+        }
+    },
+    "The Final Doom of Demons": {
+        "War in Heaven": {
+            "title": "Michael Casts Out the Dragon",
+            "description": "Revelation depicts a future cosmic battle: 'And there was war in heaven: Michael and his angels fought against the dragon; and the dragon fought and his angels, and prevailed not.' Satan and his angels are cast out of heaven, losing their access as accusers of the brethren. The devil comes down to earth 'having great wrath, because he knoweth that he hath but a short time.' This expulsion intensifies tribulation on earth but marks a decisive stage in Satan's defeat. The accuser is silenced; heaven rejoices; the saints overcome by the blood of the Lamb.",
+            "verses": [
+                {"reference": "Revelation 12:7-9", "text": "And there was war in heaven: Michael and his angels fought against the dragon; and the dragon fought and his angels, And prevailed not; neither was their place found any more in heaven. And the great dragon was cast out, that old serpent, called the Devil, and Satan, which deceiveth the whole world: he was cast out into the earth, and his angels were cast out with him."},
+                {"reference": "Revelation 12:10-11", "text": "And I heard a loud voice saying in heaven, Now is come salvation, and strength, and the kingdom of our God, and the power of his Christ: for the accuser of our brethren is cast down, which accused them before our God day and night. And they overcame him by the blood of the Lamb, and by the word of their testimony."},
+                {"reference": "Revelation 12:12", "text": "Therefore rejoice, ye heavens, and ye that dwell in them. Woe to the inhabiters of the earth and of the sea! for the devil is come down unto you, having great wrath, because he knoweth that he hath but a short time."}
+            ]
+        },
+        "The Lake of Fire": {
+            "title": "Everlasting Punishment",
+            "description": "The final destination of Satan and his demons is the lake of fire—everlasting punishment prepared for the devil and his angels. At Christ's return, Satan will be bound for a thousand years in the bottomless pit. After the millennium, he will be loosed briefly, then cast into the lake of fire and brimstone where the beast and false prophet are, to be tormented day and night forever and ever. The demons know this fate awaits them—they asked Jesus 'Art thou come hither to torment us before the time?' Their doom is certain, their judgment irreversible, their torment eternal.",
+            "verses": [
+                {"reference": "Revelation 20:10", "text": "And the devil that deceived them was cast into the lake of fire and brimstone, where the beast and the false prophet are, and shall be tormented day and night for ever and ever."},
+                {"reference": "Matthew 25:41", "text": "Then shall he say also unto them on the left hand, Depart from me, ye cursed, into everlasting fire, prepared for the devil and his angels."},
+                {"reference": "Revelation 20:1-3", "text": "And I saw an angel come down from heaven, having the key of the bottomless pit and a great chain in his hand. And he laid hold on the dragon, that old serpent, which is the Devil, and Satan, and bound him a thousand years, And cast him into the bottomless pit, and shut him up, and set a seal upon him, that he should deceive the nations no more."},
+                {"reference": "Matthew 8:29", "text": "And, behold, they cried out, saying, What have we to do with thee, Jesus, thou Son of God? art thou come hither to torment us before the time?"},
+                {"reference": "Jude 1:6", "text": "And the angels which kept not their first estate, but left their own habitation, he hath reserved in everlasting chains under darkness unto the judgment of the great day."}
+            ]
+        }
+    }
+}
+
+
+PERSONIFICATIONS_DATA = {
+    "Divine Attributes Personified": {
+        "Wisdom (Chokmah)": {
+            "title": "Lady Wisdom Crying in the Streets",
+            "description": "In Proverbs 8-9, Wisdom is personified as a noble woman (חָכְמָה, Chokmah) who stands at the gates of the city, crying out to the simple and offering life to all who heed her voice. She declares her antiquity—'The LORD possessed me in the beginning of his way, before his works of old. I was set up from everlasting, from the beginning, or ever the earth was.' She was present at creation, 'rejoicing always before him,' a master craftsman at God's side. This personification transcends mere literary device; many Church Fathers saw in Wisdom a type of Christ, the Logos who was with God in the beginning. Her invitation—'Come, eat of my bread, and drink of the wine which I have mingled'—prefigures the Lord's Supper. Wisdom builds her house with seven pillars, calls from the highest places, and promises that those who find her find life and obtain favor from the LORD.",
+            "verses": [
+                {"reference": "Proverbs 8:1-4", "text": "Doth not wisdom cry? and understanding put forth her voice? She standeth in the top of high places, by the way in the places of the paths. She crieth at the gates, at the entry of the city, at the coming in at the doors. Unto you, O men, I call; and my voice is to the sons of man."},
+                {"reference": "Proverbs 8:22-25", "text": "The LORD possessed me in the beginning of his way, before his works of old. I was set up from everlasting, from the beginning, or ever the earth was. When there were no depths, I was brought forth; when there were no fountains abounding with water. Before the mountains were settled, before the hills was I brought forth."},
+                {"reference": "Proverbs 8:30-31", "text": "Then I was by him, as one brought up with him: and I was daily his delight, rejoicing always before him; Rejoicing in the habitable part of his earth; and my delights were with the sons of men."},
+                {"reference": "Proverbs 8:35-36", "text": "For whoso findeth me findeth life, and shall obtain favour of the LORD. But he that sinneth against me wrongeth his own soul: all they that hate me love death."},
+                {"reference": "Proverbs 9:1-6", "text": "Wisdom hath builded her house, she hath hewn out her seven pillars: She hath killed her beasts; she hath mingled her wine; she hath also furnished her table. She hath sent forth her maidens: she crieth upon the highest places of the city, Whoso is simple, let him turn in hither: as for him that wanteth understanding, she saith to him, Come, eat of my bread, and drink of the wine which I have mingled. Forsake the foolish, and live; and go in the way of understanding."},
+                {"reference": "Proverbs 1:20-23", "text": "Wisdom crieth without; she uttereth her voice in the streets: She crieth in the chief place of concourse, in the openings of the gates: in the city she uttereth her words, saying, How long, ye simple ones, will ye love simplicity? and the scorners delight in their scorning, and fools hate knowledge? Turn you at my reproof: behold, I will pour out my spirit unto you, I will make known my words unto you."}
+            ]
+        },
+        "Folly (The Strange Woman)": {
+            "title": "The Seductress Who Leads to Death",
+            "description": "As Wisdom's dark counterpart, Folly is personified as a loud, seductive woman who sits at the door of her house, calling to passersby with stolen pleasures. She is 'simple, and knoweth nothing,' yet her invitation mimics Wisdom's: 'Whoso is simple, let him turn in hither.' But while Wisdom offers life, Folly's house is the way to Sheol, going down to the chambers of death. Throughout Proverbs, she appears as the 'strange woman' whose lips drip honey but whose end is bitter as wormwood. She flatters with her words, forgets the covenant of her God, and leads young men astray like an ox to the slaughter. The contrast between Wisdom and Folly presents the fundamental choice of life: the path of righteousness leading to life, or the path of wickedness leading to destruction.",
+            "verses": [
+                {"reference": "Proverbs 9:13-18", "text": "A foolish woman is clamorous: she is simple, and knoweth nothing. For she sitteth at the door of her house, on a seat in the high places of the city, To call passengers who go right on their ways: Whoso is simple, let him turn in hither: and as for him that wanteth understanding, she saith to him, Stolen waters are sweet, and bread eaten in secret is pleasant. But he knoweth not that the dead are there; and that her guests are in the depths of hell."},
+                {"reference": "Proverbs 5:3-5", "text": "For the lips of a strange woman drop as an honeycomb, and her mouth is smoother than oil: But her end is bitter as wormwood, sharp as a twoedged sword. Her feet go down to death; her steps take hold on hell."},
+                {"reference": "Proverbs 7:21-27", "text": "With her much fair speech she caused him to yield, with the flattering of her lips she forced him. He goeth after her straightway, as an ox goeth to the slaughter, or as a fool to the correction of the stocks; Till a dart strike through his liver; as a bird hasteth to the snare, and knoweth not that it is for his life. Hearken unto me now therefore, O ye children, and attend to the words of my mouth. Let not thine heart decline to her ways, go not astray in her paths. For she hath cast down many wounded: yea, many strong men have been slain by her. Her house is the way to hell, going down to the chambers of death."},
+                {"reference": "Proverbs 2:16-19", "text": "To deliver thee from the strange woman, even from the stranger which flattereth with her words; Which forsaketh the guide of her youth, and forgetteth the covenant of her God. For her house inclineth unto death, and her paths unto the dead. None that go unto her return again, neither take they hold of the paths of life."}
+            ]
+        },
+        "The Word of God": {
+            "title": "The Living and Active Word",
+            "description": "Scripture personifies God's Word as a living agent that goes forth to accomplish divine purposes. Isaiah declares that God's word shall not return void but shall accomplish that which He pleases and prosper in the thing whereto He sent it. The Word is portrayed as rain and snow that water the earth, bringing forth fruit. The psalmist declares 'He sent his word, and healed them.' In the New Testament, Hebrews describes the Word of God as 'quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit.' This personification reaches its apex in John's Prologue: 'In the beginning was the Word, and the Word was with God, and the Word was God... And the Word was made flesh, and dwelt among us.' The personified Word becomes the incarnate Christ.",
+            "verses": [
+                {"reference": "Isaiah 55:10-11", "text": "For as the rain cometh down, and the snow from heaven, and returneth not thither, but watereth the earth, and maketh it bring forth and bud, that it may give seed to the sower, and bread to the eater: So shall my word be that goeth forth out of my mouth: it shall not return unto me void, but it shall accomplish that which I please, and it shall prosper in the thing whereto I sent it."},
+                {"reference": "Psalm 107:20", "text": "He sent his word, and healed them, and delivered them from their destructions."},
+                {"reference": "Hebrews 4:12", "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."},
+                {"reference": "John 1:1", "text": "In the beginning was the Word, and the Word was with God, and the Word was God."},
+                {"reference": "John 1:14", "text": "And the Word was made flesh, and dwelt among us, (and we beheld his glory, the glory as of the only begotten of the Father,) full of grace and truth."},
+                {"reference": "Psalm 147:15", "text": "He sendeth forth his commandment upon earth: his word runneth very swiftly."}
+            ]
+        }
+    },
+    "Moral Qualities Personified": {
+        "Sin Crouching at the Door": {
+            "title": "The Beast Desiring to Master",
+            "description": "In one of Scripture's earliest and most striking personifications, God warns Cain that 'sin lieth at the door'—crouching like a predatory beast ready to spring. Sin is portrayed as having desire: 'unto thee shall be his desire, and thou shalt rule over him.' This mirrors the curse upon Eve—'thy desire shall be to thy husband, and he shall rule over thee'—suggesting sin seeks to dominate as in a twisted relationship. The personification reveals sin not as mere transgression but as a malevolent force with appetite and intention. Cain's failure to master this crouching beast leads immediately to fratricide. Paul echoes this when he describes sin as reigning, having dominion, and bringing forth death. Sin personified is a tyrant seeking slaves.",
+            "verses": [
+                {"reference": "Genesis 4:6-7", "text": "And the LORD said unto Cain, Why art thou wroth? and why is thy countenance fallen? If thou doest well, shalt thou not be accepted? and if thou doest not well, sin lieth at the door. And unto thee shall be his desire, and thou shalt rule over him."},
+                {"reference": "Romans 6:12", "text": "Let not sin therefore reign in your mortal body, that ye should obey it in the lusts thereof."},
+                {"reference": "Romans 6:14", "text": "For sin shall not have dominion over you: for ye are not under the law, but under grace."},
+                {"reference": "Romans 7:11", "text": "For sin, taking occasion by the commandment, deceived me, and by it slew me."},
+                {"reference": "Romans 7:17", "text": "Now then it is no more I that do it, but sin that dwelleth in me."},
+                {"reference": "James 1:15", "text": "Then when lust hath conceived, it bringeth forth sin: and sin, when it is finished, bringeth forth death."}
+            ]
+        },
+        "Mercy, Truth, Righteousness, and Peace": {
+            "title": "The Divine Attributes Meeting and Kissing",
+            "description": "Psalm 85 presents a beautiful personification of God's attributes as persons who meet, embrace, and work together in redemption. 'Mercy and truth are met together; righteousness and peace have kissed each other. Truth shall spring out of the earth; and righteousness shall look down from heaven.' This poetic imagery captures the theological problem solved at the cross: How can a righteous God show mercy? How can truth and peace coexist when sinners deserve judgment? In Christ, these seemingly conflicting attributes are reconciled—mercy and truth meet; righteousness and peace kiss. The image of Truth springing from earth while Righteousness looks down from heaven suggests the incarnation, where heaven's righteousness and earth's longing unite.",
+            "verses": [
+                {"reference": "Psalm 85:10-13", "text": "Mercy and truth are met together; righteousness and peace have kissed each other. Truth shall spring out of the earth; and righteousness shall look down from heaven. Yea, the LORD shall give that which is good; and our land shall yield her increase. Righteousness shall go before him; and shall set us in the way of his steps."},
+                {"reference": "Psalm 89:14", "text": "Justice and judgment are the habitation of thy throne: mercy and truth shall go before thy face."},
+                {"reference": "Psalm 43:3", "text": "O send out thy light and thy truth: let them lead me; let them bring me unto thy holy hill, and to thy tabernacles."},
+                {"reference": "Psalm 96:13", "text": "Before the LORD: for he cometh, for he cometh to judge the earth: he shall judge the world with righteousness, and the people with his truth."},
+                {"reference": "Isaiah 59:14", "text": "And judgment is turned away backward, and justice standeth afar off: for truth is fallen in the street, and equity cannot enter."}
+            ]
+        },
+        "Love": {
+            "title": "Love Personified in Song and Epistle",
+            "description": "The Song of Solomon personifies love as a force 'strong as death,' with jealousy 'cruel as the grave.' Love's coals are 'coals of fire, which hath a most vehement flame'—a flame of the LORD (Shalhebethyah). Many waters cannot quench love, neither can floods drown it. This personification elevates love beyond emotion to cosmic power. Paul's great hymn in 1 Corinthians 13 continues this personification: Love suffers long and is kind; love envies not; love vaunteth not itself; love never faileth. Love bears, believes, hopes, and endures all things. John takes this further: 'God is love'—not merely that God loves, but that love itself is the divine nature. To know love is to know God; to dwell in love is to dwell in God.",
+            "verses": [
+                {"reference": "Song of Solomon 8:6-7", "text": "Set me as a seal upon thine heart, as a seal upon thine arm: for love is strong as death; jealousy is cruel as the grave: the coals thereof are coals of fire, which hath a most vehement flame. Many waters cannot quench love, neither can the floods drown it: if a man would give all the substance of his house for love, it would utterly be contemned."},
+                {"reference": "1 Corinthians 13:4-7", "text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up, Doth not behave itself unseemly, seeketh not her own, is not easily provoked, thinketh no evil; Rejoiceth not in iniquity, but rejoiceth in the truth; Beareth all things, believeth all things, hopeth all things, endureth all things."},
+                {"reference": "1 Corinthians 13:8", "text": "Charity never faileth: but whether there be prophecies, they shall fail; whether there be tongues, they shall cease; whether there be knowledge, it shall vanish away."},
+                {"reference": "1 John 4:8", "text": "He that loveth not knoweth not God; for God is love."},
+                {"reference": "1 John 4:16", "text": "And we have known and believed the love that God hath to us. God is love; and he that dwelleth in love dwelleth in God, and God in him."}
+            ]
+        }
+    },
+    "Death and the Grave Personified": {
+        "Death (Thanatos/Mavet)": {
+            "title": "The Last Enemy",
+            "description": "Scripture personifies Death as a king, a horseman, and a defeated enemy. Death reigns from Adam to Moses. Death rides a pale horse in Revelation, with Hades following. Death has a sting—sin—and strength derived from the law. Yet Death is an enemy destined for destruction: 'The last enemy that shall be destroyed is death.' Christ holds the keys of death and Hades. He abolished death through His appearing. Death is swallowed up in victory through resurrection. In the end, Death and Hades are cast into the lake of fire—the second death. The personification allows Scripture to portray Christ's victory dramatically: He entered Death's domain, spoiled his house, and emerged triumphant, leading captivity captive.",
+            "verses": [
+                {"reference": "Romans 5:14", "text": "Nevertheless death reigned from Adam to Moses, even over them that had not sinned after the similitude of Adam's transgression, who is the figure of him that was to come."},
+                {"reference": "Revelation 6:8", "text": "And I looked, and behold a pale horse: and his name that sat on him was Death, and Hell followed with him. And power was given unto them over the fourth part of the earth, to kill with sword, and with hunger, and with death, and with the beasts of the earth."},
+                {"reference": "1 Corinthians 15:26", "text": "The last enemy that shall be destroyed is death."},
+                {"reference": "1 Corinthians 15:54-55", "text": "So when this corruptible shall have put on incorruption, and this mortal shall have put on immortality, then shall be brought to pass the saying that is written, Death is swallowed up in victory. O death, where is thy sting? O grave, where is thy victory?"},
+                {"reference": "Revelation 1:18", "text": "I am he that liveth, and was dead; and, behold, I am alive for evermore, Amen; and have the keys of hell and of death."},
+                {"reference": "Revelation 20:14", "text": "And death and hell were cast into the lake of fire. This is the second death."}
+            ]
+        },
+        "Sheol/Hades (The Grave)": {
+            "title": "The Insatiable Pit",
+            "description": "The grave is personified throughout Scripture as a voracious entity with an insatiable appetite. Sheol and Abaddon (Destruction) are never satisfied; the eyes of man are never satisfied. Hell hath enlarged herself and opened her mouth without measure. The grave cannot praise God; death cannot celebrate Him. Yet even Sheol cannot hide from God: 'If I make my bed in hell, behold, thou art there.' The personified grave represents the realm of the dead—not annihilation but continued existence separated from the living. Christ's descent into this realm and triumphant emergence demonstrates His authority over even this dark domain. He who holds the keys can open what none can shut.",
+            "verses": [
+                {"reference": "Proverbs 27:20", "text": "Hell and destruction are never full; so the eyes of man are never satisfied."},
+                {"reference": "Isaiah 5:14", "text": "Therefore hell hath enlarged herself, and opened her mouth without measure: and their glory, and their multitude, and their pomp, and he that rejoiceth, shall descend into it."},
+                {"reference": "Habakkuk 2:5", "text": "Yea also, because he transgresseth by wine, he is a proud man, neither keepeth at home, who enlargeth his desire as hell, and is as death, and cannot be satisfied, but gathereth unto him all nations, and heapeth unto him all people."},
+                {"reference": "Psalm 139:8", "text": "If I ascend up into heaven, thou art there: if I make my bed in hell, behold, thou art there."},
+                {"reference": "Isaiah 38:18", "text": "For the grave cannot praise thee, death can not celebrate thee: they that go down into the pit cannot hope for thy truth."},
+                {"reference": "Psalm 49:14-15", "text": "Like sheep they are laid in the grave; death shall feed on them; and the upright shall have dominion over them in the morning; and their beauty shall consume in the grave from their dwelling. But God will redeem my soul from the power of the grave: for he shall receive me."}
+            ]
+        }
+    },
+    "Cities and Nations Personified": {
+        "Jerusalem/Zion": {
+            "title": "Daughter, Bride, and Mother",
+            "description": "Jerusalem is personified throughout Scripture in profoundly personal terms. She is 'the daughter of Zion'—sometimes rejoicing, sometimes weeping in desolation. Isaiah calls her to 'Awake, awake, put on thy strength, O Zion.' She is portrayed as a barren woman who will bear more children than the married wife. Lamentations presents her as a widow weeping in the night, with tears on her cheeks. Yet she is also the bride adorned for her husband, the mother of all who are born of the Spirit. Paul declares that 'Jerusalem which is above is free, which is the mother of us all.' Revelation climaxes with the holy city, new Jerusalem, coming down from God as a bride adorned for her husband. The personification spans from mourning widow to glorified bride.",
+            "verses": [
+                {"reference": "Isaiah 52:1-2", "text": "Awake, awake; put on thy strength, O Zion; put on thy beautiful garments, O Jerusalem, the holy city: for henceforth there shall no more come into thee the uncircumcised and the unclean. Shake thyself from the dust; arise, and sit down, O Jerusalem: loose thyself from the bands of thy neck, O captive daughter of Zion."},
+                {"reference": "Lamentations 1:1-2", "text": "How doth the city sit solitary, that was full of people! how is she become as a widow! she that was great among the nations, and princess among the provinces, how is she become tributary! She weepeth sore in the night, and her tears are on her cheeks: among all her lovers she hath none to comfort her."},
+                {"reference": "Isaiah 54:1", "text": "Sing, O barren, thou that didst not bear; break forth into singing, and cry aloud, thou that didst not travail with child: for more are the children of the desolate than the children of the married wife, saith the LORD."},
+                {"reference": "Galatians 4:26", "text": "But Jerusalem which is above is free, which is the mother of us all."},
+                {"reference": "Revelation 21:2", "text": "And I John saw the holy city, new Jerusalem, coming down from God out of heaven, prepared as a bride adorned for her husband."},
+                {"reference": "Zechariah 9:9", "text": "Rejoice greatly, O daughter of Zion; shout, O daughter of Jerusalem: behold, thy King cometh unto thee: he is just, and having salvation; lowly, and riding upon an ass, and upon a colt the foal of an ass."}
+            ]
+        },
+        "Babylon the Great": {
+            "title": "The Mother of Harlots",
+            "description": "In stark contrast to Jerusalem the Bride, Babylon is personified as 'the great whore that sitteth upon many waters,' with whom the kings of the earth have committed fornication. She is arrayed in purple and scarlet, decked with gold and precious stones, holding a golden cup full of abominations. Her name is written: 'MYSTERY, BABYLON THE GREAT, THE MOTHER OF HARLOTS AND ABOMINATIONS OF THE EARTH.' She is drunk with the blood of saints and martyrs. Her fall is announced with the cry, 'Babylon the great is fallen, is fallen!' The personification captures the seductive yet deadly nature of worldly power and false religion that opposes God's kingdom. Her judgment comes in one hour, and the kings who loved her stand afar off, bewailing her burning.",
+            "verses": [
+                {"reference": "Revelation 17:1-5", "text": "And there came one of the seven angels which had the seven vials, and talked with me, saying unto me, Come hither; I will shew unto thee the judgment of the great whore that sitteth upon many waters: With whom the kings of the earth have committed fornication, and the inhabitants of the earth have been made drunk with the wine of her fornication... And upon her forehead was a name written, MYSTERY, BABYLON THE GREAT, THE MOTHER OF HARLOTS AND ABOMINATIONS OF THE EARTH."},
+                {"reference": "Revelation 17:6", "text": "And I saw the woman drunken with the blood of the saints, and with the blood of the martyrs of Jesus: and when I saw her, I wondered with great admiration."},
+                {"reference": "Revelation 18:2-3", "text": "And he cried mightily with a strong voice, saying, Babylon the great is fallen, is fallen, and is become the habitation of devils, and the hold of every foul spirit, and a cage of every unclean and hateful bird. For all nations have drunk of the wine of the wrath of her fornication, and the kings of the earth have committed fornication with her, and the merchants of the earth are waxed rich through the abundance of her delicacies."},
+                {"reference": "Revelation 18:7-8", "text": "How much she hath glorified herself, and lived deliciously, so much torment and sorrow give her: for she saith in her heart, I sit a queen, and am no widow, and shall see no sorrow. Therefore shall her plagues come in one day, death, and mourning, and famine; and she shall be utterly burned with fire: for strong is the Lord God who judgeth her."},
+                {"reference": "Isaiah 47:7-9", "text": "And thou saidst, I shall be a lady for ever: so that thou didst not lay these things to thy heart, neither didst remember the latter end of it. Therefore hear now this, thou that art given to pleasures, that dwellest carelessly, that sayest in thine heart, I am, and none else beside me; I shall not sit as a widow, neither shall I know the loss of children: But these two things shall come to thee in a moment in one day, the loss of children, and widowhood."}
+            ]
+        },
+        "Egypt and Assyria": {
+            "title": "The Broken Reed and the Rod of Wrath",
+            "description": "The great empires of the ancient world are personified in prophetic literature. Egypt is 'the staff of this bruised reed... whereon if a man lean, it will go into his hand, and pierce it'—a broken support that wounds those who trust it. Pharaoh is called 'the great dragon that lieth in the midst of his rivers.' Assyria is personified as God's rod of anger, the staff of His indignation, sent against a hypocritical nation—yet Assyria shall be punished for the pride of its heart. Ezekiel compares Assyria to a great cedar in Lebanon, beautiful in greatness, envied by all trees of Eden, yet brought down to Sheol. These personifications reveal how God uses nations as instruments while holding them accountable for their pride.",
+            "verses": [
+                {"reference": "Isaiah 36:6", "text": "Lo, thou trustest in the staff of this broken reed, on Egypt; whereon if a man lean, it will go into his hand, and pierce it: so is Pharaoh king of Egypt to all that trust in him."},
+                {"reference": "Ezekiel 29:3", "text": "Speak, and say, Thus saith the Lord GOD; Behold, I am against thee, Pharaoh king of Egypt, the great dragon that lieth in the midst of his rivers, which hath said, My river is mine own, and I have made it for myself."},
+                {"reference": "Isaiah 10:5-7", "text": "O Assyrian, the rod of mine anger, and the staff in their hand is mine indignation. I will send him against an hypocritical nation, and against the people of my wrath will I give him a charge, to take the spoil, and to take the prey, and to tread them down like the mire of the streets. Howbeit he meaneth not so, neither doth his heart think so; but it is in his heart to destroy and cut off nations not a few."},
+                {"reference": "Ezekiel 31:3-9", "text": "Behold, the Assyrian was a cedar in Lebanon with fair branches, and with a shadowing shroud, and of an high stature; and his top was among the thick boughs... all the trees of Eden, that were in the garden of God, envied him."},
+                {"reference": "Isaiah 10:12", "text": "Wherefore it shall come to pass, that when the Lord hath performed his whole work upon mount Zion and on Jerusalem, I will punish the fruit of the stout heart of the king of Assyria, and the glory of his high looks."}
+            ]
+        }
+    },
+    "Creation Personified": {
+        "The Earth and Nature": {
+            "title": "Creation Groaning and Praising",
+            "description": "Scripture personifies all creation as responsive to its Creator. The heavens declare God's glory; day unto day uttereth speech. The mountains and hills break forth into singing; the trees clap their hands. Yet creation also groans under the curse, subjected to vanity, waiting for the manifestation of the sons of God. The earth mourns and languishes under sin's weight. Blood cries out from the ground. The land vomits out inhabitants for their wickedness. Rivers clap their hands; floods lift up their voice. Fire and hail, snow and vapor, stormy wind fulfill His word. This personification reveals creation as not merely backdrop but participant in the drama of redemption—longing for liberation and destined for renewal.",
+            "verses": [
+                {"reference": "Psalm 19:1-2", "text": "The heavens declare the glory of God; and the firmament sheweth his handywork. Day unto day uttereth speech, and night unto night sheweth knowledge."},
+                {"reference": "Romans 8:22", "text": "For we know that the whole creation groaneth and travaileth in pain together until now."},
+                {"reference": "Romans 8:19-21", "text": "For the earnest expectation of the creature waiteth for the manifestation of the sons of God. For the creature was made subject to vanity, not willingly, but by reason of him who hath subjected the same in hope, Because the creature itself also shall be delivered from the bondage of corruption into the glorious liberty of the children of God."},
+                {"reference": "Isaiah 55:12", "text": "For ye shall go out with joy, and be led forth with peace: the mountains and the hills shall break forth before you into singing, and all the trees of the field shall clap their hands."},
+                {"reference": "Psalm 98:8", "text": "Let the floods clap their hands: let the hills be joyful together."},
+                {"reference": "Genesis 4:10", "text": "And he said, What hast thou done? the voice of thy brother's blood crieth unto me from the ground."}
+            ]
+        },
+        "The Sun, Moon, and Stars": {
+            "title": "The Heavenly Host",
+            "description": "The celestial bodies are personified as servants of God and witnesses to His works. The sun is as a bridegroom coming out of his chamber, rejoicing as a strong man to run a race. The sun knows his going down. Sun and moon stood still at Joshua's command. The stars in their courses fought against Sisera. The morning stars sang together at creation, and all the sons of God shouted for joy. Yet these luminaries are not to be worshipped—they are creatures, not Creator. In judgment, the sun is darkened, the moon turns to blood, and stars fall from heaven. Their personification emphasizes their role as obedient servants in God's cosmic household, testifying to His glory and executing His will.",
+            "verses": [
+                {"reference": "Psalm 19:4-6", "text": "Their line is gone out through all the earth, and their words to the end of the world. In them hath he set a tabernacle for the sun, Which is as a bridegroom coming out of his chamber, and rejoiceth as a strong man to run a race. His going forth is from the end of the heaven, and his circuit unto the ends of it: and there is nothing hid from the heat thereof."},
+                {"reference": "Psalm 104:19", "text": "He appointed the moon for seasons: the sun knoweth his going down."},
+                {"reference": "Joshua 10:12-13", "text": "Then spake Joshua to the LORD in the day when the LORD delivered up the Amorites before the children of Israel, and he said in the sight of Israel, Sun, stand thou still upon Gibeon; and thou, Moon, in the valley of Ajalon. And the sun stood still, and the moon stayed, until the people had avenged themselves upon their enemies."},
+                {"reference": "Judges 5:20", "text": "They fought from heaven; the stars in their courses fought against Sisera."},
+                {"reference": "Job 38:7", "text": "When the morning stars sang together, and all the sons of God shouted for joy?"},
+                {"reference": "Isaiah 13:10", "text": "For the stars of heaven and the constellations thereof shall not give their light: the sun shall be darkened in his going forth, and the moon shall not cause her light to shine."}
+            ]
+        }
+    },
+    "Abstract Concepts Personified": {
+        "Time and the Days": {
+            "title": "Days Speaking to Days",
+            "description": "Scripture personifies time itself as communicative and purposeful. 'Day unto day uttereth speech, and night unto night sheweth knowledge.' Each day has a voice, testifying to God's faithfulness. The days of old are called to remembrance as teachers. 'Remember the days of old, consider the years of many generations: ask thy father, and he will shew thee; thy elders, and they will tell thee.' The evil day is to be withstood; the day of the Lord comes as a thief. Days are numbered and appointed; our times are in God's hand. This personification transforms time from mere succession into meaningful narrative, each day a word spoken by God, each era a chapter in His unfolding purpose.",
+            "verses": [
+                {"reference": "Psalm 19:2", "text": "Day unto day uttereth speech, and night unto night sheweth knowledge."},
+                {"reference": "Deuteronomy 32:7", "text": "Remember the days of old, consider the years of many generations: ask thy father, and he will shew thee; thy elders, and they will tell thee."},
+                {"reference": "Ephesians 6:13", "text": "Wherefore take unto you the whole armour of God, that ye may be able to withstand in the evil day, and having done all, to stand."},
+                {"reference": "2 Peter 3:10", "text": "But the day of the Lord will come as a thief in the night; in the which the heavens shall pass away with a great noise, and the elements shall melt with fervent heat, the earth also and the works that are therein shall be burned up."},
+                {"reference": "Psalm 90:12", "text": "So teach us to number our days, that we may apply our hearts unto wisdom."},
+                {"reference": "Psalm 31:15", "text": "My times are in thy hand: deliver me from the hand of mine enemies, and from them that persecute me."}
+            ]
+        },
+        "Riches and Mammon": {
+            "title": "The Master Who Demands Devotion",
+            "description": "Jesus personifies wealth as 'Mammon'—not merely possessions but a rival deity demanding worship. 'Ye cannot serve God and mammon.' This personification exposes the spiritual nature of materialism: riches are not neutral tools but potential masters. They promise security but take wings and fly away like an eagle. They deceive, choking the word and making it unfruitful. The rich man's wealth is his strong city in his own imagination. Those who trust in riches shall fall. The love of money is the root of all evil, causing some to err from the faith and pierce themselves with many sorrows. The personification warns that what we own may come to own us.",
+            "verses": [
+                {"reference": "Matthew 6:24", "text": "No man can serve two masters: for either he will hate the one, and love the other; or else he will hold to the one, and despise the other. Ye cannot serve God and mammon."},
+                {"reference": "Proverbs 23:4-5", "text": "Labour not to be rich: cease from thine own wisdom. Wilt thou set thine eyes upon that which is not? for riches certainly make themselves wings; they fly away as an eagle toward heaven."},
+                {"reference": "Mark 4:19", "text": "And the cares of this world, and the deceitfulness of riches, and the lusts of other things entering in, choke the word, and it becometh unfruitful."},
+                {"reference": "Proverbs 18:11", "text": "The rich man's wealth is his strong city, and as an high wall in his own conceit."},
+                {"reference": "Proverbs 11:28", "text": "He that trusteth in his riches shall fall: but the righteous shall flourish as a branch."},
+                {"reference": "1 Timothy 6:10", "text": "For the love of money is the root of all evil: which while some coveted after, they have erred from the faith, and pierced themselves through with many sorrows."}
+            ]
+        }
+    }
+}
+

@@ -31,6 +31,7 @@ from .routes import (
     family_tree_router, init_family_tree_templates,
     study_guides_router, init_study_guides_templates,
     commentary_router, init_commentary_templates,
+    stories_router, init_stories_templates,
     utility_router,
 )
 from .routes.commentary import (
@@ -93,6 +94,9 @@ app.include_router(study_guides_router)
 
 # Include the commentary router
 app.include_router(commentary_router)
+
+# Include the stories router
+app.include_router(stories_router)
 
 # Include the utility router (sitemap, robots.txt, health)
 app.include_router(utility_router)
@@ -184,6 +188,7 @@ init_resources_templates(templates)
 init_family_tree_templates(templates)
 init_study_guides_templates(templates)
 init_commentary_templates(templates)
+init_stories_templates(templates)
 
 # Load Scofield commentary for cross-references
 scofield_commentary = {}

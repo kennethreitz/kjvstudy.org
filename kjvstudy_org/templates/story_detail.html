@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}{{ story.title }} - Bible Stories - KJV Study{% endblock %}
+{% block description %}{{ story.description }}{% endblock %}
+
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ story.title }} - Bible Story{% endblock %}
+{% block og_description %}{{ story.description }}{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ story.title | tojson }},
+  "description": {{ story.description | tojson }},
+  "author": {
+    "@type": "Organization",
+    "name": "KJV Study"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KJV Study",
+    "url": "https://kjvstudy.org"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kjvstudy.org{{ request.url.path }}"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "Bible Story"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<h1>{{ story.title }}</h1>
+<p class="subtitle">{{ story.category_name }}</p>
+
+<section>
+    <p style="font-size: 0.95rem; color: #555; margin-bottom: 1rem;">{{ story.description }}</p>
+
+    <p>
+        <label for="mn-scripture" class="margin-toggle">&#8853;</label>
+        <input type="checkbox" id="mn-scripture" class="margin-toggle"/>
+        <span class="marginnote">
+            <strong>Scripture References:</strong><br/>
+            {% for verse in story.verses %}
+                {{ verse }}{% if not loop.last %}<br/>{% endif %}
+            {% endfor %}
+            <br/><br/>
+            <strong>Themes:</strong><br/>
+            {% for theme in story.themes %}
+                {{ theme }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+            <br/><br/>
+            <strong>Key Characters:</strong><br/>
+            {% for character in story.characters %}
+                {{ character }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </span>
+    </p>
+</section>
+
+<section>
+    <h2>The Story</h2>
+    {% for paragraph in story.narrative.split('\n\n') %}
+    <p>{{ paragraph }}</p>
+    {% endfor %}
+</section>
+
+<section style="background: #f9f9f9; padding: 1.5rem; margin: 2rem 0; border-left: 3px solid #666;">
+    <h3 style="margin-top: 0;">For Kids</h3>
+    <p>Looking for a version for children? <a href="/stories/{{ story.slug }}/kids"><strong>{{ story.kids_title }}</strong></a> tells this same story in a way that's perfect for young readers.</p>
+</section>
+
+<nav style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #ddd;">
+    <p>
+        {% if prev_story %}
+        <a href="/stories/{{ prev_story.slug }}">← {{ prev_story.title }}</a>
+        {% else %}
+        <span style="color: #999;">← Previous</span>
+        {% endif %}
+        &nbsp;|&nbsp;
+        <a href="/stories">All Stories</a>
+        &nbsp;|&nbsp;
+        {% if next_story %}
+        <a href="/stories/{{ next_story.slug }}">{{ next_story.title }} →</a>
+        {% else %}
+        <span style="color: #999;">Next →</span>
+        {% endif %}
+    </p>
+</nav>
+{% endblock %}

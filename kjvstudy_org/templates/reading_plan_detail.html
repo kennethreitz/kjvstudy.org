@@ -110,11 +110,12 @@
 </section>
 
 <section>
-    <h2>Sample Daily Readings</h2>
-    <p class="intro-text">The following days provide a representative sample of this reading plan's structure and progression. The complete plan follows this pattern throughout its {{ plan.duration_days }}-day duration.</p>
+    <h2>Complete Reading Schedule</h2>
+    <p class="intro-text">All {{ plan.duration_days }} days of readings for this plan.</p>
 
     <div class="sample-days">
-        {% for day in plan.sample_days %}
+        {% set all_days = plan.days if plan.days else plan.sample_days %}
+        {% for day in all_days %}
         <div class="day-entry">
             <div class="day-number">Day {{ day.day }}</div>
             <div class="day-readings">
