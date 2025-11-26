@@ -786,12 +786,32 @@ def tetragrammaton_page(request: Request):
             {
             "books": get_books(),
             "content": TETRAGRAMMATON_CONTENT,
+            "pdf_available": WEASYPRINT_AVAILABLE,
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
                 {"text": "The Tetragrammaton", "url": None}
             ]
         }
+    )
+
+
+@router.get("/tetragrammaton/pdf")
+def tetragrammaton_pdf():
+    """PDF export for the Tetragrammaton page."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    html_content = templates.get_template("tetragrammaton_pdf.html").render(content=TETRAGRAMMATON_CONTENT)
+    pdf_buffer = render_html_to_pdf(html_content)
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=tetragrammaton.pdf"}
     )
 
 

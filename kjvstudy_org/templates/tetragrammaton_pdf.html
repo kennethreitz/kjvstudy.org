@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ content.title }}</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.85in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "et-book", Georgia, serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: "et-book", Georgia, "Times New Roman", serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 24pt;
+            font-weight: normal;
+            margin: 0 0 0.2in 0;
+        }
+
+        h2 {
+            font-size: 16pt;
+            font-weight: normal;
+            margin-top: 0.35in;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 0.3in;
+        }
+
+        .section-content {
+            margin-bottom: 0.2in;
+        }
+
+        .verse-block {
+            margin: 0.15in 0;
+            padding-left: 0.25in;
+            border-left: 2px solid #ddd;
+        }
+
+        .verse-ref {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .verse-text {
+            font-style: italic;
+            color: #555;
+        }
+
+        .footer {
+            margin-top: 0.4in;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ content.title }}</h1>
+    <p class="subtitle">{{ content.subtitle }}</p>
+    <div class="section-content">{{ content.introduction | safe }}</div>
+
+    {% for section in content.sections %}
+    <section>
+        <h2>{{ section.heading }}</h2>
+        <div class="section-content">{{ section.content | safe }}</div>
+
+        {% if section.verses %}
+        {% for verse in section.verses %}
+        <div class="verse-block">
+            <div class="verse-ref">{{ verse.reference }}</div>
+            <div class="verse-text">{{ verse.text }}</div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </section>
+    {% endfor %}
+
+    <section>
+        <h2>Conclusion</h2>
+        <div class="section-content">{{ content.conclusion | safe }}</div>
+    </section>
+
+    <div class="footer">From KJV Study &bull; kjvstudy.org</div>
+</body>
+</html>
