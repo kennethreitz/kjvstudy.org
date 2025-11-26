@@ -115,12 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .join('|');
 
     // Function to create a link for a verse reference
+    // Single verses use /verse/ path (for tooltip support), ranges use #verse- anchor
     function createVerseLink(book, chapter, verseStart, verseEnd, linkText) {
         const normalizedBook = book.replace(/\s+/g, ' ');
         if (verseEnd && verseEnd !== verseStart) {
             return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + linkText + '</a>';
         } else {
-            return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapter + '#verse-' + verseStart + '">' + linkText + '</a>';
+            return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapter + '/verse/' + verseStart + '">' + linkText + '</a>';
         }
     }
 
