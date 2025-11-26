@@ -92,6 +92,38 @@ section ul li strong {
 document.addEventListener('DOMContentLoaded', function() {
     const bookName = "{{ book }}";
 
+    // Known Bible book names and abbreviations for cross-references
+    const bibleBooks = [
+        'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
+        'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings',
+        '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther',
+        'Job', 'Psalms', 'Psalm', 'Proverbs', 'Ecclesiastes', 'Song of Solomon',
+        'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel',
+        'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum',
+        'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi',
+        'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans',
+        '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians',
+        'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy',
+        'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter',
+        '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+    ];
+
+    // Build regex pattern for book names (escaped and sorted by length desc to match longer names first)
+    const bookPattern = bibleBooks
+        .sort((a, b) => b.length - a.length)
+        .map(b => b.replace(/\s+/g, '\\s+'))
+        .join('|');
+
+    // Function to create a link for a verse reference
+    function createVerseLink(book, chapter, verseStart, verseEnd, linkText) {
+        const normalizedBook = book.replace(/\s+/g, ' ');
+        if (verseEnd && verseEnd !== verseStart) {
+            return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + linkText + '</a>';
+        } else {
+            return '<a href="/book/' + encodeURIComponent(normalizedBook) + '/chapter/' + chapter + '#verse-' + verseStart + '">' + linkText + '</a>';
+        }
+    }
+
     // Function to link verse references in text
     function linkVerseReferences(element) {
         if (!element) return;
@@ -108,11 +140,15 @@ document.addEventListener('DOMContentLoaded', function() {
             let text = textNode.textContent;
             let changed = false;
 
-            // Match chapter ranges in parentheses like "(chapters 1-11)", "(21-22)" or "(21)"
-            text = text.replace(/\((?:chapters?\s+)?(\d+)(?:-(\d+))?\)/gi, function(match, chapterStart, chapterEnd) {
+            // Match chapter ranges in parentheses like "(chapters 1-11)", but NOT verse references
+            // Only match if there's no colon (which would indicate verses)
+            text = text.replace(/\((?:chapters?\s+)?(\d+)(?:-(\d+))?\)(?![^(]*:)/gi, function(match, chapterStart, chapterEnd) {
+                // Check if this looks like a verse reference context - skip if so
+                if (/\d+:\d+/.test(text.substring(Math.max(0, text.indexOf(match) - 20), text.indexOf(match) + match.length + 20))) {
+                    return match;
+                }
                 changed = true;
                 if (chapterEnd) {
-                    // Check if original match had "chapters" prefix
                     const hasChapterWord = /chapters?\s+/i.test(match);
                     const prefix = hasChapterWord ? match.match(/chapters?\s+/i)[0] : '';
                     return '(<a href="/book/' + bookName + '/chapter/' + chapterStart + '">' + prefix + chapterStart + '-' + chapterEnd + '</a>)';
@@ -123,23 +159,98 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Create regex for book name references
-            const bookRegex = new RegExp('\\b' + bookName.replace(/\s+/g, '\\s+') + '\\s+(\\d+):(\\d+)-(\\d+)\\b', 'g');
-            text = text.replace(bookRegex, function(match, chapter, verseStart, verseEnd) {
+            // Match cross-book references like "Romans 5:12-21" or "1 Corinthians 15:21-22"
+            const crossBookRegex = new RegExp('(' + bookPattern + ')\\s+(\\d+):(\\d+)(?:-(\\d+))?', 'gi');
+            text = text.replace(crossBookRegex, function(match, book, chapter, verseStart, verseEnd) {
                 changed = true;
-                return '<a href="/book/' + bookName + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
+                return createVerseLink(book, chapter, verseStart, verseEnd, match);
             });
 
-            // Match verse ranges like "1:1-5"
-            text = text.replace(/\b(\d+):(\d+)-(\d+)\b/g, function(match, chapter, verseStart, verseEnd) {
-                changed = true;
-                return '<a href="/book/' + bookName + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
+            // Now handle references to the current book with inherited chapter context
+            // This handles patterns like "(27:27-29, 39-40; 48:15-16; 49:1-27)"
+            // Process parenthetical groups containing verse references
+            text = text.replace(/\(([^)]+)\)/g, function(match, inner) {
+                // Skip if already has anchor tags (already processed)
+                if (inner.includes('<a ')) return match;
+
+                // Check if this contains verse references (has colons with numbers)
+                if (!/\d+:\d+/.test(inner)) return match;
+
+                let currentChapter = null;
+                let result = inner;
+
+                // Split by semicolons and commas, preserving delimiters
+                const parts = inner.split(/([;,])/);
+                let newParts = [];
+
+                for (let i = 0; i < parts.length; i++) {
+                    const part = parts[i].trim();
+
+                    // If it's a delimiter, keep it
+                    if (part === ';' || part === ',') {
+                        newParts.push(parts[i]); // Keep original spacing
+                        continue;
+                    }
+
+                    if (!part) {
+                        newParts.push(parts[i]);
+                        continue;
+                    }
+
+                    // Check for full chapter:verse-verse pattern
+                    const fullRangeMatch = part.match(/^(\d+):(\d+)-(\d+)$/);
+                    if (fullRangeMatch) {
+                        currentChapter = fullRangeMatch[1];
+                        changed = true;
+                        newParts.push(createVerseLink(bookName, currentChapter, fullRangeMatch[2], fullRangeMatch[3], part));
+                        continue;
+                    }
+
+                    // Check for full chapter:verse pattern (single verse)
+                    const fullSingleMatch = part.match(/^(\d+):(\d+)$/);
+                    if (fullSingleMatch) {
+                        currentChapter = fullSingleMatch[1];
+                        changed = true;
+                        newParts.push(createVerseLink(bookName, currentChapter, fullSingleMatch[2], null, part));
+                        continue;
+                    }
+
+                    // Check for abbreviated verse-verse pattern (inherits chapter)
+                    const abbrevRangeMatch = part.match(/^(\d+)-(\d+)$/);
+                    if (abbrevRangeMatch && currentChapter) {
+                        changed = true;
+                        newParts.push(createVerseLink(bookName, currentChapter, abbrevRangeMatch[1], abbrevRangeMatch[2], part));
+                        continue;
+                    }
+
+                    // Check for abbreviated single verse (inherits chapter)
+                    const abbrevSingleMatch = part.match(/^(\d+)$/);
+                    if (abbrevSingleMatch && currentChapter && parts[i-1] && parts[i-1].trim() === ',') {
+                        changed = true;
+                        newParts.push(createVerseLink(bookName, currentChapter, abbrevSingleMatch[1], null, part));
+                        continue;
+                    }
+
+                    // Not a verse reference, keep as-is
+                    newParts.push(parts[i]);
+                }
+
+                if (changed) {
+                    return '(' + newParts.join('') + ')';
+                }
+                return match;
             });
 
-            // Match single verses like "1:1"
-            text = text.replace(/\b(\d+):(\d+)\b/g, function(match, chapter, verse) {
+            // Match remaining standalone verse ranges like "1:1-5" not in parentheses
+            text = text.replace(/(?<![>\d])(\d+):(\d+)-(\d+)(?![<\d])/g, function(match, chapter, verseStart, verseEnd) {
                 changed = true;
-                return '<a href="/book/' + bookName + '/chapter/' + chapter + '#verse-' + verse + '">' + match + '</a>';
+                return createVerseLink(bookName, chapter, verseStart, verseEnd, match);
+            });
+
+            // Match remaining standalone single verses like "1:1" not in parentheses
+            text = text.replace(/(?<![>\d])(\d+):(\d+)(?![-<\d])/g, function(match, chapter, verse) {
+                changed = true;
+                return createVerseLink(bookName, chapter, verse, null, match);
             });
 
             if (changed) {
