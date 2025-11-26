@@ -100,6 +100,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+            // Handle chapter-only references like "Psalm 2" or "Genesis 1"
+            // Must come after verse references to avoid double-matching
+            text = text.replace(/\b(Psalm|Genesis|Exodus|Isaiah|Daniel|Revelation|Matthew|Mark|Luke|John|Romans|Hebrews|Proverbs|Ecclesiastes|Job)\s+(\d+)\b(?!:)/g, function(match, book, chapter) {
+                changed = true;
+                return '<a href="/book/' + book + '/chapter/' + chapter + '">' + match + '</a>';
+            });
+
             if (changed) {
                 const span = document.createElement('span');
                 span.innerHTML = text;
