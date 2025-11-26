@@ -332,17 +332,6 @@ hr.story-divider::before {
         {% endfor %}
     </section>
 
-    <hr class="story-divider">
-
-    <section class="themes-section">
-        <h3>What We Learn From This Story</h3>
-        <ul class="themes-list">
-            {% for theme in story.themes %}
-            <li>{{ theme }}</li>
-            {% endfor %}
-        </ul>
-    </section>
-
     <aside class="adult-callout">
         <p>Want to read the full story with more details?<br/>
         Check out the <a href="/stories/{{ story.slug }}">grown-up version</a> of this story!</p>
