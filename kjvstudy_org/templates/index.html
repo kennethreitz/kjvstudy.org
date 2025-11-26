@@ -131,23 +131,24 @@
 }
 
 .feature-card {
+    display: block;
     padding: 1.25rem 1.5rem;
     border: 1px solid var(--border-color);
-    transition: border-color 0.2s;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: border-color 0.2s, background 0.2s;
 }
 
-.feature-card:hover {
+.feature-card:hover,
+.feature-card:focus-visible {
     border-color: var(--border-color-darker);
+    background: var(--code-bg);
 }
 
 .feature-card h3 {
     font-size: 1.05rem;
     margin: 0 0 0.5rem 0;
-}
-
-.feature-card h3 a {
     color: var(--text-color);
-    text-decoration: none;
 }
 
 .feature-card p {
@@ -287,34 +288,34 @@
     <h2>Study Resources</h2>
 
     <div class="feature-grid">
-        <div class="feature-card">
-            <h3><a href="/interlinear">Original Languages</a></h3>
+        <a class="feature-card" href="/interlinear">
+            <h3>Original Languages</h3>
             <p>Word-by-word Hebrew (תּוֹרָה) and Greek (Ἑλληνική) analysis with Strong's numbers, transliterations, parsing, and lexical definitions.</p>
-        </div>
-        <div class="feature-card">
-            <h3><a href="/concordance">Concordance</a></h3>
+        </a>
+        <a class="feature-card" href="/concordance">
+            <h3>Concordance</h3>
             <p>Find every occurrence of any word throughout the entire biblical corpus. Trace terminology across both testaments.</p>
-        </div>
-        <div class="feature-card">
-            <h3><a href="/topics">Topical Index</a></h3>
+        </a>
+        <a class="feature-card" href="/topics">
+            <h3>Topical Index</h3>
             <p>Scripture organized by subject—Salvation, Grace, Faith, Prayer, Forgiveness, the Holy Spirit, and other essential doctrines.</p>
-        </div>
-        <div class="feature-card">
-            <h3><a href="/study-guides">Study Guides</a></h3>
+        </a>
+        <a class="feature-card" href="/study-guides">
+            <h3>Study Guides</h3>
             <p>Thematic studies exploring salvation, Christian living, prayer, and foundational doctrines with extensive Scripture references.</p>
-        </div>
-        <div class="feature-card">
-            <h3><a href="/stories">Bible Stories</a></h3>
+        </a>
+        <a class="feature-card" href="/stories">
+            <h3>Bible Stories</h3>
             <p>Scripture narratives from Creation to the early Church, with both adult versions and kid-friendly retellings for family devotions.</p>
-        </div>
-        <div class="feature-card">
-            <h3><a href="/reading-plans">Reading Plans</a></h3>
+        </a>
+        <a class="feature-card" href="/reading-plans">
+            <h3>Reading Plans</h3>
             <p>Structured schedules for systematic Scripture study: chronological, one-year, New Testament, Gospels, Psalms & Proverbs.</p>
-        </div>
-        <div class="feature-card">
-            <h3><a href="/search">Search</a></h3>
+        </a>
+        <a class="feature-card" href="/search">
+            <h3>Search</h3>
             <p>Full-text search across all 31,102 verses with relevance scoring. Find any word, phrase, or passage in Scripture.</p>
-        </div>
+        </a>
     </div>
 </section>
 
