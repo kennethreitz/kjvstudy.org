@@ -2062,12 +2062,6 @@ def resources_page(request: Request):
                 "url": "/study-guides",
                 "description": "In-depth guides for studying biblical books, themes, and doctrines",
                 "count": "Multiple guides"
-            },
-            {
-                "name": "Parenting",
-                "url": "/topics/Parenting",
-                "description": "Biblical principles for raising children in the nurture and admonition of the Lord",
-                "count": "6 subtopics"
             }
         ]
     }
