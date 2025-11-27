@@ -14,30 +14,30 @@
 }
 
 .plan-card {
+    display: block;
     padding: 1.5rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .plan-card:hover {
     border-color: var(--border-color-darker);
     box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
 }
 
 .plan-name {
     font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-}
-
-.plan-name a {
     color: var(--link-color);
-    text-decoration: none;
-    border-bottom: none;
 }
 
-.plan-name a:hover {
+.plan-card:hover .plan-name {
     color: var(--link-hover);
 }
 
@@ -79,11 +79,11 @@
 
     <div class="plan-grid">
         {% for plan in plans %}
-        <div class="plan-card">
-            <div class="plan-name"><a href="/reading-plans/{{ plan.id }}">{{ plan.name }}</a></div>
+        <a href="/reading-plans/{{ plan.id }}" class="plan-card">
+            <div class="plan-name">{{ plan.name }}</div>
             <div class="plan-description">{{ plan.description }}</div>
             <div class="plan-duration">{{ plan.days }} days</div>
-        </div>
+        </a>
         {% endfor %}
     </div>
 </section>
