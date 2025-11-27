@@ -36,6 +36,17 @@ from ..data import (
     NAMES_OF_CHRIST_DATA,
     SPIRITS_AND_DEMONS_DATA,
     PERSONIFICATIONS_DATA,
+    # Additional Systematic Theology
+    BIBLIOLOGY_DATA,
+    THEOLOGY_PROPER_DATA,
+    ANTHROPOLOGY_DATA,
+    HAMARTIOLOGY_DATA,
+    PROVIDENCE_DATA,
+    GRACE_DATA,
+    JUSTIFICATION_DATA,
+    SANCTIFICATION_DATA,
+    LAW_AND_GOSPEL_DATA,
+    WORSHIP_DATA,
 )
 from ..utils.helpers import create_slug
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf
@@ -1970,5 +1981,615 @@ def personifications_detail_pdf(item_slug: str):
         PERSONIFICATIONS_DATA,
         item_slug,
         resource_title="Personifications",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# BIBLIOLOGY - THE DOCTRINE OF SCRIPTURE
+# ============================================================================
+@router.get("/bibliology", response_class=HTMLResponse)
+def bibliology_page(request: Request):
+    """Bibliology - The Doctrine of Scripture."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": BIBLIOLOGY_DATA["categories"],
+            "page_title": BIBLIOLOGY_DATA["title"],
+            "page_subtitle": BIBLIOLOGY_DATA["subtitle"],
+            "page_description": BIBLIOLOGY_DATA["introduction"],
+            "base_url": "/bibliology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Bibliology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/bibliology/pdf")
+def bibliology_page_pdf():
+    return _resource_index_pdf_response(
+        BIBLIOLOGY_DATA["categories"],
+        page_title=BIBLIOLOGY_DATA["title"],
+        page_subtitle=BIBLIOLOGY_DATA["subtitle"],
+        page_description=BIBLIOLOGY_DATA["introduction"]
+    )
+
+
+@router.get("/bibliology/{item_slug}", response_class=HTMLResponse)
+def bibliology_detail(request: Request, item_slug: str):
+    """Individual Bibliology topic detail page."""
+    return _resource_detail_response(
+        request,
+        BIBLIOLOGY_DATA["categories"],
+        item_slug,
+        resource_title="Bibliology",
+        back_url="/bibliology",
+        back_text="Bibliology",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/bibliology/{item_slug}/pdf")
+def bibliology_detail_pdf(item_slug: str):
+    """PDF export for Bibliology topics."""
+    return _resource_detail_pdf_response(
+        BIBLIOLOGY_DATA["categories"],
+        item_slug,
+        resource_title="Bibliology",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# THEOLOGY PROPER - THE ATTRIBUTES OF GOD
+# ============================================================================
+@router.get("/theology-proper", response_class=HTMLResponse)
+def theology_proper_page(request: Request):
+    """Theology Proper - The Attributes of God."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": THEOLOGY_PROPER_DATA["categories"],
+            "page_title": THEOLOGY_PROPER_DATA["title"],
+            "page_subtitle": THEOLOGY_PROPER_DATA["subtitle"],
+            "page_description": THEOLOGY_PROPER_DATA["introduction"],
+            "base_url": "/theology-proper",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Theology Proper", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/theology-proper/pdf")
+def theology_proper_page_pdf():
+    return _resource_index_pdf_response(
+        THEOLOGY_PROPER_DATA["categories"],
+        page_title=THEOLOGY_PROPER_DATA["title"],
+        page_subtitle=THEOLOGY_PROPER_DATA["subtitle"],
+        page_description=THEOLOGY_PROPER_DATA["introduction"]
+    )
+
+
+@router.get("/theology-proper/{item_slug}", response_class=HTMLResponse)
+def theology_proper_detail(request: Request, item_slug: str):
+    """Individual Theology Proper topic detail page."""
+    return _resource_detail_response(
+        request,
+        THEOLOGY_PROPER_DATA["categories"],
+        item_slug,
+        resource_title="Theology Proper",
+        back_url="/theology-proper",
+        back_text="Theology Proper",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/theology-proper/{item_slug}/pdf")
+def theology_proper_detail_pdf(item_slug: str):
+    """PDF export for Theology Proper topics."""
+    return _resource_detail_pdf_response(
+        THEOLOGY_PROPER_DATA["categories"],
+        item_slug,
+        resource_title="Theology Proper",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# ANTHROPOLOGY - THE DOCTRINE OF MAN
+# ============================================================================
+@router.get("/anthropology", response_class=HTMLResponse)
+def anthropology_page(request: Request):
+    """Anthropology - The Doctrine of Man."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": ANTHROPOLOGY_DATA["categories"],
+            "page_title": ANTHROPOLOGY_DATA["title"],
+            "page_subtitle": ANTHROPOLOGY_DATA["subtitle"],
+            "page_description": ANTHROPOLOGY_DATA["introduction"],
+            "base_url": "/anthropology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Anthropology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/anthropology/pdf")
+def anthropology_page_pdf():
+    return _resource_index_pdf_response(
+        ANTHROPOLOGY_DATA["categories"],
+        page_title=ANTHROPOLOGY_DATA["title"],
+        page_subtitle=ANTHROPOLOGY_DATA["subtitle"],
+        page_description=ANTHROPOLOGY_DATA["introduction"]
+    )
+
+
+@router.get("/anthropology/{item_slug}", response_class=HTMLResponse)
+def anthropology_detail(request: Request, item_slug: str):
+    """Individual Anthropology topic detail page."""
+    return _resource_detail_response(
+        request,
+        ANTHROPOLOGY_DATA["categories"],
+        item_slug,
+        resource_title="Anthropology",
+        back_url="/anthropology",
+        back_text="Anthropology",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/anthropology/{item_slug}/pdf")
+def anthropology_detail_pdf(item_slug: str):
+    """PDF export for Anthropology topics."""
+    return _resource_detail_pdf_response(
+        ANTHROPOLOGY_DATA["categories"],
+        item_slug,
+        resource_title="Anthropology",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# HAMARTIOLOGY - THE DOCTRINE OF SIN
+# ============================================================================
+@router.get("/hamartiology", response_class=HTMLResponse)
+def hamartiology_page(request: Request):
+    """Hamartiology - The Doctrine of Sin."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": HAMARTIOLOGY_DATA["categories"],
+            "page_title": HAMARTIOLOGY_DATA["title"],
+            "page_subtitle": HAMARTIOLOGY_DATA["subtitle"],
+            "page_description": HAMARTIOLOGY_DATA["introduction"],
+            "base_url": "/hamartiology",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Hamartiology", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/hamartiology/pdf")
+def hamartiology_page_pdf():
+    return _resource_index_pdf_response(
+        HAMARTIOLOGY_DATA["categories"],
+        page_title=HAMARTIOLOGY_DATA["title"],
+        page_subtitle=HAMARTIOLOGY_DATA["subtitle"],
+        page_description=HAMARTIOLOGY_DATA["introduction"]
+    )
+
+
+@router.get("/hamartiology/{item_slug}", response_class=HTMLResponse)
+def hamartiology_detail(request: Request, item_slug: str):
+    """Individual Hamartiology topic detail page."""
+    return _resource_detail_response(
+        request,
+        HAMARTIOLOGY_DATA["categories"],
+        item_slug,
+        resource_title="Hamartiology",
+        back_url="/hamartiology",
+        back_text="Hamartiology",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/hamartiology/{item_slug}/pdf")
+def hamartiology_detail_pdf(item_slug: str):
+    """PDF export for Hamartiology topics."""
+    return _resource_detail_pdf_response(
+        HAMARTIOLOGY_DATA["categories"],
+        item_slug,
+        resource_title="Hamartiology",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# PROVIDENCE - DIVINE PROVIDENCE
+# ============================================================================
+@router.get("/providence", response_class=HTMLResponse)
+def providence_page(request: Request):
+    """Providence - Divine Providence."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": PROVIDENCE_DATA["categories"],
+            "page_title": PROVIDENCE_DATA["title"],
+            "page_subtitle": PROVIDENCE_DATA["subtitle"],
+            "page_description": PROVIDENCE_DATA["introduction"],
+            "base_url": "/providence",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Providence", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/providence/pdf")
+def providence_page_pdf():
+    return _resource_index_pdf_response(
+        PROVIDENCE_DATA["categories"],
+        page_title=PROVIDENCE_DATA["title"],
+        page_subtitle=PROVIDENCE_DATA["subtitle"],
+        page_description=PROVIDENCE_DATA["introduction"]
+    )
+
+
+@router.get("/providence/{item_slug}", response_class=HTMLResponse)
+def providence_detail(request: Request, item_slug: str):
+    """Individual Providence topic detail page."""
+    return _resource_detail_response(
+        request,
+        PROVIDENCE_DATA["categories"],
+        item_slug,
+        resource_title="Providence",
+        back_url="/providence",
+        back_text="Providence",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/providence/{item_slug}/pdf")
+def providence_detail_pdf(item_slug: str):
+    """PDF export for Providence topics."""
+    return _resource_detail_pdf_response(
+        PROVIDENCE_DATA["categories"],
+        item_slug,
+        resource_title="Providence",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# GRACE - THE DOCTRINE OF GRACE
+# ============================================================================
+@router.get("/grace", response_class=HTMLResponse)
+def grace_page(request: Request):
+    """Grace - The Doctrine of Grace."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": GRACE_DATA["categories"],
+            "page_title": GRACE_DATA["title"],
+            "page_subtitle": GRACE_DATA["subtitle"],
+            "page_description": GRACE_DATA["introduction"],
+            "base_url": "/grace",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Grace", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/grace/pdf")
+def grace_page_pdf():
+    return _resource_index_pdf_response(
+        GRACE_DATA["categories"],
+        page_title=GRACE_DATA["title"],
+        page_subtitle=GRACE_DATA["subtitle"],
+        page_description=GRACE_DATA["introduction"]
+    )
+
+
+@router.get("/grace/{item_slug}", response_class=HTMLResponse)
+def grace_detail(request: Request, item_slug: str):
+    """Individual Grace topic detail page."""
+    return _resource_detail_response(
+        request,
+        GRACE_DATA["categories"],
+        item_slug,
+        resource_title="Grace",
+        back_url="/grace",
+        back_text="Grace",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/grace/{item_slug}/pdf")
+def grace_detail_pdf(item_slug: str):
+    """PDF export for Grace topics."""
+    return _resource_detail_pdf_response(
+        GRACE_DATA["categories"],
+        item_slug,
+        resource_title="Grace",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# JUSTIFICATION - THE DOCTRINE OF JUSTIFICATION
+# ============================================================================
+@router.get("/justification", response_class=HTMLResponse)
+def justification_page(request: Request):
+    """Justification - The Doctrine of Justification."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": JUSTIFICATION_DATA["categories"],
+            "page_title": JUSTIFICATION_DATA["title"],
+            "page_subtitle": JUSTIFICATION_DATA["subtitle"],
+            "page_description": JUSTIFICATION_DATA["introduction"],
+            "base_url": "/justification",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Justification", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/justification/pdf")
+def justification_page_pdf():
+    return _resource_index_pdf_response(
+        JUSTIFICATION_DATA["categories"],
+        page_title=JUSTIFICATION_DATA["title"],
+        page_subtitle=JUSTIFICATION_DATA["subtitle"],
+        page_description=JUSTIFICATION_DATA["introduction"]
+    )
+
+
+@router.get("/justification/{item_slug}", response_class=HTMLResponse)
+def justification_detail(request: Request, item_slug: str):
+    """Individual Justification topic detail page."""
+    return _resource_detail_response(
+        request,
+        JUSTIFICATION_DATA["categories"],
+        item_slug,
+        resource_title="Justification",
+        back_url="/justification",
+        back_text="Justification",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/justification/{item_slug}/pdf")
+def justification_detail_pdf(item_slug: str):
+    """PDF export for Justification topics."""
+    return _resource_detail_pdf_response(
+        JUSTIFICATION_DATA["categories"],
+        item_slug,
+        resource_title="Justification",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# SANCTIFICATION - THE DOCTRINE OF SANCTIFICATION
+# ============================================================================
+@router.get("/sanctification", response_class=HTMLResponse)
+def sanctification_page(request: Request):
+    """Sanctification - The Doctrine of Sanctification."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": SANCTIFICATION_DATA["categories"],
+            "page_title": SANCTIFICATION_DATA["title"],
+            "page_subtitle": SANCTIFICATION_DATA["subtitle"],
+            "page_description": SANCTIFICATION_DATA["introduction"],
+            "base_url": "/sanctification",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Sanctification", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/sanctification/pdf")
+def sanctification_page_pdf():
+    return _resource_index_pdf_response(
+        SANCTIFICATION_DATA["categories"],
+        page_title=SANCTIFICATION_DATA["title"],
+        page_subtitle=SANCTIFICATION_DATA["subtitle"],
+        page_description=SANCTIFICATION_DATA["introduction"]
+    )
+
+
+@router.get("/sanctification/{item_slug}", response_class=HTMLResponse)
+def sanctification_detail(request: Request, item_slug: str):
+    """Individual Sanctification topic detail page."""
+    return _resource_detail_response(
+        request,
+        SANCTIFICATION_DATA["categories"],
+        item_slug,
+        resource_title="Sanctification",
+        back_url="/sanctification",
+        back_text="Sanctification",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/sanctification/{item_slug}/pdf")
+def sanctification_detail_pdf(item_slug: str):
+    """PDF export for Sanctification topics."""
+    return _resource_detail_pdf_response(
+        SANCTIFICATION_DATA["categories"],
+        item_slug,
+        resource_title="Sanctification",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# LAW AND GOSPEL
+# ============================================================================
+@router.get("/law-and-gospel", response_class=HTMLResponse)
+def law_and_gospel_page(request: Request):
+    """Law and Gospel - The Doctrine of Law and Gospel."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": LAW_AND_GOSPEL_DATA["categories"],
+            "page_title": LAW_AND_GOSPEL_DATA["title"],
+            "page_subtitle": LAW_AND_GOSPEL_DATA["subtitle"],
+            "page_description": LAW_AND_GOSPEL_DATA["introduction"],
+            "base_url": "/law-and-gospel",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Law and Gospel", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/law-and-gospel/pdf")
+def law_and_gospel_page_pdf():
+    return _resource_index_pdf_response(
+        LAW_AND_GOSPEL_DATA["categories"],
+        page_title=LAW_AND_GOSPEL_DATA["title"],
+        page_subtitle=LAW_AND_GOSPEL_DATA["subtitle"],
+        page_description=LAW_AND_GOSPEL_DATA["introduction"]
+    )
+
+
+@router.get("/law-and-gospel/{item_slug}", response_class=HTMLResponse)
+def law_and_gospel_detail(request: Request, item_slug: str):
+    """Individual Law and Gospel topic detail page."""
+    return _resource_detail_response(
+        request,
+        LAW_AND_GOSPEL_DATA["categories"],
+        item_slug,
+        resource_title="Law and Gospel",
+        back_url="/law-and-gospel",
+        back_text="Law and Gospel",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/law-and-gospel/{item_slug}/pdf")
+def law_and_gospel_detail_pdf(item_slug: str):
+    """PDF export for Law and Gospel topics."""
+    return _resource_detail_pdf_response(
+        LAW_AND_GOSPEL_DATA["categories"],
+        item_slug,
+        resource_title="Law and Gospel",
+        not_found_message="Topic not found",
+    )
+
+
+# ============================================================================
+# WORSHIP - THE DOCTRINE OF WORSHIP
+# ============================================================================
+@router.get("/worship", response_class=HTMLResponse)
+def worship_page(request: Request):
+    """Worship - The Doctrine of Worship."""
+    return templates.TemplateResponse(
+            request,
+            "resource_index.html",
+            {
+            "books": get_books(),
+            "resource_data": WORSHIP_DATA["categories"],
+            "page_title": WORSHIP_DATA["title"],
+            "page_subtitle": WORSHIP_DATA["subtitle"],
+            "page_description": WORSHIP_DATA["introduction"],
+            "base_url": "/worship",
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": "Worship", "url": None}
+            ]
+        }
+    )
+
+
+@router.get("/worship/pdf")
+def worship_page_pdf():
+    return _resource_index_pdf_response(
+        WORSHIP_DATA["categories"],
+        page_title=WORSHIP_DATA["title"],
+        page_subtitle=WORSHIP_DATA["subtitle"],
+        page_description=WORSHIP_DATA["introduction"]
+    )
+
+
+@router.get("/worship/{item_slug}", response_class=HTMLResponse)
+def worship_detail(request: Request, item_slug: str):
+    """Individual Worship topic detail page."""
+    return _resource_detail_response(
+        request,
+        WORSHIP_DATA["categories"],
+        item_slug,
+        resource_title="Worship",
+        back_url="/worship",
+        back_text="Worship",
+        not_found_message="Topic not found",
+    )
+
+
+@router.get("/worship/{item_slug}/pdf")
+def worship_detail_pdf(item_slug: str):
+    """PDF export for Worship topics."""
+    return _resource_detail_pdf_response(
+        WORSHIP_DATA["categories"],
+        item_slug,
+        resource_title="Worship",
         not_found_message="Topic not found",
     )

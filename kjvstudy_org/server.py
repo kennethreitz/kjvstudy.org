@@ -2028,6 +2028,66 @@ def resources_page(request: Request):
                 "url": "/personifications",
                 "description": "Abstract concepts given human form—Wisdom, Folly, Death, Sin, and more",
                 "count": "6 categories"
+            },
+            {
+                "name": "Bibliology",
+                "url": "/bibliology",
+                "description": "The Doctrine of Scripture—inspiration, authority, sufficiency, and preservation",
+                "count": "4 categories"
+            },
+            {
+                "name": "Theology Proper",
+                "url": "/theology-proper",
+                "description": "The Attributes of God—His incommunicable and communicable perfections",
+                "count": "4 categories"
+            },
+            {
+                "name": "Anthropology",
+                "url": "/anthropology",
+                "description": "The Doctrine of Man—creation, constitution, and condition of humanity",
+                "count": "4 categories"
+            },
+            {
+                "name": "Hamartiology",
+                "url": "/hamartiology",
+                "description": "The Doctrine of Sin—its origin, nature, transmission, and consequences",
+                "count": "4 categories"
+            },
+            {
+                "name": "Providence",
+                "url": "/providence",
+                "description": "Divine Providence—God's preservation, governance, and concurrence in all things",
+                "count": "4 categories"
+            },
+            {
+                "name": "Grace",
+                "url": "/grace",
+                "description": "The Doctrine of Grace—common grace, effectual grace, election, and perseverance",
+                "count": "4 categories"
+            },
+            {
+                "name": "Justification",
+                "url": "/justification",
+                "description": "The Doctrine of Justification—declared righteous through faith in Christ alone",
+                "count": "4 categories"
+            },
+            {
+                "name": "Sanctification",
+                "url": "/sanctification",
+                "description": "The Doctrine of Sanctification—progressive holiness through the Spirit",
+                "count": "4 categories"
+            },
+            {
+                "name": "Law and Gospel",
+                "url": "/law-and-gospel",
+                "description": "The distinction between Law and Gospel—God's demands and His gracious provision",
+                "count": "4 categories"
+            },
+            {
+                "name": "Worship",
+                "url": "/worship",
+                "description": "The Doctrine of Worship—regulative principle, elements, and the heart of worship",
+                "count": "4 categories"
             }
         ],
         "History & Culture": [

@@ -40,6 +40,18 @@ NAMES_OF_CHRIST_DATA = _data["names_of_christ"]
 SPIRITS_AND_DEMONS_DATA = _data["spirits_and_demons"]
 PERSONIFICATIONS_DATA = _data["personifications"]
 
+# Additional Systematic Theology Resources
+BIBLIOLOGY_DATA = _data["bibliology"]
+THEOLOGY_PROPER_DATA = _data["theology_proper"]
+ANTHROPOLOGY_DATA = _data["anthropology"]
+HAMARTIOLOGY_DATA = _data["hamartiology"]
+PROVIDENCE_DATA = _data["providence"]
+GRACE_DATA = _data["grace"]
+JUSTIFICATION_DATA = _data["justification"]
+SANCTIFICATION_DATA = _data["sanctification"]
+LAW_AND_GOSPEL_DATA = _data["law_and_gospel"]
+WORSHIP_DATA = _data["worship"]
+
 __all__ = [
     'BIBLICAL_LOCATIONS',
     'ANGELS_DATA',
@@ -71,4 +83,15 @@ __all__ = [
     'NAMES_OF_CHRIST_DATA',
     'SPIRITS_AND_DEMONS_DATA',
     'PERSONIFICATIONS_DATA',
+    # Additional Systematic Theology
+    'BIBLIOLOGY_DATA',
+    'THEOLOGY_PROPER_DATA',
+    'ANTHROPOLOGY_DATA',
+    'HAMARTIOLOGY_DATA',
+    'PROVIDENCE_DATA',
+    'GRACE_DATA',
+    'JUSTIFICATION_DATA',
+    'SANCTIFICATION_DATA',
+    'LAW_AND_GOSPEL_DATA',
+    'WORSHIP_DATA',
 ]
