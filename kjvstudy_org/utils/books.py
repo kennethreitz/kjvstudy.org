@@ -7,7 +7,7 @@ OT_BOOKS = [
     'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
     '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles',
     'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
-    'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah',
+    'Ecclesiastes', "Solomon's Song", 'Isaiah', 'Jeremiah',
     'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
     'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
     'Haggai', 'Zechariah', 'Malachi'
@@ -66,10 +66,10 @@ BOOK_ABBREVIATIONS = {
     "Second John": "2 John",
     "Third John": "3 John",
 
-    # Alternative names
-    "Song of Songs": "Song of Solomon",
-    "Solomon's Song": "Song of Solomon",
-    "Canticles": "Song of Solomon",
+    # Alternative names (map to the name used in verses-1769.json)
+    "Song of Solomon": "Solomon's Song",
+    "Song of Songs": "Solomon's Song",
+    "Canticles": "Solomon's Song",
 
     # Common abbreviations - Old Testament
     "Gen": "Genesis",
