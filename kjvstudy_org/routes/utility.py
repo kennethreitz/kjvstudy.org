@@ -327,7 +327,7 @@ def sitemap():
 """
 
     # Add all book URLs
-    books = list(bible.iter_books())
+    books = bible.get_books()
     for book in books:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/book/{book}</loc>

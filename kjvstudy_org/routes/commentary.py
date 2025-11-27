@@ -24,7 +24,7 @@ def init_templates(app_templates):
 def get_books():
     """Get list of Bible books."""
     from ..kjv import bible
-    return list(bible.iter_books())
+    return bible.get_books()
 
 
 def get_verse_text(book, chapter, verse):

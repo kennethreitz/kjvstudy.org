@@ -236,7 +236,7 @@ except Exception as e:
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
     """Custom error handler that renders our error template"""
     if exc.status_code == 404:
-        books = list(bible.iter_books())
+        books = bible.get_books()
         return templates.TemplateResponse(
             request,
             "error.html",
@@ -255,7 +255,7 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
 @app.get("/search", response_class=HTMLResponse)
 def search_page(request: Request, q: str = Query(None, description="Search query")):
     """Search page with results (includes Bible verses and family tree)"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
     search_results = []
     family_tree_results = []
     is_direct_verse = False
@@ -286,7 +286,7 @@ def search_page(request: Request, q: str = Query(None, description="Search query
 @app.get("/concordance", response_class=HTMLResponse)
 def concordance_page(request: Request, word: str = Query(None, description="Word to look up")):
     """Concordance page showing all occurrences of a word"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
 
     if not word or len(word.strip()) < 2:
         return templates.TemplateResponse(
@@ -354,7 +354,7 @@ def concordance_page(request: Request, word: str = Query(None, description="Word
 @app.get("/interlinear", response_class=HTMLResponse)
 def interlinear_landing_page(request: Request):
     """Landing page explaining interlinear Bible study"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
 
     # Featured verses with interlinear data
     featured_verses = [
@@ -412,7 +412,7 @@ def verse_reference_to_url(reference: str):
 def random_verse(request: Request):
     """Redirect to a random Bible verse"""
     # Get all books
-    all_books = list(bible.iter_books())
+    all_books = bible.get_books()
 
     # Pick a random book
     book = random.choice(all_books)
@@ -436,7 +436,7 @@ def random_verse(request: Request):
 @app.get("/verse-of-the-day", response_class=HTMLResponse)
 def verse_of_the_day_page(request: Request):
     """Verse of the day page"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
     daily_verse = get_daily_verse()
 
     # Generate past 30 days of verses
@@ -1389,7 +1389,7 @@ def get_biblical_timeline_context():
 @app.get("/biblical-timeline", response_class=HTMLResponse)
 def biblical_timeline_page(request: Request):
     """Biblical timeline page showing major biblical events chronologically"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
 
     timeline_events, chronology_note, chronology_comparison = get_biblical_timeline_context()
 
@@ -1542,7 +1542,7 @@ def get_daily_verse(date_str=None):
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
-    books = list(bible.iter_books())
+    books = bible.get_books()
     daily_verse = get_daily_verse()
 
     # Define study guide categories
@@ -1668,7 +1668,7 @@ def read_root(request: Request):
 @app.get("/books", response_class=HTMLResponse)
 def books_page(request: Request):
     """Browse all books of the Bible"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
 
     # Define book categories with types
     book_types = {
@@ -1758,7 +1758,7 @@ def books_page(request: Request):
 @app.get("/reading-plans", response_class=HTMLResponse)
 def reading_plans_page(request: Request):
     """Browse Bible reading plans"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
     plans = get_plan_summary()
 
     breadcrumbs = [
@@ -1780,7 +1780,7 @@ def reading_plans_page(request: Request):
 @app.get("/reading-plans/{plan_id}", response_class=HTMLResponse)
 def reading_plan_detail(request: Request, plan_id: str):
     """View a specific reading plan"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
     plan = get_plan(plan_id)
 
     if not plan:
@@ -1833,7 +1833,7 @@ async def reading_plan_pdf(plan_id: str):
 @app.get("/topics", response_class=HTMLResponse)
 def topics_page(request: Request):
     """Browse topical index of Bible themes"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
     topics = get_all_topics()
 
     breadcrumbs = [
@@ -1856,7 +1856,7 @@ def topics_page(request: Request):
 @app.get("/resources", response_class=HTMLResponse)
 def resources_page(request: Request):
     """Browse all theological resources"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
 
     # Organize resources into categories
     resources = {
@@ -2149,7 +2149,7 @@ def resources_page(request: Request):
 @app.get("/topics/{topic_name}", response_class=HTMLResponse)
 def topic_detail(request: Request, topic_name: str):
     """View verses for a specific topic"""
-    books = list(bible.iter_books())
+    books = bible.get_books()
     topic = get_topic(topic_name)
 
     if not topic:
@@ -2209,7 +2209,7 @@ def read_book(request: Request, book: str):
     if canonical_name:
         return RedirectResponse(url=f"/book/{canonical_name}", status_code=301)
 
-    books = list(bible.iter_books())
+    books = bible.get_books()
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
 
     if not chapters:
@@ -2319,7 +2319,7 @@ async def book_pdf(request: Request, book: str):
 def book_commentary(request: Request, book: str):
     """Generate comprehensive commentary for an entire book"""
     try:
-        books = list(bible.iter_books())
+        books = bible.get_books()
         chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
 
         if not chapters:
@@ -2354,7 +2354,7 @@ def book_commentary(request: Request, book: str):
             {
                 "error_message": f"Sorry, there was an error loading the commentary for {book}. Please try again later.",
                 "book": book,
-                "books": list(bible.iter_books()) if 'bible' in globals() else []
+                "books": bible.get_books() if 'bible' in globals() else []
             },
             status_code=500
         )
@@ -2372,7 +2372,7 @@ def read_chapter(request: Request, book: str, chapter: int):
     if canonical_name:
         return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}", status_code=301)
 
-    books = list(bible.iter_books())
+    books = bible.get_books()
     verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
 
@@ -2491,7 +2491,7 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     if canonical_name:
         return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/verse/{verse_num}", status_code=301)
 
-    books = list(bible.iter_books())
+    books = bible.get_books()
     verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
     chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
 

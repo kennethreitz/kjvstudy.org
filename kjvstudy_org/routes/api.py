@@ -433,7 +433,7 @@ def api_get_interlinear(
 @router.get("/books")
 def api_get_books():
     """Get list of all Bible books with metadata."""
-    books = list(bible.iter_books())
+    books = bible.get_books()
 
     old_testament = []
     new_testament = []

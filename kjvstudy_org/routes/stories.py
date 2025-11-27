@@ -27,7 +27,7 @@ def init_templates(app_templates):
 
 def get_books():
     """Get list of Bible books."""
-    return list(bible.iter_books())
+    return bible.get_books()
 
 
 @router.get("/stories", response_class=HTMLResponse)

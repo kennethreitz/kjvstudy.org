@@ -67,7 +67,7 @@ def init_templates(app_templates):
 def get_books():
     """Get list of Bible books."""
     from ..kjv import bible
-    return list(bible.iter_books())
+    return bible.get_books()
 
 
 def find_item_by_slug(data: dict, slug: str):
