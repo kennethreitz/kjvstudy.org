@@ -35,7 +35,7 @@ _BOOK_FILENAME_MAP = {
     "Psalms": "psalms.json",
     "Proverbs": "proverbs.json",
     "Ecclesiastes": "ecclesiastes.json",
-    "Song of Solomon": "song_of_solomon.json",
+    "Solomon's Song": "solomons_song.json",
     "Isaiah": "isaiah.json",
     "Jeremiah": "jeremiah.json",
     "Lamentations": "lamentations.json",
