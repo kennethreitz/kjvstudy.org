@@ -1,12 +1,36 @@
 """Biblical resource data - maps, angels, prophets, names of God, etc."""
 
 import json
+import re
 from pathlib import Path
 
 # Load resources from JSON data file
 _data_path = Path(__file__).parent / "resources.json"
 with open(_data_path, "r", encoding="utf-8") as f:
     _data = json.load(f)
+
+
+def _create_slug(text: str) -> str:
+    """Convert text to URL-friendly slug."""
+    slug = re.sub(r'[^\w\s-]', '', text.lower())
+    slug = re.sub(r'[-\s]+', '-', slug)
+    return slug.strip('-')
+
+
+# Build slug index for O(1) lookups
+_RESOURCE_SLUG_INDEX = {}
+
+
+def _build_slug_index(data: dict):
+    """Build a slug index for fast resource lookups."""
+    index = {}
+    for category_name, category in data.items():
+        if isinstance(category, dict):
+            for item_name, item_data in category.items():
+                slug = _create_slug(item_name)
+                # Store with data dict key for quick lookup
+                index[slug] = (item_data, item_name, category_name, data)
+    return index
 
 BIBLICAL_LOCATIONS = _data["biblical_locations"]
 ANGELS_DATA = _data["angels"]
@@ -52,6 +76,103 @@ SANCTIFICATION_DATA = _data["sanctification"]
 LAW_AND_GOSPEL_DATA = _data["law_and_gospel"]
 WORSHIP_DATA = _data["worship"]
 
+# Build slug indexes for all resource dictionaries
+_SLUG_INDEXES = {
+    'angels': _build_slug_index(ANGELS_DATA),
+    'prophets': _build_slug_index(PROPHETS_DATA),
+    'names': _build_slug_index(NAMES_DATA),
+    'parables': _build_slug_index(PARABLES_DATA),
+    'covenants': _build_slug_index(COVENANTS_DATA),
+    'apostles': _build_slug_index(APOSTLES_DATA),
+    'women': _build_slug_index(WOMEN_DATA),
+    'festivals': _build_slug_index(FESTIVALS_DATA),
+    'fruits': _build_slug_index(FRUITS_DATA),
+    'miracles': _build_slug_index(MIRACLES_DATA),
+    'prayers': _build_slug_index(PRAYERS_DATA),
+    'beatitudes': _build_slug_index(BEATITUDES_DATA),
+    'ten_commandments': _build_slug_index(TEN_COMMANDMENTS_DATA),
+    'armor_of_god': _build_slug_index(ARMOR_OF_GOD_DATA),
+    'i_am_statements': _build_slug_index(I_AM_STATEMENTS_DATA),
+    'trinity': _build_slug_index(TRINITY_DATA),
+    'christology': _build_slug_index(CHRISTOLOGY_DATA),
+    'soteriology': _build_slug_index(SOTERIOLOGY_DATA),
+    'pneumatology': _build_slug_index(PNEUMATOLOGY_DATA),
+    'eschatology': _build_slug_index(ESCHATOLOGY_DATA),
+    'ecclesiology': _build_slug_index(ECCLESIOLOGY_DATA),
+    'types_and_shadows': _build_slug_index(TYPES_AND_SHADOWS_DATA),
+    'messianic_prophecies': _build_slug_index(MESSIANIC_PROPHECIES_DATA),
+    'blood_in_scripture': _build_slug_index(BLOOD_IN_SCRIPTURE_DATA),
+    'kingdom_of_god': _build_slug_index(KINGDOM_OF_GOD_DATA),
+    'names_of_christ': _build_slug_index(NAMES_OF_CHRIST_DATA),
+    'spirits_and_demons': _build_slug_index(SPIRITS_AND_DEMONS_DATA),
+    'personifications': _build_slug_index(PERSONIFICATIONS_DATA),
+    'bibliology': _build_slug_index(BIBLIOLOGY_DATA),
+    'theology_proper': _build_slug_index(THEOLOGY_PROPER_DATA),
+    'anthropology': _build_slug_index(ANTHROPOLOGY_DATA),
+    'hamartiology': _build_slug_index(HAMARTIOLOGY_DATA),
+    'providence': _build_slug_index(PROVIDENCE_DATA),
+    'grace': _build_slug_index(GRACE_DATA),
+    'justification': _build_slug_index(JUSTIFICATION_DATA),
+    'sanctification': _build_slug_index(SANCTIFICATION_DATA),
+    'law_and_gospel': _build_slug_index(LAW_AND_GOSPEL_DATA),
+    'worship': _build_slug_index(WORSHIP_DATA),
+}
+
+
+def find_resource_by_slug(data: dict, slug: str):
+    """Fast O(1) lookup for resource items by slug using pre-built indexes."""
+    # Find which resource type this data dict corresponds to
+    data_to_key = {
+        id(ANGELS_DATA): 'angels',
+        id(PROPHETS_DATA): 'prophets',
+        id(NAMES_DATA): 'names',
+        id(PARABLES_DATA): 'parables',
+        id(COVENANTS_DATA): 'covenants',
+        id(APOSTLES_DATA): 'apostles',
+        id(WOMEN_DATA): 'women',
+        id(FESTIVALS_DATA): 'festivals',
+        id(FRUITS_DATA): 'fruits',
+        id(MIRACLES_DATA): 'miracles',
+        id(PRAYERS_DATA): 'prayers',
+        id(BEATITUDES_DATA): 'beatitudes',
+        id(TEN_COMMANDMENTS_DATA): 'ten_commandments',
+        id(ARMOR_OF_GOD_DATA): 'armor_of_god',
+        id(I_AM_STATEMENTS_DATA): 'i_am_statements',
+        id(TRINITY_DATA): 'trinity',
+        id(CHRISTOLOGY_DATA): 'christology',
+        id(SOTERIOLOGY_DATA): 'soteriology',
+        id(PNEUMATOLOGY_DATA): 'pneumatology',
+        id(ESCHATOLOGY_DATA): 'eschatology',
+        id(ECCLESIOLOGY_DATA): 'ecclesiology',
+        id(TYPES_AND_SHADOWS_DATA): 'types_and_shadows',
+        id(MESSIANIC_PROPHECIES_DATA): 'messianic_prophecies',
+        id(BLOOD_IN_SCRIPTURE_DATA): 'blood_in_scripture',
+        id(KINGDOM_OF_GOD_DATA): 'kingdom_of_god',
+        id(NAMES_OF_CHRIST_DATA): 'names_of_christ',
+        id(SPIRITS_AND_DEMONS_DATA): 'spirits_and_demons',
+        id(PERSONIFICATIONS_DATA): 'personifications',
+        id(BIBLIOLOGY_DATA): 'bibliology',
+        id(THEOLOGY_PROPER_DATA): 'theology_proper',
+        id(ANTHROPOLOGY_DATA): 'anthropology',
+        id(HAMARTIOLOGY_DATA): 'hamartiology',
+        id(PROVIDENCE_DATA): 'providence',
+        id(GRACE_DATA): 'grace',
+        id(JUSTIFICATION_DATA): 'justification',
+        id(SANCTIFICATION_DATA): 'sanctification',
+        id(LAW_AND_GOSPEL_DATA): 'law_and_gospel',
+        id(WORSHIP_DATA): 'worship',
+    }
+
+    data_key = data_to_key.get(id(data))
+    if data_key and data_key in _SLUG_INDEXES:
+        result = _SLUG_INDEXES[data_key].get(slug)
+        if result:
+            item_data, item_name, category_name, _ = result
+            return item_data, item_name, category_name
+
+    return None, None, None
+
+
 __all__ = [
     'BIBLICAL_LOCATIONS',
     'ANGELS_DATA',
@@ -94,4 +215,6 @@ __all__ = [
     'SANCTIFICATION_DATA',
     'LAW_AND_GOSPEL_DATA',
     'WORSHIP_DATA',
+    # Functions
+    'find_resource_by_slug',
 ]

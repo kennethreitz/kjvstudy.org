@@ -47,6 +47,8 @@ from ..data import (
     SANCTIFICATION_DATA,
     LAW_AND_GOSPEL_DATA,
     WORSHIP_DATA,
+    # Functions
+    find_resource_by_slug,
 )
 from ..utils.helpers import create_slug
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
@@ -71,12 +73,11 @@ def get_books():
 
 
 def find_item_by_slug(data: dict, slug: str):
-    """Find an item in a nested data structure by its slug."""
-    for category_name, category in data.items():
-        for item_name, item_data in category.items():
-            if create_slug(item_name) == slug:
-                return item_data, item_name, category_name
-    return None, None, None
+    """Find an item in a nested data structure by its slug.
+
+    Now uses O(1) slug index lookup instead of O(n) iteration.
+    """
+    return find_resource_by_slug(data, slug)
 
 
 def _get_resource_item_or_404(data: dict, slug: str, not_found_message: str):

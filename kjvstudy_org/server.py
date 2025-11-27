@@ -418,13 +418,13 @@ def random_verse(request: Request):
     book = random.choice(all_books)
 
     # Get all chapters for this book
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    chapters = bible.get_chapters_for_book(book)
 
     # Pick a random chapter
     chapter = random.choice(chapters)
 
     # Get all verses for this chapter
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+    verses = bible.get_verses_by_book_chapter(book, chapter)
 
     # Pick a random verse
     verse = random.choice(verses)
@@ -1715,7 +1715,7 @@ def books_page(request: Request):
 
     # Get chapter counts for each book
     def get_chapter_count(book_name):
-        chapters = [ch for bk, ch in bible.iter_chapters() if bk == book_name]
+        chapters = bible.get_chapters_for_book(book_name)
         return len(chapters)
 
     old_testament = [
@@ -2210,7 +2210,7 @@ def read_book(request: Request, book: str):
         return RedirectResponse(url=f"/book/{canonical_name}", status_code=301)
 
     books = bible.get_books()
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    chapters = bible.get_chapters_for_book(book)
 
     if not chapters:
         raise HTTPException(
@@ -2269,7 +2269,7 @@ async def book_pdf(request: Request, book: str):
     if canonical_name:
         return RedirectResponse(url=f"/book/{canonical_name}/pdf", status_code=301)
 
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    chapters = bible.get_chapters_for_book(book)
     if not chapters:
         raise HTTPException(
             status_code=404,
@@ -2279,7 +2279,7 @@ async def book_pdf(request: Request, book: str):
     chapters_data = []
     total_verses = 0
     for chapter_num in chapters:
-        verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter_num]
+        verses = bible.get_verses_by_book_chapter(book, chapter_num)
         if not verses:
             continue
         total_verses += len(verses)
@@ -2320,7 +2320,7 @@ def book_commentary(request: Request, book: str):
     """Generate comprehensive commentary for an entire book"""
     try:
         books = bible.get_books()
-        chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+        chapters = bible.get_chapters_for_book(book)
 
         if not chapters:
             raise HTTPException(
@@ -2373,8 +2373,8 @@ def read_chapter(request: Request, book: str, chapter: int):
         return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}", status_code=301)
 
     books = bible.get_books()
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    verses = bible.get_verses_by_book_chapter(book, chapter)
+    chapters = bible.get_chapters_for_book(book)
 
     if not verses:
         # Check if the book exists first
@@ -2452,8 +2452,8 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
     if canonical_name:
         return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/pdf", status_code=301)
 
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    verses = bible.get_verses_by_book_chapter(book, chapter)
+    chapters = bible.get_chapters_for_book(book)
 
     if not verses:
         if not chapters:
@@ -2492,8 +2492,8 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
         return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/verse/{verse_num}", status_code=301)
 
     books = bible.get_books()
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    verses = bible.get_verses_by_book_chapter(book, chapter)
+    chapters = bible.get_chapters_for_book(book)
 
     if not verses:
         # Check if the book exists first
