@@ -1102,294 +1102,25 @@ templates.env.filters['format_lists'] = format_numbered_lists
 
 
 def get_biblical_timeline_context():
-    # Define biblical timeline events
-    timeline_events = {
-        "Creation and Early History": [
-            {
-                "title": "Creation of the World",
-                "date": "11,013 BC",
-                "alt_dates": "Ussher/Scofield: 4004 BC",
-                "description": "God (אֱלֹהִים, <em>Elohim</em>—the plural of majesty) creates (<em>bara</em>, ברא—to bring into existence ex nihilo) the heavens and earth in six sequential days, establishing the sabbath pattern. The Hebrew <em>Bereshit</em> (בְּרֵאשִׁית, 'In the beginning') opens Scripture with God's sovereign act of creation, speaking all things into being by His Word (דָּבָר, <em>davar</em>). The creation account reveals God's triune nature (Genesis 1:26, 'Let us make man'), His absolute power, and His purposeful design. The six-day creation culminates in humanity made in the <em>imago Dei</em> (image of God), establishing man as God's vice-regent over creation and anticipating the incarnation of the eternal Word.",
-                "verses": [
-                    {"reference": "Genesis 1:1", "text": "In the beginning God created the heaven and the earth."},
-                    {"reference": "Genesis 1:31", "text": "And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day."}
-                ]
-            },
-            {
-                "title": "The Fall of Man",
-                "date": "11,013 BC",
-                "alt_dates": "Ussher/Scofield: 4004 BC",
-                "description": "The serpent (נָחָשׁ, <em>nachash</em>—identified in Revelation 12:9 as Satan) deceives Eve, and Adam willfully transgresses God's command, introducing sin (חַטָּאת, <em>chattah</em>) and death (מָוֶת, <em>mavet</em>) into creation. This cosmic rebellion fractures humanity's relationship with God, necessitating expulsion from Eden and the curse upon creation. Yet God immediately announces the <em>protoevangelium</em> (first gospel)—the promise that the woman's seed would crush the serpent's head (Genesis 3:15), foreshadowing Christ's victory over Satan. The Fall establishes the theological foundation for understanding sin's universal guilt, humanity's depravity, and the absolute necessity of divine redemption through a substitute—themes pervading all Scripture.",
-                "verses": [
-                    {"reference": "Genesis 3:6", "text": "And when the woman saw that the tree was good for food, and that it was pleasant to the eyes, and a tree to be desired to make one wise, she took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat."},
-                    {"reference": "Genesis 3:23", "text": "Therefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken."}
-                ]
-            },
-            {
-                "title": "Cain and Abel",
-                "date": "c. 10900 BC",
-                "alt_dates": "Ussher/Scofield: c. 3900 BC",
-                "description": "The first murder demonstrates sin's rapid progression—from rebellion against God to violence against man. Cain's offering of agricultural produce contrasts with Abel's blood sacrifice from the flock, establishing the biblical principle that 'without shedding of blood is no remission' (Hebrews 9:22). Abel's faith-based sacrifice (Hebrews 11:4) typifies Christ, the Lamb slain from the foundation of the world, while Cain prefigures those who approach God through works rather than grace. God's marking of Cain reveals both judgment and mercy, as He restrains complete vengeance while establishing that blood guilt cries out for justice—a cry ultimately answered at Calvary.",
-                "verses": [
-                    {"reference": "Genesis 4:8", "text": "And Cain talked with Abel his brother: and it came to pass, when they were in the field, that Cain rose up against Abel his brother, and slew him."}
-                ]
-            },
-            {
-                "title": "The Great Flood",
-                "date": "4,990 BC",
-                "alt_dates": "Ussher/Scofield: 2348 BC",
-                "description": "As humanity's wickedness reaches catastrophic proportions—'every imagination of the thoughts of his heart was only evil continually' (Genesis 6:5)—God executes universal judgment through the <em>mabbul</em> (מַבּוּל, deluge), destroying all flesh except Noah's family. The Flood demonstrates God's holiness that cannot tolerate sin, yet also His grace in preserving a remnant through the ark (תֵּבָה, <em>tevah</em>). Noah's ark typifies Christ as the sole means of salvation, the rainbow covenant establishes God's promise never again to destroy earth by flood, and the event prefigures the final judgment by fire. Peter explicitly connects the Flood to baptism (1 Peter 3:20-21) and end-times eschatology (2 Peter 3:5-7).",
-                "verses": [
-                    {"reference": "Genesis 7:17", "text": "And the flood was forty days upon the earth; and the waters increased, and bare up the ark, and it was lift up above the earth."},
-                    {"reference": "Genesis 8:20", "text": "And Noah builded an altar unto the LORD; and took of every clean beast, and of every clean fowl, and offered burnt offerings on the altar."}
-                ]
-            }
-        ],
-        "The Patriarchs": [
-            {
-                "title": "Call of Abraham",
-                "date": "2068 BC",
-                "alt_dates": "Ussher: 1921 BC • Scofield: 1996 BC",
-                "description": "YHWH calls Abram (אַבְרָם, 'exalted father,' later Abraham, אַבְרָהָם, 'father of multitudes') from Ur of the Chaldees to Canaan, establishing the Abrahamic Covenant—foundational to all subsequent redemptive history. God's unconditional promise includes land (Canaan), seed (innumerable descendants), and blessing (to all nations through Abraham's seed). This covenant, confirmed by blood ritual (Genesis 15) and the sign of circumcision (בְּרִית מִילָה, <em>brit milah</em>), establishes Israel's election and foreshadows justification by faith alone (Genesis 15:6, cited in Romans 4:3, Galatians 3:6). Abraham's call initiates the progressive revelation of redemption, ultimately fulfilled in Christ, Abraham's seed (Galatians 3:16).",
-                "verses": [
-                    {"reference": "Genesis 12:1", "text": "Now the LORD had said unto Abram, Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee."},
-                    {"reference": "Genesis 12:7", "text": "And the LORD appeared unto Abram, and said, Unto thy seed will I give this land: and there builded he an altar unto the LORD, who appeared unto him."}
-                ]
-            },
-            {
-                "title": "Birth of Isaac",
-                "date": "2067 BC",
-                "alt_dates": "Ussher/Scofield: 1896 BC",
-                "description": "God fulfills His covenant promise by miraculously granting Abraham and Sarah a son in their old age—Sarah ninety, Abraham one hundred—demonstrating that divine purposes depend not on human ability but divine power. Isaac (יִצְחָק, <em>Yitzchak</em>, 'laughter') embodies the promise, prefiguring Christ as the child of promise, the beloved son whom the father willingly offers (Genesis 22). The Akedah (עֲקֵדָה, binding of Isaac) establishes substitutionary atonement theology, as God provides a ram in Isaac's place, declaring 'Jehovah-Jireh' (יְהוָה יִרְאֶה, 'the LORD will provide')—ultimately fulfilled when God provides His own Son as substitute for sinners.",
-                "verses": [
-                    {"reference": "Genesis 21:2", "text": "For Sarah conceived, and bare Abraham a son in his old age, at the set time of which God had spoken to him."}
-                ]
-            },
-            {
-                "title": "Jacob and Esau",
-                "date": "2007 BC",
-                "alt_dates": "Ussher/Scofield: 1836 BC",
-                "description": "Isaac's twin sons embody sovereign election and its mysterious purposes. God's pre-temporal choice—'Jacob have I loved, but Esau have I hated' (Malachi 1:2-3, cited Romans 9:13)—establishes that salvation depends on divine mercy, not human merit or effort. Jacob (יַעֲקֹב, 'heel-catcher' or 'supplanter'), despite his scheming nature, receives the covenant blessing, demonstrating grace to the undeserving. His wrestling with God at Peniel transforms him into Israel (יִשְׂרָאֵל, 'God prevails' or 'he struggles with God'), establishing the name by which God's covenant people would be known. The twelve sons of Jacob/Israel become the patriarchs of the twelve tribes.",
-                "verses": [
-                    {"reference": "Genesis 25:23", "text": "And the LORD said unto her, Two nations are in thy womb, and two manner of people shall be separated from thy bowels; and the one people shall be stronger than the other people; and the elder shall serve the younger."}
-                ]
-            },
-            {
-                "title": "Joseph in Egypt",
-                "date": "1877 BC",
-                "alt_dates": "Ussher/Scofield: 1706 BC",
-                "description": "Joseph's life epitomizes divine providence working through human sin to accomplish redemptive purposes. Sold into Egyptian slavery by jealous brothers, Joseph's suffering and subsequent exaltation to Pharaoh's right hand typifies Christ's humiliation and glorification. His statement to his brothers—'ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive' (Genesis 50:20)—encapsulates the theological principle of divine sovereignty over human evil. Joseph preserves Jacob's family during famine, positioning Israel in Egypt where they multiply into a nation, setting the stage for the Exodus and establishing patterns of redemption through suffering.",
-                "verses": [
-                    {"reference": "Genesis 41:40", "text": "Thou shalt be over my house, and according unto thy word shall all my people be ruled: only in the throne will I be greater than thou."},
-                    {"reference": "Genesis 50:20", "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."}
-                ]
-            }
-        ],
-        "Egypt and the Exodus": [
-            {
-                "title": "Israelites in Egyptian Bondage",
-                "date": "1887-1447 BC",
-                "alt_dates": "Ussher/Scofield: c. 1600-1491 BC",
-                "description": "As Israel multiplies in Egypt, fulfilling God's promise to Abraham, a new Pharaoh 'which knew not Joseph' enslaves them with cruel bondage (עֲבֹדָה, <em>avodah</em>), forcing them to build treasure cities. The oppression intensifies through infanticide—Pharaoh commands Hebrew midwives to kill male children—yet God preserves His people, and they multiply abundantly. This bondage establishes the theological pattern of redemption from slavery, prefiguring humanity's bondage to sin and Satan from which only divine intervention can deliver. The groaning (אָנַח, <em>anach</em>) of Israel reaches God, who remembers His covenant with Abraham, Isaac, and Jacob, setting in motion the Exodus—Scripture's central redemptive event.",
-                "verses": [
-                    {"reference": "Exodus 1:13-14", "text": "And the Egyptians made the children of Israel to serve with rigour: And they made their lives bitter with hard bondage, in morter, and in brick, and in all manner of service in the field: all their service, wherein they made them serve, was with rigour."}
-                ]
-            },
-            {
-                "title": "Birth of Moses",
-                "date": "1571 BC",
-                "alt_dates": "Ussher/Scofield: 1571 BC",
-                "description": "God raises Moses (מֹשֶׁה, <em>Mosheh</em>, 'drawn out') to deliver Israel from bondage. His miraculous preservation in the Nile's bulrushes, adoption by Pharaoh's daughter, and education in Egyptian wisdom prepare him for covenant mediation. After forty years in Pharaoh's court and forty years as shepherd in Midian, God appears to Moses in the burning bush, revealing the Tetragrammaton (יהוה, YHWH) and commissioning him to confront Pharaoh. Moses' reluctance, Aaron's assistance, and the signs given demonstrate that divine calling equips despite human inadequacy. Moses typifies Christ as prophet, deliverer, and mediator of the covenant.",
-                "verses": [
-                    {"reference": "Exodus 2:10", "text": "And the child grew, and she brought him unto Pharaoh's daughter, and he became her son. And she called his name Moses: and she said, Because I drew him out of the water."}
-                ]
-            },
-            {
-                "title": "The Exodus from Egypt",
-                "date": "1447 BC",
-                "alt_dates": "Ussher/Scofield: 1491 BC",
-                "description": "Through ten plagues demonstrating YHWH's supremacy over Egyptian gods, God breaks Pharaoh's will and delivers Israel from bondage. The Passover (פֶּסַח, <em>Pesach</em>)—lamb's blood on doorposts protecting from judgment—establishes the foundational type of Christ our Passover, sacrificed for us (1 Corinthians 5:7). The Red Sea crossing, where Israel passes through on dry ground while Egypt's army drowns, constitutes new creation imagery (baptismal waters of death and resurrection). This central Old Testament event establishes redemption theology: God delivers His people not by their merit but by His power, through blood sacrifice and sovereign intervention.",
-                "verses": [
-                    {"reference": "Exodus 12:37", "text": "And the children of Israel journeyed from Rameses to Succoth, about six hundred thousand on foot that were men, beside children."},
-                    {"reference": "Exodus 14:21", "text": "And Moses stretched out his hand over the sea; and the LORD caused the sea to go back by a strong east wind all that night, and made the sea dry land, and the waters were divided."}
-                ]
-            },
-            {
-                "title": "Giving of the Law at Sinai",
-                "date": "1447 BC",
-                "alt_dates": "Ussher/Scofield: 1491 BC",
-                "description": "At Mount Sinai (הַר סִינַי, <em>Har Sinai</em>), YHWH descends in fire and smoke, establishing the Mosaic Covenant through the Decalogue (עֲשֶׂרֶת הַדִּבְּרוֹת, <em>Aseret ha-Dibrot</em>, Ten Commandments) and comprehensive Torah. The covenant, mediated through Moses, establishes Israel as God's treasured possession (סְגֻלָּה, <em>segullah</em>), a kingdom of priests and holy nation. While the Abrahamic covenant was unconditional promise, the Mosaic covenant is conditional—'if ye will obey my voice indeed, and keep my covenant' (Exodus 19:5). The Law reveals God's holiness, exposes human sinfulness, and serves as παιδαγωγός (<em>paidagogos</em>, schoolmaster) to bring us to Christ (Galatians 3:24).",
-                "verses": [
-                    {"reference": "Exodus 19:20", "text": "And the LORD came down upon mount Sinai, on the top of the mount: and the LORD called Moses up to the top of the mount; and Moses went up."},
-                    {"reference": "Exodus 20:1-2", "text": "And God spake all these words, saying, I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage."}
-                ]
-            }
-        ],
-        "Conquest and Judges": [
-            {
-                "title": "Conquest of Canaan",
-                "date": "1407 BC",
-                "alt_dates": "Ussher/Scofield: 1451 BC",
-                "description": "Under Joshua (יְהוֹשֻׁעַ, <em>Yehoshua</em>, 'YHWH saves'—Greek Ἰησοῦς, Jesus), Israel crosses the Jordan and conquers Canaan, fulfilling God's promise to Abraham four centuries earlier. The miraculous fall of Jericho's walls demonstrates that victory comes not through military might but divine intervention—Israel marches, priests blow rams' horns (שׁוֹפָר, <em>shofar</em>), and God brings judgment. Joshua's leadership typifies Christ: both bear the same name (YHWH saves), both lead God's people into rest, both execute divine judgment on God's enemies. The <em>herem</em> (חֵרֶם, devoted destruction) of Canaanite cities, though troubling to modern sensibilities, reveals God's holy wrath against sin and foreshadows final judgment. Rahab's salvation by the scarlet cord prefigures salvation through Christ's blood.",
-                "verses": [
-                    {"reference": "Joshua 6:20", "text": "So the people shouted when the priests blew with the trumpets: and it came to pass, when the people heard the sound of the trumpet, and the people shouted with a great shout, that the wall fell down flat, so that the people went up into the city, every man straight before him, and they took the city."}
-                ]
-            },
-            {
-                "title": "Period of the Judges",
-                "date": "1367-1047 BC",
-                "alt_dates": "Ussher/Scofield: 1400-1050 BC",
-                "description": "Following Joshua's death, Israel enters a dark cycle described in Judges: 'Every man did that which was right in his own eyes' (Judges 21:25). The recurring pattern—sin, oppression, crying out, deliverance—demonstrates humanity's persistent rebellion and God's patient mercy. YHWH raises <em>shofetim</em> (שֹׁפְטִים, judges)—charismatic deliverers like Deborah, Gideon, Jephthah, and Samson—who temporarily deliver Israel from oppressors (Philistines, Midianites, Ammonites). Yet these judges, though Spirit-empowered, remain flawed instruments, pointing forward to the need for a perfect King-Judge. The period reveals Israel's desperate need for monarchy under God, setting the stage for David and ultimately the Messianic King who judges righteously and delivers permanently.",
-                "verses": [
-                    {"reference": "Judges 2:16", "text": "Nevertheless the LORD raised up judges, which delivered them out of the hand of those that spoiled them."}
-                ]
-            }
-        ],
-        "The Kingdom Period": [
-            {
-                "title": "Saul Becomes King",
-                "date": "1047 BC",
-                "alt_dates": "Ussher/Scofield: 1095 BC",
-                "description": "When Israel demands a king 'like all the nations' (1 Samuel 8:5), rejecting YHWH's direct rule, God gives them Saul (שָׁאוּל, <em>Shaul</em>, 'asked for')—impressive in stature, from Benjamin, anointed (מָשַׁח, <em>mashach</em>) by Samuel. Yet Saul's reign demonstrates the tragedy of partial obedience and self-reliance. His unauthorized sacrifice at Gilgal, his incomplete destruction of Amalek, and his jealous persecution of David reveal that outward qualifications mean nothing without heart obedience. God's rejection of Saul—'I have rejected him from reigning over Israel' (1 Samuel 16:1)—establishes that true kingship requires submission to divine authority. Saul's torment by an evil spirit and eventual suicide at Mount Gilboa warn against the danger of losing God's anointing through persistent disobedience.",
-                "verses": [
-                    {"reference": "1 Samuel 10:1", "text": "Then Samuel took a vial of oil, and poured it upon his head, and kissed him, and said, Is it not because the LORD hath anointed thee to be captain over his inheritance?"}
-                ]
-            },
-            {
-                "title": "David Becomes King",
-                "date": "1010 BC",
-                "alt_dates": "Ussher/Scofield: 1055 BC",
-                "description": "David (דָּוִד, <em>David</em>, 'beloved'), anointed as youth while tending sheep, becomes Israel's greatest king and establishes the messianic dynasty. Though 'a man after God's own heart' (1 Samuel 13:14), David's greatness lies not in sinlessness but in genuine repentance when confronted with sin. God establishes the Davidic Covenant (2 Samuel 7)—promising David's throne, kingdom, and dynasty would endure forever—fulfilled ultimately in Christ, 'son of David, son of Abraham' (Matthew 1:1). David conquers Jerusalem, making it Israel's capital; brings the ark into the city; and receives the promise that his seed would build God's house. The Psalms David authored provide the hymnal of Scripture, expressing the full range of human emotion brought before God in worship, lament, and praise.",
-                "verses": [
-                    {"reference": "2 Samuel 5:3", "text": "So all the elders of Israel came to the king to Hebron; and king David made a league with them in Hebron before the LORD: and they anointed David king over Israel."}
-                ]
-            },
-            {
-                "title": "Solomon's Reign and Temple",
-                "date": "967 BC",
-                "alt_dates": "Ussher: 1015-975 BC • Scofield: 1004-964 BC",
-                "description": "Solomon (שְׁלֹמֹה, <em>Shlomo</em>, from שָׁלוֹם <em>shalom</em>, 'peace'), David's son, receives unprecedented wisdom from God and constructs the Temple (בֵּית הַמִּקְדָּשׁ, <em>Beit HaMikdash</em>)—fulfilling David's desire and God's promise. The Temple, with its Holy of Holies housing the Ark of the Covenant, becomes the locus of God's presence among His people, where sacrifice atones for sin and the high priest enters annually on Yom Kippur. Solomon's prayer at the Temple dedication (1 Kings 8) acknowledges that even this magnificent structure cannot contain the infinite God, yet God promises to meet His people there. However, Solomon's many foreign wives turn his heart toward idolatry (1 Kings 11), demonstrating that even great wisdom cannot substitute for covenant faithfulness. His apostasy sows seeds for the kingdom's division.",
-                "verses": [
-                    {"reference": "1 Kings 6:14", "text": "So Solomon built the house, and finished it."},
-                    {"reference": "1 Kings 3:12", "text": "Behold, I have done according to thy words: lo, I have given thee a wise and an understanding heart; so that there was none like thee before thee, neither after thee shall any arise like unto thee."}
-                ]
-            },
-            {
-                "title": "Division of the Kingdom",
-                "date": "931 BC",
-                "alt_dates": "Ussher: 975 BC • Scofield: 975 BC",
-                "description": "Solomon's son Rehoboam foolishly rejects the counsel of elders, declaring 'my little finger shall be thicker than my father's loins' (1 Kings 12:10), prompting ten northern tribes to revolt under Jeroboam. The united kingdom fractures into Israel (northern ten tribes, capital Samaria) and Judah (southern tribes of Judah and Benjamin, capital Jerusalem). Jeroboam immediately establishes idolatry, erecting golden calves at Dan and Bethel to prevent northern Israelites from worshiping in Jerusalem—'It is too much for you to go up to Jerusalem' (1 Kings 12:28). This schism fulfills prophetic judgment on Solomon's apostasy while demonstrating the bitter fruit of compromised worship. The divided monarchy persists until Assyria destroys Israel (722 BC) and Babylon conquers Judah (586 BC), vindicating the prophets' warnings that covenant unfaithfulness brings exile.",
-                "verses": [
-                    {"reference": "1 Kings 12:16", "text": "So when all Israel saw that the king hearkened not unto them, the people answered the king, saying, What portion have we in David? neither have we inheritance in the son of Jesse: to your tents, O Israel: now see to thine own house, David. So Israel departed unto their tents."}
-                ]
-            }
-        ],
-        "Exile and Return": [
-            {
-                "title": "Fall of Northern Kingdom",
-                "date": "722 BC",
-                "alt_dates": "Ussher/Scofield: 721 BC",
-                "description": "After two centuries of apostasy—worshiping the golden calves, Baal, and Asherah—the northern kingdom falls to Assyria under Shalmaneser V and Sargon II. The ten tribes are deported to Assyria and Mesopotamia, effectively disappearing from history as the 'lost tribes.' Scripture records the theological verdict: 'For the children of Israel walked in all the sins of Jeroboam which he did; they departed not from them; until the LORD removed Israel out of his sight' (2 Kings 17:22-23). The Assyrians repopulate Samaria with foreigners who intermarry with remaining Israelites, creating the Samaritan people—despised by Jews in Jesus' time. The northern kingdom's destruction vindicates the prophets (Hosea, Amos) who warned that covenant breaking brings covenant curses (Deuteronomy 28). Israel's exile demonstrates God's holiness that cannot tolerate persistent idolatry.",
-                "verses": [
-                    {"reference": "2 Kings 17:6", "text": "In the ninth year of Hoshea the king of Assyria took Samaria, and carried Israel away into Assyria, and placed them in Halah and in Habor by the river of Gozan, and in the cities of the Medes."}
-                ]
-            },
-            {
-                "title": "Fall of Southern Kingdom",
-                "date": "586 BC",
-                "alt_dates": "Ussher: 586 BC • Scofield: 587 BC",
-                "description": "Despite Judah's reforming kings (Hezekiah, Josiah), persistent apostasy under Manasseh and others seals Jerusalem's fate. Nebuchadnezzar of Babylon besieges Jerusalem, destroys Solomon's Temple, and deports the population to Babylon—fulfilling Jeremiah's prophecy of seventy years' captivity. The Temple's destruction marks the end of the sacrificial system and the Davidic monarchy's suspension. Yet even in judgment, God preserves a remnant, as Daniel, Ezekiel, and other exiles maintain covenant faithfulness in foreign lands. The <em>galut</em> (גָּלוּת, exile) becomes formative for Jewish identity and theology. Ezekiel's vision of dry bones (Ezekiel 37) promises future restoration, while Jeremiah announces a New Covenant (Jeremiah 31:31-34) superior to the Mosaic system—fulfilled in Christ's blood. Exile reveals that external covenant signs mean nothing without internal heart transformation.",
-                "verses": [
-                    {"reference": "2 Kings 25:9", "text": "And he burnt the house of the LORD, and the king's house, and all the houses of Jerusalem, and every great man's house burnt he with fire."}
-                ]
-            },
-            {
-                "title": "Return from Exile",
-                "date": "538 BC",
-                "alt_dates": "Ussher/Scofield: 536 BC",
-                "description": "Precisely seventy years after the first deportation (Daniel 9:2), Cyrus the Persian—whom Isaiah prophesied by name two centuries earlier (Isaiah 44:28)—conquers Babylon and issues a decree permitting Jews to return and rebuild the Temple. This remarkable fulfillment of prophecy demonstrates God's sovereignty over pagan empires and His faithfulness to covenant promises. Zerubbabel leads the first return (Ezra 1-6), rebuilding the Temple despite opposition from Samaritans. Ezra later returns with religious reforms (Ezra 7-10), and Nehemiah rebuilds Jerusalem's walls (Nehemiah 1-6). Though the Second Temple lacks the ark and visible שְׁכִינָה (<em>Shekinah</em>, divine glory), and the Davidic monarchy remains suspended, the return from exile fulfills God's promise through Jeremiah. The restoration sets the stage for Messiah's coming—Jesus appears in this rebuilt Temple, declaring it 'my Father's house' (John 2:16).",
-                "verses": [
-                    {"reference": "Ezra 1:3", "text": "Who is there among you of all his people? his God be with him, and let him go up to Jerusalem, which is in Judah, and build the house of the LORD God of Israel, (he is the God,) which is in Jerusalem."}
-                ]
-            }
-        ],
-        "New Testament Era": [
-            {
-                "title": "Birth of Jesus Christ",
-                "date": "7 BC",
-                "alt_dates": "Ussher/Scofield: 4 BC",
-                "description": "'When the fulness of the time was come, God sent forth his Son, made of a woman, made under the law' (Galatians 4:4)—Jesus (Ἰησοῦς, Greek form of Hebrew יְהוֹשֻׁעַ <em>Yeshua</em>, 'YHWH saves') is born in Bethlehem, fulfilling Micah 5:2. The virgin birth (Isaiah 7:14) demonstrates His divine nature—conceived by the Holy Spirit in Mary's womb, He is <em>Immanuel</em> (עִמָּנוּ אֵל, 'God with us'). Born under Augustus Caesar's census, in David's city, to a virgin of David's line, Jesus fulfills centuries of messianic prophecy. His birth unites deity and humanity in one person—the hypostatic union—making Him the perfect mediator between God and man. Angels announce 'good tidings of great joy' (Luke 2:10), shepherds worship, and magi present gifts befitting a king. Yet Herod's infanticide forces the holy family to flee to Egypt, fulfilling Hosea 11:1: 'Out of Egypt have I called my son.'",
-                "verses": [
-                    {"reference": "Luke 2:11", "text": "For unto you is born this day in the city of David a Saviour, which is Christ the Lord."},
-                    {"reference": "Matthew 1:21", "text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins."}
-                ]
-            },
-            {
-                "title": "Ministry of Jesus",
-                "date": "c. 30-33 AD",
-                "alt_dates": "Ussher/Scofield: c. 27-30 AD",
-                "description": "Following baptism by John and forty days' temptation in the wilderness, Jesus begins His public ministry proclaiming 'The time is fulfilled, and the kingdom of God is at hand' (Mark 1:15). His three-year ministry demonstrates His messianic credentials through σημεῖα (<em>semeia</em>, signs/miracles)—healing the sick, casting out demons, raising the dead, controlling nature—proving He is Israel's promised King. Jesus calls twelve apostles, teaches in parables, confronts Pharisaic legalism, and claims divine prerogatives (forgiving sins, claiming equality with the Father, accepting worship). His 'I AM' statements (John 6-15) identify Him with YHWH. The Sermon on the Mount reveals the kingdom's radical ethics; His table fellowship with sinners demonstrates grace; His cleansing of the Temple asserts messianic authority. Yet Israel's leaders reject Him, setting in motion the divine plan of redemption through the cross.",
-                "verses": [
-                    {"reference": "Mark 1:15", "text": "And saying, The time is fulfilled, and the kingdom of God is at hand: repent ye, and believe the gospel."}
-                ]
-            },
-            {
-                "title": "Crucifixion and Resurrection",
-                "date": "c. 33 AD",
-                "alt_dates": "Ussher/Scofield: 30 AD",
-                "description": "On Passover (פֶּסַח, <em>Pesach</em>), Christ our Passover is sacrificed—arrested, tried by Sanhedrin and Pilate, mocked, scourged, and crucified at Golgotha. The sinless Son of God bears humanity's sin, enduring divine wrath as substitute (2 Corinthians 5:21). His cry 'It is finished' (τετέλεσται, <em>tetelestai</em>, 'paid in full,' John 19:30) declares sin's debt satisfied. The Temple veil tears (Matthew 27:51), symbolizing access to God through Christ's blood. Buried in Joseph's tomb, Jesus conquers death on the third day, rising bodily—the ἀπαρχή (<em>aparche</em>, firstfruits) of resurrection (1 Corinthians 15:20). His resurrection vindicates His claims, defeats Satan and death, and guarantees believers' future resurrection. Christ appears to disciples, proving His bodily resurrection, then ascends to the Father's right hand, where He intercedes as eternal High Priest (Hebrews 7:25).",
-                "verses": [
-                    {"reference": "1 Corinthians 15:3-4", "text": "For I delivered unto you first of all that which I also received, how that Christ died for our sins according to the scriptures; And that he was buried, and that he rose again the third day according to the scriptures."}
-                ]
-            },
-            {
-                "title": "Day of Pentecost",
-                "date": "c. 33 AD",
-                "alt_dates": "Ussher/Scofield: 30 AD",
-                "description": "Fifty days after Christ's resurrection, on the Jewish feast of Pentecost (Πεντηκοστή, <em>Pentekosté</em>, from פֶּנְטֵקוֹסְט <em>Shavuot</em>, Feast of Weeks), the Holy Spirit descends with 'a sound from heaven as of a rushing mighty wind' (Acts 2:2), filling 120 disciples gathered in Jerusalem's upper room. The Spirit's coming fulfills Joel 2:28-29 and Christ's promise of the παράκλητος (<em>parakletos</em>, Comforter/Advocate). Empowered disciples speak in foreign tongues (γλῶσσαι, <em>glossai</em>), reversing Babel's judgment and enabling gospel proclamation to Jews gathered from every nation. Peter preaches Christ crucified and risen—3,000 believe and are baptized, forming the nucleus of the ἐκκλησία (<em>ekklesia</em>, Church). Pentecost marks the Church's birth, the New Covenant's full inauguration, and the Spirit's permanent indwelling of believers—the down payment (ἀρραβών, <em>arrabon</em>) guaranteeing future glorification.",
-                "verses": [
-                    {"reference": "Acts 2:4", "text": "And they were all filled with the Holy Ghost, and began to speak with other tongues, as the Spirit gave them utterance."}
-                ]
-            },
-            {
-                "title": "Paul's Missionary Journeys",
-                "date": "c. 47-60 AD",
-                "alt_dates": "Ussher/Scofield: c. 45-58 AD",
-                "description": "Paul (Παῦλος, <em>Paulos</em>, formerly Saul—converted on the Damascus road), commissioned as apostle to the Gentiles (Galatians 2:7-8), conducts three missionary journeys throughout Asia Minor, Greece, and Macedonia, establishing churches and writing epistles that form much of the New Testament. His gospel proclamation—justification by faith alone through Christ alone—liberates Gentiles from requiring circumcision and Torah observance for salvation, fulfilling God's promise to bless all nations through Abraham's seed (Galatians 3:8, 16). The Jerusalem Council (Acts 15) affirms grace over law. Paul's sufferings (beatings, shipwrecks, imprisonments) demonstrate apostolic credibility. His letters to churches (Romans, Corinthians, Galatians, Ephesians, Philippians, Colossians, Thessalonians) and individuals (Timothy, Titus, Philemon) establish Christian doctrine—salvation by grace through faith, the Church as Christ's body, sanctification through the Spirit, and the blessed hope of Christ's παρουσία (<em>parousia</em>, return).",
-                "verses": [
-                    {"reference": "Acts 13:2", "text": "As they ministered to the Lord, and fasted, the Holy Ghost said, Separate me Barnabas and Saul for the work whereunto I have called them."}
-                ]
-            }
-        ]
-    }
+    """
+    Load comprehensive biblical timeline data from JSON file.
 
-    # Chronological methodology note
-    chronology_note = """<strong>Chronological Methodology:</strong> This timeline uses the Masoretic text with a gap-allowing
-    interpretation of Genesis 5 and 11 genealogies. The Hebrew word 'begat' (<em>yalad</em>, יָלַד) may indicate either
-    direct father-son relationships or ancestral lines with generational gaps. Direct father-son relationships are identified
-    by textual markers such as 'he named him' or 'he called him' (e.g., Adam naming Seth in Genesis 5:3, Noah naming his sons
-    in Genesis 5:32). Absent such indicators, 'begat' may mean 'was an ancestor of,' allowing for gaps in the genealogies.
-    This yields dates of approximately 11,013 BC for Creation and 4,990 BC for the Flood.<br><br>
-    <strong>Alternative Chronologies:</strong> Other prominent biblical chronologies use strict successive reckoning without
-    allowing genealogical gaps. <strong>Ussher's Chronology</strong> (1650), found in many KJV margins, calculates 4004 BC
-    for Creation and 2348 BC for the Flood. <strong>Scofield's Chronology</strong> (1909, revised 1917), featured in the
-    influential Scofield Reference Bible used by evangelicals for generations, similarly dates Creation to 4004 BC and the
-    Flood to 2348 BC, with some variations in later patriarchal dates. All three methods use the same Masoretic text but
-    differ in their interpretation of genealogical relationships. Historical dates from the Assyrian and Babylonian periods
-    (8th-6th centuries BC) are confirmed by archaeological and extra-biblical sources across all chronologies."""
+    Returns tuple of (timeline_events, introduction, chronology_note, chronology_comparison, conclusion)
+    """
+    # Load timeline data from JSON file
+    data_dir = PathLib(__file__).parent / "data"
+    timeline_path = data_dir / "biblical_timeline.json"
 
-    # Chronology comparison data for table
-    chronology_comparison = [
-        {"event": "Creation/Adam", "masoretic": "11,013 BC", "ussher": "4004 BC", "scofield": "4004 BC"},
-        {"event": "The Flood", "masoretic": "4,990 BC", "ussher": "2348 BC", "scofield": "2348 BC"},
-        {"event": "Call of Abraham", "masoretic": "2068 BC", "ussher": "1921 BC", "scofield": "1996 BC"},
-        {"event": "The Exodus", "masoretic": "1447 BC", "ussher": "1491 BC", "scofield": "1491 BC"},
-        {"event": "Solomon's Temple", "masoretic": "967 BC", "ussher": "1015 BC", "scofield": "1004 BC"},
-        {"event": "Fall of Jerusalem", "masoretic": "586 BC", "ussher": "586 BC", "scofield": "587 BC"},
-        {"event": "Birth of Christ", "masoretic": "7 BC", "ussher": "4 BC", "scofield": "4 BC"},
-    ]
+    with open(timeline_path, 'r', encoding='utf-8') as f:
+        timeline_data = json.load(f)
 
-    return timeline_events, chronology_note, chronology_comparison
+    timeline_events = timeline_data.get("timeline_events", {})
+    introduction = timeline_data.get("introduction", "")
+    chronology_note = timeline_data.get("chronology_note", "")
+    chronology_comparison = timeline_data.get("chronology_comparison", [])
+    conclusion = timeline_data.get("conclusion", "")
+
+    return timeline_events, introduction, chronology_note, chronology_comparison, conclusion
 
 
 @app.get("/biblical-timeline", response_class=HTMLResponse)
@@ -1397,7 +1128,7 @@ def biblical_timeline_page(request: Request):
     """Biblical timeline page showing major biblical events chronologically"""
     books = bible.get_books()
 
-    timeline_events, chronology_note, chronology_comparison = get_biblical_timeline_context()
+    timeline_events, introduction, chronology_note, chronology_comparison, conclusion = get_biblical_timeline_context()
 
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -1411,8 +1142,10 @@ def biblical_timeline_page(request: Request):
             {
             "books": books,
             "timeline_events": timeline_events,
+            "introduction": introduction,
             "chronology_note": chronology_note,
             "chronology_comparison": chronology_comparison,
+            "conclusion": conclusion,
             "breadcrumbs": breadcrumbs,
             "pdf_available": WEASYPRINT_AVAILABLE
         }
@@ -1428,12 +1161,14 @@ async def biblical_timeline_pdf():
             detail="PDF generation is not available. WeasyPrint system libraries are not installed."
         )
 
-    timeline_events, chronology_note, chronology_comparison = get_biblical_timeline_context()
+    timeline_events, introduction, chronology_note, chronology_comparison, conclusion = get_biblical_timeline_context()
 
     html_content = templates.get_template("biblical_timeline_pdf.html").render(
         timeline_events=timeline_events,
+        introduction=introduction,
         chronology_note=chronology_note,
-        chronology_comparison=chronology_comparison
+        chronology_comparison=chronology_comparison,
+        conclusion=conclusion
     )
     pdf_buffer = await render_html_to_pdf_async(html_content)
 

@@ -117,6 +117,12 @@
 </div>
 {% endif %}
 
+{% if introduction %}
+<section style="max-width: 75%; margin: 2rem 0 3rem 0;">
+    <p style="font-size: 1.05rem; line-height: 1.8;">{{ introduction | link_verses | safe }}</p>
+</section>
+{% endif %}
+
 <div class="timeline-nav">
     <h2 style="margin: 0 0 1rem 0; font-size: 1.3rem; font-weight: 600; color: #333;">Table of Contents</h2>
     {% for period_name, events in timeline_events.items() %}
@@ -227,4 +233,11 @@
     {% endfor %}
 </section>
 {% endfor %}
+
+{% if conclusion %}
+<section style="max-width: 75%; margin: 3rem 0 2rem 0;">
+    <h2>Conclusion</h2>
+    <p style="font-size: 1.05rem; line-height: 1.8;">{{ conclusion | link_verses | safe }}</p>
+</section>
+{% endif %}
 {% endblock %}
