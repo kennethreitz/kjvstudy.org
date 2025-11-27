@@ -5,7 +5,10 @@ This module contains the commentary generation system including:
 - Helper functions for generating theological commentary
 - Book summaries, chapter overviews, and verse analysis
 """
+import json
 import random
+from functools import lru_cache
+from pathlib import Path
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse
 
@@ -14,11 +17,92 @@ router = APIRouter(tags=["Commentary"])
 # Templates will be set by the main app
 templates = None
 
+# Data directory paths
+_DATA_DIR = Path(__file__).parent.parent / "data"
+_WORD_STUDIES_PATH = _DATA_DIR / "word_studies.json"
+_VERSE_COMMENTARY_PATH = _DATA_DIR / "verse_commentary.json"
+
 
 def init_templates(app_templates):
     """Initialize templates from the main app."""
     global templates
     templates = app_templates
+
+
+@lru_cache(maxsize=1)
+def _load_word_studies() -> dict:
+    """Load word studies from JSON file. Cached since data never changes."""
+    with open(_WORD_STUDIES_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Convert flat JSON structure to nested structure expected by code
+    converted = {}
+    for word, info in data.items():
+        entry = {}
+
+        # Some words are OT-only, NT-only, or both
+        if "ot_term" in info:
+            entry["ot"] = {
+                "term": info["ot_term"],
+                "translit": info["ot_transliteration"],
+                "meaning": info["ot_meaning"],
+                "note": info["ot_note"]
+            }
+
+        if "nt_term" in info:
+            entry["nt"] = {
+                "term": info["nt_term"],
+                "translit": info["nt_transliteration"],
+                "meaning": info["nt_meaning"],
+                "note": info["nt_note"]
+            }
+
+        converted[word] = entry
+    return converted
+
+
+@lru_cache(maxsize=1)
+def _load_verse_commentary() -> dict:
+    """Load verse commentary from JSON file. Cached since data never changes."""
+    with open(_VERSE_COMMENTARY_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Convert flat JSON structure (e.g., "Genesis 1:1") to nested structure
+    # expected by code: enhanced_commentary[book][chapter][verse]
+    converted = {}
+    for verse_ref, commentary in data.items():
+        # Parse verse reference like "Genesis 1:1"
+        parts = verse_ref.rsplit(" ", 1)  # Split from right to get book and chapter:verse
+        if len(parts) != 2:
+            continue
+
+        book = parts[0]
+        chapter_verse = parts[1]
+
+        if ":" not in chapter_verse:
+            continue
+
+        chapter_str, verse_str = chapter_verse.split(":", 1)
+        try:
+            chapter = int(chapter_str)
+            verse = int(verse_str)
+        except ValueError:
+            continue
+
+        # Create nested structure
+        if book not in converted:
+            converted[book] = {}
+        if chapter not in converted[book]:
+            converted[book][chapter] = {}
+
+        # Map JSON field names to code field names
+        converted[book][chapter][verse] = {
+            "analysis": commentary.get("analysis", ""),
+            "historical": commentary.get("historical_context", ""),
+            "questions": commentary.get("questions", [])
+        }
+
+    return converted
 
 
 def get_books():
@@ -149,231 +233,8 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
 
     is_ot = book in ot_books
 
-    # Comprehensive word study database
-    word_studies = {
-        # Divine names and titles
-        "god": {
-            "ot": {"term": "אֱלֹהִים", "translit": "Elohim", "meaning": "God (plural of majesty)", "note": "The Hebrew <strong>Elohim</strong> (אֱלֹהִים) is a plural form denoting majesty and fullness of deity. Though grammatically plural, it takes singular verbs when referring to the one true God, suggesting the Trinity's plurality within unity."},
-            "nt": {"term": "Θεός", "translit": "Theos", "meaning": "God", "note": "The Greek <strong>Theos</strong> (Θεός) refers to deity, used both for the one true God and false gods. Context determines whether it denotes the Father specifically or the Godhead generally."}
-        },
-        "lord": {
-            "ot": {"term": "יְהוָה / אֲדֹנָי", "translit": "YHWH / Adonai", "meaning": "The LORD / Lord", "note": "When 'LORD' appears in small capitals, it represents the Tetragrammaton <strong>YHWH</strong> (יְהוָה), God's personal covenant name meaning 'I AM.' When 'Lord' appears normally, it's <strong>Adonai</strong> (אֲדֹנָי), meaning 'my Lord,' emphasizing sovereignty."},
-            "nt": {"term": "Κύριος", "translit": "Kurios", "meaning": "Lord, Master", "note": "The Greek <strong>Kurios</strong> (Κύριος) means 'lord' or 'master,' used both for human masters and divinely for God the Father and Jesus Christ. Its application to Jesus affirms His deity, as it translates YHWH in the Septuagint."}
-        },
-        "love": {
-            "ot": {"term": "אַהֲבָה / חֶסֶד", "translit": "Ahavah / Chesed", "meaning": "Love / Loyal-love", "note": "Hebrew uses <strong>ahavah</strong> (אַהֲבָה) for love generally, but the covenant term <strong>chesed</strong> (חֶסֶד) describes God's steadfast, loyal love—faithful covenant commitment beyond mere emotion."},
-            "nt": {"term": "ἀγάπη", "translit": "Agape", "meaning": "Divine love", "note": "The Greek <strong>agape</strong> (ἀγάπη) denotes self-sacrificial, unconditional love—the highest form of love, characterizing God's nature (1 John 4:8) and the love Christians are called to demonstrate."}
-        },
-        "faith": {
-            "ot": {"term": "אֱמוּנָה", "translit": "Emunah", "meaning": "Faithfulness, trust", "note": "The Hebrew <strong>emunah</strong> (אֱמוּנָה) encompasses both faith and faithfulness—trusting God and being trustworthy. It implies steadfast reliability, as in 'The just shall live by his faith' (Habakkuk 2:4)."},
-            "nt": {"term": "πίστις", "translit": "Pistis", "meaning": "Faith, belief, trust", "note": "The Greek <strong>pistis</strong> (πίστις) denotes faith, belief, or trust—confidence in God's character and promises. It's both intellectual assent and relational trust, central to justification (Romans 5:1)."}
-        },
-        "grace": {
-            "ot": {"term": "חֵן", "translit": "Chen", "meaning": "Grace, favor", "note": "The Hebrew <strong>chen</strong> (חֵן) means grace or favor—unmerited kindness bestowed by a superior. Noah 'found grace in the eyes of the LORD' (Genesis 6:8), receiving undeserved favor."},
-            "nt": {"term": "χάρις", "translit": "Charis", "meaning": "Grace, favor", "note": "The Greek <strong>charis</strong> (χάρις) denotes unmerited divine favor—God's kindness toward the undeserving. Salvation is 'by grace through faith' (Ephesians 2:8), not human merit."}
-        },
-        "mercy": {
-            "ot": {"term": "רַחֲמִים", "translit": "Rachamim", "meaning": "Compassion, mercy", "note": "The Hebrew <strong>rachamim</strong> (רַחֲמִים) derives from 'womb' (<em>rechem</em>), suggesting tender, maternal compassion. God's mercies are 'new every morning' (Lamentations 3:23), showing His compassionate nature."},
-            "nt": {"term": "ἔλεος", "translit": "Eleos", "meaning": "Mercy, compassion", "note": "The Greek <strong>eleos</strong> (ἔλεος) denotes compassionate mercy—pity for those in distress. God is 'rich in mercy' (Ephesians 2:4), withholding deserved punishment and granting undeserved kindness."}
-        },
-        "righteous": {
-            "ot": {"term": "צַדִּיק", "translit": "Tzaddik", "meaning": "Righteous one", "note": "The Hebrew <strong>tzaddik</strong> (צַדִּיק) describes one who is righteous, just, or lawful—conforming to God's standard. From the root <em>tzedek</em> (צֶדֶק), meaning righteousness or justice."},
-            "nt": {"term": "δίκαιος", "translit": "Dikaios", "meaning": "Righteous, just", "note": "The Greek <strong>dikaios</strong> (δίκαιος) means righteous or just—conforming to God's standard. Christ's righteousness is imputed to believers through faith (Romans 4:5), making them legally righteous before God."}
-        },
-        "salvation": {
-            "ot": {"term": "יְשׁוּעָה", "translit": "Yeshuah", "meaning": "Salvation, deliverance", "note": "The Hebrew <strong>yeshuah</strong> (יְשׁוּעָה) means salvation or deliverance—rescue from danger or enemies. This is the root of 'Jesus' (<em>Yeshua</em>), meaning 'YHWH saves.'"},
-            "nt": {"term": "σωτηρία", "translit": "Soteria", "meaning": "Salvation, deliverance", "note": "The Greek <strong>soteria</strong> (σωτηρία) denotes salvation, deliverance, or preservation—rescue from sin's penalty and power. It encompasses justification, sanctification, and glorification."}
-        },
-        "redeem": {
-            "ot": {"term": "גָּאַל", "translit": "Gaal", "meaning": "To redeem, act as kinsman-redeemer", "note": "The Hebrew <strong>gaal</strong> (גָּאַל) means to redeem or act as kinsman-redeemer (<em>go'el</em>)—buying back family property or relatives. It foreshadows Christ redeeming His people through His blood."},
-            "nt": {"term": "λυτρόω", "translit": "Lutroo", "meaning": "To redeem, ransom", "note": "The Greek <strong>lutroo</strong> (λυτρόω) means to redeem or ransom—purchasing freedom by paying a price. Christ redeemed us 'with the precious blood' (1 Peter 1:18-19), the ransom for sin."}
-        },
-        "covenant": {
-            "ot": {"term": "בְּרִית", "translit": "Berit", "meaning": "Covenant, treaty", "note": "The Hebrew <strong>berit</strong> (בְּרִית) denotes a covenant—a binding agreement, often ratified by blood sacrifice. God's covenants (Abrahamic, Mosaic, Davidic) structure redemptive history, culminating in the New Covenant."},
-            "nt": {"term": "διαθήκη", "translit": "Diatheke", "meaning": "Covenant, testament", "note": "The Greek <strong>diatheke</strong> (διαθήκη) means covenant or testament—a binding arrangement. The New Covenant (Jeremiah 31:31-34) is ratified by Christ's blood, surpassing the old (Hebrews 8:6-13)."}
-        },
-        "glory": {
-            "ot": {"term": "כָּבוֹד", "translit": "Kavod", "meaning": "Glory, weight, honor", "note": "The Hebrew <strong>kavod</strong> (כָּבוֹד) literally means 'weight' or 'heaviness,' metaphorically denoting glory, honor, or majesty. God's glory (<em>Shekinah</em>) filled the tabernacle (Exodus 40:34) and temple (1 Kings 8:11)."},
-            "nt": {"term": "δόξα", "translit": "Doxa", "meaning": "Glory, majesty, splendor", "note": "The Greek <strong>doxa</strong> (δόξα) means glory, splendor, or magnificence—the radiant manifestation of God's perfection. Christ revealed the Father's glory: 'we beheld his glory' (John 1:14)."}
-        },
-        "holy": {
-            "ot": {"term": "קָדוֹשׁ", "translit": "Qadosh", "meaning": "Holy, set apart", "note": "The Hebrew <strong>qadosh</strong> (קָדוֹשׁ) means holy or set apart—separated from common use for God's purposes. God is 'the Holy One of Israel,' utterly distinct from creation in moral perfection."},
-            "nt": {"term": "ἅγιος", "translit": "Hagios", "meaning": "Holy, sacred, set apart", "note": "The Greek <strong>hagios</strong> (ἅγιος) denotes holiness—moral purity and separation unto God. Believers are called 'saints' (<em>hagioi</em>), those set apart for God through Christ's sanctifying work."}
-        },
-        "peace": {
-            "ot": {"term": "שָׁלוֹם", "translit": "Shalom", "meaning": "Peace, wholeness, prosperity", "note": "The Hebrew <strong>shalom</strong> (שָׁלוֹם) encompasses peace, wholeness, completeness, and welfare—not merely absence of conflict but positive flourishing. God is <em>Jehovah-Shalom</em>, 'the LORD is Peace' (Judges 6:24)."},
-            "nt": {"term": "εἰρήνη", "translit": "Eirene", "meaning": "Peace, harmony", "note": "The Greek <strong>eirene</strong> (εἰρήνη) means peace or harmony—both the inner tranquility of reconciliation with God and relational harmony. Christ is 'our peace' (Ephesians 2:14), reconciling us to God."}
-        },
-        "spirit": {
-            "ot": {"term": "רוּחַ", "translit": "Ruach", "meaning": "Spirit, wind, breath", "note": "The Hebrew <strong>ruach</strong> (רוּחַ) means spirit, wind, or breath—invisible but powerful. It describes both the Holy Spirit and the human spirit. God's Spirit gives life and empowers His people."},
-            "nt": {"term": "πνεῦμα", "translit": "Pneuma", "meaning": "Spirit, wind, breath", "note": "The Greek <strong>pneuma</strong> (πνεῦμα) means spirit, wind, or breath—the immaterial aspect of persons. The Holy Spirit (<em>Pneuma Hagion</em>) is the third person of the Trinity, dwelling in believers."}
-        },
-        "wisdom": {
-            "ot": {"term": "חָכְמָה", "translit": "Chokhmah", "meaning": "Wisdom, skill", "note": "The Hebrew <strong>chokhmah</strong> (חָכְמָה) denotes wisdom—practical skill in living righteously. 'The fear of the LORD is the beginning of wisdom' (Proverbs 9:10), grounding all true knowledge in reverence for God."},
-            "nt": {"term": "σοφία", "translit": "Sophia", "meaning": "Wisdom, insight", "note": "The Greek <strong>sophia</strong> (σοφία) means wisdom or insight—skillful living and right judgment. Christ is 'the wisdom of God' (1 Corinthians 1:24), and God gives wisdom liberally to those who ask (James 1:5)."}
-        },
-        "truth": {
-            "ot": {"term": "אֱמֶת", "translit": "Emet", "meaning": "Truth, faithfulness", "note": "The Hebrew <strong>emet</strong> (אֱמֶת) means truth or faithfulness—reliability and conformity to reality. God is true (<em>emet</em>), utterly faithful to His word and character."},
-            "nt": {"term": "ἀλήθεια", "translit": "Aletheia", "meaning": "Truth, reality", "note": "The Greek <strong>aletheia</strong> (ἀλήθεια) denotes truth or reality—that which corresponds to actuality. Jesus declared, 'I am the way, the truth, and the life' (John 14:6), embodying ultimate reality."}
-        },
-        "sin": {
-            "ot": {"term": "חַטָּאת", "translit": "Chatta'ah", "meaning": "Sin, missing the mark", "note": "The Hebrew <strong>chatta'ah</strong> (חַטָּאת) means sin—missing the mark of God's standard. It encompasses rebellion, transgression, and falling short of divine holiness."},
-            "nt": {"term": "ἁμαρτία", "translit": "Hamartia", "meaning": "Sin, missing the mark", "note": "The Greek <strong>hamartia</strong> (ἁμαρτία) means sin—missing the target of God's perfection. 'All have sinned and fall short of the glory of God' (Romans 3:23), requiring Christ's atoning sacrifice."}
-        },
-        "kingdom": {
-            "ot": {"term": "מַלְכוּת", "translit": "Malkhut", "meaning": "Kingdom, reign, royal power", "note": "The Hebrew <strong>malkhut</strong> (מַלְכוּת) denotes kingdom or royal rule—the realm and reign of a king. God's kingdom represents His sovereign rule over all creation."},
-            "nt": {"term": "βασιλεία", "translit": "Basileia", "meaning": "Kingdom, reign", "note": "The Greek <strong>basileia</strong> (βασιλεία) means kingdom—both the realm ruled and the exercise of royal authority. The 'kingdom of God' is central to Jesus' teaching, representing God's saving rule breaking into history."}
-        },
-        "sacrifice": {
-            "ot": {"term": "זֶבַח", "translit": "Zevach", "meaning": "Sacrifice, offering", "note": "The Hebrew <strong>zevach</strong> (זֶבַח) denotes a sacrifice or offering—an animal slaughtered for worship. Old Testament sacrifices foreshadowed Christ, 'the Lamb of God' (John 1:29)."},
-            "nt": {"term": "θυσία", "translit": "Thusia", "meaning": "Sacrifice, offering", "note": "The Greek <strong>thusia</strong> (θυσία) means sacrifice or offering. Christ offered Himself as the perfect sacrifice 'once for all' (Hebrews 10:10), ending the need for repeated animal sacrifices."}
-        },
-        "word": {
-            "ot": {"term": "דָּבָר", "translit": "Davar", "meaning": "Word, thing, matter", "note": "The Hebrew <strong>davar</strong> (דָּבָר) means word, thing, or matter—God's creative and authoritative speech. 'By the word of the LORD were the heavens made' (Psalm 33:6)."},
-            "nt": {"term": "λόγος", "translit": "Logos", "meaning": "Word, reason, message", "note": "The Greek <strong>Logos</strong> (Λόγος) means word, reason, or message—the rational principle underlying reality. John identifies Christ as the eternal Logos: 'In the beginning was the Word' (John 1:1)."}
-        },
-        "church": {
-            "nt": {"term": "ἐκκλησία", "translit": "Ekklesia", "meaning": "Assembly, church", "note": "The Greek <strong>ekklesia</strong> (ἐκκλησία) means assembly or called-out ones—the gathering of believers. Christ builds His church (Matthew 16:18), the body of Christ comprising all the redeemed."}
-        },
-        "baptize": {
-            "nt": {"term": "βαπτίζω", "translit": "Baptizo", "meaning": "To baptize, immerse", "note": "The Greek <strong>baptizo</strong> (βαπτίζω) means to dip, immerse, or baptize. Christian baptism symbolizes identification with Christ's death, burial, and resurrection (Romans 6:3-4)."}
-        },
-        "gospel": {
-            "nt": {"term": "εὐαγγέλιον", "translit": "Euangelion", "meaning": "Good news, gospel", "note": "The Greek <strong>euangelion</strong> (εὐαγγέλιον) means good news or gospel—the message of salvation through Christ's death and resurrection. It's 'the power of God unto salvation' (Romans 1:16)."}
-        },
-
-        # Worship and Religious Practice
-        "worship": {
-            "ot": {"term": "שָׁחָה", "translit": "Shachah", "meaning": "To bow down, worship", "note": "The Hebrew <strong>shachah</strong> (שָׁחָה) means to bow down or prostrate oneself in worship—physical expression of reverence and submission to God. True worship involves both outward posture and inward devotion."},
-            "nt": {"term": "προσκυνέω", "translit": "Proskuneo", "meaning": "To worship, bow down", "note": "The Greek <strong>proskuneo</strong> (προσκυνέω) means to worship or pay homage—literally 'to kiss toward.' Jesus taught that true worshipers must worship 'in spirit and in truth' (John 4:24)."}
-        },
-        "prayer": {
-            "ot": {"term": "תְּפִלָּה", "translit": "Tefillah", "meaning": "Prayer, intercession", "note": "The Hebrew <strong>tefillah</strong> (תְּפִלָּה) means prayer or intercession—communion with God through petition and praise. Solomon's temple was to be 'a house of prayer for all people' (Isaiah 56:7)."},
-            "nt": {"term": "προσευχή", "translit": "Proseuche", "meaning": "Prayer, petition", "note": "The Greek <strong>proseuche</strong> (προσευχή) denotes prayer—communication with God. Believers are exhorted to 'pray without ceasing' (1 Thessalonians 5:17) and 'in everything by prayer and supplication' present requests to God (Philippians 4:6)."}
-        },
-        "praise": {
-            "ot": {"term": "הָלַל", "translit": "Halal", "meaning": "To praise, celebrate", "note": "The Hebrew <strong>halal</strong> (הָלַל) means to praise or celebrate boisterously—the root of 'Hallelujah' (praise YHWH). The Psalms overflow with calls to praise God for His character and works."},
-            "nt": {"term": "αἰνέω", "translit": "Aineo", "meaning": "To praise, extol", "note": "The Greek <strong>aineo</strong> (αἰνέω) means to praise or extol—expressing admiration and gratitude. The early church devoted themselves to 'praising God' (Acts 2:47) continually."}
-        },
-        "temple": {
-            "ot": {"term": "הֵיכָל", "translit": "Heikhal", "meaning": "Temple, palace", "note": "The Hebrew <strong>heikhal</strong> (הֵיכָל) denotes God's temple or palace—the sacred dwelling place where God's presence resided. Solomon's temple was the center of Israel's worship until its destruction."},
-            "nt": {"term": "ναός", "translit": "Naos", "meaning": "Temple, sanctuary", "note": "The Greek <strong>naos</strong> (ναός) means temple or inner sanctuary. Paul declares believers are 'the temple of the living God' (2 Corinthians 6:16), individually (1 Corinthians 6:19) and corporately as the church."}
-        },
-        "altar": {
-            "ot": {"term": "מִזְבֵּחַ", "translit": "Mizbeach", "meaning": "Altar, place of sacrifice", "note": "The Hebrew <strong>mizbeach</strong> (מִזְבֵּחַ) means altar—from the root 'to slaughter.' Altars were places where sacrifices were offered to God, pointing forward to Christ's ultimate sacrifice."},
-            "nt": {"term": "θυσιαστήριον", "translit": "Thusiastērion", "meaning": "Altar", "note": "The Greek <strong>thusiastērion</strong> (θυσιαστήριον) denotes an altar for sacrifice. Hebrews 13:10 declares 'We have an altar' from which temple priests cannot eat—referring to Christ's sacrifice outside the camp."}
-        },
-        "priest": {
-            "ot": {"term": "כֹּהֵן", "translit": "Kohen", "meaning": "Priest", "note": "The Hebrew <strong>kohen</strong> (כֹּהֵן) denotes a priest—one who mediates between God and people through sacrifices and intercession. Aaron and his descendants served as Israel's priests, foreshadowing Christ the Great High Priest."},
-            "nt": {"term": "ἱερεύς", "translit": "Hiereus", "meaning": "Priest", "note": "The Greek <strong>hiereus</strong> (ἱερεύς) means priest. Christ is our eternal High Priest (Hebrews 4:14) after the order of Melchizedek, and believers form a 'royal priesthood' (1 Peter 2:9)."}
-        },
-
-        # Spiritual Beings and Realms
-        "angel": {
-            "ot": {"term": "מַלְאָךְ", "translit": "Mal'akh", "meaning": "Angel, messenger", "note": "The Hebrew <strong>mal'akh</strong> (מַלְאָךְ) means angel or messenger—a heavenly being sent by God. Angels serve as God's messengers, worship Him, and minister to believers (Hebrews 1:14)."},
-            "nt": {"term": "ἄγγελος", "translit": "Angelos", "meaning": "Angel, messenger", "note": "The Greek <strong>angelos</strong> (ἄγγελος) means angel or messenger. Angels announced Christ's birth (Luke 2:9-14), ministered to Him (Matthew 4:11), and will accompany His return (Matthew 25:31)."}
-        },
-        "heaven": {
-            "ot": {"term": "שָׁמַיִם", "translit": "Shamayim", "meaning": "Heaven, sky", "note": "The Hebrew <strong>shamayim</strong> (שָׁמַיִם) means heaven or sky—God's dwelling place and the realm above earth. 'The heaven, even the heavens, are the LORD's' (Psalm 115:16), yet 'the heaven of heavens cannot contain Him' (1 Kings 8:27)."},
-            "nt": {"term": "οὐρανός", "translit": "Ouranos", "meaning": "Heaven, sky", "note": "The Greek <strong>ouranos</strong> (οὐρανός) denotes heaven—God's throne and the believer's eternal home. Jesus taught His disciples to pray 'Our Father which art in heaven' (Matthew 6:9) and promised to prepare a place there (John 14:2)."}
-        },
-        "earth": {
-            "ot": {"term": "אֶרֶץ", "translit": "Eretz", "meaning": "Earth, land", "note": "The Hebrew <strong>eretz</strong> (אֶרֶץ) means earth or land—the physical world God created. 'The earth is the LORD's, and the fulness thereof' (Psalm 24:1), given to humanity as stewards."},
-            "nt": {"term": "γῆ", "translit": "Gē", "meaning": "Earth, land", "note": "The Greek <strong>gē</strong> (γῆ) denotes earth or land. While believers are 'strangers and pilgrims on the earth' (Hebrews 11:13), they await 'new heavens and a new earth' (2 Peter 3:13) where righteousness dwells."}
-        },
-
-        # Human Nature and Faculties
-        "soul": {
-            "ot": {"term": "נֶפֶשׁ", "translit": "Nephesh", "meaning": "Soul, life, self", "note": "The Hebrew <strong>nephesh</strong> (נֶפֶשׁ) denotes the soul or life—the immaterial essence of a person. It represents the whole person, their desires, emotions, and will. God breathed into man and he became 'a living soul' (Genesis 2:7)."},
-            "nt": {"term": "ψυχή", "translit": "Psuche", "meaning": "Soul, life, self", "note": "The Greek <strong>psuche</strong> (ψυχή) means soul or life—the seat of emotions and will. Jesus asked, 'What shall it profit a man, if he shall gain the whole world, and lose his own soul?' (Mark 8:36)."}
-        },
-        "heart": {
-            "ot": {"term": "לֵב", "translit": "Lev", "meaning": "Heart, mind, will", "note": "The Hebrew <strong>lev</strong> (לֵב) denotes the heart—the center of thought, emotion, and will. God commanded Israel to 'love the LORD thy God with all thine heart' (Deuteronomy 6:5), and He promised a 'new heart' (Ezekiel 36:26)."},
-            "nt": {"term": "καρδία", "translit": "Kardia", "meaning": "Heart, mind, inner self", "note": "The Greek <strong>kardia</strong> (καρδία) means heart—the inner person, seat of thoughts and affections. 'Out of the abundance of the heart the mouth speaketh' (Matthew 12:34), and believers must guard their hearts (Proverbs 4:23)."}
-        },
-        "flesh": {
-            "ot": {"term": "בָּשָׂר", "translit": "Basar", "meaning": "Flesh, body", "note": "The Hebrew <strong>basar</strong> (בָּשָׂר) means flesh or body—humanity's physical, mortal nature. 'All flesh is grass' (Isaiah 40:6), emphasizing human frailty and mortality before the eternal God."},
-            "nt": {"term": "σάρξ", "translit": "Sarx", "meaning": "Flesh, sinful nature", "note": "The Greek <strong>sarx</strong> (σάρξ) denotes flesh—both physical body and fallen human nature opposed to God. Paul contrasts walking 'after the flesh' versus 'after the Spirit' (Romans 8:4-5). The Word became flesh (John 1:14) in the incarnation."}
-        },
-        "mind": {
-            "nt": {"term": "νοῦς", "translit": "Nous", "meaning": "Mind, understanding", "note": "The Greek <strong>nous</strong> (νοῦς) means mind or understanding—the faculty of thought and perception. Believers are to be transformed by the 'renewing of your mind' (Romans 12:2) and have 'the mind of Christ' (1 Corinthians 2:16)."}
-        },
-
-        # Spiritual States and Actions
-        "blessing": {
-            "ot": {"term": "בְּרָכָה", "translit": "Berakhah", "meaning": "Blessing, prosperity", "note": "The Hebrew <strong>berakhah</strong> (בְּרָכָה) means blessing—divine favor bringing prosperity and well-being. God blessed Abraham to be a blessing (Genesis 12:2), and obedience brings blessing while disobedience brings curse (Deuteronomy 28)."},
-            "nt": {"term": "εὐλογία", "translit": "Eulogia", "meaning": "Blessing, praise", "note": "The Greek <strong>eulogia</strong> (εὐλογία) denotes blessing—divine favor or words of praise. Believers are blessed with 'all spiritual blessings in heavenly places in Christ' (Ephesians 1:3) and called to 'bless them which persecute you' (Romans 12:14)."}
-        },
-        "hope": {
-            "ot": {"term": "תִּקְוָה", "translit": "Tikvah", "meaning": "Hope, expectation", "note": "The Hebrew <strong>tikvah</strong> (תִּקְוָה) means hope or expectation—confident trust in God's promises. 'Happy is he that hath the God of Jacob for his help, whose hope is in the LORD his God' (Psalm 146:5)."},
-            "nt": {"term": "ἐλπίς", "translit": "Elpis", "meaning": "Hope, expectation", "note": "The Greek <strong>elpis</strong> (ἐλπίς) denotes hope—confident expectation of good. This hope is 'an anchor of the soul' (Hebrews 6:19), grounded in Christ's resurrection and the believer's future inheritance (1 Peter 1:3-4)."}
-        },
-        "joy": {
-            "ot": {"term": "שִׂמְחָה", "translit": "Simchah", "meaning": "Joy, gladness", "note": "The Hebrew <strong>simchah</strong> (שִׂמְחָה) means joy or gladness—deep delight in God. 'The joy of the LORD is your strength' (Nehemiah 8:10), and God's presence brings 'fulness of joy' (Psalm 16:11)."},
-            "nt": {"term": "χαρά", "translit": "Chara", "meaning": "Joy, gladness", "note": "The Greek <strong>chara</strong> (χαρά) denotes joy—deep spiritual gladness. This joy is a fruit of the Spirit (Galatians 5:22), independent of circumstances. Jesus promised that His joy would remain in believers, making their joy full (John 15:11)."}
-        },
-        "fear": {
-            "ot": {"term": "יִרְאָה", "translit": "Yirah", "meaning": "Fear, reverence", "note": "The Hebrew <strong>yirah</strong> (יִרְאָה) means fear or reverence—awe and respect before God. 'The fear of the LORD is the beginning of wisdom' (Proverbs 9:10), combining reverent awe with trust in God's goodness."},
-            "nt": {"term": "φόβος", "translit": "Phobos", "meaning": "Fear, reverence", "note": "The Greek <strong>phobos</strong> (φόβος) means fear—both terror and reverential awe. While perfect love casts out servile fear (1 John 4:18), believers are to 'fear God, and give glory to him' (Revelation 14:7) with holy reverence."}
-        },
-
-        # Religious Roles
-        "prophet": {
-            "ot": {"term": "נָבִיא", "translit": "Navi", "meaning": "Prophet, spokesman", "note": "The Hebrew <strong>navi</strong> (נָבִיא) means prophet—one who speaks God's word to the people. Prophets received divine revelation and declared God's message, often calling Israel to repentance and foretelling future events."},
-            "nt": {"term": "προφήτης", "translit": "Prophētēs", "meaning": "Prophet", "note": "The Greek <strong>prophētēs</strong> (προφήτης) denotes a prophet—one who speaks forth God's message. Jesus was recognized as 'a prophet mighty in deed and word' (Luke 24:19), fulfilling and surpassing the prophetic office."}
-        },
-        "apostle": {
-            "nt": {"term": "ἀπόστολος", "translit": "Apostolos", "meaning": "Apostle, sent one", "note": "The Greek <strong>apostolos</strong> (ἀπόστολος) means apostle or sent one—an authorized messenger. The twelve apostles were chosen by Christ and empowered as His witnesses, laying the foundation of the church (Ephesians 2:20)."}
-        },
-        "disciple": {
-            "nt": {"term": "μαθητής", "translit": "Mathētēs", "meaning": "Disciple, learner", "note": "The Greek <strong>mathētēs</strong> (μαθητής) means disciple or learner—one who follows a teacher. Jesus called His followers to deny themselves, take up their cross, and follow Him (Matthew 16:24), learning from Him continually."}
-        },
-
-        # Law and Judgment
-        "law": {
-            "ot": {"term": "תּוֹרָה", "translit": "Torah", "meaning": "Law, instruction", "note": "The Hebrew <strong>Torah</strong> (תּוֹרָה) means law or instruction—God's revealed will for His people. The Law includes moral, civil, and ceremonial commandments, revealing God's character and humanity's need for a Savior."},
-            "nt": {"term": "νόμος", "translit": "Nomos", "meaning": "Law", "note": "The Greek <strong>nomos</strong> (νόμος) denotes law—particularly the Mosaic law. While believers are not under law but under grace (Romans 6:14), Christ fulfilled the law (Matthew 5:17) and wrote it on believers' hearts (Hebrews 8:10)."}
-        },
-        "judgment": {
-            "ot": {"term": "מִשְׁפָּט", "translit": "Mishpat", "meaning": "Judgment, justice", "note": "The Hebrew <strong>mishpat</strong> (מִשְׁפָּט) means judgment or justice—God's righteous decisions and ordinances. God is the Judge of all the earth who 'shall do right' (Genesis 18:25), executing perfect justice."},
-            "nt": {"term": "κρίσις", "translit": "Krisis", "meaning": "Judgment, decision", "note": "The Greek <strong>krisis</strong> (κρίσις) denotes judgment—evaluation and sentence. All will stand before God's judgment seat (Romans 14:10), and Christ has been appointed Judge of the living and dead (Acts 10:42)."}
-        },
-        "wrath": {
-            "ot": {"term": "אַף", "translit": "Aph", "meaning": "Wrath, anger", "note": "The Hebrew <strong>aph</strong> (אַף) literally means 'nose' or 'nostrils,' idiomatically expressing wrath or anger—God's righteous indignation against sin. Yet God is 'slow to anger' (Exodus 34:6) and 'abundant in mercy.'"},
-            "nt": {"term": "ὀργή", "translit": "Orgē", "meaning": "Wrath, anger", "note": "The Greek <strong>orgē</strong> (ὀργή) means wrath—settled, righteous anger against sin. Believers are 'saved from wrath through him' (Romans 5:9), as Christ bore God's wrath on the cross, satisfying divine justice."}
-        },
-
-        # Eschatological Terms
-        "resurrection": {
-            "nt": {"term": "ἀνάστασις", "translit": "Anastasis", "meaning": "Resurrection, rising", "note": "The Greek <strong>anastasis</strong> (ἀνάστασις) means resurrection—rising from death to life. Christ's resurrection is the 'firstfruits' (1 Corinthians 15:20), guaranteeing believers' future bodily resurrection and victory over death."}
-        },
-        "eternal": {
-            "ot": {"term": "עוֹלָם", "translit": "Olam", "meaning": "Eternal, everlasting", "note": "The Hebrew <strong>olam</strong> (עוֹלָם) means eternal or everlasting—time stretching beyond human comprehension. God is the 'everlasting God' (Genesis 21:33), and His covenant love endures forever."},
-            "nt": {"term": "αἰώνιος", "translit": "Aiōnios", "meaning": "Eternal, everlasting", "note": "The Greek <strong>aiōnios</strong> (αἰώνιος) denotes eternal or everlasting—unending duration. Believers possess 'eternal life' (John 3:16) now and will dwell with God eternally, while the impenitent face 'eternal punishment' (Matthew 25:46)."}
-        },
-        "life": {
-            "ot": {"term": "חַיִּים", "translit": "Chayyim", "meaning": "Life, living", "note": "The Hebrew <strong>chayyim</strong> (חַיִּים) means life—existence, vitality, and well-being. God is the source of all life, and He offers 'the fountain of life' (Psalm 36:9) to those who seek Him."},
-            "nt": {"term": "ζωή", "translit": "Zōē", "meaning": "Life", "note": "The Greek <strong>zōē</strong> (ζωή) denotes life—particularly spiritual and eternal life. Jesus declared 'I am the way, the truth, and the life' (John 14:6) and came that believers 'might have life, and have it more abundantly' (John 10:10)."}
-        },
-        "death": {
-            "ot": {"term": "מָוֶת", "translit": "Mavet", "meaning": "Death", "note": "The Hebrew <strong>mavet</strong> (מָוֶת) means death—the cessation of physical life and separation from God. Death entered through sin (Genesis 2:17), but God promises deliverance: 'O death, I will be thy plagues' (Hosea 13:14)."},
-            "nt": {"term": "θάνατος", "translit": "Thanatos", "meaning": "Death", "note": "The Greek <strong>thanatos</strong> (θάνατος) denotes death—both physical death and spiritual separation from God. Christ conquered death through His resurrection, making death merely a transition for believers: 'to be absent from the body, and to be present with the Lord' (2 Corinthians 5:8)."}
-        },
-
-        # Additional Key Terms
-        "blood": {
-            "ot": {"term": "דָּם", "translit": "Dam", "meaning": "Blood", "note": "The Hebrew <strong>dam</strong> (דָּם) means blood—representing life itself. 'The life of the flesh is in the blood' (Leviticus 17:11), and blood was required for atonement, foreshadowing Christ's sacrifice."},
-            "nt": {"term": "αἷμα", "translit": "Haima", "meaning": "Blood", "note": "The Greek <strong>haima</strong> (αἷμα) denotes blood. Christ's blood 'cleanseth us from all sin' (1 John 1:7), securing 'eternal redemption' (Hebrews 9:12) through His once-for-all sacrifice. Believers have been 'purchased with his own blood' (Acts 20:28)."}
-        },
-        "power": {
-            "ot": {"term": "כֹּחַ", "translit": "Koach", "meaning": "Power, strength", "note": "The Hebrew <strong>koach</strong> (כֹּחַ) means power or strength—ability to accomplish. God's power is infinite: 'Hast thou not known? hast thou not heard, that the everlasting God, the LORD, the Creator of the ends of the earth, fainteth not, neither is weary?' (Isaiah 40:28)."},
-            "nt": {"term": "δύναμις", "translit": "Dunamis", "meaning": "Power, ability", "note": "The Greek <strong>dunamis</strong> (δύναμις) denotes power or ability—the source of 'dynamite.' The gospel is 'the power of God unto salvation' (Romans 1:16), and believers receive power when the Holy Spirit comes upon them (Acts 1:8)."}
-        },
-        "name": {
-            "ot": {"term": "שֵׁם", "translit": "Shem", "meaning": "Name, reputation", "note": "The Hebrew <strong>shem</strong> (שֵׁם) means name—representing character, authority, and reputation. God's name is holy (Leviticus 20:3), and He promised Abraham 'I will make thy name great' (Genesis 12:2)."},
-            "nt": {"term": "ὄνομα", "translit": "Onoma", "meaning": "Name, authority", "note": "The Greek <strong>onoma</strong> (ὄνομα) denotes name or authority. At Jesus' name 'every knee should bow' (Philippians 2:10), and 'there is none other name under heaven given among men, whereby we must be saved' (Acts 4:12)."}
-        }
-    }
+    # Load word studies from JSON file
+    word_studies = _load_word_studies()
 
     # First, collect all potential word studies in this verse
     potential_sidenotes = []
@@ -415,273 +276,8 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
 
 def generate_commentary(book, chapter, verse):
     """Generate AI-powered commentary for a specific verse"""
-    # Enhanced commentary database for major chapters
-    enhanced_commentary = {
-        "Genesis": {
-            1: {
-                1: {
-                    "analysis": """<strong>In the beginning God created the heaven and the earth.</strong> This majestic opening declares the fundamental truth of biblical theology: God is the sovereign Creator of all that exists. The Hebrew word <em>bereshit</em> (בְּרֵאשִׁית) means "in beginning" without the definite article, suggesting not merely a temporal starting point but the absolute origin of all created reality.<br><br>The verb <em>bara</em> (בָּרָא, "created") appears exclusively with God as its subject in Scripture, denoting divine creative activity that brings something entirely new into existence. This distinguishes biblical creation from ancient Near Eastern myths where gods merely reshape pre-existing matter. The phrase "the heaven and the earth" (<em>hashamayim ve'et ha'aretz</em>) is a Hebrew merism expressing the totality of creation—all realms, visible and invisible.<br><br>Theologically, this verse establishes: (1) God's transcendence—He exists before and apart from creation; (2) God's omnipotence—He speaks reality into being; (3) the contingency of creation—all depends on God for existence; and (4) the purposefulness of creation—it originates from divine will, not chance or necessity.""",
-                    "historical": """Genesis 1:1 stands in stark contrast to ancient Near Eastern creation accounts like the Babylonian <em>Enuma Elish</em> or the Egyptian creation myths. While these portrayed creation as resulting from conflicts between deities, Genesis presents a sovereign God who creates effortlessly by divine decree. This would have been revolutionary to ancient readers accustomed to polytheistic cosmogonies.<br><br>The Hebrew text's literary structure suggests careful composition rather than primitive mythology. The absence of theogony (origin of gods) and theomachy (conflict between gods) distinguishes Genesis from its contemporary literature. Archaeological discoveries of creation tablets from Mesopotamia (dating to 2000-1500 BCE) reveal that Genesis addresses similar questions but provides radically different answers about the nature of God, humanity, and the cosmos.<br><br>For the Israelites emerging from Egyptian bondage, this truth that their God created everything would have been profoundly liberating—the gods of Egypt were mere creations, not creators.""",
-                    "questions": [
-                        "How does the doctrine of creation ex nihilo (from nothing) shape our understanding of God's relationship to the universe?",
-                        "What are the implications of God creating by His word alone for our understanding of the power of divine speech throughout Scripture?",
-                        "How does Genesis 1:1 provide the foundation for a biblical worldview distinct from both ancient mythology and modern materialism?"
-                    ]
-                },
-                26: {
-                    "analysis": """<strong>Let us make man in our image, after our likeness.</strong> This pivotal verse introduces humanity's creation with striking theological significance. The plural "Let us" has generated extensive theological discussion. While some see this as a plural of majesty (royal we), the most compelling interpretation recognizes an intra-Trinitarian conversation, especially given New Testament revelation (John 1:1-3, Colossians 1:16).<br><br>The Hebrew words <em>tselem</em> (צֶלֶם, "image") and <em>demuth</em> (דְּמוּת, "likeness") are essentially synonymous, together emphasizing humanity's unique status as God's representatives. This image encompasses: (1) rational and moral capacities, (2) relational nature, (3) creative abilities, (4) dominion over creation, and (5) spiritual dimension. Importantly, the image of God is not something humans possess but something they <em>are</em>.<br><br>The immediate context links the image to dominion—humans are God's vice-regents on earth. This establishes human dignity, purpose, and responsibility. Every human bears this image, making human life sacred and murder heinous (Genesis 9:6). The fall damages but does not eliminate this image (James 3:9).""",
-                    "historical": """The concept of humans as divine images was revolutionary in the ancient Near East. While other cultures depicted only kings as divine images, Genesis democratizes this honor—all humans bear God's image regardless of social status. In Egypt, the Pharaoh was considered the living image of the gods, while in Mesopotamia, only kings were called divine images. Genesis radically declares that every human, from the greatest to the least, shares this extraordinary dignity.<br><br>Ancient creation accounts typically portrayed humans as afterthoughts or slaves to the gods. The Babylonian <em>Atrahasis Epic</em> describes humans created to relieve the gods of burdensome labor. By contrast, Genesis presents humans as the crown of creation, specially crafted by God's own hands and breath. This would have been profoundly counter-cultural to ancient readers familiar with their insignificance in other religious systems.""",
-                    "questions": [
-                        "How does the image of God distinguish humans from animals and what implications does this have for bioethics?",
-                        "In what ways does understanding humans as God's image-bearers shape our view of human rights and social justice?",
-                        "How should the doctrine of imago Dei influence our approach to race relations, disability, and the value of human life at all stages?"
-                    ]
-                }
-            }
-        },
-        "John": {
-            3: {
-                16: {
-                    "analysis": """<strong>For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</strong> This verse, often called the "Gospel in miniature," encapsulates the entire biblical narrative of redemption. The Greek construction emphasizes the manner and extent of God's love: <em>houtōs</em> (οὕτως, "so" or "in this way") points not merely to degree but to the specific manner—through sacrificial giving.<br><br>The phrase "only begotten" (<em>monogenēs</em>, μονογενής) literally means "one of a kind" or "unique," emphasizing Christ's distinctive relationship to the Father rather than necessarily temporal generation. This word appears five times in John's writings (John 1:14, 18; 3:16, 18; 1 John 4:9), always highlighting Christ's unique divine sonship.<br><br>"The world" (<em>kosmos</em>, κόσμος) in John's Gospel typically refers to fallen humanity in rebellion against God (John 1:10; 15:18-19). That God loves <em>this</em> world—hostile, rebellious, and alienated—demonstrates the radical nature of divine grace. The purpose clause reveals God's desire: not condemnation but salvation, not death but eternal life.""",
-                    "historical": """Jesus spoke these words to Nicodemus, a Pharisee and member of the Sanhedrin, during a nighttime conversation that reveals the tension surrounding Jesus' ministry. Nicodemus represented the religious elite who struggled to understand Jesus' revolutionary teachings about spiritual rebirth and salvation.<br><br>The context of Jesus' statement connects to the bronze serpent incident (Numbers 21:4-9), which Jesus had just referenced. In the wilderness, when venomous serpents bit the Israelites, God commanded Moses to make a bronze serpent and lift it up on a pole. Anyone who looked upon it would live. This historical parallel illustrates how Christ, lifted up on the cross, becomes the means of salvation for all who look to Him in faith.<br><br>For first-century Jews, the concept of God's love extending to "the world" (including Gentiles) was revolutionary. Jewish thought generally emphasized God's special love for Israel, making this universal scope of divine love a radical departure that would later become central to Paul's Gentile mission.""",
-                    "questions": [
-                        "How does the phrase 'God so loved the world' challenge both ancient Jewish particularism and modern religious exclusivism?",
-                        "What does it mean that God 'gave' His Son, and how does this relate to theories of atonement and sacrifice?",
-                        "How should we understand 'eternal life' not just as quantity but quality of existence, beginning now rather than only in the future?"
-                    ]
-                }
-            }
-        },
-        "Romans": {
-            8: {
-                28: {
-                    "analysis": """<strong>And we know that all things work together for good to them that love God, to them who are the called according to his purpose.</strong> This beloved verse provides profound comfort while requiring careful theological understanding. The verb "work together" (<em>synergei</em>, συνεργεῖ) suggests a divine orchestration where even disparate events collaborate toward God's ultimate purpose.<br><br>The phrase "all things" (πάντα) is comprehensive yet must be understood within context. Paul doesn't claim all things are inherently good, but that God sovereignly works through all circumstances—including suffering, persecution, and even human sin—to accomplish His redemptive purposes for His people. The "good" (<em>agathon</em>, ἀγαθόν) here refers to conformity to Christ's image (v.29), not necessarily temporal comfort or prosperity.<br><br>The verse contains two crucial qualifications: (1) "to them that love God"—demonstrating genuine saving faith, and (2) "the called according to his purpose"—referring to God's eternal elective purpose. These aren't two different groups but describe the same people from human (love) and divine (calling) perspectives.""",
-                    "historical": """Romans 8:28 appears within Paul's exposition of Christian suffering and hope. The Roman church, composed of both Jewish and Gentile believers, faced mounting persecution under Nero's increasingly hostile policies toward Christians. Paul wrote Romans around 57 CE, just a few years before Nero's great persecution that would claim many Christian lives.<br><br>The broader context of Romans 8 addresses the tension between present suffering and future glory (vv. 18-30). Early Christians needed assurance that their current tribulations served God's redemptive purposes rather than indicating divine abandonment. This verse would have provided crucial comfort to believers facing social ostracism, economic hardship, and physical persecution for their faith.""",
-                    "questions": [
-                        "How do we reconcile God's sovereignty in 'working all things together for good' with human responsibility and the reality of evil?",
-                        "What practical difference should this verse make in how Christians respond to suffering, disappointment, and apparent setbacks?",
-                        "How does understanding our identity as 'called according to his purpose' provide security and hope in uncertain circumstances?"
-                    ]
-                }
-            }
-        },
-        "Psalms": {
-            23: {
-                1: {
-                    "analysis": """<strong>The Lord is my shepherd; I shall not want.</strong> This opening declaration establishes both the fundamental relationship (Lord as shepherd, believer as sheep) and its primary consequence (complete sufficiency). The Hebrew word for "Lord" here is <em>Yahweh</em> (יהוה), the covenant name of God, emphasizing not just divine power but divine faithfulness to His promises.<br><br>The metaphor of God as shepherd was deeply rooted in Hebrew thought and ancient Near Eastern royal ideology. Kings were often called shepherds of their people (Ezekiel 34:1-10). David, himself a shepherd before becoming king, understood both the tender care and protective authority required. The verb "shepherd" (<em>ra'ah</em>, רעה) implies not passive watching but active guidance, protection, and provision.<br><br>The phrase "I shall not want" (<em>lo echsar</em>, לא אחסר) uses a strong Hebrew negative, meaning "I shall certainly not lack." This isn't a promise of luxury but of sufficiency—every true need will be met. The psalmist's confidence rests not in circumstances but in the character and commitment of his divine Shepherd.""",
-                    "historical": """Psalm 23 likely originates from David's experience as both shepherd and king. Archaeological evidence reveals that shepherding in ancient Palestine required constant vigilance against predators (lions, bears, wolves) and environmental dangers (cliffs, sudden storms, poisonous plants). Shepherds risked their lives for their flocks, often sleeping in caves or under stars to guard against night attacks.<br><br>The psalm's imagery would have resonated powerfully with David's original audience, many of whom lived in pastoral settings. The metaphor also connected to Israel's understanding of God's relationship with the nation—He had shepherded them out of Egypt, through the wilderness, and into the Promised Land. Royal psalms often used shepherd imagery to describe ideal kingship (Psalm 78:70-72).<br><br>For exiled or oppressed Israelites in later periods, this psalm provided comfort by affirming God's continued care despite apparent abandonment. The shepherd metaphor assured them that their divine King remained attentive to their needs even in foreign lands.""",
-                    "questions": [
-                        "How does understanding God as our shepherd change our perspective on guidance, protection, and provision in daily life?",
-                        "What does it mean practically to 'not want' when we clearly experience desires and needs that seem unmet?",
-                        "How does the personal, intimate nature of this psalm ('my shepherd') balance with understanding God's universal sovereignty?"
-                    ]
-                }
-            }
-        },
-        "1 Corinthians": {
-            13: {
-                4: {
-                    "analysis": """<strong>Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up.</strong> Paul begins his poetic description of love with two positive qualities followed by four negative ones. The Greek word <em>agape</em> (ἀγάπη), translated "charity" in the KJV, represents divine love characterized by self-sacrificial commitment rather than emotional feeling or romantic attraction.<br><br>"Suffereth long" (<em>makrothymei</em>, μακροθυμεῖ) literally means "long-tempered" or "slow to anger," describing patience with people rather than circumstances. This patience isn't passive endurance but active forbearance that continues loving despite provocation. "Is kind" (<em>chresteuetai</em>, χρηστεύεται) appears only here in the New Testament, emphasizing active benevolence that seeks others' welfare.<br><br>The four negatives reveal what love never does: it doesn't envy (<em>ou zeloi</em>), doesn't boast (<em>ou perpereuetai</em>), doesn't act arrogantly (<em>ou physioutai</em>), and doesn't behave inappropriately. These contrasts address specific problems Paul observed in Corinth: jealousy over spiritual gifts, boasting about wisdom or status, and prideful behavior that disrupted fellowship.""",
-                    "historical": """The Corinthian church was deeply divided by issues of status, spiritual gifts, and personal preferences. Wealthy members looked down on poorer believers, different factions claimed superiority based on their favorite teachers (Paul, Apollos, Cephas), and some boasted about having more impressive spiritual gifts like tongues or prophecy.<br><br>First-century Corinth was a cosmopolitan commercial center where social status, rhetorical skill, and impressive displays of wisdom or power determined social standing. The Roman patronage system created obvious hierarchies, and Greek philosophical schools competed for intellectual supremacy. Into this context, Paul introduces a radically different value system based on self-sacrificial love rather than self-promotion.<br><br>Paul's description of love directly challenges Corinthian culture: instead of self-assertion, love seeks others' good; instead of competing for honor, love rejoices in others' success; instead of demanding rights, love willingly suffers inconvenience for others' benefit.""",
-                    "questions": [
-                        "How does Paul's definition of love challenge modern cultural understandings of love as primarily emotional or romantic?",
-                        "Which of these characteristics of love do you find most challenging to practice consistently, and why?",
-                        "How might the church today address conflicts and divisions by applying these principles of love?"
-                    ]
-                }
-            }
-        },
-        "Matthew": {
-            5: {
-                3: {
-                    "analysis": """<strong>Blessed are the poor in spirit: for theirs is the kingdom of heaven.</strong> This opening beatitude establishes the fundamental character of kingdom citizens. The Greek <em>makarios</em> (μακάριος, "blessed") denotes not temporary happiness but objective divine favor and ultimate well-being. The "poor in spirit" (<em>ptōchoi tō pneumati</em>, πτωχοὶ τῷ πνεύματι) describes those who recognize their spiritual bankruptcy before God.<br><br>The word <em>ptōchoi</em> refers to abject poverty—those who must beg to survive. Spiritually, it describes complete dependence on God's mercy rather than self-righteousness or merit. This poverty of spirit stands opposite to Pharisaic pride and self-sufficiency. The present tense "theirs is" indicates immediate possession of the kingdom, not just future hope.<br><br>Jesus radically reverses worldly values: those the world considers unsuccessful (the spiritually poor) are declared blessed by God. This beatitude forms the foundation for all others, as spiritual poverty is the prerequisite for receiving God's grace.""",
-                    "historical": """The Sermon on the Mount was delivered to Jesus' disciples with crowds listening (Matthew 5:1-2). In first-century Palestine, poverty was widespread, and religious leaders often taught that prosperity indicated divine blessing while poverty suggested divine disfavor. The Pharisees emphasized righteous works and religious achievement as means of gaining God's approval.<br><br>Jesus' audience would have included many literally poor people who struggled under Roman taxation and religious obligations. The concept of being "poor in spirit" would have resonated with those who felt spiritually inadequate compared to the religious elite. This teaching directly challenged the prevailing theology that equated material and spiritual prosperity with divine favor.<br><br>The beatitudes as a whole present kingdom ethics that contrast sharply with both Roman imperial values (strength, conquest, honor) and Jewish religious expectations (law-keeping, prosperity, national restoration).""",
-                    "questions": [
-                        "How does recognizing our spiritual poverty before God change our approach to righteousness and religious achievement?",
-                        "What practical steps can believers take to maintain a 'poor in spirit' attitude in a culture that promotes self-sufficiency?",
-                        "How does this beatitude challenge both religious pride and secular humanism's emphasis on human potential?"
-                    ]
-                },
-                8: {
-                    "analysis": """<strong>Blessed are the pure in heart: for they shall see God.</strong> This beatitude addresses the inner nature that God requires for relationship with Him. The Greek <em>katharos</em> (καθαρός, "pure") originally meant clean from dirt or unmixed, like pure metals without alloy. Applied to the heart (<em>kardia</em>, καρδία), it describes undivided loyalty and moral integrity—a heart free from duplicity, hypocrisy, and mixed motives.<br><br>Purity of heart encompasses both moral cleanness and single-minded devotion to God. It's not sinless perfection but sincere, undivided commitment without hidden agendas or secret sins. The "heart" in Hebrew thought represents the center of personality—intellect, emotions, and will united in purpose.<br><br>The promise "they shall see God" (<em>theon opsontai</em>, θεὸν ὄψονται) refers to both present spiritual vision and future beatific vision. Only the pure in heart can truly perceive God's nature and works. Sin creates spiritual cataracts that prevent clear vision of divine truth and beauty.""",
-                    "historical": """Jewish purity laws emphasized external ceremonial cleanness through ritual washings, dietary restrictions, and avoidance of ceremonial defilement. The Pharisees had developed elaborate systems for maintaining ritual purity while often neglecting inner spiritual condition. Jesus consistently emphasized that external religious observance without internal transformation was insufficient.<br><br>The concept of "seeing God" was particularly significant to first-century Jews who believed that no one could see God and live (Exodus 33:20). Yet the Old Testament promised that the pure would see God (Psalm 24:3-4), creating tension between divine transcendence and the possibility of intimate knowledge of God.<br><br>This beatitude would have shocked Jesus' audience by suggesting that moral and spiritual purity, rather than ritual observance, determines one's ability to perceive and commune with God.""",
-                    "questions": [
-                        "How does Jesus' emphasis on purity of heart challenge both legalistic religion and antinomian attitudes toward holiness?",
-                        "What are the barriers to purity of heart in contemporary culture, and how can believers cultivate undivided devotion to God?",
-                        "How does the promise of 'seeing God' provide motivation for pursuing holiness and moral integrity?"
-                    ]
-                }
-            },
-            6: {
-                9: {
-                    "analysis": """<strong>Our Father which art in heaven, Hallowed be thy name.</strong> This opening address establishes the fundamental relationship and priority in prayer. "Our Father" (<em>Pater hēmōn</em>, Πάτερ ἡμῶν) was revolutionary in its intimacy—while Jews acknowledged God as Father of the nation, Jesus taught individual believers to approach God with filial confidence. The Aramaic <em>Abba</em> behind this Greek reflects intimate family relationship.<br><br>"Which art in heaven" (<em>ho en tois ouranois</em>, ὁ ἐν τοῖς οὐρανοῖς) balances intimacy with reverence, acknowledging God's transcendence and sovereign authority. This phrase prevents presumptuous familiarity while maintaining relational warmth.<br><br>"Hallowed be thy name" (<em>hagiasthētō to onoma sou</em>, ἁγιασθήτω τὸ ὄνομά σου) uses the passive voice, recognizing that ultimately God hallows His own name through His actions. The aorist imperative suggests both an ongoing desire and an eschatological hope for universal recognition of God's holiness.""",
-                    "historical": """Jewish prayer in the first century typically began with elaborate titles acknowledging God's transcendence and holiness. The most common address was "Blessed art Thou, O Lord our God, King of the universe." Jesus' use of "Father" would have been startling in its simplicity and intimacy, though some Jewish prayers did refer to God as Father of Israel.<br><br>The Kaddish prayer, central to Jewish liturgy, included the petition "May His great name be sanctified and hallowed," showing that the concept of hallowing God's name was familiar to Jewish worshipers. However, Jesus places this petition in the context of individual, intimate prayer rather than formal liturgy.<br><br>The family structure in ancient Mediterranean culture made the father the source of honor, provision, and protection for the household. Jesus' teaching that believers could approach the sovereign God as "Father" implied both tremendous privilege and serious responsibility.""",
-                    "questions": [
-                        "How does understanding God as 'our Father' change the way we approach prayer, worship, and obedience?",
-                        "What does it mean practically to 'hallow' God's name in contemporary culture, and how do our lives contribute to this?",
-                        "How does the balance between intimacy ('Father') and reverence ('in heaven') inform healthy Christian spirituality?"
-                    ]
-                },
-                11: {
-                    "analysis": """<strong>Give us this day our daily bread.</strong> This petition addresses humanity's fundamental dependence on God for sustenance. The Greek <em>artos</em> (ἄρτος, "bread") represents basic nourishment, standing for all necessities of life. The qualifier <em>epiousios</em> (ἐπιούσιος, "daily") is rare in ancient literature, possibly meaning "sufficient for today," "for the coming day," or "necessary for existence."<br><br>This request acknowledges human dependence while modeling contentment with basic provisions rather than luxury or excess. The petition follows immediately after seeking God's kingdom and righteousness, suggesting that material needs, while legitimate, are secondary to spiritual priorities.<br><br>The present imperative "give" (<em>dos</em>, δός) indicates ongoing dependence rather than one-time provision. The plural "us" emphasizes communal concern—followers of Jesus pray not just for personal needs but for the community's welfare.""",
-                    "historical": """In ancient Palestine, daily bread was literally a daily concern for most people. Laborers were typically paid at the end of each workday (Leviticus 19:13), and families often lived from day to day without significant food storage. Bread was the staple food, representing up to 70% of caloric intake for ordinary people.<br><br>The wilderness wandering provided the theological background for this petition, where Israel learned to depend on God for daily manna (Exodus 16). They could not hoard manna—it spoiled if kept overnight (except on the Sabbath), teaching complete dependence on God's daily provision.<br><br>Jewish blessings over bread acknowledged God as the source of provision: "Blessed art Thou, O Lord our God, King of the universe, who bringest forth bread from the earth." Jesus' prayer reflects this understanding while emphasizing ongoing dependence rather than accumulated wealth.""",
-                    "questions": [
-                        "How does praying for 'daily bread' challenge consumer culture's emphasis on accumulation and security through material wealth?",
-                        "What does it mean to depend on God for daily provision in developed economies where food security seems guaranteed?",
-                        "How should the plural 'us' in this petition influence Christian attitudes toward global hunger and economic inequality?"
-                    ]
-                }
-            },
-            28: {
-                19: {
-                    "analysis": """<strong>Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost.</strong> The Great Commission establishes the church's universal mission. "Go ye therefore" (<em>poreuthentes oun</em>, πορευθέντες οὖν) connects this command to Jesus' declaration of universal authority (v.18). The participle suggests "as you go" or "going," indicating that evangelism occurs through normal life activities, not just formal missions.<br><br>"Teach all nations" more literally reads "make disciples of all nations" (<em>mathēteusate panta ta ethnē</em>, μαθητεύσατε πάντα τὰ ἔθνη). The term <em>ethnē</em> refers to people groups, not just political entities. This universality breaks down Jewish-Gentile barriers and extends salvation to every cultural and ethnic group.<br><br>The Trinitarian baptismal formula "in the name of the Father, and of the Son, and of the Holy Ghost" uses the singular "name" (<em>onoma</em>, ὄνομα), suggesting the unity of the three persons in one divine essence. This represents the clearest Trinitarian statement in the Gospels.""",
-                    "historical": """This commission was given to the eleven disciples on a mountain in Galilee (Matthew 28:16), fulfilling Jesus' promise to meet them there (26:32, 28:10). The mountain setting echoes other significant biblical revelations and commissions, particularly Moses receiving the law on Mount Sinai.<br><br>At this time, Jewish understanding generally limited God's full salvation to Israel, though they acknowledged righteous Gentiles could be saved. Jesus' command to make disciples of "all nations" would have been revolutionary, expanding the scope of salvation beyond ethnic and religious boundaries that had defined Jewish identity for centuries.<br><br>The early church initially struggled with this universal mandate, as seen in Peter's vision (Acts 10) and the Jerusalem Council (Acts 15). The inclusion of Gentiles without requiring circumcision and law-keeping represented a fundamental shift in understanding God's redemptive purposes.""",
-                    "questions": [
-                        "How does the Great Commission challenge both religious exclusivism and cultural relativism in contemporary missions?",
-                        "What does 'making disciples' involve beyond initial evangelism, and how should this shape church ministry strategies?",
-                        "How does the Trinitarian baptismal formula inform our understanding of conversion as incorporation into the divine community?"
-                    ]
-                }
-            }
-        },
-        "Luke": {
-            2: {
-                14: {
-                    "analysis": """<strong>Glory to God in the highest, and on earth peace, good will toward men.</strong> The angelic proclamation announces the cosmic significance of Christ's birth. "Glory to God in the highest" (<em>doxa en hypsistois theō</em>, δόξα ἐν ὑψίστοις θεῷ) declares that Christ's incarnation supremely manifests God's glory—His character, power, and purposes. The superlative "highest" emphasizes the ultimate nature of this glorification.<br><br>"Peace on earth" (<em>epi gēs eirēnē</em>, ἐπὶ γῆς εἰρήνη) refers to the comprehensive well-being that Messiah brings—not mere absence of conflict but wholeness, harmony, and reconciliation between God and humanity. This peace fulfills prophetic promises of the Prince of Peace (Isaiah 9:6) who would establish everlasting peace.<br><br>"Good will toward men" (<em>en anthrōpois eudokia</em>, ἐν ἀνθρώποις εὐδοκία) better translates as "among people with whom [God] is pleased" or "people of [God's] good pleasure." This emphasizes divine initiative in salvation rather than general human goodwill.""",
-                    "historical": """The angelic announcement came to shepherds keeping watch over their flocks by night, likely during lambing season when shepherds maintained constant vigilance. Shepherds were generally despised in first-century Jewish society, considered ceremonially unclean due to their work and unable to maintain ritual purity. Yet God chose them as the first recipients of the Messiah's birth announcement.<br><br>The proclamation echoes imperial Roman announcements of the emperor's birth or victories, which were called "gospel" (<em>euangelion</em>) and promised peace throughout the empire. The angels' message presents Jesus as the true king whose birth brings authentic peace, contrasting with Pax Romana maintained through military force.<br><br>Bethlehem's significance as David's birthplace would have been profound for Jewish hearers, as Messianic expectations focused on the Davidic covenant and promises of an eternal kingdom. The humble circumstances of Jesus' birth would have seemed paradoxical given royal expectations.""",
-                    "questions": [
-                        "How does God's choice to announce the Messiah's birth to shepherds challenge human concepts of status and importance?",
-                        "What is the relationship between the 'glory to God' and 'peace on earth' announced by the angels, and how are these connected through Christ?",
-                        "How does the biblical concept of peace differ from contemporary secular understandings of peace and conflict resolution?"
-                    ]
-                }
-            },
-            15: {
-                11: {
-                    "analysis": """<strong>A certain man had two sons.</strong> This simple opening to the parable of the prodigal son establishes the family context that drives the entire narrative. The "certain man" represents God the Father, whose character is revealed through his treatment of both sons. The "two sons" represent two fundamentally different approaches to relationship with God—one openly rebellious, the other outwardly compliant but inwardly resentful.<br><br>The parable structure follows the classic pattern of Jesus' teaching stories: a realistic scenario that suddenly takes an unexpected turn, challenging conventional wisdom and revealing kingdom values. The father's response to both sons defies cultural expectations and reveals the radical nature of divine grace.<br><br>This introduction sets up the central tension of the parable: how divine love responds to both flagrant sin and self-righteous legalism. Both sons are alienated from the father despite their different behaviors, suggesting that external conformity without heart transformation is as problematic as open rebellion.""",
-                    "historical": """The parable was told in response to Pharisees and scribes criticizing Jesus for eating with tax collectors and sinners (Luke 15:1-2). In first-century Jewish culture, table fellowship implied acceptance and approval, making Jesus' behavior scandalous to religious leaders who maintained strict separation from the ceremonially unclean.<br><br>The family dynamics described would have been familiar to Jesus' audience. Younger sons typically received one-third of the inheritance, while the eldest received a double portion. Requesting inheritance while the father lived was culturally unthinkable—equivalent to wishing the father dead. The father's granting this request would have shocked listeners.<br><br>The parable addresses the fundamental Jewish struggle with Gentile inclusion in God's kingdom. The religious leaders (represented by the elder son) resented God's acceptance of sinners without requiring full proselyte conversion and law observance.""",
-                    "questions": [
-                        "How do both sons in the parable represent different forms of alienation from the father, and what does this teach about human relationship with God?",
-                        "What does the father's character in this parable reveal about God's nature that challenges both legalistic and antinomian approaches to faith?",
-                        "How should this parable shape Christian attitudes toward both open sinners and self-righteous religious people?"
-                    ]
-                }
-            }
-        },
-        "Ephesians": {
-            2: {
-                8: {
-                    "analysis": """<strong>For by grace are ye saved through faith; and that not of yourselves: it is the gift of God.</strong> This verse provides the theological foundation of Protestant soteriology. "By grace" (<em>tē chariti</em>, τῇ χάριτι) emphasizes the instrumental cause of salvation—God's unmerited favor is the means by which salvation occurs. Grace is not merely divine attitude but active divine power working salvation.<br><br>"Through faith" (<em>dia pisteōs</em>, διὰ πίστεως) identifies faith as the channel through which grace is received. Faith is not a work that earns salvation but the empty hand that receives God's gift. The prepositions distinguish grace as the efficient cause and faith as the instrumental cause of salvation.<br><br>"Not of yourselves" (<em>ouk ex hymōn</em>, οὐκ ἐξ ὑμῶν) explicitly denies human contribution to salvation. The pronoun "that" (<em>touto</em>, τοῦτο) likely refers to the entire salvation process, not just faith, emphasizing that salvation in its entirety—including the faith to receive it—originates from God.""",
-                    "historical": """Paul wrote Ephesians during his Roman imprisonment (c. 60-62 CE) to address Gentile Christians who had been brought into the covenant community alongside Jewish believers. The letter addresses the theological implications of Jew-Gentile unity in the church and the foundation of this new community in God's grace rather than ethnic identity or law-keeping.<br><br>The emphasis on salvation by grace alone would have been particularly significant for Gentile converts who might have felt pressure to adopt Jewish customs or might have wondered about their standing before God without adherence to the Mosaic law. This passage provides assurance that their salvation rests on divine grace alone.<br><br>The concept of grace as divine gift contrasts with Greco-Roman reciprocal gift-giving, where gifts created obligations and expectations of return. Paul emphasizes that God's grace creates no obligation because it cannot be repaid—it is pure gift motivated by divine love.""",
-                    "questions": [
-                        "How does understanding salvation as entirely God's gift affect human pride and the tendency toward spiritual self-righteousness?",
-                        "What is the relationship between faith and works if salvation is by grace alone, and how does this understanding shape Christian living?",
-                        "How should the doctrine of salvation by grace alone influence evangelism and the church's approach to social action?"
-                    ]
-                }
-            },
-            6: {
-                10: {
-                    "analysis": """<strong>Finally, my brethren, be strong in the Lord, and in the power of his might.</strong> This verse introduces Paul's teaching on spiritual warfare with an emphasis on divine empowerment. "Be strong" (<em>endunamousthe</em>, ἐνδυναμοῦσθε) is a present passive imperative, indicating ongoing empowerment that comes from God rather than human effort. The passive voice emphasizes that strength comes from outside ourselves.<br><br>"In the Lord" (<em>en kyriō</em>, ἐν κυρίῳ) identifies the sphere and source of strength—union with Christ provides access to divine power. This prepositional phrase indicates not just help from God but participation in divine life and power through spiritual union.<br><br>"The power of his might" (<em>tō kratei tēs ischyos autou</em>, τῷ κράτει τῆς ἰσχύος αὐτοῦ) uses two Greek words for power, emphasizing the overwhelming nature of God's strength. <em>Kratos</em> refers to dominion and rule, while <em>ischys</em> refers to inherent strength and ability.""",
-                    "historical": """Paul writes from Roman imprisonment, where he would have observed the military equipment and discipline of Roman soldiers daily. His use of military metaphors draws from this immediate context to describe spiritual realities. Roman soldiers were renowned for their discipline, training, and equipment that made them nearly invincible in battle.<br><br>The Ephesian Christians lived in a city dominated by magical practices, occult arts, and pagan spirituality. Acts 19 describes how many converted Christians burned their magic books publicly. In this context, Paul's teaching about spiritual warfare would have been particularly relevant as new believers faced real spiritual opposition.<br><br>The emphasis on divine strength rather than human ability would have resonated with converts from both Jewish and pagan backgrounds, who might have been tempted to rely on their own religious practices, moral efforts, or spiritual techniques rather than on God's power.""",
-                    "questions": [
-                        "How does understanding spiritual strength as coming 'in the Lord' change approaches to Christian discipline and spiritual growth?",
-                        "What are the practical implications of relying on 'the power of his might' rather than human willpower in spiritual battles?",
-                        "How should awareness of spiritual warfare influence daily Christian living and decision-making?"
-                    ]
-                }
-            }
-        },
-        "Philippians": {
-            4: {
-                13: {
-                    "analysis": """<strong>I can do all things through Christ which strengtheneth me.</strong> This beloved verse is often misunderstood when separated from its context of contentment in various circumstances. "I can do all things" (<em>panta ischyō</em>, πάντα ἰσχύω) refers specifically to Paul's ability to be content in any situation—abundance or need, plenty or hunger. The "all things" refers to all circumstances, not all tasks or ambitions.<br><br>"Through Christ" (<em>en tō endunamounti me</em>, ἐν τῷ ἐνδυναμοῦντι με) literally reads "in the one strengthening me." The present participle indicates ongoing, continuous empowerment. Christ doesn't merely help Paul but provides the very strength and ability to respond appropriately to life's varied circumstances.<br><br>The context emphasizes supernatural contentment that transcends natural human responses to hardship or prosperity. This strength enables believers to maintain spiritual equilibrium regardless of external conditions, finding sufficiency in Christ rather than circumstances.""",
-                    "historical": """Paul wrote Philippians from Roman imprisonment, likely the house arrest described in Acts 28. Despite uncertain prospects and physical limitations, Paul demonstrates the contentment he describes. The Philippian church had sent financial support through Epaphroditus, prompting Paul's discussion of contentment and gratitude.<br><br>Ancient Stoic philosophy emphasized contentment and emotional equilibrium, but achieved through human reason and willpower. Paul presents a fundamentally different approach—contentment through divine empowerment rather than philosophical detachment. This would have been a striking contrast for readers familiar with Stoic teaching.<br><br>The historical context of imprisonment, where Paul lacked control over his circumstances, provides the perfect backdrop for demonstrating that true strength and contentment come from spiritual resources rather than favorable external conditions.""",
-                    "questions": [
-                        "How does understanding this verse in the context of contentment change its application from achieving goals to accepting circumstances?",
-                        "What is the difference between Stoic self-sufficiency and Christian contentment through Christ's strength?",
-                        "How can believers cultivate the kind of contentment Paul describes while still pursuing legitimate goals and improvements?"
-                    ]
-                }
-            }
-        },
-        "Hebrews": {
-            11: {
-                1: {
-                    "analysis": """<strong>Now faith is the substance of things hoped for, the evidence of things not seen.</strong> This verse provides the classic biblical definition of faith, describing both its nature and function. "Substance" (<em>hypostasis</em>, ὑπόστασις) literally means "that which stands under" or foundation, indicating that faith provides objective reality to hoped-for things, not merely subjective confidence. Faith gives substance to future promises, making them present realities in the believer's experience.<br><br>"Evidence" (<em>elegchos</em>, ἔλεγχος) refers to proof or conviction that establishes truth. Faith provides convincing evidence of invisible spiritual realities, functioning like a divine radar that detects what natural senses cannot perceive. This evidence is not emotional feeling but objective spiritual perception.<br><br>The verse establishes faith as the bridge between visible and invisible realms, enabling believers to live based on divine promises rather than immediate circumstances. Faith makes the future present and the invisible visible, providing the foundation for the life of obedience described in the following examples.""",
-                    "historical": """Hebrews was written to Jewish Christians facing persecution and temptation to return to Judaism. The recipients were wavering in their commitment to Christ, discouraged by suffering and the apparent delay of promised blessings. In this context, the definition of faith addresses their need for perseverance based on unseen realities.<br><br>The concept of faith as "substance" would have resonated with readers familiar with both Greek philosophical concepts and Hebrew understanding of God's covenant faithfulness. The author uses sophisticated Greek terminology to explain Hebrew concepts of trust and faithfulness to God.<br><br>Chapter 11 follows this definition with examples from Jewish history, demonstrating that faith has always been the operating principle for God's people. These examples would have encouraged wavering Jewish Christians by showing that their ancestors also lived by faith in God's promises rather than visible fulfillment.""",
-                    "questions": [
-                        "How does faith as 'substance' and 'evidence' differ from mere wishful thinking or blind belief?",
-                        "What role should faith play in decision-making when circumstances seem to contradict God's promises?",
-                        "How can believers develop the kind of faith that makes unseen realities more real than visible circumstances?"
-                    ]
-                }
-            },
-            12: {
-                1: {
-                    "analysis": """<strong>Wherefore seeing we also are compassed about with so great a cloud of witnesses, let us lay aside every weight, and the sin which doth so easily beset us, and let us run with patience the race that is set before us.</strong> This verse applies the examples of faith from chapter 11 to encourage perseverance. The "cloud of witnesses" (<em>nephos martyrōn</em>, νέφος μαρτύρων) refers to the heroes of faith who provide testimony to God's faithfulness, not spectators watching our performance. Their lives bear witness to the reliability of faith.<br><br>"Lay aside every weight" (<em>apothemenoi ogan</em>, ἀποθέμενοι ὄγκον) uses athletic imagery of runners removing unnecessary clothing and weights. "Weight" refers to anything that hinders spiritual progress—not necessarily sin but anything that slows spiritual advancement. The definite article before "sin" (<em>tēn hamartian</em>, τὴν ἁμαρτίαν) may refer to a specific besetting sin or the principle of sin itself.<br><br>"Run with patience" (<em>di' hypomonēs trechōmen</em>, δι' ὑπομονῆς τρέχωμεν) combines active effort with patient endurance. The Christian life requires both sustained effort and patient persistence, like a long-distance race rather than a sprint.""",
-                    "historical": """The athletic imagery would have been familiar to first-century readers who knew Greek Olympic games and local athletic competitions. Athletes trained rigorously, maintained strict diets, and competed naked to avoid any hindrance. This imagery emphasized the dedication and focus required for Christian living.<br><br>The original recipients faced mounting persecution and social pressure to abandon their Christian faith. Some were wavering, discouraged by suffering and the apparent delay of Christ's return. The author uses the metaphor of a race to encourage persistence despite difficulties.""",
-                    "questions": [
-                        "How do the 'witnesses' from Hebrews 11 provide encouragement for contemporary believers facing spiritual challenges?",
-                        "What specific 'weights' and 'sins' might hinder spiritual progress in modern Christian living?",
-                        "How does understanding the Christian life as a long-distance race change approaches to spiritual discipline and perseverance?"
-                    ]
-                }
-            }
-        },
-        "Isaiah": {
-            53: {
-                5: {
-                    "analysis": """<strong>But he was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him; and with his stripes we are healed.</strong> This verse stands at the heart of the Suffering Servant song, providing the clearest Old Testament prophecy of substitutionary atonement. The four Hebrew verbs describe the Servant's suffering: "wounded" (<em>mecholal</em>, מְחֹלָל) from piercing, "bruised" (<em>medukka</em>, מְדֻכָּא) from crushing, bearing "chastisement" (<em>musar</em>, מוּסָר), and providing healing through "stripes" (<em>chaburah</em>, חַבּוּרָה).<br><br>The preposition "for" (<em>min</em>, מִן) indicates substitution—the Servant suffers in place of others. "Our transgressions" and "our iniquities" emphasize that the suffering is vicarious, not for the Servant's own sins. The parallel structure reinforces that the Servant's suffering directly addresses human sin and its consequences.<br><br>"The chastisement of our peace" indicates that the punishment necessary for reconciliation fell upon the Servant rather than the guilty parties. The word "peace" (<em>shalom</em>, שָׁלוֹם) encompasses complete well-being and restoration of relationship with God.""",
-                    "historical": """Isaiah prophesied during the 8th century BCE, addressing Judah's spiritual crisis and the threat of Assyrian invasion. The Suffering Servant songs (Isaiah 42, 49, 50, 52-53) present a figure who would accomplish what Israel failed to do—be a light to the nations and bring salvation to the ends of the earth.<br><br>Ancient Near Eastern cultures understood vicarious suffering and substitutionary rituals, but typically involved animals or slaves substituting for the guilty. The concept of a righteous individual voluntarily suffering for others' sins was unprecedented in scope and significance.<br><br>Jewish interpretation historically applied this passage to the nation of Israel or to righteous individuals within Israel. However, the New Testament writers consistently identified Jesus as the fulfillment of this prophecy, seeing in His crucifixion the precise fulfillment of Isaiah's description.""",
-                    "questions": [
-                        "How does Isaiah 53:5 explain the mechanism by which Christ's suffering accomplishes human salvation?",
-                        "What does the emphasis on 'our' transgressions and iniquities reveal about human responsibility and divine grace?",
-                        "How should understanding Christ as the Suffering Servant shape Christian responses to persecution and suffering?"
-                    ]
-                }
-            }
-        },
-        "Jeremiah": {
-            29: {
-                11: {
-                    "analysis": """<strong>For I know the thoughts that I think toward you, saith the Lord, thoughts of peace, and not of evil, to give you an expected end.</strong> This beloved promise reveals God's benevolent intentions toward His people during their darkest hour. "I know" (<em>yadati</em>, יָדַעְתִּי) indicates intimate, personal knowledge—God is fully aware of His plans and their ultimate purpose. The Hebrew word for "thoughts" (<em>machashavot</em>, מַחֲשָׁבוֹת) can mean plans, intentions, or purposes, emphasizing divine deliberation and planning.<br><br>"Thoughts of peace" (<em>machshevot shalom</em>, מַחְשְׁבוֹת שָׁלוֹם) uses <em>shalom</em> in its fullest sense—not mere absence of conflict but comprehensive well-being, prosperity, and harmonious relationship with God. This directly contrasts with the "evil" (<em>ra'ah</em>, רָעָה) or calamity that the people were experiencing in exile.<br><br>"An expected end" (<em>acharit vetikvah</em>, אַחֲרִית וְתִקְוָה) literally means "a future and a hope." This phrase promises both temporal restoration and ultimate eschatological fulfillment, giving hope beyond immediate circumstances.""",
-                    "historical": """Jeremiah spoke these words to the Jewish exiles in Babylon around 597-586 BCE, during one of the darkest periods in Jewish history. The temple had been destroyed, Jerusalem lay in ruins, and the covenant people found themselves in pagan lands, wondering if God had abandoned His promises.<br><br>False prophets in Babylon were promising immediate return and quick restoration, creating false hope and preventing the exiles from settling and building productive lives. Jeremiah's message required them to accept their situation while trusting God's long-term purposes—a difficult but necessary perspective.<br><br>The 70-year exile period mentioned in the broader context (v.10) corresponded to the sabbath years Israel had failed to observe (2 Chronicles 36:21), showing that even judgment served God's righteous purposes and would ultimately lead to restoration.""",
-                    "questions": [
-                        "How should believers understand God's 'plans for peace' when experiencing difficult circumstances or apparent setbacks?",
-                        "What is the relationship between trusting God's ultimate purposes and taking practical action in challenging situations?",
-                        "How does this promise apply to individual believers versus the corporate people of God, and what are the implications for personal application?"
-                    ]
-                }
-            }
-        },
-        "Proverbs": {
-            3: {
-                5: {
-                    "analysis": """<strong>Trust in the Lord with all thine heart; and lean not unto thine own understanding.</strong> This foundational proverb establishes the proper relationship between human reason and divine revelation. "Trust" (<em>batach</em>, בָּטַח) means to feel secure, confident, or safe—not mere intellectual assent but complete reliance. The phrase "with all thine heart" (<em>bekhol libbekha</em>, בְּכָל־לִבֶּךָ) demands total commitment, engaging the entire personality rather than partial allegiance.<br><br>"The Lord" uses the covenant name <em>Yahweh</em> (יהוה), emphasizing relationship with the God who has revealed Himself and proven faithful to His promises. This trust is not blind faith but confidence based on God's character and past faithfulness.<br><br>"Lean not unto thine own understanding" (<em>al tishaen</em>, אַל־תִּשָּׁעֵן) literally means "do not support yourself upon" human wisdom. This doesn't eliminate human reason but subordinates it to divine revelation. The contrast between "all your heart" and "your own understanding" emphasizes comprehensive trust versus limited human perspective.""",
-                    "historical": """Proverbs 3 forms part of Solomon's wisdom literature, written during Israel's golden age when wisdom and learning flourished. The historical Solomon gathered wisdom from various sources while maintaining that true wisdom begins with fear of the Lord (Proverbs 1:7).<br><br>Ancient Near Eastern wisdom literature typically emphasized human observation and practical experience as the source of wisdom. While Proverbs incorporates practical wisdom, it uniquely subordinates human understanding to divine revelation, setting Hebrew wisdom apart from contemporary cultures.<br><br>The proverb addresses the perpetual human tendency to rely on limited understanding rather than trusting divine guidance. This would have been particularly relevant for a young king like Solomon, who needed wisdom beyond human capability to govern God's people effectively.""",
-                    "questions": [
-                        "How do believers balance using God-given rational abilities while trusting God rather than human understanding?",
-                        "What are the practical implications of trusting God 'with all your heart' in decision-making and life planning?",
-                        "How does this proverb address the contemporary tension between secular education and biblical faith?"
-                    ]
-                }
-            }
-        },
-        "James": {
-            1: {
-                2: {
-                    "analysis": """<strong>My brethren, count it all joy when ye fall into divers temptations.</strong> This counterintuitive command challenges natural human responses to difficulty. "Count it" (<em>hēgēsasthe</em>, ἡγήσασθε) means to consider, regard, or evaluate—a deliberate mental process rather than emotional feeling. The aorist imperative suggests a decisive choice to view trials from God's perspective.<br><br>"All joy" (<em>pasan charan</em>, πᾶσαν χαράν) doesn't mean partial happiness but complete joy. This joy isn't based on the trials themselves but on their ultimate purpose and results. The joy comes from understanding God's purposes in allowing difficulties.<br><br>"When ye fall into" (<em>hotan peripesēte</em>, ὅταν περιπέσητε) uses a verb meaning to fall around or encounter unexpectedly. "Divers temptations" (<em>peirasmois poikilois</em>, πειρασμοῖς ποικίλοις) refers to various trials or tests—circumstances that reveal and develop character rather than enticements to sin.""",
-                    "historical": """James wrote to Jewish Christians scattered throughout the Roman Empire, likely during the persecution following Stephen's martyrdom (Acts 8:1). These believers faced both external persecution for their faith and internal struggles with favoritism, worldliness, and spiritual immaturity.<br><br>The recipients would have been familiar with Jewish understanding that suffering could serve divine purposes. The Old Testament taught that God tested His people to refine their faith (Deuteronomy 8:2-3), but James applies this principle to the new covenant community.<br><br>The early church's experience of persecution created a practical need for understanding how to respond to trials. James provides theological framework for viewing suffering as beneficial rather than merely enduring it passively.""",
-                    "questions": [
-                        "How can believers cultivate joy in trials without minimizing real pain or adopting superficial optimism?",
-                        "What is the difference between trials that test faith and temptations that lead to sin, and how should responses differ?",
-                        "How does understanding trials as having divine purpose change practical responses to unexpected difficulties?"
-                    ]
-                }
-            }
-        }
-    }
+    # Load enhanced commentary from JSON file
+    enhanced_commentary = _load_verse_commentary()
 
     # Check for enhanced commentary first
     if book in enhanced_commentary and chapter in enhanced_commentary[book] and verse.verse in enhanced_commentary[book][chapter]:
