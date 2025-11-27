@@ -150,31 +150,57 @@
     {% endif %}
 
     {% if chronology_comparison %}
-    <details open style="margin-top: 2rem; max-width: 75%;">
+    <details open style="margin-top: 2rem; max-width: 85%;">
         <summary style="cursor: pointer; font-weight: 600; font-size: 1.1rem; padding: 0.5rem 0; user-select: none;">
-            Compare Biblical Chronologies
+            Alternative Date Interpretations
         </summary>
-        <div style="margin-top: 1rem; overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
-                <thead>
-                    <tr style="border-bottom: 2px solid #333;">
-                        <th style="text-align: left; padding: 0.75rem; font-weight: 600;">Event</th>
-                        <th style="text-align: center; padding: 0.75rem; font-weight: 600;">Masoretic (Gap-Allowing)</th>
-                        <th style="text-align: center; padding: 0.75rem; font-weight: 600;">Ussher (1650)</th>
-                        <th style="text-align: center; padding: 0.75rem; font-weight: 600;">Scofield (1909)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in chronology_comparison %}
-                    <tr style="border-bottom: 1px solid #ddd;">
-                        <td style="padding: 0.75rem;">{{ row.event }}</td>
-                        <td style="text-align: center; padding: 0.75rem; font-weight: 600; background: #f0f8ff;">{{ row.masoretic }}</td>
-                        <td style="text-align: center; padding: 0.75rem;">{{ row.ussher }}</td>
-                        <td style="text-align: center; padding: 0.75rem;">{{ row.scofield }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div style="margin-top: 1rem;">
+            <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.7;">
+                Biblical chronology has been calculated in different ways by faithful scholars. This table compares three major chronological systems, all based on the Masoretic text but differing in their interpretation of genealogical relationships in Genesis 5 and 11.
+            </p>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #333; background: #f9f9f9;">
+                            <th style="text-align: left; padding: 0.85rem; font-weight: 600;">Event</th>
+                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 140px;">Gap-Allowing<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(This Timeline)</span></th>
+                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Ussher<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(1650)</span></th>
+                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Scofield<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(1909)</span></th>
+                            <th style="text-align: left; padding: 0.85rem; font-weight: 600; min-width: 200px;">Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in chronology_comparison %}
+                        <tr style="border-bottom: 1px solid #ddd;">
+                            <td style="padding: 0.85rem; font-weight: 500;">{{ row.event }}</td>
+                            <td style="text-align: center; padding: 0.85rem; background: #f0f8ff; font-weight: 600;">{{ row.masoretic }}</td>
+                            <td style="text-align: center; padding: 0.85rem;">{{ row.ussher }}</td>
+                            <td style="text-align: center; padding: 0.85rem;">{{ row.scofield }}</td>
+                            <td style="padding: 0.85rem; font-size: 0.85rem; color: #555;">
+                                {% if row.event == "Creation/Adam" %}
+                                    Difference reflects genealogical interpretation
+                                {% elif row.event == "The Flood" %}
+                                    Gap vs. successive reckoning of Genesis 5
+                                {% elif row.event == "Call of Abraham" %}
+                                    Gap vs. successive reckoning of Genesis 11
+                                {% elif row.event == "The Exodus" %}
+                                    All chronologies align closely from this point
+                                {% elif row.event == "Solomon's Temple" %}
+                                    Minor variations in regnal year calculations
+                                {% elif row.event == "Fall of Jerusalem" %}
+                                    Confirmed by Babylonian records
+                                {% elif row.event == "Birth of Christ" %}
+                                    Based on reign of Herod the Great
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.85rem; color: #666; margin-top: 1rem; font-style: italic;">
+                <strong>Key Difference:</strong> The gap-allowing method permits generational gaps in Genesis genealogies where textual indicators are absent, while Ussher and Scofield use strict successive father-to-son reckoning. All three systems agree on dates from the Assyrian period onward (8th century BC), confirmed by extrabiblical sources.
+            </p>
         </div>
     </details>
     {% endif %}
