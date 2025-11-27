@@ -68,6 +68,7 @@ BOOK_ABBREVIATIONS = {
 
     # Alternative names
     "Song of Songs": "Song of Solomon",
+    "Solomon's Song": "Song of Solomon",
     "Canticles": "Song of Solomon",
 
     # Common abbreviations - Old Testament
