@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException, Query, Path
 from fastapi import APIRouter, HTTPException, Query, Path
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from ..utils.pdf import render_html_to_pdf, WEASYPRINT_AVAILABLE
+from ..utils.pdf import render_html_to_pdf, render_html_to_pdf_async, WEASYPRINT_AVAILABLE
 
 from ..kjv import bible
 from ..cross_references import get_cross_references
@@ -517,7 +517,7 @@ def api_get_book(book: str = Path(..., description="Book name", examples=["Genes
 
 
 @router.get("/books/{book}/pdf")
-def api_book_pdf(book: str = Path(..., description="Book name", examples=["Genesis"])):
+async def api_book_pdf(book: str = Path(..., description="Book name", examples=["Genesis"])):
     """Generate PDF for an entire Bible book."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -566,7 +566,7 @@ def api_book_pdf(book: str = Path(..., description="Book name", examples=["Genes
     )
 
     # Generate PDF
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Return as downloadable PDF
     filename = f"{create_slug(book)}.pdf"
@@ -610,7 +610,7 @@ def api_get_chapter(
 
 
 @router.get("/books/{book}/chapters/{chapter}/pdf")
-def api_chapter_pdf(
+async def api_chapter_pdf(
     book: str = Path(..., description="Book name", examples=["Romans"]),
     chapter: int = Path(..., description="Chapter number", examples=[8])
 ):
@@ -649,7 +649,7 @@ def api_chapter_pdf(
     )
 
     # Generate PDF
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Return as downloadable PDF
     filename = f"{create_slug(book)}-chapter-{chapter}.pdf"
@@ -883,7 +883,7 @@ def api_get_story(slug: str = Path(..., description="Story slug", examples=["cre
 
 
 @router.get("/stories/{slug}/pdf")
-def api_story_pdf(slug: str = Path(..., description="Story slug")):
+async def api_story_pdf(slug: str = Path(..., description="Story slug")):
     """Generate PDF for a story (adult version)."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -903,7 +903,7 @@ def api_story_pdf(slug: str = Path(..., description="Story slug")):
     html_content = templates.get_template("story_pdf.html").render(story=story)
 
     # Generate PDF
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Return as downloadable PDF
     filename = f"{slug}.pdf"
@@ -915,7 +915,7 @@ def api_story_pdf(slug: str = Path(..., description="Story slug")):
 
 
 @router.get("/stories/{slug}/kids/pdf")
-def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
+async def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
     """Generate PDF for a story (kids version)."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -938,7 +938,7 @@ def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
     html_content = templates.get_template("story_kids_pdf.html").render(story=story)
 
     # Generate PDF
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Return as downloadable PDF
     filename = f"{slug}-kids.pdf"

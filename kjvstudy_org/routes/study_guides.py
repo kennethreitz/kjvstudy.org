@@ -5,7 +5,7 @@ This module contains the study guides routes and content.
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse, StreamingResponse
 from ..kjv import bible
-from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf
+from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
 
 router = APIRouter(tags=["Study Guides"])
 
@@ -1403,7 +1403,7 @@ def study_guide_detail(request: Request, slug: str):
 
 
 @router.get("/study-guides/{slug}/pdf")
-def study_guide_pdf(slug: str):
+async def study_guide_pdf(slug: str):
     """Generate a PDF export for a study guide."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -1419,7 +1419,7 @@ def study_guide_pdf(slug: str):
     _attach_verse_texts(guide)
 
     html_content = templates.get_template("study_guide_pdf.html").render(guide=guide)
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     filename = f"{slug}.pdf"
     return StreamingResponse(

@@ -11,7 +11,7 @@ from ..stories import (
     get_story_count,
     get_category_count,
 )
-from ..utils.pdf import render_html_to_pdf, WEASYPRINT_AVAILABLE
+from ..utils.pdf import render_html_to_pdf, render_html_to_pdf_async, WEASYPRINT_AVAILABLE
 
 router = APIRouter(tags=["Bible Stories"])
 
@@ -80,7 +80,7 @@ def stories_kids_index(request: Request):
 
 
 @router.get("/stories/{slug}/pdf")
-def story_pdf(request: Request, slug: str):
+async def story_pdf(request: Request, slug: str):
     """Generate PDF for a story (adult version)."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -97,7 +97,7 @@ def story_pdf(request: Request, slug: str):
     html_content = templates.get_template("story_pdf.html").render(story=story)
 
     # Generate PDF
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Return as downloadable PDF
     filename = f"{slug}.pdf"
@@ -109,7 +109,7 @@ def story_pdf(request: Request, slug: str):
 
 
 @router.get("/stories/{slug}/kids/pdf")
-def story_kids_pdf(request: Request, slug: str):
+async def story_kids_pdf(request: Request, slug: str):
     """Generate PDF for a story (kids version)."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -129,7 +129,7 @@ def story_kids_pdf(request: Request, slug: str):
     html_content = templates.get_template("story_kids_pdf.html").render(story=story)
 
     # Generate PDF
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Return as downloadable PDF
     filename = f"{slug}-kids.pdf"

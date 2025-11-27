@@ -47,7 +47,7 @@ from .utils.helpers import (
     get_chapter_popularity_score, get_chapter_popularity_explanation,
     get_daily_verse, FEATURED_VERSES, is_verse_reference, parse_verse_reference
 )
-from .utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf
+from .utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
 from .utils.search import perform_full_text_search
 
 try:
@@ -1414,7 +1414,7 @@ def biblical_timeline_page(request: Request):
 
 
 @app.get("/biblical-timeline/pdf")
-def biblical_timeline_pdf():
+async def biblical_timeline_pdf():
     """Generate PDF export for the biblical timeline."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -1429,7 +1429,7 @@ def biblical_timeline_pdf():
         chronology_note=chronology_note,
         chronology_comparison=chronology_comparison
     )
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     return StreamingResponse(
         pdf_buffer,
@@ -1807,7 +1807,7 @@ def reading_plan_detail(request: Request, plan_id: str):
 
 
 @app.get("/reading-plans/{plan_id}/pdf")
-def reading_plan_pdf(plan_id: str):
+async def reading_plan_pdf(plan_id: str):
     """Generate a PDF export for a reading plan."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -1820,7 +1820,7 @@ def reading_plan_pdf(plan_id: str):
         raise HTTPException(status_code=404, detail="Reading plan not found")
 
     html_content = templates.get_template("reading_plan_pdf.html").render(plan=plan)
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     filename = f"reading-plan-{plan_id}.pdf"
     return StreamingResponse(
@@ -2176,7 +2176,7 @@ def topic_detail(request: Request, topic_name: str):
 
 
 @app.get("/topics/{topic_name}/pdf")
-def topic_detail_pdf(topic_name: str):
+async def topic_detail_pdf(topic_name: str):
     """Generate a PDF export for a topic detail page."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -2192,7 +2192,7 @@ def topic_detail_pdf(topic_name: str):
         topic=topic,
         topic_name=topic_name,
     )
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     filename = f"{topic_name}.pdf"
     return StreamingResponse(
@@ -2257,7 +2257,7 @@ def read_book(request: Request, book: str):
 
 
 @app.get("/book/{book}/pdf")
-def book_pdf(request: Request, book: str):
+async def book_pdf(request: Request, book: str):
     """Generate a PDF export for an entire Bible book."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -2305,7 +2305,7 @@ def book_pdf(request: Request, book: str):
         book_intro=book_intro,
     )
 
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
     filename = f"{create_slug(book)}.pdf"
 
     return StreamingResponse(
@@ -2440,7 +2440,7 @@ def read_chapter(request: Request, book: str, chapter: int):
 
 
 @app.get("/book/{book}/chapter/{chapter}/pdf")
-def chapter_pdf(request: Request, book: str, chapter: int):
+async def chapter_pdf(request: Request, book: str, chapter: int):
     """Generate a PDF export for a specific Bible chapter."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -2473,7 +2473,7 @@ def chapter_pdf(request: Request, book: str, chapter: int):
         verse_count=len(verses),
     )
 
-    pdf_buffer = render_html_to_pdf(html_content)
+    pdf_buffer = await render_html_to_pdf_async(html_content)
     filename = f"{create_slug(book)}-chapter-{chapter}.pdf"
 
     return StreamingResponse(
