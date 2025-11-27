@@ -1,0 +1,175 @@
+{
+  "$defs": {
+    "KeyTheme": {
+      "description": "Schema for book key theme",
+      "properties": {
+        "theme": {
+          "minLength": 1,
+          "title": "Theme",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "theme",
+        "description"
+      ],
+      "title": "KeyTheme",
+      "type": "object"
+    },
+    "KeyVerse": {
+      "description": "Schema for book key verse",
+      "properties": {
+        "reference": {
+          "minLength": 1,
+          "title": "Reference",
+          "type": "string"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reference",
+        "text"
+      ],
+      "title": "KeyVerse",
+      "type": "object"
+    },
+    "OutlineSection": {
+      "description": "Schema for book outline section",
+      "properties": {
+        "section": {
+          "minLength": 1,
+          "title": "Section",
+          "type": "string"
+        },
+        "chapters": {
+          "minLength": 1,
+          "title": "Chapters",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "section",
+        "chapters",
+        "description"
+      ],
+      "title": "OutlineSection",
+      "type": "object"
+    }
+  },
+  "description": "Schema for individual book introduction file",
+  "properties": {
+    "name": {
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "abbreviation": {
+      "minLength": 1,
+      "title": "Abbreviation",
+      "type": "string"
+    },
+    "testament": {
+      "pattern": "^(Old Testament|New Testament)$",
+      "title": "Testament",
+      "type": "string"
+    },
+    "position": {
+      "maximum": 66,
+      "minimum": 1,
+      "title": "Position",
+      "type": "integer"
+    },
+    "chapters": {
+      "minimum": 1,
+      "title": "Chapters",
+      "type": "integer"
+    },
+    "category": {
+      "minLength": 1,
+      "title": "Category",
+      "type": "string"
+    },
+    "author": {
+      "minLength": 1,
+      "title": "Author",
+      "type": "string"
+    },
+    "date_written": {
+      "minLength": 1,
+      "title": "Date Written",
+      "type": "string"
+    },
+    "introduction": {
+      "minLength": 1,
+      "title": "Introduction",
+      "type": "string"
+    },
+    "outline": {
+      "items": {
+        "$ref": "#/$defs/OutlineSection"
+      },
+      "minItems": 1,
+      "title": "Outline",
+      "type": "array"
+    },
+    "key_themes": {
+      "items": {
+        "$ref": "#/$defs/KeyTheme"
+      },
+      "minItems": 1,
+      "title": "Key Themes",
+      "type": "array"
+    },
+    "key_verses": {
+      "items": {
+        "$ref": "#/$defs/KeyVerse"
+      },
+      "minItems": 1,
+      "title": "Key Verses",
+      "type": "array"
+    },
+    "christ_in_book": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Christ In Book"
+    }
+  },
+  "required": [
+    "name",
+    "abbreviation",
+    "testament",
+    "position",
+    "chapters",
+    "category",
+    "author",
+    "date_written",
+    "introduction",
+    "outline",
+    "key_themes",
+    "key_verses"
+  ],
+  "title": "Schema for individual book introduction files",
+  "type": "object",
+  "$id": "https://kjvstudy.org/schemas/book_introduction.schema.json"
+}

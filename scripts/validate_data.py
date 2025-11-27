@@ -194,7 +194,7 @@ class KeyTheme(BaseModel):
 
 class KeyVerse(BaseModel):
     """Schema for book key verse"""
-    verse: str = Field(..., min_length=1)
+    reference: str = Field(..., min_length=1)
     text: str = Field(..., min_length=1)
 
 
@@ -313,6 +313,62 @@ def validate_all(verbose: bool = False) -> Tuple[int, int]:
     return passed, failed
 
 
+def validate_book_file(book_file: Path, verbose: bool = False) -> bool:
+    """Validate a single book JSON file using BookIntroduction model."""
+    # Load data file
+    data, error = load_json(book_file)
+    if error:
+        print(f"❌ {book_file.name}: {error}")
+        return False
+
+    # Validate using Pydantic model
+    try:
+        BookIntroduction(**data)
+        print(f"✅ {book_file.name}: Valid")
+        if verbose:
+            print(f"   Size: {book_file.stat().st_size:,} bytes")
+        return True
+
+    except ValidationError as e:
+        print(f"❌ {book_file.name}: Validation failed")
+        for error_detail in e.errors():
+            location = " -> ".join(str(loc) for loc in error_detail['loc'])
+            print(f"   {location}: {error_detail['msg']}")
+        return False
+
+    except Exception as e:
+        print(f"❌ {book_file.name}: Unexpected error")
+        print(f"   Error: {str(e)}")
+        return False
+
+
+def validate_all_books(verbose: bool = False) -> Tuple[int, int]:
+    """Validate all 66 book introduction files. Returns (passed, failed) counts."""
+    passed = 0
+    failed = 0
+
+    books_dir = DATA_DIR / "books"
+    if not books_dir.exists():
+        print(f"❌ Books directory not found: {books_dir}")
+        return 0, 0
+
+    print("=" * 60)
+    print("Validating 66 book introduction files")
+    print("=" * 60)
+    print()
+
+    book_files = sorted(books_dir.glob("*.json"))
+    for book_file in book_files:
+        if validate_book_file(book_file, verbose):
+            passed += 1
+        else:
+            failed += 1
+        if verbose:
+            print()
+
+    return passed, failed
+
+
 def generate_json_schemas():
     """Generate JSON Schema files from Pydantic models."""
     print("=" * 60)
@@ -322,6 +378,7 @@ def generate_json_schemas():
 
     SCHEMAS_DIR.mkdir(exist_ok=True)
 
+    # Generate schemas for main data files
     for data_file, model_class in MODEL_MAPPING.items():
         schema_file = data_file.replace('.json', '.schema.json')
         schema_path = SCHEMAS_DIR / schema_file
@@ -342,6 +399,23 @@ def generate_json_schemas():
 
         except Exception as e:
             print(f"❌ Failed to generate {schema_file}: {e}")
+
+    # Generate schema for book introduction files
+    try:
+        schema_file = "book_introduction.schema.json"
+        schema_path = SCHEMAS_DIR / schema_file
+
+        schema = BookIntroduction.model_json_schema()
+        schema['$id'] = f"https://kjvstudy.org/schemas/{schema_file}"
+        schema['title'] = "Schema for individual book introduction files"
+
+        with open(schema_path, 'w', encoding='utf-8') as f:
+            json.dump(schema, f, indent=2, ensure_ascii=False)
+
+        print(f"✅ Generated {schema_file}")
+
+    except Exception as e:
+        print(f"❌ Failed to generate {schema_file}: {e}")
 
     print()
     print(f"Schemas written to: {SCHEMAS_DIR}")
@@ -377,6 +451,11 @@ Examples:
         action='store_true',
         help='Generate JSON Schema files from Pydantic models'
     )
+    parser.add_argument(
+        '--books',
+        action='store_true',
+        help='Validate all 66 book introduction files'
+    )
 
     args = parser.parse_args()
 
@@ -384,6 +463,17 @@ Examples:
     if args.generate_schemas:
         generate_json_schemas()
         sys.exit(0)
+
+    # Validate books if requested
+    if args.books:
+        passed, failed = validate_all_books(args.verbose)
+
+        print()
+        print("=" * 60)
+        print(f"Results: {passed} passed, {failed} failed")
+        print("=" * 60)
+
+        sys.exit(0 if failed == 0 else 1)
 
     # Validate specific file or all files
     if args.file:
