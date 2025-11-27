@@ -189,7 +189,7 @@
 
 {% if page_description %}
 <section>
-    <p class="intro-text">{{ page_description | link_names | link_verses | safe }}</p>
+    <p class="intro-text">{{ page_description | mdi | link_names | link_verses | safe }}</p>
 </section>
 {% endif %}
 
@@ -201,7 +201,7 @@
 {% if intro_sidenotes %}
 <section>
     {% for intro in intro_sidenotes %}
-    <p class="intro-text">{{ intro.text | link_names | link_verses | safe }}</p>
+    <p class="intro-text">{{ intro.text | mdi | link_names | link_verses | safe }}</p>
     {% endfor %}
 </section>
 {% endif %}
@@ -216,7 +216,7 @@
         <p class="resource-item-title">{{ item.title }}</p>
 
         <div class="resource-item-description">
-            {{ item.description | link_names | link_verses | safe }}
+            {{ item.description | mdi | link_names | link_verses | safe }}
         </div>
 
         {% if item.verses %}
