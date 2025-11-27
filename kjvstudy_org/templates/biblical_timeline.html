@@ -163,7 +163,7 @@
                     <thead>
                         <tr style="border-bottom: 2px solid #333; background: #f9f9f9;">
                             <th style="text-align: left; padding: 0.85rem; font-weight: 600;">Event</th>
-                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 140px; background: #e6f3ff; border-left: 3px solid #2196F3; border-right: 3px solid #2196F3;">This Timeline<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(Gap-Allowing)</span></th>
+                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 140px; background: #e6f3ff;">This Timeline<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(Traditional)</span></th>
                             <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Ussher<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(1650)</span></th>
                             <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Scofield<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(1909)</span></th>
                             <th style="text-align: left; padding: 0.85rem; font-weight: 600; min-width: 200px;">Note</th>
@@ -173,7 +173,7 @@
                         {% for row in chronology_comparison %}
                         <tr style="border-bottom: 1px solid #ddd;">
                             <td style="padding: 0.85rem; font-weight: 500;">{{ row.event }}</td>
-                            <td style="text-align: center; padding: 0.85rem; background: #e6f3ff; font-weight: 700; border-left: 3px solid #2196F3; border-right: 3px solid #2196F3; color: #0d47a1;">{{ row.masoretic }}</td>
+                            <td style="text-align: center; padding: 0.85rem; background: #e6f3ff; font-weight: 700; color: #0d47a1;">{{ row.masoretic }}</td>
                             <td style="text-align: center; padding: 0.85rem; color: #666;">{{ row.ussher }}</td>
                             <td style="text-align: center; padding: 0.85rem; color: #666;">{{ row.scofield }}</td>
                             <td style="padding: 0.85rem; font-size: 0.85rem; color: #555;">
