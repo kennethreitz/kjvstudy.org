@@ -346,8 +346,8 @@ def sitemap():
     </url>
 """
 
-        # Add all chapter URLs and verse URLs for each book
-        chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+        # Add all chapter URLs for each book
+        chapters = bible.get_chapters_for_book(book)
         for chapter in chapters:
             sitemap_xml += f"""    <url>
         <loc>{base_url}/book/{book}/chapter/{chapter}</loc>
@@ -364,17 +364,9 @@ def sitemap():
         <priority>0.5</priority>
     </url>
 """
-
-            # Add all verse URLs for this chapter
-            verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
-            for verse_num in range(1, len(verses) + 1):
-                sitemap_xml += f"""    <url>
-        <loc>{base_url}/book/{book}/chapter/{chapter}/verse/{verse_num}</loc>
-        <lastmod>{current_date}</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-"""
+            # Note: Individual verse URLs (31,102 total) are excluded from sitemap
+            # to keep it under Google's 50,000 URL limit and improve generation speed.
+            # Google will discover verse pages through internal links on chapter pages.
 
     sitemap_xml += "</urlset>"
 
