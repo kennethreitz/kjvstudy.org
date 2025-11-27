@@ -187,6 +187,12 @@
 </div>
 {% endif %}
 
+{% if page_description %}
+<section>
+    <p class="intro-text">{{ page_description | link_names | link_verses | safe }}</p>
+</section>
+{% endif %}
+
 <nav class="toc" id="toc">
     <h2>Contents</h2>
     <ul id="toc-list"></ul>
