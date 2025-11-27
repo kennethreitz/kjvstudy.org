@@ -9,24 +9,37 @@
 
 {% block head %}
 <style>
-.toc-grid {
+.story-toc {
+    margin: 1.25rem 0 2rem;
+}
+.story-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 0.75rem;
-    margin: 1.5rem 0;
 }
-.toc-item {
-    padding: 0.5rem 0.75rem;
-    background: var(--code-bg);
-    border-left: 3px solid var(--link-color);
-    font-size: 0.9rem;
-}
-.toc-item a {
+.story-toc-item {
+    display: block;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
     text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, transform 0.15s;
 }
-.toc-item .count {
-    color: var(--text-secondary);
+.story-toc-item:hover,
+.story-toc-item:focus-visible {
+    border-color: var(--link-color);
+    transform: translateY(-1px);
+}
+.story-toc-item strong {
+    display: block;
+}
+.story-toc-count {
     font-size: 0.8rem;
+    color: var(--text-tertiary);
 }
 .story-search {
     max-width: 400px;
@@ -216,14 +229,18 @@
     <p style="margin-top: 1rem;"><a href="/stories/kids" style="color: #8b5cf6; font-weight: 500;">View Kids Version</a> — Stories written for younger readers</p>
 
     <h3>Categories</h3>
-    <div class="toc-grid">
+    <nav class="story-toc" aria-label="Story categories">
+        <ul>
         {% for category in categories %}
-        <div class="toc-item">
-            <a href="#{{ category.slug }}">{{ category.category }}</a>
-            <span class="count">{{ category.stories|length }} stories</span>
-        </div>
+            <li>
+                <a class="story-toc-item" href="#{{ category.slug }}">
+                    <strong>{{ category.category }}</strong>
+                    <span class="story-toc-count">{{ category.stories|length }} stories</span>
+                </a>
+            </li>
         {% endfor %}
-    </div>
+        </ul>
+    </nav>
 
     <div class="story-search">
         <input type="text" id="story-search" placeholder="Search stories by name, character, or theme..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
