@@ -212,7 +212,9 @@
 
     {% for event in events %}
     <h3 id="{{ (period_name + '-' + event.title) | lower | replace(' ', '-') | replace('&', 'and') | replace('\'', '') }}">{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span></h3>
-    <p>{{ event.description | link_verses | safe }}</p>
+    <p>{% if event.sidenote %}<label for="sn-{{ loop.index }}-{{ period_name | lower | replace(' ', '-') }}" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-{{ loop.index }}-{{ period_name | lower | replace(' ', '-') }}" class="margin-toggle"/>
+        <span class="sidenote">{{ event.sidenote | link_verses | safe }}</span>{% endif %}{{ event.description | link_verses | safe }}</p>
 
     {% if event.verses %}
     <ul>

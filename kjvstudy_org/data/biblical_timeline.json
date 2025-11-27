@@ -17,6 +17,7 @@
         "title": "Creation of the World",
         "date": "c. 4000 BC",
         "alt_dates": "Ussher: 4004 BC",
+        "sidenote": "This date is calculated from the genealogies in Genesis 5 and 11, regnal years of the kings, and fixed astronomical/historical dates (such as the fall of Jerusalem in 586 BC). Conservative scholars using successive genealogical reckoning arrive at dates between 4000-4004 BC for creation.",
         "description": "God (אֱלֹהִים, <em>Elohim</em>—the plural of majesty) creates (<em>bara</em>, ברא—to bring into existence ex nihilo) the heavens and earth in six sequential days, establishing the sabbath pattern. The Hebrew <em>Bereshit</em> (בְּרֵאשִׁית, 'In the beginning') opens Scripture with God's sovereign act of creation, speaking all things into being by His Word (דָּבָר, <em>davar</em>). The creation account reveals God's triune nature (Genesis 1:26, 'Let us make man'), His absolute power, and His purposeful design. The six-day creation culminates in humanity made in the <em>imago Dei</em> (image of God), establishing man as God's vice-regent over creation and anticipating the incarnation of the eternal Word.",
         "verses": [
           {"reference": "Genesis 1:1", "text": "In the beginning God created the heaven and the earth."},
@@ -46,6 +47,7 @@
         "title": "The Great Flood",
         "date": "2348 BC",
         "alt_dates": "Ussher: 2348 BC",
+        "sidenote": "Flood traditions exist in cultures worldwide (Babylonian Gilgamesh Epic, Greek Deucalion, etc.), suggesting a common historical memory. Geological evidence of catastrophic water action is found globally, though interpretations vary among scholars regarding extent and timing.",
         "description": "As humanity's wickedness reaches catastrophic proportions—'every imagination of the thoughts of his heart was only evil continually' (Genesis 6:5)—God executes universal judgment through the <em>mabbul</em> (מַבּוּל, deluge), destroying all flesh except Noah's family. The Flood demonstrates God's holiness that cannot tolerate sin, yet also His grace in preserving a remnant through the ark (תֵּבָה, <em>tevah</em>). Noah's ark typifies Christ as the sole means of salvation, the rainbow covenant establishes God's promise never again to destroy earth by flood, and the event prefigures the final judgment by fire. Peter explicitly connects the Flood to baptism (1 Peter 3:20-21) and end-times eschatology (2 Peter 3:5-7).",
         "verses": [
           {"reference": "Genesis 7:17", "text": "And the flood was forty days upon the earth; and the waters increased, and bare up the ark, and it was lift up above the earth."},
@@ -68,6 +70,7 @@
         "title": "Call of Abraham",
         "date": "c. 2091 BC",
         "alt_dates": "Ussher: 1921 BC • Scofield: 1996 BC",
+        "sidenote": "Archaeological excavations at Ur have revealed a sophisticated Sumerian city from this period. The dating differences among conservative chronologies reflect varying interpretations of whether Genesis 11:26-32 indicates Terah begat Abraham at age 70 or if Abraham was born when Terah was 130 (comparing Genesis 11:26, 11:32, 12:4, and Acts 7:4).",
         "description": "YHWH calls Abram (אַבְרָם, 'exalted father,' later Abraham, אַבְרָהָם, 'father of multitudes') from Ur of the Chaldees to Canaan, establishing the Abrahamic Covenant—foundational to all subsequent redemptive history. God's unconditional promise includes land (Canaan), seed (innumerable descendants), and blessing (to all nations through Abraham's seed). This covenant, confirmed by blood ritual (Genesis 15) and the sign of circumcision (בְּרִית מִילָה, <em>brit milah</em>), establishes Israel's election and foreshadows justification by faith alone (Genesis 15:6, cited in Romans 4:3, Galatians 3:6). Abraham's call initiates the progressive revelation of redemption, ultimately fulfilled in Christ, Abraham's seed (Galatians 3:16).",
         "verses": [
           {"reference": "Genesis 12:1", "text": "Now the LORD had said unto Abram, Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee."},
@@ -135,6 +138,7 @@
         "title": "The Passover",
         "date": "1446 BC",
         "alt_dates": "Ussher: 1491 BC",
+        "sidenote": "The Exodus date is calculated from 1 Kings 6:1 ('in the four hundred and eightieth year after the children of Israel were come out of the land of Egypt...Solomon began to build the house of the LORD'). Dating Solomon's fourth year to 967 BC yields 1446 BC for the Exodus. An alternate 'late date' theory (c. 1250 BC) conflicts with this biblical data but gained popularity due to archaeological interpretations now increasingly questioned.",
         "description": "The tenth plague—death of Egypt's firstborn—institutes the Passover (פֶּסַח, <em>Pesach</em>), the most significant Old Testament type of Christ's atoning work. Each household must apply the blood of an unblemished lamb to the doorposts; the death angel 'passes over' those houses, but strikes Egypt's firstborn. This establishes substitutionary atonement: the lamb dies instead of the firstborn, salvation by blood alone, appropriation by faith (applying the blood), and redemption as the foundation for law-giving (the Passover precedes Sinai). Christ is 'our passover...sacrificed for us' (1 Corinthians 5:7), the Lamb of God whose blood delivers from death and inaugurates the new exodus from sin's bondage.",
         "verses": [
           {"reference": "Exodus 12:13", "text": "And the blood shall be to you for a token upon the houses where ye are: and when I see the blood, I will pass over you, and the plague shall not be upon you to destroy you, when I smite the land of Egypt."}
@@ -341,6 +345,7 @@
         "title": "Fall of Jerusalem and Babylonian Exile",
         "date": "586 BC",
         "alt_dates": "Ussher: 588 BC",
+        "sidenote": "This date is confirmed by Babylonian chronicles and astronomical data, making it one of the most securely dated events in ancient Near Eastern history. The Babylonian Chronicle records Nebuchadnezzar's capture of Jerusalem. Archaeological evidence includes destruction layers at multiple Judean sites and the 'Lachish Letters,' correspondence during the final siege.",
         "description": "After eighteen-month siege, Nebuchadnezzar's army breaches Jerusalem's walls, destroys the temple, and deports the population to Babylon. The destruction of Solomon's temple—God's dwelling place—represents covenant curse fulfillment. The exile vindicates prophetic warnings from Isaiah, Jeremiah, and others. Lamentations gives poetic expression to the catastrophe. Yet exile is not ultimate abandonment—it serves disciplinary purposes, purging idolatry from Israel permanently. The seventy years (Jeremiah 25:11-12) correspond to neglected sabbath years (2 Chronicles 36:21), demonstrating exact retribution. Exile becomes the defining trauma of Jewish identity and the backdrop for messianic hope of restoration.",
         "verses": [
           {"reference": "2 Kings 25:9", "text": "And he burnt the house of the LORD, and the king's house, and all the houses of Jerusalem, and every great man's house burnt he with fire."}
@@ -399,6 +404,7 @@
         "title": "Birth of Jesus Christ",
         "date": "5–4 BC",
         "alt_dates": "Ussher: 4 BC",
+        "sidenote": "The BC/AD dating system (created by Dionysius Exiguus in AD 525) incorrectly calculated Christ's birth year. Historical evidence places it during Herod the Great's reign, who died in 4 BC (confirmed by Josephus and astronomical data regarding the eclipse before Herod's death). Luke's reference to Quirinius' governorship (Luke 2:2) presents chronological complexities still debated by scholars.",
         "description": "The eternal Word becomes flesh, conceived by the Holy Spirit in the virgin Mary (fulfilling Isaiah 7:14), born in Bethlehem (fulfilling Micah 5:2) during Caesar Augustus' reign. Angels announce to shepherds the birth of the Savior, Christ the Lord. Magi from the East seek the newborn King, prompting Herod's massacre of Bethlehem's infants. Jesus' birth represents the hinge of redemptive history—the incarnation of God, the fulfillment of covenant promises, and the inauguration of the new creation. The babe in the manger is simultaneously fully God and fully man, the mediator between God and humanity, whose coming divides history itself.",
         "verses": [
           {"reference": "Luke 2:10-11", "text": "And the angel said unto them, Fear not: for, behold, I bring you good tidings of great joy, which shall be to all people. For unto you is born this day in the city of David a Saviour, which is Christ the Lord."}
