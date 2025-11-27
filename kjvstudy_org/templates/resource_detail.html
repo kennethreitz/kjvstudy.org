@@ -109,6 +109,7 @@
 {% endblock %}
 
 {% block content %}
+<article role="article">
 {% if category_name %}
 <div class="resource-category">{{ category_name }}</div>
 {% endif %}
@@ -117,8 +118,8 @@
 
 {% if pdf_available and pdf_url %}
 <div class="resource-actions">
-    <a href="{{ pdf_url }}" class="print-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <a href="{{ pdf_url }}" class="print-btn" aria-label="Download {{ item_name }} as PDF">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
         Download PDF
@@ -126,23 +127,23 @@
 </div>
 {% endif %}
 
-<section>
-    <h2>Description</h2>
+<section aria-labelledby="description-heading">
+    <h2 id="description-heading">Description</h2>
     <div class="resource-description">
         {{ item.description | link_names | link_verses | safe }}
     </div>
     {% if item.family_tree_link %}
     <p style="margin-top: 1.5rem;">
-        <a href="{{ item.family_tree_link }}">View {{ item_name }} in Family Tree →</a>
+        <a href="{{ item.family_tree_link }}" aria-label="View {{ item_name }} in the Family Tree">View {{ item_name }} in Family Tree →</a>
     </p>
     {% endif %}
 </section>
 
-<section>
-    <h2>Key Verses</h2>
-    <div class="verse-list">
+<section aria-labelledby="verses-heading">
+    <h2 id="verses-heading">Key Verses</h2>
+    <div class="verse-list" role="list">
         {% for verse in item.verses %}
-        <div class="verse-item">
+        <div class="verse-item" role="listitem">
             <div class="verse-ref">
                 {% set ref_parts = verse.reference.rsplit(' ', 1) %}
                 {% if ref_parts|length == 2 %}
@@ -151,7 +152,7 @@
                     {% if ':' in chapter_verse %}
                         {% set ch = chapter_verse.split(':')[0] %}
                         {% set v = chapter_verse.split(':')[1] %}
-                        <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ verse.reference }}</a>
+                        <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}" aria-label="{{ verse.reference }}">{{ verse.reference }}</a>
                     {% else %}
                         {{ verse.reference }}
                     {% endif %}
@@ -164,7 +165,8 @@
         {% endfor %}
     </div>
 </section>
-<section>
-    <p><a href="{{ back_url }}">← Back to {{ back_text }}</a></p>
-</section>
+<nav aria-label="Resource navigation">
+    <p><a href="{{ back_url }}" aria-label="Back to {{ back_text }}">← Back to {{ back_text }}</a></p>
+</nav>
+</article>
 {% endblock %}

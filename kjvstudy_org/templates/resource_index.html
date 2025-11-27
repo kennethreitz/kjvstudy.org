@@ -178,8 +178,8 @@
 
 {% if pdf_available %}
 <div class="resource-index-actions">
-    <a class="resource-download-btn" href="{{ base_url }}/pdf">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <a class="resource-download-btn" href="{{ base_url }}/pdf" aria-label="Download all {{ page_title }} as PDF">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
         Download All (PDF)
@@ -188,18 +188,18 @@
 {% endif %}
 
 {% if page_description %}
-<section>
+<section aria-label="Introduction">
     <p class="intro-text">{{ page_description | mdi | link_names | link_verses | safe }}</p>
 </section>
 {% endif %}
 
-<nav class="toc" id="toc">
+<nav class="toc" id="toc" aria-label="Table of contents">
     <h2>Contents</h2>
     <ul id="toc-list"></ul>
 </nav>
 
 {% if intro_sidenotes %}
-<section>
+<section aria-label="Additional notes">
     {% for intro in intro_sidenotes %}
     <p class="intro-text">{{ intro.text | mdi | link_names | link_verses | safe }}</p>
     {% endfor %}
@@ -207,12 +207,12 @@
 {% endif %}
 
 {% for category, items in resource_data.items() %}
-<section class="resource-section">
-    <h2>{{ category }}</h2>
+<section class="resource-section" aria-labelledby="section-{{ category|slugify }}">
+    <h2 id="section-{{ category|slugify }}">{{ category }}</h2>
 
     {% for item_name, item in items.items() %}
-    <article class="resource-entry">
-        <h3 class="resource-name"><a href="{{ base_url }}/{{ item_name|slugify }}">{{ item_name }}</a></h3>
+    <article class="resource-entry" aria-labelledby="resource-{{ item_name|slugify }}">
+        <h3 class="resource-name" id="resource-{{ item_name|slugify }}"><a href="{{ base_url }}/{{ item_name|slugify }}">{{ item_name }}</a></h3>
         <p class="resource-item-title">{{ item.title }}</p>
 
         <div class="resource-item-description">
@@ -220,9 +220,9 @@
         </div>
 
         {% if item.verses %}
-        <div class="verse-list">
+        <div class="verse-list" role="list" aria-label="Key verses for {{ item_name }}">
             {% for verse in item.verses %}
-            <div class="verse-item">
+            <div class="verse-item" role="listitem">
                 <div class="verse-ref">
                     {% set ref_parts = verse.reference.rsplit(' ', 1) %}
                     {% if ref_parts|length == 2 %}
@@ -231,7 +231,7 @@
                         {% if ':' in chapter_verse %}
                             {% set ch = chapter_verse.split(':')[0] %}
                             {% set v = chapter_verse.split(':')[1].split('-')[0] %}
-                            <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ verse.reference }}</a>
+                            <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}" aria-label="{{ verse.reference }}">{{ verse.reference }}</a>
                         {% else %}
                             {{ verse.reference }}
                         {% endif %}

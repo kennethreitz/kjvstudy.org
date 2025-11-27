@@ -163,8 +163,8 @@
 <h1>Search the KJV Bible</h1>
 <p class="subtitle">Search across all verses in the Authorized King James Version</p>
 
-<section>
-    <form class="search-form" method="get" action="/search">
+<section role="search" aria-label="Bible search">
+    <form class="search-form" method="get" action="/search" role="search">
         <div class="search-input-wrapper">
             <input
                 type="text"
@@ -178,20 +178,21 @@
                 autocapitalize="off"
                 spellcheck="false"
                 autofocus
+                aria-label="Search for Bible verses, topics, and resources"
             >
-            <div id="search-dropdown" class="search-dropdown"></div>
+            <div id="search-dropdown" class="search-dropdown" role="listbox" aria-live="polite"></div>
         </div>
-        <button type="submit" class="search-button">Search</button>
+        <button type="submit" class="search-button" aria-label="Submit search query">Search</button>
     </form>
 
     {% if query %}
         {% if total_results > 0 %}
-            <div class="search-stats">
+            <div class="search-stats" role="status" aria-live="polite">
                 Found <strong>{{ total_results }}</strong> result{{ 's' if total_results != 1 else '' }} for "<strong>{{ query }}</strong>"
             </div>
 
             {% if family_tree_results %}
-            <h2 style="margin-top: 2rem;">People in Family Tree</h2>
+            <h2 style="margin-top: 2rem;" role="heading" aria-level="2">People in Family Tree</h2>
             {% for result in family_tree_results %}
             <article class="search-result">
                 <div class="result-reference">
