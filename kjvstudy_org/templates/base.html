@@ -1186,16 +1186,16 @@
     </style>
 </head>
 <body>
-    <input type="checkbox" id="sidebar-toggle">
+    <input type="checkbox" id="sidebar-toggle" aria-hidden="true">
     <p class="sidebar-toggle-container">
-        <label for="sidebar-toggle" class="sidebar-toggle-btn" title="Toggle sidebar"></label>
+        <label for="sidebar-toggle" class="sidebar-toggle-btn" title="Toggle sidebar" aria-label="Toggle navigation sidebar"></label>
     </p>
     <p class="dark-mode-toggle">
-        <button class="dark-mode-btn" title="Toggle dark mode" onclick="toggleDarkMode()"></button>
+        <button class="dark-mode-btn" title="Toggle dark mode" onclick="toggleDarkMode()" aria-label="Toggle dark mode"></button>
     </p>
-    <article>
+    <article role="main">
         {% if breadcrumbs %}
-        <nav class="breadcrumb">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
             {% for crumb in breadcrumbs %}
                 {% if not loop.last %}
                     <a href="{{ crumb.url }}">{{ crumb.text }}</a>
@@ -1211,11 +1211,11 @@
     </article>
 
     <!-- Floating Navigation Sidebar -->
-    <nav class="nav-sidebar">
+    <nav class="nav-sidebar" role="navigation" aria-label="Primary navigation">
         <!-- Universal Search Box -->
-        <div class="sidebar-search">
-            <input type="text" id="sidebar-search-input" placeholder="Search everything..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-            <div id="search-results-dropdown" class="search-results-dropdown"></div>
+        <div class="sidebar-search" role="search">
+            <input type="text" id="sidebar-search-input" placeholder="Search everything..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Search Bible, topics, and resources">
+            <div id="search-results-dropdown" class="search-results-dropdown" role="listbox" aria-live="polite"></div>
         </div>
 
         <!-- Quick Access -->
@@ -1229,8 +1229,8 @@
         <!-- Bible Books -->
         {% if books %}
         <h3>Bible Books</h3>
-        <details id="old-testament">
-            <summary>Old Testament</summary>
+        <details id="old-testament" aria-label="Old Testament books">
+            <summary aria-expanded="false">Old Testament</summary>
             <ul class="book-list">
                 {% set book_types = {'Genesis': 'law', 'Exodus': 'law', 'Leviticus': 'law', 'Numbers': 'law', 'Deuteronomy': 'law', 'Joshua': 'historical', 'Judges': 'historical', 'Ruth': 'historical', '1 Samuel': 'historical', '2 Samuel': 'historical', '1 Kings': 'historical', '2 Kings': 'historical', '1 Chronicles': 'historical', '2 Chronicles': 'historical', 'Ezra': 'historical', 'Nehemiah': 'historical', 'Esther': 'historical', 'Job': 'wisdom', 'Psalms': 'wisdom', 'Proverbs': 'wisdom', 'Ecclesiastes': 'wisdom', 'Song of Solomon': 'wisdom', 'Isaiah': 'major-prophets', 'Jeremiah': 'major-prophets', 'Lamentations': 'major-prophets', 'Ezekiel': 'major-prophets', 'Daniel': 'major-prophets', 'Hosea': 'minor-prophets', 'Joel': 'minor-prophets', 'Amos': 'minor-prophets', 'Obadiah': 'minor-prophets', 'Jonah': 'minor-prophets', 'Micah': 'minor-prophets', 'Nahum': 'minor-prophets', 'Habakkuk': 'minor-prophets', 'Zephaniah': 'minor-prophets', 'Haggai': 'minor-prophets', 'Zechariah': 'minor-prophets', 'Malachi': 'minor-prophets'} %}
                 {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
@@ -1241,8 +1241,8 @@
             </ul>
         </details>
 
-        <details id="new-testament">
-            <summary>New Testament</summary>
+        <details id="new-testament" aria-label="New Testament books">
+            <summary aria-expanded="false">New Testament</summary>
             <ul class="book-list">
                 {% set nt_book_types = {'Matthew': 'gospels', 'Mark': 'gospels', 'Luke': 'gospels', 'John': 'gospels', 'Acts': 'acts', 'Romans': 'pauline', '1 Corinthians': 'pauline', '2 Corinthians': 'pauline', 'Galatians': 'pauline', 'Ephesians': 'pauline', 'Philippians': 'pauline', 'Colossians': 'pauline', '1 Thessalonians': 'pauline', '2 Thessalonians': 'pauline', '1 Timothy': 'pauline', '2 Timothy': 'pauline', 'Titus': 'pauline', 'Philemon': 'pauline', 'Hebrews': 'general', 'James': 'general', '1 Peter': 'general', '2 Peter': 'general', '1 John': 'general', '2 John': 'general', '3 John': 'general', 'Jude': 'general', 'Revelation': 'apocalyptic'} %}
                 {% for book in ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'] %}
@@ -1255,8 +1255,8 @@
         {% endif %}
 
         <!-- Daily Reading -->
-        <details class="resource-group" open>
-            <summary>Daily Reading</summary>
+        <details class="resource-group" open aria-label="Daily reading resources">
+            <summary aria-expanded="true">Daily Reading</summary>
             <ul>
                 <li><a href="/verse-of-the-day">Verse of the Day</a></li>
                 <li><a href="/random-verse">Random Verse</a></li>
@@ -1265,8 +1265,8 @@
         </details>
 
         <!-- Study Resources -->
-        <details class="resource-group" open>
-            <summary>Study Resources</summary>
+        <details class="resource-group" open aria-label="Study resources">
+            <summary aria-expanded="true">Study Resources</summary>
             <ul>
                 <li><a href="/study-guides">Study Guides</a></li>
                 <li><a href="/stories">Bible Stories</a></li>
@@ -1276,8 +1276,8 @@
         </details>
 
         <!-- Reference Tools -->
-        <details class="resource-group" open>
-            <summary>Reference Tools</summary>
+        <details class="resource-group" open aria-label="Reference tools">
+            <summary aria-expanded="true">Reference Tools</summary>
             <ul>
                 <li><a href="/concordance">Concordance</a></li>
                 <li><a href="/interlinear">Interlinear</a></li>
