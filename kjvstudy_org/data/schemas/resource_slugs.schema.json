@@ -1,0 +1,90 @@
+{
+  "description": "Schema for resource_slugs.json",
+  "properties": {
+    "study_guides": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Study Guides",
+      "type": "array"
+    },
+    "angels": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Angels",
+      "type": "array"
+    },
+    "prophets": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Prophets",
+      "type": "array"
+    },
+    "names_of_god": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Names Of God",
+      "type": "array"
+    },
+    "parables": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Parables",
+      "type": "array"
+    },
+    "covenants": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Covenants",
+      "type": "array"
+    },
+    "apostles": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Apostles",
+      "type": "array"
+    },
+    "women": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Women",
+      "type": "array"
+    },
+    "festivals": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Festivals",
+      "type": "array"
+    },
+    "fruits_of_spirit": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Fruits Of Spirit",
+      "type": "array"
+    }
+  },
+  "required": [
+    "study_guides",
+    "angels",
+    "prophets",
+    "names_of_god",
+    "parables",
+    "covenants",
+    "apostles",
+    "women",
+    "festivals",
+    "fruits_of_spirit"
+  ],
+  "title": "Schema for resource_slugs.json",
+  "type": "object",
+  "$id": "https://kjvstudy.org/schemas/resource_slugs.schema.json"
+}

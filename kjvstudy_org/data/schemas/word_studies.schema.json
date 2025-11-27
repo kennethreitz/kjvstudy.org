@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "WordStudy": {
+      "description": "Schema for individual word study entry",
+      "properties": {
+        "ot_term": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ot Term"
+        },
+        "ot_transliteration": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ot Transliteration"
+        },
+        "ot_meaning": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ot Meaning"
+        },
+        "ot_note": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ot Note"
+        },
+        "nt_term": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nt Term"
+        },
+        "nt_transliteration": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nt Transliteration"
+        },
+        "nt_meaning": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nt Meaning"
+        },
+        "nt_note": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nt Note"
+        }
+      },
+      "title": "WordStudy",
+      "type": "object"
+    }
+  },
+  "additionalProperties": {
+    "$ref": "#/$defs/WordStudy"
+  },
+  "description": "Schema for word_studies.json",
+  "title": "Schema for word_studies.json",
+  "type": "object",
+  "$id": "https://kjvstudy.org/schemas/word_studies.schema.json"
+}

@@ -1,0 +1,46 @@
+{
+  "$defs": {
+    "VerseCommentaryEntry": {
+      "description": "Schema for verse commentary entry",
+      "properties": {
+        "analysis": {
+          "minLength": 1,
+          "title": "Analysis",
+          "type": "string"
+        },
+        "historical_context": {
+          "minLength": 1,
+          "title": "Historical Context",
+          "type": "string"
+        },
+        "application": {
+          "title": "Application",
+          "type": "string"
+        },
+        "questions": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Questions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "analysis",
+        "historical_context",
+        "application",
+        "questions"
+      ],
+      "title": "VerseCommentaryEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": {
+    "$ref": "#/$defs/VerseCommentaryEntry"
+  },
+  "description": "Schema for verse_commentary.json",
+  "title": "Schema for verse_commentary.json",
+  "type": "object",
+  "$id": "https://kjvstudy.org/schemas/verse_commentary.schema.json"
+}

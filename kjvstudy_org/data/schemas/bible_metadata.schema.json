@@ -1,0 +1,39 @@
+{
+  "description": "Schema for bible_metadata.json",
+  "properties": {
+    "old_testament_books": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 39,
+      "minItems": 39,
+      "title": "Old Testament Books",
+      "type": "array"
+    },
+    "new_testament_books": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 27,
+      "minItems": 27,
+      "title": "New Testament Books",
+      "type": "array"
+    },
+    "book_abbreviations": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "minProperties": 1,
+      "title": "Book Abbreviations",
+      "type": "object"
+    }
+  },
+  "required": [
+    "old_testament_books",
+    "new_testament_books",
+    "book_abbreviations"
+  ],
+  "title": "Schema for bible_metadata.json",
+  "type": "object",
+  "$id": "https://kjvstudy.org/schemas/bible_metadata.schema.json"
+}

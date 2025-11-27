@@ -1,0 +1,125 @@
+{
+  "$defs": {
+    "CatalogEntry": {
+      "description": "Schema for study guide catalog entry",
+      "properties": {
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "slug": {
+          "pattern": "^[a-z-]+$",
+          "title": "Slug",
+          "type": "string"
+        },
+        "verses": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Verses",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "slug",
+        "verses"
+      ],
+      "title": "CatalogEntry",
+      "type": "object"
+    },
+    "GuideContent": {
+      "description": "Schema for study guide content",
+      "properties": {
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/$defs/StudySection"
+          },
+          "minItems": 1,
+          "title": "Sections",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "sections"
+      ],
+      "title": "GuideContent",
+      "type": "object"
+    },
+    "StudySection": {
+      "description": "Schema for study guide section",
+      "properties": {
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "verses": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Verses",
+          "type": "array"
+        },
+        "content": {
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "verses",
+        "content"
+      ],
+      "title": "StudySection",
+      "type": "object"
+    }
+  },
+  "description": "Schema for study_guides.json",
+  "properties": {
+    "catalog": {
+      "additionalProperties": {
+        "items": {
+          "$ref": "#/$defs/CatalogEntry"
+        },
+        "type": "array"
+      },
+      "title": "Catalog",
+      "type": "object"
+    },
+    "content": {
+      "additionalProperties": {
+        "$ref": "#/$defs/GuideContent"
+      },
+      "title": "Content",
+      "type": "object"
+    }
+  },
+  "required": [
+    "catalog",
+    "content"
+  ],
+  "title": "Schema for study_guides.json",
+  "type": "object",
+  "$id": "https://kjvstudy.org/schemas/study_guides.schema.json"
+}

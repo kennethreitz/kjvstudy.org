@@ -1,0 +1,48 @@
+{
+  "$defs": {
+    "FeaturedVerse": {
+      "description": "Schema for individual featured verse",
+      "properties": {
+        "book": {
+          "minLength": 1,
+          "title": "Book",
+          "type": "string"
+        },
+        "chapter": {
+          "minimum": 1,
+          "title": "Chapter",
+          "type": "integer"
+        },
+        "verse": {
+          "minimum": 1,
+          "title": "Verse",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "book",
+        "chapter",
+        "verse"
+      ],
+      "title": "FeaturedVerse",
+      "type": "object"
+    }
+  },
+  "description": "Schema for featured_verses.json",
+  "properties": {
+    "verses": {
+      "items": {
+        "$ref": "#/$defs/FeaturedVerse"
+      },
+      "minItems": 1,
+      "title": "Verses",
+      "type": "array"
+    }
+  },
+  "required": [
+    "verses"
+  ],
+  "title": "Schema for featured_verses.json",
+  "type": "object",
+  "$id": "https://kjvstudy.org/schemas/featured_verses.schema.json"
+}
