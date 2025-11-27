@@ -158,7 +158,7 @@ async def _resource_detail_pdf_response(
     )
 
 
-def _resource_index_pdf_response(resource_data: dict, page_title: str, page_subtitle: str, page_description: str):
+async def _resource_index_pdf_response(resource_data: dict, page_title: str, page_subtitle: str, page_description: str):
     """Generate PDF for resource index-style pages."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -227,7 +227,7 @@ def biblical_angels_page(request: Request):
 
 @router.get("/biblical-angels/pdf")
 async def biblical_angels_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         ANGELS_DATA,
         page_title="Biblical Angels",
         page_subtitle="Heavenly messengers throughout Scripture",
@@ -350,7 +350,7 @@ def names_of_god_page(request: Request):
 
 @router.get("/names-of-god/pdf")
 async def names_of_god_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         NAMES_DATA,
         page_title="Names of God",
         page_subtitle="Divine titles revealed in Scripture",
@@ -473,7 +473,7 @@ def biblical_covenants_page(request: Request):
 
 @router.get("/biblical-covenants/pdf")
 async def biblical_covenants_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         COVENANTS_DATA,
         page_title="Biblical Covenants",
         page_subtitle="Divine promises across redemptive history",
@@ -596,7 +596,7 @@ def women_of_the_bible_page(request: Request):
 
 @router.get("/women-of-the-bible/pdf")
 async def women_of_the_bible_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         WOMEN_DATA,
         page_title="Women of the Bible",
         page_subtitle="Faithful witnesses throughout redemptive history",
@@ -653,7 +653,7 @@ def biblical_festivals_page(request: Request):
 
 @router.get("/biblical-festivals/pdf")
 async def biblical_festivals_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         FESTIVALS_DATA,
         page_title="Biblical Festivals",
         page_subtitle="Appointed feasts of the Lord",
@@ -710,7 +710,7 @@ def fruits_of_the_spirit_page(request: Request):
 
 @router.get("/fruits-of-the-spirit/pdf")
 async def fruits_of_the_spirit_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         FRUITS_DATA,
         page_title="Fruits of the Spirit",
         page_subtitle="Developing Christian character",
@@ -854,7 +854,7 @@ def miracles_page(request: Request):
 
 @router.get("/miracles-of-jesus/pdf")
 async def miracles_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         MIRACLES_DATA,
         page_title="Miracles of Jesus",
         page_subtitle="Signs and Wonders Manifesting Divine Authority",
@@ -915,7 +915,7 @@ def prayers_page(request: Request):
 
 @router.get("/prayers-of-the-bible/pdf")
 async def prayers_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         PRAYERS_DATA,
         page_title="Prayers of the Bible",
         page_subtitle="Sacred Conversations with the Almighty",
@@ -976,7 +976,7 @@ def beatitudes_page(request: Request):
 
 @router.get("/beatitudes/pdf")
 async def beatitudes_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         BEATITUDES_DATA,
         page_title="The Beatitudes",
         page_subtitle="The Blessings of the Kingdom",
@@ -1037,7 +1037,7 @@ def ten_commandments_page(request: Request):
 
 @router.get("/ten-commandments/pdf")
 async def ten_commandments_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         TEN_COMMANDMENTS_DATA,
         page_title="The Ten Commandments",
         page_subtitle="The Moral Law of God",
@@ -1098,7 +1098,7 @@ def armor_of_god_page(request: Request):
 
 @router.get("/armor-of-god/pdf")
 async def armor_of_god_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         ARMOR_OF_GOD_DATA,
         page_title="The Armor of God",
         page_subtitle="Divine Equipment for Spiritual Warfare",
@@ -1159,7 +1159,7 @@ def i_am_statements_page(request: Request):
 
 @router.get("/i-am-statements/pdf")
 async def i_am_statements_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         I_AM_STATEMENTS_DATA,
         page_title="I Am Statements of Jesus",
         page_subtitle="Divine Self-Revelations in the Gospel of John",
@@ -1220,7 +1220,7 @@ def trinity_page(request: Request):
 
 @router.get("/trinity/pdf")
 async def trinity_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         TRINITY_DATA,
         page_title="The Trinity",
         page_subtitle="The Doctrine of One God in Three Persons",
@@ -1281,7 +1281,7 @@ def christology_page(request: Request):
 
 @router.get("/christology/pdf")
 async def christology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         CHRISTOLOGY_DATA,
         page_title="Christology",
         page_subtitle="The Doctrine of the Person and Work of Christ",
@@ -1342,7 +1342,7 @@ def soteriology_page(request: Request):
 
 @router.get("/soteriology/pdf")
 async def soteriology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         SOTERIOLOGY_DATA,
         page_title="Soteriology",
         page_subtitle="The Doctrine of Salvation",
@@ -1403,7 +1403,7 @@ def pneumatology_page(request: Request):
 
 @router.get("/pneumatology/pdf")
 async def pneumatology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         PNEUMATOLOGY_DATA,
         page_title="Pneumatology",
         page_subtitle="The Doctrine of the Holy Spirit",
@@ -1464,7 +1464,7 @@ def eschatology_page(request: Request):
 
 @router.get("/eschatology/pdf")
 async def eschatology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         ESCHATOLOGY_DATA,
         page_title="Eschatology",
         page_subtitle="The Doctrine of Last Things",
@@ -1525,7 +1525,7 @@ def ecclesiology_page(request: Request):
 
 @router.get("/ecclesiology/pdf")
 async def ecclesiology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         ECCLESIOLOGY_DATA,
         page_title="Ecclesiology",
         page_subtitle="The Doctrine of the Church",
@@ -1586,7 +1586,7 @@ def types_and_shadows_page(request: Request):
 
 @router.get("/types-and-shadows/pdf")
 async def types_and_shadows_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         TYPES_AND_SHADOWS_DATA,
         page_title="Types and Shadows of Christ",
         page_subtitle="Old Testament Figures Fulfilled in Christ",
@@ -1647,7 +1647,7 @@ def messianic_prophecies_page(request: Request):
 
 @router.get("/messianic-prophecies/pdf")
 async def messianic_prophecies_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         MESSIANIC_PROPHECIES_DATA,
         page_title="Messianic Prophecies",
         page_subtitle="Old Testament Predictions Fulfilled in Christ",
@@ -1708,7 +1708,7 @@ def blood_in_scripture_page(request: Request):
 
 @router.get("/blood-in-scripture/pdf")
 async def blood_in_scripture_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         BLOOD_IN_SCRIPTURE_DATA,
         page_title="The Blood in Scripture",
         page_subtitle="The Theology of Redemption Through Blood",
@@ -1769,7 +1769,7 @@ def kingdom_of_god_page(request: Request):
 
 @router.get("/kingdom-of-god/pdf")
 async def kingdom_of_god_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         KINGDOM_OF_GOD_DATA,
         page_title="The Kingdom of God",
         page_subtitle="The Reign of God Through Christ",
@@ -1830,7 +1830,7 @@ def names_of_christ_page(request: Request):
 
 @router.get("/names-of-christ/pdf")
 async def names_of_christ_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         NAMES_OF_CHRIST_DATA,
         page_title="Names and Titles of Christ",
         page_subtitle="The Glorious Designations of Our Lord",
@@ -1891,7 +1891,7 @@ def spirits_and_demons_page(request: Request):
 
 @router.get("/spirits-and-demons/pdf")
 async def spirits_and_demons_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         SPIRITS_AND_DEMONS_DATA,
         page_title="Spirits & Demons",
         page_subtitle="Biblical Demonology and Spiritual Warfare",
@@ -1952,7 +1952,7 @@ def personifications_page(request: Request):
 
 @router.get("/personifications/pdf")
 async def personifications_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         PERSONIFICATIONS_DATA,
         page_title="Personifications in Scripture",
         page_subtitle="Abstract Concepts Given Human Form",
@@ -2013,7 +2013,7 @@ def bibliology_page(request: Request):
 
 @router.get("/bibliology/pdf")
 async def bibliology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         BIBLIOLOGY_DATA["categories"],
         page_title=BIBLIOLOGY_DATA["title"],
         page_subtitle=BIBLIOLOGY_DATA["subtitle"],
@@ -2074,7 +2074,7 @@ def theology_proper_page(request: Request):
 
 @router.get("/theology-proper/pdf")
 async def theology_proper_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         THEOLOGY_PROPER_DATA["categories"],
         page_title=THEOLOGY_PROPER_DATA["title"],
         page_subtitle=THEOLOGY_PROPER_DATA["subtitle"],
@@ -2135,7 +2135,7 @@ def anthropology_page(request: Request):
 
 @router.get("/anthropology/pdf")
 async def anthropology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         ANTHROPOLOGY_DATA["categories"],
         page_title=ANTHROPOLOGY_DATA["title"],
         page_subtitle=ANTHROPOLOGY_DATA["subtitle"],
@@ -2196,7 +2196,7 @@ def hamartiology_page(request: Request):
 
 @router.get("/hamartiology/pdf")
 async def hamartiology_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         HAMARTIOLOGY_DATA["categories"],
         page_title=HAMARTIOLOGY_DATA["title"],
         page_subtitle=HAMARTIOLOGY_DATA["subtitle"],
@@ -2257,7 +2257,7 @@ def providence_page(request: Request):
 
 @router.get("/providence/pdf")
 async def providence_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         PROVIDENCE_DATA["categories"],
         page_title=PROVIDENCE_DATA["title"],
         page_subtitle=PROVIDENCE_DATA["subtitle"],
@@ -2318,7 +2318,7 @@ def grace_page(request: Request):
 
 @router.get("/grace/pdf")
 async def grace_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         GRACE_DATA["categories"],
         page_title=GRACE_DATA["title"],
         page_subtitle=GRACE_DATA["subtitle"],
@@ -2379,7 +2379,7 @@ def justification_page(request: Request):
 
 @router.get("/justification/pdf")
 async def justification_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         JUSTIFICATION_DATA["categories"],
         page_title=JUSTIFICATION_DATA["title"],
         page_subtitle=JUSTIFICATION_DATA["subtitle"],
@@ -2440,7 +2440,7 @@ def sanctification_page(request: Request):
 
 @router.get("/sanctification/pdf")
 async def sanctification_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         SANCTIFICATION_DATA["categories"],
         page_title=SANCTIFICATION_DATA["title"],
         page_subtitle=SANCTIFICATION_DATA["subtitle"],
@@ -2501,7 +2501,7 @@ def law_and_gospel_page(request: Request):
 
 @router.get("/law-and-gospel/pdf")
 async def law_and_gospel_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         LAW_AND_GOSPEL_DATA["categories"],
         page_title=LAW_AND_GOSPEL_DATA["title"],
         page_subtitle=LAW_AND_GOSPEL_DATA["subtitle"],
@@ -2562,7 +2562,7 @@ def worship_page(request: Request):
 
 @router.get("/worship/pdf")
 async def worship_page_pdf():
-    return _resource_index_pdf_response(
+    return await _resource_index_pdf_response(
         WORSHIP_DATA["categories"],
         page_title=WORSHIP_DATA["title"],
         page_subtitle=WORSHIP_DATA["subtitle"],
