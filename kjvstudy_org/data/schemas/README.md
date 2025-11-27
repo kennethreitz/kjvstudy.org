@@ -22,6 +22,7 @@ JSON Schema is a vocabulary that allows you to annotate and validate JSON docume
 | `verse_commentary.schema.json` | `verse_commentary.json` | Verse analysis and commentary |
 | `featured_verses.schema.json` | `featured_verses.json` | Verse-of-the-day rotation |
 | `resource_slugs.schema.json` | `resource_slugs.json` | Resource URL slugs for sitemap |
+| `book_introduction.schema.json` | `data/books/*.json` | Individual book introductions (66 files) |
 
 ## Schema Features
 
@@ -68,14 +69,20 @@ This ensures:
 Use the provided validation script:
 
 ```bash
-# Validate all data files
+# Validate all main data files
 python scripts/validate_data.py
+
+# Validate all 66 book introduction files
+python scripts/validate_data.py --books
 
 # Validate specific file
 python scripts/validate_data.py --file bible_metadata.json
 
 # Show detailed output
 python scripts/validate_data.py --verbose
+
+# Regenerate all JSON schemas from Pydantic models
+python scripts/validate_data.py --generate-schemas
 ```
 
 ### 2. Python Validation
@@ -327,5 +334,5 @@ def test_word_studies_valid():
 
 ---
 
-*Last Updated: 2025-01-27*
-*Schemas: 6 active schemas covering core data files*
+*Last Updated: 2025-11-27*
+*Schemas: 7 active schemas covering core data files and 66 book introductions*
