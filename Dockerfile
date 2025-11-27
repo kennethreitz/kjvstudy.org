@@ -45,5 +45,8 @@ COPY --from=builder /app/.venv /app/.venv
 # Copy application code
 COPY . .
 
+# Build search index at image build time for fast searches
+RUN python3 -c "from kjvstudy_org.utils.search_index import init_search_index; init_search_index()"
+
 # Run the application using uvicorn directly
 CMD ["uvicorn", "kjvstudy_org.server:app", "--host", "0.0.0.0", "--port", "8000"]

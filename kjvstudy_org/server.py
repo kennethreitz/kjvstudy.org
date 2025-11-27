@@ -66,6 +66,10 @@ except ImportError:
 async def lifespan(app: FastAPI):
     """Lifespan context manager for startup/shutdown events"""
     # Startup
+    # Initialize search index for fast searches
+    from .utils.search import ensure_search_index
+    ensure_search_index()
+
     if os.getenv("PRELOAD_INTERLINEAR", "false").lower() == "true":
         preload_data()
     yield
