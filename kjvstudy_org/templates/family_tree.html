@@ -81,6 +81,7 @@ section:nth-of-type(3) {
 .search-form {
     max-width: 55%;
     margin: 0.5rem 0;
+    position: relative;
 }
 
 .search-form input {
@@ -95,6 +96,41 @@ section:nth-of-type(3) {
     outline: none;
     border-color: #666;
 }
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-color, #fff);
+    border: 1px solid var(--border-color, #ddd);
+    border-top: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    max-height: 240px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+}
+
+.search-dropdown.open {
+    display: block;
+}
+
+.search-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.search-dropdown button:hover,
+.search-dropdown button.active {
+    background: var(--code-bg, #f6f6f6);
+}
 </style>
 {% endblock %}
 
@@ -108,14 +144,16 @@ section:nth-of-type(3) {
 
 <section>
     <div class="search-form">
-        <form method="get" action="/family-tree/search">
+        <form method="get" action="/family-tree/search" id="family-tree-search-form">
             <input
                 type="text"
                 name="q"
                 placeholder="Search for a person..."
                 autocomplete="off"
+                id="family-tree-search-input"
             >
         </form>
+        <div class="search-dropdown" id="family-tree-search-dropdown"></div>
     </div>
 </section>
 
@@ -223,4 +261,103 @@ section:nth-of-type(3) {
         <p>Family tree data could not be loaded.</p>
     </section>
 {% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const names = {{ person_names|default([])|tojson }};
+    const input = document.getElementById('family-tree-search-input');
+    const dropdown = document.getElementById('family-tree-search-dropdown');
+    const form = document.getElementById('family-tree-search-form');
+
+    if (!input || !dropdown || !form || names.length === 0) {
+        return;
+    }
+
+    let filtered = [];
+    let activeIndex = -1;
+
+    function hideDropdown() {
+        dropdown.classList.remove('open');
+        dropdown.innerHTML = '';
+        filtered = [];
+        activeIndex = -1;
+    }
+
+    function renderDropdown(items) {
+        if (!items.length) {
+            hideDropdown();
+            return;
+        }
+
+        dropdown.innerHTML = items
+            .map((name, idx) => `<button type="button" data-index="${idx}">${name}</button>`)
+            .join('');
+        dropdown.classList.add('open');
+        activeIndex = -1;
+    }
+
+    function setActive(index) {
+        const buttons = dropdown.querySelectorAll('button');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        if (buttons[index]) {
+            buttons[index].classList.add('active');
+        }
+    }
+
+    function chooseName(name) {
+        input.value = name;
+        hideDropdown();
+        form.submit();
+    }
+
+    input.addEventListener('input', function() {
+        const query = input.value.trim().toLowerCase();
+        if (!query) {
+            hideDropdown();
+            return;
+        }
+        filtered = names.filter(name => name.toLowerCase().includes(query)).slice(0, 8);
+        renderDropdown(filtered);
+    });
+
+    input.addEventListener('keydown', function(event) {
+        if (!dropdown.classList.contains('open')) {
+            return;
+        }
+        if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            activeIndex = (activeIndex + 1) % filtered.length;
+            setActive(activeIndex);
+        } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            activeIndex = (activeIndex - 1 + filtered.length) % filtered.length;
+            setActive(activeIndex);
+        } else if (event.key === 'Enter') {
+            if (activeIndex >= 0 && filtered[activeIndex]) {
+                event.preventDefault();
+                chooseName(filtered[activeIndex]);
+            }
+        } else if (event.key === 'Escape') {
+            hideDropdown();
+        }
+    });
+
+    dropdown.addEventListener('mousedown', function(event) {
+        const button = event.target.closest('button');
+        if (!button) {
+            return;
+        }
+        const index = Number(button.dataset.index);
+        if (!Number.isNaN(index) && filtered[index]) {
+            chooseName(filtered[index]);
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target) && event.target !== input) {
+            hideDropdown();
+        }
+    });
+});
+</script>
 {% endblock %}

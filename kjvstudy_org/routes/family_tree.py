@@ -14,6 +14,8 @@ from typing import List, Dict, Optional
 from fastapi import APIRouter, Request, HTTPException, Query
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 
+from ..utils.helpers import get_verse_text
+
 try:
     from ged4py import GedcomReader
 except ImportError:
@@ -73,7 +75,6 @@ def expand_book_abbreviation(abbrev):
 
 def get_biblical_verses(name: str) -> list:
     """Get biblical verses related to a person by name."""
-    # This is a simplified version - main verses come from GEDCOM notes
     return []
 
 
@@ -103,9 +104,11 @@ def parse_verses_from_notes(note_text: str) -> list:
         else:
             reference = f"{full_book} {chapter}:{start_verse}-{end_verse}"
 
+        verse_text = get_verse_text(full_book, chapter, start_verse) or ""
+
         verses.append({
             "reference": reference,
-            "text": ""  # Text would need to be fetched from Bible
+            "text": verse_text
         })
 
     return verses
@@ -384,6 +387,14 @@ def family_tree_page(request: Request):
             "books": get_books(),
             "family_tree_data": family_tree_data,
             "generations": generations,
+            "person_names": sorted(
+                {
+                    person["name"].strip()
+                    for person in family_tree_data.values()
+                    if person.get("name")
+                },
+                key=lambda name: name.lower()
+            ),
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Family Tree", "url": None}
