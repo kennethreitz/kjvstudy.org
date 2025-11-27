@@ -113,7 +113,7 @@ def link_bible_references(text):
     pattern = r'\b((?:[123]\s+)?[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
 
     def replace_reference(match):
-        book_name = match.group(1)  # e.g., "Genesis", "1 John", "Song of Solomon"
+        book_name = match.group(1)  # e.g., "Genesis", "1 John", "Solomon's Song"
         chapter = match.group(2)    # e.g., "6"
         verse_start = match.group(3)  # e.g., "8"
         verse_end = match.group(4)  # e.g., "10" (optional)
@@ -143,7 +143,7 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
     # Determine if Old Testament (Hebrew/Aramaic) or New Testament (Greek)
     ot_books = ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth",
                 "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra",
-                "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Solomon",
+                "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Solomon's Song",
                 "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos",
                 "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"]
 
@@ -2162,7 +2162,7 @@ def get_chapter_type(book, chapter):
         "Psalms": "poetic and liturgical",
         "Proverbs": "wisdom sayings",
         "Ecclesiastes": "philosophical reflection",
-        "Song of Solomon": "poetic love song",
+        "Solomon's Song": "poetic love song",
 
         # Prophetic
         "Isaiah": "prophetic oracle",
@@ -2453,7 +2453,7 @@ def get_time_period(book):
         "Psalms": "various periods (c. 1000-400 BCE)",
         "Proverbs": "primarily Solomon's reign (c. 970-930 BCE)",
         "Ecclesiastes": "likely Solomon's reign (c. 970-930 BCE)",
-        "Song of Solomon": "Solomon's reign (c. 970-930 BCE)",
+        "Solomon's Song": "Solomon's reign (c. 970-930 BCE)",
 
         # Major Prophets
         "Isaiah": "the Assyrian and pre-exilic periods (c. 740-680 BCE)",
@@ -2544,7 +2544,7 @@ def get_historical_context(book):
         "Psalms": "Temple worship utilized these compositions across various periods of Israel's history.",
         "Proverbs": "Ancient Near Eastern wisdom literature was common in royal courts for training officials.",
         "Ecclesiastes": "Royal wisdom reflections paralleled other ancient Near Eastern philosophical works.",
-        "Song of Solomon": "Ancient Near Eastern love poetry often used agricultural and royal imagery.",
+        "Solomon's Song": "Ancient Near Eastern love poetry often used agricultural and royal imagery.",
 
         # Major Prophets
         "Isaiah": "Addressed Judah during Assyria's rise, Babylon's threat, and anticipated restoration.",
@@ -2636,7 +2636,7 @@ def get_chapter_type(book, chapter):
         "Psalms": "poetic and liturgical",
         "Proverbs": "wisdom sayings",
         "Ecclesiastes": "philosophical reflection",
-        "Song of Solomon": "poetic love song",
+        "Solomon's Song": "poetic love song",
 
         # Prophetic
         "Isaiah": "prophetic oracle",
@@ -2730,7 +2730,7 @@ def get_testament_for_book(book):
         "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel",
         "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles",
         "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs",
-        "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah",
+        "Ecclesiastes", "Solomon's Song", "Isaiah", "Jeremiah",
         "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos",
         "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah",
         "Haggai", "Zechariah", "Malachi"
@@ -3208,7 +3208,7 @@ def generate_book_tags(book, genre):
         "Psalms": ["Worship", "Praise", "Lament", "Prayer"],
         "Proverbs": ["Wisdom", "Instruction", "Conduct", "Character"],
         "Ecclesiastes": ["Meaning", "Vanity", "Wisdom", "Purpose"],
-        "Song of Solomon": ["Love", "Marriage", "Devotion", "Relationship"],
+        "Solomon's Song": ["Love", "Marriage", "Devotion", "Relationship"],
         "Isaiah": ["Holiness", "Messiah", "Judgment", "Restoration"],
         "Jeremiah": ["Judgment", "Covenant", "Restoration", "Prophet"],
         "Lamentations": ["Grief", "Judgment", "Mercy", "Destruction"],
@@ -3301,7 +3301,7 @@ def get_book_genre(book):
         "Psalms": "Poetry and liturgy",
         "Proverbs": "Wisdom literature",
         "Ecclesiastes": "Wisdom literature with philosophical reflection",
-        "Song of Solomon": "Poetry and love song",
+        "Solomon's Song": "Poetry and love song",
 
         # Major Prophets
         "Isaiah": "Prophetic literature with poetry",
