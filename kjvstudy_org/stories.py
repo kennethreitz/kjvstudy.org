@@ -86,14 +86,25 @@ def get_category_by_slug(category_slug: str) -> Optional[dict]:
     return None
 
 
+# Cache story counts
+_CACHED_STORY_COUNT = None
+_CACHED_CATEGORY_COUNT = None
+
+
 def get_story_count() -> int:
-    """Get total number of stories."""
-    return len(get_all_stories_flat())
+    """Get total number of stories (cached)."""
+    global _CACHED_STORY_COUNT
+    if _CACHED_STORY_COUNT is None:
+        _CACHED_STORY_COUNT = len(get_all_stories_flat())
+    return _CACHED_STORY_COUNT
 
 
 def get_category_count() -> int:
-    """Get total number of categories."""
-    return len(load_all_stories())
+    """Get total number of categories (cached)."""
+    global _CACHED_CATEGORY_COUNT
+    if _CACHED_CATEGORY_COUNT is None:
+        _CACHED_CATEGORY_COUNT = len(load_all_stories())
+    return _CACHED_CATEGORY_COUNT
 
 
 # Pre-load categories on module import for faster access
@@ -110,5 +121,7 @@ def get_categories() -> list[dict]:
 
 def refresh_stories():
     """Refresh the cached stories (useful after adding new files)."""
-    global STORY_CATEGORIES
+    global STORY_CATEGORIES, _CACHED_STORY_COUNT, _CACHED_CATEGORY_COUNT
     STORY_CATEGORIES = load_all_stories()
+    _CACHED_STORY_COUNT = None
+    _CACHED_CATEGORY_COUNT = None

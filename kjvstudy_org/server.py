@@ -189,27 +189,33 @@ templates = Jinja2Templates(directory=str(templates_dir))
 # Register custom Jinja2 filters
 templates.env.filters['slugify'] = create_slug
 
+# Initialize mistune for markdown rendering
+import mistune
+
+# Create mistune instance for full markdown (with paragraphs)
+_markdown = mistune.create_markdown(escape=False, hard_wrap=False)
+
+# Create inline renderer for markdown without paragraph wrapping
+_inline_markdown = mistune.create_markdown(
+    renderer=mistune.HTMLRenderer(escape=False),
+    plugins=['strikethrough']
+)
+
 def markdown_inline(text):
-    """Convert inline markdown to HTML (bold and italic only, no paragraph wrapping)."""
+    """Convert inline markdown to HTML (bold, italic, etc. - no paragraph wrapping)."""
     if not text:
         return text
-    # Convert **bold** to <strong>bold</strong> (must be done before italic)
-    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
-    # Convert *italic* to <em>italic</em>
-    text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
-    return text
+    # Render and strip any outer <p> tags that mistune might add
+    html = _inline_markdown(text).strip()
+    if html.startswith('<p>') and html.endswith('</p>'):
+        html = html[3:-4]
+    return html
 
 def markdown_to_html(text):
-    """Convert simple markdown to HTML (bold, italic, and paragraphs)."""
+    """Convert markdown to HTML (bold, italic, paragraphs, etc.)."""
     if not text:
         return text
-    # First apply inline markdown
-    text = markdown_inline(text)
-    # Convert paragraphs (split on double newlines)
-    paragraphs = text.split('\n\n')
-    # Always wrap in <p> tags
-    text = ''.join(f'<p>{p.strip()}</p>' for p in paragraphs if p.strip())
-    return text
+    return _markdown(text).strip()
 
 templates.env.filters['md'] = markdown_to_html
 templates.env.filters['mdi'] = markdown_inline

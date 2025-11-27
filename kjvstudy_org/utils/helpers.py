@@ -208,7 +208,7 @@ def get_chapter_popularity_score(book: str, chapter: int) -> int:
     if book in HIGH_READERSHIP_BOOKS:
         default_score += 1
 
-    total_chapters = len([ch for bk, ch in bible.iter_chapters() if bk == book])
+    total_chapters = len(bible.get_chapters_for_book(book))
     if total_chapters <= 5:
         default_score += 1
 
