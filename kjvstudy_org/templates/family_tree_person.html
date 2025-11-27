@@ -337,6 +337,12 @@
     {% if person.generation %}
     <a href="/family-tree/generation/{{ person.generation }}">Generation {{ person.generation }}</a>
     {% endif %}
+    {% if person.parents|length > 0 %}
+    <a href="/family-tree/person/{{ person_id }}/ancestors">View Ancestors</a>
+    {% endif %}
+    {% if person.children|length > 0 %}
+    <a href="/family-tree/person/{{ person_id }}/descendants">View Descendants</a>
+    {% endif %}
     <a href="/family-tree/search">Search</a>
 </div>
 {% endblock %}

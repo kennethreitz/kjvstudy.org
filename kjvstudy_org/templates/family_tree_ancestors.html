@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Ancestors of {{ person.name }} - Family Tree - KJV Study{% endblock %}
+{% block description %}All ancestors of {{ person.name }} in the biblical genealogy.{% endblock %}
+
+{% block head %}
+<style>
+.tree-header {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #111;
+}
+
+.tree-title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+}
+
+.tree-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    font-style: italic;
+}
+
+.intro-text {
+    max-width: 55%;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin: 1.5rem 0;
+}
+
+.ancestors-tree {
+    max-width: 55%;
+    margin: 2rem 0;
+}
+
+.tree-node {
+    margin: 1rem 0 1rem 2rem;
+    border-left: 2px solid #ccc;
+    padding-left: 1rem;
+}
+
+.tree-node-root {
+    margin-left: 0;
+    border-left: none;
+    padding-left: 0;
+}
+
+.person-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.person-name a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.person-name a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+.person-meta {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.parent-label {
+    font-size: 0.85rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.navigation-links {
+    max-width: 55%;
+    margin: 2rem 0;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+}
+
+.navigation-links a {
+    margin-right: 1.5rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="tree-header">
+    <h1 class="tree-title">Ancestors of {{ person.name }}</h1>
+    {% if person.generation %}
+    <p class="tree-subtitle">
+        Tracing back from Generation {{ person.generation }}
+    </p>
+    {% endif %}
+</div>
+
+{% if ancestors_tree %}
+<div class="intro-text">
+    <p><span class="newthought">This page shows</span> all known ancestors of {{ person.name }} traced through the biblical genealogies. The tree displays the lineage backward through multiple generations as recorded in Scripture.</p>
+</div>
+
+<div class="ancestors-tree">
+    <h2>Ancestor Tree</h2>
+
+    {# Recursive macro to display ancestors #}
+    {% macro render_ancestors(node, is_root=False) %}
+        <div class="tree-node{% if is_root %} tree-node-root{% endif %}">
+            <div class="person-name">
+                <a href="/family-tree/person/{{ node.id }}">{{ node.name }}</a>
+            </div>
+            {% if node.generation %}
+            <div class="person-meta">
+                Generation {{ node.generation }} from Adam
+            </div>
+            {% endif %}
+
+            {% if node.parents %}
+                <div class="parent-label">Parents</div>
+                {% for parent in node.parents %}
+                    {{ render_ancestors(parent) }}
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endmacro %}
+
+    {{ render_ancestors(ancestors_tree, is_root=True) }}
+</div>
+
+{% else %}
+<div class="intro-text">
+    <p>No ancestors found for {{ person.name }} in the biblical genealogies. This may be the earliest known person in this lineage.</p>
+</div>
+{% endif %}
+
+<div class="navigation-links">
+    <a href="/family-tree/person/{{ person_id }}">← {{ person.name }}</a>
+    <a href="/family-tree">Family Tree</a>
+    {% if person.generation %}
+    <a href="/family-tree/generation/{{ person.generation }}">Generation {{ person.generation }}</a>
+    {% endif %}
+</div>
+{% endblock %}
