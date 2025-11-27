@@ -1,5 +1,8 @@
 """Utility routes for KJV Study - sitemap, robots.txt, health checks."""
+import json
 from datetime import datetime
+from pathlib import Path
+from functools import lru_cache
 
 from fastapi import APIRouter
 from fastapi.responses import Response
@@ -13,13 +16,20 @@ router = APIRouter(tags=["Utility"])
 _sitemap_cache = None
 _sitemap_cache_date = None
 
-# Study guide slugs for sitemap (extracted from study_guides module)
-STUDY_GUIDE_SLUGS = [
-    "sermon-on-the-mount", "lords-prayer", "beatitudes", "fruit-of-spirit",
-    "armor-of-god", "ten-commandments", "parables-of-jesus", "miracles-of-jesus",
-    "names-of-god", "attributes-of-god", "trinity", "holy-spirit",
-    "salvation", "justification", "sanctification", "redemption",
-]
+# Path to resource slugs JSON file
+_RESOURCE_SLUGS_PATH = Path(__file__).parent.parent / "data" / "resource_slugs.json"
+
+
+@lru_cache(maxsize=1)
+def _load_resource_slugs() -> dict:
+    """Load resource slugs from JSON file. Cached since data never changes."""
+    with open(_RESOURCE_SLUGS_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+# Load slugs from JSON
+_slugs = _load_resource_slugs()
+STUDY_GUIDE_SLUGS = _slugs["study_guides"]
 
 
 @router.get("/health")
@@ -236,8 +246,7 @@ def sitemap():
 """
 
     # Biblical angels, prophets, names of God, parables, covenants, apostles, women, festivals slugs
-    angel_slugs = ["michael", "gabriel", "lucifer", "abaddon"]
-    for slug in angel_slugs:
+    for slug in _slugs["angels"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-angels/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -246,8 +255,7 @@ def sitemap():
     </url>
 """
 
-    prophet_slugs = ["moses", "elijah", "isaiah", "jeremiah", "ezekiel", "daniel", "jonah", "john-the-baptist"]
-    for slug in prophet_slugs:
+    for slug in _slugs["prophets"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-prophets/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -256,8 +264,7 @@ def sitemap():
     </url>
 """
 
-    god_name_slugs = ["elohim", "yahweh", "adonai", "el-shaddai", "yahweh-jireh", "yahweh-rapha", "yahweh-nissi", "yahweh-shalom", "yahweh-tsidkenu", "yahweh-shammah"]
-    for slug in god_name_slugs:
+    for slug in _slugs["names_of_god"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/names-of-god/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -266,8 +273,7 @@ def sitemap():
     </url>
 """
 
-    parable_slugs = ["sower", "wheat-tares", "mustard-seed", "good-samaritan", "prodigal-son", "lost-sheep", "talents", "wise-foolish-builders"]
-    for slug in parable_slugs:
+    for slug in _slugs["parables"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/parables/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -276,8 +282,7 @@ def sitemap():
     </url>
 """
 
-    covenant_slugs = ["noahic", "abrahamic", "mosaic", "davidic", "new-covenant"]
-    for slug in covenant_slugs:
+    for slug in _slugs["covenants"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-covenants/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -286,8 +291,7 @@ def sitemap():
     </url>
 """
 
-    apostle_slugs = ["peter", "andrew", "james-son-of-zebedee", "john", "philip", "bartholomew", "thomas", "matthew", "james-son-of-alphaeus", "thaddaeus", "simon-zealot", "judas-iscariot"]
-    for slug in apostle_slugs:
+    for slug in _slugs["apostles"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/the-twelve-apostles/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -296,8 +300,7 @@ def sitemap():
     </url>
 """
 
-    women_slugs = ["eve", "sarah", "rebekah", "rachel", "miriam", "deborah", "ruth", "hannah", "esther", "mary-mother-of-jesus", "mary-magdalene", "martha"]
-    for slug in women_slugs:
+    for slug in _slugs["women"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/women-of-the-bible/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -306,8 +309,7 @@ def sitemap():
     </url>
 """
 
-    festival_slugs = ["passover", "unleavened-bread", "firstfruits", "pentecost", "trumpets", "atonement", "tabernacles"]
-    for slug in festival_slugs:
+    for slug in _slugs["festivals"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-festivals/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -316,8 +318,7 @@ def sitemap():
     </url>
 """
 
-    fruit_slugs = ["love", "joy", "peace", "longsuffering", "gentleness", "goodness", "faith", "meekness", "temperance"]
-    for slug in fruit_slugs:
+    for slug in _slugs["fruits_of_spirit"]:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/fruits-of-the-spirit/{slug}</loc>
         <lastmod>{current_date}</lastmod>

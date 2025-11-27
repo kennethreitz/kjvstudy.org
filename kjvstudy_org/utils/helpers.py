@@ -1,12 +1,60 @@
 """Helper utilities for KJV Study."""
 import re
+import json
 import hashlib
 from datetime import datetime
+from pathlib import Path
 from typing import Optional, Dict, List
 from functools import lru_cache
 
 from ..kjv import bible, VerseReference
 from ..topics import get_all_topics
+
+# Paths to data files
+_DATA_DIR = Path(__file__).parent.parent / "data"
+_CHAPTER_EXPLANATIONS_PATH = _DATA_DIR / "chapter_explanations.json"
+_POPULAR_CHAPTERS_PATH = _DATA_DIR / "popular_chapters.json"
+_FEATURED_VERSES_PATH = _DATA_DIR / "featured_verses.json"
+
+
+@lru_cache(maxsize=1)
+def _load_chapter_explanations() -> dict:
+    """Load chapter explanations from JSON file. Cached since data never changes."""
+    with open(_CHAPTER_EXPLANATIONS_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    # Convert string keys to integers for chapter numbers
+    return {
+        book: {int(chapter): explanation for chapter, explanation in chapters.items()}
+        for book, chapters in data.items()
+    }
+
+
+@lru_cache(maxsize=1)
+def _load_popular_chapters() -> dict:
+    """Load popular chapters from JSON file. Cached since data never changes."""
+    with open(_POPULAR_CHAPTERS_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    # Convert string keys to integers for chapter numbers
+    popular = {
+        book: {int(chapter): score for chapter, score in chapters.items()}
+        for book, chapters in data["popular_chapters"].items()
+    }
+    return {
+        "popular_chapters": popular,
+        "high_readership_books": data["high_readership_books"]
+    }
+
+
+@lru_cache(maxsize=1)
+def _load_featured_verses() -> list:
+    """Load featured verses from JSON file. Cached since data never changes."""
+    with open(_FEATURED_VERSES_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    # Convert dict format to tuple format for compatibility
+    return [
+        (verse["book"], verse["chapter"], verse["verse"])
+        for verse in data["verses"]
+    ]
 
 
 @lru_cache(maxsize=512)
@@ -158,50 +206,10 @@ def get_related_content(book: str, chapter: int = None, verse: int = None) -> Di
     return related
 
 
-# Popular/well-known chapters with their scores (1-10 scale)
-POPULAR_CHAPTERS = {
-    "John": {3: 10},
-    "1 Corinthians": {13: 10},
-    "Psalms": {23: 10, 91: 9, 1: 8, 139: 8},
-    "Romans": {8: 9, 3: 8, 12: 8},
-    "Matthew": {5: 9, 6: 8, 7: 8},
-    "Ephesians": {2: 8, 6: 8},
-    "Philippians": {4: 8},
-    "Genesis": {1: 9, 3: 8, 22: 7},
-    "Exodus": {20: 8, 14: 7},
-    "Isaiah": {53: 9, 40: 8},
-    "Jeremiah": {29: 7},
-    "Proverbs": {31: 7, 3: 7},
-    "Ecclesiastes": {3: 8},
-    "1 Peter": {5: 7},
-    "James": {1: 7},
-    "Hebrews": {11: 8, 12: 7},
-    "Revelation": {21: 8, 22: 7},
-    "Luke": {2: 9, 15: 8},
-    "2 Timothy": {3: 7},
-    "Joshua": {1: 7},
-    "Daniel": {3: 7, 6: 7},
-    "1 John": {4: 8},
-    "Galatians": {5: 7},
-    "Colossians": {3: 7},
-    "1 Thessalonians": {4: 7},
-    "Mark": {16: 7},
-    "Acts": {2: 8},
-    "1 Samuel": {17: 7},
-    "Job": {19: 7},
-    "2 Corinthians": {5: 7},
-    "1 Kings": {3: 6, 18: 6},
-    "Malachi": {3: 6},
-    "Joel": {2: 6},
-    "Micah": {6: 6},
-    "Habakkuk": {2: 6},
-}
-
-HIGH_READERSHIP_BOOKS = [
-    "Matthew", "Mark", "Luke", "John", "Acts", "Romans",
-    "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians",
-    "Philippians", "Colossians", "Genesis", "Exodus", "Psalms", "Proverbs"
-]
+# Load popular chapters data from JSON
+_popular_data = _load_popular_chapters()
+POPULAR_CHAPTERS = _popular_data["popular_chapters"]
+HIGH_READERSHIP_BOOKS = _popular_data["high_readership_books"]
 
 
 @lru_cache(maxsize=512)
@@ -228,41 +236,8 @@ def get_chapter_popularity_score(book: str, chapter: int) -> int:
     return min(default_score, 6)
 
 
-# Chapter explanations for popular chapters
-CHAPTER_EXPLANATIONS = {
-    "John": {
-        3: "Contains John 3:16 - 'For God so loved the world' - the most quoted verse in Christianity",
-        1: "The Word became flesh - Jesus as the eternal Logos and the calling of the first disciples",
-    },
-    "1 Corinthians": {
-        13: "The famous 'Love Chapter' - 'Love is patient, love is kind' - essential reading for weddings and Christian living",
-    },
-    "Psalms": {
-        23: "The beloved Shepherd Psalm - 'The Lord is my shepherd, I shall not want' - comfort in times of trouble",
-        91: "Psalm of protection - 'He who dwells in the shelter of the Most High' - promises of God's care",
-        1: "The blessed man - contrasts the righteous and wicked, foundation of wisdom literature",
-        139: "God's omniscience and omnipresence - 'You have searched me and known me' - intimate knowledge of God",
-    },
-    "Romans": {
-        8: "No condemnation in Christ - 'All things work together for good' - assurance of salvation",
-        3: "All have sinned - universal need for salvation and justification by faith",
-        12: "Living sacrifice - practical Christian living and spiritual gifts",
-    },
-    "Matthew": {
-        5: "The Beatitudes - 'Blessed are the poor in spirit' - foundation of Christian ethics",
-        6: "The Lord's Prayer and teachings on worry - 'Give us this day our daily bread'",
-        7: "Golden Rule and narrow gate - 'Do unto others as you would have them do unto you'",
-    },
-    "Genesis": {
-        1: "Creation account - 'In the beginning God created the heavens and the earth'",
-        3: "The Fall - Adam and Eve's disobedience and the first promise of redemption",
-        22: "Abraham's ultimate test - the near-sacrifice of Isaac, foreshadowing Christ",
-    },
-    "Isaiah": {
-        53: "The Suffering Servant - 'He was wounded for our transgressions' - prophecy of Christ's crucifixion",
-        40: "Comfort my people - 'Every valley shall be exalted' - hope and restoration",
-    },
-}
+# Load chapter explanations from JSON
+CHAPTER_EXPLANATIONS = _load_chapter_explanations()
 
 
 def get_chapter_popularity_explanation(book: str, chapter: int) -> str:
@@ -293,40 +268,8 @@ def get_chapter_popularity_explanation(book: str, chapter: int) -> str:
         return f"Part of {book} - explore this chapter to discover its significance"
 
 
-# Featured verses for verse of the day
-FEATURED_VERSES = [
-    ("John", 3, 16),
-    ("Psalms", 23, 1),
-    ("Proverbs", 3, 5),
-    ("Philippians", 4, 13),
-    ("Romans", 8, 28),
-    ("Isaiah", 40, 31),
-    ("Jeremiah", 29, 11),
-    ("Joshua", 1, 9),
-    ("Matthew", 11, 28),
-    ("Psalms", 46, 10),
-    ("Romans", 12, 2),
-    ("2 Timothy", 1, 7),
-    ("Proverbs", 22, 6),
-    ("1 Corinthians", 13, 4),
-    ("Galatians", 5, 22),
-    ("Hebrews", 11, 1),
-    ("James", 1, 2),
-    ("1 Peter", 5, 7),
-    ("Psalms", 119, 105),
-    ("Matthew", 6, 33),
-    ("John", 14, 6),
-    ("Romans", 5, 8),
-    ("Ephesians", 2, 8),
-    ("Psalms", 27, 1),
-    ("Isaiah", 41, 10),
-    ("Matthew", 28, 19),
-    ("John", 1, 1),
-    ("Psalms", 51, 10),
-    ("Proverbs", 18, 10),
-    ("2 Corinthians", 5, 17),
-    ("Colossians", 3, 23),
-]
+# Load featured verses from JSON
+FEATURED_VERSES = _load_featured_verses()
 
 
 def get_daily_verse() -> Dict:

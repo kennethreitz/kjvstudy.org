@@ -1,0 +1,113 @@
+{
+  "study_guides": [
+    "sermon-on-the-mount",
+    "lords-prayer",
+    "beatitudes",
+    "fruit-of-spirit",
+    "armor-of-god",
+    "ten-commandments",
+    "parables-of-jesus",
+    "miracles-of-jesus",
+    "names-of-god",
+    "attributes-of-god",
+    "trinity",
+    "holy-spirit",
+    "salvation",
+    "justification",
+    "sanctification",
+    "redemption"
+  ],
+  "angels": [
+    "michael",
+    "gabriel",
+    "lucifer",
+    "abaddon"
+  ],
+  "prophets": [
+    "moses",
+    "elijah",
+    "isaiah",
+    "jeremiah",
+    "ezekiel",
+    "daniel",
+    "jonah",
+    "john-the-baptist"
+  ],
+  "names_of_god": [
+    "elohim",
+    "yahweh",
+    "adonai",
+    "el-shaddai",
+    "yahweh-jireh",
+    "yahweh-rapha",
+    "yahweh-nissi",
+    "yahweh-shalom",
+    "yahweh-tsidkenu",
+    "yahweh-shammah"
+  ],
+  "parables": [
+    "sower",
+    "wheat-tares",
+    "mustard-seed",
+    "good-samaritan",
+    "prodigal-son",
+    "lost-sheep",
+    "talents",
+    "wise-foolish-builders"
+  ],
+  "covenants": [
+    "noahic",
+    "abrahamic",
+    "mosaic",
+    "davidic",
+    "new-covenant"
+  ],
+  "apostles": [
+    "peter",
+    "andrew",
+    "james-son-of-zebedee",
+    "john",
+    "philip",
+    "bartholomew",
+    "thomas",
+    "matthew",
+    "james-son-of-alphaeus",
+    "thaddaeus",
+    "simon-zealot",
+    "judas-iscariot"
+  ],
+  "women": [
+    "eve",
+    "sarah",
+    "rebekah",
+    "rachel",
+    "miriam",
+    "deborah",
+    "ruth",
+    "hannah",
+    "esther",
+    "mary-mother-of-jesus",
+    "mary-magdalene",
+    "martha"
+  ],
+  "festivals": [
+    "passover",
+    "unleavened-bread",
+    "firstfruits",
+    "pentecost",
+    "trumpets",
+    "atonement",
+    "tabernacles"
+  ],
+  "fruits_of_spirit": [
+    "love",
+    "joy",
+    "peace",
+    "longsuffering",
+    "gentleness",
+    "goodness",
+    "faith",
+    "meekness",
+    "temperance"
+  ]
+}

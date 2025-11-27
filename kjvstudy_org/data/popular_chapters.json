@@ -1,0 +1,145 @@
+{
+  "popular_chapters": {
+    "John": {
+      "3": 10
+    },
+    "1 Corinthians": {
+      "13": 10
+    },
+    "Psalms": {
+      "23": 10,
+      "91": 9,
+      "1": 8,
+      "139": 8
+    },
+    "Romans": {
+      "8": 9,
+      "3": 8,
+      "12": 8
+    },
+    "Matthew": {
+      "5": 9,
+      "6": 8,
+      "7": 8
+    },
+    "Ephesians": {
+      "2": 8,
+      "6": 8
+    },
+    "Philippians": {
+      "4": 8
+    },
+    "Genesis": {
+      "1": 9,
+      "3": 8,
+      "22": 7
+    },
+    "Exodus": {
+      "20": 8,
+      "14": 7
+    },
+    "Isaiah": {
+      "53": 9,
+      "40": 8
+    },
+    "Jeremiah": {
+      "29": 7
+    },
+    "Proverbs": {
+      "31": 7,
+      "3": 7
+    },
+    "Ecclesiastes": {
+      "3": 8
+    },
+    "1 Peter": {
+      "5": 7
+    },
+    "James": {
+      "1": 7
+    },
+    "Hebrews": {
+      "11": 8,
+      "12": 7
+    },
+    "Revelation": {
+      "21": 8,
+      "22": 7
+    },
+    "Luke": {
+      "2": 9,
+      "15": 8
+    },
+    "2 Timothy": {
+      "3": 7
+    },
+    "Joshua": {
+      "1": 7
+    },
+    "Daniel": {
+      "3": 7,
+      "6": 7
+    },
+    "1 John": {
+      "4": 8
+    },
+    "Galatians": {
+      "5": 7
+    },
+    "Colossians": {
+      "3": 7
+    },
+    "1 Thessalonians": {
+      "4": 7
+    },
+    "Mark": {
+      "16": 7
+    },
+    "Acts": {
+      "2": 8
+    },
+    "1 Samuel": {
+      "17": 7
+    },
+    "Job": {
+      "19": 7
+    },
+    "2 Corinthians": {
+      "5": 7
+    },
+    "1 Kings": {
+      "3": 6,
+      "18": 6
+    },
+    "Malachi": {
+      "3": 6
+    },
+    "Joel": {
+      "2": 6
+    },
+    "Micah": {
+      "6": 6
+    },
+    "Habakkuk": {
+      "2": 6
+    }
+  },
+  "high_readership_books": [
+    "Matthew",
+    "Mark",
+    "Luke",
+    "John",
+    "Acts",
+    "Romans",
+    "1 Corinthians",
+    "2 Corinthians",
+    "Galatians",
+    "Ephesians",
+    "Philippians",
+    "Colossians",
+    "Genesis",
+    "Exodus",
+    "Psalms",
+    "Proverbs"
+  ]
+}
