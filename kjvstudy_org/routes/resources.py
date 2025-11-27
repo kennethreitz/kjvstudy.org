@@ -125,7 +125,7 @@ def _resource_detail_response(
     )
 
 
-def _resource_detail_pdf_response(
+async def _resource_detail_pdf_response(
     data: dict,
     slug: str,
     *,
@@ -252,7 +252,7 @@ def angel_detail(request: Request, angel_slug: str):
 @router.get("/biblical-angels/{angel_slug}/pdf")
 async def angel_detail_pdf(angel_slug: str):
     """PDF export for a biblical angel detail page."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         ANGELS_DATA,
         angel_slug,
         resource_title="Biblical Angels",
@@ -318,7 +318,7 @@ def prophet_detail(request: Request, prophet_slug: str):
 @router.get("/biblical-prophets/{prophet_slug}/pdf")
 async def prophet_detail_pdf(prophet_slug: str):
     """PDF export for a biblical prophet entry."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         PROPHETS_DATA,
         prophet_slug,
         resource_title="Biblical Prophets",
@@ -375,7 +375,7 @@ def name_of_god_detail(request: Request, name_slug: str):
 @router.get("/names-of-god/{name_slug}/pdf")
 async def name_of_god_detail_pdf(name_slug: str):
     """PDF export for a Name of God entry."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         NAMES_DATA,
         name_slug,
         resource_title="Names of God",
@@ -441,7 +441,7 @@ def parable_detail(request: Request, parable_slug: str):
 @router.get("/parables/{parable_slug}/pdf")
 async def parable_detail_pdf(parable_slug: str):
     """PDF export for a parable entry."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         PARABLES_DATA,
         parable_slug,
         resource_title="Parables of Jesus",
@@ -498,7 +498,7 @@ def covenant_detail(request: Request, covenant_slug: str):
 @router.get("/biblical-covenants/{covenant_slug}/pdf")
 async def covenant_detail_pdf(covenant_slug: str):
     """PDF export for covenant entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         COVENANTS_DATA,
         covenant_slug,
         resource_title="Biblical Covenants",
@@ -564,7 +564,7 @@ def apostle_detail(request: Request, apostle_slug: str):
 @router.get("/the-twelve-apostles/{apostle_slug}/pdf")
 async def apostle_detail_pdf(apostle_slug: str):
     """PDF export for apostle entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         APOSTLES_DATA,
         apostle_slug,
         resource_title="The Twelve Apostles",
@@ -621,7 +621,7 @@ def woman_detail(request: Request, woman_slug: str):
 @router.get("/women-of-the-bible/{woman_slug}/pdf")
 async def woman_detail_pdf(woman_slug: str):
     """PDF export for Women of the Bible entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         WOMEN_DATA,
         woman_slug,
         resource_title="Women of the Bible",
@@ -678,7 +678,7 @@ def festival_detail(request: Request, festival_slug: str):
 @router.get("/biblical-festivals/{festival_slug}/pdf")
 async def festival_detail_pdf(festival_slug: str):
     """PDF export for biblical festival entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         FESTIVALS_DATA,
         festival_slug,
         resource_title="Biblical Festivals",
@@ -735,7 +735,7 @@ def fruit_detail(request: Request, fruit_slug: str):
 @router.get("/fruits-of-the-spirit/{fruit_slug}/pdf")
 async def fruit_detail_pdf(fruit_slug: str):
     """PDF export for Fruits of the Spirit entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         FRUITS_DATA,
         fruit_slug,
         resource_title="Fruits of the Spirit",
@@ -879,7 +879,7 @@ def miracle_detail(request: Request, miracle_slug: str):
 @router.get("/miracles-of-jesus/{miracle_slug}/pdf")
 async def miracle_detail_pdf(miracle_slug: str):
     """PDF export for miracle entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         MIRACLES_DATA,
         miracle_slug,
         resource_title="Miracles of Jesus",
@@ -940,7 +940,7 @@ def prayer_detail(request: Request, prayer_slug: str):
 @router.get("/prayers-of-the-bible/{prayer_slug}/pdf")
 async def prayer_detail_pdf(prayer_slug: str):
     """PDF export for prayer entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         PRAYERS_DATA,
         prayer_slug,
         resource_title="Prayers of the Bible",
@@ -1001,7 +1001,7 @@ def beatitude_detail(request: Request, beatitude_slug: str):
 @router.get("/beatitudes/{beatitude_slug}/pdf")
 async def beatitude_detail_pdf(beatitude_slug: str):
     """PDF export for Beatitudes entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         BEATITUDES_DATA,
         beatitude_slug,
         resource_title="The Beatitudes",
@@ -1062,7 +1062,7 @@ def commandment_detail(request: Request, commandment_slug: str):
 @router.get("/ten-commandments/{commandment_slug}/pdf")
 async def commandment_detail_pdf(commandment_slug: str):
     """PDF export for Ten Commandments entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         TEN_COMMANDMENTS_DATA,
         commandment_slug,
         resource_title="The Ten Commandments",
@@ -1123,7 +1123,7 @@ def armor_detail(request: Request, armor_slug: str):
 @router.get("/armor-of-god/{armor_slug}/pdf")
 async def armor_detail_pdf(armor_slug: str):
     """PDF export for Armor of God entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         ARMOR_OF_GOD_DATA,
         armor_slug,
         resource_title="The Armor of God",
@@ -1184,7 +1184,7 @@ def i_am_statement_detail(request: Request, statement_slug: str):
 @router.get("/i-am-statements/{statement_slug}/pdf")
 async def i_am_statement_detail_pdf(statement_slug: str):
     """PDF export for I Am statement entries."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         I_AM_STATEMENTS_DATA,
         statement_slug,
         resource_title="I Am Statements",
@@ -1245,7 +1245,7 @@ def trinity_detail(request: Request, item_slug: str):
 @router.get("/trinity/{item_slug}/pdf")
 async def trinity_detail_pdf(item_slug: str):
     """PDF export for Trinity topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         TRINITY_DATA,
         item_slug,
         resource_title="The Trinity",
@@ -1306,7 +1306,7 @@ def christology_detail(request: Request, item_slug: str):
 @router.get("/christology/{item_slug}/pdf")
 async def christology_detail_pdf(item_slug: str):
     """PDF export for Christology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         CHRISTOLOGY_DATA,
         item_slug,
         resource_title="Christology",
@@ -1367,7 +1367,7 @@ def soteriology_detail(request: Request, item_slug: str):
 @router.get("/soteriology/{item_slug}/pdf")
 async def soteriology_detail_pdf(item_slug: str):
     """PDF export for Soteriology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         SOTERIOLOGY_DATA,
         item_slug,
         resource_title="Soteriology",
@@ -1428,7 +1428,7 @@ def pneumatology_detail(request: Request, item_slug: str):
 @router.get("/pneumatology/{item_slug}/pdf")
 async def pneumatology_detail_pdf(item_slug: str):
     """PDF export for Pneumatology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         PNEUMATOLOGY_DATA,
         item_slug,
         resource_title="Pneumatology",
@@ -1489,7 +1489,7 @@ def eschatology_detail(request: Request, item_slug: str):
 @router.get("/eschatology/{item_slug}/pdf")
 async def eschatology_detail_pdf(item_slug: str):
     """PDF export for Eschatology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         ESCHATOLOGY_DATA,
         item_slug,
         resource_title="Eschatology",
@@ -1550,7 +1550,7 @@ def ecclesiology_detail(request: Request, item_slug: str):
 @router.get("/ecclesiology/{item_slug}/pdf")
 async def ecclesiology_detail_pdf(item_slug: str):
     """PDF export for Ecclesiology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         ECCLESIOLOGY_DATA,
         item_slug,
         resource_title="Ecclesiology",
@@ -1611,7 +1611,7 @@ def types_and_shadows_detail(request: Request, item_slug: str):
 @router.get("/types-and-shadows/{item_slug}/pdf")
 async def types_and_shadows_detail_pdf(item_slug: str):
     """PDF export for Types and Shadows topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         TYPES_AND_SHADOWS_DATA,
         item_slug,
         resource_title="Types and Shadows",
@@ -1672,7 +1672,7 @@ def messianic_prophecies_detail(request: Request, item_slug: str):
 @router.get("/messianic-prophecies/{item_slug}/pdf")
 async def messianic_prophecies_detail_pdf(item_slug: str):
     """PDF export for Messianic Prophecies topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         MESSIANIC_PROPHECIES_DATA,
         item_slug,
         resource_title="Messianic Prophecies",
@@ -1733,7 +1733,7 @@ def blood_in_scripture_detail(request: Request, item_slug: str):
 @router.get("/blood-in-scripture/{item_slug}/pdf")
 async def blood_in_scripture_detail_pdf(item_slug: str):
     """PDF export for Blood in Scripture topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         BLOOD_IN_SCRIPTURE_DATA,
         item_slug,
         resource_title="The Blood in Scripture",
@@ -1794,7 +1794,7 @@ def kingdom_of_god_detail(request: Request, item_slug: str):
 @router.get("/kingdom-of-god/{item_slug}/pdf")
 async def kingdom_of_god_detail_pdf(item_slug: str):
     """PDF export for Kingdom of God topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         KINGDOM_OF_GOD_DATA,
         item_slug,
         resource_title="The Kingdom of God",
@@ -1855,7 +1855,7 @@ def names_of_christ_detail(request: Request, item_slug: str):
 @router.get("/names-of-christ/{item_slug}/pdf")
 async def names_of_christ_detail_pdf(item_slug: str):
     """PDF export for Names of Christ topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         NAMES_OF_CHRIST_DATA,
         item_slug,
         resource_title="Names of Christ",
@@ -1916,7 +1916,7 @@ def spirits_and_demons_detail(request: Request, item_slug: str):
 @router.get("/spirits-and-demons/{item_slug}/pdf")
 async def spirits_and_demons_detail_pdf(item_slug: str):
     """PDF export for Spirits & Demons topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         SPIRITS_AND_DEMONS_DATA,
         item_slug,
         resource_title="Spirits & Demons",
@@ -1977,7 +1977,7 @@ def personifications_detail(request: Request, item_slug: str):
 @router.get("/personifications/{item_slug}/pdf")
 async def personifications_detail_pdf(item_slug: str):
     """PDF export for Personifications topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         PERSONIFICATIONS_DATA,
         item_slug,
         resource_title="Personifications",
@@ -2038,7 +2038,7 @@ def bibliology_detail(request: Request, item_slug: str):
 @router.get("/bibliology/{item_slug}/pdf")
 async def bibliology_detail_pdf(item_slug: str):
     """PDF export for Bibliology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         BIBLIOLOGY_DATA["categories"],
         item_slug,
         resource_title="Bibliology",
@@ -2099,7 +2099,7 @@ def theology_proper_detail(request: Request, item_slug: str):
 @router.get("/theology-proper/{item_slug}/pdf")
 async def theology_proper_detail_pdf(item_slug: str):
     """PDF export for Theology Proper topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         THEOLOGY_PROPER_DATA["categories"],
         item_slug,
         resource_title="Theology Proper",
@@ -2160,7 +2160,7 @@ def anthropology_detail(request: Request, item_slug: str):
 @router.get("/anthropology/{item_slug}/pdf")
 async def anthropology_detail_pdf(item_slug: str):
     """PDF export for Anthropology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         ANTHROPOLOGY_DATA["categories"],
         item_slug,
         resource_title="Anthropology",
@@ -2221,7 +2221,7 @@ def hamartiology_detail(request: Request, item_slug: str):
 @router.get("/hamartiology/{item_slug}/pdf")
 async def hamartiology_detail_pdf(item_slug: str):
     """PDF export for Hamartiology topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         HAMARTIOLOGY_DATA["categories"],
         item_slug,
         resource_title="Hamartiology",
@@ -2282,7 +2282,7 @@ def providence_detail(request: Request, item_slug: str):
 @router.get("/providence/{item_slug}/pdf")
 async def providence_detail_pdf(item_slug: str):
     """PDF export for Providence topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         PROVIDENCE_DATA["categories"],
         item_slug,
         resource_title="Providence",
@@ -2343,7 +2343,7 @@ def grace_detail(request: Request, item_slug: str):
 @router.get("/grace/{item_slug}/pdf")
 async def grace_detail_pdf(item_slug: str):
     """PDF export for Grace topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         GRACE_DATA["categories"],
         item_slug,
         resource_title="Grace",
@@ -2404,7 +2404,7 @@ def justification_detail(request: Request, item_slug: str):
 @router.get("/justification/{item_slug}/pdf")
 async def justification_detail_pdf(item_slug: str):
     """PDF export for Justification topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         JUSTIFICATION_DATA["categories"],
         item_slug,
         resource_title="Justification",
@@ -2465,7 +2465,7 @@ def sanctification_detail(request: Request, item_slug: str):
 @router.get("/sanctification/{item_slug}/pdf")
 async def sanctification_detail_pdf(item_slug: str):
     """PDF export for Sanctification topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         SANCTIFICATION_DATA["categories"],
         item_slug,
         resource_title="Sanctification",
@@ -2526,7 +2526,7 @@ def law_and_gospel_detail(request: Request, item_slug: str):
 @router.get("/law-and-gospel/{item_slug}/pdf")
 async def law_and_gospel_detail_pdf(item_slug: str):
     """PDF export for Law and Gospel topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         LAW_AND_GOSPEL_DATA["categories"],
         item_slug,
         resource_title="Law and Gospel",
@@ -2587,7 +2587,7 @@ def worship_detail(request: Request, item_slug: str):
 @router.get("/worship/{item_slug}/pdf")
 async def worship_detail_pdf(item_slug: str):
     """PDF export for Worship topics."""
-    return _resource_detail_pdf_response(
+    return await _resource_detail_pdf_response(
         WORSHIP_DATA["categories"],
         item_slug,
         resource_title="Worship",
