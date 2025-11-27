@@ -3,13 +3,18 @@ import re
 import hashlib
 from datetime import datetime
 from typing import Optional, Dict, List
+from functools import lru_cache
 
 from ..kjv import bible, VerseReference
 from ..topics import get_all_topics
 
 
+@lru_cache(maxsize=512)
 def create_slug(text: str) -> str:
-    """Convert text to URL-friendly slug."""
+    """
+    Convert text to URL-friendly slug.
+    Cached since same inputs generate same outputs and called frequently.
+    """
     slug = re.sub(r'[^\w\s-]', '', text.lower())
     slug = re.sub(r'[-\s]+', '-', slug)
     return slug.strip('-')
@@ -82,8 +87,12 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
     return None
 
 
+@lru_cache(maxsize=256)
 def get_related_content(book: str, chapter: int = None, verse: int = None) -> Dict:
-    """Get related study guides, topics, and resources for a given passage."""
+    """
+    Get related study guides, topics, and resources for a given passage.
+    Cached since this does expensive dictionary lookups and topic searches.
+    """
     related = {
         "study_guides": [],
         "topics": [],
@@ -195,8 +204,12 @@ HIGH_READERSHIP_BOOKS = [
 ]
 
 
+@lru_cache(maxsize=512)
 def get_chapter_popularity_score(book: str, chapter: int) -> int:
-    """Calculate popularity score for a chapter (1-10 scale) based on well-known verses."""
+    """
+    Calculate popularity score for a chapter (1-10 scale) based on well-known verses.
+    Cached since calculation is deterministic and called frequently.
+    """
     if book in POPULAR_CHAPTERS and chapter in POPULAR_CHAPTERS[book]:
         return POPULAR_CHAPTERS[book][chapter]
 

@@ -158,9 +158,11 @@ def get_book_metadata(book_name: str) -> Optional[dict]:
     }
 
 
+@lru_cache(maxsize=1)
 def get_all_books_metadata() -> list:
     """
     Get metadata for all books in canonical order.
+    Cached since this is called frequently and data never changes.
     """
     books = []
     for book_name in _BOOK_FILENAME_MAP.keys():
@@ -178,9 +180,11 @@ def has_book_data(book_name: str) -> bool:
     return book_name in _BOOK_FILENAME_MAP
 
 
+@lru_cache(maxsize=1)
 def get_books_by_category() -> dict:
     """
     Get all books organized by category.
+    Cached since this is expensive (loads all 66 books) and data never changes.
     """
     categories = {}
     for book_name in _BOOK_FILENAME_MAP.keys():

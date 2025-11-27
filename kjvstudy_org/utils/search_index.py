@@ -14,18 +14,22 @@ from ..kjv import bible
 # Database location - store in static directory alongside other data
 DB_PATH = Path(__file__).parent.parent / "static" / "search_index.db"
 
-# Global connection for reuse
-_connection: Optional[sqlite3.Connection] = None
-
 
 @contextmanager
 def get_connection():
-    """Get a database connection with proper cleanup."""
-    global _connection
-    if _connection is None:
-        _connection = sqlite3.connect(str(DB_PATH), check_same_thread=False)
-        _connection.row_factory = sqlite3.Row
-    yield _connection
+    """
+    Get a database connection with proper cleanup and thread safety.
+
+    Creates a new connection for each request instead of using a global connection.
+    This is thread-safe and works well with FastAPI's concurrent request handling.
+    SQLite connection creation is very fast (~microseconds), so this is efficient.
+    """
+    conn = sqlite3.connect(str(DB_PATH), check_same_thread=True)
+    conn.row_factory = sqlite3.Row
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 def init_search_index(force_rebuild: bool = False) -> bool:
