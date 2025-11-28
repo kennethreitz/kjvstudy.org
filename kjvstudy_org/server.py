@@ -2226,11 +2226,37 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
             detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
         )
 
+    # Generate commentaries with cross-references and word studies for PDF
+    commentaries = {}
+    shown_words = set()
+    for verse in verses:
+        commentary = generate_commentary(book, chapter, verse)
+        # Add word study sidenotes (avoiding repetition within chapter)
+        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, shown_words)
+        commentary['word_studies'] = word_studies
+        for study in word_studies:
+            shown_words.add(study['word'].lower())
+
+        # Add cross-references grouped by description
+        from collections import defaultdict
+        cross_refs = get_cross_references(book, chapter, verse.verse)
+        grouped_refs = defaultdict(list)
+        for ref in cross_refs:
+            description = ref['note'] if ref['note'] else 'Related'
+            grouped_refs[description].append(ref['ref'])
+
+        commentary['cross_reference_groups'] = [
+            {'description': desc, 'refs': refs}
+            for desc, refs in grouped_refs.items()
+        ]
+        commentaries[verse.verse] = commentary
+
     html_content = templates.get_template("chapter_pdf.html").render(
         book=book,
         chapter=chapter,
         verses=verses,
         verse_count=len(verses),
+        commentaries=commentaries,
     )
 
     pdf_buffer = await render_html_to_pdf_async(html_content)
