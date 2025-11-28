@@ -2282,11 +2282,11 @@ async def bible_pdf(request: Request):
             detail="PDF generation is not available. WeasyPrint system libraries are not installed."
         )
 
-    from .data import bible_metadata
+    from .utils.books import OT_BOOKS, NT_BOOKS
 
     books = bible.get_books()
-    old_testament = bible_metadata.old_testament_books
-    new_testament = bible_metadata.new_testament_books
+    old_testament = OT_BOOKS
+    new_testament = NT_BOOKS
 
     # Prepare data for all books
     books_data = []
