@@ -25,12 +25,29 @@ from kjvstudy_org.kjv import bible
 from kjvstudy_org.routes.commentary import generate_commentary, generate_word_study_sidenotes
 from kjvstudy_org.cross_references import get_cross_references
 from kjvstudy_org.utils.books import OT_BOOKS, NT_BOOKS
-from kjvstudy_org.utils.pdf import render_html_to_pdf_async
+from kjvstudy_org.utils.pdf import render_html_to_pdf_async, WEASYPRINT_AVAILABLE
 from jinja2 import Environment, FileSystemLoader
 
 
 async def generate_bible_pdf():
     """Generate the complete Bible PDF."""
+
+    # Check if WeasyPrint is available
+    if not WEASYPRINT_AVAILABLE:
+        print("❌ ERROR: WeasyPrint is not available")
+        print()
+        print("PDF generation requires WeasyPrint system libraries.")
+        print()
+        print("Installation instructions:")
+        print("  macOS:   brew install pango cairo gdk-pixbuf libffi")
+        print("  Ubuntu:  sudo apt-get install libpango-1.0-0 libpangoft2-1.0-0")
+        print("  Windows: See https://doc.courtbouillon.org/weasyprint/stable/first_steps.html")
+        print()
+        print("After installing system libraries, run:")
+        print("  uv sync")
+        print()
+        sys.exit(1)
+
     print("=" * 80)
     print("GENERATING COMPLETE BIBLE PDF")
     print("=" * 80)
