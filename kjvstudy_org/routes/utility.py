@@ -5,12 +5,15 @@ from pathlib import Path
 from functools import lru_cache
 
 from fastapi import APIRouter
-from fastapi.responses import Response
+from fastapi.responses import Response, FileResponse
 
 from ..kjv import bible
 from ..topics import get_all_topics
 
 router = APIRouter(tags=["Utility"])
+
+# Path to static verse sitemap
+_VERSE_SITEMAP_PATH = Path(__file__).parent.parent / "static" / "sitemap-verses.xml"
 
 # Sitemap cache
 _sitemap_cache = None
@@ -55,8 +58,39 @@ Crawl-delay: 1
 
 
 @router.get("/sitemap.xml", response_class=Response)
-def sitemap():
-    """Generate comprehensive sitemap.xml with all URLs (cached daily)"""
+def sitemap_index():
+    """Sitemap index - references main sitemap and static verse sitemap"""
+    base_url = "https://kjvstudy.org"
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
+    sitemap_index_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+        <loc>{base_url}/sitemap-main.xml</loc>
+        <lastmod>{current_date}</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>{base_url}/sitemap-verses.xml</loc>
+        <lastmod>2024-01-01</lastmod>
+    </sitemap>
+</sitemapindex>
+"""
+    return Response(content=sitemap_index_xml, media_type="application/xml")
+
+
+@router.get("/sitemap-verses.xml")
+def sitemap_verses():
+    """Serve static verse sitemap (31,102 verses, generated once)"""
+    return FileResponse(
+        path=_VERSE_SITEMAP_PATH,
+        media_type="application/xml",
+        headers={"Cache-Control": "public, max-age=86400"}  # Cache for 1 day
+    )
+
+
+@router.get("/sitemap-main.xml", response_class=Response)
+def sitemap_main():
+    """Generate main sitemap with all dynamic URLs (cached daily)"""
     global _sitemap_cache, _sitemap_cache_date
 
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -365,9 +399,9 @@ def sitemap():
         <priority>0.5</priority>
     </url>
 """
-            # Note: Individual verse URLs (31,102 total) are excluded from sitemap
-            # to keep it under Google's 50,000 URL limit and improve generation speed.
-            # Google will discover verse pages through internal links on chapter pages.
+            # Note: Individual verse URLs (31,102 total) are in sitemap-verses.xml
+            # which is statically generated and referenced in the sitemap index.
+            # This keeps the main sitemap fast while maintaining full SEO coverage.
 
     sitemap_xml += "</urlset>"
 
