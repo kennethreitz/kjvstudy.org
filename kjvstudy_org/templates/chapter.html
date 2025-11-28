@@ -271,10 +271,7 @@ hr::before {
                 <input type="checkbox" id="sn-{{ verse.verse }}-xrefs" class="margin-toggle"/>
                 <span class="sidenote">
                     {% for group in commentary.cross_reference_groups %}
-                        <strong>{{ group.description }}:</strong>
-                        {% for ref in group.refs %}
-                            <a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}
-                        {% endfor %}.{% if not loop.last %}<br>{% endif %}
+                        <strong>{{ group.description }}:</strong> {% for ref in group.refs %}<a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}.{% if not loop.last %}<br>{% endif %}
                     {% endfor %}
                 </span>
             {% endif %}
