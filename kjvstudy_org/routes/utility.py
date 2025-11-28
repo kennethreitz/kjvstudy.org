@@ -81,10 +81,21 @@ def sitemap_index():
 @router.get("/sitemap-verses.xml")
 def sitemap_verses():
     """Serve static verse sitemap (31,102 verses, generated once)"""
+    # Check if file exists
+    if not _VERSE_SITEMAP_PATH.exists():
+        return Response(
+            content=f"Verse sitemap not found at {_VERSE_SITEMAP_PATH}",
+            status_code=404,
+            media_type="text/plain"
+        )
+
     return FileResponse(
         path=_VERSE_SITEMAP_PATH,
         media_type="application/xml",
-        headers={"Cache-Control": "public, max-age=86400"}  # Cache for 1 day
+        headers={
+            "Cache-Control": "public, max-age=86400",  # Cache for 1 day
+            "Content-Encoding": "identity"  # Explicitly say it's not compressed
+        }
     )
 
 

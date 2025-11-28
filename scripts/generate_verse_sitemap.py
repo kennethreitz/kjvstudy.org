@@ -26,12 +26,25 @@ Usage:
     git commit -m "Update verse sitemap"
 """
 import sys
+import os
 from pathlib import Path
+
+# Suppress WeasyPrint warnings during import
+# Redirect stdout temporarily to suppress import warnings
+from io import StringIO
+old_stdout = sys.stdout
+old_stderr = sys.stderr
+sys.stdout = StringIO()
+sys.stderr = StringIO()
 
 # Add parent directory to path to import kjv module
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from kjvstudy_org.kjv import bible
+
+# Restore stdout/stderr
+sys.stdout = old_stdout
+sys.stderr = old_stderr
 
 
 def generate_verse_sitemap():
