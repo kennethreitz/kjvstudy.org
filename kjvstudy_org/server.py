@@ -142,7 +142,7 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
 
         # Skip caching for API endpoints and dynamic content
-        if request.url.path.startswith("/api/") or request.url.path == "/verse-of-the-day":
+        if request.url.path.startswith("/api/") or request.url.path in ["/verse-of-the-day", "/random-verse"]:
             response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
             response.headers["Pragma"] = "no-cache"
             response.headers["Expires"] = "0"
@@ -470,8 +470,12 @@ def random_verse(request: Request):
     # Pick a random verse
     verse = random.choice(verses)
 
-    # Redirect to the verse page
-    return RedirectResponse(url=f"/book/{book}/chapter/{chapter}/verse/{verse.verse}")
+    # Redirect to the verse page with cache control headers to ensure fresh random verse each time
+    response = RedirectResponse(url=f"/book/{book}/chapter/{chapter}/verse/{verse.verse}", status_code=302)
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
 
 
 @app.get("/verse-of-the-day", response_class=HTMLResponse)
