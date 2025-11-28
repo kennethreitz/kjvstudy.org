@@ -30,8 +30,8 @@ method = "GET"
 path = "/health"
 
 [[vm]]
-memory = '2gb'
-cpu_kind = 'shared'
+memory = '4gb'
+cpu_kind = 'performance'
 cpus = 2
 
 [env]
