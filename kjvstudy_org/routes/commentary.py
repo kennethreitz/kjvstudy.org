@@ -249,7 +249,8 @@ def generate_commentary(book, chapter, verse):
             "analysis": commentary_data["analysis"],
             "historical": commentary_data["historical"],
             "questions": commentary_data["questions"],
-            "cross_references": generate_cross_references(book, chapter, verse.verse, verse.text)
+            "cross_references": generate_cross_references(book, chapter, verse.verse, verse.text),
+            "is_enhanced": True
         }
 
     # Special case for Revelation 1
@@ -372,7 +373,8 @@ def generate_commentary(book, chapter, verse):
             "analysis": analysis,
             "historical": historical,
             "questions": random.sample(questions, 3),
-            "cross_references": cross_refs[:2]  # Limit to 2 references
+            "cross_references": cross_refs[:2],  # Limit to 2 references
+            "is_enhanced": True
         }
 
     # For all other books/chapters, use enhanced theological analysis
@@ -420,7 +422,8 @@ def generate_commentary(book, chapter, verse):
         "analysis": random.choice(analysis_templates),
         "historical": random.choice(historical_templates),
         "questions": random.sample(question_templates, 3),
-        "cross_references": cross_refs
+        "cross_references": cross_refs,
+        "is_enhanced": False
     }
 
 

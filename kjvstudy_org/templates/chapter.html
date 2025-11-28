@@ -91,6 +91,14 @@ hr::before {
     text-decoration: underline;
 }
 
+.verse-number-link.has-commentary {
+    color: #c41e3a;
+}
+
+[data-theme="dark"] .verse-number-link.has-commentary {
+    color: #ff6b6b;
+}
+
 .chapter-nav {
     max-width: 60%;
     margin: 2rem 0;
@@ -227,7 +235,7 @@ hr::before {
     {% for verse in verses %}
     {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
     <p id="verse-{{ verse.verse }}">
-        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link">{{ verse.verse }}</a> {{ verse.text | inject_word_markers(commentary.word_studies if commentary else [], verse.verse) | link_names | safe }}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link{% if commentary and commentary['is_enhanced'] == True %} has-commentary{% endif %}">{{ verse.verse }}</a> {{ verse.text | inject_word_markers(commentary.word_studies if commentary else [], verse.verse) | link_names | safe }}
         {% if commentary %}
             {% if commentary.cross_references %}
                 {% for ref in commentary.cross_references %}
