@@ -2148,15 +2148,24 @@ def read_chapter(request: Request, book: str, chapter: int):
         # Track which words were shown
         for study in word_studies:
             shown_words.add(study['word'].lower())
-        # Add cross-references with proper URLs
+        # Add cross-references with proper URLs, grouped by description
         cross_refs = get_cross_references(book, chapter, verse.verse)
-        commentary['cross_references'] = [
-            {
+
+        # Group cross-references by their description/note
+        from collections import defaultdict
+        grouped_refs = defaultdict(list)
+        for ref in cross_refs:
+            description = ref['note'] if ref['note'] else 'Related'
+            url = f"/book/{ref['ref'].rsplit(' ', 1)[0]}/chapter/{ref['ref'].rsplit(' ', 1)[1].split(':')[0]}/verse/{ref['ref'].rsplit(' ', 1)[1].split(':')[1]}" if ' ' in ref['ref'] and ':' in ref['ref'] else '#'
+            grouped_refs[description].append({
                 'text': ref['ref'],
-                'url': f"/book/{ref['ref'].rsplit(' ', 1)[0]}/chapter/{ref['ref'].rsplit(' ', 1)[1].split(':')[0]}/verse/{ref['ref'].rsplit(' ', 1)[1].split(':')[1]}" if ' ' in ref['ref'] and ':' in ref['ref'] else '#',
-                'context': ref['note']
-            }
-            for ref in cross_refs
+                'url': url
+            })
+
+        # Convert to list of groups for template
+        commentary['cross_reference_groups'] = [
+            {'description': desc, 'refs': refs}
+            for desc, refs in grouped_refs.items()
         ]
         commentaries[verse.verse] = commentary
 
