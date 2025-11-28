@@ -95,10 +95,10 @@
         }
 
         /* Verse tooltip styles */
-        /* Links to verses get help cursor (they show tooltips) */
+        /* Links to verses get normal pointer cursor (tooltips shown on hover) */
         a[href*="/book/"][href*="/chapter/"][href*="/verse/"]:not(.verse-number-link),
         a[href*="/book/"][href*="/chapter/"][href*="#verse-"]:not(.verse-number-link) {
-            cursor: help;
+            cursor: pointer;
         }
 
         /* Verse numbers get normal pointer cursor */
