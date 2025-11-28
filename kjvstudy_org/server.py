@@ -1044,12 +1044,10 @@ templates.env.filters['inject_word_markers'] = inject_word_markers
 
 
 def red_letter(text, book, chapter, verse_num):
-    """Wrap verse text in red letter span if it contains Christ's words"""
-    from .red_letter import is_red_letter_verse
+    """Wrap the words of Christ in red letter span tags"""
+    from .red_letter import wrap_red_letter_text
 
-    if is_red_letter_verse(book, chapter, verse_num):
-        return f'<span class="words-of-christ">{text}</span>'
-    return text
+    return wrap_red_letter_text(text, book, chapter, verse_num)
 
 templates.env.filters['red_letter'] = red_letter
 

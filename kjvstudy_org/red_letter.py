@@ -24,9 +24,9 @@ def load_red_letter_verses():
     return data.get("verses", {})
 
 
-def is_red_letter_verse(book: str, chapter: int, verse: int) -> bool:
+def get_christ_words(book: str, chapter: int, verse: int) -> str:
     """
-    Check if a verse contains words of Christ.
+    Get the actual words spoken by Christ in a verse.
 
     Args:
         book: Name of the book (e.g., "Matthew", "John")
@@ -34,16 +34,17 @@ def is_red_letter_verse(book: str, chapter: int, verse: int) -> bool:
         verse: Verse number
 
     Returns:
-        True if this verse contains Christ's words
+        The words Christ spoke, or None if no words in this verse.
+        Returns 'full' if Christ speaks the entire verse.
     """
     red_letter_verses = load_red_letter_verses()
     verse_key = f"{book} {chapter}:{verse}"
-    return red_letter_verses.get(verse_key, False)
+    return red_letter_verses.get(verse_key)
 
 
 def wrap_red_letter_text(text: str, book: str, chapter: int, verse: int) -> str:
     """
-    Wrap verse text in red letter span if it contains Christ's words.
+    Wrap the words of Christ in red letter span tags.
 
     Args:
         text: The verse text
@@ -52,9 +53,19 @@ def wrap_red_letter_text(text: str, book: str, chapter: int, verse: int) -> str:
         verse: Verse number
 
     Returns:
-        The text wrapped in a span tag if it's a red letter verse,
-        otherwise returns the original text.
+        The text with Christ's words wrapped in red span tags.
     """
-    if is_red_letter_verse(book, chapter, verse):
+    christ_words = get_christ_words(book, chapter, verse)
+
+    if not christ_words:
+        return text
+
+    # If the entire verse is Christ speaking
+    if christ_words == 'full':
         return f'<span class="words-of-christ">{text}</span>'
+
+    # Find and wrap only the words Christ spoke
+    if christ_words in text:
+        return text.replace(christ_words, f'<span class="words-of-christ">{christ_words}</span>')
+
     return text
