@@ -267,11 +267,14 @@ hr::before {
         <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link{% if commentary and commentary['is_enhanced'] == True %} has-commentary{% endif %}">{{ verse.verse }}</a> {{ verse.text | red_letter(book, chapter, verse.verse) | inject_word_markers(commentary.word_studies if commentary else [], verse.verse) | link_names | safe }}
         {% if commentary %}
             {% if commentary.cross_references %}
-                {% for ref in commentary.cross_references %}
-                <label for="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle sidenote-number"></label>
-                <input type="checkbox" id="sn-{{ verse.verse }}-ref-{{ loop.index }}" class="margin-toggle"/>
-                <span class="sidenote"><strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}</span>
-                {% endfor %}
+                <label for="sn-{{ verse.verse }}-xrefs" class="margin-toggle sidenote-number"></label>
+                <input type="checkbox" id="sn-{{ verse.verse }}-xrefs" class="margin-toggle"/>
+                <span class="sidenote">
+                    {% for ref in commentary.cross_references %}
+                        <strong><a href="{{ ref.url }}">{{ ref.text }}</a></strong>{% if ref.context %} — {{ ref.context }}{% endif %}
+                        {% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                </span>
             {% endif %}
         {% endif %}
     </p>
