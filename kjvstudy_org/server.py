@@ -171,25 +171,11 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         return response
 
 
-# User Agent logging middleware
-class UserAgentLoggerMiddleware(BaseHTTPMiddleware):
-    """Log User-Agent header for each request"""
-
-    async def dispatch(self, request: Request, call_next):
-        user_agent = request.headers.get("user-agent", "Unknown")
-        print(f"[{request.method}] {request.url.path} - User-Agent: {user_agent}")
-        response = await call_next(request)
-        return response
-
-
 # Add GZip compression middleware (compress responses > 500 bytes)
 app.add_middleware(GZipMiddleware, minimum_size=500)
 
 # Add caching middleware
 app.add_middleware(CacheControlMiddleware)
-
-# Add user agent logging middleware
-app.add_middleware(UserAgentLoggerMiddleware)
 
 
 # Set up Jinja2 templates and static files
