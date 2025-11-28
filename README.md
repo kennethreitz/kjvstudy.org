@@ -82,7 +82,7 @@ Comprehensive 8-section guides with extensive Scripture references:
 **Backend:**
 - **FastAPI** - Modern, high-performance Python web framework
 - **Python 3.13** - Latest Python with performance improvements
-- **biblepy** - KJV Bible text library
+- **Custom Bible Class** - Optimized KJV text access with 31,102 verses from 1769 Cambridge edition
 - **Jinja2** - Server-side templating with custom filters
 
 **Frontend:**

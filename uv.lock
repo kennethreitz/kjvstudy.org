@@ -34,12 +34,6 @@ wheels = [
 ]
 
 [[package]]
-name = "biblepy"
-version = "0.1.3"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/4a/bd/7fdbe5dd70835f00e3f46c9c9298783dd8c95ef4d49e1691da067d4c876c/biblepy-0.1.3.tar.gz", hash = "sha256:e2f4b3a79bf1e59c4583c8aa438649bfe5e48621d2c80ede94f33ff09b1e4a5f", size = 1530687, upload-time = "2023-09-10T14:03:28.184Z" }
-
-[[package]]
 name = "brotli"
 version = "1.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -480,7 +474,6 @@ name = "kjvstudy-org"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "biblepy" },
     { name = "fastapi", extra = ["standard"] },
     { name = "ged4py" },
     { name = "mistune" },
@@ -504,7 +497,6 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "biblepy", specifier = ">=0.1.3" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.115.12" },
     { name = "ged4py", specifier = ">=0.5.2" },
     { name = "mistune", specifier = ">=3.0.2" },
