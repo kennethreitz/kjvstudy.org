@@ -41,3 +41,6 @@ PYTHONDONTWRITEBYTECODE = "1"
 
 # Preload interlinear data on startup for fast first requests
 PRELOAD_INTERLINEAR = "true"
+
+# Number of Uvicorn workers (recommended: 2x CPU cores)
+WORKERS = "4"
