@@ -14,14 +14,14 @@ class TestSitemap:
         assert response.headers["content-type"] == "application/xml"
 
     def test_sitemap_valid_xml(self, client):
-        """Sitemap should be valid XML that can be parsed"""
+        """Sitemap index should be valid XML that can be parsed"""
         response = client.get("/sitemap.xml")
         content = response.content.decode("utf-8")
 
         # Should be parseable XML
         try:
             root = ET.fromstring(content)
-            assert root.tag.endswith("urlset")
+            assert root.tag.endswith("sitemapindex"), "Root element should be sitemapindex"
         except ET.ParseError as e:
             pytest.fail(f"Sitemap is not valid XML: {e}")
 
@@ -35,22 +35,22 @@ class TestSitemap:
         assert response.status_code == 200
         assert duration < 1.0, f"Sitemap took {duration:.2f}s to generate (should be <1s)"
 
-    def test_sitemap_url_count(self, client):
-        """Sitemap should stay under Google's 50k URL recommendation"""
+    def test_sitemap_index_references(self, client):
+        """Sitemap index should reference both main and verse sitemaps"""
         response = client.get("/sitemap.xml")
         content = response.content.decode("utf-8")
 
-        # Count <url> tags
-        url_count = content.count("<url>")
-        assert url_count > 0, "Sitemap should contain URLs"
-        assert url_count < 50000, f"Sitemap has {url_count} URLs (should be <50k for Google)"
+        # Should reference both sitemaps
+        assert "sitemap-main.xml" in content, "Should reference main sitemap"
+        assert "sitemap-verses.xml" in content, "Should reference verse sitemap"
 
-        # Verify it's a reasonable number (not all 31k verses)
-        assert url_count < 5000, f"Sitemap has {url_count} URLs (seems too high - did you include all verses?)"
+        # Count <sitemap> tags
+        sitemap_count = content.count("<sitemap>")
+        assert sitemap_count == 2, f"Should have exactly 2 sitemap references, found {sitemap_count}"
 
-    def test_sitemap_contains_critical_urls(self, client):
-        """Sitemap should include critical pages"""
-        response = client.get("/sitemap.xml")
+    def test_sitemap_main_contains_critical_urls(self, client):
+        """Main sitemap should include critical pages"""
+        response = client.get("/sitemap-main.xml")
         content = response.content.decode("utf-8")
 
         critical_urls = [
@@ -63,11 +63,11 @@ class TestSitemap:
         ]
 
         for url in critical_urls:
-            assert url in content, f"Sitemap missing critical URL: {url}"
+            assert url in content, f"Main sitemap missing critical URL: {url}"
 
-    def test_sitemap_contains_book_urls(self, client):
-        """Sitemap should include book URLs"""
-        response = client.get("/sitemap.xml")
+    def test_sitemap_main_contains_book_urls(self, client):
+        """Main sitemap should include book URLs"""
+        response = client.get("/sitemap-main.xml")
         content = response.content.decode("utf-8")
 
         # Check for some book URLs
@@ -75,22 +75,36 @@ class TestSitemap:
         assert "https://kjvstudy.org/book/John" in content
         assert "https://kjvstudy.org/book/Revelation" in content
 
-    def test_sitemap_contains_chapter_urls(self, client):
-        """Sitemap should include chapter URLs"""
-        response = client.get("/sitemap.xml")
+    def test_sitemap_main_contains_chapter_urls(self, client):
+        """Main sitemap should include chapter URLs"""
+        response = client.get("/sitemap-main.xml")
         content = response.content.decode("utf-8")
 
         # Check for some chapter URLs
         assert "https://kjvstudy.org/book/Genesis/chapter/1" in content
         assert "https://kjvstudy.org/book/John/chapter/3" in content
 
-    def test_sitemap_excludes_verse_urls(self, client):
-        """Sitemap should NOT include individual verse URLs (too many)"""
-        response = client.get("/sitemap.xml")
+    def test_sitemap_main_excludes_verse_urls(self, client):
+        """Main sitemap should NOT include individual verse URLs"""
+        response = client.get("/sitemap-main.xml")
         content = response.content.decode("utf-8")
 
         # Should NOT contain individual verse URLs
-        assert "/verse/1</loc>" not in content, "Sitemap should exclude individual verse URLs"
+        assert "/verse/1</loc>" not in content, "Main sitemap should exclude verse URLs"
+
+    def test_sitemap_verses_contains_verse_urls(self, client):
+        """Verse sitemap should include individual verse URLs"""
+        response = client.get("/sitemap-verses.xml")
+        assert response.status_code == 200
+        content = response.content.decode("utf-8")
+
+        # Should contain verse URLs
+        assert "https://kjvstudy.org/book/Genesis/chapter/1/verse/1" in content
+        assert "https://kjvstudy.org/book/John/chapter/3/verse/16" in content
+
+        # Count verse URLs (should be 31,102)
+        verse_count = content.count("/verse/")
+        assert verse_count > 30000, f"Verse sitemap should have ~31k verses, found {verse_count}"
 
     def test_sitemap_caching(self, client):
         """Sitemap should return the same content on repeated requests (cache working)"""
