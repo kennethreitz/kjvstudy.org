@@ -17,12 +17,16 @@
     <meta property="og:title" content="{% block og_title %}{% block title_text %}Authorized King James Version Bible{% endblock %}{% endblock %}"/>
     <meta property="og:description" content="{% block og_description %}{% block description_text %}Study the Authorized King James Version Bible{% endblock %}{% endblock %}"/>
     <meta property="og:site_name" content="KJV Study"/>
+    <meta property="og:image" content="{% block og_image %}https://kjvstudy.org/static/og-image.png{% endblock %}"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:url" content="https://kjvstudy.org{{ request.url.path }}"/>
     <meta name="twitter:title" content="{% block twitter_title %}{% block title_plain %}Authorized King James Version Bible{% endblock %}{% endblock %}"/>
     <meta name="twitter:description" content="{% block twitter_description %}{% block description_plain %}Study the Authorized King James Version Bible{% endblock %}{% endblock %}"/>
+    <meta name="twitter:image" content="{% block twitter_image %}https://kjvstudy.org/static/og-image.png{% endblock %}"/>
 
     <link rel="stylesheet" href="/static/tufte.css"/>
 
