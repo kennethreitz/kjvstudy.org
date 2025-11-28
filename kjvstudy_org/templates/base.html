@@ -91,9 +91,14 @@
 
         /* Verse tooltip styles */
         /* Links to verses get help cursor (they show tooltips) */
-        a[href*="/book/"][href*="/chapter/"][href*="/verse/"],
-        a[href*="/book/"][href*="/chapter/"][href*="#verse-"] {
+        a[href*="/book/"][href*="/chapter/"][href*="/verse/"]:not(.verse-number-link),
+        a[href*="/book/"][href*="/chapter/"][href*="#verse-"]:not(.verse-number-link) {
             cursor: help;
+        }
+
+        /* Verse numbers get normal pointer cursor */
+        .verse-number-link {
+            cursor: pointer;
         }
 
         /* But not in search dropdowns */
