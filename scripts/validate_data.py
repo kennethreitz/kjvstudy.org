@@ -132,7 +132,7 @@ class VerseCommentary(RootModel[Dict[str, VerseCommentaryEntry]]):
     @classmethod
     def check_verse_keys(cls, v):
         import re
-        pattern = r'^[A-Za-z0-9 ]+ \d+:\d+$'
+        pattern = r"^[A-Za-z0-9 ']+ \d+:\d+(-\d+)?$"
         for key in v.keys():
             if not re.match(pattern, key):
                 raise ValueError(f"Invalid verse reference key: {key}")
