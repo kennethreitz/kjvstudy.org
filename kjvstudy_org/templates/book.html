@@ -2,6 +2,8 @@
 
 {% block title %}{{ book }} - KJV Bible{% endblock %}
 
+{% block description %}Study the book of {{ book }} from the King James Bible (KJV). {% if book_intro and book_intro.introduction %}{{ book_intro.introduction[:110]|striptags }}...{% elif introduction %}{{ introduction[:110]|striptags }}...{% else %}Complete KJV text with chapters, commentary, and study resources.{% endif %}{% endblock %}
+
 {% block head %}
 <style>
 .chapters-section h2 + p a {

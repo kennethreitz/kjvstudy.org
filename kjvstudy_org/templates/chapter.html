@@ -2,6 +2,8 @@
 
 {% block title %}{{ book }} {{ chapter }} - KJV Bible{% endblock %}
 
+{% block description %}Read {{ book }} chapter {{ chapter }} from the King James Version Bible. {{ verses[0].text[:100] if verses and verses|length > 0 else '' }}...{% endblock %}
+
 {% block head %}
 <style>
 .sidenote,

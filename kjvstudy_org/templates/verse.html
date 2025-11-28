@@ -2,6 +2,8 @@
 
 {% block title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
 
+{% block description %}{{ verse_text[:155] if verse_text else 'Study the Authorized King James Version Bible' }}{% endblock %}
+
 {% block og_type %}article{% endblock %}
 {% block og_title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
 {% block og_description %}{{ verse_text[:150] if verse_text else '' }}...{% endblock %}
