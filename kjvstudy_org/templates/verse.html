@@ -380,21 +380,21 @@
     {% if commentary.analysis %}
     <div>
         <h2>Analysis</h2>
-        <p>{{ commentary.analysis|safe }}</p>
+        <p>{{ commentary.analysis|format_lists|safe }}</p>
     </div>
     {% endif %}
 
     {% if commentary.historical %}
     <div>
         <h2>Historical Context</h2>
-        <p>{{ commentary.historical|safe }}</p>
+        <p>{{ commentary.historical|format_lists|safe }}</p>
     </div>
     {% endif %}
 
     {% if commentary.theological %}
     <div>
         <h2>Theological Significance</h2>
-        <p>{{ commentary.theological|safe }}</p>
+        <p>{{ commentary.theological|format_lists|safe }}</p>
     </div>
     {% endif %}
 
