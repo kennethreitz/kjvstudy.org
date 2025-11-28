@@ -171,11 +171,46 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         return response
 
 
+# Bot detection and logging middleware
+class BotLoggerMiddleware(BaseHTTPMiddleware):
+    """Log requests from bots/crawlers only"""
+
+    # Common bot identifiers to detect
+    BOT_IDENTIFIERS = [
+        'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
+        'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
+        'linkedinbot', 'embedly', 'quora link preview', 'showyoubot',
+        'outbrain', 'pinterest', 'slackbot', 'vkshare', 'w3c_validator',
+        'redditbot', 'applebot', 'whatsapp', 'flipboard', 'tumblr',
+        'bitlybot', 'skypeuripreview', 'nuzzel', 'discordbot',
+        'telegrambot', 'perplexitybot', 'amazonbot', 'claudebot',
+        'anthropic-ai', 'gptbot', 'chatgpt-user', 'ccbot', 'claudebot',
+        'diffbot', 'bytespider', 'petalbot'
+    ]
+
+    async def dispatch(self, request: Request, call_next):
+        user_agent = request.headers.get("user-agent", "").lower()
+
+        # Check if this is a bot
+        is_bot = any(bot in user_agent for bot in self.BOT_IDENTIFIERS)
+
+        if is_bot:
+            # Extract the bot name for cleaner logging
+            bot_name = next((bot for bot in self.BOT_IDENTIFIERS if bot in user_agent), "unknown bot")
+            print(f"[BOT] {bot_name} - {request.method} {request.url.path}")
+
+        response = await call_next(request)
+        return response
+
+
 # Add GZip compression middleware (compress responses > 500 bytes)
 app.add_middleware(GZipMiddleware, minimum_size=500)
 
 # Add caching middleware
 app.add_middleware(CacheControlMiddleware)
+
+# Add bot logging middleware
+app.add_middleware(BotLoggerMiddleware)
 
 
 # Set up Jinja2 templates and static files
