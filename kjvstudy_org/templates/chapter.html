@@ -6,6 +6,15 @@
 
 {% block head %}
 <style>
+/* Red Letter Edition - Words of Christ */
+.words-of-christ {
+    color: #c41e3a;
+}
+
+[data-theme="dark"] .words-of-christ {
+    color: #ff6b6b;
+}
+
 .sidenote,
 .marginnote {
     max-height: 150px;
@@ -245,7 +254,7 @@ section p[id^="verse-"] {
     {% for verse in verses %}
     {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
     <p id="verse-{{ verse.verse }}">
-        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link{% if commentary and commentary['is_enhanced'] == True %} has-commentary{% endif %}">{{ verse.verse }}</a> {{ verse.text | inject_word_markers(commentary.word_studies if commentary else [], verse.verse) | link_names | safe }}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link{% if commentary and commentary['is_enhanced'] == True %} has-commentary{% endif %}">{{ verse.verse }}</a> {{ verse.text | red_letter(book, chapter, verse.verse) | inject_word_markers(commentary.word_studies if commentary else [], verse.verse) | link_names | safe }}
         {% if commentary %}
             {% if commentary.cross_references %}
                 {% for ref in commentary.cross_references %}

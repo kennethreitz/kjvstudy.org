@@ -39,6 +39,15 @@
 
 {% block head %}
 <style>
+/* Red Letter Edition - Words of Christ */
+.words-of-christ {
+    color: #c41e3a;
+}
+
+[data-theme="dark"] .words-of-christ {
+    color: #ff6b6b;
+}
+
 .verse-text {
     font-size: 1.8rem;
     line-height: 2.4rem;
@@ -253,7 +262,7 @@
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
 <section>
-    <p class="verse-text">{{ verse_text | link_names | safe }}</p>
+    <p class="verse-text">{{ verse_text | red_letter(book, chapter, verse_num) | link_names | safe }}</p>
 
     {% if interlinear_words %}
     <details class="interlinear-container">
