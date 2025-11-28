@@ -197,7 +197,7 @@ class BotLoggerMiddleware(BaseHTTPMiddleware):
         if is_bot:
             # Extract the bot name for cleaner logging
             bot_name = next((bot for bot in self.BOT_IDENTIFIERS if bot in user_agent), "unknown bot")
-            print(f"[BOT] {bot_name} - {request.method} {request.url.path}")
+            print(f"[BOT] {bot_name}")
 
         response = await call_next(request)
         return response
