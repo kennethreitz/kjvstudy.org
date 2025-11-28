@@ -1834,6 +1834,9 @@
           if (target.closest('.search-results-dropdown') || target.closest('.search-dropdown') ||
               target.closest('.lookup-results-dropdown') || target.closest('.story-search-dropdown')) return;
 
+          // Skip links in concordance results (verse text already shown inline)
+          if (target.closest('.occurrence-reference') || target.closest('.occurrence')) return;
+
           var verseInfo = parseVerseUrl(target.pathname + target.hash);
           if (!verseInfo) return;
 
