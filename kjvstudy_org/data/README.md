@@ -4,8 +4,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ## Overview
 
-- **106 JSON files** containing biblical reference data
-- **Total size**: ~2.1 MB (uncompressed, excluding interlinear data)
+- **107 JSON files** containing biblical reference data (+ 1 schema file)
+- **Total size**: ~2.2 MB (uncompressed, excluding interlinear data)
 - **Coverage**: Complete Bible reference materials, study resources, and theological content
 - **Format**: UTF-8 encoded JSON with consistent structure
 
@@ -116,6 +116,41 @@ This directory contains all biblical reference data for the KJV Study applicatio
 **Coverage**: Divine Names (5), Salvation & Redemption (9), Spiritual Nature (9), Worship & Practice (7), Religious Roles (4), Spiritual States (7), Law & Judgment (3), Other Key Terms (9)
 
 **Used by**: `routes/commentary.py`, word study sidenotes in verse commentary
+
+---
+
+### `red_letter_verses.json` (125K)
+**Contains**: 2,017 verses containing the words of Jesus Christ from the Gospels, Acts, and Revelation
+
+**Structure**:
+```json
+{
+  "description": "Words of Jesus Christ (red letter edition)",
+  "note": "This contains the actual words spoken by Jesus...",
+  "verses": {
+    "Matthew 3:15": "Suffer it to be so now: for thus it becometh us to fulfil all righteousness.",
+    "Matthew 5:3": "full",
+    "John 3:16": "full",
+    ...
+  }
+}
+```
+
+**Value Types**:
+- `"full"`: Jesus speaks the entire verse
+- `"text"`: The exact words Jesus spoke (partial verse)
+
+**Coverage**:
+- Matthew: 638 verses
+- Mark: 290 verses
+- Luke: 578 verses
+- John: 427 verses
+- Acts: 17 verses
+- Revelation: 67 verses
+
+**Used by**: `red_letter.py`, verse and chapter templates for red letter edition rendering
+
+**Schema**: `red_letter_verses.schema.json` (JSON Schema validation file)
 
 ---
 
@@ -649,7 +684,7 @@ uv run pytest tests/test_api.py -v
 - [ ] **Archaeological Data**: Historical/archaeological context
 
 ### Format Improvements
-- [ ] **JSON Schema**: Add JSON schema validation files
+- [x] **JSON Schema**: Add JSON schema validation files (added `red_letter_verses.schema.json`)
 - [ ] **TypeScript Types**: Generate TypeScript interfaces from JSON
 - [ ] **API Versioning**: Version data files for backward compatibility
 - [ ] **Multilingual**: Support for multiple Bible translations
@@ -665,6 +700,6 @@ For questions about data structure or content:
 
 ---
 
-*Last Updated: 2025-01-27*
-*Total Files: 106 JSON files (15 root-level, 66 books, 24 stories, 1 compressed)*
-*Total Size: ~2.1 MB (uncompressed) + 12 MB (interlinear compressed)*
+*Last Updated: 2025-11-28*
+*Total Files: 107 JSON files + 1 schema file (16 root-level, 66 books, 24 stories, 1 compressed)*
+*Total Size: ~2.2 MB (uncompressed) + 12 MB (interlinear compressed)*

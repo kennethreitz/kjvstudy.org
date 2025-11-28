@@ -151,6 +151,27 @@ class FeaturedVerses(BaseModel):
     verses: List[FeaturedVerse] = Field(..., min_length=1)
 
 
+class RedLetterVerses(BaseModel):
+    """Schema for red_letter_verses.json"""
+    description: str = Field(..., min_length=1)
+    note: str = Field(..., min_length=1)
+    verses: Dict[str, str] = Field(..., min_length=1)
+
+    @field_validator('verses')
+    @classmethod
+    def check_verses(cls, v):
+        import re
+        # Validate verse reference format
+        pattern = r"^[A-Za-z0-9 ']+ \d+:\d+$"
+        for key, value in v.items():
+            if not re.match(pattern, key):
+                raise ValueError(f"Invalid verse reference key: {key}")
+            # Value must be either "full" or a non-empty string
+            if value != "full" and (not isinstance(value, str) or len(value) == 0):
+                raise ValueError(f"Invalid value for {key}: must be 'full' or a non-empty string")
+        return v
+
+
 class ResourceSlugs(BaseModel):
     """Schema for resource_slugs.json"""
     study_guides: List[str]
@@ -226,6 +247,7 @@ MODEL_MAPPING = {
     "study_guides.json": StudyGuides,
     "verse_commentary.json": VerseCommentary,
     "featured_verses.json": FeaturedVerses,
+    "red_letter_verses.json": RedLetterVerses,
     "resource_slugs.json": ResourceSlugs,
 }
 

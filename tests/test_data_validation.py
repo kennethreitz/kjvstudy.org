@@ -47,6 +47,10 @@ class TestDataValidation:
         """Test that resource_slugs.json has correct structure."""
         assert validate_file("resource_slugs.json")
 
+    def test_red_letter_verses_structure(self):
+        """Test that red_letter_verses.json has correct structure."""
+        assert validate_file("red_letter_verses.json")
+
 
 class TestBookValidation:
     """Test validation of 66 book introduction files."""

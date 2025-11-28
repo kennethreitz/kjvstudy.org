@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Red Letter Edition Verses",
+  "description": "Schema for red_letter_verses.json - contains the words of Jesus Christ",
+  "type": "object",
+  "required": ["description", "note", "verses"],
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Brief description of the dataset"
+    },
+    "note": {
+      "type": "string",
+      "description": "Explanation of how the data is structured"
+    },
+    "verses": {
+      "type": "object",
+      "description": "Map of verse references to Jesus' spoken words",
+      "patternProperties": {
+        "^[A-Za-z0-9 ']+ \\d+:\\d+$": {
+          "oneOf": [
+            {
+              "type": "string",
+              "const": "full",
+              "description": "Indicates Jesus speaks the entire verse"
+            },
+            {
+              "type": "string",
+              "minLength": 1,
+              "description": "The actual words Jesus spoke in this verse"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
