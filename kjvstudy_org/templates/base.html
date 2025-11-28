@@ -79,6 +79,11 @@
             --code-bg: #2a2a2a;
         }
 
+        /* Red letter toggle - hide red letters when disabled */
+        [data-red-letters="disabled"] .words-of-christ {
+            color: inherit !important;
+        }
+
         /* Override Tufte CSS sidenote constraints */
         .sidenote,
         .marginnote {
@@ -1296,6 +1301,15 @@
             </p>
         </div>
 
+        <!-- Red Letter Toggle -->
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <p style="font-size: 0.85rem; color: var(--text-tertiary); text-align: center;">
+                <a href="#" id="red-letter-toggle" style="color: var(--text-tertiary); text-decoration: none; border-bottom: 1px dotted var(--border-color-dark);" onclick="toggleRedLetters(event)">
+                    <span id="red-letter-status">Disable</span> Red Letters
+                </a>
+            </p>
+        </div>
+
         <!-- Flourish -->
         <div class="sidebar-flourish">⁂</div>
     </nav>
@@ -1313,6 +1327,32 @@
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+      }
+
+      // Red letter toggle functionality
+      (function() {
+        // Check for saved red letter preference or default to enabled
+        const redLettersEnabled = localStorage.getItem('redLetters') !== 'disabled';
+        if (!redLettersEnabled) {
+          document.documentElement.setAttribute('data-red-letters', 'disabled');
+          document.getElementById('red-letter-status').textContent = 'Enable';
+        }
+      })();
+
+      function toggleRedLetters(event) {
+        event.preventDefault();
+        const currentState = document.documentElement.getAttribute('data-red-letters');
+        const newState = currentState === 'disabled' ? 'enabled' : 'disabled';
+
+        if (newState === 'disabled') {
+          document.documentElement.setAttribute('data-red-letters', 'disabled');
+          document.getElementById('red-letter-status').textContent = 'Enable';
+          localStorage.setItem('redLetters', 'disabled');
+        } else {
+          document.documentElement.removeAttribute('data-red-letters');
+          document.getElementById('red-letter-status').textContent = 'Disable';
+          localStorage.removeItem('redLetters');
+        }
       }
 
       // Sidebar collapse state persistence
