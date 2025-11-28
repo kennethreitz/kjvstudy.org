@@ -274,8 +274,7 @@ hr::before {
                         <strong>{{ group.description }}:</strong>
                         {% for ref in group.refs %}
                             <a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}
-                        {% endfor %}
-                        {% if not loop.last %}<br>{% endif %}
+                        {% endfor %}.{% if not loop.last %}<br>{% endif %}
                     {% endfor %}
                 </span>
             {% endif %}
