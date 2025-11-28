@@ -2139,10 +2139,15 @@ def read_chapter(request: Request, book: str, chapter: int):
 
     # Generate AI commentary for the chapter
     commentaries = {}
+    shown_words = set()  # Track which words have already been shown in this chapter
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
-        # Add word study sidenotes
-        commentary['word_studies'] = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse)
+        # Add word study sidenotes (avoiding repetition within chapter)
+        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, shown_words)
+        commentary['word_studies'] = word_studies
+        # Track which words were shown
+        for study in word_studies:
+            shown_words.add(study['word'].lower())
         # Add cross-references with proper URLs
         cross_refs = get_cross_references(book, chapter, verse.verse)
         commentary['cross_references'] = [

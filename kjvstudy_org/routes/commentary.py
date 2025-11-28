@@ -179,12 +179,23 @@ def link_bible_references(text):
     return linked_text
 
 
-def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
+def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_words=None):
     """Generate Hebrew/Greek/Aramaic word study sidenotes for key terms in the verse
 
     Uses intelligent selection to show only 1-2 word studies per verse, creating variety
-    across chapters rather than showing every theological term.
+    across chapters rather than showing every theological term. Avoids repeating words
+    that have already been shown in the same chapter.
+
+    Args:
+        verse_text: The text of the verse
+        book: The book name
+        chapter: The chapter number
+        verse_num: The verse number
+        shown_words: Set of words already shown in this chapter (lowercase)
     """
+    if shown_words is None:
+        shown_words = set()
+
     verse_lower = verse_text.lower()
 
     # Determine if Old Testament (Hebrew/Aramaic) or New Testament (Greek)
@@ -200,8 +211,13 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num):
     word_studies = _load_word_studies()
 
     # First, collect all potential word studies in this verse
+    # EXCLUDE words that have already been shown in this chapter
     potential_sidenotes = []
     for word, studies in word_studies.items():
+        # Skip if this word was already shown in this chapter
+        if word in shown_words:
+            continue
+
         if word in verse_lower:
             # Use appropriate testament
             study = studies.get('ot' if is_ot else 'nt', studies.get('ot') or studies.get('nt'))
