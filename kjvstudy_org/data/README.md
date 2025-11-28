@@ -303,8 +303,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `cross_references.json` (50K)
-**Contains**: Cross-reference system linking related Bible verses by theme and narrative
+### `cross_references.json` (7.4M)
+**Contains**: Comprehensive cross-reference system linking related Bible verses based on Treasury of Scripture Knowledge
 
 **Structure**:
 ```json
@@ -312,15 +312,24 @@ This directory contains all biblical reference data for the KJV Study applicatio
   "John:3:16": [
     {
       "ref": "Romans 5:8",
-      "note": "God's love demonstrated through Christ"
+      "note": ""
     },
     {
       "ref": "1 John 4:9",
-      "note": "God's love revealed in sending His Son"
+      "note": ""
     }
   ]
 }
 ```
+
+**Coverage**:
+- 24,900 verses with cross-references (80% of Bible)
+- 120,858 total cross-reference entries
+- Average 4.9 references per verse
+- Quality filtered (minimum 3 community votes)
+- Limited to top 10 references per verse
+
+**Source**: [OpenBible.info Cross-References](https://www.openbible.info/labs/cross-references/) (CC-BY)
 
 **Used by**: `cross_references.py`, verse detail pages with cross-reference links
 
@@ -548,10 +557,10 @@ uv run pytest tests/ -v
 ## Data Sources & Credits
 
 ### Original Sources
-- **Bible Text**: King James Version (public domain)
-- **Interlinear Data**: [tahmmee/interlinear_bibledata](https://github.com/tahmmee/interlinear_bibledata) repository
+- **Bible Text**: King James Version 1769 Cambridge Edition (public domain)
+- **Interlinear Data**: [tahmmee/interlinear_bibledata](https://github.com/tahmmee/interlinear_bibledata) repository (public domain)
 - **Strong's Numbers**: Strong's Exhaustive Concordance (public domain)
-- **Cross References**: Treasury of Scripture Knowledge (public domain)
+- **Cross References**: [OpenBible.info](https://www.openbible.info/labs/cross-references/) based on Treasury of Scripture Knowledge (CC-BY)
 - **Book Introductions**: Compiled from public domain Bible study resources
 
 ### Content Creation
