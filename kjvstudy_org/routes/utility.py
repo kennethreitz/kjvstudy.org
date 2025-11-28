@@ -383,15 +383,6 @@ def sitemap_main():
     </url>
 """
 
-        # Add book commentary URLs
-        sitemap_xml += f"""    <url>
-        <loc>{base_url}/book/{book}/commentary</loc>
-        <lastmod>{current_date}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-"""
-
         # Add all chapter URLs for each book
         chapters = bible.get_chapters_for_book(book)
         for chapter in chapters:
@@ -400,14 +391,6 @@ def sitemap_main():
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
-    </url>
-"""
-            # Add chapter commentary
-            sitemap_xml += f"""    <url>
-        <loc>{base_url}/commentary/{book}/{chapter}</loc>
-        <lastmod>{current_date}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
     </url>
 """
             # Note: Individual verse URLs (31,102 total) are in sitemap-verses.xml

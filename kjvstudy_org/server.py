@@ -2091,49 +2091,10 @@ async def book_pdf(request: Request, book: str):
     )
 
 
-@app.get("/book/{book}/commentary", response_class=HTMLResponse)
-def book_commentary(request: Request, book: str):
-    """Generate comprehensive commentary for an entire book"""
-    try:
-        books = bible.get_books()
-        chapters = bible.get_chapters_for_book(book)
-
-        if not chapters:
-            raise HTTPException(
-                status_code=404,
-                detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
-            )
-
-        # Generate comprehensive book commentary
-        commentary_data = generate_book_commentary(book, chapters)
-
-        return templates.TemplateResponse(
-            request,
-            "book_commentary.html",
-            {
-                "book": book,
-                "chapters": chapters,
-                "books": books,
-                **commentary_data
-            },
-        )
-    except Exception as e:
-        print(f"Error in book_commentary route for {book}: {str(e)}")
-        print(f"Error type: {type(e).__name__}")
-        import traceback
-        traceback.print_exc()
-
-        # Return a simple error page instead of 500
-        return templates.TemplateResponse(
-            request,
-            "error.html",
-            {
-                "error_message": f"Sorry, there was an error loading the commentary for {book}. Please try again later.",
-                "book": book,
-                "books": bible.get_books() if 'bible' in globals() else []
-            },
-            status_code=500
-        )
+@app.get("/book/{book}/commentary")
+def book_commentary_redirect(book: str):
+    """Redirect old book commentary URLs to book page"""
+    return RedirectResponse(url=f"/book/{book}", status_code=301)
 
 
 @app.get("/book/{book}/{chapter}")

@@ -117,48 +117,11 @@ def get_verse_text(book, chapter, verse):
     return bible.get_verse_text(book, chapter, verse) or ""
 
 
-@router.get("/commentary/{book}/{chapter}", response_class=HTMLResponse)
-def commentary(request: Request, book: str, chapter: int):
-    """Generate AI-powered commentary for a specific chapter"""
-    books = get_books()
-    from ..kjv import bible
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
-
-    if not verses:
-        # Check if the book exists first
-        if not chapters:
-            raise HTTPException(
-                status_code=404,
-                detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
-            )
-        else:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
-            )
-
-    # Generate AI commentary for each verse
-    commentaries = {}
-    for verse in verses:
-        commentaries[verse.verse] = generate_commentary(book, chapter, verse)
-
-    # Generate chapter overview
-    chapter_overview = generate_chapter_overview(book, chapter, verses)
-
-    return templates.TemplateResponse(
-            request,
-            "commentary.html",
-            {
-            "book": book,
-            "chapter": chapter,
-            "verses": verses,
-            "books": books,
-            "chapters": chapters,
-            "commentaries": commentaries,
-            "chapter_overview": chapter_overview
-        },
-    )
+@router.get("/commentary/{book}/{chapter}")
+def commentary_redirect(book: str, chapter: int):
+    """Redirect old chapter commentary URLs to chapter page"""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url=f"/book/{book}/chapter/{chapter}", status_code=301)
 
 
 def escape_jinja2_syntax(text):
