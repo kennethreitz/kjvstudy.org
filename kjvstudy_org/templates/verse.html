@@ -48,6 +48,19 @@
     color: #ff6b6b;
 }
 
+/* Prevent sidenotes from inheriting red color */
+.words-of-christ .sidenote,
+.words-of-christ .marginnote,
+.words-of-christ label.sidenote-number {
+    color: inherit;
+}
+
+[data-theme="dark"] .words-of-christ .sidenote,
+[data-theme="dark"] .words-of-christ .marginnote,
+[data-theme="dark"] .words-of-christ label.sidenote-number {
+    color: inherit;
+}
+
 .verse-text {
     font-size: 1.8rem;
     line-height: 2.4rem;
