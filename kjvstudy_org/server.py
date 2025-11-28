@@ -1034,8 +1034,9 @@ def inject_word_markers(text, word_studies, verse_num):
         # Find and replace the word with word + marker
         # Use a more precise replacement to avoid replacing partial matches
         import re
-        # Match the word with word boundaries, case-insensitive
-        pattern = re.compile(r'\b(' + re.escape(word) + r')\b', re.IGNORECASE)
+        # Match the word with word boundaries, but NOT if followed by possessive 's
+        # This prevents breaking up "LORD'S" into "LORD" + "'S"
+        pattern = re.compile(r'\b(' + re.escape(word) + r')(?!\'[sS])\b', re.IGNORECASE)
         text = pattern.sub(r'\1' + marker, text, count=1)
 
     return text
