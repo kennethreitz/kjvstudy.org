@@ -2435,10 +2435,16 @@ blockquote, pre, code {
         background-color: #fff !important;
         color: #000 !important;
     }
-    
+
     .sidebar .keyboard-navigation *:focus {
         outline: 3px solid #fff !important;
         background-color: #000 !important;
         color: #fff !important;
     }
+}
+
+/* Sidenote spacing override */
+.sidenote,
+.marginnote {
+    margin-bottom: 0.6rem;
 }
