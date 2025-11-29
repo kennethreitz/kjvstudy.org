@@ -1949,7 +1949,7 @@
         }
 
         // Link verses in common content areas
-        document.querySelectorAll('.intro-text, .prophet-description, .angel-description, .covenant-description, p').forEach(function(element) {
+        document.querySelectorAll('.intro-text, .prophet-description, .angel-description, .covenant-description, p, li').forEach(function(element) {
           // Skip if already processed or if it's in the sidebar
           if (element.closest('.nav-sidebar') || element.dataset.verseLinked) {
             return;
