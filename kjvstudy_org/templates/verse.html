@@ -209,97 +209,165 @@
     }
 }
 
-/* Interlinear styles */
+/* Interlinear styles - inline flow design */
 .interlinear-container {
-    max-width: 90%;
-    margin: 2rem 0;
-    overflow-x: auto;
-}
-
-.interlinear-words {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+    max-width: 100%;
     margin: 2rem 0;
 }
 
-.interlinear-word {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 120px;
-    max-width: 180px;
-    padding: 1rem;
-    background: #f9f9f9;
+.interlinear-container summary {
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1rem 0;
+    color: #333;
+}
+
+.interlinear-flow {
+    line-height: 4.5;
+    font-size: 1rem;
+    margin: 1.5rem 0;
+}
+
+.word-unit {
+    display: inline-block;
+    text-align: center;
+    margin: 0 0.35rem 1.5rem 0.35rem;
+    vertical-align: top;
+    cursor: pointer;
+    position: relative;
+    padding: 0.5rem 0.75rem;
     border-radius: 4px;
-    border: 1px solid #e0e0e0;
+    transition: background 0.15s ease;
+    min-width: 60px;
 }
 
-.word-position {
-    font-size: 0.7rem;
-    color: #999;
-    margin-bottom: 0.5rem;
+.word-unit:hover {
+    background: #f5f5f5;
+}
+
+.word-unit.expanded {
+    background: #f0f7f4;
 }
 
 .word-original {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin: 0.5rem 0;
-    color: #111;
-    direction: ltr;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 0.15rem;
+    line-height: 1.3;
 }
 
-.word-transliteration {
+.word-english {
+    display: block;
     font-size: 0.9rem;
-    color: #666;
-    font-style: italic;
-    margin: 0.25rem 0;
+    color: #4a7c59;
+    font-weight: 600;
+    line-height: 1.3;
 }
 
 .word-strongs {
-    font-size: 0.75rem;
-    color: #0066cc;
+    display: block;
+    font-size: 0.7rem;
+    color: #888;
     font-family: monospace;
-    margin: 0.25rem 0;
-    font-weight: 600;
+    margin-top: 0.15rem;
 }
 
 .word-strongs a {
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px dotted currentColor;
-    transition: all 0.2s;
 }
 
 .word-strongs a:hover {
-    border-bottom-style: solid;
-    opacity: 0.8;
+    color: #4a7c59;
 }
 
-.word-english {
-    font-size: 1rem;
-    color: #111;
-    font-weight: 600;
-    margin: 0.5rem 0;
-    text-align: center;
+.word-detail {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 1rem;
+    min-width: 240px;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 100;
+    text-align: left;
+    line-height: 1.5;
+    margin-top: 0.5rem;
 }
 
-.word-parsing {
-    font-size: 0.75rem;
-    color: #666;
-    margin: 0.25rem 0;
-    text-align: center;
-    font-style: italic;
+.word-unit.expanded .word-detail {
+    display: block;
 }
 
-.word-definition {
+.word-detail-row {
+    display: flex;
+    margin-bottom: 0.4rem;
     font-size: 0.85rem;
-    color: #444;
-    margin: 0.5rem 0;
-    text-align: center;
-    line-height: 1.4;
-    border-top: 1px solid #ddd;
-    padding-top: 0.5rem;
+}
+
+.word-detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.word-detail-label {
+    color: #888;
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+.word-detail-value {
+    color: #333;
+}
+
+.word-detail-definition {
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid #eee;
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.interlinear-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #4a7c59;
+}
+
+@media (max-width: 768px) {
+    .interlinear-flow {
+        line-height: 5;
+    }
+
+    .word-unit {
+        margin: 0 0.25rem 2rem 0.25rem;
+        min-width: 50px;
+    }
+
+    .word-original {
+        font-size: 1.3rem;
+    }
+
+    .word-detail {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        max-width: none;
+        border-radius: 12px 12px 0 0;
+        padding: 1.5rem;
+    }
 }
 </style>
 {% endblock %}
@@ -313,33 +381,87 @@
 
     {% if interlinear_words %}
     <details class="interlinear-container">
-        <summary style="cursor: pointer; font-size: 1.2rem; font-weight: 600; margin: 1rem 0;">Word-by-Word Analysis</summary>
-        <div class="interlinear-words">
+        <summary>Original Language Analysis</summary>
+        <div class="interlinear-flow">
             {% for word in interlinear_words %}
-            <div class="interlinear-word">
-                <div class="word-position">#{{ word.position }}</div>
-                <div class="word-original">{{ word.original }}</div>
-                <div class="word-transliteration">{{ word.transliteration }}</div>
-                <div class="word-strongs">
+            <div class="word-unit" onclick="toggleWord(this)">
+                <span class="word-original">{{ word.original }}</span>
+                <span class="word-english">{{ word.english }}</span>
+                <span class="word-strongs">
                     {% if word.strongs %}
                         {% set lang = word.strongs[0]|lower %}
                         {% set num = word.strongs[1:] %}
                         {% if lang == 'g' %}
-                            <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener noreferrer">{{ word.strongs }}</a>
+                            <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener" onclick="event.stopPropagation()">{{ word.strongs }}</a>
                         {% elif lang == 'h' %}
-                            <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener noreferrer">{{ word.strongs }}</a>
+                            <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener" onclick="event.stopPropagation()">{{ word.strongs }}</a>
                         {% else %}
                             {{ word.strongs }}
                         {% endif %}
                     {% endif %}
+                </span>
+                <div class="word-detail">
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Original:</span>
+                        <span class="word-detail-value">{{ word.original }}</span>
+                    </div>
+                    {% if word.transliteration %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Pronunciation:</span>
+                        <span class="word-detail-value">{{ word.transliteration }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Strong's:</span>
+                        <span class="word-detail-value">{{ word.strongs or '—' }}</span>
+                    </div>
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">English:</span>
+                        <span class="word-detail-value">{{ word.english }}</span>
+                    </div>
+                    {% if word.parsing %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Parsing:</span>
+                        <span class="word-detail-value">{{ word.parsing }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Position:</span>
+                        <span class="word-detail-value">#{{ word.position }}</span>
+                    </div>
+                    {% if word.definition %}
+                    <div class="word-detail-definition">
+                        {{ word.definition }}
+                    </div>
+                    {% endif %}
                 </div>
-                <div class="word-english">{{ word.english }}</div>
-                <div class="word-parsing">{{ word.parsing }}</div>
-                <div class="word-definition">{{ word.definition }}</div>
             </div>
             {% endfor %}
         </div>
+        <a href="/interlinear/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}" class="interlinear-link">View full interlinear page →</a>
     </details>
+    <script>
+    function toggleWord(el) {
+        document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+            if (word !== el) word.classList.remove('expanded');
+        });
+        el.classList.toggle('expanded');
+    }
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.word-unit')) {
+            document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+                word.classList.remove('expanded');
+            });
+        }
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+                word.classList.remove('expanded');
+            });
+        }
+    });
+    </script>
     {% endif %}
 
     <nav style="margin: 1.5rem 0;">
