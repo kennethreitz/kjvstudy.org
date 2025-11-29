@@ -3,122 +3,342 @@
 {% block title %}Generation {{ generation_num }} - Biblical Family Tree - KJV Study{% endblock %}
 {% block description %}Generation {{ generation_num }} in the biblical genealogy from Adam to Jesus Christ.{% endblock %}
 
+{% block head %}
+<style>
+.gen-header {
+    max-width: 55%;
+    margin-bottom: 1rem;
+}
+
+.gen-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #ddd;
+    max-width: 55%;
+}
+
+.gen-nav a {
+    text-decoration: none;
+}
+
+.gen-nav .nav-prev,
+.gen-nav .nav-next {
+    font-weight: 500;
+}
+
+.gen-nav .nav-spacer {
+    flex: 1;
+}
+
+.gen-stats {
+    max-width: 55%;
+    margin: 1rem 0 1.5rem 0;
+    padding: 0.75rem 1rem;
+    background: #f9f9f9;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.gen-stat {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.gen-stat-label {
+    color: #666;
+}
+
+.gen-stat-value {
+    font-weight: 600;
+}
+
+.person-grid {
+    max-width: 55%;
+    display: grid;
+    gap: 1rem;
+}
+
+.person-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    transition: box-shadow 0.15s ease;
+}
+
+.person-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.person-card.kekule {
+    border-color: #d4af37;
+    background: linear-gradient(to right, #fffde7, #fff);
+}
+
+.person-card-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.person-card-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.person-card-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.person-card-name a:hover {
+    text-decoration: underline;
+}
+
+.person-card-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    background: #d4af37;
+    color: #fff;
+    font-weight: 500;
+}
+
+.person-card-dates {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.person-card-details {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.person-card-details p {
+    margin: 0.25rem 0;
+}
+
+.person-card-family {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+}
+
+.family-group {
+    display: flex;
+    gap: 0.35rem;
+    align-items: baseline;
+}
+
+.family-label {
+    color: #888;
+}
+
+.family-links a {
+    color: #555;
+}
+
+.person-card-verse {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+}
+
+.person-card-actions {
+    margin-top: 0.75rem;
+}
+
+.person-card-actions a {
+    font-size: 0.85rem;
+    color: #4a7c59;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>Generation {{ generation_num }}</h1>
-<p class="subtitle">{{ generation_people|length }} individual{% if generation_people|length != 1 %}s{% endif %} in this generation</p>
+<div class="gen-header">
+    <h1>Generation {{ generation_num }}</h1>
+    <p class="subtitle">{{ generation_people|length }} individual{% if generation_people|length != 1 %}s{% endif %} — {{ generation_num }} generation{% if generation_num != 1 %}s{% endif %} from Adam</p>
+</div>
 
-<section>
-    <p><a href="/family-tree">← Back to Family Tree Overview</a> | <a href="/family-tree/search">Search</a></p>
-</section>
+<nav class="gen-nav">
+    {% if generation_num > 1 %}
+    <a href="/family-tree/generation/{{ generation_num - 1 }}" class="nav-prev">← Gen {{ generation_num - 1 }}</a>
+    {% endif %}
+    <span class="nav-spacer"></span>
+    <a href="/family-tree">Family Tree</a>
+    <a href="/family-tree/interactive">Interactive</a>
+    <span class="nav-spacer"></span>
+    {% if generation_num < (generations.keys() | sort | last) %}
+    <a href="/family-tree/generation/{{ generation_num + 1 }}" class="nav-next">Gen {{ generation_num + 1 }} →</a>
+    {% endif %}
+</nav>
 
-<section>
-    <h2>Navigation</h2>
-    <p>
-        {% if generation_num > 1 %}
-        <a href="/family-tree/generation/{{ generation_num - 1 }}">← Previous Generation</a>
-        {% endif %}
-        {% if generation_num in generations.keys() | sort and generation_num < (generations.keys() | sort | last) %}
-        <a href="/family-tree/generation/{{ generation_num + 1 }}">Next Generation →</a>
-        {% endif %}
-    </p>
-</section>
+{% set kekule_count = [] %}
+{% set with_children = [] %}
+{% set total_children = [] %}
+{% for person_id in generation_people %}
+    {% set person = family_tree_data[person_id] %}
+    {% if person.kekule_number is not none %}
+        {% set _ = kekule_count.append(1) %}
+    {% endif %}
+    {% if person.children|length > 0 %}
+        {% set _ = with_children.append(1) %}
+        {% for c in person.children %}
+            {% set _ = total_children.append(1) %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
 
-<section>
-    <h2>People in Generation {{ generation_num }}</h2>
+<div class="gen-stats">
+    <div class="gen-stat">
+        <span class="gen-stat-label">People:</span>
+        <span class="gen-stat-value">{{ generation_people|length }}</span>
+    </div>
+    {% if kekule_count|length > 0 %}
+    <div class="gen-stat">
+        <span class="gen-stat-label">In Christ's line:</span>
+        <span class="gen-stat-value">{{ kekule_count|length }}</span>
+    </div>
+    {% endif %}
+    {% if with_children|length > 0 %}
+    <div class="gen-stat">
+        <span class="gen-stat-label">With children:</span>
+        <span class="gen-stat-value">{{ with_children|length }}</span>
+    </div>
+    {% endif %}
+    {% if total_children|length > 0 %}
+    <div class="gen-stat">
+        <span class="gen-stat-label">Total offspring:</span>
+        <span class="gen-stat-value">{{ total_children|length }}</span>
+    </div>
+    {% endif %}
+</div>
 
+<div class="person-grid">
     {% for person_id in generation_people %}
         {% set person = family_tree_data[person_id] %}
-        <div style="margin: 3rem 0; padding-left: 1rem; border-left: 2px solid #ccc;">
-            <h3>{{ person.name }}</h3>
+        <div class="person-card{% if person.kekule_number is not none %} kekule{% endif %}">
+            <div class="person-card-header">
+                <h3 class="person-card-name">
+                    <a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>
+                </h3>
+                {% if person.kekule_number is not none %}
+                <span class="person-card-badge">Kekulé #{{ person.kekule_number }}</span>
+                {% endif %}
+            </div>
 
-            {% if person.kekule_number is not none %}
-            <p><em>Kekulé #{{ person.kekule_number }}</em></p>
+            {% if person.birth_year != "Unknown" or person.age_at_death != "Unknown" %}
+            <div class="person-card-dates">
+                {% if person.birth_year != "Unknown" %}Born {{ person.birth_year }}{% endif %}{% if person.age_at_death != "Unknown" %}{% if person.birth_year != "Unknown" %} · {% endif %}Lived {{ person.age_at_death }}{% endif %}
+            </div>
             {% endif %}
 
-            {% if person.birth_year != "Unknown" or person.death_year != "Unknown" or person.age_at_death != "Unknown" %}
-            <p>
-                {% if person.birth_year != "Unknown" %}Born: {{ person.birth_year }}{% endif %}
-                {% if person.death_year != "Unknown" %} — Died: {{ person.death_year }}{% endif %}
-                {% if person.age_at_death != "Unknown" %} ({{ person.age_at_death }}){% endif %}
-            </p>
-            {% endif %}
-
-            {% if person.spouse %}
-            <p><strong>Spouse:</strong> {{ person.spouse }}</p>
-            {% endif %}
-
-            {% if person.parents|length > 0 %}
-            <p><strong>Parents:</strong>
-                {% for parent_id in person.parents %}
-                    {% if parent_id in family_tree_data %}
-                        <a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>
-                        {% if family_tree_data[parent_id].generation or family_tree_data[parent_id].kekule_number is not none %}
-                            (Generation {{ family_tree_data[parent_id].generation }}{% if family_tree_data[parent_id].kekule_number is not none %}, Kekulé #{{ family_tree_data[parent_id].kekule_number }}{% endif %})
-                        {% endif %}
-                        {% if not loop.last %}, {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </p>
-            {% endif %}
-
-            {% if person.children|length > 0 %}
-            <p><strong>Children:</strong>
-                {% for child_id in person.children %}
-                    {% if child_id in family_tree_data %}
-                        <a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </p>
-            {% endif %}
-
-            {% if person.description and not person.description.startswith("Biblical figure from") %}
-            <p>{{ person.description[:300] }}{% if person.description|length > 300 %}...{% endif %}</p>
-            {% endif %}
-
-            {% if person.verses %}
-            <p><strong>Related Verses:</strong></p>
-            <ul>
-                {% for verse in person.verses %}
-                <li>
-                    {% set ref_parts = verse.reference.split(' ') %}
-                    {% if ref_parts|length >= 2 %}
-                        {% set chapter_verse = ref_parts[-1] %}
-                        {% if ':' in chapter_verse %}
-                            {% set chapter = chapter_verse.split(':')[0] %}
-                            {% set verse_part = chapter_verse.split(':')[1] %}
-                            {# Handle verse ranges like "7-9" by taking just the first verse #}
-                            {% if '-' in verse_part %}
-                                {% set verse_num = verse_part.split('-')[0] %}
-                            {% else %}
-                                {% set verse_num = verse_part %}
+            <div class="person-card-family">
+                {% if person.spouse %}
+                <div class="family-group">
+                    <span class="family-label">Spouse:</span>
+                    <span class="family-links">
+                        {% set ns = namespace(spouse_id=None) %}
+                        {% for pid, p in family_tree_data.items() %}
+                            {% if p.name == person.spouse %}
+                                {% set ns.spouse_id = pid %}
                             {% endif %}
-                            {% set book = ' '.join(ref_parts[:-1]) %}
-                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                        {% endfor %}
+                        {% if ns.spouse_id %}
+                            <a href="/family-tree/person/{{ ns.spouse_id }}">{{ person.spouse }}</a>
                         {% else %}
-                            {{ verse.reference }}
+                            {{ person.spouse }}
                         {% endif %}
+                    </span>
+                </div>
+                {% endif %}
+
+                {% if person.parents|length > 0 %}
+                <div class="family-group">
+                    <span class="family-label">Parents:</span>
+                    <span class="family-links">
+                        {% for parent_id in person.parents %}
+                            {% if parent_id in family_tree_data %}
+                                <a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>{% if not loop.last %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                </div>
+                {% endif %}
+
+                {% if person.children|length > 0 %}
+                <div class="family-group">
+                    <span class="family-label">Children:</span>
+                    <span class="family-links">
+                        {% for child_id in person.children[:5] %}
+                            {% if child_id in family_tree_data %}
+                                <a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}{% if person.children|length > 5 %} +{{ person.children|length - 5 }} more{% endif %}
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if person.verses and person.verses|length > 0 %}
+            <div class="person-card-verse">
+                {% set verse = person.verses[0] %}
+                {% set ref_parts = verse.reference.split(' ') %}
+                {% if ref_parts|length >= 2 %}
+                    {% set chapter_verse = ref_parts[-1] %}
+                    {% if ':' in chapter_verse %}
+                        {% set chapter = chapter_verse.split(':')[0] %}
+                        {% set verse_part = chapter_verse.split(':')[1] %}
+                        {% if '-' in verse_part %}
+                            {% set verse_num = verse_part.split('-')[0] %}
+                        {% else %}
+                            {% set verse_num = verse_part %}
+                        {% endif %}
+                        {% set book = ' '.join(ref_parts[:-1]) %}
+                        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
                     {% else %}
                         {{ verse.reference }}
                     {% endif %}
-                    — {{ verse.text }}
-                </li>
-                {% endfor %}
-            </ul>
+                {% else %}
+                    {{ verse.reference }}
+                {% endif %}
+                — "{{ verse.text[:120] }}{% if verse.text|length > 120 %}...{% endif %}"
+            </div>
             {% endif %}
+
+            <div class="person-card-actions">
+                <a href="/family-tree/person/{{ person_id }}">View full profile →</a>
+            </div>
         </div>
     {% endfor %}
-</section>
+</div>
 
-<section>
-    <h2>Navigation</h2>
-    <p>
-        {% if generation_num > 1 %}
-        <a href="/family-tree/generation/{{ generation_num - 1 }}">← Previous Generation</a>
-        {% endif %}
-        {% if generation_num in generations.keys() | sort and generation_num < (generations.keys() | sort | last) %}
-        <a href="/family-tree/generation/{{ generation_num + 1 }}">Next Generation →</a>
-        {% endif %}
-    </p>
-    <p><a href="/family-tree">← Back to Family Tree Overview</a></p>
-</section>
+<nav class="gen-nav" style="margin-top: 2rem;">
+    {% if generation_num > 1 %}
+    <a href="/family-tree/generation/{{ generation_num - 1 }}" class="nav-prev">← Gen {{ generation_num - 1 }}</a>
+    {% endif %}
+    <span class="nav-spacer"></span>
+    <a href="/family-tree">Family Tree</a>
+    <span class="nav-spacer"></span>
+    {% if generation_num < (generations.keys() | sort | last) %}
+    <a href="/family-tree/generation/{{ generation_num + 1 }}" class="nav-next">Gen {{ generation_num + 1 }} →</a>
+    {% endif %}
+</nav>
 {% endblock %}
