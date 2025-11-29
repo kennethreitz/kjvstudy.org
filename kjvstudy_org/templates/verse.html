@@ -224,6 +224,21 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    list-style: none;
+}
+
+.interlinear-container summary::-webkit-details-marker {
+    display: none;
+}
+
+.interlinear-container summary::before {
+    content: "▶";
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+.interlinear-container[open] summary::before {
+    transform: rotate(90deg);
 }
 
 .interlinear-container summary::after {
