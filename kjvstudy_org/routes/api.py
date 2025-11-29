@@ -252,6 +252,23 @@ class FamilyTreeListResponse(BaseModel):
     people: List[str] = Field(..., json_schema_extra={"example": ["Adam", "Noah", "Abraham"]})
 
 
+class PersonStat(BaseModel):
+    """Statistical information about a person"""
+    name: str = Field(..., json_schema_extra={"example": "Methuselah"})
+    value: int = Field(..., json_schema_extra={"example": 969})
+    additional_info: Optional[str] = Field(None, json_schema_extra={"example": "Lived 969 years"})
+
+
+class FamilyTreeStatsResponse(BaseModel):
+    """Statistics about the biblical family tree from GEDCOM data"""
+    total_people: int = Field(..., json_schema_extra={"example": 429})
+    total_generations: int = Field(..., json_schema_extra={"example": 77})
+    longest_lived: PersonStat
+    most_children: PersonStat
+    average_lifespan: Optional[float] = Field(None, json_schema_extra={"example": 256.5})
+    total_with_known_ages: int = Field(..., json_schema_extra={"example": 156})
+
+
 # Mapping of category names to their data dictionaries
 CATEGORY_TO_DATA = {
     'biblical_locations': BIBLICAL_LOCATIONS,
@@ -340,6 +357,7 @@ def api_index():
             "chapter_commentary": "/api/chapter-commentary/{book}/{chapter}",
             "bulk_verses": "/api/verses/bulk",
             "family_tree": "/api/family-tree",
+            "family_tree_stats": "/api/family-tree/stats",
             "biography": "/api/family-tree/{name}"
         }
     }
@@ -1968,6 +1986,103 @@ def api_bulk_verse_lookup(request: BulkVerseRequest):
         "total": len(verses),
         "verses": verses
     }
+
+
+@router.get(
+    "/family-tree/stats",
+    response_model=FamilyTreeStatsResponse,
+    summary="Get family tree statistics",
+    description="Get comprehensive statistics about the biblical family tree from the GEDCOM genealogy data."
+)
+def api_family_tree_stats():
+    """Get statistics about the biblical family tree from GEDCOM data."""
+    from ..routes.family_tree import get_family_tree_data
+    import re
+
+    try:
+        family_tree_data, generations = get_family_tree_data()
+
+        if not family_tree_data:
+            raise HTTPException(status_code=500, detail="Family tree data not available")
+
+        # Calculate statistics
+        total_people = len(family_tree_data)
+        total_generations = len(generations) if generations else 0
+
+        # Find longest lived person
+        longest_lived_person = None
+        longest_lifespan = 0
+
+        # Find person with most children
+        most_children_person = None
+        most_children_count = 0
+
+        # Calculate average lifespan
+        total_age = 0
+        people_with_ages = 0
+
+        for person_id, person in family_tree_data.items():
+            # Check lifespan - try multiple formats
+            age = None
+
+            # Try age_at_death field first
+            if person.get("age_at_death") and person["age_at_death"] != "Unknown":
+                try:
+                    # Parse age (format: "123 years")
+                    age_str = person["age_at_death"].replace(" years", "").strip()
+                    age = int(age_str)
+                except (ValueError, AttributeError):
+                    pass
+
+            # Also try death_year field which might contain "Lived XXX years"
+            if age is None and person.get("death_year") and person["death_year"] != "Unknown":
+                try:
+                    death_text = person["death_year"]
+                    if "Lived" in death_text and "years" in death_text:
+                        # Format: "Lived 930 years"
+                        match = re.search(r'Lived (\d+) years', death_text)
+                        if match:
+                            age = int(match.group(1))
+                except (ValueError, AttributeError):
+                    pass
+
+            # Record age statistics if we found an age
+            if age is not None:
+                total_age += age
+                people_with_ages += 1
+
+                if age > longest_lifespan:
+                    longest_lifespan = age
+                    longest_lived_person = person
+
+            # Check children count
+            children_count = len(person.get("children", []))
+            if children_count > most_children_count:
+                most_children_count = children_count
+                most_children_person = person
+
+        # Calculate average lifespan
+        average_lifespan = round(total_age / people_with_ages, 1) if people_with_ages > 0 else None
+
+        # Build response
+        return {
+            "total_people": total_people,
+            "total_generations": total_generations,
+            "longest_lived": {
+                "name": longest_lived_person["name"] if longest_lived_person else "Unknown",
+                "value": longest_lifespan,
+                "additional_info": f"Lived {longest_lifespan} years" if longest_lived_person else None
+            },
+            "most_children": {
+                "name": most_children_person["name"] if most_children_person else "Unknown",
+                "value": most_children_count,
+                "additional_info": f"Had {most_children_count} children" if most_children_person else None
+            },
+            "average_lifespan": average_lifespan,
+            "total_with_known_ages": people_with_ages
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to load family tree statistics: {str(e)}")
 
 
 @router.get(

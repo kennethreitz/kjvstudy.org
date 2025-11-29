@@ -922,6 +922,44 @@ class TestFamilyTreeEndpoints:
         response = client.get("/api/family-tree/NonExistentPerson")
         assert response.status_code == 404
 
+    def test_family_tree_stats(self, client):
+        """Test getting family tree statistics from GEDCOM data"""
+        response = client.get("/api/family-tree/stats")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Verify all expected fields are present
+        assert "total_people" in data
+        assert "total_generations" in data
+        assert "longest_lived" in data
+        assert "most_children" in data
+        assert "average_lifespan" in data
+        assert "total_with_known_ages" in data
+
+        # Verify types
+        assert isinstance(data["total_people"], int)
+        assert isinstance(data["total_generations"], int)
+        assert data["total_people"] > 0
+        assert data["total_generations"] > 0
+
+        # Verify longest_lived structure
+        assert "name" in data["longest_lived"]
+        assert "value" in data["longest_lived"]
+        assert "additional_info" in data["longest_lived"]
+        assert isinstance(data["longest_lived"]["name"], str)
+        assert isinstance(data["longest_lived"]["value"], int)
+
+        # Verify most_children structure
+        assert "name" in data["most_children"]
+        assert "value" in data["most_children"]
+        assert "additional_info" in data["most_children"]
+        assert isinstance(data["most_children"]["name"], str)
+        assert isinstance(data["most_children"]["value"], int)
+        assert data["most_children"]["value"] >= 0
+
+        # Verify average lifespan is either a number or null
+        assert data["average_lifespan"] is None or isinstance(data["average_lifespan"], (int, float))
+
     def test_api_index_includes_new_endpoints(self, client):
         """Test that API index includes all new endpoints"""
         response = client.get("/api/")
@@ -934,4 +972,5 @@ class TestFamilyTreeEndpoints:
         assert "chapter_commentary" in data["endpoints"]
         assert "bulk_verses" in data["endpoints"]
         assert "family_tree" in data["endpoints"]
+        assert "family_tree_stats" in data["endpoints"]
         assert "biography" in data["endpoints"]
