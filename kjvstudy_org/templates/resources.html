@@ -150,6 +150,38 @@
         margin-bottom: 2.5rem;
     }
 }
+
+/* Dark mode */
+[data-theme="dark"] .resource-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .resource-card:hover {
+    border-color: #555;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .resource-card.featured {
+    background: linear-gradient(135deg, #2a2a1a, #1a1a1a);
+    border-color: #d4af37;
+}
+
+[data-theme="dark"] .resource-card h3 {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .resource-card:hover h3 {
+    color: #6b9b7a;
+}
+
+[data-theme="dark"] .resource-count {
+    color: #888;
+}
+
+[data-theme="dark"] .resource-description {
+    color: #aaa;
+}
 </style>
 {% endblock %}
 
