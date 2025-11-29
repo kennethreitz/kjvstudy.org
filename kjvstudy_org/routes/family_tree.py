@@ -617,6 +617,33 @@ def family_tree_lineage_page(request: Request):
     )
 
 
+@router.get("/family-tree/timeline", response_class=HTMLResponse)
+def family_tree_timeline_page(request: Request):
+    """Interactive timeline visualization of biblical lifespans."""
+    family_tree_data, generations = get_family_tree_data()
+
+    if not family_tree_data:
+        raise HTTPException(
+            status_code=500,
+            detail="Family tree data not available"
+        )
+
+    return templates.TemplateResponse(
+            request,
+            "family_tree_timeline.html",
+            {
+            "books": get_books(),
+            "family_tree_data": family_tree_data,
+            "generations": generations,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": "Timeline", "url": None}
+            ]
+        }
+    )
+
+
 @router.get("/family-tree/person/{person_id}/descendants", response_class=HTMLResponse)
 def family_tree_descendants_page(request: Request, person_id: str):
     """View all descendants of a person."""
