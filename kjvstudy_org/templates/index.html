@@ -147,6 +147,18 @@
     background: var(--code-bg);
 }
 
+.feature-card.selected {
+    border-color: #4a7c59;
+    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
+    background: rgba(74, 124, 89, 0.05);
+}
+
+[data-theme="dark"] .feature-card.selected {
+    border-color: #6b9b7a;
+    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
+    background: rgba(107, 155, 122, 0.1);
+}
+
 .feature-card h3 {
     font-size: 1.05rem;
     margin: 0 0 0.5rem 0;
@@ -490,12 +502,58 @@ function handleSearch(event) {
     return false;
 }
 
+// Feature card keyboard navigation
+var featureCards = document.querySelectorAll('.feature-card');
+var selectedCardIndex = -1;
+
+function selectCard(index) {
+    // Remove previous selection
+    if (selectedCardIndex >= 0 && selectedCardIndex < featureCards.length) {
+        featureCards[selectedCardIndex].classList.remove('selected');
+    }
+
+    // Update index with bounds checking
+    selectedCardIndex = Math.max(0, Math.min(index, featureCards.length - 1));
+
+    // Add selection to new card
+    featureCards[selectedCardIndex].classList.add('selected');
+
+    // Scroll into view
+    featureCards[selectedCardIndex].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+    });
+}
+
 document.addEventListener('keydown', function(e) {
+    var el = document.activeElement;
+    var isTyping = el.tagName === 'INPUT' || el.tagName === 'TEXTAREA';
+
     if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        var el = document.activeElement;
-        if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
+        if (!isTyping) {
             e.preventDefault();
             document.getElementById('verse-lookup-input').focus();
+        }
+    }
+
+    // Arrow keys for feature cards
+    if (!isTyping) {
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectCard(selectedCardIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            selectCard(selectedCardIndex - 1);
+        }
+    }
+
+    // Enter key: navigate to selected card or books page
+    if (e.key === 'Enter' && !isTyping && el.tagName !== 'A' && el.tagName !== 'BUTTON') {
+        e.preventDefault();
+        if (selectedCardIndex >= 0) {
+            window.location.href = featureCards[selectedCardIndex].href;
+        } else {
+            window.location.href = '/books';
         }
     }
 });
