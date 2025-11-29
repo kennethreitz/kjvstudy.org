@@ -298,7 +298,7 @@
         <a href="/family-tree/generation/{{ person.generation }}">Generation {{ person.generation }}</a>
         {% endif %}
         <span class="nav-spacer"></span>
-        <a href="/family-tree/interactive">Interactive Tree</a>
+        <a href="/family-tree/interactive?person={{ person_id }}">Interactive Tree</a>
     </nav>
 
     <!-- Main Person Card -->
@@ -549,7 +549,7 @@
         {% if person.children|length > 0 %}
         <a href="/family-tree/person/{{ person_id }}/descendants">View Descendants</a>
         {% endif %}
-        <a href="/family-tree/interactive" class="primary">Interactive Tree</a>
+        <a href="/family-tree/interactive?person={{ person_id }}" class="primary">Interactive Tree</a>
     </div>
 </div>
 {% endblock %}

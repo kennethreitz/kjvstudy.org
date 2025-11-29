@@ -1795,7 +1795,30 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Initial render
-renderTree();
+// Check for person query parameter to jump to specific person
+const urlParams = new URLSearchParams(window.location.search);
+const personParam = urlParams.get('person');
+
+if (personParam && familyTreeData[personParam]) {
+    // Start with this specific person
+    currentRootId = personParam;
+    renderTreeFromId(personParam);
+    updateBreadcrumb(personParam);
+
+    // Update the dropdown to show custom selection
+    const rootSelect = document.getElementById('root-select');
+    let customOpt = rootSelect.querySelector('option[value="custom"]');
+    if (!customOpt) {
+        customOpt = document.createElement('option');
+        customOpt.value = 'custom';
+        rootSelect.appendChild(customOpt);
+    }
+    const personName = familyTreeData[personParam]?.name || personParam;
+    customOpt.textContent = personName;
+    rootSelect.value = 'custom';
+} else {
+    // Default initial render
+    renderTree();
+}
 </script>
 {% endblock %}
