@@ -645,12 +645,141 @@ document.addEventListener('click', function(e) {
     }
 });
 
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
+// Keyboard navigation
+(function() {
+    const verses = Array.from(document.querySelectorAll('.verse-section'));
+    if (verses.length === 0) return;
+
+    let selectedVerseIndex = -1;
+    let selectedWordIndex = -1;
+
+    function clearWordSelection() {
         document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
             word.classList.remove('expanded');
         });
+        document.querySelectorAll('.word-unit.keyboard-selected').forEach(function(word) {
+            word.classList.remove('keyboard-selected');
+            word.style.outline = '';
+            word.style.outlineOffset = '';
+        });
+        selectedWordIndex = -1;
     }
-});
+
+    function selectVerse(index) {
+        // Clear previous verse selection
+        if (selectedVerseIndex >= 0 && selectedVerseIndex < verses.length) {
+            verses[selectedVerseIndex].style.outline = '';
+            verses[selectedVerseIndex].style.outlineOffset = '';
+        }
+        clearWordSelection();
+
+        selectedVerseIndex = Math.max(0, Math.min(index, verses.length - 1));
+        verses[selectedVerseIndex].style.outline = '2px solid #4a7c59';
+        verses[selectedVerseIndex].style.outlineOffset = '4px';
+        verses[selectedVerseIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function getWordsInVerse(verseIndex) {
+        if (verseIndex < 0 || verseIndex >= verses.length) return [];
+        return Array.from(verses[verseIndex].querySelectorAll('.word-unit'));
+    }
+
+    function selectWord(index) {
+        const words = getWordsInVerse(selectedVerseIndex);
+        if (words.length === 0) return;
+
+        clearWordSelection();
+        selectedWordIndex = Math.max(0, Math.min(index, words.length - 1));
+
+        const word = words[selectedWordIndex];
+        word.classList.add('keyboard-selected');
+        word.style.outline = '2px solid #4a7c59';
+        word.style.outlineOffset = '2px';
+        word.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function expandSelectedWord() {
+        const words = getWordsInVerse(selectedVerseIndex);
+        if (selectedWordIndex >= 0 && selectedWordIndex < words.length) {
+            toggleWord(words[selectedWordIndex]);
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        // Check if we're in word-selection mode (a verse is selected)
+        const inWordMode = selectedVerseIndex >= 0 && selectedWordIndex >= 0;
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            if (inWordMode) {
+                clearWordSelection();
+            } else if (selectedVerseIndex >= 0) {
+                verses[selectedVerseIndex].style.outline = '';
+                verses[selectedVerseIndex].style.outlineOffset = '';
+                selectedVerseIndex = -1;
+            }
+            document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+                word.classList.remove('expanded');
+            });
+        } else if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            if (inWordMode) {
+                // Move to next verse
+                clearWordSelection();
+                selectVerse(selectedVerseIndex + 1);
+            } else {
+                selectVerse(selectedVerseIndex < 0 ? 0 : selectedVerseIndex + 1);
+            }
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (inWordMode) {
+                // Move to previous verse
+                clearWordSelection();
+                selectVerse(selectedVerseIndex - 1);
+            } else if (selectedVerseIndex <= 0) {
+                selectVerse(0);
+            } else {
+                selectVerse(selectedVerseIndex - 1);
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (selectedVerseIndex >= 0) {
+                // Enter word mode or move to next word
+                selectWord(selectedWordIndex + 1);
+            } else {
+                // Next chapter
+                {% if chapter < chapters|length %}
+                window.location.href = '/book/{{ book }}/chapter/{{ chapter + 1 }}/interlinear';
+                {% endif %}
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (inWordMode && selectedWordIndex > 0) {
+                // Move to previous word
+                selectWord(selectedWordIndex - 1);
+            } else if (inWordMode) {
+                // Exit word mode
+                clearWordSelection();
+            } else {
+                // Previous chapter or go back
+                {% if chapter > 1 %}
+                window.location.href = '/book/{{ book }}/chapter/{{ chapter - 1 }}/interlinear';
+                {% else %}
+                history.back();
+                {% endif %}
+            }
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedWordIndex >= 0) {
+                expandSelectedWord();
+            } else if (selectedVerseIndex >= 0) {
+                // Enter word mode at first word
+                selectWord(0);
+            }
+        }
+    });
+})();
 </script>
 {% endblock %}
