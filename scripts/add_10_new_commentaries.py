@@ -1,0 +1,202 @@
+#!/usr/bin/env python3
+"""Add comprehensive commentary for 10 specific verses to verse_commentary.json"""
+
+import json
+from pathlib import Path
+
+# Define the commentary data for the 10 requested verses
+NEW_COMMENTARY = {
+    "Ecclesiastes": {
+        "1": {
+            "15": {
+                "analysis": "<strong>That which is crooked cannot be made straight: and that which is wanting cannot be numbered.</strong> This verse captures the sobering reality of humanity's limitations and the fallen world's brokenness. The Hebrew word for \"crooked\" (<em>me'uwwath</em>, מְעֻוָּת) describes something twisted, perverted, or distorted—morally and physically. The parallel term \"wanting\" (<em>chesrown</em>, חֶסְרוֹן) means deficiency or lack. Together, these terms paint a picture of irreversible damage and insurmountable deficiency.<br><br>The Preacher (Qoheleth) uses this observation to highlight a fundamental limitation of human wisdom and effort. No amount of human ingenuity can reverse certain consequences of the fall or fill certain voids in the created order. This verse echoes Job 12:14 (\"what he teareth down cannot be built again\") and anticipates Paul's teaching on creation's bondage to corruption (Romans 8:20-21).<br><br>Theologically, this verse points to humanity's need for divine intervention. While human wisdom reaches its limit at the crooked and the wanting, God's redemptive power can make \"crooked places straight\" (Isaiah 40:4; 45:2) and supply what is lacking. This verse thus functions as wisdom literature's acknowledgment of both human limitation and the necessity of God's restorative grace. The Christian reader finds hope in Christ, who came to heal the broken and fill what is empty (Luke 4:18; Ephesians 1:23).",
+                "historical": "Ecclesiastes was likely written during Solomon's reign (circa 970-930 BCE) or shortly thereafter, though some scholars date it to the post-exilic period (5th-3rd century BCE). The book addresses the perennial human quest for meaning \"under the sun\"—a phrase occurring 29 times, denoting earthly existence apart from eternal perspective.<br><br>The Preacher's observations about crooked things and deficiencies would have resonated with ancient Near Eastern wisdom literature, which often acknowledged life's limitations and mysteries. However, unlike pessimistic Mesopotamian texts like the \"Dialogue of Pessimism,\" Ecclesiastes maintains faith in God's sovereignty while honestly confronting life's frustrations.<br><br>For Israel, this verse provided realistic wisdom for navigating a fallen world. Whether facing the permanent consequences of sin, the limitations of human justice, or the irreversible march of time, God's people needed wisdom that acknowledged reality without losing hope. The verse teaches that true wisdom recognizes both human limitations and divine sovereignty—a balance essential for covenant faithfulness in every generation.",
+                "questions": [
+                    "What areas of brokenness in your life or the world around you feel permanently \"crooked\" or \"wanting,\" and how does this verse reshape your expectations?",
+                    "How does recognizing human limitation in fixing what is broken drive you toward greater dependence on God's redemptive power?",
+                    "In what ways does this verse challenge modern assumptions about human progress, self-improvement, or the ability to fix all problems through effort?",
+                    "How does the gospel message transform the pessimism this verse might otherwise produce into realistic hope?",
+                    "What specific \"crooked\" situations in your relationships, work, or spiritual life require you to accept limitations while trusting God's ultimate restoration?"
+                ]
+            }
+        }
+    },
+    "Zephaniah": {
+        "3": {
+            "1": {
+                "analysis": "<strong>Woe to her that is filthy and polluted, to the oppressing city!</strong> This prophetic denunciation opens Zephaniah's third chapter with a threefold indictment of Jerusalem. The Hebrew word \"filthy\" (<em>mor'ah</em>, מֹרְאָה) means rebellious or defiled, describing deliberate resistance to God's authority. \"Polluted\" (<em>nig'alah</em>, נִגְאָלָה) refers to moral contamination and defilement, particularly through idolatry and injustice. \"Oppressing\" (<em>hayonah</em>, הַיּוֹנָה) depicts the city as a violent oppressor of the weak and vulnerable.<br><br>The triple accusation—religious rebellion, moral corruption, and social oppression—represents comprehensive covenant violation. Jerusalem, called to be a holy city and light to the nations, had become indistinguishable from pagan cities characterized by idolatry and injustice. The prophetic \"woe\" (<em>hoy</em>, הוֹי) is both a lament and a warning, expressing grief over sin and announcing coming judgment.<br><br>Zephaniah's indictment echoes the covenantal curses of Deuteronomy 28 and recalls the prophetic tradition of Amos, Isaiah, and Jeremiah who denounced social injustice alongside religious apostasy. The verse establishes that God's judgment begins with His own people (1 Peter 4:17) and that privilege brings greater responsibility. For the New Testament church, this warning remains relevant: religious profession without righteous living invites divine judgment rather than blessing.",
+                "historical": "Zephaniah prophesied during the reign of King Josiah of Judah (640-609 BCE), likely in the early years before Josiah's reforms began in earnest (circa 621 BCE). This was a time of spiritual decline following the wickedly idolatrous reigns of Manasseh and Amon. Jerusalem was filled with Baal worship, astral cults, child sacrifice, and rampant social injustice.<br><br>The historical context reveals why Zephaniah opens his oracle against Jerusalem with such severity. The city's leadership—princes, judges, prophets, and priests—had systematically violated covenant law while maintaining outward religious observance. Archaeological evidence from this period shows widespread syncretism, with Yahweh worship corrupted by Canaanite and Assyrian religious practices.<br><br>Zephaniah's prophecy anticipated both the Babylonian destruction of Jerusalem in 586 BCE and ultimate restoration beyond judgment. His message called for genuine repentance before the \"day of the LORD\"—a phrase occurring prominently throughout the book. The historical fulfillment came when Babylon destroyed the \"oppressing city,\" vindicating God's word through His prophet.",
+                "questions": [
+                    "How does religious profession without genuine righteousness and justice manifest in contemporary church life?",
+                    "What are the modern equivalents of being \"filthy,\" \"polluted,\" and \"oppressing\" that churches and believers must guard against?",
+                    "How should the church respond when it recognizes these characteristics in its own community or leadership?",
+                    "In what ways does this verse challenge the assumption that religious activity or heritage guarantees God's blessing?",
+                    "How can believers cultivate authentic covenant faithfulness that combines right worship with justice and mercy?"
+                ]
+            }
+        }
+    },
+    "Acts": {
+        "22": {
+            "6": {
+                "analysis": "<strong>And it came to pass, that, as I made my journey, and was come nigh unto Damascus about noon, suddenly there shone from heaven a great light round about me.</strong> This verse recounts Paul's dramatic conversion experience, the third detailed account in Acts (also chapters 9 and 26). The specific mention of \"about noon\" emphasizes the supernatural brilliance of the heavenly light—it outshone the midday sun, indicating divine glory and power beyond natural explanation.<br><br>The Greek word for \"suddenly\" (<em>exaiphnēs</em>, ἐξαίφνης) stresses the unexpected, sovereign nature of Christ's intervention in Paul's life. The \"great light\" (<em>phos hikanos</em>, φῶς ἱκανόν) recalls theophanies throughout Scripture—God's self-revelation through brilliant light (Exodus 3:2; Ezekiel 1:27-28; Revelation 1:14-16). Luke's emphasis on this detail authenticates Paul's apostolic authority as one who encountered the risen Christ directly.<br><br>Theologically, this conversion narrative demonstrates several crucial truths: (1) salvation is entirely God's sovereign initiative, not human seeking; (2) Christ actively reveals Himself to those He calls; (3) religious zeal apart from true knowledge can oppose God's purposes; and (4) the risen, glorified Christ possesses divine authority and power. Paul's transformation from persecutor to apostle became the paradigmatic example of God's transforming grace, illustrating that no one is beyond the reach of Christ's saving power.",
+                "historical": "Paul's conversion occurred approximately 33-35 CE, shortly after Stephen's martyrdom. Damascus, located about 135 miles northeast of Jerusalem, was a major city in the Decapolis region with a significant Jewish population and numerous synagogues. Paul was traveling there with letters from the high priest authorizing him to arrest Jewish believers in Jesus and bring them bound to Jerusalem (Acts 9:2).<br><br>This event marks the pivotal turning point in early Christianity's expansion. Paul, formerly Saul of Tarsus, was a Pharisee trained under Gamaliel, zealous for Jewish tradition and convinced that the Jesus movement threatened Israel's covenant identity. His encounter with the risen Christ on the Damascus road transformed him from Christianity's chief persecutor into its greatest missionary.<br><br>Paul recounts this experience here in his defense speech to the Jerusalem crowd after his arrest (circa 57 CE). By emphasizing the supernatural nature of his calling, Paul establishes his apostolic credentials and explains his mission to the Gentiles. The Damascus road experience became foundational to Paul's theology of grace, election, and the gospel's universal scope, shaping Christian doctrine for all subsequent generations.",
+                "questions": [
+                    "How does Paul's conversion demonstrate that salvation is entirely God's work rather than human achievement or merit?",
+                    "What does this passage teach about the reality and authority of the risen Christ who actively calls people to Himself?",
+                    "How should Paul's transformation from persecutor to apostle shape our understanding of who is \"too far gone\" for God's grace?",
+                    "In what ways might religious zeal and conviction operate against God's purposes, as it did in Paul's pre-conversion life?",
+                    "How does the supernatural nature of Paul's calling encourage believers facing opposition or questioning their own conversion experience?"
+                ]
+            }
+        }
+    },
+    "Luke": {
+        "18": {
+            "9": {
+                "analysis": "<strong>And he spake this parable unto certain which trusted in themselves that they were righteous, and despised others.</strong> This introduction to the parable of the Pharisee and the tax collector identifies the target audience and core issue Jesus addresses: self-righteousness and contempt for others. The Greek phrase \"trusted in themselves\" (<em>pepoithotas eph' heautois</em>, πεποιθότας ἐφ' ἑαυτοῖς) indicates confidence placed in one's own moral achievement rather than God's mercy.<br><br>\"That they were righteous\" (<em>hoti eisin dikaioi</em>, ὅτι εἰσὶν δίκαιοι) reveals a fundamental misunderstanding of righteousness. These individuals believed they had achieved covenant standing before God through their own religious performance and moral effort. The verb \"despised\" (<em>exoutheneō</em>, ἐξουθενέω) means to treat with contempt, consider as nothing, or utterly reject—revealing how self-righteousness inevitably produces pride and scorn toward those deemed morally inferior.<br><br>Jesus' diagnostic precision targets the Pharisaic system prevalent in first-century Judaism, though the condition transcends any particular religious context. Self-righteousness corrupts genuine faith by substituting human achievement for divine grace, personal merit for God's mercy. This mindset simultaneously elevates self and diminishes others, creating social and spiritual barriers. The parable that follows (verses 10-14) demonstrates that God's kingdom operates on completely opposite principles: justification comes through humble dependence on divine mercy, not confident trust in personal righteousness.",
+                "historical": "This parable appears in Luke's extended journey narrative (9:51-19:27) as Jesus travels toward Jerusalem for His final Passover and crucifixion. Luke uniquely preserves this parable, fitting his theological emphasis on God's mercy toward the marginalized and his critique of religious pride.<br><br>First-century Palestinian Judaism featured intense debate about righteousness and covenant membership. The Pharisees, whose name means \"separated ones,\" pursued meticulous observance of Torah and oral tradition to maintain covenant faithfulness. While their devotion was admirable in many respects, it frequently devolved into competitive religiosity and social stratification based on perceived holiness levels.<br><br>Tax collectors, by contrast, were considered traitors and sinners—collaborators with Rome who enriched themselves by collecting more than required. They were excommunicated from synagogue fellowship and considered beyond redemption by most religious Jews. Jesus' choice to contrast these two figures would have been shocking and offensive to His audience, directly challenging their assumptions about who stands justified before God. The parable's message anticipated the gospel's radical redefinition of righteousness as a gift received through faith rather than a status earned through works.",
+                "questions": [
+                    "How does self-righteousness subtly manifest in contemporary Christian life, ministry, or theological discussions?",
+                    "In what ways do believers today \"trust in themselves that they are righteous\" rather than resting solely in Christ's righteousness?",
+                    "How does the attitude of despising others reveal the presence of self-righteousness in our hearts?",
+                    "What spiritual practices or theological frameworks help guard against the Pharisaic mindset Jesus critiques here?",
+                    "How can the church cultivate genuine humility and dependence on grace while maintaining commitment to holiness and obedience?"
+                ]
+            }
+        }
+    },
+    "Hosea": {
+        "11": {
+            "7": {
+                "analysis": "<strong>And my people are bent to backsliding from me: though they called them to the most High, none at all would exalt him.</strong> This verse captures Israel's tragic pattern of persistent rebellion despite repeated prophetic calls to return to God. The Hebrew word \"bent\" (<em>telu'im</em>, תְּלוּאִים) means hung up, suspended, or inclined toward—indicating a fixed disposition or habitual tendency. \"Backsliding\" (<em>meshubati</em>, מְשׁוּבָתִי) describes turning away, apostasy, or covenant unfaithfulness.<br><br>The phrase \"though they called them to the most High\" refers to the prophets' repeated appeals for Israel to return to Yahweh, the supreme God (<em>al</em>, עַל, meaning \"upward\" or \"to the most High\"). Yet tragically, \"none at all would exalt him\" (<em>lo yerommenenhu</em>, לֹא יְרוֹמְמֶנְהוּ)—the people refused to lift up, honor, or worship God despite clear invitations to do so.<br><br>This verse reveals the depth of human sinfulness: even when confronted with truth and offered redemption, the rebellious heart resists returning to God. The pattern described here transcends Israel's specific historical situation, illustrating humanity's universal condition apart from grace. Romans 3:10-12 echoes this reality: \"there is none that seeketh after God.\" Yet Hosea's larger message provides hope—God's covenant love persists despite Israel's unfaithfulness, pointing forward to the new covenant established through Christ's atoning work.",
+                "historical": "Hosea prophesied in the Northern Kingdom of Israel during its final decades before Assyrian conquest (circa 755-725 BCE). This was a period of political instability, social corruption, and rampant idolatry, particularly Baal worship. Despite experiencing temporary prosperity under Jeroboam II, Israel's spiritual condition had deteriorated catastrophically.<br><br>The prophetic ministry during this era included contemporaries like Amos and Isaiah who likewise called the people to repentance. The phrase \"they called them to the most High\" references these prophetic appeals that went largely unheeded. Israel's syncretism blended Yahweh worship with Canaanite fertility cult practices, creating a corrupt religious system that maintained outward forms while abandoning covenant faithfulness.<br><br>The historical trajectory culminated in 722 BCE when Assyria destroyed Samaria and scattered the Northern Kingdom's population. Hosea's prophecy warned of this coming judgment while offering hope for ultimate restoration. His message, rooted in his own painful marriage to an unfaithful wife, illustrated God's anguished love for a persistently rebellious people. The verse thus serves both as historical indictment and timeless warning about the human heart's tendency toward spiritual adultery despite divine grace.",
+                "questions": [
+                    "What patterns of \"backsliding\" or spiritual drift do you recognize in your own walk with God, and what specific disciplines help counter these tendencies?",
+                    "How does understanding humanity's bent toward rebellion apart from grace affect your evangelism, discipleship, and pastoral ministry?",
+                    "In what ways do modern believers resist or ignore prophetic calls to deeper faithfulness, similar to Israel's response here?",
+                    "How does God's persistent love despite Israel's persistent rebellion demonstrate the nature of covenant grace that culminates in Christ?",
+                    "What warning does this verse provide about maintaining outward religious forms while the heart remains bent away from God?"
+                ]
+            }
+        }
+    },
+    "Psalms": {
+        "107": {
+            "16": {
+                "analysis": "<strong>For he hath broken the gates of brass, and cut the bars of iron in sunder.</strong> This verse celebrates God's powerful deliverance of His people from seemingly impossible captivity. The imagery of \"gates of brass\" and \"bars of iron\" represents the strongest, most formidable obstacles—literal prison doors or metaphorical barriers to freedom. Ancient Near Eastern fortifications used bronze (brass) and iron for maximum security, making them humanly insurmountable.<br><br>The Hebrew verb \"broken\" (<em>shibar</em>, שִׁבַּר) means shattered or destroyed completely, while \"cut in sunder\" (<em>gada</em>, גָּדַע) means hewn down or chopped through. These violent, definitive verbs emphasize God's irresistible power to demolish every barrier that enslaves His people. The verse likely references literal deliverance from Babylonian captivity (Isaiah 45:2 prophesies similarly of Cyrus's conquest of Babylon), but the imagery transcends any single historical event.<br><br>Theologically, this verse proclaims that no power—political, spiritual, or circumstantial—can permanently confine those whom God purposes to liberate. The New Testament applies this truth to Christ's redemptive work: He \"led captivity captive\" (Ephesians 4:8), broke sin's dominion, shattered death's power (Hebrews 2:14-15), and liberated believers from bondage to the law, sin, and spiritual darkness. Christians find here assurance that God's deliverance is comprehensive and certain—He breaks every chain that binds.",
+                "historical": "Psalm 107 is a post-exilic thanksgiving psalm celebrating Israel's return from Babylonian captivity (circa 538 BCE onward). The historical context involves the miraculous fall of Babylon to Cyrus the Persian, who issued a decree allowing Jewish exiles to return and rebuild Jerusalem. What seemed politically impossible—the collapse of the mighty Babylonian Empire and the release of captive peoples—God accomplished sovereignly.<br><br>The psalm's structure presents four scenarios of distress and deliverance (wilderness wandering, imprisonment, illness, and storm at sea), with this verse appearing in the second scenario about prisoners. Many Jews had literally experienced imprisonment and forced labor in Babylon. The massive bronze gates and iron-barred doors of Babylonian structures were legendary, yet God opened them through Cyrus's conquest.<br><br>For post-exilic Israel, this verse became a testimony of God's faithfulness to His covenant promises. Despite seventy years in exile, God had not forgotten His people. The return from Babylon became the paradigm of divine redemption, anticipating the greater exodus Christ would accomplish through His death and resurrection (Luke 9:31). This historical deliverance thus points forward to ultimate spiritual liberation.",
+                "questions": [
+                    "What \"gates of brass\" and \"bars of iron\" represent seemingly impossible obstacles in your current circumstances that require God's liberating power?",
+                    "How does confidence in God's ability to shatter every barrier shape the way you pray and approach impossible situations?",
+                    "In what ways does Christ's redemptive work break spiritual strongholds more formidable than any physical prison?",
+                    "How can this verse encourage believers facing political oppression, spiritual bondage, or overwhelming personal circumstances?",
+                    "What does this psalm teach about appropriate responses to God's deliverance—personal testimony, corporate worship, thanksgiving?"
+                ]
+            }
+        },
+        "31": {
+            "6": {
+                "analysis": "<strong>I have hated them that regard lying vanities: but I trust in the LORD.</strong> This verse declares a fundamental choice between worthless idols and the faithful covenant God. The Hebrew phrase \"lying vanities\" (<em>havlei-shav</em>, הַבְלֵי־שָׁוְא) combines two words for emptiness, falsehood, and worthlessness—describing idols as deceptive nothings that promise much but deliver nothing. The word <em>havel</em> appears prominently in Ecclesiastes as \"vanity,\" denoting that which is fleeting, empty, and meaningless.<br><br>\"I have hated\" (<em>saneti</em>, שָׂנֵאתִי) expresses intense aversion and moral rejection, not mere preference. This reflects covenant loyalty's requirement to reject all rivals to Yahweh's exclusive claim on worship and allegiance. The contrast \"but I trust in the LORD\" (<em>ani al-YHWH batachti</em>, אֲנִי אֶל־יְהוָה בָּטָחְתִּי) presents the positive alternative: confident reliance on Yahweh's character, promises, and covenant faithfulness.<br><br>Theologically, this verse articulates a choice every believer faces: place confidence in false securities (wealth, power, human approval, religious performance) or trust wholly in the living God. The New Testament develops this theme extensively—warning against idolatry in its many forms (1 Corinthians 10:14; Colossians 3:5; 1 John 5:21) while calling believers to single-minded devotion to God through Christ. The verse challenges any divided loyalty, calling for wholehearted trust in God alone as the source of security, meaning, and hope.",
+                "historical": "Psalm 31 is a lament psalm attributed to David, likely written during one of his many periods of distress and persecution. The historical superscription doesn't identify a specific occasion, but themes of enemies, distress, and divine refuge suggest experiences like his flight from Saul or Absalom's rebellion. David's rejection of \"lying vanities\" may reference the idolatry prevalent in surrounding nations or the false securities (military alliances, political maneuvering) that kings typically relied upon.<br><br>The psalm's language echoes Israel's covenantal commitment to exclusive Yahweh worship versus the polytheism of Canaan and neighboring nations. Ancient Near Eastern people commonly \"hedged their bets\" by worshiping multiple deities, but Israel's covenant required total allegiance to Yahweh alone. David's declaration represents covenant faithfulness in practice—choosing singular trust in God over pragmatic reliance on false securities.<br><br>This psalm gained significance in Christian tradition when Jesus quoted verse 5 from the cross (\"into thy hands I commit my spirit,\" Luke 23:46). This connection shows that David's trust in God amid affliction typologically pointed forward to Christ's perfect trust in the Father through suffering and death. The psalm thus bridges Old Testament covenant faithfulness with New Testament redemptive suffering.",
+                "questions": [
+                    "What are the \"lying vanities\" most tempting to contemporary believers—what false securities or worthless pursuits compete for your trust?",
+                    "How does hatred of false securities differ from mere avoidance, and why does wholehearted devotion to God require this intensity?",
+                    "In what areas of life do you find yourself trusting in visible, tangible securities rather than the invisible but faithful God?",
+                    "How does the consumerist, materialistic culture create \"lying vanities\" that promise fulfillment but deliver emptiness?",
+                    "What spiritual practices help maintain exclusive trust in the LORD when circumstances tempt us to seek security elsewhere?"
+                ]
+            }
+        }
+    },
+    "Joshua": {
+        "13": {
+            "10": {
+                "analysis": "<strong>And all the cities of Sihon king of the Amorites, which reigned in Heshbon, unto the border of the children of Ammon.</strong> This verse describes part of the territorial inheritance given to the tribe of Reuben east of the Jordan River. The mention of \"Sihon king of the Amorites\" recalls Israel's first major military victory after the wilderness wandering (Numbers 21:21-31; Deuteronomy 2:24-37). Sihon's defeat demonstrated God's faithfulness to fulfill His promises of giving Israel the land.<br><br>Heshbon served as Sihon's royal city and became a significant border town between Israelite territory and the Ammonites. The geographical detail emphasizes God's meticulous fulfillment of His covenant promises—every city, every boundary was precisely as God intended. The reference to \"the border of the children of Ammon\" indicates respect for divinely established boundaries; God commanded Israel not to harass Ammon because He had given that territory to Lot's descendants (Deuteronomy 2:19).<br><br>Theologically, this verse reminds us that God's promises involve both general principles and specific details. He is concerned not only with broad redemptive purposes but also with particular circumstances affecting His people's daily lives. The careful delineation of tribal inheritances demonstrates God's just distribution, orderly administration, and faithful provision. For Christians, this points to the greater inheritance we receive in Christ (Ephesians 1:11, 14)—an inheritance that is precisely planned, justly distributed, and eternally secure.",
+                "historical": "The conquest of Sihon occurred approximately 1406 BCE as Israel approached Canaan from the east after forty years of wilderness wandering. Sihon had previously conquered Moabite territory and established his kingdom in the Transjordan region. When he refused Israel passage and attacked them, God delivered him into Israel's hands, giving them their first territorial possession.<br><br>The allocation of Transjordan territory to Reuben, Gad, and half of Manasseh (Numbers 32) was conditional on these tribes' participation in the conquest of Canaan proper. Joshua 13 occurs during the later phase of the conquest as Joshua, now elderly, divides the land among the tribes. The careful recording of boundaries and cities served both legal (establishing property rights) and theological (documenting covenant fulfillment) purposes.<br><br>Archaeological evidence confirms the existence of significant Amorite settlements in this region during the Late Bronze Age. Heshbon (modern Tell Hesban) shows occupational levels corresponding to this period. The historical precision of these geographical details demonstrates the biblical text's reliability and the historical reality of God's covenant faithfulness to Israel. These concrete, verifiable details anchor faith in the God who acts in real history, in real places, for real people.",
+                "questions": [
+                    "How does God's attention to specific territorial details encourage you about His involvement in the particular circumstances of your life?",
+                    "What does the fulfillment of these ancient promises teach us about trusting God's promises for the future?",
+                    "How does the respect for divinely established boundaries (like Ammon's territory) inform Christian ethics regarding God's sovereign distribution of resources and opportunities?",
+                    "In what ways does the Old Testament inheritance of land prefigure and illuminate the New Testament's teaching about our eternal inheritance in Christ?",
+                    "How should the historical concreteness of God's covenant faithfulness to Israel shape our confidence in His faithfulness to the church?"
+                ]
+            }
+        }
+    },
+    "Job": {
+        "10": {
+            "11": {
+                "analysis": "<strong>Thou hast clothed me with skin and flesh, and hast fenced me with bones and sinews.</strong> In this verse, Job acknowledges God as his Creator, describing the intricate formation of his physical body. The Hebrew verb \"clothed\" (<em>labash</em>, לָבַשׁ) typically refers to putting on garments, but here metaphorically describes God covering Job's body with skin and flesh. \"Fenced\" (<em>sokek</em>, סֹכֵךְ) means woven together or intertwined, depicting the complex structure of bones and sinews (tendons, ligaments) forming the skeletal and muscular systems.<br><br>This poetic description reflects ancient understanding of human anatomy while expressing theological truth: humanity is God's deliberate creation, not the product of chance. Job's language anticipates modern appreciation for the body's complexity. The \"knit together\" imagery appears also in Psalm 139:13-15, where David marvels at God's creative work in the womb. Both passages affirm human dignity rooted in being purposefully designed by a personal Creator.<br><br>Contextually, Job speaks these words while lamenting his suffering and questioning why God, who so carefully crafted him, now seems intent on destroying him. Yet even in anguish, Job acknowledges God's sovereignty over his existence. This tension—confessing God's creative power while experiencing unexplained suffering—represents the book's central theological struggle. For Christians, this verse contributes to the biblical foundation for the sanctity of human life and bodily resurrection, as the God who intricately formed our bodies will also raise and glorify them (1 Corinthians 15:35-49).",
+                "historical": "The Book of Job is difficult to date precisely, with scholarly proposals ranging from the patriarchal period (2000-1800 BCE) to the post-exilic period (5th century BCE). The setting is the land of Uz, likely in Edom or northern Arabia, and the characters are non-Israelite. This universal setting makes Job's wisdom applicable across cultures and times, addressing the perennial question of innocent suffering.<br><br>Ancient Near Eastern wisdom literature includes texts addressing similar themes—the Babylonian \"Ludlul Bel Nemeqi\" (\"I Will Praise the Lord of Wisdom\") and the \"Babylonian Theodicy\" both explore righteous suffering. However, Job surpasses these in theological depth, refusing simplistic answers while affirming God's sovereign wisdom and ultimate vindication of the righteous.<br><br>Job's description of human formation reflects ancient understanding of anatomy while conveying timeless truth about human origins. Ancient peoples observed pregnancy and birth, noting the development of skin, flesh, bones, and sinews in the womb. Job's language transforms this observation into theological confession: human life originates from and belongs to God. This confession remains relevant in contemporary debates about human personhood, medical ethics, and the meaning of embodied existence.",
+                "questions": [
+                    "How does understanding your body as God's intricate handiwork affect your attitude toward physical health, aging, disability, or body image?",
+                    "What comfort does God's detailed creative work provide when facing illness, physical suffering, or mortality?",
+                    "How should the truth that God \"clothed\" and \"fenced\" you with your physical form shape Christian perspectives on bioethics, healthcare, and end-of-life decisions?",
+                    "In what ways does Job's acknowledgment of God as Creator, even amid suffering, model faith that confesses truth regardless of circumstances?",
+                    "How does belief in God as intentional Creator of human bodies inform Christian teaching on the resurrection and the eternal significance of embodied existence?"
+                ]
+            }
+        },
+        "16": {
+            "4": {
+                "analysis": "<strong>I also could speak as ye do: if your soul were in my soul's stead, I could heap up words against you, and shake mine head at you.</strong> Job responds to his friends' harsh and unsympathetic speeches with this pointed observation: their counsel lacks compassion because they haven't experienced his suffering. The phrase \"if your soul were in my soul's stead\" expresses the principle that genuine understanding requires empathy—entering into another's situation rather than pronouncing judgment from a position of comfort.<br><br>\"Heap up words\" (<em>chabar miliym</em>, חָבַר מִלִּים) means to join together or compile speeches—referring to the eloquent but empty rhetoric Job's friends have delivered. \"Shake mine head\" was a gesture of mockery, scorn, and condemnation in ancient Near Eastern culture (Psalm 22:7; Lamentations 2:15). Job declares he could easily mimic their approach—offering pious platitudes and self-righteous censure—if positions were reversed.<br><br>This verse highlights a perennial problem in pastoral care and counseling: offering glib answers to complex suffering without genuine compassion or humility. Job's friends assumed they understood both his situation and God's ways, speaking with confidence that their theology could explain everything. Job exposes their approach as fundamentally unloving—prioritizing theological systems over human persons. For Christians, this verse warns against judgmental responses to suffering and calls for compassionate presence that acknowledges mystery, mourns with those who mourn (Romans 12:15), and offers comfort rather than condemnation.",
+                "historical": "Job 16 occurs in the second cycle of dialogues between Job and his three friends—Eliphaz, Bildad, and Zophar. These friends came initially to comfort Job (2:11-13) but quickly shifted to prosecuting him, convinced his suffering must result from hidden sin. Their theology operated on a strict retribution principle: the righteous prosper, the wicked suffer; therefore, suffering proves wickedness.<br><br>This theological framework dominated much ancient Near Eastern wisdom thought and appeared frequently in Israelite tradition (Deuteronomy 28; Proverbs 3:1-10). However, it created pastoral problems when applied mechanically to individual cases, as Job's experience demonstrates. The friends' certainty that they could explain Job's suffering through their theological system represents a timeless temptation—preferring neat explanations to honest acknowledgment of mystery.<br><br>The Book of Job challenges oversimplified retribution theology, demonstrating that suffering's causes often transcend human understanding. The prologue (chapters 1-2) reveals heavenly dimensions to Job's trial that the friends never know. This literary structure teaches readers that pastoral wisdom requires humility about what we don't know, compassion that prioritizes relationship over explanation, and trust in God's goodness even when His purposes remain mysterious. Job's critique of his friends thus provides enduring wisdom for ministry to the suffering.",
+                "questions": [
+                    "How does this verse challenge you to examine whether your responses to others' suffering demonstrate genuine empathy or merely theoretical theology?",
+                    "What does Job's critique of his friends teach about the difference between speaking truth accurately and speaking truth lovingly?",
+                    "In what situations are you tempted to \"heap up words\" or offer simplistic explanations rather than compassionate presence to those who suffer?",
+                    "How can the church cultivate communities where suffering is met with empathy rather than judgment, mystery is acknowledged rather than explained away?",
+                    "What does this passage reveal about the limitations of theological systems when applied to individual human experiences of pain and suffering?"
+                ]
+            }
+        }
+    }
+}
+
+def update_commentary_json():
+    """Update the verse_commentary.json file with new commentary"""
+    json_path = Path(__file__).parent.parent / "kjvstudy_org" / "data" / "verse_commentary.json"
+
+    print(f"Reading commentary file: {json_path}")
+
+    # Read existing commentary
+    with open(json_path, 'r', encoding='utf-8') as f:
+        commentary = json.load(f)
+
+    # Track additions
+    additions = []
+
+    # Add new commentary
+    for book, chapters in NEW_COMMENTARY.items():
+        if book not in commentary:
+            commentary[book] = {}
+
+        for chapter, verses in chapters.items():
+            if chapter not in commentary[book]:
+                commentary[book][chapter] = {}
+
+            for verse, content in verses.items():
+                commentary[book][chapter][verse] = content
+                additions.append(f"{book} {chapter}:{verse}")
+                print(f"Added commentary for {book} {chapter}:{verse}")
+
+    # Write updated commentary
+    print(f"\nWriting updated commentary to: {json_path}")
+    with open(json_path, 'w', encoding='utf-8') as f:
+        json.dump(commentary, f, indent=2, ensure_ascii=False)
+
+    print(f"\n✓ Successfully added commentary for {len(additions)} verses:")
+    for ref in additions:
+        print(f"  - {ref}")
+
+    print("\nEach verse includes:")
+    print("  - Analysis (150-200 words with Hebrew/Greek references, HTML formatted)")
+    print("  - Historical context (100-150 words)")
+    print("  - 5 reflection questions")
+
+    return len(additions)
+
+if __name__ == "__main__":
+    total = update_commentary_json()
+    print(f"\nTotal verses updated: {total}")
