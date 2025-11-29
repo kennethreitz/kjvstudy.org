@@ -1839,6 +1839,9 @@
           // Skip links in concordance results (verse text already shown inline)
           if (target.closest('.occurrence-reference') || target.closest('.occurrence')) return;
 
+          // Skip links in cross-references section (has its own CSS tooltip system)
+          if (target.closest('.cross-references-section')) return;
+
           var verseInfo = parseVerseUrl(target.pathname + target.hash);
           if (!verseInfo) return;
 
