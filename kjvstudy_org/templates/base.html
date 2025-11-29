@@ -121,13 +121,14 @@
         .verse-tooltip {
             position: absolute;
             background: var(--bg-color);
-            border: 2px solid var(--border-color-darker);
+            border: 1px solid var(--border-color-darker);
             border-radius: 6px;
-            padding: 1rem;
+            padding: 0.75rem 1rem;
+            min-width: 300px;
             max-width: 400px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             z-index: 9999;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.6;
             color: var(--text-color);
             pointer-events: none;
@@ -157,14 +158,14 @@
 
         [data-theme="dark"] .verse-tooltip {
             background: #2a2a2a;
-            border-color: #555;
+            border-color: #444;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         @media (prefers-color-scheme: dark) {
             .verse-tooltip:not([data-theme]) {
                 background: #2a2a2a;
-                border-color: #555;
+                border-color: #444;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             }
         }
