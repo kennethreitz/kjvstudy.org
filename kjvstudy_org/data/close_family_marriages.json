@@ -47,6 +47,30 @@
       "description": "Rebekah was Isaac's first cousin once removed (granddaughter of his father's brother)",
       "verse": "Genesis 24:15",
       "notes": "Rebekah was the daughter of Bethuel, son of Nahor, Abraham's brother"
+    },
+    {
+      "person1": "Esau",
+      "person2": "Mahalath",
+      "relationship": "first cousins",
+      "description": "Mahalath was Esau's first cousin (daughter of his father's half-brother Ishmael)",
+      "verse": "Genesis 28:9",
+      "notes": "Esau went to Ishmael and took Mahalath the daughter of Ishmael to be his wife"
+    },
+    {
+      "person1": "Othniel",
+      "person2": "Achsah",
+      "relationship": "uncle-niece",
+      "description": "Achsah was Othniel's niece (daughter of his brother Caleb)",
+      "verse": "Judges 1:12-13",
+      "notes": "Caleb said, 'He who attacks and captures Kiriath Sepher, I will give him Achsah my daughter as wife.' Othniel son of Kenaz, Caleb's younger brother, took it"
+    },
+    {
+      "person1": "Zelophehad's daughters",
+      "person2": "Their cousins",
+      "relationship": "first cousins",
+      "description": "The five daughters of Zelophehad married their father's brothers' sons",
+      "verse": "Numbers 36:11",
+      "notes": "Mahlah, Tirzah, Hoglah, Milcah and Noah married their cousins on their father's side to keep the inheritance within the tribe"
     }
   ]
 }
