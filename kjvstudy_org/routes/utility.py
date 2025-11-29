@@ -9,6 +9,7 @@ from fastapi.responses import Response, FileResponse
 
 from ..kjv import bible
 from ..topics import get_all_topics
+from ..strongs import get_all_strongs
 
 router = APIRouter(tags=["Utility"])
 
@@ -164,7 +165,19 @@ def sitemap_main():
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>{base_url}/concordance</loc>
+        <loc>{base_url}/strongs</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/strongs/hebrew</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{base_url}/strongs/greek</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -369,6 +382,29 @@ def sitemap_main():
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+    </url>
+"""
+
+    # Add all Strong's entries (Hebrew H1-H8674, Greek G1-G5624)
+    # Get all Hebrew entries
+    hebrew_data = get_all_strongs("hebrew", page=1, per_page=10000)
+    for entry in hebrew_data["entries"]:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/strongs/{entry["strongs"]}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+"""
+
+    # Get all Greek entries
+    greek_data = get_all_strongs("greek", page=1, per_page=10000)
+    for entry in greek_data["entries"]:
+        sitemap_xml += f"""    <url>
+        <loc>{base_url}/strongs/{entry["strongs"]}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
     </url>
 """
 
