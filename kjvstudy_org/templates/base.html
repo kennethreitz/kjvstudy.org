@@ -1637,21 +1637,57 @@
           window.location.href = '/search';
         }
 
-        // g: Quick verse lookup
-        if (e.key === 'g') {
-          e.preventDefault();
-          showVerseLookup();
-        }
-
-        // r: Random verse
-        if (e.key === 'r') {
-          e.preventDefault();
-          window.location.href = '/random-verse';
-        }
-
-        // ?: Show keyboard shortcuts help
-        if (e.key === '?' && !e.shiftKey) {
-          showKeyboardHelp();
+        // Single key shortcuts for navigation (only work without modifiers)
+        if (!e.metaKey && !e.ctrlKey && !e.altKey) {
+          switch(e.key) {
+            case '`':
+              e.preventDefault();
+              var toggle = document.getElementById('sidebar-toggle');
+              if (toggle) {
+                toggle.checked = !toggle.checked;
+                toggle.dispatchEvent(new Event('change'));
+              }
+              break;
+            case 'g':
+              e.preventDefault();
+              showVerseLookup();
+              break;
+            case 'r':
+              e.preventDefault();
+              window.location.href = '/resources';
+              break;
+            case 'b':
+              e.preventDefault();
+              window.location.href = '/books';
+              break;
+            case 's':
+              e.preventDefault();
+              window.location.href = '/search';
+              break;
+            case 't':
+              e.preventDefault();
+              window.location.href = '/topics';
+              break;
+            case 'p':
+              e.preventDefault();
+              window.location.href = '/reading-plans';
+              break;
+            case 'f':
+              e.preventDefault();
+              window.location.href = '/family-tree';
+              break;
+            case 'c':
+              e.preventDefault();
+              window.location.href = '/strongs';
+              break;
+            case 'v':
+              e.preventDefault();
+              window.location.href = '/verse-of-the-day';
+              break;
+            case '?':
+              showKeyboardHelp();
+              break;
+          }
         }
       });
 
@@ -1692,16 +1728,84 @@
 
       // Keyboard shortcuts help modal
       function showKeyboardHelp() {
-        var helpText = 'Keyboard Shortcuts:\\n\\n' +
-          'g             - Quick verse lookup\\n' +
-          'r             - Random verse\\n' +
-          'Cmd/Ctrl + D  - Toggle dark mode\\n' +
-          'Cmd/Ctrl + B  - Toggle sidebar\\n' +
-          'Cmd/Ctrl + K  - Go to search\\n' +
-          '/             - Go to search\\n' +
-          '?             - Show this help\\n' +
-          'Esc           - Clear focus';
-        alert(helpText);
+        // Remove existing modal if present
+        var existingModal = document.getElementById('keyboard-help-modal');
+        if (existingModal) {
+          existingModal.remove();
+          return;
+        }
+
+        var modal = document.createElement('div');
+        modal.id = 'keyboard-help-modal';
+        modal.innerHTML =
+          '<div class="keyboard-help-backdrop"></div>' +
+          '<div class="keyboard-help-content">' +
+            '<button class="keyboard-help-close" aria-label="Close">&times;</button>' +
+            '<h2>Keyboard Shortcuts</h2>' +
+            '<div class="keyboard-help-columns">' +
+              '<div class="keyboard-help-section">' +
+                '<h3>Navigation</h3>' +
+                '<div class="shortcut"><kbd>b</kbd><span>Books</span></div>' +
+                '<div class="shortcut"><kbd>s</kbd><span>Search</span></div>' +
+                '<div class="shortcut"><kbd>r</kbd><span>Resources</span></div>' +
+                '<div class="shortcut"><kbd>t</kbd><span>Topics</span></div>' +
+                '<div class="shortcut"><kbd>p</kbd><span>Reading Plans</span></div>' +
+                '<div class="shortcut"><kbd>f</kbd><span>Family Tree</span></div>' +
+                '<div class="shortcut"><kbd>c</kbd><span>Strong\'s Concordance</span></div>' +
+                '<div class="shortcut"><kbd>v</kbd><span>Verse of the Day</span></div>' +
+                '<div class="shortcut"><kbd>g</kbd><span>Quick verse lookup</span></div>' +
+              '</div>' +
+              '<div class="keyboard-help-section">' +
+                '<h3>Page Navigation</h3>' +
+                '<div class="shortcut"><kbd>↑</kbd> / <kbd>k</kbd><span>Previous item</span></div>' +
+                '<div class="shortcut"><kbd>↓</kbd> / <kbd>j</kbd><span>Next item</span></div>' +
+                '<div class="shortcut"><kbd>←</kbd> / <kbd>h</kbd><span>Go back</span></div>' +
+                '<div class="shortcut"><kbd>→</kbd> / <kbd>l</kbd><span>Next page</span></div>' +
+                '<div class="shortcut"><kbd>Enter</kbd><span>Select / Open</span></div>' +
+              '</div>' +
+              '<div class="keyboard-help-section">' +
+                '<h3>Other</h3>' +
+                '<div class="shortcut"><kbd>`</kbd><span>Toggle sidebar</span></div>' +
+                '<div class="shortcut"><kbd>⌘</kbd>+<kbd>D</kbd><span>Toggle dark mode</span></div>' +
+                '<div class="shortcut"><kbd>/</kbd><span>Go to search</span></div>' +
+                '<div class="shortcut"><kbd>?</kbd><span>Show this help</span></div>' +
+                '<div class="shortcut"><kbd>Esc</kbd><span>Close / Clear focus</span></div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+
+        // Add styles
+        var style = document.createElement('style');
+        style.textContent =
+          '#keyboard-help-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; }' +
+          '.keyboard-help-backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); }' +
+          '.keyboard-help-content { position: relative; background: var(--bg-color); border-radius: 8px; padding: 1.5rem 2rem; max-width: 700px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }' +
+          '.keyboard-help-content h2 { margin: 0 0 1rem 0; font-size: 1.4rem; font-weight: 600; }' +
+          '.keyboard-help-close { position: absolute; top: 0.75rem; right: 0.75rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); padding: 0.25rem 0.5rem; line-height: 1; }' +
+          '.keyboard-help-close:hover { color: var(--text-color); }' +
+          '.keyboard-help-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }' +
+          '.keyboard-help-section h3 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin: 0 0 0.75rem 0; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }' +
+          '.shortcut { display: flex; align-items: center; gap: 0.5rem; margin: 0.4rem 0; font-size: 0.9rem; }' +
+          '.shortcut kbd { display: inline-block; padding: 0.15rem 0.4rem; font-family: inherit; font-size: 0.8rem; background: var(--code-bg); border: 1px solid var(--border-color-darker); border-radius: 3px; min-width: 1.5rem; text-align: center; }' +
+          '.shortcut span { color: var(--text-secondary); }' +
+          '@media (max-width: 700px) { .keyboard-help-columns { grid-template-columns: 1fr; } .keyboard-help-content { margin: 1rem; padding: 1rem 1.5rem; } }';
+        modal.appendChild(style);
+
+        document.body.appendChild(modal);
+
+        // Close handlers
+        modal.querySelector('.keyboard-help-backdrop').addEventListener('click', function() {
+          modal.remove();
+        });
+        modal.querySelector('.keyboard-help-close').addEventListener('click', function() {
+          modal.remove();
+        });
+        document.addEventListener('keydown', function closeOnEsc(e) {
+          if (e.key === 'Escape') {
+            modal.remove();
+            document.removeEventListener('keydown', closeOnEsc);
+          }
+        });
       }
 
       // Verse tooltip functionality

@@ -324,4 +324,50 @@
     </div>
 </div>
 {% endif %}
+
+<script>
+(function() {
+    // For search results page
+    const resultItems = Array.from(document.querySelectorAll('.result-item'));
+    // For browse page - cards and quick links
+    const browseCards = Array.from(document.querySelectorAll('.browse-card'));
+    const quickLinks = Array.from(document.querySelectorAll('.quick-link'));
+
+    const allItems = resultItems.length > 0 ? resultItems : browseCards.concat(quickLinks);
+    if (allItems.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectItem(index) {
+        if (selectedIndex >= 0 && selectedIndex < allItems.length) {
+            allItems[selectedIndex].style.outline = '';
+            allItems[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, allItems.length - 1));
+        allItems[selectedIndex].style.outline = '2px solid #4a7c59';
+        allItems[selectedIndex].style.outlineOffset = '2px';
+        allItems[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectItem(0);
+            else selectItem(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const link = allItems[selectedIndex].tagName === 'A' ? allItems[selectedIndex] : allItems[selectedIndex].querySelector('a');
+            if (link) window.location.href = link.href;
+        }
+    });
+})();
+</script>
 {% endblock %}

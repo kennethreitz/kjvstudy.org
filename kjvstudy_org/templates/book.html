@@ -431,18 +431,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Click to select chapter
-    chapterLinks.forEach((link, index) => {
-        link.addEventListener('click', function(e) {
-            if (selectedChapterIndex === index) {
-                // Already selected, navigate
-                return; // Let default behavior happen
-            } else {
-                e.preventDefault();
-                selectChapter(index);
-            }
-        });
-    });
+    // Clicking on chapter links should just navigate normally
+    // Keyboard navigation is separate - no click-to-select behavior needed
 });
 </script>
 {% endblock %}

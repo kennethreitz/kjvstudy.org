@@ -40,4 +40,43 @@
 <nav>
     <p><a href="/">← Home</a></p>
 </nav>
+
+<script>
+(function() {
+    const links = Array.from(document.querySelectorAll('section p strong a[href^="/study-guides/"]'));
+    if (links.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectLink(index) {
+        if (selectedIndex >= 0 && selectedIndex < links.length) {
+            links[selectedIndex].style.outline = '';
+            links[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, links.length - 1));
+        links[selectedIndex].style.outline = '2px solid #4a7c59';
+        links[selectedIndex].style.outlineOffset = '2px';
+        links[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectLink(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectLink(0);
+            else selectLink(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            window.location.href = links[selectedIndex].href;
+        }
+    });
+})();
+</script>
 {% endblock %}

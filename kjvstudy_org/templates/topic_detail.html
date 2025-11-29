@@ -197,4 +197,44 @@
 <div>
     <p><a href="/topics">← Back to all topics</a></p>
 </div>
+
+<script>
+(function() {
+    const sections = Array.from(document.querySelectorAll('.subtopic-section'));
+    if (sections.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectSection(index) {
+        if (selectedIndex >= 0 && selectedIndex < sections.length) {
+            sections[selectedIndex].style.outline = '';
+            sections[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, sections.length - 1));
+        sections[selectedIndex].style.outline = '2px solid #4a7c59';
+        sections[selectedIndex].style.outlineOffset = '4px';
+        sections[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectSection(0);
+            else selectSection(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const firstLink = sections[selectedIndex].querySelector('.verse-ref a');
+            if (firstLink) window.location.href = firstLink.href;
+        }
+    });
+})();
+</script>
 {% endblock %}

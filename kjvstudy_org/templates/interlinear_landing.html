@@ -52,4 +52,16 @@
 <nav>
     <p><a href="/">← Home</a></p>
 </nav>
+
+<script>
+document.addEventListener('keydown', function(e) {
+    // Don't handle if user is typing in an input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        history.back();
+    }
+});
+</script>
 {% endblock %}

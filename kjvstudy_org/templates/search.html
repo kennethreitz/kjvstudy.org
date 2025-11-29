@@ -437,6 +437,44 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Keyboard navigation for search results
+    var searchResults = Array.from(document.querySelectorAll('.search-result'));
+    if (searchResults.length > 0) {
+        var resultIndex = -1;
+
+        function selectResult(index) {
+            if (resultIndex >= 0 && resultIndex < searchResults.length) {
+                searchResults[resultIndex].style.outline = '';
+                searchResults[resultIndex].style.outlineOffset = '';
+            }
+            resultIndex = Math.max(0, Math.min(index, searchResults.length - 1));
+            searchResults[resultIndex].style.outline = '2px solid #4a7c59';
+            searchResults[resultIndex].style.outlineOffset = '4px';
+            searchResults[resultIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            // Don't handle when typing in search input or dropdown is open
+            if (e.target === searchInput || dropdown.classList.contains('show')) return;
+
+            if (e.key === 'ArrowDown' || e.key === 'j') {
+                e.preventDefault();
+                selectResult(resultIndex < 0 ? 0 : resultIndex + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'k') {
+                e.preventDefault();
+                if (resultIndex <= 0) selectResult(0);
+                else selectResult(resultIndex - 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+                e.preventDefault();
+                history.back();
+            } else if (e.key === 'Enter' && resultIndex >= 0) {
+                e.preventDefault();
+                var link = searchResults[resultIndex].querySelector('.result-reference a');
+                if (link) window.location.href = link.href;
+            }
+        });
+    }
 });
 </script>
 {% endblock %}

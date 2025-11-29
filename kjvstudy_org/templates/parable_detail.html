@@ -115,4 +115,44 @@
 <section>
     <p><a href="/parables">← Back to all parables</a></p>
 </section>
+
+<script>
+(function() {
+    const verses = Array.from(document.querySelectorAll('.verse-item'));
+    if (verses.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectVerse(index) {
+        if (selectedIndex >= 0 && selectedIndex < verses.length) {
+            verses[selectedIndex].style.outline = '';
+            verses[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, verses.length - 1));
+        verses[selectedIndex].style.outline = '2px solid #4a7c59';
+        verses[selectedIndex].style.outlineOffset = '4px';
+        verses[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectVerse(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectVerse(0);
+            else selectVerse(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const link = verses[selectedIndex].querySelector('.verse-ref a');
+            if (link) window.location.href = link.href;
+        }
+    });
+})();
+</script>
 {% endblock %}

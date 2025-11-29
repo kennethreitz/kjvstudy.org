@@ -93,4 +93,57 @@
 
     <p class="intro-text">Topical study complements sequential Bible reading by allowing focused examination of specific doctrines or practical matters. Compare passages across different books and testaments to grasp the full biblical teaching on any subject.</p>
 </div>
+
+<script>
+(function() {
+    const cards = Array.from(document.querySelectorAll('.topic-card'));
+    if (cards.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function getGridColumns() {
+        if (window.innerWidth <= 768) return 1;
+        const grid = document.querySelector('.topic-grid');
+        if (!grid) return 1;
+        const style = getComputedStyle(grid);
+        const cols = style.gridTemplateColumns.split(' ').length;
+        return cols || 1;
+    }
+
+    function selectCard(index) {
+        if (selectedIndex >= 0 && selectedIndex < cards.length) {
+            cards[selectedIndex].style.outline = '';
+            cards[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, cards.length - 1));
+        cards[selectedIndex].style.outline = '2px solid #4a7c59';
+        cards[selectedIndex].style.outlineOffset = '2px';
+        cards[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        const cols = getGridColumns();
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectCard(selectedIndex < 0 ? 0 : selectedIndex + cols);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex < 0) selectCard(0);
+            else if (selectedIndex - cols >= 0) selectCard(selectedIndex - cols);
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            selectCard(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (selectedIndex <= 0) history.back();
+            else selectCard(selectedIndex - 1);
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            window.location.href = cards[selectedIndex].href;
+        }
+    });
+})();
+</script>
 {% endblock %}

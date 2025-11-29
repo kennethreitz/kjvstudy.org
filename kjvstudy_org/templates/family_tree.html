@@ -787,6 +787,167 @@ document.addEventListener('DOMContentLoaded', function() {
             hideDropdown();
         }
     });
+
+    // Keyboard navigation for page elements
+    const featureCards = Array.from(document.querySelectorAll('.feature-card'));
+    const genCards = Array.from(document.querySelectorAll('.gen-card'));
+    const personCards = Array.from(document.querySelectorAll('.person-card'));
+
+    // Combine all navigable items
+    const allItems = featureCards.concat(genCards).concat(personCards);
+    if (allItems.length === 0) return;
+
+    let selectedIndex = -1;
+
+    // Define section boundaries
+    const featureEnd = featureCards.length;
+    const genEnd = featureEnd + genCards.length;
+
+    function getLink(item) {
+        const link = item.querySelector('a');
+        return link ? link.href : null;
+    }
+
+    function selectItem(index) {
+        // Remove previous selection
+        if (selectedIndex >= 0 && selectedIndex < allItems.length) {
+            allItems[selectedIndex].style.outline = '';
+            allItems[selectedIndex].style.outlineOffset = '';
+        }
+
+        // Bounds check
+        selectedIndex = Math.max(0, Math.min(index, allItems.length - 1));
+
+        // Add selection
+        allItems[selectedIndex].style.outline = '2px solid #4a7c59';
+        allItems[selectedIndex].style.outlineOffset = '2px';
+
+        // Scroll into view
+        allItems[selectedIndex].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+
+    function getGridColumns() {
+        // Feature cards are 2 columns, others are 1 column
+        if (selectedIndex < featureEnd) {
+            return window.innerWidth <= 768 ? 1 : 2;
+        }
+        return 1;
+    }
+
+    function moveUp() {
+        const cols = getGridColumns();
+        if (selectedIndex < featureEnd) {
+            // In feature section - move up by cols, or jump to before section
+            const newIndex = selectedIndex - cols;
+            if (newIndex >= 0) {
+                selectItem(newIndex);
+            }
+        } else if (selectedIndex < genEnd) {
+            // In generation section - up moves to previous gen or last feature
+            if (selectedIndex === featureEnd) {
+                selectItem(featureEnd - 1);
+            } else {
+                selectItem(selectedIndex - 1);
+            }
+        } else {
+            // In person section - up moves to previous person or last gen
+            if (selectedIndex === genEnd) {
+                selectItem(genEnd - 1);
+            } else {
+                selectItem(selectedIndex - 1);
+            }
+        }
+    }
+
+    function moveDown() {
+        const cols = getGridColumns();
+        if (selectedIndex < featureEnd) {
+            // In feature section - move down by cols or jump to generations
+            const newIndex = selectedIndex + cols;
+            if (newIndex < featureEnd) {
+                selectItem(newIndex);
+            } else {
+                selectItem(featureEnd);
+            }
+        } else if (selectedIndex < genEnd) {
+            // In generation section - down moves to next gen or first person
+            if (selectedIndex === genEnd - 1) {
+                selectItem(genEnd);
+            } else {
+                selectItem(selectedIndex + 1);
+            }
+        } else {
+            // In person section - down moves to next person
+            selectItem(selectedIndex + 1);
+        }
+    }
+
+    function moveLeft() {
+        if (selectedIndex < featureEnd) {
+            // In feature section - move left within row
+            if (selectedIndex > 0) {
+                selectItem(selectedIndex - 1);
+            } else {
+                history.back();
+            }
+        } else {
+            // Other sections have no left movement, go back
+            history.back();
+        }
+    }
+
+    function moveRight() {
+        if (selectedIndex < featureEnd) {
+            // In feature section - move right within row
+            const cols = getGridColumns();
+            const row = Math.floor(selectedIndex / cols);
+            const nextInRow = (row * cols) + ((selectedIndex % cols) + 1);
+            if (nextInRow < featureEnd && nextInRow < (row + 1) * cols) {
+                selectItem(nextInRow);
+            }
+        }
+        // Other sections have no right movement
+    }
+
+    document.addEventListener('keydown', function(e) {
+        // Don't handle if user is typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            if (selectedIndex < 0) {
+                selectItem(0);
+            } else {
+                moveDown();
+            }
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex < 0) {
+                selectItem(0);
+            } else {
+                moveUp();
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (selectedIndex < 0) {
+                history.back();
+            } else {
+                moveLeft();
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (selectedIndex >= 0) {
+                moveRight();
+            }
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const href = getLink(allItems[selectedIndex]);
+            if (href) window.location.href = href;
+        }
+    });
 });
 </script>
 {% endblock %}

@@ -344,18 +344,7 @@
         }
     });
 
-    // Click to select
-    cards.forEach((card, index) => {
-        card.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (selectedIndex === index) {
-                // Double-click behavior: navigate
-                window.location.href = card.href;
-            } else {
-                selectCard(index);
-            }
-        });
-    });
+    // Clicks navigate normally - no interference with default link behavior
 })();
 </script>
 {% endblock %}
