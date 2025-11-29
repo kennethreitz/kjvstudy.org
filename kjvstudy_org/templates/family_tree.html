@@ -160,17 +160,33 @@ section:nth-of-type(3) {
 {% if family_tree_data and generations %}
     <section>
         <h2>Overview</h2>
-        <div class="stats-line">
-            <span class="stat-item"><span class="stat-number">{{ family_tree_data|length }}</span> individuals recorded</span>
-            <span class="stat-item"><span class="stat-number">{{ generations|length }}</span> generations from Adam</span>
-            {% set people_with_age = [] %}
-            {% for person_id, person in family_tree_data.items() %}
-                {% if person.age_at_death != "Unknown" and "years" in person.age_at_death %}
-                    {% set _ = people_with_age.append(person) %}
-                {% endif %}
-            {% endfor %}
-            <span class="stat-item"><span class="stat-number">{{ people_with_age|length }}</span> with recorded ages</span>
+        <div id="family-tree-stats-loading">
+            <p style="color: #999;">Loading statistics...</p>
         </div>
+        <table id="family-tree-stats" style="display: none; margin-top: 1rem;">
+            <tbody>
+                <tr>
+                    <td>Total People:</td>
+                    <td id="stat-total-people">{{ family_tree_data|length }}</td>
+                </tr>
+                <tr>
+                    <td>Total Generations:</td>
+                    <td id="stat-total-generations">{{ generations|length }}</td>
+                </tr>
+                <tr>
+                    <td>Longest Lived:</td>
+                    <td id="stat-longest-lived">—</td>
+                </tr>
+                <tr>
+                    <td>Most Children:</td>
+                    <td id="stat-most-children">—</td>
+                </tr>
+                <tr>
+                    <td>Average Lifespan:</td>
+                    <td id="stat-average-lifespan">—</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
     <section>
@@ -264,6 +280,47 @@ section:nth-of-type(3) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Fetch and display family tree statistics
+    const statsContainer = document.getElementById('family-tree-stats');
+    const statsLoading = document.getElementById('family-tree-stats-loading');
+
+    fetch('/api/family-tree/stats')
+        .then(response => response.json())
+        .then(data => {
+            // Update the statistics
+            document.getElementById('stat-total-people').textContent = data.total_people;
+            document.getElementById('stat-total-generations').textContent = data.total_generations;
+
+            // Longest lived person
+            if (data.longest_lived && data.longest_lived.value > 0) {
+                document.getElementById('stat-longest-lived').textContent =
+                    `${data.longest_lived.name} (${data.longest_lived.value} years)`;
+            }
+
+            // Most children
+            if (data.most_children && data.most_children.value > 0) {
+                document.getElementById('stat-most-children').textContent =
+                    `${data.most_children.name} (${data.most_children.value} children)`;
+            }
+
+            // Average lifespan
+            if (data.average_lifespan) {
+                document.getElementById('stat-average-lifespan').textContent =
+                    `${data.average_lifespan} years (${data.total_with_known_ages} people with known ages)`;
+            } else {
+                document.getElementById('stat-average-lifespan').textContent = 'No data available';
+            }
+
+            // Show stats, hide loading
+            statsLoading.style.display = 'none';
+            statsContainer.style.display = 'table';
+        })
+        .catch(error => {
+            console.error('Error loading family tree statistics:', error);
+            statsLoading.innerHTML = '<p style="color: #999;">Could not load statistics</p>';
+        });
+
+    // Search functionality
     const names = {{ person_names|default([])|tojson }};
     const input = document.getElementById('family-tree-search-input');
     const dropdown = document.getElementById('family-tree-search-dropdown');
