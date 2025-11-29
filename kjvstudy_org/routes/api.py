@@ -21,6 +21,10 @@ from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse, create_slug, CHAPTER_EXPLANATIONS
 from ..books import get_book_data, get_all_books_metadata, has_book_data
 from ..red_letter import get_christ_words, load_red_letter_verses
+from ..strongs import (
+    get_strongs_entry, format_strongs_entry, search_strongs,
+    get_strongs_definition, get_strongs_word
+)
 from ..stories import (
     get_categories,
     get_story_by_slug,
@@ -2242,4 +2246,96 @@ def api_get_biography(
         "summary": biography.get("summary", ""),
         "significance": biography.get("significance", ""),
         "key_events": biography.get("key_events", [])
+    }
+
+
+# =============================================================================
+# Strong's Concordance Endpoints
+# =============================================================================
+
+@router.get(
+    "/strongs/{strongs_number}",
+    summary="Get Strong's concordance entry",
+    description="Look up a Strong's number (e.g., H1, G3056) and get the full definition, etymology, and KJV usage.",
+    responses={
+        200: {
+            "description": "Strong's entry found",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "strongs": "G3056",
+                        "language": "Greek",
+                        "word": "λόγος",
+                        "transliteration": "lógos",
+                        "definition": "something said (including the thought)",
+                        "kjv_usage": "account, cause, communication, doctrine, saying, word",
+                        "derivation": "from G3004 (λέγω);"
+                    }
+                }
+            }
+        },
+        404: {"description": "Strong's number not found"}
+    }
+)
+def api_get_strongs(
+    strongs_number: str = Path(
+        ...,
+        description="Strong's number (H1-H8674 for Hebrew, G1-G5624 for Greek)",
+        example="G3056"
+    )
+):
+    """Look up a Strong's concordance entry."""
+    entry = format_strongs_entry(strongs_number)
+    if not entry:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Strong's number '{strongs_number}' not found. Use H1-H8674 for Hebrew or G1-G5624 for Greek."
+        )
+    return entry
+
+
+@router.get(
+    "/strongs",
+    summary="Search Strong's concordance",
+    description="Search Hebrew and Greek dictionaries by definition or KJV usage.",
+    responses={
+        200: {
+            "description": "Search results",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "query": "love",
+                        "language": "both",
+                        "total": 25,
+                        "results": [
+                            {
+                                "strongs": "G26",
+                                "language": "Greek",
+                                "word": "ἀγάπη",
+                                "definition": "love, i.e. affection or benevolence",
+                                "kjv_usage": "charity, dear, love"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+)
+def api_search_strongs(
+    q: str = Query(..., description="Search query", example="love"),
+    language: str = Query(
+        "both",
+        description="Language to search: 'hebrew', 'greek', or 'both'",
+        example="both"
+    ),
+    limit: int = Query(50, description="Maximum results", ge=1, le=200)
+):
+    """Search Strong's concordance by definition or KJV usage."""
+    results = search_strongs(q, language=language.lower(), limit=limit)
+    return {
+        "query": q,
+        "language": language,
+        "total": len(results),
+        "results": results
     }

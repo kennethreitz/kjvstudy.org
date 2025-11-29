@@ -23,6 +23,7 @@ from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
 from .topics import get_all_topics, get_topic, search_topics
 from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data
+from .strongs import format_strongs_entry, search_strongs
 from .books import get_book_data, has_book_data
 
 # Import from modular packages
@@ -2447,5 +2448,63 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "interlinear_words": interlinear_words,
             "related_content": related_content,
             "is_old_testament": is_ot
+        }
+    )
+
+
+# =============================================================================
+# Strong's Concordance Routes
+# =============================================================================
+
+@app.get("/strongs", response_class=HTMLResponse)
+def strongs_index(request: Request, q: str = None):
+    """Strong's Concordance search and lookup page."""
+    results = []
+    if q:
+        results = search_strongs(q, language="both", limit=100)
+
+    books = [b.name for b in bible.books]
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Strong's Concordance", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        request,
+        "strongs_index.html",
+        {
+            "query": q or "",
+            "results": results,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@app.get("/strongs/{strongs_number}", response_class=HTMLResponse)
+def strongs_entry(request: Request, strongs_number: str):
+    """View a single Strong's concordance entry."""
+    entry = format_strongs_entry(strongs_number)
+
+    if not entry:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Strong's number '{strongs_number}' not found"
+        )
+
+    books = [b.name for b in bible.books]
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Strong's Concordance", "url": "/strongs"},
+        {"text": strongs_number.upper(), "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        request,
+        "strongs_entry.html",
+        {
+            "entry": entry,
+            "books": books,
+            "breadcrumbs": breadcrumbs
         }
     )

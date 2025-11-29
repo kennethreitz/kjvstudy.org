@@ -565,15 +565,7 @@
                 <span class="word-english">{{ word.english }}</span>
                 <span class="word-strongs">
                     {% if word.strongs %}
-                        {% set lang = word.strongs[0]|lower %}
-                        {% set num = word.strongs[1:] %}
-                        {% if lang == 'g' %}
-                            <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener" onclick="event.stopPropagation()">{{ word.strongs }}</a>
-                        {% elif lang == 'h' %}
-                            <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener" onclick="event.stopPropagation()">{{ word.strongs }}</a>
-                        {% else %}
-                            {{ word.strongs }}
-                        {% endif %}
+                        <a href="/strongs/{{ word.strongs }}" onclick="event.stopPropagation()">{{ word.strongs }}</a>
                     {% endif %}
                 </span>
                 <div class="word-detail">
@@ -591,15 +583,7 @@
                         <span class="word-detail-label">Strong's:</span>
                         <span class="word-detail-value">
                             {% if word.strongs %}
-                                {% set lang = word.strongs[0]|lower %}
-                                {% set num = word.strongs[1:] %}
-                                {% if lang == 'g' %}
-                                    <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener" style="color: #4a7c59;">{{ word.strongs }}</a>
-                                {% elif lang == 'h' %}
-                                    <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener" style="color: #4a7c59;">{{ word.strongs }}</a>
-                                {% else %}
-                                    {{ word.strongs }}
-                                {% endif %}
+                                <a href="/strongs/{{ word.strongs }}" style="color: #4a7c59;">{{ word.strongs }}</a>
                             {% else %}
                                 —
                             {% endif %}

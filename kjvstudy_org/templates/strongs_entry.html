@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}{{ entry.strongs }} - {{ entry.word }} - Strong's Concordance{% endblock %}
+
+{% block description %}{{ entry.strongs }}: {{ entry.word }} ({{ entry.transliteration }}) - {{ entry.definition[:150] }}{% endblock %}
+
+{% block head %}
+<style>
+.strongs-entry {
+    max-width: 700px;
+}
+
+.entry-header {
+    margin-bottom: 2rem;
+}
+
+.entry-number {
+    font-family: monospace;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.entry-word {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.entry-word.hebrew {
+    direction: rtl;
+    font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif;
+}
+
+.entry-word.greek {
+    font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
+}
+
+.entry-translit {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.entry-pronunciation {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.lang-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.lang-badge.hebrew {
+    background: #8B4513;
+    color: #fff;
+}
+
+.lang-badge.greek {
+    background: #4169E1;
+    color: #fff;
+}
+
+.entry-section {
+    margin: 2rem 0;
+}
+
+.entry-section h2 {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.entry-definition {
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
+
+.entry-kjv {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.entry-derivation {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.strongs-ref {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.strongs-ref:hover {
+    text-decoration: underline;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.nav-link {
+    padding: 0.5rem 1rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.nav-link:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<article class="strongs-entry">
+    <header class="entry-header">
+        <p class="entry-number">
+            {{ entry.strongs }}
+            <span class="lang-badge {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.language }}</span>
+        </p>
+        <h1 class="entry-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.word }}</h1>
+        <p class="entry-translit">{{ entry.transliteration }}</p>
+        {% if entry.pronunciation %}
+        <p class="entry-pronunciation">Pronunciation: {{ entry.pronunciation }}</p>
+        {% endif %}
+    </header>
+
+    <section class="entry-section">
+        <h2>Definition</h2>
+        <p class="entry-definition">{{ entry.definition }}</p>
+    </section>
+
+    {% if entry.kjv_usage %}
+    <section class="entry-section">
+        <h2>KJV Translation</h2>
+        <p class="entry-kjv">{{ entry.kjv_usage }}</p>
+    </section>
+    {% endif %}
+
+    {% if entry.derivation %}
+    <section class="entry-section">
+        <h2>Derivation</h2>
+        <p class="entry-derivation">{{ entry.derivation | replace('H', '<a href="/strongs/H') | replace('G', '<a href="/strongs/G') | safe }}</p>
+    </section>
+    {% endif %}
+
+    <nav class="nav-links">
+        <a href="/strongs" class="nav-link">← Search Strong's</a>
+        {% set num = entry.strongs[1:] | int %}
+        {% set prefix = entry.strongs[0] %}
+        {% if num > 1 %}
+        <a href="/strongs/{{ prefix }}{{ num - 1 }}" class="nav-link">← {{ prefix }}{{ num - 1 }}</a>
+        {% endif %}
+        <a href="/strongs/{{ prefix }}{{ num + 1 }}" class="nav-link">{{ prefix }}{{ num + 1 }} →</a>
+    </nav>
+</article>
+{% endblock %}

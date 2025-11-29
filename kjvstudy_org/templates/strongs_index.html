@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Strong's Concordance - KJV Study{% endblock %}
+
+{% block description %}Search Strong's Exhaustive Concordance. Look up Hebrew and Greek word definitions, etymology, and KJV usage.{% endblock %}
+
+{% block head %}
+<style>
+.search-form {
+    max-width: 600px;
+    margin: 2rem 0;
+}
+
+.search-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 1px solid var(--border-color-darker);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--link-color);
+}
+
+.search-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background: var(--link-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.search-btn:hover {
+    background: var(--link-hover);
+}
+
+.results-count {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.result-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.result-strongs {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.result-strongs:hover {
+    text-decoration: underline;
+}
+
+.result-word {
+    font-size: 1.4rem;
+}
+
+.result-word.hebrew {
+    direction: rtl;
+    font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif;
+}
+
+.result-word.greek {
+    font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
+}
+
+.result-lang {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+.result-lang.hebrew {
+    background: #8B4513;
+    color: #fff;
+}
+
+.result-lang.greek {
+    background: #4169E1;
+    color: #fff;
+}
+
+.result-definition {
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.result-kjv {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.quick-lookup {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.quick-lookup h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.quick-link {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.85rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.quick-link:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Strong's Concordance</h1>
+<p class="subtitle">Hebrew & Greek Word Definitions</p>
+
+<form class="search-form" action="/strongs" method="get">
+    <div class="search-input-group">
+        <input type="text" name="q" class="search-input" placeholder="Search by definition (e.g., love, faith, grace)" value="{{ query }}">
+        <button type="submit" class="search-btn">Search</button>
+    </div>
+</form>
+
+{% if query %}
+<p class="results-count">{{ results|length }} result{% if results|length != 1 %}s{% endif %} for "{{ query }}"</p>
+
+{% if results %}
+<ul class="results-list">
+    {% for result in results %}
+    <li class="result-item">
+        <div class="result-header">
+            <a href="/strongs/{{ result.strongs }}" class="result-strongs">{{ result.strongs }}</a>
+            <span class="result-word {% if result.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ result.word }}</span>
+            <span class="result-lang {% if result.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ result.language }}</span>
+        </div>
+        <p class="result-definition">{{ result.definition }}</p>
+        {% if result.kjv_usage %}
+        <p class="result-kjv"><strong>KJV:</strong> {{ result.kjv_usage }}</p>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No results found for "{{ query }}".</p>
+{% endif %}
+
+{% else %}
+<div class="quick-lookup">
+    <h3>Quick Lookup - Common Words</h3>
+    <div class="quick-links">
+        <a href="/strongs/G26" class="quick-link">G26 - agape (love)</a>
+        <a href="/strongs/G4102" class="quick-link">G4102 - pistis (faith)</a>
+        <a href="/strongs/G5485" class="quick-link">G5485 - charis (grace)</a>
+        <a href="/strongs/G3056" class="quick-link">G3056 - logos (word)</a>
+        <a href="/strongs/G2316" class="quick-link">G2316 - theos (God)</a>
+        <a href="/strongs/G5547" class="quick-link">G5547 - Christos (Christ)</a>
+        <a href="/strongs/H430" class="quick-link">H430 - Elohim (God)</a>
+        <a href="/strongs/H3068" class="quick-link">H3068 - YHWH (LORD)</a>
+        <a href="/strongs/H7965" class="quick-link">H7965 - shalom (peace)</a>
+        <a href="/strongs/H2617" class="quick-link">H2617 - chesed (mercy)</a>
+    </div>
+</div>
+
+<div class="quick-lookup">
+    <h3>Browse by Number</h3>
+    <div class="quick-links">
+        <a href="/strongs/H1" class="quick-link">H1 - ab (father)</a>
+        <a href="/strongs/G1" class="quick-link">G1 - alpha</a>
+    </div>
+    <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">
+        Hebrew: H1-H8674 | Greek: G1-G5624
+    </p>
+</div>
+{% endif %}
+{% endblock %}
