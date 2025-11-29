@@ -617,7 +617,7 @@ def verse_of_the_day_api():
     "/verse/{book}/{chapter}/{verse}",
     response_model=VerseResponse,
     summary="Get a single verse",
-    description="Retrieve a specific Bible verse by book, chapter, and verse number. Includes red letter (words of Christ) information.",
+    description="Retrieve a specific Bible verse by book, chapter, and verse number. Includes red letter (words of Christ) information. Optionally include interlinear Hebrew/Greek data.",
     responses={
         200: {
             "description": "Successfully retrieved verse",
@@ -666,9 +666,10 @@ def verse_of_the_day_api():
 def api_get_verse(
     book: str = Path(..., description="Book name (supports abbreviations)", example="John"),
     chapter: int = Path(..., description="Chapter number", example=3, ge=1),
-    verse: int = Path(..., description="Verse number", example=16, ge=1)
+    verse: int = Path(..., description="Verse number", example=16, ge=1),
+    interlinear: bool = Query(False, description="Include interlinear Hebrew/Greek word-by-word data")
 ):
-    """Get a single verse with red letter information."""
+    """Get a single verse with red letter information and optional interlinear data."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
         book = canonical_name
@@ -689,14 +690,24 @@ def api_get_verse(
     # Get red letter information (words of Christ)
     christ_words = get_christ_words(book, chapter, verse)
 
-    return JSONResponse({
+    result = {
         "book": book,
         "chapter": chapter,
         "verse": verse,
         "reference": f"{book} {chapter}:{verse}",
         "text": verse_text,
         "red_letter": christ_words
-    })
+    }
+
+    # Optionally include interlinear data
+    if interlinear:
+        interlinear_words = get_interlinear_data(book, chapter, verse)
+        result["interlinear"] = {
+            "available": bool(interlinear_words),
+            "words": interlinear_words or []
+        }
+
+    return JSONResponse(result)
 
 
 @router.get(
