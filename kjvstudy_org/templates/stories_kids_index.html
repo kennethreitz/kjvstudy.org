@@ -488,6 +488,68 @@ document.addEventListener('DOMContentLoaded', function() {
             hideDropdown();
         }
     });
+
+    // Keyboard navigation for story cards (2D grid)
+    var visibleStories = function() {
+        return Array.from(document.querySelectorAll('.kids-story-card:not(.hidden)'));
+    };
+    var selectedCardIndex = -1;
+
+    function getGridColumns() {
+        var grid = document.querySelector('.stories-grid');
+        if (!grid) return 1;
+        var style = getComputedStyle(grid);
+        var cols = style.gridTemplateColumns.split(' ').length;
+        return cols || 1;
+    }
+
+    function selectStoryCard(index) {
+        var cards = visibleStories();
+        if (cards.length === 0) return;
+
+        if (selectedCardIndex >= 0 && selectedCardIndex < cards.length) {
+            cards[selectedCardIndex].style.outline = '';
+            cards[selectedCardIndex].style.outlineOffset = '';
+        }
+
+        selectedCardIndex = Math.max(0, Math.min(index, cards.length - 1));
+        cards[selectedCardIndex].style.outline = '2px solid #8b5cf6';
+        cards[selectedCardIndex].style.outlineOffset = '4px';
+        cards[selectedCardIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        var cards = visibleStories();
+        if (cards.length === 0) return;
+
+        var cols = getGridColumns();
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            if (selectedCardIndex < 0) selectStoryCard(0);
+            else selectStoryCard(selectedCardIndex + cols);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedCardIndex < 0) selectStoryCard(0);
+            else if (selectedCardIndex - cols >= 0) selectStoryCard(selectedCardIndex - cols);
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (selectedCardIndex < 0) selectStoryCard(0);
+            else selectStoryCard(selectedCardIndex + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (selectedCardIndex <= 0) history.back();
+            else selectStoryCard(selectedCardIndex - 1);
+        } else if (e.key === 'Enter' && selectedCardIndex >= 0) {
+            e.preventDefault();
+            var cards = visibleStories();
+            if (cards[selectedCardIndex]) {
+                window.location.href = cards[selectedCardIndex].href;
+            }
+        }
+    });
 });
 </script>
 {% endblock %}

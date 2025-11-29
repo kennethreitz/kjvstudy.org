@@ -496,19 +496,56 @@ document.addEventListener('DOMContentLoaded', function() {
                 target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 target.style.transition = 'background-color 1s';
                 target.style.backgroundColor = 'rgba(255, 235, 59, 0.5)';
-                        
+
                 // Get verse number to show in toast
                 const verseMatch = window.location.hash.match(/verse-(\d+)/);
                 if (verseMatch && verseMatch[1]) {
                     showToast('Navigated to Verse ' + verseMatch[1]);
                 }
-                        
+
                 setTimeout(() => {
                     target.style.backgroundColor = '';
                 }, 2000);
             }
         }, 100);
     }
+
+    // Keyboard navigation for verse cards
+    const verseCards = Array.from(document.querySelectorAll('.verse-card[id^="verse-"]'));
+    if (verseCards.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectCard(index) {
+        if (selectedIndex >= 0 && selectedIndex < verseCards.length) {
+            verseCards[selectedIndex].style.outline = '';
+            verseCards[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, verseCards.length - 1));
+        verseCards[selectedIndex].style.outline = '2px solid #4a7c59';
+        verseCards[selectedIndex].style.outlineOffset = '4px';
+        verseCards[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectCard(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectCard(0);
+            else selectCard(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const verseLink = verseCards[selectedIndex].querySelector('.verse-action[href*="/book/"]');
+            if (verseLink) window.location.href = verseLink.href;
+        }
+    });
 });
 </script>
 {% endblock %}
