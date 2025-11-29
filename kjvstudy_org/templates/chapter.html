@@ -200,9 +200,11 @@ hr::before {
 
 .chapter-actions {
     margin: 1.5rem 0 1rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
-.print-btn {
+.action-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -217,21 +219,26 @@ hr::before {
     text-decoration: none;
 }
 
-.print-btn:hover {
+.action-btn:hover {
     background: var(--bg-color);
     border-color: var(--link-color);
     color: var(--link-color);
     text-decoration: none;
 }
 
-.print-btn svg {
+.action-btn svg {
     width: 16px;
     height: 16px;
 }
 
+.interlinear-btn:hover {
+    border-color: #4a7c59;
+    color: #4a7c59;
+}
+
 @media print {
     .chapter-actions,
-    .print-btn {
+    .action-btn {
         display: none;
     }
 }
@@ -242,16 +249,22 @@ hr::before {
 <h1>{{ book }} {{ chapter }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
-{% if pdf_available %}
 <div class="chapter-actions">
-    <a href="/book/{{ book }}/chapter/{{ chapter }}/pdf" class="print-btn">
+    <a href="/book/{{ book }}/chapter/{{ chapter }}/interlinear" class="action-btn interlinear-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+        </svg>
+        Interlinear
+    </a>
+    {% if pdf_available %}
+    <a href="/book/{{ book }}/chapter/{{ chapter }}/pdf" class="action-btn pdf-btn">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        Download PDF
+        PDF
     </a>
+    {% endif %}
 </div>
-{% endif %}
 
 <section>
     {% for verse in verses %}
