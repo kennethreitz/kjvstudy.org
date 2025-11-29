@@ -352,6 +352,108 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Dark mode */
+[data-theme="dark"] .search-card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .stats-card,
+[data-theme="dark"] .section-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .search-card h2,
+[data-theme="dark"] .stats-card h2,
+[data-theme="dark"] .section-card h2 {
+    color: #e0e0e0;
+    border-bottom-color: #333;
+}
+
+[data-theme="dark"] .search-form input {
+    background: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .search-form input:focus {
+    border-color: #4a7c59;
+}
+
+[data-theme="dark"] .search-dropdown {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .search-dropdown button:hover,
+[data-theme="dark"] .search-dropdown button.active {
+    background: #333;
+}
+
+[data-theme="dark"] .feature-card:hover {
+    border-color: #555;
+}
+
+[data-theme="dark"] .feature-card p {
+    color: #aaa;
+}
+
+[data-theme="dark"] .stat-label {
+    color: #aaa;
+}
+
+[data-theme="dark"] .stat-value {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .gen-card {
+    background: #252525;
+    border-color: #333;
+}
+
+[data-theme="dark"] .gen-card:hover {
+    background: #2a2a2a;
+}
+
+[data-theme="dark"] .gen-card-count {
+    color: #888;
+}
+
+[data-theme="dark"] .gen-card-people a {
+    color: #bbb;
+}
+
+[data-theme="dark"] .person-card {
+    background: #252525;
+    border-color: #333;
+}
+
+[data-theme="dark"] .person-card:hover {
+    background: #2a2a2a;
+}
+
+[data-theme="dark"] .person-card.kekule {
+    background: linear-gradient(to right, #2a2a1a, #252525);
+}
+
+[data-theme="dark"] .person-card-name {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .person-card-meta {
+    color: #888;
+}
+
+[data-theme="dark"] .person-card-details {
+    color: #bbb;
+}
+
+[data-theme="dark"] .person-card-verse {
+    color: #888;
+}
+
+[data-theme="dark"] .page-header .subtitle {
+    color: #888;
+}
 </style>
 {% endblock %}
 
