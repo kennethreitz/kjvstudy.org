@@ -14,9 +14,9 @@ strategy = "bluegreen"
 [http_service]
 internal_port = 8000
 force_https = true
-auto_stop_machines = 'off'
+auto_stop_machines = 'suspend'
 auto_start_machines = true
-min_machines_running = 2
+min_machines_running = 1
 processes = ['app']
 
 [http_service.concurrency]
