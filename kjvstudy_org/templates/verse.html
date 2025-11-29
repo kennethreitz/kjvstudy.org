@@ -215,44 +215,23 @@
     margin: 2rem 0;
 }
 
-.interlinear-container summary {
-    cursor: pointer;
+.interlinear-heading {
     font-size: 1.1rem;
     font-weight: 600;
-    margin: 1rem 0;
+    margin: 0 0 0.5rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eee;
     color: #333;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    list-style: none;
+    justify-content: space-between;
 }
 
-.interlinear-container summary::-webkit-details-marker {
-    display: none;
-}
-
-.interlinear-container summary::before {
-    content: "▶";
-    font-size: 0.7rem;
-    transition: transform 0.2s ease;
-}
-
-.interlinear-container[open] summary::before {
-    transform: rotate(90deg);
-}
-
-.interlinear-container summary::after {
+.interlinear-heading::after {
     content: "Click words for details";
     font-size: 0.8rem;
     font-weight: normal;
     color: #888;
-    margin-left: auto;
-}
-
-.interlinear-container[open] summary {
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #eee;
 }
 
 .interlinear-flow {
@@ -515,8 +494,8 @@
     <p class="verse-text">{{ verse_text | red_letter(book, chapter, verse_num) | link_names | safe }}</p>
 
     {% if interlinear_words %}
-    <details class="interlinear-container">
-        <summary>Original Language Analysis</summary>
+    <section class="interlinear-container">
+        <h3 class="interlinear-heading">Original Language Analysis</h3>
         <div class="interlinear-flow">
             {% for word in interlinear_words %}
             <div class="word-unit" onclick="toggleWord(this)">
@@ -586,7 +565,7 @@
             </div>
             {% endfor %}
         </div>
-    </details>
+    </section>
     <script>
     function toggleWord(el) {
         document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
