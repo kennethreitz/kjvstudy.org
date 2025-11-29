@@ -24,6 +24,24 @@ from ..stories import (
     get_category_count,
     get_all_stories_flat,
 )
+from ..data import (
+    _data as RESOURCES_DATA,
+    find_resource_by_slug,
+    _create_slug,
+    # Import all specific resource dicts
+    BIBLICAL_LOCATIONS, ANGELS_DATA, PROPHETS_DATA, NAMES_DATA,
+    PARABLES_DATA, COVENANTS_DATA, APOSTLES_DATA, WOMEN_DATA,
+    FESTIVALS_DATA, FRUITS_DATA, MIRACLES_DATA, PRAYERS_DATA,
+    BEATITUDES_DATA, TEN_COMMANDMENTS_DATA, ARMOR_OF_GOD_DATA,
+    I_AM_STATEMENTS_DATA, TRINITY_DATA, CHRISTOLOGY_DATA,
+    SOTERIOLOGY_DATA, PNEUMATOLOGY_DATA, ESCHATOLOGY_DATA,
+    ECCLESIOLOGY_DATA, TYPES_AND_SHADOWS_DATA, MESSIANIC_PROPHECIES_DATA,
+    BLOOD_IN_SCRIPTURE_DATA, KINGDOM_OF_GOD_DATA, NAMES_OF_CHRIST_DATA,
+    SPIRITS_AND_DEMONS_DATA, PERSONIFICATIONS_DATA, BIBLIOLOGY_DATA,
+    THEOLOGY_PROPER_DATA, ANTHROPOLOGY_DATA, HAMARTIOLOGY_DATA,
+    PROVIDENCE_DATA, GRACE_DATA, JUSTIFICATION_DATA, SANCTIFICATION_DATA,
+    LAW_AND_GOSPEL_DATA, WORSHIP_DATA
+)
 
 router = APIRouter(prefix="/api", tags=["API"])
 
@@ -80,6 +98,96 @@ class DailyVerseResponse(BaseModel):
         description="Words of Christ: null if Jesus doesn't speak, 'full' if entire verse, or the quoted words if partial",
         json_schema_extra={"example": "full"}
     )
+
+
+class ResourceVerse(BaseModel):
+    """Verse reference in a resource"""
+    reference: str = Field(..., json_schema_extra={"example": "Genesis 2:8"})
+    text: str = Field(..., json_schema_extra={"example": "And the LORD God planted a garden..."})
+
+
+class ResourceCategoryInfo(BaseModel):
+    """Information about a resource category"""
+    name: str = Field(..., json_schema_extra={"example": "biblical_locations"})
+    title: str = Field(..., json_schema_extra={"example": "Biblical Locations"})
+    item_count: int = Field(..., json_schema_extra={"example": 15})
+    url: str = Field(..., json_schema_extra={"example": "/api/resources/biblical_locations"})
+
+
+class ResourcesListResponse(BaseModel):
+    """Response listing all resource categories"""
+    total_categories: int = Field(..., json_schema_extra={"example": 39})
+    categories: List[ResourceCategoryInfo]
+
+
+class ResourceItemSummary(BaseModel):
+    """Summary of a resource item"""
+    name: str = Field(..., json_schema_extra={"example": "Garden of Eden"})
+    slug: str = Field(..., json_schema_extra={"example": "garden-of-eden"})
+    description: str = Field(..., json_schema_extra={"example": "The original home of mankind"})
+    verse_count: int = Field(..., json_schema_extra={"example": 2})
+    url: str = Field(..., json_schema_extra={"example": "/api/resources/biblical_locations/garden-of-eden"})
+
+
+class ResourceCategoryResponse(BaseModel):
+    """Response for a specific resource category"""
+    category: str = Field(..., json_schema_extra={"example": "biblical_locations"})
+    title: str = Field(..., json_schema_extra={"example": "Biblical Locations"})
+    total_items: int = Field(..., json_schema_extra={"example": 15})
+    items: List[ResourceItemSummary]
+
+
+class ResourceItemDetail(BaseModel):
+    """Detailed information about a specific resource item"""
+    name: str = Field(..., json_schema_extra={"example": "Garden of Eden"})
+    slug: str = Field(..., json_schema_extra={"example": "garden-of-eden"})
+    category: str = Field(..., json_schema_extra={"example": "biblical_locations"})
+    description: str = Field(..., json_schema_extra={"example": "The original home of mankind"})
+    verses: List[ResourceVerse]
+
+
+# Mapping of category names to their data dictionaries
+CATEGORY_TO_DATA = {
+    'biblical_locations': BIBLICAL_LOCATIONS,
+    'angels': ANGELS_DATA,
+    'prophets': PROPHETS_DATA,
+    'names': NAMES_DATA,
+    'parables': PARABLES_DATA,
+    'covenants': COVENANTS_DATA,
+    'apostles': APOSTLES_DATA,
+    'women': WOMEN_DATA,
+    'festivals': FESTIVALS_DATA,
+    'fruits': FRUITS_DATA,
+    'miracles': MIRACLES_DATA,
+    'prayers': PRAYERS_DATA,
+    'beatitudes': BEATITUDES_DATA,
+    'ten_commandments': TEN_COMMANDMENTS_DATA,
+    'armor_of_god': ARMOR_OF_GOD_DATA,
+    'i_am_statements': I_AM_STATEMENTS_DATA,
+    'trinity': TRINITY_DATA,
+    'christology': CHRISTOLOGY_DATA,
+    'soteriology': SOTERIOLOGY_DATA,
+    'pneumatology': PNEUMATOLOGY_DATA,
+    'eschatology': ESCHATOLOGY_DATA,
+    'ecclesiology': ECCLESIOLOGY_DATA,
+    'types_and_shadows': TYPES_AND_SHADOWS_DATA,
+    'messianic_prophecies': MESSIANIC_PROPHECIES_DATA,
+    'blood_in_scripture': BLOOD_IN_SCRIPTURE_DATA,
+    'kingdom_of_god': KINGDOM_OF_GOD_DATA,
+    'names_of_christ': NAMES_OF_CHRIST_DATA,
+    'spirits_and_demons': SPIRITS_AND_DEMONS_DATA,
+    'personifications': PERSONIFICATIONS_DATA,
+    'bibliology': BIBLIOLOGY_DATA,
+    'theology_proper': THEOLOGY_PROPER_DATA,
+    'anthropology': ANTHROPOLOGY_DATA,
+    'hamartiology': HAMARTIOLOGY_DATA,
+    'providence': PROVIDENCE_DATA,
+    'grace': GRACE_DATA,
+    'justification': JUSTIFICATION_DATA,
+    'sanctification': SANCTIFICATION_DATA,
+    'law_and_gospel': LAW_AND_GOSPEL_DATA,
+    'worship': WORSHIP_DATA
+}
 
 
 def init_templates(app_templates):
@@ -1131,3 +1239,191 @@ async def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
         media_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
+
+# ============================================================================
+# RESOURCES ENDPOINTS
+# ============================================================================
+
+@router.get(
+    "/resources",
+    response_model=ResourcesListResponse,
+    summary="List all resource categories",
+    description="Get a list of all biblical resource categories (locations, angels, prophets, etc.)"
+)
+def api_list_resource_categories():
+    """List all available resource categories."""
+    def format_title(key: str) -> str:
+        """Convert snake_case to Title Case."""
+        return key.replace('_', ' ').title()
+    
+    def count_items(category_data: dict) -> int:
+        """Count total items in a category (including nested subcategories)."""
+        count = 0
+        for value in category_data.values():
+            if isinstance(value, dict):
+                # Check if this is an item or a subcategory
+                if 'description' in value or 'verses' in value:
+                    count += 1
+                else:
+                    # It's a subcategory, recurse
+                    count += count_items(value)
+        return count
+    
+    categories = []
+    for cat_name, cat_data in RESOURCES_DATA.items():
+        categories.append({
+            "name": cat_name,
+            "title": format_title(cat_name),
+            "item_count": count_items(cat_data),
+            "url": f"/api/resources/{cat_name}"
+        })
+    
+    return {
+        "total_categories": len(categories),
+        "categories": categories
+    }
+
+
+@router.get(
+    "/resources/{category}",
+    response_model=ResourceCategoryResponse,
+    summary="Get all items in a resource category",
+    description="Retrieve all items within a specific resource category",
+    responses={
+        200: {
+            "description": "Successfully retrieved category",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "category": "biblical_locations",
+                        "title": "Biblical Locations",
+                        "total_items": 15,
+                        "items": [
+                            {
+                                "name": "Garden of Eden",
+                                "slug": "garden-of-eden",
+                                "description": "The original home of mankind",
+                                "verse_count": 2,
+                                "url": "/api/resources/biblical_locations/garden-of-eden"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+)
+def api_get_resource_category(
+    category: str = Path(..., description="Resource category name", examples=["biblical_locations", "angels", "prophets"])
+):
+    """Get all items in a specific resource category."""
+    if category not in RESOURCES_DATA:
+        raise HTTPException(status_code=404, detail=f"Resource category '{category}' not found")
+    
+    cat_data = RESOURCES_DATA[category]
+    
+    def format_title(key: str) -> str:
+        return key.replace('_', ' ').title()
+    
+    def flatten_items(data: dict, parent_key: str = "") -> list:
+        """Flatten nested resource structure into a list of items."""
+        items = []
+        for key, value in data.items():
+            if isinstance(value, dict):
+                if 'description' in value or 'verses' in value:
+                    # This is an item
+                    slug = _create_slug(key)
+                    verse_count = len(value.get('verses', []))
+                    items.append({
+                        "name": key,
+                        "slug": slug,
+                        "description": value.get('description', ''),
+                        "verse_count": verse_count,
+                        "url": f"/api/resources/{category}/{slug}"
+                    })
+                else:
+                    # This is a subcategory, recurse
+                    items.extend(flatten_items(value, key))
+        return items
+    
+    items = flatten_items(cat_data)
+    
+    return {
+        "category": category,
+        "title": format_title(category),
+        "total_items": len(items),
+        "items": items
+    }
+
+
+@router.get(
+    "/resources/{category}/{slug}",
+    response_model=ResourceItemDetail,
+    summary="Get a specific resource item",
+    description="Retrieve detailed information about a specific resource item including all verses",
+    responses={
+        200: {
+            "description": "Successfully retrieved resource item",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "name": "Garden of Eden",
+                        "slug": "garden-of-eden",
+                        "category": "biblical_locations",
+                        "description": "The original home of mankind",
+                        "verses": [
+                            {
+                                "reference": "Genesis 2:8",
+                                "text": "And the LORD God planted a garden eastward in Eden; and there he put the man whom he had formed."
+                            },
+                            {
+                                "reference": "Genesis 3:23",
+                                "text": "Therefore the LORD God sent him forth from the garden of Eden, to till the ground from whence he was taken."
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+)
+def api_get_resource_item(
+    category: str = Path(..., description="Resource category name", examples=["biblical_locations"]),
+    slug: str = Path(..., description="Resource item slug", examples=["garden-of-eden"])
+):
+    """Get detailed information about a specific resource item."""
+    if category not in CATEGORY_TO_DATA:
+        raise HTTPException(status_code=404, detail=f"Resource category '{category}' not found")
+
+    cat_data = CATEGORY_TO_DATA[category]
+
+    # Search for the item by slug in potentially nested structure
+    def find_by_slug(data: dict, target_slug: str):
+        """Recursively search for an item by slug."""
+        for key, value in data.items():
+            if isinstance(value, dict):
+                # Check if this is an item (has description or verses)
+                if 'description' in value or 'verses' in value:
+                    if _create_slug(key) == target_slug:
+                        return value, key
+                else:
+                    # It's a subcategory, recurse
+                    result = find_by_slug(value, target_slug)
+                    if result:
+                        return result
+        return None
+
+    result = find_by_slug(cat_data, slug)
+
+    if not result:
+        raise HTTPException(status_code=404, detail=f"Resource item '{slug}' not found in category '{category}'")
+
+    item_data, item_name = result
+
+    return {
+        "name": item_name,
+        "slug": slug,
+        "category": category,
+        "description": item_data.get('description', ''),
+        "verses": item_data.get('verses', [])
+    }
