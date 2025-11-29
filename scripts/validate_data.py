@@ -119,24 +119,23 @@ class StudyGuides(BaseModel):
 class VerseCommentaryEntry(BaseModel):
     """Schema for verse commentary entry"""
     analysis: str = Field(..., min_length=1)
-    historical_context: str = Field(..., min_length=1)
-    application: str
+    historical: str = Field(..., min_length=1)
     questions: List[str] = Field(..., min_length=1)
 
 
-class VerseCommentary(RootModel[Dict[str, VerseCommentaryEntry]]):
-    """Schema for verse_commentary.json"""
+class VersesDict(RootModel[Dict[str, VerseCommentaryEntry]]):
+    """Dictionary of verse numbers to commentary entries"""
     root: Dict[str, VerseCommentaryEntry]
 
-    @field_validator('root')
-    @classmethod
-    def check_verse_keys(cls, v):
-        import re
-        pattern = r"^[A-Za-z0-9 ']+ \d+:\d+(-\d+)?$"
-        for key in v.keys():
-            if not re.match(pattern, key):
-                raise ValueError(f"Invalid verse reference key: {key}")
-        return v
+
+class ChaptersDict(RootModel[Dict[str, VersesDict]]):
+    """Dictionary of chapter numbers to verses"""
+    root: Dict[str, VersesDict]
+
+
+class VerseCommentary(RootModel[Dict[str, ChaptersDict]]):
+    """Schema for verse_commentary.json - nested structure: Book -> Chapter -> Verse -> Commentary"""
+    root: Dict[str, ChaptersDict]
 
 
 class FeaturedVerse(BaseModel):
