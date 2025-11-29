@@ -5,377 +5,850 @@
 
 {% block head %}
 <style>
-.tree-container {
+/* Main container */
+.tree-page {
     max-width: 100%;
-    margin: 2rem auto;
-    overflow-x: auto;
+    padding: 0;
 }
 
-#tree-svg {
-    display: block;
-    margin: 0 auto;
+.tree-header {
+    max-width: 55%;
+    margin-bottom: 1.5rem;
 }
 
-.node circle {
-    fill: #fff;
-    stroke: #333;
-    stroke-width: 2px;
+.tree-header h1 {
+    margin-bottom: 0.5rem;
+}
+
+.tree-header p {
+    color: #666;
+    margin: 0;
+}
+
+/* Controls bar */
+.tree-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(to bottom, #fafafa, #f0f0f0);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.control-group label {
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.control-group select {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: white;
+}
+
+.control-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: white;
     cursor: pointer;
+    font-size: 1.1rem;
+    color: #555;
+    transition: all 0.15s ease;
 }
 
-.node circle:hover {
-    fill: #f0f8ff;
-    stroke: #0066cc;
+.control-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
 }
 
-.node.selected circle {
-    fill: #e6f3ff;
-    stroke: #0066cc;
-    stroke-width: 3px;
+.control-btn:active {
+    background: #eee;
 }
 
-.node text {
+.control-divider {
+    width: 1px;
+    height: 24px;
+    background: #ddd;
+    margin: 0 0.5rem;
+}
+
+/* Tree viewport */
+.tree-viewport {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 500px;
+    background: #fcfcfc;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#family-tree-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* Person cards - FamilySearch inspired */
+.f3 .card {
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.f3 .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.person-card {
+    background: white;
+    border: 2px solid #4a7c59;
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 160px;
+    max-width: 200px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     font-family: "ETBembo", Palatino, "Book Antiqua", serif;
-    font-size: 12px;
-    fill: #111;
 }
 
-.node .person-name {
+.person-card.male {
+    border-color: #3b6ea5;
+    background: linear-gradient(to bottom, #f8fbff, #fff);
+}
+
+.person-card.female {
+    border-color: #a55b80;
+    background: linear-gradient(to bottom, #fff8fb, #fff);
+}
+
+.person-card .card-name {
+    font-size: 1rem;
     font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+    line-height: 1.2;
 }
 
-.node .person-meta {
-    font-size: 10px;
-    fill: #666;
+.person-card .card-dates {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 4px;
 }
 
-.link {
+.person-card .card-meta {
+    font-size: 0.75rem;
+    color: #888;
+    font-style: italic;
+}
+
+/* Connection lines */
+.f3 .link {
     fill: none;
     stroke: #999;
-    stroke-width: 1.5px;
+    stroke-width: 2px;
 }
 
-.controls {
-    max-width: 55%;
-    margin: 1rem 0;
+/* Info sidebar */
+.info-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100%;
+    background: white;
+    border-left: 1px solid #ddd;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.info-sidebar.open {
+    transform: translateX(0);
+}
+
+.info-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 1rem;
+    border-bottom: 1px solid #eee;
     background: #f9f9f9;
-    border: 1px solid #ddd;
 }
 
-.controls label {
-    display: inline-block;
-    margin-right: 1rem;
+.info-sidebar-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
 }
 
-.controls select,
-.controls button {
-    font-family: inherit;
-    font-size: 1rem;
-    padding: 0.5rem;
-    margin-right: 1rem;
-}
-
-.info-panel {
-    max-width: 55%;
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background: #f9f9f9;
-    border-left: 3px solid #333;
-    display: none;
-}
-
-.info-panel.visible {
-    display: block;
-}
-
-.info-panel h3 {
-    margin-top: 0;
-}
-
-.legend {
-    max-width: 55%;
-    margin: 1rem 0;
-    padding: 0.5rem 0;
-    font-size: 0.9rem;
+.info-sidebar-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
     color: #666;
+    line-height: 1;
+    padding: 0;
+}
+
+.info-sidebar-content {
+    padding: 1rem;
+}
+
+.info-field {
+    margin-bottom: 1rem;
+}
+
+.info-field-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    margin-bottom: 0.25rem;
+}
+
+.info-field-value {
+    font-size: 1rem;
+    color: #333;
+}
+
+.info-field-value a {
+    color: #3b6ea5;
+}
+
+.info-actions {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.info-actions a {
+    display: block;
+    padding: 0.6rem 1rem;
+    background: #4a7c59;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.15s ease;
+}
+
+.info-actions a:hover {
+    background: #3d6a4b;
+}
+
+/* Navigation hint */
+.tree-hint {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #666;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 50;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tree-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .control-divider {
+        display: none;
+    }
+
+    .info-sidebar {
+        width: 100%;
+    }
+}
+
+/* Loading state */
+.tree-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Back link */
+.back-link {
+    margin-top: 1.5rem;
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>Interactive Family Tree</h1>
+<div class="tree-page">
+    <div class="tree-header">
+        <h1>Interactive Family Tree</h1>
+        <p>Explore the biblical genealogy from Adam to Jesus Christ. Click on any person to see their details.</p>
+    </div>
 
-<p style="max-width: 55%;">
-    Explore the biblical genealogy from Adam to Jesus Christ. Click on any person to see details.
-    Use the controls below to navigate different views of the family tree.
-</p>
+    <div class="tree-controls">
+        <div class="control-group">
+            <label for="root-select">Starting from:</label>
+            <select id="root-select">
+                <option value="adam">Adam</option>
+                <option value="noah">Noah</option>
+                <option value="abraham">Abraham</option>
+                <option value="david">David</option>
+                <option value="jesus">Jesus (Ancestors)</option>
+            </select>
+        </div>
 
-<div class="controls">
-    <label>
-        <strong>View:</strong>
-        <select id="view-select">
-            <option value="descendants-adam">Descendants of Adam</option>
-            <option value="ancestors-jesus">Ancestors of Jesus</option>
-            <option value="generation">By Generation</option>
-            <option value="lineage">Messianic Lineage</option>
-        </select>
-    </label>
+        <div class="control-divider"></div>
 
-    <label>
-        <strong>Layout:</strong>
-        <select id="layout-select">
-            <option value="tree">Tree</option>
-            <option value="radial">Radial</option>
-            <option value="dendrogram">Dendrogram</option>
-        </select>
-    </label>
+        <div class="control-group">
+            <label>Generations:</label>
+            <select id="depth-select">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+            </select>
+        </div>
 
-    <button id="zoom-in">Zoom In</button>
-    <button id="zoom-out">Zoom Out</button>
-    <button id="reset-zoom">Reset</button>
-    <button id="expand-all">Expand All</button>
-    <button id="collapse-all">Collapse All</button>
-</div>
+        <div class="control-divider"></div>
 
-<div class="legend">
-    Click nodes to expand/collapse children • Hover for details • Drag to pan
-</div>
+        <div class="control-group">
+            <button class="control-btn" id="zoom-in" title="Zoom In">+</button>
+            <button class="control-btn" id="zoom-out" title="Zoom Out">−</button>
+            <button class="control-btn" id="zoom-reset" title="Reset View">⟲</button>
+            <button class="control-btn" id="zoom-fit" title="Fit to View">⊡</button>
+        </div>
 
-<div class="tree-container">
-    <svg id="tree-svg" width="1200" height="800"></svg>
-</div>
+        <div class="control-divider"></div>
 
-<div id="info-panel" class="info-panel">
-    <h3 id="info-name"></h3>
-    <div id="info-details"></div>
-    <div id="info-links"></div>
-</div>
+        <div class="control-group">
+            <label for="orientation-select">Layout:</label>
+            <select id="orientation-select">
+                <option value="left-right">Horizontal</option>
+                <option value="top-bottom">Vertical</option>
+            </select>
+        </div>
+    </div>
 
-<div class="navigation-links" style="max-width: 55%; margin: 2rem 0;">
-    <a href="/family-tree">← Back to Family Tree</a>
+    <div class="tree-viewport">
+        <div id="family-tree-container">
+            <div class="tree-loading">Loading family tree...</div>
+        </div>
+
+        <div class="info-sidebar" id="info-sidebar">
+            <div class="info-sidebar-header">
+                <h3 id="sidebar-name">Person Name</h3>
+                <button class="info-sidebar-close" id="sidebar-close">&times;</button>
+            </div>
+            <div class="info-sidebar-content">
+                <div class="info-field" id="field-dates"></div>
+                <div class="info-field" id="field-age"></div>
+                <div class="info-field" id="field-generation"></div>
+                <div class="info-field" id="field-spouse"></div>
+                <div class="info-field" id="field-parents"></div>
+                <div class="info-field" id="field-children"></div>
+                <div class="info-actions">
+                    <a href="#" id="view-profile-link">View Full Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tree-hint">
+            Scroll to zoom • Drag to pan • Click person for details
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="/family-tree">← Back to Family Tree</a>
+    </div>
 </div>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-// Load family tree data
+// Family tree data from server
 const familyTreeData = {{ family_tree_data | tojson }};
 const generations = {{ generations | tojson }};
 
-// D3 tree visualization
-const width = 1200;
-const height = 800;
-const margin = { top: 20, right: 120, bottom: 20, left: 120 };
+// State
+let currentRoot = 'adam';
+let currentDepth = 5;
+let currentOrientation = 'left-right';
+let transform = d3.zoomIdentity;
 
-const svg = d3.select("#tree-svg")
-    .attr("width", width)
-    .attr("height", height);
-
-const g = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-// Zoom behavior
-const zoom = d3.zoom()
-    .scaleExtent([0.1, 3])
-    .on("zoom", (event) => {
-        g.attr("transform", event.transform);
-    });
-
-svg.call(zoom);
-
-// Zoom controls
-d3.select("#zoom-in").on("click", () => {
-    svg.transition().call(zoom.scaleBy, 1.3);
-});
-
-d3.select("#zoom-out").on("click", () => {
-    svg.transition().call(zoom.scaleBy, 0.7);
-});
-
-d3.select("#reset-zoom").on("click", () => {
-    svg.transition().call(zoom.transform, d3.zoomIdentity);
-});
-
-// Build hierarchical data structure
-function buildHierarchy(rootId, maxDepth = 5) {
-    const visited = new Set();
-
-    function buildNode(personId, depth = 0) {
-        if (depth >= maxDepth || visited.has(personId)) {
-            return null;
-        }
-
-        visited.add(personId);
-        const person = familyTreeData[personId];
-
-        if (!person) return null;
-
-        const node = {
-            id: personId,
-            name: person.name,
-            generation: person.generation,
-            birth_year: person.birth_year,
-            death_year: person.death_year,
-            age_at_death: person.age_at_death,
-            spouse: person.spouse,
-            children: []
-        };
-
-        // Add children
-        if (person.children && person.children.length > 0) {
-            person.children.forEach(childId => {
-                const child = buildNode(childId, depth + 1);
-                if (child) {
-                    node.children.push(child);
-                }
-            });
-        }
-
-        return node;
-    }
-
-    return buildNode(rootId);
-}
+// DOM elements
+const container = document.getElementById('family-tree-container');
+const sidebar = document.getElementById('info-sidebar');
 
 // Find person by name
 function findPersonId(name) {
+    const nameLower = name.toLowerCase();
     for (const [id, person] of Object.entries(familyTreeData)) {
-        if (person.name.toLowerCase() === name.toLowerCase()) {
+        if (person.name.toLowerCase() === nameLower ||
+            person.name.toLowerCase().includes(nameLower)) {
             return id;
         }
     }
     return null;
 }
 
-// Render tree
-function renderTree(rootData) {
-    // Clear existing tree
-    g.selectAll("*").remove();
+// Build tree data structure
+function buildTreeData(rootId, maxDepth, direction = 'descendants') {
+    const visited = new Set();
 
-    if (!rootData) {
-        console.error("No data to render");
+    function buildNode(personId, depth) {
+        if (depth > maxDepth || visited.has(personId)) return null;
+        visited.add(personId);
+
+        const person = familyTreeData[personId];
+        if (!person) return null;
+
+        const node = {
+            id: personId,
+            data: {
+                name: person.name,
+                birth_year: person.birth_year,
+                death_year: person.death_year,
+                age_at_death: person.age_at_death,
+                generation: person.generation,
+                spouse: person.spouse,
+                gender: inferGender(person.name)
+            },
+            children: []
+        };
+
+        if (direction === 'descendants') {
+            const childIds = person.children || [];
+            for (const childId of childIds) {
+                const child = buildNode(childId, depth + 1);
+                if (child) node.children.push(child);
+            }
+        } else {
+            const parentIds = person.parents || [];
+            for (const parentId of parentIds) {
+                const parent = buildNode(parentId, depth + 1);
+                if (parent) node.children.push(parent);
+            }
+        }
+
+        return node;
+    }
+
+    return buildNode(rootId, 0);
+}
+
+// Infer gender from name (simplified)
+function inferGender(name) {
+    const femaleNames = ['eve', 'sarah', 'rebekah', 'rachel', 'leah', 'ruth', 'mary', 'tamar', 'rahab', 'bathsheba', 'dinah', 'keturah', 'hagar', 'zilpah', 'bilhah'];
+    return femaleNames.some(f => name.toLowerCase().includes(f)) ? 'female' : 'male';
+}
+
+// Create SVG card for person
+function createPersonCard(d) {
+    const data = d.data.data;
+    const gender = data.gender || 'male';
+
+    let dates = '';
+    if (data.birth_year && data.birth_year !== 'Unknown') {
+        dates = data.birth_year;
+        if (data.death_year && data.death_year !== 'Unknown') {
+            dates += ' – ' + data.death_year;
+        }
+    }
+
+    const group = d3.create('svg:g')
+        .attr('class', 'person-node')
+        .attr('data-id', d.data.id)
+        .style('cursor', 'pointer');
+
+    // Card background
+    const cardWidth = 150;
+    const cardHeight = dates ? 58 : 42;
+
+    group.append('rect')
+        .attr('class', 'card-bg')
+        .attr('x', -cardWidth / 2)
+        .attr('y', -cardHeight / 2)
+        .attr('width', cardWidth)
+        .attr('height', cardHeight)
+        .attr('rx', 6)
+        .attr('fill', gender === 'female' ? '#fff8fb' : '#f8fbff')
+        .attr('stroke', gender === 'female' ? '#a55b80' : '#3b6ea5')
+        .attr('stroke-width', 2);
+
+    // Name text
+    group.append('text')
+        .attr('class', 'card-name')
+        .attr('y', dates ? -8 : 0)
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('font-family', '"ETBembo", Palatino, "Book Antiqua", serif')
+        .attr('font-size', '13px')
+        .attr('font-weight', '600')
+        .attr('fill', '#222')
+        .text(data.name.length > 18 ? data.name.substring(0, 16) + '…' : data.name);
+
+    // Dates text
+    if (dates) {
+        group.append('text')
+            .attr('class', 'card-dates')
+            .attr('y', 10)
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('font-family', '"ETBembo", Palatino, "Book Antiqua", serif')
+            .attr('font-size', '11px')
+            .attr('fill', '#666')
+            .text(dates);
+    }
+
+    // Generation badge
+    if (data.generation) {
+        group.append('circle')
+            .attr('cx', cardWidth / 2 - 6)
+            .attr('cy', -cardHeight / 2 + 6)
+            .attr('r', 10)
+            .attr('fill', '#4a7c59');
+
+        group.append('text')
+            .attr('x', cardWidth / 2 - 6)
+            .attr('y', -cardHeight / 2 + 6)
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('font-size', '9px')
+            .attr('font-weight', 'bold')
+            .attr('fill', 'white')
+            .text(data.generation);
+    }
+
+    return group.node();
+}
+
+// Render the tree
+function renderTree() {
+    container.innerHTML = '';
+
+    // Get root person
+    let rootId;
+    let direction = 'descendants';
+
+    switch (currentRoot) {
+        case 'jesus':
+            rootId = findPersonId('Jesus') || findPersonId('Jesus Christ');
+            direction = 'ancestors';
+            break;
+        case 'adam':
+            rootId = findPersonId('Adam');
+            break;
+        case 'noah':
+            rootId = findPersonId('Noah');
+            break;
+        case 'abraham':
+            rootId = findPersonId('Abraham');
+            break;
+        case 'david':
+            rootId = findPersonId('David');
+            break;
+        default:
+            rootId = findPersonId('Adam');
+    }
+
+    if (!rootId) {
+        container.innerHTML = '<div class="tree-loading">Person not found in family tree</div>';
         return;
     }
 
-    // Create tree layout
-    const treeLayout = d3.tree()
-        .size([height - margin.top - margin.bottom, width - margin.left - margin.right]);
+    const treeData = buildTreeData(rootId, currentDepth, direction);
+    if (!treeData) {
+        container.innerHTML = '<div class="tree-loading">Could not build tree</div>';
+        return;
+    }
 
-    const root = d3.hierarchy(rootData);
+    // Create SVG
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    const svg = d3.select(container)
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    const g = svg.append('g');
+
+    // Zoom behavior
+    const zoom = d3.zoom()
+        .scaleExtent([0.1, 4])
+        .on('zoom', (event) => {
+            transform = event.transform;
+            g.attr('transform', event.transform);
+        });
+
+    svg.call(zoom);
+    svg.call(zoom.transform, transform);
+
+    // Create hierarchy
+    const root = d3.hierarchy(treeData);
+
+    // Calculate tree dimensions
+    const nodeWidth = 180;
+    const nodeHeight = 80;
+    const isHorizontal = currentOrientation === 'left-right';
+
+    // Tree layout
+    const treeLayout = d3.tree()
+        .nodeSize(isHorizontal ? [nodeHeight, nodeWidth] : [nodeWidth, nodeHeight]);
+
     treeLayout(root);
 
+    // Center the tree
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    root.descendants().forEach(d => {
+        const x = isHorizontal ? d.y : d.x;
+        const y = isHorizontal ? d.x : d.y;
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+    });
+
+    const offsetX = width / 2 - (minX + maxX) / 2;
+    const offsetY = height / 2 - (minY + maxY) / 2;
+    g.attr('transform', `translate(${offsetX}, ${offsetY})`);
+
     // Draw links
-    g.selectAll(".link")
+    const linkGenerator = isHorizontal
+        ? d3.linkHorizontal().x(d => d.y).y(d => d.x)
+        : d3.linkVertical().x(d => d.x).y(d => d.y);
+
+    g.selectAll('.link')
         .data(root.links())
-        .join("path")
-        .attr("class", "link")
-        .attr("d", d3.linkHorizontal()
-            .x(d => d.y)
-            .y(d => d.x));
+        .join('path')
+        .attr('class', 'link')
+        .attr('fill', 'none')
+        .attr('stroke', '#b8b8b8')
+        .attr('stroke-width', 2)
+        .attr('d', linkGenerator);
 
     // Draw nodes
-    const nodes = g.selectAll(".node")
+    const nodes = g.selectAll('.node')
         .data(root.descendants())
-        .join("g")
-        .attr("class", "node")
-        .attr("transform", d => `translate(${d.y},${d.x})`)
-        .on("click", (event, d) => showInfo(d.data));
-
-    nodes.append("circle")
-        .attr("r", 6);
-
-    nodes.append("text")
-        .attr("class", "person-name")
-        .attr("dy", ".35em")
-        .attr("x", d => d.children ? -10 : 10)
-        .attr("text-anchor", d => d.children ? "end" : "start")
-        .text(d => d.data.name);
-
-    nodes.append("text")
-        .attr("class", "person-meta")
-        .attr("dy", "1.5em")
-        .attr("x", d => d.children ? -10 : 10)
-        .attr("text-anchor", d => d.children ? "end" : "start")
-        .text(d => {
-            if (d.data.generation) {
-                return `Gen ${d.data.generation}`;
-            }
-            return "";
+        .join('g')
+        .attr('class', 'node')
+        .attr('transform', d => {
+            const x = isHorizontal ? d.y : d.x;
+            const y = isHorizontal ? d.x : d.y;
+            return `translate(${x}, ${y})`;
         });
+
+    // Add cards to nodes
+    nodes.each(function(d) {
+        const card = createPersonCard(d);
+        this.appendChild(card);
+    });
+
+    // Click handler
+    nodes.on('click', (event, d) => {
+        event.stopPropagation();
+        showPersonInfo(d.data);
+    });
+
+    // Hover effect
+    nodes.on('mouseenter', function() {
+        d3.select(this).select('.card-bg')
+            .transition().duration(150)
+            .attr('stroke-width', 3);
+    }).on('mouseleave', function() {
+        d3.select(this).select('.card-bg')
+            .transition().duration(150)
+            .attr('stroke-width', 2);
+    });
+
+    // Store zoom for controls
+    window.treeZoom = zoom;
+    window.treeSvg = svg;
+
+    // Initial fit to view
+    fitToView();
 }
 
-// Show info panel
-function showInfo(person) {
-    const panel = d3.select("#info-panel");
-    panel.classed("visible", true);
+// Fit tree to view
+function fitToView() {
+    const svg = window.treeSvg;
+    const zoom = window.treeZoom;
+    if (!svg || !zoom) return;
 
-    d3.select("#info-name").text(person.name);
+    const bounds = svg.select('g').node().getBBox();
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    const padding = 40;
 
-    let details = "";
-    if (person.birth_year && person.birth_year !== "Unknown") {
-        details += `<strong>Born:</strong> ${person.birth_year}<br>`;
-    }
-    if (person.death_year && person.death_year !== "Unknown") {
-        details += `<strong>Died:</strong> ${person.death_year}<br>`;
-    }
-    if (person.age_at_death && person.age_at_death !== "Unknown") {
-        details += `<strong>Age:</strong> ${person.age_at_death}<br>`;
-    }
-    if (person.spouse) {
-        details += `<strong>Spouse:</strong> ${person.spouse}<br>`;
-    }
-    if (person.generation) {
-        details += `<strong>Generation:</strong> ${person.generation} from Adam<br>`;
-    }
-
-    d3.select("#info-details").html(details);
-
-    d3.select("#info-links").html(
-        `<a href="/family-tree/person/${person.id}">View Full Profile →</a>`
+    const scale = Math.min(
+        (width - padding * 2) / bounds.width,
+        (height - padding * 2) / bounds.height,
+        1.5
     );
 
-    // Highlight selected node
-    g.selectAll(".node").classed("selected", false);
-    g.selectAll(".node")
-        .filter(d => d.data.id === person.id)
-        .classed("selected", true);
+    const tx = width / 2 - (bounds.x + bounds.width / 2) * scale;
+    const ty = height / 2 - (bounds.y + bounds.height / 2) * scale;
+
+    svg.transition()
+        .duration(500)
+        .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
 }
 
-// View selector
-d3.select("#view-select").on("change", function() {
-    const view = this.value;
-    let rootData;
+// Show person info in sidebar
+function showPersonInfo(person) {
+    const data = person.data;
+    const fullPerson = familyTreeData[person.id];
 
-    switch(view) {
-        case "descendants-adam":
-            const adamId = findPersonId("Adam");
-            rootData = buildHierarchy(adamId, 10);
-            break;
-        case "ancestors-jesus":
-            const jesusId = findPersonId("Jesus") || findPersonId("Jesus Christ");
-            // For ancestors, we need to build upward - simplified for now
-            rootData = buildHierarchy(adamId, 10);
-            break;
-        case "generation":
-            const adamId2 = findPersonId("Adam");
-            rootData = buildHierarchy(adamId2, 8);
-            break;
-        case "lineage":
-            const adamId3 = findPersonId("Adam");
-            rootData = buildHierarchy(adamId3, 12);
-            break;
+    document.getElementById('sidebar-name').textContent = data.name;
+    document.getElementById('view-profile-link').href = `/family-tree/person/${person.id}`;
+
+    // Dates
+    const datesField = document.getElementById('field-dates');
+    if (data.birth_year !== 'Unknown' || data.death_year !== 'Unknown') {
+        let dates = '';
+        if (data.birth_year !== 'Unknown') dates += `Born: ${data.birth_year}`;
+        if (data.death_year !== 'Unknown') {
+            if (dates) dates += '<br>';
+            dates += `Died: ${data.death_year}`;
+        }
+        datesField.innerHTML = `<div class="info-field-label">Dates</div><div class="info-field-value">${dates}</div>`;
+        datesField.style.display = 'block';
+    } else {
+        datesField.style.display = 'none';
     }
 
-    if (rootData) {
-        renderTree(rootData);
+    // Age
+    const ageField = document.getElementById('field-age');
+    if (data.age_at_death && data.age_at_death !== 'Unknown') {
+        ageField.innerHTML = `<div class="info-field-label">Lifespan</div><div class="info-field-value">${data.age_at_death}</div>`;
+        ageField.style.display = 'block';
+    } else {
+        ageField.style.display = 'none';
+    }
+
+    // Generation
+    const genField = document.getElementById('field-generation');
+    if (data.generation) {
+        genField.innerHTML = `<div class="info-field-label">Generation</div><div class="info-field-value">${data.generation} from Adam</div>`;
+        genField.style.display = 'block';
+    } else {
+        genField.style.display = 'none';
+    }
+
+    // Spouse
+    const spouseField = document.getElementById('field-spouse');
+    if (data.spouse) {
+        const spouseId = findPersonId(data.spouse);
+        const spouseLink = spouseId ? `<a href="/family-tree/person/${spouseId}">${data.spouse}</a>` : data.spouse;
+        spouseField.innerHTML = `<div class="info-field-label">Spouse</div><div class="info-field-value">${spouseLink}</div>`;
+        spouseField.style.display = 'block';
+    } else {
+        spouseField.style.display = 'none';
+    }
+
+    // Parents
+    const parentsField = document.getElementById('field-parents');
+    if (fullPerson && fullPerson.parents && fullPerson.parents.length > 0) {
+        const parentLinks = fullPerson.parents.map(pid => {
+            const parent = familyTreeData[pid];
+            return parent ? `<a href="/family-tree/person/${pid}">${parent.name}</a>` : pid;
+        }).join(', ');
+        parentsField.innerHTML = `<div class="info-field-label">Parents</div><div class="info-field-value">${parentLinks}</div>`;
+        parentsField.style.display = 'block';
+    } else {
+        parentsField.style.display = 'none';
+    }
+
+    // Children
+    const childrenField = document.getElementById('field-children');
+    if (fullPerson && fullPerson.children && fullPerson.children.length > 0) {
+        const childCount = fullPerson.children.length;
+        childrenField.innerHTML = `<div class="info-field-label">Children</div><div class="info-field-value">${childCount} child${childCount !== 1 ? 'ren' : ''}</div>`;
+        childrenField.style.display = 'block';
+    } else {
+        childrenField.style.display = 'none';
+    }
+
+    sidebar.classList.add('open');
+}
+
+// Close sidebar
+document.getElementById('sidebar-close').addEventListener('click', () => {
+    sidebar.classList.remove('open');
+});
+
+// Controls
+document.getElementById('root-select').addEventListener('change', (e) => {
+    currentRoot = e.target.value;
+    renderTree();
+});
+
+document.getElementById('depth-select').addEventListener('change', (e) => {
+    currentDepth = parseInt(e.target.value);
+    renderTree();
+});
+
+document.getElementById('orientation-select').addEventListener('change', (e) => {
+    currentOrientation = e.target.value;
+    renderTree();
+});
+
+document.getElementById('zoom-in').addEventListener('click', () => {
+    if (window.treeSvg && window.treeZoom) {
+        window.treeSvg.transition().duration(200).call(window.treeZoom.scaleBy, 1.4);
     }
 });
 
+document.getElementById('zoom-out').addEventListener('click', () => {
+    if (window.treeSvg && window.treeZoom) {
+        window.treeSvg.transition().duration(200).call(window.treeZoom.scaleBy, 0.7);
+    }
+});
+
+document.getElementById('zoom-reset').addEventListener('click', () => {
+    if (window.treeSvg && window.treeZoom) {
+        window.treeSvg.transition().duration(300).call(window.treeZoom.transform, d3.zoomIdentity);
+    }
+});
+
+document.getElementById('zoom-fit').addEventListener('click', fitToView);
+
+// Handle window resize
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(renderTree, 200);
+});
+
 // Initial render
-const adamId = findPersonId("Adam");
-if (adamId) {
-    const rootData = buildHierarchy(adamId, 6);
-    renderTree(rootData);
-}
+renderTree();
 </script>
 {% endblock %}
