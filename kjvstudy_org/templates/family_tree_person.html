@@ -250,6 +250,35 @@
 </div>
 {% endif %}
 
+{% if person.spouse %}
+<div class="relationships-section">
+    <h2>Spouse</h2>
+    <div class="relationship-list">
+        {% set spouse_id = None %}
+        {% set spouse_data = None %}
+        {% for pid, p in family_tree_data.items() %}
+            {% if p.name == person.spouse %}
+                {% set spouse_id = pid %}
+                {% set spouse_data = p %}
+            {% endif %}
+        {% endfor %}
+        <div class="relationship-item">
+            {% if spouse_id %}
+                <span class="relationship-name"><a href="/family-tree/person/{{ spouse_id }}">{{ person.spouse }}</a></span>
+                {% if spouse_data and (spouse_data.generation or spouse_data.kekule_number is not none or spouse_data.age_at_death != "Unknown") %}
+                <span class="relationship-meta">
+                    {% if spouse_data.generation %}generation {{ spouse_data.generation }}{% endif %}{% if spouse_data.kekule_number is not none %}{% if spouse_data.generation %}, {% endif %}Kekulé #{{ spouse_data.kekule_number }}{% endif %}{% if spouse_data.age_at_death != "Unknown" %}{% if spouse_data.generation or spouse_data.kekule_number is not none %}, {% endif %}lived {{ spouse_data.age_at_death }}{% endif %}
+                </span>
+                {% endif %}
+            {% else %}
+                <span class="relationship-name">{{ person.spouse }}</span>
+                <span class="relationship-meta" style="font-style: italic; color: #999;">not in family tree data</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% if person.siblings|length > 0 %}
 <div class="relationships-section">
     <h2>Siblings ({{ person.siblings|length }})</h2>
