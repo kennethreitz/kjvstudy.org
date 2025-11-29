@@ -1,12 +1,25 @@
 """Utility helpers for HTML-to-PDF generation."""
 import io
+import sys
+import os
 from typing import BinaryIO
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 
 try:  # pragma: no cover - optional dependency
-    from weasyprint import HTML  # type: ignore
-    WEASYPRINT_AVAILABLE = True
+    # Suppress WeasyPrint's stdout/stderr noise during import
+    _stdout = sys.stdout
+    _stderr = sys.stderr
+    sys.stdout = open(os.devnull, 'w')
+    sys.stderr = open(os.devnull, 'w')
+    try:
+        from weasyprint import HTML  # type: ignore
+        WEASYPRINT_AVAILABLE = True
+    finally:
+        sys.stdout.close()
+        sys.stderr.close()
+        sys.stdout = _stdout
+        sys.stderr = _stderr
 except (ImportError, OSError):  # pragma: no cover - handled gracefully elsewhere
     HTML = None
     WEASYPRINT_AVAILABLE = False
