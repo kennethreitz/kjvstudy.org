@@ -224,6 +224,9 @@ templates = Jinja2Templates(directory=str(templates_dir))
 # Register custom Jinja2 filters
 templates.env.filters['slugify'] = create_slug
 
+# Add global template variables
+templates.env.globals['disable_analytics'] = os.getenv("DISABLE_ANALYTICS", "false").lower() == "true"
+
 # Initialize mistune for markdown rendering
 import mistune
 

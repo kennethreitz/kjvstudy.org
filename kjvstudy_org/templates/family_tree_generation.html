@@ -76,8 +76,17 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+.person-card.male {
+    border-left: 4px solid #3b6ea5;
+}
+
+.person-card.female {
+    border-left: 4px solid #a55b80;
+}
+
 .person-card.kekule {
     border-color: #d4af37;
+    border-left-width: 4px;
     background: linear-gradient(to right, #fffde7, #fff);
 }
 
@@ -231,10 +240,13 @@
     {% endif %}
 </div>
 
+{% set female_names = ['eve', 'sarah', 'rebekah', 'rachel', 'leah', 'ruth', 'mary', 'tamar', 'rahab', 'bathsheba', 'dinah', 'keturah', 'hagar', 'zilpah', 'bilhah', 'jochebed', 'miriam', 'deborah', 'hannah', 'abigail', 'esther', 'naomi', 'naamah', 'milcah', 'adah', 'zillah', 'asenath', 'basemath'] %}
+
 <div class="person-grid">
     {% for person_id in generation_people %}
         {% set person = family_tree_data[person_id] %}
-        <div class="person-card{% if person.kekule_number is not none %} kekule{% endif %}">
+        {% set is_female = person.name|lower in female_names or (female_names | select('in', person.name|lower) | list | length > 0) %}
+        <div class="person-card{% if person.kekule_number is not none %} kekule{% endif %}{% if is_female %} female{% else %} male{% endif %}">
             <div class="person-card-header">
                 <h3 class="person-card-name">
                     <a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>
