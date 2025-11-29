@@ -9,6 +9,7 @@ from functools import lru_cache
 
 from ..kjv import bible, VerseReference
 from ..topics import get_all_topics
+from ..red_letter import get_christ_words
 
 # Paths to data files
 _DATA_DIR = Path(__file__).parent.parent / "data"
@@ -280,6 +281,7 @@ def get_daily_verse() -> Dict:
 
     book, chapter, verse = FEATURED_VERSES[verse_index]
     verse_text = bible.get_verse_text(book, chapter, verse)
+    christ_words = get_christ_words(book, chapter, verse)
 
     return {
         "book": book,
@@ -287,5 +289,6 @@ def get_daily_verse() -> Dict:
         "verse": verse,
         "text": verse_text,
         "reference": f"{book} {chapter}:{verse}",
-        "url": f"/book/{book}/chapter/{chapter}#verse-{verse}"
+        "url": f"/book/{book}/chapter/{chapter}#verse-{verse}",
+        "red_letter": christ_words
     }

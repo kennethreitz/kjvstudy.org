@@ -46,6 +46,8 @@ class TestVerseEndpoints:
         assert data["verse"] == 16
         assert "text" in data
         assert "God so loved the world" in data["text"]
+        assert "red_letter" in data
+        assert data["red_letter"] == "full"  # Jesus speaks the entire verse
 
     def test_get_verse_with_abbreviation(self, client):
         """Test verse endpoint with book abbreviation"""
@@ -56,6 +58,8 @@ class TestVerseEndpoints:
         assert data["chapter"] == 1
         assert data["verse"] == 1
         assert "In the beginning" in data["text"]
+        assert "red_letter" in data
+        assert data["red_letter"] is None  # Jesus doesn't speak in Genesis
 
     def test_get_nonexistent_verse(self, client):
         """Test verse endpoint with invalid verse"""
@@ -74,6 +78,10 @@ class TestVerseEndpoints:
         assert data["end"] == 6
         assert "verses" in data
         assert len(data["verses"]) == 6
+        # Check that each verse has red_letter field
+        for verse in data["verses"]:
+            assert "red_letter" in verse
+            assert verse["red_letter"] is None  # Psalms don't have Jesus speaking
 
     def test_verse_of_the_day(self, client):
         """Test /api/verse-of-the-day"""
@@ -85,6 +93,41 @@ class TestVerseEndpoints:
         assert "book" in data
         assert "chapter" in data
         assert "verse" in data
+        assert "red_letter" in data
+
+    def test_red_letter_full_verse(self, client):
+        """Test verse where Jesus speaks entire verse"""
+        response = client.get("/api/verse/Matthew/5/3")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["red_letter"] == "full"
+
+    def test_red_letter_partial_verse(self, client):
+        """Test verse where Jesus speaks part of it"""
+        response = client.get("/api/verse/Matthew/4/4")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["red_letter"] is not None
+        assert data["red_letter"] != "full"
+        assert isinstance(data["red_letter"], str)
+        assert len(data["red_letter"]) > 0
+
+    def test_red_letter_no_words(self, client):
+        """Test verse where Jesus doesn't speak"""
+        response = client.get("/api/verse/Romans/3/23")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["red_letter"] is None
+
+    def test_red_letter_verse_range_with_christ_words(self, client):
+        """Test verse range that includes words of Christ"""
+        response = client.get("/api/verse-range/Matthew/5/3/5")
+        assert response.status_code == 200
+        data = response.json()
+        # All three verses in the Sermon on the Mount are full red letter
+        for verse in data["verses"]:
+            assert "red_letter" in verse
+            assert verse["red_letter"] == "full"
 
 
 class TestBookEndpoints:

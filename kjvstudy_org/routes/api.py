@@ -1,8 +1,8 @@
 """API routes for KJV Study - JSON endpoints for programmatic access."""
-from typing import Optional
+from typing import Optional, List
+from pydantic import BaseModel, Field
 
-from fastapi import APIRouter, HTTPException, Query, Path
-from fastapi import APIRouter, HTTPException, Query, Path
+from fastapi import APIRouter, HTTPException, Query, Path, Body
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from ..utils.pdf import render_html_to_pdf, render_html_to_pdf_async, WEASYPRINT_AVAILABLE
@@ -16,6 +16,7 @@ from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse, create_slug
 from ..books import get_book_data, get_all_books_metadata, has_book_data
+from ..red_letter import get_christ_words
 from ..stories import (
     get_categories,
     get_story_by_slug,
@@ -28,6 +29,57 @@ router = APIRouter(prefix="/api", tags=["API"])
 
 # Templates will be set by the main app
 templates = None
+
+
+# Pydantic models for API responses
+class VerseResponse(BaseModel):
+    """Response model for a single verse"""
+    book: str = Field(..., json_schema_extra={"example": "John"})
+    chapter: int = Field(..., json_schema_extra={"example": 3})
+    verse: int = Field(..., json_schema_extra={"example": 16})
+    reference: str = Field(..., json_schema_extra={"example": "John 3:16"})
+    text: str = Field(..., json_schema_extra={"example": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."})
+    red_letter: Optional[str] = Field(
+        None,
+        description="Words of Christ: null if Jesus doesn't speak, 'full' if entire verse, or the quoted words if partial",
+        json_schema_extra={"example": "full"}
+    )
+
+
+class VerseInRange(BaseModel):
+    """Single verse within a range"""
+    verse: int = Field(..., json_schema_extra={"example": 1})
+    text: str = Field(..., json_schema_extra={"example": "The LORD is my shepherd; I shall not want."})
+    red_letter: Optional[str] = Field(
+        None,
+        description="Words of Christ: null if Jesus doesn't speak, 'full' if entire verse, or the quoted words if partial"
+    )
+
+
+class VerseRangeResponse(BaseModel):
+    """Response model for a range of verses"""
+    book: str = Field(..., json_schema_extra={"example": "Psalms"})
+    chapter: int = Field(..., json_schema_extra={"example": 23})
+    start: int = Field(..., json_schema_extra={"example": 1})
+    end: int = Field(..., json_schema_extra={"example": 6})
+    reference: str = Field(..., json_schema_extra={"example": "Psalms 23:1-6"})
+    verses: List[VerseInRange]
+    text: str = Field(..., json_schema_extra={"example": "The LORD is my shepherd; I shall not want..."})
+
+
+class DailyVerseResponse(BaseModel):
+    """Response model for verse of the day"""
+    book: str = Field(..., json_schema_extra={"example": "John"})
+    chapter: int = Field(..., json_schema_extra={"example": 3})
+    verse: int = Field(..., json_schema_extra={"example": 16})
+    text: str = Field(..., json_schema_extra={"example": "For God so loved the world..."})
+    reference: str = Field(..., json_schema_extra={"example": "John 3:16"})
+    url: str = Field(..., json_schema_extra={"example": "/book/John/chapter/3#verse-16"})
+    red_letter: Optional[str] = Field(
+        None,
+        description="Words of Christ: null if Jesus doesn't speak, 'full' if entire verse, or the quoted words if partial",
+        json_schema_extra={"example": "full"}
+    )
 
 
 def init_templates(app_templates):
@@ -296,19 +348,73 @@ def universal_search_api(
     return {"query": q, "results": results}
 
 
-@router.get("/verse-of-the-day")
+@router.get(
+    "/verse-of-the-day",
+    response_model=DailyVerseResponse,
+    summary="Get verse of the day",
+    description="Returns a featured verse that changes daily"
+)
 def verse_of_the_day_api():
     """API endpoint for verse of the day."""
     return get_daily_verse()
 
 
-@router.get("/verse/{book}/{chapter}/{verse}")
+@router.get(
+    "/verse/{book}/{chapter}/{verse}",
+    response_model=VerseResponse,
+    summary="Get a single verse",
+    description="Retrieve a specific Bible verse by book, chapter, and verse number. Includes red letter (words of Christ) information.",
+    responses={
+        200: {
+            "description": "Successfully retrieved verse",
+            "content": {
+                "application/json": {
+                    "examples": {
+                        "jesus_speaks": {
+                            "summary": "Verse where Jesus speaks (full)",
+                            "value": {
+                                "book": "John",
+                                "chapter": 3,
+                                "verse": 16,
+                                "reference": "John 3:16",
+                                "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.",
+                                "red_letter": "full"
+                            }
+                        },
+                        "no_jesus": {
+                            "summary": "Verse without Jesus speaking",
+                            "value": {
+                                "book": "Genesis",
+                                "chapter": 1,
+                                "verse": 1,
+                                "reference": "Genesis 1:1",
+                                "text": "In the beginning God created the heaven and the earth.",
+                                "red_letter": None
+                            }
+                        },
+                        "partial_jesus": {
+                            "summary": "Verse where Jesus speaks part of it",
+                            "value": {
+                                "book": "Matthew",
+                                "chapter": 4,
+                                "verse": 4,
+                                "reference": "Matthew 4:4",
+                                "text": "But he answered and said, It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God.",
+                                "red_letter": "It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God."
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+)
 def api_get_verse(
-    book: str = Path(..., description="Book name", examples=["John"]),
-    chapter: int = Path(..., description="Chapter number", examples=[3]),
-    verse: int = Path(..., description="Verse number", examples=[16])
+    book: str = Path(..., description="Book name (supports abbreviations)", examples=["John", "Gen", "Mt"]),
+    chapter: int = Path(..., description="Chapter number", examples=[3], ge=1),
+    verse: int = Path(..., description="Verse number", examples=[16], ge=1)
 ):
-    """Get a single verse text."""
+    """Get a single verse with red letter information."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
         book = canonical_name
@@ -326,23 +432,99 @@ def api_get_verse(
     if not verse_text:
         raise HTTPException(status_code=404, detail="Verse not found")
 
+    # Get red letter information (words of Christ)
+    christ_words = get_christ_words(book, chapter, verse)
+
     return JSONResponse({
         "book": book,
         "chapter": chapter,
         "verse": verse,
         "reference": f"{book} {chapter}:{verse}",
-        "text": verse_text
+        "text": verse_text,
+        "red_letter": christ_words
     })
 
 
-@router.get("/verse-range/{book}/{chapter}/{start}/{end}")
+@router.get(
+    "/verse-range/{book}/{chapter}/{start}/{end}",
+    response_model=VerseRangeResponse,
+    summary="Get a range of verses",
+    description="Retrieve multiple consecutive verses from a chapter. Each verse includes red letter information.",
+    responses={
+        200: {
+            "description": "Successfully retrieved verse range",
+            "content": {
+                "application/json": {
+                    "examples": {
+                        "sermon_on_mount": {
+                            "summary": "Beatitudes (Jesus speaking)",
+                            "value": {
+                                "book": "Matthew",
+                                "chapter": 5,
+                                "start": 3,
+                                "end": 5,
+                                "reference": "Matthew 5:3-5",
+                                "verses": [
+                                    {
+                                        "verse": 3,
+                                        "text": "Blessed are the poor in spirit: for their's is the kingdom of heaven.",
+                                        "red_letter": "full"
+                                    },
+                                    {
+                                        "verse": 4,
+                                        "text": "Blessed are they that mourn: for they shall be comforted.",
+                                        "red_letter": "full"
+                                    },
+                                    {
+                                        "verse": 5,
+                                        "text": "Blessed are the meek: for they shall inherit the earth.",
+                                        "red_letter": "full"
+                                    }
+                                ],
+                                "text": "Blessed are the poor in spirit: for their's is the kingdom of heaven. Blessed are they that mourn: for they shall be comforted. Blessed are the meek: for they shall inherit the earth."
+                            }
+                        },
+                        "psalm": {
+                            "summary": "Psalm 23 excerpt (no Jesus)",
+                            "value": {
+                                "book": "Psalms",
+                                "chapter": 23,
+                                "start": 1,
+                                "end": 3,
+                                "reference": "Psalms 23:1-3",
+                                "verses": [
+                                    {
+                                        "verse": 1,
+                                        "text": "The LORD is my shepherd; I shall not want.",
+                                        "red_letter": None
+                                    },
+                                    {
+                                        "verse": 2,
+                                        "text": "He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
+                                        "red_letter": None
+                                    },
+                                    {
+                                        "verse": 3,
+                                        "text": "He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake.",
+                                        "red_letter": None
+                                    }
+                                ],
+                                "text": "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake."
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+)
 def api_get_verse_range(
-    book: str = Path(..., description="Book name", examples=["Psalms"]),
-    chapter: int = Path(..., description="Chapter number", examples=[23]),
-    start: int = Path(..., description="Starting verse number", examples=[1]),
-    end: int = Path(..., description="Ending verse number", examples=[6])
+    book: str = Path(..., description="Book name (supports abbreviations)", examples=["Psalms", "Mt"]),
+    chapter: int = Path(..., description="Chapter number", examples=[23], ge=1),
+    start: int = Path(..., description="Starting verse number", examples=[1], ge=1),
+    end: int = Path(..., description="Ending verse number", examples=[6], ge=1)
 ):
-    """Get a range of verses."""
+    """Get a range of verses with red letter information."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
         book = canonical_name
@@ -362,9 +544,11 @@ def api_get_verse_range(
     for verse_num in range(start, end + 1):
         verse_text = bible.get_verse_text(book, chapter, verse_num)
         if verse_text:
+            christ_words = get_christ_words(book, chapter, verse_num)
             verses.append({
                 "verse": verse_num,
-                "text": verse_text
+                "text": verse_text,
+                "red_letter": christ_words
             })
             verse_texts.append(verse_text)
 
