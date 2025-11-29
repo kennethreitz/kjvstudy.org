@@ -229,13 +229,6 @@ hr::before {
     height: 16px;
 }
 
-.chapter-overview-divider {
-    border: none;
-    border-top: 1px solid var(--border-color, #ddd);
-    margin: 3rem 0 2rem;
-    height: 0;
-}
-
 @media print {
     .chapter-actions,
     .print-btn {
@@ -279,13 +272,6 @@ hr::before {
     </p>
     {% endfor %}
 </section>
-
-{% if chapter_overview %}
-<hr class="chapter-overview-divider"/>
-<section>
-    {{ chapter_overview|safe }}
-</section>
-{% endif %}
 
 <nav class="chapter-nav">
     <div class="chapter-nav-controls">
@@ -358,12 +344,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         linkVerseReferences(sidenote);
     });
-
-    // Also link verse references in chapter overview
-    const chapterOverview = document.querySelector('section');
-    if (chapterOverview) {
-        linkVerseReferences(chapterOverview);
-    }
 
     // Handle verse ranges in URL hash
     function highlightVerses() {
