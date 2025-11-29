@@ -42,3 +42,9 @@ package = true
 dev = [
     "pytest>=8.3.5",
 ]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning:pydantic.*",
+    "ignore:.*example.* has been deprecated.*:DeprecationWarning",
+]
