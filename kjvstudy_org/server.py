@@ -2479,7 +2479,7 @@ def strongs_index(request: Request, q: str = None):
     if q:
         results = search_strongs(q, language="both", limit=100)
 
-    books = [b.name for b in bible.books]
+    books = bible.get_books()
     breadcrumbs = [
         {"text": "Home", "url": "/"},
         {"text": "Strong's Concordance", "url": None}
@@ -2508,7 +2508,7 @@ def strongs_entry(request: Request, strongs_number: str):
             detail=f"Strong's number '{strongs_number}' not found"
         )
 
-    books = [b.name for b in bible.books]
+    books = bible.get_books()
     breadcrumbs = [
         {"text": "Home", "url": "/"},
         {"text": "Strong's Concordance", "url": "/strongs"},
