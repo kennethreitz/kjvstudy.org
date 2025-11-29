@@ -160,7 +160,7 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
                                                    "/tetragrammaton", "/commentary/"]):
             response.headers["Cache-Control"] = "public, max-age=86400"  # 1 day
         # Homepage and main sections - cache for 1 hour
-        elif request.url.path in ["/", "/books", "/search", "/resources", "/concordance"]:
+        elif request.url.path in ["/", "/books", "/search", "/resources", "/strongs"]:
             response.headers["Cache-Control"] = "public, max-age=3600"  # 1 hour
         # Sitemap and robots.txt - cache for 1 day
         elif request.url.path in ["/sitemap.xml", "/robots.txt"]:
@@ -327,74 +327,6 @@ def search_page(request: Request, q: str = Query(None, description="Search query
             "is_direct_verse": is_direct_verse
         }
     )
-
-@app.get("/concordance", response_class=HTMLResponse)
-def concordance_page(request: Request, word: str = Query(None, description="Word to look up")):
-    """Concordance page showing all occurrences of a word"""
-    books = bible.get_books()
-
-    if not word or len(word.strip()) < 2:
-        return templates.TemplateResponse(
-            request,
-            "concordance.html",
-            {
-                "books": books,
-                "word": word or "",
-                "total_occurrences": 0,
-                "occurrences_by_book": {},
-                "books_with_word": []
-            }
-        )
-
-    search_word = word.strip()
-    occurrences = []
-    occurrences_by_book = {}
-    books_with_word = set()
-
-    # Search through all verses
-    import re
-    # Create a word boundary pattern for exact word matching
-    # This handles punctuation and word boundaries properly
-    pattern = re.compile(r'\b' + re.escape(search_word) + r'\b', re.IGNORECASE)
-
-    # Use bible.iter_verses() to iterate through all verses
-    for verse in bible.iter_verses():
-        # Check if the word appears in this verse
-        if pattern.search(verse.text):
-            # Highlight the word in the text
-            highlighted_text = pattern.sub(
-                lambda m: f'<span class="highlight">{m.group()}</span>',
-                verse.text
-            )
-
-            occurrence = {
-                'book': verse.book,
-                'chapter': verse.chapter,
-                'verse': verse.verse,
-                'text': verse.text,
-                'highlighted_text': highlighted_text
-            }
-
-            occurrences.append(occurrence)
-            books_with_word.add(verse.book)
-
-            # Group by book
-            if verse.book not in occurrences_by_book:
-                occurrences_by_book[verse.book] = []
-            occurrences_by_book[verse.book].append(occurrence)
-
-    return templates.TemplateResponse(
-            request,
-            "concordance.html",
-            {
-            "books": books,
-            "word": search_word,
-            "total_occurrences": len(occurrences),
-            "occurrences_by_book": occurrences_by_book,
-            "books_with_word": sorted(books_with_word)
-        }
-    )
-
 
 @app.get("/interlinear", response_class=HTMLResponse)
 def interlinear_landing_page(request: Request):
