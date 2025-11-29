@@ -2042,6 +2042,847 @@
           "verse": "Acts 16:29-34"
         }
       ]
+    },
+    "Absalom": {
+      "summary": "The third son of King David, known for his exceptional beauty and his tragic rebellion against his father. Absalom killed his half-brother Amnon to avenge the rape of his sister Tamar, then fled to Geshur. After returning to Jerusalem, he conspired to usurp David's throne, forcing his father to flee. He was killed by Joab while caught in an oak tree during the battle.",
+      "significance": "Absalom's rebellion illustrates the devastating consequences of family dysfunction and unchecked ambition, as well as the depths of a father's love despite betrayal.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Birth to David and Maacah",
+          "verse": "2 Samuel 3:3"
+        },
+        {
+          "age": null,
+          "event": "Killed Amnon for raping Tamar",
+          "verse": "2 Samuel 13:28-29"
+        },
+        {
+          "age": null,
+          "event": "Fled to Geshur for three years",
+          "verse": "2 Samuel 13:37-38"
+        },
+        {
+          "age": null,
+          "event": "Returned to Jerusalem",
+          "verse": "2 Samuel 14:23"
+        },
+        {
+          "age": null,
+          "event": "Began conspiracy against David",
+          "verse": "2 Samuel 15:10"
+        },
+        {
+          "age": null,
+          "event": "Death caught in oak tree",
+          "verse": "2 Samuel 18:9-15"
+        }
+      ]
+    },
+    "Nathan": {
+      "summary": "A prophet during the reign of King David who fearlessly confronted the king about his sin with Bathsheba. Nathan also brought David God's covenant promise of an eternal dynasty. He played a key role in ensuring Solomon's succession to the throne and was involved in organizing temple worship.",
+      "significance": "Nathan exemplifies the prophetic role of speaking truth to power and demonstrates God's willingness to forgive even grievous sins when met with genuine repentance.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Brought God's covenant to David",
+          "verse": "2 Samuel 7:4-17"
+        },
+        {
+          "age": null,
+          "event": "Confronted David about Bathsheba",
+          "verse": "2 Samuel 12:1-15"
+        },
+        {
+          "age": null,
+          "event": "Named Solomon 'Jedidiah'",
+          "verse": "2 Samuel 12:25"
+        },
+        {
+          "age": null,
+          "event": "Helped secure Solomon's succession",
+          "verse": "1 Kings 1:11-45"
+        }
+      ]
+    },
+    "Tamar": {
+      "summary": "The daughter of King David and sister of Absalom, Tamar was raped by her half-brother Amnon. After the assault, Amnon rejected her cruelly, compounding her trauma. Her brother Absalom sheltered her and later avenged her by killing Amnon, which set in motion events leading to Absalom's rebellion.",
+      "significance": "Tamar's tragic story exposes the devastating impact of sexual violence and the failure of family and authority to provide justice, foreshadowing the dysfunction that would plague David's house.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Raped by half-brother Amnon",
+          "verse": "2 Samuel 13:14"
+        },
+        {
+          "age": null,
+          "event": "Rejected and humiliated by Amnon",
+          "verse": "2 Samuel 13:15-17"
+        },
+        {
+          "age": null,
+          "event": "Lived desolate in Absalom's house",
+          "verse": "2 Samuel 13:20"
+        }
+      ]
+    },
+    "Laban": {
+      "summary": "The brother of Rebekah and father of Leah and Rachel, Laban was a shrewd Aramean who lived in Haran. When Jacob fled from Esau, he worked for Laban for twenty years, during which Laban repeatedly deceived him, changing his wages ten times. Despite the conflicts, Laban's daughters became the mothers of the twelve tribes of Israel.",
+      "significance": "Laban represents God's sovereignty in using even difficult circumstances to fulfill His covenant promises, as through Laban's daughters came the twelve tribes of Israel.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Met Abraham's servant",
+          "verse": "Genesis 24:29-31"
+        },
+        {
+          "age": null,
+          "event": "Jacob arrived to work for him",
+          "verse": "Genesis 29:13"
+        },
+        {
+          "age": null,
+          "event": "Deceived Jacob with Leah instead of Rachel",
+          "verse": "Genesis 29:23-25"
+        },
+        {
+          "age": null,
+          "event": "Made covenant with Jacob at Mizpah",
+          "verse": "Genesis 31:44-55"
+        }
+      ]
+    },
+    "Benjamin": {
+      "summary": "The youngest son of Jacob and Rachel, born as his mother died in childbirth. Rachel named him Ben-oni ('son of my sorrow'), but Jacob renamed him Benjamin ('son of my right hand'). He was the only son of Jacob born in Canaan and was deeply loved by his father. He became the father of the tribe of Benjamin.",
+      "significance": "Benjamin's tribe produced Israel's first king (Saul) and the apostle Paul, and remained loyal to Judah when the kingdom divided.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth near Bethlehem; Rachel died",
+          "verse": "Genesis 35:16-18"
+        },
+        {
+          "age": null,
+          "event": "Traveled to Egypt with brothers",
+          "verse": "Genesis 43:15"
+        },
+        {
+          "age": null,
+          "event": "Joseph's cup found in his sack",
+          "verse": "Genesis 44:12"
+        },
+        {
+          "age": null,
+          "event": "Reunited with Joseph",
+          "verse": "Genesis 45:14"
+        }
+      ]
+    },
+    "Bilhah": {
+      "summary": "Rachel's handmaid, given to Jacob as a concubine to bear children on Rachel's behalf. Through Bilhah, Rachel obtained two sons: Dan and Naphtali. Later, Reuben, Jacob's firstborn, violated her, which resulted in Reuben losing his birthright.",
+      "significance": "Bilhah's sons Dan and Naphtali became two of the twelve tribes of Israel, demonstrating God's inclusion of all Jacob's sons in His covenant promises.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Given to Jacob by Rachel",
+          "verse": "Genesis 30:3-4"
+        },
+        {
+          "age": null,
+          "event": "Bore Dan to Jacob",
+          "verse": "Genesis 30:5-6"
+        },
+        {
+          "age": null,
+          "event": "Bore Naphtali to Jacob",
+          "verse": "Genesis 30:7-8"
+        },
+        {
+          "age": null,
+          "event": "Violated by Reuben",
+          "verse": "Genesis 35:22"
+        }
+      ]
+    },
+    "Zilpah": {
+      "summary": "Leah's handmaid, given to Jacob as a concubine when Leah stopped bearing children. Through Zilpah, Leah obtained two more sons: Gad and Asher, adding to her children by Jacob.",
+      "significance": "Zilpah's sons Gad and Asher became two of the twelve tribes of Israel, their descendants receiving tribal inheritances in the Promised Land.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Given to Jacob by Leah",
+          "verse": "Genesis 30:9"
+        },
+        {
+          "age": null,
+          "event": "Bore Gad to Jacob",
+          "verse": "Genesis 30:10-11"
+        },
+        {
+          "age": null,
+          "event": "Bore Asher to Jacob",
+          "verse": "Genesis 30:12-13"
+        }
+      ]
+    },
+    "Reuben": {
+      "summary": "The firstborn son of Jacob and Leah, Reuben should have received the birthright and double portion. However, he lost these privileges after sleeping with his father's concubine Bilhah. Despite this, he later tried to save Joseph from his brothers and offered his own sons as guarantee for Benjamin's safety.",
+      "significance": "Reuben's loss of the birthright demonstrates that God's choices are not determined by human birth order but by His sovereign will and human character.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob and Leah",
+          "verse": "Genesis 29:32"
+        },
+        {
+          "age": null,
+          "event": "Found mandrakes in the field",
+          "verse": "Genesis 30:14"
+        },
+        {
+          "age": null,
+          "event": "Tried to save Joseph",
+          "verse": "Genesis 37:21-22"
+        },
+        {
+          "age": null,
+          "event": "Violated Bilhah, lost birthright",
+          "verse": "Genesis 35:22"
+        },
+        {
+          "age": null,
+          "event": "Offered his sons as surety for Benjamin",
+          "verse": "Genesis 42:37"
+        }
+      ]
+    },
+    "Simeon": {
+      "summary": "The second son of Jacob and Leah, Simeon joined with his brother Levi in the violent massacre of Shechem to avenge their sister Dinah's rape. This act of vengeance was condemned by Jacob on his deathbed. Simeon was later held hostage in Egypt by Joseph until the brothers returned with Benjamin.",
+      "significance": "Simeon's tribe was later absorbed into Judah's territory, and his descendants' fierce nature found positive expression in defending Israel.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob and Leah",
+          "verse": "Genesis 29:33"
+        },
+        {
+          "age": null,
+          "event": "Massacred men of Shechem with Levi",
+          "verse": "Genesis 34:25-26"
+        },
+        {
+          "age": null,
+          "event": "Held hostage in Egypt by Joseph",
+          "verse": "Genesis 42:24"
+        }
+      ]
+    },
+    "Dan": {
+      "summary": "The first son born to Jacob through Rachel's handmaid Bilhah, Dan's name means 'judge' or 'he has vindicated.' Rachel considered his birth a vindication from God. Dan became the father of the tribe that would later be associated with idolatry but also produced the judge Samson.",
+      "significance": "The tribe of Dan later struggled with idolatry and is notably absent from the 144,000 in Revelation, yet produced mighty deliverers like Samson.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob through Bilhah",
+          "verse": "Genesis 30:5-6"
+        },
+        {
+          "age": null,
+          "event": "Traveled to Egypt with family",
+          "verse": "Genesis 46:23"
+        }
+      ]
+    },
+    "Naphtali": {
+      "summary": "The second son born to Jacob through Rachel's handmaid Bilhah, Naphtali's name means 'my wrestling.' Rachel saw his birth as evidence of her struggle with her sister Leah. The tribe of Naphtali later settled in northern Galilee.",
+      "significance": "The territory of Naphtali was where Jesus conducted much of His ministry, fulfilling Isaiah's prophecy about light coming to this region.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob through Bilhah",
+          "verse": "Genesis 30:7-8"
+        },
+        {
+          "age": null,
+          "event": "Traveled to Egypt with family",
+          "verse": "Genesis 46:24"
+        }
+      ]
+    },
+    "Gad": {
+      "summary": "The first son born to Jacob through Leah's handmaid Zilpah, Gad's name means 'good fortune' or 'a troop comes.' His descendants formed a warrior tribe that settled east of the Jordan River in fertile pasturelands.",
+      "significance": "The tribe of Gad was known for its fierce warriors and remained faithful to Israel, though their separation by the Jordan sometimes caused concern.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob through Zilpah",
+          "verse": "Genesis 30:10-11"
+        },
+        {
+          "age": null,
+          "event": "Traveled to Egypt with family",
+          "verse": "Genesis 46:16"
+        }
+      ]
+    },
+    "Asher": {
+      "summary": "The second son born to Jacob through Leah's handmaid Zilpah, Asher's name means 'happy' or 'blessed.' Leah declared that women would call her blessed because of him. His descendants inherited rich coastal territory known for its abundance.",
+      "significance": "The tribe of Asher was blessed with material prosperity, and the prophetess Anna who witnessed Jesus's presentation came from this tribe.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob through Zilpah",
+          "verse": "Genesis 30:12-13"
+        },
+        {
+          "age": null,
+          "event": "Traveled to Egypt with family",
+          "verse": "Genesis 46:17"
+        }
+      ]
+    },
+    "Issachar": {
+      "summary": "The ninth son of Jacob and the fifth son of Leah, Issachar was born after the incident with the mandrakes. His name relates to 'reward' or 'wages.' His descendants became a large tribe known for understanding the times and seasons.",
+      "significance": "The tribe of Issachar was noted for wisdom and understanding, with men who 'had understanding of the times, to know what Israel ought to do.'",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob and Leah",
+          "verse": "Genesis 30:17-18"
+        },
+        {
+          "age": null,
+          "event": "Traveled to Egypt with family",
+          "verse": "Genesis 46:13"
+        }
+      ]
+    },
+    "Zebulun": {
+      "summary": "The tenth son of Jacob and the sixth son of Leah, Zebulun was the last son Leah bore to Jacob. His name means 'dwelling' or 'honor.' Leah hoped that Jacob would honor her for bearing six sons. His descendants settled in a territory that included important trade routes.",
+      "significance": "The tribe of Zebulun's territory was blessed with commerce and included the region where Jesus grew up and began His ministry.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob and Leah",
+          "verse": "Genesis 30:19-20"
+        },
+        {
+          "age": null,
+          "event": "Traveled to Egypt with family",
+          "verse": "Genesis 46:14"
+        }
+      ]
+    },
+    "Dinah": {
+      "summary": "The daughter of Jacob and Leah, Dinah was raped by Shechem, a Hivite prince, who then wanted to marry her. Her brothers Simeon and Levi tricked the men of Shechem into being circumcised, then massacred them while they were incapacitated, taking vengeance for their sister.",
+      "significance": "Dinah's story reveals the violence and dysfunction that marked Jacob's family and the serious consequences of compromising with pagan cultures.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth to Jacob and Leah",
+          "verse": "Genesis 30:21"
+        },
+        {
+          "age": null,
+          "event": "Raped by Shechem",
+          "verse": "Genesis 34:2"
+        },
+        {
+          "age": null,
+          "event": "Brothers' revenge on Shechem",
+          "verse": "Genesis 34:25-26"
+        }
+      ]
+    },
+    "Manasseh": {
+      "summary": "The firstborn son of Joseph and Asenath, born in Egypt before the famine. Though the firstborn, Jacob crossed his hands to give the greater blessing to Ephraim. Manasseh's descendants formed a large tribe that settled on both sides of the Jordan River.",
+      "significance": "Manasseh's tribe became powerful and numerous, though his receiving the lesser blessing demonstrates God's sovereign choice over human customs.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth in Egypt to Joseph",
+          "verse": "Genesis 41:50-51"
+        },
+        {
+          "age": null,
+          "event": "Blessed by Jacob, received left hand",
+          "verse": "Genesis 48:13-14"
+        },
+        {
+          "age": null,
+          "event": "Half tribe settled east of Jordan",
+          "verse": "Numbers 32:33"
+        }
+      ]
+    },
+    "Ephraim": {
+      "summary": "The second son of Joseph and Asenath, born in Egypt, Ephraim received the greater blessing from Jacob despite being younger than Manasseh. His descendants became the dominant tribe in northern Israel, and 'Ephraim' often became synonymous with the northern kingdom.",
+      "significance": "Ephraim's prominence fulfills Jacob's blessing and demonstrates God's choice of the younger over the elder, but the tribe later led Israel into idolatry.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth in Egypt to Joseph",
+          "verse": "Genesis 41:52"
+        },
+        {
+          "age": null,
+          "event": "Blessed by Jacob, received right hand",
+          "verse": "Genesis 48:17-20"
+        },
+        {
+          "age": null,
+          "event": "Tribe became prominent in north",
+          "verse": "Joshua 16:5"
+        }
+      ]
+    },
+    "Amnon": {
+      "summary": "The firstborn son of King David, Amnon raped his half-sister Tamar despite her pleas and resistance. Afterward, he rejected her cruelly. Two years later, her brother Absalom killed Amnon in revenge, eliminating David's heir apparent.",
+      "significance": "Amnon's sin of rape and the violent response it provoked illustrate the consequences of uncontrolled lust and the dysfunction in David's house following his sin with Bathsheba.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Birth to David and Ahinoam",
+          "verse": "2 Samuel 3:2"
+        },
+        {
+          "age": null,
+          "event": "Raped his half-sister Tamar",
+          "verse": "2 Samuel 13:14"
+        },
+        {
+          "age": null,
+          "event": "Killed by Absalom's servants",
+          "verse": "2 Samuel 13:28-29"
+        }
+      ]
+    },
+    "Adonijah": {
+      "summary": "The fourth son of David and Haggith, Adonijah attempted to seize the throne as David aged, despite knowing that Solomon was chosen as heir. He held a coronation feast but was stopped when Nathan and Bathsheba alerted David, who immediately had Solomon crowned. Later, Adonijah's request for David's concubine led Solomon to have him executed.",
+      "significance": "Adonijah's failed coup demonstrates the importance of submitting to God's chosen leader and the dangers of ambition and presumption.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Birth to David and Haggith",
+          "verse": "2 Samuel 3:4"
+        },
+        {
+          "age": null,
+          "event": "Attempted to seize throne",
+          "verse": "1 Kings 1:5-9"
+        },
+        {
+          "age": null,
+          "event": "Pardoned by Solomon",
+          "verse": "1 Kings 1:52-53"
+        },
+        {
+          "age": null,
+          "event": "Executed for requesting Abishag",
+          "verse": "1 Kings 2:13-25"
+        }
+      ]
+    },
+    "Joab": {
+      "summary": "The son of David's sister Zeruiah and commander of David's army for most of his reign. Joab was a brilliant military strategist but also ruthless, killing Abner, Absalom, and Amasa against David's wishes. Despite his loyalty to David in many battles, his violent actions eventually led Solomon to execute him.",
+      "significance": "Joab exemplifies the complexity of flawed leadership—immensely capable and loyal yet prone to violence and insubordination, showing that even great service doesn't excuse deliberate disobedience.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Led capture of Jerusalem",
+          "verse": "2 Samuel 5:8"
+        },
+        {
+          "age": null,
+          "event": "Murdered Abner",
+          "verse": "2 Samuel 3:27"
+        },
+        {
+          "age": null,
+          "event": "Killed Absalom against David's order",
+          "verse": "2 Samuel 18:14"
+        },
+        {
+          "age": null,
+          "event": "Murdered Amasa",
+          "verse": "2 Samuel 20:10"
+        },
+        {
+          "age": null,
+          "event": "Executed by Benaiah",
+          "verse": "1 Kings 2:28-34"
+        }
+      ]
+    },
+    "Abishai": {
+      "summary": "The son of Zeruiah and brother of Joab, Abishai was one of David's mighty men and a fierce warrior. He saved David's life in battle against a Philistine giant, wanted to kill Saul when they found him sleeping, and led various military campaigns. He remained loyal to David during Absalom's rebellion.",
+      "significance": "Abishai represents fierce loyalty and courage, though like his brother Joab, his zeal sometimes needed to be restrained by wiser counsel.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Accompanied David to Saul's camp",
+          "verse": "1 Samuel 26:6-9"
+        },
+        {
+          "age": null,
+          "event": "Defeated 18,000 Edomites",
+          "verse": "1 Chronicles 18:12"
+        },
+        {
+          "age": null,
+          "event": "Saved David from Philistine giant",
+          "verse": "2 Samuel 21:16-17"
+        },
+        {
+          "age": null,
+          "event": "Remained loyal during Absalom's rebellion",
+          "verse": "2 Samuel 16:9"
+        }
+      ]
+    },
+    "Abinadab": {
+      "summary": "One of the sons of Jesse and brother of David. When Samuel came to anoint the next king, Abinadab was presented but not chosen. Later, another Abinadab was the son of Saul who died with his father at Mount Gilboa. The ark of the covenant was also housed in the home of an Abinadab in Kiriath Jearim.",
+      "significance": "Abinadab represents those passed over in God's sovereign choices, reminding us that God's selection is not based on human appearance or expectations.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Presented to Samuel but not chosen",
+          "verse": "1 Samuel 16:8"
+        }
+      ]
+    },
+    "Eliab": {
+      "summary": "The firstborn son of Jesse and oldest brother of David. When Samuel came to Jesse's house to anoint a king, Eliab's impressive appearance made Samuel think he was the chosen one, but God rejected him. Later, Eliab angrily accused David of presumption when David came to the battle against Goliath.",
+      "significance": "Eliab's rejection teaches that God looks on the heart, not outward appearance, and that being firstborn or most impressive does not guarantee God's selection.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Presented to Samuel but rejected",
+          "verse": "1 Samuel 16:6-7"
+        },
+        {
+          "age": null,
+          "event": "Rebuked David at Goliath battle",
+          "verse": "1 Samuel 17:28"
+        }
+      ]
+    },
+    "Shimma": {
+      "summary": "The third son of Jesse and brother of David, also called Shammah. He was among the brothers presented to Samuel but not chosen as king. Little else is recorded about him in Scripture.",
+      "significance": "Shimma, like his other brothers, represents those who supported God's chosen king even when they themselves were passed over.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Presented to Samuel but not chosen",
+          "verse": "1 Samuel 16:9"
+        }
+      ]
+    },
+    "Jehoshaphat": {
+      "summary": "The fourth king of Judah and son of Asa, Jehoshaphat was one of the righteous kings who sought the Lord and removed high places and Asherim from Judah. He strengthened Judah's defenses, sent teachers throughout the land to instruct the people in God's law, and won a great victory when he led the people in worship before battle. However, he made unwise alliances with the wicked kings of Israel.",
+      "significance": "Jehoshaphat demonstrates the importance of seeking God and teaching His word, but also warns against compromising alliances with those who reject God.",
+      "key_events": [
+        {
+          "age": 35,
+          "event": "Became king of Judah",
+          "verse": "1 Kings 22:42"
+        },
+        {
+          "age": null,
+          "event": "Sent teachers to instruct people",
+          "verse": "2 Chronicles 17:7-9"
+        },
+        {
+          "age": null,
+          "event": "Allied with Ahab against Ramoth Gilead",
+          "verse": "1 Kings 22:4"
+        },
+        {
+          "age": null,
+          "event": "Won battle through worship",
+          "verse": "2 Chronicles 20:20-23"
+        },
+        {
+          "age": 60,
+          "event": "Death after 25-year reign",
+          "verse": "1 Kings 22:50"
+        }
+      ]
+    },
+    "Joram": {
+      "summary": "The son of Jehoshaphat who became king of Judah, Joram walked in the evil ways of the kings of Israel because he married Athaliah, daughter of Ahab. He killed all his brothers to secure his throne, established high places, and led Judah into idolatry. He died of a horrible intestinal disease with no one mourning him.",
+      "significance": "Joram's reign illustrates the destructive impact of ungodly marriages and the swift spiritual decline that can occur in a single generation when God's ways are abandoned.",
+      "key_events": [
+        {
+          "age": 32,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 8:17"
+        },
+        {
+          "age": null,
+          "event": "Murdered his brothers",
+          "verse": "2 Chronicles 21:4"
+        },
+        {
+          "age": null,
+          "event": "Led Judah into idolatry",
+          "verse": "2 Chronicles 21:11"
+        },
+        {
+          "age": null,
+          "event": "Received letter from Elijah",
+          "verse": "2 Chronicles 21:12-15"
+        },
+        {
+          "age": 40,
+          "event": "Died of intestinal disease",
+          "verse": "2 Chronicles 21:18-20"
+        }
+      ]
+    },
+    "Ahaziah": {
+      "summary": "The son of Joram and Athaliah who became king of Judah at age 22, Ahaziah reigned only one year. Under his mother's evil influence, he walked in the ways of the house of Ahab. He allied with Joram of Israel against Syria and was killed by Jehu during God's judgment on Ahab's house.",
+      "significance": "Ahaziah's brief, wicked reign shows how quickly evil influence can corrupt, and how association with the ungodly can lead to sharing in their judgment.",
+      "key_events": [
+        {
+          "age": 22,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 8:26"
+        },
+        {
+          "age": null,
+          "event": "Allied with Joram of Israel",
+          "verse": "2 Kings 8:28-29"
+        },
+        {
+          "age": 23,
+          "event": "Killed by Jehu",
+          "verse": "2 Kings 9:27-28"
+        }
+      ]
+    },
+    "Amaziah": {
+      "summary": "The son of Joash who became king of Judah, Amaziah did what was right in the eyes of the Lord, but not wholeheartedly. He executed his father's murderers but spared their children, obeying God's law. After defeating Edom, he foolishly brought back their gods to worship. He challenged Israel's king to battle and was defeated and captured.",
+      "significance": "Amaziah exemplifies the danger of incomplete devotion to God and the folly of pride, showing that past victories don't guarantee future success when God is abandoned.",
+      "key_events": [
+        {
+          "age": 25,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 14:2"
+        },
+        {
+          "age": null,
+          "event": "Defeated Edom",
+          "verse": "2 Kings 14:7"
+        },
+        {
+          "age": null,
+          "event": "Worshiped Edomite gods",
+          "verse": "2 Chronicles 25:14"
+        },
+        {
+          "age": null,
+          "event": "Defeated by Israel's king Jehoash",
+          "verse": "2 Kings 14:11-14"
+        },
+        {
+          "age": 54,
+          "event": "Assassinated in Lachish",
+          "verse": "2 Kings 14:19"
+        }
+      ]
+    },
+    "Azariah": {
+      "summary": "Also known as Uzziah, the son of Amaziah who became king of Judah at age 16, Azariah sought God and prospered greatly. He strengthened Judah's military, built towers, and developed agriculture. However, in his pride, he unlawfully entered the temple to burn incense, and God struck him with leprosy. He remained leprous until his death, while his son Jotham governed.",
+      "significance": "Azariah's life demonstrates that great success can lead to pride, and that God's holiness and priestly regulations must be respected regardless of one's position or past faithfulness.",
+      "key_events": [
+        {
+          "age": 16,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 15:2"
+        },
+        {
+          "age": null,
+          "event": "Built Elath and restored it to Judah",
+          "verse": "2 Kings 14:22"
+        },
+        {
+          "age": null,
+          "event": "Sought God and prospered",
+          "verse": "2 Chronicles 26:4-5"
+        },
+        {
+          "age": null,
+          "event": "Unlawfully burned incense, struck with leprosy",
+          "verse": "2 Chronicles 26:16-21"
+        },
+        {
+          "age": 68,
+          "event": "Death",
+          "verse": "2 Kings 15:7"
+        }
+      ]
+    },
+    "Jotham": {
+      "summary": "The son of Uzziah (Azariah) who became king of Judah, Jotham did what was right in the Lord's eyes like his father, except he did not enter the temple unlawfully. He built extensively, including the Upper Gate of the temple, and defeated the Ammonites. However, the people continued in corrupt practices during his reign.",
+      "significance": "Jotham represents faithful leadership that nevertheless cannot force righteousness upon an unwilling people, showing the limits of even good leadership when hearts are hard.",
+      "key_events": [
+        {
+          "age": 25,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 15:33"
+        },
+        {
+          "age": null,
+          "event": "Built the Upper Gate of temple",
+          "verse": "2 Kings 15:35"
+        },
+        {
+          "age": null,
+          "event": "Defeated the Ammonites",
+          "verse": "2 Chronicles 27:5"
+        },
+        {
+          "age": 41,
+          "event": "Death after 16-year reign",
+          "verse": "2 Kings 15:38"
+        }
+      ]
+    },
+    "Ahaz": {
+      "summary": "The son of Jotham who became king of Judah, Ahaz was one of the most wicked kings of Judah. He practiced idolatry, burned his sons as offerings, and desecrated the temple. When threatened by Syria and Israel, he appealed to Assyria rather than God, bringing Judah under Assyrian domination. He even made a replica of a pagan altar and placed it in God's temple.",
+      "significance": "Ahaz exemplifies spiritual apostasy and the consequences of trusting in political alliances rather than God, demonstrating how far a leader can fall from his godly heritage.",
+      "key_events": [
+        {
+          "age": 20,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 16:2"
+        },
+        {
+          "age": null,
+          "event": "Sacrificed his sons to idols",
+          "verse": "2 Kings 16:3"
+        },
+        {
+          "age": null,
+          "event": "Asked Assyria for help instead of God",
+          "verse": "2 Kings 16:7-9"
+        },
+        {
+          "age": null,
+          "event": "Replaced temple altar with pagan copy",
+          "verse": "2 Kings 16:10-16"
+        },
+        {
+          "age": 36,
+          "event": "Death",
+          "verse": "2 Kings 16:2"
+        }
+      ]
+    },
+    "Amon": {
+      "summary": "The son of Manasseh who became king of Judah at age 22, Amon did evil like his father but without Manasseh's later repentance. He worshiped idols, increased his guilt, and reigned only two years before his own servants assassinated him. His young son Josiah succeeded him and reversed his evil policies.",
+      "significance": "Amon's brief, wicked reign demonstrates that evil patterns can be inherited but also that God can raise up righteous leaders from ungodly fathers.",
+      "key_events": [
+        {
+          "age": 22,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 21:19"
+        },
+        {
+          "age": null,
+          "event": "Worshiped idols like his father",
+          "verse": "2 Kings 21:21"
+        },
+        {
+          "age": 24,
+          "event": "Assassinated by his servants",
+          "verse": "2 Kings 21:23"
+        }
+      ]
+    },
+    "Jehoiakim": {
+      "summary": "Originally named Eliakim, the son of Josiah who was placed on Judah's throne by Pharaoh Neco and renamed Jehoiakim. He was a wicked king who oppressed the people, built extravagant palaces with forced labor, and burned Jeremiah's scroll. He rebelled against Babylon, leading to Jerusalem's first deportation. He died in disgrace.",
+      "significance": "Jehoiakim exemplifies arrogant rejection of God's word and the futility of resisting God's judgment, as his defiance only hastened Judah's destruction.",
+      "key_events": [
+        {
+          "age": 25,
+          "event": "Made king by Pharaoh Neco",
+          "verse": "2 Kings 23:34"
+        },
+        {
+          "age": null,
+          "event": "Became Babylon's vassal",
+          "verse": "2 Kings 24:1"
+        },
+        {
+          "age": null,
+          "event": "Burned Jeremiah's scroll",
+          "verse": "Jeremiah 36:23"
+        },
+        {
+          "age": null,
+          "event": "Rebelled against Babylon",
+          "verse": "2 Kings 24:1"
+        },
+        {
+          "age": 36,
+          "event": "Death",
+          "verse": "2 Kings 23:36"
+        }
+      ]
+    },
+    "Jeconiah": {
+      "summary": "Also known as Jehoiachin, the son of Jehoiakim who became king of Judah at age 18, Jeconiah reigned only three months before Nebuchadnezzar besieged Jerusalem and took him captive to Babylon. He was imprisoned for 37 years until Evil-Merodach released him and gave him honor. He appears in Matthew's genealogy of Jesus.",
+      "significance": "Jeconiah represents God's judgment on David's line, yet God's faithfulness continues through him to bring the Messiah, showing grace even in judgment.",
+      "key_events": [
+        {
+          "age": 18,
+          "event": "Became king of Judah",
+          "verse": "2 Kings 24:8"
+        },
+        {
+          "age": 18,
+          "event": "Surrendered to Nebuchadnezzar",
+          "verse": "2 Kings 24:12"
+        },
+        {
+          "age": 18,
+          "event": "Taken captive to Babylon",
+          "verse": "2 Kings 24:15"
+        },
+        {
+          "age": 55,
+          "event": "Released from prison by Evil-Merodach",
+          "verse": "2 Kings 25:27-30"
+        }
+      ]
+    },
+    "Zedekiah": {
+      "summary": "Originally named Mattaniah, the son of Josiah who was placed on Judah's throne by Nebuchadnezzar and renamed Zedekiah. Though warned repeatedly by Jeremiah, he was a weak king who vacillated between heeding the prophet and fearing his officials. His rebellion against Babylon led to Jerusalem's destruction, and he witnessed the execution of his sons before being blinded and taken to Babylon.",
+      "significance": "Zedekiah exemplifies the tragedy of weak leadership and the severe consequences of refusing to heed God's warnings through His prophets.",
+      "key_events": [
+        {
+          "age": 21,
+          "event": "Made king by Nebuchadnezzar",
+          "verse": "2 Kings 24:17-18"
+        },
+        {
+          "age": null,
+          "event": "Rebelled against Babylon",
+          "verse": "2 Kings 24:20"
+        },
+        {
+          "age": null,
+          "event": "Jerusalem besieged",
+          "verse": "2 Kings 25:1-2"
+        },
+        {
+          "age": null,
+          "event": "Sons killed, eyes blinded, taken to Babylon",
+          "verse": "2 Kings 25:6-7"
+        }
+      ]
     }
   },
   "aliases": {
