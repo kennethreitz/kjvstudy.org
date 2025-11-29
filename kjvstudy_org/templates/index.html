@@ -196,6 +196,33 @@
     background: var(--code-bg);
 }
 
+.explore-link.selected {
+    border-color: #4a7c59;
+    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
+    background: rgba(74, 124, 89, 0.05);
+}
+
+[data-theme="dark"] .explore-link.selected {
+    border-color: #6b9b7a;
+    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
+    background: rgba(107, 155, 122, 0.1);
+}
+
+.explore-link.featured {
+    border-color: #d4af37;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.03));
+}
+
+.explore-link.featured:hover {
+    border-color: #b8972e;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+}
+
+[data-theme="dark"] .explore-link.featured {
+    border-color: #d4af37;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+}
+
 /* Footer */
 .home-footer {
     margin-top: 2.5rem;
@@ -376,8 +403,8 @@
         <a href="/biblical-prophets" class="explore-link">The Prophets</a>
         <a href="/women-of-the-bible" class="explore-link">Women of the Bible</a>
         <a href="/biblical-angels" class="explore-link">Angelology</a>
-        <a href="/biblical-timeline" class="explore-link">Biblical Timeline</a>
-        <a href="/family-tree" class="explore-link">Genealogies</a>
+        <a href="/biblical-timeline" class="explore-link featured">Biblical Timeline</a>
+        <a href="/family-tree" class="explore-link featured">Genealogies</a>
         <a href="/stories" class="explore-link">Bible Stories</a>
     </div>
 </section>
@@ -502,30 +529,36 @@ function handleSearch(event) {
     return false;
 }
 
-// Feature card keyboard navigation (2D grid)
-var featureCards = document.querySelectorAll('.feature-card');
+// Combined keyboard navigation for feature cards + explore links
+var featureCards = Array.from(document.querySelectorAll('.feature-card'));
+var exploreLinks = Array.from(document.querySelectorAll('.explore-link'));
+var allCards = featureCards.concat(exploreLinks);
 var selectedCardIndex = -1;
 
 function getGridColumns() {
-    // Detect number of columns based on viewport
-    if (window.innerWidth <= 760) return 1;
-    return 3;
+    // Detect number of columns based on viewport and which section we're in
+    if (window.innerWidth <= 760) {
+        // Mobile: feature cards = 1 col, explore = 2 cols
+        return selectedCardIndex < featureCards.length ? 1 : 2;
+    }
+    // Desktop: feature cards = 3 cols, explore = 4 cols
+    return selectedCardIndex < featureCards.length ? 3 : 4;
 }
 
 function selectCard(index) {
     // Remove previous selection
-    if (selectedCardIndex >= 0 && selectedCardIndex < featureCards.length) {
-        featureCards[selectedCardIndex].classList.remove('selected');
+    if (selectedCardIndex >= 0 && selectedCardIndex < allCards.length) {
+        allCards[selectedCardIndex].classList.remove('selected');
     }
 
     // Update index with bounds checking
-    selectedCardIndex = Math.max(0, Math.min(index, featureCards.length - 1));
+    selectedCardIndex = Math.max(0, Math.min(index, allCards.length - 1));
 
     // Add selection to new card
-    featureCards[selectedCardIndex].classList.add('selected');
+    allCards[selectedCardIndex].classList.add('selected');
 
     // Scroll into view
-    featureCards[selectedCardIndex].scrollIntoView({
+    allCards[selectedCardIndex].scrollIntoView({
         behavior: 'smooth',
         block: 'center'
     });
@@ -542,7 +575,7 @@ document.addEventListener('keydown', function(e) {
         }
     }
 
-    // Arrow keys for feature cards (2D grid navigation)
+    // Arrow keys for cards (2D grid navigation)
     if (!isTyping) {
         var cols = getGridColumns();
 
@@ -565,7 +598,7 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !isTyping && el.tagName !== 'A' && el.tagName !== 'BUTTON') {
         e.preventDefault();
         if (selectedCardIndex >= 0) {
-            window.location.href = featureCards[selectedCardIndex].href;
+            window.location.href = allCards[selectedCardIndex].href;
         } else {
             window.location.href = '/books';
         }
