@@ -2883,6 +2883,519 @@
           "verse": "2 Kings 25:6-7"
         }
       ]
+    },
+    "Naamah": {
+      "summary": "An Ammonitess who became the wife of King Solomon and mother of Rehoboam, who succeeded Solomon as king. As one of Solomon's many foreign wives, she represented the kind of marriage alliance that the law forbade and that eventually led Solomon's heart away from exclusive devotion to the Lord.",
+      "significance": "Naamah exemplifies the foreign influences that corrupted Solomon's reign and contributed to the division of the kingdom under her son Rehoboam.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Became wife of Solomon",
+          "verse": "1 Kings 14:21"
+        },
+        {
+          "age": null,
+          "event": "Mother of Rehoboam",
+          "verse": "1 Kings 14:31"
+        }
+      ]
+    },
+    "Asenath": {
+      "summary": "The daughter of Potipherah, priest of On, given to Joseph as his wife by Pharaoh. Though an Egyptian, she became the mother of Manasseh and Ephraim, who were adopted by Jacob and became two of the twelve tribes of Israel. Her marriage to Joseph represents God's plan extending beyond Israel's borders.",
+      "significance": "Asenath's sons became full tribes of Israel, demonstrating that God's covenant blessings can extend to those who join themselves to His people, foreshadowing the inclusion of Gentiles.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Given to Joseph as wife by Pharaoh",
+          "verse": "Genesis 41:45"
+        },
+        {
+          "age": null,
+          "event": "Bore Manasseh to Joseph",
+          "verse": "Genesis 41:50-51"
+        },
+        {
+          "age": null,
+          "event": "Bore Ephraim to Joseph",
+          "verse": "Genesis 41:52"
+        }
+      ]
+    },
+    "Ahinoam": {
+      "summary": "A woman from Jezreel who became one of David's wives while he was fleeing from Saul. She bore David his firstborn son Amnon. Ahinoam accompanied David during his time with the Philistines and was among those captured by the Amalekites at Ziklag and subsequently rescued.",
+      "significance": "As mother of Amnon, David's firstborn and heir apparent, Ahinoam's son became central to the tragic family conflicts that plagued David's house.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Became David's wife",
+          "verse": "1 Samuel 25:43"
+        },
+        {
+          "age": null,
+          "event": "Captured by Amalekites at Ziklag",
+          "verse": "1 Samuel 30:5"
+        },
+        {
+          "age": null,
+          "event": "Rescued by David",
+          "verse": "1 Samuel 30:18"
+        },
+        {
+          "age": null,
+          "event": "Bore Amnon to David",
+          "verse": "2 Samuel 3:2"
+        }
+      ]
+    },
+    "Abigail": {
+      "summary": "The intelligent and beautiful wife of the wealthy but foolish Nabal. When Nabal refused to help David and his men, Abigail wisely intervened with generous provisions, preventing David from taking vengeance. After Nabal's sudden death, she became David's wife and bore him a son, Chileab.",
+      "significance": "Abigail exemplifies godly wisdom, discernment, and courage in crisis. Her intervention saved her household and kept David from sinning, demonstrating how a wise woman builds her house.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Intervened to prevent David's vengeance",
+          "verse": "1 Samuel 25:18-35"
+        },
+        {
+          "age": null,
+          "event": "Nabal died after hearing of her actions",
+          "verse": "1 Samuel 25:37-38"
+        },
+        {
+          "age": null,
+          "event": "Became David's wife",
+          "verse": "1 Samuel 25:39-42"
+        },
+        {
+          "age": null,
+          "event": "Bore Chileab to David",
+          "verse": "2 Samuel 3:3"
+        }
+      ]
+    },
+    "Abital": {
+      "summary": "One of David's wives, mentioned in the lists of David's sons born in Hebron. She was the mother of Shephatiah, David's fifth son. Little else is recorded about her in Scripture.",
+      "significance": "Abital represents one of David's multiple marriages during his reign in Hebron, before he moved the capital to Jerusalem.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Bore Shephatiah to David in Hebron",
+          "verse": "2 Samuel 3:4"
+        }
+      ]
+    },
+    "Eglah": {
+      "summary": "One of David's wives, described as 'David's wife' in an unusual way that has led some to speculate she might be another name for Michal. She was the mother of Ithream, David's sixth son born in Hebron.",
+      "significance": "Eglah was among David's wives during his reign in Hebron, contributing to the expansion of his household and dynasty.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Bore Ithream to David in Hebron",
+          "verse": "2 Samuel 3:5"
+        }
+      ]
+    },
+    "Haggith": {
+      "summary": "One of David's wives and the mother of Adonijah, David's fourth son. Her son Adonijah was known for his good looks and later attempted to seize the throne as David aged, leading to his eventual execution by Solomon.",
+      "significance": "As Adonijah's mother, Haggith witnessed her son's ambition and failed coup attempt, illustrating the family strife that marked David's later years.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Bore Adonijah to David in Hebron",
+          "verse": "2 Samuel 3:4"
+        },
+        {
+          "age": null,
+          "event": "Her son attempted to seize throne",
+          "verse": "1 Kings 1:5-11"
+        }
+      ]
+    },
+    "Adah": {
+      "summary": "One of the two wives of Lamech, a descendant of Cain. Adah was the mother of Jabal, who became the father of those who dwell in tents and have livestock, and Jubal, the father of those who play the harp and flute. She represents the early development of human civilization and culture.",
+      "significance": "Through her sons, Adah's family pioneered pastoral life and music, showing early human development of culture and the arts despite living under the curse of sin.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Bore Jabal, father of tent-dwellers",
+          "verse": "Genesis 4:20"
+        },
+        {
+          "age": null,
+          "event": "Bore Jubal, father of musicians",
+          "verse": "Genesis 4:21"
+        }
+      ]
+    },
+    "Zillah": {
+      "summary": "The second wife of Lamech and mother of Tubal-cain, who forged implements of bronze and iron, and his sister Naamah. Zillah's family represents the advancement of metalworking technology in the pre-flood world.",
+      "significance": "Through Tubal-cain, Zillah's lineage contributed to technological advancement in metalworking, demonstrating human ingenuity even in a fallen world.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Bore Tubal-cain, forger of bronze and iron",
+          "verse": "Genesis 4:22"
+        },
+        {
+          "age": null,
+          "event": "Bore Naamah",
+          "verse": "Genesis 4:22"
+        }
+      ]
+    },
+    "Hagar": {
+      "summary": "Sarah's Egyptian maidservant who became Abraham's concubine at Sarah's suggestion when Sarah was barren. Hagar bore Abraham his first son, Ishmael. After mistreating her, Sarah drove her away, but God met Hagar in the wilderness and promised to make Ishmael into a great nation. Years later, after Isaac's birth, Hagar and Ishmael were sent away permanently but received God's provision and promise.",
+      "significance": "Hagar's story demonstrates God's care for the outcast and oppressed, and Paul uses her story as an allegory of the difference between law and promise, slavery and freedom.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Given to Abraham by Sarah",
+          "verse": "Genesis 16:3"
+        },
+        {
+          "age": null,
+          "event": "Fled from Sarah's harsh treatment",
+          "verse": "Genesis 16:6"
+        },
+        {
+          "age": null,
+          "event": "Angel found her and sent her back",
+          "verse": "Genesis 16:7-9"
+        },
+        {
+          "age": null,
+          "event": "Bore Ishmael to Abraham",
+          "verse": "Genesis 16:15"
+        },
+        {
+          "age": null,
+          "event": "Sent away with Ishmael",
+          "verse": "Genesis 21:14"
+        },
+        {
+          "age": null,
+          "event": "God provided water and renewed promise",
+          "verse": "Genesis 21:17-20"
+        }
+      ]
+    },
+    "Keturah": {
+      "summary": "A woman who became Abraham's wife after Sarah's death. She bore Abraham six sons: Zimran, Jokshan, Medan, Midian, Ishbak, and Shuah. Abraham gave gifts to these sons but sent them away from Isaac to the east country, ensuring Isaac would be his sole heir of the covenant promise.",
+      "significance": "Keturah's sons became the ancestors of various Arabian tribes, including the Midianites, demonstrating the fulfillment of God's promise to make Abraham a father of many nations beyond the covenant line through Isaac.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Became Abraham's wife",
+          "verse": "Genesis 25:1"
+        },
+        {
+          "age": null,
+          "event": "Bore six sons to Abraham",
+          "verse": "Genesis 25:2"
+        },
+        {
+          "age": null,
+          "event": "Sons sent away from Isaac",
+          "verse": "Genesis 25:6"
+        }
+      ]
+    },
+    "Terah": {
+      "summary": "The father of Abram (Abraham), Nahor, and Haran, Terah lived in Ur of the Chaldeans. After Haran died, Terah took his family including Abram and Sarai and set out for Canaan but settled in Haran instead. He died there at age 205 before Abraham continued to Canaan at God's call.",
+      "significance": "Terah represents the transition from idolatry to faith, as his family came from a pagan background but through Abraham became the line through which God would bless all nations.",
+      "key_events": [
+        {
+          "age": 70,
+          "event": "Became father of Abram, Nahor, and Haran",
+          "verse": "Genesis 11:26"
+        },
+        {
+          "age": null,
+          "event": "Left Ur of the Chaldeans",
+          "verse": "Genesis 11:31"
+        },
+        {
+          "age": null,
+          "event": "Settled in Haran",
+          "verse": "Genesis 11:31"
+        },
+        {
+          "age": 205,
+          "event": "Death in Haran",
+          "verse": "Genesis 11:32"
+        }
+      ]
+    },
+    "Nahor": {
+      "summary": "The brother of Abraham and son of Terah, Nahor married Milcah and remained in Mesopotamia when Abraham left for Canaan. His descendants included Bethuel (father of Rebekah) and Laban, making him the grandfather of both Rebekah and Rachel, who married into Abraham's line.",
+      "significance": "Nahor's family remained in Mesopotamia and became the source of wives for Isaac and Jacob, maintaining family ties while preserving separation from Canaanite influences.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Married Milcah",
+          "verse": "Genesis 11:29"
+        },
+        {
+          "age": null,
+          "event": "Father of Bethuel",
+          "verse": "Genesis 22:23"
+        },
+        {
+          "age": null,
+          "event": "Grandfather of Rebekah",
+          "verse": "Genesis 24:15"
+        }
+      ]
+    },
+    "Eber": {
+      "summary": "A descendant of Shem and ancestor of Abraham, Eber lived 464 years and was the great-grandson of Shem. The Hebrews were named after him, as 'Hebrew' (Ibri) derives from his name. He was the father of Peleg, in whose days the earth was divided, likely referring to the division at Babel.",
+      "significance": "Eber gave his name to the Hebrew people and represents a key link in the line from Noah to Abraham, preserving the godly line through the post-flood world.",
+      "key_events": [
+        {
+          "age": 34,
+          "event": "Became father of Peleg",
+          "verse": "Genesis 11:16"
+        },
+        {
+          "age": 464,
+          "event": "Death",
+          "verse": "Genesis 11:17"
+        }
+      ]
+    },
+    "Peleg": {
+      "summary": "The son of Eber, Peleg's name means 'division' because 'in his days the earth was divided,' likely referring to the division of languages and scattering of peoples at the Tower of Babel. He lived 239 years and was an ancestor of Abraham.",
+      "significance": "Peleg's lifetime marks the crucial moment when humanity was divided by language and scattered across the earth, ending the unified rebellion at Babel.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Birth; earth divided in his days",
+          "verse": "Genesis 10:25"
+        },
+        {
+          "age": 30,
+          "event": "Became father of Reu",
+          "verse": "Genesis 11:18"
+        },
+        {
+          "age": 239,
+          "event": "Death",
+          "verse": "Genesis 11:19"
+        }
+      ]
+    },
+    "Cainan": {
+      "summary": "Also spelled Kenan, the son of Enosh and great-grandson of Adam, Cainan lived 910 years. He was the father of Mahalaleel and an ancestor of Noah and Abraham. His name means 'possession' or 'acquired.'",
+      "significance": "Cainan represents the continuation of the godly line from Seth through the antediluvian patriarchs, preserving the knowledge of God before the flood.",
+      "key_events": [
+        {
+          "age": 70,
+          "event": "Became father of Mahalaleel",
+          "verse": "Genesis 5:12"
+        },
+        {
+          "age": 910,
+          "event": "Death",
+          "verse": "Genesis 5:14"
+        }
+      ]
+    },
+    "Jared": {
+      "summary": "The father of Enoch who walked with God, Jared lived 962 years, making him one of the longest-lived patriarchs. His name may mean 'descent' or 'one who descends.' He was part of the godly line from Adam through Seth to Noah.",
+      "significance": "Jared represents the faithful preservation of the godly line and was the father of Enoch, who was taken by God without seeing death.",
+      "key_events": [
+        {
+          "age": 162,
+          "event": "Became father of Enoch",
+          "verse": "Genesis 5:18"
+        },
+        {
+          "age": 962,
+          "event": "Death",
+          "verse": "Genesis 5:20"
+        }
+      ]
+    },
+    "Ham": {
+      "summary": "One of Noah's three sons, Ham survived the flood with his family in the ark. After the flood, Ham saw his father Noah's nakedness and told his brothers rather than covering him, leading to a curse on his son Canaan. Ham became the father of Cush, Mizraim (Egypt), Put, and Canaan.",
+      "significance": "Ham's descendants populated Africa and Canaan, and his disrespect toward his father led to the curse on Canaan, explaining the later conflict between Israel and the Canaanites.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Born to Noah",
+          "verse": "Genesis 5:32"
+        },
+        {
+          "age": null,
+          "event": "Entered the ark",
+          "verse": "Genesis 7:13"
+        },
+        {
+          "age": null,
+          "event": "Survived the flood",
+          "verse": "Genesis 8:18"
+        },
+        {
+          "age": null,
+          "event": "Saw Noah's nakedness; Canaan cursed",
+          "verse": "Genesis 9:22-25"
+        }
+      ]
+    },
+    "Japheth": {
+      "summary": "One of Noah's three sons and apparently the oldest, Japheth survived the flood in the ark. When his father Noah was drunk and uncovered, Japheth and Shem respectfully covered him without looking. Japheth became the father of seven sons who populated the coastal lands and islands, including much of Europe and Asia Minor.",
+      "significance": "Japheth's descendants spread throughout Europe and parts of Asia, and Noah's blessing on him that he would 'dwell in the tents of Shem' suggests future inclusion of Gentiles in God's covenant blessings.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Born to Noah",
+          "verse": "Genesis 5:32"
+        },
+        {
+          "age": null,
+          "event": "Entered the ark",
+          "verse": "Genesis 7:13"
+        },
+        {
+          "age": null,
+          "event": "Survived the flood",
+          "verse": "Genesis 8:18"
+        },
+        {
+          "age": null,
+          "event": "Covered Noah with Shem",
+          "verse": "Genesis 9:23"
+        },
+        {
+          "age": null,
+          "event": "Received Noah's blessing",
+          "verse": "Genesis 9:27"
+        }
+      ]
+    },
+    "Lamech": {
+      "summary": "The father of Noah and son of Methuselah, Lamech lived 777 years. When Noah was born, Lamech prophesied that his son would bring comfort from the curse on the ground, naming him Noah (meaning 'rest' or 'comfort'). Lamech died five years before the flood.",
+      "significance": "Lamech's prophecy about Noah reveals faith in God's eventual relief from the curse, which was partially fulfilled through the flood's judgment and the new beginning after.",
+      "key_events": [
+        {
+          "age": 182,
+          "event": "Became father of Noah",
+          "verse": "Genesis 5:28-29"
+        },
+        {
+          "age": null,
+          "event": "Prophesied comfort through Noah",
+          "verse": "Genesis 5:29"
+        },
+        {
+          "age": 777,
+          "event": "Death (5 years before the flood)",
+          "verse": "Genesis 5:31"
+        }
+      ]
+    },
+    "Rehoboam": {
+      "summary": "The son of Solomon and Naamah, Rehoboam became king of Israel at age 41 after his father's death. When the people asked him to lighten the heavy burdens Solomon had imposed, Rehoboam foolishly rejected the counsel of elders and followed young advisors, threatening even harsher treatment. This led to the rebellion of the ten northern tribes, leaving Rehoboam ruling only Judah and Benjamin. His reign saw invasions and continued idolatry.",
+      "significance": "Rehoboam's foolish pride divided the united kingdom of Israel, fulfilling God's judgment on Solomon's idolatry and creating the separate kingdoms of Israel and Judah.",
+      "key_events": [
+        {
+          "age": 41,
+          "event": "Became king after Solomon",
+          "verse": "1 Kings 14:21"
+        },
+        {
+          "age": 41,
+          "event": "Rejected elders' wise counsel",
+          "verse": "1 Kings 12:8"
+        },
+        {
+          "age": 41,
+          "event": "Ten tribes rebelled; kingdom divided",
+          "verse": "1 Kings 12:16-17"
+        },
+        {
+          "age": 46,
+          "event": "Shishak of Egypt invaded Judah",
+          "verse": "1 Kings 14:25"
+        },
+        {
+          "age": 58,
+          "event": "Death after 17-year reign",
+          "verse": "1 Kings 14:21"
+        }
+      ]
+    },
+    "Asa": {
+      "summary": "The third king of Judah and son of Abijah, Asa did what was right in the Lord's eyes like his ancestor David. He removed male cult prostitutes, destroyed idols, and even removed his grandmother Maacah from being queen mother because of her Asherah pole. Asa defeated the Ethiopian army through faith in God, and Judah enjoyed peace for much of his reign. However, later he relied on Syria instead of God and imprisoned the prophet who rebuked him.",
+      "significance": "Asa exemplifies a king who began well with wholehearted devotion to God but ended poorly by trusting in human alliances rather than God, showing the importance of finishing well.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Became king of Judah",
+          "verse": "1 Kings 15:9"
+        },
+        {
+          "age": null,
+          "event": "Removed idols and cult prostitutes",
+          "verse": "1 Kings 15:12"
+        },
+        {
+          "age": null,
+          "event": "Deposed grandmother for idolatry",
+          "verse": "1 Kings 15:13"
+        },
+        {
+          "age": null,
+          "event": "Defeated Ethiopian army",
+          "verse": "2 Chronicles 14:9-15"
+        },
+        {
+          "age": null,
+          "event": "Made covenant to seek the Lord",
+          "verse": "2 Chronicles 15:12"
+        },
+        {
+          "age": null,
+          "event": "Allied with Syria instead of trusting God",
+          "verse": "2 Chronicles 16:2-7"
+        },
+        {
+          "age": null,
+          "event": "Imprisoned prophet Hanani",
+          "verse": "2 Chronicles 16:10"
+        },
+        {
+          "age": null,
+          "event": "Death after 41-year reign",
+          "verse": "1 Kings 15:10"
+        }
+      ]
+    },
+    "Korah": {
+      "summary": "A Levite who led a rebellion against Moses and Aaron, challenging their leadership and the priestly authority God had established. Along with Dathan, Abiram, and 250 leaders of Israel, Korah claimed that all the congregation was holy and questioned why Moses and Aaron exalted themselves. God vindicated His chosen leaders by causing the earth to open and swallow Korah and his followers, and fire consumed the 250 who offered incense.",
+      "significance": "Korah's rebellion demonstrates the serious consequences of challenging God's appointed authority and the priesthood He established, serving as a warning against presumption and envy.",
+      "key_events": [
+        {
+          "age": null,
+          "event": "Led rebellion against Moses and Aaron",
+          "verse": "Numbers 16:1-3"
+        },
+        {
+          "age": null,
+          "event": "Challenged priestly authority",
+          "verse": "Numbers 16:8-11"
+        },
+        {
+          "age": null,
+          "event": "Earth opened and swallowed him",
+          "verse": "Numbers 16:31-33"
+        },
+        {
+          "age": null,
+          "event": "Fire consumed the 250 offering incense",
+          "verse": "Numbers 16:35"
+        }
+      ]
     }
   },
   "aliases": {
