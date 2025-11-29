@@ -806,6 +806,7 @@ function buildTreeData(rootId, maxDepth, direction = 'descendants') {
                 spouse: person.spouse,
                 gender: inferGender(person.name),
                 hasChildren: relatedIds.length > 0,
+                hasParents: (person.parents || []).length > 0,
                 kekule_number: person.kekule_number
             },
             children: []
@@ -821,6 +822,119 @@ function buildTreeData(rootId, maxDepth, direction = 'descendants') {
     }
 
     return buildNode(rootId, 0);
+}
+
+// Build bidirectional tree - parents above, children below
+function buildBidirectionalTreeData(rootId, descendantDepth = 3, ancestorDepth = 2) {
+    const person = familyTreeData[rootId];
+    if (!person) return null;
+
+    // Build ancestors (going up)
+    function buildAncestors(personId, depth) {
+        if (depth > ancestorDepth) return null;
+
+        const p = familyTreeData[personId];
+        if (!p) return null;
+
+        const parentIds = p.parents || [];
+
+        const node = {
+            id: personId,
+            data: {
+                name: p.name,
+                birth_year: p.birth_year,
+                death_year: p.death_year,
+                age_at_death: p.age_at_death,
+                generation: p.generation,
+                spouse: p.spouse,
+                gender: inferGender(p.name),
+                hasChildren: (p.children || []).length > 0,
+                hasParents: parentIds.length > 0,
+                kekule_number: p.kekule_number,
+                isAncestor: depth > 0
+            },
+            children: []
+        };
+
+        // For ancestors, "children" in the tree are actually parents
+        for (const parentId of parentIds) {
+            const parentNode = buildAncestors(parentId, depth + 1);
+            if (parentNode) node.children.push(parentNode);
+        }
+
+        return node;
+    }
+
+    // Build descendants (going down)
+    function buildDescendants(personId, depth, visited = new Set()) {
+        if (depth > descendantDepth || visited.has(personId)) return null;
+        visited.add(personId);
+
+        const p = familyTreeData[personId];
+        if (!p) return null;
+
+        const childIds = p.children || [];
+
+        const node = {
+            id: personId,
+            data: {
+                name: p.name,
+                birth_year: p.birth_year,
+                death_year: p.death_year,
+                age_at_death: p.age_at_death,
+                generation: p.generation,
+                spouse: p.spouse,
+                gender: inferGender(p.name),
+                hasChildren: childIds.length > 0,
+                hasParents: (p.parents || []).length > 0,
+                kekule_number: p.kekule_number,
+                isDescendant: depth > 0
+            },
+            children: []
+        };
+
+        for (const childId of childIds) {
+            const childNode = buildDescendants(childId, depth + 1, visited);
+            if (childNode) node.children.push(childNode);
+        }
+
+        return node;
+    }
+
+    // Get the main person's data
+    const rootNode = {
+        id: rootId,
+        data: {
+            name: person.name,
+            birth_year: person.birth_year,
+            death_year: person.death_year,
+            age_at_death: person.age_at_death,
+            generation: person.generation,
+            spouse: person.spouse,
+            gender: inferGender(person.name),
+            hasChildren: (person.children || []).length > 0,
+            hasParents: (person.parents || []).length > 0,
+            kekule_number: person.kekule_number,
+            isRoot: true
+        },
+        children: [],
+        _ancestors: []
+    };
+
+    // Build descendants
+    const visited = new Set([rootId]);
+    for (const childId of (person.children || [])) {
+        const childNode = buildDescendants(childId, 1, visited);
+        if (childNode) rootNode.children.push(childNode);
+    }
+
+    // Build ancestors separately (we'll render them in a second tree above)
+    for (const parentId of (person.parents || [])) {
+        const ancestorNode = buildAncestors(parentId, 1);
+        if (ancestorNode) rootNode._ancestors.push(ancestorNode);
+    }
+
+    return rootNode;
 }
 
 // Toggle node expand/collapse
@@ -1343,11 +1457,11 @@ function renderTree() {
     fitToView();
 }
 
-// Re-render tree from a specific person ID
+// Re-render tree from a specific person ID (bidirectional - shows parents and children)
 function renderTreeFromId(personId) {
     container.innerHTML = '';
 
-    const treeData = buildTreeData(personId, currentDepth, currentDirection);
+    const treeData = buildBidirectionalTreeData(personId, currentDepth, 2);
     if (!treeData) {
         container.innerHTML = '<div class="tree-loading">Could not build tree</div>';
         return;
@@ -1374,23 +1488,89 @@ function renderTreeFromId(personId) {
 
     svg.call(zoom);
 
-    // Create hierarchy
-    treeRoot = d3.hierarchy(treeData);
-
-    // Calculate tree dimensions
     const nodeWidth = 180;
-    const nodeHeight = 80;
+    const nodeHeight = 100;
     const isHorizontal = currentOrientation === 'left-right';
 
-    // Tree layout
-    const treeLayout = d3.tree()
+    // We'll render two trees: ancestors above and descendants below
+    // First, layout descendants tree
+    const descendantData = {
+        id: treeData.id,
+        data: treeData.data,
+        children: treeData.children
+    };
+
+    treeRoot = d3.hierarchy(descendantData);
+    const descendantLayout = d3.tree()
         .nodeSize(isHorizontal ? [nodeHeight, nodeWidth] : [nodeWidth, nodeHeight]);
+    descendantLayout(treeRoot);
 
-    treeLayout(treeRoot);
+    // Position descendants below center
+    const rootY = isHorizontal ? treeRoot.y : treeRoot.y;
 
-    // Center the tree
+    // Collect all nodes and links
+    let allNodes = [...treeRoot.descendants()];
+    let allLinks = [...treeRoot.links()];
+
+    // Now handle ancestors if any
+    if (treeData._ancestors && treeData._ancestors.length > 0) {
+        // Create a "fake root" that is the selected person, with ancestors as children
+        const ancestorRootData = {
+            id: treeData.id + '_ancestor_root',
+            data: { ...treeData.data, isAncestorRoot: true },
+            children: treeData._ancestors
+        };
+
+        const ancestorRoot = d3.hierarchy(ancestorRootData);
+        const ancestorLayout = d3.tree()
+            .nodeSize(isHorizontal ? [nodeHeight, nodeWidth] : [nodeWidth, nodeHeight]);
+        ancestorLayout(ancestorRoot);
+
+        // Flip and offset ancestor positions (they go up instead of down)
+        ancestorRoot.descendants().forEach(d => {
+            if (isHorizontal) {
+                d.y = -d.y; // Flip horizontally (to the left)
+            } else {
+                d.y = -d.y; // Flip vertically (upward)
+            }
+        });
+
+        // Skip the fake root node (it's the same person as the main root)
+        const ancestorNodes = ancestorRoot.descendants().filter(d => !d.data.data.isAncestorRoot);
+
+        // Create links from main root to immediate ancestors
+        const ancestorLinks = [];
+        for (const ancestor of ancestorRoot.children || []) {
+            ancestorLinks.push({
+                source: treeRoot, // Main person
+                target: ancestor
+            });
+            // Add the rest of the ancestor links
+            if (ancestor.links) {
+                ancestorLinks.push(...ancestor.links());
+            }
+        }
+
+        // Also get links within ancestor tree (grandparents etc)
+        ancestorRoot.links().forEach(link => {
+            if (!link.source.data.data.isAncestorRoot) {
+                ancestorLinks.push(link);
+            } else if (link.target) {
+                // Link from root to immediate parent - redirect to main treeRoot
+                ancestorLinks.push({
+                    source: treeRoot,
+                    target: link.target
+                });
+            }
+        });
+
+        allNodes = [...allNodes, ...ancestorNodes];
+        allLinks = [...allLinks, ...ancestorLinks];
+    }
+
+    // Calculate bounds for centering
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-    treeRoot.descendants().forEach(d => {
+    allNodes.forEach(d => {
         const x = isHorizontal ? d.y : d.x;
         const y = isHorizontal ? d.x : d.y;
         minX = Math.min(minX, x);
@@ -1409,7 +1589,7 @@ function renderTreeFromId(personId) {
         : d3.linkVertical().x(d => d.x).y(d => d.y);
 
     g.selectAll('.link')
-        .data(treeRoot.links())
+        .data(allLinks)
         .join('path')
         .attr('class', 'link')
         .attr('fill', 'none')
@@ -1419,7 +1599,7 @@ function renderTreeFromId(personId) {
 
     // Draw nodes
     const nodes = g.selectAll('.node')
-        .data(treeRoot.descendants())
+        .data(allNodes)
         .join('g')
         .attr('class', 'node')
         .attr('transform', d => {
@@ -1434,16 +1614,10 @@ function renderTreeFromId(personId) {
         this.appendChild(card);
     });
 
-    // Single click: expand/collapse
+    // Single click: show info
     nodes.on('click', (event, d) => {
         event.stopPropagation();
-        const canToggle = d.children || d._children ||
-                         (d.data.data && d.data.data.hasChildren);
-        if (canToggle) {
-            toggleNode(d);
-        } else {
-            showPersonInfo(d.data);
-        }
+        showPersonInfo(d.data);
     });
 
     // Double click: re-center
