@@ -573,6 +573,33 @@ def family_tree_search_page(request: Request, q: str = ""):
     )
 
 
+@router.get("/family-tree/interactive", response_class=HTMLResponse)
+def family_tree_interactive_page(request: Request):
+    """Interactive D3.js-based family tree visualization."""
+    family_tree_data, generations = get_family_tree_data()
+
+    if not family_tree_data:
+        raise HTTPException(
+            status_code=500,
+            detail="Family tree data not available"
+        )
+
+    return templates.TemplateResponse(
+            request,
+            "family_tree_interactive.html",
+            {
+            "books": get_books(),
+            "family_tree_data": family_tree_data,
+            "generations": generations,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Family Tree", "url": "/family-tree"},
+                {"text": "Interactive Tree", "url": None}
+            ]
+        }
+    )
+
+
 @router.get("/family-tree/lineage", response_class=HTMLResponse)
 def family_tree_lineage_page(request: Request):
     """Dedicated page for the Messianic lineage visualization."""

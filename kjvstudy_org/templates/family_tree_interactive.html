@@ -1,0 +1,381 @@
+{% extends "base.html" %}
+
+{% block title %}Interactive Family Tree - KJV Study{% endblock %}
+{% block description %}Explore biblical genealogies interactively from Adam to Jesus Christ.{% endblock %}
+
+{% block head %}
+<style>
+.tree-container {
+    max-width: 100%;
+    margin: 2rem auto;
+    overflow-x: auto;
+}
+
+#tree-svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: #333;
+    stroke-width: 2px;
+    cursor: pointer;
+}
+
+.node circle:hover {
+    fill: #f0f8ff;
+    stroke: #0066cc;
+}
+
+.node.selected circle {
+    fill: #e6f3ff;
+    stroke: #0066cc;
+    stroke-width: 3px;
+}
+
+.node text {
+    font-family: "ETBembo", Palatino, "Book Antiqua", serif;
+    font-size: 12px;
+    fill: #111;
+}
+
+.node .person-name {
+    font-weight: 600;
+}
+
+.node .person-meta {
+    font-size: 10px;
+    fill: #666;
+}
+
+.link {
+    fill: none;
+    stroke: #999;
+    stroke-width: 1.5px;
+}
+
+.controls {
+    max-width: 55%;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.controls label {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.controls select,
+.controls button {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-right: 1rem;
+}
+
+.info-panel {
+    max-width: 55%;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-left: 3px solid #333;
+    display: none;
+}
+
+.info-panel.visible {
+    display: block;
+}
+
+.info-panel h3 {
+    margin-top: 0;
+}
+
+.legend {
+    max-width: 55%;
+    margin: 1rem 0;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Interactive Family Tree</h1>
+
+<p style="max-width: 55%;">
+    Explore the biblical genealogy from Adam to Jesus Christ. Click on any person to see details.
+    Use the controls below to navigate different views of the family tree.
+</p>
+
+<div class="controls">
+    <label>
+        <strong>View:</strong>
+        <select id="view-select">
+            <option value="descendants-adam">Descendants of Adam</option>
+            <option value="ancestors-jesus">Ancestors of Jesus</option>
+            <option value="generation">By Generation</option>
+            <option value="lineage">Messianic Lineage</option>
+        </select>
+    </label>
+
+    <label>
+        <strong>Layout:</strong>
+        <select id="layout-select">
+            <option value="tree">Tree</option>
+            <option value="radial">Radial</option>
+            <option value="dendrogram">Dendrogram</option>
+        </select>
+    </label>
+
+    <button id="zoom-in">Zoom In</button>
+    <button id="zoom-out">Zoom Out</button>
+    <button id="reset-zoom">Reset</button>
+    <button id="expand-all">Expand All</button>
+    <button id="collapse-all">Collapse All</button>
+</div>
+
+<div class="legend">
+    Click nodes to expand/collapse children • Hover for details • Drag to pan
+</div>
+
+<div class="tree-container">
+    <svg id="tree-svg" width="1200" height="800"></svg>
+</div>
+
+<div id="info-panel" class="info-panel">
+    <h3 id="info-name"></h3>
+    <div id="info-details"></div>
+    <div id="info-links"></div>
+</div>
+
+<div class="navigation-links" style="max-width: 55%; margin: 2rem 0;">
+    <a href="/family-tree">← Back to Family Tree</a>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+// Load family tree data
+const familyTreeData = {{ family_tree_data | tojson }};
+const generations = {{ generations | tojson }};
+
+// D3 tree visualization
+const width = 1200;
+const height = 800;
+const margin = { top: 20, right: 120, bottom: 20, left: 120 };
+
+const svg = d3.select("#tree-svg")
+    .attr("width", width)
+    .attr("height", height);
+
+const g = svg.append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+// Zoom behavior
+const zoom = d3.zoom()
+    .scaleExtent([0.1, 3])
+    .on("zoom", (event) => {
+        g.attr("transform", event.transform);
+    });
+
+svg.call(zoom);
+
+// Zoom controls
+d3.select("#zoom-in").on("click", () => {
+    svg.transition().call(zoom.scaleBy, 1.3);
+});
+
+d3.select("#zoom-out").on("click", () => {
+    svg.transition().call(zoom.scaleBy, 0.7);
+});
+
+d3.select("#reset-zoom").on("click", () => {
+    svg.transition().call(zoom.transform, d3.zoomIdentity);
+});
+
+// Build hierarchical data structure
+function buildHierarchy(rootId, maxDepth = 5) {
+    const visited = new Set();
+
+    function buildNode(personId, depth = 0) {
+        if (depth >= maxDepth || visited.has(personId)) {
+            return null;
+        }
+
+        visited.add(personId);
+        const person = familyTreeData[personId];
+
+        if (!person) return null;
+
+        const node = {
+            id: personId,
+            name: person.name,
+            generation: person.generation,
+            birth_year: person.birth_year,
+            death_year: person.death_year,
+            age_at_death: person.age_at_death,
+            spouse: person.spouse,
+            children: []
+        };
+
+        // Add children
+        if (person.children && person.children.length > 0) {
+            person.children.forEach(childId => {
+                const child = buildNode(childId, depth + 1);
+                if (child) {
+                    node.children.push(child);
+                }
+            });
+        }
+
+        return node;
+    }
+
+    return buildNode(rootId);
+}
+
+// Find person by name
+function findPersonId(name) {
+    for (const [id, person] of Object.entries(familyTreeData)) {
+        if (person.name.toLowerCase() === name.toLowerCase()) {
+            return id;
+        }
+    }
+    return null;
+}
+
+// Render tree
+function renderTree(rootData) {
+    // Clear existing tree
+    g.selectAll("*").remove();
+
+    if (!rootData) {
+        console.error("No data to render");
+        return;
+    }
+
+    // Create tree layout
+    const treeLayout = d3.tree()
+        .size([height - margin.top - margin.bottom, width - margin.left - margin.right]);
+
+    const root = d3.hierarchy(rootData);
+    treeLayout(root);
+
+    // Draw links
+    g.selectAll(".link")
+        .data(root.links())
+        .join("path")
+        .attr("class", "link")
+        .attr("d", d3.linkHorizontal()
+            .x(d => d.y)
+            .y(d => d.x));
+
+    // Draw nodes
+    const nodes = g.selectAll(".node")
+        .data(root.descendants())
+        .join("g")
+        .attr("class", "node")
+        .attr("transform", d => `translate(${d.y},${d.x})`)
+        .on("click", (event, d) => showInfo(d.data));
+
+    nodes.append("circle")
+        .attr("r", 6);
+
+    nodes.append("text")
+        .attr("class", "person-name")
+        .attr("dy", ".35em")
+        .attr("x", d => d.children ? -10 : 10)
+        .attr("text-anchor", d => d.children ? "end" : "start")
+        .text(d => d.data.name);
+
+    nodes.append("text")
+        .attr("class", "person-meta")
+        .attr("dy", "1.5em")
+        .attr("x", d => d.children ? -10 : 10)
+        .attr("text-anchor", d => d.children ? "end" : "start")
+        .text(d => {
+            if (d.data.generation) {
+                return `Gen ${d.data.generation}`;
+            }
+            return "";
+        });
+}
+
+// Show info panel
+function showInfo(person) {
+    const panel = d3.select("#info-panel");
+    panel.classed("visible", true);
+
+    d3.select("#info-name").text(person.name);
+
+    let details = "";
+    if (person.birth_year && person.birth_year !== "Unknown") {
+        details += `<strong>Born:</strong> ${person.birth_year}<br>`;
+    }
+    if (person.death_year && person.death_year !== "Unknown") {
+        details += `<strong>Died:</strong> ${person.death_year}<br>`;
+    }
+    if (person.age_at_death && person.age_at_death !== "Unknown") {
+        details += `<strong>Age:</strong> ${person.age_at_death}<br>`;
+    }
+    if (person.spouse) {
+        details += `<strong>Spouse:</strong> ${person.spouse}<br>`;
+    }
+    if (person.generation) {
+        details += `<strong>Generation:</strong> ${person.generation} from Adam<br>`;
+    }
+
+    d3.select("#info-details").html(details);
+
+    d3.select("#info-links").html(
+        `<a href="/family-tree/person/${person.id}">View Full Profile →</a>`
+    );
+
+    // Highlight selected node
+    g.selectAll(".node").classed("selected", false);
+    g.selectAll(".node")
+        .filter(d => d.data.id === person.id)
+        .classed("selected", true);
+}
+
+// View selector
+d3.select("#view-select").on("change", function() {
+    const view = this.value;
+    let rootData;
+
+    switch(view) {
+        case "descendants-adam":
+            const adamId = findPersonId("Adam");
+            rootData = buildHierarchy(adamId, 10);
+            break;
+        case "ancestors-jesus":
+            const jesusId = findPersonId("Jesus") || findPersonId("Jesus Christ");
+            // For ancestors, we need to build upward - simplified for now
+            rootData = buildHierarchy(adamId, 10);
+            break;
+        case "generation":
+            const adamId2 = findPersonId("Adam");
+            rootData = buildHierarchy(adamId2, 8);
+            break;
+        case "lineage":
+            const adamId3 = findPersonId("Adam");
+            rootData = buildHierarchy(adamId3, 12);
+            break;
+    }
+
+    if (rootData) {
+        renderTree(rootData);
+    }
+});
+
+// Initial render
+const adamId = findPersonId("Adam");
+if (adamId) {
+    const rootData = buildHierarchy(adamId, 6);
+    renderTree(rootData);
+}
+</script>
+{% endblock %}
