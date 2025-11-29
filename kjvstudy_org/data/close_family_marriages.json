@@ -1,0 +1,52 @@
+{
+  "marriages": [
+    {
+      "person1": "Abraham",
+      "person2": "Sarah",
+      "relationship": "half-siblings",
+      "description": "Sarah was Abraham's half-sister (same father, different mothers)",
+      "verse": "Genesis 20:12",
+      "notes": "Abraham said, 'She is indeed my sister, the daughter of my father though not of my mother; and she became my wife.'"
+    },
+    {
+      "person1": "Amram",
+      "person2": "Jochebed",
+      "relationship": "aunt-nephew",
+      "description": "Jochebed was Amram's aunt (his father's sister)",
+      "verse": "Exodus 6:20",
+      "notes": "Amram married his father's sister Jochebed, and she bore him Aaron and Moses"
+    },
+    {
+      "person1": "Jacob",
+      "person2": "Leah",
+      "relationship": "first cousins",
+      "description": "Leah was Jacob's first cousin (daughter of his mother's brother)",
+      "verse": "Genesis 29:16",
+      "notes": "Laban had two daughters: Leah and Rachel. Jacob married both sisters."
+    },
+    {
+      "person1": "Jacob",
+      "person2": "Rachel",
+      "relationship": "first cousins",
+      "description": "Rachel was Jacob's first cousin (daughter of his mother's brother)",
+      "verse": "Genesis 29:16",
+      "notes": "Jacob loved Rachel and agreed to work seven years for her hand in marriage"
+    },
+    {
+      "person1": "Nahor",
+      "person2": "Milcah",
+      "relationship": "uncle-niece",
+      "description": "Milcah was Nahor's niece (his brother Haran's daughter)",
+      "verse": "Genesis 11:29",
+      "notes": "Nahor married Milcah, the daughter of Haran his brother"
+    },
+    {
+      "person1": "Isaac",
+      "person2": "Rebekah",
+      "relationship": "first cousin once removed",
+      "description": "Rebekah was Isaac's first cousin once removed (granddaughter of his father's brother)",
+      "verse": "Genesis 24:15",
+      "notes": "Rebekah was the daughter of Bethuel, son of Nahor, Abraham's brother"
+    }
+  ]
+}

@@ -75,6 +75,17 @@ def _load_biographies():
         return json.load(f)
 
 
+@lru_cache(maxsize=1)
+def _load_close_family_marriages():
+    """Load known close family marriages from JSON file. Cached since data never changes."""
+    marriages_path = FilePath(__file__).parent.parent / "data" / "close_family_marriages.json"
+    if not marriages_path.exists():
+        return {"marriages": []}
+
+    with open(marriages_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 # Pydantic models for API responses
 class VerseResponse(BaseModel):
     """Response model for a single verse"""
@@ -2013,6 +2024,10 @@ def api_family_tree_stats():
         biographies = biographies_data.get("biographies", {})
         aliases = biographies_data.get("aliases", {})
 
+        # Load known close family marriages
+        known_marriages_data = _load_close_family_marriages()
+        known_marriages = known_marriages_data.get("marriages", [])
+
         # Calculate statistics
         total_people = len(family_tree_data)
         total_generations = len(generations) if generations else 0
@@ -2134,6 +2149,9 @@ def api_family_tree_stats():
 
         # Calculate average lifespan
         average_lifespan = round(total_age / people_with_ages, 1) if people_with_ages > 0 else None
+
+        # Add known biblical close family marriages to the count
+        close_family_marriages_count += len(known_marriages)
 
         # Build response
         return {

@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Close Family Marriages",
+  "description": "Known marriages between close relatives in biblical times",
+  "type": "object",
+  "required": ["marriages"],
+  "properties": {
+    "marriages": {
+      "type": "array",
+      "description": "List of documented close family marriages in the Bible",
+      "items": {
+        "type": "object",
+        "required": ["person1", "person2", "relationship", "description", "verse"],
+        "properties": {
+          "person1": {
+            "type": "string",
+            "description": "Name of the first person in the marriage"
+          },
+          "person2": {
+            "type": "string",
+            "description": "Name of the second person in the marriage"
+          },
+          "relationship": {
+            "type": "string",
+            "description": "Type of family relationship (e.g., 'half-siblings', 'first cousins', 'aunt-nephew')",
+            "enum": [
+              "siblings",
+              "half-siblings",
+              "first cousins",
+              "uncle-niece",
+              "aunt-nephew",
+              "first cousin once removed",
+              "second cousins"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the relationship"
+          },
+          "verse": {
+            "type": "string",
+            "description": "Bible verse reference documenting this marriage",
+            "pattern": "^[1-3]?\\s?[A-Za-z]+\\s+\\d+:\\d+(-\\d+)?$"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes or context about the marriage"
+          }
+        }
+      }
+    }
+  }
+}
