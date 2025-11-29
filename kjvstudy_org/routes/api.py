@@ -244,8 +244,8 @@ def api_health_check():
 
 @router.get("/search")
 def search_api(
-    q: str = Query(..., description="Search query", examples=["faith"]),
-    limit: Optional[int] = Query(None, description="Max results", examples=[10])
+    q: str = Query(..., description="Search query", example="faith"),
+    limit: Optional[int] = Query(None, description="Max results", example=10)
 ):
     """JSON API endpoint for search."""
     if not q or len(q.strip()) < 2:
@@ -268,8 +268,8 @@ def search_api(
 
 @router.get("/universal-search")
 def universal_search_api(
-    q: str = Query(..., description="Search query", examples=["love"]),
-    limit: int = Query(5, description="Max results per category", examples=[5])
+    q: str = Query(..., description="Search query", example="love"),
+    limit: int = Query(5, description="Max results per category", example=5)
 ):
     """Universal search across all content types."""
     if not q or len(q.strip()) < 2:
@@ -519,9 +519,9 @@ def verse_of_the_day_api():
     }
 )
 def api_get_verse(
-    book: str = Path(..., description="Book name (supports abbreviations)", examples=["John", "Gen", "Mt"]),
-    chapter: int = Path(..., description="Chapter number", examples=[3], ge=1),
-    verse: int = Path(..., description="Verse number", examples=[16], ge=1)
+    book: str = Path(..., description="Book name (supports abbreviations)", example="John"),
+    chapter: int = Path(..., description="Chapter number", example=3, ge=1),
+    verse: int = Path(..., description="Verse number", example=16, ge=1)
 ):
     """Get a single verse with red letter information."""
     canonical_name = normalize_book_name(book)
@@ -628,10 +628,10 @@ def api_get_verse(
     }
 )
 def api_get_verse_range(
-    book: str = Path(..., description="Book name (supports abbreviations)", examples=["Psalms", "Mt"]),
-    chapter: int = Path(..., description="Chapter number", examples=[23], ge=1),
-    start: int = Path(..., description="Starting verse number", examples=[1], ge=1),
-    end: int = Path(..., description="Ending verse number", examples=[6], ge=1)
+    book: str = Path(..., description="Book name (supports abbreviations)", example="Psalms"),
+    chapter: int = Path(..., description="Chapter number", example=23, ge=1),
+    start: int = Path(..., description="Starting verse number", example=1, ge=1),
+    end: int = Path(..., description="Ending verse number", example=6, ge=1)
 ):
     """Get a range of verses with red letter information."""
     canonical_name = normalize_book_name(book)
@@ -677,9 +677,9 @@ def api_get_verse_range(
 
 @router.get("/interlinear/{book}/{chapter}/{verse}")
 def api_get_interlinear(
-    book: str = Path(..., description="Book name", examples=["John"]),
-    chapter: int = Path(..., description="Chapter number", examples=[1]),
-    verse: int = Path(..., description="Verse number", examples=[1])
+    book: str = Path(..., description="Book name", example="John"),
+    chapter: int = Path(..., description="Chapter number", example=1),
+    verse: int = Path(..., description="Verse number", example=1)
 ):
     """Get interlinear (word-by-word) data for a verse."""
     canonical_name = normalize_book_name(book)
@@ -761,7 +761,7 @@ def api_get_books():
 
 
 @router.get("/books/{book}")
-def api_get_book(book: str = Path(..., description="Book name", examples=["Genesis"])):
+def api_get_book(book: str = Path(..., description="Book name", example="Genesis")):
     """Get details about a specific book including introduction and study material."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -810,7 +810,7 @@ def api_get_book(book: str = Path(..., description="Book name", examples=["Genes
 
 
 @router.get("/books/{book}/pdf")
-async def api_book_pdf(book: str = Path(..., description="Book name", examples=["Genesis"])):
+async def api_book_pdf(book: str = Path(..., description="Book name", example="Genesis")):
     """Generate PDF for an entire Bible book."""
     if not WEASYPRINT_AVAILABLE:
         raise HTTPException(
@@ -872,8 +872,8 @@ async def api_book_pdf(book: str = Path(..., description="Book name", examples=[
 
 @router.get("/books/{book}/chapters/{chapter}")
 def api_get_chapter(
-    book: str = Path(..., description="Book name", examples=["Romans"]),
-    chapter: int = Path(..., description="Chapter number", examples=[8])
+    book: str = Path(..., description="Book name", example="Romans"),
+    chapter: int = Path(..., description="Chapter number", example=8)
 ):
     """Get all verses in a chapter."""
     canonical_name = normalize_book_name(book)
@@ -904,8 +904,8 @@ def api_get_chapter(
 
 @router.get("/books/{book}/chapters/{chapter}/pdf")
 async def api_chapter_pdf(
-    book: str = Path(..., description="Book name", examples=["Romans"]),
-    chapter: int = Path(..., description="Chapter number", examples=[8])
+    book: str = Path(..., description="Book name", example="Romans"),
+    chapter: int = Path(..., description="Chapter number", example=8)
 ):
     """Generate PDF for a specific Bible chapter."""
     if not WEASYPRINT_AVAILABLE:
@@ -954,7 +954,7 @@ async def api_chapter_pdf(
 
 
 @router.get("/books/{book}/text")
-def api_get_book_text(book: str = Path(..., description="Book name", examples=["Philemon"])):
+def api_get_book_text(book: str = Path(..., description="Book name", example="Philemon")):
     """Get all text content of a book."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -1027,9 +1027,9 @@ def api_get_bible():
 
 @router.get("/cross-references/{book}/{chapter}/{verse}")
 def api_get_cross_references(
-    book: str = Path(..., description="Book name", examples=["John"]),
-    chapter: int = Path(..., description="Chapter number", examples=[3]),
-    verse: int = Path(..., description="Verse number", examples=[16])
+    book: str = Path(..., description="Book name", example="John"),
+    chapter: int = Path(..., description="Chapter number", example=3),
+    verse: int = Path(..., description="Verse number", example=16)
 ):
     """Get cross-references for a verse."""
     canonical_name = normalize_book_name(book)
@@ -1072,7 +1072,7 @@ def api_get_topics():
 
 
 @router.get("/topics/{topic_name}")
-def api_get_topic(topic_name: str = Path(..., description="Topic name", examples=["faith"])):
+def api_get_topic(topic_name: str = Path(..., description="Topic name", example="faith")):
     """Get details about a specific topic."""
     topic = get_topic(topic_name)
     if not topic:
@@ -1098,7 +1098,7 @@ def api_get_reading_plans():
 
 
 @router.get("/reading-plans/{plan_id}")
-def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID", examples=["chronological"])):
+def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID", example="chronological")):
     """Get details about a specific reading plan."""
     plan = get_plan(plan_id)
     if not plan:
@@ -1146,7 +1146,7 @@ def api_get_stories():
 
 
 @router.get("/stories/{slug}")
-def api_get_story(slug: str = Path(..., description="Story slug", examples=["creation-of-the-world"])):
+def api_get_story(slug: str = Path(..., description="Story slug", example="creation-of-the-world")):
     """Get a specific Bible story by slug."""
     story = get_story_by_slug(slug)
     if not story:
@@ -1318,7 +1318,7 @@ def api_list_resource_categories():
     }
 )
 def api_get_resource_category(
-    category: str = Path(..., description="Resource category name", examples=["biblical_locations", "angels", "prophets"])
+    category: str = Path(..., description="Resource category name", example="biblical_locations")
 ):
     """Get all items in a specific resource category."""
     if category not in RESOURCES_DATA:
@@ -1392,8 +1392,8 @@ def api_get_resource_category(
     }
 )
 def api_get_resource_item(
-    category: str = Path(..., description="Resource category name", examples=["biblical_locations"]),
-    slug: str = Path(..., description="Resource item slug", examples=["garden-of-eden"])
+    category: str = Path(..., description="Resource category name", example="biblical_locations"),
+    slug: str = Path(..., description="Resource item slug", example="garden-of-eden")
 ):
     """Get detailed information about a specific resource item."""
     if category not in CATEGORY_TO_DATA:
@@ -1434,7 +1434,7 @@ def api_get_resource_item(
 
 @router.get("/resources/{category}/pdf")
 async def api_get_resource_category_pdf(
-    category: str = Path(..., description="Resource category name", examples=["biblical_locations"])
+    category: str = Path(..., description="Resource category name", example="biblical_locations")
 ):
     """Generate PDF for an entire resource category."""
     # Check if category exists first (before checking WeasyPrint)
@@ -1479,8 +1479,8 @@ async def api_get_resource_category_pdf(
 
 @router.get("/resources/{category}/{slug}/pdf")
 async def api_get_resource_item_pdf(
-    category: str = Path(..., description="Resource category name", examples=["biblical_locations"]),
-    slug: str = Path(..., description="Resource item slug", examples=["garden-of-eden"])
+    category: str = Path(..., description="Resource category name", example="biblical_locations"),
+    slug: str = Path(..., description="Resource item slug", example="garden-of-eden")
 ):
     """Generate PDF for a specific resource item."""
     # Check if category exists first (before checking WeasyPrint)

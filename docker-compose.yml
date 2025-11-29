@@ -10,4 +10,4 @@ services:
       - PYTHONUNBUFFERED=1
       - PRELOAD_INTERLINEAR=true
     restart: unless-stopped
-    command: uv run uvicorn kjvstudy_org.server:app --host 0.0.0.0 --port 8000
+    command: uv run uvicorn kjvstudy_org.server:app --host 0.0.0.0 --port 8000 --reload --reload-include '*.json'
