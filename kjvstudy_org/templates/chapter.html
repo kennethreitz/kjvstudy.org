@@ -414,6 +414,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const verses = document.querySelectorAll('p[id^="verse-"]');
     let selectedVerseIndex = -1;
 
+    // Initialize from hash if present (e.g., #verse-24)
+    function initFromHash() {
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#verse-')) {
+            const verseNum = parseInt(hash.substring(7));
+            if (!isNaN(verseNum)) {
+                // Find the index of this verse
+                for (let i = 0; i < verses.length; i++) {
+                    const verseId = verses[i].id;
+                    if (verseId === 'verse-' + verseNum) {
+                        selectedVerseIndex = i;
+                        verses[i].classList.add('selected');
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    initFromHash();
+
     function selectVerse(index) {
         // Remove previous selection
         if (selectedVerseIndex >= 0 && selectedVerseIndex < verses.length) {
