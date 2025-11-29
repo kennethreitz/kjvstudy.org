@@ -36,7 +36,7 @@ That's it! The application will run with all features enabled.
 ### Study Tools
 
 #### [Interlinear Bible](https://kjvstudy.org/interlinear)
-- [Greek and Hebrew original language texts](https://kjvstudy.org/interlinear/book/John/chapter/1/verse/1)
+- Greek and Hebrew original language texts
 - Word-by-word translation analysis
 - Strong's concordance numbers
 - Etymology and root word exploration
