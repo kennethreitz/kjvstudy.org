@@ -8,13 +8,9 @@
           "title": "Analysis",
           "type": "string"
         },
-        "historical_context": {
+        "historical": {
           "minLength": 1,
           "title": "Historical Context",
-          "type": "string"
-        },
-        "application": {
-          "title": "Application",
           "type": "string"
         },
         "questions": {
@@ -28,19 +24,32 @@
       },
       "required": [
         "analysis",
-        "historical_context",
-        "application",
+        "historical",
         "questions"
       ],
       "title": "VerseCommentaryEntry",
       "type": "object"
+    },
+    "VersesObject": {
+      "description": "Object mapping verse numbers to commentary entries",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/VerseCommentaryEntry"
+      }
+    },
+    "ChaptersObject": {
+      "description": "Object mapping chapter numbers to verses",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/VersesObject"
+      }
     }
   },
-  "additionalProperties": {
-    "$ref": "#/$defs/VerseCommentaryEntry"
-  },
-  "description": "Schema for verse_commentary.json",
+  "description": "Schema for verse_commentary.json - nested structure: Book → Chapter → Verse → Commentary",
   "title": "Schema for verse_commentary.json",
   "type": "object",
+  "additionalProperties": {
+    "$ref": "#/$defs/ChaptersObject"
+  },
   "$id": "https://kjvstudy.org/schemas/verse_commentary.schema.json"
 }

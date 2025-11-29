@@ -67,8 +67,27 @@ def _load_verse_commentary() -> dict:
     with open(_VERSE_COMMENTARY_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Convert flat JSON structure (e.g., "Genesis 1:1") to nested structure
-    # expected by code: enhanced_commentary[book][chapter][verse]
+    # Check if data is already in nested format (Book -> Chapter -> Verse)
+    # by looking at the first key - if it's a book name, it's nested
+    if data and not any(":" in str(key) for key in list(data.keys())[:5]):
+        # Already in nested format - just convert string keys to integers
+        converted = {}
+        for book, chapters in data.items():
+            converted[book] = {}
+            for chapter_str, verses in chapters.items():
+                chapter = int(chapter_str)
+                converted[book][chapter] = {}
+                for verse_str, commentary in verses.items():
+                    verse = int(verse_str)
+                    # Map JSON field names to code field names if needed
+                    converted[book][chapter][verse] = {
+                        "analysis": commentary.get("analysis", ""),
+                        "historical": commentary.get("historical", commentary.get("historical_context", "")),
+                        "questions": commentary.get("questions", [])
+                    }
+        return converted
+
+    # Old flat structure (e.g., "Genesis 1:1") - convert to nested
     converted = {}
     for verse_ref, commentary in data.items():
         # Parse verse reference like "Genesis 1:1"
