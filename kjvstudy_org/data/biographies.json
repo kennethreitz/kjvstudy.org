@@ -57,6 +57,42 @@
         }
       ]
     },
+    "Nehemiah": {
+      "summary": "A Jewish cupbearer to the Persian king Artaxerxes who received permission to return to Jerusalem and rebuild its walls (445 BC). Despite fierce opposition from neighboring peoples, Nehemiah organized the Jews to complete the wall in just 52 days. He served as governor, instituted religious reforms, and worked alongside Ezra to restore proper worship and obedience to God's Law. His prayers and dependence on God throughout the rebuilding project demonstrate exemplary leadership.",
+      "significance": "Nehemiah shows how God works through committed leaders who combine prayer with practical action. His rebuilding of Jerusalem's walls demonstrates God's faithfulness to restore His people and prefigures the spiritual restoration brought by Christ.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Heard about Jerusalem's broken walls",
+          "verse": "Nehemiah 1:1-4"
+        },
+        {
+          "age": 0,
+          "event": "King Artaxerxes granted permission to rebuild",
+          "verse": "Nehemiah 2:1-8"
+        },
+        {
+          "age": 0,
+          "event": "Surveyed Jerusalem's walls at night",
+          "verse": "Nehemiah 2:11-16"
+        },
+        {
+          "age": 0,
+          "event": "Led rebuilding despite opposition",
+          "verse": "Nehemiah 4:1-23"
+        },
+        {
+          "age": 0,
+          "event": "Walls completed in 52 days",
+          "verse": "Nehemiah 6:15"
+        },
+        {
+          "age": 0,
+          "event": "Covenant renewal ceremony",
+          "verse": "Nehemiah 9-10"
+        }
+      ]
+    },
     "Abraham": {
       "summary": "Originally named Abram, Abraham was called by God to leave his homeland and journey to Canaan, where God promised to make him into a great nation. Despite his and Sarah's old age, God gave them a son, Isaac, through whom the promise would continue. Abraham demonstrated remarkable faith when willing to sacrifice Isaac at God's command, though God provided a ram instead. He is called the 'father of faith' and the physical ancestor of Israel.",
       "significance": "Abraham is the father of the Hebrew nation and an example of faith for all believers. God's covenant with Abraham established the foundation for Israel and ultimately for the coming of the Messiah.",
@@ -239,6 +275,37 @@
           "age": 130,
           "event": "Birth of Seth",
           "verse": "Genesis 4:25"
+        }
+      ]
+    },
+    "Ezra": {
+      "summary": "A priest and scribe who led the second wave of exiles returning from Babylon to Jerusalem (458 BC). Ezra was deeply devoted to God's Law and brought religious reform to the post-exilic Jewish community. He discovered that many Jews had intermarried with pagan peoples and led them in repentance and covenant renewal. Ezra's reading of the Law to the assembled people brought revival and restoration of proper worship.",
+      "significance": "Ezra reestablished the centrality of God's Word in Jewish life after the exile. His devotion to Scripture and religious reform prefigures the New Testament emphasis on God's Word and spiritual purity. He helped preserve Jewish identity during a critical period.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "King Artaxerxes commissions Ezra",
+          "verse": "Ezra 7:11-26"
+        },
+        {
+          "age": 0,
+          "event": "Led exiles from Babylon to Jerusalem",
+          "verse": "Ezra 7:6-10"
+        },
+        {
+          "age": 0,
+          "event": "Discovered widespread intermarriage",
+          "verse": "Ezra 9:1-4"
+        },
+        {
+          "age": 0,
+          "event": "Led the people in confession and repentance",
+          "verse": "Ezra 10:1-17"
+        },
+        {
+          "age": 0,
+          "event": "Read the Law to the assembled people",
+          "verse": "Nehemiah 8:1-12"
         }
       ]
     },
@@ -596,6 +663,37 @@
           "age": 137,
           "event": "Death",
           "verse": "Genesis 25:17"
+        }
+      ]
+    },
+    "Isaiah": {
+      "summary": "One of the greatest Old Testament prophets, Isaiah ministered in Judah during the reigns of four kings. His prophecies addressed both immediate political crises and the distant messianic future. Isaiah's vision of God's holiness in the temple transformed his life and ministry. He prophesied extensively about the coming Messiah, the suffering servant, and the restoration of Israel. His book contains some of Scripture's most beautiful passages about salvation and God's glory.",
+      "significance": "Isaiah is the 'evangelical prophet' whose detailed messianic prophecies (virgin birth, suffering servant, government on His shoulders) are quoted more in the New Testament than any other prophet. He presents the most comprehensive Old Testament picture of Christ's first and second comings.",
+      "key_events": [
+        {
+          "age": 0,
+          "event": "Vision of God's holiness in the temple",
+          "verse": "Isaiah 6:1-8"
+        },
+        {
+          "age": 0,
+          "event": "Prophecy of Immanuel to King Ahaz",
+          "verse": "Isaiah 7:14"
+        },
+        {
+          "age": 0,
+          "event": "Prophecy to King Hezekiah about deliverance",
+          "verse": "Isaiah 37:6-7"
+        },
+        {
+          "age": 0,
+          "event": "Prophecy of the suffering servant",
+          "verse": "Isaiah 53"
+        },
+        {
+          "age": 0,
+          "event": "Prophecy of new heavens and new earth",
+          "verse": "Isaiah 65:17"
         }
       ]
     },
