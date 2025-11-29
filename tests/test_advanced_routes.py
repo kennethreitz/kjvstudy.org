@@ -196,74 +196,85 @@ class TestBiblicalTimelineRoutes:
         assert "<title>" in content
 
 
-class TestConcordanceRoutes:
-    """Tests for concordance (word lookup) routes"""
+class TestStrongsRoutes:
+    """Tests for Strong's Concordance routes"""
 
-    def test_concordance_page_loads(self, client):
-        """Test concordance page loads"""
-        response = client.get("/concordance")
+    def test_strongs_page_loads(self, client):
+        """Test Strong's index page loads"""
+        response = client.get("/strongs")
         assert response.status_code == 200
         content = response.content.decode()
-        assert "concordance" in content.lower()
+        assert "strong" in content.lower()
 
-    def test_concordance_has_search(self, client):
-        """Test concordance page has search functionality"""
-        response = client.get("/concordance")
+    def test_strongs_has_search(self, client):
+        """Test Strong's page has search functionality"""
+        response = client.get("/strongs")
         assert response.status_code == 200
         content = response.content.decode()
 
         # Should have search input or form
-        assert "search" in content.lower() or "word" in content.lower()
+        assert "search" in content.lower()
 
-    def test_concordance_with_word_query(self, client):
-        """Test concordance with word lookup"""
-        response = client.get("/concordance?word=love")
+    def test_strongs_with_search_query(self, client):
+        """Test Strong's with search query"""
+        response = client.get("/strongs?q=love")
         assert response.status_code == 200
         content = response.content.decode()
 
         # Should display results for "love"
         assert "love" in content.lower()
 
-    def test_concordance_common_word(self, client):
-        """Test concordance with common biblical word"""
-        response = client.get("/concordance?word=God")
+    def test_strongs_entry_page(self, client):
+        """Test Strong's entry page loads"""
+        response = client.get("/strongs/G26")
         assert response.status_code == 200
         content = response.content.decode()
 
-        # Should have results (God appears many times)
-        assert "God" in content or "god" in content.lower()
+        # Should have agape (love)
+        assert "agape" in content.lower() or "ἀγάπη" in content
 
-    def test_concordance_rare_word(self, client):
-        """Test concordance with less common word"""
-        response = client.get("/concordance?word=righteousness")
-        assert response.status_code == 200
-
-    def test_concordance_empty_query(self, client):
-        """Test concordance with no word parameter"""
-        response = client.get("/concordance?word=")
-        assert response.status_code == 200
-
-    def test_concordance_case_insensitive(self, client):
-        """Test concordance is case-insensitive"""
-        response1 = client.get("/concordance?word=love")
-        response2 = client.get("/concordance?word=LOVE")
-
-        assert response1.status_code == 200
-        assert response2.status_code == 200
-
-        # Both should return results
-        assert len(response1.content) > 1000
-        assert len(response2.content) > 1000
-
-    def test_concordance_verse_links(self, client):
-        """Test concordance results link to verses"""
-        response = client.get("/concordance?word=faith")
+    def test_strongs_hebrew_entry(self, client):
+        """Test Hebrew Strong's entry page"""
+        response = client.get("/strongs/H430")
         assert response.status_code == 200
         content = response.content.decode()
 
-        # Should have links to Bible verses
-        if "faith" in content.lower():
-            assert "/book/" in content or "verse" in content.lower()
+        # Should have Elohim (God)
+        assert "elohim" in content.lower() or "אֱלֹהִים" in content
+
+    def test_strongs_hebrew_index(self, client):
+        """Test Hebrew Strong's index page"""
+        response = client.get("/strongs/hebrew")
+        assert response.status_code == 200
+        content = response.content.decode()
+
+        # Should have Hebrew entries
+        assert "Hebrew" in content
+        assert "H1" in content or "H2" in content
+
+    def test_strongs_greek_index(self, client):
+        """Test Greek Strong's index page"""
+        response = client.get("/strongs/greek")
+        assert response.status_code == 200
+        content = response.content.decode()
+
+        # Should have Greek entries
+        assert "Greek" in content
+        assert "G1" in content or "G2" in content
+
+    def test_strongs_pagination(self, client):
+        """Test Strong's index pagination"""
+        response = client.get("/strongs/hebrew?page=2")
+        assert response.status_code == 200
+        content = response.content.decode()
+
+        # Should show page 2
+        assert "Page 2" in content or "page=1" in content
+
+    def test_strongs_invalid_entry(self, client):
+        """Test invalid Strong's number returns 404"""
+        response = client.get("/strongs/X9999")
+        assert response.status_code == 404
 
 
 class TestStudyGuidesRoutes:
@@ -372,7 +383,7 @@ class TestAdvancedRoutesIntegration:
         pages = [
             "/family-tree",
             "/biblical-timeline",
-            "/concordance",
+            "/strongs",
             "/study-guides",
         ]
 
@@ -385,7 +396,7 @@ class TestAdvancedRoutesIntegration:
         pages = [
             "/family-tree",
             "/biblical-timeline",
-            "/concordance",
+            "/strongs",
             "/study-guides",
         ]
 
@@ -402,7 +413,7 @@ class TestAdvancedRoutesIntegration:
         pages = [
             "/family-tree",
             "/biblical-timeline",
-            "/concordance",
+            "/strongs",
             "/study-guides",
         ]
 
@@ -417,7 +428,7 @@ class TestAdvancedRoutesIntegration:
         pages = [
             "/family-tree",
             "/biblical-timeline",
-            "/concordance",
+            "/strongs",
             "/study-guides",
         ]
 
