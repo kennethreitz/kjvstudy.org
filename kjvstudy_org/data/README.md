@@ -150,7 +150,7 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 **Used by**: `red_letter.py`, verse and chapter templates for red letter edition rendering
 
-**Schema**: `red_letter_verses.schema.json` (JSON Schema validation file)
+**Schema**: `schemas/red_letter_verses.schema.json` (JSON Schema validation file)
 
 ---
 
@@ -693,7 +693,7 @@ uv run pytest tests/test_api.py -v
 - [ ] **Archaeological Data**: Historical/archaeological context
 
 ### Format Improvements
-- [x] **JSON Schema**: Add JSON schema validation files (added `red_letter_verses.schema.json`)
+- [x] **JSON Schema**: Add JSON schema validation files (added `schemas/red_letter_verses.schema.json`)
 - [ ] **TypeScript Types**: Generate TypeScript interfaces from JSON
 - [ ] **API Versioning**: Version data files for backward compatibility
 - [ ] **Multilingual**: Support for multiple Bible translations
