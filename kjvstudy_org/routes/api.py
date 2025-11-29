@@ -112,6 +112,7 @@ class ResourceCategoryInfo(BaseModel):
     title: str = Field(..., json_schema_extra={"example": "Biblical Locations"})
     item_count: int = Field(..., json_schema_extra={"example": 15})
     url: str = Field(..., json_schema_extra={"example": "/api/resources/biblical_locations"})
+    html_url: str = Field(..., json_schema_extra={"example": "/biblical-locations"})
 
 
 class ResourcesListResponse(BaseModel):
@@ -1271,11 +1272,14 @@ def api_list_resource_categories():
     
     categories = []
     for cat_name, cat_data in RESOURCES_DATA.items():
+        # Create HTML URL by converting snake_case to kebab-case
+        html_url = f"/{cat_name.replace('_', '-')}"
         categories.append({
             "name": cat_name,
             "title": format_title(cat_name),
             "item_count": count_items(cat_data),
-            "url": f"/api/resources/{cat_name}"
+            "url": f"/api/resources/{cat_name}",
+            "html_url": html_url
         })
     
     return {
@@ -1427,3 +1431,112 @@ def api_get_resource_item(
         "description": item_data.get('description', ''),
         "verses": item_data.get('verses', [])
     }
+
+@router.get("/resources/{category}/pdf")
+async def api_get_resource_category_pdf(
+    category: str = Path(..., description="Resource category name", examples=["biblical_locations"])
+):
+    """Generate PDF for an entire resource category."""
+    # Check if category exists first (before checking WeasyPrint)
+    if category not in CATEGORY_TO_DATA:
+        raise HTTPException(status_code=404, detail=f"Resource category '{category}' not found")
+
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+    
+    if not templates:
+        raise HTTPException(status_code=500, detail="Templates not initialized")
+    
+    cat_data = CATEGORY_TO_DATA[category]
+    
+    def format_title(key: str) -> str:
+        return key.replace('_', ' ').title()
+    
+    title = format_title(category)
+    
+    # Render the PDF template
+    html_content = templates.get_template("resource_index_pdf.html").render(
+        resource_data=cat_data,
+        page_title=title,
+        page_subtitle=f"Biblical study resource",
+        page_description=f"Explore {title.lower()} from the King James Bible"
+    )
+    
+    # Generate PDF
+    pdf_buffer = await render_html_to_pdf_async(html_content)
+    
+    # Return as downloadable PDF
+    filename = f"{category}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
+@router.get("/resources/{category}/{slug}/pdf")
+async def api_get_resource_item_pdf(
+    category: str = Path(..., description="Resource category name", examples=["biblical_locations"]),
+    slug: str = Path(..., description="Resource item slug", examples=["garden-of-eden"])
+):
+    """Generate PDF for a specific resource item."""
+    # Check if category exists first (before checking WeasyPrint)
+    if category not in CATEGORY_TO_DATA:
+        raise HTTPException(status_code=404, detail=f"Resource category '{category}' not found")
+    
+    if not templates:
+        raise HTTPException(status_code=500, detail="Templates not initialized")
+    
+    cat_data = CATEGORY_TO_DATA[category]
+    
+    # Find the item
+    def find_by_slug(data: dict, target_slug: str):
+        for key, value in data.items():
+            if isinstance(value, dict):
+                if 'description' in value or 'verses' in value:
+                    if _create_slug(key) == target_slug:
+                        return value, key
+                else:
+                    result = find_by_slug(value, target_slug)
+                    if result:
+                        return result
+        return None
+    
+    result = find_by_slug(cat_data, slug)
+
+    if not result:
+        raise HTTPException(status_code=404, detail=f"Resource item '{slug}' not found")
+
+    # Now check WeasyPrint availability
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    item_data, item_name = result
+
+    def format_title(key: str) -> str:
+        return key.replace('_', ' ').title()
+
+    # Render the PDF template
+    html_content = templates.get_template("resource_detail_pdf.html").render(
+        item=item_data,
+        item_name=item_name,
+        category_name="",  # Not used in simple template
+        resource_title=format_title(category)
+    )
+    
+    # Generate PDF
+    pdf_buffer = await render_html_to_pdf_async(html_content)
+    
+    # Return as downloadable PDF
+    filename = f"{slug}-{category}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
