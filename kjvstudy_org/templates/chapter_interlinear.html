@@ -1,0 +1,656 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book }} {{ chapter }} - Interlinear Bible - KJV Study{% endblock %}
+{% block description %}Word-by-word Hebrew/Greek interlinear text for {{ book }} chapter {{ chapter }} with Strong's numbers.{% endblock %}
+
+{% block head %}
+<style>
+.interlinear-page {
+    max-width: 90%;
+}
+
+.page-header {
+    max-width: 55%;
+    margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+    margin-bottom: 0.25rem;
+}
+
+.page-header .subtitle {
+    color: #666;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.testament-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.testament-badge.hebrew {
+    background: #8B4513;
+    color: #fff;
+}
+
+.testament-badge.greek {
+    background: #4169E1;
+    color: #fff;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    max-width: 55%;
+    margin: 0 0 2rem 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.breadcrumb a {
+    color: #4a7c59;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: #999;
+}
+
+/* Chapter navigation */
+.chapter-nav {
+    max-width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.chapter-nav a {
+    color: #4a7c59;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.chapter-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Verse sections */
+.verse-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.verse-section:last-child {
+    border-bottom: none;
+}
+
+.verse-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.verse-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4a7c59;
+    min-width: 2.5rem;
+}
+
+.verse-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    font-style: italic;
+    flex: 1;
+}
+
+.verse-text a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+}
+
+.verse-text a:hover {
+    border-bottom-style: solid;
+}
+
+/* Interlinear flow */
+.interlinear-flow {
+    line-height: 4.2;
+    font-size: 1rem;
+    margin: 1rem 0 0 0;
+    padding: 0.5rem 0;
+}
+
+.word-unit {
+    display: inline-block;
+    text-align: center;
+    margin: 0 0.25rem 1rem 0.25rem;
+    vertical-align: top;
+    cursor: pointer;
+    position: relative;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    min-width: 55px;
+    border: 1px solid transparent;
+}
+
+.word-unit:hover {
+    background: #f8f9fa;
+    border-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.word-unit.expanded {
+    background: #f0f7f4;
+    border-color: #4a7c59;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74,124,89,0.15);
+    z-index: 101;
+}
+
+.word-original {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+    transition: color 0.2s;
+}
+
+.word-unit:hover .word-original {
+    color: #111;
+}
+
+.word-english {
+    display: block;
+    font-size: 0.85rem;
+    color: #4a7c59;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.word-strongs {
+    display: block;
+    font-size: 0.65rem;
+    color: #999;
+    font-family: monospace;
+    margin-top: 0.2rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.word-unit:hover .word-strongs {
+    opacity: 1;
+}
+
+.word-strongs a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.word-strongs a:hover {
+    color: #4a7c59;
+}
+
+/* Hover tooltip */
+.word-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    background: #333;
+    color: #fff;
+    padding: 0.5rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s, transform 0.15s;
+    z-index: 50;
+}
+
+.word-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+}
+
+.word-unit:hover .word-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+}
+
+.word-unit.expanded .word-tooltip {
+    opacity: 0;
+}
+
+/* Word detail popup */
+.word-detail {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    min-width: 260px;
+    max-width: 320px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 100;
+    text-align: left;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.word-unit.expanded .word-detail {
+    display: block;
+    opacity: 1;
+    transform: translateX(-50%) translateY(12px);
+}
+
+.word-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+
+.word-detail-original {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #222;
+}
+
+.word-detail-english {
+    font-size: 1rem;
+    color: #4a7c59;
+    font-weight: 600;
+}
+
+.word-detail-row {
+    display: flex;
+    margin-bottom: 0.35rem;
+    font-size: 0.85rem;
+}
+
+.word-detail-row:last-child {
+    margin-bottom: 0;
+}
+
+.word-detail-label {
+    color: #888;
+    min-width: 85px;
+    flex-shrink: 0;
+}
+
+.word-detail-value {
+    color: #333;
+}
+
+.word-detail-definition {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* No interlinear message */
+.no-interlinear {
+    color: #888;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Dark mode */
+[data-theme="dark"] .word-original {
+    color: #eee;
+}
+
+[data-theme="dark"] .word-unit:hover .word-original {
+    color: #fff;
+}
+
+[data-theme="dark"] .word-unit:hover {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .word-unit.expanded {
+    background: #1a2e1a;
+    border-color: #4a7c59;
+}
+
+[data-theme="dark"] .word-detail {
+    background: #222;
+    border-color: #444;
+}
+
+[data-theme="dark"] .word-detail-original {
+    color: #eee;
+}
+
+[data-theme="dark"] .word-detail-value {
+    color: #ddd;
+}
+
+[data-theme="dark"] .word-detail-definition {
+    color: #bbb;
+    border-top-color: #444;
+}
+
+[data-theme="dark"] .word-detail-header {
+    border-bottom-color: #444;
+}
+
+[data-theme="dark"] .verse-text {
+    color: #ccc;
+}
+
+[data-theme="dark"] .verse-section {
+    border-bottom-color: #333;
+}
+
+@media (prefers-color-scheme: dark) {
+    .word-original {
+        color: #eee;
+    }
+
+    .word-unit:hover .word-original {
+        color: #fff;
+    }
+
+    .word-unit:hover {
+        background: #2a2a2a;
+        border-color: #444;
+    }
+
+    .word-unit.expanded {
+        background: #1a2e1a;
+        border-color: #4a7c59;
+    }
+
+    .word-detail {
+        background: #222;
+        border-color: #444;
+    }
+
+    .word-detail-original {
+        color: #eee;
+    }
+
+    .word-detail-value {
+        color: #ddd;
+    }
+
+    .word-detail-definition {
+        color: #bbb;
+        border-top-color: #444;
+    }
+
+    .word-detail-header {
+        border-bottom-color: #444;
+    }
+
+    .verse-text {
+        color: #ccc;
+    }
+
+    .verse-section {
+        border-bottom-color: #333;
+    }
+}
+
+@media (max-width: 768px) {
+    .interlinear-page {
+        max-width: 100%;
+    }
+
+    .page-header,
+    .breadcrumb,
+    .chapter-nav {
+        max-width: 100%;
+    }
+
+    .interlinear-flow {
+        line-height: 4.5;
+    }
+
+    .word-unit {
+        margin: 0 0.2rem 1.5rem 0.2rem;
+        min-width: 50px;
+        padding: 0.5rem 0.6rem;
+    }
+
+    .word-original {
+        font-size: 1.4rem;
+    }
+
+    .word-tooltip {
+        display: none;
+    }
+
+    .word-detail {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        max-width: none;
+        border-radius: 16px 16px 0 0;
+        padding: 1.5rem;
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+    }
+
+    .word-unit.expanded .word-detail {
+        transform: none;
+    }
+
+    .verse-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="interlinear-page">
+    <nav class="breadcrumb">
+        {% for crumb in breadcrumbs %}
+            {% if crumb.url %}
+                <a href="{{ crumb.url }}">{{ crumb.text }}</a>
+                <span class="breadcrumb-separator">›</span>
+            {% else %}
+                <span>{{ crumb.text }}</span>
+            {% endif %}
+        {% endfor %}
+    </nav>
+
+    <div class="page-header">
+        <h1>{{ book }} {{ chapter }}</h1>
+        <p class="subtitle">
+            Interlinear Bible
+            {% if is_old_testament %}
+            <span class="testament-badge hebrew">Hebrew</span>
+            {% else %}
+            <span class="testament-badge greek">Greek</span>
+            {% endif %}
+        </p>
+    </div>
+
+    <nav class="chapter-nav">
+        <div>
+            {% if chapter > 1 %}
+            <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}/interlinear">← Chapter {{ chapter - 1 }}</a>
+            {% endif %}
+        </div>
+        <a href="/book/{{ book }}/chapter/{{ chapter }}">View regular chapter</a>
+        <div>
+            {% if chapter < chapters|length %}
+            <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}/interlinear">Chapter {{ chapter + 1 }} →</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% for item in verses_with_interlinear %}
+    <section class="verse-section" id="verse-{{ item.verse.verse }}">
+        <div class="verse-header">
+            <span class="verse-number">{{ item.verse.verse }}</span>
+            <span class="verse-text">{{ item.verse.text }}</span>
+        </div>
+
+        {% if item.interlinear_words %}
+        <div class="interlinear-flow">
+            {% for word in item.interlinear_words %}
+            <div class="word-unit" onclick="toggleWord(this)">
+                <span class="word-original">{{ word.original }}</span>
+                <span class="word-english">{{ word.english }}</span>
+                <span class="word-strongs">
+                    {% if word.strongs %}
+                        {% set lang = word.strongs[0]|lower %}
+                        {% set num = word.strongs[1:] %}
+                        {% if lang == 'g' %}
+                            <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener" onclick="event.stopPropagation()">{{ word.strongs }}</a>
+                        {% elif lang == 'h' %}
+                            <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener" onclick="event.stopPropagation()">{{ word.strongs }}</a>
+                        {% else %}
+                            {{ word.strongs }}
+                        {% endif %}
+                    {% endif %}
+                </span>
+                {% if word.definition %}
+                <span class="word-tooltip">{{ word.definition[:50] }}{% if word.definition|length > 50 %}...{% endif %}</span>
+                {% endif %}
+                <div class="word-detail">
+                    <div class="word-detail-header">
+                        <span class="word-detail-original">{{ word.original }}</span>
+                        <span class="word-detail-english">{{ word.english }}</span>
+                    </div>
+                    {% if word.transliteration %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Pronunciation:</span>
+                        <span class="word-detail-value">{{ word.transliteration }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Strong's:</span>
+                        <span class="word-detail-value">
+                            {% if word.strongs %}
+                                {% set lang = word.strongs[0]|lower %}
+                                {% set num = word.strongs[1:] %}
+                                {% if lang == 'g' %}
+                                    <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener" style="color: #4a7c59;">{{ word.strongs }}</a>
+                                {% elif lang == 'h' %}
+                                    <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener" style="color: #4a7c59;">{{ word.strongs }}</a>
+                                {% else %}
+                                    {{ word.strongs }}
+                                {% endif %}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% if word.parsing %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Grammar:</span>
+                        <span class="word-detail-value">{{ word.parsing }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="word-detail-row">
+                        <span class="word-detail-label">Word #:</span>
+                        <span class="word-detail-value">{{ word.position }} of {{ item.interlinear_words|length }}</span>
+                    </div>
+                    {% if word.definition %}
+                    <div class="word-detail-definition">
+                        {{ word.definition }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-interlinear">Interlinear data not available for this verse.</p>
+        {% endif %}
+    </section>
+    {% endfor %}
+
+    <nav class="chapter-nav" style="margin-top: 2rem; border-top: 1px solid #eee; border-bottom: none; padding-top: 1.5rem;">
+        <div>
+            {% if chapter > 1 %}
+            <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}/interlinear">← Chapter {{ chapter - 1 }}</a>
+            {% endif %}
+        </div>
+        <a href="/book/{{ book }}/chapter/{{ chapter }}">View regular chapter</a>
+        <div>
+            {% if chapter < chapters|length %}
+            <a href="/book/{{ book }}/chapter/{{ chapter + 1 }}/interlinear">Chapter {{ chapter + 1 }} →</a>
+            {% endif %}
+        </div>
+    </nav>
+</div>
+
+<script>
+function toggleWord(el) {
+    document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+        if (word !== el) word.classList.remove('expanded');
+    });
+    el.classList.toggle('expanded');
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.word-unit')) {
+        document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+            word.classList.remove('expanded');
+        });
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+            word.classList.remove('expanded');
+        });
+    }
+});
+</script>
+{% endblock %}

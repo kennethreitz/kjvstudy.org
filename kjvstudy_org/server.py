@@ -2290,6 +2290,74 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
     )
 
 
+@app.get("/book/{book}/chapter/{chapter}/interlinear", response_class=HTMLResponse)
+def read_chapter_interlinear(request: Request, book: str, chapter: int):
+    """Display a chapter with interlinear Hebrew/Greek for every verse"""
+    # Redirect book name variations to canonical form
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/interlinear", status_code=301)
+
+    books = bible.get_books()
+    verses = bible.get_verses_by_book_chapter(book, chapter)
+    chapters = bible.get_chapters_for_book(book)
+
+    if not verses:
+        if not chapters:
+            raise HTTPException(
+                status_code=404,
+                detail=f"The book '{book}' was not found."
+            )
+        else:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
+            )
+
+    # Get interlinear data for each verse
+    verses_with_interlinear = []
+    for verse in verses:
+        interlinear_words = get_interlinear_data(book, chapter, verse.verse)
+        verses_with_interlinear.append({
+            'verse': verse,
+            'interlinear_words': interlinear_words or []
+        })
+
+    # Build breadcrumbs
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Books", "url": "/books"},
+        {"text": book, "url": f"/book/{book}"},
+        {"text": f"Chapter {chapter}", "url": f"/book/{book}/chapter/{chapter}"},
+        {"text": "Interlinear", "url": None}
+    ]
+
+    # Determine if OT or NT for language badge
+    ot_books = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth',
+                '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles',
+                'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes',
+                'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel',
+                'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk',
+                'Zephaniah', 'Haggai', 'Zechariah', 'Malachi']
+    is_old_testament = book in ot_books
+
+    return templates.TemplateResponse(
+        request,
+        "chapter_interlinear.html",
+        {
+            "book": book,
+            "chapter": chapter,
+            "verses_with_interlinear": verses_with_interlinear,
+            "books": books,
+            "chapters": chapters,
+            "breadcrumbs": breadcrumbs,
+            "current_book": book,
+            "current_chapter": chapter,
+            "is_old_testament": is_old_testament
+        }
+    )
+
+
 @app.get("/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
 def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     """Display a single verse with detailed commentary"""
