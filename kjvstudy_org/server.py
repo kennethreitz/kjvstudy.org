@@ -812,8 +812,15 @@ def get_family_tree_data():
                 _name_to_person_id_cache = {}
                 for person_id, person in tree_data.items():
                     name = person["name"]
-                    # Store both the full name and potential variations
+                    # Store the full name
                     _name_to_person_id_cache[name.lower()] = person_id
+
+                    # Handle compound names like "Sarai or Sarah" - split and store both
+                    if " or " in name.lower():
+                        name_variants = [n.strip() for n in name.split(" or ")]
+                        for variant in name_variants:
+                            if variant:  # Skip empty strings
+                                _name_to_person_id_cache[variant.lower()] = person_id
 
             except Exception:
                 _family_tree_cache = {}

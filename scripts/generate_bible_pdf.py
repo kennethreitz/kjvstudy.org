@@ -7,12 +7,24 @@ entire King James Bible. The resulting PDF will be ~1000 pages and include
 all cross-references and word studies as footnotes.
 
 Usage:
+    uv run python scripts/generate_bible_pdf.py [--limit N] [--output FILE]
+
+Options:
+    --limit N       Only process first N books (for testing)
+    --output FILE   Output filename (default: kjv-complete-bible.pdf)
+
+Examples:
+    # Generate one book for testing
+    uv run python scripts/generate_bible_pdf.py --limit 1 --output genesis.pdf
+
+    # Generate entire Bible
     uv run python scripts/generate_bible_pdf.py
 
 Output:
     kjv-complete-bible.pdf (in the current directory)
 """
 
+import argparse
 import asyncio
 import sys
 from pathlib import Path
@@ -29,8 +41,13 @@ from kjvstudy_org.utils.pdf import render_html_to_pdf_async, WEASYPRINT_AVAILABL
 from jinja2 import Environment, FileSystemLoader
 
 
-async def generate_bible_pdf():
-    """Generate the complete Bible PDF."""
+async def generate_bible_pdf(limit=None, output_file="kjv-complete-bible.pdf"):
+    """Generate the complete Bible PDF.
+
+    Args:
+        limit: Optional limit on number of books to process (for testing)
+        output_file: Output filename for the PDF
+    """
 
     # Check if WeasyPrint is available
     if not WEASYPRINT_AVAILABLE:
@@ -49,10 +66,16 @@ async def generate_bible_pdf():
         sys.exit(1)
 
     print("=" * 80)
-    print("GENERATING COMPLETE BIBLE PDF")
+    if limit:
+        print(f"GENERATING TEST BIBLE PDF ({limit} book{'s' if limit > 1 else ''})")
+    else:
+        print("GENERATING COMPLETE BIBLE PDF")
     print("=" * 80)
     print()
-    print("This will generate a comprehensive PDF of the entire KJV Bible")
+    if limit:
+        print(f"This will generate a PDF of the first {limit} book(s) of the KJV Bible")
+    else:
+        print("This will generate a comprehensive PDF of the entire KJV Bible")
     print("with cross-references and word studies as footnotes.")
     print()
     print("⚠️  This may take several minutes to complete...")
@@ -68,6 +91,11 @@ async def generate_bible_pdf():
     env.filters['number_format'] = number_format
 
     books = bible.get_books()
+
+    # Apply limit if specified
+    if limit:
+        books = books[:limit]
+
     old_testament = OT_BOOKS
     new_testament = NT_BOOKS
 
@@ -76,7 +104,7 @@ async def generate_bible_pdf():
     total_verses = 0
     total_books = len(books)
 
-    print(f"Processing {total_books} books...")
+    print(f"Processing {total_books} book{'s' if total_books > 1 else ''}...")
     print()
 
     for book_idx, book_name in enumerate(books, 1):
@@ -154,25 +182,31 @@ async def generate_bible_pdf():
     pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Save to file
-    output_file = Path("kjv-complete-bible.pdf")
-    with open(output_file, 'wb') as f:
+    output_path = Path(output_file)
+    with open(output_path, 'wb') as f:
         f.write(pdf_buffer.getvalue())
 
-    file_size_mb = output_file.stat().st_size / (1024 * 1024)
+    file_size_mb = output_path.stat().st_size / (1024 * 1024)
 
     print()
     print("=" * 80)
-    print("✅ COMPLETE BIBLE PDF GENERATED SUCCESSFULLY")
+    if limit:
+        print(f"✅ TEST BIBLE PDF GENERATED SUCCESSFULLY ({total_books} book{'s' if total_books > 1 else ''})")
+    else:
+        print("✅ COMPLETE BIBLE PDF GENERATED SUCCESSFULLY")
     print("=" * 80)
     print()
-    print(f"Output file: {output_file.absolute()}")
+    print(f"Output file: {output_path.absolute()}")
     print(f"File size: {file_size_mb:.1f} MB")
     print(f"Total verses: {total_verses:,}")
     print(f"Books: {total_books}")
     print()
     print("The PDF includes:")
     print("  • Title page and table of contents")
-    print("  • All 66 books of the King James Bible")
+    if limit:
+        print(f"  • First {total_books} book{'s' if total_books > 1 else ''} of the King James Bible")
+    else:
+        print("  • All 66 books of the King James Bible")
     print("  • Cross-references as footnotes (grouped by theme)")
     print("  • Word studies with Greek/Hebrew terms")
     print("  • Professional typography and formatting")
@@ -180,4 +214,21 @@ async def generate_bible_pdf():
 
 
 if __name__ == "__main__":
-    asyncio.run(generate_bible_pdf())
+    parser = argparse.ArgumentParser(
+        description="Generate a Bible PDF with cross-references and word studies"
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Only process first N books (for testing)"
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        default="kjv-complete-bible.pdf",
+        help="Output filename (default: kjv-complete-bible.pdf)"
+    )
+
+    args = parser.parse_args()
+    asyncio.run(generate_bible_pdf(limit=args.limit, output_file=args.output))
