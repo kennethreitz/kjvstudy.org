@@ -1,6 +1,10 @@
 """API routes for KJV Study - JSON endpoints for programmatic access."""
 from typing import Optional, List
 from pydantic import BaseModel, Field
+import json
+import random
+from pathlib import Path as FilePath
+from functools import lru_cache
 
 from fastapi import APIRouter, HTTPException, Query, Path, Body
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -14,7 +18,7 @@ from ..topics import get_all_topics, get_topic
 from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
-from ..utils.helpers import get_daily_verse, create_slug
+from ..utils.helpers import get_daily_verse, create_slug, CHAPTER_EXPLANATIONS
 from ..books import get_book_data, get_all_books_metadata, has_book_data
 from ..red_letter import get_christ_words, load_red_letter_verses
 from ..stories import (
@@ -47,6 +51,28 @@ router = APIRouter(prefix="/api", tags=["API"])
 
 # Templates will be set by the main app
 templates = None
+
+
+@lru_cache(maxsize=1)
+def _load_verse_commentary():
+    """Load verse commentary from JSON file. Cached since data never changes."""
+    commentary_path = FilePath(__file__).parent.parent / "data" / "verse_commentary.json"
+    if not commentary_path.exists():
+        return {}
+
+    with open(commentary_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@lru_cache(maxsize=1)
+def _load_biographies():
+    """Load biographies from JSON file. Cached since data never changes."""
+    biographies_path = FilePath(__file__).parent.parent / "data" / "biographies.json"
+    if not biographies_path.exists():
+        return {"biographies": {}, "aliases": {}}
+
+    with open(biographies_path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
 # Pydantic models for API responses
@@ -175,6 +201,57 @@ class RedLetterStatsResponse(BaseModel):
     by_book: dict = Field(..., json_schema_extra={"example": {"Matthew": 644, "Mark": 285}})
 
 
+class CommentaryResponse(BaseModel):
+    """Verse commentary response"""
+    book: str = Field(..., json_schema_extra={"example": "John"})
+    chapter: int = Field(..., json_schema_extra={"example": 3})
+    verse: int = Field(..., json_schema_extra={"example": 16})
+    reference: str = Field(..., json_schema_extra={"example": "John 3:16"})
+    text: str = Field(..., json_schema_extra={"example": "For God so loved the world..."})
+    analysis: str = Field(..., json_schema_extra={"example": "<strong>For I am the LORD...</strong>"})
+    historical: str = Field(..., json_schema_extra={"example": "Historical context..."})
+    questions: List[str] = Field(..., json_schema_extra={"example": ["How does this verse...", "What does..."]})
+
+
+class ChapterCommentaryResponse(BaseModel):
+    """Chapter commentary response"""
+    book: str = Field(..., json_schema_extra={"example": "Genesis"})
+    chapter: int = Field(..., json_schema_extra={"example": 1})
+    explanation: str = Field(..., json_schema_extra={"example": "The creation account..."})
+
+
+class BulkVerseRequest(BaseModel):
+    """Request body for bulk verse lookup"""
+    references: List[str] = Field(..., json_schema_extra={"example": ["John 3:16", "Romans 8:28", "Psalm 23:1"]})
+
+
+class BulkVerseResponse(BaseModel):
+    """Response for bulk verse lookup"""
+    total: int = Field(..., json_schema_extra={"example": 3})
+    verses: List[VerseResponse]
+
+
+class KeyEvent(BaseModel):
+    """A key event in a person's life"""
+    age: int = Field(..., json_schema_extra={"example": 100})
+    event: str = Field(..., json_schema_extra={"example": "Birth of Isaac"})
+    verse: str = Field(..., json_schema_extra={"example": "Genesis 21:5"})
+
+
+class BiographyResponse(BaseModel):
+    """Biography of a biblical figure"""
+    name: str = Field(..., json_schema_extra={"example": "Abraham"})
+    summary: str = Field(..., json_schema_extra={"example": "Originally named Abram..."})
+    significance: str = Field(..., json_schema_extra={"example": "Abraham is the father of the Hebrew nation..."})
+    key_events: List[KeyEvent]
+
+
+class FamilyTreeListResponse(BaseModel):
+    """List of all people in family tree"""
+    total: int = Field(..., json_schema_extra={"example": 42})
+    people: List[str] = Field(..., json_schema_extra={"example": ["Adam", "Noah", "Abraham"]})
+
+
 # Mapping of category names to their data dictionaries
 CATEGORY_TO_DATA = {
     'biblical_locations': BIBLICAL_LOCATIONS,
@@ -257,7 +334,13 @@ def api_index():
             "stories": "/api/stories",
             "story": "/api/stories/{slug}",
             "red_letter": "/api/red-letter?book={book}&limit={limit}&offset={offset}",
-            "red_letter_stats": "/api/red-letter/stats"
+            "red_letter_stats": "/api/red-letter/stats",
+            "random_verse": "/api/verse/random?testament={testament}&book={book}",
+            "commentary": "/api/commentary/{book}/{chapter}/{verse}",
+            "chapter_commentary": "/api/chapter-commentary/{book}/{chapter}",
+            "bulk_verses": "/api/verses/bulk",
+            "family_tree": "/api/family-tree",
+            "biography": "/api/family-tree/{name}"
         }
     }
 
@@ -1676,4 +1759,263 @@ def api_red_letter_stats():
         "partial_verses": partial_verses,
         "books_with_red_letter": sorted(list(books_set)),
         "by_book": by_book
+    }
+
+
+@router.get(
+    "/verse/random",
+    response_model=VerseResponse,
+    summary="Get a random verse",
+    description="Returns a random Bible verse. Optionally filter by testament (ot/nt) or specific book."
+)
+def api_random_verse(
+    testament: Optional[str] = Query(None, description="Filter by testament: 'ot' or 'nt'", example="nt"),
+    book: Optional[str] = Query(None, description="Filter by book name", example="John")
+):
+    """Get a random Bible verse with optional filtering."""
+    all_books = bible.get_books()
+
+    # Apply testament filter
+    if testament:
+        testament = testament.lower()
+        if testament == "ot":
+            filtered_books = [b for b in all_books if b in OT_BOOKS]
+        elif testament == "nt":
+            filtered_books = [b for b in all_books if b not in OT_BOOKS]
+        else:
+            raise HTTPException(status_code=400, detail="Testament must be 'ot' or 'nt'")
+    else:
+        filtered_books = all_books
+
+    # Apply book filter
+    if book:
+        canonical_name = normalize_book_name(book)
+        if canonical_name:
+            book = canonical_name
+        if book not in filtered_books:
+            raise HTTPException(status_code=404, detail=f"Book '{book}' not found")
+        filtered_books = [book]
+
+    # Select random book
+    selected_book = random.choice(filtered_books)
+
+    # Get random chapter
+    chapters = bible.get_chapters_for_book(selected_book)
+    if not chapters:
+        raise HTTPException(status_code=404, detail="No chapters found")
+
+    selected_chapter = random.choice(chapters)
+
+    # Get random verse
+    verses = bible.get_verses_by_book_chapter(selected_book, selected_chapter)
+    if not verses:
+        raise HTTPException(status_code=404, detail="No verses found")
+
+    selected_verse_num = random.choice([v.verse for v in verses])
+
+    # Get the verse text
+    verse_text = bible.get_verse_text(selected_book, selected_chapter, selected_verse_num)
+    if not verse_text:
+        raise HTTPException(status_code=404, detail="Verse text not found")
+
+    # Get red letter information
+    christ_words = get_christ_words(selected_book, selected_chapter, selected_verse_num)
+
+    return {
+        "book": selected_book,
+        "chapter": selected_chapter,
+        "verse": selected_verse_num,
+        "reference": f"{selected_book} {selected_chapter}:{selected_verse_num}",
+        "text": verse_text,
+        "red_letter": christ_words
+    }
+
+
+@router.get(
+    "/commentary/{book}/{chapter}/{verse}",
+    response_model=CommentaryResponse,
+    summary="Get verse commentary",
+    description="Get AI-generated theological commentary for a specific verse, including analysis, historical context, and reflection questions."
+)
+def api_get_verse_commentary(
+    book: str = Path(..., description="Book name", example="John"),
+    chapter: int = Path(..., description="Chapter number", example=3),
+    verse: int = Path(..., description="Verse number", example=16)
+):
+    """Get commentary for a specific verse."""
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    # Check if book exists
+    all_books = bible.get_books()
+    if book not in all_books:
+        raise HTTPException(status_code=404, detail=f"Book '{book}' not found")
+
+    # Get verse text
+    verse_text = bible.get_verse_text(book, chapter, verse)
+    if not verse_text:
+        raise HTTPException(status_code=404, detail="Verse not found")
+
+    # Load commentary data
+    commentary_data = _load_verse_commentary()
+
+    # Navigate to the commentary
+    if book not in commentary_data:
+        raise HTTPException(status_code=404, detail="Commentary not available for this book")
+
+    if str(chapter) not in commentary_data[book]:
+        raise HTTPException(status_code=404, detail="Commentary not available for this chapter")
+
+    if str(verse) not in commentary_data[book][str(chapter)]:
+        raise HTTPException(status_code=404, detail="Commentary not available for this verse")
+
+    verse_commentary = commentary_data[book][str(chapter)][str(verse)]
+
+    return {
+        "book": book,
+        "chapter": chapter,
+        "verse": verse,
+        "reference": f"{book} {chapter}:{verse}",
+        "text": verse_text,
+        "analysis": verse_commentary.get("analysis", ""),
+        "historical": verse_commentary.get("historical", ""),
+        "questions": verse_commentary.get("questions", [])
+    }
+
+
+@router.get(
+    "/chapter-commentary/{book}/{chapter}",
+    response_model=ChapterCommentaryResponse,
+    summary="Get chapter commentary",
+    description="Get a brief explanation of what a chapter contains and why it's significant."
+)
+def api_get_chapter_commentary(
+    book: str = Path(..., description="Book name", example="Genesis"),
+    chapter: int = Path(..., description="Chapter number", example=1)
+):
+    """Get commentary/explanation for a specific chapter."""
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        book = canonical_name
+
+    # Check if book exists
+    all_books = bible.get_books()
+    if book not in all_books:
+        raise HTTPException(status_code=404, detail=f"Book '{book}' not found")
+
+    # Check if chapter exists
+    chapters = bible.get_chapters_for_book(book)
+    if chapter not in chapters:
+        raise HTTPException(status_code=404, detail=f"Chapter {chapter} not found in {book}")
+
+    # Get chapter explanation
+    if book in CHAPTER_EXPLANATIONS and chapter in CHAPTER_EXPLANATIONS[book]:
+        explanation = CHAPTER_EXPLANATIONS[book][chapter]
+    else:
+        # Provide generic explanation if specific one doesn't exist
+        explanation = f"Chapter {chapter} of {book}"
+
+    return {
+        "book": book,
+        "chapter": chapter,
+        "explanation": explanation
+    }
+
+
+@router.post(
+    "/verses/bulk",
+    response_model=BulkVerseResponse,
+    summary="Bulk verse lookup",
+    description="Fetch multiple verses in a single request. Provide an array of verse references like ['John 3:16', 'Romans 8:28']."
+)
+def api_bulk_verse_lookup(request: BulkVerseRequest):
+    """Look up multiple verses in a single request."""
+    from ..kjv import VerseReference
+
+    verses = []
+    for ref_string in request.references:
+        try:
+            # Parse the reference
+            verse_ref = VerseReference.from_string(ref_string.strip())
+
+            # Normalize book name
+            book = verse_ref.book
+            canonical_name = normalize_book_name(book)
+            if canonical_name:
+                book = canonical_name
+
+            # Get verse text
+            verse_text = bible.get_verse_text(book, verse_ref.chapter, verse_ref.verse)
+
+            if verse_text:
+                # Get red letter information
+                christ_words = get_christ_words(book, verse_ref.chapter, verse_ref.verse)
+
+                verses.append({
+                    "book": book,
+                    "chapter": verse_ref.chapter,
+                    "verse": verse_ref.verse,
+                    "reference": f"{book} {verse_ref.chapter}:{verse_ref.verse}",
+                    "text": verse_text,
+                    "red_letter": christ_words
+                })
+        except Exception:
+            # Skip invalid references
+            continue
+
+    return {
+        "total": len(verses),
+        "verses": verses
+    }
+
+
+@router.get(
+    "/family-tree",
+    response_model=FamilyTreeListResponse,
+    summary="List all biblical figures",
+    description="Get a list of all people who have biographies in the family tree database."
+)
+def api_list_family_tree():
+    """List all people with biographies."""
+    data = _load_biographies()
+    biographies = data.get("biographies", {})
+
+    people = sorted(list(biographies.keys()))
+
+    return {
+        "total": len(people),
+        "people": people
+    }
+
+
+@router.get(
+    "/family-tree/{name}",
+    response_model=BiographyResponse,
+    summary="Get biography of biblical figure",
+    description="Get detailed biography including summary, significance, and key life events for a specific biblical figure."
+)
+def api_get_biography(
+    name: str = Path(..., description="Name of the person", example="Abraham")
+):
+    """Get biography of a specific person."""
+    data = _load_biographies()
+    biographies = data.get("biographies", {})
+    aliases = data.get("aliases", {})
+
+    # Check if name is an alias
+    if name in aliases:
+        name = aliases[name]
+
+    # Get biography
+    if name not in biographies:
+        raise HTTPException(status_code=404, detail=f"Biography for '{name}' not found")
+
+    biography = biographies[name]
+
+    return {
+        "name": name,
+        "summary": biography.get("summary", ""),
+        "significance": biography.get("significance", ""),
+        "key_events": biography.get("key_events", [])
     }

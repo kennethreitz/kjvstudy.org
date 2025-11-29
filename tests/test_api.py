@@ -706,3 +706,232 @@ class TestRedLetterEndpoints:
         assert "endpoints" in data
         assert "red_letter" in data["endpoints"]
         assert "red_letter_stats" in data["endpoints"]
+
+
+class TestRandomVerseEndpoint:
+    """Tests for random verse endpoint"""
+
+    def test_random_verse_basic(self, client):
+        """Test basic random verse generation"""
+        response = client.get("/api/verse/random")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Verify structure
+        assert "book" in data
+        assert "chapter" in data
+        assert "verse" in data
+        assert "reference" in data
+        assert "text" in data
+        assert "red_letter" in data
+
+        # Verify types
+        assert isinstance(data["book"], str)
+        assert isinstance(data["chapter"], int)
+        assert isinstance(data["verse"], int)
+
+    def test_random_verse_ot_filter(self, client):
+        """Test filtering by Old Testament"""
+        response = client.get("/api/verse/random?testament=ot")
+        assert response.status_code == 200
+        data = response.json()
+
+        # OT books don't include Matthew, Mark, Luke, John, etc.
+        nt_books = ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", "Revelation"]
+        assert data["book"] not in nt_books
+
+    def test_random_verse_nt_filter(self, client):
+        """Test filtering by New Testament"""
+        response = client.get("/api/verse/random?testament=nt")
+        assert response.status_code == 200
+        data = response.json()
+
+        # NT books include Matthew through Revelation
+        nt_books = ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1 Corinthians",
+                    "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians",
+                    "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus",
+                    "Philemon", "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John",
+                    "3 John", "Jude", "Revelation"]
+        assert data["book"] in nt_books
+
+    def test_random_verse_book_filter(self, client):
+        """Test filtering by specific book"""
+        response = client.get("/api/verse/random?book=John")
+        assert response.status_code == 200
+        data = response.json()
+
+        assert data["book"] == "John"
+
+    def test_random_verse_invalid_testament(self, client):
+        """Test invalid testament parameter"""
+        response = client.get("/api/verse/random?testament=invalid")
+        assert response.status_code == 400
+
+
+class TestCommentaryEndpoint:
+    """Tests for verse commentary endpoint"""
+
+    def test_get_verse_commentary(self, client):
+        """Test getting commentary for a verse"""
+        response = client.get("/api/commentary/Genesis/1/1")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Verify structure
+        assert data["book"] == "Genesis"
+        assert data["chapter"] == 1
+        assert data["verse"] == 1
+        assert "reference" in data
+        assert "text" in data
+        assert "analysis" in data
+        assert "historical" in data
+        assert "questions" in data
+
+        # Verify content
+        assert isinstance(data["questions"], list)
+        assert len(data["analysis"]) > 0
+
+    def test_commentary_nonexistent_verse(self, client):
+        """Test commentary for non-existent verse"""
+        response = client.get("/api/commentary/Genesis/1/99999")
+        assert response.status_code == 404
+
+    def test_commentary_missing_for_verse(self, client):
+        """Test verse with no commentary available"""
+        # Most verses should have commentary, but check proper 404 handling
+        response = client.get("/api/commentary/Philemon/1/999")
+        assert response.status_code == 404
+
+
+class TestChapterCommentaryEndpoint:
+    """Tests for chapter commentary endpoint"""
+
+    def test_get_chapter_commentary(self, client):
+        """Test getting chapter commentary"""
+        response = client.get("/api/chapter-commentary/Genesis/1")
+        assert response.status_code == 200
+        data = response.json()
+
+        assert data["book"] == "Genesis"
+        assert data["chapter"] == 1
+        assert "explanation" in data
+        assert len(data["explanation"]) > 0
+
+    def test_chapter_commentary_nonexistent_book(self, client):
+        """Test commentary for non-existent book"""
+        response = client.get("/api/chapter-commentary/InvalidBook/1")
+        assert response.status_code == 404
+
+    def test_chapter_commentary_nonexistent_chapter(self, client):
+        """Test commentary for non-existent chapter"""
+        response = client.get("/api/chapter-commentary/Genesis/999")
+        assert response.status_code == 404
+
+
+class TestBulkVerseEndpoint:
+    """Tests for bulk verse lookup endpoint"""
+
+    def test_bulk_verse_lookup(self, client):
+        """Test bulk verse lookup with multiple verses"""
+        response = client.post("/api/verses/bulk", json={
+            "references": ["John 3:16", "Romans 8:28", "Psalm 23:1"]
+        })
+        assert response.status_code == 200
+        data = response.json()
+
+        assert data["total"] == 3
+        assert len(data["verses"]) == 3
+
+        # Check first verse
+        assert data["verses"][0]["book"] == "John"
+        assert data["verses"][0]["chapter"] == 3
+        assert data["verses"][0]["verse"] == 16
+
+    def test_bulk_verse_with_invalid_references(self, client):
+        """Test bulk lookup with some invalid references"""
+        response = client.post("/api/verses/bulk", json={
+            "references": ["John 3:16", "Invalid Reference", "Genesis 1:1"]
+        })
+        assert response.status_code == 200
+        data = response.json()
+
+        # Should return 2 valid verses, skipping invalid
+        assert data["total"] == 2
+
+    def test_bulk_verse_empty_list(self, client):
+        """Test bulk lookup with empty list"""
+        response = client.post("/api/verses/bulk", json={
+            "references": []
+        })
+        assert response.status_code == 200
+        data = response.json()
+
+        assert data["total"] == 0
+        assert len(data["verses"]) == 0
+
+
+class TestFamilyTreeEndpoints:
+    """Tests for family tree/biography endpoints"""
+
+    def test_list_family_tree(self, client):
+        """Test listing all biblical figures"""
+        response = client.get("/api/family-tree")
+        assert response.status_code == 200
+        data = response.json()
+
+        assert "total" in data
+        assert "people" in data
+        assert data["total"] > 0
+        assert len(data["people"]) == data["total"]
+
+        # Check some expected people
+        assert "Abraham" in data["people"]
+        assert "Moses" in data["people"]
+        assert "David" in data["people"]
+
+    def test_get_biography(self, client):
+        """Test getting a specific biography"""
+        response = client.get("/api/family-tree/Abraham")
+        assert response.status_code == 200
+        data = response.json()
+
+        assert data["name"] == "Abraham"
+        assert "summary" in data
+        assert "significance" in data
+        assert "key_events" in data
+
+        # Verify key events structure
+        assert isinstance(data["key_events"], list)
+        if len(data["key_events"]) > 0:
+            event = data["key_events"][0]
+            assert "age" in event
+            assert "event" in event
+            assert "verse" in event
+
+    def test_biography_with_alias(self, client):
+        """Test getting biography using an alias name"""
+        response = client.get("/api/family-tree/Israel")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Should resolve to Jacob
+        assert data["name"] == "Jacob"
+
+    def test_biography_nonexistent_person(self, client):
+        """Test getting biography for non-existent person"""
+        response = client.get("/api/family-tree/NonExistentPerson")
+        assert response.status_code == 404
+
+    def test_api_index_includes_new_endpoints(self, client):
+        """Test that API index includes all new endpoints"""
+        response = client.get("/api/")
+        assert response.status_code == 200
+        data = response.json()
+
+        assert "endpoints" in data
+        assert "random_verse" in data["endpoints"]
+        assert "commentary" in data["endpoints"]
+        assert "chapter_commentary" in data["endpoints"]
+        assert "bulk_verses" in data["endpoints"]
+        assert "family_tree" in data["endpoints"]
+        assert "biography" in data["endpoints"]
