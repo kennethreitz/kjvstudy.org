@@ -2423,6 +2423,9 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
         {"text": f"Verse {verse_num}", "url": None}
     ]
 
+    # Determine if Old Testament for interlinear styling
+    is_ot = book in OT_BOOKS
+
     return templates.TemplateResponse(
             request,
             "verse.html",
@@ -2442,6 +2445,7 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "current_verse": verse_num,
             "has_interlinear": has_interlinear,
             "interlinear_words": interlinear_words,
-            "related_content": related_content
+            "related_content": related_content,
+            "is_old_testament": is_ot
         }
     )
