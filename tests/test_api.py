@@ -944,16 +944,20 @@ class TestFamilyTreeEndpoints:
 
         # Verify longest_lived structure
         assert "name" in data["longest_lived"]
+        assert "person_id" in data["longest_lived"]
         assert "value" in data["longest_lived"]
         assert "additional_info" in data["longest_lived"]
         assert isinstance(data["longest_lived"]["name"], str)
+        assert isinstance(data["longest_lived"]["person_id"], str)
         assert isinstance(data["longest_lived"]["value"], int)
 
         # Verify most_children structure
         assert "name" in data["most_children"]
+        assert "person_id" in data["most_children"]
         assert "value" in data["most_children"]
         assert "additional_info" in data["most_children"]
         assert isinstance(data["most_children"]["name"], str)
+        assert isinstance(data["most_children"]["person_id"], str)
         assert isinstance(data["most_children"]["value"], int)
         assert data["most_children"]["value"] >= 0
 

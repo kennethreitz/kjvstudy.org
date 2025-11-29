@@ -181,10 +181,6 @@ section:nth-of-type(3) {
                     <td>Most Children:</td>
                     <td id="stat-most-children">—</td>
                 </tr>
-                <tr>
-                    <td>Average Lifespan:</td>
-                    <td id="stat-average-lifespan">—</td>
-                </tr>
             </tbody>
         </table>
     </section>
@@ -293,22 +289,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Longest lived person
             if (data.longest_lived && data.longest_lived.value > 0) {
-                document.getElementById('stat-longest-lived').textContent =
-                    `${data.longest_lived.name} (${data.longest_lived.value} years)`;
+                const personName = data.longest_lived.name;
+                const personId = data.longest_lived.person_id;
+                document.getElementById('stat-longest-lived').innerHTML =
+                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.longest_lived.value} years)`;
             }
 
             // Most children
             if (data.most_children && data.most_children.value > 0) {
-                document.getElementById('stat-most-children').textContent =
-                    `${data.most_children.name} (${data.most_children.value} children)`;
-            }
-
-            // Average lifespan
-            if (data.average_lifespan) {
-                document.getElementById('stat-average-lifespan').textContent =
-                    `${data.average_lifespan} years (${data.total_with_known_ages} people with known ages)`;
-            } else {
-                document.getElementById('stat-average-lifespan').textContent = 'No data available';
+                const personName = data.most_children.name;
+                const personId = data.most_children.person_id;
+                document.getElementById('stat-most-children').innerHTML =
+                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.most_children.value} children)`;
             }
 
             // Show stats, hide loading

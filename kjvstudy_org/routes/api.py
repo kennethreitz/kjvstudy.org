@@ -255,6 +255,7 @@ class FamilyTreeListResponse(BaseModel):
 class PersonStat(BaseModel):
     """Statistical information about a person"""
     name: str = Field(..., json_schema_extra={"example": "Methuselah"})
+    person_id: str = Field(..., json_schema_extra={"example": "i12"})
     value: int = Field(..., json_schema_extra={"example": 969})
     additional_info: Optional[str] = Field(None, json_schema_extra={"example": "Lived 969 years"})
 
@@ -2005,16 +2006,23 @@ def api_family_tree_stats():
         if not family_tree_data:
             raise HTTPException(status_code=500, detail="Family tree data not available")
 
+        # Load biographies for supplemental age data
+        biographies_data = _load_biographies()
+        biographies = biographies_data.get("biographies", {})
+        aliases = biographies_data.get("aliases", {})
+
         # Calculate statistics
         total_people = len(family_tree_data)
         total_generations = len(generations) if generations else 0
 
         # Find longest lived person
         longest_lived_person = None
+        longest_lived_person_id = None
         longest_lifespan = 0
 
         # Find person with most children
         most_children_person = None
+        most_children_person_id = None
         most_children_count = 0
 
         # Calculate average lifespan
@@ -2046,6 +2054,27 @@ def api_family_tree_stats():
                 except (ValueError, AttributeError):
                     pass
 
+            # Finally, check biographies.json for age data
+            if age is None:
+                person_name = person.get("name")
+                # Check if name is an alias
+                lookup_name = aliases.get(person_name, person_name)
+
+                if lookup_name in biographies:
+                    try:
+                        biography = biographies[lookup_name]
+                        key_events = biography.get("key_events", [])
+                        # Find death event (usually the last event with highest age)
+                        death_age = 0
+                        for event in key_events:
+                            event_age = event.get("age")
+                            if event_age is not None and event_age > death_age:
+                                death_age = event_age
+                        if death_age > 0:
+                            age = death_age
+                    except (ValueError, AttributeError, KeyError):
+                        pass
+
             # Record age statistics if we found an age
             if age is not None:
                 total_age += age
@@ -2054,12 +2083,14 @@ def api_family_tree_stats():
                 if age > longest_lifespan:
                     longest_lifespan = age
                     longest_lived_person = person
+                    longest_lived_person_id = person_id
 
             # Check children count
             children_count = len(person.get("children", []))
             if children_count > most_children_count:
                 most_children_count = children_count
                 most_children_person = person
+                most_children_person_id = person_id
 
         # Calculate average lifespan
         average_lifespan = round(total_age / people_with_ages, 1) if people_with_ages > 0 else None
@@ -2070,11 +2101,13 @@ def api_family_tree_stats():
             "total_generations": total_generations,
             "longest_lived": {
                 "name": longest_lived_person["name"] if longest_lived_person else "Unknown",
+                "person_id": longest_lived_person_id if longest_lived_person_id else "unknown",
                 "value": longest_lifespan,
                 "additional_info": f"Lived {longest_lifespan} years" if longest_lived_person else None
             },
             "most_children": {
                 "name": most_children_person["name"] if most_children_person else "Unknown",
+                "person_id": most_children_person_id if most_children_person_id else "unknown",
                 "value": most_children_count,
                 "additional_info": f"Had {most_children_count} children" if most_children_person else None
             },
