@@ -116,14 +116,14 @@
     {% endif %}
     {% if person.spouse %}
     <strong>Spouse:</strong>
-    {% set spouse_id = None %}
+    {% set ns = namespace(spouse_id=None) %}
     {% for pid, p in family_tree_data.items() %}
         {% if p.name == person.spouse %}
-            {% set spouse_id = pid %}
+            {% set ns.spouse_id = pid %}
         {% endif %}
     {% endfor %}
-    {% if spouse_id %}
-        <a href="/family-tree/person/{{ spouse_id }}">{{ person.spouse }}</a>.
+    {% if ns.spouse_id %}
+        <a href="/family-tree/person/{{ ns.spouse_id }}">{{ person.spouse }}</a>.
     {% else %}
         {{ person.spouse }}.
     {% endif %}
@@ -201,13 +201,13 @@
 
     <div style="margin: 0.5rem 0;">
         <strong>{{ person.name }}</strong>{% if person.spouse %}
-        {% set spouse_id = None %}
+        {% set ns = namespace(spouse_id=None) %}
         {% for pid, p in family_tree_data.items() %}
             {% if p.name == person.spouse %}
-                {% set spouse_id = pid %}
+                {% set ns.spouse_id = pid %}
             {% endif %}
         {% endfor %}
-        & {% if spouse_id %}<a href="/family-tree/person/{{ spouse_id }}" style="font-style: italic;">{{ person.spouse }}</a>{% else %}<span style="font-style: italic;">{{ person.spouse }}</span>{% endif %}{% endif %}
+        & {% if ns.spouse_id %}<a href="/family-tree/person/{{ ns.spouse_id }}" style="font-style: italic;">{{ person.spouse }}</a>{% else %}<span style="font-style: italic;">{{ person.spouse }}</span>{% endif %}{% endif %}
     </div>
 
     {% if person.children|length > 0 %}
@@ -254,20 +254,19 @@
 <div class="relationships-section">
     <h2>Spouse</h2>
     <div class="relationship-list">
-        {% set spouse_id = None %}
-        {% set spouse_data = None %}
+        {% set ns = namespace(spouse_id=None, spouse_data=None) %}
         {% for pid, p in family_tree_data.items() %}
             {% if p.name == person.spouse %}
-                {% set spouse_id = pid %}
-                {% set spouse_data = p %}
+                {% set ns.spouse_id = pid %}
+                {% set ns.spouse_data = p %}
             {% endif %}
         {% endfor %}
         <div class="relationship-item">
-            {% if spouse_id %}
-                <span class="relationship-name"><a href="/family-tree/person/{{ spouse_id }}">{{ person.spouse }}</a></span>
-                {% if spouse_data and (spouse_data.generation or spouse_data.kekule_number is not none or spouse_data.age_at_death != "Unknown") %}
+            {% if ns.spouse_id %}
+                <span class="relationship-name"><a href="/family-tree/person/{{ ns.spouse_id }}">{{ person.spouse }}</a></span>
+                {% if ns.spouse_data and (ns.spouse_data.generation or ns.spouse_data.kekule_number is not none or ns.spouse_data.age_at_death != "Unknown") %}
                 <span class="relationship-meta">
-                    {% if spouse_data.generation %}generation {{ spouse_data.generation }}{% endif %}{% if spouse_data.kekule_number is not none %}{% if spouse_data.generation %}, {% endif %}Kekulé #{{ spouse_data.kekule_number }}{% endif %}{% if spouse_data.age_at_death != "Unknown" %}{% if spouse_data.generation or spouse_data.kekule_number is not none %}, {% endif %}lived {{ spouse_data.age_at_death }}{% endif %}
+                    {% if ns.spouse_data.generation %}generation {{ ns.spouse_data.generation }}{% endif %}{% if ns.spouse_data.kekule_number is not none %}{% if ns.spouse_data.generation %}, {% endif %}Kekulé #{{ ns.spouse_data.kekule_number }}{% endif %}{% if ns.spouse_data.age_at_death != "Unknown" %}{% if ns.spouse_data.generation or ns.spouse_data.kekule_number is not none %}, {% endif %}lived {{ ns.spouse_data.age_at_death }}{% endif %}
                 </span>
                 {% endif %}
             {% else %}
