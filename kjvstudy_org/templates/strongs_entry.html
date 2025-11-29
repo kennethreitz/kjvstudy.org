@@ -132,10 +132,75 @@
     border-left: 4px solid #4169E1;
 }
 
-.info-card.derivation p {
+.info-card.derivation > p {
     font-size: 0.95rem;
     color: var(--text-secondary);
     font-style: italic;
+}
+
+/* Related entries embedded in derivation */
+.related-entries {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.related-entry-card {
+    padding: 0.75rem 1rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    border-left: 3px solid #6495ED;
+}
+
+.related-entry-card:hover {
+    border-color: #4169E1;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.related-entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.related-entry-header a {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #4169E1;
+    text-decoration: none;
+}
+
+.related-entry-header a:hover {
+    text-decoration: underline;
+}
+
+.related-entry-lemma {
+    font-size: 1.1rem;
+}
+
+.related-entry-translit {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.related-entry-def {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+[data-theme="dark"] .related-entry-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .related-entry-header a {
+    color: #6495ED;
 }
 
 .strongs-ref {
@@ -348,6 +413,20 @@
         <div class="info-card derivation">
             <h2>Derivation</h2>
             <p>{{ entry.derivation | linkify_strongs | safe }}</p>
+            {% if related_entries %}
+            <div class="related-entries">
+                {% for rel in related_entries %}
+                <div class="related-entry-card">
+                    <div class="related-entry-header">
+                        <a href="/strongs/{{ rel.strongs }}">{{ rel.strongs }}</a>
+                        <span class="related-entry-lemma">{{ rel.word }}</span>
+                        {% if rel.transliteration %}<span class="related-entry-translit">({{ rel.transliteration }})</span>{% endif %}
+                    </div>
+                    <p class="related-entry-def">{{ rel.definition[:150] }}{% if rel.definition|length > 150 %}...{% endif %}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
         {% endif %}
     </div>

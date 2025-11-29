@@ -2488,6 +2488,8 @@ def strongs_greek_index(request: Request, page: int = 1):
 @app.get("/strongs/{strongs_number}", response_class=HTMLResponse)
 def strongs_entry(request: Request, strongs_number: str):
     """View a single Strong's concordance entry."""
+    import re
+
     entry = format_strongs_entry(strongs_number)
 
     if not entry:
@@ -2517,6 +2519,20 @@ def strongs_entry(request: Request, strongs_number: str):
         else:
             occ["verse_text"] = ""
 
+    # Extract and fetch related Strong's entries from derivation
+    related_entries = []
+    if entry.get("derivation"):
+        # Find all Strong's references like H1234 or G5678
+        strongs_refs = re.findall(r'([HG])(\d+)', entry["derivation"])
+        seen = set()
+        for prefix, num in strongs_refs:
+            ref = f"{prefix}{num}"
+            if ref.upper() != strongs_number.upper() and ref not in seen:
+                seen.add(ref)
+                related = format_strongs_entry(ref)
+                if related:
+                    related_entries.append(related)
+
     books = bible.get_books()
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -2532,6 +2548,7 @@ def strongs_entry(request: Request, strongs_number: str):
             "books": books,
             "breadcrumbs": breadcrumbs,
             "verse_occurrences": verse_occurrences,
-            "total_occurrences": total_occurrences
+            "total_occurrences": total_occurrences,
+            "related_entries": related_entries
         }
     )

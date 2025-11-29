@@ -203,6 +203,59 @@
     transform: translateX(0);
 }
 
+/* Hamburger toggle button */
+.sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 48px;
+    background: white;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: -2px 0 6px rgba(0,0,0,0.1);
+    z-index: 101;
+    transition: right 0.3s ease, background 0.15s ease;
+}
+
+.sidebar-toggle:hover {
+    background: #f5f5f5;
+}
+
+.sidebar-toggle .hamburger-line {
+    width: 16px;
+    height: 2px;
+    background: #666;
+    border-radius: 1px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* When sidebar is open, move toggle and show X */
+.info-sidebar.open + .sidebar-toggle,
+.sidebar-toggle.active {
+    right: 280px;
+}
+
+.sidebar-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+}
+
+.sidebar-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.sidebar-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -4px);
+}
+
 .info-sidebar-header {
     display: flex;
     align-items: center;
@@ -252,13 +305,28 @@
     color: #3b6ea5;
 }
 
+.info-field-value a.tree-nav-link {
+    color: #4a7c59;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.info-field-value a.tree-nav-link:hover {
+    color: #3d6a4b;
+    text-decoration-style: solid;
+}
+
 .info-actions {
     margin-top: 1.5rem;
     padding-top: 1rem;
     border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.info-actions a {
+.info-actions a.info-btn-primary {
     display: block;
     padding: 0.6rem 1rem;
     background: #4a7c59;
@@ -270,8 +338,26 @@
     transition: background 0.15s ease;
 }
 
-.info-actions a:hover {
+.info-actions a.info-btn-primary:hover {
     background: #3d6a4b;
+}
+
+.info-actions a.info-btn-secondary {
+    display: block;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    color: #3b6ea5;
+    text-align: center;
+    border: 1px solid #3b6ea5;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.15s ease;
+}
+
+.info-actions a.info-btn-secondary:hover {
+    background: #3b6ea5;
+    color: white;
 }
 
 /* Navigation hint */
@@ -525,6 +611,19 @@
     color: #e0e0e0;
 }
 
+[data-theme="dark"] .sidebar-toggle {
+    background: #1a1a1a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .sidebar-toggle:hover {
+    background: #2a2a2a;
+}
+
+[data-theme="dark"] .sidebar-toggle .hamburger-line {
+    background: #aaa;
+}
+
 [data-theme="dark"] .info-sidebar {
     background: #1a1a1a;
     border-left-color: #444;
@@ -551,8 +650,26 @@
     color: #e0e0e0;
 }
 
+[data-theme="dark"] .info-field-value a.tree-nav-link {
+    color: #6b9b7a;
+}
+
+[data-theme="dark"] .info-field-value a.tree-nav-link:hover {
+    color: #8bc49a;
+}
+
 [data-theme="dark"] .info-actions {
     border-top-color: #333;
+}
+
+[data-theme="dark"] .info-actions a.info-btn-secondary {
+    color: #6b9b7a;
+    border-color: #6b9b7a;
+}
+
+[data-theme="dark"] .info-actions a.info-btn-secondary:hover {
+    background: #6b9b7a;
+    color: #1a1a1a;
 }
 
 [data-theme="dark"] .tree-hint {
@@ -698,20 +815,33 @@
                 <button class="info-sidebar-close" id="sidebar-close">&times;</button>
             </div>
             <div class="info-sidebar-content">
+                <div class="info-field" id="field-title"></div>
                 <div class="info-field" id="field-dates"></div>
                 <div class="info-field" id="field-age"></div>
                 <div class="info-field" id="field-generation"></div>
+                <div class="info-field" id="field-kekule"></div>
                 <div class="info-field" id="field-spouse"></div>
                 <div class="info-field" id="field-parents"></div>
+                <div class="info-field" id="field-siblings"></div>
                 <div class="info-field" id="field-children"></div>
+                <div class="info-field" id="field-verse"></div>
+                <div class="info-field" id="field-name-meaning"></div>
                 <div class="info-actions">
-                    <a href="#" id="view-profile-link">View Full Profile</a>
+                    <a href="#" id="view-profile-link" class="info-btn-primary">View Full Profile →</a>
+                    <a href="#" id="view-ancestors-link" class="info-btn-secondary">View Ancestors</a>
+                    <a href="#" id="view-descendants-link" class="info-btn-secondary">View Descendants</a>
                 </div>
             </div>
         </div>
 
+        <button class="sidebar-toggle" id="sidebar-toggle" title="Toggle details panel">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
         <div class="tree-hint">
-            Click to expand/collapse • Double-click to focus • Scroll to zoom • Drag to pan
+            Click <b>i</b> for info • Click <b>+</b> to expand • Double-click to focus • Scroll to zoom • Drag to pan
         </div>
     </div>
 
@@ -1016,6 +1146,7 @@ function createPersonCard(d, showSpouse = true) {
     const hasExpandableChildren = data.hasChildren && !d.children && !d._children;
     const isCollapsed = hasHiddenChildren || hasExpandableChildren;
     const hasKekule = data.kekule_number !== null && data.kekule_number !== undefined;
+    const isAncestor = data.isAncestor === true;  // Check if this is an ancestor node
 
     let dates = '';
     if (data.birth_year && data.birth_year !== 'Unknown') {
@@ -1026,13 +1157,14 @@ function createPersonCard(d, showSpouse = true) {
     }
 
     const group = d3.create('svg:g')
-        .attr('class', 'person-node')
+        .attr('class', 'person-node' + (isAncestor ? ' ancestor-node' : ''))
         .attr('data-id', d.data.id)
-        .style('cursor', 'pointer');
+        .style('cursor', 'pointer')
+        .style('opacity', isAncestor ? 0.6 : 1);  // Make ancestors semi-transparent
 
-    // Card dimensions
-    const cardWidth = 150;
-    const cardHeight = dates ? 58 : 42;
+    // Card dimensions (narrower cards)
+    const cardWidth = 120;
+    const cardHeight = dates ? 54 : 40;
 
     // Determine colors based on gender and Kekulé status
     let fillColor, strokeColor;
@@ -1079,10 +1211,10 @@ function createPersonCard(d, showSpouse = true) {
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .attr('font-family', '"ETBembo", Palatino, "Book Antiqua", serif')
-        .attr('font-size', '13px')
+        .attr('font-size', '12px')
         .attr('font-weight', '600')
         .attr('fill', '#222')
-        .text(data.name.length > 18 ? data.name.substring(0, 16) + '…' : data.name);
+        .text(data.name.length > 14 ? data.name.substring(0, 12) + '…' : data.name);
 
     // Dates text
     if (dates) {
@@ -1092,7 +1224,7 @@ function createPersonCard(d, showSpouse = true) {
             .attr('text-anchor', 'middle')
             .attr('dominant-baseline', 'middle')
             .attr('font-family', '"ETBembo", Palatino, "Book Antiqua", serif')
-            .attr('font-size', '11px')
+            .attr('font-size', '10px')
             .attr('fill', '#666')
             .text(dates);
     }
@@ -1156,7 +1288,6 @@ function createPersonCard(d, showSpouse = true) {
                         navigationHistory.push(currentRootId);
                     }
                     currentRootId = spouseId;
-                    transform = d3.zoomIdentity;
                     renderTreeFromId(spouseId);
                     updateBreadcrumb(spouseId);
                 }
@@ -1179,9 +1310,9 @@ function createPersonCard(d, showSpouse = true) {
             .attr('text-anchor', 'middle')
             .attr('dominant-baseline', 'middle')
             .attr('font-family', '"ETBembo", Palatino, "Book Antiqua", serif')
-            .attr('font-size', '11px')
+            .attr('font-size', '10px')
             .attr('fill', '#555')
-            .text(data.spouse.length > 16 ? data.spouse.substring(0, 14) + '…' : data.spouse);
+            .text(data.spouse.length > 12 ? data.spouse.substring(0, 10) + '…' : data.spouse);
 
         // Ring icon to indicate marriage
         spouseGroup.append('text')
@@ -1193,8 +1324,8 @@ function createPersonCard(d, showSpouse = true) {
             .text('💍');
     }
 
-    // Expand/collapse indicator (shows + if collapsed with children, - if expanded)
-    if (isCollapsed || (d.children && d.children.length > 0)) {
+    // Expand indicator (only shows + when there are hidden/expandable children)
+    if (isCollapsed) {
         const indicatorX = cardWidth / 2 + 8;
         const indicatorY = 0;
 
@@ -1203,7 +1334,7 @@ function createPersonCard(d, showSpouse = true) {
             .attr('cx', indicatorX)
             .attr('cy', indicatorY)
             .attr('r', 10)
-            .attr('fill', isCollapsed ? '#4a7c59' : '#888')
+            .attr('fill', '#4a7c59')
             .attr('stroke', '#fff')
             .attr('stroke-width', 1);
 
@@ -1216,8 +1347,34 @@ function createPersonCard(d, showSpouse = true) {
             .attr('font-size', '14px')
             .attr('font-weight', 'bold')
             .attr('fill', 'white')
-            .text(isCollapsed ? '+' : '−');
+            .text('+');
     }
+
+    // Info button (always shown, on the left side)
+    const infoX = -cardWidth / 2 - 8;
+    const infoY = 0;
+
+    group.append('circle')
+        .attr('class', 'info-btn')
+        .attr('cx', infoX)
+        .attr('cy', infoY)
+        .attr('r', 10)
+        .attr('fill', '#3b6ea5')
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 1)
+        .style('cursor', 'pointer');
+
+    group.append('text')
+        .attr('class', 'info-icon')
+        .attr('x', infoX)
+        .attr('y', infoY)
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('font-size', '12px')
+        .attr('font-weight', 'bold')
+        .attr('fill', 'white')
+        .attr('pointer-events', 'none')
+        .text('i');
 
     return group.node();
 }
@@ -1314,9 +1471,9 @@ function renderTree() {
     // Create hierarchy
     const root = d3.hierarchy(treeData);
 
-    // Calculate tree dimensions
-    const nodeWidth = 180;
-    const nodeHeight = 80;
+    // Calculate tree dimensions (narrower spacing for narrower cards)
+    const nodeWidth = 145;
+    const nodeHeight = 75;
     const isHorizontal = currentOrientation === 'left-right';
 
     // Tree layout
@@ -1371,26 +1528,34 @@ function renderTree() {
         this.appendChild(card);
     });
 
-    // Single click: expand/collapse children OR show info if leaf node
+    // Single click handler
     nodes.on('click', (event, d) => {
         event.stopPropagation();
 
-        // Check if clicking on the expand indicator
         const target = event.target;
-        const isExpandClick = target.classList.contains('expand-indicator') ||
-                             target.classList.contains('expand-icon') ||
-                             target.closest('.expand-indicator');
 
-        // If has children (visible or hidden) or can be expanded, toggle on click
-        const canToggle = d.children || d._children ||
-                         (d.data.data && d.data.data.hasChildren);
+        // Check if clicking on the info button
+        const isInfoClick = target.classList.contains('info-btn') ||
+                           target.classList.contains('info-icon');
 
-        if (canToggle) {
-            toggleNode(d);
-        } else {
-            // Leaf node - show info
+        if (isInfoClick) {
             showPersonInfo(d.data);
+            return;
         }
+
+        // Check if clicking on the expand indicator
+        const isExpandClick = target.classList.contains('expand-indicator') ||
+                             target.classList.contains('expand-icon');
+
+        // Check if node can be expanded/collapsed
+        const hasHiddenChildren = d._children && d._children.length > 0;
+        const hasExpandableChildren = d.data.data && d.data.data.hasChildren && !d.children && !d._children;
+        const canExpand = hasHiddenChildren || hasExpandableChildren;
+
+        if (isExpandClick && canExpand) {
+            toggleNode(d);
+        }
+        // Clicking anywhere else on the card does nothing (use info button or double-click)
     });
 
     // Double click: re-center tree on this person
@@ -1429,10 +1594,7 @@ function renderTree() {
             rootSelect.value = 'custom';
         }
 
-        // Reset zoom transform for fresh view
-        transform = d3.zoomIdentity;
-
-        // Re-render with new root
+        // Re-render with new root (zoom level preserved, view tweens to center)
         renderTreeFromId(personId);
         updateBreadcrumb(personId);
     });
@@ -1458,7 +1620,10 @@ function renderTree() {
 }
 
 // Re-render tree from a specific person ID (bidirectional - shows parents and children)
-function renderTreeFromId(personId) {
+function renderTreeFromId(personId, animate = true) {
+    // Store current zoom scale to preserve it
+    const previousScale = transform.k || 1;
+
     container.innerHTML = '';
 
     const treeData = buildBidirectionalTreeData(personId, currentDepth, 2);
@@ -1488,8 +1653,8 @@ function renderTreeFromId(personId) {
 
     svg.call(zoom);
 
-    const nodeWidth = 180;
-    const nodeHeight = 100;
+    const nodeWidth = 145;
+    const nodeHeight = 90;
     const isHorizontal = currentOrientation === 'left-right';
 
     // We'll render two trees: ancestors above and descendants below
@@ -1614,10 +1779,20 @@ function renderTreeFromId(personId) {
         this.appendChild(card);
     });
 
-    // Single click: show info
+    // Single click: handle info button
     nodes.on('click', (event, d) => {
         event.stopPropagation();
-        showPersonInfo(d.data);
+
+        const target = event.target;
+
+        // Check if clicking on the info button
+        const isInfoClick = target.classList.contains('info-btn') ||
+                           target.classList.contains('info-icon');
+
+        if (isInfoClick) {
+            showPersonInfo(d.data);
+        }
+        // Clicking elsewhere does nothing (use info button or double-click)
     });
 
     // Double click: re-center
@@ -1632,7 +1807,6 @@ function renderTreeFromId(personId) {
         }
         currentRootId = personId;
 
-        transform = d3.zoomIdentity;
         renderTreeFromId(personId);
         updateBreadcrumb(personId);
     });
@@ -1653,7 +1827,8 @@ function renderTreeFromId(personId) {
     window.treeSvg = svg;
     window.treeG = g;
 
-    fitToView();
+    // Center on root person with smooth animation, preserving zoom level
+    centerOnRootPerson(previousScale, animate);
 }
 
 // Update tree after expand/collapse with animation
@@ -1662,8 +1837,8 @@ function updateTree(source) {
 
     const g = window.treeG;
     const isHorizontal = currentOrientation === 'left-right';
-    const nodeWidth = 180;
-    const nodeHeight = 80;
+    const nodeWidth = 145;
+    const nodeHeight = 75;
 
     // Re-compute tree layout
     const treeLayout = d3.tree()
@@ -1735,12 +1910,29 @@ function updateTree(source) {
     nodesEnter
         .on('click', (event, d) => {
             event.stopPropagation();
-            const canToggle = d.children || d._children ||
-                             (d.data.data && d.data.data.hasChildren);
-            if (canToggle) {
-                toggleNode(d);
-            } else {
+
+            const target = event.target;
+
+            // Check if clicking on the info button
+            const isInfoClick = target.classList.contains('info-btn') ||
+                               target.classList.contains('info-icon');
+
+            if (isInfoClick) {
                 showPersonInfo(d.data);
+                return;
+            }
+
+            // Check if clicking on the expand indicator
+            const isExpandClick = target.classList.contains('expand-indicator') ||
+                                 target.classList.contains('expand-icon');
+
+            // Check if node can be expanded
+            const hasHiddenChildren = d._children && d._children.length > 0;
+            const hasExpandableChildren = d.data.data && d.data.data.hasChildren && !d.children && !d._children;
+            const canExpand = hasHiddenChildren || hasExpandableChildren;
+
+            if (isExpandClick && canExpand) {
+                toggleNode(d);
             }
         })
         .on('dblclick', (event, d) => {
@@ -1754,7 +1946,6 @@ function updateTree(source) {
             }
             currentRootId = personId;
 
-            transform = d3.zoomIdentity;
             renderTreeFromId(personId);
             updateBreadcrumb(personId);
         })
@@ -1813,6 +2004,39 @@ function updateTree(source) {
     });
 }
 
+// Center view on the root person (selected person) with smooth animation
+function centerOnRootPerson(targetScale = 1, animate = true) {
+    const svg = window.treeSvg;
+    const zoom = window.treeZoom;
+    if (!svg || !zoom || !treeRoot) return;
+
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    const isHorizontal = currentOrientation === 'left-right';
+
+    // Get root person's position (treeRoot is always the selected person)
+    const rootX = isHorizontal ? treeRoot.y : treeRoot.x;
+    const rootY = isHorizontal ? treeRoot.x : treeRoot.y;
+
+    // Clamp scale to reasonable bounds
+    const scale = Math.max(0.5, Math.min(targetScale, 2.0));
+
+    // Calculate transform to center root person
+    const tx = width / 2 - rootX * scale;
+    const ty = height / 2 - rootY * scale;
+
+    const newTransform = d3.zoomIdentity.translate(tx, ty).scale(scale);
+
+    if (animate) {
+        svg.transition()
+            .duration(600)
+            .ease(d3.easeCubicInOut)
+            .call(zoom.transform, newTransform);
+    } else {
+        svg.call(zoom.transform, newTransform);
+    }
+}
+
 // Fit tree to view
 function fitToView() {
     const svg = window.treeSvg;
@@ -1849,6 +2073,17 @@ function showPersonInfo(person) {
 
     document.getElementById('sidebar-name').textContent = data.name;
     document.getElementById('view-profile-link').href = `/family-tree/person/${person.id}`;
+    document.getElementById('view-ancestors-link').href = `/family-tree/person/${person.id}/ancestors`;
+    document.getElementById('view-descendants-link').href = `/family-tree/person/${person.id}/descendants`;
+
+    // Title/Occupation
+    const titleField = document.getElementById('field-title');
+    if (fullPerson && fullPerson.title && fullPerson.title !== 'Biblical Figure') {
+        titleField.innerHTML = `<div class="info-field-label">Title</div><div class="info-field-value">${fullPerson.title}</div>`;
+        titleField.style.display = 'block';
+    } else {
+        titleField.style.display = 'none';
+    }
 
     // Dates
     const datesField = document.getElementById('field-dates');
@@ -1883,11 +2118,20 @@ function showPersonInfo(person) {
         genField.style.display = 'none';
     }
 
+    // Kekulé number (bloodline to Christ)
+    const kekuleField = document.getElementById('field-kekule');
+    if (data.kekule_number !== null && data.kekule_number !== undefined) {
+        kekuleField.innerHTML = `<div class="info-field-label">Kekulé Number</div><div class="info-field-value">#${data.kekule_number} <span style="font-size:0.85em;color:#888;">(ancestor of Christ)</span></div>`;
+        kekuleField.style.display = 'block';
+    } else {
+        kekuleField.style.display = 'none';
+    }
+
     // Spouse
     const spouseField = document.getElementById('field-spouse');
     if (data.spouse) {
         const spouseId = findPersonId(data.spouse);
-        const spouseLink = spouseId ? `<a href="/family-tree/person/${spouseId}">${data.spouse}</a>` : data.spouse;
+        const spouseLink = spouseId ? `<a href="#" class="tree-nav-link" data-person-id="${spouseId}">${data.spouse}</a>` : data.spouse;
         spouseField.innerHTML = `<div class="info-field-label">Spouse</div><div class="info-field-value">${spouseLink}</div>`;
         spouseField.style.display = 'block';
     } else {
@@ -1899,7 +2143,7 @@ function showPersonInfo(person) {
     if (fullPerson && fullPerson.parents && fullPerson.parents.length > 0) {
         const parentLinks = fullPerson.parents.map(pid => {
             const parent = familyTreeData[pid];
-            return parent ? `<a href="/family-tree/person/${pid}">${parent.name}</a>` : pid;
+            return parent ? `<a href="#" class="tree-nav-link" data-person-id="${pid}">${parent.name}</a>` : pid;
         }).join(', ');
         parentsField.innerHTML = `<div class="info-field-label">Parents</div><div class="info-field-value">${parentLinks}</div>`;
         parentsField.style.display = 'block';
@@ -1907,23 +2151,104 @@ function showPersonInfo(person) {
         parentsField.style.display = 'none';
     }
 
+    // Siblings
+    const siblingsField = document.getElementById('field-siblings');
+    if (fullPerson && fullPerson.siblings && fullPerson.siblings.length > 0) {
+        const siblingLinks = fullPerson.siblings.slice(0, 5).map(sid => {
+            const sibling = familyTreeData[sid];
+            return sibling ? `<a href="#" class="tree-nav-link" data-person-id="${sid}">${sibling.name}</a>` : sid;
+        }).join(', ');
+        const moreText = fullPerson.siblings.length > 5 ? ` +${fullPerson.siblings.length - 5} more` : '';
+        siblingsField.innerHTML = `<div class="info-field-label">Siblings</div><div class="info-field-value">${siblingLinks}${moreText}</div>`;
+        siblingsField.style.display = 'block';
+    } else {
+        siblingsField.style.display = 'none';
+    }
+
     // Children
     const childrenField = document.getElementById('field-children');
     if (fullPerson && fullPerson.children && fullPerson.children.length > 0) {
-        const childCount = fullPerson.children.length;
-        childrenField.innerHTML = `<div class="info-field-label">Children</div><div class="info-field-value">${childCount} child${childCount !== 1 ? 'ren' : ''}</div>`;
+        const childLinks = fullPerson.children.slice(0, 5).map(cid => {
+            const child = familyTreeData[cid];
+            return child ? `<a href="#" class="tree-nav-link" data-person-id="${cid}">${child.name}</a>` : cid;
+        }).join(', ');
+        const moreText = fullPerson.children.length > 5 ? ` +${fullPerson.children.length - 5} more` : '';
+        childrenField.innerHTML = `<div class="info-field-label">Children</div><div class="info-field-value">${childLinks}${moreText}</div>`;
         childrenField.style.display = 'block';
     } else {
         childrenField.style.display = 'none';
     }
 
+    // Biblical verse reference
+    const verseField = document.getElementById('field-verse');
+    if (fullPerson && fullPerson.verses && fullPerson.verses.length > 0) {
+        const verse = fullPerson.verses[0];
+        const verseHtml = `<a href="#" onclick="return false;">${verse.reference}</a><br><em>"${verse.text.substring(0, 100)}${verse.text.length > 100 ? '...' : ''}"</em>`;
+        verseField.innerHTML = `<div class="info-field-label">Scripture</div><div class="info-field-value">${verseHtml}</div>`;
+        verseField.style.display = 'block';
+    } else {
+        verseField.style.display = 'none';
+    }
+
     sidebar.classList.add('open');
+    sidebarToggle.classList.add('active');
+
+    // Add click handlers for tree navigation links in sidebar
+    sidebar.querySelectorAll('.tree-nav-link').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const personId = link.dataset.personId;
+            if (personId) {
+                // Push current root to history before navigating
+                if (currentRootId && currentRootId !== personId) {
+                    navigationHistory.push(currentRootId);
+                }
+                currentRootId = personId;
+
+                // Close sidebar if not pinned
+                if (!sidebarPinned) {
+                    sidebar.classList.remove('open');
+                    sidebarToggle.classList.remove('active');
+                }
+
+                // Render tree from this person (zoom preserved, view tweens)
+                renderTreeFromId(personId);
+                updateBreadcrumb(personId);
+            }
+        });
+    });
 }
 
-// Close sidebar
-document.getElementById('sidebar-close').addEventListener('click', () => {
-    sidebar.classList.remove('open');
+// Sidebar toggle functionality with persistence
+const sidebarToggle = document.getElementById('sidebar-toggle');
+let sidebarPinned = localStorage.getItem('familyTreeSidebarPinned') === 'true';
+
+function updateSidebarState() {
+    if (sidebarPinned) {
+        sidebar.classList.add('open');
+        sidebarToggle.classList.add('active');
+    } else {
+        sidebar.classList.remove('open');
+        sidebarToggle.classList.remove('active');
+    }
+}
+
+// Toggle sidebar when hamburger is clicked
+sidebarToggle.addEventListener('click', () => {
+    sidebarPinned = !sidebarPinned;
+    localStorage.setItem('familyTreeSidebarPinned', sidebarPinned);
+    updateSidebarState();
 });
+
+// Close sidebar (X button inside sidebar)
+document.getElementById('sidebar-close').addEventListener('click', () => {
+    sidebarPinned = false;
+    localStorage.setItem('familyTreeSidebarPinned', 'false');
+    updateSidebarState();
+});
+
+// Initialize sidebar state from localStorage
+updateSidebarState();
 
 // Controls
 document.getElementById('root-select').addEventListener('change', (e) => {
@@ -2044,8 +2369,7 @@ function selectPerson(personId) {
     customOpt.textContent = personName;
     rootSelect.value = 'custom';
 
-    // Reset zoom and render
-    transform = d3.zoomIdentity;
+    // Render with smooth transition (zoom preserved)
     renderTreeFromId(personId);
     updateBreadcrumb(personId);
 }
