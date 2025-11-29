@@ -139,6 +139,23 @@
     background: linear-gradient(to bottom, #fff8fb, #fff);
 }
 
+/* Kekulé number highlight - blood relation to Christ */
+.person-card.kekule {
+    border-color: #d4af37 !important;
+    background: linear-gradient(to bottom, #fffde7, #fff9e6) !important;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.person-card.kekule.male {
+    border-color: #d4af37 !important;
+    background: linear-gradient(to bottom, #fffde7, #f8fbff) !important;
+}
+
+.person-card.kekule.female {
+    border-color: #d4af37 !important;
+    background: linear-gradient(to bottom, #fffde7, #fff8fb) !important;
+}
+
 .person-card .card-name {
     font-size: 1rem;
     font-weight: 600;
@@ -302,6 +319,147 @@
 .back-link {
     margin-top: 1.5rem;
 }
+
+/* Navigation history breadcrumb */
+.tree-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-btn {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: #555;
+    transition: all 0.15s ease;
+}
+
+.breadcrumb-btn:hover {
+    background: #e8e8e8;
+    border-color: #999;
+}
+
+.breadcrumb-btn.back-btn {
+    background: #4a7c59;
+    color: white;
+    border-color: #4a7c59;
+    font-weight: 500;
+}
+
+.breadcrumb-btn.back-btn:hover {
+    background: #3d6a4b;
+}
+
+.breadcrumb-btn.back-btn:disabled {
+    background: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.breadcrumb-sep {
+    color: #999;
+}
+
+.breadcrumb-current {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Search input in controls */
+.search-group {
+    flex: 1;
+    min-width: 175px;
+    max-width: 250px;
+}
+
+.search-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.search-wrapper input:focus {
+    outline: none;
+    border-color: #4a7c59;
+    box-shadow: 0 0 3px rgba(74, 124, 89, 0.3);
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 280px;
+    overflow-y: auto;
+    display: none;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.search-dropdown.open {
+    display: block;
+}
+
+.search-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.search-dropdown-item:hover,
+.search-dropdown-item.active {
+    background: #f5f5f5;
+}
+
+.search-dropdown-item .person-name {
+    font-weight: 500;
+}
+
+.search-dropdown-item .person-meta {
+    font-size: 0.8rem;
+    color: #888;
+    margin-left: 0.5rem;
+}
+
+.search-dropdown-item.kekule-person {
+    background: linear-gradient(to right, #fffde7, transparent);
+}
+
+.search-dropdown-item.kekule-person:hover,
+.search-dropdown-item.kekule-person.active {
+    background: linear-gradient(to right, #fff9c4, #f5f5f5);
+}
 </style>
 {% endblock %}
 
@@ -312,15 +470,49 @@
         <p>Explore the biblical genealogy from Adam to Jesus Christ. Click on any person to see their details.</p>
     </div>
 
+    <div class="tree-breadcrumb" id="tree-breadcrumb">
+        <button class="breadcrumb-btn back-btn" id="back-btn" disabled>← Back</button>
+        <span class="breadcrumb-sep">|</span>
+        <span>Viewing:</span>
+        <span class="breadcrumb-current" id="current-root-name">Adam</span>
+    </div>
+
     <div class="tree-controls">
+        <div class="control-group search-group">
+            <label for="tree-search-input">Find:</label>
+            <div class="search-wrapper">
+                <input type="text" id="tree-search-input" placeholder="Search for a person..." autocomplete="off">
+                <div class="search-dropdown" id="tree-search-dropdown"></div>
+            </div>
+        </div>
+
+        <div class="control-divider"></div>
+
         <div class="control-group">
             <label for="root-select">Starting from:</label>
             <select id="root-select">
-                <option value="adam">Adam</option>
-                <option value="noah">Noah</option>
-                <option value="abraham">Abraham</option>
-                <option value="david">David</option>
-                <option value="jesus">Jesus (Ancestors)</option>
+                <optgroup label="Patriarchs">
+                    <option value="adam">Adam</option>
+                    <option value="seth">Seth</option>
+                    <option value="enoch">Enoch</option>
+                    <option value="noah">Noah</option>
+                    <option value="shem">Shem</option>
+                </optgroup>
+                <optgroup label="Abraham's Line">
+                    <option value="abraham">Abraham</option>
+                    <option value="isaac">Isaac</option>
+                    <option value="jacob">Jacob (Israel)</option>
+                    <option value="judah">Judah</option>
+                </optgroup>
+                <optgroup label="Royal Line">
+                    <option value="david">David</option>
+                    <option value="solomon">Solomon</option>
+                    <option value="josiah">Josiah</option>
+                </optgroup>
+                <optgroup label="New Testament">
+                    <option value="joseph">Joseph (husband of Mary)</option>
+                    <option value="jesus">Jesus (Ancestors)</option>
+                </optgroup>
             </select>
         </div>
 
@@ -329,12 +521,12 @@
         <div class="control-group">
             <label>Generations:</label>
             <select id="depth-select">
-                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
                 <option value="4">4</option>
-                <option value="5" selected>5</option>
+                <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="8">8</option>
-                <option value="10">10</option>
             </select>
         </div>
 
@@ -353,7 +545,7 @@
             <label for="orientation-select">Layout:</label>
             <select id="orientation-select">
                 <option value="left-right">Horizontal</option>
-                <option value="top-bottom">Vertical</option>
+                <option value="top-bottom" selected>Vertical</option>
             </select>
         </div>
     </div>
@@ -382,7 +574,7 @@
         </div>
 
         <div class="tree-hint">
-            Scroll to zoom • Drag to pan • Click person for details
+            Click to expand/collapse • Double-click to focus • Scroll to zoom • Drag to pan
         </div>
     </div>
 
@@ -399,13 +591,41 @@ const generations = {{ generations | tojson }};
 
 // State
 let currentRoot = 'adam';
-let currentDepth = 5;
-let currentOrientation = 'left-right';
+let currentDepth = 3;
+let currentOrientation = 'top-bottom';
 let transform = d3.zoomIdentity;
+let currentDirection = 'descendants';
+let treeRoot = null;  // Store the D3 hierarchy root for updates
+let navigationHistory = [];  // Track navigation history for back button
+let currentRootId = null;  // Currently displayed root person ID
 
 // DOM elements
 const container = document.getElementById('family-tree-container');
 const sidebar = document.getElementById('info-sidebar');
+const backBtn = document.getElementById('back-btn');
+const currentRootNameEl = document.getElementById('current-root-name');
+
+// Update breadcrumb display
+function updateBreadcrumb(personId) {
+    const person = familyTreeData[personId];
+    const name = person ? person.name : personId;
+    currentRootNameEl.textContent = name;
+    backBtn.disabled = navigationHistory.length === 0;
+}
+
+// Navigate back
+function navigateBack() {
+    if (navigationHistory.length === 0) return;
+
+    const prevId = navigationHistory.pop();
+    transform = d3.zoomIdentity;
+    currentRootId = prevId;
+    renderTreeFromId(prevId);
+    updateBreadcrumb(prevId);
+}
+
+// Back button handler
+backBtn.addEventListener('click', navigateBack);
 
 // Find person by name
 function findPersonId(name) {
@@ -419,7 +639,7 @@ function findPersonId(name) {
     return null;
 }
 
-// Build tree data structure
+// Build tree data structure with collapse support
 function buildTreeData(rootId, maxDepth, direction = 'descendants') {
     const visited = new Set();
 
@@ -430,6 +650,14 @@ function buildTreeData(rootId, maxDepth, direction = 'descendants') {
         const person = familyTreeData[personId];
         if (!person) return null;
 
+        // Get potential children/parents
+        let relatedIds = [];
+        if (direction === 'descendants') {
+            relatedIds = person.children || [];
+        } else {
+            relatedIds = person.parents || [];
+        }
+
         const node = {
             id: personId,
             data: {
@@ -439,23 +667,17 @@ function buildTreeData(rootId, maxDepth, direction = 'descendants') {
                 age_at_death: person.age_at_death,
                 generation: person.generation,
                 spouse: person.spouse,
-                gender: inferGender(person.name)
+                gender: inferGender(person.name),
+                hasChildren: relatedIds.length > 0,
+                kekule_number: person.kekule_number
             },
             children: []
         };
 
-        if (direction === 'descendants') {
-            const childIds = person.children || [];
-            for (const childId of childIds) {
-                const child = buildNode(childId, depth + 1);
-                if (child) node.children.push(child);
-            }
-        } else {
-            const parentIds = person.parents || [];
-            for (const parentId of parentIds) {
-                const parent = buildNode(parentId, depth + 1);
-                if (parent) node.children.push(parent);
-            }
+        // Build children up to max depth
+        for (const relatedId of relatedIds) {
+            const child = buildNode(relatedId, depth + 1);
+            if (child) node.children.push(child);
         }
 
         return node;
@@ -464,16 +686,85 @@ function buildTreeData(rootId, maxDepth, direction = 'descendants') {
     return buildNode(rootId, 0);
 }
 
+// Toggle node expand/collapse
+function toggleNode(d) {
+    if (d.children) {
+        // Collapse: store children in _children
+        d._children = d.children;
+        d.children = null;
+    } else if (d._children) {
+        // Expand: restore children from _children
+        d.children = d._children;
+        d._children = null;
+    } else if (d.data.data && d.data.data.hasChildren) {
+        // Node has potential children but none loaded - expand from source data
+        expandNodeFromSource(d);
+    }
+    updateTree(d);
+}
+
+// Expand a collapsed node by loading children from source data
+function expandNodeFromSource(d) {
+    const personId = d.data.id;
+    const person = familyTreeData[personId];
+    if (!person) return;
+
+    const relatedIds = currentDirection === 'descendants'
+        ? (person.children || [])
+        : (person.parents || []);
+
+    if (relatedIds.length === 0) return;
+
+    // Build child nodes
+    const childNodes = [];
+    for (const relatedId of relatedIds) {
+        const relatedPerson = familyTreeData[relatedId];
+        if (!relatedPerson) continue;
+
+        const relatedRelatedIds = currentDirection === 'descendants'
+            ? (relatedPerson.children || [])
+            : (relatedPerson.parents || []);
+
+        childNodes.push({
+            id: relatedId,
+            data: {
+                name: relatedPerson.name,
+                birth_year: relatedPerson.birth_year,
+                death_year: relatedPerson.death_year,
+                age_at_death: relatedPerson.age_at_death,
+                generation: relatedPerson.generation,
+                spouse: relatedPerson.spouse,
+                gender: inferGender(relatedPerson.name),
+                hasChildren: relatedRelatedIds.length > 0,
+                kekule_number: relatedPerson.kekule_number
+            },
+            children: []
+        });
+    }
+
+    // Convert to D3 hierarchy nodes and attach
+    d.children = childNodes.map(childData => {
+        const childNode = d3.hierarchy(childData);
+        childNode.depth = d.depth + 1;
+        childNode.parent = d;
+        return childNode;
+    });
+}
+
 // Infer gender from name (simplified)
 function inferGender(name) {
     const femaleNames = ['eve', 'sarah', 'rebekah', 'rachel', 'leah', 'ruth', 'mary', 'tamar', 'rahab', 'bathsheba', 'dinah', 'keturah', 'hagar', 'zilpah', 'bilhah'];
     return femaleNames.some(f => name.toLowerCase().includes(f)) ? 'female' : 'male';
 }
 
-// Create SVG card for person
-function createPersonCard(d) {
-    const data = d.data.data;
+// Create SVG card for person (with optional spouse)
+function createPersonCard(d, showSpouse = true) {
+    const data = d.data.data || d.data;
     const gender = data.gender || 'male';
+    const hasHiddenChildren = d._children && d._children.length > 0;
+    const hasExpandableChildren = data.hasChildren && !d.children && !d._children;
+    const isCollapsed = hasHiddenChildren || hasExpandableChildren;
+    const hasKekule = data.kekule_number !== null && data.kekule_number !== undefined;
 
     let dates = '';
     if (data.birth_year && data.birth_year !== 'Unknown') {
@@ -488,10 +779,22 @@ function createPersonCard(d) {
         .attr('data-id', d.data.id)
         .style('cursor', 'pointer');
 
-    // Card background
+    // Card dimensions
     const cardWidth = 150;
     const cardHeight = dates ? 58 : 42;
 
+    // Determine colors based on gender and Kekulé status
+    let fillColor, strokeColor;
+    if (hasKekule) {
+        // Golden highlight for blood relations to Christ
+        fillColor = gender === 'female' ? '#fffde7' : '#fffde7';
+        strokeColor = '#d4af37';
+    } else {
+        fillColor = gender === 'female' ? '#fff8fb' : '#f8fbff';
+        strokeColor = gender === 'female' ? '#a55b80' : '#3b6ea5';
+    }
+
+    // Main person card background
     group.append('rect')
         .attr('class', 'card-bg')
         .attr('x', -cardWidth / 2)
@@ -499,9 +802,24 @@ function createPersonCard(d) {
         .attr('width', cardWidth)
         .attr('height', cardHeight)
         .attr('rx', 6)
-        .attr('fill', gender === 'female' ? '#fff8fb' : '#f8fbff')
-        .attr('stroke', gender === 'female' ? '#a55b80' : '#3b6ea5')
-        .attr('stroke-width', 2);
+        .attr('fill', fillColor)
+        .attr('stroke', strokeColor)
+        .attr('stroke-width', hasKekule ? 3 : 2);
+
+    // Add subtle glow for Kekulé ancestors
+    if (hasKekule) {
+        group.insert('rect', ':first-child')
+            .attr('class', 'card-glow')
+            .attr('x', -cardWidth / 2 - 3)
+            .attr('y', -cardHeight / 2 - 3)
+            .attr('width', cardWidth + 6)
+            .attr('height', cardHeight + 6)
+            .attr('rx', 8)
+            .attr('fill', 'none')
+            .attr('stroke', '#d4af37')
+            .attr('stroke-width', 2)
+            .attr('stroke-opacity', 0.3);
+    }
 
     // Name text
     group.append('text')
@@ -547,6 +865,109 @@ function createPersonCard(d) {
             .text(data.generation);
     }
 
+    // Add spouse card if exists (positioned below main card)
+    if (showSpouse && data.spouse) {
+        const spouseId = findPersonId(data.spouse);
+        const spousePerson = spouseId ? familyTreeData[spouseId] : null;
+        const spouseGender = spousePerson ? inferGender(spousePerson.name) : (gender === 'male' ? 'female' : 'male');
+
+        const spouseY = cardHeight / 2 + 8;
+        const spouseCardHeight = 32;
+
+        // Marriage connector line
+        group.append('line')
+            .attr('class', 'spouse-connector')
+            .attr('x1', 0)
+            .attr('y1', cardHeight / 2)
+            .attr('x2', 0)
+            .attr('y2', spouseY)
+            .attr('stroke', '#d4af37')
+            .attr('stroke-width', 2);
+
+        // Spouse card (smaller)
+        const spouseGroup = group.append('g')
+            .attr('class', 'spouse-card')
+            .attr('transform', `translate(0, ${spouseY + spouseCardHeight / 2})`)
+            .style('cursor', 'pointer')
+            .on('click', (event) => {
+                event.stopPropagation();
+                if (spouseId) {
+                    // Show spouse info
+                    showPersonInfo({ id: spouseId, data: spousePerson });
+                }
+            })
+            .on('dblclick', (event) => {
+                event.stopPropagation();
+                event.preventDefault();
+                if (spouseId) {
+                    // Push current root to history before navigating
+                    if (currentRootId) {
+                        navigationHistory.push(currentRootId);
+                    }
+                    currentRootId = spouseId;
+                    transform = d3.zoomIdentity;
+                    renderTreeFromId(spouseId);
+                    updateBreadcrumb(spouseId);
+                }
+            });
+
+        spouseGroup.append('rect')
+            .attr('class', 'spouse-bg')
+            .attr('x', -cardWidth / 2 + 10)
+            .attr('y', -spouseCardHeight / 2)
+            .attr('width', cardWidth - 20)
+            .attr('height', spouseCardHeight)
+            .attr('rx', 4)
+            .attr('fill', spouseGender === 'female' ? '#fff0f5' : '#f0f5ff')
+            .attr('stroke', spouseGender === 'female' ? '#d4a0b9' : '#a0b9d4')
+            .attr('stroke-width', 1.5)
+            .attr('stroke-dasharray', '4,2');
+
+        spouseGroup.append('text')
+            .attr('y', 0)
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('font-family', '"ETBembo", Palatino, "Book Antiqua", serif')
+            .attr('font-size', '11px')
+            .attr('fill', '#555')
+            .text(data.spouse.length > 16 ? data.spouse.substring(0, 14) + '…' : data.spouse);
+
+        // Ring icon to indicate marriage
+        spouseGroup.append('text')
+            .attr('x', -cardWidth / 2 + 20)
+            .attr('y', 0)
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('font-size', '10px')
+            .text('💍');
+    }
+
+    // Expand/collapse indicator (shows + if collapsed with children, - if expanded)
+    if (isCollapsed || (d.children && d.children.length > 0)) {
+        const indicatorX = cardWidth / 2 + 8;
+        const indicatorY = 0;
+
+        group.append('circle')
+            .attr('class', 'expand-indicator')
+            .attr('cx', indicatorX)
+            .attr('cy', indicatorY)
+            .attr('r', 10)
+            .attr('fill', isCollapsed ? '#4a7c59' : '#888')
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 1);
+
+        group.append('text')
+            .attr('class', 'expand-icon')
+            .attr('x', indicatorX)
+            .attr('y', indicatorY)
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('font-size', '14px')
+            .attr('font-weight', 'bold')
+            .attr('fill', 'white')
+            .text(isCollapsed ? '+' : '−');
+    }
+
     return group.node();
 }
 
@@ -558,31 +979,58 @@ function renderTree() {
     let rootId;
     let direction = 'descendants';
 
-    switch (currentRoot) {
-        case 'jesus':
-            rootId = findPersonId('Jesus') || findPersonId('Jesus Christ');
-            direction = 'ancestors';
-            break;
-        case 'adam':
-            rootId = findPersonId('Adam');
-            break;
-        case 'noah':
-            rootId = findPersonId('Noah');
-            break;
-        case 'abraham':
-            rootId = findPersonId('Abraham');
-            break;
-        case 'david':
-            rootId = findPersonId('David');
-            break;
-        default:
-            rootId = findPersonId('Adam');
+    // Map root selection to person search queries
+    const rootMappings = {
+        'adam': 'Adam',
+        'seth': 'Seth',
+        'enoch': 'Enoch',
+        'noah': 'Noah',
+        'shem': 'Shem',
+        'abraham': 'Abraham',
+        'isaac': 'Isaac',
+        'jacob': 'Jacob',
+        'judah': 'Judah',
+        'david': 'David',
+        'solomon': 'Solomon',
+        'josiah': 'Josiah',
+        'joseph': 'Joseph',
+        'jesus': 'Jesus'
+    };
+
+    const searchName = rootMappings[currentRoot] || 'Adam';
+
+    // Special case for Jesus - show ancestors instead of descendants
+    if (currentRoot === 'jesus') {
+        rootId = findPersonId('Jesus') || findPersonId('Jesus Christ');
+        direction = 'ancestors';
+    } else if (currentRoot === 'joseph') {
+        // Find Joseph who is father of Jesus (not other Josephs)
+        for (const [id, person] of Object.entries(familyTreeData)) {
+            if (person.name === 'Joseph' && person.children && person.children.length > 0) {
+                const hasJesusChild = person.children.some(childId => {
+                    const child = familyTreeData[childId];
+                    return child && child.name === 'Jesus';
+                });
+                if (hasJesusChild) {
+                    rootId = id;
+                    break;
+                }
+            }
+        }
+        if (!rootId) rootId = findPersonId('Joseph');
+    } else {
+        rootId = findPersonId(searchName);
     }
 
     if (!rootId) {
         container.innerHTML = '<div class="tree-loading">Person not found in family tree</div>';
         return;
     }
+
+    // Initialize current root and clear history when starting fresh
+    currentRootId = rootId;
+    navigationHistory = [];
+    updateBreadcrumb(rootId);
 
     const treeData = buildTreeData(rootId, currentDepth, direction);
     if (!treeData) {
@@ -672,10 +1120,70 @@ function renderTree() {
         this.appendChild(card);
     });
 
-    // Click handler
+    // Single click: expand/collapse children OR show info if leaf node
     nodes.on('click', (event, d) => {
         event.stopPropagation();
-        showPersonInfo(d.data);
+
+        // Check if clicking on the expand indicator
+        const target = event.target;
+        const isExpandClick = target.classList.contains('expand-indicator') ||
+                             target.classList.contains('expand-icon') ||
+                             target.closest('.expand-indicator');
+
+        // If has children (visible or hidden) or can be expanded, toggle on click
+        const canToggle = d.children || d._children ||
+                         (d.data.data && d.data.data.hasChildren);
+
+        if (canToggle) {
+            toggleNode(d);
+        } else {
+            // Leaf node - show info
+            showPersonInfo(d.data);
+        }
+    });
+
+    // Double click: re-center tree on this person
+    nodes.on('dblclick', (event, d) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        // Set this person as the new root and re-render
+        const personId = d.data.id;
+
+        // Push current root to history before navigating
+        if (currentRootId && currentRootId !== personId) {
+            navigationHistory.push(currentRootId);
+        }
+        currentRootId = personId;
+
+        // Update dropdown to show custom selection
+        const rootSelect = document.getElementById('root-select');
+        // Check if this person is one of the preset options
+        const presetMatch = Array.from(rootSelect.options).find(opt => {
+            const presetId = findPersonId(opt.value === 'jesus' ? 'Jesus' :
+                            opt.value.charAt(0).toUpperCase() + opt.value.slice(1));
+            return presetId === personId;
+        });
+
+        if (!presetMatch) {
+            // Add custom option if not already present
+            let customOpt = rootSelect.querySelector('option[value="custom"]');
+            if (!customOpt) {
+                customOpt = document.createElement('option');
+                customOpt.value = 'custom';
+                rootSelect.appendChild(customOpt);
+            }
+            const personName = familyTreeData[personId]?.name || personId;
+            customOpt.textContent = personName;
+            rootSelect.value = 'custom';
+        }
+
+        // Reset zoom transform for fresh view
+        transform = d3.zoomIdentity;
+
+        // Re-render with new root
+        renderTreeFromId(personId);
+        updateBreadcrumb(personId);
     });
 
     // Hover effect
@@ -692,9 +1200,306 @@ function renderTree() {
     // Store zoom for controls
     window.treeZoom = zoom;
     window.treeSvg = svg;
+    window.treeG = g;
 
     // Initial fit to view
     fitToView();
+}
+
+// Re-render tree from a specific person ID
+function renderTreeFromId(personId) {
+    container.innerHTML = '';
+
+    const treeData = buildTreeData(personId, currentDepth, currentDirection);
+    if (!treeData) {
+        container.innerHTML = '<div class="tree-loading">Could not build tree</div>';
+        return;
+    }
+
+    // Create SVG
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    const svg = d3.select(container)
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    const g = svg.append('g');
+
+    // Zoom behavior
+    const zoom = d3.zoom()
+        .scaleExtent([0.1, 4])
+        .on('zoom', (event) => {
+            transform = event.transform;
+            g.attr('transform', event.transform);
+        });
+
+    svg.call(zoom);
+
+    // Create hierarchy
+    treeRoot = d3.hierarchy(treeData);
+
+    // Calculate tree dimensions
+    const nodeWidth = 180;
+    const nodeHeight = 80;
+    const isHorizontal = currentOrientation === 'left-right';
+
+    // Tree layout
+    const treeLayout = d3.tree()
+        .nodeSize(isHorizontal ? [nodeHeight, nodeWidth] : [nodeWidth, nodeHeight]);
+
+    treeLayout(treeRoot);
+
+    // Center the tree
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    treeRoot.descendants().forEach(d => {
+        const x = isHorizontal ? d.y : d.x;
+        const y = isHorizontal ? d.x : d.y;
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+    });
+
+    const offsetX = width / 2 - (minX + maxX) / 2;
+    const offsetY = height / 2 - (minY + maxY) / 2;
+    g.attr('transform', `translate(${offsetX}, ${offsetY})`);
+
+    // Draw links
+    const linkGenerator = isHorizontal
+        ? d3.linkHorizontal().x(d => d.y).y(d => d.x)
+        : d3.linkVertical().x(d => d.x).y(d => d.y);
+
+    g.selectAll('.link')
+        .data(treeRoot.links())
+        .join('path')
+        .attr('class', 'link')
+        .attr('fill', 'none')
+        .attr('stroke', '#b8b8b8')
+        .attr('stroke-width', 2)
+        .attr('d', linkGenerator);
+
+    // Draw nodes
+    const nodes = g.selectAll('.node')
+        .data(treeRoot.descendants())
+        .join('g')
+        .attr('class', 'node')
+        .attr('transform', d => {
+            const x = isHorizontal ? d.y : d.x;
+            const y = isHorizontal ? d.x : d.y;
+            return `translate(${x}, ${y})`;
+        });
+
+    // Add cards to nodes
+    nodes.each(function(d) {
+        const card = createPersonCard(d);
+        this.appendChild(card);
+    });
+
+    // Single click: expand/collapse
+    nodes.on('click', (event, d) => {
+        event.stopPropagation();
+        const canToggle = d.children || d._children ||
+                         (d.data.data && d.data.data.hasChildren);
+        if (canToggle) {
+            toggleNode(d);
+        } else {
+            showPersonInfo(d.data);
+        }
+    });
+
+    // Double click: re-center
+    nodes.on('dblclick', (event, d) => {
+        event.stopPropagation();
+        event.preventDefault();
+        const personId = d.data.id;
+
+        // Push current root to history before navigating
+        if (currentRootId && currentRootId !== personId) {
+            navigationHistory.push(currentRootId);
+        }
+        currentRootId = personId;
+
+        transform = d3.zoomIdentity;
+        renderTreeFromId(personId);
+        updateBreadcrumb(personId);
+    });
+
+    // Hover effect
+    nodes.on('mouseenter', function() {
+        d3.select(this).select('.card-bg')
+            .transition().duration(150)
+            .attr('stroke-width', 3);
+    }).on('mouseleave', function() {
+        d3.select(this).select('.card-bg')
+            .transition().duration(150)
+            .attr('stroke-width', 2);
+    });
+
+    // Store for controls
+    window.treeZoom = zoom;
+    window.treeSvg = svg;
+    window.treeG = g;
+
+    fitToView();
+}
+
+// Update tree after expand/collapse with animation
+function updateTree(source) {
+    if (!treeRoot || !window.treeG) return;
+
+    const g = window.treeG;
+    const isHorizontal = currentOrientation === 'left-right';
+    const nodeWidth = 180;
+    const nodeHeight = 80;
+
+    // Re-compute tree layout
+    const treeLayout = d3.tree()
+        .nodeSize(isHorizontal ? [nodeHeight, nodeWidth] : [nodeWidth, nodeHeight]);
+
+    treeLayout(treeRoot);
+
+    const duration = 400;
+
+    // Update links
+    const linkGenerator = isHorizontal
+        ? d3.linkHorizontal().x(d => d.y).y(d => d.x)
+        : d3.linkVertical().x(d => d.x).y(d => d.y);
+
+    const links = g.selectAll('.link')
+        .data(treeRoot.links(), d => d.target.data.id);
+
+    // Enter new links
+    links.enter()
+        .append('path')
+        .attr('class', 'link')
+        .attr('fill', 'none')
+        .attr('stroke', '#b8b8b8')
+        .attr('stroke-width', 2)
+        .attr('d', d => {
+            const o = { x: source.x0 || source.x, y: source.y0 || source.y };
+            return linkGenerator({ source: o, target: o });
+        })
+        .transition()
+        .duration(duration)
+        .attr('d', linkGenerator);
+
+    // Update existing links
+    links.transition()
+        .duration(duration)
+        .attr('d', linkGenerator);
+
+    // Remove old links
+    links.exit()
+        .transition()
+        .duration(duration)
+        .attr('d', d => {
+            const o = { x: source.x, y: source.y };
+            return linkGenerator({ source: o, target: o });
+        })
+        .remove();
+
+    // Update nodes
+    const nodes = g.selectAll('.node')
+        .data(treeRoot.descendants(), d => d.data.id);
+
+    // Enter new nodes
+    const nodesEnter = nodes.enter()
+        .append('g')
+        .attr('class', 'node')
+        .attr('transform', d => {
+            const x = isHorizontal ? (source.y0 || source.y) : (source.x0 || source.x);
+            const y = isHorizontal ? (source.x0 || source.x) : (source.y0 || source.y);
+            return `translate(${x}, ${y})`;
+        })
+        .style('opacity', 0);
+
+    nodesEnter.each(function(d) {
+        const card = createPersonCard(d);
+        this.appendChild(card);
+    });
+
+    // Add event handlers to new nodes
+    nodesEnter
+        .on('click', (event, d) => {
+            event.stopPropagation();
+            const canToggle = d.children || d._children ||
+                             (d.data.data && d.data.data.hasChildren);
+            if (canToggle) {
+                toggleNode(d);
+            } else {
+                showPersonInfo(d.data);
+            }
+        })
+        .on('dblclick', (event, d) => {
+            event.stopPropagation();
+            event.preventDefault();
+            const personId = d.data.id;
+
+            // Push current root to history before navigating
+            if (currentRootId && currentRootId !== personId) {
+                navigationHistory.push(currentRootId);
+            }
+            currentRootId = personId;
+
+            transform = d3.zoomIdentity;
+            renderTreeFromId(personId);
+            updateBreadcrumb(personId);
+        })
+        .on('mouseenter', function() {
+            d3.select(this).select('.card-bg')
+                .transition().duration(150)
+                .attr('stroke-width', 3);
+        })
+        .on('mouseleave', function() {
+            d3.select(this).select('.card-bg')
+                .transition().duration(150)
+                .attr('stroke-width', 2);
+        });
+
+    nodesEnter.transition()
+        .duration(duration)
+        .attr('transform', d => {
+            const x = isHorizontal ? d.y : d.x;
+            const y = isHorizontal ? d.x : d.y;
+            return `translate(${x}, ${y})`;
+        })
+        .style('opacity', 1);
+
+    // Update existing nodes - need to recreate cards for correct +/- icons
+    nodes.each(function(d) {
+        // Clear existing content and recreate card
+        d3.select(this).selectAll('*').remove();
+        const card = createPersonCard(d);
+        this.appendChild(card);
+    });
+
+    nodes.transition()
+        .duration(duration)
+        .attr('transform', d => {
+            const x = isHorizontal ? d.y : d.x;
+            const y = isHorizontal ? d.x : d.y;
+            return `translate(${x}, ${y})`;
+        });
+
+    // Remove old nodes
+    nodes.exit()
+        .transition()
+        .duration(duration)
+        .attr('transform', d => {
+            const x = isHorizontal ? source.y : source.x;
+            const y = isHorizontal ? source.x : source.y;
+            return `translate(${x}, ${y})`;
+        })
+        .style('opacity', 0)
+        .remove();
+
+    // Store positions for next transition
+    treeRoot.descendants().forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+    });
 }
 
 // Fit tree to view
@@ -706,13 +1511,17 @@ function fitToView() {
     const bounds = svg.select('g').node().getBBox();
     const width = container.clientWidth;
     const height = container.clientHeight;
-    const padding = 40;
+    const padding = 60;
 
-    const scale = Math.min(
+    // Calculate scale to fit, but ensure minimum zoom for readability
+    let scale = Math.min(
         (width - padding * 2) / bounds.width,
         (height - padding * 2) / bounds.height,
-        1.5
+        2.0  // Max zoom
     );
+
+    // Ensure minimum zoom of 0.8 for readability
+    scale = Math.max(scale, 0.8);
 
     const tx = width / 2 - (bounds.x + bounds.width / 2) * scale;
     const ty = height / 2 - (bounds.y + bounds.height / 2) * scale;
@@ -846,6 +1655,144 @@ let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(renderTree, 200);
+});
+
+// Search functionality
+const searchInput = document.getElementById('tree-search-input');
+const searchDropdown = document.getElementById('tree-search-dropdown');
+
+// Build searchable names list from family tree data
+const searchablePersons = Object.entries(familyTreeData).map(([id, person]) => ({
+    id,
+    name: person.name,
+    generation: person.generation,
+    kekule_number: person.kekule_number
+})).sort((a, b) => a.name.localeCompare(b.name));
+
+let searchFiltered = [];
+let searchActiveIndex = -1;
+
+function hideSearchDropdown() {
+    searchDropdown.classList.remove('open');
+    searchDropdown.innerHTML = '';
+    searchFiltered = [];
+    searchActiveIndex = -1;
+}
+
+function renderSearchDropdown(items) {
+    if (!items.length) {
+        hideSearchDropdown();
+        return;
+    }
+
+    searchDropdown.innerHTML = items.map((person, idx) => {
+        const hasKekule = person.kekule_number !== null && person.kekule_number !== undefined;
+        const kekuleClass = hasKekule ? ' kekule-person' : '';
+        const meta = [];
+        if (person.generation) meta.push(`Gen ${person.generation}`);
+        if (hasKekule) meta.push(`Kekulé #${person.kekule_number}`);
+
+        return `<button type="button" class="search-dropdown-item${kekuleClass}" data-index="${idx}">
+            <span class="person-name">${person.name}</span>
+            ${meta.length ? `<span class="person-meta">(${meta.join(', ')})</span>` : ''}
+        </button>`;
+    }).join('');
+
+    searchDropdown.classList.add('open');
+    searchActiveIndex = -1;
+}
+
+function setSearchActive(index) {
+    const buttons = searchDropdown.querySelectorAll('.search-dropdown-item');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    if (buttons[index]) {
+        buttons[index].classList.add('active');
+        buttons[index].scrollIntoView({ block: 'nearest' });
+    }
+}
+
+function selectPerson(personId) {
+    hideSearchDropdown();
+    searchInput.value = '';
+
+    // Push current root to history
+    if (currentRootId && currentRootId !== personId) {
+        navigationHistory.push(currentRootId);
+    }
+    currentRootId = personId;
+
+    // Update dropdown selector
+    const rootSelect = document.getElementById('root-select');
+    let customOpt = rootSelect.querySelector('option[value="custom"]');
+    if (!customOpt) {
+        customOpt = document.createElement('option');
+        customOpt.value = 'custom';
+        rootSelect.appendChild(customOpt);
+    }
+    const personName = familyTreeData[personId]?.name || personId;
+    customOpt.textContent = personName;
+    rootSelect.value = 'custom';
+
+    // Reset zoom and render
+    transform = d3.zoomIdentity;
+    renderTreeFromId(personId);
+    updateBreadcrumb(personId);
+}
+
+searchInput.addEventListener('input', function() {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query) {
+        hideSearchDropdown();
+        return;
+    }
+
+    searchFiltered = searchablePersons
+        .filter(p => p.name.toLowerCase().includes(query))
+        .slice(0, 12);
+
+    renderSearchDropdown(searchFiltered);
+});
+
+searchInput.addEventListener('keydown', function(event) {
+    if (!searchDropdown.classList.contains('open')) {
+        return;
+    }
+
+    if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        searchActiveIndex = (searchActiveIndex + 1) % searchFiltered.length;
+        setSearchActive(searchActiveIndex);
+    } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        searchActiveIndex = (searchActiveIndex - 1 + searchFiltered.length) % searchFiltered.length;
+        setSearchActive(searchActiveIndex);
+    } else if (event.key === 'Enter') {
+        event.preventDefault();
+        if (searchActiveIndex >= 0 && searchFiltered[searchActiveIndex]) {
+            selectPerson(searchFiltered[searchActiveIndex].id);
+        } else if (searchFiltered.length > 0) {
+            selectPerson(searchFiltered[0].id);
+        }
+    } else if (event.key === 'Escape') {
+        hideSearchDropdown();
+        searchInput.blur();
+    }
+});
+
+searchDropdown.addEventListener('mousedown', function(event) {
+    const button = event.target.closest('.search-dropdown-item');
+    if (!button) return;
+
+    const index = Number(button.dataset.index);
+    if (!Number.isNaN(index) && searchFiltered[index]) {
+        selectPerson(searchFiltered[index].id);
+    }
+});
+
+document.addEventListener('click', function(event) {
+    if (!searchDropdown.contains(event.target) && event.target !== searchInput) {
+        hideSearchDropdown();
+    }
 });
 
 // Initial render
