@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}{{ language }} Strong's Numbers - Strong's Concordance{% endblock %}
+
+{% block description %}Browse all {{ total }} {{ language }} words in Strong's Exhaustive Concordance with definitions and KJV translations.{% endblock %}
+
+{% block head %}
+<style>
+.strongs-index-page {
+    max-width: 900px;
+}
+
+.index-header {
+    margin-bottom: 2rem;
+}
+
+.index-stats {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.entries-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.entry-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.875rem 1rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem 1rem;
+    align-items: start;
+    transition: border-color 0.2s;
+}
+
+.entry-card:hover {
+    border-color: var(--link-color);
+}
+
+.entry-number {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.entry-number:hover {
+    text-decoration: underline;
+}
+
+.entry-content {
+    min-width: 0;
+}
+
+.entry-word-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+}
+
+.entry-word {
+    font-size: 1.25rem;
+}
+
+.entry-word.hebrew {
+    direction: rtl;
+    font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif;
+}
+
+.entry-word.greek {
+    font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
+}
+
+.entry-translit {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.entry-definition {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.9rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.2s;
+}
+
+.page-btn:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+.page-btn.active {
+    background: var(--link-color);
+    border-color: var(--link-color);
+    color: #fff;
+}
+
+.page-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.page-ellipsis {
+    padding: 0.5rem 0.25rem;
+    color: var(--text-secondary);
+}
+
+.page-info {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-left: 1rem;
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Dark mode */
+[data-theme="dark"] .entry-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .entry-card:hover {
+    border-color: var(--link-color);
+}
+
+[data-theme="dark"] .page-btn {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .page-btn:hover {
+    background: #333;
+}
+
+@media (max-width: 600px) {
+    .entry-card {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+    .pagination {
+        gap: 0.25rem;
+    }
+
+    .page-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .page-info {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0 0 0;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="strongs-index-page">
+    <a href="/strongs" class="back-link">← Back to Strong's Concordance</a>
+
+    <div class="index-header">
+        <h1>{{ language }} Strong's Numbers</h1>
+        <p class="index-stats">
+            {{ total }} entries total — Page {{ page }} of {{ total_pages }}
+        </p>
+    </div>
+
+    <!-- Pagination at top -->
+    {% if total_pages > 1 %}
+    <nav class="pagination">
+        {% if page > 1 %}
+        <a href="/strongs/{{ language_code }}?page=1" class="page-btn">First</a>
+        <a href="/strongs/{{ language_code }}?page={{ page - 1 }}" class="page-btn">← Prev</a>
+        {% else %}
+        <span class="page-btn disabled">First</span>
+        <span class="page-btn disabled">← Prev</span>
+        {% endif %}
+
+        {% set start_page = [1, page - 2]|max %}
+        {% set end_page = [total_pages, page + 2]|min %}
+
+        {% if start_page > 1 %}
+        <span class="page-ellipsis">...</span>
+        {% endif %}
+
+        {% for p in range(start_page, end_page + 1) %}
+        <a href="/strongs/{{ language_code }}?page={{ p }}" class="page-btn {% if p == page %}active{% endif %}">{{ p }}</a>
+        {% endfor %}
+
+        {% if end_page < total_pages %}
+        <span class="page-ellipsis">...</span>
+        {% endif %}
+
+        {% if page < total_pages %}
+        <a href="/strongs/{{ language_code }}?page={{ page + 1 }}" class="page-btn">Next →</a>
+        <a href="/strongs/{{ language_code }}?page={{ total_pages }}" class="page-btn">Last</a>
+        {% else %}
+        <span class="page-btn disabled">Next →</span>
+        <span class="page-btn disabled">Last</span>
+        {% endif %}
+    </nav>
+    {% endif %}
+
+    <div class="entries-grid">
+        {% for entry in entries %}
+        <div class="entry-card">
+            <a href="/strongs/{{ entry.strongs }}" class="entry-number">{{ entry.strongs }}</a>
+            <div class="entry-content">
+                <div class="entry-word-row">
+                    <span class="entry-word {% if language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.word }}</span>
+                    {% if entry.transliteration %}
+                    <span class="entry-translit">({{ entry.transliteration }})</span>
+                    {% endif %}
+                </div>
+                <p class="entry-definition">{{ entry.definition }}{% if entry.definition|length >= 147 %}...{% endif %}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination at bottom -->
+    {% if total_pages > 1 %}
+    <nav class="pagination">
+        {% if page > 1 %}
+        <a href="/strongs/{{ language_code }}?page=1" class="page-btn">First</a>
+        <a href="/strongs/{{ language_code }}?page={{ page - 1 }}" class="page-btn">← Prev</a>
+        {% else %}
+        <span class="page-btn disabled">First</span>
+        <span class="page-btn disabled">← Prev</span>
+        {% endif %}
+
+        {% set start_page = [1, page - 2]|max %}
+        {% set end_page = [total_pages, page + 2]|min %}
+
+        {% if start_page > 1 %}
+        <span class="page-ellipsis">...</span>
+        {% endif %}
+
+        {% for p in range(start_page, end_page + 1) %}
+        <a href="/strongs/{{ language_code }}?page={{ p }}" class="page-btn {% if p == page %}active{% endif %}">{{ p }}</a>
+        {% endfor %}
+
+        {% if end_page < total_pages %}
+        <span class="page-ellipsis">...</span>
+        {% endif %}
+
+        {% if page < total_pages %}
+        <a href="/strongs/{{ language_code }}?page={{ page + 1 }}" class="page-btn">Next →</a>
+        <a href="/strongs/{{ language_code }}?page={{ total_pages }}" class="page-btn">Last</a>
+        {% else %}
+        <span class="page-btn disabled">Next →</span>
+        <span class="page-btn disabled">Last</span>
+        {% endif %}
+
+        <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

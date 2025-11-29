@@ -158,6 +158,96 @@
     border-color: var(--link-color);
     color: var(--link-color);
 }
+
+/* Browse language cards */
+.browse-section {
+    margin: 2rem 0;
+}
+
+.browse-section h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.browse-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.browse-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.2s;
+}
+
+.browse-card:hover {
+    border-color: var(--link-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.browse-card .lang-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.browse-card .lang-badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+.browse-card .lang-badge.hebrew {
+    background: #8B4513;
+    color: #fff;
+}
+
+.browse-card .lang-badge.greek {
+    background: #4169E1;
+    color: #fff;
+}
+
+.browse-card .lang-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.browse-card .lang-sample {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.browse-card .lang-sample.hebrew {
+    direction: rtl;
+    font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif;
+}
+
+.browse-card .lang-sample.greek {
+    font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
+}
+
+[data-theme="dark"] .browse-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .browse-card:hover {
+    border-color: var(--link-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
 </style>
 {% endblock %}
 
@@ -196,6 +286,28 @@
 {% endif %}
 
 {% else %}
+<div class="browse-section">
+    <h3>Browse All Entries</h3>
+    <div class="browse-cards">
+        <a href="/strongs/hebrew" class="browse-card">
+            <div class="lang-title">
+                Hebrew
+                <span class="lang-badge hebrew">OT</span>
+            </div>
+            <div class="lang-count">8,674 entries (H1–H8674)</div>
+            <div class="lang-sample hebrew">אָב אֱלֹהִים שָׁלוֹם</div>
+        </a>
+        <a href="/strongs/greek" class="browse-card">
+            <div class="lang-title">
+                Greek
+                <span class="lang-badge greek">NT</span>
+            </div>
+            <div class="lang-count">5,523 entries (G1–G5624)</div>
+            <div class="lang-sample greek">ἀγάπη πίστις χάρις</div>
+        </a>
+    </div>
+</div>
+
 <div class="quick-lookup">
     <h3>Quick Lookup - Common Words</h3>
     <div class="quick-links">
@@ -210,17 +322,6 @@
         <a href="/strongs/H7965" class="quick-link">H7965 - shalom (peace)</a>
         <a href="/strongs/H2617" class="quick-link">H2617 - chesed (mercy)</a>
     </div>
-</div>
-
-<div class="quick-lookup">
-    <h3>Browse by Number</h3>
-    <div class="quick-links">
-        <a href="/strongs/H1" class="quick-link">H1 - ab (father)</a>
-        <a href="/strongs/G1" class="quick-link">G1 - alpha</a>
-    </div>
-    <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">
-        Hebrew: H1-H8674 | Greek: G1-G5624
-    </p>
 </div>
 {% endif %}
 {% endblock %}

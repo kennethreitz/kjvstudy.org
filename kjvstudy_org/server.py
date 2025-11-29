@@ -23,7 +23,7 @@ from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
 from .topics import get_all_topics, get_topic, search_topics
 from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data, find_verses_by_strongs, count_strongs_occurrences
-from .strongs import format_strongs_entry, search_strongs
+from .strongs import format_strongs_entry, search_strongs, get_all_strongs
 from .books import get_book_data, has_book_data
 
 # Import from modular packages
@@ -2423,6 +2423,62 @@ def strongs_index(request: Request, q: str = None):
         {
             "query": q or "",
             "results": results,
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@app.get("/strongs/hebrew", response_class=HTMLResponse)
+def strongs_hebrew_index(request: Request, page: int = 1):
+    """Paginated index of all Hebrew Strong's entries."""
+    data = get_all_strongs("hebrew", page=page, per_page=100)
+
+    books = bible.get_books()
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Strong's Concordance", "url": "/strongs"},
+        {"text": "Hebrew", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        request,
+        "strongs_language_index.html",
+        {
+            "language": "Hebrew",
+            "language_code": "hebrew",
+            "entries": data["entries"],
+            "page": data["page"],
+            "total_pages": data["total_pages"],
+            "total": data["total"],
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@app.get("/strongs/greek", response_class=HTMLResponse)
+def strongs_greek_index(request: Request, page: int = 1):
+    """Paginated index of all Greek Strong's entries."""
+    data = get_all_strongs("greek", page=page, per_page=100)
+
+    books = bible.get_books()
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Strong's Concordance", "url": "/strongs"},
+        {"text": "Greek", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        request,
+        "strongs_language_index.html",
+        {
+            "language": "Greek",
+            "language_code": "greek",
+            "entries": data["entries"],
+            "page": data["page"],
+            "total_pages": data["total_pages"],
+            "total": data["total"],
             "books": books,
             "breadcrumbs": breadcrumbs
         }

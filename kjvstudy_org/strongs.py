@@ -140,6 +140,61 @@ def format_strongs_entry(strongs_number: str) -> Optional[Dict[str, Any]]:
     }
 
 
+def get_all_strongs(language: str, page: int = 1, per_page: int = 100) -> dict:
+    """
+    Get a paginated list of all Strong's entries for a language.
+
+    Args:
+        language: "hebrew" or "greek"
+        page: Page number (1-indexed)
+        per_page: Items per page
+
+    Returns:
+        Dictionary with entries, total count, and pagination info.
+    """
+    if language == "hebrew":
+        dictionary = _load_hebrew()
+    elif language == "greek":
+        dictionary = _load_greek()
+    else:
+        return {"entries": [], "total": 0, "page": 1, "per_page": per_page, "total_pages": 0}
+
+    # Sort entries by number
+    def sort_key(item):
+        num = item[0][1:]  # Remove H or G prefix
+        return int(num) if num.isdigit() else 0
+
+    sorted_entries = sorted(dictionary.items(), key=sort_key)
+    total = len(sorted_entries)
+    total_pages = (total + per_page - 1) // per_page
+
+    # Get the page slice
+    start = (page - 1) * per_page
+    end = start + per_page
+    page_entries = sorted_entries[start:end]
+
+    # Format entries
+    entries = []
+    for num, entry in page_entries:
+        is_hebrew = language == "hebrew"
+        entries.append({
+            "strongs": num,
+            "language": "Hebrew" if is_hebrew else "Greek",
+            "word": entry.get("lemma", ""),
+            "transliteration": entry.get("xlit" if is_hebrew else "translit", ""),
+            "definition": entry.get("strongs_def", "").strip()[:150],  # Truncate for listing
+            "kjv_usage": entry.get("kjv_def", ""),
+        })
+
+    return {
+        "entries": entries,
+        "total": total,
+        "page": page,
+        "per_page": per_page,
+        "total_pages": total_pages,
+    }
+
+
 def search_strongs(query: str, language: str = "both", limit: int = 50) -> list:
     """
     Search Strong's dictionaries by definition or KJV usage.
