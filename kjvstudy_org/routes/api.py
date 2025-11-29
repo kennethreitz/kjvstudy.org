@@ -16,7 +16,7 @@ from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse, create_slug
 from ..books import get_book_data, get_all_books_metadata, has_book_data
-from ..red_letter import get_christ_words
+from ..red_letter import get_christ_words, load_red_letter_verses
 from ..stories import (
     get_categories,
     get_story_by_slug,
@@ -147,6 +147,34 @@ class ResourceItemDetail(BaseModel):
     verses: List[ResourceVerse]
 
 
+class RedLetterVerse(BaseModel):
+    """A verse containing words of Christ"""
+    reference: str = Field(..., json_schema_extra={"example": "John 3:16"})
+    book: str = Field(..., json_schema_extra={"example": "John"})
+    chapter: int = Field(..., json_schema_extra={"example": 3})
+    verse: int = Field(..., json_schema_extra={"example": 16})
+    text: str = Field(..., json_schema_extra={"example": "For God so loved the world..."})
+    christ_words: str = Field(..., json_schema_extra={"example": "full"})
+    is_full_verse: bool = Field(..., json_schema_extra={"example": True})
+
+
+class RedLetterListResponse(BaseModel):
+    """Response listing red letter verses"""
+    total: int = Field(..., json_schema_extra={"example": 1842})
+    verses: List[RedLetterVerse]
+    limit: int = Field(..., json_schema_extra={"example": 50})
+    offset: int = Field(..., json_schema_extra={"example": 0})
+
+
+class RedLetterStatsResponse(BaseModel):
+    """Statistics about red letter verses"""
+    total_verses: int = Field(..., json_schema_extra={"example": 1842})
+    full_verses: int = Field(..., json_schema_extra={"example": 1456})
+    partial_verses: int = Field(..., json_schema_extra={"example": 386})
+    books_with_red_letter: List[str] = Field(..., json_schema_extra={"example": ["Matthew", "Mark", "Luke", "John"]})
+    by_book: dict = Field(..., json_schema_extra={"example": {"Matthew": 644, "Mark": 285}})
+
+
 # Mapping of category names to their data dictionaries
 CATEGORY_TO_DATA = {
     'biblical_locations': BIBLICAL_LOCATIONS,
@@ -227,7 +255,9 @@ def api_index():
             "reading_plans": "/api/reading-plans",
             "reading_plan": "/api/reading-plans/{plan_id}",
             "stories": "/api/stories",
-            "story": "/api/stories/{slug}"
+            "story": "/api/stories/{slug}",
+            "red_letter": "/api/red-letter?book={book}&limit={limit}&offset={offset}",
+            "red_letter_stats": "/api/red-letter/stats"
         }
     }
 
@@ -1532,7 +1562,7 @@ async def api_get_resource_item_pdf(
     
     # Generate PDF
     pdf_buffer = await render_html_to_pdf_async(html_content)
-    
+
     # Return as downloadable PDF
     filename = f"{slug}-{category}.pdf"
     return StreamingResponse(
@@ -1540,3 +1570,110 @@ async def api_get_resource_item_pdf(
         media_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
+
+
+@router.get(
+    "/red-letter",
+    response_model=RedLetterListResponse,
+    summary="List all red letter verses",
+    description="Get a list of all verses containing the words of Jesus Christ (red letter edition). Supports filtering by book and pagination."
+)
+def api_list_red_letter_verses(
+    book: Optional[str] = Query(None, description="Filter by book name", example="John"),
+    limit: int = Query(50, description="Maximum number of verses to return", example=50, ge=1, le=500),
+    offset: int = Query(0, description="Number of verses to skip", example=0, ge=0)
+):
+    """List all red letter verses with optional filtering and pagination."""
+    red_letter_data = load_red_letter_verses()
+
+    # Parse all verses and build result list
+    all_verses = []
+    for verse_ref, christ_words in red_letter_data.items():
+        # Parse the reference (format: "Book Chapter:Verse")
+        parts = verse_ref.rsplit(' ', 1)
+        if len(parts) != 2:
+            continue
+
+        book_name = parts[0]
+        chapter_verse = parts[1].split(':')
+        if len(chapter_verse) != 2:
+            continue
+
+        try:
+            chapter_num = int(chapter_verse[0])
+            verse_num = int(chapter_verse[1])
+        except ValueError:
+            continue
+
+        # Apply book filter if specified
+        if book and book_name != book:
+            # Try normalizing the book name in case it's an abbreviation
+            canonical = normalize_book_name(book)
+            if not canonical or book_name != canonical:
+                continue
+
+        # Get the verse text
+        verse_text = bible.get_verse_text(book_name, chapter_num, verse_num)
+        if not verse_text:
+            continue
+
+        all_verses.append({
+            "reference": verse_ref,
+            "book": book_name,
+            "chapter": chapter_num,
+            "verse": verse_num,
+            "text": verse_text,
+            "christ_words": christ_words,
+            "is_full_verse": christ_words == "full"
+        })
+
+    # Apply pagination
+    total = len(all_verses)
+    paginated_verses = all_verses[offset:offset + limit]
+
+    return {
+        "total": total,
+        "verses": paginated_verses,
+        "limit": limit,
+        "offset": offset
+    }
+
+
+@router.get(
+    "/red-letter/stats",
+    response_model=RedLetterStatsResponse,
+    summary="Get red letter statistics",
+    description="Get statistics about verses containing the words of Jesus Christ, including counts by book and full vs. partial verses."
+)
+def api_red_letter_stats():
+    """Get statistics about red letter verses in the Bible."""
+    red_letter_data = load_red_letter_verses()
+
+    total_verses = len(red_letter_data)
+    full_verses = sum(1 for v in red_letter_data.values() if v == "full")
+    partial_verses = total_verses - full_verses
+
+    # Count by book
+    by_book = {}
+    books_set = set()
+
+    for verse_ref in red_letter_data.keys():
+        # Parse the reference (format: "Book Chapter:Verse")
+        parts = verse_ref.rsplit(' ', 1)
+        if len(parts) != 2:
+            continue
+
+        book_name = parts[0]
+        books_set.add(book_name)
+        by_book[book_name] = by_book.get(book_name, 0) + 1
+
+    # Sort books by count (descending)
+    by_book = dict(sorted(by_book.items(), key=lambda x: x[1], reverse=True))
+
+    return {
+        "total_verses": total_verses,
+        "full_verses": full_verses,
+        "partial_verses": partial_verses,
+        "books_with_red_letter": sorted(list(books_set)),
+        "by_book": by_book
+    }

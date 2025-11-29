@@ -546,11 +546,163 @@ class TestResourcesEndpoints:
         response = client.get("/api/resources")
         assert response.status_code == 200
         categories = response.json()["categories"]
-        
+
         # Test a sample of categories (not all 39 to keep test fast)
         sample_categories = [cat["name"] for cat in categories[:10]]
-        
+
         for cat_name in sample_categories:
             response = client.get(f"/api/resources/{cat_name}")
             assert response.status_code == 200, f"Failed to access category: {cat_name}"
             assert response.json()["category"] == cat_name
+
+
+class TestRedLetterEndpoints:
+    """Tests for red letter (words of Christ) endpoints"""
+
+    def test_list_red_letter_verses(self, client):
+        """Test /api/red-letter endpoint returns list of verses"""
+        response = client.get("/api/red-letter")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Check response structure
+        assert "total" in data
+        assert "verses" in data
+        assert "limit" in data
+        assert "offset" in data
+
+        # Verify we have verses
+        assert data["total"] > 0
+        assert len(data["verses"]) > 0
+
+        # Check first verse structure
+        first_verse = data["verses"][0]
+        assert "reference" in first_verse
+        assert "book" in first_verse
+        assert "chapter" in first_verse
+        assert "verse" in first_verse
+        assert "text" in first_verse
+        assert "christ_words" in first_verse
+        assert "is_full_verse" in first_verse
+
+    def test_list_red_letter_with_pagination(self, client):
+        """Test pagination parameters work correctly"""
+        # Get first 10 verses
+        response1 = client.get("/api/red-letter?limit=10&offset=0")
+        assert response1.status_code == 200
+        data1 = response1.json()
+        assert data1["limit"] == 10
+        assert data1["offset"] == 0
+        assert len(data1["verses"]) == 10
+
+        # Get next 10 verses
+        response2 = client.get("/api/red-letter?limit=10&offset=10")
+        assert response2.status_code == 200
+        data2 = response2.json()
+        assert data2["limit"] == 10
+        assert data2["offset"] == 10
+        assert len(data2["verses"]) == 10
+
+        # Verify different verses
+        assert data1["verses"][0]["reference"] != data2["verses"][0]["reference"]
+
+    def test_list_red_letter_filter_by_book(self, client):
+        """Test filtering by book works correctly"""
+        response = client.get("/api/red-letter?book=John")
+        assert response.status_code == 200
+        data = response.json()
+
+        # All verses should be from John
+        assert data["total"] > 0
+        for verse in data["verses"]:
+            assert verse["book"] == "John"
+
+    def test_list_red_letter_filter_by_book_multiple_books(self, client):
+        """Test that different books return different results"""
+        response_john = client.get("/api/red-letter?book=John&limit=10")
+        response_matthew = client.get("/api/red-letter?book=Matthew&limit=10")
+
+        assert response_john.status_code == 200
+        assert response_matthew.status_code == 200
+
+        john_data = response_john.json()
+        matthew_data = response_matthew.json()
+
+        # Both should have verses
+        assert john_data["total"] > 0
+        assert matthew_data["total"] > 0
+
+        # All verses in each response should be from the correct book
+        for verse in john_data["verses"]:
+            assert verse["book"] == "John"
+        for verse in matthew_data["verses"]:
+            assert verse["book"] == "Matthew"
+
+    def test_red_letter_stats(self, client):
+        """Test /api/red-letter/stats endpoint"""
+        response = client.get("/api/red-letter/stats")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Check response structure
+        assert "total_verses" in data
+        assert "full_verses" in data
+        assert "partial_verses" in data
+        assert "books_with_red_letter" in data
+        assert "by_book" in data
+
+        # Verify counts make sense
+        assert data["total_verses"] > 0
+        assert data["full_verses"] > 0
+        assert data["partial_verses"] >= 0
+        assert data["total_verses"] == data["full_verses"] + data["partial_verses"]
+
+        # Verify books list
+        assert len(data["books_with_red_letter"]) > 0
+        assert "Matthew" in data["books_with_red_letter"]
+        assert "Mark" in data["books_with_red_letter"]
+        assert "Luke" in data["books_with_red_letter"]
+        assert "John" in data["books_with_red_letter"]
+
+        # Verify by_book counts
+        assert isinstance(data["by_book"], dict)
+        assert "Matthew" in data["by_book"]
+        assert data["by_book"]["Matthew"] > 0
+
+    def test_red_letter_verses_contain_expected_data(self, client):
+        """Test that specific known red letter verses are included"""
+        response = client.get("/api/red-letter?book=John&limit=500")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Find John 3:16 (Jesus speaks the entire verse)
+        john_316 = None
+        for verse in data["verses"]:
+            if verse["chapter"] == 3 and verse["verse"] == 16:
+                john_316 = verse
+                break
+
+        assert john_316 is not None, "John 3:16 should be in red letter verses"
+        assert john_316["is_full_verse"] is True
+        assert john_316["christ_words"] == "full"
+        assert "God so loved the world" in john_316["text"]
+
+    def test_red_letter_pagination_limits(self, client):
+        """Test pagination limit validation"""
+        # Test maximum limit
+        response = client.get("/api/red-letter?limit=500")
+        assert response.status_code == 200
+
+        # Test exceeding maximum limit should be rejected
+        response = client.get("/api/red-letter?limit=1000")
+        assert response.status_code == 422  # Validation error
+
+    def test_api_index_includes_red_letter_endpoints(self, client):
+        """Test that API index includes red letter endpoints"""
+        response = client.get("/api/")
+        assert response.status_code == 200
+        data = response.json()
+
+        assert "endpoints" in data
+        assert "red_letter" in data["endpoints"]
+        assert "red_letter_stats" in data["endpoints"]
