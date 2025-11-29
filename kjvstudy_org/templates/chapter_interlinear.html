@@ -531,17 +531,6 @@
 
 {% block content %}
 <div class="interlinear-page">
-    <nav class="breadcrumb">
-        {% for crumb in breadcrumbs %}
-            {% if crumb.url %}
-                <a href="{{ crumb.url }}">{{ crumb.text }}</a>
-                <span class="breadcrumb-separator">›</span>
-            {% else %}
-                <span>{{ crumb.text }}</span>
-            {% endif %}
-        {% endfor %}
-    </nav>
-
     <div class="page-header">
         <h1>{{ book }} {{ chapter }}</h1>
         <p class="subtitle">Interlinear Bible</p>
