@@ -221,47 +221,77 @@
     font-weight: 600;
     margin: 1rem 0;
     color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.interlinear-container summary::after {
+    content: "Click words for details";
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #888;
+    margin-left: auto;
+}
+
+.interlinear-container[open] summary {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eee;
 }
 
 .interlinear-flow {
-    line-height: 4.5;
+    line-height: 4.2;
     font-size: 1rem;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
+    padding: 1rem 0;
 }
 
 .word-unit {
     display: inline-block;
     text-align: center;
-    margin: 0 0.35rem 1.5rem 0.35rem;
+    margin: 0 0.25rem 1rem 0.25rem;
     vertical-align: top;
     cursor: pointer;
     position: relative;
-    padding: 0.5rem 0.75rem;
-    border-radius: 4px;
-    transition: background 0.15s ease;
-    min-width: 60px;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    min-width: 55px;
+    border: 1px solid transparent;
 }
 
 .word-unit:hover {
-    background: #f5f5f5;
+    background: #f8f9fa;
+    border-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .word-unit.expanded {
     background: #f0f7f4;
+    border-color: #4a7c59;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74,124,89,0.15);
 }
 
 .word-original {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 500;
     color: #222;
-    margin-bottom: 0.15rem;
-    line-height: 1.3;
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
+    transition: color 0.2s;
+}
+
+.word-unit:hover .word-original {
+    color: #111;
 }
 
 .word-english {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #4a7c59;
     font-weight: 600;
     line-height: 1.3;
@@ -269,10 +299,16 @@
 
 .word-strongs {
     display: block;
-    font-size: 0.7rem;
-    color: #888;
+    font-size: 0.65rem;
+    color: #999;
     font-family: monospace;
-    margin-top: 0.15rem;
+    margin-top: 0.2rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.word-unit:hover .word-strongs {
+    opacity: 1;
 }
 
 .word-strongs a {
@@ -284,32 +320,97 @@
     color: #4a7c59;
 }
 
+/* Hover tooltip - brief definition preview */
+.word-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    background: #333;
+    color: #fff;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s, transform 0.15s;
+    z-index: 50;
+}
+
+.word-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+}
+
+.word-unit:hover .word-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+}
+
+.word-unit.expanded .word-tooltip {
+    opacity: 0;
+}
+
+/* Full detail panel */
 .word-detail {
     display: none;
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(8px);
     background: #fff;
     border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 1rem;
-    min-width: 240px;
-    max-width: 300px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    min-width: 260px;
+    max-width: 320px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     z-index: 100;
     text-align: left;
     line-height: 1.5;
-    margin-top: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
 }
 
 .word-unit.expanded .word-detail {
     display: block;
+    opacity: 1;
+    transform: translateX(-50%) translateY(12px);
+}
+
+.word-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+
+.word-detail-original {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #222;
+}
+
+.word-detail-english {
+    font-size: 1rem;
+    color: #4a7c59;
+    font-weight: 600;
 }
 
 .word-detail-row {
     display: flex;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
     font-size: 0.85rem;
 }
 
@@ -319,7 +420,7 @@
 
 .word-detail-label {
     color: #888;
-    min-width: 80px;
+    min-width: 85px;
     flex-shrink: 0;
 }
 
@@ -328,33 +429,47 @@
 }
 
 .word-detail-definition {
-    margin-top: 0.6rem;
-    padding-top: 0.6rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
     border-top: 1px solid #eee;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #555;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .interlinear-link {
     display: inline-block;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     font-size: 0.9rem;
     color: #4a7c59;
+    text-decoration: none;
+}
+
+.interlinear-link:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
+    .interlinear-container summary::after {
+        display: none;
+    }
+
     .interlinear-flow {
-        line-height: 5;
+        line-height: 4.5;
     }
 
     .word-unit {
-        margin: 0 0.25rem 2rem 0.25rem;
+        margin: 0 0.2rem 1.5rem 0.2rem;
         min-width: 50px;
+        padding: 0.5rem 0.6rem;
     }
 
     .word-original {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
+    }
+
+    .word-tooltip {
+        display: none;
     }
 
     .word-detail {
@@ -365,8 +480,13 @@
         right: 0;
         transform: none;
         max-width: none;
-        border-radius: 12px 12px 0 0;
+        border-radius: 16px 16px 0 0;
         padding: 1.5rem;
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+    }
+
+    .word-unit.expanded .word-detail {
+        transform: none;
     }
 }
 </style>
@@ -400,10 +520,13 @@
                         {% endif %}
                     {% endif %}
                 </span>
+                {% if word.definition %}
+                <span class="word-tooltip">{{ word.definition[:50] }}{% if word.definition|length > 50 %}...{% endif %}</span>
+                {% endif %}
                 <div class="word-detail">
-                    <div class="word-detail-row">
-                        <span class="word-detail-label">Original:</span>
-                        <span class="word-detail-value">{{ word.original }}</span>
+                    <div class="word-detail-header">
+                        <span class="word-detail-original">{{ word.original }}</span>
+                        <span class="word-detail-english">{{ word.english }}</span>
                     </div>
                     {% if word.transliteration %}
                     <div class="word-detail-row">
@@ -413,21 +536,31 @@
                     {% endif %}
                     <div class="word-detail-row">
                         <span class="word-detail-label">Strong's:</span>
-                        <span class="word-detail-value">{{ word.strongs or '—' }}</span>
-                    </div>
-                    <div class="word-detail-row">
-                        <span class="word-detail-label">English:</span>
-                        <span class="word-detail-value">{{ word.english }}</span>
+                        <span class="word-detail-value">
+                            {% if word.strongs %}
+                                {% set lang = word.strongs[0]|lower %}
+                                {% set num = word.strongs[1:] %}
+                                {% if lang == 'g' %}
+                                    <a href="https://biblehub.com/greek/{{ num }}.htm" target="_blank" rel="noopener" style="color: #4a7c59;">{{ word.strongs }}</a>
+                                {% elif lang == 'h' %}
+                                    <a href="https://biblehub.com/hebrew/{{ num }}.htm" target="_blank" rel="noopener" style="color: #4a7c59;">{{ word.strongs }}</a>
+                                {% else %}
+                                    {{ word.strongs }}
+                                {% endif %}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </span>
                     </div>
                     {% if word.parsing %}
                     <div class="word-detail-row">
-                        <span class="word-detail-label">Parsing:</span>
+                        <span class="word-detail-label">Grammar:</span>
                         <span class="word-detail-value">{{ word.parsing }}</span>
                     </div>
                     {% endif %}
                     <div class="word-detail-row">
-                        <span class="word-detail-label">Position:</span>
-                        <span class="word-detail-value">#{{ word.position }}</span>
+                        <span class="word-detail-label">Word #:</span>
+                        <span class="word-detail-value">{{ word.position }} of {{ interlinear_words|length }}</span>
                     </div>
                     {% if word.definition %}
                     <div class="word-detail-definition">
