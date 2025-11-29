@@ -11,8 +11,29 @@
     font-weight: 500;
 }
 
+.chapters-section h2 + p a.selected {
+    background: rgba(74, 124, 89, 0.15);
+    color: #4a7c59;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    outline: 2px solid rgba(74, 124, 89, 0.4);
+}
+
+[data-theme="dark"] .chapters-section h2 + p a.selected {
+    background: rgba(107, 155, 122, 0.2);
+    color: #6b9b7a;
+    outline-color: rgba(107, 155, 122, 0.4);
+}
+
 .popular-chapter {
     font-weight: bold;
+}
+
+.nav-hint {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 0.5rem;
 }
 
 .book-meta {
@@ -346,6 +367,82 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('section').forEach(function(section) {
         linkVerseReferences(section);
     });
+
+    // Keyboard navigation for chapters and adjacent books
+    const chapterLinks = document.querySelectorAll('.chapters-section a[data-chapter]');
+    let selectedChapterIndex = -1;
+
+    // Get current book index for left/right navigation
+    const currentBookIndex = bibleBooks.findIndex(b => b.toLowerCase() === bookName.toLowerCase());
+
+    function selectChapter(index) {
+        // Remove previous selection
+        if (selectedChapterIndex >= 0 && selectedChapterIndex < chapterLinks.length) {
+            chapterLinks[selectedChapterIndex].classList.remove('selected');
+        }
+
+        // Update index with bounds checking
+        selectedChapterIndex = Math.max(0, Math.min(index, chapterLinks.length - 1));
+
+        // Add selection to new chapter
+        chapterLinks[selectedChapterIndex].classList.add('selected');
+
+        // Scroll into view if needed
+        chapterLinks[selectedChapterIndex].scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        // Don't trigger if user is typing
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+        }
+
+        // Up arrow or k: Previous chapter
+        if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            selectChapter(selectedChapterIndex - 1);
+        }
+
+        // Down arrow or j: Next chapter
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectChapter(selectedChapterIndex + 1);
+        }
+
+        // Enter: Go to selected chapter
+        if (e.key === 'Enter' && selectedChapterIndex >= 0) {
+            e.preventDefault();
+            window.location.href = chapterLinks[selectedChapterIndex].href;
+        }
+
+        // Left arrow: Previous book
+        if (e.key === 'ArrowLeft' && currentBookIndex > 0) {
+            e.preventDefault();
+            window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex - 1]);
+        }
+
+        // Right arrow: Next book
+        if (e.key === 'ArrowRight' && currentBookIndex < bibleBooks.length - 1) {
+            e.preventDefault();
+            window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex + 1]);
+        }
+    });
+
+    // Click to select chapter
+    chapterLinks.forEach((link, index) => {
+        link.addEventListener('click', function(e) {
+            if (selectedChapterIndex === index) {
+                // Already selected, navigate
+                return; // Let default behavior happen
+            } else {
+                e.preventDefault();
+                selectChapter(index);
+            }
+        });
+    });
 });
 </script>
 {% endblock %}
@@ -380,9 +477,10 @@ document.addEventListener('DOMContentLoaded', function() {
         <input type="checkbox" id="mn-popular" class="margin-toggle"/>
         <span class="marginnote">Chapters in <strong>bold</strong> are among the most frequently read and studied passages.</span>
         {% for chapter in chapters %}
-        <a href="/book/{{ book }}/chapter/{{ chapter }}" {% if chapter_popularity[chapter] >= 7 %}class="popular-chapter"{% endif %}>{{ chapter }}</a>{% if not loop.last %} · {% endif %}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}" {% if chapter_popularity[chapter] >= 7 %}class="popular-chapter"{% endif %} data-chapter="{{ chapter }}">{{ chapter }}</a>{% if not loop.last %} · {% endif %}
         {% endfor %}
     </p>
+    <p class="nav-hint">Tip: ↑/↓ to select chapter • Enter to read • ←/→ for adjacent books</p>
 </section>
 
 {% if book_intro and book_intro.introduction %}
