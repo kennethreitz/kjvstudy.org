@@ -290,6 +290,12 @@
     border-color: var(--link-color);
 }
 
+.occurrence-card.selected {
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
+    background: #f8fff8;
+}
+
 .occurrence-card .occ-header {
     display: flex;
     justify-content: space-between;
@@ -335,6 +341,11 @@
 
 [data-theme="dark"] .occurrence-card:hover {
     border-color: var(--link-color);
+}
+
+[data-theme="dark"] .occurrence-card.selected {
+    background: #1a2a1a;
+    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
 }
 
 [data-theme="dark"] .occurrence-card .occ-verse-text mark {
@@ -463,4 +474,58 @@
         </div>
     </nav>
 </div>
+
+<script>
+(function() {
+    const cards = document.querySelectorAll('.occurrence-card');
+    if (cards.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectCard(index) {
+        // Remove previous selection
+        if (selectedIndex >= 0 && selectedIndex < cards.length) {
+            cards[selectedIndex].classList.remove('selected');
+        }
+
+        // Update index with bounds checking
+        selectedIndex = Math.max(0, Math.min(index, cards.length - 1));
+
+        // Add selection to new card
+        cards[selectedIndex].classList.add('selected');
+
+        // Scroll into view
+        cards[selectedIndex].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        // Don't handle if user is typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectCard(selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            selectCard(selectedIndex - 1);
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const link = cards[selectedIndex].querySelector('.occ-reference');
+            if (link) window.location.href = link.href;
+        }
+    });
+
+    // Click to select
+    cards.forEach((card, index) => {
+        card.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'A') {
+                selectCard(index);
+            }
+        });
+    });
+})();
+</script>
 {% endblock %}

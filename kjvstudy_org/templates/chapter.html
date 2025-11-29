@@ -115,6 +115,20 @@ hr::before {
     text-decoration: underline;
 }
 
+/* Keyboard navigation selected verse */
+p[id^="verse-"].selected {
+    background: rgba(74, 124, 89, 0.1);
+    margin-left: -1rem;
+    padding-left: 1rem;
+    border-left: 3px solid #4a7c59;
+    transition: all 0.15s ease;
+}
+
+[data-theme="dark"] p[id^="verse-"].selected {
+    background: rgba(107, 155, 122, 0.15);
+    border-left-color: #6b9b7a;
+}
+
 .verse-number-link.has-commentary {
     color: #c41e3a;
 }
@@ -314,7 +328,7 @@ hr::before {
         </a>
     </div>
     <div class="nav-help">
-        Tip: Use left/right arrow keys to navigate chapters
+        Tip: ↑/↓ or j/k to select verses • Enter to view • ←/→ for chapters
     </div>
 </nav>
 
@@ -396,11 +410,53 @@ document.addEventListener('DOMContentLoaded', function() {
     highlightVerses();
     window.addEventListener('hashchange', highlightVerses);
 
-    // Keyboard navigation for chapters
+    // Verse keyboard navigation
+    const verses = document.querySelectorAll('p[id^="verse-"]');
+    let selectedVerseIndex = -1;
+
+    function selectVerse(index) {
+        // Remove previous selection
+        if (selectedVerseIndex >= 0 && selectedVerseIndex < verses.length) {
+            verses[selectedVerseIndex].classList.remove('selected');
+        }
+
+        // Update index with bounds checking
+        selectedVerseIndex = Math.max(0, Math.min(index, verses.length - 1));
+
+        // Add selection to new verse
+        verses[selectedVerseIndex].classList.add('selected');
+
+        // Scroll into view
+        verses[selectedVerseIndex].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+
+    // Keyboard navigation for chapters and verses
     document.addEventListener('keydown', function(e) {
         // Don't trigger if user is typing
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             return;
+        }
+
+        // Up arrow or k: Previous verse
+        if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            selectVerse(selectedVerseIndex - 1);
+        }
+
+        // Down arrow or j: Next verse
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectVerse(selectedVerseIndex + 1);
+        }
+
+        // Enter: Go to selected verse page
+        if (e.key === 'Enter' && selectedVerseIndex >= 0) {
+            e.preventDefault();
+            const link = verses[selectedVerseIndex].querySelector('.verse-number-link');
+            if (link) window.location.href = link.href;
         }
 
         // Left arrow: Previous chapter
@@ -420,6 +476,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = nextBtn.href;
             }
         }
+    });
+
+    // Click to select verse
+    verses.forEach((verse, index) => {
+        verse.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'A' && e.target.tagName !== 'LABEL') {
+                selectVerse(index);
+            }
+        });
     });
 
     // Only allow one sidenote to be highlighted at a time

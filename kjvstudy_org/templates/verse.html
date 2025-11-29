@@ -813,6 +813,33 @@
 {% endif %}
 
 <!-- Related Content for Internal Linking -->
+<script>
+document.addEventListener('keydown', function(e) {
+    // Don't trigger if user is typing
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+        return;
+    }
+
+    // Left arrow: Back to chapter view
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        window.location.href = '/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}';
+    }
+
+    // Up arrow or k: Previous verse
+    if ((e.key === 'ArrowUp' || e.key === 'k') && {{ verse_num }} > 1) {
+        e.preventDefault();
+        window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}';
+    }
+
+    // Down arrow or j: Next verse
+    if ((e.key === 'ArrowDown' || e.key === 'j') && {{ verse_num }} < {{ total_verses }}) {
+        e.preventDefault();
+        window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}';
+    }
+});
+</script>
+
 {% if related_content and (related_content.topics or related_content.people or related_content.resources) %}
 <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 3rem;">
     <h2>Related Resources</h2>
