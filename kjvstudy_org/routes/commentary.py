@@ -433,11 +433,12 @@ def generate_commentary(book, chapter, verse):
     # Generate cross-references with variety per verse
     cross_refs = get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
 
-    # Return a dictionary with enhanced commentary components
+    # Only return cross-references for verses without specific commentary
+    # Generic commentary adds no value and should not be displayed
     return {
-        "analysis": random.choice(analysis_templates),
-        "historical": random.choice(historical_templates),
-        "questions": random.sample(question_templates, 3),
+        "analysis": None,
+        "historical": None,
+        "questions": None,
         "cross_references": cross_refs,
         "is_enhanced": False
     }
