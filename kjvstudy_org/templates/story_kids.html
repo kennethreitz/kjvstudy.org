@@ -368,4 +368,27 @@ hr.story-divider::before {
         {% endif %}
     </div>
 </nav>
+
+<script>
+(function() {
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            const prevLink = document.querySelector('.nav-prev .nav-link');
+            if (prevLink) window.location.href = prevLink.href;
+            else history.back();
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            const nextLink = document.querySelector('.nav-next .nav-link');
+            if (nextLink) window.location.href = nextLink.href;
+        } else if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            const adultLink = document.querySelector('.adult-callout a');
+            if (adultLink) window.location.href = adultLink.href;
+        }
+    });
+})();
+</script>
 {% endblock %}

@@ -33,4 +33,17 @@
     </ul>
     <p>The direct paternal line consists of all ancestors with Kekulé numbers that are powers of 2: 1, 2, 4, 8, 16, 32, 64, etc. This visualization shows only these direct ancestors, creating a clear line from Adam to Christ.</p>
 </section>
+
+<script>
+(function() {
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        }
+    });
+})();
+</script>
 {% endblock %}

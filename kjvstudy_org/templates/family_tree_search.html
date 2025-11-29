@@ -51,4 +51,44 @@
 {% endif %}
 
 <p style="margin: 1.5rem 0;"><a href="/family-tree">← Back to Family Tree</a></p>
+
+<script>
+(function() {
+    const results = Array.from(document.querySelectorAll('[style*="border-left: 2px solid #ccc"]'));
+    if (results.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectResult(index) {
+        if (selectedIndex >= 0 && selectedIndex < results.length) {
+            results[selectedIndex].style.outline = '';
+            results[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, results.length - 1));
+        results[selectedIndex].style.outline = '2px solid #4a7c59';
+        results[selectedIndex].style.outlineOffset = '4px';
+        results[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectResult(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectResult(0);
+            else selectResult(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const link = results[selectedIndex].querySelector('a');
+            if (link) window.location.href = link.href;
+        }
+    });
+})();
+</script>
 {% endblock %}

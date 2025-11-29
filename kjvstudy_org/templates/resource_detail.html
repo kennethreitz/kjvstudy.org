@@ -169,4 +169,44 @@
     <p><a href="{{ back_url }}" aria-label="Back to {{ back_text }}">← Back to {{ back_text }}</a></p>
 </nav>
 </article>
+
+<script>
+(function() {
+    const verseItems = Array.from(document.querySelectorAll('.verse-item'));
+    if (verseItems.length === 0) return;
+
+    let selectedIndex = -1;
+
+    function selectItem(index) {
+        if (selectedIndex >= 0 && selectedIndex < verseItems.length) {
+            verseItems[selectedIndex].style.outline = '';
+            verseItems[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, verseItems.length - 1));
+        verseItems[selectedIndex].style.outline = '2px solid #4a7c59';
+        verseItems[selectedIndex].style.outlineOffset = '4px';
+        verseItems[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectItem(0);
+            else selectItem(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const link = verseItems[selectedIndex].querySelector('a');
+            if (link) window.location.href = link.href;
+        }
+    });
+})();
+</script>
 {% endblock %}
