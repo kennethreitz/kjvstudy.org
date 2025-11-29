@@ -181,6 +181,14 @@ section:nth-of-type(3) {
                     <td>Most Children:</td>
                     <td id="stat-most-children">—</td>
                 </tr>
+                <tr>
+                    <td>Most Siblings:</td>
+                    <td id="stat-most-siblings">—</td>
+                </tr>
+                <tr>
+                    <td>Close Family Marriages:</td>
+                    <td id="stat-close-marriages">—</td>
+                </tr>
             </tbody>
         </table>
     </section>
@@ -301,6 +309,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 const personId = data.most_children.person_id;
                 document.getElementById('stat-most-children').innerHTML =
                     `<a href="/family-tree/person/${personId}">${personName}</a> (${data.most_children.value} children)`;
+            }
+
+            // Most siblings
+            if (data.most_siblings && data.most_siblings.value > 0) {
+                const personName = data.most_siblings.name;
+                const personId = data.most_siblings.person_id;
+                document.getElementById('stat-most-siblings').innerHTML =
+                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.most_siblings.value} siblings)`;
+            }
+
+            // Close family marriages
+            if (data.close_family_marriages !== undefined) {
+                document.getElementById('stat-close-marriages').textContent =
+                    data.close_family_marriages + ' (common in early biblical times)';
             }
 
             // Show stats, hide loading

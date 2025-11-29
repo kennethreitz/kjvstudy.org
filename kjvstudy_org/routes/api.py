@@ -266,8 +266,10 @@ class FamilyTreeStatsResponse(BaseModel):
     total_generations: int = Field(..., json_schema_extra={"example": 77})
     longest_lived: PersonStat
     most_children: PersonStat
+    most_siblings: PersonStat
     average_lifespan: Optional[float] = Field(None, json_schema_extra={"example": 256.5})
     total_with_known_ages: int = Field(..., json_schema_extra={"example": 156})
+    close_family_marriages: int = Field(..., json_schema_extra={"example": 3}, description="Marriages between close relatives (common in early biblical times)")
 
 
 # Mapping of category names to their data dictionaries
@@ -2025,6 +2027,14 @@ def api_family_tree_stats():
         most_children_person_id = None
         most_children_count = 0
 
+        # Find person with most siblings
+        most_siblings_person = None
+        most_siblings_person_id = None
+        most_siblings_count = 0
+
+        # Track close family marriages
+        close_family_marriages_count = 0
+
         # Calculate average lifespan
         total_age = 0
         people_with_ages = 0
@@ -2092,6 +2102,36 @@ def api_family_tree_stats():
                 most_children_person = person
                 most_children_person_id = person_id
 
+            # Check siblings count
+            siblings_count = len(person.get("siblings", []))
+            if siblings_count > most_siblings_count:
+                most_siblings_count = siblings_count
+                most_siblings_person = person
+                most_siblings_person_id = person_id
+
+            # Check for close family marriages (if person has spouse)
+            if person.get("spouse"):
+                spouse_name = person.get("spouse")
+                # Check if spouse is in the family tree
+                for potential_spouse_id, potential_spouse in family_tree_data.items():
+                    if potential_spouse.get("name") == spouse_name:
+                        # Check if they share parents (siblings)
+                        person_parents = set(person.get("parents", []))
+                        spouse_parents = set(potential_spouse.get("parents", []))
+
+                        if person_parents and spouse_parents and person_parents & spouse_parents:
+                            # They share at least one parent - siblings or half-siblings
+                            close_family_marriages_count += 0.5  # Count each marriage once (will be seen from both sides)
+
+                        # Check if spouse is parent's sibling (aunt/uncle-niece/nephew)
+                        for parent_id in person.get("parents", []):
+                            if parent_id in family_tree_data:
+                                parent_siblings = family_tree_data[parent_id].get("siblings", [])
+                                if potential_spouse_id in parent_siblings:
+                                    close_family_marriages_count += 0.5
+
+                        break
+
         # Calculate average lifespan
         average_lifespan = round(total_age / people_with_ages, 1) if people_with_ages > 0 else None
 
@@ -2111,8 +2151,15 @@ def api_family_tree_stats():
                 "value": most_children_count,
                 "additional_info": f"Had {most_children_count} children" if most_children_person else None
             },
+            "most_siblings": {
+                "name": most_siblings_person["name"] if most_siblings_person else "Unknown",
+                "person_id": most_siblings_person_id if most_siblings_person_id else "unknown",
+                "value": most_siblings_count,
+                "additional_info": f"Had {most_siblings_count} siblings" if most_siblings_person else None
+            },
             "average_lifespan": average_lifespan,
-            "total_with_known_ages": people_with_ages
+            "total_with_known_ages": people_with_ages,
+            "close_family_marriages": int(close_family_marriages_count)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to load family tree statistics: {str(e)}")

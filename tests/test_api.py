@@ -933,8 +933,10 @@ class TestFamilyTreeEndpoints:
         assert "total_generations" in data
         assert "longest_lived" in data
         assert "most_children" in data
+        assert "most_siblings" in data
         assert "average_lifespan" in data
         assert "total_with_known_ages" in data
+        assert "close_family_marriages" in data
 
         # Verify types
         assert isinstance(data["total_people"], int)
@@ -961,8 +963,22 @@ class TestFamilyTreeEndpoints:
         assert isinstance(data["most_children"]["value"], int)
         assert data["most_children"]["value"] >= 0
 
+        # Verify most_siblings structure
+        assert "name" in data["most_siblings"]
+        assert "person_id" in data["most_siblings"]
+        assert "value" in data["most_siblings"]
+        assert "additional_info" in data["most_siblings"]
+        assert isinstance(data["most_siblings"]["name"], str)
+        assert isinstance(data["most_siblings"]["person_id"], str)
+        assert isinstance(data["most_siblings"]["value"], int)
+        assert data["most_siblings"]["value"] >= 0
+
         # Verify average lifespan is either a number or null
         assert data["average_lifespan"] is None or isinstance(data["average_lifespan"], (int, float))
+
+        # Verify close family marriages is an integer
+        assert isinstance(data["close_family_marriages"], int)
+        assert data["close_family_marriages"] >= 0
 
     def test_api_index_includes_new_endpoints(self, client):
         """Test that API index includes all new endpoints"""
