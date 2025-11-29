@@ -1920,8 +1920,9 @@ def resources_page(request: Request):
             {
                 "name": "Genealogies",
                 "url": "/family-tree",
-                "description": "Family trees and lineages traced through Scripture",
-                "count": "Family trees"
+                "description": "Interactive family tree from Adam to Jesus Christ with detailed person profiles",
+                "count": "160+ people",
+                "badge": "Interactive"
             }
         ],
         "Study Tools": [

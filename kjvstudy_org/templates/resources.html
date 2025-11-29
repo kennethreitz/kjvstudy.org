@@ -55,10 +55,31 @@
     font-weight: 600;
     margin: 0 0 0.5rem 0;
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .resource-card:hover h3 {
     color: var(--link-hover);
+}
+
+.resource-badge {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    background: #4a7c59;
+    color: #fff;
+    font-weight: 600;
+}
+
+.resource-card.featured {
+    border-color: #4a7c59;
+    border-width: 2px;
+    background: linear-gradient(135deg, #f8fdf9, var(--bg-color));
 }
 
 .resource-count {
@@ -145,8 +166,13 @@
     <h2 class="category-title">{{ category }}</h2>
     <div class="resource-grid">
         {% for resource in items %}
-        <a href="{{ resource.url }}" class="resource-card">
-            <h3>{{ resource.name }}</h3>
+        <a href="{{ resource.url }}" class="resource-card{% if resource.badge %} featured{% endif %}">
+            <h3>
+                {{ resource.name }}
+                {% if resource.badge %}
+                <span class="resource-badge">{{ resource.badge }}</span>
+                {% endif %}
+            </h3>
             <div class="resource-count">{{ resource.count }}</div>
             <p class="resource-description">{{ resource.description }}</p>
         </a>

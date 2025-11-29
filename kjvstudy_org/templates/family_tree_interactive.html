@@ -1799,11 +1799,34 @@ document.addEventListener('click', function(event) {
 const urlParams = new URLSearchParams(window.location.search);
 const personParam = urlParams.get('person');
 
-if (personParam && familyTreeData[personParam]) {
+// Try to find person - check both as-is and lowercase
+let startPersonId = null;
+if (personParam) {
+    // Try exact match first
+    if (familyTreeData[personParam]) {
+        startPersonId = personParam;
+    }
+    // Try lowercase
+    else if (familyTreeData[personParam.toLowerCase()]) {
+        startPersonId = personParam.toLowerCase();
+    }
+    // Try uppercase first letter (for IDs like I159 -> i159)
+    else {
+        const lowercased = personParam.toLowerCase();
+        for (const id of Object.keys(familyTreeData)) {
+            if (id.toLowerCase() === lowercased) {
+                startPersonId = id;
+                break;
+            }
+        }
+    }
+}
+
+if (startPersonId) {
     // Start with this specific person
-    currentRootId = personParam;
-    renderTreeFromId(personParam);
-    updateBreadcrumb(personParam);
+    currentRootId = startPersonId;
+    currentDirection = 'descendants';  // Ensure direction is set
+    navigationHistory = [];  // Clear history for fresh start
 
     // Update the dropdown to show custom selection
     const rootSelect = document.getElementById('root-select');
@@ -1813,9 +1836,13 @@ if (personParam && familyTreeData[personParam]) {
         customOpt.value = 'custom';
         rootSelect.appendChild(customOpt);
     }
-    const personName = familyTreeData[personParam]?.name || personParam;
+    const personName = familyTreeData[startPersonId]?.name || startPersonId;
     customOpt.textContent = personName;
     rootSelect.value = 'custom';
+
+    // Render tree from this person
+    renderTreeFromId(startPersonId);
+    updateBreadcrumb(startPersonId);
 } else {
     // Default initial render
     renderTree();

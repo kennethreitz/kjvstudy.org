@@ -5,96 +5,62 @@
 
 {% block head %}
 <style>
-/* Compact the opening sections */
-section:first-of-type {
-    margin-top: 1rem;
-}
+{% set female_names = ['eve', 'sarah', 'rebekah', 'rachel', 'leah', 'ruth', 'mary', 'tamar', 'rahab', 'bathsheba', 'dinah', 'keturah', 'hagar', 'zilpah', 'bilhah', 'jochebed', 'miriam', 'deborah', 'hannah', 'abigail', 'esther', 'naomi', 'naamah', 'milcah', 'adah', 'zillah', 'asenath', 'basemath'] %}
 
-section:nth-of-type(2),
-section:nth-of-type(3) {
-    margin-top: 1rem;
-    padding-top: 0;
-    border-top: none;
-}
-
-.stats-line {
+.family-tree-page {
     max-width: 55%;
-    margin: 1rem 0;
-    padding: 0.75rem 0;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    font-size: 1.1rem;
 }
 
-.stat-item {
-    display: inline;
-    margin-right: 2rem;
+.page-header {
+    margin-bottom: 1.5rem;
 }
 
-.stat-number {
-    font-family: et-book-roman-old-style;
-    font-weight: 600;
-}
-
-.generation-section {
-    max-width: 55%;
-    margin: 1.5rem 0;
-}
-
-.generation-header {
-    margin-bottom: 0.5rem;
-}
-
-.generation-number {
-    font-family: et-book-roman-old-style;
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-.people-inline {
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-.person-entry {
-    max-width: 55%;
-    margin: 1.5rem 0;
-}
-
-.person-name {
-    font-size: 1.5rem;
-    font-weight: 600;
+.page-header h1 {
     margin-bottom: 0.25rem;
 }
 
-.person-life {
-    font-style: italic;
+.page-header .subtitle {
     color: #666;
-    margin-bottom: 0.5rem;
+    margin: 0;
 }
 
-.person-info {
-    margin: 0.5rem 0;
+.page-intro {
+    margin-bottom: 1.5rem;
     line-height: 1.8;
 }
 
+/* Search card */
+.search-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    background: #fff;
+}
+
+.search-card h2 {
+    font-size: 1rem;
+    margin: 0 0 0.75rem 0;
+    color: #333;
+}
+
 .search-form {
-    max-width: 55%;
-    margin: 0.5rem 0;
     position: relative;
 }
 
 .search-form input {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.6rem 0.75rem;
     font-size: 1rem;
     border: 1px solid #ccc;
+    border-radius: 4px;
     font-family: inherit;
 }
 
 .search-form input:focus {
     outline: none;
-    border-color: #666;
+    border-color: #4a7c59;
+    box-shadow: 0 0 3px rgba(74, 124, 89, 0.3);
 }
 
 .search-dropdown {
@@ -102,11 +68,12 @@ section:nth-of-type(3) {
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--bg-color, #fff);
-    border: 1px solid var(--border-color, #ddd);
+    background: #fff;
+    border: 1px solid #ddd;
     border-top: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    max-height: 240px;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 280px;
     overflow-y: auto;
     display: none;
     z-index: 10;
@@ -125,174 +92,438 @@ section:nth-of-type(3) {
     text-align: left;
     font-size: 0.95rem;
     cursor: pointer;
+    font-family: inherit;
 }
 
 .search-dropdown button:hover,
 .search-dropdown button.active {
-    background: var(--code-bg, #f6f6f6);
+    background: #f5f5f5;
+}
+
+/* Feature cards */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.feature-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-color: #ccc;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.feature-card h3 a {
+    color: #4a7c59;
+    text-decoration: none;
+}
+
+.feature-card h3 a:hover {
+    text-decoration: underline;
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Stats card */
+.stats-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    background: #fff;
+}
+
+.stats-card h2 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.35rem 0;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #333;
+}
+
+.stat-value a {
+    color: #4a7c59;
+}
+
+/* Generation cards */
+.section-card {
+    padding: 1rem 1.25rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    background: #fff;
+}
+
+.section-card h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.75rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.generation-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.gen-card {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background: #fafafa;
+    transition: background 0.15s ease;
+}
+
+.gen-card:hover {
+    background: #f5f5f5;
+}
+
+.gen-card-num {
+    font-weight: 600;
+    min-width: 40px;
+    color: #4a7c59;
+}
+
+.gen-card-num a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.gen-card-num a:hover {
+    text-decoration: underline;
+}
+
+.gen-card-count {
+    font-size: 0.85rem;
+    color: #888;
+    min-width: 90px;
+}
+
+.gen-card-people {
+    flex: 1;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.gen-card-people a {
+    color: #555;
+}
+
+/* Notable figures grid */
+.notable-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.person-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background: #fafafa;
+    transition: background 0.15s ease;
+}
+
+.person-card:hover {
+    background: #f5f5f5;
+}
+
+.person-card.male {
+    border-left: 3px solid #3b6ea5;
+}
+
+.person-card.female {
+    border-left: 3px solid #a55b80;
+}
+
+.person-card.kekule {
+    border-left-color: #d4af37;
+    background: linear-gradient(to right, #fffde7, #fafafa);
+}
+
+.person-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.person-card-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.person-card-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.person-card-name a:hover {
+    text-decoration: underline;
+}
+
+.person-card-badge {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    background: #d4af37;
+    color: #fff;
+}
+
+.person-card-meta {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.person-card-details {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.person-card-details a {
+    color: #4a7c59;
+}
+
+.person-card-verse {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 0.25rem;
+}
+
+.person-card-verse a {
+    color: #4a7c59;
+}
+
+@media (max-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>Biblical Family Tree</h1>
-<p class="subtitle">From Adam to Jesus Christ</p>
+{% set female_names = ['eve', 'sarah', 'rebekah', 'rachel', 'leah', 'ruth', 'mary', 'tamar', 'rahab', 'bathsheba', 'dinah', 'keturah', 'hagar', 'zilpah', 'bilhah', 'jochebed', 'miriam', 'deborah', 'hannah', 'abigail', 'esther', 'naomi', 'naamah', 'milcah', 'adah', 'zillah', 'asenath', 'basemath'] %}
 
-<section>
-    <p>The Bible contains detailed genealogies that trace God's plan through specific family lines, culminating in the birth of Jesus Christ. This record spans from the creation of Adam through countless generations to the birth of our Lord.</p>
-</section>
-
-<section>
-    <div class="search-form">
-        <form method="get" action="/family-tree/search" id="family-tree-search-form">
-            <input
-                type="text"
-                name="q"
-                placeholder="Search for a person..."
-                autocomplete="off"
-                id="family-tree-search-input"
-            >
-        </form>
-        <div class="search-dropdown" id="family-tree-search-dropdown"></div>
+<div class="family-tree-page">
+    <div class="page-header">
+        <h1>Biblical Family Tree</h1>
+        <p class="subtitle">From Adam to Jesus Christ</p>
     </div>
-</section>
+
+    <p class="page-intro">
+        The Bible contains detailed genealogies that trace God's plan through specific family lines, culminating in the birth of Jesus Christ. This record spans from the creation of Adam through countless generations to the birth of our Lord.
+    </p>
+
+    <!-- Search -->
+    <div class="search-card">
+        <h2>Find a Person</h2>
+        <div class="search-form">
+            <form method="get" action="/family-tree/search" id="family-tree-search-form">
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Search for a person..."
+                    autocomplete="off"
+                    id="family-tree-search-input"
+                >
+            </form>
+            <div class="search-dropdown" id="family-tree-search-dropdown"></div>
+        </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3><a href="/family-tree/interactive">Interactive Tree</a></h3>
+            <p>Navigate the family tree with an interactive, zoomable diagram. Expand and collapse branches, search for any person, and see the Messianic lineage highlighted in gold.</p>
+        </div>
+        <div class="feature-card">
+            <h3><a href="/family-tree/lineage">Messianic Lineage</a></h3>
+            <p>View the direct paternal line from Adam to Jesus Christ in a vertical genealogy chart showing each generation.</p>
+        </div>
+    </div>
 
 {% if family_tree_data and generations %}
-    <section>
+    <!-- Statistics -->
+    <div class="stats-card">
         <h2>Overview</h2>
-        <div id="family-tree-stats-loading">
-            <p style="color: #999;">Loading statistics...</p>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">Total People:</span>
+                <span class="stat-value" id="stat-total-people">{{ family_tree_data|length }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Generations:</span>
+                <span class="stat-value" id="stat-total-generations">{{ generations|length }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Longest Lived:</span>
+                <span class="stat-value" id="stat-longest-lived">Loading...</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Most Children:</span>
+                <span class="stat-value" id="stat-most-children">Loading...</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Most Siblings:</span>
+                <span class="stat-value" id="stat-most-siblings">Loading...</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Close Family Marriages:</span>
+                <span class="stat-value" id="stat-close-marriages">Loading...</span>
+            </div>
         </div>
-        <table id="family-tree-stats" style="display: none; margin-top: 1rem;">
-            <tbody>
-                <tr>
-                    <td>Total People:</td>
-                    <td id="stat-total-people">{{ family_tree_data|length }}</td>
-                </tr>
-                <tr>
-                    <td>Total Generations:</td>
-                    <td id="stat-total-generations">{{ generations|length }}</td>
-                </tr>
-                <tr>
-                    <td>Longest Lived:</td>
-                    <td id="stat-longest-lived">—</td>
-                </tr>
-                <tr>
-                    <td>Most Children:</td>
-                    <td id="stat-most-children">—</td>
-                </tr>
-                <tr>
-                    <td>Most Siblings:</td>
-                    <td id="stat-most-siblings">—</td>
-                </tr>
-                <tr>
-                    <td>Close Family Marriages:</td>
-                    <td id="stat-close-marriages">—</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    </div>
 
-    <section>
-        <h2>Explore the Family Tree</h2>
-        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
-            <strong><a href="/family-tree/interactive">Interactive Tree</a></strong> —
-            Navigate the family tree with an interactive, zoomable diagram. Expand and collapse branches, search for any person, and see the Messianic lineage highlighted in gold.
-        </p>
-        <p style="font-size: 1.1rem; line-height: 1.8;">
-            <strong><a href="/family-tree/lineage">Messianic Lineage</a></strong> —
-            View the direct paternal line from Adam to Jesus Christ in a vertical genealogy chart.
-        </p>
-    </section>
-
-    <section>
+    <!-- Generations -->
+    <div class="section-card">
         <h2>The Generations</h2>
-
-        {% for gen_num in generations.keys() | sort %}
-        <div class="generation-section">
-            <div class="generation-header">
-                <h3><span class="generation-number">Generation {{ gen_num }}.</span> <a href="/family-tree/generation/{{ gen_num }}">{{ generations[gen_num]|length }} individual{% if generations[gen_num]|length != 1 %}s{% endif %}</a></h3>
+        <div class="generation-grid">
+            {% for gen_num in generations.keys() | sort %}
+            <div class="gen-card">
+                <div class="gen-card-num">
+                    <a href="/family-tree/generation/{{ gen_num }}">Gen {{ gen_num }}</a>
+                </div>
+                <div class="gen-card-count">{{ generations[gen_num]|length }} person{% if generations[gen_num]|length != 1 %}s{% endif %}</div>
+                <div class="gen-card-people">
+                    {% for person_id in generations[gen_num][:8] %}
+                        <a href="/family-tree/person/{{ person_id }}">{{ family_tree_data[person_id].name }}</a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}{% if generations[gen_num]|length > 8 %}, +{{ generations[gen_num]|length - 8 }} more{% endif %}
+                </div>
             </div>
-            <p class="people-inline">
-                {% for person_id in generations[gen_num][:20] %}
-                    <a href="/family-tree/person/{{ person_id }}">{{ family_tree_data[person_id].name }}</a>{% if not loop.last %}, {% endif %}
-                {% endfor %}{% if generations[gen_num]|length > 20 %}, and {{ generations[gen_num]|length - 20 }} others{% endif %}.
-            </p>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </section>
+    </div>
 
-    <section>
+    <!-- Notable Figures -->
+    <div class="section-card">
         <h2>Notable Figures</h2>
-
-        {% set notable = ["Adam", "Noah", "Abraham", "Isaac", "Jacob", "Joseph", "Moses", "David", "Solomon", "Jesus"] %}
-        {% for person_id, person in family_tree_data.items() %}
-            {% if person.name in notable %}
-            <div class="person-entry">
-                <div class="person-name">
-                    <a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>
-                </div>
-
-                <div class="person-life">
-                    {% if person.generation %}Generation {{ person.generation }}{% endif %}{% if person.kekule_number is not none %} • Kekulé #{{ person.kekule_number }}{% endif %}{% if person.birth_year != "Unknown" %} • born {{ person.birth_year }}{% endif %}{% if person.age_at_death != "Unknown" %} • lived {{ person.age_at_death }}{% endif %}
-                </div>
-
-                <div class="person-info">
-                    {% if person.spouse %}
-                        Married to {{ person.spouse }}.
-                    {% endif %}
-                    {% if person.parents|length > 0 %}
-                        {% if person.spouse %}{% endif %}
-                        Child of
-                        {% for parent_id in person.parents %}
-                            {% if parent_id in family_tree_data %}<a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>{% if not loop.last %} and {% endif %}{% endif %}
-                        {% endfor %}.
-                    {% endif %}
-                    {% if person.children|length > 0 %}
-                        Father of
-                        {% for child_id in person.children[:5] %}
-                            {% if child_id in family_tree_data %}<a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}{% endif %}
-                        {% endfor %}{% if person.children|length > 5 %}, and {{ person.children|length - 5 }} others{% endif %}.
-                    {% endif %}
-                </div>
-
-                {% if person.verses %}
-                <p>
-                    {% for verse in person.verses[:2] %}
-                        {% set ref_parts = verse.reference.split(' ') %}
-                        {% if ref_parts|length >= 2 %}
-                            {% set chapter_verse = ref_parts[-1] %}
-                            {% if ':' in chapter_verse %}
-                                {% set chapter = chapter_verse.split(':')[0] %}
-                                {% set verse_part = chapter_verse.split(':')[1] %}
-                                {% if '-' in verse_part %}
-                                    {% set verse_num = verse_part.split('-')[0] %}
-                                {% else %}
-                                    {% set verse_num = verse_part %}
-                                {% endif %}
-                                {% set book = ' '.join(ref_parts[:-1]) %}
-                                <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>{% if not loop.last %}; {% endif %}
-                            {% endif %}
+        <div class="notable-grid">
+            {% set notable = ["Adam", "Noah", "Abraham", "Isaac", "Jacob", "Joseph", "Moses", "David", "Solomon", "Jesus"] %}
+            {% for person_id, person in family_tree_data.items() %}
+                {% if person.name in notable %}
+                {% set is_female = person.name|lower in female_names or (female_names | select('in', person.name|lower) | list | length > 0) %}
+                <div class="person-card{% if person.kekule_number is not none %} kekule{% elif is_female %} female{% else %} male{% endif %}">
+                    <div class="person-card-header">
+                        <span class="person-card-name">
+                            <a href="/family-tree/person/{{ person_id }}">{{ person.name }}</a>
+                        </span>
+                        {% if person.kekule_number is not none %}
+                        <span class="person-card-badge">Kekulé #{{ person.kekule_number }}</span>
                         {% endif %}
-                    {% endfor %}
-                </p>
+                    </div>
+
+                    <div class="person-card-meta">
+                        {% if person.generation %}Generation {{ person.generation }}{% endif %}{% if person.birth_year != "Unknown" %} · Born {{ person.birth_year }}{% endif %}{% if person.age_at_death != "Unknown" %} · Lived {{ person.age_at_death }}{% endif %}
+                    </div>
+
+                    <div class="person-card-details">
+                        {% if person.spouse %}
+                            Married to {{ person.spouse }}.
+                        {% endif %}
+                        {% if person.parents|length > 0 %}
+                            Child of
+                            {% for parent_id in person.parents %}
+                                {% if parent_id in family_tree_data %}<a href="/family-tree/person/{{ parent_id }}">{{ family_tree_data[parent_id].name }}</a>{% if not loop.last %} and {% endif %}{% endif %}
+                            {% endfor %}.
+                        {% endif %}
+                        {% if person.children|length > 0 %}
+                            Father of
+                            {% for child_id in person.children[:3] %}
+                                {% if child_id in family_tree_data %}<a href="/family-tree/person/{{ child_id }}">{{ family_tree_data[child_id].name }}</a>{% if not loop.last %}, {% endif %}{% endif %}
+                            {% endfor %}{% if person.children|length > 3 %}, +{{ person.children|length - 3 }} more{% endif %}.
+                        {% endif %}
+                    </div>
+
+                    {% if person.verses %}
+                    <div class="person-card-verse">
+                        {% for verse in person.verses[:1] %}
+                            {% set ref_parts = verse.reference.split(' ') %}
+                            {% if ref_parts|length >= 2 %}
+                                {% set chapter_verse = ref_parts[-1] %}
+                                {% if ':' in chapter_verse %}
+                                    {% set chapter = chapter_verse.split(':')[0] %}
+                                    {% set verse_part = chapter_verse.split(':')[1] %}
+                                    {% if '-' in verse_part %}
+                                        {% set verse_num = verse_part.split('-')[0] %}
+                                    {% else %}
+                                        {% set verse_num = verse_part %}
+                                    {% endif %}
+                                    {% set book = ' '.join(ref_parts[:-1]) %}
+                                    <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
                 {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-    </section>
+            {% endfor %}
+        </div>
+    </div>
 {% else %}
-    <section>
+    <div class="section-card">
         <p>Family tree data could not be loaded.</p>
-    </section>
+    </div>
 {% endif %}
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch and display family tree statistics
-    const statsContainer = document.getElementById('family-tree-stats');
-    const statsLoading = document.getElementById('family-tree-stats-loading');
-
     fetch('/api/family-tree/stats')
         .then(response => response.json())
         .then(data => {
@@ -305,7 +536,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const personName = data.longest_lived.name;
                 const personId = data.longest_lived.person_id;
                 document.getElementById('stat-longest-lived').innerHTML =
-                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.longest_lived.value} years)`;
+                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.longest_lived.value} yrs)`;
+            } else {
+                document.getElementById('stat-longest-lived').textContent = '—';
             }
 
             // Most children
@@ -313,7 +546,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const personName = data.most_children.name;
                 const personId = data.most_children.person_id;
                 document.getElementById('stat-most-children').innerHTML =
-                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.most_children.value} children)`;
+                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.most_children.value})`;
+            } else {
+                document.getElementById('stat-most-children').textContent = '—';
             }
 
             // Most siblings
@@ -321,22 +556,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const personName = data.most_siblings.name;
                 const personId = data.most_siblings.person_id;
                 document.getElementById('stat-most-siblings').innerHTML =
-                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.most_siblings.value} siblings)`;
+                    `<a href="/family-tree/person/${personId}">${personName}</a> (${data.most_siblings.value})`;
+            } else {
+                document.getElementById('stat-most-siblings').textContent = '—';
             }
 
             // Close family marriages
             if (data.close_family_marriages !== undefined) {
-                document.getElementById('stat-close-marriages').textContent =
-                    data.close_family_marriages + ' (common in early biblical times)';
+                document.getElementById('stat-close-marriages').textContent = data.close_family_marriages;
+            } else {
+                document.getElementById('stat-close-marriages').textContent = '—';
             }
-
-            // Show stats, hide loading
-            statsLoading.style.display = 'none';
-            statsContainer.style.display = 'table';
         })
         .catch(error => {
             console.error('Error loading family tree statistics:', error);
-            statsLoading.innerHTML = '<p style="color: #999;">Could not load statistics</p>';
+            document.getElementById('stat-longest-lived').textContent = '—';
+            document.getElementById('stat-most-children').textContent = '—';
+            document.getElementById('stat-most-siblings').textContent = '—';
+            document.getElementById('stat-close-marriages').textContent = '—';
         });
 
     // Search functionality
