@@ -1909,7 +1909,8 @@ def resources_page(request: Request):
                 "name": "Biblical Geography",
                 "url": "/biblical-maps",
                 "description": "Locations mentioned in Scripture and their historical significance",
-                "count": "Maps & places"
+                "count": "Maps & places",
+                "badge": "Interactive"
             },
             {
                 "name": "Biblical Timeline",
