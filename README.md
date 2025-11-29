@@ -4,6 +4,25 @@ A comprehensive web application for deep study of the King James Bible, featurin
 
 **Live Site:** [kjvstudy.org](https://kjvstudy.org)
 
+## Quick Start - Run It Yourself
+
+The easiest way to run KJV Study locally is with Docker:
+
+```bash
+# Clone the repository
+git clone https://github.com/kennethreitz/kjvstudy.org.git
+cd kjvstudy.org
+
+# Start with Docker Compose
+docker compose up
+```
+
+Then open your browser to **http://localhost:8000**
+
+That's it! The application will run with all features enabled.
+
+---
+
 ## Features
 
 ### Bible Reading & Navigation
@@ -97,44 +116,34 @@ Comprehensive 8-section guides with extensive Scripture references:
 
 ## Installation
 
-### Prerequisites
+### Docker (Recommended)
+
+See the [Quick Start](#quick-start---run-it-yourself) section above for the easiest way to run locally.
+
+**Alternative Docker commands:**
+```bash
+# Build and run manually
+docker build -t kjvstudy .
+docker run -p 8000:8000 kjvstudy
+```
+
+### Python Development
+
+For development without Docker:
+
+**Prerequisites:**
 - Python 3.13 or higher
 - [uv](https://github.com/astral-sh/uv) package manager
 
-### Local Development
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/kennethreitz/kjvstudy.org.git
-   cd kjvstudy.org
-   ```
-
-2. **Install dependencies**
-   ```bash
-   uv sync
-   ```
-
-3. **Run the development server**
-   ```bash
-   uv run kjvstudy-org
-   ```
-
-4. **Open your browser**
-   ```
-   http://localhost:8000
-   ```
-
-### Docker Development
-
+**Steps:**
 ```bash
-# Build the image
-docker build -t kjvstudy .
+# Install dependencies
+uv sync
 
-# Run the container
-docker run -p 8000:8000 kjvstudy
+# Run the development server
+uv run kjvstudy-org
 
-# Or use docker-compose
-docker compose up
+# Open http://localhost:8000
 ```
 
 ## Deployment
