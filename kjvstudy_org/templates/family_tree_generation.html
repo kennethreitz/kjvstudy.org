@@ -259,7 +259,7 @@
     {% endif %}
     <span class="nav-spacer"></span>
     <a href="/family-tree">Family Tree</a>
-    <a href="/family-tree/interactive">Interactive</a>
+    <a href="/family-tree/interactive?person={{ generation_people[0] }}">Interactive</a>
     <span class="nav-spacer"></span>
     {% if generation_num < (generations.keys() | sort | last) %}
     <a href="/family-tree/generation/{{ generation_num + 1 }}" class="nav-next">Gen {{ generation_num + 1 }} →</a>
