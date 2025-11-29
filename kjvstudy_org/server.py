@@ -1165,6 +1165,22 @@ def number_format(value):
 templates.env.filters['number_format'] = number_format
 
 
+def linkify_strongs(text):
+    """Convert Strong's references like G1234 or H5678 to links."""
+    import re
+    if not text:
+        return text
+    # Match G or H followed by digits, optionally in parentheses with Greek/Hebrew text
+    pattern = r'\b([GH])(\d+)\b'
+    def replace(match):
+        prefix = match.group(1)
+        num = match.group(2)
+        return f'<a href="/strongs/{prefix}{num}" class="strongs-ref">{prefix}{num}</a>'
+    return re.sub(pattern, replace, text)
+
+templates.env.filters['linkify_strongs'] = linkify_strongs
+
+
 def get_biblical_timeline_context():
     """
     Load comprehensive biblical timeline data from JSON file.

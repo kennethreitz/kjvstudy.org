@@ -163,7 +163,7 @@
     {% if entry.derivation %}
     <section class="entry-section">
         <h2>Derivation</h2>
-        <p class="entry-derivation">{{ entry.derivation | replace('H', '<a href="/strongs/H') | replace('G', '<a href="/strongs/G') | safe }}</p>
+        <p class="entry-derivation">{{ entry.derivation | linkify_strongs | safe }}</p>
     </section>
     {% endif %}
 
