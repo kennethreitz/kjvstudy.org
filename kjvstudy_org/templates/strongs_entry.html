@@ -191,6 +191,92 @@
     gap: 0.5rem;
 }
 
+/* Occurrences section */
+.occurrences-section {
+    margin-bottom: 2rem;
+}
+
+.occurrences-section > h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-color);
+}
+
+.occurrences-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 1.25rem 0;
+}
+
+.occurrences-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.occurrence-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s;
+}
+
+.occurrence-card:hover {
+    border-color: var(--link-color);
+}
+
+.occurrence-card .occ-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.occurrence-card .occ-reference {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.occurrence-card .occ-reference:hover {
+    text-decoration: underline;
+}
+
+.occurrence-card .occ-original {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.occurrence-card .occ-verse-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.occurrence-card .occ-verse-text mark {
+    background: #fff3cd;
+    color: inherit;
+    padding: 0.1rem 0.2rem;
+    border-radius: 2px;
+    font-weight: 500;
+}
+
+[data-theme="dark"] .occurrence-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .occurrence-card:hover {
+    border-color: var(--link-color);
+}
+
+[data-theme="dark"] .occurrence-card .occ-verse-text mark {
+    background: #5a4a00;
+    color: #fff;
+}
+
 /* Dark mode */
 [data-theme="dark"] .word-card,
 [data-theme="dark"] .info-card {
@@ -265,6 +351,26 @@
         </div>
         {% endif %}
     </div>
+
+    {% if verse_occurrences %}
+    <div class="occurrences-section">
+        <h2>Occurrences in Scripture</h2>
+        <p class="occurrences-count">
+            Found in {{ total_occurrences }} verse{% if total_occurrences != 1 %}s{% endif %}
+        </p>
+        <div class="occurrences-grid">
+            {% for occ in verse_occurrences %}
+            <div class="occurrence-card">
+                <div class="occ-header">
+                    <a href="{{ occ.url }}" class="occ-reference">{{ occ.reference }}</a>
+                    <span class="occ-original">{{ occ.original }}</span>
+                </div>
+                <p class="occ-verse-text">{{ occ.verse_text | safe }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
     <nav class="nav-row">
         <a href="/strongs" class="nav-btn primary">← Search Strong's</a>

@@ -22,7 +22,7 @@ from .kjv import bible, VerseReference
 from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
 from .topics import get_all_topics, get_topic, search_topics
-from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data
+from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data, find_verses_by_strongs, count_strongs_occurrences
 from .strongs import format_strongs_entry, search_strongs
 from .books import get_book_data, has_book_data
 
@@ -2440,6 +2440,27 @@ def strongs_entry(request: Request, strongs_number: str):
             detail=f"Strong's number '{strongs_number}' not found"
         )
 
+    # Find all verses containing this Strong's number
+    verse_occurrences = find_verses_by_strongs(strongs_number, limit=10000)
+    total_occurrences = len(verse_occurrences)
+
+    # Fetch full verse text for each occurrence and highlight the word
+    for occ in verse_occurrences:
+        verse_text = bible.get_verse_text(occ["book"], occ["chapter"], occ["verse"])
+        if verse_text:
+            # Highlight the English word in the verse text
+            english_word = occ.get("english", "")
+            if english_word and english_word in verse_text:
+                occ["verse_text"] = verse_text.replace(
+                    english_word,
+                    f'<mark>{english_word}</mark>',
+                    1  # Only highlight first occurrence
+                )
+            else:
+                occ["verse_text"] = verse_text
+        else:
+            occ["verse_text"] = ""
+
     books = bible.get_books()
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -2453,6 +2474,8 @@ def strongs_entry(request: Request, strongs_number: str):
         {
             "entry": entry,
             "books": books,
-            "breadcrumbs": breadcrumbs
+            "breadcrumbs": breadcrumbs,
+            "verse_occurrences": verse_occurrences,
+            "total_occurrences": total_occurrences
         }
     )
