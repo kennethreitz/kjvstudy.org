@@ -169,7 +169,7 @@ async function startBackgroundCaching() {
   });
 
   // Concurrent pool - keep N requests in flight at all times
-  const CONCURRENCY = 100; // Number of concurrent requests
+  const CONCURRENCY = 200; // Number of concurrent requests
   const PROGRESS_INTERVAL = 250; // Notify every N completions
 
   let nextIndex = 0;
