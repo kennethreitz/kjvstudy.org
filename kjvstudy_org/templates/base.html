@@ -2289,9 +2289,10 @@
         var cacheIndicator = null;
         function showCacheProgress(cached, total) {
           if (!cacheIndicator) {
-            cacheIndicator = document.createElement('div');
+            cacheIndicator = document.createElement('a');
             cacheIndicator.id = 'cache-indicator';
-            cacheIndicator.style.cssText = 'position:fixed;bottom:1rem;left:1rem;padding:0.5rem 1rem;background:#4a7c59;color:white;border-radius:4px;font-size:0.85rem;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:opacity 0.3s;';
+            cacheIndicator.href = '/offline';
+            cacheIndicator.style.cssText = 'position:fixed;bottom:1rem;left:1rem;padding:0.5rem 1rem;background:#4a7c59;color:white;border-radius:4px;font-size:0.85rem;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:opacity 0.3s;text-decoration:none;cursor:pointer;';
             document.body.appendChild(cacheIndicator);
           }
           var pct = Math.round((cached / total) * 100);
@@ -2301,7 +2302,7 @@
 
         function showCacheComplete(total) {
           if (cacheIndicator) {
-            cacheIndicator.innerHTML = 'Ready for offline! (' + total + ' pages)';
+            cacheIndicator.innerHTML = 'Ready for offline! (' + total.toLocaleString() + ' pages)';
             setTimeout(function() {
               cacheIndicator.style.opacity = '0';
               setTimeout(function() {
