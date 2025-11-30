@@ -1755,6 +1755,13 @@
         };
       }
 
+      // Default resource reader unless explicitly disabled
+      document.addEventListener('DOMContentLoaded', function() {
+        if (document.body && !document.body.dataset.resourceReader) {
+          document.body.dataset.resourceReader = 'true';
+        }
+      });
+
       // Keyboard shortcuts
       document.addEventListener('keydown', function(e) {
         // Don't trigger if user is typing in an input field
@@ -1852,7 +1859,9 @@
               break;
             case ' ':
               // Space: Read aloud selected text (with optional resource-reader handling)
-              if (document.body && document.body.dataset && document.body.dataset.resourceReader === 'true') {
+              if (document.body && document.body.dataset && document.body.dataset.resourceReader === 'false') {
+                // explicitly disabled
+              } else if (document.body) {
                 e.preventDefault();
                 if (!('speechSynthesis' in window)) return;
                 if (window.KJVResourceSpeech.speaking) {
