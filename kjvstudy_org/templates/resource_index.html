@@ -422,7 +422,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     var targetId = href.substring(1); // Remove the #
                     var targetHeading = document.getElementById(targetId);
                     if (targetHeading) {
-                        // Find the resource-name within or near this heading's section
+                        // Check if the heading itself is a resource-name (h3)
+                        if (targetHeading.classList.contains('resource-name')) {
+                            var idx = contentElements.indexOf(targetHeading);
+                            if (idx >= 0) {
+                                selectContentElement(idx);
+                                return;
+                            }
+                        }
+                        // Otherwise find the first content element in the section
                         var section = targetHeading.closest('.resource-entry') || targetHeading.closest('.resource-section');
                         if (section) {
                             var firstElement = section.querySelector('.resource-name, .resource-item-description p, .verse-item');
