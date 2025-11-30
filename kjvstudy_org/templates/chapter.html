@@ -480,15 +480,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (link) window.location.href = link.href;
         }
 
-        // Left arrow or h: Previous chapter (when no verse selected, or at first verse)
+        // Left arrow or h: Browser back if verse highlight active, otherwise previous chapter
         if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            const prevBtn = document.getElementById('prev-chapter');
-            if (prevBtn) {
-                window.location.href = prevBtn.href;
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#verse-')) {
+                // If we came here via a verse link (yellow highlight), go back
+                history.back();
             } else {
-                // Go back to book page
-                window.location.href = '/book/{{ book }}';
+                const prevBtn = document.getElementById('prev-chapter');
+                if (prevBtn) {
+                    window.location.href = prevBtn.href;
+                } else {
+                    // Go back to book page
+                    window.location.href = '/book/{{ book }}';
+                }
             }
         }
 
