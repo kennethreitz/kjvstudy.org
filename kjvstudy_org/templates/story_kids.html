@@ -371,22 +371,42 @@ hr.story-divider::before {
 
 <script>
 (function() {
+    // Collect paragraphs for up/down navigation
+    var paragraphs = Array.from(document.querySelectorAll('article section p'));
+    var selectedIndex = -1;
+
+    function selectParagraph(index) {
+        // Remove previous selection
+        if (selectedIndex >= 0 && selectedIndex < paragraphs.length) {
+            paragraphs[selectedIndex].style.outline = '';
+            paragraphs[selectedIndex].style.outlineOffset = '';
+        }
+
+        selectedIndex = Math.max(0, Math.min(index, paragraphs.length - 1));
+
+        // Add selection to new paragraph
+        paragraphs[selectedIndex].style.outline = '2px solid #8b5cf6';
+        paragraphs[selectedIndex].style.outlineOffset = '8px';
+        paragraphs[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-        if (e.key === 'ArrowLeft' || e.key === 'h') {
+        if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            const prevLink = document.querySelector('.nav-prev .nav-link');
-            if (prevLink) window.location.href = prevLink.href;
-            else history.back();
+            selectParagraph(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectParagraph(0);
+            else selectParagraph(selectedIndex - 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            window.location.href = '/stories';
         } else if (e.key === 'ArrowRight' || e.key === 'l') {
             e.preventDefault();
-            const nextLink = document.querySelector('.nav-next .nav-link');
+            var nextLink = document.querySelector('.nav-next .nav-link');
             if (nextLink) window.location.href = nextLink.href;
-        } else if (e.key === 'ArrowDown' || e.key === 'j') {
-            e.preventDefault();
-            const adultLink = document.querySelector('.adult-callout a');
-            if (adultLink) window.location.href = adultLink.href;
         }
     });
 })();
