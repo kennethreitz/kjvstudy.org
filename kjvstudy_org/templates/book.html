@@ -601,46 +601,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Viewport-aware scroll behavior
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        // Debounce scroll events
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(function() {
-            // Update selection to match viewport if we have an active selection
-            if (inChapterDrilldown && selectedChapterIndex >= 0) {
-                // Check if current chapter is off-screen
-                if (KJVNav.isSelectionOffScreen(Array.from(chapterLinks), selectedChapterIndex)) {
-                    // Find first visible chapter and select it
-                    const visibleIndex = KJVNav.findFirstVisibleIndex(Array.from(chapterLinks));
-                    if (visibleIndex !== selectedChapterIndex) {
-                        selectChapter(visibleIndex);
-                    }
-                }
-            } else if (selectedParagraphIndex >= 0) {
-                // Check if current paragraph is off-screen
-                if (KJVNav.isSelectionOffScreen(Array.from(contentParagraphs), selectedParagraphIndex)) {
-                    // Find first visible paragraph and select it
-                    const visibleIndex = KJVNav.findFirstVisibleIndex(Array.from(contentParagraphs));
-                    if (visibleIndex !== selectedParagraphIndex) {
-                        selectParagraph(visibleIndex);
-                    }
-                }
-            } else if (chapterSectionSelected) {
-                // Check if chapter section is off-screen
-                if (chapterSection && !KJVNav.isInViewport(chapterSection)) {
-                    // Find what's in viewport: paragraphs or still chapter area
-                    if (contentParagraphs.length > 0) {
-                        const firstVisiblePara = KJVNav.findFirstVisibleIndex(Array.from(contentParagraphs));
-                        if (firstVisiblePara >= 0 && KJVNav.isInViewport(contentParagraphs[firstVisiblePara])) {
-                            selectParagraph(firstVisiblePara);
-                        }
-                    }
-                }
-            }
-        }, 150); // Debounce for 150ms
-    });
-
     // Clicking on chapter links should just navigate normally
     // Keyboard navigation is separate - no click-to-select behavior needed
 });
