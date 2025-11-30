@@ -1,5 +1,5 @@
 // KJV Study Service Worker - Offline Bible Access
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 const STATIC_CACHE = 'kjvstudy-static-' + CACHE_VERSION;
 const BIBLE_CACHE = 'kjvstudy-bible-' + CACHE_VERSION;
 const PAGE_CACHE = 'kjvstudy-pages-' + CACHE_VERSION;
@@ -1744,6 +1744,38 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Interlinear pages - redirect to offline reader if not cached
+  if (url.pathname.startsWith('/interlinear/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response.ok) {
+            const responseClone = response.clone();
+            caches.open(PAGE_CACHE).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          return caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            // Redirect to offline reader with book/chapter info
+            const pathMatch = url.pathname.match(/\/interlinear\/([^\/]+)\/(\d+)/);
+            if (pathMatch) {
+              const book = decodeURIComponent(pathMatch[1]);
+              const chapter = pathMatch[2];
+              return Response.redirect('/offline?book=' + encodeURIComponent(book) + '&chapter=' + chapter, 302);
+            }
+            return caches.match('/offline');
+          });
+        })
+    );
+    return;
+  }
+
   // Other pages - network first with cache fallback
   event.respondWith(
     fetch(event.request)
@@ -1761,9 +1793,9 @@ self.addEventListener('fetch', (event) => {
           if (cachedResponse) {
             return cachedResponse;
           }
-          // For HTML pages, return the cached homepage as fallback
+          // For HTML pages, redirect to offline page instead of homepage
           if (event.request.headers.get('Accept')?.includes('text/html')) {
-            return caches.match('/');
+            return caches.match('/offline');
           }
         });
       })
