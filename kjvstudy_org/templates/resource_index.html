@@ -202,6 +202,9 @@
 {% endblock %}
 
 {% block content %}
+<script>
+document.body.dataset.resourceReader = 'true';
+</script>
 <h1>{{ page_title }}</h1>
 <p class="subtitle">{{ page_subtitle }}</p>
 
@@ -322,6 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedIndex >= 0 && selectedIndex < contentElements.length) {
             contentElements[selectedIndex].style.outline = '';
             contentElements[selectedIndex].style.outlineOffset = '';
+            contentElements[selectedIndex].classList.remove('selected');
         }
         if (tocBlockSelected) {
             toc.style.outline = '';
@@ -360,6 +364,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedIndex = Math.max(0, Math.min(index, contentElements.length - 1));
         contentElements[selectedIndex].style.outline = '2px solid #4a7c59';
         contentElements[selectedIndex].style.outlineOffset = '8px';
+        contentElements[selectedIndex].classList.add('selected');
         contentElements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
