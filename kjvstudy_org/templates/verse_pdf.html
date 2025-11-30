@@ -173,7 +173,8 @@
     <h2>Related Passages</h2>
     {% for ref in commentary.cross_references %}
     <div class="cross-ref-group">
-        <strong>{{ ref.ref }}</strong>{% if ref.note %} — {{ ref.note }}{% endif %}
+        <strong>{{ ref.text }}</strong>{% if ref.context %} — {{ ref.context }}{% endif %}
+        {% if ref.verse_text %}<br/><em style="color: #555; font-size: 10pt;">{{ ref.verse_text }}</em>{% endif %}
     </div>
     {% endfor %}
     {% endif %}
