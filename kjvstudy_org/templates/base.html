@@ -1688,6 +1688,10 @@
               e.preventDefault();
               window.location.href = '/verse-of-the-day';
               break;
+            case '.':
+              e.preventDefault();
+              window.location.href = '/random-verse';
+              break;
             case '?':
               showKeyboardHelp();
               break;
@@ -1757,6 +1761,7 @@
                 '<div class="shortcut"><kbd>f</kbd><span>Family Tree</span></div>' +
                 '<div class="shortcut"><kbd>c</kbd><span>Strong\'s Concordance</span></div>' +
                 '<div class="shortcut"><kbd>v</kbd><span>Verse of the Day</span></div>' +
+                '<div class="shortcut"><kbd>.</kbd><span>Random Verse</span></div>' +
                 '<div class="shortcut"><kbd>g</kbd><span>Quick verse lookup</span></div>' +
               '</div>' +
               '<div class="keyboard-help-section">' +
