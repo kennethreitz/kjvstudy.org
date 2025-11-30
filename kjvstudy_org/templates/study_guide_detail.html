@@ -211,7 +211,10 @@ document.addEventListener('DOMContentLoaded', function() {
     </p>
     {% endfor %}
 
-    <p>{{ section.content | format_lists | safe }}</p>
+    {% set paragraphs = section.content.split('<br><br>') %}
+    {% for paragraph in paragraphs %}
+    <p class="guide-paragraph" data-section="{{ section_index }}" data-paragraph="{{ loop.index0 }}">{{ paragraph | format_lists | safe }}</p>
+    {% endfor %}
 </section>
 {% endfor %}
 
@@ -224,20 +227,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 (function() {
-    const sections = Array.from(document.querySelectorAll('section[id^="section-"]'));
-    if (sections.length === 0) return;
+    const paragraphs = Array.from(document.querySelectorAll('.guide-paragraph'));
+    if (paragraphs.length === 0) return;
 
     let selectedIndex = -1;
 
-    function selectSection(index) {
-        if (selectedIndex >= 0 && selectedIndex < sections.length) {
-            sections[selectedIndex].style.outline = '';
-            sections[selectedIndex].style.outlineOffset = '';
+    function selectParagraph(index) {
+        if (selectedIndex >= 0 && selectedIndex < paragraphs.length) {
+            paragraphs[selectedIndex].style.outline = '';
+            paragraphs[selectedIndex].style.outlineOffset = '';
         }
-        selectedIndex = Math.max(0, Math.min(index, sections.length - 1));
-        sections[selectedIndex].style.outline = '2px solid #4a7c59';
-        sections[selectedIndex].style.outlineOffset = '4px';
-        sections[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        selectedIndex = Math.max(0, Math.min(index, paragraphs.length - 1));
+        paragraphs[selectedIndex].style.outline = '2px solid #4a7c59';
+        paragraphs[selectedIndex].style.outlineOffset = '4px';
+        paragraphs[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     document.addEventListener('keydown', function(e) {
@@ -245,32 +248,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
-                selectSection(KJVNav.findFirstVisibleIndex(sections));
+            if (KJVNav.isSelectionOffScreen(paragraphs, selectedIndex)) {
+                selectParagraph(KJVNav.findFirstVisibleIndex(paragraphs));
             } else {
-                selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
+                selectParagraph(selectedIndex < 0 ? 0 : selectedIndex + 1);
             }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
-                selectSection(KJVNav.findFirstVisibleIndex(sections));
+            if (KJVNav.isSelectionOffScreen(paragraphs, selectedIndex)) {
+                selectParagraph(KJVNav.findFirstVisibleIndex(paragraphs));
             } else if (selectedIndex <= 0) {
-                selectSection(0);
+                selectParagraph(0);
             } else {
-                selectSection(selectedIndex - 1);
+                selectParagraph(selectedIndex - 1);
             }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
-            const link = sections[selectedIndex].querySelector('a');
+            const link = paragraphs[selectedIndex].querySelector('a');
             if (link) window.location.href = link.href;
         } else if (e.key === 'Escape') {
             e.preventDefault();
-            if (selectedIndex >= 0 && selectedIndex < sections.length) {
-                sections[selectedIndex].style.outline = '';
-                sections[selectedIndex].style.outlineOffset = '';
+            if (selectedIndex >= 0 && selectedIndex < paragraphs.length) {
+                paragraphs[selectedIndex].style.outline = '';
+                paragraphs[selectedIndex].style.outlineOffset = '';
             }
             selectedIndex = -1;
         }
