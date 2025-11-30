@@ -1649,6 +1649,10 @@
         // Single key shortcuts for navigation (only work without modifiers)
         if (!e.metaKey && !e.ctrlKey && !e.altKey) {
           switch(e.key) {
+            case '1':
+              e.preventDefault();
+              window.location.href = '/';
+              break;
             case '`':
               e.preventDefault();
               var toggle = document.getElementById('sidebar-toggle');
