@@ -171,6 +171,9 @@
 </article>
 
 <script>
+// Mark this page for resource-reader spacebar behavior
+document.body.dataset.resourceReader = 'true';
+
 (function() {
     // Include description paragraphs, verse items, and PDF button
     const elements = Array.from(document.querySelectorAll('.resource-description p, .verse-item, .print-btn'));
