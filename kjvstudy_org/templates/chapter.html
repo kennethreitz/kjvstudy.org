@@ -338,7 +338,7 @@ p[id^="verse-"].selected {
         </a>
     </div>
     <div class="nav-help">
-        Tip: ↑/↓ to select verses • Enter to view • ←/→ chapters • i=interlinear • p=PDF • = listen to chapter
+        Tip: ↑/↓ to select verses • Enter to view • ←/→ chapters • Space reads verse (if selected) or chapter • i=interlinear • p=PDF • = listen to chapter
     </div>
 </nav>
 
@@ -683,25 +683,25 @@ document.addEventListener('DOMContentLoaded', function() {
             startChapterReading();
         }
 
-        // Space: Read selected verse aloud
-        if (e.key === ' ' && selectedVerseIndex >= 0) {
+        // Space: Read selected verse; if none selected, read whole chapter
+        if (e.key === ' ') {
             e.preventDefault();
             if (chapterReader.active) {
                 stopChapterReading();
                 return;
             }
-            var verseEl = verses[selectedVerseIndex];
-            // Clone the element to manipulate
-            var clone = verseEl.cloneNode(true);
-            // Remove sidenotes and marginnotes from clone
-            clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) {
-                el.remove();
-            });
-            // Get text content, excluding the verse number link
-            var text = clone.textContent || clone.innerText;
-            // Remove verse number from the beginning
-            text = text.replace(/^\s*\d+\s*/, '');
-            KJVSpeech.toggle(text);
+            if (selectedVerseIndex >= 0) {
+                if (window.KJVSpeech && typeof window.KJVSpeech.stop === 'function') {
+                    window.KJVSpeech.stop();
+                }
+                var verseEl = verses[selectedVerseIndex];
+                var text = getVerseText(verseEl);
+                if (window.KJVSpeech && typeof window.KJVSpeech.toggle === 'function') {
+                    KJVSpeech.toggle(text);
+                }
+            } else {
+                startChapterReading();
+            }
         }
     });
 
