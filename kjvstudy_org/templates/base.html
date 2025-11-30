@@ -1973,6 +1973,7 @@
           if (!target.closest('p') && !target.closest('section') && !target.closest('article') &&
               !target.closest('.verse-item') && !target.closest('.verse-text') &&
               !target.closest('.intro-text') && !target.closest('.description') &&
+              !target.closest('.sidenote') && !target.closest('.marginnote') &&
               !target.closest('li')) return;
 
           var verseInfo = parseVerseUrl(target.pathname + target.hash);
