@@ -1867,13 +1867,13 @@
                 var combined = '';
                 if (highlighted) {
                   var hclone = highlighted.cloneNode(true);
-                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
+                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
                   combined = (hclone.textContent || hclone.innerText || '').trim();
                 } else {
                   var article = document.querySelector('article');
                   if (article) {
                     var aclone = article.cloneNode(true);
-                    aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
+                    aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
                     combined = (aclone.textContent || aclone.innerText || '').trim();
                   }
                 }
