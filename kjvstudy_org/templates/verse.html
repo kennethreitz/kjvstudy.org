@@ -812,32 +812,70 @@
     {% endif %}
 {% endif %}
 
-<!-- Related Content for Internal Linking -->
+<!-- Keyboard Navigation for Sections -->
 <script>
-document.addEventListener('keydown', function(e) {
-    // Don't trigger if user is typing
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
-        return;
+(function() {
+    // Collect all major sections on the page
+    var sections = Array.from(document.querySelectorAll('section, .cross-references-section, div > h2')).map(function(el) {
+        // If it's an h2, get its parent div
+        if (el.tagName === 'H2') return el.parentElement;
+        return el;
+    }).filter(function(el, index, self) {
+        // Remove duplicates and null
+        return el && self.indexOf(el) === index;
+    });
+
+    var selectedIndex = -1;
+
+    function selectSection(index) {
+        // Remove previous selection
+        if (selectedIndex >= 0 && selectedIndex < sections.length) {
+            sections[selectedIndex].style.outline = '';
+            sections[selectedIndex].style.outlineOffset = '';
+        }
+
+        selectedIndex = Math.max(0, Math.min(index, sections.length - 1));
+
+        // Add selection to new section
+        sections[selectedIndex].style.outline = '2px solid #4a7c59';
+        sections[selectedIndex].style.outlineOffset = '8px';
+        sections[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // Left arrow: Back to chapter view
-    if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        window.location.href = '/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}';
-    }
+    document.addEventListener('keydown', function(e) {
+        // Don't trigger if user is typing
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+        }
 
-    // Up arrow or k: Previous verse
-    if ((e.key === 'ArrowUp' || e.key === 'k') && {{ verse_num }} > 1) {
-        e.preventDefault();
-        window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}';
-    }
+        // Down arrow or j: Next section
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        }
 
-    // Down arrow or j: Next verse
-    if ((e.key === 'ArrowDown' || e.key === 'j') && {{ verse_num }} < {{ total_verses }}) {
-        e.preventDefault();
-        window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}';
-    }
-});
+        // Up arrow or k: Previous section
+        else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedIndex <= 0) selectSection(0);
+            else selectSection(selectedIndex - 1);
+        }
+
+        // Left arrow or h: Back to chapter view
+        else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            window.location.href = '/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}';
+        }
+
+        // Right arrow or l: Next verse
+        else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            {% if verse_num < total_verses %}
+            window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}';
+            {% endif %}
+        }
+    });
+})();
 </script>
 
 {% if related_content and (related_content.topics or related_content.people or related_content.resources) %}
