@@ -545,30 +545,45 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Left arrow or h: Browser back if verse highlight active, otherwise previous chapter
+        // Left arrow or h: Navigate action buttons or chapters
         if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            const hash = window.location.hash;
-            if (hash && hash.startsWith('#verse-')) {
-                // If we came here via a verse link (yellow highlight), go back
-                history.back();
+            if (inActionZone) {
+                // Move between action buttons
+                if (selectedActionIndex > 0) {
+                    selectAction(selectedActionIndex - 1);
+                }
             } else {
-                const prevBtn = document.getElementById('prev-chapter');
-                if (prevBtn) {
-                    window.location.href = prevBtn.href;
+                const hash = window.location.hash;
+                if (hash && hash.startsWith('#verse-')) {
+                    // If we came here via a verse link (yellow highlight), go back
+                    history.back();
                 } else {
-                    // Go back to book page
-                    window.location.href = '/book/{{ book }}';
+                    const prevBtn = document.getElementById('prev-chapter');
+                    if (prevBtn) {
+                        window.location.href = prevBtn.href;
+                    } else {
+                        // Go back to book page
+                        window.location.href = '/book/{{ book }}';
+                    }
                 }
             }
         }
 
-        // Right arrow or l: Next chapter
+        // Right arrow or l: Navigate action buttons or chapters
         if (e.key === 'ArrowRight' || e.key === 'l') {
-            const nextBtn = document.getElementById('next-chapter');
-            if (nextBtn) {
+            if (inActionZone) {
+                // Move between action buttons
                 e.preventDefault();
-                window.location.href = nextBtn.href;
+                if (selectedActionIndex < actionButtons.length - 1) {
+                    selectAction(selectedActionIndex + 1);
+                }
+            } else {
+                const nextBtn = document.getElementById('next-chapter');
+                if (nextBtn) {
+                    e.preventDefault();
+                    window.location.href = nextBtn.href;
+                }
             }
         }
 
