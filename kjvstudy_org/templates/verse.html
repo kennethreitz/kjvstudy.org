@@ -965,6 +965,11 @@
                 e.preventDefault();
                 // Toggle word expansion
                 if (selectedWordIndex >= 0 && words[selectedWordIndex]) {
+                    document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+                        if (word !== words[selectedWordIndex]) {
+                            word.classList.remove('expanded');
+                        }
+                    });
                     words[selectedWordIndex].classList.toggle('expanded');
                 }
             }

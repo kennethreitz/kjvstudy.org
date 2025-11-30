@@ -775,6 +775,11 @@ document.addEventListener('click', function(e) {
     function expandSelectedWord() {
         const words = getWordsInVerse(selectedVerseIndex);
         if (selectedWordIndex >= 0 && selectedWordIndex < words.length) {
+            document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+                if (word !== words[selectedWordIndex]) {
+                    word.classList.remove('expanded');
+                }
+            });
             toggleWord(words[selectedWordIndex]);
         }
     }
