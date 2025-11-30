@@ -10,7 +10,7 @@ from fastapi.responses import Response, FileResponse
 from ..kjv import bible
 from ..topics import get_all_topics
 from ..strongs import get_all_strongs
-from ..stories import get_all_stories
+from ..stories import load_all_stories
 
 router = APIRouter(tags=["Utility"])
 
@@ -282,7 +282,7 @@ def sitemap_main():
 """
 
     # Add all individual story URLs
-    stories_data = get_all_stories()
+    stories_data = load_all_stories()
     for category in stories_data:
         for story in category.get("stories", []):
             slug = story.get("slug", "")

@@ -230,6 +230,49 @@
             color: var(--success-color);
             font-weight: 600;
         }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .quick-link:hover {
+            border-color: var(--success-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .debug-details {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .debug-details summary {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+        }
+        .debug-details summary:hover {
+            color: var(--text-color);
+        }
+        .debug-details h3 {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
     </style>
 </head>
 <body>
@@ -248,28 +291,19 @@
         </div>
     </div>
 
-    <h2>Service Worker Status</h2>
-    <div class="debug-section">
-        <dl>
-            <dt>Service Worker</dt>
-            <dd id="sw-status">Checking...</dd>
-            <dt>Cache Storage</dt>
-            <dd id="cache-status">Checking...</dd>
-            <dt>Bible Data (verses-1769.json)</dt>
-            <dd id="bible-status">Checking...</dd>
-            <dt>Pages Cached</dt>
-            <dd id="pages-cached">Checking...</dd>
-        </dl>
-    </div>
-
-    <h2>Cached Pages <span id="cached-count">0</span></h2>
-    <p>These pages are available offline:</p>
-    <div id="cached-links" class="cached-links">
-        <p class="loading">Scanning cache...</p>
+    <h2>Quick Access</h2>
+    <p>Jump directly to commonly used sections:</p>
+    <div class="quick-links">
+        <a href="/books" class="quick-link">📖 All Books</a>
+        <a href="/stories" class="quick-link">📚 Bible Stories</a>
+        <a href="/topics" class="quick-link">🏷️ Topics</a>
+        <a href="/reading-plans" class="quick-link">📅 Reading Plans</a>
+        <a href="/study-guides" class="quick-link">📝 Study Guides</a>
+        <a href="/resources" class="quick-link">📂 Resources</a>
     </div>
 
     <h2>Bible Reader</h2>
-    <p>Read any chapter using cached Bible data:</p>
+    <p>Read any chapter using cached Bible data (works even without any downloads):</p>
     <div class="nav-section">
         <select id="book-select">
             <option value="">Select a book...</option>
@@ -292,6 +326,26 @@
     <div class="back-link">
         <a href="/">← Back to KJV Study</a>
     </div>
+
+    <details class="debug-details">
+        <summary>Technical Details</summary>
+        <div class="debug-section">
+            <dl>
+                <dt>Service Worker</dt>
+                <dd id="sw-status">Checking...</dd>
+                <dt>Cache Storage</dt>
+                <dd id="cache-status">Checking...</dd>
+                <dt>Bible Data</dt>
+                <dd id="bible-status">Checking...</dd>
+                <dt>Pages Cached</dt>
+                <dd id="pages-cached">Checking...</dd>
+            </dl>
+        </div>
+        <h3>Cached Pages <span id="cached-count">0</span></h3>
+        <div id="cached-links" class="cached-links">
+            <p class="loading">Scanning cache...</p>
+        </div>
+    </details>
 
     <script>
     (function() {
