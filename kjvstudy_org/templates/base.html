@@ -1353,12 +1353,16 @@
       // Sidebar collapse state persistence
       (function() {
         var toggle = document.getElementById('sidebar-toggle');
-        var expanded = localStorage.getItem('sidebarExpanded') === 'true';
-        if (expanded) {
+        var savedState = localStorage.getItem('sidebarExpanded');
+        // If user has explicitly collapsed the sidebar, respect that
+        if (savedState === 'false') {
+          toggle.checked = false;
+        } else if (savedState === 'true') {
           toggle.checked = true;
         }
+        // Default is checked (expanded) if no saved state
         toggle.addEventListener('change', function() {
-          localStorage.setItem('sidebarExpanded', toggle.checked);
+          localStorage.setItem('sidebarExpanded', toggle.checked ? 'true' : 'false');
         });
       })();
 
