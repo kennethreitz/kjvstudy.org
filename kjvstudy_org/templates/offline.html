@@ -1,1378 +1,1273 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Offline Mode - KJV Study</title>
-    <link rel="stylesheet" href="/static/tufte.css"/>
-    <link rel="manifest" href="/static/manifest.json"/>
-    <style>
-        :root {
-            --bg-color: #fffff8;
-            --text-color: #111;
-            --text-secondary: #666;
-            --border-color: #ddd;
-            --link-color: #333;
-            --success-color: #4a7c59;
-            --error-color: #c41e3a;
-        }
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --border-color: #444;
-            --link-color: #d0d0d0;
-        }
-        body {
-            background: var(--bg-color);
-            color: var(--text-color);
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-        h2 { font-size: 1.4rem; margin-top: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
-        h3 { font-size: 1.1rem; margin-top: 1.5rem; color: var(--text-secondary); }
-        .subtitle { color: var(--text-secondary); font-style: italic; margin-bottom: 2rem; }
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 0.5rem;
-            vertical-align: middle;
-        }
-        .badge-offline { background: var(--error-color); color: white; }
-        .badge-online { background: var(--success-color); color: white; }
-        .debug-section {
-            background: var(--border-color);
-            padding: 1rem;
-            border-radius: 4px;
-            margin: 1rem 0;
-            font-family: monospace;
-            font-size: 0.85rem;
-        }
-        .debug-section dt { font-weight: bold; margin-top: 0.5rem; }
-        .debug-section dd { margin-left: 1rem; color: var(--text-secondary); }
-        .status-ok { color: var(--success-color); }
-        .status-error { color: var(--error-color); }
-        .cached-links {
-            column-count: 3;
-            column-gap: 2rem;
-            margin: 1rem 0;
-        }
-        @media (max-width: 768px) {
-            .cached-links { column-count: 2; }
-        }
-        @media (max-width: 480px) {
-            .cached-links { column-count: 1; }
-        }
-        .cached-links a {
-            display: block;
-            padding: 0.25rem 0;
-            color: var(--link-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .cached-links a:hover {
-            text-decoration: underline;
-        }
-        .category {
-            break-inside: avoid;
-            margin-bottom: 1rem;
-        }
-        .category-title {
-            font-weight: bold;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
-        }
-        .nav-section {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        select {
-            padding: 0.5rem;
-            font-size: 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            font-family: inherit;
-        }
-        .chapter-nav {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .nav-btn {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .nav-btn:hover { background: var(--border-color); }
-        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        #chapter-content {
-            line-height: 2;
-            font-size: 1.2rem;
-            display: none;
-        }
-        #chapter-content.active {
-            display: block;
-        }
-        #chapter-content p {
-            margin: 1rem 0;
-        }
-        .verse-num {
-            font-size: 0.9rem;
-            vertical-align: super;
-            margin-right: 0.25rem;
-            color: var(--text-secondary);
-        }
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-        }
-        #keyboard-hint {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 1rem;
-            font-style: italic;
-        }
-        .back-link {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-        }
-        .back-link a {
-            color: var(--link-color);
-        }
-        #cached-count {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--success-color);
-        }
-        .cache-controls {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-            border: 1px solid #bae6fd;
-        }
-        [data-theme="dark"] .cache-controls {
-            background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
-            border-color: #334155;
-        }
-        .cache-controls h3 {
-            margin: 0 0 0.5rem 0;
-            color: var(--text-color);
-        }
-        .cache-controls p {
-            margin: 0 0 1rem 0;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        .cache-btn {
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 6px;
-            background: var(--success-color);
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .cache-btn:hover {
-            filter: brightness(1.1);
-            transform: translateY(-1px);
-        }
-        .cache-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .cache-progress {
-            margin-top: 1rem;
-            display: none;
-        }
-        .cache-progress.active {
-            display: block;
-        }
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--border-color);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--success-color);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        .progress-text {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .cache-complete {
-            color: var(--success-color);
-            font-weight: 600;
-        }
-        .status-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1.25rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color);
-        }
-        .status-card.status-ok {
-            border-color: var(--success-color);
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-        }
-        .status-card.status-error {
-            border-color: var(--error-color);
-            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-        }
-        .status-card.status-warning {
-            border-color: #f59e0b;
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-        }
-        [data-theme="dark"] .status-card.status-ok {
-            background: linear-gradient(135deg, #14532d 0%, #166534 100%);
-        }
-        [data-theme="dark"] .status-card.status-error {
-            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
-        }
-        [data-theme="dark"] .status-card.status-warning {
-            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
-        }
-        .status-icon {
-            font-size: 2rem;
-            line-height: 1;
-        }
-        .status-content {
-            flex: 1;
-        }
-        .status-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-        .status-detail {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .status-detail code {
-            background: rgba(0,0,0,0.1);
-            padding: 0.1rem 0.3rem;
-            border-radius: 3px;
-            font-size: 0.85em;
-        }
-        [data-theme="dark"] .status-detail code {
-            background: rgba(255,255,255,0.1);
-        }
-        .quick-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        .quick-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .quick-link:hover {
-            border-color: var(--success-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .debug-details {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
-        }
-        .debug-details summary {
-            cursor: pointer;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            padding: 0.5rem 0;
-        }
-        .debug-details summary:hover {
-            color: var(--text-color);
-        }
-        .debug-details h3 {
-            margin-top: 1.5rem;
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-        /* Collapsible URL sections */
-        .url-categories {
-            margin: 1rem 0;
-        }
-        .url-category {
-            margin-bottom: 0.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .url-category-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-            background: var(--border-color);
-            cursor: pointer;
-            user-select: none;
-            font-weight: 500;
-        }
-        .url-category-header:hover {
-            background: var(--text-secondary);
-            color: var(--bg-color);
-        }
-        .url-category.selected .url-category-header {
-            outline: 2px solid var(--success-color);
-            outline-offset: -2px;
-        }
-        .url-category-toggle {
-            font-size: 0.8rem;
-            transition: transform 0.2s;
-        }
-        .url-category.expanded .url-category-toggle {
-            transform: rotate(90deg);
-        }
-        .url-category-content {
-            display: none;
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 0.5rem;
-            background: var(--bg-color);
-        }
-        .url-category.expanded .url-category-content {
-            display: block;
-        }
-        .url-item {
-            display: block;
-            padding: 0.4rem 0.75rem;
-            color: var(--link-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-radius: 4px;
-        }
-        .url-item:hover {
-            background: var(--border-color);
-        }
-        .url-item.selected {
-            background: var(--success-color);
-            color: white;
-        }
-        .url-count {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: normal;
-        }
-        .url-nav-hint {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
-    </style>
-</head>
-<body>
-    <h1>Offline Mode <span class="badge" id="connection-badge">checking...</span></h1>
-    <p class="subtitle">KJV Study - Available without internet</p>
+{% extends "base.html" %}
 
-    <div class="status-card" id="status-card">
-        <div class="status-icon" id="status-icon">⏳</div>
-        <div class="status-content">
-            <div class="status-title" id="status-title">Checking service worker...</div>
-            <div class="status-detail" id="status-detail">Please wait</div>
+{% block title %}Offline Mode - KJV Study{% endblock %}
+
+{% block extra_head %}
+<style>
+    .badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+    }
+    .badge-offline { background: var(--error-color, #c41e3a); color: white; }
+    .badge-online { background: var(--success-color, #4a7c59); color: white; }
+    .debug-section {
+        background: var(--border-color, #ddd);
+        padding: 1rem;
+        border-radius: 4px;
+        margin: 1rem 0;
+        font-family: monospace;
+        font-size: 0.85rem;
+    }
+    .debug-section dt { font-weight: bold; margin-top: 0.5rem; }
+    .debug-section dd { margin-left: 1rem; color: var(--text-secondary, #666); }
+    .status-ok { color: var(--success-color, #4a7c59); }
+    .status-error { color: var(--error-color, #c41e3a); }
+    .nav-section {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .nav-section select {
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: 4px;
+        background: var(--bg-color, #fffff8);
+        color: var(--text-color, #111);
+        font-family: inherit;
+    }
+    .chapter-nav {
+        display: flex;
+        gap: 0.5rem;
+    }
+    .nav-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: 4px;
+        background: var(--bg-color, #fffff8);
+        color: var(--text-color, #111);
+        cursor: pointer;
+        font-size: 1rem;
+    }
+    .nav-btn:hover { background: var(--border-color, #ddd); }
+    .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    #chapter-content {
+        line-height: 2;
+        font-size: 1.2rem;
+        display: none;
+    }
+    #chapter-content.active {
+        display: block;
+    }
+    #chapter-content p {
+        margin: 1rem 0;
+    }
+    .verse-num {
+        font-size: 0.9rem;
+        vertical-align: super;
+        margin-right: 0.25rem;
+        color: var(--text-secondary, #666);
+    }
+    .loading {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-secondary, #666);
+    }
+    #keyboard-hint {
+        font-size: 0.85rem;
+        color: var(--text-secondary, #666);
+        margin-top: 1rem;
+        font-style: italic;
+    }
+    #cached-count {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--success-color, #4a7c59);
+    }
+    .cache-controls {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        border: 1px solid #bae6fd;
+    }
+    [data-theme="dark"] .cache-controls {
+        background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+        border-color: #334155;
+    }
+    .cache-controls h3 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-color, #111);
+    }
+    .cache-controls p {
+        margin: 0 0 1rem 0;
+        color: var(--text-secondary, #666);
+        font-size: 0.95rem;
+    }
+    .cache-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        background: var(--success-color, #4a7c59);
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .cache-btn:hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+    }
+    .cache-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .cache-progress {
+        margin-top: 1rem;
+        display: none;
+    }
+    .cache-progress.active {
+        display: block;
+    }
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: var(--border-color, #ddd);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+    }
+    .progress-fill {
+        height: 100%;
+        background: var(--success-color, #4a7c59);
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+    .progress-text {
+        font-size: 0.85rem;
+        color: var(--text-secondary, #666);
+    }
+    .cache-complete {
+        color: var(--success-color, #4a7c59);
+        font-weight: 600;
+    }
+    .status-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border-color, #ddd);
+        background: var(--bg-color, #fffff8);
+    }
+    .status-card.status-ok {
+        border-color: var(--success-color, #4a7c59);
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    }
+    .status-card.status-error {
+        border-color: var(--error-color, #c41e3a);
+        background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    }
+    .status-card.status-warning {
+        border-color: #f59e0b;
+        background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    }
+    [data-theme="dark"] .status-card.status-ok {
+        background: linear-gradient(135deg, #14532d 0%, #166534 100%);
+    }
+    [data-theme="dark"] .status-card.status-error {
+        background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+    }
+    [data-theme="dark"] .status-card.status-warning {
+        background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+    }
+    .status-icon {
+        font-size: 2rem;
+        line-height: 1;
+    }
+    .status-content {
+        flex: 1;
+    }
+    .status-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+    .status-detail {
+        color: var(--text-secondary, #666);
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    .status-detail code {
+        background: rgba(0,0,0,0.1);
+        padding: 0.1rem 0.3rem;
+        border-radius: 3px;
+        font-size: 0.85em;
+    }
+    [data-theme="dark"] .status-detail code {
+        background: rgba(255,255,255,0.1);
+    }
+    .quick-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    .quick-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: var(--bg-color, #fffff8);
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text-color, #111);
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    .quick-link:hover {
+        border-color: var(--success-color, #4a7c59);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .debug-details {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color, #ddd);
+    }
+    .debug-details summary {
+        cursor: pointer;
+        color: var(--text-secondary, #666);
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+    }
+    .debug-details summary:hover {
+        color: var(--text-color, #111);
+    }
+    .debug-details h3 {
+        margin-top: 1.5rem;
+        font-size: 1rem;
+        color: var(--text-secondary, #666);
+    }
+    /* Collapsible URL sections */
+    .url-categories {
+        margin: 1rem 0;
+    }
+    .url-category {
+        margin-bottom: 0.5rem;
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .url-category-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        background: var(--border-color, #ddd);
+        cursor: pointer;
+        user-select: none;
+        font-weight: 500;
+    }
+    .url-category-header:hover {
+        background: var(--text-secondary, #666);
+        color: var(--bg-color, #fffff8);
+    }
+    .url-category.selected .url-category-header {
+        outline: 2px solid var(--success-color, #4a7c59);
+        outline-offset: -2px;
+    }
+    .url-category-toggle {
+        font-size: 0.8rem;
+        transition: transform 0.2s;
+    }
+    .url-category.expanded .url-category-toggle {
+        transform: rotate(90deg);
+    }
+    .url-category-content {
+        display: none;
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 0.5rem;
+        background: var(--bg-color, #fffff8);
+    }
+    .url-category.expanded .url-category-content {
+        display: block;
+    }
+    .url-item {
+        display: block;
+        padding: 0.4rem 0.75rem;
+        color: var(--link-color, #333);
+        text-decoration: none;
+        font-size: 0.9rem;
+        border-radius: 4px;
+    }
+    .url-item:hover {
+        background: var(--border-color, #ddd);
+    }
+    .url-item.selected {
+        background: var(--success-color, #4a7c59);
+        color: white;
+    }
+    .url-count {
+        font-size: 0.8rem;
+        color: var(--text-secondary, #666);
+        font-weight: normal;
+    }
+    .url-nav-hint {
+        font-size: 0.8rem;
+        color: var(--text-secondary, #666);
+        margin-top: 0.5rem;
+        font-style: italic;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Offline Mode <span class="badge" id="connection-badge">checking...</span></h1>
+<p class="subtitle">KJV Study - Available without internet</p>
+
+<div class="status-card" id="status-card">
+    <div class="status-icon" id="status-icon">⏳</div>
+    <div class="status-content">
+        <div class="status-title" id="status-title">Checking service worker...</div>
+        <div class="status-detail" id="status-detail">Please wait</div>
+    </div>
+</div>
+
+<div class="cache-controls">
+    <h3>Enable Offline Access</h3>
+    <p>Download the entire site for offline use: all Bible chapters, individual verse pages with commentary, stories, study guides, and resources. The sitemap will be parsed to find all available pages.</p>
+    <button class="cache-btn" id="start-cache-btn">Download for Offline Use</button>
+    <div class="cache-progress" id="cache-progress">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
         </div>
+        <div class="progress-text" id="progress-text">Preparing...</div>
     </div>
+</div>
 
-    <div class="cache-controls">
-        <h3>Enable Offline Access</h3>
-        <p>Download the entire site for offline use: all Bible chapters, individual verse pages with commentary, stories, study guides, and resources. The sitemap will be parsed to find all available pages.</p>
-        <button class="cache-btn" id="start-cache-btn">Download for Offline Use</button>
-        <div class="cache-progress" id="cache-progress">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
-            <div class="progress-text" id="progress-text">Preparing...</div>
-        </div>
+<h2>Quick Access</h2>
+<p>Jump directly to commonly used sections:</p>
+<div class="quick-links">
+    <a href="/books" class="quick-link">📖 All Books</a>
+    <a href="/stories" class="quick-link">📚 Bible Stories</a>
+    <a href="/topics" class="quick-link">🏷️ Topics</a>
+    <a href="/reading-plans" class="quick-link">📅 Reading Plans</a>
+    <a href="/study-guides" class="quick-link">📝 Study Guides</a>
+    <a href="/resources" class="quick-link">📂 Resources</a>
+</div>
+
+<h2>Bible Reader</h2>
+<p>Read any chapter using cached Bible data (works even without any downloads):</p>
+<div class="nav-section">
+    <select id="book-select">
+        <option value="">Select a book...</option>
+    </select>
+    <select id="chapter-select" disabled>
+        <option value="">Chapter</option>
+    </select>
+    <div class="chapter-nav">
+        <button class="nav-btn" id="prev-btn" disabled>← Prev</button>
+        <button class="nav-btn" id="next-btn" disabled>Next →</button>
     </div>
+</div>
 
-    <h2>Quick Access</h2>
-    <p>Jump directly to commonly used sections:</p>
-    <div class="quick-links">
-        <a href="/books" class="quick-link">📖 All Books</a>
-        <a href="/stories" class="quick-link">📚 Bible Stories</a>
-        <a href="/topics" class="quick-link">🏷️ Topics</a>
-        <a href="/reading-plans" class="quick-link">📅 Reading Plans</a>
-        <a href="/study-guides" class="quick-link">📝 Study Guides</a>
-        <a href="/resources" class="quick-link">📂 Resources</a>
+<div id="chapter-content">
+    <p class="loading">Select a book and chapter above...</p>
+</div>
+
+<p id="keyboard-hint">Tip: j/k to select • ←/→ chapters • Enter to open • g=Genesis • ? for help</p>
+
+<details class="debug-details">
+    <summary>Technical Details</summary>
+    <div class="debug-section">
+        <dl>
+            <dt>Service Worker</dt>
+            <dd id="sw-status">Checking...</dd>
+            <dt>Cache Storage</dt>
+            <dd id="cache-status">Checking...</dd>
+            <dt>Bible Data</dt>
+            <dd id="bible-status">Checking...</dd>
+            <dt>Pages Cached</dt>
+            <dd id="pages-cached">Checking...</dd>
+        </dl>
     </div>
-
-    <h2>Bible Reader</h2>
-    <p>Read any chapter using cached Bible data (works even without any downloads):</p>
-    <div class="nav-section">
-        <select id="book-select">
-            <option value="">Select a book...</option>
-        </select>
-        <select id="chapter-select" disabled>
-            <option value="">Chapter</option>
-        </select>
-        <div class="chapter-nav">
-            <button class="nav-btn" id="prev-btn" disabled>← Prev</button>
-            <button class="nav-btn" id="next-btn" disabled>Next →</button>
-        </div>
+    <h3>Cached Pages <span id="cached-count">0</span></h3>
+    <p class="url-nav-hint">Use j/k to navigate categories, Enter/Space to expand, then j/k to browse URLs</p>
+    <div id="cached-links" class="url-categories">
+        <p class="loading">Scanning cache...</p>
     </div>
+</details>
+{% endblock %}
 
-    <div id="chapter-content">
-        <p class="loading">Select a book and chapter above...</p>
-    </div>
+{% block extra_js %}
+<script>
+(function() {
+    // Debug elements
+    const connectionBadge = document.getElementById('connection-badge');
+    const swStatus = document.getElementById('sw-status');
+    const cacheStatus = document.getElementById('cache-status');
+    const bibleStatus = document.getElementById('bible-status');
+    const pagesCached = document.getElementById('pages-cached');
+    const cachedLinks = document.getElementById('cached-links');
+    const cachedCount = document.getElementById('cached-count');
 
-    <p id="keyboard-hint">Tip: j/k to select • ←/→ chapters • Enter to open • g=Genesis • ? for help</p>
+    // Status card elements
+    const statusCard = document.getElementById('status-card');
+    const statusIcon = document.getElementById('status-icon');
+    const statusTitle = document.getElementById('status-title');
+    const statusDetail = document.getElementById('status-detail');
 
-    <div class="back-link">
-        <a href="/">← Back to KJV Study</a>
-    </div>
+    function updateStatusCard(type, icon, title, detail) {
+        statusCard.className = 'status-card status-' + type;
+        statusIcon.textContent = icon;
+        statusTitle.textContent = title;
+        statusDetail.innerHTML = detail;
+    }
 
-    <details class="debug-details">
-        <summary>Technical Details</summary>
-        <div class="debug-section">
-            <dl>
-                <dt>Service Worker</dt>
-                <dd id="sw-status">Checking...</dd>
-                <dt>Cache Storage</dt>
-                <dd id="cache-status">Checking...</dd>
-                <dt>Bible Data</dt>
-                <dd id="bible-status">Checking...</dd>
-                <dt>Pages Cached</dt>
-                <dd id="pages-cached">Checking...</dd>
-            </dl>
-        </div>
-        <h3>Cached Pages <span id="cached-count">0</span></h3>
-        <p class="url-nav-hint">Use j/k to navigate categories, Enter/Space to expand, then j/k to browse URLs</p>
-        <div id="cached-links" class="url-categories">
-            <p class="loading">Scanning cache...</p>
-        </div>
-    </details>
-
-    <script>
-    (function() {
-        // Check theme preference
-        const theme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-
-        // Debug elements
-        const connectionBadge = document.getElementById('connection-badge');
-        const swStatus = document.getElementById('sw-status');
-        const cacheStatus = document.getElementById('cache-status');
-        const bibleStatus = document.getElementById('bible-status');
-        const pagesCached = document.getElementById('pages-cached');
-        const cachedLinks = document.getElementById('cached-links');
-        const cachedCount = document.getElementById('cached-count');
-
-        // Status card elements
-        const statusCard = document.getElementById('status-card');
-        const statusIcon = document.getElementById('status-icon');
-        const statusTitle = document.getElementById('status-title');
-        const statusDetail = document.getElementById('status-detail');
-
-        function updateStatusCard(type, icon, title, detail) {
-            statusCard.className = 'status-card status-' + type;
-            statusIcon.textContent = icon;
-            statusTitle.textContent = title;
-            statusDetail.innerHTML = detail;
+    // Update connection status
+    function updateConnectionStatus() {
+        if (navigator.onLine) {
+            connectionBadge.textContent = 'Online';
+            connectionBadge.className = 'badge badge-online';
+        } else {
+            connectionBadge.textContent = 'Offline';
+            connectionBadge.className = 'badge badge-offline';
         }
+    }
+    updateConnectionStatus();
+    window.addEventListener('online', updateConnectionStatus);
+    window.addEventListener('offline', updateConnectionStatus);
 
-        // Update connection status
-        function updateConnectionStatus() {
-            if (navigator.onLine) {
-                connectionBadge.textContent = 'Online';
-                connectionBadge.className = 'badge badge-online';
-            } else {
-                connectionBadge.textContent = 'Offline';
-                connectionBadge.className = 'badge badge-offline';
-            }
-        }
-        updateConnectionStatus();
-        window.addEventListener('online', updateConnectionStatus);
-        window.addEventListener('offline', updateConnectionStatus);
+    // Check service worker status
+    async function checkServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            try {
+                const registration = await navigator.serviceWorker.getRegistration();
+                if (registration && registration.active) {
+                    const state = registration.active ? 'Active' :
+                                 registration.waiting ? 'Waiting' :
+                                 registration.installing ? 'Installing' : 'Unknown';
+                    swStatus.innerHTML = '<span class="status-ok">✓ Registered (' + state + ')</span>';
+                    swStatus.innerHTML += '<br>Scope: ' + registration.scope;
 
-        // Check service worker status
-        async function checkServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                try {
-                    const registration = await navigator.serviceWorker.getRegistration();
-                    if (registration && registration.active) {
-                        const state = registration.active ? 'Active' :
-                                     registration.waiting ? 'Waiting' :
-                                     registration.installing ? 'Installing' : 'Unknown';
-                        swStatus.innerHTML = '<span class="status-ok">✓ Registered (' + state + ')</span>';
-                        swStatus.innerHTML += '<br>Scope: ' + registration.scope;
-
-                        // Check how many pages are cached
-                        const cacheNames = await caches.keys();
-                        let totalCached = 0;
-                        for (const cacheName of cacheNames) {
-                            const cache = await caches.open(cacheName);
-                            const keys = await cache.keys();
-                            totalCached += keys.filter(req => !new URL(req.url).pathname.startsWith('/static/')).length;
-                        }
-
-                        // Total pages in sitemap: ~48,000 (17k main + 31k verses)
-                        const TOTAL_SITE_PAGES = 48000;
-                        const percentCached = Math.round((totalCached / TOTAL_SITE_PAGES) * 100);
-
-                        if (totalCached > 45000) {
-                            updateStatusCard('ok', '✅', 'Ready for offline use',
-                                totalCached.toLocaleString() + ' pages cached (' + percentCached + '%). The entire site is available offline.');
-                        } else if (totalCached > 0) {
-                            updateStatusCard('warning', '⚠️', 'Partially cached (' + percentCached + '%)',
-                                totalCached.toLocaleString() + ' of ~' + TOTAL_SITE_PAGES.toLocaleString() + ' pages cached. Click "Download for Offline Use" to finish downloading.');
-                        } else {
-                            updateStatusCard('warning', '📥', 'Service worker ready',
-                                'Click "Download for Offline Use" below to cache all ~' + TOTAL_SITE_PAGES.toLocaleString() + ' pages for offline access.');
-                        }
-                    } else if (registration) {
-                        swStatus.innerHTML = '<span class="status-ok">✓ Registered (Installing)</span>';
-                        updateStatusCard('warning', '⏳', 'Service worker installing...',
-                            'Please wait a moment and refresh the page.');
-                    } else {
-                        swStatus.innerHTML = '<span class="status-error">✗ Not registered</span>';
-                        swStatus.innerHTML += '<br>Try refreshing the page or check if content blockers are blocking it.';
-                        updateStatusCard('error', '🚫', 'Service worker not registered',
-                            'This could be caused by a content blocker or privacy extension. ' +
-                            'Try:<br>• Disabling ad blockers for this site<br>' +
-                            '• Checking browser privacy settings<br>' +
-                            '• Using a different browser<br>' +
-                            '• Making sure you\'re on <code>https://</code> or <code>localhost</code>');
-                    }
-                } catch (err) {
-                    swStatus.innerHTML = '<span class="status-error">✗ Error: ' + err.message + '</span>';
-                    updateStatusCard('error', '❌', 'Error checking service worker',
-                        'Error: ' + err.message + '<br>Try refreshing the page.');
-                }
-            } else {
-                swStatus.innerHTML = '<span class="status-error">✗ Not supported in this browser</span>';
-                updateStatusCard('error', '🌐', 'Service workers not supported',
-                    'Your browser doesn\'t support service workers. ' +
-                    'Try using a modern browser like Chrome, Firefox, Safari, or Edge.');
-            }
-        }
-
-        // Check cache status and list cached pages
-        async function checkCaches() {
-            if ('caches' in window) {
-                try {
+                    // Check how many pages are cached
                     const cacheNames = await caches.keys();
-                    if (cacheNames.length > 0) {
-                        cacheStatus.innerHTML = '<span class="status-ok">✓ Available</span>';
-                        cacheStatus.innerHTML += '<br>Caches: ' + cacheNames.join(', ');
-                    } else {
-                        cacheStatus.innerHTML = '<span class="status-error">✗ No caches found</span>';
-                    }
-
-                    // List all cached URLs
-                    const allUrls = [];
+                    let totalCached = 0;
                     for (const cacheName of cacheNames) {
                         const cache = await caches.open(cacheName);
                         const keys = await cache.keys();
-                        keys.forEach(req => {
-                            const url = new URL(req.url);
-                            if (url.pathname && !url.pathname.startsWith('/static/')) {
-                                allUrls.push(url.pathname);
-                            }
-                        });
+                        totalCached += keys.filter(req => !new URL(req.url).pathname.startsWith('/static/')).length;
                     }
 
-                    // Remove duplicates and sort
-                    const uniqueUrls = [...new Set(allUrls)].sort();
-                    pagesCached.innerHTML = '<span class="status-ok">' + uniqueUrls.length + ' pages</span>';
-                    cachedCount.textContent = uniqueUrls.length;
+                    // Total pages in sitemap: ~48,000 (17k main + 31k verses)
+                    const TOTAL_SITE_PAGES = 48000;
+                    const percentCached = Math.round((totalCached / TOTAL_SITE_PAGES) * 100);
 
-                    // Group by category with better organization
-                    const categories = {
-                        'Main Pages': [],
-                        'Bible Chapters': [],
-                        'Verse Commentary': [],
-                        'Interlinear': [],
-                        'Stories': [],
-                        'Topics': [],
-                        'Study Guides': [],
-                        'Reading Plans': [],
-                        'Parables': [],
-                        'Resources': [],
-                        'Other': []
-                    };
+                    if (totalCached > 45000) {
+                        updateStatusCard('ok', '✅', 'Ready for offline use',
+                            totalCached.toLocaleString() + ' pages cached (' + percentCached + '%). The entire site is available offline.');
+                    } else if (totalCached > 0) {
+                        updateStatusCard('warning', '⚠️', 'Partially cached (' + percentCached + '%)',
+                            totalCached.toLocaleString() + ' of ~' + TOTAL_SITE_PAGES.toLocaleString() + ' pages cached. Click "Download for Offline Use" to finish downloading.');
+                    } else {
+                        updateStatusCard('warning', '📥', 'Service worker ready',
+                            'Click "Download for Offline Use" below to cache all ~' + TOTAL_SITE_PAGES.toLocaleString() + ' pages for offline access.');
+                    }
+                } else if (registration) {
+                    swStatus.innerHTML = '<span class="status-ok">✓ Registered (Installing)</span>';
+                    updateStatusCard('warning', '⏳', 'Service worker installing...',
+                        'Please wait a moment and refresh the page.');
+                } else {
+                    swStatus.innerHTML = '<span class="status-error">✗ Not registered</span>';
+                    swStatus.innerHTML += '<br>Try refreshing the page or check if content blockers are blocking it.';
+                    updateStatusCard('error', '🚫', 'Service worker not registered',
+                        'This could be caused by a content blocker or privacy extension. ' +
+                        'Try:<br>• Disabling ad blockers for this site<br>' +
+                        '• Checking browser privacy settings<br>' +
+                        '• Using a different browser<br>' +
+                        '• Making sure you\'re on <code>https://</code> or <code>localhost</code>');
+                }
+            } catch (err) {
+                swStatus.innerHTML = '<span class="status-error">✗ Error: ' + err.message + '</span>';
+                updateStatusCard('error', '❌', 'Error checking service worker',
+                    'Error: ' + err.message + '<br>Try refreshing the page.');
+            }
+        } else {
+            swStatus.innerHTML = '<span class="status-error">✗ Not supported in this browser</span>';
+            updateStatusCard('error', '🌐', 'Service workers not supported',
+                'Your browser doesn\'t support service workers. ' +
+                'Try using a modern browser like Chrome, Firefox, Safari, or Edge.');
+        }
+    }
 
-                    uniqueUrls.forEach(url => {
-                        if (url === '/' || url === '/books' || url === '/offline' || url === '/search' || url === '/resources' || url === '/study-guides' || url === '/reading-plans' || url === '/topics' || url === '/stories') {
-                            categories['Main Pages'].push(url);
-                        } else if (url.match(/^\/book\/[^\/]+\/\d+$/)) {
-                            categories['Bible Chapters'].push(url);
-                        } else if (url.match(/^\/book\/[^\/]+\/\d+\/\d+/)) {
-                            categories['Verse Commentary'].push(url);
-                        } else if (url.startsWith('/interlinear/')) {
-                            categories['Interlinear'].push(url);
-                        } else if (url.startsWith('/book/')) {
-                            categories['Bible Chapters'].push(url);
-                        } else if (url.startsWith('/topics/')) {
-                            categories['Topics'].push(url);
-                        } else if (url.startsWith('/stories/')) {
-                            categories['Stories'].push(url);
-                        } else if (url.startsWith('/study-guides/')) {
-                            categories['Study Guides'].push(url);
-                        } else if (url.startsWith('/reading-plans/')) {
-                            categories['Reading Plans'].push(url);
-                        } else if (url.startsWith('/parables/')) {
-                            categories['Parables'].push(url);
-                        } else if (url.match(/^\/(christology|names-of-god|biblical-|fruits-|messianic-|miracles-|prayers-|spirits-|types-|women-|ten-|the-twelve|trinity|worship|grace|eschatology|ecclesiology|soteriology|pneumatology|hamartiology|anthropology|bibliology|theology-proper|justification|sanctification|providence|kingdom-of-god|law-and-gospel|armor-of-god|beatitudes|i-am-statements|names-of-christ|personifications|tetragrammaton|blood-in-scripture)/)) {
-                            categories['Resources'].push(url);
-                        } else {
-                            categories['Other'].push(url);
+    // Check cache status and list cached pages
+    async function checkCaches() {
+        if ('caches' in window) {
+            try {
+                const cacheNames = await caches.keys();
+                if (cacheNames.length > 0) {
+                    cacheStatus.innerHTML = '<span class="status-ok">✓ Available</span>';
+                    cacheStatus.innerHTML += '<br>Caches: ' + cacheNames.join(', ');
+                } else {
+                    cacheStatus.innerHTML = '<span class="status-error">✗ No caches found</span>';
+                }
+
+                // List all cached URLs
+                const allUrls = [];
+                for (const cacheName of cacheNames) {
+                    const cache = await caches.open(cacheName);
+                    const keys = await cache.keys();
+                    keys.forEach(req => {
+                        const url = new URL(req.url);
+                        if (url.pathname && !url.pathname.startsWith('/static/')) {
+                            allUrls.push(url.pathname);
                         }
                     });
-
-                    // Helper to format URL for display (decode %20, clean up path)
-                    function formatUrlLabel(url) {
-                        if (url === '/') return 'Home';
-                        // Decode URL encoding (%20 -> space, etc)
-                        let label = decodeURIComponent(url);
-                        // Remove leading slash
-                        label = label.replace(/^\//, '');
-                        // Replace dashes with spaces
-                        label = label.replace(/-/g, ' ');
-                        // For verse URLs, make them prettier
-                        label = label.replace(/^book\//, '');
-                        label = label.replace(/^interlinear\//, '');
-                        label = label.replace(/^stories\//, '');
-                        label = label.replace(/^topics\//, '');
-                        label = label.replace(/^study guides\//, '');
-                        label = label.replace(/^reading plans\//, '');
-                        label = label.replace(/^parables\//, '');
-                        return label;
-                    }
-
-                    // Render collapsible categories
-                    let html = '';
-                    let categoryIndex = 0;
-                    for (const [category, urls] of Object.entries(categories)) {
-                        if (urls.length > 0) {
-                            html += '<div class="url-category" data-category-index="' + categoryIndex + '">';
-                            html += '<div class="url-category-header" onclick="toggleCategory(this.parentNode)">';
-                            html += '<span>' + category + ' <span class="url-count">(' + urls.length.toLocaleString() + ')</span></span>';
-                            html += '<span class="url-category-toggle">▶</span>';
-                            html += '</div>';
-                            html += '<div class="url-category-content">';
-                            urls.forEach((url, i) => {
-                                const label = formatUrlLabel(url);
-                                html += '<a href="' + url + '" class="url-item" data-url-index="' + i + '">' + label + '</a>';
-                            });
-                            html += '</div>';
-                            html += '</div>';
-                            categoryIndex++;
-                        }
-                    }
-                    cachedLinks.innerHTML = html || '<p>No pages cached yet. Browse the site while online to cache pages.</p>';
-
-                    // Initialize URL navigation
-                    initUrlNavigation();
-
-                } catch (err) {
-                    cacheStatus.innerHTML = '<span class="status-error">✗ Error: ' + err.message + '</span>';
-                    cachedLinks.innerHTML = '<p class="status-error">Could not read cache.</p>';
                 }
-            } else {
-                cacheStatus.innerHTML = '<span class="status-error">✗ Not supported</span>';
-            }
-        }
 
-        // Check Bible data
-        async function checkBibleData() {
-            try {
-                // Try cache first
-                let found = false;
-                const cacheNames = await caches.keys();
-                for (const cacheName of cacheNames) {
-                    const cache = await caches.open(cacheName);
-                    const response = await cache.match('/static/verses-1769.json');
-                    if (response) {
-                        const data = await response.json();
-                        const verseCount = Object.keys(data).length;
-                        bibleStatus.innerHTML = '<span class="status-ok">✓ Cached (' + verseCount.toLocaleString() + ' verses)</span>';
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    bibleStatus.innerHTML = '<span class="status-error">✗ Not cached</span>';
-                    bibleStatus.innerHTML += '<br>Visit the site while online to cache Bible data.';
-                }
-            } catch (err) {
-                bibleStatus.innerHTML = '<span class="status-error">✗ Error: ' + err.message + '</span>';
-            }
-        }
+                // Remove duplicates and sort
+                const uniqueUrls = [...new Set(allUrls)].sort();
+                pagesCached.innerHTML = '<span class="status-ok">' + uniqueUrls.length + ' pages</span>';
+                cachedCount.textContent = uniqueUrls.length;
 
-        // Run all checks
-        checkServiceWorker();
-        checkCaches();
-        checkBibleData();
+                // Group by category with better organization
+                const categories = {
+                    'Main Pages': [],
+                    'Bible Chapters': [],
+                    'Verse Commentary': [],
+                    'Interlinear': [],
+                    'Stories': [],
+                    'Topics': [],
+                    'Study Guides': [],
+                    'Reading Plans': [],
+                    'Parables': [],
+                    'Resources': [],
+                    'Other': []
+                };
 
-        // Cache controls
-        const startCacheBtn = document.getElementById('start-cache-btn');
-        const cacheProgress = document.getElementById('cache-progress');
-        const progressFill = document.getElementById('progress-fill');
-        const progressText = document.getElementById('progress-text');
-
-        startCacheBtn.addEventListener('click', async function() {
-            if (!('serviceWorker' in navigator)) {
-                alert('Service workers are not supported in this browser.');
-                return;
-            }
-
-            const registration = await navigator.serviceWorker.getRegistration();
-            if (!registration || !registration.active) {
-                alert('Service worker is not active. Please refresh the page and try again.');
-                return;
-            }
-
-            // Disable button and show progress
-            startCacheBtn.disabled = true;
-            startCacheBtn.textContent = 'Downloading...';
-            cacheProgress.classList.add('active');
-            progressText.textContent = 'Starting download...';
-
-            // Send message to service worker to start caching
-            registration.active.postMessage({ type: 'START_CACHING' });
-        });
-
-        // Listen for progress messages from service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.addEventListener('message', function(event) {
-                const data = event.data;
-                if (data.type === 'CACHE_STATUS') {
-                    cacheProgress.classList.add('active');
-                    progressText.textContent = data.status;
-                } else if (data.type === 'CACHE_PROGRESS') {
-                    // Show progress bar if caching is in progress
-                    cacheProgress.classList.add('active');
-                    startCacheBtn.disabled = true;
-                    startCacheBtn.textContent = 'Downloading...';
-
-                    const pct = Math.round((data.cached / data.total) * 100);
-                    progressFill.style.width = pct + '%';
-                    progressText.textContent = 'Downloading: ' + data.cached.toLocaleString() + ' / ' + data.total.toLocaleString() + ' pages (' + pct + '%)';
-                } else if (data.type === 'CACHE_COMPLETE') {
-                    cacheProgress.classList.add('active');
-                    progressFill.style.width = '100%';
-                    progressText.innerHTML = '<span class="cache-complete">✓ Download complete! ' + data.total.toLocaleString() + ' pages available offline.</span>';
-                    startCacheBtn.textContent = 'Refresh Cache';
-                    startCacheBtn.disabled = false;
-                    // Refresh the cache list
-                    setTimeout(checkCaches, 500);
-                } else if (data.type === 'CACHE_ERROR') {
-                    cacheProgress.classList.add('active');
-                    progressText.innerHTML = '<span class="status-error">Error: ' + data.error + '</span>';
-                    startCacheBtn.disabled = false;
-                    startCacheBtn.textContent = 'Try Again';
-                }
-            });
-
-            // Check if caching is already in progress when page loads
-            navigator.serviceWorker.ready.then(function(registration) {
-                if (registration.active) {
-                    registration.active.postMessage({ type: 'GET_CACHE_STATUS' });
-                }
-            });
-        }
-
-        // Bible Reader functionality
-        let bibleData = null;
-        let bookStructure = {};
-        let currentBook = '';
-        let currentChapter = 1;
-
-        const BOOKS = [
-            'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
-            'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
-            '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles',
-            'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
-            'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah',
-            'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
-            'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
-            'Haggai', 'Zechariah', 'Malachi',
-            'Matthew', 'Mark', 'Luke', 'John', 'Acts',
-            'Romans', '1 Corinthians', '2 Corinthians', 'Galatians',
-            'Ephesians', 'Philippians', 'Colossians',
-            '1 Thessalonians', '2 Thessalonians',
-            '1 Timothy', '2 Timothy', 'Titus', 'Philemon',
-            'Hebrews', 'James', '1 Peter', '2 Peter',
-            '1 John', '2 John', '3 John', 'Jude', 'Revelation'
-        ];
-
-        const bookSelect = document.getElementById('book-select');
-        const chapterSelect = document.getElementById('chapter-select');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const content = document.getElementById('chapter-content');
-
-        async function loadBibleData() {
-            try {
-                let response = null;
-                const cacheNames = await caches.keys();
-                for (const cacheName of cacheNames) {
-                    const cache = await caches.open(cacheName);
-                    response = await cache.match('/static/verses-1769.json');
-                    if (response) break;
-                }
-                if (!response) {
-                    response = await fetch('/static/verses-1769.json');
-                }
-                if (!response || !response.ok) {
-                    throw new Error('Could not load Bible data');
-                }
-                bibleData = await response.json();
-                buildBookStructure();
-                populateBookSelect();
-                parseUrlAndNavigate();
-            } catch (err) {
-                console.error('Failed to load Bible:', err);
-            }
-        }
-
-        function buildBookStructure() {
-            bookStructure = {};
-            for (const ref in bibleData) {
-                const match = ref.match(/^(.+) (\d+):(\d+)$/);
-                if (match) {
-                    const [, book, chapter, verse] = match;
-                    if (!bookStructure[book]) bookStructure[book] = {};
-                    if (!bookStructure[book][chapter]) bookStructure[book][chapter] = [];
-                    bookStructure[book][chapter].push(parseInt(verse));
-                }
-            }
-            for (const book in bookStructure) {
-                for (const chapter in bookStructure[book]) {
-                    bookStructure[book][chapter].sort((a, b) => a - b);
-                }
-            }
-        }
-
-        function populateBookSelect() {
-            BOOKS.forEach(book => {
-                if (bookStructure[book]) {
-                    const opt = document.createElement('option');
-                    opt.value = book;
-                    opt.textContent = book;
-                    bookSelect.appendChild(opt);
-                }
-            });
-        }
-
-        function populateChapterSelect(book) {
-            chapterSelect.innerHTML = '<option value="">Chapter</option>';
-            if (!bookStructure[book]) return;
-            const chapters = Object.keys(bookStructure[book]).map(Number).sort((a, b) => a - b);
-            chapters.forEach(ch => {
-                const opt = document.createElement('option');
-                opt.value = ch;
-                opt.textContent = ch;
-                chapterSelect.appendChild(opt);
-            });
-            chapterSelect.disabled = false;
-        }
-
-        function renderChapter(book, chapter) {
-            if (!bookStructure[book] || !bookStructure[book][chapter]) {
-                return;
-            }
-            currentBook = book;
-            currentChapter = parseInt(chapter);
-            content.classList.add('active');
-
-            const verses = bookStructure[book][chapter];
-            let html = '<h3>' + book + ' ' + chapter + '</h3>';
-            verses.forEach(verseNum => {
-                const ref = book + ' ' + chapter + ':' + verseNum;
-                const text = bibleData[ref] || '';
-                const cleanText = text.replace(/^#\s*/, '');
-                html += '<p><span class="verse-num">' + verseNum + '</span> ' + cleanText + '</p>';
-            });
-            content.innerHTML = html;
-            updateNavButtons();
-            history.replaceState(null, '', '/offline?book=' + encodeURIComponent(book) + '&chapter=' + chapter);
-        }
-
-        function updateNavButtons() {
-            const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
-            const bookIndex = BOOKS.indexOf(currentBook);
-            prevBtn.disabled = !(currentChapter > chapters[0] || bookIndex > 0);
-            nextBtn.disabled = !(currentChapter < chapters[chapters.length - 1] || bookIndex < BOOKS.length - 1);
-        }
-
-        function goPrev() {
-            const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
-            const chapterIndex = chapters.indexOf(currentChapter);
-            if (chapterIndex > 0) {
-                chapterSelect.value = chapters[chapterIndex - 1];
-                renderChapter(currentBook, chapters[chapterIndex - 1]);
-            } else {
-                const bookIndex = BOOKS.indexOf(currentBook);
-                if (bookIndex > 0) {
-                    const prevBook = BOOKS[bookIndex - 1];
-                    const prevChapters = Object.keys(bookStructure[prevBook] || {}).map(Number).sort((a, b) => a - b);
-                    bookSelect.value = prevBook;
-                    populateChapterSelect(prevBook);
-                    chapterSelect.value = prevChapters[prevChapters.length - 1];
-                    renderChapter(prevBook, prevChapters[prevChapters.length - 1]);
-                }
-            }
-        }
-
-        function goNext() {
-            const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
-            const chapterIndex = chapters.indexOf(currentChapter);
-            if (chapterIndex < chapters.length - 1) {
-                chapterSelect.value = chapters[chapterIndex + 1];
-                renderChapter(currentBook, chapters[chapterIndex + 1]);
-            } else {
-                const bookIndex = BOOKS.indexOf(currentBook);
-                if (bookIndex < BOOKS.length - 1) {
-                    const nextBook = BOOKS[bookIndex + 1];
-                    const nextChapters = Object.keys(bookStructure[nextBook] || {}).map(Number).sort((a, b) => a - b);
-                    bookSelect.value = nextBook;
-                    populateChapterSelect(nextBook);
-                    chapterSelect.value = nextChapters[0];
-                    renderChapter(nextBook, nextChapters[0]);
-                }
-            }
-        }
-
-        function parseUrlAndNavigate() {
-            const params = new URLSearchParams(window.location.search);
-            const book = params.get('book');
-            const chapter = params.get('chapter');
-            if (book && bookStructure[book]) {
-                bookSelect.value = book;
-                populateChapterSelect(book);
-                if (chapter && bookStructure[book][chapter]) {
-                    chapterSelect.value = chapter;
-                    renderChapter(book, chapter);
-                }
-            }
-        }
-
-        bookSelect.addEventListener('change', function() {
-            const book = this.value;
-            if (book) {
-                populateChapterSelect(book);
-                const chapters = Object.keys(bookStructure[book]).map(Number).sort((a, b) => a - b);
-                if (chapters.length > 0) {
-                    chapterSelect.value = chapters[0];
-                    renderChapter(book, chapters[0]);
-                }
-            }
-        });
-
-        chapterSelect.addEventListener('change', function() {
-            if (this.value && currentBook) {
-                renderChapter(currentBook, this.value);
-            }
-        });
-
-        prevBtn.addEventListener('click', goPrev);
-        nextBtn.addEventListener('click', goNext);
-
-        // Keyboard navigation
-        const quickLinks = Array.from(document.querySelectorAll('.quick-link'));
-        let selectedQuickLink = -1;
-        let selectedVerse = -1;
-        let inQuickLinksZone = true; // Start in quick links zone
-
-        function getVerseElements() {
-            return Array.from(content.querySelectorAll('p'));
-        }
-
-        function clearSelection() {
-            quickLinks.forEach(el => {
-                el.style.outline = '';
-                el.style.outlineOffset = '';
-            });
-            getVerseElements().forEach(el => {
-                el.style.outline = '';
-                el.style.outlineOffset = '';
-            });
-        }
-
-        function selectQuickLink(index) {
-            clearSelection();
-            inQuickLinksZone = true;
-            selectedVerse = -1;
-            if (index < 0) index = 0;
-            if (index >= quickLinks.length) index = quickLinks.length - 1;
-            selectedQuickLink = index;
-            quickLinks[index].style.outline = '2px solid #4a7c59';
-            quickLinks[index].style.outlineOffset = '4px';
-            quickLinks[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function selectVerse(index) {
-            clearSelection();
-            inQuickLinksZone = false;
-            selectedQuickLink = -1;
-            const verses = getVerseElements();
-            if (verses.length === 0) return;
-            if (index < 0) index = 0;
-            if (index >= verses.length) index = verses.length - 1;
-            selectedVerse = index;
-            verses[index].style.outline = '2px solid #4a7c59';
-            verses[index].style.outlineOffset = '4px';
-            verses[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-            const verses = getVerseElements();
-
-            if (e.key === 'ArrowDown' || e.key === 'j') {
-                e.preventDefault();
-                if (inQuickLinksZone) {
-                    // Move within quick links (grid navigation)
-                    if (selectedQuickLink < 0) {
-                        selectQuickLink(0);
-                    } else if (selectedQuickLink + 3 < quickLinks.length) {
-                        selectQuickLink(selectedQuickLink + 3); // Move down in grid
-                    } else if (verses.length > 0) {
-                        // Move to verses
-                        selectVerse(0);
-                    }
-                } else {
-                    selectVerse(selectedVerse + 1);
-                }
-            } else if (e.key === 'ArrowUp' || e.key === 'k') {
-                e.preventDefault();
-                if (inQuickLinksZone) {
-                    if (selectedQuickLink >= 3) {
-                        selectQuickLink(selectedQuickLink - 3); // Move up in grid
-                    } else if (selectedQuickLink > 0) {
-                        selectQuickLink(0);
-                    }
-                } else {
-                    if (selectedVerse <= 0) {
-                        // Move back to quick links
-                        selectQuickLink(quickLinks.length - 1);
+                uniqueUrls.forEach(url => {
+                    if (url === '/' || url === '/books' || url === '/offline' || url === '/search' || url === '/resources' || url === '/study-guides' || url === '/reading-plans' || url === '/topics' || url === '/stories') {
+                        categories['Main Pages'].push(url);
+                    } else if (url.match(/^\/book\/[^\/]+\/\d+$/)) {
+                        categories['Bible Chapters'].push(url);
+                    } else if (url.match(/^\/book\/[^\/]+\/\d+\/\d+/)) {
+                        categories['Verse Commentary'].push(url);
+                    } else if (url.startsWith('/interlinear/')) {
+                        categories['Interlinear'].push(url);
+                    } else if (url.startsWith('/book/')) {
+                        categories['Bible Chapters'].push(url);
+                    } else if (url.startsWith('/topics/')) {
+                        categories['Topics'].push(url);
+                    } else if (url.startsWith('/stories/')) {
+                        categories['Stories'].push(url);
+                    } else if (url.startsWith('/study-guides/')) {
+                        categories['Study Guides'].push(url);
+                    } else if (url.startsWith('/reading-plans/')) {
+                        categories['Reading Plans'].push(url);
+                    } else if (url.startsWith('/parables/')) {
+                        categories['Parables'].push(url);
+                    } else if (url.match(/^\/(christology|names-of-god|biblical-|fruits-|messianic-|miracles-|prayers-|spirits-|types-|women-|ten-|the-twelve|trinity|worship|grace|eschatology|ecclesiology|soteriology|pneumatology|hamartiology|anthropology|bibliology|theology-proper|justification|sanctification|providence|kingdom-of-god|law-and-gospel|armor-of-god|beatitudes|i-am-statements|names-of-christ|personifications|tetragrammaton|blood-in-scripture)/)) {
+                        categories['Resources'].push(url);
                     } else {
-                        selectVerse(selectedVerse - 1);
+                        categories['Other'].push(url);
+                    }
+                });
+
+                // Helper to format URL for display (decode %20, clean up path)
+                function formatUrlLabel(url) {
+                    if (url === '/') return 'Home';
+                    // Decode URL encoding (%20 -> space, etc)
+                    let label = decodeURIComponent(url);
+                    // Remove leading slash
+                    label = label.replace(/^\//, '');
+                    // Replace dashes with spaces
+                    label = label.replace(/-/g, ' ');
+                    // For verse URLs, make them prettier
+                    label = label.replace(/^book\//, '');
+                    label = label.replace(/^interlinear\//, '');
+                    label = label.replace(/^stories\//, '');
+                    label = label.replace(/^topics\//, '');
+                    label = label.replace(/^study guides\//, '');
+                    label = label.replace(/^reading plans\//, '');
+                    label = label.replace(/^parables\//, '');
+                    return label;
+                }
+
+                // Render collapsible categories
+                let html = '';
+                let categoryIndex = 0;
+                for (const [category, urls] of Object.entries(categories)) {
+                    if (urls.length > 0) {
+                        html += '<div class="url-category" data-category-index="' + categoryIndex + '">';
+                        html += '<div class="url-category-header" onclick="toggleCategory(this.parentNode)">';
+                        html += '<span>' + category + ' <span class="url-count">(' + urls.length.toLocaleString() + ')</span></span>';
+                        html += '<span class="url-category-toggle">▶</span>';
+                        html += '</div>';
+                        html += '<div class="url-category-content">';
+                        urls.forEach((url, i) => {
+                            const label = formatUrlLabel(url);
+                            html += '<a href="' + url + '" class="url-item" data-url-index="' + i + '">' + label + '</a>';
+                        });
+                        html += '</div>';
+                        html += '</div>';
+                        categoryIndex++;
                     }
                 }
-            } else if (e.key === 'ArrowLeft' || e.key === 'h') {
-                e.preventDefault();
-                if (inQuickLinksZone && selectedQuickLink > 0) {
-                    selectQuickLink(selectedQuickLink - 1);
-                } else if (!inQuickLinksZone || selectedQuickLink < 0) {
-                    if (!prevBtn.disabled) goPrev();
+                cachedLinks.innerHTML = html || '<p>No pages cached yet. Browse the site while online to cache pages.</p>';
+
+                // Initialize URL navigation
+                initUrlNavigation();
+
+            } catch (err) {
+                cacheStatus.innerHTML = '<span class="status-error">✗ Error: ' + err.message + '</span>';
+                cachedLinks.innerHTML = '<p class="status-error">Could not read cache.</p>';
+            }
+        } else {
+            cacheStatus.innerHTML = '<span class="status-error">✗ Not supported</span>';
+        }
+    }
+
+    // Check Bible data
+    async function checkBibleData() {
+        try {
+            // Try cache first
+            let found = false;
+            const cacheNames = await caches.keys();
+            for (const cacheName of cacheNames) {
+                const cache = await caches.open(cacheName);
+                const response = await cache.match('/static/verses-1769.json');
+                if (response) {
+                    const data = await response.json();
+                    const verseCount = Object.keys(data).length;
+                    bibleStatus.innerHTML = '<span class="status-ok">✓ Cached (' + verseCount.toLocaleString() + ' verses)</span>';
+                    found = true;
+                    break;
                 }
-            } else if (e.key === 'ArrowRight' || e.key === 'l') {
-                e.preventDefault();
-                if (inQuickLinksZone && selectedQuickLink >= 0 && selectedQuickLink < quickLinks.length - 1) {
-                    selectQuickLink(selectedQuickLink + 1);
-                } else if (!inQuickLinksZone || selectedQuickLink < 0) {
-                    if (!nextBtn.disabled) goNext();
-                }
-            } else if (e.key === 'Enter') {
-                e.preventDefault();
-                if (inQuickLinksZone && selectedQuickLink >= 0) {
-                    window.location.href = quickLinks[selectedQuickLink].href;
-                }
-            } else if (e.key === 'Escape') {
-                e.preventDefault();
-                clearSelection();
-                selectedQuickLink = -1;
-                selectedVerse = -1;
-                inQuickLinksZone = true;
-            } else if (e.key === 'g') {
-                // Go to Genesis 1
-                e.preventDefault();
-                if (bookStructure['Genesis']) {
-                    bookSelect.value = 'Genesis';
-                    populateChapterSelect('Genesis');
-                    chapterSelect.value = '1';
-                    renderChapter('Genesis', '1');
-                }
-            } else if (e.key === '?') {
-                // Show keyboard hints
-                e.preventDefault();
-                alert('Keyboard shortcuts:\n\n' +
-                    'j/↓ - Move down\n' +
-                    'k/↑ - Move up\n' +
-                    'h/← - Previous chapter / Move left\n' +
-                    'l/→ - Next chapter / Move right\n' +
-                    'Enter - Open selected link\n' +
-                    'g - Go to Genesis 1\n' +
-                    'Esc - Clear selection\n' +
-                    '? - Show this help');
+            }
+            if (!found) {
+                bibleStatus.innerHTML = '<span class="status-error">✗ Not cached</span>';
+                bibleStatus.innerHTML += '<br>Visit the site while online to cache Bible data.';
+            }
+        } catch (err) {
+            bibleStatus.innerHTML = '<span class="status-error">✗ Error: ' + err.message + '</span>';
+        }
+    }
+
+    // Run all checks
+    checkServiceWorker();
+    checkCaches();
+    checkBibleData();
+
+    // Cache controls
+    const startCacheBtn = document.getElementById('start-cache-btn');
+    const cacheProgress = document.getElementById('cache-progress');
+    const progressFill = document.getElementById('progress-fill');
+    const progressText = document.getElementById('progress-text');
+
+    startCacheBtn.addEventListener('click', async function() {
+        if (!('serviceWorker' in navigator)) {
+            alert('Service workers are not supported in this browser.');
+            return;
+        }
+
+        const registration = await navigator.serviceWorker.getRegistration();
+        if (!registration || !registration.active) {
+            alert('Service worker is not active. Please refresh the page and try again.');
+            return;
+        }
+
+        // Disable button and show progress
+        startCacheBtn.disabled = true;
+        startCacheBtn.textContent = 'Downloading...';
+        cacheProgress.classList.add('active');
+        progressText.textContent = 'Starting download...';
+
+        // Send message to service worker to start caching
+        registration.active.postMessage({ type: 'START_CACHING' });
+    });
+
+    // Listen for progress messages from service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', function(event) {
+            const data = event.data;
+            if (data.type === 'CACHE_STATUS') {
+                cacheProgress.classList.add('active');
+                progressText.textContent = data.status;
+            } else if (data.type === 'CACHE_PROGRESS') {
+                // Show progress bar if caching is in progress
+                cacheProgress.classList.add('active');
+                startCacheBtn.disabled = true;
+                startCacheBtn.textContent = 'Downloading...';
+
+                const pct = Math.round((data.cached / data.total) * 100);
+                progressFill.style.width = pct + '%';
+                progressText.textContent = 'Downloading: ' + data.cached.toLocaleString() + ' / ' + data.total.toLocaleString() + ' pages (' + pct + '%)';
+            } else if (data.type === 'CACHE_COMPLETE') {
+                cacheProgress.classList.add('active');
+                progressFill.style.width = '100%';
+                progressText.innerHTML = '<span class="cache-complete">✓ Download complete! ' + data.total.toLocaleString() + ' pages available offline.</span>';
+                startCacheBtn.textContent = 'Refresh Cache';
+                startCacheBtn.disabled = false;
+                // Refresh the cache list
+                setTimeout(checkCaches, 500);
+            } else if (data.type === 'CACHE_ERROR') {
+                cacheProgress.classList.add('active');
+                progressText.innerHTML = '<span class="status-error">Error: ' + data.error + '</span>';
+                startCacheBtn.disabled = false;
+                startCacheBtn.textContent = 'Try Again';
             }
         });
 
-        loadBibleData();
+        // Check if caching is already in progress when page loads
+        navigator.serviceWorker.ready.then(function(registration) {
+            if (registration.active) {
+                registration.active.postMessage({ type: 'GET_CACHE_STATUS' });
+            }
+        });
+    }
 
-        // URL list navigation state
-        let urlNavMode = false;
-        let selectedCategoryIdx = -1;
-        let selectedUrlIdx = -1;
+    // Bible Reader functionality
+    let bibleData = null;
+    let bookStructure = {};
+    let currentBook = '';
+    let currentChapter = 1;
 
-        // Toggle category expand/collapse
-        window.toggleCategory = function(categoryEl) {
-            categoryEl.classList.toggle('expanded');
-        };
+    const BOOKS = [
+        'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
+        'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
+        '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles',
+        'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
+        'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah',
+        'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
+        'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
+        'Haggai', 'Zechariah', 'Malachi',
+        'Matthew', 'Mark', 'Luke', 'John', 'Acts',
+        'Romans', '1 Corinthians', '2 Corinthians', 'Galatians',
+        'Ephesians', 'Philippians', 'Colossians',
+        '1 Thessalonians', '2 Thessalonians',
+        '1 Timothy', '2 Timothy', 'Titus', 'Philemon',
+        'Hebrews', 'James', '1 Peter', '2 Peter',
+        '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+    ];
 
-        // Initialize URL navigation
-        window.initUrlNavigation = function() {
-            const categories = document.querySelectorAll('.url-category');
-            if (categories.length === 0) return;
+    const bookSelect = document.getElementById('book-select');
+    const chapterSelect = document.getElementById('chapter-select');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const content = document.getElementById('chapter-content');
 
-            // Add click handlers for URL items
-            document.querySelectorAll('.url-item').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    // Let the link work normally
-                });
-            });
-        };
-
-        function getUrlCategories() {
-            return Array.from(document.querySelectorAll('.url-category'));
+    async function loadBibleData() {
+        try {
+            let response = null;
+            const cacheNames = await caches.keys();
+            for (const cacheName of cacheNames) {
+                const cache = await caches.open(cacheName);
+                response = await cache.match('/static/verses-1769.json');
+                if (response) break;
+            }
+            if (!response) {
+                response = await fetch('/static/verses-1769.json');
+            }
+            if (!response || !response.ok) {
+                throw new Error('Could not load Bible data');
+            }
+            bibleData = await response.json();
+            buildBookStructure();
+            populateBookSelect();
+            parseUrlAndNavigate();
+        } catch (err) {
+            console.error('Failed to load Bible:', err);
         }
+    }
 
-        function getUrlsInCategory(categoryEl) {
-            return Array.from(categoryEl.querySelectorAll('.url-item'));
-        }
-
-        function clearUrlSelection() {
-            document.querySelectorAll('.url-category.selected').forEach(el => el.classList.remove('selected'));
-            document.querySelectorAll('.url-item.selected').forEach(el => el.classList.remove('selected'));
-        }
-
-        function selectCategory(index) {
-            const categories = getUrlCategories();
-            if (categories.length === 0) return;
-
-            clearUrlSelection();
-            selectedUrlIdx = -1;
-
-            if (index < 0) index = 0;
-            if (index >= categories.length) index = categories.length - 1;
-
-            selectedCategoryIdx = index;
-            categories[index].classList.add('selected');
-            categories[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        function selectUrlItem(categoryIndex, urlIndex) {
-            const categories = getUrlCategories();
-            if (categoryIndex < 0 || categoryIndex >= categories.length) return;
-
-            clearUrlSelection();
-            selectedCategoryIdx = categoryIndex;
-
-            const urls = getUrlsInCategory(categories[categoryIndex]);
-            if (urls.length === 0) return;
-
-            if (urlIndex < 0) urlIndex = 0;
-            if (urlIndex >= urls.length) urlIndex = urls.length - 1;
-
-            selectedUrlIdx = urlIndex;
-            categories[categoryIndex].classList.add('selected');
-            urls[urlIndex].classList.add('selected');
-            urls[urlIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        function expandCategory(index) {
-            const categories = getUrlCategories();
-            if (index >= 0 && index < categories.length) {
-                categories[index].classList.add('expanded');
+    function buildBookStructure() {
+        bookStructure = {};
+        for (const ref in bibleData) {
+            const match = ref.match(/^(.+) (\d+):(\d+)$/);
+            if (match) {
+                const [, book, chapter, verse] = match;
+                if (!bookStructure[book]) bookStructure[book] = {};
+                if (!bookStructure[book][chapter]) bookStructure[book][chapter] = [];
+                bookStructure[book][chapter].push(parseInt(verse));
             }
         }
-
-        function collapseCategory(index) {
-            const categories = getUrlCategories();
-            if (index >= 0 && index < categories.length) {
-                categories[index].classList.remove('expanded');
+        for (const book in bookStructure) {
+            for (const chapter in bookStructure[book]) {
+                bookStructure[book][chapter].sort((a, b) => a - b);
             }
         }
+    }
 
-        function isCategoryExpanded(index) {
-            const categories = getUrlCategories();
-            if (index >= 0 && index < categories.length) {
-                return categories[index].classList.contains('expanded');
+    function populateBookSelect() {
+        BOOKS.forEach(book => {
+            if (bookStructure[book]) {
+                const opt = document.createElement('option');
+                opt.value = book;
+                opt.textContent = book;
+                bookSelect.appendChild(opt);
             }
-            return false;
+        });
+    }
+
+    function populateChapterSelect(book) {
+        chapterSelect.innerHTML = '<option value="">Chapter</option>';
+        if (!bookStructure[book]) return;
+        const chapters = Object.keys(bookStructure[book]).map(Number).sort((a, b) => a - b);
+        chapters.forEach(ch => {
+            const opt = document.createElement('option');
+            opt.value = ch;
+            opt.textContent = ch;
+            chapterSelect.appendChild(opt);
+        });
+        chapterSelect.disabled = false;
+    }
+
+    function renderChapter(book, chapter) {
+        if (!bookStructure[book] || !bookStructure[book][chapter]) {
+            return;
         }
+        currentBook = book;
+        currentChapter = parseInt(chapter);
+        content.classList.add('active');
 
-        // Handle URL list keyboard navigation when in Technical Details
-        document.addEventListener('keydown', function(e) {
-            // Only handle if technical details is open
-            const details = document.querySelector('.debug-details');
-            if (!details || !details.open) return;
+        const verses = bookStructure[book][chapter];
+        let html = '<h3>' + book + ' ' + chapter + '</h3>';
+        verses.forEach(verseNum => {
+            const ref = book + ' ' + chapter + ':' + verseNum;
+            const text = bibleData[ref] || '';
+            const cleanText = text.replace(/^#\s*/, '');
+            html += '<p><span class="verse-num">' + verseNum + '</span> ' + cleanText + '</p>';
+        });
+        content.innerHTML = html;
+        updateNavButtons();
+        history.replaceState(null, '', '/offline?book=' + encodeURIComponent(book) + '&chapter=' + chapter);
+    }
 
-            // Skip if in form elements
-            if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    function updateNavButtons() {
+        const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
+        const bookIndex = BOOKS.indexOf(currentBook);
+        prevBtn.disabled = !(currentChapter > chapters[0] || bookIndex > 0);
+        nextBtn.disabled = !(currentChapter < chapters[chapters.length - 1] || bookIndex < BOOKS.length - 1);
+    }
 
-            const categories = getUrlCategories();
-            if (categories.length === 0) return;
+    function goPrev() {
+        const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
+        const chapterIndex = chapters.indexOf(currentChapter);
+        if (chapterIndex > 0) {
+            chapterSelect.value = chapters[chapterIndex - 1];
+            renderChapter(currentBook, chapters[chapterIndex - 1]);
+        } else {
+            const bookIndex = BOOKS.indexOf(currentBook);
+            if (bookIndex > 0) {
+                const prevBook = BOOKS[bookIndex - 1];
+                const prevChapters = Object.keys(bookStructure[prevBook] || {}).map(Number).sort((a, b) => a - b);
+                bookSelect.value = prevBook;
+                populateChapterSelect(prevBook);
+                chapterSelect.value = prevChapters[prevChapters.length - 1];
+                renderChapter(prevBook, prevChapters[prevChapters.length - 1]);
+            }
+        }
+    }
 
-            // Check if we're in the URL navigation zone
-            const cachedLinksSection = document.getElementById('cached-links');
-            const rect = cachedLinksSection.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    function goNext() {
+        const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
+        const chapterIndex = chapters.indexOf(currentChapter);
+        if (chapterIndex < chapters.length - 1) {
+            chapterSelect.value = chapters[chapterIndex + 1];
+            renderChapter(currentBook, chapters[chapterIndex + 1]);
+        } else {
+            const bookIndex = BOOKS.indexOf(currentBook);
+            if (bookIndex < BOOKS.length - 1) {
+                const nextBook = BOOKS[bookIndex + 1];
+                const nextChapters = Object.keys(bookStructure[nextBook] || {}).map(Number).sort((a, b) => a - b);
+                bookSelect.value = nextBook;
+                populateChapterSelect(nextBook);
+                chapterSelect.value = nextChapters[0];
+                renderChapter(nextBook, nextChapters[0]);
+            }
+        }
+    }
 
-            if (!isVisible && selectedCategoryIdx < 0) return;
+    function parseUrlAndNavigate() {
+        const params = new URLSearchParams(window.location.search);
+        const book = params.get('book');
+        const chapter = params.get('chapter');
+        if (book && bookStructure[book]) {
+            bookSelect.value = book;
+            populateChapterSelect(book);
+            if (chapter && bookStructure[book][chapter]) {
+                chapterSelect.value = chapter;
+                renderChapter(book, chapter);
+            }
+        }
+    }
 
-            // u key to enter URL navigation mode
-            if (e.key === 'u') {
-                e.preventDefault();
-                urlNavMode = true;
-                if (selectedCategoryIdx < 0) {
-                    selectCategory(0);
+    bookSelect.addEventListener('change', function() {
+        const book = this.value;
+        if (book) {
+            populateChapterSelect(book);
+            const chapters = Object.keys(bookStructure[book]).map(Number).sort((a, b) => a - b);
+            if (chapters.length > 0) {
+                chapterSelect.value = chapters[0];
+                renderChapter(book, chapters[0]);
+            }
+        }
+    });
+
+    chapterSelect.addEventListener('change', function() {
+        if (this.value && currentBook) {
+            renderChapter(currentBook, this.value);
+        }
+    });
+
+    prevBtn.addEventListener('click', goPrev);
+    nextBtn.addEventListener('click', goNext);
+
+    // Keyboard navigation
+    const quickLinks = Array.from(document.querySelectorAll('.quick-link'));
+    let selectedQuickLink = -1;
+    let selectedVerse = -1;
+    let inQuickLinksZone = true;
+
+    function getVerseElements() {
+        return Array.from(content.querySelectorAll('p'));
+    }
+
+    function clearSelection() {
+        quickLinks.forEach(el => {
+            el.style.outline = '';
+            el.style.outlineOffset = '';
+        });
+        getVerseElements().forEach(el => {
+            el.style.outline = '';
+            el.style.outlineOffset = '';
+        });
+    }
+
+    function selectQuickLink(index) {
+        clearSelection();
+        inQuickLinksZone = true;
+        selectedVerse = -1;
+        if (index < 0) index = 0;
+        if (index >= quickLinks.length) index = quickLinks.length - 1;
+        selectedQuickLink = index;
+        quickLinks[index].style.outline = '2px solid #4a7c59';
+        quickLinks[index].style.outlineOffset = '4px';
+        quickLinks[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function selectVerse(index) {
+        clearSelection();
+        inQuickLinksZone = false;
+        selectedQuickLink = -1;
+        const verses = getVerseElements();
+        if (verses.length === 0) return;
+        if (index < 0) index = 0;
+        if (index >= verses.length) index = verses.length - 1;
+        selectedVerse = index;
+        verses[index].style.outline = '2px solid #4a7c59';
+        verses[index].style.outlineOffset = '4px';
+        verses[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        const verses = getVerseElements();
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            if (inQuickLinksZone) {
+                if (selectedQuickLink < 0) {
+                    selectQuickLink(0);
+                } else if (selectedQuickLink + 3 < quickLinks.length) {
+                    selectQuickLink(selectedQuickLink + 3);
+                } else if (verses.length > 0) {
+                    selectVerse(0);
                 }
-                return;
+            } else {
+                selectVerse(selectedVerse + 1);
             }
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (inQuickLinksZone) {
+                if (selectedQuickLink >= 3) {
+                    selectQuickLink(selectedQuickLink - 3);
+                } else if (selectedQuickLink > 0) {
+                    selectQuickLink(0);
+                }
+            } else {
+                if (selectedVerse <= 0) {
+                    selectQuickLink(quickLinks.length - 1);
+                } else {
+                    selectVerse(selectedVerse - 1);
+                }
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (inQuickLinksZone && selectedQuickLink > 0) {
+                selectQuickLink(selectedQuickLink - 1);
+            } else if (!inQuickLinksZone || selectedQuickLink < 0) {
+                if (!prevBtn.disabled) goPrev();
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (inQuickLinksZone && selectedQuickLink >= 0 && selectedQuickLink < quickLinks.length - 1) {
+                selectQuickLink(selectedQuickLink + 1);
+            } else if (!inQuickLinksZone || selectedQuickLink < 0) {
+                if (!nextBtn.disabled) goNext();
+            }
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (inQuickLinksZone && selectedQuickLink >= 0) {
+                window.location.href = quickLinks[selectedQuickLink].href;
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            clearSelection();
+            selectedQuickLink = -1;
+            selectedVerse = -1;
+            inQuickLinksZone = true;
+        } else if (e.key === 'g') {
+            e.preventDefault();
+            if (bookStructure['Genesis']) {
+                bookSelect.value = 'Genesis';
+                populateChapterSelect('Genesis');
+                chapterSelect.value = '1';
+                renderChapter('Genesis', '1');
+            }
+        } else if (e.key === '?') {
+            e.preventDefault();
+            alert('Keyboard shortcuts:\n\n' +
+                'j/↓ - Move down\n' +
+                'k/↑ - Move up\n' +
+                'h/← - Previous chapter / Move left\n' +
+                'l/→ - Next chapter / Move right\n' +
+                'Enter - Open selected link\n' +
+                'g - Go to Genesis 1\n' +
+                'Esc - Clear selection\n' +
+                '? - Show this help');
+        }
+    });
 
-            if (!urlNavMode && selectedCategoryIdx < 0) return;
+    loadBibleData();
 
-            if (e.key === 'j' || e.key === 'ArrowDown') {
-                // If URL mode is active
-                if (urlNavMode || selectedCategoryIdx >= 0) {
-                    e.preventDefault();
-                    e.stopPropagation();
+    // URL list navigation state
+    let urlNavMode = false;
+    let selectedCategoryIdx = -1;
+    let selectedUrlIdx = -1;
 
-                    if (selectedUrlIdx >= 0 && isCategoryExpanded(selectedCategoryIdx)) {
-                        // Navigate within URLs
-                        const urls = getUrlsInCategory(categories[selectedCategoryIdx]);
-                        if (selectedUrlIdx < urls.length - 1) {
-                            selectUrlItem(selectedCategoryIdx, selectedUrlIdx + 1);
-                        } else {
-                            // Move to next category
-                            if (selectedCategoryIdx < categories.length - 1) {
-                                collapseCategory(selectedCategoryIdx);
-                                selectCategory(selectedCategoryIdx + 1);
-                            }
-                        }
-                    } else if (selectedCategoryIdx >= 0) {
-                        // Navigate categories
+    // Toggle category expand/collapse
+    window.toggleCategory = function(categoryEl) {
+        categoryEl.classList.toggle('expanded');
+    };
+
+    // Initialize URL navigation
+    window.initUrlNavigation = function() {
+        const categories = document.querySelectorAll('.url-category');
+        if (categories.length === 0) return;
+    };
+
+    function getUrlCategories() {
+        return Array.from(document.querySelectorAll('.url-category'));
+    }
+
+    function getUrlsInCategory(categoryEl) {
+        return Array.from(categoryEl.querySelectorAll('.url-item'));
+    }
+
+    function clearUrlSelection() {
+        document.querySelectorAll('.url-category.selected').forEach(el => el.classList.remove('selected'));
+        document.querySelectorAll('.url-item.selected').forEach(el => el.classList.remove('selected'));
+    }
+
+    function selectCategory(index) {
+        const categories = getUrlCategories();
+        if (categories.length === 0) return;
+
+        clearUrlSelection();
+        selectedUrlIdx = -1;
+
+        if (index < 0) index = 0;
+        if (index >= categories.length) index = categories.length - 1;
+
+        selectedCategoryIdx = index;
+        categories[index].classList.add('selected');
+        categories[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function selectUrlItem(categoryIndex, urlIndex) {
+        const categories = getUrlCategories();
+        if (categoryIndex < 0 || categoryIndex >= categories.length) return;
+
+        clearUrlSelection();
+        selectedCategoryIdx = categoryIndex;
+
+        const urls = getUrlsInCategory(categories[categoryIndex]);
+        if (urls.length === 0) return;
+
+        if (urlIndex < 0) urlIndex = 0;
+        if (urlIndex >= urls.length) urlIndex = urls.length - 1;
+
+        selectedUrlIdx = urlIndex;
+        categories[categoryIndex].classList.add('selected');
+        urls[urlIndex].classList.add('selected');
+        urls[urlIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function expandCategory(index) {
+        const categories = getUrlCategories();
+        if (index >= 0 && index < categories.length) {
+            categories[index].classList.add('expanded');
+        }
+    }
+
+    function collapseCategory(index) {
+        const categories = getUrlCategories();
+        if (index >= 0 && index < categories.length) {
+            categories[index].classList.remove('expanded');
+        }
+    }
+
+    function isCategoryExpanded(index) {
+        const categories = getUrlCategories();
+        if (index >= 0 && index < categories.length) {
+            return categories[index].classList.contains('expanded');
+        }
+        return false;
+    }
+
+    // Handle URL list keyboard navigation when in Technical Details
+    document.addEventListener('keydown', function(e) {
+        const details = document.querySelector('.debug-details');
+        if (!details || !details.open) return;
+
+        if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        const categories = getUrlCategories();
+        if (categories.length === 0) return;
+
+        const cachedLinksSection = document.getElementById('cached-links');
+        const rect = cachedLinksSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (!isVisible && selectedCategoryIdx < 0) return;
+
+        if (e.key === 'u') {
+            e.preventDefault();
+            urlNavMode = true;
+            if (selectedCategoryIdx < 0) {
+                selectCategory(0);
+            }
+            return;
+        }
+
+        if (!urlNavMode && selectedCategoryIdx < 0) return;
+
+        if (e.key === 'j' || e.key === 'ArrowDown') {
+            if (urlNavMode || selectedCategoryIdx >= 0) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (selectedUrlIdx >= 0 && isCategoryExpanded(selectedCategoryIdx)) {
+                    const urls = getUrlsInCategory(categories[selectedCategoryIdx]);
+                    if (selectedUrlIdx < urls.length - 1) {
+                        selectUrlItem(selectedCategoryIdx, selectedUrlIdx + 1);
+                    } else {
                         if (selectedCategoryIdx < categories.length - 1) {
+                            collapseCategory(selectedCategoryIdx);
                             selectCategory(selectedCategoryIdx + 1);
                         }
-                    } else {
-                        selectCategory(0);
                     }
+                } else if (selectedCategoryIdx >= 0) {
+                    if (selectedCategoryIdx < categories.length - 1) {
+                        selectCategory(selectedCategoryIdx + 1);
+                    }
+                } else {
+                    selectCategory(0);
                 }
-            } else if (e.key === 'k' || e.key === 'ArrowUp') {
-                if (urlNavMode || selectedCategoryIdx >= 0) {
-                    e.preventDefault();
-                    e.stopPropagation();
+            }
+        } else if (e.key === 'k' || e.key === 'ArrowUp') {
+            if (urlNavMode || selectedCategoryIdx >= 0) {
+                e.preventDefault();
+                e.stopPropagation();
 
-                    if (selectedUrlIdx >= 0 && isCategoryExpanded(selectedCategoryIdx)) {
-                        // Navigate within URLs
-                        if (selectedUrlIdx > 0) {
-                            selectUrlItem(selectedCategoryIdx, selectedUrlIdx - 1);
-                        } else {
-                            // Back to category selection
-                            selectedUrlIdx = -1;
-                            selectCategory(selectedCategoryIdx);
-                        }
-                    } else if (selectedCategoryIdx > 0) {
-                        selectCategory(selectedCategoryIdx - 1);
-                    }
-                }
-            } else if (e.key === 'Enter' || e.key === ' ') {
-                if (selectedUrlIdx >= 0) {
-                    // Open selected URL
-                    const urls = getUrlsInCategory(categories[selectedCategoryIdx]);
-                    if (urls[selectedUrlIdx]) {
-                        window.location.href = urls[selectedUrlIdx].href;
-                    }
-                } else if (selectedCategoryIdx >= 0) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    // Toggle category expansion
-                    if (isCategoryExpanded(selectedCategoryIdx)) {
-                        collapseCategory(selectedCategoryIdx);
+                if (selectedUrlIdx >= 0 && isCategoryExpanded(selectedCategoryIdx)) {
+                    if (selectedUrlIdx > 0) {
+                        selectUrlItem(selectedCategoryIdx, selectedUrlIdx - 1);
                     } else {
-                        expandCategory(selectedCategoryIdx);
-                        // Select first URL in category
-                        const urls = getUrlsInCategory(categories[selectedCategoryIdx]);
-                        if (urls.length > 0) {
-                            selectUrlItem(selectedCategoryIdx, 0);
-                        }
+                        selectedUrlIdx = -1;
+                        selectCategory(selectedCategoryIdx);
                     }
+                } else if (selectedCategoryIdx > 0) {
+                    selectCategory(selectedCategoryIdx - 1);
                 }
-            } else if (e.key === 'Escape') {
-                if (selectedUrlIdx >= 0) {
-                    // Back to category
-                    e.preventDefault();
-                    selectedUrlIdx = -1;
-                    selectCategory(selectedCategoryIdx);
-                } else if (selectedCategoryIdx >= 0) {
-                    // Exit URL nav mode
-                    e.preventDefault();
-                    clearUrlSelection();
-                    selectedCategoryIdx = -1;
-                    urlNavMode = false;
+            }
+        } else if (e.key === 'Enter' || e.key === ' ') {
+            if (selectedUrlIdx >= 0) {
+                const urls = getUrlsInCategory(categories[selectedCategoryIdx]);
+                if (urls[selectedUrlIdx]) {
+                    window.location.href = urls[selectedUrlIdx].href;
                 }
-            } else if (e.key === 'l' || e.key === 'ArrowRight') {
-                if (selectedCategoryIdx >= 0 && !isCategoryExpanded(selectedCategoryIdx)) {
-                    e.preventDefault();
-                    e.stopPropagation();
+            } else if (selectedCategoryIdx >= 0) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (isCategoryExpanded(selectedCategoryIdx)) {
+                    collapseCategory(selectedCategoryIdx);
+                } else {
                     expandCategory(selectedCategoryIdx);
                     const urls = getUrlsInCategory(categories[selectedCategoryIdx]);
                     if (urls.length > 0) {
                         selectUrlItem(selectedCategoryIdx, 0);
                     }
                 }
-            } else if (e.key === 'h' || e.key === 'ArrowLeft') {
-                if (selectedCategoryIdx >= 0) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (selectedUrlIdx >= 0) {
-                        // Go back to category header
-                        selectedUrlIdx = -1;
-                        selectCategory(selectedCategoryIdx);
-                    } else if (isCategoryExpanded(selectedCategoryIdx)) {
-                        collapseCategory(selectedCategoryIdx);
-                    }
+            }
+        } else if (e.key === 'Escape') {
+            if (selectedUrlIdx >= 0) {
+                e.preventDefault();
+                selectedUrlIdx = -1;
+                selectCategory(selectedCategoryIdx);
+            } else if (selectedCategoryIdx >= 0) {
+                e.preventDefault();
+                clearUrlSelection();
+                selectedCategoryIdx = -1;
+                urlNavMode = false;
+            }
+        } else if (e.key === 'l' || e.key === 'ArrowRight') {
+            if (selectedCategoryIdx >= 0 && !isCategoryExpanded(selectedCategoryIdx)) {
+                e.preventDefault();
+                e.stopPropagation();
+                expandCategory(selectedCategoryIdx);
+                const urls = getUrlsInCategory(categories[selectedCategoryIdx]);
+                if (urls.length > 0) {
+                    selectUrlItem(selectedCategoryIdx, 0);
                 }
             }
-        }, true); // Use capture to get events before other handlers
-    })();
-    </script>
-</body>
-</html>
+        } else if (e.key === 'h' || e.key === 'ArrowLeft') {
+            if (selectedCategoryIdx >= 0) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (selectedUrlIdx >= 0) {
+                    selectedUrlIdx = -1;
+                    selectCategory(selectedCategoryIdx);
+                } else if (isCategoryExpanded(selectedCategoryIdx)) {
+                    collapseCategory(selectedCategoryIdx);
+                }
+            }
+        }
+    }, true);
+})();
+</script>
+{% endblock %}
