@@ -321,7 +321,7 @@
         <p class="loading">Select a book and chapter above...</p>
     </div>
 
-    <p id="keyboard-hint">Tip: Use ← → arrow keys to navigate chapters</p>
+    <p id="keyboard-hint">Tip: j/k to select • ←/→ chapters • Enter to open • g=Genesis • ? for help</p>
 
     <div class="back-link">
         <a href="/">← Back to KJV Study</a>
@@ -784,14 +784,135 @@
         prevBtn.addEventListener('click', goPrev);
         nextBtn.addEventListener('click', goNext);
 
+        // Keyboard navigation
+        const quickLinks = Array.from(document.querySelectorAll('.quick-link'));
+        let selectedQuickLink = -1;
+        let selectedVerse = -1;
+        let inQuickLinksZone = true; // Start in quick links zone
+
+        function getVerseElements() {
+            return Array.from(content.querySelectorAll('p'));
+        }
+
+        function clearSelection() {
+            quickLinks.forEach(el => {
+                el.style.outline = '';
+                el.style.outlineOffset = '';
+            });
+            getVerseElements().forEach(el => {
+                el.style.outline = '';
+                el.style.outlineOffset = '';
+            });
+        }
+
+        function selectQuickLink(index) {
+            clearSelection();
+            inQuickLinksZone = true;
+            selectedVerse = -1;
+            if (index < 0) index = 0;
+            if (index >= quickLinks.length) index = quickLinks.length - 1;
+            selectedQuickLink = index;
+            quickLinks[index].style.outline = '2px solid #4a7c59';
+            quickLinks[index].style.outlineOffset = '4px';
+            quickLinks[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function selectVerse(index) {
+            clearSelection();
+            inQuickLinksZone = false;
+            selectedQuickLink = -1;
+            const verses = getVerseElements();
+            if (verses.length === 0) return;
+            if (index < 0) index = 0;
+            if (index >= verses.length) index = verses.length - 1;
+            selectedVerse = index;
+            verses[index].style.outline = '2px solid #4a7c59';
+            verses[index].style.outlineOffset = '4px';
+            verses[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
         document.addEventListener('keydown', function(e) {
-            if (e.target.tagName === 'SELECT') return;
-            if (e.key === 'ArrowLeft' || e.key === 'h') {
+            if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            const verses = getVerseElements();
+
+            if (e.key === 'ArrowDown' || e.key === 'j') {
                 e.preventDefault();
-                if (!prevBtn.disabled) goPrev();
+                if (inQuickLinksZone) {
+                    // Move within quick links (grid navigation)
+                    if (selectedQuickLink < 0) {
+                        selectQuickLink(0);
+                    } else if (selectedQuickLink + 3 < quickLinks.length) {
+                        selectQuickLink(selectedQuickLink + 3); // Move down in grid
+                    } else if (verses.length > 0) {
+                        // Move to verses
+                        selectVerse(0);
+                    }
+                } else {
+                    selectVerse(selectedVerse + 1);
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'k') {
+                e.preventDefault();
+                if (inQuickLinksZone) {
+                    if (selectedQuickLink >= 3) {
+                        selectQuickLink(selectedQuickLink - 3); // Move up in grid
+                    } else if (selectedQuickLink > 0) {
+                        selectQuickLink(0);
+                    }
+                } else {
+                    if (selectedVerse <= 0) {
+                        // Move back to quick links
+                        selectQuickLink(quickLinks.length - 1);
+                    } else {
+                        selectVerse(selectedVerse - 1);
+                    }
+                }
+            } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+                e.preventDefault();
+                if (inQuickLinksZone && selectedQuickLink > 0) {
+                    selectQuickLink(selectedQuickLink - 1);
+                } else if (!inQuickLinksZone || selectedQuickLink < 0) {
+                    if (!prevBtn.disabled) goPrev();
+                }
             } else if (e.key === 'ArrowRight' || e.key === 'l') {
                 e.preventDefault();
-                if (!nextBtn.disabled) goNext();
+                if (inQuickLinksZone && selectedQuickLink >= 0 && selectedQuickLink < quickLinks.length - 1) {
+                    selectQuickLink(selectedQuickLink + 1);
+                } else if (!inQuickLinksZone || selectedQuickLink < 0) {
+                    if (!nextBtn.disabled) goNext();
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (inQuickLinksZone && selectedQuickLink >= 0) {
+                    window.location.href = quickLinks[selectedQuickLink].href;
+                }
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                clearSelection();
+                selectedQuickLink = -1;
+                selectedVerse = -1;
+                inQuickLinksZone = true;
+            } else if (e.key === 'g') {
+                // Go to Genesis 1
+                e.preventDefault();
+                if (bookStructure['Genesis']) {
+                    bookSelect.value = 'Genesis';
+                    populateChapterSelect('Genesis');
+                    chapterSelect.value = '1';
+                    renderChapter('Genesis', '1');
+                }
+            } else if (e.key === '?') {
+                // Show keyboard hints
+                e.preventDefault();
+                alert('Keyboard shortcuts:\n\n' +
+                    'j/↓ - Move down\n' +
+                    'k/↑ - Move up\n' +
+                    'h/← - Previous chapter / Move left\n' +
+                    'l/→ - Next chapter / Move right\n' +
+                    'Enter - Open selected link\n' +
+                    'g - Go to Genesis 1\n' +
+                    'Esc - Clear selection\n' +
+                    '? - Show this help');
             }
         });
 
