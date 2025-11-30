@@ -2360,6 +2360,69 @@ def read_chapter_interlinear(request: Request, book: str, chapter: int):
     )
 
 
+@app.get("/book/{book}/chapter/{chapter}/verse/{verse_num}/pdf")
+async def verse_pdf(book: str, chapter: int, verse_num: int):
+    """Generate PDF export for a single verse with commentary."""
+    # Redirect book name variations to canonical form
+    canonical_name = normalize_book_name(book)
+    if canonical_name:
+        return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/verse/{verse_num}/pdf", status_code=301)
+
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    verses = bible.get_verses_by_book_chapter(book, chapter)
+    if not verses:
+        raise HTTPException(status_code=404, detail=f"Chapter {chapter} of {book} was not found.")
+
+    # Find the specific verse
+    verse = None
+    for v in verses:
+        if v.verse == verse_num:
+            verse = v
+            break
+
+    if not verse:
+        raise HTTPException(status_code=404, detail=f"Verse {verse_num} not found in {book} {chapter}.")
+
+    # Generate commentary
+    try:
+        commentary = generate_commentary(book, chapter, verse)
+    except Exception:
+        commentary = None
+
+    # Get cross-references
+    cross_refs = get_cross_references(book, chapter, verse_num)
+
+    # Get interlinear data
+    interlinear_words = get_interlinear_data(book, chapter, verse_num)
+
+    # Determine if OT
+    is_ot = book in OT_BOOKS
+
+    html_content = templates.get_template("verse_pdf.html").render(
+        book=book,
+        chapter=chapter,
+        verse_num=verse_num,
+        verse_text=verse.text,
+        commentary=commentary,
+        cross_references=cross_refs,
+        interlinear_words=interlinear_words,
+        is_old_testament=is_ot
+    )
+    pdf_buffer = await render_html_to_pdf_async(html_content)
+
+    filename = f"{book.lower().replace(' ', '-')}-{chapter}-{verse_num}.pdf"
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
 @app.get("/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
 def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     """Display a single verse with detailed commentary"""
@@ -2448,7 +2511,9 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
             "has_interlinear": has_interlinear,
             "interlinear_words": interlinear_words,
             "related_content": related_content,
-            "is_old_testament": is_ot
+            "is_old_testament": is_ot,
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "pdf_url": f"/book/{book}/chapter/{chapter}/verse/{verse_num}/pdf" if WEASYPRINT_AVAILABLE else None
         }
     )
 

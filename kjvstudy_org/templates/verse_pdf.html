@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book }} {{ chapter }}:{{ verse_num }} (KJV)</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.85in;
+            @bottom-center {
+                content: counter(page);
+                font-family: "et-book", Georgia, serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        body {
+            font-family: "et-book", Georgia, "Times New Roman", serif;
+            font-size: 11.25pt;
+            line-height: 1.65;
+            color: #111;
+        }
+
+        h1 {
+            font-weight: normal;
+            letter-spacing: 0.05em;
+            font-size: 22pt;
+            margin: 0 0 0.1in 0;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 0.3in;
+        }
+
+        .verse-text-main {
+            font-size: 14pt;
+            line-height: 1.8;
+            margin: 0.3in 0;
+            padding: 0.2in;
+            border-left: 3px solid #4a7c59;
+            background: #f9f9f9;
+        }
+
+        h2 {
+            font-size: 14pt;
+            font-weight: 600;
+            margin: 0.3in 0 0.15in 0;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.05in;
+        }
+
+        h3 {
+            font-size: 12pt;
+            font-weight: 600;
+            margin: 0.2in 0 0.1in 0;
+            color: #444;
+        }
+
+        p {
+            margin: 0.1in 0;
+            text-align: justify;
+        }
+
+        .cross-ref-group {
+            margin: 0.15in 0;
+        }
+
+        .cross-ref-group strong {
+            color: #333;
+        }
+
+        .cross-ref-list {
+            margin-left: 0.2in;
+            color: #555;
+        }
+
+        .word-study {
+            margin: 0.15in 0;
+            padding: 0.1in;
+            background: #f5f5f5;
+            border-radius: 3px;
+        }
+
+        .word-study-term {
+            font-weight: 600;
+            color: #4a7c59;
+        }
+
+        .word-study-original {
+            font-style: italic;
+        }
+
+        .interlinear-section {
+            margin: 0.2in 0;
+        }
+
+        .interlinear-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.1in;
+            margin: 0.1in 0;
+        }
+
+        .word-unit {
+            text-align: center;
+            padding: 0.05in;
+        }
+
+        .word-original {
+            font-size: 14pt;
+            display: block;
+        }
+
+        .word-original.hebrew {
+            direction: rtl;
+            font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif;
+            font-size: 16pt;
+        }
+
+        .word-original.greek {
+            font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
+            font-size: 14pt;
+        }
+
+        .word-english {
+            font-size: 9pt;
+            color: #4a7c59;
+            font-weight: 600;
+            display: block;
+        }
+
+        .word-strongs {
+            font-size: 7pt;
+            color: #888;
+            font-family: monospace;
+            display: block;
+        }
+
+        .footer {
+            margin-top: 0.4in;
+            font-size: 9pt;
+            color: #888;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 0.1in;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ book }} {{ chapter }}:{{ verse_num }}</h1>
+    <p class="subtitle">Authorized King James Version (KJV)</p>
+
+    <div class="verse-text-main">
+        {{ verse_text }}
+    </div>
+
+    {% if commentary %}
+    {% if commentary.historical_context %}
+    <h2>Historical Context</h2>
+    <p>{{ commentary.historical_context }}</p>
+    {% endif %}
+
+    {% if commentary.theological_significance %}
+    <h2>Theological Significance</h2>
+    <p>{{ commentary.theological_significance }}</p>
+    {% endif %}
+
+    {% if commentary.cross_reference_groups %}
+    <h2>Cross-References</h2>
+    {% for group in commentary.cross_reference_groups %}
+    <div class="cross-ref-group">
+        <strong>{{ group.description }}:</strong>
+        <span class="cross-ref-list">
+            {% for ref in group.refs %}{{ ref }}{% if not loop.last %}; {% endif %}{% endfor %}
+        </span>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if commentary.word_studies %}
+    <h2>Word Studies</h2>
+    {% for study in commentary.word_studies %}
+    <div class="word-study">
+        <span class="word-study-term">{{ study.word }}</span>
+        &mdash;
+        <span class="word-study-original">{{ study.term }} ({{ study.translit }})</span>:
+        {{ study.meaning }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% if commentary.application %}
+    <h2>Application</h2>
+    <p>{{ commentary.application }}</p>
+    {% endif %}
+    {% endif %}
+
+    {% if interlinear_words %}
+    <h2>Interlinear Text</h2>
+    <div class="interlinear-section">
+        <div class="interlinear-flow">
+            {% for word in interlinear_words %}
+            <div class="word-unit">
+                <span class="word-original {% if is_old_testament %}hebrew{% else %}greek{% endif %}">{{ word.original }}</span>
+                <span class="word-english">{{ word.english }}</span>
+                {% if word.strongs %}
+                <span class="word-strongs">{{ word.strongs }}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if cross_references %}
+    <h2>Additional Cross-References</h2>
+    {% for ref in cross_references[:10] %}
+    <p><strong>{{ ref.reference }}</strong>: <em>{{ ref.text }}</em></p>
+    {% endfor %}
+    {% endif %}
+
+    <div class="footer">
+        From KJV Study &bull; kjvstudy.org
+    </div>
+</body>
+</html>

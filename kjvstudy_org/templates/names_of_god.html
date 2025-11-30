@@ -156,6 +156,34 @@
     padding-left: 1.5rem;
     font-size: 0.95rem;
 }
+
+@media print {
+    .names-actions,
+    .names-download-btn,
+    .toc {
+        display: none !important;
+    }
+
+    .name-description,
+    .verse-text,
+    .intro-text {
+        max-width: 100% !important;
+    }
+
+    .name-entry {
+        page-break-inside: avoid;
+    }
+
+    .sidenote,
+    .marginnote {
+        display: block;
+        float: none;
+        width: 100%;
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        color: #666;
+    }
+}
 </style>
 {% endblock %}
 

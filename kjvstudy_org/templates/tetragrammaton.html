@@ -74,6 +74,28 @@
     width: 14px;
     height: 14px;
 }
+
+@media print {
+    .tetragrammaton-actions,
+    .tetragrammaton-download-btn,
+    .toc {
+        display: none !important;
+    }
+
+    section {
+        page-break-inside: avoid;
+    }
+
+    .sidenote,
+    .marginnote {
+        display: block;
+        float: none;
+        width: 100%;
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        color: #666;
+    }
+}
 </style>
 {% endblock %}
 

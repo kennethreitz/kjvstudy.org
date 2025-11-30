@@ -169,6 +169,35 @@
         max-width: 100%;
     }
 }
+
+@media print {
+    .resource-index-actions,
+    .resource-entry-actions,
+    .resource-download-btn,
+    .toc {
+        display: none !important;
+    }
+
+    .resource-item-description,
+    .verse-text,
+    .intro-text {
+        max-width: 100% !important;
+    }
+
+    .resource-entry {
+        page-break-inside: avoid;
+    }
+
+    .sidenote,
+    .marginnote {
+        display: block;
+        float: none;
+        width: 100%;
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        color: #666;
+    }
+}
 </style>
 {% endblock %}
 
