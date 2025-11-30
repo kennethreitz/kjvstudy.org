@@ -230,6 +230,63 @@
             color: var(--success-color);
             font-weight: 600;
         }
+        .status-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+        }
+        .status-card.status-ok {
+            border-color: var(--success-color);
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+        .status-card.status-error {
+            border-color: var(--error-color);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+        .status-card.status-warning {
+            border-color: #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+        [data-theme="dark"] .status-card.status-ok {
+            background: linear-gradient(135deg, #14532d 0%, #166534 100%);
+        }
+        [data-theme="dark"] .status-card.status-error {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+        }
+        [data-theme="dark"] .status-card.status-warning {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+        }
+        .status-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+        .status-content {
+            flex: 1;
+        }
+        .status-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        .status-detail {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .status-detail code {
+            background: rgba(0,0,0,0.1);
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+        [data-theme="dark"] .status-detail code {
+            background: rgba(255,255,255,0.1);
+        }
         .quick-links {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -278,6 +335,14 @@
 <body>
     <h1>Offline Mode <span class="badge" id="connection-badge">checking...</span></h1>
     <p class="subtitle">KJV Study - Available without internet</p>
+
+    <div class="status-card" id="status-card">
+        <div class="status-icon" id="status-icon">⏳</div>
+        <div class="status-content">
+            <div class="status-title" id="status-title">Checking service worker...</div>
+            <div class="status-detail" id="status-detail">Please wait</div>
+        </div>
+    </div>
 
     <div class="cache-controls">
         <h3>Enable Offline Access</h3>
@@ -362,6 +427,19 @@
         const cachedLinks = document.getElementById('cached-links');
         const cachedCount = document.getElementById('cached-count');
 
+        // Status card elements
+        const statusCard = document.getElementById('status-card');
+        const statusIcon = document.getElementById('status-icon');
+        const statusTitle = document.getElementById('status-title');
+        const statusDetail = document.getElementById('status-detail');
+
+        function updateStatusCard(type, icon, title, detail) {
+            statusCard.className = 'status-card status-' + type;
+            statusIcon.textContent = icon;
+            statusTitle.textContent = title;
+            statusDetail.innerHTML = detail;
+        }
+
         // Update connection status
         function updateConnectionStatus() {
             if (navigator.onLine) {
@@ -381,21 +459,56 @@
             if ('serviceWorker' in navigator) {
                 try {
                     const registration = await navigator.serviceWorker.getRegistration();
-                    if (registration) {
+                    if (registration && registration.active) {
                         const state = registration.active ? 'Active' :
                                      registration.waiting ? 'Waiting' :
                                      registration.installing ? 'Installing' : 'Unknown';
                         swStatus.innerHTML = '<span class="status-ok">✓ Registered (' + state + ')</span>';
                         swStatus.innerHTML += '<br>Scope: ' + registration.scope;
+
+                        // Check how many pages are cached
+                        const cacheNames = await caches.keys();
+                        let totalCached = 0;
+                        for (const cacheName of cacheNames) {
+                            const cache = await caches.open(cacheName);
+                            const keys = await cache.keys();
+                            totalCached += keys.filter(req => !new URL(req.url).pathname.startsWith('/static/')).length;
+                        }
+
+                        if (totalCached > 1000) {
+                            updateStatusCard('ok', '✅', 'Ready for offline use',
+                                totalCached.toLocaleString() + ' pages cached. You can browse the entire site without internet.');
+                        } else if (totalCached > 0) {
+                            updateStatusCard('warning', '⚠️', 'Partially cached',
+                                totalCached.toLocaleString() + ' pages cached. Click "Download for Offline Use" below to cache the entire site.');
+                        } else {
+                            updateStatusCard('warning', '📥', 'Service worker ready',
+                                'Click "Download for Offline Use" below to cache the entire site for offline access.');
+                        }
+                    } else if (registration) {
+                        swStatus.innerHTML = '<span class="status-ok">✓ Registered (Installing)</span>';
+                        updateStatusCard('warning', '⏳', 'Service worker installing...',
+                            'Please wait a moment and refresh the page.');
                     } else {
                         swStatus.innerHTML = '<span class="status-error">✗ Not registered</span>';
                         swStatus.innerHTML += '<br>Try refreshing the page or check if content blockers are blocking it.';
+                        updateStatusCard('error', '🚫', 'Service worker not registered',
+                            'This could be caused by a content blocker or privacy extension. ' +
+                            'Try:<br>• Disabling ad blockers for this site<br>' +
+                            '• Checking browser privacy settings<br>' +
+                            '• Using a different browser<br>' +
+                            '• Making sure you\'re on <code>https://</code> or <code>localhost</code>');
                     }
                 } catch (err) {
                     swStatus.innerHTML = '<span class="status-error">✗ Error: ' + err.message + '</span>';
+                    updateStatusCard('error', '❌', 'Error checking service worker',
+                        'Error: ' + err.message + '<br>Try refreshing the page.');
                 }
             } else {
                 swStatus.innerHTML = '<span class="status-error">✗ Not supported in this browser</span>';
+                updateStatusCard('error', '🌐', 'Service workers not supported',
+                    'Your browser doesn\'t support service workers. ' +
+                    'Try using a modern browser like Chrome, Firefox, Safari, or Edge.');
             }
         }
 
