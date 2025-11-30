@@ -416,9 +416,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Drill into TOC items
                 selectTocItem(0);
             } else if (currentSection === 'toc' && selectedTocIndex >= 0) {
-                // Navigate to the linked section
+                // Jump to first content element in that section
                 var href = tocItems[selectedTocIndex].getAttribute('href');
-                if (href) window.location.href = href;
+                if (href) {
+                    var targetId = href.substring(1); // Remove the #
+                    var targetHeading = document.getElementById(targetId);
+                    if (targetHeading) {
+                        // Find the resource-name within or near this heading's section
+                        var section = targetHeading.closest('.resource-entry') || targetHeading.closest('.resource-section');
+                        if (section) {
+                            var firstElement = section.querySelector('.resource-name, .resource-item-description p, .verse-item');
+                            if (firstElement) {
+                                var idx = contentElements.indexOf(firstElement);
+                                if (idx >= 0) {
+                                    selectContentElement(idx);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    // Fallback: scroll to the anchor
+                    window.location.href = href;
+                }
             } else if (selectedIndex >= 0) {
                 var el = contentElements[selectedIndex];
                 // Check if the element itself contains a link, or is an h3 with a link inside
