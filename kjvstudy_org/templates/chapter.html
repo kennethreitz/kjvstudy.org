@@ -352,7 +352,7 @@ p[id^="verse-"].selected {
         </a>
     </div>
     <div class="nav-help">
-        Tip: ↑/↓ to navigate • Enter to select • ←/→ chapters • i=interlinear • p=PDF • c=chapter selector
+        Tip: ↑/↓ to navigate • Enter to select • ←/→ chapters • i=interlinear • p=PDF
     </div>
 </nav>
 
@@ -434,15 +434,15 @@ document.addEventListener('DOMContentLoaded', function() {
     highlightVerses();
     window.addEventListener('hashchange', highlightVerses);
 
-    // Three-zone navigation: action buttons, chapter selector, and verses
+    // Three-zone navigation: action buttons, verses, and chapter selector
     const actionButtons = Array.from(document.querySelectorAll('.chapter-actions .action-btn'));
-    const chapterSelect = document.querySelector('.chapter-select');
-    const chapterNavControls = document.querySelector('.chapter-nav-controls');
     const verses = document.querySelectorAll('p[id^="verse-"]');
+    const chapterNavControls = document.querySelector('.chapter-nav-controls');
+    const chapterSelect = document.querySelector('.chapter-select');
     let selectedVerseIndex = -1;
     let selectedActionIndex = -1;
+    let chapterSelectorSelected = false;
     let inActionZone = false;
-    let inChapterSelectorZone = false;
 
     // Initialize from hash if present (e.g., #verse-24)
     function initFromHash() {
@@ -473,12 +473,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (chapterNavControls) {
             chapterNavControls.classList.remove('selected');
         }
+        chapterSelectorSelected = false;
     }
 
     function selectAction(index) {
         clearAllSelections();
         inActionZone = true;
-        inChapterSelectorZone = false;
         selectedActionIndex = Math.max(0, Math.min(index, actionButtons.length - 1));
         selectedVerseIndex = -1;
         actionButtons[selectedActionIndex].classList.add('selected');
@@ -491,9 +491,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectChapterSelector() {
         clearAllSelections();
         inActionZone = false;
-        inChapterSelectorZone = true;
         selectedActionIndex = -1;
         selectedVerseIndex = -1;
+        chapterSelectorSelected = true;
         if (chapterNavControls) {
             chapterNavControls.classList.add('selected');
             chapterNavControls.scrollIntoView({
@@ -506,7 +506,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectVerse(index) {
         clearAllSelections();
         inActionZone = false;
-        inChapterSelectorZone = false;
         selectedActionIndex = -1;
 
         // Update index with bounds checking
@@ -688,12 +687,6 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             var pdfBtn = document.querySelector('.pdf-btn');
             if (pdfBtn) window.location.href = pdfBtn.href;
-        }
-
-        // c: Jump to chapter selector
-        if (e.key === 'c') {
-            e.preventDefault();
-            selectChapterSelector();
         }
 
         // Space: Read selected verse aloud

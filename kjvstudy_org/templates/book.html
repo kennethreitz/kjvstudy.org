@@ -25,22 +25,42 @@
     outline-color: rgba(107, 155, 122, 0.4);
 }
 
-/* Selected content paragraphs */
+/* Selected chapter section (green box) */
+.chapters-section.selected {
+    outline: 3px solid #4a7c59;
+    outline-offset: 4px;
+    background: rgba(74, 124, 89, 0.05);
+    padding: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+[data-theme="dark"] .chapters-section.selected {
+    outline-color: #6b9b7a;
+    background: rgba(107, 155, 122, 0.1);
+}
+
+/* Selected content paragraphs (green box) */
 section:not(.chapters-section) p.selected,
 section:not(.chapters-section) li.selected,
 section:not(.chapters-section) blockquote.selected {
-    background: rgba(74, 124, 89, 0.1);
+    outline: 3px solid #4a7c59;
+    outline-offset: 4px;
+    background: rgba(74, 124, 89, 0.05);
+    padding: 1rem;
     margin-left: -1rem;
-    padding-left: 1rem;
-    border-left: 3px solid #4a7c59;
+    margin-right: -1rem;
+    border-radius: 4px;
     transition: all 0.15s ease;
 }
 
 [data-theme="dark"] section:not(.chapters-section) p.selected,
 [data-theme="dark"] section:not(.chapters-section) li.selected,
 [data-theme="dark"] section:not(.chapters-section) blockquote.selected {
-    background: rgba(107, 155, 122, 0.15);
-    border-left-color: #6b9b7a;
+    outline-color: #6b9b7a;
+    background: rgba(107, 155, 122, 0.1);
 }
 
 .popular-chapter {
@@ -386,17 +406,23 @@ document.addEventListener('DOMContentLoaded', function() {
         linkVerseReferences(section);
     });
 
-    // Two-zone keyboard navigation: chapter links and content paragraphs
+    // Navigation with chapter drilldown
+    const chapterSection = document.querySelector('.chapters-section');
     const chapterLinks = document.querySelectorAll('.chapters-section a[data-chapter]');
     const contentParagraphs = document.querySelectorAll('section:not(.chapters-section) p, section:not(.chapters-section) li, section:not(.chapters-section) blockquote');
+
     let selectedChapterIndex = -1;
     let selectedParagraphIndex = -1;
-    let inChapterZone = true;
+    let chapterSectionSelected = false;
+    let inChapterDrilldown = false; // Are we drilling down into individual chapters?
 
     // Get current book index for left/right navigation
     const currentBookIndex = bibleBooks.findIndex(b => b.toLowerCase() === bookName.toLowerCase());
 
     function clearAllSelections() {
+        if (chapterSection) {
+            chapterSection.classList.remove('selected');
+        }
         if (selectedChapterIndex >= 0 && selectedChapterIndex < chapterLinks.length) {
             chapterLinks[selectedChapterIndex].classList.remove('selected');
         }
@@ -405,9 +431,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function selectChapterSection() {
+        clearAllSelections();
+        chapterSectionSelected = true;
+        inChapterDrilldown = false;
+        selectedChapterIndex = -1;
+        selectedParagraphIndex = -1;
+
+        if (chapterSection) {
+            chapterSection.classList.add('selected');
+            chapterSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }
+
     function selectChapter(index) {
         clearAllSelections();
-        inChapterZone = true;
+        chapterSectionSelected = false;
+        inChapterDrilldown = true;
         selectedParagraphIndex = -1;
 
         // Update index with bounds checking
@@ -425,7 +468,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function selectParagraph(index) {
         clearAllSelections();
-        inChapterZone = false;
+        chapterSectionSelected = false;
+        inChapterDrilldown = false;
         selectedChapterIndex = -1;
 
         // Update index with bounds checking
@@ -450,58 +494,90 @@ document.addEventListener('DOMContentLoaded', function() {
         // Up arrow or k: Previous item
         if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (inChapterZone) {
-                if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
-                    selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
-                } else if (selectedChapterIndex > 0) {
+            if (inChapterDrilldown) {
+                // Navigating within chapter numbers
+                if (selectedChapterIndex > 0) {
                     selectChapter(selectedChapterIndex - 1);
+                } else {
+                    // Exit drilldown, go back to chapter section
+                    selectChapterSection();
                 }
-            } else {
+            } else if (chapterSectionSelected) {
+                // At chapter section, can't go up (it's the first item)
+                // Stay here
+            } else if (selectedParagraphIndex >= 0) {
                 // In paragraph zone
                 if (selectedParagraphIndex === 0) {
-                    // Move back to last chapter
-                    selectChapter(chapterLinks.length - 1);
-                } else if (selectedParagraphIndex < 0) {
-                    // No selection, start at last paragraph
-                    selectParagraph(contentParagraphs.length - 1);
+                    // Move back to chapter section
+                    selectChapterSection();
                 } else {
                     selectParagraph(selectedParagraphIndex - 1);
                 }
+            } else {
+                // No selection, start at chapter section
+                selectChapterSection();
             }
         }
 
         // Down arrow or j: Next item
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (inChapterZone) {
-                if (selectedChapterIndex >= chapterLinks.length - 1) {
-                    // Move to first paragraph
+            if (inChapterDrilldown) {
+                // Navigating within chapter numbers
+                if (selectedChapterIndex < chapterLinks.length - 1) {
+                    selectChapter(selectedChapterIndex + 1);
+                } else {
+                    // Exit drilldown to first paragraph
                     if (contentParagraphs.length > 0) {
                         selectParagraph(0);
+                    } else {
+                        // No paragraphs, exit drilldown back to chapter section
+                        selectChapterSection();
                     }
-                } else if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
-                    selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
-                } else {
-                    selectChapter(selectedChapterIndex + 1);
                 }
-            } else {
-                // In paragraph zone
-                if (selectedParagraphIndex < 0) {
-                    // No selection, start at first paragraph
+            } else if (chapterSectionSelected) {
+                // At chapter section, move to first paragraph
+                if (contentParagraphs.length > 0) {
                     selectParagraph(0);
-                } else if (selectedParagraphIndex < contentParagraphs.length - 1) {
+                }
+            } else if (selectedParagraphIndex >= 0) {
+                // In paragraph zone
+                if (selectedParagraphIndex < contentParagraphs.length - 1) {
                     selectParagraph(selectedParagraphIndex + 1);
                 }
+            } else {
+                // No selection, start at chapter section
+                selectChapterSection();
             }
         }
 
-        // Enter: Go to selected chapter or do nothing for paragraphs
+        // Enter: Drill into chapter section or navigate to chapter
         if (e.key === 'Enter') {
             e.preventDefault();
-            if (inChapterZone && selectedChapterIndex >= 0) {
+            if (chapterSectionSelected) {
+                // Drill down into first chapter
+                selectChapter(0);
+            } else if (inChapterDrilldown && selectedChapterIndex >= 0) {
+                // Navigate to selected chapter
                 window.location.href = chapterLinks[selectedChapterIndex].href;
             }
-            // Paragraphs don't navigate anywhere, just read them
+            // Paragraphs and chapter section don't navigate anywhere
+        }
+
+        // Escape: Exit drilldown mode
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            if (inChapterDrilldown) {
+                // Exit drilldown back to chapter section
+                selectChapterSection();
+            } else {
+                // Clear all selections
+                clearAllSelections();
+                chapterSectionSelected = false;
+                inChapterDrilldown = false;
+                selectedChapterIndex = -1;
+                selectedParagraphIndex = -1;
+            }
         }
 
         // Left arrow: Previous book
@@ -563,7 +639,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <a href="/book/{{ book }}/chapter/{{ chapter }}" {% if chapter_popularity[chapter] >= 7 %}class="popular-chapter"{% endif %} data-chapter="{{ chapter }}">{{ chapter }}</a>{% if not loop.last %} · {% endif %}
         {% endfor %}
     </p>
-    <p class="nav-hint">Tip: ↑/↓ to navigate chapters & paragraphs • Enter to read chapter • ←/→ for adjacent books</p>
+    <p class="nav-hint">Tip: ↑/↓ to navigate • Enter to drill into chapters • Esc to exit • ←/→ for adjacent books</p>
 </section>
 
 {% if book_intro and book_intro.introduction %}
