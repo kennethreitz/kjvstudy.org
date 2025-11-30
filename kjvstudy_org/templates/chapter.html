@@ -129,6 +129,16 @@ p[id^="verse-"].selected {
     border-left-color: #6b9b7a;
 }
 
+/* Keyboard navigation selected action button */
+.action-btn.selected {
+    outline: 2px solid #4a7c59;
+    outline-offset: 4px;
+}
+
+[data-theme="dark"] .action-btn.selected {
+    outline-color: #6b9b7a;
+}
+
 .verse-number-link.has-commentary {
     color: #c41e3a;
 }
@@ -410,9 +420,12 @@ document.addEventListener('DOMContentLoaded', function() {
     highlightVerses();
     window.addEventListener('hashchange', highlightVerses);
 
-    // Verse keyboard navigation
+    // Two-zone navigation: action buttons and verses
+    const actionButtons = Array.from(document.querySelectorAll('.chapter-actions .action-btn'));
     const verses = document.querySelectorAll('p[id^="verse-"]');
     let selectedVerseIndex = -1;
+    let selectedActionIndex = -1;
+    let inActionZone = false;
 
     // Initialize from hash if present (e.g., #verse-24)
     function initFromHash() {
@@ -435,11 +448,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     initFromHash();
 
-    function selectVerse(index) {
-        // Remove previous selection
+    function clearAllSelections() {
         if (selectedVerseIndex >= 0 && selectedVerseIndex < verses.length) {
             verses[selectedVerseIndex].classList.remove('selected');
         }
+        actionButtons.forEach(btn => btn.classList.remove('selected'));
+    }
+
+    function selectAction(index) {
+        clearAllSelections();
+        inActionZone = true;
+        selectedActionIndex = Math.max(0, Math.min(index, actionButtons.length - 1));
+        selectedVerseIndex = -1;
+        actionButtons[selectedActionIndex].classList.add('selected');
+        actionButtons[selectedActionIndex].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+
+    function selectVerse(index) {
+        clearAllSelections();
+        inActionZone = false;
+        selectedActionIndex = -1;
 
         // Update index with bounds checking
         selectedVerseIndex = Math.max(0, Math.min(index, verses.length - 1));
@@ -461,31 +492,57 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Up arrow or k: Previous verse
+        // Up arrow or k: Previous item
         if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(verses, selectedVerseIndex)) {
-                selectVerse(KJVNav.findFirstVisibleIndex(verses));
+            if (inActionZone) {
+                // Move within action buttons or stay at first
+                if (selectedActionIndex > 0) {
+                    selectAction(selectedActionIndex - 1);
+                }
+            } else if (selectedVerseIndex === 0 && actionButtons.length > 0) {
+                // At first verse, move to action buttons
+                selectAction(actionButtons.length - 1);
+            } else if (selectedVerseIndex < 0) {
+                // No selection, start at first verse (viewport-aware)
+                selectVerse(KJVNav.findFirstVisibleIndex(Array.from(verses)));
+            } else if (KJVNav.isSelectionOffScreen(Array.from(verses), selectedVerseIndex)) {
+                selectVerse(KJVNav.findFirstVisibleIndex(Array.from(verses)));
             } else {
                 selectVerse(selectedVerseIndex - 1);
             }
         }
 
-        // Down arrow or j: Next verse
+        // Down arrow or j: Next item
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(verses, selectedVerseIndex)) {
-                selectVerse(KJVNav.findFirstVisibleIndex(verses));
+            if (inActionZone) {
+                // Move within action buttons or to verses
+                if (selectedActionIndex < actionButtons.length - 1) {
+                    selectAction(selectedActionIndex + 1);
+                } else {
+                    // Move to first verse
+                    selectVerse(0);
+                }
+            } else if (selectedVerseIndex < 0) {
+                // No selection, start at first verse (initial down starts with verses, not actions)
+                selectVerse(KJVNav.findFirstVisibleIndex(Array.from(verses)));
+            } else if (KJVNav.isSelectionOffScreen(Array.from(verses), selectedVerseIndex)) {
+                selectVerse(KJVNav.findFirstVisibleIndex(Array.from(verses)));
             } else {
                 selectVerse(selectedVerseIndex + 1);
             }
         }
 
-        // Enter: Go to selected verse page
-        if (e.key === 'Enter' && selectedVerseIndex >= 0) {
+        // Enter: Navigate to selected item
+        if (e.key === 'Enter') {
             e.preventDefault();
-            const link = verses[selectedVerseIndex].querySelector('.verse-number-link');
-            if (link) window.location.href = link.href;
+            if (inActionZone && selectedActionIndex >= 0) {
+                window.location.href = actionButtons[selectedActionIndex].href;
+            } else if (selectedVerseIndex >= 0) {
+                const link = verses[selectedVerseIndex].querySelector('.verse-number-link');
+                if (link) window.location.href = link.href;
+            }
         }
 
         // Left arrow or h: Browser back if verse highlight active, otherwise previous chapter
@@ -518,10 +575,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Escape: Clear selection
         if (e.key === 'Escape') {
             e.preventDefault();
-            if (selectedVerseIndex >= 0 && selectedVerseIndex < verses.length) {
-                verses[selectedVerseIndex].classList.remove('selected');
-            }
+            clearAllSelections();
             selectedVerseIndex = -1;
+            selectedActionIndex = -1;
+            inActionZone = false;
         }
 
         // i: Go to interlinear view
@@ -542,8 +599,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === ' ' && selectedVerseIndex >= 0) {
             e.preventDefault();
             var verseEl = verses[selectedVerseIndex];
+            // Clone the element to manipulate
+            var clone = verseEl.cloneNode(true);
+            // Remove sidenotes and marginnotes from clone
+            clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) {
+                el.remove();
+            });
             // Get text content, excluding the verse number link
-            var text = verseEl.textContent || verseEl.innerText;
+            var text = clone.textContent || clone.innerText;
             // Remove verse number from the beginning
             text = text.replace(/^\s*\d+\s*/, '');
             KJVSpeech.toggle(text);
