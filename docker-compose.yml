@@ -1,8 +1,19 @@
 services:
-  web:
-    build: .
+  nginx:
+    image: nginx:alpine
     ports:
       - "8000:8000"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./kjvstudy_org/static:/app/kjvstudy_org/static:ro
+    depends_on:
+      - web
+    restart: unless-stopped
+
+  web:
+    build: .
+    expose:
+      - "8001"
     volumes:
       - .:/app
       - /app/.venv
@@ -11,4 +22,4 @@ services:
       - PRELOAD_INTERLINEAR=true
       - DISABLE_ANALYTICS=true
     restart: unless-stopped
-    command: uv run uvicorn kjvstudy_org.server:app --host 0.0.0.0 --port 8000 --reload --reload-include '*.json'
+    command: uv run uvicorn kjvstudy_org.server:app --host 0.0.0.0 --port 8001 --reload --reload-include '*.json'

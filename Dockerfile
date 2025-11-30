@@ -50,7 +50,7 @@ COPY . .
 RUN python3 -c "from kjvstudy_org.utils.search_index import init_search_index; init_search_index()"
 
 # Copy nginx config and startup script
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx-prod.conf /etc/nginx/nginx.conf
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
