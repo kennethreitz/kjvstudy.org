@@ -1741,6 +1741,12 @@
         }
       };
 
+      // Simple resource reader state (for resource pages)
+      window.KJVResourceSpeech = {
+        speaking: false,
+        utterance: null
+      };
+
       // Load voices (they may not be available immediately)
       if ('speechSynthesis' in window) {
         speechSynthesis.getVoices();
@@ -1848,8 +1854,15 @@
               // Space: Read aloud selected text (with optional resource-reader handling)
               if (document.body && document.body.dataset && document.body.dataset.resourceReader === 'true') {
                 e.preventDefault();
-                var highlighted = document.querySelector('[style*="outline: 2px solid"]') ||
-                                  document.querySelector('[style*="outline:2px solid"]') ||
+                if (!('speechSynthesis' in window)) return;
+                if (window.KJVResourceSpeech.speaking) {
+                  speechSynthesis.cancel();
+                  window.KJVResourceSpeech.speaking = false;
+                  window.KJVResourceSpeech.utterance = null;
+                  return;
+                }
+                var highlighted = document.querySelector('[style*=\"outline: 2px solid\"]') ||
+                                  document.querySelector('[style*=\"outline:2px solid\"]') ||
                                   document.querySelector('.selected');
                 var article = document.querySelector('article');
                 var candidates = [];
@@ -1870,7 +1883,6 @@
                 if (subtitleEl && (subtitleEl.textContent || '').trim().length > 0) {
                   textBlocks.push(subtitleEl);
                 }
-                // If a specific element is highlighted, read only that; otherwise read all concatenated
                 if (highlighted) {
                   textBlocks = [highlighted];
                 } else {
@@ -1881,8 +1893,25 @@
                   clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
                   return (clone.textContent || clone.innerText || '').trim();
                 }).filter(Boolean).join(' ');
-                if (combined && window.KJVSpeech && typeof window.KJVSpeech.toggle === 'function') {
-                  KJVSpeech.toggle(combined);
+                if (combined) {
+                  var utter = new SpeechSynthesisUtterance(combined);
+                  var voices = speechSynthesis.getVoices();
+                  var englishVoice = voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en') && v.name.includes('Daniel'); }) ||
+                                     voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en-gb'); }) ||
+                                     voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en'); });
+                  if (englishVoice) utter.voice = englishVoice;
+                  utter.onend = function() {
+                    window.KJVResourceSpeech.speaking = false;
+                    window.KJVResourceSpeech.utterance = null;
+                  };
+                  utter.onerror = function() {
+                    window.KJVResourceSpeech.speaking = false;
+                    window.KJVResourceSpeech.utterance = null;
+                  };
+                  window.KJVResourceSpeech.speaking = true;
+                  window.KJVResourceSpeech.utterance = utter;
+                  speechSynthesis.cancel();
+                  speechSynthesis.speak(utter);
                 }
               } else {
                 var selectedText = KJVSpeech.getSelectedText();
