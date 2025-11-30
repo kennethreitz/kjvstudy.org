@@ -29,6 +29,7 @@
     <meta name="twitter:image" content="{% block twitter_image %}https://kjvstudy.org/static/og-image.png{% endblock %}"/>
 
     <link rel="stylesheet" href="/static/tufte.css"/>
+    <link rel="manifest" href="/static/manifest.json"/>
 
     {% block head %}{% endblock %}
 
@@ -2245,6 +2246,48 @@
         s.parentNode.insertBefore(t, s);
       })();
       {% endif %}
+
+      // Service Worker for offline support
+      (function() {
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/static/sw.js', { scope: '/' })
+              .then(function(registration) {
+                console.log('[App] Service Worker registered:', registration.scope);
+
+                // Check for updates periodically
+                setInterval(function() {
+                  registration.update();
+                }, 60 * 60 * 1000); // Check every hour
+              })
+              .catch(function(error) {
+                console.log('[App] Service Worker registration failed:', error);
+              });
+          });
+        }
+
+        // Offline/Online indicator
+        function updateOnlineStatus() {
+          var indicator = document.getElementById('offline-indicator');
+          if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.id = 'offline-indicator';
+            indicator.style.cssText = 'position:fixed;bottom:1rem;right:1rem;padding:0.5rem 1rem;background:#c41e3a;color:white;border-radius:4px;font-size:0.85rem;z-index:9999;display:none;box-shadow:0 2px 8px rgba(0,0,0,0.2);';
+            indicator.innerHTML = 'Offline Mode';
+            document.body.appendChild(indicator);
+          }
+
+          if (!navigator.onLine) {
+            indicator.style.display = 'block';
+          } else {
+            indicator.style.display = 'none';
+          }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+      })();
     </script>
 </body>
 </html>
