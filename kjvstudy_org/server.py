@@ -228,7 +228,12 @@ async def service_worker():
     return FileResponse(
         sw_path,
         media_type="application/javascript",
-        headers={"Service-Worker-Allowed": "/"}
+        headers={
+            "Service-Worker-Allowed": "/",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        }
     )
 
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")

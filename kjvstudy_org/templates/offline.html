@@ -320,7 +320,19 @@
     border-top: 1px solid var(--border-color);
 }
 
-/* Technical Details */
+/* Technical Status Section */
+.tech-section {
+    margin-bottom: 3rem;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Technical Details (collapsed) */
 .tech-details {
     margin-bottom: 3rem;
 }
@@ -347,13 +359,6 @@
 
 .tech-details[open] summary::before {
     content: '- ';
-}
-
-.tech-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
 }
 
 .tech-item {
@@ -514,6 +519,37 @@
     <p class="intro-text"><span class="newthought">Access the scriptures</span> anywhere, anytime. Download all ~48,000 pages including every chapter, verse commentary, interlinear text, Bible stories, and study resources for complete offline access.</p>
 </div>
 
+<!-- Technical Status (front and center for debugging) -->
+<div class="tech-section">
+    <h2 class="category-title">System Status</h2>
+    <div class="tech-grid">
+        <div class="tech-item">
+            <dt>Connection</dt>
+            <dd id="connection-status">Checking...</dd>
+        </div>
+        <div class="tech-item">
+            <dt>Service Worker</dt>
+            <dd id="sw-status">Checking...</dd>
+        </div>
+        <div class="tech-item">
+            <dt>Cache Storage</dt>
+            <dd id="cache-status">Checking...</dd>
+        </div>
+        <div class="tech-item">
+            <dt>Bible Data</dt>
+            <dd id="bible-status">Checking...</dd>
+        </div>
+        <div class="tech-item">
+            <dt>Pages Cached</dt>
+            <dd id="pages-cached">Checking...</dd>
+        </div>
+        <div class="tech-item">
+            <dt>SW Version</dt>
+            <dd id="sw-version">Checking...</dd>
+        </div>
+    </div>
+</div>
+
 <!-- Status Section -->
 <div class="status-section">
     <div class="status-card" id="status-card">
@@ -522,7 +558,6 @@
             <div class="status-title" id="status-title">Checking status...</div>
             <div class="status-detail" id="status-detail">Please wait</div>
         </div>
-        <span class="connection-badge" id="connection-badge">...</span>
     </div>
 </div>
 
@@ -599,32 +634,11 @@
     </div>
 </div>
 
-<!-- Technical Details -->
+<!-- Cached Pages -->
 <details class="tech-details">
-    <summary>Technical Details</summary>
-    <div class="tech-grid">
-        <div class="tech-item">
-            <dt>Service Worker</dt>
-            <dd id="sw-status">Checking...</dd>
-        </div>
-        <div class="tech-item">
-            <dt>Cache Storage</dt>
-            <dd id="cache-status">Checking...</dd>
-        </div>
-        <div class="tech-item">
-            <dt>Bible Data</dt>
-            <dd id="bible-status">Checking...</dd>
-        </div>
-        <div class="tech-item">
-            <dt>Pages Cached</dt>
-            <dd id="pages-cached">Checking...</dd>
-        </div>
-    </div>
-    <div class="cached-section">
-        <h3>Cached Pages <span id="cached-count" style="color: #4a7c59;">0</span></h3>
-        <div id="cached-links" class="url-categories">
-            <p style="color: var(--text-secondary); font-size: 0.9rem;">Scanning cache...</p>
-        </div>
+    <summary>Cached Pages (<span id="cached-count" style="color: #4a7c59;">0</span>)</summary>
+    <div id="cached-links" class="url-categories">
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Scanning cache...</p>
     </div>
 </details>
 {% endblock %}
@@ -632,8 +646,9 @@
 {% block extra_js %}
 <script>
 (function() {
-    const connectionBadge = document.getElementById('connection-badge');
+    const connectionStatus = document.getElementById('connection-status');
     const swStatus = document.getElementById('sw-status');
+    const swVersion = document.getElementById('sw-version');
     const cacheStatus = document.getElementById('cache-status');
     const bibleStatus = document.getElementById('bible-status');
     const pagesCached = document.getElementById('pages-cached');
@@ -655,16 +670,31 @@
 
     function updateConnectionStatus() {
         if (navigator.onLine) {
-            connectionBadge.textContent = 'Online';
-            connectionBadge.className = 'connection-badge badge-online';
+            connectionStatus.innerHTML = '<span class="tech-ok">Online</span>';
         } else {
-            connectionBadge.textContent = 'Offline';
-            connectionBadge.className = 'connection-badge badge-offline';
+            connectionStatus.innerHTML = '<span class="tech-error">Offline</span>';
         }
     }
     updateConnectionStatus();
     window.addEventListener('online', updateConnectionStatus);
     window.addEventListener('offline', updateConnectionStatus);
+
+    // Check SW version from the actual sw.js file
+    async function checkSwVersion() {
+        try {
+            const response = await fetch('/sw.js?t=' + Date.now());
+            const text = await response.text();
+            const match = text.match(/CACHE_VERSION\s*=\s*['"]([^'"]+)['"]/);
+            if (match) {
+                swVersion.innerHTML = '<span class="tech-ok">' + match[1] + '</span>';
+            } else {
+                swVersion.innerHTML = '<span class="tech-error">Unknown</span>';
+            }
+        } catch (err) {
+            swVersion.innerHTML = '<span class="tech-error">Error</span>';
+        }
+    }
+    checkSwVersion();
 
     async function checkServiceWorker() {
         if ('serviceWorker' in navigator) {
