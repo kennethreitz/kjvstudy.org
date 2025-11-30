@@ -1852,15 +1852,20 @@
                 var candidates = Array.from(document.querySelectorAll('article p, section p, li, blockquote')).filter(function(el) {
                   return (el.textContent || '').trim().length > 10;
                 });
-                var target = highlighted || (candidates.length ? candidates[0] : null);
-                if (target) {
-                  // Clone and strip sidenotes/marginnotes if present
-                  var clone = target.cloneNode(true);
+                var textBlocks = [];
+                // If a specific element is highlighted, read only that; otherwise read all concatenated
+                if (highlighted) {
+                  textBlocks = [highlighted];
+                } else {
+                  textBlocks = candidates;
+                }
+                var combined = textBlocks.map(function(el) {
+                  var clone = el.cloneNode(true);
                   clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
-                  var text = (clone.textContent || clone.innerText || '').trim();
-                  if (text && window.KJVSpeech && typeof window.KJVSpeech.toggle === 'function') {
-                    KJVSpeech.toggle(text);
-                  }
+                  return (clone.textContent || clone.innerText || '').trim();
+                }).filter(Boolean).join(' ');
+                if (combined && window.KJVSpeech && typeof window.KJVSpeech.toggle === 'function') {
+                  KJVSpeech.toggle(combined);
                 }
               } else {
                 var selectedText = KJVSpeech.getSelectedText();
