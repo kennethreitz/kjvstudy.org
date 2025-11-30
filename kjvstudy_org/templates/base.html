@@ -1306,15 +1306,6 @@
             </p>
         </div>
 
-        <!-- Enable Offline -->
-        <div style="margin-top: 1rem;">
-            <p style="font-size: 0.85rem; color: var(--text-tertiary); text-align: center;">
-                <a href="/offline" style="color: var(--text-tertiary); text-decoration: none; border-bottom: 1px dotted var(--border-color-dark);">
-                    Enable Offline
-                </a>
-            </p>
-        </div>
-
         <!-- Flourish -->
         <div class="sidebar-flourish">⁂</div>
     </nav>
@@ -2255,122 +2246,6 @@
         s.parentNode.insertBefore(t, s);
       })();
       {% endif %}
-
-      // Service Worker for offline support
-      (function() {
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' })
-              .then(function(registration) {
-                console.log('[App] Service Worker registered:', registration.scope);
-
-                // Check for updates periodically
-                setInterval(function() {
-                  registration.update();
-                }, 60 * 60 * 1000); // Check every hour
-              })
-              .catch(function(error) {
-                console.log('[App] Service Worker registration failed:', error);
-              });
-          });
-
-          // Listen for cache progress messages from service worker
-          navigator.serviceWorker.addEventListener('message', function(event) {
-            var data = event.data;
-            if (data.type === 'CACHE_PROGRESS') {
-              showCacheProgress(data.cached, data.total);
-            } else if (data.type === 'CACHE_COMPLETE') {
-              showCacheComplete(data.total);
-            }
-          });
-        }
-
-        // Cache progress indicator
-        var cacheIndicator = null;
-        function showCacheProgress(cached, total) {
-          if (!cacheIndicator) {
-            cacheIndicator = document.createElement('a');
-            cacheIndicator.id = 'cache-indicator';
-            cacheIndicator.href = '/offline';
-            cacheIndicator.style.cssText = 'position:fixed;bottom:1rem;left:1rem;padding:0.5rem 1rem;background:#4a7c59;color:white;border-radius:4px;font-size:0.85rem;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:opacity 0.3s;text-decoration:none;cursor:pointer;';
-            document.body.appendChild(cacheIndicator);
-          }
-          var pct = Math.round((cached / total) * 100);
-          cacheIndicator.innerHTML = 'Caching for offline: ' + pct + '%';
-          cacheIndicator.style.opacity = '1';
-        }
-
-        function showCacheComplete(total) {
-          if (cacheIndicator) {
-            cacheIndicator.innerHTML = 'Ready for offline! (' + total.toLocaleString() + ' pages)';
-            setTimeout(function() {
-              cacheIndicator.style.opacity = '0';
-              setTimeout(function() {
-                if (cacheIndicator && cacheIndicator.parentNode) {
-                  cacheIndicator.parentNode.removeChild(cacheIndicator);
-                  cacheIndicator = null;
-                }
-              }, 300);
-            }, 3000);
-          }
-        }
-
-        // Offline/Online indicator and PDF button handling
-        function updateOnlineStatus() {
-          var indicator = document.getElementById('offline-indicator');
-          if (!indicator) {
-            indicator = document.createElement('div');
-            indicator.id = 'offline-indicator';
-            indicator.style.cssText = 'position:fixed;bottom:1rem;right:1rem;padding:0.5rem 1rem;background:#c41e3a;color:white;border-radius:4px;font-size:0.85rem;z-index:9999;display:none;box-shadow:0 2px 8px rgba(0,0,0,0.2);';
-            indicator.innerHTML = 'Offline Mode';
-            document.body.appendChild(indicator);
-          }
-
-          // Find all PDF links/buttons
-          var pdfLinks = document.querySelectorAll('a[href*="/pdf"], .pdf-btn, a[href$=".pdf"]');
-
-          if (!navigator.onLine) {
-            indicator.style.display = 'block';
-            // Disable PDF buttons when offline
-            pdfLinks.forEach(function(link) {
-              link.dataset.originalHref = link.href;
-              link.removeAttribute('href');
-              link.style.opacity = '0.4';
-              link.style.cursor = 'not-allowed';
-              link.style.textDecoration = 'line-through';
-              link.title = 'PDF unavailable offline';
-              link.addEventListener('click', preventClick);
-            });
-          } else {
-            indicator.style.display = 'none';
-            // Re-enable PDF buttons when online
-            pdfLinks.forEach(function(link) {
-              if (link.dataset.originalHref) {
-                link.href = link.dataset.originalHref;
-              }
-              link.style.opacity = '';
-              link.style.cursor = '';
-              link.style.textDecoration = '';
-              link.title = '';
-              link.removeEventListener('click', preventClick);
-            });
-          }
-        }
-
-        function preventClick(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
-        // Run after DOM is ready to catch all PDF links
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', updateOnlineStatus);
-        } else {
-          updateOnlineStatus();
-        }
-      })();
     </script>
 </body>
 </html>

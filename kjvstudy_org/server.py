@@ -219,23 +219,6 @@ current_dir = PathLib(__file__).parent
 static_dir = current_dir / "static"
 templates_dir = current_dir / "templates"
 
-# Serve service worker with proper header to allow root scope
-@app.get("/sw.js")
-async def service_worker():
-    """Serve service worker from root with Service-Worker-Allowed header."""
-    from fastapi.responses import FileResponse
-    sw_path = static_dir / "sw.js"
-    return FileResponse(
-        sw_path,
-        media_type="application/javascript",
-        headers={
-            "Service-Worker-Allowed": "/",
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-            "Pragma": "no-cache",
-            "Expires": "0"
-        }
-    )
-
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 templates = Jinja2Templates(directory=str(templates_dir))
 
@@ -1308,15 +1291,6 @@ def get_daily_verse(date_str=None):
         "date": date_str
     }
 
-
-
-@app.get("/offline", response_class=HTMLResponse)
-async def offline_reader(request: Request):
-    """Offline Bible reader - renders chapters from cached JSON."""
-    return templates.TemplateResponse(
-        "offline.html",
-        {"request": request}
-    )
 
 
 @app.get("/", response_class=HTMLResponse)
