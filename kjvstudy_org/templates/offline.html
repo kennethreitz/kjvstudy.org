@@ -302,6 +302,24 @@
 
 #chapter-content p {
     margin: 0.75rem 0;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+#chapter-content p:hover {
+    background: var(--border-color);
+}
+
+#chapter-content p.selected {
+    background: rgba(74, 124, 89, 0.15);
+    outline: 2px solid #4a7c59;
+    outline-offset: 2px;
+}
+
+#chapter-content p.speaking {
+    background: rgba(212, 175, 55, 0.2);
 }
 
 .verse-num {
@@ -964,19 +982,27 @@
         chapterSelect.disabled = false;
     }
 
+    let selectedVerseIndex = -1;
+
     function renderChapter(book, chapter) {
         if (!bookStructure[book] || !bookStructure[book][chapter]) return;
         currentBook = book;
         currentChapter = parseInt(chapter);
         content.classList.add('active');
+        selectedVerseIndex = -1;
 
         const verses = bookStructure[book][chapter].sort((a,b) => a-b);
         let html = '<h3>' + book + ' ' + chapter + '</h3>';
         verses.forEach(v => {
             const text = (bibleData[book + ' ' + chapter + ':' + v] || '').replace(/^#\s*/, '');
-            html += '<p><span class="verse-num">' + v + '</span>' + text + '</p>';
+            html += '<p class="verse" data-verse="' + v + '" data-book="' + book + '" data-chapter="' + chapter + '"><span class="verse-num">' + v + '</span>' + text + '</p>';
         });
         content.innerHTML = html;
+
+        // Add click handlers to verses
+        content.querySelectorAll('.verse').forEach((el, idx) => {
+            el.addEventListener('click', () => selectVerse(idx));
+        });
 
         const chapters = Object.keys(bookStructure[currentBook]).map(Number).sort((a,b) => a-b);
         const bookIdx = BOOKS.indexOf(currentBook);
@@ -984,6 +1010,68 @@
         nextBtn.disabled = !(currentChapter < chapters[chapters.length-1] || bookIdx < BOOKS.length-1);
 
         history.replaceState(null, '', '/offline?book=' + encodeURIComponent(book) + '&chapter=' + chapter);
+    }
+
+    function getVerses() {
+        return Array.from(content.querySelectorAll('.verse'));
+    }
+
+    function selectVerse(index) {
+        const verses = getVerses();
+        // Clear previous selection
+        verses.forEach(v => v.classList.remove('selected'));
+        if (index < 0 || index >= verses.length) {
+            selectedVerseIndex = -1;
+            return;
+        }
+        selectedVerseIndex = index;
+        verses[index].classList.add('selected');
+        verses[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearVerseSelection() {
+        const verses = getVerses();
+        verses.forEach(v => v.classList.remove('selected'));
+        selectedVerseIndex = -1;
+    }
+
+    function speakVerse(index) {
+        const verses = getVerses();
+        if (index < 0 || index >= verses.length) return;
+        if (!('speechSynthesis' in window)) {
+            alert('Speech synthesis not supported in this browser.');
+            return;
+        }
+
+        // Stop any current speech
+        speechSynthesis.cancel();
+
+        const verse = verses[index];
+        const book = verse.dataset.book;
+        const chapter = verse.dataset.chapter;
+        const verseNum = verse.dataset.verse;
+        const text = verse.textContent.replace(/^\d+/, '').trim();
+
+        // Mark as speaking
+        verses.forEach(v => v.classList.remove('speaking'));
+        verse.classList.add('speaking');
+
+        const utterance = new SpeechSynthesisUtterance(book + ' chapter ' + chapter + ', verse ' + verseNum + '. ' + text);
+        utterance.rate = 0.9;
+        utterance.onend = () => verse.classList.remove('speaking');
+        utterance.onerror = () => verse.classList.remove('speaking');
+        speechSynthesis.speak(utterance);
+    }
+
+    function drilldownVerse(index) {
+        const verses = getVerses();
+        if (index < 0 || index >= verses.length) return;
+        const verse = verses[index];
+        const book = verse.dataset.book;
+        const chapter = verse.dataset.chapter;
+        const verseNum = verse.dataset.verse;
+        // Navigate to verse commentary page
+        window.location.href = '/book/' + encodeURIComponent(book) + '/' + chapter + '/' + verseNum;
     }
 
     function navigate(dir) {
@@ -1057,18 +1145,66 @@
         selectedCardIndex = -1;
     }
 
+    // Navigation mode: 'cards' or 'verses'
+    let navMode = 'cards';
+
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
 
         const cols = getGridColumns();
+        const verses = getVerses();
 
-        // Card navigation
+        // Verse navigation when in verse mode
+        if (navMode === 'verses' && verses.length > 0) {
+            if (e.key === 'ArrowDown' || e.key === 'j') {
+                e.preventDefault();
+                selectVerse(selectedVerseIndex < 0 ? 0 : Math.min(selectedVerseIndex + 1, verses.length - 1));
+            } else if (e.key === 'ArrowUp' || e.key === 'k') {
+                e.preventDefault();
+                if (selectedVerseIndex > 0) {
+                    selectVerse(selectedVerseIndex - 1);
+                } else {
+                    clearVerseSelection();
+                    navMode = 'cards';
+                    selectCard(cards.length - 1);
+                }
+            } else if (e.key === ' ') {
+                e.preventDefault();
+                if (selectedVerseIndex >= 0) speakVerse(selectedVerseIndex);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (selectedVerseIndex >= 0) drilldownVerse(selectedVerseIndex);
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                speechSynthesis.cancel();
+                clearVerseSelection();
+                navMode = 'cards';
+            } else if (e.key === 'ArrowRight' || e.key === 'l') {
+                e.preventDefault();
+                if (!nextBtn.disabled) { clearVerseSelection(); navigate(1); selectVerse(0); }
+            } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+                e.preventDefault();
+                if (!prevBtn.disabled) { clearVerseSelection(); navigate(-1); selectVerse(0); }
+                else { clearVerseSelection(); navMode = 'cards'; }
+            } else if (e.key === 's') {
+                e.preventDefault();
+                speechSynthesis.cancel();
+                verses.forEach(v => v.classList.remove('speaking'));
+            }
+            return;
+        }
+
+        // Card navigation (default mode)
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
             if (selectedCardIndex < 0) {
                 selectCard(0);
-            } else {
+            } else if (selectedCardIndex + cols < cards.length) {
                 selectCard(selectedCardIndex + cols);
+            } else if (content.classList.contains('active') && verses.length > 0) {
+                clearCardSelection();
+                navMode = 'verses';
+                selectVerse(0);
             }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
@@ -1084,7 +1220,6 @@
             } else if (selectedCardIndex < cards.length - 1) {
                 selectCard(selectedCardIndex + 1);
             } else if (!nextBtn.disabled && currentBook) {
-                // Navigate to next chapter in reader
                 navigate(1);
             }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
@@ -1095,7 +1230,6 @@
                 clearCardSelection();
                 history.back();
             } else if (!prevBtn.disabled && currentBook) {
-                // Navigate to previous chapter in reader
                 navigate(-1);
             } else {
                 history.back();
@@ -1105,17 +1239,27 @@
             window.location.href = cards[selectedCardIndex].href;
         } else if (e.key === 'Escape') {
             e.preventDefault();
+            speechSynthesis.cancel();
             clearCardSelection();
+            clearVerseSelection();
+            navMode = 'cards';
+        } else if (e.key === 'v' && content.classList.contains('active') && verses.length > 0) {
+            e.preventDefault();
+            clearCardSelection();
+            navMode = 'verses';
+            selectVerse(0);
         } else if (e.key === 'g') {
             e.preventDefault();
             clearCardSelection();
+            clearVerseSelection();
+            navMode = 'cards';
             bookSelect.value = 'Genesis';
             populateChapters('Genesis');
             chapterSelect.value = '1';
             renderChapter('Genesis', '1');
         } else if (e.key === '?') {
             e.preventDefault();
-            alert('Keyboard shortcuts:\n\nj/↓ - Move down\nk/↑ - Move up\nl/→ - Move right / Next chapter\nh/← - Move left / Previous chapter\nEnter - Open selected\nEsc - Clear selection\ng - Go to Genesis 1\n? - Show help');
+            alert('Keyboard shortcuts:\n\nNavigation:\n  j/↓ - Move down\n  k/↑ - Move up\n  l/→ - Move right / Next chapter\n  h/← - Move left / Previous chapter / Back\n  Enter - Open selected / Drilldown to verse\n  Esc - Clear selection / Stop speech\n\nVerses:\n  v - Switch to verse navigation\n  Space - Speak selected verse\n  s - Stop speech\n  Enter - Open verse commentary\n\nOther:\n  g - Go to Genesis 1\n  ? - Show help');
         }
     });
 
