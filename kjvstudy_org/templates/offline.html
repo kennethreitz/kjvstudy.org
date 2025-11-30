@@ -1024,12 +1024,99 @@
     prevBtn.addEventListener('click', () => navigate(-1));
     nextBtn.addEventListener('click', () => navigate(1));
 
+    // Keyboard navigation for quick access cards
+    const cards = Array.from(document.querySelectorAll('.resource-card'));
+    let selectedCardIndex = -1;
+
+    function getGridColumns() {
+        if (window.innerWidth <= 768) return 2;
+        const grid = document.querySelector('.resource-grid');
+        if (!grid) return 3;
+        const style = getComputedStyle(grid);
+        const cols = style.gridTemplateColumns.split(' ').length;
+        return cols || 3;
+    }
+
+    function selectCard(index) {
+        // Clear previous selection
+        if (selectedCardIndex >= 0 && selectedCardIndex < cards.length) {
+            cards[selectedCardIndex].style.outline = '';
+            cards[selectedCardIndex].style.outlineOffset = '';
+        }
+        selectedCardIndex = Math.max(0, Math.min(index, cards.length - 1));
+        cards[selectedCardIndex].style.outline = '2px solid #4a7c59';
+        cards[selectedCardIndex].style.outlineOffset = '2px';
+        cards[selectedCardIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearCardSelection() {
+        if (selectedCardIndex >= 0 && selectedCardIndex < cards.length) {
+            cards[selectedCardIndex].style.outline = '';
+            cards[selectedCardIndex].style.outlineOffset = '';
+        }
+        selectedCardIndex = -1;
+    }
+
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
-        if (e.key === 'ArrowLeft' || e.key === 'h') { e.preventDefault(); if (!prevBtn.disabled) navigate(-1); }
-        else if (e.key === 'ArrowRight' || e.key === 'l') { e.preventDefault(); if (!nextBtn.disabled) navigate(1); }
-        else if (e.key === 'g') { e.preventDefault(); bookSelect.value = 'Genesis'; populateChapters('Genesis'); chapterSelect.value = '1'; renderChapter('Genesis', '1'); }
-        else if (e.key === '?') { e.preventDefault(); alert('Keyboard shortcuts:\n\nLeft/h - Previous chapter\nRight/l - Next chapter\ng - Go to Genesis 1\n? - Show help'); }
+
+        const cols = getGridColumns();
+
+        // Card navigation
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            if (selectedCardIndex < 0) {
+                selectCard(0);
+            } else {
+                selectCard(selectedCardIndex + cols);
+            }
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            if (selectedCardIndex < 0) {
+                selectCard(0);
+            } else if (selectedCardIndex - cols >= 0) {
+                selectCard(selectedCardIndex - cols);
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (selectedCardIndex < 0) {
+                selectCard(0);
+            } else if (selectedCardIndex < cards.length - 1) {
+                selectCard(selectedCardIndex + 1);
+            } else if (!nextBtn.disabled && currentBook) {
+                // Navigate to next chapter in reader
+                navigate(1);
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (selectedCardIndex > 0) {
+                selectCard(selectedCardIndex - 1);
+            } else if (selectedCardIndex === 0) {
+                clearCardSelection();
+                history.back();
+            } else if (!prevBtn.disabled && currentBook) {
+                // Navigate to previous chapter in reader
+                navigate(-1);
+            } else {
+                history.back();
+            }
+        } else if (e.key === 'Enter' && selectedCardIndex >= 0) {
+            e.preventDefault();
+            window.location.href = cards[selectedCardIndex].href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            clearCardSelection();
+        } else if (e.key === 'g') {
+            e.preventDefault();
+            clearCardSelection();
+            bookSelect.value = 'Genesis';
+            populateChapters('Genesis');
+            chapterSelect.value = '1';
+            renderChapter('Genesis', '1');
+        } else if (e.key === '?') {
+            e.preventDefault();
+            alert('Keyboard shortcuts:\n\nj/↓ - Move down\nk/↑ - Move up\nl/→ - Move right / Next chapter\nh/← - Move left / Previous chapter\nEnter - Open selected\nEsc - Clear selection\ng - Go to Genesis 1\n? - Show help');
+        }
     });
 
     loadBibleData();
