@@ -2264,6 +2264,45 @@
                 console.log('[App] Service Worker registration failed:', error);
               });
           });
+
+          // Listen for cache progress messages from service worker
+          navigator.serviceWorker.addEventListener('message', function(event) {
+            var data = event.data;
+            if (data.type === 'CACHE_PROGRESS') {
+              showCacheProgress(data.cached, data.total);
+            } else if (data.type === 'CACHE_COMPLETE') {
+              showCacheComplete(data.total);
+            }
+          });
+        }
+
+        // Cache progress indicator
+        var cacheIndicator = null;
+        function showCacheProgress(cached, total) {
+          if (!cacheIndicator) {
+            cacheIndicator = document.createElement('div');
+            cacheIndicator.id = 'cache-indicator';
+            cacheIndicator.style.cssText = 'position:fixed;bottom:1rem;left:1rem;padding:0.5rem 1rem;background:#4a7c59;color:white;border-radius:4px;font-size:0.85rem;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:opacity 0.3s;';
+            document.body.appendChild(cacheIndicator);
+          }
+          var pct = Math.round((cached / total) * 100);
+          cacheIndicator.innerHTML = 'Caching for offline: ' + pct + '%';
+          cacheIndicator.style.opacity = '1';
+        }
+
+        function showCacheComplete(total) {
+          if (cacheIndicator) {
+            cacheIndicator.innerHTML = 'Ready for offline! (' + total + ' pages)';
+            setTimeout(function() {
+              cacheIndicator.style.opacity = '0';
+              setTimeout(function() {
+                if (cacheIndicator && cacheIndicator.parentNode) {
+                  cacheIndicator.parentNode.removeChild(cacheIndicator);
+                  cacheIndicator = null;
+                }
+              }, 300);
+            }, 3000);
+          }
         }
 
         // Offline/Online indicator
