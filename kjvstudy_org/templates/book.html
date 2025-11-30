@@ -595,16 +595,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Left arrow: Previous book
-        if (e.key === 'ArrowLeft' && currentBookIndex > 0) {
+        // Left arrow: Previous chapter in drilldown, otherwise previous book
+        if (e.key === 'ArrowLeft') {
             e.preventDefault();
-            window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex - 1]);
+            if (inChapterDrilldown && selectedChapterIndex > 0) {
+                selectChapter(selectedChapterIndex - 1);
+            } else if (!inChapterDrilldown && currentBookIndex > 0) {
+                window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex - 1]);
+            }
         }
 
-        // Right arrow: Next book
-        if (e.key === 'ArrowRight' && currentBookIndex < bibleBooks.length - 1) {
+        // Right arrow: Next chapter in drilldown, otherwise next book
+        if (e.key === 'ArrowRight') {
             e.preventDefault();
-            window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex + 1]);
+            if (inChapterDrilldown && selectedChapterIndex < chapterLinks.length - 1) {
+                selectChapter(selectedChapterIndex + 1);
+            } else if (!inChapterDrilldown && currentBookIndex < bibleBooks.length - 1) {
+                window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex + 1]);
+            }
         }
 
         // p: Download PDF
