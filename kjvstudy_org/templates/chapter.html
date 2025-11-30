@@ -537,6 +537,17 @@ document.addEventListener('DOMContentLoaded', function() {
             var pdfBtn = document.querySelector('.pdf-btn');
             if (pdfBtn) window.location.href = pdfBtn.href;
         }
+
+        // Space: Read selected verse aloud
+        if (e.key === ' ' && selectedVerseIndex >= 0) {
+            e.preventDefault();
+            var verseEl = verses[selectedVerseIndex];
+            // Get text content, excluding the verse number link
+            var text = verseEl.textContent || verseEl.innerText;
+            // Remove verse number from the beginning
+            text = text.replace(/^\s*\d+\s*/, '');
+            KJVSpeech.toggle(text);
+        }
     });
 
     // Click to select verse

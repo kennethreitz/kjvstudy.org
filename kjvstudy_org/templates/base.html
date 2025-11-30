@@ -1633,6 +1633,103 @@
         }
       };
 
+      // Text-to-speech for any selected content
+      window.KJVSpeech = {
+        utterance: null,
+        speaking: false,
+
+        speak: function(text) {
+          if (!('speechSynthesis' in window)) {
+            console.log('Speech synthesis not supported');
+            return;
+          }
+
+          // Stop any current speech
+          this.stop();
+
+          // Clean up the text - remove verse numbers at start, collapse whitespace
+          text = text.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim();
+
+          if (!text) return;
+
+          this.utterance = new SpeechSynthesisUtterance(text);
+          this.utterance.rate = 0.9;
+          this.utterance.pitch = 1;
+
+          // Try to use a good English voice
+          var voices = speechSynthesis.getVoices();
+          var englishVoice = voices.find(function(v) {
+            return v.lang.startsWith('en') && v.name.includes('Daniel');
+          }) || voices.find(function(v) {
+            return v.lang.startsWith('en-GB');
+          }) || voices.find(function(v) {
+            return v.lang.startsWith('en');
+          });
+
+          if (englishVoice) {
+            this.utterance.voice = englishVoice;
+          }
+
+          this.speaking = true;
+
+          this.utterance.onend = function() {
+            KJVSpeech.speaking = false;
+          };
+
+          this.utterance.onerror = function() {
+            KJVSpeech.speaking = false;
+          };
+
+          speechSynthesis.speak(this.utterance);
+        },
+
+        stop: function() {
+          if ('speechSynthesis' in window) {
+            speechSynthesis.cancel();
+          }
+          this.speaking = false;
+        },
+
+        toggle: function(text) {
+          if (this.speaking) {
+            this.stop();
+          } else {
+            this.speak(text);
+          }
+        },
+
+        // Get text from the currently selected element (green box)
+        getSelectedText: function() {
+          // Find element with our green selection outline
+          var selected = document.querySelector('[style*="outline: 2px solid"]') ||
+                         document.querySelector('[style*="outline:2px solid"]');
+
+          if (selected) {
+            return selected.textContent || selected.innerText;
+          }
+
+          // Fallback: Try specific verse selectors
+          var verseEl = document.querySelector('.verse-text-content') ||
+                        document.querySelector('.verse-display .text') ||
+                        document.querySelector('.verse-text') ||
+                        document.querySelector('[data-verse-text]');
+
+          if (verseEl) {
+            return verseEl.textContent || verseEl.innerText;
+          }
+
+          return null;
+        }
+      };
+
+      // Load voices (they may not be available immediately)
+      if ('speechSynthesis' in window) {
+        speechSynthesis.getVoices();
+        speechSynthesis.onvoiceschanged = function() {
+          speechSynthesis.getVoices();
+        };
+      }
+
       // Keyboard shortcuts
       document.addEventListener('keydown', function(e) {
         // Don't trigger if user is typing in an input field
@@ -1728,6 +1825,14 @@
             case '?':
               showKeyboardHelp();
               break;
+            case ' ':
+              // Space: Read aloud selected text (green box selection or verse text)
+              var selectedText = KJVSpeech.getSelectedText();
+              if (selectedText) {
+                e.preventDefault();
+                KJVSpeech.toggle(selectedText);
+              }
+              break;
           }
         }
       });
@@ -1807,6 +1912,7 @@
               '</div>' +
               '<div class="keyboard-help-section">' +
                 '<h3>Other</h3>' +
+                '<div class="shortcut"><kbd>Space</kbd><span>Read aloud</span></div>' +
                 '<div class="shortcut"><kbd>`</kbd><span>Toggle sidebar</span></div>' +
                 '<div class="shortcut"><kbd>⌘</kbd>+<kbd>D</kbd><span>Toggle dark mode</span></div>' +
                 '<div class="shortcut"><kbd>/</kbd><span>Search</span></div>' +
