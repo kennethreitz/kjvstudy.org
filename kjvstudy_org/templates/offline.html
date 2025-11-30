@@ -794,8 +794,8 @@
                     cacheProgress.classList.add('active');
                     progressFill.style.width = '100%';
                     progressText.innerHTML = '<span class="cache-complete">✓ Download complete! ' + data.total.toLocaleString() + ' pages available offline.</span>';
-                    startCacheBtn.textContent = 'Downloaded!';
-                    startCacheBtn.disabled = true;
+                    startCacheBtn.textContent = 'Refresh Cache';
+                    startCacheBtn.disabled = false;
                     // Refresh the cache list
                     setTimeout(checkCaches, 500);
                 } else if (data.type === 'CACHE_ERROR') {
