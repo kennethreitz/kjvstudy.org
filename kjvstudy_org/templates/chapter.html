@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedVerseIndex = -1;
         actionButtons[selectedActionIndex].classList.add('selected');
         actionButtons[selectedActionIndex].scrollIntoView({
-            behavior: 'smooth',
+            behavior: 'auto',
             block: 'center'
         });
     }
@@ -478,9 +478,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add selection to new verse
         verses[selectedVerseIndex].classList.add('selected');
 
-        // Scroll into view
+        // Scroll into view with instant behavior to prevent stuttering when holding down keys
         verses[selectedVerseIndex].scrollIntoView({
-            behavior: 'smooth',
+            behavior: 'auto',
             block: 'center'
         });
     }
