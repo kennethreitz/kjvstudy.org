@@ -397,12 +397,21 @@ hr.story-divider::before {
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            // Start at first paragraph, not metadata
-            selectElement(selectedIndex < 0 ? firstParagraphIndex : selectedIndex + 1);
+            if (KJVNav.isSelectionOffScreen(elements, selectedIndex)) {
+                selectElement(KJVNav.findFirstVisibleIndex(elements));
+            } else {
+                // Start at first paragraph, not metadata
+                selectElement(selectedIndex < 0 ? firstParagraphIndex : selectedIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectElement(0);
-            else selectElement(selectedIndex - 1);
+            if (KJVNav.isSelectionOffScreen(elements, selectedIndex)) {
+                selectElement(KJVNav.findFirstVisibleIndex(elements));
+            } else if (selectedIndex <= 0) {
+                selectElement(0);
+            } else {
+                selectElement(selectedIndex - 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();

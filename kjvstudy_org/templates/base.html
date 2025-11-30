@@ -1613,6 +1613,26 @@
         });
       })();
 
+      // Global viewport helpers for keyboard navigation
+      window.KJVNav = {
+        isInViewport: function(el) {
+          if (!el) return false;
+          var rect = el.getBoundingClientRect();
+          return rect.top < window.innerHeight && rect.bottom > 0;
+        },
+        findFirstVisibleIndex: function(elements) {
+          for (var i = 0; i < elements.length; i++) {
+            if (this.isInViewport(elements[i])) return i;
+          }
+          return 0;
+        },
+        isSelectionOffScreen: function(elements, selectedIndex) {
+          if (selectedIndex < 0) return true;
+          if (selectedIndex >= elements.length) return true;
+          return !this.isInViewport(elements[selectedIndex]);
+        }
+      };
+
       // Keyboard shortcuts
       document.addEventListener('keydown', function(e) {
         // Don't trigger if user is typing in an input field

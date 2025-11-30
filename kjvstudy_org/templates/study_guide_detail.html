@@ -245,11 +245,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
+                selectSection(KJVNav.findFirstVisibleIndex(sections));
+            } else {
+                selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectSection(0);
-            else selectSection(selectedIndex - 1);
+            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
+                selectSection(KJVNav.findFirstVisibleIndex(sections));
+            } else if (selectedIndex <= 0) {
+                selectSection(0);
+            } else {
+                selectSection(selectedIndex - 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();

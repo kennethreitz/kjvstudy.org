@@ -70,11 +70,20 @@
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectRow(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            if (KJVNav.isSelectionOffScreen(rows, selectedIndex)) {
+                selectRow(KJVNav.findFirstVisibleIndex(rows));
+            } else {
+                selectRow(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectRow(0);
-            else selectRow(selectedIndex - 1);
+            if (KJVNav.isSelectionOffScreen(rows, selectedIndex)) {
+                selectRow(KJVNav.findFirstVisibleIndex(rows));
+            } else if (selectedIndex <= 0) {
+                selectRow(0);
+            } else {
+                selectRow(selectedIndex - 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();

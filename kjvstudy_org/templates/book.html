@@ -403,13 +403,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Up arrow or k: Previous chapter
         if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            selectChapter(selectedChapterIndex - 1);
+            if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
+                selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
+            } else {
+                selectChapter(selectedChapterIndex - 1);
+            }
         }
 
         // Down arrow or j: Next chapter
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectChapter(selectedChapterIndex + 1);
+            if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
+                selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
+            } else {
+                selectChapter(selectedChapterIndex + 1);
+            }
         }
 
         // Enter: Go to selected chapter

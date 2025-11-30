@@ -464,13 +464,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Up arrow or k: Previous verse
         if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            selectVerse(selectedVerseIndex - 1);
+            if (KJVNav.isSelectionOffScreen(verses, selectedVerseIndex)) {
+                selectVerse(KJVNav.findFirstVisibleIndex(verses));
+            } else {
+                selectVerse(selectedVerseIndex - 1);
+            }
         }
 
         // Down arrow or j: Next verse
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectVerse(selectedVerseIndex + 1);
+            if (KJVNav.isSelectionOffScreen(verses, selectedVerseIndex)) {
+                selectVerse(KJVNav.findFirstVisibleIndex(verses));
+            } else {
+                selectVerse(selectedVerseIndex + 1);
+            }
         }
 
         // Enter: Go to selected verse page

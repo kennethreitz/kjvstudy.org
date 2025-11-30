@@ -171,11 +171,20 @@
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectNode(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            if (KJVNav.isSelectionOffScreen(nodes, selectedIndex)) {
+                selectNode(KJVNav.findFirstVisibleIndex(nodes));
+            } else {
+                selectNode(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectNode(0);
-            else selectNode(selectedIndex - 1);
+            if (KJVNav.isSelectionOffScreen(nodes, selectedIndex)) {
+                selectNode(KJVNav.findFirstVisibleIndex(nodes));
+            } else if (selectedIndex <= 0) {
+                selectNode(0);
+            } else {
+                selectNode(selectedIndex - 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();

@@ -244,11 +244,20 @@
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectElement(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            if (KJVNav.isSelectionOffScreen(elements, selectedIndex)) {
+                selectElement(KJVNav.findFirstVisibleIndex(elements));
+            } else {
+                selectElement(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectElement(0);
-            else selectElement(selectedIndex - 1);
+            if (KJVNav.isSelectionOffScreen(elements, selectedIndex)) {
+                selectElement(KJVNav.findFirstVisibleIndex(elements));
+            } else if (selectedIndex <= 0) {
+                selectElement(0);
+            } else {
+                selectElement(selectedIndex - 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();

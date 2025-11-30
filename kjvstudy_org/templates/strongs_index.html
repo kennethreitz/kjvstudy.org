@@ -354,11 +354,20 @@
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            if (KJVNav.isSelectionOffScreen(allItems, selectedIndex)) {
+                selectItem(KJVNav.findFirstVisibleIndex(allItems));
+            } else {
+                selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectItem(0);
-            else selectItem(selectedIndex - 1);
+            if (KJVNav.isSelectionOffScreen(allItems, selectedIndex)) {
+                selectItem(KJVNav.findFirstVisibleIndex(allItems));
+            } else if (selectedIndex <= 0) {
+                selectItem(0);
+            } else {
+                selectItem(selectedIndex - 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();
