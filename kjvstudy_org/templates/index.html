@@ -59,6 +59,19 @@
     margin-left: calc(50% - 16rem - 50px);
     padding: 1.5rem;
     border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.verse-lookup.selected {
+    border-color: #4a7c59;
+    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
+    background: rgba(74, 124, 89, 0.03);
+}
+
+[data-theme="dark"] .verse-lookup.selected {
+    border-color: #6b9b7a;
+    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
+    background: rgba(107, 155, 122, 0.05);
 }
 
 .verse-lookup h2 {
@@ -122,6 +135,56 @@
 
 .nav-links a {
     margin: 0 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.nav-links a.selected {
+    background: rgba(74, 124, 89, 0.15);
+    outline: 2px solid #4a7c59;
+    outline-offset: 2px;
+}
+
+[data-theme="dark"] .nav-links a.selected {
+    background: rgba(107, 155, 122, 0.15);
+    outline-color: #6b9b7a;
+}
+
+/* Study guide links */
+.study-guide-link {
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.study-guide-link.selected {
+    background: rgba(74, 124, 89, 0.15);
+    outline: 2px solid #4a7c59;
+    outline-offset: 2px;
+}
+
+[data-theme="dark"] .study-guide-link.selected {
+    background: rgba(107, 155, 122, 0.15);
+    outline-color: #6b9b7a;
+}
+
+/* Daily verse link */
+.daily-verse-link {
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.daily-verse-link.selected {
+    background: rgba(74, 124, 89, 0.15);
+    outline: 2px solid #4a7c59;
+    outline-offset: 2px;
+}
+
+[data-theme="dark"] .daily-verse-link.selected {
+    background: rgba(107, 155, 122, 0.15);
+    outline-color: #6b9b7a;
 }
 
 /* Feature Cards */
@@ -297,11 +360,11 @@
     <p class="subtitle">Authorized King James Version · <em>Anno Domini</em> 1611</p>
     <div class="epigraph">
         <p>{{ daily_verse.text | link_names | safe }}</p>
-        <footer>— <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a></footer>
+        <footer>— <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}" class="daily-verse-link">{{ daily_verse.reference }}</a></footer>
     </div>
 </div>
 
-<section class="verse-lookup">
+<section class="verse-lookup" id="search-section">
     <h2>Search or Navigate Scripture</h2>
     <form class="lookup-form" onsubmit="return handleSearch(event)">
         <input type="text" class="lookup-input" id="verse-lookup-input"
@@ -414,7 +477,7 @@
 
     {% for category, guides in study_guides.items() %}
     <p><span class="newthought">{{ category }}</span> —
-    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}" class="study-guide-link">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
     {% endfor %}
 </section>
 
@@ -529,20 +592,51 @@ function handleSearch(event) {
     return false;
 }
 
-// Combined keyboard navigation for feature cards + explore links
+// Combined keyboard navigation for daily verse + search + nav links + feature cards + explore links + study guides
+var dailyVerseLink = Array.from(document.querySelectorAll('.daily-verse-link'));
+var searchSection = document.getElementById('search-section');
+var searchItems = searchSection ? [searchSection] : [];
+var navLinks = Array.from(document.querySelectorAll('.nav-links a'));
 var featureCards = Array.from(document.querySelectorAll('.feature-card'));
 var exploreLinks = Array.from(document.querySelectorAll('.explore-link'));
-var allCards = featureCards.concat(exploreLinks);
+var studyGuideLinks = Array.from(document.querySelectorAll('.study-guide-link'));
+var allCards = dailyVerseLink.concat(searchItems).concat(navLinks).concat(featureCards).concat(exploreLinks).concat(studyGuideLinks);
 var selectedCardIndex = -1;
 
 function getGridColumns() {
     // Detect number of columns based on viewport and which section we're in
+    var dailyVerseEnd = dailyVerseLink.length;
+    var searchEnd = dailyVerseEnd + searchItems.length;
+    var navLinksEnd = searchEnd + navLinks.length;
+    var featureCardsEnd = navLinksEnd + featureCards.length;
+    var exploreLinksEnd = featureCardsEnd + exploreLinks.length;
+
+    if (selectedCardIndex < dailyVerseEnd) {
+        // Daily verse is a single item
+        return 1;
+    }
+
+    if (selectedCardIndex < searchEnd) {
+        // Search section is a single item
+        return 1;
+    }
+
+    if (selectedCardIndex < navLinksEnd) {
+        // Nav links are in a single row
+        return navLinks.length;
+    }
+
+    if (selectedCardIndex >= exploreLinksEnd) {
+        // Study guide links - treat as single row navigation
+        return studyGuideLinks.length;
+    }
+
     if (window.innerWidth <= 760) {
         // Mobile: feature cards = 1 col, explore = 2 cols
-        return selectedCardIndex < featureCards.length ? 1 : 2;
+        return selectedCardIndex < featureCardsEnd ? 1 : 2;
     }
     // Desktop: feature cards = 3 cols, explore = 4 cols
-    return selectedCardIndex < featureCards.length ? 3 : 4;
+    return selectedCardIndex < featureCardsEnd ? 3 : 4;
 }
 
 function selectCard(index) {
@@ -598,7 +692,13 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !isTyping && el.tagName !== 'A' && el.tagName !== 'BUTTON') {
         e.preventDefault();
         if (selectedCardIndex >= 0) {
-            window.location.href = allCards[selectedCardIndex].href;
+            var selectedEl = allCards[selectedCardIndex];
+            // If search section is selected, focus the input
+            if (selectedEl.id === 'search-section') {
+                document.getElementById('verse-lookup-input').focus();
+            } else if (selectedEl.href) {
+                window.location.href = selectedEl.href;
+            }
         } else {
             window.location.href = '/books';
         }

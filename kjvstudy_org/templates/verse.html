@@ -1001,7 +1001,7 @@
             }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            window.location.href = '/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}';
+            history.back();
         } else if (e.key === 'ArrowRight' || e.key === 'l') {
             e.preventDefault();
             {% if verse_num < total_verses %}
