@@ -159,43 +159,32 @@
     </div>
 
     {% if commentary %}
-    {% if commentary.historical_context %}
+    {% if commentary.analysis %}
+    <h2>Analysis</h2>
+    <p>{{ commentary.analysis }}</p>
+    {% endif %}
+
+    {% if commentary.historical %}
     <h2>Historical Context</h2>
-    <p>{{ commentary.historical_context }}</p>
+    <p>{{ commentary.historical }}</p>
     {% endif %}
 
-    {% if commentary.theological_significance %}
-    <h2>Theological Significance</h2>
-    <p>{{ commentary.theological_significance }}</p>
-    {% endif %}
-
-    {% if commentary.cross_reference_groups %}
-    <h2>Cross-References</h2>
-    {% for group in commentary.cross_reference_groups %}
+    {% if commentary.cross_references %}
+    <h2>Related Passages</h2>
+    {% for ref in commentary.cross_references %}
     <div class="cross-ref-group">
-        <strong>{{ group.description }}:</strong>
-        <span class="cross-ref-list">
-            {% for ref in group.refs %}{{ ref }}{% if not loop.last %}; {% endif %}{% endfor %}
-        </span>
+        <strong>{{ ref.ref }}</strong>{% if ref.note %} — {{ ref.note }}{% endif %}
     </div>
     {% endfor %}
     {% endif %}
 
-    {% if commentary.word_studies %}
-    <h2>Word Studies</h2>
-    {% for study in commentary.word_studies %}
-    <div class="word-study">
-        <span class="word-study-term">{{ study.word }}</span>
-        &mdash;
-        <span class="word-study-original">{{ study.term }} ({{ study.translit }})</span>:
-        {{ study.meaning }}
-    </div>
+    {% if commentary.questions %}
+    <h2>Study Questions</h2>
+    <ol>
+    {% for question in commentary.questions %}
+        <li>{{ question }}</li>
     {% endfor %}
-    {% endif %}
-
-    {% if commentary.application %}
-    <h2>Application</h2>
-    <p>{{ commentary.application }}</p>
+    </ol>
     {% endif %}
     {% endif %}
 
