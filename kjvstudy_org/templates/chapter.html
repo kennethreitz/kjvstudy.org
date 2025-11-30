@@ -20,14 +20,14 @@
 .words-of-christ .marginnote,
 .words-of-christ .sidenote-number,
 .words-of-christ label.sidenote-number {
-    color: #111;
+    color: var(--text-color);
 }
 
 [data-theme="dark"] .words-of-christ .sidenote,
 [data-theme="dark"] .words-of-christ .marginnote,
 [data-theme="dark"] .words-of-christ .sidenote-number,
 [data-theme="dark"] .words-of-christ label.sidenote-number {
-    color: #ddd;
+    color: var(--text-color);
 }
 
 .sidenote,
@@ -68,7 +68,7 @@
     left: 0;
     right: 0;
     height: 60px;
-    background: linear-gradient(to bottom, transparent, #fffff8);
+    background: linear-gradient(to bottom, transparent, var(--bg-color));
     pointer-events: none;
 }
 
@@ -95,7 +95,7 @@ hr::before {
     content: "⁂";
     font-size: 1.5rem;
     letter-spacing: 0.6em;
-    color: #111;
+    color: var(--text-color);
 }
 
 .verse-number-link {

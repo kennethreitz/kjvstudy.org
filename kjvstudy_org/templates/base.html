@@ -53,6 +53,7 @@
     <style>
         /* Color scheme variables */
         :root {
+            color-scheme: light;
             --bg-color: #fffff8;
             --text-color: #111;
             --text-secondary: #666;
@@ -64,9 +65,11 @@
             --link-color: #333;
             --link-hover: #000;
             --code-bg: #f5f5f5;
+            --text-strong: #111;
         }
 
         [data-theme="dark"] {
+            color-scheme: dark;
             --bg-color: #1a1a1a;
             --text-color: #e0e0e0;
             --text-secondary: #b0b0b0;
@@ -78,6 +81,7 @@
             --link-color: #d0d0d0;
             --link-hover: #fff;
             --code-bg: #2a2a2a;
+            --text-strong: #e0e0e0;
         }
 
         /* Red letter toggle - hide red letters when disabled */
@@ -95,8 +99,29 @@
             max-height: none !important;
         }
 
+        /* Ensure sidenotes respect explicit theme (override OS dark prefs from tufte.css) */
+        .sidenote,
+        .marginnote {
+            background-color: transparent !important;
+            color: var(--text-color) !important;
+        }
+
+        [data-theme="dark"] .sidenote,
+        [data-theme="dark"] .marginnote {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+        }
+
         /* Verse tooltip styles */
         /* Links to verses get normal pointer cursor (tooltips shown on hover) */
+        a {
+            color: var(--link-color) !important;
+        }
+
+        a:hover {
+            color: var(--link-hover) !important;
+        }
+
         a[href*="/book/"][href*="/chapter/"][href*="/verse/"]:not(.verse-number-link),
         a[href*="/book/"][href*="/chapter/"][href*="#verse-"]:not(.verse-number-link) {
             cursor: pointer;
@@ -175,8 +200,8 @@
         /* Enhanced typography and spacing */
         body {
             counter-reset: sidenote-counter;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -187,6 +212,7 @@
         h1, h2, h3 {
             font-weight: 400;
             font-style: normal;
+            color: var(--text-color) !important;
         }
 
         h1 {

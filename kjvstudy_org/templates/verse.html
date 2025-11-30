@@ -53,14 +53,14 @@
 .words-of-christ .marginnote,
 .words-of-christ .sidenote-number,
 .words-of-christ label.sidenote-number {
-    color: #111;
+    color: var(--text-color);
 }
 
 [data-theme="dark"] .words-of-christ .sidenote,
 [data-theme="dark"] .words-of-christ .marginnote,
 [data-theme="dark"] .words-of-christ .sidenote-number,
 [data-theme="dark"] .words-of-christ label.sidenote-number {
-    color: #ddd;
+    color: var(--text-color);
 }
 
 /* Prevent word definitions from inheriting red color */
@@ -196,17 +196,9 @@
 }
 
 [data-theme="dark"] .cross-ref-tooltip {
-    background: #2a2a2a;
-    border-color: #444;
+    background: var(--bg-color);
+    border-color: var(--border-color-darker);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-@media (prefers-color-scheme: dark) {
-    .cross-ref-tooltip {
-        background: #2a2a2a;
-        border-color: #444;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    }
 }
 
 /* Interlinear styles - inline flow design */
@@ -622,7 +614,7 @@
         width: 100%;
         margin: 0.5rem 0;
         font-size: 0.9rem;
-        color: #666;
+        color: var(--text-color);
     }
 
     .interlinear-container,
