@@ -1960,6 +1960,21 @@
           // Skip links in cross-references section (has its own CSS tooltip system)
           if (target.closest('.cross-references-section')) return;
 
+          // Skip links in navigation, buttons, actions, headers, and non-content areas
+          if (target.closest('nav') || target.closest('header') || target.closest('footer') ||
+              target.closest('.toc') || target.closest('.breadcrumb') ||
+              target.closest('button') || target.closest('[class*="-btn"]') || target.closest('[class*="-actions"]') ||
+              target.closest('[class*="download"]') || target.closest('[class*="print"]') ||
+              target.closest('.share-container') || target.closest('.share-buttons') ||
+              target.closest('.chapter-nav') || target.closest('.verse-nav') ||
+              target.closest('h1') || target.closest('h2') || target.closest('h3')) return;
+
+          // Only show tooltips for links inside content paragraphs, sections, or article content
+          if (!target.closest('p') && !target.closest('section') && !target.closest('article') &&
+              !target.closest('.verse-item') && !target.closest('.verse-text') &&
+              !target.closest('.intro-text') && !target.closest('.description') &&
+              !target.closest('li')) return;
+
           var verseInfo = parseVerseUrl(target.pathname + target.hash);
           if (!verseInfo) return;
 
