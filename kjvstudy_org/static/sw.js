@@ -168,39 +168,50 @@ async function startBackgroundCaching() {
     status: `Downloading ${totalToCache.toLocaleString()} pages...`
   });
 
-  // Cache pages in batches
-  const BATCH_SIZE = 20;
-  const BATCH_DELAY = 200; // 0.2 seconds between batches
+  // Concurrent pool - keep N requests in flight at all times
+  const CONCURRENCY = 50; // Number of concurrent requests
+  const PROGRESS_INTERVAL = 100; // Notify every N completions
 
-  for (let i = 0; i < uncachedPages.length; i += BATCH_SIZE) {
-    const batch = uncachedPages.slice(i, i + BATCH_SIZE);
+  let nextIndex = 0;
+  let lastNotified = 0;
 
-    await Promise.all(
-      batch.map(async (url) => {
-        try {
-          const response = await fetch(url);
-          if (response.ok) {
-            await cache.put(url, response);
-            cachedCount++;
-          }
-        } catch (err) {
-          // Silent fail for individual pages
+  async function cacheUrl(url) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        await cache.put(url, response);
+        cachedCount++;
+
+        // Notify progress periodically
+        if (cachedCount - lastNotified >= PROGRESS_INTERVAL) {
+          lastNotified = cachedCount;
+          notifyClients({
+            type: 'CACHE_PROGRESS',
+            cached: cachedCount,
+            total: totalToCache
+          });
         }
-      })
-    );
-
-    // Notify progress every batch
-    notifyClients({
-      type: 'CACHE_PROGRESS',
-      cached: cachedCount,
-      total: totalToCache
-    });
-
-    // Small delay between batches
-    if (i + BATCH_SIZE < uncachedPages.length) {
-      await new Promise(resolve => setTimeout(resolve, BATCH_DELAY));
+      }
+    } catch (err) {
+      // Silent fail for individual pages
     }
   }
+
+  async function worker() {
+    while (nextIndex < uncachedPages.length) {
+      const url = uncachedPages[nextIndex++];
+      await cacheUrl(url);
+    }
+  }
+
+  // Start concurrent workers
+  const workers = [];
+  for (let i = 0; i < Math.min(CONCURRENCY, uncachedPages.length); i++) {
+    workers.push(worker());
+  }
+
+  // Wait for all workers to complete
+  await Promise.all(workers);
 
   console.log('[SW] Background caching complete!', cachedCount, 'pages cached');
   cachingInProgress = false;
