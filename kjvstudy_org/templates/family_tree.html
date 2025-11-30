@@ -813,6 +813,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedIndex >= 0 && selectedIndex < allItems.length) {
             allItems[selectedIndex].style.outline = '';
             allItems[selectedIndex].style.outlineOffset = '';
+            allItems[selectedIndex].classList.remove('selected');
         }
 
         // Bounds check
@@ -821,6 +822,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add selection
         allItems[selectedIndex].style.outline = '2px solid #4a7c59';
         allItems[selectedIndex].style.outlineOffset = '2px';
+        allItems[selectedIndex].classList.add('selected');
 
         // Scroll into view
         allItems[selectedIndex].scrollIntoView({
@@ -946,6 +948,14 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const href = getLink(allItems[selectedIndex]);
             if (href) window.location.href = href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < allItems.length) {
+                allItems[selectedIndex].style.outline = '';
+                allItems[selectedIndex].style.outlineOffset = '';
+                allItems[selectedIndex].classList.remove('selected');
+            }
+            selectedIndex = -1;
         }
     });
 });

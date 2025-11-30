@@ -350,8 +350,8 @@ hr.story-divider::before {
 
 <script>
 (function() {
-    // Collect scripture refs, paragraphs, kids callout, and PDF button for up/down navigation
-    var elements = Array.from(document.querySelectorAll('.story-meta, article section p, .kids-callout, .print-btn'));
+    // Collect paragraphs, kids callout, and PDF button for up/down navigation (skip story meta so speech focuses on narrative)
+    var elements = Array.from(document.querySelectorAll('article section p, .kids-callout, .print-btn'));
     // Find the index of the first paragraph (to start selection there)
     var firstParagraphIndex = elements.findIndex(function(el) { return el.tagName === 'P'; });
     var selectedIndex = -1;

@@ -270,6 +270,10 @@ p[id^="verse-"].selected {
 {% endblock %}
 
 {% block content %}
+<script>
+// Use chapter-specific reader logic; disable global resource reader on this page
+document.body.dataset.resourceReader = 'false';
+</script>
 <h1>{{ book }} {{ chapter }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 

@@ -337,6 +337,10 @@
 {% endblock %}
 
 {% block content %}
+<script>
+// Use homepage-specific reader; disable global resource reader
+document.body.dataset.resourceReader = 'false';
+</script>
 <div class="title-page">
     <h1>The Holy Bible</h1>
     <p class="subtitle">Authorized King James Version · <em>Anno Domini</em> 1611</p>
@@ -574,44 +578,33 @@ function handleSearch(event) {
     return false;
 }
 
-// Combined keyboard navigation for daily verse + search + nav links + feature cards + explore links
+// Combined keyboard navigation for intro + feature cards + explore links + daily verse (skip title, lookup, nav links)
 var dailyVerseLink = Array.from(document.querySelectorAll('.daily-verse-link'));
-var searchSection = document.getElementById('search-section');
-var searchItems = searchSection ? [searchSection] : [];
-var navLinks = Array.from(document.querySelectorAll('.nav-links a'));
 var featureCards = Array.from(document.querySelectorAll('.feature-card'));
 var exploreLinks = Array.from(document.querySelectorAll('.explore-link'));
-var allCards = dailyVerseLink.concat(searchItems).concat(navLinks).concat(featureCards).concat(exploreLinks);
+var introParagraphs = Array.from(document.querySelectorAll('.intro-text'));
+var allCards = (introParagraphs.length ? introParagraphs : [])
+    .concat(featureCards)
+    .concat(exploreLinks)
+    .concat(dailyVerseLink);
 var selectedCardIndex = -1;
 
 function getGridColumns() {
     // Detect number of columns based on viewport and which section we're in
-    var dailyVerseEnd = dailyVerseLink.length;
-    var searchEnd = dailyVerseEnd + searchItems.length;
-    var navLinksEnd = searchEnd + navLinks.length;
-    var featureCardsEnd = navLinksEnd + featureCards.length;
+    var introEnd = introParagraphs.length;
+    var featureEnd = introEnd + featureCards.length;
+    var exploreEnd = featureEnd + exploreLinks.length;
 
-    if (selectedCardIndex < dailyVerseEnd) {
-        // Daily verse is a single item
-        return 1;
-    }
-
-    if (selectedCardIndex < searchEnd) {
-        // Search section is a single item
-        return 1;
-    }
-
-    if (selectedCardIndex < navLinksEnd) {
-        // Nav links are in a single row
-        return navLinks.length;
-    }
+    // Intro and daily verse: single column
+    if (selectedCardIndex < introEnd) return 1;
+    if (selectedCardIndex >= exploreEnd) return 1;
 
     if (window.innerWidth <= 760) {
         // Mobile: feature cards = 1 col, explore = 2 cols
-        return selectedCardIndex < featureCardsEnd ? 1 : 2;
+        return selectedCardIndex < featureEnd ? 1 : 2;
     }
     // Desktop: feature cards = 3 cols, explore = 4 cols
-    return selectedCardIndex < featureCardsEnd ? 3 : 4;
+    return selectedCardIndex < featureEnd ? 3 : 4;
 }
 
 function selectCard(index) {
@@ -673,10 +666,45 @@ document.addEventListener('keydown', function(e) {
                 document.getElementById('verse-lookup-input').focus();
             } else if (selectedEl.href) {
                 window.location.href = selectedEl.href;
+            } else if (selectedEl.classList.contains('intro-text') || selectedEl.classList.contains('subtitle')) {
+                // no navigation; allow speech/selection only
             }
         } else {
             window.location.href = '/books';
         }
+    }
+
+    // Space: read selected element or first intro paragraph
+    if (e.key === ' ' && !isTyping && el.tagName !== 'A' && el.tagName !== 'BUTTON') {
+        e.preventDefault();
+        if (!('speechSynthesis' in window)) return;
+
+        // Toggle off if currently speaking
+        if (speechSynthesis.speaking || speechSynthesis.pending || speechSynthesis.paused) {
+            speechSynthesis.cancel();
+            return;
+        }
+
+        var target = selectedCardIndex >= 0 && selectedCardIndex < allCards.length
+            ? allCards[selectedCardIndex]
+            : (introParagraphs.length ? introParagraphs[0] : null);
+
+        if (!target) return;
+
+        var clone = target.cloneNode(true);
+        clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
+        var text = (clone.textContent || clone.innerText || '').trim();
+        if (!text) return;
+
+        var utter = new SpeechSynthesisUtterance(text);
+        var voices = speechSynthesis.getVoices();
+        var englishVoice = voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en') && v.name.includes('Daniel'); }) ||
+                           voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en-gb'); }) ||
+                           voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en'); });
+        if (englishVoice) utter.voice = englishVoice;
+
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utter);
     }
 });
 </script>

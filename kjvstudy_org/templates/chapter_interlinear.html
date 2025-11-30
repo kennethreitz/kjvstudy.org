@@ -744,12 +744,14 @@ document.addEventListener('click', function(e) {
         if (selectedVerseIndex >= 0 && selectedVerseIndex < verses.length) {
             verses[selectedVerseIndex].style.outline = '';
             verses[selectedVerseIndex].style.outlineOffset = '';
+            verses[selectedVerseIndex].classList.remove('selected');
         }
         clearWordSelection();
 
         selectedVerseIndex = Math.max(0, Math.min(index, verses.length - 1));
         verses[selectedVerseIndex].style.outline = '2px solid #4a7c59';
         verses[selectedVerseIndex].style.outlineOffset = '4px';
+        verses[selectedVerseIndex].classList.add('selected');
         verses[selectedVerseIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
@@ -797,6 +799,7 @@ document.addEventListener('click', function(e) {
             } else if (selectedVerseIndex >= 0) {
                 verses[selectedVerseIndex].style.outline = '';
                 verses[selectedVerseIndex].style.outlineOffset = '';
+                verses[selectedVerseIndex].classList.remove('selected');
                 selectedVerseIndex = -1;
             }
             document.querySelectorAll('.word-unit.expanded').forEach(function(word) {

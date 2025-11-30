@@ -1744,7 +1744,8 @@
       // Simple resource reader state (for resource pages)
       window.KJVResourceSpeech = {
         speaking: false,
-        utterance: null
+        utterance: null,
+        suppressSpace: false
       };
 
       // Load voices (they may not be available immediately)
@@ -1863,20 +1864,30 @@
                 // explicitly disabled
               } else if (document.body) {
                 e.preventDefault();
+                if (window.KJVResourceSpeech.suppressSpace) return;
                 if (!('speechSynthesis' in window)) return;
+                // If something is currently speaking or queued, stop it instead of starting a new read
+                if (window.KJVResourceSpeech.utterance && (speechSynthesis.speaking || speechSynthesis.pending || speechSynthesis.paused)) {
+                  speechSynthesis.cancel();
+                  window.KJVResourceSpeech.speaking = false;
+                  window.KJVResourceSpeech.utterance = null;
+                  window.KJVResourceSpeech.suppressSpace = true;
+                  return;
+                }
                 if (window.KJVResourceSpeech.speaking) {
                   speechSynthesis.cancel();
                   window.KJVResourceSpeech.speaking = false;
                   window.KJVResourceSpeech.utterance = null;
+                  window.KJVResourceSpeech.suppressSpace = true;
                   return;
                 }
-                var highlighted = document.querySelector('[style*=\"outline: 2px solid\"]') ||
-                                  document.querySelector('[style*=\"outline:2px solid\"]') ||
-                                  document.querySelector('.selected');
+                var highlighted = document.querySelector('[style*=\"outline: 2px solid\"]:not(.toc)') ||
+                                  document.querySelector('[style*=\"outline:2px solid\"]:not(.toc)') ||
+                                  document.querySelector('.selected:not(.toc)');
                 var combined = '';
                 if (highlighted) {
                   var hclone = highlighted.cloneNode(true);
-                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, script, style').forEach(function(el) { el.remove(); });
+                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, script, style').forEach(function(el) { el.remove(); });
                   combined = (hclone.textContent || hclone.innerText || '').trim();
                 } else {
                   var article = document.querySelector('article');
@@ -1885,11 +1896,11 @@
                     var selectedCard = article.querySelector('.resource-card[style*=\"outline\"]') || article.querySelector('.resource-card');
                     if (selectedCard) {
                       var cclone = selectedCard.cloneNode(true);
-                      cclone.querySelectorAll('.breadcrumb, script, style').forEach(function(el) { el.remove(); });
+                      cclone.querySelectorAll('.breadcrumb, .toc, script, style').forEach(function(el) { el.remove(); });
                       combined = (cclone.textContent || cclone.innerText || '').trim();
                     } else {
                       var aclone = article.cloneNode(true);
-                      aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, script, style').forEach(function(el) { el.remove(); });
+                      aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, script, style').forEach(function(el) { el.remove(); });
                       combined = (aclone.textContent || aclone.innerText || '').trim();
                     }
                   }
@@ -1911,6 +1922,7 @@
                   };
                   window.KJVResourceSpeech.speaking = true;
                   window.KJVResourceSpeech.utterance = utter;
+                  window.KJVResourceSpeech.suppressSpace = false;
                   speechSynthesis.cancel();
                   speechSynthesis.speak(utter);
                 }
@@ -1923,6 +1935,13 @@
               }
               break;
           }
+        }
+      });
+
+      // Clear suppression after spacebar is released
+      document.addEventListener('keyup', function(e) {
+        if (e.key === ' ') {
+          window.KJVResourceSpeech.suppressSpace = false;
         }
       });
 
