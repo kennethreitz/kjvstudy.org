@@ -36,10 +36,6 @@
 </script>
 {% endblock %}
 
-<script>
-document.body.dataset.resourceReader = 'true';
-</script>
-
 {% block head %}
 <style>
 
@@ -178,6 +174,10 @@ document.addEventListener('DOMContentLoaded', function() {
 {% block content %}
 <h1>{{ guide.title }}</h1>
 <p class="subtitle">{{ guide.description }}</p>
+
+<script>
+document.body.dataset.resourceReader = 'true';
+</script>
 
 {% if pdf_available and pdf_url %}
 <div class="guide-actions">
