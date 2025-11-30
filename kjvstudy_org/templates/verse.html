@@ -780,11 +780,10 @@
 {% if cross_references %}
 <div class="cross-references-section">
     <h2>Cross References</h2>
-    <p>Related verses that illuminate this passage (hover to preview):</p>
-    <ul style="max-width: 60%; list-style: none; padding: 0;">
+    <p>Related verses that illuminate this passage:</p>
+    <ul style="max-width: 65%; list-style: none; padding: 0;">
         {% for ref in cross_references %}
-        <li style="margin: 1rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
-            <sup style="font-size: 0.75rem; vertical-align: super; margin-right: 0.25rem;">{{ loop.index }}</sup>
+        <li style="margin: 1.25rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
             {% set ref_parts = ref.ref.rsplit(' ', 1) %}
             {% if ref_parts|length == 2 %}
                 {% set book_name = ref_parts[0] %}
@@ -792,15 +791,7 @@
                 {% if ':' in chapter_verse %}
                     {% set ch = chapter_verse.split(':')[0] %}
                     {% set v = chapter_verse.split(':')[1] %}
-                    <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}" class="cross-ref-link">
-                        {{ ref.ref }}
-                        {% if ref.text %}
-                        <span class="cross-ref-tooltip">
-                            <strong>{{ ref.ref }}</strong>
-                            <div class="tooltip-verse-text">{{ ref.text }}</div>
-                        </span>
-                        {% endif %}
-                    </a></strong>
+                    <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ ref.ref }}</a></strong>
                 {% else %}
                     <strong>{{ ref.ref }}</strong>
                 {% endif %}
@@ -808,6 +799,9 @@
                 <strong>{{ ref.ref }}</strong>
             {% endif %}
             {% if ref.note %} — <em style="color: var(--text-secondary);">{{ ref.note }}</em>{% endif %}
+            {% if ref.text %}
+            <p style="margin: 0.5rem 0 0 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">{{ ref.text }}</p>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
