@@ -118,8 +118,16 @@
 
 <script>
 (function() {
-    // Include description paragraphs, intro text, and verse items
-    const elements = Array.from(document.querySelectorAll('.parable-description p, .intro-text, .verse-item'));
+    // Include description content (p, ul, ol, blockquote, or div itself if no children), intro text, and verse items
+    let descElements = Array.from(document.querySelectorAll('.parable-description > p, .parable-description > ul, .parable-description > ol, .parable-description > blockquote'));
+    // If no block children, select the description div itself
+    if (descElements.length === 0) {
+        const descDiv = document.querySelector('.parable-description');
+        if (descDiv) descElements = [descDiv];
+    }
+    const elements = descElements.concat(
+        Array.from(document.querySelectorAll('.intro-text, .verse-item'))
+    );
     if (elements.length === 0) return;
 
     let selectedIndex = -1;
