@@ -151,24 +151,6 @@
     outline-color: #6b9b7a;
 }
 
-/* Study guide links */
-.study-guide-link {
-    padding: 0.15rem 0.4rem;
-    border-radius: 3px;
-    transition: all 0.2s;
-}
-
-.study-guide-link.selected {
-    background: rgba(74, 124, 89, 0.15);
-    outline: 2px solid #4a7c59;
-    outline-offset: 2px;
-}
-
-[data-theme="dark"] .study-guide-link.selected {
-    background: rgba(107, 155, 122, 0.15);
-    outline-color: #6b9b7a;
-}
-
 /* Daily verse link */
 .daily-verse-link {
     padding: 0.15rem 0.4rem;
@@ -477,7 +459,7 @@
 
     {% for category, guides in study_guides.items() %}
     <p><span class="newthought">{{ category }}</span> —
-    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}" class="study-guide-link">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
     {% endfor %}
 </section>
 
@@ -592,15 +574,14 @@ function handleSearch(event) {
     return false;
 }
 
-// Combined keyboard navigation for daily verse + search + nav links + feature cards + explore links + study guides
+// Combined keyboard navigation for daily verse + search + nav links + feature cards + explore links
 var dailyVerseLink = Array.from(document.querySelectorAll('.daily-verse-link'));
 var searchSection = document.getElementById('search-section');
 var searchItems = searchSection ? [searchSection] : [];
 var navLinks = Array.from(document.querySelectorAll('.nav-links a'));
 var featureCards = Array.from(document.querySelectorAll('.feature-card'));
 var exploreLinks = Array.from(document.querySelectorAll('.explore-link'));
-var studyGuideLinks = Array.from(document.querySelectorAll('.study-guide-link'));
-var allCards = dailyVerseLink.concat(searchItems).concat(navLinks).concat(featureCards).concat(exploreLinks).concat(studyGuideLinks);
+var allCards = dailyVerseLink.concat(searchItems).concat(navLinks).concat(featureCards).concat(exploreLinks);
 var selectedCardIndex = -1;
 
 function getGridColumns() {
@@ -609,7 +590,6 @@ function getGridColumns() {
     var searchEnd = dailyVerseEnd + searchItems.length;
     var navLinksEnd = searchEnd + navLinks.length;
     var featureCardsEnd = navLinksEnd + featureCards.length;
-    var exploreLinksEnd = featureCardsEnd + exploreLinks.length;
 
     if (selectedCardIndex < dailyVerseEnd) {
         // Daily verse is a single item
@@ -624,11 +604,6 @@ function getGridColumns() {
     if (selectedCardIndex < navLinksEnd) {
         // Nav links are in a single row
         return navLinks.length;
-    }
-
-    if (selectedCardIndex >= exploreLinksEnd) {
-        // Study guide links - treat as single row navigation
-        return studyGuideLinks.length;
     }
 
     if (window.innerWidth <= 760) {

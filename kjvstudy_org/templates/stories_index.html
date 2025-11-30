@@ -34,6 +34,17 @@
     border-color: var(--link-color);
     transform: translateY(-1px);
 }
+.story-toc-item.selected {
+    border-color: #4a7c59;
+    outline: 2px solid #4a7c59;
+    outline-offset: 2px;
+    background: rgba(74, 124, 89, 0.05);
+}
+[data-theme="dark"] .story-toc-item.selected {
+    border-color: #6b9b7a;
+    outline-color: #6b9b7a;
+    background: rgba(107, 155, 122, 0.1);
+}
 .story-toc-item strong {
     display: block;
 }
@@ -451,13 +462,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Keyboard navigation for story cards (2D grid)
+    // Keyboard navigation for categories and story cards
+    var categoryItems = Array.from(document.querySelectorAll('.story-toc-item'));
     var visibleStories = function() {
         return Array.from(document.querySelectorAll('.story-card:not(.hidden)'));
     };
+
+    // Track which section we're in: 'categories' or 'stories'
+    var currentSection = 'stories';
+    var selectedCatIndex = -1;
     var selectedCardIndex = -1;
 
-    function getGridColumns() {
+    function getCatGridColumns() {
+        var toc = document.querySelector('.story-toc ul');
+        if (!toc) return 1;
+        var style = getComputedStyle(toc);
+        var cols = style.gridTemplateColumns.split(' ').length;
+        return cols || 1;
+    }
+
+    function getCardGridColumns() {
         var grid = document.querySelector('.stories-grid');
         if (!grid) return 1;
         var style = getComputedStyle(grid);
@@ -465,15 +489,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return cols || 1;
     }
 
+    function clearAllSelections() {
+        categoryItems.forEach(function(c) { c.classList.remove('selected'); });
+        visibleStories().forEach(function(c) {
+            c.style.outline = '';
+            c.style.outlineOffset = '';
+        });
+    }
+
+    function selectCategory(index) {
+        clearAllSelections();
+        currentSection = 'categories';
+        selectedCardIndex = -1;
+        selectedCatIndex = Math.max(0, Math.min(index, categoryItems.length - 1));
+        categoryItems[selectedCatIndex].classList.add('selected');
+        categoryItems[selectedCatIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
     function selectStoryCard(index) {
         var cards = visibleStories();
         if (cards.length === 0) return;
 
-        if (selectedCardIndex >= 0 && selectedCardIndex < cards.length) {
-            cards[selectedCardIndex].style.outline = '';
-            cards[selectedCardIndex].style.outlineOffset = '';
-        }
-
+        clearAllSelections();
+        currentSection = 'stories';
+        selectedCatIndex = -1;
         selectedCardIndex = Math.max(0, Math.min(index, cards.length - 1));
         cards[selectedCardIndex].style.outline = '2px solid #4a7c59';
         cards[selectedCardIndex].style.outlineOffset = '4px';
@@ -484,32 +523,90 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
         var cards = visibleStories();
-        if (cards.length === 0) return;
-
-        var cols = getGridColumns();
+        var catCols = getCatGridColumns();
+        var cardCols = getCardGridColumns();
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (selectedCardIndex < 0) selectStoryCard(0);
-            else selectStoryCard(selectedCardIndex + cols);
+            if (currentSection === 'categories') {
+                // Move down within categories or transition to stories
+                if (selectedCatIndex + catCols >= categoryItems.length) {
+                    // Transition to story cards
+                    selectStoryCard(0);
+                } else {
+                    selectCategory(selectedCatIndex + catCols);
+                }
+            } else {
+                // In stories section
+                if (selectedCardIndex < 0) selectStoryCard(0);
+                else selectStoryCard(selectedCardIndex + cardCols);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedCardIndex < 0) selectStoryCard(0);
-            else if (selectedCardIndex - cols >= 0) selectStoryCard(selectedCardIndex - cols);
+            if (currentSection === 'stories') {
+                if (selectedCardIndex < 0) {
+                    selectStoryCard(0);
+                } else if (selectedCardIndex - cardCols < 0) {
+                    // Transition to categories (last row)
+                    var lastRowStart = Math.floor((categoryItems.length - 1) / catCols) * catCols;
+                    selectCategory(Math.min(lastRowStart + (selectedCardIndex % cardCols), categoryItems.length - 1));
+                } else {
+                    selectStoryCard(selectedCardIndex - cardCols);
+                }
+            } else {
+                // In categories
+                if (selectedCatIndex - catCols >= 0) {
+                    selectCategory(selectedCatIndex - catCols);
+                }
+            }
         } else if (e.key === 'ArrowRight' || e.key === 'l') {
             e.preventDefault();
-            if (selectedCardIndex < 0) selectStoryCard(0);
-            else selectStoryCard(selectedCardIndex + 1);
+            if (currentSection === 'categories') {
+                if (selectedCatIndex < categoryItems.length - 1) {
+                    selectCategory(selectedCatIndex + 1);
+                }
+            } else {
+                if (selectedCardIndex < 0) selectStoryCard(0);
+                else selectStoryCard(selectedCardIndex + 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            if (selectedCardIndex <= 0) history.back();
-            else selectStoryCard(selectedCardIndex - 1);
-        } else if (e.key === 'Enter' && selectedCardIndex >= 0) {
+            if (currentSection === 'categories') {
+                if (selectedCatIndex > 0) {
+                    selectCategory(selectedCatIndex - 1);
+                } else {
+                    history.back();
+                }
+            } else {
+                if (selectedCardIndex <= 0) history.back();
+                else selectStoryCard(selectedCardIndex - 1);
+            }
+        } else if (e.key === 'Enter') {
             e.preventDefault();
-            var cards = visibleStories();
-            if (cards[selectedCardIndex]) {
+            if (currentSection === 'categories' && selectedCatIndex >= 0) {
+                // Get the target section from the category link
+                var targetId = categoryItems[selectedCatIndex].getAttribute('href').substring(1);
+                var targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    // Find the first story card in this section
+                    var firstCard = targetSection.querySelector('.story-card:not(.hidden)');
+                    if (firstCard) {
+                        var allCards = visibleStories();
+                        var cardIndex = allCards.indexOf(firstCard);
+                        if (cardIndex >= 0) {
+                            selectStoryCard(cardIndex);
+                        }
+                    }
+                }
+            } else if (currentSection === 'stories' && selectedCardIndex >= 0 && cards[selectedCardIndex]) {
                 window.location.href = cards[selectedCardIndex].href;
             }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            clearAllSelections();
+            currentSection = 'stories';
+            selectedCatIndex = -1;
+            selectedCardIndex = -1;
         }
     });
 });

@@ -429,6 +429,13 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex + 1]);
         }
+
+        // p: Download PDF
+        if (e.key === 'p') {
+            e.preventDefault();
+            var pdfBtn = document.querySelector('.print-btn');
+            if (pdfBtn) window.location.href = pdfBtn.href;
+        }
     });
 
     // Clicking on chapter links should just navigate normally

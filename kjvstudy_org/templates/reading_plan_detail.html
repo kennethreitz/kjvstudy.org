@@ -222,20 +222,21 @@
 
 <script>
 (function() {
-    const days = Array.from(document.querySelectorAll('.day-entry'));
-    if (days.length === 0) return;
+    // Include overview, intro text, day entries, and PDF button
+    const elements = Array.from(document.querySelectorAll('.plan-overview, .intro-text, .day-entry, .print-btn'));
+    if (elements.length === 0) return;
 
     let selectedIndex = -1;
 
-    function selectDay(index) {
-        if (selectedIndex >= 0 && selectedIndex < days.length) {
-            days[selectedIndex].style.outline = '';
-            days[selectedIndex].style.outlineOffset = '';
+    function selectElement(index) {
+        if (selectedIndex >= 0 && selectedIndex < elements.length) {
+            elements[selectedIndex].style.outline = '';
+            elements[selectedIndex].style.outlineOffset = '';
         }
-        selectedIndex = Math.max(0, Math.min(index, days.length - 1));
-        days[selectedIndex].style.outline = '2px solid #4a7c59';
-        days[selectedIndex].style.outlineOffset = '2px';
-        days[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
+        elements[selectedIndex].style.outline = '2px solid #4a7c59';
+        elements[selectedIndex].style.outlineOffset = '8px';
+        elements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     document.addEventListener('keydown', function(e) {
@@ -243,18 +244,30 @@
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectDay(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            selectElement(selectedIndex < 0 ? 0 : selectedIndex + 1);
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectDay(0);
-            else selectDay(selectedIndex - 1);
+            if (selectedIndex <= 0) selectElement(0);
+            else selectElement(selectedIndex - 1);
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
-            const firstLink = days[selectedIndex].querySelector('.reading-ref a');
-            if (firstLink) window.location.href = firstLink.href;
+            var el = elements[selectedIndex];
+            if (el.tagName === 'A' && el.href) {
+                window.location.href = el.href;
+            } else {
+                var link = el.querySelector('.reading-ref a') || el.querySelector('a');
+                if (link) window.location.href = link.href;
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < elements.length) {
+                elements[selectedIndex].style.outline = '';
+                elements[selectedIndex].style.outlineOffset = '';
+            }
+            selectedIndex = -1;
         }
     });
 })();

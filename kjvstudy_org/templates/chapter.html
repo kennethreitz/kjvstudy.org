@@ -328,7 +328,7 @@ p[id^="verse-"].selected {
         </a>
     </div>
     <div class="nav-help">
-        Tip: ↑/↓ or j/k to select verses • Enter to view • ←/→ for chapters
+        Tip: ↑/↓ to select verses • Enter to view • ←/→ chapters • i=interlinear • p=PDF
     </div>
 </nav>
 
@@ -514,6 +514,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 verses[selectedVerseIndex].classList.remove('selected');
             }
             selectedVerseIndex = -1;
+        }
+
+        // i: Go to interlinear view
+        if (e.key === 'i') {
+            e.preventDefault();
+            var interlinearBtn = document.querySelector('.interlinear-btn');
+            if (interlinearBtn) window.location.href = interlinearBtn.href;
+        }
+
+        // p: Download PDF
+        if (e.key === 'p') {
+            e.preventDefault();
+            var pdfBtn = document.querySelector('.pdf-btn');
+            if (pdfBtn) window.location.href = pdfBtn.href;
         }
     });
 
