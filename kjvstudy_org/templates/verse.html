@@ -601,39 +601,8 @@
     }
 }
 
-/* Print button */
-.verse-actions {
-    margin: 1rem 0;
-}
-
-.verse-download-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.45rem 0.9rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.verse-download-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color, #4a7c59);
-    color: var(--link-color, #4a7c59);
-}
-
-.verse-download-btn svg {
-    width: 16px;
-    height: 16px;
-}
-
 @media print {
-    .verse-actions,
-    .verse-download-btn,
+    .share-container,
     nav {
         display: none !important;
     }
@@ -668,17 +637,6 @@
 {% block content %}
 <h1>{{ book }} {{ chapter }}:{{ verse_num }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
-
-{% if pdf_available and pdf_url %}
-<div class="verse-actions">
-    <a href="{{ pdf_url }}" class="verse-download-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-        Download PDF
-    </a>
-</div>
-{% endif %}
 
 <section>
     <p class="verse-text">{{ verse_text | red_letter(book, chapter, verse_num) | link_names | safe }}</p>
@@ -788,6 +746,11 @@
                rel="noopener">
                 <span>f</span> Share
             </a>
+            {% if pdf_available and pdf_url %}
+            <a class="share-btn pdf" href="{{ pdf_url }}">
+                <span>📄</span> PDF
+            </a>
+            {% endif %}
         </div>
     </div>
 
