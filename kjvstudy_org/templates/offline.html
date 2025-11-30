@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Offline Bible Reader - KJV Study</title>
+    <link rel="stylesheet" href="/static/tufte.css"/>
+    <link rel="manifest" href="/static/manifest.json"/>
+    <style>
+        :root {
+            --bg-color: #fffff8;
+            --text-color: #111;
+            --text-secondary: #666;
+            --border-color: #ddd;
+            --link-color: #333;
+        }
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-color: #444;
+            --link-color: #d0d0d0;
+        }
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .subtitle { color: var(--text-secondary); font-style: italic; margin-bottom: 2rem; }
+        .offline-badge {
+            display: inline-block;
+            background: #c41e3a;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        .nav-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        select {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+        }
+        .chapter-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .nav-btn:hover { background: var(--border-color); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        #chapter-content {
+            line-height: 2;
+            font-size: 1.2rem;
+        }
+        #chapter-content p {
+            margin: 1rem 0;
+        }
+        .verse-num {
+            font-size: 0.9rem;
+            vertical-align: super;
+            margin-right: 0.25rem;
+            color: var(--text-secondary);
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+        .error {
+            background: #fee;
+            border: 1px solid #c00;
+            padding: 1rem;
+            border-radius: 4px;
+            color: #c00;
+        }
+        #keyboard-hint {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+        .back-link {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .back-link a {
+            color: var(--link-color);
+        }
+    </style>
+</head>
+<body>
+    <h1>Bible Reader <span class="offline-badge">Offline</span></h1>
+    <p class="subtitle">King James Version - Available without internet</p>
+
+    <div class="nav-section">
+        <select id="book-select">
+            <option value="">Select a book...</option>
+        </select>
+        <select id="chapter-select" disabled>
+            <option value="">Chapter</option>
+        </select>
+        <div class="chapter-nav">
+            <button class="nav-btn" id="prev-btn" disabled>← Prev</button>
+            <button class="nav-btn" id="next-btn" disabled>Next →</button>
+        </div>
+    </div>
+
+    <div id="chapter-content">
+        <p class="loading">Loading Bible data...</p>
+    </div>
+
+    <p id="keyboard-hint">Tip: Use ← → arrow keys to navigate chapters</p>
+
+    <div class="back-link">
+        <a href="/">← Back to KJV Study</a> (when online)
+    </div>
+
+    <script>
+    (function() {
+        // Check theme preference
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Bible data
+        let bibleData = null;
+        let bookStructure = {};
+        let currentBook = '';
+        let currentChapter = 1;
+
+        // Book order
+        const BOOKS = [
+            'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
+            'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
+            '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles',
+            'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
+            'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah',
+            'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
+            'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
+            'Haggai', 'Zechariah', 'Malachi',
+            'Matthew', 'Mark', 'Luke', 'John', 'Acts',
+            'Romans', '1 Corinthians', '2 Corinthians', 'Galatians',
+            'Ephesians', 'Philippians', 'Colossians',
+            '1 Thessalonians', '2 Thessalonians',
+            '1 Timothy', '2 Timothy', 'Titus', 'Philemon',
+            'Hebrews', 'James', '1 Peter', '2 Peter',
+            '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+        ];
+
+        const bookSelect = document.getElementById('book-select');
+        const chapterSelect = document.getElementById('chapter-select');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const content = document.getElementById('chapter-content');
+
+        // Load Bible data from cache
+        async function loadBibleData() {
+            try {
+                // Try to fetch from cache first
+                const cache = await caches.open('kjvstudy-static-v1');
+                let response = await cache.match('/static/verses-1769.json');
+
+                if (!response) {
+                    // Try network as fallback
+                    response = await fetch('/static/verses-1769.json');
+                }
+
+                if (!response || !response.ok) {
+                    throw new Error('Could not load Bible data');
+                }
+
+                bibleData = await response.json();
+                buildBookStructure();
+                populateBookSelect();
+                content.innerHTML = '<p>Select a book and chapter to begin reading.</p>';
+
+                // Check URL for book/chapter
+                parseUrlAndNavigate();
+            } catch (err) {
+                content.innerHTML = '<div class="error">Could not load Bible data. Please visit the site while online first to cache the data.</div>';
+                console.error('Failed to load Bible:', err);
+            }
+        }
+
+        // Build structure: { book: { chapter: [verse numbers] } }
+        function buildBookStructure() {
+            bookStructure = {};
+            for (const ref in bibleData) {
+                const match = ref.match(/^(.+) (\d+):(\d+)$/);
+                if (match) {
+                    const [, book, chapter, verse] = match;
+                    if (!bookStructure[book]) bookStructure[book] = {};
+                    if (!bookStructure[book][chapter]) bookStructure[book][chapter] = [];
+                    bookStructure[book][chapter].push(parseInt(verse));
+                }
+            }
+            // Sort verses
+            for (const book in bookStructure) {
+                for (const chapter in bookStructure[book]) {
+                    bookStructure[book][chapter].sort((a, b) => a - b);
+                }
+            }
+        }
+
+        // Populate book dropdown
+        function populateBookSelect() {
+            BOOKS.forEach(book => {
+                if (bookStructure[book]) {
+                    const opt = document.createElement('option');
+                    opt.value = book;
+                    opt.textContent = book;
+                    bookSelect.appendChild(opt);
+                }
+            });
+        }
+
+        // Populate chapter dropdown
+        function populateChapterSelect(book) {
+            chapterSelect.innerHTML = '<option value="">Chapter</option>';
+            if (!bookStructure[book]) return;
+
+            const chapters = Object.keys(bookStructure[book]).map(Number).sort((a, b) => a - b);
+            chapters.forEach(ch => {
+                const opt = document.createElement('option');
+                opt.value = ch;
+                opt.textContent = ch;
+                chapterSelect.appendChild(opt);
+            });
+            chapterSelect.disabled = false;
+        }
+
+        // Render chapter
+        function renderChapter(book, chapter) {
+            if (!bookStructure[book] || !bookStructure[book][chapter]) {
+                content.innerHTML = '<p>Chapter not found.</p>';
+                return;
+            }
+
+            currentBook = book;
+            currentChapter = parseInt(chapter);
+
+            const verses = bookStructure[book][chapter];
+            let html = '<h2>' + book + ' ' + chapter + '</h2>';
+
+            verses.forEach(verseNum => {
+                const ref = book + ' ' + chapter + ':' + verseNum;
+                const text = bibleData[ref] || '';
+                // Remove paragraph markers (#)
+                const cleanText = text.replace(/^#\s*/, '');
+                html += '<p><span class="verse-num">' + verseNum + '</span> ' + cleanText + '</p>';
+            });
+
+            content.innerHTML = html;
+
+            // Update navigation
+            updateNavButtons();
+
+            // Update URL
+            history.replaceState(null, '', '/offline?book=' + encodeURIComponent(book) + '&chapter=' + chapter);
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Update prev/next buttons
+        function updateNavButtons() {
+            const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
+            const bookIndex = BOOKS.indexOf(currentBook);
+
+            // Previous
+            if (currentChapter > chapters[0]) {
+                prevBtn.disabled = false;
+            } else if (bookIndex > 0) {
+                prevBtn.disabled = false;
+            } else {
+                prevBtn.disabled = true;
+            }
+
+            // Next
+            if (currentChapter < chapters[chapters.length - 1]) {
+                nextBtn.disabled = false;
+            } else if (bookIndex < BOOKS.length - 1) {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        // Navigate to previous chapter
+        function goPrev() {
+            const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
+            const chapterIndex = chapters.indexOf(currentChapter);
+
+            if (chapterIndex > 0) {
+                chapterSelect.value = chapters[chapterIndex - 1];
+                renderChapter(currentBook, chapters[chapterIndex - 1]);
+            } else {
+                // Go to previous book's last chapter
+                const bookIndex = BOOKS.indexOf(currentBook);
+                if (bookIndex > 0) {
+                    const prevBook = BOOKS[bookIndex - 1];
+                    const prevChapters = Object.keys(bookStructure[prevBook] || {}).map(Number).sort((a, b) => a - b);
+                    const lastChapter = prevChapters[prevChapters.length - 1];
+                    bookSelect.value = prevBook;
+                    populateChapterSelect(prevBook);
+                    chapterSelect.value = lastChapter;
+                    renderChapter(prevBook, lastChapter);
+                }
+            }
+        }
+
+        // Navigate to next chapter
+        function goNext() {
+            const chapters = Object.keys(bookStructure[currentBook] || {}).map(Number).sort((a, b) => a - b);
+            const chapterIndex = chapters.indexOf(currentChapter);
+
+            if (chapterIndex < chapters.length - 1) {
+                chapterSelect.value = chapters[chapterIndex + 1];
+                renderChapter(currentBook, chapters[chapterIndex + 1]);
+            } else {
+                // Go to next book's first chapter
+                const bookIndex = BOOKS.indexOf(currentBook);
+                if (bookIndex < BOOKS.length - 1) {
+                    const nextBook = BOOKS[bookIndex + 1];
+                    const nextChapters = Object.keys(bookStructure[nextBook] || {}).map(Number).sort((a, b) => a - b);
+                    const firstChapter = nextChapters[0];
+                    bookSelect.value = nextBook;
+                    populateChapterSelect(nextBook);
+                    chapterSelect.value = firstChapter;
+                    renderChapter(nextBook, firstChapter);
+                }
+            }
+        }
+
+        // Parse URL parameters
+        function parseUrlAndNavigate() {
+            const params = new URLSearchParams(window.location.search);
+            const book = params.get('book');
+            const chapter = params.get('chapter');
+
+            if (book && bookStructure[book]) {
+                bookSelect.value = book;
+                populateChapterSelect(book);
+                if (chapter && bookStructure[book][chapter]) {
+                    chapterSelect.value = chapter;
+                    renderChapter(book, chapter);
+                }
+            }
+        }
+
+        // Event listeners
+        bookSelect.addEventListener('change', function() {
+            const book = this.value;
+            if (book) {
+                populateChapterSelect(book);
+                // Auto-select first chapter
+                const chapters = Object.keys(bookStructure[book]).map(Number).sort((a, b) => a - b);
+                if (chapters.length > 0) {
+                    chapterSelect.value = chapters[0];
+                    renderChapter(book, chapters[0]);
+                }
+            }
+        });
+
+        chapterSelect.addEventListener('change', function() {
+            const chapter = this.value;
+            if (chapter && currentBook) {
+                renderChapter(currentBook, chapter);
+            }
+        });
+
+        prevBtn.addEventListener('click', goPrev);
+        nextBtn.addEventListener('click', goNext);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'SELECT') return;
+
+            if (e.key === 'ArrowLeft' || e.key === 'h') {
+                e.preventDefault();
+                if (!prevBtn.disabled) goPrev();
+            } else if (e.key === 'ArrowRight' || e.key === 'l') {
+                e.preventDefault();
+                if (!nextBtn.disabled) goNext();
+            }
+        });
+
+        // Load data
+        loadBibleData();
+    })();
+    </script>
+</body>
+</html>

@@ -7,6 +7,7 @@ const PAGE_CACHE = 'kjvstudy-pages-' + CACHE_VERSION;
 // Static assets to cache immediately on install
 const STATIC_ASSETS = [
   '/',
+  '/offline',
   '/static/tufte.css',
   '/static/style.css',
   '/static/app.js',
@@ -137,7 +138,13 @@ self.addEventListener('fetch', (event) => {
             if (cachedResponse) {
               return cachedResponse;
             }
-            // Return offline page if available
+            // Redirect to offline reader with book/chapter info
+            const pathMatch = url.pathname.match(/\/book\/([^\/]+)(?:\/chapter\/(\d+))?/);
+            if (pathMatch) {
+              const book = decodeURIComponent(pathMatch[1]);
+              const chapter = pathMatch[2] || '1';
+              return Response.redirect('/offline?book=' + encodeURIComponent(book) + '&chapter=' + chapter, 302);
+            }
             return caches.match('/offline');
           });
         })

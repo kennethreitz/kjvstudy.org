@@ -1293,6 +1293,15 @@ def get_daily_verse(date_str=None):
 
 
 
+@app.get("/offline", response_class=HTMLResponse)
+def offline_reader(request: Request):
+    """Offline Bible reader - renders chapters from cached JSON."""
+    return templates.TemplateResponse(
+        "offline.html",
+        {"request": request}
+    )
+
+
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     books = bible.get_books()
