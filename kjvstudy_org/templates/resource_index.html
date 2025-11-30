@@ -301,7 +301,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Two-section navigation: TOC block -> content elements
     // Or when inside TOC: individual TOC entries
-    const contentElements = Array.from(document.querySelectorAll('.intro-text, .resource-item-description p, .verse-item'));
+    // Content elements include section titles (h3 with links), paragraphs, and verse items
+    const contentElements = Array.from(document.querySelectorAll('.intro-text, .resource-name, .resource-item-description p, .verse-item'));
     const tocItems = Array.from(tocList.querySelectorAll('li a'));
 
     let currentSection = 'content'; // 'content' or 'toc'
@@ -420,7 +421,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (href) window.location.href = href;
             } else if (selectedIndex >= 0) {
                 var el = contentElements[selectedIndex];
-                var link = el.querySelector('.resource-name a') || el.querySelector('.verse-ref a') || el.querySelector('a');
+                // Check if the element itself contains a link, or is an h3 with a link inside
+                var link = el.querySelector('a') || (el.classList.contains('resource-name') && el.querySelector('a'));
                 if (link) window.location.href = link.href;
             }
         } else if (e.key === 'Escape') {
