@@ -161,12 +161,12 @@
     {% if commentary %}
     {% if commentary.analysis %}
     <h2>Analysis</h2>
-    <p>{{ commentary.analysis }}</p>
+    <p>{{ commentary.analysis | safe }}</p>
     {% endif %}
 
     {% if commentary.historical %}
     <h2>Historical Context</h2>
-    <p>{{ commentary.historical }}</p>
+    <p>{{ commentary.historical | safe }}</p>
     {% endif %}
 
     {% if commentary.cross_references %}
