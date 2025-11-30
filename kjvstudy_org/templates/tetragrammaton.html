@@ -174,21 +174,75 @@ document.addEventListener('DOMContentLoaded', function() {
         tocList.appendChild(li);
     });
 
-    // Keyboard navigation for sections
-    const sections = Array.from(document.querySelectorAll('section h2')).map(h => h.closest('section'));
-    if (sections.length === 0) return;
+    // Keyboard navigation for paragraphs with TOC drill-down
+    const toc = document.getElementById('toc');
+    const tocItems = Array.from(tocList.querySelectorAll('li a'));
+    const contentElements = Array.from(document.querySelectorAll('.download-btn, .intro-text, .section h2, .section-content > p, .section-content > ul, .section-content > ol, .verse-item'));
 
+    // Find where post-TOC content starts
+    const tocRect = toc.getBoundingClientRect();
+    let postTocStartIndex = contentElements.findIndex(el => {
+        const rect = el.getBoundingClientRect();
+        return rect.top > tocRect.bottom;
+    });
+    if (postTocStartIndex < 0) postTocStartIndex = contentElements.length;
+
+    let currentSection = 'content';
     let selectedIndex = -1;
+    let selectedTocIndex = -1;
+    let tocBlockSelected = false;
 
-    function selectSection(index) {
-        if (selectedIndex >= 0 && selectedIndex < sections.length) {
-            sections[selectedIndex].style.outline = '';
-            sections[selectedIndex].style.outlineOffset = '';
+    function clearAllSelections() {
+        if (selectedIndex >= 0 && selectedIndex < contentElements.length) {
+            contentElements[selectedIndex].style.outline = '';
+            contentElements[selectedIndex].style.outlineOffset = '';
         }
-        selectedIndex = Math.max(0, Math.min(index, sections.length - 1));
-        sections[selectedIndex].style.outline = '2px solid #4a7c59';
-        sections[selectedIndex].style.outlineOffset = '4px';
-        sections[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (tocBlockSelected) {
+            toc.style.outline = '';
+            toc.style.outlineOffset = '';
+            tocBlockSelected = false;
+        }
+        tocItems.forEach(item => {
+            item.style.outline = '';
+            item.style.background = '';
+        });
+    }
+
+    function selectTocBlock() {
+        clearAllSelections();
+        currentSection = 'toc';
+        tocBlockSelected = true;
+        selectedTocIndex = -1;
+        toc.style.outline = '2px solid #4a7c59';
+        toc.style.outlineOffset = '8px';
+        toc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function selectTocItem(index) {
+        clearAllSelections();
+        currentSection = 'toc';
+        tocBlockSelected = false;
+        selectedTocIndex = Math.max(0, Math.min(index, tocItems.length - 1));
+        tocItems[selectedTocIndex].style.background = 'rgba(74, 124, 89, 0.15)';
+        tocItems[selectedTocIndex].style.outline = '2px solid #4a7c59';
+        tocItems[selectedTocIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function selectElement(index) {
+        clearAllSelections();
+        currentSection = 'content';
+        selectedIndex = Math.max(0, Math.min(index, contentElements.length - 1));
+        contentElements[selectedIndex].style.outline = '2px solid #4a7c59';
+        contentElements[selectedIndex].style.outlineOffset = '8px';
+        contentElements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function shouldResetToViewport() {
+        if (selectedIndex < 0 && !tocBlockSelected && selectedTocIndex < 0) return true;
+        if (selectedIndex >= 0 && !KJVNav.isInViewport(contentElements[selectedIndex])) return true;
+        if (tocBlockSelected && !KJVNav.isInViewport(toc)) return true;
+        if (selectedTocIndex >= 0 && !KJVNav.isInViewport(tocItems[selectedTocIndex])) return true;
+        return false;
     }
 
     document.addEventListener('keydown', function(e) {
@@ -196,23 +250,124 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
-                selectSection(KJVNav.findFirstVisibleIndex(sections));
+            if (shouldResetToViewport()) {
+                var visibleIdx = KJVNav.findFirstVisibleIndex(contentElements);
+                if (KJVNav.isInViewport(toc) && (visibleIdx >= postTocStartIndex || visibleIdx < 0)) {
+                    selectTocBlock();
+                } else {
+                    selectElement(visibleIdx);
+                }
+                return;
+            }
+            if (currentSection === 'toc') {
+                if (tocBlockSelected) {
+                    selectElement(postTocStartIndex);
+                } else {
+                    selectTocItem(selectedTocIndex + 1);
+                }
+            } else if (selectedIndex < postTocStartIndex - 1) {
+                selectElement(selectedIndex + 1);
+            } else if (selectedIndex === postTocStartIndex - 1) {
+                selectTocBlock();
             } else {
-                selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
+                selectElement(selectedIndex + 1);
             }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
-                selectSection(KJVNav.findFirstVisibleIndex(sections));
-            } else if (selectedIndex <= 0) {
-                selectSection(0);
+            if (shouldResetToViewport()) {
+                var visibleIdx = KJVNav.findFirstVisibleIndex(contentElements);
+                if (KJVNav.isInViewport(toc) && (visibleIdx >= postTocStartIndex || visibleIdx < 0)) {
+                    selectTocBlock();
+                } else {
+                    selectElement(visibleIdx);
+                }
+                return;
+            }
+            if (currentSection === 'toc') {
+                if (tocBlockSelected) {
+                    if (postTocStartIndex > 0) {
+                        selectElement(postTocStartIndex - 1);
+                    } else {
+                        selectTocBlock();
+                    }
+                } else if (selectedTocIndex <= 0) {
+                    selectTocBlock();
+                } else {
+                    selectTocItem(selectedTocIndex - 1);
+                }
             } else {
-                selectSection(selectedIndex - 1);
+                if (selectedIndex === postTocStartIndex) {
+                    selectTocBlock();
+                } else if (selectedIndex <= 0) {
+                    selectElement(0);
+                } else {
+                    selectElement(selectedIndex - 1);
+                }
             }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            history.back();
+            if (currentSection === 'toc' && !tocBlockSelected) {
+                selectTocBlock();
+            } else {
+                history.back();
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (tocBlockSelected) {
+                selectTocItem(0);
+            } else if (currentSection === 'toc' && selectedTocIndex >= 0) {
+                var href = tocItems[selectedTocIndex].getAttribute('href');
+                if (href) window.location.href = href;
+            }
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (tocBlockSelected) {
+                selectTocItem(0);
+            } else if (currentSection === 'toc' && selectedTocIndex >= 0) {
+                var href = tocItems[selectedTocIndex].getAttribute('href');
+                if (href) {
+                    var targetId = href.substring(1);
+                    var targetHeading = document.getElementById(targetId);
+                    if (targetHeading) {
+                        if (targetHeading.classList.contains('section h2')) {
+                            var idx = contentElements.indexOf(targetHeading);
+                            if (idx >= 0) {
+                                selectElement(idx);
+                                return;
+                            }
+                        }
+                        var section = targetHeading.closest('article') || targetHeading.closest('section');
+                        if (section) {
+                            var firstElement = section.querySelector('.section h2, .section-content > p, .verse-item');
+                            if (firstElement) {
+                                var idx = contentElements.indexOf(firstElement);
+                                if (idx >= 0) {
+                                    selectElement(idx);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    window.location.href = href;
+                }
+            } else if (selectedIndex >= 0) {
+                var el = contentElements[selectedIndex];
+                var link = el.querySelector('a');
+                if (link) window.location.href = link.href;
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            clearAllSelections();
+            currentSection = 'content';
+            selectedIndex = -1;
+            selectedTocIndex = -1;
+        } else if (e.key === 'p') {
+            e.preventDefault();
+            var pdfBtn = document.querySelector('.download-btn');
+            if (pdfBtn) window.location.href = pdfBtn.href;
+        } else if (e.key === 't') {
+            e.preventDefault();
+            selectTocBlock();
         }
     });
 });
