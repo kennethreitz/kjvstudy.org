@@ -1853,6 +1853,14 @@
                   return (el.textContent || '').trim().length > 10;
                 });
                 var textBlocks = [];
+                var titleEl = document.querySelector('h1');
+                if (titleEl && (titleEl.textContent || '').trim().length > 0) {
+                  textBlocks.push(titleEl);
+                }
+                var subtitleEl = document.querySelector('.subtitle');
+                if (subtitleEl && (subtitleEl.textContent || '').trim().length > 0) {
+                  textBlocks.push(subtitleEl);
+                }
                 // If a specific element is highlighted, read only that; otherwise read all concatenated
                 if (highlighted) {
                   textBlocks = [highlighted];
