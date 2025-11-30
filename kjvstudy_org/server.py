@@ -219,6 +219,18 @@ current_dir = PathLib(__file__).parent
 static_dir = current_dir / "static"
 templates_dir = current_dir / "templates"
 
+# Serve service worker with proper header to allow root scope
+@app.get("/sw.js")
+async def service_worker():
+    """Serve service worker from root with Service-Worker-Allowed header."""
+    from fastapi.responses import FileResponse
+    sw_path = static_dir / "sw.js"
+    return FileResponse(
+        sw_path,
+        media_type="application/javascript",
+        headers={"Service-Worker-Allowed": "/"}
+    )
+
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 templates = Jinja2Templates(directory=str(templates_dir))
 

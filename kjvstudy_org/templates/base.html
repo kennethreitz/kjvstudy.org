@@ -2260,7 +2260,7 @@
       (function() {
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/static/sw.js', { scope: '/' })
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
               .then(function(registration) {
                 console.log('[App] Service Worker registered:', registration.scope);
 
