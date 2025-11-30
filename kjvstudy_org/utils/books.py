@@ -25,12 +25,39 @@ NT_BOOKS = _metadata["new_testament_books"]
 BOOK_ABBREVIATIONS = _metadata["book_abbreviations"]
 
 
+@lru_cache(maxsize=1)
+def _get_lowercase_abbreviations() -> dict:
+    """Create a lowercase mapping of abbreviations for case-insensitive lookup."""
+    return {k.lower(): v for k, v in BOOK_ABBREVIATIONS.items()}
+
+
+@lru_cache(maxsize=1)
+def _get_lowercase_canonical_names() -> dict:
+    """Create a lowercase mapping of canonical book names."""
+    all_books = OT_BOOKS + NT_BOOKS
+    return {b.lower(): b for b in all_books}
+
+
 def normalize_book_name(book: str) -> Optional[str]:
     """
     Normalize book name variations to canonical form.
     Returns the canonical book name if a variation is detected, None otherwise.
+    Case-insensitive lookup.
     """
-    return BOOK_ABBREVIATIONS.get(book)
+    # First try exact match in abbreviations
+    if book in BOOK_ABBREVIATIONS:
+        return BOOK_ABBREVIATIONS[book]
+    # Then try case-insensitive match in abbreviations
+    lowercase_abbrevs = _get_lowercase_abbreviations()
+    result = lowercase_abbrevs.get(book.lower())
+    if result:
+        return result
+    # Finally, check if it's a case variation of a canonical name
+    lowercase_canonical = _get_lowercase_canonical_names()
+    canonical = lowercase_canonical.get(book.lower())
+    if canonical and canonical != book:
+        return canonical
+    return None
 
 
 def is_old_testament(book: str) -> bool:
