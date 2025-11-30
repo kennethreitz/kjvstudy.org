@@ -113,12 +113,9 @@
 </style>
 {% endblock %}
 
-<script>
-document.body.dataset.resourceReader = 'true';
-</script>
-
 {% block content %}
 <h1>{{ topic_name }}</h1>
+<script>document.body.dataset.resourceReader = "true";</script>
 <p class="subtitle">{{ topic.description }}</p>
 
 {% if pdf_available and pdf_url %}
