@@ -1354,13 +1354,18 @@
       (function() {
         var toggle = document.getElementById('sidebar-toggle');
         var savedState = localStorage.getItem('sidebarExpanded');
-        // If user has explicitly collapsed the sidebar, respect that
+        var isMobile = window.innerWidth <= 768;
+
+        // If user has explicitly set a preference, respect that
         if (savedState === 'false') {
           toggle.checked = false;
         } else if (savedState === 'true') {
           toggle.checked = true;
+        } else {
+          // No saved state - default to collapsed on mobile, expanded on desktop
+          toggle.checked = !isMobile;
         }
-        // Default is checked (expanded) if no saved state
+
         toggle.addEventListener('change', function() {
           localStorage.setItem('sidebarExpanded', toggle.checked ? 'true' : 'false');
         });
