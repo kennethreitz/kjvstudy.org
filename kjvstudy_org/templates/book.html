@@ -25,6 +25,24 @@
     outline-color: rgba(107, 155, 122, 0.4);
 }
 
+/* Selected content paragraphs */
+section:not(.chapters-section) p.selected,
+section:not(.chapters-section) li.selected,
+section:not(.chapters-section) blockquote.selected {
+    background: rgba(74, 124, 89, 0.1);
+    margin-left: -1rem;
+    padding-left: 1rem;
+    border-left: 3px solid #4a7c59;
+    transition: all 0.15s ease;
+}
+
+[data-theme="dark"] section:not(.chapters-section) p.selected,
+[data-theme="dark"] section:not(.chapters-section) li.selected,
+[data-theme="dark"] section:not(.chapters-section) blockquote.selected {
+    background: rgba(107, 155, 122, 0.15);
+    border-left-color: #6b9b7a;
+}
+
 .popular-chapter {
     font-weight: bold;
 }
@@ -368,18 +386,29 @@ document.addEventListener('DOMContentLoaded', function() {
         linkVerseReferences(section);
     });
 
-    // Keyboard navigation for chapters and adjacent books
+    // Two-zone keyboard navigation: chapter links and content paragraphs
     const chapterLinks = document.querySelectorAll('.chapters-section a[data-chapter]');
+    const contentParagraphs = document.querySelectorAll('section:not(.chapters-section) p, section:not(.chapters-section) li, section:not(.chapters-section) blockquote');
     let selectedChapterIndex = -1;
+    let selectedParagraphIndex = -1;
+    let inChapterZone = true;
 
     // Get current book index for left/right navigation
     const currentBookIndex = bibleBooks.findIndex(b => b.toLowerCase() === bookName.toLowerCase());
 
-    function selectChapter(index) {
-        // Remove previous selection
+    function clearAllSelections() {
         if (selectedChapterIndex >= 0 && selectedChapterIndex < chapterLinks.length) {
             chapterLinks[selectedChapterIndex].classList.remove('selected');
         }
+        if (selectedParagraphIndex >= 0 && selectedParagraphIndex < contentParagraphs.length) {
+            contentParagraphs[selectedParagraphIndex].classList.remove('selected');
+        }
+    }
+
+    function selectChapter(index) {
+        clearAllSelections();
+        inChapterZone = true;
+        selectedParagraphIndex = -1;
 
         // Update index with bounds checking
         selectedChapterIndex = Math.max(0, Math.min(index, chapterLinks.length - 1));
@@ -394,36 +423,85 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function selectParagraph(index) {
+        clearAllSelections();
+        inChapterZone = false;
+        selectedChapterIndex = -1;
+
+        // Update index with bounds checking
+        selectedParagraphIndex = Math.max(0, Math.min(index, contentParagraphs.length - 1));
+
+        // Add selection to new paragraph
+        contentParagraphs[selectedParagraphIndex].classList.add('selected');
+
+        // Scroll into view if needed
+        contentParagraphs[selectedParagraphIndex].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+
     document.addEventListener('keydown', function(e) {
         // Don't trigger if user is typing
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             return;
         }
 
-        // Up arrow or k: Previous chapter
+        // Up arrow or k: Previous item
         if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
-                selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
+            if (inChapterZone) {
+                if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
+                    selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
+                } else if (selectedChapterIndex > 0) {
+                    selectChapter(selectedChapterIndex - 1);
+                }
             } else {
-                selectChapter(selectedChapterIndex - 1);
+                // In paragraph zone
+                if (selectedParagraphIndex === 0) {
+                    // Move back to last chapter
+                    selectChapter(chapterLinks.length - 1);
+                } else if (selectedParagraphIndex < 0) {
+                    // No selection, start at last paragraph
+                    selectParagraph(contentParagraphs.length - 1);
+                } else {
+                    selectParagraph(selectedParagraphIndex - 1);
+                }
             }
         }
 
-        // Down arrow or j: Next chapter
+        // Down arrow or j: Next item
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
-                selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
+            if (inChapterZone) {
+                if (selectedChapterIndex >= chapterLinks.length - 1) {
+                    // Move to first paragraph
+                    if (contentParagraphs.length > 0) {
+                        selectParagraph(0);
+                    }
+                } else if (KJVNav.isSelectionOffScreen(chapterLinks, selectedChapterIndex)) {
+                    selectChapter(KJVNav.findFirstVisibleIndex(chapterLinks));
+                } else {
+                    selectChapter(selectedChapterIndex + 1);
+                }
             } else {
-                selectChapter(selectedChapterIndex + 1);
+                // In paragraph zone
+                if (selectedParagraphIndex < 0) {
+                    // No selection, start at first paragraph
+                    selectParagraph(0);
+                } else if (selectedParagraphIndex < contentParagraphs.length - 1) {
+                    selectParagraph(selectedParagraphIndex + 1);
+                }
             }
         }
 
-        // Enter: Go to selected chapter
-        if (e.key === 'Enter' && selectedChapterIndex >= 0) {
+        // Enter: Go to selected chapter or do nothing for paragraphs
+        if (e.key === 'Enter') {
             e.preventDefault();
-            window.location.href = chapterLinks[selectedChapterIndex].href;
+            if (inChapterZone && selectedChapterIndex >= 0) {
+                window.location.href = chapterLinks[selectedChapterIndex].href;
+            }
+            // Paragraphs don't navigate anywhere, just read them
         }
 
         // Left arrow: Previous book
@@ -485,7 +563,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <a href="/book/{{ book }}/chapter/{{ chapter }}" {% if chapter_popularity[chapter] >= 7 %}class="popular-chapter"{% endif %} data-chapter="{{ chapter }}">{{ chapter }}</a>{% if not loop.last %} · {% endif %}
         {% endfor %}
     </p>
-    <p class="nav-hint">Tip: ↑/↓ to select chapter • Enter to read • ←/→ for adjacent books</p>
+    <p class="nav-hint">Tip: ↑/↓ to navigate chapters & paragraphs • Enter to read chapter • ←/→ for adjacent books</p>
 </section>
 
 {% if book_intro and book_intro.introduction %}
