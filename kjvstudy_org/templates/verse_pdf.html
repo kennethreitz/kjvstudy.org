@@ -218,8 +218,8 @@
 
     {% if cross_references %}
     <h2>Additional Cross-References</h2>
-    {% for ref in cross_references[:10] %}
-    <p><strong>{{ ref.reference }}</strong>: <em>{{ ref.text }}</em></p>
+    {% for xref in cross_references[:10] %}
+    <p><strong>{{ xref.ref }}</strong>{% if xref.note %} ({{ xref.note }}){% endif %}{% if xref.text %}: <em>{{ xref.text }}</em>{% endif %}</p>
     {% endfor %}
     {% endif %}
 
