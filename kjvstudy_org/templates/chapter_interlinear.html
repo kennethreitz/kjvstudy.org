@@ -467,6 +467,37 @@
     }
 }
 
+/* Print button */
+.print-actions {
+    margin: 1rem 0;
+}
+
+.print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+    background: var(--code-bg, #f8f8f8);
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.print-btn:hover {
+    background: var(--bg-color, #fff);
+    border-color: var(--link-color, #4a7c59);
+    color: var(--link-color, #4a7c59);
+}
+
+.print-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
 @media (max-width: 768px) {
     .interlinear-page {
         max-width: 100%;
@@ -526,6 +557,76 @@
         gap: 0.5rem;
     }
 }
+
+/* Print styles */
+@media print {
+    .print-actions,
+    .print-btn,
+    .chapter-nav,
+    .word-tooltip,
+    .word-detail {
+        display: none !important;
+    }
+
+    .interlinear-page {
+        max-width: 100% !important;
+    }
+
+    .page-header {
+        max-width: 100% !important;
+    }
+
+    .verse-section {
+        page-break-inside: avoid;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+    }
+
+    .verse-header {
+        margin-bottom: 0.5rem;
+    }
+
+    .verse-text {
+        font-size: 1.2rem !important;
+    }
+
+    .interlinear-flow {
+        line-height: 2.2;
+    }
+
+    .word-unit {
+        margin: 0 0.1rem 0.3rem 0.1rem;
+        padding: 0.15rem 0.2rem;
+        border: none !important;
+        cursor: default;
+    }
+
+    .word-unit:hover {
+        background: none !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .word-original {
+        font-size: 1.4rem !important;
+    }
+
+    .word-original.hebrew {
+        font-size: 1.5rem !important;
+    }
+
+    .word-original.greek {
+        font-size: 1.4rem !important;
+    }
+
+    .word-english {
+        font-size: 0.7rem !important;
+    }
+
+    .word-strongs {
+        font-size: 0.55rem !important;
+    }
+}
 </style>
 {% endblock %}
 
@@ -534,6 +635,15 @@
     <div class="page-header">
         <h1>{{ book }} {{ chapter }}</h1>
         <p class="subtitle">Interlinear Bible</p>
+    </div>
+
+    <div class="print-actions">
+        <button onclick="window.print()" class="print-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            Print
+        </button>
     </div>
 
     <nav class="chapter-nav">
