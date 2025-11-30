@@ -299,11 +299,19 @@ document.addEventListener('DOMContentLoaded', function() {
         tocList.appendChild(li);
     });
 
-    // Two-section navigation: TOC block -> content elements
+    // Two-section navigation: pre-TOC content -> TOC block -> post-TOC content
     // Or when inside TOC: individual TOC entries
-    // Content elements include PDF button, section titles (h3 with links), paragraphs, and verse items
+    // Content elements include PDF button, intro text (before TOC), then section titles, paragraphs, and verse items (after TOC)
     const contentElements = Array.from(document.querySelectorAll('.resource-download-btn, .intro-text, .resource-name, .resource-item-description p, .verse-item'));
     const tocItems = Array.from(tocList.querySelectorAll('li a'));
+
+    // Find where post-TOC content starts (first .resource-name or content after TOC)
+    const tocRect = toc.getBoundingClientRect();
+    let postTocStartIndex = contentElements.findIndex(el => {
+        const rect = el.getBoundingClientRect();
+        return rect.top > tocRect.bottom;
+    });
+    if (postTocStartIndex < 0) postTocStartIndex = contentElements.length;
 
     let currentSection = 'content'; // 'content' or 'toc'
     let selectedIndex = -1;
@@ -362,25 +370,35 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             if (currentSection === 'toc') {
                 if (tocBlockSelected) {
-                    // Move from TOC block to first content element
-                    selectContentElement(0);
+                    // Move from TOC block to first post-TOC content element
+                    selectContentElement(postTocStartIndex);
                 } else {
                     // Navigate within TOC items
                     selectTocItem(selectedTocIndex + 1);
                 }
             } else if (selectedIndex < 0) {
-                // Nothing selected yet, start with TOC block
+                // Nothing selected yet, start with first content element (PDF or intro)
+                selectContentElement(0);
+            } else if (selectedIndex < postTocStartIndex - 1) {
+                // In pre-TOC content, continue to next
+                selectContentElement(selectedIndex + 1);
+            } else if (selectedIndex === postTocStartIndex - 1) {
+                // At last pre-TOC element, go to TOC block
                 selectTocBlock();
             } else {
-                // Navigate content elements
+                // Navigate post-TOC content elements
                 selectContentElement(selectedIndex + 1);
             }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
             if (currentSection === 'toc') {
                 if (tocBlockSelected) {
-                    // Already at TOC block, stay there
-                    selectTocBlock();
+                    // Go back to last pre-TOC element
+                    if (postTocStartIndex > 0) {
+                        selectContentElement(postTocStartIndex - 1);
+                    } else {
+                        selectTocBlock();
+                    }
                 } else if (selectedTocIndex <= 0) {
                     // At first TOC item, go back to TOC block
                     selectTocBlock();
@@ -388,9 +406,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     selectTocItem(selectedTocIndex - 1);
                 }
             } else {
-                if (selectedIndex <= 0) {
-                    // At first content element, go to TOC block
+                if (selectedIndex === postTocStartIndex) {
+                    // At first post-TOC element, go to TOC block
                     selectTocBlock();
+                } else if (selectedIndex <= 0) {
+                    // At first element, stay there
+                    selectContentElement(0);
                 } else {
                     selectContentElement(selectedIndex - 1);
                 }
