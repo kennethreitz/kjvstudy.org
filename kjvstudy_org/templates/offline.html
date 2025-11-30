@@ -238,7 +238,7 @@
 
     <div class="cache-controls">
         <h3>Enable Offline Access</h3>
-        <p>Download the entire site for offline use: all 1,189 Bible chapters, 186 stories (including kids mode), study guides, and resources. Total: ~1,500 pages.</p>
+        <p>Download the entire site for offline use: all Bible chapters, individual verse pages with commentary, stories, study guides, and resources. The sitemap will be parsed to find all available pages.</p>
         <button class="cache-btn" id="start-cache-btn">Download for Offline Use</button>
         <div class="cache-progress" id="cache-progress">
             <div class="progress-bar">
@@ -497,16 +497,22 @@
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.addEventListener('message', function(event) {
                 const data = event.data;
-                if (data.type === 'CACHE_PROGRESS') {
+                if (data.type === 'CACHE_STATUS') {
+                    progressText.textContent = data.status;
+                } else if (data.type === 'CACHE_PROGRESS') {
                     const pct = Math.round((data.cached / data.total) * 100);
                     progressFill.style.width = pct + '%';
-                    progressText.textContent = 'Downloading: ' + data.cached + ' / ' + data.total + ' pages (' + pct + '%)';
+                    progressText.textContent = 'Downloading: ' + data.cached.toLocaleString() + ' / ' + data.total.toLocaleString() + ' pages (' + pct + '%)';
                 } else if (data.type === 'CACHE_COMPLETE') {
                     progressFill.style.width = '100%';
-                    progressText.innerHTML = '<span class="cache-complete">✓ Download complete! ' + data.total + ' pages available offline.</span>';
+                    progressText.innerHTML = '<span class="cache-complete">✓ Download complete! ' + data.total.toLocaleString() + ' pages available offline.</span>';
                     startCacheBtn.textContent = 'Downloaded!';
                     // Refresh the cache list
                     setTimeout(checkCaches, 500);
+                } else if (data.type === 'CACHE_ERROR') {
+                    progressText.innerHTML = '<span class="status-error">Error: ' + data.error + '</span>';
+                    startCacheBtn.disabled = false;
+                    startCacheBtn.textContent = 'Try Again';
                 }
             });
         }
