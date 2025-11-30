@@ -409,7 +409,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navigation with chapter drilldown
     const chapterSection = document.querySelector('.chapters-section');
     const chapterLinks = document.querySelectorAll('.chapters-section a[data-chapter]');
-    const contentParagraphs = document.querySelectorAll('section:not(.chapters-section) p, section:not(.chapters-section) li, section:not(.chapters-section) blockquote');
+    // Select paragraphs, list items, and blockquotes, but exclude paragraphs inside blockquotes
+    const contentParagraphs = document.querySelectorAll('section:not(.chapters-section) > p, section:not(.chapters-section) li, section:not(.chapters-section) blockquote');
 
     let selectedChapterIndex = -1;
     let selectedParagraphIndex = -1;
