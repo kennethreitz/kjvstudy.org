@@ -1849,7 +1849,14 @@
               if (document.body && document.body.dataset && document.body.dataset.resourceReader === 'true') {
                 e.preventDefault();
                 var highlighted = document.querySelector('[style*="outline: 2px solid"]') || document.querySelector('[style*="outline:2px solid"]');
-                var candidates = Array.from(document.querySelectorAll('article p, section p, li, blockquote, .intro-text, .apostle-description, .name-description, .prophet-description, .festival-description, .resource-description, .description')).filter(function(el) {
+                var article = document.querySelector('article');
+                var candidates = [];
+                if (article) {
+                  candidates = Array.from(article.querySelectorAll('p, li, blockquote, .intro-text, .apostle-description, .name-description, .prophet-description, .festival-description, .resource-description, .description'));
+                } else {
+                  candidates = Array.from(document.querySelectorAll('article p, section p, li, blockquote, .intro-text, .apostle-description, .name-description, .prophet-description, .festival-description, .resource-description, .description'));
+                }
+                candidates = candidates.filter(function(el) {
                   return (el.textContent || '').trim().length > 10;
                 });
                 var textBlocks = [];
