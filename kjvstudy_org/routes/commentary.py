@@ -137,7 +137,7 @@ def get_verse_text(book, chapter, verse):
 
 
 @router.get("/commentary/{book}/{chapter}")
-def commentary_redirect(book: str, chapter: int):
+async def commentary_redirect(book: str, chapter: int):
     """Redirect old chapter commentary URLs to chapter page"""
     from fastapi.responses import RedirectResponse
     return RedirectResponse(url=f"/book/{book}/chapter/{chapter}", status_code=301)

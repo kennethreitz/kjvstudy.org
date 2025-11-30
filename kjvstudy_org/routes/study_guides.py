@@ -126,7 +126,7 @@ def _attach_verse_texts(guide: dict):
 
 
 @router.get("/study-guides", response_class=HTMLResponse)
-def study_guides_page(request: Request):
+async def study_guides_page(request: Request):
     """Study guides main page"""
     books = get_books()
 
@@ -154,7 +154,7 @@ def study_guides_page(request: Request):
     )
 
 @router.get("/study-guides/{slug}", response_class=HTMLResponse)
-def study_guide_detail(request: Request, slug: str):
+async def study_guide_detail(request: Request, slug: str):
     """Individual study guide page"""
     books = get_books()
 

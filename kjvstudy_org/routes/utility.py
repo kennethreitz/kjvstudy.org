@@ -38,13 +38,13 @@ STUDY_GUIDE_SLUGS = _slugs["study_guides"]
 
 
 @router.get("/health")
-def health_check():
+async def health_check():
     """Health check endpoint for monitoring"""
     return {"status": "healthy", "service": "kjv-study"}
 
 
 @router.get("/robots.txt", response_class=Response)
-def robots_txt():
+async def robots_txt():
     """Generate robots.txt for search engine crawlers"""
     robots_content = """User-agent: *
 Allow: /
@@ -60,7 +60,7 @@ Crawl-delay: 1
 
 
 @router.get("/sitemap.xml", response_class=Response)
-def sitemap_index():
+async def sitemap_index():
     """Sitemap index - references main sitemap and static verse sitemap"""
     base_url = "https://kjvstudy.org"
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -81,7 +81,7 @@ def sitemap_index():
 
 
 @router.get("/sitemap-verses.xml")
-def sitemap_verses():
+async def sitemap_verses():
     """Serve static verse sitemap (31,102 verses, generated once)"""
     # Check if file exists
     if not _VERSE_SITEMAP_PATH.exists():
@@ -102,7 +102,7 @@ def sitemap_verses():
 
 
 @router.get("/sitemap-main.xml", response_class=Response)
-def sitemap_main():
+async def sitemap_main():
     """Generate main sitemap with all dynamic URLs (cached daily)"""
     global _sitemap_cache, _sitemap_cache_date
 

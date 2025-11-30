@@ -187,7 +187,7 @@ async def _resource_index_pdf_response(resource_data: dict, page_title: str, pag
 # BIBLICAL MAPS
 # ============================================================================
 @router.get("/biblical-maps", response_class=HTMLResponse)
-def biblical_maps_page(request: Request):
+async def biblical_maps_page(request: Request):
     """Biblical maps page showing important biblical locations."""
     return templates.TemplateResponse(
             request,
@@ -208,7 +208,7 @@ def biblical_maps_page(request: Request):
 # BIBLICAL ANGELS
 # ============================================================================
 @router.get("/biblical-angels", response_class=HTMLResponse)
-def biblical_angels_page(request: Request):
+async def biblical_angels_page(request: Request):
     """Biblical angels page exploring angels throughout Scripture."""
     return templates.TemplateResponse(
             request,
@@ -237,7 +237,7 @@ async def biblical_angels_page_pdf():
 
 
 @router.get("/biblical-angels/{angel_slug}", response_class=HTMLResponse)
-def angel_detail(request: Request, angel_slug: str):
+async def angel_detail(request: Request, angel_slug: str):
     """Individual biblical angels detail page."""
     return _resource_detail_response(
         request,
@@ -265,7 +265,7 @@ async def angel_detail_pdf(angel_slug: str):
 # BIBLICAL PROPHETS
 # ============================================================================
 @router.get("/biblical-prophets", response_class=HTMLResponse)
-def biblical_prophets_page(request: Request):
+async def biblical_prophets_page(request: Request):
     """Biblical prophets page exploring the prophetic ministry throughout Scripture."""
     return templates.TemplateResponse(
             request,
@@ -303,7 +303,7 @@ async def biblical_prophets_pdf():
 
 
 @router.get("/biblical-prophets/{prophet_slug}", response_class=HTMLResponse)
-def prophet_detail(request: Request, prophet_slug: str):
+async def prophet_detail(request: Request, prophet_slug: str):
     """Individual biblical prophets detail page."""
     return _resource_detail_response(
         request,
@@ -331,7 +331,7 @@ async def prophet_detail_pdf(prophet_slug: str):
 # NAMES OF GOD
 # ============================================================================
 @router.get("/names-of-god", response_class=HTMLResponse)
-def names_of_god_page(request: Request):
+async def names_of_god_page(request: Request):
     """Names of God page exploring divine names throughout Scripture."""
     return templates.TemplateResponse(
             request,
@@ -360,7 +360,7 @@ async def names_of_god_page_pdf():
 
 
 @router.get("/names-of-god/{name_slug}", response_class=HTMLResponse)
-def name_of_god_detail(request: Request, name_slug: str):
+async def name_of_god_detail(request: Request, name_slug: str):
     """Individual name of God detail page."""
     return _resource_detail_response(
         request,
@@ -388,7 +388,7 @@ async def name_of_god_detail_pdf(name_slug: str):
 # PARABLES
 # ============================================================================
 @router.get("/parables", response_class=HTMLResponse)
-def parables_page(request: Request):
+async def parables_page(request: Request):
     """Parables of Jesus page."""
     return templates.TemplateResponse(
             request,
@@ -426,7 +426,7 @@ async def parables_pdf():
 
 
 @router.get("/parables/{parable_slug}", response_class=HTMLResponse)
-def parable_detail(request: Request, parable_slug: str):
+async def parable_detail(request: Request, parable_slug: str):
     """Individual parable detail page."""
     return _resource_detail_response(
         request,
@@ -454,7 +454,7 @@ async def parable_detail_pdf(parable_slug: str):
 # BIBLICAL COVENANTS
 # ============================================================================
 @router.get("/biblical-covenants", response_class=HTMLResponse)
-def biblical_covenants_page(request: Request):
+async def biblical_covenants_page(request: Request):
     """Biblical covenants page."""
     return templates.TemplateResponse(
             request,
@@ -483,7 +483,7 @@ async def biblical_covenants_page_pdf():
 
 
 @router.get("/biblical-covenants/{covenant_slug}", response_class=HTMLResponse)
-def covenant_detail(request: Request, covenant_slug: str):
+async def covenant_detail(request: Request, covenant_slug: str):
     """Individual covenant detail page."""
     return _resource_detail_response(
         request,
@@ -511,7 +511,7 @@ async def covenant_detail_pdf(covenant_slug: str):
 # THE TWELVE APOSTLES
 # ============================================================================
 @router.get("/the-twelve-apostles", response_class=HTMLResponse)
-def apostles_page(request: Request):
+async def apostles_page(request: Request):
     """The Twelve Apostles page."""
     return templates.TemplateResponse(
             request,
@@ -549,7 +549,7 @@ async def apostles_page_pdf():
 
 
 @router.get("/the-twelve-apostles/{apostle_slug}", response_class=HTMLResponse)
-def apostle_detail(request: Request, apostle_slug: str):
+async def apostle_detail(request: Request, apostle_slug: str):
     """Individual apostle detail page."""
     return _resource_detail_response(
         request,
@@ -577,7 +577,7 @@ async def apostle_detail_pdf(apostle_slug: str):
 # WOMEN OF THE BIBLE
 # ============================================================================
 @router.get("/women-of-the-bible", response_class=HTMLResponse)
-def women_of_the_bible_page(request: Request):
+async def women_of_the_bible_page(request: Request):
     """Women of the Bible page."""
     return templates.TemplateResponse(
             request,
@@ -606,7 +606,7 @@ async def women_of_the_bible_page_pdf():
 
 
 @router.get("/women-of-the-bible/{woman_slug}", response_class=HTMLResponse)
-def woman_detail(request: Request, woman_slug: str):
+async def woman_detail(request: Request, woman_slug: str):
     """Individual woman of the Bible detail page."""
     return _resource_detail_response(
         request,
@@ -634,7 +634,7 @@ async def woman_detail_pdf(woman_slug: str):
 # BIBLICAL FESTIVALS
 # ============================================================================
 @router.get("/biblical-festivals", response_class=HTMLResponse)
-def biblical_festivals_page(request: Request):
+async def biblical_festivals_page(request: Request):
     """Biblical festivals page."""
     return templates.TemplateResponse(
             request,
@@ -663,7 +663,7 @@ async def biblical_festivals_page_pdf():
 
 
 @router.get("/biblical-festivals/{festival_slug}", response_class=HTMLResponse)
-def festival_detail(request: Request, festival_slug: str):
+async def festival_detail(request: Request, festival_slug: str):
     """Individual biblical festival detail page."""
     return _resource_detail_response(
         request,
@@ -691,7 +691,7 @@ async def festival_detail_pdf(festival_slug: str):
 # FRUITS OF THE SPIRIT
 # ============================================================================
 @router.get("/fruits-of-the-spirit", response_class=HTMLResponse)
-def fruits_of_the_spirit_page(request: Request):
+async def fruits_of_the_spirit_page(request: Request):
     """Fruits of the Spirit page."""
     return templates.TemplateResponse(
             request,
@@ -720,7 +720,7 @@ async def fruits_of_the_spirit_page_pdf():
 
 
 @router.get("/fruits-of-the-spirit/{fruit_slug}", response_class=HTMLResponse)
-def fruit_detail(request: Request, fruit_slug: str):
+async def fruit_detail(request: Request, fruit_slug: str):
     """Individual fruit of the Spirit detail page."""
     return _resource_detail_response(
         request,
@@ -790,7 +790,7 @@ TETRAGRAMMATON_CONTENT = {
 
 
 @router.get("/tetragrammaton", response_class=HTMLResponse)
-def tetragrammaton_page(request: Request):
+async def tetragrammaton_page(request: Request):
     """The sacred Tetragrammaton - YHWH."""
     return templates.TemplateResponse(
             request,
@@ -831,7 +831,7 @@ async def tetragrammaton_pdf():
 # MIRACLES OF JESUS
 # ============================================================================
 @router.get("/miracles-of-jesus", response_class=HTMLResponse)
-def miracles_page(request: Request):
+async def miracles_page(request: Request):
     """Miracles of Jesus page."""
     return templates.TemplateResponse(
             request,
@@ -864,7 +864,7 @@ async def miracles_page_pdf():
 
 
 @router.get("/miracles-of-jesus/{miracle_slug}", response_class=HTMLResponse)
-def miracle_detail(request: Request, miracle_slug: str):
+async def miracle_detail(request: Request, miracle_slug: str):
     """Individual miracle detail page."""
     return _resource_detail_response(
         request,
@@ -892,7 +892,7 @@ async def miracle_detail_pdf(miracle_slug: str):
 # PRAYERS OF THE BIBLE
 # ============================================================================
 @router.get("/prayers-of-the-bible", response_class=HTMLResponse)
-def prayers_page(request: Request):
+async def prayers_page(request: Request):
     """Prayers of the Bible page."""
     return templates.TemplateResponse(
             request,
@@ -925,7 +925,7 @@ async def prayers_page_pdf():
 
 
 @router.get("/prayers-of-the-bible/{prayer_slug}", response_class=HTMLResponse)
-def prayer_detail(request: Request, prayer_slug: str):
+async def prayer_detail(request: Request, prayer_slug: str):
     """Individual prayer detail page."""
     return _resource_detail_response(
         request,
@@ -953,7 +953,7 @@ async def prayer_detail_pdf(prayer_slug: str):
 # THE BEATITUDES
 # ============================================================================
 @router.get("/beatitudes", response_class=HTMLResponse)
-def beatitudes_page(request: Request):
+async def beatitudes_page(request: Request):
     """The Beatitudes page."""
     return templates.TemplateResponse(
             request,
@@ -986,7 +986,7 @@ async def beatitudes_page_pdf():
 
 
 @router.get("/beatitudes/{beatitude_slug}", response_class=HTMLResponse)
-def beatitude_detail(request: Request, beatitude_slug: str):
+async def beatitude_detail(request: Request, beatitude_slug: str):
     """Individual beatitude detail page."""
     return _resource_detail_response(
         request,
@@ -1014,7 +1014,7 @@ async def beatitude_detail_pdf(beatitude_slug: str):
 # THE TEN COMMANDMENTS
 # ============================================================================
 @router.get("/ten-commandments", response_class=HTMLResponse)
-def ten_commandments_page(request: Request):
+async def ten_commandments_page(request: Request):
     """The Ten Commandments page."""
     return templates.TemplateResponse(
             request,
@@ -1047,7 +1047,7 @@ async def ten_commandments_page_pdf():
 
 
 @router.get("/ten-commandments/{commandment_slug}", response_class=HTMLResponse)
-def commandment_detail(request: Request, commandment_slug: str):
+async def commandment_detail(request: Request, commandment_slug: str):
     """Individual commandment detail page."""
     return _resource_detail_response(
         request,
@@ -1075,7 +1075,7 @@ async def commandment_detail_pdf(commandment_slug: str):
 # THE ARMOR OF GOD
 # ============================================================================
 @router.get("/armor-of-god", response_class=HTMLResponse)
-def armor_of_god_page(request: Request):
+async def armor_of_god_page(request: Request):
     """The Armor of God page."""
     return templates.TemplateResponse(
             request,
@@ -1108,7 +1108,7 @@ async def armor_of_god_page_pdf():
 
 
 @router.get("/armor-of-god/{armor_slug}", response_class=HTMLResponse)
-def armor_detail(request: Request, armor_slug: str):
+async def armor_detail(request: Request, armor_slug: str):
     """Individual armor piece detail page."""
     return _resource_detail_response(
         request,
@@ -1136,7 +1136,7 @@ async def armor_detail_pdf(armor_slug: str):
 # I AM STATEMENTS OF JESUS
 # ============================================================================
 @router.get("/i-am-statements", response_class=HTMLResponse)
-def i_am_statements_page(request: Request):
+async def i_am_statements_page(request: Request):
     """I Am Statements of Jesus page."""
     return templates.TemplateResponse(
             request,
@@ -1169,7 +1169,7 @@ async def i_am_statements_page_pdf():
 
 
 @router.get("/i-am-statements/{statement_slug}", response_class=HTMLResponse)
-def i_am_statement_detail(request: Request, statement_slug: str):
+async def i_am_statement_detail(request: Request, statement_slug: str):
     """Individual I Am statement detail page."""
     return _resource_detail_response(
         request,
@@ -1197,7 +1197,7 @@ async def i_am_statement_detail_pdf(statement_slug: str):
 # THE TRINITY
 # ============================================================================
 @router.get("/trinity", response_class=HTMLResponse)
-def trinity_page(request: Request):
+async def trinity_page(request: Request):
     """The Trinity - doctrine of God page."""
     return templates.TemplateResponse(
             request,
@@ -1230,7 +1230,7 @@ async def trinity_page_pdf():
 
 
 @router.get("/trinity/{item_slug}", response_class=HTMLResponse)
-def trinity_detail(request: Request, item_slug: str):
+async def trinity_detail(request: Request, item_slug: str):
     """Individual Trinity topic detail page."""
     return _resource_detail_response(
         request,
@@ -1258,7 +1258,7 @@ async def trinity_detail_pdf(item_slug: str):
 # CHRISTOLOGY
 # ============================================================================
 @router.get("/christology", response_class=HTMLResponse)
-def christology_page(request: Request):
+async def christology_page(request: Request):
     """Christology - the doctrine of Christ page."""
     return templates.TemplateResponse(
             request,
@@ -1291,7 +1291,7 @@ async def christology_page_pdf():
 
 
 @router.get("/christology/{item_slug}", response_class=HTMLResponse)
-def christology_detail(request: Request, item_slug: str):
+async def christology_detail(request: Request, item_slug: str):
     """Individual Christology topic detail page."""
     return _resource_detail_response(
         request,
@@ -1319,7 +1319,7 @@ async def christology_detail_pdf(item_slug: str):
 # SOTERIOLOGY
 # ============================================================================
 @router.get("/soteriology", response_class=HTMLResponse)
-def soteriology_page(request: Request):
+async def soteriology_page(request: Request):
     """Soteriology - the doctrine of salvation page."""
     return templates.TemplateResponse(
             request,
@@ -1352,7 +1352,7 @@ async def soteriology_page_pdf():
 
 
 @router.get("/soteriology/{item_slug}", response_class=HTMLResponse)
-def soteriology_detail(request: Request, item_slug: str):
+async def soteriology_detail(request: Request, item_slug: str):
     """Individual Soteriology topic detail page."""
     return _resource_detail_response(
         request,
@@ -1380,7 +1380,7 @@ async def soteriology_detail_pdf(item_slug: str):
 # PNEUMATOLOGY
 # ============================================================================
 @router.get("/pneumatology", response_class=HTMLResponse)
-def pneumatology_page(request: Request):
+async def pneumatology_page(request: Request):
     """Pneumatology - the doctrine of the Holy Spirit page."""
     return templates.TemplateResponse(
             request,
@@ -1413,7 +1413,7 @@ async def pneumatology_page_pdf():
 
 
 @router.get("/pneumatology/{item_slug}", response_class=HTMLResponse)
-def pneumatology_detail(request: Request, item_slug: str):
+async def pneumatology_detail(request: Request, item_slug: str):
     """Individual Pneumatology topic detail page."""
     return _resource_detail_response(
         request,
@@ -1441,7 +1441,7 @@ async def pneumatology_detail_pdf(item_slug: str):
 # ESCHATOLOGY
 # ============================================================================
 @router.get("/eschatology", response_class=HTMLResponse)
-def eschatology_page(request: Request):
+async def eschatology_page(request: Request):
     """Eschatology - the doctrine of last things page."""
     return templates.TemplateResponse(
             request,
@@ -1474,7 +1474,7 @@ async def eschatology_page_pdf():
 
 
 @router.get("/eschatology/{item_slug}", response_class=HTMLResponse)
-def eschatology_detail(request: Request, item_slug: str):
+async def eschatology_detail(request: Request, item_slug: str):
     """Individual Eschatology topic detail page."""
     return _resource_detail_response(
         request,
@@ -1502,7 +1502,7 @@ async def eschatology_detail_pdf(item_slug: str):
 # ECCLESIOLOGY
 # ============================================================================
 @router.get("/ecclesiology", response_class=HTMLResponse)
-def ecclesiology_page(request: Request):
+async def ecclesiology_page(request: Request):
     """Ecclesiology - the doctrine of the church page."""
     return templates.TemplateResponse(
             request,
@@ -1535,7 +1535,7 @@ async def ecclesiology_page_pdf():
 
 
 @router.get("/ecclesiology/{item_slug}", response_class=HTMLResponse)
-def ecclesiology_detail(request: Request, item_slug: str):
+async def ecclesiology_detail(request: Request, item_slug: str):
     """Individual Ecclesiology topic detail page."""
     return _resource_detail_response(
         request,
@@ -1563,7 +1563,7 @@ async def ecclesiology_detail_pdf(item_slug: str):
 # TYPES AND SHADOWS OF CHRIST
 # ============================================================================
 @router.get("/types-and-shadows", response_class=HTMLResponse)
-def types_and_shadows_page(request: Request):
+async def types_and_shadows_page(request: Request):
     """Types and Shadows of Christ page."""
     return templates.TemplateResponse(
             request,
@@ -1596,7 +1596,7 @@ async def types_and_shadows_page_pdf():
 
 
 @router.get("/types-and-shadows/{item_slug}", response_class=HTMLResponse)
-def types_and_shadows_detail(request: Request, item_slug: str):
+async def types_and_shadows_detail(request: Request, item_slug: str):
     """Individual Types and Shadows topic detail page."""
     return _resource_detail_response(
         request,
@@ -1624,7 +1624,7 @@ async def types_and_shadows_detail_pdf(item_slug: str):
 # MESSIANIC PROPHECIES
 # ============================================================================
 @router.get("/messianic-prophecies", response_class=HTMLResponse)
-def messianic_prophecies_page(request: Request):
+async def messianic_prophecies_page(request: Request):
     """Messianic Prophecies page."""
     return templates.TemplateResponse(
             request,
@@ -1657,7 +1657,7 @@ async def messianic_prophecies_page_pdf():
 
 
 @router.get("/messianic-prophecies/{item_slug}", response_class=HTMLResponse)
-def messianic_prophecies_detail(request: Request, item_slug: str):
+async def messianic_prophecies_detail(request: Request, item_slug: str):
     """Individual Messianic Prophecy topic detail page."""
     return _resource_detail_response(
         request,
@@ -1685,7 +1685,7 @@ async def messianic_prophecies_detail_pdf(item_slug: str):
 # THE BLOOD IN SCRIPTURE
 # ============================================================================
 @router.get("/blood-in-scripture", response_class=HTMLResponse)
-def blood_in_scripture_page(request: Request):
+async def blood_in_scripture_page(request: Request):
     """The Blood in Scripture page."""
     return templates.TemplateResponse(
             request,
@@ -1718,7 +1718,7 @@ async def blood_in_scripture_page_pdf():
 
 
 @router.get("/blood-in-scripture/{item_slug}", response_class=HTMLResponse)
-def blood_in_scripture_detail(request: Request, item_slug: str):
+async def blood_in_scripture_detail(request: Request, item_slug: str):
     """Individual Blood in Scripture topic detail page."""
     return _resource_detail_response(
         request,
@@ -1746,7 +1746,7 @@ async def blood_in_scripture_detail_pdf(item_slug: str):
 # THE KINGDOM OF GOD
 # ============================================================================
 @router.get("/kingdom-of-god", response_class=HTMLResponse)
-def kingdom_of_god_page(request: Request):
+async def kingdom_of_god_page(request: Request):
     """The Kingdom of God page."""
     return templates.TemplateResponse(
             request,
@@ -1779,7 +1779,7 @@ async def kingdom_of_god_page_pdf():
 
 
 @router.get("/kingdom-of-god/{item_slug}", response_class=HTMLResponse)
-def kingdom_of_god_detail(request: Request, item_slug: str):
+async def kingdom_of_god_detail(request: Request, item_slug: str):
     """Individual Kingdom of God topic detail page."""
     return _resource_detail_response(
         request,
@@ -1807,7 +1807,7 @@ async def kingdom_of_god_detail_pdf(item_slug: str):
 # NAMES AND TITLES OF CHRIST
 # ============================================================================
 @router.get("/names-of-christ", response_class=HTMLResponse)
-def names_of_christ_page(request: Request):
+async def names_of_christ_page(request: Request):
     """Names and Titles of Christ page."""
     return templates.TemplateResponse(
             request,
@@ -1840,7 +1840,7 @@ async def names_of_christ_page_pdf():
 
 
 @router.get("/names-of-christ/{item_slug}", response_class=HTMLResponse)
-def names_of_christ_detail(request: Request, item_slug: str):
+async def names_of_christ_detail(request: Request, item_slug: str):
     """Individual Names of Christ topic detail page."""
     return _resource_detail_response(
         request,
@@ -1868,7 +1868,7 @@ async def names_of_christ_detail_pdf(item_slug: str):
 # SPIRITS AND DEMONS
 # ============================================================================
 @router.get("/spirits-and-demons", response_class=HTMLResponse)
-def spirits_and_demons_page(request: Request):
+async def spirits_and_demons_page(request: Request):
     """Spirits and Demons - biblical demonology page."""
     return templates.TemplateResponse(
             request,
@@ -1901,7 +1901,7 @@ async def spirits_and_demons_page_pdf():
 
 
 @router.get("/spirits-and-demons/{item_slug}", response_class=HTMLResponse)
-def spirits_and_demons_detail(request: Request, item_slug: str):
+async def spirits_and_demons_detail(request: Request, item_slug: str):
     """Individual Spirits and Demons topic detail page."""
     return _resource_detail_response(
         request,
@@ -1929,7 +1929,7 @@ async def spirits_and_demons_detail_pdf(item_slug: str):
 # PERSONIFICATIONS IN SCRIPTURE
 # ============================================================================
 @router.get("/personifications", response_class=HTMLResponse)
-def personifications_page(request: Request):
+async def personifications_page(request: Request):
     """Personifications in Scripture - abstract concepts given human form."""
     return templates.TemplateResponse(
             request,
@@ -1962,7 +1962,7 @@ async def personifications_page_pdf():
 
 
 @router.get("/personifications/{item_slug}", response_class=HTMLResponse)
-def personifications_detail(request: Request, item_slug: str):
+async def personifications_detail(request: Request, item_slug: str):
     """Individual Personification topic detail page."""
     return _resource_detail_response(
         request,
@@ -1990,7 +1990,7 @@ async def personifications_detail_pdf(item_slug: str):
 # BIBLIOLOGY - THE DOCTRINE OF SCRIPTURE
 # ============================================================================
 @router.get("/bibliology", response_class=HTMLResponse)
-def bibliology_page(request: Request):
+async def bibliology_page(request: Request):
     """Bibliology - The Doctrine of Scripture."""
     return templates.TemplateResponse(
             request,
@@ -2023,7 +2023,7 @@ async def bibliology_page_pdf():
 
 
 @router.get("/bibliology/{item_slug}", response_class=HTMLResponse)
-def bibliology_detail(request: Request, item_slug: str):
+async def bibliology_detail(request: Request, item_slug: str):
     """Individual Bibliology topic detail page."""
     return _resource_detail_response(
         request,
@@ -2051,7 +2051,7 @@ async def bibliology_detail_pdf(item_slug: str):
 # THEOLOGY PROPER - THE ATTRIBUTES OF GOD
 # ============================================================================
 @router.get("/theology-proper", response_class=HTMLResponse)
-def theology_proper_page(request: Request):
+async def theology_proper_page(request: Request):
     """Theology Proper - The Attributes of God."""
     return templates.TemplateResponse(
             request,
@@ -2084,7 +2084,7 @@ async def theology_proper_page_pdf():
 
 
 @router.get("/theology-proper/{item_slug}", response_class=HTMLResponse)
-def theology_proper_detail(request: Request, item_slug: str):
+async def theology_proper_detail(request: Request, item_slug: str):
     """Individual Theology Proper topic detail page."""
     return _resource_detail_response(
         request,
@@ -2112,7 +2112,7 @@ async def theology_proper_detail_pdf(item_slug: str):
 # ANTHROPOLOGY - THE DOCTRINE OF MAN
 # ============================================================================
 @router.get("/anthropology", response_class=HTMLResponse)
-def anthropology_page(request: Request):
+async def anthropology_page(request: Request):
     """Anthropology - The Doctrine of Man."""
     return templates.TemplateResponse(
             request,
@@ -2145,7 +2145,7 @@ async def anthropology_page_pdf():
 
 
 @router.get("/anthropology/{item_slug}", response_class=HTMLResponse)
-def anthropology_detail(request: Request, item_slug: str):
+async def anthropology_detail(request: Request, item_slug: str):
     """Individual Anthropology topic detail page."""
     return _resource_detail_response(
         request,
@@ -2173,7 +2173,7 @@ async def anthropology_detail_pdf(item_slug: str):
 # HAMARTIOLOGY - THE DOCTRINE OF SIN
 # ============================================================================
 @router.get("/hamartiology", response_class=HTMLResponse)
-def hamartiology_page(request: Request):
+async def hamartiology_page(request: Request):
     """Hamartiology - The Doctrine of Sin."""
     return templates.TemplateResponse(
             request,
@@ -2206,7 +2206,7 @@ async def hamartiology_page_pdf():
 
 
 @router.get("/hamartiology/{item_slug}", response_class=HTMLResponse)
-def hamartiology_detail(request: Request, item_slug: str):
+async def hamartiology_detail(request: Request, item_slug: str):
     """Individual Hamartiology topic detail page."""
     return _resource_detail_response(
         request,
@@ -2234,7 +2234,7 @@ async def hamartiology_detail_pdf(item_slug: str):
 # PROVIDENCE - DIVINE PROVIDENCE
 # ============================================================================
 @router.get("/providence", response_class=HTMLResponse)
-def providence_page(request: Request):
+async def providence_page(request: Request):
     """Providence - Divine Providence."""
     return templates.TemplateResponse(
             request,
@@ -2267,7 +2267,7 @@ async def providence_page_pdf():
 
 
 @router.get("/providence/{item_slug}", response_class=HTMLResponse)
-def providence_detail(request: Request, item_slug: str):
+async def providence_detail(request: Request, item_slug: str):
     """Individual Providence topic detail page."""
     return _resource_detail_response(
         request,
@@ -2295,7 +2295,7 @@ async def providence_detail_pdf(item_slug: str):
 # GRACE - THE DOCTRINE OF GRACE
 # ============================================================================
 @router.get("/grace", response_class=HTMLResponse)
-def grace_page(request: Request):
+async def grace_page(request: Request):
     """Grace - The Doctrine of Grace."""
     return templates.TemplateResponse(
             request,
@@ -2328,7 +2328,7 @@ async def grace_page_pdf():
 
 
 @router.get("/grace/{item_slug}", response_class=HTMLResponse)
-def grace_detail(request: Request, item_slug: str):
+async def grace_detail(request: Request, item_slug: str):
     """Individual Grace topic detail page."""
     return _resource_detail_response(
         request,
@@ -2356,7 +2356,7 @@ async def grace_detail_pdf(item_slug: str):
 # JUSTIFICATION - THE DOCTRINE OF JUSTIFICATION
 # ============================================================================
 @router.get("/justification", response_class=HTMLResponse)
-def justification_page(request: Request):
+async def justification_page(request: Request):
     """Justification - The Doctrine of Justification."""
     return templates.TemplateResponse(
             request,
@@ -2389,7 +2389,7 @@ async def justification_page_pdf():
 
 
 @router.get("/justification/{item_slug}", response_class=HTMLResponse)
-def justification_detail(request: Request, item_slug: str):
+async def justification_detail(request: Request, item_slug: str):
     """Individual Justification topic detail page."""
     return _resource_detail_response(
         request,
@@ -2417,7 +2417,7 @@ async def justification_detail_pdf(item_slug: str):
 # SANCTIFICATION - THE DOCTRINE OF SANCTIFICATION
 # ============================================================================
 @router.get("/sanctification", response_class=HTMLResponse)
-def sanctification_page(request: Request):
+async def sanctification_page(request: Request):
     """Sanctification - The Doctrine of Sanctification."""
     return templates.TemplateResponse(
             request,
@@ -2450,7 +2450,7 @@ async def sanctification_page_pdf():
 
 
 @router.get("/sanctification/{item_slug}", response_class=HTMLResponse)
-def sanctification_detail(request: Request, item_slug: str):
+async def sanctification_detail(request: Request, item_slug: str):
     """Individual Sanctification topic detail page."""
     return _resource_detail_response(
         request,
@@ -2478,7 +2478,7 @@ async def sanctification_detail_pdf(item_slug: str):
 # LAW AND GOSPEL
 # ============================================================================
 @router.get("/law-and-gospel", response_class=HTMLResponse)
-def law_and_gospel_page(request: Request):
+async def law_and_gospel_page(request: Request):
     """Law and Gospel - The Doctrine of Law and Gospel."""
     return templates.TemplateResponse(
             request,
@@ -2511,7 +2511,7 @@ async def law_and_gospel_page_pdf():
 
 
 @router.get("/law-and-gospel/{item_slug}", response_class=HTMLResponse)
-def law_and_gospel_detail(request: Request, item_slug: str):
+async def law_and_gospel_detail(request: Request, item_slug: str):
     """Individual Law and Gospel topic detail page."""
     return _resource_detail_response(
         request,
@@ -2539,7 +2539,7 @@ async def law_and_gospel_detail_pdf(item_slug: str):
 # WORSHIP - THE DOCTRINE OF WORSHIP
 # ============================================================================
 @router.get("/worship", response_class=HTMLResponse)
-def worship_page(request: Request):
+async def worship_page(request: Request):
     """Worship - The Doctrine of Worship."""
     return templates.TemplateResponse(
             request,
@@ -2572,7 +2572,7 @@ async def worship_page_pdf():
 
 
 @router.get("/worship/{item_slug}", response_class=HTMLResponse)
-def worship_detail(request: Request, item_slug: str):
+async def worship_detail(request: Request, item_slug: str):
     """Individual Worship topic detail page."""
     return _resource_detail_response(
         request,

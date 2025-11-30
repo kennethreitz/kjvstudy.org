@@ -31,7 +31,7 @@ def get_books():
 
 
 @router.get("/stories", response_class=HTMLResponse)
-def stories_index(request: Request):
+async def stories_index(request: Request):
     """Bible stories index page - shows all categories and stories."""
     books = get_books()
     categories = get_categories()
@@ -55,7 +55,7 @@ def stories_index(request: Request):
 
 
 @router.get("/stories/kids", response_class=HTMLResponse)
-def stories_kids_index(request: Request):
+async def stories_kids_index(request: Request):
     """Bible stories index page for kids - shows all categories and kid-friendly stories."""
     books = get_books()
     categories = get_categories()
@@ -141,7 +141,7 @@ async def story_kids_pdf(request: Request, slug: str):
 
 
 @router.get("/stories/{slug}", response_class=HTMLResponse)
-def story_detail(request: Request, slug: str):
+async def story_detail(request: Request, slug: str):
     """Individual story page (adult version)."""
     books = get_books()
     story = get_story_by_slug(slug)
@@ -181,7 +181,7 @@ def story_detail(request: Request, slug: str):
 
 
 @router.get("/stories/{slug}/kids", response_class=HTMLResponse)
-def story_kids(request: Request, slug: str):
+async def story_kids(request: Request, slug: str):
     """Individual story page (kids version)."""
     books = get_books()
     story = get_story_by_slug(slug)

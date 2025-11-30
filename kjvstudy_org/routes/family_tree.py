@@ -370,7 +370,7 @@ def search_family_tree(query: str, limit: Optional[int] = None) -> List[Dict]:
 # ============================================================================
 
 @router.get("/family-tree", response_class=HTMLResponse)
-def family_tree_page(request: Request):
+async def family_tree_page(request: Request):
     """Biblical family tree page using GEDCOM file."""
     family_tree_data, generations = get_family_tree_data()
 
@@ -404,7 +404,7 @@ def family_tree_page(request: Request):
 
 
 @router.get("/family-tree/generation/{gen_num}", response_class=HTMLResponse)
-def family_tree_generation_page(request: Request, gen_num: int):
+async def family_tree_generation_page(request: Request, gen_num: int):
     """Individual generation page."""
     gedcom_path = get_static_dir() / "adameve.ged"
 
@@ -455,7 +455,7 @@ def family_tree_generation_page(request: Request, gen_num: int):
 
 
 @router.get("/family-tree/person/{person_id}", response_class=HTMLResponse)
-def family_tree_person_page(request: Request, person_id: str):
+async def family_tree_person_page(request: Request, person_id: str):
     """Individual person page."""
     from ..biblical_biographies import get_biography
 
@@ -511,7 +511,7 @@ def family_tree_person_page(request: Request, person_id: str):
 
 
 @router.get("/family-tree/search", response_class=HTMLResponse)
-def family_tree_search_page(request: Request, q: str = ""):
+async def family_tree_search_page(request: Request, q: str = ""):
     """Search the family tree."""
     gedcom_path = get_static_dir() / "adameve.ged"
 
@@ -574,7 +574,7 @@ def family_tree_search_page(request: Request, q: str = ""):
 
 
 @router.get("/family-tree/interactive", response_class=HTMLResponse)
-def family_tree_interactive_page(request: Request):
+async def family_tree_interactive_page(request: Request):
     """Interactive D3.js-based family tree visualization."""
     family_tree_data, generations = get_family_tree_data()
 
@@ -601,7 +601,7 @@ def family_tree_interactive_page(request: Request):
 
 
 @router.get("/family-tree/lineage", response_class=HTMLResponse)
-def family_tree_lineage_page(request: Request):
+async def family_tree_lineage_page(request: Request):
     """Dedicated page for the Messianic lineage visualization."""
     return templates.TemplateResponse(
             request,
@@ -618,7 +618,7 @@ def family_tree_lineage_page(request: Request):
 
 
 @router.get("/family-tree/person/{person_id}/descendants", response_class=HTMLResponse)
-def family_tree_descendants_page(request: Request, person_id: str):
+async def family_tree_descendants_page(request: Request, person_id: str):
     """View all descendants of a person."""
     family_tree_data, generations = get_family_tree_data()
 
@@ -674,7 +674,7 @@ def family_tree_descendants_page(request: Request, person_id: str):
 
 
 @router.get("/family-tree/person/{person_id}/ancestors", response_class=HTMLResponse)
-def family_tree_ancestors_page(request: Request, person_id: str):
+async def family_tree_ancestors_page(request: Request, person_id: str):
     """View all ancestors of a person."""
     family_tree_data, generations = get_family_tree_data()
 
@@ -730,7 +730,7 @@ def family_tree_ancestors_page(request: Request, person_id: str):
 
 
 @router.get("/family-tree/lineage.svg")
-def family_tree_lineage_svg(request: Request):
+async def family_tree_lineage_svg(request: Request):
     """Generate SVG visualization of the Messianic lineage (Adam to Jesus)."""
     gedcom_path = get_static_dir() / "adameve.ged"
 

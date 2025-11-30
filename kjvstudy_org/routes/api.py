@@ -338,7 +338,7 @@ def init_templates(app_templates):
 
 
 @router.get("/")
-def api_index():
+async def api_index():
     """API index with links to documentation and available endpoints."""
     return {
         "name": "KJV Study API",
@@ -382,7 +382,7 @@ def api_index():
 
 
 @router.get("/health")
-def api_health_check():
+async def api_health_check():
     """API health check endpoint for monitoring and status verification."""
     return {
         "status": "healthy",
@@ -392,7 +392,7 @@ def api_health_check():
 
 
 @router.get("/search")
-def search_api(
+async def search_api(
     q: str = Query(..., description="Search query", example="faith"),
     limit: Optional[int] = Query(None, description="Max results", example=10)
 ):
@@ -416,7 +416,7 @@ def search_api(
 
 
 @router.get("/universal-search")
-def universal_search_api(
+async def universal_search_api(
     q: str = Query(..., description="Search query", example="love"),
     limit: int = Query(5, description="Max results per category", example=5)
 ):
@@ -612,7 +612,7 @@ def universal_search_api(
     summary="Get verse of the day",
     description="Returns a featured verse that changes daily"
 )
-def verse_of_the_day_api():
+async def verse_of_the_day_api():
     """API endpoint for verse of the day."""
     return get_daily_verse()
 
@@ -667,7 +667,7 @@ def verse_of_the_day_api():
         }
     }
 )
-def api_get_verse(
+async def api_get_verse(
     book: str = Path(..., description="Book name (supports abbreviations)", example="John"),
     chapter: int = Path(..., description="Chapter number", example=3, ge=1),
     verse: int = Path(..., description="Verse number", example=16, ge=1),
@@ -787,7 +787,7 @@ def api_get_verse(
         }
     }
 )
-def api_get_verse_range(
+async def api_get_verse_range(
     book: str = Path(..., description="Book name (supports abbreviations)", example="Psalms"),
     chapter: int = Path(..., description="Chapter number", example=23, ge=1),
     start: int = Path(..., description="Starting verse number", example=1, ge=1),
@@ -836,7 +836,7 @@ def api_get_verse_range(
 
 
 @router.get("/interlinear/{book}/{chapter}/{verse}")
-def api_get_interlinear(
+async def api_get_interlinear(
     book: str = Path(..., description="Book name", example="John"),
     chapter: int = Path(..., description="Chapter number", example=1),
     verse: int = Path(..., description="Verse number", example=1)
@@ -884,7 +884,7 @@ def api_get_interlinear(
 
 
 @router.get("/books")
-def api_get_books():
+async def api_get_books():
     """Get list of all Bible books with metadata."""
     books = bible.get_books()
 
@@ -921,7 +921,7 @@ def api_get_books():
 
 
 @router.get("/books/{book}")
-def api_get_book(book: str = Path(..., description="Book name", example="Genesis")):
+async def api_get_book(book: str = Path(..., description="Book name", example="Genesis")):
     """Get details about a specific book including introduction and study material."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -1031,7 +1031,7 @@ async def api_book_pdf(book: str = Path(..., description="Book name", example="G
 
 
 @router.get("/books/{book}/chapters/{chapter}")
-def api_get_chapter(
+async def api_get_chapter(
     book: str = Path(..., description="Book name", example="Romans"),
     chapter: int = Path(..., description="Chapter number", example=8)
 ):
@@ -1114,7 +1114,7 @@ async def api_chapter_pdf(
 
 
 @router.get("/books/{book}/text")
-def api_get_book_text(book: str = Path(..., description="Book name", example="Philemon")):
+async def api_get_book_text(book: str = Path(..., description="Book name", example="Philemon")):
     """Get all text content of a book."""
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -1149,7 +1149,7 @@ def api_get_book_text(book: str = Path(..., description="Book name", example="Ph
 
 
 @router.get("/bible")
-def api_get_bible():
+async def api_get_bible():
     """Get the entire Bible text."""
     books_data = {}
     for v in bible.iter_verses():
@@ -1186,7 +1186,7 @@ def api_get_bible():
 
 
 @router.get("/cross-references/{book}/{chapter}/{verse}")
-def api_get_cross_references(
+async def api_get_cross_references(
     book: str = Path(..., description="Book name", example="John"),
     chapter: int = Path(..., description="Chapter number", example=3),
     verse: int = Path(..., description="Verse number", example=16)
@@ -1212,7 +1212,7 @@ def api_get_cross_references(
 
 
 @router.get("/topics")
-def api_get_topics():
+async def api_get_topics():
     """Get list of all topics."""
     topics = get_all_topics()
 
@@ -1232,7 +1232,7 @@ def api_get_topics():
 
 
 @router.get("/topics/{topic_name}")
-def api_get_topic(topic_name: str = Path(..., description="Topic name", example="faith")):
+async def api_get_topic(topic_name: str = Path(..., description="Topic name", example="faith")):
     """Get details about a specific topic."""
     topic = get_topic(topic_name)
     if not topic:
@@ -1247,7 +1247,7 @@ def api_get_topic(topic_name: str = Path(..., description="Topic name", example=
 
 
 @router.get("/reading-plans")
-def api_get_reading_plans():
+async def api_get_reading_plans():
     """Get list of all reading plans."""
     plans = get_plan_summary()
 
@@ -1258,7 +1258,7 @@ def api_get_reading_plans():
 
 
 @router.get("/reading-plans/{plan_id}")
-def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID", example="chronological")):
+async def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID", example="chronological")):
     """Get details about a specific reading plan."""
     plan = get_plan(plan_id)
     if not plan:
@@ -1268,7 +1268,7 @@ def api_get_reading_plan(plan_id: str = Path(..., description="Reading plan ID",
 
 
 @router.get("/stories")
-def api_get_stories():
+async def api_get_stories():
     """Get list of all Bible stories organized by category."""
     categories = get_categories()
     story_count = get_story_count()
@@ -1306,7 +1306,7 @@ def api_get_stories():
 
 
 @router.get("/stories/{slug}")
-def api_get_story(slug: str = Path(..., description="Story slug", example="creation-of-the-world")):
+async def api_get_story(slug: str = Path(..., description="Story slug", example="creation-of-the-world")):
     """Get a specific Bible story by slug."""
     story = get_story_by_slug(slug)
     if not story:
@@ -1411,7 +1411,7 @@ async def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
     summary="List all resource categories",
     description="Get a list of all biblical resource categories (locations, angels, prophets, etc.)"
 )
-def api_list_resource_categories():
+async def api_list_resource_categories():
     """List all available resource categories."""
     def format_title(key: str) -> str:
         """Convert snake_case to Title Case."""
@@ -1477,7 +1477,7 @@ def api_list_resource_categories():
         }
     }
 )
-def api_get_resource_category(
+async def api_get_resource_category(
     category: str = Path(..., description="Resource category name", example="biblical_locations")
 ):
     """Get all items in a specific resource category."""
@@ -1551,7 +1551,7 @@ def api_get_resource_category(
         }
     }
 )
-def api_get_resource_item(
+async def api_get_resource_item(
     category: str = Path(..., description="Resource category name", example="biblical_locations"),
     slug: str = Path(..., description="Resource item slug", example="garden-of-eden")
 ):
@@ -1708,7 +1708,7 @@ async def api_get_resource_item_pdf(
     summary="List all red letter verses",
     description="Get a list of all verses containing the words of Jesus Christ (red letter edition). Supports filtering by book and pagination."
 )
-def api_list_red_letter_verses(
+async def api_list_red_letter_verses(
     book: Optional[str] = Query(None, description="Filter by book name", example="John"),
     limit: int = Query(50, description="Maximum number of verses to return", example=50, ge=1, le=500),
     offset: int = Query(0, description="Number of verses to skip", example=0, ge=0)
@@ -1775,7 +1775,7 @@ def api_list_red_letter_verses(
     summary="Get red letter statistics",
     description="Get statistics about verses containing the words of Jesus Christ, including counts by book and full vs. partial verses."
 )
-def api_red_letter_stats():
+async def api_red_letter_stats():
     """Get statistics about red letter verses in the Bible."""
     red_letter_data = load_red_letter_verses()
 
@@ -1815,7 +1815,7 @@ def api_red_letter_stats():
     summary="Get a random verse",
     description="Returns a random Bible verse. Optionally filter by testament (ot/nt) or specific book."
 )
-def api_random_verse(
+async def api_random_verse(
     testament: Optional[str] = Query(None, description="Filter by testament: 'ot' or 'nt'", example="nt"),
     book: Optional[str] = Query(None, description="Filter by book name", example="John")
 ):
@@ -1884,7 +1884,7 @@ def api_random_verse(
     summary="Get verse commentary",
     description="Get AI-generated theological commentary for a specific verse, including analysis, historical context, and reflection questions."
 )
-def api_get_verse_commentary(
+async def api_get_verse_commentary(
     book: str = Path(..., description="Book name", example="John"),
     chapter: int = Path(..., description="Chapter number", example=3),
     verse: int = Path(..., description="Verse number", example=16)
@@ -1937,7 +1937,7 @@ def api_get_verse_commentary(
     summary="Get chapter commentary",
     description="Get a brief explanation of what a chapter contains and why it's significant."
 )
-def api_get_chapter_commentary(
+async def api_get_chapter_commentary(
     book: str = Path(..., description="Book name", example="Genesis"),
     chapter: int = Path(..., description="Chapter number", example=1)
 ):
@@ -1976,7 +1976,7 @@ def api_get_chapter_commentary(
     summary="Bulk verse lookup",
     description="Fetch multiple verses in a single request. Provide an array of verse references like ['John 3:16', 'Romans 8:28']."
 )
-def api_bulk_verse_lookup(request: BulkVerseRequest):
+async def api_bulk_verse_lookup(request: BulkVerseRequest):
     """Look up multiple verses in a single request."""
     from ..kjv import VerseReference
 
@@ -2023,7 +2023,7 @@ def api_bulk_verse_lookup(request: BulkVerseRequest):
     summary="Get family tree statistics",
     description="Get comprehensive statistics about the biblical family tree from the GEDCOM genealogy data."
 )
-def api_family_tree_stats():
+async def api_family_tree_stats():
     """Get statistics about the biblical family tree from GEDCOM data."""
     from ..routes.family_tree import get_family_tree_data
     import re
@@ -2204,7 +2204,7 @@ def api_family_tree_stats():
     summary="List all biblical figures",
     description="Get a list of all people who have biographies in the family tree database."
 )
-def api_list_family_tree():
+async def api_list_family_tree():
     """List all people with biographies."""
     data = _load_biographies()
     biographies = data.get("biographies", {})
@@ -2223,7 +2223,7 @@ def api_list_family_tree():
     summary="Get biography of biblical figure",
     description="Get detailed biography including summary, significance, and key life events for a specific biblical figure."
 )
-def api_get_biography(
+async def api_get_biography(
     name: str = Path(..., description="Name of the person", example="Abraham")
 ):
     """Get biography of a specific person."""
@@ -2277,7 +2277,7 @@ def api_get_biography(
         404: {"description": "Strong's number not found"}
     }
 )
-def api_get_strongs(
+async def api_get_strongs(
     strongs_number: str = Path(
         ...,
         description="Strong's number (H1-H8674 for Hebrew, G1-G5624 for Greek)",
@@ -2322,7 +2322,7 @@ def api_get_strongs(
         }
     }
 )
-def api_search_strongs(
+async def api_search_strongs(
     q: str = Query(..., description="Search query", example="love"),
     language: str = Query(
         "both",
