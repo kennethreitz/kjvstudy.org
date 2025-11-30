@@ -1671,6 +1671,10 @@
               break;
             case 's':
               e.preventDefault();
+              window.location.href = '/stories';
+              break;
+            case '/':
+              e.preventDefault();
               window.location.href = '/search';
               break;
             case 't':
@@ -1759,7 +1763,7 @@
               '<div class="keyboard-help-section">' +
                 '<h3>Navigation</h3>' +
                 '<div class="shortcut"><kbd>b</kbd><span>Books</span></div>' +
-                '<div class="shortcut"><kbd>s</kbd><span>Search</span></div>' +
+                '<div class="shortcut"><kbd>s</kbd><span>Stories</span></div>' +
                 '<div class="shortcut"><kbd>r</kbd><span>Resources</span></div>' +
                 '<div class="shortcut"><kbd>t</kbd><span>Topics</span></div>' +
                 '<div class="shortcut"><kbd>p</kbd><span>Reading Plans</span></div>' +
@@ -1781,7 +1785,7 @@
                 '<h3>Other</h3>' +
                 '<div class="shortcut"><kbd>`</kbd><span>Toggle sidebar</span></div>' +
                 '<div class="shortcut"><kbd>⌘</kbd>+<kbd>D</kbd><span>Toggle dark mode</span></div>' +
-                '<div class="shortcut"><kbd>/</kbd><span>Go to search</span></div>' +
+                '<div class="shortcut"><kbd>/</kbd><span>Search</span></div>' +
                 '<div class="shortcut"><kbd>?</kbd><span>Show this help</span></div>' +
                 '<div class="shortcut"><kbd>Esc</kbd><span>Close / Clear focus</span></div>' +
               '</div>' +
