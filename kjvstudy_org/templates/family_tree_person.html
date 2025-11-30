@@ -683,20 +683,73 @@
 
 <script>
 (function() {
+    // Two-level navigation: sections -> items within sections
     const sections = Array.from(document.querySelectorAll('.section-card'));
-    if (sections.length === 0) return;
+    const allItems = Array.from(document.querySelectorAll('.biography-text, .biography-significance, .event-item, .family-card, .verse-card'));
 
-    let selectedIndex = -1;
+    if (sections.length === 0 && allItems.length === 0) return;
+
+    let mode = 'sections'; // 'sections' or 'items'
+    let selectedSectionIndex = -1;
+    let selectedItemIndex = -1;
+
+    function clearAllSelections() {
+        sections.forEach(s => {
+            s.style.outline = '';
+            s.style.outlineOffset = '';
+        });
+        allItems.forEach(i => {
+            i.style.outline = '';
+            i.style.outlineOffset = '';
+        });
+    }
 
     function selectSection(index) {
-        if (selectedIndex >= 0 && selectedIndex < sections.length) {
-            sections[selectedIndex].style.outline = '';
-            sections[selectedIndex].style.outlineOffset = '';
+        clearAllSelections();
+        mode = 'sections';
+        selectedSectionIndex = Math.max(0, Math.min(index, sections.length - 1));
+        selectedItemIndex = -1;
+        sections[selectedSectionIndex].style.outline = '2px solid #4a7c59';
+        sections[selectedSectionIndex].style.outlineOffset = '4px';
+        sections[selectedSectionIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function selectItem(index) {
+        clearAllSelections();
+        mode = 'items';
+        selectedItemIndex = Math.max(0, Math.min(index, allItems.length - 1));
+        allItems[selectedItemIndex].style.outline = '2px solid #4a7c59';
+        allItems[selectedItemIndex].style.outlineOffset = '4px';
+        allItems[selectedItemIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function getItemsInSection(section) {
+        return allItems.filter(item => section.contains(item));
+    }
+
+    function findFirstItemInSection(section) {
+        const items = getItemsInSection(section);
+        if (items.length > 0) {
+            return allItems.indexOf(items[0]);
         }
-        selectedIndex = Math.max(0, Math.min(index, sections.length - 1));
-        sections[selectedIndex].style.outline = '2px solid #4a7c59';
-        sections[selectedIndex].style.outlineOffset = '2px';
-        sections[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return -1;
+    }
+
+    function findSectionForItem(item) {
+        for (let i = 0; i < sections.length; i++) {
+            if (sections[i].contains(item)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function shouldResetToViewport() {
+        if (mode === 'sections') {
+            return selectedSectionIndex < 0 || !KJVNav.isInViewport(sections[selectedSectionIndex]);
+        } else {
+            return selectedItemIndex < 0 || !KJVNav.isInViewport(allItems[selectedItemIndex]);
+        }
     }
 
     document.addEventListener('keydown', function(e) {
@@ -704,23 +757,74 @@
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
-                selectSection(KJVNav.findFirstVisibleIndex(sections));
+            if (shouldResetToViewport()) {
+                // Find first visible section
+                var visibleIdx = KJVNav.findFirstVisibleIndex(sections);
+                selectSection(visibleIdx);
+                return;
+            }
+            if (mode === 'sections') {
+                selectSection(selectedSectionIndex + 1);
             } else {
-                selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
+                selectItem(selectedItemIndex + 1);
             }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(sections, selectedIndex)) {
-                selectSection(KJVNav.findFirstVisibleIndex(sections));
-            } else if (selectedIndex <= 0) {
-                selectSection(0);
+            if (shouldResetToViewport()) {
+                var visibleIdx = KJVNav.findFirstVisibleIndex(sections);
+                selectSection(visibleIdx);
+                return;
+            }
+            if (mode === 'sections') {
+                if (selectedSectionIndex <= 0) {
+                    selectSection(0);
+                } else {
+                    selectSection(selectedSectionIndex - 1);
+                }
             } else {
-                selectSection(selectedIndex - 1);
+                if (selectedItemIndex <= 0) {
+                    // Go back to section mode
+                    var sectionIdx = findSectionForItem(allItems[0]);
+                    if (sectionIdx >= 0) {
+                        selectSection(sectionIdx);
+                    }
+                } else {
+                    selectItem(selectedItemIndex - 1);
+                }
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l' || e.key === 'Enter') {
+            e.preventDefault();
+            if (mode === 'sections' && selectedSectionIndex >= 0) {
+                // Drill into section items
+                var firstItemIdx = findFirstItemInSection(sections[selectedSectionIndex]);
+                if (firstItemIdx >= 0) {
+                    selectItem(firstItemIdx);
+                }
+            } else if (mode === 'items' && selectedItemIndex >= 0) {
+                // Follow link if available
+                var link = allItems[selectedItemIndex].querySelector('a');
+                if (link) window.location.href = link.href;
             }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            history.back();
+            if (mode === 'items') {
+                // Go back to section mode
+                var sectionIdx = findSectionForItem(allItems[selectedItemIndex]);
+                if (sectionIdx >= 0) {
+                    selectSection(sectionIdx);
+                } else {
+                    mode = 'sections';
+                    selectedItemIndex = -1;
+                }
+            } else {
+                history.back();
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            clearAllSelections();
+            mode = 'sections';
+            selectedSectionIndex = -1;
+            selectedItemIndex = -1;
         }
     });
 })();
