@@ -1881,9 +1881,17 @@
                 } else {
                   var article = document.querySelector('article');
                   if (article) {
-                    var aclone = article.cloneNode(true);
-                    aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
-                    combined = (aclone.textContent || aclone.innerText || '').trim();
+                    // If this is a card grid, concatenate the highlighted or first card
+                    var selectedCard = article.querySelector('.resource-card[style*=\"outline\"]') || article.querySelector('.resource-card');
+                    if (selectedCard) {
+                      var cclone = selectedCard.cloneNode(true);
+                      cclone.querySelectorAll('script, style').forEach(function(el) { el.remove(); });
+                      combined = (cclone.textContent || cclone.innerText || '').trim();
+                    } else {
+                      var aclone = article.cloneNode(true);
+                      aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
+                      combined = (aclone.textContent || aclone.innerText || '').trim();
+                    }
                   }
                 }
                 if (combined) {
