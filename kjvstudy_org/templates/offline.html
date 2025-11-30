@@ -1145,14 +1145,80 @@
         selectedCardIndex = -1;
     }
 
-    // Navigation mode: 'cards' or 'verses'
+    // Navigation mode: 'cards', 'verses', or 'cached'
     let navMode = 'cards';
+
+    // Cached URL navigation
+    let selectedCachedIndex = -1;
+
+    function getCachedUrlItems() {
+        return Array.from(document.querySelectorAll('.url-item'));
+    }
+
+    function selectCachedUrl(index) {
+        const items = getCachedUrlItems();
+        items.forEach(item => {
+            item.style.outline = '';
+            item.style.outlineOffset = '';
+            item.style.background = '';
+        });
+        if (index < 0 || index >= items.length) {
+            selectedCachedIndex = -1;
+            return;
+        }
+        selectedCachedIndex = index;
+        items[index].style.outline = '2px solid #4a7c59';
+        items[index].style.outlineOffset = '2px';
+        items[index].style.background = 'var(--border-color)';
+        items[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearCachedSelection() {
+        const items = getCachedUrlItems();
+        items.forEach(item => {
+            item.style.outline = '';
+            item.style.outlineOffset = '';
+            item.style.background = '';
+        });
+        selectedCachedIndex = -1;
+    }
 
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
 
         const cols = getGridColumns();
         const verses = getVerses();
+        const cachedItems = getCachedUrlItems();
+
+        // Cached URL navigation
+        if (navMode === 'cached' && cachedItems.length > 0) {
+            if (e.key === 'ArrowDown' || e.key === 'j') {
+                e.preventDefault();
+                selectCachedUrl(selectedCachedIndex < 0 ? 0 : Math.min(selectedCachedIndex + 1, cachedItems.length - 1));
+            } else if (e.key === 'ArrowUp' || e.key === 'k') {
+                e.preventDefault();
+                if (selectedCachedIndex > 0) {
+                    selectCachedUrl(selectedCachedIndex - 1);
+                } else {
+                    clearCachedSelection();
+                    navMode = 'cards';
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (selectedCachedIndex >= 0 && cachedItems[selectedCachedIndex]) {
+                    window.location.href = cachedItems[selectedCachedIndex].href;
+                }
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                clearCachedSelection();
+                navMode = 'cards';
+            } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+                e.preventDefault();
+                clearCachedSelection();
+                navMode = 'cards';
+            }
+            return;
+        }
 
         // Verse navigation when in verse mode
         if (navMode === 'verses' && verses.length > 0) {
@@ -1242,16 +1308,37 @@
             speechSynthesis.cancel();
             clearCardSelection();
             clearVerseSelection();
+            clearCachedSelection();
             navMode = 'cards';
         } else if (e.key === 'v' && content.classList.contains('active') && verses.length > 0) {
             e.preventDefault();
             clearCardSelection();
+            clearCachedSelection();
             navMode = 'verses';
             selectVerse(0);
+        } else if (e.key === 'c') {
+            // Switch to cached pages navigation
+            e.preventDefault();
+            const details = document.querySelector('.tech-details');
+            if (details) {
+                details.open = true;
+                // Expand all categories so items are visible
+                document.querySelectorAll('.url-category').forEach(cat => cat.classList.add('expanded'));
+                setTimeout(() => {
+                    const items = getCachedUrlItems();
+                    if (items.length > 0) {
+                        clearCardSelection();
+                        clearVerseSelection();
+                        navMode = 'cached';
+                        selectCachedUrl(0);
+                    }
+                }, 100);
+            }
         } else if (e.key === 'g') {
             e.preventDefault();
             clearCardSelection();
             clearVerseSelection();
+            clearCachedSelection();
             navMode = 'cards';
             bookSelect.value = 'Genesis';
             populateChapters('Genesis');
@@ -1259,7 +1346,7 @@
             renderChapter('Genesis', '1');
         } else if (e.key === '?') {
             e.preventDefault();
-            alert('Keyboard shortcuts:\n\nNavigation:\n  j/↓ - Move down\n  k/↑ - Move up\n  l/→ - Move right / Next chapter\n  h/← - Move left / Previous chapter / Back\n  Enter - Open selected / Drilldown to verse\n  Esc - Clear selection / Stop speech\n\nVerses:\n  v - Switch to verse navigation\n  Space - Speak selected verse\n  s - Stop speech\n  Enter - Open verse commentary\n\nOther:\n  g - Go to Genesis 1\n  ? - Show help');
+            alert('Keyboard shortcuts:\n\nNavigation:\n  j/↓ - Move down\n  k/↑ - Move up\n  l/→ - Move right / Next chapter\n  h/← - Move left / Previous chapter / Back\n  Enter - Open selected / Drilldown\n  Esc - Clear selection / Stop speech\n\nModes:\n  v - Switch to verse navigation\n  c - Switch to cached pages navigation\n\nVerses:\n  Space - Speak selected verse\n  s - Stop speech\n\nOther:\n  g - Go to Genesis 1\n  ? - Show help');
         }
     });
 
