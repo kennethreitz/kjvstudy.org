@@ -368,9 +368,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Navigate within TOC items
                     selectTocItem(selectedTocIndex + 1);
                 }
+            } else if (selectedIndex < 0) {
+                // Nothing selected yet, start with TOC block
+                selectTocBlock();
             } else {
                 // Navigate content elements
-                selectContentElement(selectedIndex < 0 ? 0 : selectedIndex + 1);
+                selectContentElement(selectedIndex + 1);
             }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
