@@ -841,7 +841,7 @@
         </button>
 
         <div class="tree-hint">
-            Click <b>i</b> for info • Click <b>+</b> to expand • Double-click to focus • Scroll to zoom • Drag to pan
+            <b>+/-</b> zoom • <b>f</b> fit • <b>0</b> reset • <b>i</b> info panel • <b>h/←</b> back • Double-click to focus • Drag to pan
         </div>
     </div>
 
@@ -2427,6 +2427,62 @@ searchDropdown.addEventListener('mousedown', function(event) {
 document.addEventListener('click', function(event) {
     if (!searchDropdown.contains(event.target) && event.target !== searchInput) {
         hideSearchDropdown();
+    }
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    // Don't trigger if user is typing in an input field
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    switch(e.key) {
+        case 'ArrowLeft':
+        case 'h':
+            e.preventDefault();
+            if (navigationHistory.length > 0) {
+                navigateBack();
+            } else {
+                history.back();
+            }
+            break;
+        case '+':
+        case '=':
+            e.preventDefault();
+            if (window.treeSvg && window.treeZoom) {
+                window.treeSvg.transition().duration(200).call(window.treeZoom.scaleBy, 1.4);
+            }
+            break;
+        case '-':
+        case '_':
+            e.preventDefault();
+            if (window.treeSvg && window.treeZoom) {
+                window.treeSvg.transition().duration(200).call(window.treeZoom.scaleBy, 0.7);
+            }
+            break;
+        case '0':
+            e.preventDefault();
+            if (window.treeSvg && window.treeZoom) {
+                window.treeSvg.transition().duration(300).call(window.treeZoom.transform, d3.zoomIdentity);
+            }
+            break;
+        case 'f':
+            e.preventDefault();
+            fitToView();
+            break;
+        case 'i':
+            e.preventDefault();
+            // Toggle sidebar
+            sidebarPinned = !sidebarPinned;
+            localStorage.setItem('familyTreeSidebarPinned', sidebarPinned);
+            updateSidebarState();
+            break;
+        case 'Escape':
+            e.preventDefault();
+            // Close sidebar
+            sidebarPinned = false;
+            localStorage.setItem('familyTreeSidebarPinned', 'false');
+            updateSidebarState();
+            break;
     }
 });
 
