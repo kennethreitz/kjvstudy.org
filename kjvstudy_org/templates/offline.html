@@ -475,15 +475,19 @@
                             totalCached += keys.filter(req => !new URL(req.url).pathname.startsWith('/static/')).length;
                         }
 
-                        if (totalCached > 1000) {
+                        // Total pages in sitemap: ~48,000 (17k main + 31k verses)
+                        const TOTAL_SITE_PAGES = 48000;
+                        const percentCached = Math.round((totalCached / TOTAL_SITE_PAGES) * 100);
+
+                        if (totalCached > 45000) {
                             updateStatusCard('ok', '✅', 'Ready for offline use',
-                                totalCached.toLocaleString() + ' pages cached. You can browse the entire site without internet.');
+                                totalCached.toLocaleString() + ' pages cached (' + percentCached + '%). The entire site is available offline.');
                         } else if (totalCached > 0) {
-                            updateStatusCard('warning', '⚠️', 'Partially cached',
-                                totalCached.toLocaleString() + ' pages cached. Click "Download for Offline Use" below to cache the entire site.');
+                            updateStatusCard('warning', '⚠️', 'Partially cached (' + percentCached + '%)',
+                                totalCached.toLocaleString() + ' of ~' + TOTAL_SITE_PAGES.toLocaleString() + ' pages cached. Click "Download for Offline Use" to finish downloading.');
                         } else {
                             updateStatusCard('warning', '📥', 'Service worker ready',
-                                'Click "Download for Offline Use" below to cache the entire site for offline access.');
+                                'Click "Download for Offline Use" below to cache all ~' + TOTAL_SITE_PAGES.toLocaleString() + ' pages for offline access.');
                         }
                     } else if (registration) {
                         swStatus.innerHTML = '<span class="status-ok">✓ Registered (Installing)</span>';
