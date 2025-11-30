@@ -350,8 +350,8 @@ hr.story-divider::before {
 
 <script>
 (function() {
-    // Collect paragraphs and kids callout for up/down navigation
-    var elements = Array.from(document.querySelectorAll('article section p, .kids-callout'));
+    // Collect paragraphs, kids callout, and PDF button for up/down navigation
+    var elements = Array.from(document.querySelectorAll('article section p, .kids-callout, .print-btn'));
     var selectedIndex = -1;
 
     function selectElement(index) {
@@ -388,8 +388,14 @@ hr.story-divider::before {
             if (nextLink) window.location.href = nextLink.href;
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
-            var link = elements[selectedIndex].querySelector('a');
-            if (link) window.location.href = link.href;
+            var el = elements[selectedIndex];
+            // Check if the element itself is a link (like PDF button)
+            if (el.tagName === 'A' && el.href) {
+                window.location.href = el.href;
+            } else {
+                var link = el.querySelector('a');
+                if (link) window.location.href = link.href;
+            }
         } else if (e.key === 'Escape') {
             e.preventDefault();
             if (selectedIndex >= 0 && selectedIndex < elements.length) {
