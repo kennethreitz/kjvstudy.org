@@ -10,6 +10,7 @@ from fastapi.responses import Response, FileResponse
 from ..kjv import bible
 from ..topics import get_all_topics
 from ..strongs import get_all_strongs
+from ..stories import get_all_stories
 
 router = APIRouter(tags=["Utility"])
 
@@ -278,7 +279,23 @@ def sitemap_main():
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
-    <url>
+"""
+
+    # Add all individual story URLs
+    stories_data = get_all_stories()
+    for category in stories_data:
+        for story in category.get("stories", []):
+            slug = story.get("slug", "")
+            if slug:
+                sitemap_xml += f"""    <url>
+        <loc>{base_url}/stories/{slug}</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+"""
+
+    sitemap_xml += f"""    <url>
         <loc>{base_url}/anthropology</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
@@ -613,6 +630,14 @@ def sitemap_main():
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
+    </url>
+"""
+            # Add interlinear URL for each chapter
+            sitemap_xml += f"""    <url>
+        <loc>{base_url}/book/{book}/chapter/{chapter}/interlinear</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
     </url>
 """
             # Note: Individual verse URLs (31,102 total) are in sitemap-verses.xml
