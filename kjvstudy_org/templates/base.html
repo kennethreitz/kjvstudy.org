@@ -1845,11 +1845,29 @@
               showKeyboardHelp();
               break;
             case ' ':
-              // Space: Read aloud selected text (green box selection or verse text)
-              var selectedText = KJVSpeech.getSelectedText();
-              if (selectedText) {
+              // Space: Read aloud selected text (with optional resource-reader handling)
+              if (document.body && document.body.dataset && document.body.dataset.resourceReader === 'true') {
                 e.preventDefault();
-                KJVSpeech.toggle(selectedText);
+                var highlighted = document.querySelector('[style*="outline: 2px solid"]') || document.querySelector('[style*="outline:2px solid"]');
+                var candidates = Array.from(document.querySelectorAll('article p, section p, li, blockquote')).filter(function(el) {
+                  return (el.textContent || '').trim().length > 10;
+                });
+                var target = highlighted || (candidates.length ? candidates[0] : null);
+                if (target) {
+                  // Clone and strip sidenotes/marginnotes if present
+                  var clone = target.cloneNode(true);
+                  clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
+                  var text = (clone.textContent || clone.innerText || '').trim();
+                  if (text && window.KJVSpeech && typeof window.KJVSpeech.toggle === 'function') {
+                    KJVSpeech.toggle(text);
+                  }
+                }
+              } else {
+                var selectedText = KJVSpeech.getSelectedText();
+                if (selectedText) {
+                  e.preventDefault();
+                  KJVSpeech.toggle(selectedText);
+                }
               }
               break;
           }

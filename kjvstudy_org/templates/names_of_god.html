@@ -368,6 +368,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
     }
 
+    function getTextContent(el) {
+        if (!el) return '';
+        const clone = el.cloneNode(true);
+        clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(x => x.remove());
+        return (clone.textContent || clone.innerText || '').trim();
+    }
+
+    function readElement(el) {
+        if (!el || !('speechSynthesis' in window)) return;
+        if (window.KJVSpeech && typeof window.KJVSpeech.stop === 'function') {
+            window.KJVSpeech.stop();
+        }
+        const text = getTextContent(el);
+        if (!text) return;
+        const utter = new SpeechSynthesisUtterance(text);
+        const voices = speechSynthesis.getVoices();
+        const englishVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en') && v.name.includes('Daniel')) ||
+                             voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en-gb')) ||
+                             voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+        if (englishVoice) utter.voice = englishVoice;
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utter);
+    }
+
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
@@ -491,8 +515,24 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (e.key === 't') {
             e.preventDefault();
             selectTocBlock();
+        } else if (e.key === ' ') {
+            e.preventDefault();
+            if (selectedIndex >= 0) {
+                readElement(contentElements[selectedIndex]);
+            } else {
+                // if nothing selected, read first visible content
+                const visibleIdx = KJVNav.findFirstVisibleIndex(contentElements);
+                if (visibleIdx >= 0) {
+                    selectElement(visibleIdx);
+                    readElement(contentElements[visibleIdx]);
+                }
+            }
         }
     });
 });
 </script>
 {% endblock %}
+
+<script>
+document.body.dataset.resourceReader = 'true';
+</script>
