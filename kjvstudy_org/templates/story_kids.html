@@ -382,6 +382,7 @@ hr.story-divider::before {
         if (selectedIndex >= 0 && selectedIndex < elements.length) {
             elements[selectedIndex].style.outline = '';
             elements[selectedIndex].style.outlineOffset = '';
+            elements[selectedIndex].classList.remove('selected');
         }
 
         selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
@@ -389,6 +390,7 @@ hr.story-divider::before {
         // Add selection to new element
         elements[selectedIndex].style.outline = '2px solid #8b5cf6';
         elements[selectedIndex].style.outlineOffset = '8px';
+        elements[selectedIndex].classList.add('selected');
         elements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -434,6 +436,7 @@ hr.story-divider::before {
             if (selectedIndex >= 0 && selectedIndex < elements.length) {
                 elements[selectedIndex].style.outline = '';
                 elements[selectedIndex].style.outlineOffset = '';
+                elements[selectedIndex].classList.remove('selected');
             }
             selectedIndex = -1;
         }

@@ -1876,7 +1876,7 @@
                 var combined = '';
                 if (highlighted) {
                   var hclone = highlighted.cloneNode(true);
-                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
+                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, script, style').forEach(function(el) { el.remove(); });
                   combined = (hclone.textContent || hclone.innerText || '').trim();
                 } else {
                   var article = document.querySelector('article');
@@ -1885,11 +1885,11 @@
                     var selectedCard = article.querySelector('.resource-card[style*=\"outline\"]') || article.querySelector('.resource-card');
                     if (selectedCard) {
                       var cclone = selectedCard.cloneNode(true);
-                      cclone.querySelectorAll('script, style').forEach(function(el) { el.remove(); });
+                      cclone.querySelectorAll('.breadcrumb, script, style').forEach(function(el) { el.remove(); });
                       combined = (cclone.textContent || cclone.innerText || '').trim();
                     } else {
                       var aclone = article.cloneNode(true);
-                      aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
+                      aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, script, style').forEach(function(el) { el.remove(); });
                       combined = (aclone.textContent || aclone.innerText || '').trim();
                     }
                   }

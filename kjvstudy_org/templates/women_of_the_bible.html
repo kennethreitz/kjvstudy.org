@@ -233,7 +233,7 @@ document.body.dataset.resourceReader = 'true';
         <p class="woman-title">{{ woman.title }}</p>
 
         <div class="woman-description">
-            {{ woman.description | link_names | safe }}
+            <p>{{ woman.description | link_names | safe }}</p>
         </div>
 
         {% if woman.verses %}

@@ -233,7 +233,7 @@ document.body.dataset.resourceReader = 'true';
         <p class="prophet-title">{{ prophet.title }}</p>
 
         <div class="prophet-description">
-            {{ prophet.description | safe }}
+            <p>{{ prophet.description | safe }}</p>
         </div>
 
         {% if prophet.verses %}

@@ -232,10 +232,12 @@
         if (selectedIndex >= 0 && selectedIndex < elements.length) {
             elements[selectedIndex].style.outline = '';
             elements[selectedIndex].style.outlineOffset = '';
+            elements[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
         elements[selectedIndex].style.outline = '2px solid #4a7c59';
         elements[selectedIndex].style.outlineOffset = '8px';
+        elements[selectedIndex].classList.add('selected');
         elements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -275,6 +277,7 @@
             if (selectedIndex >= 0 && selectedIndex < elements.length) {
                 elements[selectedIndex].style.outline = '';
                 elements[selectedIndex].style.outlineOffset = '';
+                elements[selectedIndex].classList.remove('selected');
             }
             selectedIndex = -1;
         }

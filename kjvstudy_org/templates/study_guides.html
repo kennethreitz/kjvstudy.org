@@ -48,14 +48,20 @@
 
     let selectedIndex = -1;
 
-    function selectLink(index) {
+    function clearSelection() {
         if (selectedIndex >= 0 && selectedIndex < links.length) {
             links[selectedIndex].style.outline = '';
             links[selectedIndex].style.outlineOffset = '';
+            links[selectedIndex].classList.remove('selected');
         }
+    }
+
+    function selectLink(index) {
+        clearSelection();
         selectedIndex = Math.max(0, Math.min(index, links.length - 1));
         links[selectedIndex].style.outline = '2px solid #4a7c59';
         links[selectedIndex].style.outlineOffset = '2px';
+        links[selectedIndex].classList.add('selected');
         links[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -84,6 +90,10 @@
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
             window.location.href = links[selectedIndex].href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            clearSelection();
+            selectedIndex = -1;
         }
     });
 })();

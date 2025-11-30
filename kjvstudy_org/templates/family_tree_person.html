@@ -697,10 +697,12 @@
         sections.forEach(s => {
             s.style.outline = '';
             s.style.outlineOffset = '';
+            s.classList.remove('selected');
         });
         allItems.forEach(i => {
             i.style.outline = '';
             i.style.outlineOffset = '';
+            i.classList.remove('selected');
         });
     }
 
@@ -711,6 +713,7 @@
         selectedItemIndex = -1;
         sections[selectedSectionIndex].style.outline = '2px solid #4a7c59';
         sections[selectedSectionIndex].style.outlineOffset = '4px';
+        sections[selectedSectionIndex].classList.add('selected');
         sections[selectedSectionIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -720,6 +723,7 @@
         selectedItemIndex = Math.max(0, Math.min(index, allItems.length - 1));
         allItems[selectedItemIndex].style.outline = '2px solid #4a7c59';
         allItems[selectedItemIndex].style.outlineOffset = '4px';
+        allItems[selectedItemIndex].classList.add('selected');
         allItems[selectedItemIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 

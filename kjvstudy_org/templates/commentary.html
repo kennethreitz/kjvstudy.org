@@ -520,10 +520,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedIndex >= 0 && selectedIndex < verseCards.length) {
             verseCards[selectedIndex].style.outline = '';
             verseCards[selectedIndex].style.outlineOffset = '';
+            verseCards[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, verseCards.length - 1));
         verseCards[selectedIndex].style.outline = '2px solid #4a7c59';
         verseCards[selectedIndex].style.outlineOffset = '4px';
+        verseCards[selectedIndex].classList.add('selected');
         verseCards[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -553,6 +555,14 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const verseLink = verseCards[selectedIndex].querySelector('.verse-action[href*="/book/"]');
             if (verseLink) window.location.href = verseLink.href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < verseCards.length) {
+                verseCards[selectedIndex].style.outline = '';
+                verseCards[selectedIndex].style.outlineOffset = '';
+                verseCards[selectedIndex].classList.remove('selected');
+            }
+            selectedIndex = -1;
         }
     });
 });

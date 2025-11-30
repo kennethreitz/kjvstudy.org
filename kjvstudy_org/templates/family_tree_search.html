@@ -63,10 +63,12 @@
         if (selectedIndex >= 0 && selectedIndex < results.length) {
             results[selectedIndex].style.outline = '';
             results[selectedIndex].style.outlineOffset = '';
+            results[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, results.length - 1));
         results[selectedIndex].style.outline = '2px solid #4a7c59';
         results[selectedIndex].style.outlineOffset = '4px';
+        results[selectedIndex].classList.add('selected');
         results[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -96,6 +98,14 @@
             e.preventDefault();
             const link = results[selectedIndex].querySelector('a');
             if (link) window.location.href = link.href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < results.length) {
+                results[selectedIndex].style.outline = '';
+                results[selectedIndex].style.outlineOffset = '';
+                results[selectedIndex].classList.remove('selected');
+            }
+            selectedIndex = -1;
         }
     });
 })();

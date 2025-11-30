@@ -247,7 +247,7 @@ document.body.dataset.resourceReader = 'true';
         {% endif %}
 
         <div class="parable-description">
-            {{ parable.description | safe }}
+            <p>{{ parable.description | safe }}</p>
         </div>
 
         {% if parable.verses %}

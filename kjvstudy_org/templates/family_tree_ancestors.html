@@ -159,10 +159,12 @@
         if (selectedIndex >= 0 && selectedIndex < nodes.length) {
             nodes[selectedIndex].style.outline = '';
             nodes[selectedIndex].style.outlineOffset = '';
+            nodes[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, nodes.length - 1));
         nodes[selectedIndex].style.outline = '2px solid #4a7c59';
         nodes[selectedIndex].style.outlineOffset = '4px';
+        nodes[selectedIndex].classList.add('selected');
         nodes[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -192,6 +194,14 @@
             e.preventDefault();
             const link = nodes[selectedIndex].querySelector('.person-name a');
             if (link) window.location.href = link.href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < nodes.length) {
+                nodes[selectedIndex].style.outline = '';
+                nodes[selectedIndex].style.outlineOffset = '';
+                nodes[selectedIndex].classList.remove('selected');
+            }
+            selectedIndex = -1;
         }
     });
 })();

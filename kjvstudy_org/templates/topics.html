@@ -114,10 +114,12 @@
         if (selectedIndex >= 0 && selectedIndex < cards.length) {
             cards[selectedIndex].style.outline = '';
             cards[selectedIndex].style.outlineOffset = '';
+            cards[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, cards.length - 1));
         cards[selectedIndex].style.outline = '2px solid #4a7c59';
         cards[selectedIndex].style.outlineOffset = '2px';
+        cards[selectedIndex].classList.add('selected');
         cards[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -142,6 +144,14 @@
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
             window.location.href = cards[selectedIndex].href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < cards.length) {
+                cards[selectedIndex].style.outline = '';
+                cards[selectedIndex].style.outlineOffset = '';
+                cards[selectedIndex].classList.remove('selected');
+            }
+            selectedIndex = -1;
         }
     });
 })();

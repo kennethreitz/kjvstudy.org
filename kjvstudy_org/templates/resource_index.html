@@ -248,7 +248,7 @@ document.body.dataset.resourceReader = 'true';
         <p class="resource-item-title">{{ item.title }}</p>
 
         <div class="resource-item-description">
-            {{ item.description | mdi | link_names | link_verses | safe }}
+            <p>{{ item.description | mdi | link_names | link_verses | safe }}</p>
         </div>
 
         {% if item.verses %}

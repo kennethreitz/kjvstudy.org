@@ -510,11 +510,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedCardIndex >= 0 && selectedCardIndex < cards.length) {
             cards[selectedCardIndex].style.outline = '';
             cards[selectedCardIndex].style.outlineOffset = '';
+            cards[selectedCardIndex].classList.remove('selected');
         }
 
         selectedCardIndex = Math.max(0, Math.min(index, cards.length - 1));
         cards[selectedCardIndex].style.outline = '2px solid #8b5cf6';
         cards[selectedCardIndex].style.outlineOffset = '4px';
+        cards[selectedCardIndex].classList.add('selected');
         cards[selectedCardIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -548,6 +550,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (cards[selectedCardIndex]) {
                 window.location.href = cards[selectedCardIndex].href;
             }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            var cards = visibleStories();
+            if (selectedCardIndex >= 0 && selectedCardIndex < cards.length) {
+                cards[selectedCardIndex].style.outline = '';
+                cards[selectedCardIndex].style.outlineOffset = '';
+                cards[selectedCardIndex].classList.remove('selected');
+            }
+            selectedCardIndex = -1;
         }
     });
 });
