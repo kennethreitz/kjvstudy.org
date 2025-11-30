@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Two-section navigation: pre-TOC content -> TOC block -> post-TOC content
     // Or when inside TOC: individual TOC entries
     // Content elements include PDF button, intro text (before TOC), then section titles, description paragraphs, and verse items (after TOC)
-    const contentElements = Array.from(document.querySelectorAll('.resource-download-btn, .intro-text, .resource-name, .resource-item-description > p, .resource-item-description > ul, .resource-item-description > ol, .resource-item-description > blockquote, .verse-item'));
+    const contentElements = Array.from(document.querySelectorAll('.resource-download-btn, .intro-text, .resource-name, .resource-item-description > p, .resource-item-description > ul, .resource-item-description > ol, .resource-item-description > blockquote, .verse-item, .resource-card'));
     const tocItems = Array.from(tocList.querySelectorAll('li a'));
 
     // Find where post-TOC content starts (first .resource-name or content after TOC)
