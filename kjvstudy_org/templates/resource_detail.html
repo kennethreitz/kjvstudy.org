@@ -167,8 +167,8 @@
         {% endfor %}
     </div>
 </section>
-<nav aria-label="Resource navigation">
-    <p><a href="{{ back_url }}" aria-label="Back to {{ back_text }}">← Back to {{ back_text }}</a></p>
+<nav aria-label="Resource navigation" class="resource-nav">
+    <p><a href="{{ back_url }}" aria-label="Back to {{ back_text }}" class="resource-nav-link">← Back to {{ back_text }}</a></p>
 </nav>
 </article>
 
@@ -178,7 +178,7 @@ document.body.dataset.resourceReader = 'true';
 
 (function() {
     // Include description paragraphs, verse items, and PDF button
-    const elements = Array.from(document.querySelectorAll('.resource-description p, .verse-item, .print-btn'));
+    const elements = Array.from(document.querySelectorAll('.resource-description p, .verse-item, .print-btn, .resource-nav-link'));
     if (elements.length === 0) return;
 
     let selectedIndex = -1;
