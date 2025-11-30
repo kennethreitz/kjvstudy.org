@@ -161,11 +161,92 @@
             font-weight: bold;
             color: var(--success-color);
         }
+        .cache-controls {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid #bae6fd;
+        }
+        [data-theme="dark"] .cache-controls {
+            background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+            border-color: #334155;
+        }
+        .cache-controls h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-color);
+        }
+        .cache-controls p {
+            margin: 0 0 1rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .cache-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            background: var(--success-color);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cache-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+        .cache-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .cache-progress {
+            margin-top: 1rem;
+            display: none;
+        }
+        .cache-progress.active {
+            display: block;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .cache-complete {
+            color: var(--success-color);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <h1>Offline Mode <span class="badge" id="connection-badge">checking...</span></h1>
     <p class="subtitle">KJV Study - Available without internet</p>
+
+    <div class="cache-controls">
+        <h3>Enable Offline Access</h3>
+        <p>Download the entire site for offline use: all 1,189 Bible chapters, 186 stories (including kids mode), study guides, and resources. Total: ~1,500 pages.</p>
+        <button class="cache-btn" id="start-cache-btn">Download for Offline Use</button>
+        <div class="cache-progress" id="cache-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">Preparing...</div>
+        </div>
+    </div>
 
     <h2>Service Worker Status</h2>
     <div class="debug-section">
@@ -383,6 +464,52 @@
         checkServiceWorker();
         checkCaches();
         checkBibleData();
+
+        // Cache controls
+        const startCacheBtn = document.getElementById('start-cache-btn');
+        const cacheProgress = document.getElementById('cache-progress');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+
+        startCacheBtn.addEventListener('click', async function() {
+            if (!('serviceWorker' in navigator)) {
+                alert('Service workers are not supported in this browser.');
+                return;
+            }
+
+            const registration = await navigator.serviceWorker.getRegistration();
+            if (!registration || !registration.active) {
+                alert('Service worker is not active. Please refresh the page and try again.');
+                return;
+            }
+
+            // Disable button and show progress
+            startCacheBtn.disabled = true;
+            startCacheBtn.textContent = 'Downloading...';
+            cacheProgress.classList.add('active');
+            progressText.textContent = 'Starting download...';
+
+            // Send message to service worker to start caching
+            registration.active.postMessage({ type: 'START_CACHING' });
+        });
+
+        // Listen for progress messages from service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', function(event) {
+                const data = event.data;
+                if (data.type === 'CACHE_PROGRESS') {
+                    const pct = Math.round((data.cached / data.total) * 100);
+                    progressFill.style.width = pct + '%';
+                    progressText.textContent = 'Downloading: ' + data.cached + ' / ' + data.total + ' pages (' + pct + '%)';
+                } else if (data.type === 'CACHE_COMPLETE') {
+                    progressFill.style.width = '100%';
+                    progressText.innerHTML = '<span class="cache-complete">✓ Download complete! ' + data.total + ' pages available offline.</span>';
+                    startCacheBtn.textContent = 'Downloaded!';
+                    // Refresh the cache list
+                    setTimeout(checkCaches, 500);
+                }
+            });
+        }
 
         // Bible Reader functionality
         let bibleData = null;

@@ -1,5 +1,5 @@
 // KJV Study Service Worker - Offline Bible Access
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const STATIC_CACHE = 'kjvstudy-static-' + CACHE_VERSION;
 const BIBLE_CACHE = 'kjvstudy-bible-' + CACHE_VERSION;
 const PAGE_CACHE = 'kjvstudy-pages-' + CACHE_VERSION;
@@ -9,8 +9,6 @@ const STATIC_ASSETS = [
   '/',
   '/offline',
   '/static/tufte.css',
-  '/static/style.css',
-  '/static/app.js',
   '/static/manifest.json',
   '/static/verses-1769.json',
   '/books'
@@ -1209,6 +1207,196 @@ const CHAPTER_PAGES = [
   "/book/Revelation/chapter/22",
 ];
 
+// All Bible story pages (186 stories - includes kids mode)
+const STORY_PAGES = [
+  "/stories/god-creates-the-world",
+  "/stories/adam-and-eve-in-the-garden",
+  "/stories/the-fall-of-man",
+  "/stories/cain-and-abel",
+  "/stories/noah-and-the-ark",
+  "/stories/the-tower-of-babel",
+  "/stories/the-call-of-abraham",
+  "/stories/abraham-and-lot-separate",
+  "/stories/the-birth-of-isaac",
+  "/stories/abraham-offers-isaac",
+  "/stories/jacob-and-esau",
+  "/stories/jacobs-ladder",
+  "/stories/jacob-wrestles-with-god",
+  "/stories/josephs-coat-and-dreams",
+  "/stories/joseph-sold-into-slavery",
+  "/stories/joseph-reveals-himself",
+  "/stories/jobs-righteousness-and-prosperity",
+  "/stories/satans-challenge-and-jobs-first-test",
+  "/stories/jobs-physical-affliction",
+  "/stories/job-cries-out-and-friends-accuse",
+  "/stories/elihu-speaks-words-of-wisdom",
+  "/stories/god-speaks-from-the-whirlwind",
+  "/stories/jobs-restoration-and-blessing",
+  "/stories/baby-moses-in-the-basket",
+  "/stories/the-burning-bush",
+  "/stories/the-ten-plagues",
+  "/stories/the-passover",
+  "/stories/crossing-the-red-sea",
+  "/stories/the-ten-commandments",
+  "/stories/the-golden-calf",
+  "/stories/rahab-and-the-spies",
+  "/stories/the-walls-of-jericho",
+  "/stories/gideon-and-the-fleece",
+  "/stories/gideons-three-hundred",
+  "/stories/samson-the-strong-man",
+  "/stories/samson-and-delilah",
+  "/stories/samsons-final-victory",
+  "/stories/ruth-and-naomi",
+  "/stories/ruth-and-boaz",
+  "/stories/samsons-birth-announced",
+  "/stories/samsons-riddle-and-wedding",
+  "/stories/samsons-exploits",
+  "/stories/samson-and-delilah",
+  "/stories/samsons-final-victory",
+  "/stories/naomis-loss-and-return",
+  "/stories/ruth-meets-boaz",
+  "/stories/ruth-at-the-threshing-floor",
+  "/stories/boaz-redeems-ruth",
+  "/stories/hannahs-prayer-for-a-son",
+  "/stories/the-boy-samuel-hears-god",
+  "/stories/the-ark-is-captured",
+  "/stories/israel-demands-a-king",
+  "/stories/samuel-anoints-saul",
+  "/stories/sauls-disobedience",
+  "/stories/samuel-anoints-david",
+  "/stories/samuels-death",
+  "/stories/hannahs-prayer",
+  "/stories/god-calls-samuel",
+  "/stories/david-and-goliath",
+  "/stories/david-and-jonathan",
+  "/stories/solomons-wisdom",
+  "/stories/elijah-and-the-prophets-of-baal",
+  "/stories/elijah-and-the-still-small-voice",
+  "/stories/elijah-and-the-ravens",
+  "/stories/elijah-and-the-widows-oil",
+  "/stories/fire-from-heaven",
+  "/stories/elijah-taken-to-heaven",
+  "/stories/elisha-and-the-widows-oil",
+  "/stories/naaman-is-healed",
+  "/stories/jonah-and-the-great-fish",
+  "/stories/jonah-and-nineveh",
+  "/stories/the-fiery-furnace",
+  "/stories/daniel-in-the-lions-den",
+  "/stories/isaiahs-vision",
+  "/stories/ezekiel-valley-of-dry-bones",
+  "/stories/jonah-runs-from-god",
+  "/stories/jonah-prays-from-the-fish",
+  "/stories/nineveh-repents",
+  "/stories/jonahs-anger-and-gods-compassion",
+  "/stories/daniel-refuses-kings-food",
+  "/stories/nebuchadnezzars-dream",
+  "/stories/fiery-furnace",
+  "/stories/writing-on-the-wall",
+  "/stories/daniel-in-lions-den",
+  "/stories/daniels-visions",
+  "/stories/esther-becomes-queen",
+  "/stories/hamans-plot",
+  "/stories/for-such-a-time-as-this",
+  "/stories/esthers-brave-plan",
+  "/stories/the-jews-are-delivered",
+  "/stories/nehemiahs-burden",
+  "/stories/permission-to-rebuild",
+  "/stories/rebuilding-despite-opposition",
+  "/stories/justice-and-generosity",
+  "/stories/wall-completed",
+  "/stories/ezra-reads-the-law",
+  "/stories/renewal-and-covenant",
+  "/stories/angel-visits-mary",
+  "/stories/no-room-at-the-inn",
+  "/stories/shepherds-and-angels",
+  "/stories/the-wise-men",
+  "/stories/escape-to-egypt",
+  "/stories/jesus-baptized",
+  "/stories/jesus-tempted",
+  "/stories/water-into-wine",
+  "/stories/heals-paralyzed-man",
+  "/stories/calms-the-storm",
+  "/stories/feeds-five-thousand",
+  "/stories/walks-on-water",
+  "/stories/heals-blind-man",
+  "/stories/raises-lazarus",
+  "/stories/heals-ten-lepers",
+  "/stories/jesus-and-children",
+  "/stories/heals-on-sabbath",
+  "/stories/forgives-sinful-woman",
+  "/stories/heals-jairus-daughter",
+  "/stories/transfiguration",
+  "/stories/man-with-many-spirits",
+  "/stories/woman-at-the-well",
+  "/stories/jesus-and-zacchaeus",
+  "/stories/woman-touched-his-cloak",
+  "/stories/centurions-servant",
+  "/stories/mary-and-martha",
+  "/stories/raises-widows-son",
+  "/stories/jesus-calms-the-storm",
+  "/stories/jesus-feeds-five-thousand",
+  "/stories/jesus-walks-on-water",
+  "/stories/jesus-heals-the-blind-man",
+  "/stories/jesus-raises-lazarus",
+  "/stories/jesus-heals-ten-lepers",
+  "/stories/jesus-heals-the-paralyzed-man",
+  "/stories/the-good-samaritan",
+  "/stories/the-prodigal-son",
+  "/stories/the-lost-sheep",
+  "/stories/the-sower",
+  "/stories/the-talents",
+  "/stories/the-pharisee-and-tax-collector",
+  "/stories/the-rich-fool",
+  "/stories/the-unmerciful-servant",
+  "/stories/the-lost-coin",
+  "/stories/the-ten-virgins",
+  "/stories/the-mustard-seed",
+  "/stories/the-wheat-and-weeds",
+  "/stories/hidden-treasure-and-pearl",
+  "/stories/rich-man-and-lazarus",
+  "/stories/wise-and-foolish-builders",
+  "/stories/workers-in-the-vineyard",
+  "/stories/the-great-banquet",
+  "/stories/the-persistent-widow",
+  "/stories/the-sheep-and-goats",
+  "/stories/triumphal-entry",
+  "/stories/the-last-supper",
+  "/stories/garden-of-gethsemane",
+  "/stories/peter-denies-jesus",
+  "/stories/the-crucifixion",
+  "/stories/the-resurrection",
+  "/stories/jesus-appears-to-thomas",
+  "/stories/road-to-emmaus",
+  "/stories/jesus-restores-peter",
+  "/stories/great-commission",
+  "/stories/the-ascension",
+  "/stories/day-of-pentecost",
+  "/stories/peter-john-heal-lame-man",
+  "/stories/conversion-of-saul",
+  "/stories/peters-vision",
+  "/stories/paul-silas-in-prison",
+  "/stories/pauls-shipwreck",
+  "/stories/from-persecutor-to-preacher",
+  "/stories/first-missionary-journey",
+  "/stories/prison-songs-at-midnight",
+  "/stories/teaching-in-athens",
+  "/stories/shipwreck-and-malta",
+  "/stories/johns-vision-of-christ",
+  "/stories/letters-to-seven-churches",
+  "/stories/throne-room-of-heaven",
+  "/stories/seven-seals",
+  "/stories/two-witnesses",
+  "/stories/woman-and-dragon",
+  "/stories/beast-and-mark",
+  "/stories/fall-of-babylon",
+  "/stories/return-of-christ",
+  "/stories/new-heaven-new-earth",
+  "/stories/jobs-faith-through-suffering",
+  "/stories/ruths-loyalty-and-love",
+  "/stories/esther-saves-her-people",
+  "/stories/shadrach-meshach-and-abednego",
+];
+
 // Resource and reference pages
 const RESOURCE_PAGES = [
   "/anthropology",
@@ -1250,6 +1438,7 @@ const RESOURCE_PAGES = [
   "/soteriology",
   "/spirits-and-demons",
   "/stories",
+  "/stories/kids",
   "/strongs",
   "/strongs/greek",
   "/strongs/hebrew",
@@ -1337,9 +1526,9 @@ const BOOK_PAGES = [
 ];
 
 // Combine all pages for background caching
-const PAGES_TO_CACHE = [...CHAPTER_PAGES, ...RESOURCE_PAGES, ...BOOK_PAGES];
+const PAGES_TO_CACHE = [...CHAPTER_PAGES, ...STORY_PAGES, ...RESOURCE_PAGES, ...BOOK_PAGES];
 
-// Install event - cache static assets
+// Install event - cache static assets only (NOT pages)
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing service worker...');
   event.waitUntil(
@@ -1358,7 +1547,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate event - clean up old caches and start background caching
+// Activate event - clean up old caches (NO automatic page caching)
 self.addEventListener('activate', (event) => {
   console.log('[SW] Activating service worker...');
   event.waitUntil(
@@ -1381,20 +1570,18 @@ self.addEventListener('activate', (event) => {
         console.log('[SW] Service worker activated');
         return self.clients.claim();
       })
-      .then(() => {
-        // Start background pre-caching after activation
-        startBackgroundCaching();
-      })
   );
 });
 
-// Background pre-caching - cache all pages gradually
+// Background pre-caching - only triggered when user requests it
 let cachingInProgress = false;
 let cachedCount = 0;
+let totalToCache = 0;
 
 async function startBackgroundCaching() {
   if (cachingInProgress) return;
   cachingInProgress = true;
+  cachedCount = 0;
 
   console.log('[SW] Starting background pre-cache of', PAGES_TO_CACHE.length, 'pages...');
 
@@ -1409,7 +1596,14 @@ async function startBackgroundCaching() {
     }
   }
 
-  console.log('[SW] Need to cache', uncachedPages.length, 'pages');
+  totalToCache = uncachedPages.length;
+  console.log('[SW] Need to cache', totalToCache, 'pages');
+
+  if (totalToCache === 0) {
+    notifyClients({ type: 'CACHE_COMPLETE', total: PAGES_TO_CACHE.length });
+    cachingInProgress = false;
+    return;
+  }
 
   // Cache pages in batches with delay to avoid overwhelming the server
   const BATCH_SIZE = 10;
@@ -1426,11 +1620,11 @@ async function startBackgroundCaching() {
             await cache.put(url, response);
             cachedCount++;
             // Notify clients of progress every 10 pages
-            if (cachedCount % 10 === 0) {
+            if (cachedCount % 10 === 0 || cachedCount === totalToCache) {
               notifyClients({
                 type: 'CACHE_PROGRESS',
                 cached: cachedCount,
-                total: uncachedPages.length
+                total: totalToCache
               });
             }
           }
@@ -1580,6 +1774,12 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+  }
+
+  // START_CACHING - triggered from /offline page
+  if (event.data && event.data.type === 'START_CACHING') {
+    console.log('[SW] Received START_CACHING request');
+    startBackgroundCaching();
   }
 
   // Pre-cache specific book/chapter on demand
