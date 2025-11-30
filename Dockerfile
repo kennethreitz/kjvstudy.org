@@ -21,9 +21,10 @@ FROM python:3.13-slim
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-# Install nginx and WeasyPrint system dependencies
+# Install nginx, curl (for healthcheck), and WeasyPrint system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx \
+    curl \
     libpango-1.0-0 \
     libharfbuzz0b \
     libpangoft2-1.0-0 \
