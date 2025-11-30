@@ -1881,13 +1881,13 @@
                   window.KJVResourceSpeech.suppressSpace = true;
                   return;
                 }
-                var highlighted = document.querySelector('[style*=\"outline: 2px solid\"]:not(.toc)') ||
-                                  document.querySelector('[style*=\"outline:2px solid\"]:not(.toc)') ||
-                                  document.querySelector('.selected:not(.toc)');
+                var highlighted = document.querySelector('[style*=\"outline: 2px solid\"]:not(.toc):not(.breadcrumb):not(.chapters-section)') ||
+                                  document.querySelector('[style*=\"outline:2px solid\"]:not(.toc):not(.breadcrumb):not(.chapters-section)') ||
+                                  document.querySelector('.selected:not(.toc):not(.breadcrumb):not(.chapters-section)');
                 var combined = '';
                 if (highlighted) {
                   var hclone = highlighted.cloneNode(true);
-                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, script, style').forEach(function(el) { el.remove(); });
+                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, .chapters-section, script, style').forEach(function(el) { el.remove(); });
                   combined = (hclone.textContent || hclone.innerText || '').trim();
                 } else {
                   var article = document.querySelector('article');
@@ -1896,12 +1896,29 @@
                     var selectedCard = article.querySelector('.resource-card[style*=\"outline\"]') || article.querySelector('.resource-card');
                     if (selectedCard) {
                       var cclone = selectedCard.cloneNode(true);
-                      cclone.querySelectorAll('.breadcrumb, .toc, script, style').forEach(function(el) { el.remove(); });
+                      cclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, .chapters-section, script, style').forEach(function(el) { el.remove(); });
                       combined = (cclone.textContent || cclone.innerText || '').trim();
                     } else {
-                      var aclone = article.cloneNode(true);
-                      aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, script, style').forEach(function(el) { el.remove(); });
-                      combined = (aclone.textContent || aclone.innerText || '').trim();
+                      // Prefer reading substantive text blocks instead of the whole article
+                      var textBlocks = Array.from(article.querySelectorAll('h1, h2, h3, p, li, blockquote, .intro-text, .verse-text, .resource-description, .resource-description-body, .resource-item-description, .parable-description, .angel-description, .covenant-description, .festival-description, .prophet-description, .fruit-description, .name-description, .woman-description, .apostle-description'))
+                        .filter(function(el) {
+                          if (el.closest('.toc') || el.closest('.chapters-section') || el.closest('.breadcrumb')) return false;
+                          var txt = (el.textContent || el.innerText || '').trim();
+                          return txt.length > 120;
+                        })
+                        .map(function(el) {
+                          var clone = el.cloneNode(true);
+                          clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, .chapters-section, script, style').forEach(function(x) { x.remove(); });
+                          return (clone.textContent || clone.innerText || '').trim();
+                        })
+                        .filter(Boolean);
+                      if (textBlocks.length > 0) {
+                        combined = textBlocks.join('\\n\\n');
+                      } else {
+                        var aclone = article.cloneNode(true);
+                        aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .breadcrumb, .toc, .chapters-section, script, style').forEach(function(el) { el.remove(); });
+                        combined = (aclone.textContent || aclone.innerText || '').trim();
+                      }
                     }
                   }
                 }

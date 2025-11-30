@@ -337,10 +337,6 @@
 {% endblock %}
 
 {% block content %}
-<script>
-// Use homepage-specific reader; disable global resource reader
-document.body.dataset.resourceReader = 'false';
-</script>
 <div class="title-page">
     <h1>The Holy Bible</h1>
     <p class="subtitle">Authorized King James Version · <em>Anno Domini</em> 1611</p>
@@ -627,6 +623,7 @@ function selectCard(index) {
 }
 
 document.addEventListener('keydown', function(e) {
+    if (e.defaultPrevented) return;
     var el = document.activeElement;
     var isTyping = el.tagName === 'INPUT' || el.tagName === 'TEXTAREA';
 
@@ -672,39 +669,6 @@ document.addEventListener('keydown', function(e) {
         } else {
             window.location.href = '/books';
         }
-    }
-
-    // Space: read selected element or first intro paragraph
-    if (e.key === ' ' && !isTyping && el.tagName !== 'A' && el.tagName !== 'BUTTON') {
-        e.preventDefault();
-        if (!('speechSynthesis' in window)) return;
-
-        // Toggle off if currently speaking
-        if (speechSynthesis.speaking || speechSynthesis.pending || speechSynthesis.paused) {
-            speechSynthesis.cancel();
-            return;
-        }
-
-        var target = selectedCardIndex >= 0 && selectedCardIndex < allCards.length
-            ? allCards[selectedCardIndex]
-            : (introParagraphs.length ? introParagraphs[0] : null);
-
-        if (!target) return;
-
-        var clone = target.cloneNode(true);
-        clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, script, style').forEach(function(el) { el.remove(); });
-        var text = (clone.textContent || clone.innerText || '').trim();
-        if (!text) return;
-
-        var utter = new SpeechSynthesisUtterance(text);
-        var voices = speechSynthesis.getVoices();
-        var englishVoice = voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en') && v.name.includes('Daniel'); }) ||
-                           voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en-gb'); }) ||
-                           voices.find(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en'); });
-        if (englishVoice) utter.voice = englishVoice;
-
-        speechSynthesis.cancel();
-        speechSynthesis.speak(utter);
     }
 });
 </script>
