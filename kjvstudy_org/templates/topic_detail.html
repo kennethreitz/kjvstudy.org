@@ -233,6 +233,13 @@
             e.preventDefault();
             const firstLink = sections[selectedIndex].querySelector('.verse-ref a');
             if (firstLink) window.location.href = firstLink.href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < sections.length) {
+                sections[selectedIndex].style.outline = '';
+                sections[selectedIndex].style.outlineOffset = '';
+            }
+            selectedIndex = -1;
         }
     });
 })();

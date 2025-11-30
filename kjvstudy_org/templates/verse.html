@@ -812,63 +812,167 @@
     {% endif %}
 {% endif %}
 
-<!-- Keyboard Navigation for Sections -->
+<!-- Keyboard Navigation - Paragraph-based with drill-down -->
 <script>
 (function() {
-    // Collect all major sections on the page
-    var sections = Array.from(document.querySelectorAll('section, .cross-references-section, div > h2')).map(function(el) {
-        // If it's an h2, get its parent div
-        if (el.tagName === 'H2') return el.parentElement;
-        return el;
-    }).filter(function(el, index, self) {
-        // Remove duplicates and null
-        return el && self.indexOf(el) === index;
+    // Collect all readable elements: paragraphs, list items, cross-ref items
+    var elements = Array.from(document.querySelectorAll(
+        'section > p, ' +
+        '.cross-references-section li, ' +
+        'div > p, ' +
+        '.interlinear-container'
+    )).filter(function(el) {
+        // Filter out empty or very short elements
+        return el.textContent.trim().length > 10 || el.classList.contains('interlinear-container');
     });
 
     var selectedIndex = -1;
+    var inWordMode = false;
+    var selectedWordIndex = -1;
 
-    function selectSection(index) {
-        // Remove previous selection
-        if (selectedIndex >= 0 && selectedIndex < sections.length) {
-            sections[selectedIndex].style.outline = '';
-            sections[selectedIndex].style.outlineOffset = '';
+    function getWords() {
+        var container = document.querySelector('.interlinear-container');
+        if (!container) return [];
+        return Array.from(container.querySelectorAll('.word-unit'));
+    }
+
+    function clearWordSelection() {
+        document.querySelectorAll('.word-unit.keyboard-selected').forEach(function(word) {
+            word.classList.remove('keyboard-selected');
+            word.style.outline = '';
+            word.style.outlineOffset = '';
+        });
+        document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
+            word.classList.remove('expanded');
+        });
+        selectedWordIndex = -1;
+        inWordMode = false;
+    }
+
+    function clearSelection() {
+        if (selectedIndex >= 0 && selectedIndex < elements.length) {
+            elements[selectedIndex].style.outline = '';
+            elements[selectedIndex].style.outlineOffset = '';
         }
+        clearWordSelection();
+    }
 
-        selectedIndex = Math.max(0, Math.min(index, sections.length - 1));
+    function selectElement(index) {
+        clearSelection();
+        selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
+        elements[selectedIndex].style.outline = '2px solid #4a7c59';
+        elements[selectedIndex].style.outlineOffset = '4px';
+        elements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 
-        // Add selection to new section
-        sections[selectedIndex].style.outline = '2px solid #4a7c59';
-        sections[selectedIndex].style.outlineOffset = '8px';
-        sections[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function selectWord(index) {
+        var words = getWords();
+        if (words.length === 0) return;
+
+        // Clear previous word selection
+        document.querySelectorAll('.word-unit.keyboard-selected').forEach(function(word) {
+            word.classList.remove('keyboard-selected');
+            word.style.outline = '';
+            word.style.outlineOffset = '';
+        });
+
+        selectedWordIndex = Math.max(0, Math.min(index, words.length - 1));
+        var word = words[selectedWordIndex];
+        word.classList.add('keyboard-selected');
+        word.style.outline = '2px solid #4a7c59';
+        word.style.outlineOffset = '2px';
+        word.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function isInterlinearSelected() {
+        return selectedIndex >= 0 && elements[selectedIndex] &&
+               elements[selectedIndex].classList.contains('interlinear-container');
     }
 
     document.addEventListener('keydown', function(e) {
-        // Don't trigger if user is typing
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             return;
         }
 
-        // Down arrow or j: Next section
+        // Escape: Exit word mode or clear selection
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            if (inWordMode) {
+                clearWordSelection();
+                // Re-highlight the interlinear container
+                if (isInterlinearSelected()) {
+                    elements[selectedIndex].style.outline = '2px solid #4a7c59';
+                    elements[selectedIndex].style.outlineOffset = '4px';
+                }
+            } else {
+                clearSelection();
+                selectedIndex = -1;
+            }
+            return;
+        }
+
+        // In word mode - navigate words
+        if (inWordMode) {
+            var words = getWords();
+            if (e.key === 'ArrowRight' || e.key === 'l') {
+                e.preventDefault();
+                selectWord(selectedWordIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+                e.preventDefault();
+                if (selectedWordIndex > 0) {
+                    selectWord(selectedWordIndex - 1);
+                } else {
+                    // Exit word mode
+                    clearWordSelection();
+                    if (isInterlinearSelected()) {
+                        elements[selectedIndex].style.outline = '2px solid #4a7c59';
+                        elements[selectedIndex].style.outlineOffset = '4px';
+                    }
+                }
+            } else if (e.key === 'ArrowDown' || e.key === 'j') {
+                e.preventDefault();
+                // Exit word mode and go to next element
+                clearWordSelection();
+                selectElement(selectedIndex + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'k') {
+                e.preventDefault();
+                // Exit word mode and go to previous element
+                clearWordSelection();
+                if (selectedIndex > 0) selectElement(selectedIndex - 1);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                // Toggle word expansion
+                if (selectedWordIndex >= 0 && words[selectedWordIndex]) {
+                    words[selectedWordIndex].classList.toggle('expanded');
+                }
+            }
+            return;
+        }
+
+        // Normal navigation mode
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
-        }
-
-        // Up arrow or k: Previous section
-        else if (e.key === 'ArrowUp' || e.key === 'k') {
+            selectElement(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectSection(0);
-            else selectSection(selectedIndex - 1);
-        }
-
-        // Left arrow or h: Back to chapter view
-        else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            if (selectedIndex <= 0) selectElement(0);
+            else selectElement(selectedIndex - 1);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            // If on interlinear, enter word mode
+            if (isInterlinearSelected()) {
+                inWordMode = true;
+                elements[selectedIndex].style.outline = '';
+                selectWord(0);
+            } else if (selectedIndex >= 0) {
+                // If on a cross-reference, navigate to it
+                var link = elements[selectedIndex].querySelector('a');
+                if (link) window.location.href = link.href;
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             window.location.href = '/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}';
-        }
-
-        // Right arrow or l: Next verse
-        else if (e.key === 'ArrowRight' || e.key === 'l') {
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
             e.preventDefault();
             {% if verse_num < total_verses %}
             window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}';

@@ -151,6 +151,13 @@
             e.preventDefault();
             const link = verses[selectedIndex].querySelector('.verse-ref a');
             if (link) window.location.href = link.href;
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedIndex >= 0 && selectedIndex < verses.length) {
+                verses[selectedIndex].style.outline = '';
+                verses[selectedIndex].style.outlineOffset = '';
+            }
+            selectedIndex = -1;
         }
     });
 })();

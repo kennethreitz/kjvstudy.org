@@ -480,22 +480,34 @@ document.addEventListener('DOMContentLoaded', function() {
             if (link) window.location.href = link.href;
         }
 
-        // Left arrow: Previous chapter
-        if (e.key === 'ArrowLeft') {
+        // Left arrow or h: Previous chapter (when no verse selected, or at first verse)
+        if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
             const prevBtn = document.getElementById('prev-chapter');
             if (prevBtn) {
-                e.preventDefault();
                 window.location.href = prevBtn.href;
+            } else {
+                // Go back to book page
+                window.location.href = '/book/{{ book }}';
             }
         }
 
-        // Right arrow: Next chapter
-        if (e.key === 'ArrowRight') {
+        // Right arrow or l: Next chapter
+        if (e.key === 'ArrowRight' || e.key === 'l') {
             const nextBtn = document.getElementById('next-chapter');
             if (nextBtn) {
                 e.preventDefault();
                 window.location.href = nextBtn.href;
             }
+        }
+
+        // Escape: Clear selection
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            if (selectedVerseIndex >= 0 && selectedVerseIndex < verses.length) {
+                verses[selectedVerseIndex].classList.remove('selected');
+            }
+            selectedVerseIndex = -1;
         }
     });
 
