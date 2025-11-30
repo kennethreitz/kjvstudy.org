@@ -498,21 +498,37 @@
             navigator.serviceWorker.addEventListener('message', function(event) {
                 const data = event.data;
                 if (data.type === 'CACHE_STATUS') {
+                    cacheProgress.classList.add('active');
                     progressText.textContent = data.status;
                 } else if (data.type === 'CACHE_PROGRESS') {
+                    // Show progress bar if caching is in progress
+                    cacheProgress.classList.add('active');
+                    startCacheBtn.disabled = true;
+                    startCacheBtn.textContent = 'Downloading...';
+
                     const pct = Math.round((data.cached / data.total) * 100);
                     progressFill.style.width = pct + '%';
                     progressText.textContent = 'Downloading: ' + data.cached.toLocaleString() + ' / ' + data.total.toLocaleString() + ' pages (' + pct + '%)';
                 } else if (data.type === 'CACHE_COMPLETE') {
+                    cacheProgress.classList.add('active');
                     progressFill.style.width = '100%';
                     progressText.innerHTML = '<span class="cache-complete">✓ Download complete! ' + data.total.toLocaleString() + ' pages available offline.</span>';
                     startCacheBtn.textContent = 'Downloaded!';
+                    startCacheBtn.disabled = true;
                     // Refresh the cache list
                     setTimeout(checkCaches, 500);
                 } else if (data.type === 'CACHE_ERROR') {
+                    cacheProgress.classList.add('active');
                     progressText.innerHTML = '<span class="status-error">Error: ' + data.error + '</span>';
                     startCacheBtn.disabled = false;
                     startCacheBtn.textContent = 'Try Again';
+                }
+            });
+
+            // Check if caching is already in progress when page loads
+            navigator.serviceWorker.ready.then(function(registration) {
+                if (registration.active) {
+                    registration.active.postMessage({ type: 'GET_CACHE_STATUS' });
                 }
             });
         }

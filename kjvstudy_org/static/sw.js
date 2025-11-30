@@ -314,4 +314,21 @@ self.addEventListener('message', (event) => {
     console.log('[SW] Received START_CACHING request');
     startBackgroundCaching();
   }
+
+  // Report current caching status
+  if (event.data && event.data.type === 'GET_CACHE_STATUS') {
+    if (cachingInProgress) {
+      event.source.postMessage({
+        type: 'CACHE_PROGRESS',
+        cached: cachedCount,
+        total: totalToCache,
+        inProgress: true
+      });
+    } else {
+      event.source.postMessage({
+        type: 'CACHE_IDLE',
+        inProgress: false
+      });
+    }
+  }
 });
