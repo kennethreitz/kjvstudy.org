@@ -1864,35 +1864,19 @@
                 var highlighted = document.querySelector('[style*=\"outline: 2px solid\"]') ||
                                   document.querySelector('[style*=\"outline:2px solid\"]') ||
                                   document.querySelector('.selected');
-                var article = document.querySelector('article');
-                var candidates = [];
-                if (article) {
-                  candidates = Array.from(article.querySelectorAll('p, li, blockquote, .intro-text, .apostle-description, .name-description, .prophet-description, .festival-description, .resource-description, .resource-description-body, .description'));
-                } else {
-                  candidates = Array.from(document.querySelectorAll('article p, section p, li, blockquote, .intro-text, .apostle-description, .name-description, .prophet-description, .festival-description, .resource-description, .resource-description-body, .description'));
-                }
-                candidates = candidates.filter(function(el) {
-                  return (el.textContent || '').trim().length > 10;
-                });
-                var textBlocks = [];
-                var titleEl = document.querySelector('h1');
-                if (titleEl && (titleEl.textContent || '').trim().length > 0) {
-                  textBlocks.push(titleEl);
-                }
-                var subtitleEl = document.querySelector('.subtitle');
-                if (subtitleEl && (subtitleEl.textContent || '').trim().length > 0) {
-                  textBlocks.push(subtitleEl);
-                }
+                var combined = '';
                 if (highlighted) {
-                  textBlocks = [highlighted];
+                  var hclone = highlighted.cloneNode(true);
+                  hclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
+                  combined = (hclone.textContent || hclone.innerText || '').trim();
                 } else {
-                  textBlocks = textBlocks.concat(candidates);
+                  var article = document.querySelector('article');
+                  if (article) {
+                    var aclone = article.cloneNode(true);
+                    aclone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
+                    combined = (aclone.textContent || aclone.innerText || '').trim();
+                  }
                 }
-                var combined = textBlocks.map(function(el) {
-                  var clone = el.cloneNode(true);
-                  clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) { el.remove(); });
-                  return (clone.textContent || clone.innerText || '').trim();
-                }).filter(Boolean).join(' ');
                 if (combined) {
                   var utter = new SpeechSynthesisUtterance(combined);
                   var voices = speechSynthesis.getVoices();
