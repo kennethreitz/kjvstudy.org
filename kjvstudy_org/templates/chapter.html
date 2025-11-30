@@ -338,7 +338,7 @@ p[id^="verse-"].selected {
         </a>
     </div>
     <div class="nav-help">
-        Tip: ↑/↓ to select verses • Enter to view • ←/→ chapters • i=interlinear • p=PDF
+        Tip: ↑/↓ to select verses • Enter to view • ←/→ chapters • i=interlinear • p=PDF • = listen to chapter
     </div>
 </nav>
 
@@ -426,6 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedVerseIndex = -1;
     let selectedActionIndex = -1;
     let inActionZone = false;
+    let chapterReader = { active: false, index: -1, utterance: null };
 
     // Initialize from hash if present (e.g., #verse-24)
     function initFromHash() {
@@ -483,6 +484,71 @@ document.addEventListener('DOMContentLoaded', function() {
             behavior: 'auto',
             block: 'center'
         });
+    }
+
+    function getVerseText(verseEl) {
+        const clone = verseEl.cloneNode(true);
+        clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(el => el.remove());
+        let text = clone.textContent || clone.innerText || '';
+        text = text.replace(/^\s*\d+\s*/, '').trim();
+        return text;
+    }
+
+    function stopChapterReading() {
+        if ('speechSynthesis' in window) {
+            speechSynthesis.cancel();
+        }
+        chapterReader.active = false;
+        chapterReader.index = -1;
+        chapterReader.utterance = null;
+    }
+
+    function readVerseAt(index) {
+        if (!('speechSynthesis' in window)) return;
+        if (index < 0 || index >= verses.length) {
+            stopChapterReading();
+            return;
+        }
+
+        const text = getVerseText(verses[index]);
+        if (!text) {
+            readVerseAt(index + 1);
+            return;
+        }
+
+        const utter = new SpeechSynthesisUtterance(text);
+        const voices = speechSynthesis.getVoices();
+        const englishVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en') && v.name.includes('Daniel')) ||
+                             voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en-gb')) ||
+                             voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+        if (englishVoice) utter.voice = englishVoice;
+
+        utter.onend = function() {
+            readVerseAt(index + 1);
+        };
+        utter.onerror = function() {
+            stopChapterReading();
+        };
+
+        chapterReader.active = true;
+        chapterReader.index = index;
+        chapterReader.utterance = utter;
+
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utter);
+    }
+
+    function startChapterReading() {
+        if (!('speechSynthesis' in window)) return;
+        if (chapterReader.active) {
+            stopChapterReading();
+            return;
+        }
+        if (window.KJVSpeech && typeof window.KJVSpeech.stop === 'function') {
+            window.KJVSpeech.stop();
+        }
+        const startIndex = selectedVerseIndex >= 0 ? selectedVerseIndex : 0;
+        readVerseAt(startIndex);
     }
 
     // Keyboard navigation for chapters and verses
@@ -594,6 +660,7 @@ document.addEventListener('DOMContentLoaded', function() {
             selectedVerseIndex = -1;
             selectedActionIndex = -1;
             inActionZone = false;
+            stopChapterReading();
         }
 
         // i: Go to interlinear view
@@ -610,9 +677,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (pdfBtn) window.location.href = pdfBtn.href;
         }
 
+        // = : Read whole chapter with autoadvance
+        if (!e.metaKey && !e.ctrlKey && !e.altKey && e.key === '=') {
+            e.preventDefault();
+            startChapterReading();
+        }
+
         // Space: Read selected verse aloud
         if (e.key === ' ' && selectedVerseIndex >= 0) {
             e.preventDefault();
+            if (chapterReader.active) {
+                stopChapterReading();
+                return;
+            }
             var verseEl = verses[selectedVerseIndex];
             // Clone the element to manipulate
             var clone = verseEl.cloneNode(true);
