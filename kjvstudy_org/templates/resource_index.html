@@ -301,8 +301,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Two-section navigation: TOC block -> content elements
     // Or when inside TOC: individual TOC entries
-    // Content elements include section titles (h3 with links), paragraphs, and verse items
-    const contentElements = Array.from(document.querySelectorAll('.intro-text, .resource-name, .resource-item-description p, .verse-item'));
+    // Content elements include PDF button, section titles (h3 with links), paragraphs, and verse items
+    const contentElements = Array.from(document.querySelectorAll('.resource-download-btn, .intro-text, .resource-name, .resource-item-description p, .verse-item'));
     const tocItems = Array.from(tocList.querySelectorAll('li a'));
 
     let currentSection = 'content'; // 'content' or 'toc'
@@ -431,6 +431,15 @@ document.addEventListener('DOMContentLoaded', function() {
             currentSection = 'content';
             selectedIndex = -1;
             selectedTocIndex = -1;
+        } else if (e.key === 'p') {
+            // p: Download PDF
+            e.preventDefault();
+            var pdfBtn = document.querySelector('.resource-download-btn');
+            if (pdfBtn) window.location.href = pdfBtn.href;
+        } else if (e.key === 't') {
+            // t: Jump to TOC
+            e.preventDefault();
+            selectTocBlock();
         }
     });
 });
