@@ -170,7 +170,7 @@ async function startBackgroundCaching() {
 
   // Concurrent pool - keep N requests in flight at all times
   const CONCURRENCY = 200; // Number of concurrent requests
-  const PROGRESS_INTERVAL = 250; // Notify every N completions
+  const PROGRESS_INTERVAL = 200; // Notify every N completions
 
   let nextIndex = 0;
   let lastNotified = 0;
