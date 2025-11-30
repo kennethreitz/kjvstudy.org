@@ -315,7 +315,7 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
 
 
 @app.get("/search", response_class=HTMLResponse)
-def search_page(request: Request, q: str = Query(None, description="Search query")):
+async def search_page(request: Request, q: str = Query(None, description="Search query")):
     """Search page with results (includes Bible verses and family tree)"""
     books = bible.get_books()
     search_results = []
@@ -346,7 +346,7 @@ def search_page(request: Request, q: str = Query(None, description="Search query
     )
 
 @app.get("/interlinear", response_class=HTMLResponse)
-def interlinear_landing_page(request: Request):
+async def interlinear_landing_page(request: Request):
     """Landing page explaining interlinear Bible study"""
     books = bible.get_books()
 
@@ -403,7 +403,7 @@ def verse_reference_to_url(reference: str):
         return f"/book/{book}/chapter/{chapter}/verse/{verse_start}"
 
 @app.get("/random-verse")
-def random_verse(request: Request):
+async def random_verse(request: Request):
     """Redirect to a random Bible verse"""
     # Get all books
     all_books = bible.get_books()
@@ -432,7 +432,7 @@ def random_verse(request: Request):
 
 
 @app.get("/verse-of-the-day", response_class=HTMLResponse)
-def verse_of_the_day_page(request: Request):
+async def verse_of_the_day_page(request: Request):
     """Verse of the day page"""
     books = bible.get_books()
     daily_verse = get_daily_verse()
@@ -1311,7 +1311,7 @@ def get_daily_verse(date_str=None):
 
 
 @app.get("/offline", response_class=HTMLResponse)
-def offline_reader(request: Request):
+async def offline_reader(request: Request):
     """Offline Bible reader - renders chapters from cached JSON."""
     return templates.TemplateResponse(
         "offline.html",
@@ -1320,7 +1320,7 @@ def offline_reader(request: Request):
 
 
 @app.get("/", response_class=HTMLResponse)
-def read_root(request: Request):
+async def read_root(request: Request):
     books = bible.get_books()
     daily_verse = get_daily_verse()
 
@@ -1445,7 +1445,7 @@ def read_root(request: Request):
 
 
 @app.get("/books", response_class=HTMLResponse)
-def books_page(request: Request):
+async def books_page(request: Request):
     """Browse all books of the Bible"""
     books = bible.get_books()
 
@@ -1535,7 +1535,7 @@ def books_page(request: Request):
 
 
 @app.get("/reading-plans", response_class=HTMLResponse)
-def reading_plans_page(request: Request):
+async def reading_plans_page(request: Request):
     """Browse Bible reading plans"""
     books = bible.get_books()
     plans = get_plan_summary()
@@ -1557,7 +1557,7 @@ def reading_plans_page(request: Request):
 
 
 @app.get("/reading-plans/{plan_id}", response_class=HTMLResponse)
-def reading_plan_detail(request: Request, plan_id: str):
+async def reading_plan_detail(request: Request, plan_id: str):
     """View a specific reading plan"""
     books = bible.get_books()
     plan = get_plan(plan_id)
@@ -1610,7 +1610,7 @@ async def reading_plan_pdf(plan_id: str):
 
 
 @app.get("/topics", response_class=HTMLResponse)
-def topics_page(request: Request):
+async def topics_page(request: Request):
     """Browse topical index of Bible themes"""
     books = bible.get_books()
     topics = get_all_topics()
@@ -1633,7 +1633,7 @@ def topics_page(request: Request):
 
 
 @app.get("/resources", response_class=HTMLResponse)
-def resources_page(request: Request):
+async def resources_page(request: Request):
     """Browse all theological resources"""
     books = bible.get_books()
 
@@ -1928,7 +1928,7 @@ def resources_page(request: Request):
 
 
 @app.get("/topics/{topic_name}", response_class=HTMLResponse)
-def topic_detail(request: Request, topic_name: str):
+async def topic_detail(request: Request, topic_name: str):
     """View verses for a specific topic"""
     books = bible.get_books()
     topic = get_topic(topic_name)
@@ -1984,7 +1984,7 @@ async def topic_detail_pdf(topic_name: str):
 
 
 @app.get("/book/{book}", response_class=HTMLResponse)
-def read_book(request: Request, book: str):
+async def read_book(request: Request, book: str):
     # Redirect book name variations to canonical form
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -2108,7 +2108,7 @@ def redirect_chapter_legacy(book: str, chapter: int):
     return RedirectResponse(url=f"/book/{book}/chapter/{chapter}", status_code=301)
 
 @app.get("/book/{book}/chapter/{chapter}", response_class=HTMLResponse)
-def read_chapter(request: Request, book: str, chapter: int):
+async def read_chapter(request: Request, book: str, chapter: int):
     # Redirect book name variations to canonical form
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -2317,7 +2317,7 @@ async def chapter_interlinear_pdf(book: str, chapter: int):
 
 
 @app.get("/book/{book}/chapter/{chapter}/interlinear", response_class=HTMLResponse)
-def read_chapter_interlinear(request: Request, book: str, chapter: int):
+async def read_chapter_interlinear(request: Request, book: str, chapter: int):
     """Display a chapter with interlinear Hebrew/Greek for every verse"""
     # Redirect book name variations to canonical form
     canonical_name = normalize_book_name(book)
@@ -2450,7 +2450,7 @@ async def verse_pdf(book: str, chapter: int, verse_num: int):
 
 
 @app.get("/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)
-def read_verse(request: Request, book: str, chapter: int, verse_num: int):
+async def read_verse(request: Request, book: str, chapter: int, verse_num: int):
     """Display a single verse with detailed commentary"""
     # Redirect book name variations to canonical form
     canonical_name = normalize_book_name(book)
@@ -2549,7 +2549,7 @@ def read_verse(request: Request, book: str, chapter: int, verse_num: int):
 # =============================================================================
 
 @app.get("/strongs", response_class=HTMLResponse)
-def strongs_index(request: Request, q: str = None):
+async def strongs_index(request: Request, q: str = None):
     """Strong's Concordance search and lookup page."""
     results = []
     if q:
@@ -2574,7 +2574,7 @@ def strongs_index(request: Request, q: str = None):
 
 
 @app.get("/strongs/hebrew", response_class=HTMLResponse)
-def strongs_hebrew_index(request: Request, page: int = 1):
+async def strongs_hebrew_index(request: Request, page: int = 1):
     """Paginated index of all Hebrew Strong's entries."""
     data = get_all_strongs("hebrew", page=page, per_page=100)
 
@@ -2602,7 +2602,7 @@ def strongs_hebrew_index(request: Request, page: int = 1):
 
 
 @app.get("/strongs/greek", response_class=HTMLResponse)
-def strongs_greek_index(request: Request, page: int = 1):
+async def strongs_greek_index(request: Request, page: int = 1):
     """Paginated index of all Greek Strong's entries."""
     data = get_all_strongs("greek", page=page, per_page=100)
 
@@ -2630,7 +2630,7 @@ def strongs_greek_index(request: Request, page: int = 1):
 
 
 @app.get("/strongs/{strongs_number}", response_class=HTMLResponse)
-def strongs_entry(request: Request, strongs_number: str):
+async def strongs_entry(request: Request, strongs_number: str):
     """View a single Strong's concordance entry."""
     import re
 
