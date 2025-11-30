@@ -893,27 +893,19 @@
                 width: 100%;
                 margin: 1rem 0 1rem 1.5rem;
                 padding: 0.75rem 0 0.75rem 1rem;
-                border-left: 4px solid #999;
+                border-left: 4px solid var(--border-color-darker);
                 font-size: 0.95rem;
                 line-height: 1.6;
-                color: #444 !important;
-                background-color: transparent !important;
+                color: var(--text-color) !important;
+                background-color: var(--code-bg) !important;
                 font-weight: 400;
             }
 
             [data-theme="dark"] .sidenote,
             [data-theme="dark"] .marginnote {
-                border-left-color: #666;
-                color: #aaa !important;
-                background-color: #151515 !important;
-            }
-
-            @media (prefers-color-scheme: dark) {
-                .sidenote:not([data-theme]),
-                .marginnote:not([data-theme]) {
-                    color: #aaa !important;
-                    background-color: #151515 !important;
-                }
+                border-left-color: var(--border-color-darker);
+                color: var(--text-color) !important;
+                background-color: var(--bg-color) !important;
             }
 
             .sidenote-number,
