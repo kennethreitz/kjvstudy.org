@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Commentary Index - KJV Study{% endblock %}
+{% block description %}Browse all {{ "{:,}".format(total_verses) }} verses with in-depth theological commentary{% endblock %}
+
+{% block content %}
+<article>
+    <h1>Commentary Index</h1>
+    <p class="subtitle">{{ "{:,}".format(total_verses) }} verses across {{ total_books }} books with comprehensive theological analysis</p>
+
+    <section>
+        <p>This index lists every verse in the KJV Bible that has enhanced commentary available. Each commentary includes:</p>
+        <ul>
+            <li><strong>Theological Analysis</strong> - In-depth exposition with Greek/Hebrew word studies</li>
+            <li><strong>Historical Context</strong> - Cultural and historical background</li>
+            <li><strong>Reflection Questions</strong> - For personal study or group discussion</li>
+        </ul>
+        <p>Click any verse reference to read its commentary.</p>
+    </section>
+
+    {% for book, chapters in commentary_index.items() %}
+    <section class="book-section">
+        <h2>{{ book }}</h2>
+        {% for chapter, verses in chapters.items() %}
+        <div class="chapter-group">
+            <strong>Chapter {{ chapter }}:</strong>
+            <span class="verse-list">
+                {% for verse in verses %}
+                <a href="/book/{{ book }}/{{ chapter }}:{{ verse }}" class="verse-link">{{ verse }}</a>{% if not loop.last %},{% endif %}
+                {% endfor %}
+            </span>
+            <span class="verse-count">({{ verses|length }} {% if verses|length == 1 %}verse{% else %}verses{% endif %})</span>
+        </div>
+        {% endfor %}
+    </section>
+    {% endfor %}
+
+    <section style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+        <h2>Coverage Statistics</h2>
+        <table>
+            <tr>
+                <td><strong>Total Books with Commentary</strong></td>
+                <td>{{ total_books }} of 66</td>
+            </tr>
+            <tr>
+                <td><strong>Total Verses with Commentary</strong></td>
+                <td>{{ "{:,}".format(total_verses) }} of 31,102</td>
+            </tr>
+            <tr>
+                <td><strong>Coverage Percentage</strong></td>
+                <td>{{ "%.1f"|format((total_verses / 31102) * 100) }}%</td>
+            </tr>
+        </table>
+    </section>
+</article>
+
+<style>
+    .subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    .book-section {
+        margin: 2.5rem 0;
+        padding: 1.5rem;
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+    }
+
+    .book-section h2 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: var(--text-strong);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.5rem;
+    }
+
+    .chapter-group {
+        margin: 0.75rem 0;
+        padding: 0.5rem 0;
+        line-height: 1.8;
+    }
+
+    .chapter-group strong {
+        display: inline-block;
+        min-width: 100px;
+        color: var(--text-secondary);
+    }
+
+    .verse-list {
+        display: inline;
+    }
+
+    .verse-link {
+        display: inline-block;
+        padding: 0.15rem 0.4rem;
+        margin: 0.1rem;
+        background: var(--code-bg);
+        border-radius: 3px;
+        text-decoration: none;
+        color: var(--link-color);
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 0.9rem;
+        transition: background 0.2s;
+    }
+
+    .verse-link:hover {
+        background: var(--border-color-dark);
+        color: var(--link-hover);
+    }
+
+    .verse-count {
+        margin-left: 0.5rem;
+        color: var(--text-tertiary);
+        font-size: 0.9rem;
+        font-style: italic;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+    }
+
+    tr {
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    td {
+        padding: 0.75rem 1rem;
+    }
+
+    td:first-child {
+        width: 60%;
+    }
+
+    td:last-child {
+        text-align: right;
+        font-family: 'Consolas', 'Monaco', monospace;
+        color: var(--text-secondary);
+    }
+</style>
+{% endblock %}

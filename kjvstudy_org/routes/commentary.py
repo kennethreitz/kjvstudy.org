@@ -18,6 +18,51 @@ router = APIRouter(tags=["Commentary"])
 # Templates will be set by the main app
 templates = None
 
+
+@router.get("/commentary", response_class=HTMLResponse)
+async def commentary_index(request: Request):
+    """Commentary index - list all verses with commentary"""
+    from collections import defaultdict
+
+    data_dir = Path(__file__).parent.parent / "data" / "verse_commentary"
+
+    # Build index of all verses with commentary, grouped by book
+    commentary_index = defaultdict(lambda: defaultdict(list))
+
+    for file in sorted(data_dir.glob('*.json')):
+        with open(file, 'r') as f:
+            data = json.load(f)
+            book = data.get('book')
+            commentary = data.get('commentary', {})
+
+            for chapter_num, chapter_data in commentary.items():
+                for verse_num in sorted(chapter_data.keys(), key=int):
+                    commentary_index[book][int(chapter_num)].append(int(verse_num))
+
+    # Convert to regular dict and sort
+    commentary_index = {
+        book: dict(sorted(chapters.items()))
+        for book, chapters in sorted(commentary_index.items())
+    }
+
+    # Calculate statistics
+    total_books = len(commentary_index)
+    total_verses = sum(
+        len(verses)
+        for chapters in commentary_index.values()
+        for verses in chapters.values()
+    )
+
+    return templates.TemplateResponse(
+        "commentary_index.html",
+        {
+            "request": request,
+            "commentary_index": commentary_index,
+            "total_books": total_books,
+            "total_verses": total_verses,
+        }
+    )
+
 # Data directory paths
 _DATA_DIR = Path(__file__).parent.parent / "data"
 _WORD_STUDIES_PATH = _DATA_DIR / "word_studies.json"
