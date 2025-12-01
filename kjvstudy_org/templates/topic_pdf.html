@@ -97,8 +97,17 @@
         <ul class="verse-list">
             {% for verse in subtopic.verses %}
             <li class="verse-item">
-                <span class="verse-ref">{{ verse.ref }}</span>
-                {% if verse.note %}<span class="verse-note">— {{ verse.note }}</span>{% endif %}
+                {% set reference = verse.reference if verse.reference is defined else (verse.ref if verse.ref is defined else verse) %}
+                {% if reference is not string %}
+                    {% set reference = reference|string %}
+                {% endif %}
+                <span class="verse-ref">{{ reference }}</span>
+                {% if verse.note is defined and verse.note %}<span class="verse-note">— {{ verse.note }}</span>{% endif %}
+                {% if verse.text is defined and verse.text %}
+                <div style="margin-top: 6px; color: #555;">
+                    {{ verse.text }}
+                </div>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>

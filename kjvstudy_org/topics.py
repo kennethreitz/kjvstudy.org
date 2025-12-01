@@ -4,9 +4,12 @@ Organized by major theological and practical topics.
 """
 
 import json
+from functools import lru_cache
 from pathlib import Path
 
+from typing import Dict, Any
 
+@lru_cache(maxsize=1)
 def _load_topics():
     """Load topics from per-topic JSON files, fallback to legacy single file."""
     base_dir = Path(__file__).parent / "data"
@@ -27,17 +30,78 @@ def _load_topics():
     return aggregated
 
 
-TOPICS = _load_topics()
+def _get_verse_text_for_reference(reference: str) -> str:
+    """Look up a single verse text from a reference like 'John 3:16'."""
+    if not reference or not isinstance(reference, str):
+        return ""
+
+    parts = reference.rsplit(" ", 1)
+    if len(parts) != 2 or ":" not in parts[1]:
+        return ""
+
+    book = parts[0]
+    chapter_part, verse_part = parts[1].split(":", 1)
+    # Use the first verse in a range (e.g., 3:16-17 -> 3:16)
+    verse_segment = verse_part.split("-")[0]
+
+    try:
+        from .kjv import bible
+        return bible.get_verse_text(book, int(chapter_part), int(verse_segment)) or ""
+    except Exception:
+        return ""
+
+
+def _enrich_topic_with_text(topic: Dict[str, Any]) -> Dict[str, Any]:
+    """Attach verse text (and normalized reference fields) to a topic's verses."""
+    subtopics = topic.get("subtopics", {})
+    enriched_subtopics = {}
+
+    for subtopic_name, subtopic_data in subtopics.items():
+        verses_with_text = []
+        for entry in subtopic_data.get("verses", []):
+            if isinstance(entry, dict):
+                reference = entry.get("reference") or entry.get("ref") or ""
+                note = entry.get("note", "")
+            else:
+                reference = str(entry)
+                note = ""
+
+            verse_text = _get_verse_text_for_reference(reference)
+            verses_with_text.append({
+                "reference": reference,
+                "ref": reference,
+                "text": verse_text,
+                "note": note
+            })
+
+        enriched_subtopics[subtopic_name] = {
+            **subtopic_data,
+            "verses": verses_with_text
+        }
+
+    return {
+        **topic,
+        "subtopics": enriched_subtopics
+    }
 
 
 def get_all_topics():
     """Get all topics"""
-    return TOPICS
+    return _load_topics()
 
 
 def get_topic(topic_name: str):
     """Get a specific topic"""
-    return TOPICS.get(topic_name)
+    return _load_topics().get(topic_name)
+
+
+@lru_cache(maxsize=None)
+def get_topic_with_text(topic_name: str):
+    """Get a topic with verse text attached to each reference."""
+    topic = _load_topics().get(topic_name)
+    if not topic:
+        return None
+    return _enrich_topic_with_text(topic)
 
 
 def search_topics(query: str):
@@ -45,7 +109,7 @@ def search_topics(query: str):
     query_lower = query.lower()
     results = []
 
-    for topic_name, topic_data in TOPICS.items():
+    for topic_name, topic_data in _load_topics().items():
         if query_lower in topic_name.lower() or query_lower in topic_data.get("description", "").lower():
             results.append({
                 "name": topic_name,

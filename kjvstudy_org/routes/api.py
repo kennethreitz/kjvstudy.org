@@ -14,7 +14,7 @@ from ..utils.pdf import render_html_to_pdf, render_html_to_pdf_async, WEASYPRINT
 from ..kjv import bible
 from ..cross_references import get_cross_references
 from ..reading_plans import get_plan, get_plan_summary
-from ..topics import get_all_topics, get_topic
+from ..topics import get_all_topics, get_topic_with_text
 from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
@@ -1230,7 +1230,7 @@ async def api_get_topics():
 @router.get("/topics/{topic_name}")
 async def api_get_topic(topic_name: str = Path(..., description="Topic name", example="faith")):
     """Get details about a specific topic."""
-    topic = get_topic(topic_name)
+    topic = get_topic_with_text(topic_name)
     if not topic:
         raise HTTPException(status_code=404, detail="Topic not found")
 

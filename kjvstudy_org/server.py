@@ -21,7 +21,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from .kjv import bible, VerseReference
 from .cross_references import get_cross_references
 from .reading_plans import get_plan, get_all_plans, get_plan_summary
-from .topics import get_all_topics, get_topic, search_topics
+from .topics import get_all_topics, get_topic_with_text, search_topics
 from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data, find_verses_by_strongs, count_strongs_occurrences
 from .strongs import format_strongs_entry, search_strongs, get_all_strongs
 from .books import get_book_data, has_book_data
@@ -1880,7 +1880,7 @@ async def resources_page(request: Request):
 async def topic_detail(request: Request, topic_name: str):
     """View verses for a specific topic"""
     books = bible.get_books()
-    topic = get_topic(topic_name)
+    topic = get_topic_with_text(topic_name)
 
     if not topic:
         raise HTTPException(status_code=404, detail="Topic not found")
@@ -1914,7 +1914,7 @@ async def topic_detail_pdf(topic_name: str):
             detail="PDF generation is not available. WeasyPrint system libraries are not installed."
         )
 
-    topic = get_topic(topic_name)
+    topic = get_topic_with_text(topic_name)
     if not topic:
         raise HTTPException(status_code=404, detail="Topic not found")
 
