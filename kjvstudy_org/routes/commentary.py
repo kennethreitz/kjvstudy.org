@@ -57,6 +57,12 @@ async def commentary_index(request: Request):
         for verses in chapters.values()
     )
 
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "About", "url": "/about"},
+        {"text": "Commentary Index", "url": None}
+    ]
+
     return templates.TemplateResponse(
         "commentary_index.html",
         {
@@ -64,6 +70,7 @@ async def commentary_index(request: Request):
             "commentary_index": commentary_index,
             "total_books": total_books,
             "total_verses": total_verses,
+            "breadcrumbs": breadcrumbs,
         }
     )
 

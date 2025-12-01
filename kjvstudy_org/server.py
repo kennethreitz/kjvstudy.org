@@ -1411,11 +1411,18 @@ async def stats(request: Request):
         }
     }
 
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "About", "url": "/about"},
+        {"text": "Statistics", "url": None}
+    ]
+
     return templates.TemplateResponse(
         "stats.html",
         {
             "request": request,
             "stats": stats_data,
+            "breadcrumbs": breadcrumbs,
         }
     )
 
@@ -1472,6 +1479,12 @@ async def cross_references_index(request: Request):
         for verses in chapters.values()
     )
 
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "About", "url": "/about"},
+        {"text": "Cross-References Index", "url": None}
+    ]
+
     return templates.TemplateResponse(
         "cross_references_index.html",
         {
@@ -1480,6 +1493,7 @@ async def cross_references_index(request: Request):
             "total_books": total_books,
             "total_verses": total_verses,
             "total_refs": total_refs,
+            "breadcrumbs": breadcrumbs,
         }
     )
 
@@ -1487,10 +1501,15 @@ async def cross_references_index(request: Request):
 @app.get("/about", response_class=HTMLResponse)
 async def about(request: Request):
     """About page - site information, creator, data sources, theological approach"""
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "About", "url": None}
+    ]
     return templates.TemplateResponse(
         "about.html",
         {
             "request": request,
+            "breadcrumbs": breadcrumbs,
         }
     )
 
