@@ -1268,7 +1268,7 @@ def get_daily_verse(date_str=None):
 
 
 
-@app.get("/stats", response_class=HTMLResponse)
+@app.get("/about/stats", response_class=HTMLResponse)
 async def stats(request: Request):
     """Hidden statistics page - comprehensive site metrics"""
     import json
@@ -1420,7 +1420,7 @@ async def stats(request: Request):
     )
 
 
-@app.get("/indexes/cross-references", response_class=HTMLResponse)
+@app.get("/about/cross-references", response_class=HTMLResponse)
 async def cross_references_index(request: Request):
     """Cross-references index - list all verses with cross-references"""
     from collections import defaultdict
