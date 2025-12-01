@@ -1349,15 +1349,6 @@
             </p>
         </div>
 
-        <!-- Red Letter Toggle -->
-        <div style="margin-top: 1rem;">
-            <p style="font-size: 0.85rem; color: var(--text-tertiary); text-align: center;">
-                <a href="#" id="red-letter-toggle" style="color: var(--text-tertiary); text-decoration: none; border-bottom: 1px dotted var(--border-color-dark);" onclick="toggleRedLetters(event)">
-                    <span id="red-letter-status">Disable</span> Red Letters
-                </a>
-            </p>
-        </div>
-
         <!-- Flourish -->
         <div class="sidebar-flourish">⁂</div>
     </nav>
@@ -1383,22 +1374,18 @@
         const redLettersEnabled = localStorage.getItem('redLetters') !== 'disabled';
         if (!redLettersEnabled) {
           document.documentElement.setAttribute('data-red-letters', 'disabled');
-          document.getElementById('red-letter-status').textContent = 'Enable';
         }
       })();
 
-      function toggleRedLetters(event) {
-        event.preventDefault();
+      function toggleRedLetters() {
         const currentState = document.documentElement.getAttribute('data-red-letters');
         const newState = currentState === 'disabled' ? 'enabled' : 'disabled';
 
         if (newState === 'disabled') {
           document.documentElement.setAttribute('data-red-letters', 'disabled');
-          document.getElementById('red-letter-status').textContent = 'Enable';
           localStorage.setItem('redLetters', 'disabled');
         } else {
           document.documentElement.removeAttribute('data-red-letters');
-          document.getElementById('red-letter-status').textContent = 'Disable';
           localStorage.removeItem('redLetters');
         }
       }
@@ -1892,6 +1879,10 @@
             case '?':
               showKeyboardHelp();
               break;
+            case 'R':
+              e.preventDefault();
+              toggleRedLetters();
+              break;
             case ' ':
               // Space: Read aloud selected text (with optional resource-reader handling)
               if (document.body && document.body.dataset && document.body.dataset.resourceReader === 'false') {
@@ -2074,6 +2065,7 @@
                 '<div class="shortcut"><kbd>Space</kbd><span>Read aloud</span></div>' +
                 '<div class="shortcut"><kbd>`</kbd><span>Toggle sidebar</span></div>' +
                 '<div class="shortcut"><kbd>⌘</kbd>+<kbd>D</kbd><span>Toggle dark mode</span></div>' +
+                '<div class="shortcut"><kbd>R</kbd><span>Toggle red letters</span></div>' +
                 '<div class="shortcut"><kbd>/</kbd><span>Search</span></div>' +
                 '<div class="shortcut"><kbd>?</kbd><span>Show this help</span></div>' +
                 '<div class="shortcut"><kbd>Esc</kbd><span>Close / Clear focus</span></div>' +
