@@ -8,12 +8,94 @@
     <h1>About KJV Study</h1>
     <p class="subtitle">A comprehensive resource for serious study of the Holy Scriptures</p>
 
+    <nav class="toc" aria-label="Table of contents">
+        <strong>Contents</strong>
+        <ul role="list">
+            <li><a href="#what-we-provide">What We Provide</a></li>
+            <li><a href="#theological-convictions">Theological Convictions</a></li>
+            <li><a href="#open-source">Free & Open Source</a></li>
+            <li><a href="#data-sources">Data & Sources</a></li>
+            <li><a href="#creator">Creator</a></li>
+            <li><a href="#privacy">Privacy</a></li>
+            <li><a href="#explore">Explore Further</a></li>
+        </ul>
+    </nav>
+
+    <script>
+    (function() {
+        // Get all navigable items (sections with h2[id])
+        var items = Array.from(document.querySelectorAll('h2[id]'));
+        var selectedIndex = -1;
+
+        function selectItem(index) {
+            // Remove previous selection
+            items.forEach(function(item) {
+                item.classList.remove('nav-selected');
+            });
+
+            // Clamp index
+            if (index < 0) index = 0;
+            if (index >= items.length) index = items.length - 1;
+            selectedIndex = index;
+
+            // Add selection class and scroll
+            var item = items[selectedIndex];
+            item.classList.add('nav-selected');
+            item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            // Don't trigger if user is typing
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+                return;
+            }
+
+            // Up arrow or k: Previous item
+            if (e.key === 'ArrowUp' || e.key === 'k') {
+                e.preventDefault();
+                if (selectedIndex < 0) {
+                    selectItem(KJVNav.findFirstVisibleIndex(items));
+                } else if (KJVNav.isSelectionOffScreen(items, selectedIndex)) {
+                    selectItem(KJVNav.findFirstVisibleIndex(items));
+                } else {
+                    selectItem(selectedIndex - 1);
+                }
+            }
+
+            // Down arrow or j: Next item
+            if (e.key === 'ArrowDown' || e.key === 'j') {
+                e.preventDefault();
+                if (selectedIndex < 0) {
+                    selectItem(KJVNav.findFirstVisibleIndex(items));
+                } else if (KJVNav.isSelectionOffScreen(items, selectedIndex)) {
+                    selectItem(KJVNav.findFirstVisibleIndex(items));
+                } else {
+                    selectItem(selectedIndex + 1);
+                }
+            }
+
+            // Home: Go to first section
+            if (e.key === 'Home') {
+                e.preventDefault();
+                selectItem(0);
+            }
+
+            // End: Go to last section
+            if (e.key === 'End') {
+                e.preventDefault();
+                selectItem(items.length - 1);
+            }
+        });
+    })();
+    </script>
+
     <section>
-        <h2>Our Purpose</h2>
-        <p>KJV Study exists to serve the church of Jesus Christ by providing deep, scholarly, and theologically faithful resources for the study of Holy Scripture. Built upon the 1769 Cambridge Edition of the King James Version—the translation that has shaped English-speaking Christianity for over four centuries—this site offers tools for both the beginning reader and the seasoned student of God's Word.</p>
+        <p>KJV Study exists to serve the church of Jesus Christ by providing deep, scholarly, and theologically faithful resources for the study of Holy Scripture.<label for="sn-purpose" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-purpose" class="margin-toggle"/>
+        <span class="sidenote">The goal is not merely academic knowledge but transformative encounter with the living God through His written Word. "Thy word have I hid in mine heart, that I might not sin against thee" (Psalm 119:11).</span> Built upon the 1769 Cambridge Edition of the King James Version—the translation that has shaped English-speaking Christianity for over four centuries—this site offers tools for both the beginning reader and the seasoned student of God's Word.</p>
         <p>We believe that serious Bible study should be accessible to all believers, not locked behind paywalls or reserved for those with access to theological libraries. Every commentary, cross-reference, and language tool on this site is freely available, reflecting our conviction that God's Word belongs to God's people.</p>
 
-        <h3>What We Provide</h3>
+        <h2 id="what-we-provide">What We Provide</h2>
         <ul>
             <li><strong>31,102 verses</strong> of the complete King James Bible, from Genesis to Revelation</li>
             <li><strong>Verse-by-verse commentary</strong> engaging the original Hebrew and Greek, historical context, and theological significance</li>
@@ -25,26 +107,40 @@
     </section>
 
     <section>
-        <h2>Theological Convictions</h2>
-        <p>KJV Study stands firmly within <strong>historic Christian orthodoxy</strong>, committed to the faith once delivered to the saints. Our commentary reflects careful engagement with the original languages, ancient Near Eastern context, and the theological heritage of the church across the centuries.</p>
+        <h2 id="theological-convictions">Theological Convictions</h2>
+        <p>KJV Study stands firmly within <strong>historic Christian orthodoxy</strong>, committed to the faith once delivered to the saints.<label for="sn-orthodoxy" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-orthodoxy" class="margin-toggle"/>
+        <span class="sidenote">Jude exhorts believers to "earnestly contend for the faith which was once delivered unto the saints" (Jude 1:3). This faith is not evolving or developing but fixed and complete in the apostolic deposit.</span> Our commentary reflects careful engagement with the original languages, ancient Near Eastern context, and the theological heritage of the church across the centuries.</p>
 
-        <h3>The Inerrancy & Sufficiency of Scripture</h3>
-        <p>We confess that the sixty-six books of the Old and New Testaments are the inspired, infallible, and inerrant Word of God—<em>theopneustos</em> (θεόπνευστος), "breathed out by God" (2 Timothy 3:16). Scripture is not merely a human witness to divine truth; it <em>is</em> divine truth, wholly trustworthy in all it affirms. As the psalmist declared, "Thy word is a lamp unto my feet, and a light unto my path" (Psalm 119:105)—the Hebrew <em>dāḇār</em> (דָּבָר) signifying not mere information but God's active, living communication that accomplishes His purposes (Isaiah 55:11). We reject both rationalistic liberalism that denies supernatural revelation and mystical subjectivism that seeks guidance apart from the written Word. Scripture alone is sufficient for life and godliness.</p>
+        <h2>The Inerrancy & Sufficiency of Scripture</h2>
+        <p>We confess that the sixty-six books of the Old and New Testaments are the inspired, infallible, and inerrant Word of God—<em>theopneustos</em> (θεόπνευστος), "breathed out by God" (2 Timothy 3:16).<label for="sn-theopneustos" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-theopneustos" class="margin-toggle"/>
+        <span class="sidenote">The compound θεόπνευστος joins θεός (God) and πνέω (to breathe). Scripture's origin is divine exhalation—God breathing out His words through human authors. This is not mere dictation but organic inspiration preserving both divine authority and human personality.</span> Scripture is not merely a human witness to divine truth; it <em>is</em> divine truth, wholly trustworthy in all it affirms. As the psalmist declared, "Thy word is a lamp unto my feet, and a light unto my path" (Psalm 119:105)—the Hebrew <em>dāḇār</em> (דָּבָר) signifying not mere information but God's active, living communication that accomplishes His purposes (Isaiah 55:11). We reject both rationalistic liberalism that denies supernatural revelation and mystical subjectivism that seeks guidance apart from the written Word. Scripture alone is sufficient for life and godliness.</p>
 
-        <h3>The Triune God</h3>
-        <p>We worship one God eternally existing in three persons—Father, Son, and Holy Spirit—distinct in personhood yet one in essence, will, and glory. As Matthew 28:19 reveals, baptism is administered "in the name" (singular τὸ ὄνομα/<em>to onoma</em>—not "names") of the Father, Son, and Holy Spirit, expressing their essential unity while acknowledging their distinct persons. God is sovereign over all creation, providence, and redemption, working all things according to the counsel of His will (Ephesians 1:11). His purposes cannot be thwarted; His decrees stand forever.</p>
+        <h2>The Triune God</h2>
+        <p>We worship one God eternally existing in three persons—Father, Son, and Holy Spirit—distinct in personhood yet one in essence, will, and glory.<label for="sn-trinity" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-trinity" class="margin-toggle"/>
+        <span class="sidenote">The <em>Shema</em> declares "The LORD our God is one LORD" (Deuteronomy 6:4), using אֶחָד (<em>echad</em>)—a unity that can encompass plurality, as when "they two shall be one flesh" (Genesis 2:24).</span> As Matthew 28:19 reveals, baptism is administered "in the name" (singular τὸ ὄνομα/<em>to onoma</em>—not "names") of the Father, Son, and Holy Spirit, expressing their essential unity while acknowledging their distinct persons. God is sovereign over all creation, providence, and redemption, working all things according to the counsel of His will (Ephesians 1:11). His purposes cannot be thwarted; His decrees stand forever.</p>
 
-        <h3>Substitutionary Atonement</h3>
-        <p>We affirm that Christ's death on the cross was a true substitutionary sacrifice, satisfying divine justice on behalf of sinners. Isaiah 53:5 proclaims: "He was wounded for our transgressions, he was bruised for our iniquities"—the Hebrew <em>mecholal</em> (מְחֹלָל) meaning pierced through, fatally wounded, while the preposition <em>min</em> (מִן) indicates substitution: His wounds came "because of" our sins. The chastisement of our peace was upon Him; by His stripes we are healed. This is penal substitution: Christ received the penalty we deserve so that we might receive the peace He deserves.</p>
+        <h2>Substitutionary Atonement</h2>
+        <p>We affirm that Christ's death on the cross was a true substitutionary sacrifice, satisfying divine justice on behalf of sinners.<label for="sn-atonement" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-atonement" class="margin-toggle"/>
+        <span class="sidenote">The Day of Atonement prefigured this reality: the scapegoat bearing Israel's sins into the wilderness (Leviticus 16) typified Christ who "bare our sins in his own body on the tree" (1 Peter 2:24).</span> Isaiah 53:5 proclaims: "He was wounded for our transgressions, he was bruised for our iniquities"—the Hebrew <em>mecholal</em> (מְחֹלָל) meaning pierced through, fatally wounded, while the preposition <em>min</em> (מִן) indicates substitution: His wounds came "because of" our sins. The chastisement of our peace was upon Him; by His stripes we are healed. This is penal substitution: Christ received the penalty we deserve so that we might receive the peace He deserves.</p>
 
-        <h3>Salvation by Grace Alone</h3>
-        <p>We confess that salvation is entirely of grace, through faith, in Christ alone (Ephesians 2:8-9). No one can earn salvation through works; it is the gift of God. All have sinned and fall short of God's glory (Romans 3:23), standing justly condemned apart from Christ. Yet God justifies the ungodly through faith, imputing Christ's perfect righteousness to those who believe (Romans 4:5, 2 Corinthians 5:21). From first to last, salvation is the Lord's work.</p>
+        <h2>Salvation by Grace Alone</h2>
+        <p>We confess that salvation is entirely of grace, through faith, in Christ alone (Ephesians 2:8-9).<label for="sn-grace" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-grace" class="margin-toggle"/>
+        <span class="sidenote">The Greek χάρις (<em>charis</em>) signifies unmerited favor—God's gracious disposition toward those who deserve judgment. Faith itself is a gift (Philippians 1:29), ensuring that no flesh may glory in His presence.</span> No one can earn salvation through works; it is the gift of God. All have sinned and fall short of God's glory (Romans 3:23), standing justly condemned apart from Christ. Yet God justifies the ungodly through faith, imputing Christ's perfect righteousness to those who believe (Romans 4:5, 2 Corinthians 5:21). From first to last, salvation is the Lord's work.</p>
 
-        <h3>The Eternal Deity of Christ</h3>
-        <p>With John's Gospel, we confess: "In the beginning was the Word, and the Word was with God, and the Word was God" (John 1:1). The Greek <em>Logos</em> (λόγος) identifies Christ as God's eternal self-expression—not a created being but the Creator Himself through whom all things were made. The imperfect tense <em>ēn</em> (ἦν, "was") indicates continuous existence: when time began, the Word already existed. He is fully God and fully man, the only mediator between God and humanity (1 Timothy 2:5), the promised Messiah in whom all God's covenant promises find their "Yes" and "Amen" (2 Corinthians 1:20).</p>
+        <h2>The Eternal Deity of Christ</h2>
+        <p>With John's Gospel, we confess: "In the beginning was the Word, and the Word was with God, and the Word was God" (John 1:1).<label for="sn-logos" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-logos" class="margin-toggle"/>
+        <span class="sidenote">John's use of λόγος recalls both Hebrew <em>dāḇār</em> (the creative, powerful word of God) and Greek philosophical concepts of cosmic reason—yet transcends both in identifying this Word as a divine Person who "became flesh and dwelt among us" (John 1:14).</span> The Greek <em>Logos</em> (λόγος) identifies Christ as God's eternal self-expression—not a created being but the Creator Himself through whom all things were made. The imperfect tense <em>ēn</em> (ἦν, "was") indicates continuous existence: when time began, the Word already existed. He is fully God and fully man, the only mediator between God and humanity (1 Timothy 2:5), the promised Messiah in whom all God's covenant promises find their "Yes" and "Amen" (2 Corinthians 1:20).</p>
 
-        <h3>Christocentric Interpretation</h3>
-        <p>All Scripture testifies of Christ (John 5:39). From <em>bereshit</em> (בְּרֵאשִׁית, "In the beginning") to the final Amen of Revelation, the Bible reveals Jesus Christ as the center of redemptive history. We interpret every passage in light of its immediate literary and historical context, the whole counsel of God, and the redemptive arc that culminates in Christ's person and work. Our commentary engages the original Hebrew and Greek, ancient Near Eastern backgrounds, and the testimony of faithful interpreters throughout church history.</p>
+        <h2>Christocentric Interpretation</h2>
+        <p>All Scripture testifies of Christ (John 5:39). From <em>bereshit</em> (בְּרֵאשִׁית, "In the beginning") to the final Amen of Revelation, the Bible reveals Jesus Christ as the center of redemptive history.<label for="sn-christo" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-christo" class="margin-toggle"/>
+        <span class="sidenote">On the Emmaus road, Christ expounded "in all the scriptures the things concerning himself" (Luke 24:27). The law, prophets, and writings all point to Him—in type, prophecy, and promise.</span> We interpret every passage in light of its immediate literary and historical context, the whole counsel of God, and the redemptive arc that culminates in Christ's person and work. Our commentary engages the original Hebrew and Greek, ancient Near Eastern backgrounds, and the testimony of faithful interpreters throughout church history.</p>
 
         <p>We encourage every reader to be like the Bereans, examining the Scriptures daily to test all teaching (Acts 17:11). <em>Soli Deo Gloria</em>.</p>
     </section>
@@ -69,36 +165,42 @@
     </section>
 
     <section>
-        <h2>Data & Sources</h2>
+        <h2 id="data-sources">Data & Sources</h2>
         <p>KJV Study stands on the shoulders of faithful scholars and translators across the centuries. We gratefully acknowledge:</p>
 
-        <h3>The King James Bible</h3>
-        <p>The 1769 Cambridge Edition, also known as the "Blayney Edition," represents the refined and standardized text of the Authorized Version first published in 1611. This translation, produced by 47 scholars working in six committees, drew upon the best Hebrew and Greek manuscripts available, the Latin Vulgate, and earlier English translations including Tyndale, Coverdale, and the Geneva Bible. Its enduring influence on English language and literature remains unparalleled.</p>
+        <h2>The King James Bible</h2>
+        <p>The 1769 Cambridge Edition, also known as the "Blayney Edition," represents the refined and standardized text of the Authorized Version first published in 1611.<label for="sn-kjv" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-kjv" class="margin-toggle"/>
+        <span class="sidenote">Benjamin Blayney's revision corrected printing errors and standardized spelling. The 1611 text was produced by 47 scholars in six companies meeting at Westminster, Cambridge, and Oxford over seven years.</span> This translation, produced by 47 scholars working in six committees, drew upon the best Hebrew and Greek manuscripts available, the Latin Vulgate, and earlier English translations including Tyndale, Coverdale, and the Geneva Bible. Its enduring influence on English language and literature remains unparalleled.</p>
 
-        <h3>Cross-References</h3>
-        <p>Our cross-reference data derives from the <em>Treasury of Scripture Knowledge</em>, a monumental 19th-century work containing over 500,000 Scripture references. This data, curated and refined by <a href="https://www.openbible.info/labs/cross-references/" target="_blank" rel="noopener">OpenBible.info</a>, reveals the remarkable interconnectedness of biblical texts—how prophecy finds fulfillment, how types foreshadow antitypes, and how themes weave through the entire canon.</p>
+        <h2>Cross-References</h2>
+        <p>Our cross-reference data derives from the <em>Treasury of Scripture Knowledge</em>, a monumental 19th-century work containing over 500,000 Scripture references.<label for="sn-tsk" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-tsk" class="margin-toggle"/>
+        <span class="sidenote">The TSK was compiled over thirty years by R.A. Torrey and others, building upon earlier works like Thomas Scott's commentary and Canne's marginalia. It remains the most comprehensive cross-reference resource ever published.</span> This data, curated and refined by <a href="https://www.openbible.info/labs/cross-references/" target="_blank" rel="noopener">OpenBible.info</a>, reveals the remarkable interconnectedness of biblical texts—how prophecy finds fulfillment, how types foreshadow antitypes, and how themes weave through the entire canon.</p>
 
-        <h3>Original Language Resources</h3>
-        <p><strong>Strong's Exhaustive Concordance</strong> (1890), compiled by James Strong and over 100 colleagues, remains an indispensable tool for accessing the Hebrew (<em>ʿIḇrîṯ</em>) and Greek (<em>Koinē</em>) vocabulary underlying the English text. Our interlinear data, providing word-by-word analysis with parsing and morphological information, enables readers without formal language training to engage meaningfully with the original texts.</p>
+        <h2>Original Language Resources</h2>
+        <p><strong>Strong's Exhaustive Concordance</strong> (1890), compiled by James Strong and over 100 colleagues, remains an indispensable tool for accessing the Hebrew (<em>ʿIḇrîṯ</em>) and Greek (<em>Koinē</em>) vocabulary underlying the English text.<label for="sn-strongs" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-strongs" class="margin-toggle"/>
+        <span class="sidenote">Strong assigned a unique number to each Hebrew and Greek root word, enabling those without language training to trace English words to their originals. The system revolutionized Bible study accessibility.</span> Our interlinear data, providing word-by-word analysis with parsing and morphological information, enables readers without formal language training to engage meaningfully with the original texts.</p>
 
-        <h3>Commentary</h3>
+        <h2>Commentary</h2>
         <p>All verse commentary is original content written specifically for KJV Study, drawing upon the work of commentators ancient and modern—from the Church Fathers through the Reformers to contemporary evangelical scholarship. Each entry seeks to illumine the text's meaning in its original context while drawing out its enduring theological significance and practical application.</p>
     </section>
 
     <section>
-        <h2>Creator</h2>
+        <h2 id="creator">Creator</h2>
         <p>KJV Study was created by <strong><a href="https://kennethreitz.org" target="_blank" rel="noopener">Kenneth Reitz</a></strong>, a software developer known for his work in open source software. What began as a personal study tool has grown into a comprehensive resource serving readers around the world.</p>
         <p>The project reflects a conviction that the best technology should serve the highest purposes—and what higher purpose than helping people encounter the living God through His written Word? Questions, suggestions, and contributions are welcome via <a href="https://github.com/kennethreitz/kjvstudy.org/issues" target="_blank" rel="noopener">GitHub</a>.</p>
     </section>
 
     <section>
-        <h2>Privacy</h2>
+        <h2 id="privacy">Privacy</h2>
         <p>Your study of Scripture is between you and God. KJV Study collects no personal information, requires no account, and sets no tracking cookies. Minimal, privacy-respecting analytics help us understand how the site is used so we can improve it. You may disable even these by visiting <code>/?kr=1</code>.</p>
         <p>We will never sell data, display advertisements, or monetize your attention. The Word of God is not for sale.</p>
     </section>
 
     <section>
-        <h2>Explore Further</h2>
+        <h2 id="explore">Explore Further</h2>
         <ul>
             <li><a href="/about/stats">Site Statistics</a> — Comprehensive metrics on coverage and content</li>
             <li><a href="/about/commentary">Commentary Index</a> — Browse all verses with in-depth analysis</li>
@@ -134,16 +236,6 @@
     section h2 {
         margin-top: 2.5rem;
         margin-bottom: 1rem;
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 0.5rem;
-    }
-
-    section h3 {
-        margin-top: 1.5rem;
-        margin-bottom: 0.75rem;
-        font-size: 1.2rem;
-        color: var(--text-secondary);
-        font-weight: bold;
     }
 
     .cta-box {
@@ -178,6 +270,64 @@
         content: " ↗";
         font-size: 0.8em;
         opacity: 0.6;
+    }
+
+    .toc {
+        background: var(--code-bg);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem 2rem;
+        margin: 2rem 0 3rem 0;
+        max-width: 400px;
+    }
+
+    .toc strong {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-secondary);
+    }
+
+    .toc ul {
+        margin: 1rem 0 0 0;
+        padding-left: 0;
+        list-style: none;
+        columns: 2;
+        column-gap: 2rem;
+    }
+
+    .toc li {
+        margin: 0.4rem 0;
+        break-inside: avoid;
+    }
+
+    .toc a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .toc a:hover {
+        color: var(--link-color);
+    }
+
+    @media (max-width: 600px) {
+        .toc ul {
+            columns: 1;
+        }
+        .toc {
+            max-width: 100%;
+        }
+    }
+
+    /* Keyboard navigation selection */
+    h2.nav-selected {
+        background: var(--code-bg);
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-left: 3px solid var(--link-color);
+        outline: none;
     }
 </style>
 {% endblock %}
