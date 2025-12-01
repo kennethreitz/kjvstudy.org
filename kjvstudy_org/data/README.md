@@ -4,8 +4,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ## Overview
 
-- **107 JSON files** containing biblical reference data (+ 1 schema file)
-- **Total size**: ~2.2 MB (uncompressed, excluding interlinear data)
+- **359 JSON files** containing biblical reference data (+ 9 schema files)
+- **Total size**: ~58 MB (including 28 MB verse commentary, 12 MB compressed interlinear)
 - **Coverage**: Complete Bible reference materials, study resources, and theological content
 - **Format**: UTF-8 encoded JSON with consistent structure
 
@@ -15,8 +15,10 @@ This directory contains all biblical reference data for the KJV Study applicatio
 |----------|-------|------|-------------|
 | Bible Text & Metadata | 67 | ~85K | Book metadata, chapters, verses, abbreviations |
 | Interlinear Data | 1 | 12M (compressed) | Greek/Hebrew words with Strong's numbers |
-| Study Resources | 25+ | ~1.8M | Study guides, commentary, word studies, resources |
-| Reference Materials | 10+ | ~250K | Topics, reading plans, cross-references, timelines |
+| Verse Commentary | 64 | 28M | In-depth theological analysis for 12,321 verses |
+| Cross-references | 66 | 9.0M | Treasury of Scripture Knowledge references (split per book) |
+| Study Resources | 75 | ~2.0M | Study guides, topics, word studies, resources |
+| Reference Materials | 84 | ~19M | Reading plans, biographies, timeline, stories, Strong's |
 
 ---
 
@@ -119,8 +121,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `red_letter_verses.json` (125K)
-**Contains**: 2,017 verses containing the words of Jesus Christ from the Gospels, Acts, and Revelation
+### `red_letter_verses.json` (86K)
+**Contains**: 2,007 verses containing the words of Jesus Christ from the Gospels, Acts, and Revelation
 
 **Structure**:
 ```json
@@ -154,9 +156,60 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
+### `strongs/` (2 files, ~800K combined)
+**Contains**: Strong's Concordance data for Hebrew (Old Testament) and Greek (New Testament) word lookups
+
+**Files**: `hebrew.json`, `greek.json`
+
+**Structure**:
+```json
+{
+  "H1": {
+    "strongs": "H1",
+    "word": "אָב",
+    "transliteration": "ab",
+    "pronunciation": "awb",
+    "definition": "father",
+    "kjv_usage": "father, chief, families, desire, patrimony",
+    "derivation": "from primitive root"
+  }
+}
+```
+
+**Coverage**:
+- Hebrew: ~8,674 entries (H1-H8674)
+- Greek: ~5,624 entries (G1-G5624)
+
+**Used by**: `routes/strongs.py`, word study pages, interlinear displays
+
+---
+
+### `close_family_marriages.json` (3.0K)
+**Contains**: Documented biblical examples of close-family marriages with scriptural references
+
+**Structure**:
+```json
+{
+  "marriages": [
+    {
+      "person1": "Abraham",
+      "person2": "Sarah",
+      "relationship": "half-siblings",
+      "description": "Sarah was Abraham's half-sister...",
+      "verse": "Genesis 20:12",
+      "notes": "..."
+    }
+  ]
+}
+```
+
+**Used by**: Biblical history resources, cultural context pages
+
+---
+
 ## Study Resources
 
-### `study_guides/` (36 files, ~265K combined)
+### `study_guides/` (36 files, ~532K combined)
 **Contains**: 25 complete study guides with 183 sections and 732 verse references, split per guide
 
 **Structure**:
@@ -193,32 +246,49 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `verse_commentary/` (64 files, ~28MB)
-**Contains**: Detailed theological commentary for 12,321 verses across 64 books (analysis, historical context, reflection questions)
+### `verse_commentary/` (64 files, 28 MB combined)
+**Contains**: In-depth theological commentary for 12,321 verses across 64 books, split per book for efficient loading
 
-**Structure**:
+**Files**: `john.json`, `genesis.json`, `romans.json`, etc. (one file per book)
+
+**Structure** (per file):
 ```json
 {
   "book": "John",
   "commentary": {
     "3": {
       "16": {
-        "analysis": "...",
-        "historical": "...",
-        "questions": ["How does this verse fit into the broader biblical story?"]
+        "analysis": "Detailed theological analysis with Greek/Hebrew words...",
+        "historical": "First-century context, cultural background...",
+        "questions": [
+          "How does this verse challenge modern assumptions?",
+          "What does this reveal about God's character?"
+        ]
       }
     }
   }
 }
 ```
 
-**Coverage**: 64 books with verse-level commentary (12,321 verses total)
+**Coverage**:
+- 64 of 66 books (missing: Song of Solomon, Habakkuk, Haggai)
+- 12,321 verses with comprehensive commentary
+- Largest files: 1 Chronicles (975 verses, 2.8 MB), 2 Chronicles (822 verses, 2.4 MB)
+- Smallest files: 1 Peter (3 verses, 16 KB), Amos (11 verses, 28 KB)
 
-**Used by**: `routes/commentary.py`, `routes/api.py`, enhanced verse commentary pages
+**Features**:
+- Deep theological analysis with original language insights
+- Historical and cultural context for each verse
+- Reflection questions for personal study and group discussion
+- Citations of related passages and cross-references
+
+**Used by**: `routes/commentary.py`, `routes/api.py`, enhanced verse detail pages
+
+**Performance**: Split per book for lazy loading—only loads commentary for requested book
 
 ---
 
-### `resources/` (39 files, ~1.3M combined)
+### `resources/` (39 files, ~1.4M combined)
 **Contains**: All biblical reference resources split by major category (angels, prophets, parables, covenants, apostles, women, festivals, fruits of the Spirit, miracles, prayers, beatitudes, commandments, armor of God, I AM statements, systematic theology topics)
 
 **Structure** (per file):
@@ -249,7 +319,7 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ## Reference Materials
 
-### `topics/` (36 files, ~160K combined)
+### `topics/` (36 files, ~180K combined)
 **Contains**: Topical verse index organized by major theological and practical topics with subtopics and verse references
 
 **Structure**:
@@ -273,7 +343,7 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `reading_plans/` (6 files, ~122K combined)
+### `reading_plans/` (6 files, ~140K combined)
 **Contains**: comprehensive Bible reading plans with daily readings and themes
 
 **Plans**:
@@ -301,27 +371,35 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `cross_references/` (~7.4M combined)
-**Contains**: Comprehensive cross-reference system linking related Bible verses based on Treasury of Scripture Knowledge (split per book)
+### `cross_references/` (66 files, 9.0 MB combined)
+**Contains**: Comprehensive cross-reference system linking related Bible verses based on Treasury of Scripture Knowledge, split per book for efficient loading
 
-**Structure**:
+**Files**: `genesis.json`, `john.json`, `revelation.json`, etc. (one file per book)
+
+**Structure** (per file):
 ```json
 {
-  "John:3:16": [
+  "Genesis:1:1": [
     {
-      "ref": "Romans 5:8",
-      "note": ""
+      "ref": "Hebrews 11:3",
+      "note": "Creation"
     },
     {
-      "ref": "1 John 4:9",
-      "note": ""
+      "ref": "Isaiah 45:18",
+      "note": "Creation"
+    }
+  ],
+  "Genesis:1:9": [
+    {
+      "ref": "2 Peter 3:5",
+      "note": "References God"
     }
   ]
 }
 ```
 
 **Coverage**:
-- 24,900 verses with cross-references (80% of Bible)
+- 24,900+ verses with cross-references (80% of Bible)
 - 120,858 total cross-reference entries
 - Average 4.9 references per verse
 - Quality filtered (minimum 3 community votes)
@@ -330,6 +408,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 **Source**: [OpenBible.info Cross-References](https://www.openbible.info/labs/cross-references/) (CC-BY)
 
 **Used by**: `cross_references.py`, verse detail pages with cross-reference links
+
+**Performance**: Split per book allows lazy loading—only loads cross-references for the requested book
 
 ---
 
@@ -355,24 +435,31 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `biographies.json` (78K)
-**Contains**: Biographical information for major biblical figures
+### `biographies.json` (143K)
+**Contains**: Biographical information for 127 biblical figures with life events, key verses, and significance
 
 **Structure**:
 ```json
 {
-  "Abraham": {
-    "name": "Abraham",
-    "title": "Father of Faith",
-    "born": "~2166 BC",
-    "summary": "...",
-    "key_verses": [...],
-    "life_events": [...]
+  "biographies": {
+    "Abraham": {
+      "summary": "...",
+      "significance": "...",
+      "key_events": [
+        {
+          "age": 75,
+          "event": "Called by God to leave Ur",
+          "verse": "Genesis 12:1-4"
+        }
+      ]
+    }
   }
 }
 ```
 
-**Used by**: Biography pages, family tree integration
+**Coverage**: 127 biblical figures including Adam, Noah, Abraham, Moses, David, Jesus, all apostles, prophets, and notable women
+
+**Used by**: Biography pages, family tree integration, study resources
 
 ---
 
@@ -444,9 +531,18 @@ This directory contains all biblical reference data for the KJV Study applicatio
 }
 ```
 
-**Resource Types**: study_guides (16), angels (4), prophets (8), names_of_god (10), parables (8), covenants (5), apostles (12), women (12), festivals (7), fruits_of_spirit (9)
+**Resource Types**: study_guides, angels, prophets, names_of_god, parables, covenants, apostles, women, festivals, fruits_of_spirit, and more
 
 **Used by**: `routes/utility.py`, sitemap.xml generation
+
+---
+
+### `schemas/` (9 files)
+**Contains**: JSON Schema validation files and Pydantic models for data structure validation
+
+**Files**: `red_letter_verses.schema.json`, book introduction schemas, and other validation files
+
+**Used by**: Data validation during development and CI/CD
 
 ---
 
@@ -597,9 +693,11 @@ All theological content has been reviewed for:
 *Approximate times on modern hardware
 
 ### Memory Usage
-- **Total Data**: ~2.1 MB uncompressed (excluding interlinear)
-- **Peak Memory**: ~25 MB with all data cached
-- **Interlinear**: ~140 MB when decompressed and cached
+- **Total Data**: ~58 MB uncompressed (including verse commentary)
+- **Peak Memory**: ~60 MB with all data cached (excluding interlinear)
+- **Interlinear**: ~140 MB when decompressed and cached (lazy loaded)
+- **Verse Commentary**: ~28 MB (lazy loaded per book)
+- **Cross-references**: ~9 MB (lazy loaded per book)
 
 ---
 
@@ -707,6 +805,19 @@ For questions about data structure or content:
 
 ---
 
-*Last Updated: 2025-11-28*
-*Total Files: 107 JSON files + 1 schema file (16 root-level, 66 books, 24 stories, 1 compressed)*
-*Total Size: ~2.2 MB (uncompressed) + 12 MB (interlinear compressed)*
+*Last Updated: 2025-12-01*
+*Total Files: 359 JSON files + 9 schema files*
+*Total Size: ~58 MB (including 28 MB verse commentary, 12 MB compressed interlinear, 9 MB cross-references)*
+
+**File Breakdown:**
+- Root-level: 11 files
+- Books: 66 files
+- Verse Commentary: 64 files (missing: Song of Solomon, Habakkuk, Haggai)
+- Cross-references: 66 files
+- Study Guides: 36 files
+- Topics: 36 files
+- Resources: 39 files
+- Stories: 24 files
+- Reading Plans: 6 files
+- Strong's: 2 files
+- Schemas: 9 files
