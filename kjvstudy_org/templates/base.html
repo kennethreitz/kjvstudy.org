@@ -31,6 +31,33 @@
     <link rel="stylesheet" href="/static/tufte.css"/>
     <link rel="manifest" href="/static/manifest.json"/>
 
+    <!-- Analytics opt-out detection (kr=1 parameter) -->
+    <script>
+      (function() {
+        // Check for ?kr=1 to disable analytics
+        const urlParams = new URLSearchParams(window.location.search);
+        const krParam = urlParams.get('kr');
+
+        if (krParam === '1') {
+          // Disable analytics
+          localStorage.setItem('analytics_disabled', 'true');
+          document.cookie = 'analytics_disabled=1; max-age=315360000; path=/; SameSite=Lax';
+          // Redirect to clean URL
+          window.location.href = window.location.pathname;
+        } else if (krParam === '0') {
+          // Re-enable analytics
+          localStorage.removeItem('analytics_disabled');
+          document.cookie = 'analytics_disabled=0; max-age=0; path=/; SameSite=Lax';
+          // Redirect to clean URL
+          window.location.href = window.location.pathname;
+        }
+
+        // Store analytics status for template use
+        window.analyticsDisabled = localStorage.getItem('analytics_disabled') === 'true'
+                                  || document.cookie.includes('analytics_disabled=1');
+      })();
+    </script>
+
     {% block head %}{% endblock %}
 
     <!-- Structured Data (Schema.org) -->
@@ -2356,19 +2383,21 @@
       })();
 
       {% if not disable_analytics %}
-      // Gauges analytics
-      var _gauges = _gauges || [];
-      (function() {
-        var t   = document.createElement('script');
-        t.type  = 'text/javascript';
-        t.async = true;
-        t.id    = 'gauges-tracker';
-        t.setAttribute('data-site-id', '6834bd650d851064ae28dc13');
-        t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
-        t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(t, s);
-      })();
+      // Gauges analytics (respects kr=1 opt-out)
+      if (!window.analyticsDisabled) {
+        var _gauges = _gauges || [];
+        (function() {
+          var t   = document.createElement('script');
+          t.type  = 'text/javascript';
+          t.async = true;
+          t.id    = 'gauges-tracker';
+          t.setAttribute('data-site-id', '6834bd650d851064ae28dc13');
+          t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+          t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(t, s);
+        })();
+      }
       {% endif %}
     </script>
 </body>
