@@ -23,6 +23,7 @@ templates = None
 async def commentary_index(request: Request):
     """Commentary index - list all verses with commentary"""
     from collections import defaultdict
+    from ..utils.books import OT_BOOKS, NT_BOOKS
 
     data_dir = Path(__file__).parent.parent / "data" / "verse_commentary"
 
@@ -39,10 +40,13 @@ async def commentary_index(request: Request):
                 for verse_num in sorted(chapter_data.keys(), key=int):
                     commentary_index[book][int(chapter_num)].append(int(verse_num))
 
-    # Convert to regular dict and sort
+    # Sort books in biblical order (OT then NT)
+    biblical_order = OT_BOOKS + NT_BOOKS
+    book_order = {book: i for i, book in enumerate(biblical_order)}
+
     commentary_index = {
         book: dict(sorted(chapters.items()))
-        for book, chapters in sorted(commentary_index.items())
+        for book, chapters in sorted(commentary_index.items(), key=lambda x: book_order.get(x[0], 999))
     }
 
     # Calculate statistics

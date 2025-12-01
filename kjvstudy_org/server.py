@@ -1446,13 +1446,17 @@ async def cross_references_index(request: Request):
                         'ref_count': len(refs)
                     })
 
+    # Sort books in biblical order (OT then NT)
+    biblical_order = OT_BOOKS + NT_BOOKS
+    book_order = {book: i for i, book in enumerate(biblical_order)}
+
     # Convert to regular dict and sort
     crossref_index = {
         book: {
             chapter: sorted(verses, key=lambda x: x['verse'])
             for chapter, verses in sorted(chapters.items())
         }
-        for book, chapters in sorted(crossref_index.items())
+        for book, chapters in sorted(crossref_index.items(), key=lambda x: book_order.get(x[0], 999))
     }
 
     # Calculate statistics
