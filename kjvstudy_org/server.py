@@ -1420,6 +1420,17 @@ async def stats(request: Request):
     )
 
 
+@app.get("/about", response_class=HTMLResponse)
+async def about(request: Request):
+    """About page - site information, creator, data sources, theological approach"""
+    return templates.TemplateResponse(
+        "about.html",
+        {
+            "request": request,
+        }
+    )
+
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     books = bible.get_books()

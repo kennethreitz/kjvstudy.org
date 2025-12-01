@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}About KJV Study{% endblock %}
+{% block description %}Learn about KJV Study - an open source Bible study resource with comprehensive commentary, cross-references, and study tools{% endblock %}
+
+{% block content %}
+<article>
+    <h1>About KJV Study</h1>
+    <p class="subtitle">A comprehensive, open source resource for studying the King James Bible</p>
+
+    <section>
+        <h2>What is KJV Study?</h2>
+        <p>KJV Study is a modern web application designed to help believers engage deeply with God's Word. Built on the 1769 Cambridge Edition of the King James Version, this site provides:</p>
+        <ul>
+            <li><strong>31,102 verses</strong> from the complete KJV Bible</li>
+            <li><strong>12,330 verses</strong> with in-depth theological commentary</li>
+            <li><strong>120,858 cross-references</strong> linking related passages</li>
+            <li><strong>14,298 Strong's Concordance entries</strong> for Hebrew and Greek word studies</li>
+            <li><strong>Interlinear data</strong> with original language words and definitions</li>
+            <li><strong>Study guides</strong>, reading plans, biblical biographies, and thematic resources</li>
+        </ul>
+        <p>Our goal is to make serious Bible study accessible, providing both breadth of coverage and depth of analysis while maintaining theological fidelity to historic Christian orthodoxy.</p>
+    </section>
+
+    <section>
+        <h2 id="open-source">🌟 Open Source & Free</h2>
+        <p><strong>KJV Study is completely open source and will always be free.</strong></p>
+        <p>This means:</p>
+        <ul>
+            <li><strong>Free to use</strong> - No subscriptions, no paywalls, no hidden costs</li>
+            <li><strong>Transparent</strong> - All source code is publicly available</li>
+            <li><strong>Community-driven</strong> - Anyone can contribute improvements</li>
+            <li><strong>Portable</strong> - You can run your own copy of the entire site</li>
+            <li><strong>Extensible</strong> - Build your own tools using our data and API</li>
+        </ul>
+        <p class="cta-box">
+            <strong>View the source code on GitHub:</strong><br>
+            <a href="https://github.com/kennethreitz/kjvstudy.org" target="_blank" rel="noopener">github.com/kennethreitz/kjvstudy.org</a>
+        </p>
+        <p>The site is built with modern web technologies (Python, FastAPI, HTML/CSS) and all biblical data is stored in structured JSON files. This makes it easy for developers to contribute, extend, or create derivative works.</p>
+    </section>
+
+    <section>
+        <h2>Creator</h2>
+        <p>KJV Study was created by <strong>Kenneth Reitz</strong>, a software developer and believer who wanted to create a comprehensive Bible study resource that combines:</p>
+        <ul>
+            <li>Rigorous theological analysis</li>
+            <li>Original language scholarship</li>
+            <li>Historical and cultural context</li>
+            <li>Modern web technology</li>
+            <li>Open source principles</li>
+        </ul>
+        <p>The project began as a personal study tool and has grown into a comprehensive resource for the global church. Development is ongoing, with new features and commentary added regularly.</p>
+    </section>
+
+    <section>
+        <h2>Theological Approach</h2>
+        <p>KJV Study stands firmly within <strong>historic Christian orthodoxy</strong>, affirming:</p>
+        <ul>
+            <li><strong>Biblical Authority</strong> - Scripture as the inspired, inerrant Word of God</li>
+            <li><strong>Classical Theism</strong> - God's sovereignty, holiness, justice, and mercy</li>
+            <li><strong>Trinitarian Theology</strong> - One God in three persons: Father, Son, and Holy Spirit</li>
+            <li><strong>Christocentric Hermeneutics</strong> - Reading all Scripture in light of Christ's person and work</li>
+            <li><strong>Covenantal Framework</strong> - Understanding God's progressive revelation through biblical covenants</li>
+            <li><strong>Justification by Faith Alone</strong> - Salvation by grace through faith in Christ</li>
+        </ul>
+        <p>Our commentary reflects a <strong>conservative evangelical</strong> perspective, emphasizing:</p>
+        <ul>
+            <li>Literal-grammatical-historical interpretation</li>
+            <li>The unity and coherence of Scripture</li>
+            <li>The importance of original language study</li>
+            <li>Practical application grounded in sound theology</li>
+        </ul>
+        <p>While our theological convictions are clear, we strive to present Scripture faithfully, allowing God's Word to speak for itself and encouraging readers to test all things against Scripture (1 Thessalonians 5:21).</p>
+    </section>
+
+    <section>
+        <h2>Data Sources</h2>
+        <p>KJV Study builds upon the work of scholars and faithful Christians throughout history:</p>
+
+        <h3>Bible Text</h3>
+        <ul>
+            <li><strong>King James Version (1769 Cambridge Edition)</strong> - Public domain</li>
+            <li>31,102 verses across 66 books of the Old and New Testaments</li>
+        </ul>
+
+        <h3>Cross-References</h3>
+        <ul>
+            <li><strong>Treasury of Scripture Knowledge</strong> via <a href="https://www.openbible.info/labs/cross-references/" target="_blank" rel="noopener">OpenBible.info</a> (CC-BY license)</li>
+            <li>120,858 cross-references covering 80% of the Bible</li>
+            <li>Quality-filtered with minimum community vote thresholds</li>
+        </ul>
+
+        <h3>Interlinear & Language Data</h3>
+        <ul>
+            <li><strong>Strong's Concordance</strong> - Public domain Hebrew and Greek lexicons</li>
+            <li><strong>Interlinear data</strong> sourced from <a href="https://github.com/tahmmee/interlinear_bibledata" target="_blank" rel="noopener">tahmmee/interlinear_bibledata</a> (public domain)</li>
+            <li>Word-by-word analysis with transliterations, parsing, and definitions</li>
+        </ul>
+
+        <h3>Commentary & Study Resources</h3>
+        <ul>
+            <li><strong>Original content</strong> - All verse commentary, study guides, and thematic resources are written specifically for KJV Study</li>
+            <li>12,330 verses with comprehensive theological analysis</li>
+            <li>Over 3.4 million words of commentary content</li>
+            <li>Reviewed for biblical accuracy, doctrinal soundness, and practical application</li>
+        </ul>
+
+        <h3>Historical & Cultural Context</h3>
+        <ul>
+            <li>Compiled from public domain Bible study resources</li>
+            <li>Archaeological and historical research</li>
+            <li>Ancient Near Eastern cultural background</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Technical Details</h2>
+        <p>For developers and technically curious users:</p>
+        <ul>
+            <li><strong>Backend</strong>: Python 3.13 with FastAPI framework</li>
+            <li><strong>Data Storage</strong>: JSON files (361 files, 58 MB total)</li>
+            <li><strong>Styling</strong>: Tufte CSS for clean, readable typography</li>
+            <li><strong>Deployment</strong>: Fly.io with automated CI/CD via GitHub Actions</li>
+            <li><strong>API</strong>: Full RESTful JSON API with OpenAPI documentation</li>
+            <li><strong>Package Manager</strong>: uv for fast, reliable dependency management</li>
+        </ul>
+        <p>The entire codebase is structured for:</p>
+        <ul>
+            <li><strong>Performance</strong> - Cached data loading, lazy evaluation, compression</li>
+            <li><strong>Maintainability</strong> - Modular architecture, clear separation of concerns</li>
+            <li><strong>Extensibility</strong> - Well-documented API, structured data formats</li>
+            <li><strong>Testability</strong> - Comprehensive test suite with 100% pass rate</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Contributing</h2>
+        <p>As an open source project, KJV Study welcomes contributions from the community:</p>
+        <ul>
+            <li><strong>Report Issues</strong> - Found a typo or bug? <a href="https://github.com/kennethreitz/kjvstudy.org/issues" target="_blank" rel="noopener">Open an issue</a></li>
+            <li><strong>Suggest Features</strong> - Have ideas for improvements? We'd love to hear them</li>
+            <li><strong>Contribute Code</strong> - Submit pull requests for bug fixes or new features</li>
+            <li><strong>Add Commentary</strong> - Help expand verse commentary coverage</li>
+            <li><strong>Improve Documentation</strong> - Enhance guides, tutorials, or API docs</li>
+        </ul>
+        <p>See the <a href="https://github.com/kennethreitz/kjvstudy.org#readme" target="_blank" rel="noopener">project README</a> for contribution guidelines.</p>
+    </section>
+
+    <section>
+        <h2>Privacy & Analytics</h2>
+        <p>KJV Study respects your privacy:</p>
+        <ul>
+            <li><strong>No account required</strong> - Use all features without signing up</li>
+            <li><strong>No tracking cookies</strong> - We don't track your browsing across sites</li>
+            <li><strong>Minimal analytics</strong> - Basic usage statistics via Gauges (privacy-focused)</li>
+            <li><strong>Opt-out available</strong> - Disable analytics by visiting <code>/?kr=1</code></li>
+            <li><strong>No data sale</strong> - We never sell or share user data</li>
+        </ul>
+        <p>Our goal is to provide a tool for studying God's Word, not to harvest user data.</p>
+    </section>
+
+    <section>
+        <h2>Resources & Links</h2>
+        <ul>
+            <li><a href="/stats">Site Statistics</a> - Comprehensive metrics about KJV Study's content</li>
+            <li><a href="https://github.com/kennethreitz/kjvstudy.org" target="_blank" rel="noopener">GitHub Repository</a> - Source code and development</li>
+            <li><a href="/api/docs" target="_blank">API Documentation</a> - Full RESTful API reference</li>
+            <li><a href="/study-guides">Study Guides</a> - Topical Bible studies</li>
+            <li><a href="/topics">Topics Index</a> - Biblical themes and teachings</li>
+            <li><a href="/reading-plans">Reading Plans</a> - Structured Bible reading schedules</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Contact</h2>
+        <p>Questions, feedback, or just want to say hello?</p>
+        <ul>
+            <li><strong>GitHub Issues</strong>: <a href="https://github.com/kennethreitz/kjvstudy.org/issues" target="_blank" rel="noopener">github.com/kennethreitz/kjvstudy.org/issues</a></li>
+            <li><strong>Creator</strong>: Kenneth Reitz</li>
+        </ul>
+    </section>
+
+    <section style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+        <p style="text-align: center; color: #888;">
+            <em>"Thy word is a lamp unto my feet, and a light unto my path."</em><br>
+            <span style="font-size: 0.9rem;">— Psalm 119:105</span>
+        </p>
+    </section>
+</article>
+
+<style>
+    .subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    section {
+        margin: 3rem 0;
+    }
+
+    section h2 {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.5rem;
+    }
+
+    section h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+    }
+
+    .cta-box {
+        background: var(--code-bg);
+        border-left: 4px solid #4a90e2;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .cta-box a {
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    code {
+        background: var(--code-bg);
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    ul {
+        margin: 1rem 0;
+    }
+
+    li {
+        margin: 0.5rem 0;
+    }
+
+    a[target="_blank"]::after {
+        content: " ↗";
+        font-size: 0.8em;
+        opacity: 0.6;
+    }
+</style>
+{% endblock %}
