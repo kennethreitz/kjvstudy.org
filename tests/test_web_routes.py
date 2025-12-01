@@ -389,5 +389,163 @@ class TestResourceSlugLookups:
         assert response.status_code == 404
 
 
+class TestAboutPages:
+    """Tests for about pages"""
+
+    def test_about_page_loads(self, client):
+        """Test main about page loads"""
+        response = client.get("/about")
+        assert response.status_code == 200
+        assert "text/html" in response.headers["content-type"]
+
+    def test_about_page_has_title(self, client):
+        """Test about page has proper title"""
+        response = client.get("/about")
+        content = response.content.decode()
+        assert "About KJV Study" in content
+
+    def test_about_page_has_toc(self, client):
+        """Test about page has table of contents"""
+        response = client.get("/about")
+        content = response.content.decode()
+        assert "Contents" in content
+        assert 'class="toc"' in content
+
+    def test_about_page_has_theological_convictions(self, client):
+        """Test about page has theological convictions section"""
+        response = client.get("/about")
+        content = response.content.decode()
+        assert "Theological Convictions" in content
+
+    def test_about_page_has_sidenotes(self, client):
+        """Test about page has Tufte-style sidenotes"""
+        response = client.get("/about")
+        content = response.content.decode()
+        assert 'class="sidenote"' in content
+        assert 'class="margin-toggle sidenote-number"' in content
+
+    def test_about_page_has_keyboard_nav(self, client):
+        """Test about page has keyboard navigation script"""
+        response = client.get("/about")
+        content = response.content.decode()
+        assert "KJVNav" in content
+        assert "ArrowDown" in content or "ArrowUp" in content
+
+    def test_about_page_has_creator_section(self, client):
+        """Test about page has creator section"""
+        response = client.get("/about")
+        content = response.content.decode()
+        assert "Kenneth Reitz" in content
+        assert "kennethreitz.org" in content
+
+    def test_about_page_has_open_source_section(self, client):
+        """Test about page has open source section"""
+        response = client.get("/about")
+        content = response.content.decode()
+        assert "Open Source" in content
+        assert "github.com" in content
+
+
+class TestAboutStatsPage:
+    """Tests for about/stats page"""
+
+    def test_stats_page_loads(self, client):
+        """Test stats page loads"""
+        response = client.get("/about/stats")
+        assert response.status_code == 200
+        assert "text/html" in response.headers["content-type"]
+
+    def test_stats_page_has_title(self, client):
+        """Test stats page has proper title"""
+        response = client.get("/about/stats")
+        content = response.content.decode()
+        assert "Statistics" in content
+
+    def test_stats_page_has_bible_stats(self, client):
+        """Test stats page has Bible statistics"""
+        response = client.get("/about/stats")
+        content = response.content.decode()
+        assert "31,102" in content  # Total verses
+        assert "66" in content  # Total books
+
+    def test_stats_page_has_commentary_stats(self, client):
+        """Test stats page has commentary statistics"""
+        response = client.get("/about/stats")
+        content = response.content.decode()
+        assert "Commentary" in content
+
+    def test_stats_page_has_cross_reference_stats(self, client):
+        """Test stats page has cross-reference statistics"""
+        response = client.get("/about/stats")
+        content = response.content.decode()
+        assert "Cross-Reference" in content or "cross-reference" in content
+
+
+class TestAboutCommentaryIndex:
+    """Tests for about/commentary index page"""
+
+    def test_commentary_index_loads(self, client):
+        """Test commentary index page loads"""
+        response = client.get("/about/commentary")
+        assert response.status_code == 200
+        assert "text/html" in response.headers["content-type"]
+
+    def test_commentary_index_has_title(self, client):
+        """Test commentary index has proper title"""
+        response = client.get("/about/commentary")
+        content = response.content.decode()
+        assert "Commentary" in content
+
+    def test_commentary_index_has_books(self, client):
+        """Test commentary index lists books"""
+        response = client.get("/about/commentary")
+        content = response.content.decode()
+        # Should have at least some Bible books listed
+        assert "Genesis" in content or "Matthew" in content or "John" in content
+
+    def test_commentary_index_has_toc(self, client):
+        """Test commentary index has table of contents"""
+        response = client.get("/about/commentary")
+        content = response.content.decode()
+        assert "toc" in content.lower() or "contents" in content.lower()
+
+
+class TestAboutCrossReferencesIndex:
+    """Tests for about/cross-references index page"""
+
+    def test_cross_references_index_loads(self, client):
+        """Test cross-references index page loads"""
+        response = client.get("/about/cross-references")
+        assert response.status_code == 200
+        assert "text/html" in response.headers["content-type"]
+
+    def test_cross_references_index_has_title(self, client):
+        """Test cross-references index has proper title"""
+        response = client.get("/about/cross-references")
+        content = response.content.decode()
+        assert "Cross-Reference" in content or "Cross Reference" in content
+
+    def test_cross_references_index_has_books(self, client):
+        """Test cross-references index lists books"""
+        response = client.get("/about/cross-references")
+        content = response.content.decode()
+        # Should have Bible books listed
+        assert "Genesis" in content or "Matthew" in content or "John" in content
+
+    def test_cross_references_index_books_in_biblical_order(self, client):
+        """Test cross-references index has books in biblical order"""
+        response = client.get("/about/cross-references")
+        content = response.content.decode()
+        # Genesis should appear before Exodus, and both before Matthew
+        genesis_pos = content.find("Genesis")
+        exodus_pos = content.find("Exodus")
+        matthew_pos = content.find("Matthew")
+
+        if genesis_pos > -1 and exodus_pos > -1:
+            assert genesis_pos < exodus_pos, "Genesis should appear before Exodus"
+        if exodus_pos > -1 and matthew_pos > -1:
+            assert exodus_pos < matthew_pos, "Exodus should appear before Matthew"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
