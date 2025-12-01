@@ -21,9 +21,8 @@ FROM python:3.13-slim
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-# Install nginx, curl (for healthcheck), and WeasyPrint system dependencies
+# Install runtime dependencies (healthcheck + WeasyPrint system deps)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    nginx \
     curl \
     libpango-1.0-0 \
     libharfbuzz0b \
@@ -50,10 +49,9 @@ COPY . .
 # Build search index at image build time for fast searches
 RUN python3 -c "from kjvstudy_org.utils.search_index import init_search_index; init_search_index()"
 
-# Copy nginx config and startup script
-COPY nginx-prod.conf /etc/nginx/nginx.conf
+# Startup script for uvicorn
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
-# Run nginx + uvicorn
+# Run uvicorn directly (no nginx sidecar)
 CMD ["/app/start.sh"]
