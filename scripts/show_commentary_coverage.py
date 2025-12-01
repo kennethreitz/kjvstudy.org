@@ -2,7 +2,7 @@
 """
 Show which verses have enhanced commentary and which don't.
 
-This script analyzes the verse_commentary.json file and displays statistics
+This script analyzes the verse_commentary directory and displays statistics
 about commentary coverage across the Bible. It helps track progress on adding
 enhanced verse-by-verse commentary.
 
@@ -14,27 +14,21 @@ Usage:
     python scripts/show_commentary_coverage.py --stats       # Detailed statistics
 """
 
-import json
 import sys
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Tuple
 import argparse
 
+# Ensure package imports work when running as a script
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Path to data directory
-DATA_DIR = Path(__file__).parent.parent / "kjvstudy_org" / "data"
-VERSE_COMMENTARY_PATH = DATA_DIR / "verse_commentary.json"
+from kjvstudy_org.utils.commentary_loader import load_commentary_flat
 
 
 def load_commentary() -> Dict[str, dict]:
     """Load verse commentary from JSON file."""
-    if not VERSE_COMMENTARY_PATH.exists():
-        print(f"Error: {VERSE_COMMENTARY_PATH} not found")
-        sys.exit(1)
-
-    with open(VERSE_COMMENTARY_PATH, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    return load_commentary_flat()
 
 
 def parse_verse_ref(verse_ref: str) -> Tuple[str, int, int]:

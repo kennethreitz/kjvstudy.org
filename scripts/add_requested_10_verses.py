@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-Add comprehensive commentary for these 10 verses to verse_commentary.json:
+Add comprehensive commentary for these 10 verses to the per-book commentary files:
 Psalms 89:30, Ezekiel 37:23, Hebrews 2:4, Jeremiah 29:32, Acts 19:35,
 Numbers 30:3, Proverbs 1:24, Isaiah 24:19, Psalms 105:1, Numbers 16:2
 """
 
-import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from kjvstudy_org.utils.commentary_loader import merge_commentary_entries
 
 # Define the commentary data for the requested verses
 NEW_COMMENTARY = {
@@ -158,37 +162,15 @@ NEW_COMMENTARY = {
     }
 }
 
-def update_commentary_json():
-    """Update the verse_commentary.json file with new commentary"""
-    json_path = Path(__file__).parent.parent / "kjvstudy_org" / "data" / "verse_commentary.json"
-
-    print(f"Reading commentary file: {json_path}")
-
-    # Read existing commentary
-    with open(json_path, 'r', encoding='utf-8') as f:
-        commentary = json.load(f)
-
-    # Track additions
+def update_commentary_files():
+    """Update the per-book commentary files with new entries."""
     additions = []
-
-    # Add new commentary
     for book, chapters in NEW_COMMENTARY.items():
-        if book not in commentary:
-            commentary[book] = {}
-
         for chapter, verses in chapters.items():
-            if chapter not in commentary[book]:
-                commentary[book][chapter] = {}
-
-            for verse, content in verses.items():
-                commentary[book][chapter][verse] = content
+            for verse in verses:
                 additions.append(f"{book} {chapter}:{verse}")
-                print(f"Added commentary for {book} {chapter}:{verse}")
 
-    # Write updated commentary
-    print(f"\nWriting updated commentary to: {json_path}")
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(commentary, f, indent=2, ensure_ascii=False)
+    merge_commentary_entries(NEW_COMMENTARY)
 
     print(f"\n✓ Successfully added commentary for {len(additions)} verses:")
     for ref in additions:
@@ -197,5 +179,5 @@ def update_commentary_json():
     return len(additions)
 
 if __name__ == "__main__":
-    total = update_commentary_json()
+    total = update_commentary_files()
     print(f"\nTotal verses updated: {total}")

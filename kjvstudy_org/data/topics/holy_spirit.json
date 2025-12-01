@@ -1,0 +1,76 @@
+{
+  "Holy Spirit": {
+    "description": "The third person of the Trinity and His work",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">The Holy Spirit</span> constitutes the third person of the Triune Godhead—co-equal, co-eternal, and con-substantial with the Father and the Son. Far from being merely an impersonal force or divine influence, the Spirit possesses all attributes of personality: intellect (knowing God's thoughts), will (distributing gifts as He determines), and emotion (being grieved by sin). As fully God, the Spirit participates in creation, inspiration of Scripture, the incarnation, and the application of redemption to believers.</p>\n\n<p class=\"intro-text\">The <strong>deity of the Holy Spirit</strong> receives clear biblical testimony. When Ananias lied to the Holy Spirit, Peter declared he had \"not lied unto men, but unto God\" (Acts 5:3-4), equating the Spirit with God Himself. Divine attributes belong to the Spirit: omnipresence (Psalms 139:7-10), omniscience (1 Corinthians 2:10-11), and omnipotence (Luke 1:35). Divine works proceed from Him: creation (Job 33:4), regeneration (John 3:5-8), and sanctification (2 Thessalonians 2:13). Worship and obedience directed toward the Spirit constitute legitimate devotion to God.</p>\n\n<p class=\"intro-text\"><strong>The Spirit's work in salvation</strong> proves indispensable. He convicts sinners of sin, righteousness, and judgment (John 16:8), awakening spiritual consciousness. He regenerates the spiritually dead, imparting new life (Titus 3:5). He indwells all believers permanently from the moment of conversion (Romans 8:9), sealing them for the day of redemption (Ephesians 4:30). He baptizes believers into Christ's body, the church (1 Corinthians 12:13), uniting them with Christ and fellow believers. Every aspect of salvation involves the Spirit's sovereign, gracious work.</p>\n\n<p class=\"intro-text\">The Spirit <strong>sanctifies believers progressively</strong>, conforming them to Christ's image. \"The fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, temperance\" (Galatians 5:22-23)—character qualities produced through the Spirit's transforming work. Sanctification requires cooperation: believers must \"walk in the Spirit\" (Galatians 5:16), yielding to His influence rather than resisting. They must not \"grieve\" the Spirit through sin (Ephesians 4:30) nor \"quench\" Him through disobedience (1 Thessalonians 5:19). Growth in holiness results from the Spirit's power applied through human responsibility.</p>\n\n<p class=\"intro-text\">The Spirit <strong>distributes spiritual gifts</strong> for the church's edification. \"There are diversities of gifts, but the same Spirit\" (1 Corinthians 12:4). These gifts—teaching, serving, encouraging, giving, leading, showing mercy, and others—equip believers for ministry. No believer lacks gifts; every member contributes to the body's health. The Spirit sovereignly determines gift distribution \"dividing to every man severally as he will\" (1 Corinthians 12:11). Gifts serve others' benefit rather than personal glorification, building up the church in love.</p>\n\n<p class=\"intro-text\"><strong>The Spirit's illuminating ministry</strong> enables understanding of Scripture. \"The natural man receiveth not the things of the Spirit of God: for they are foolishness unto him: neither can he know them, because they are spiritually discerned\" (1 Corinthians 2:14). The Spirit who inspired Scripture also illuminates it, opening minds to comprehend divine truth. This does not grant new revelation but enables proper understanding of existing revelation. Bible study accompanied by prayer for the Spirit's illumination yields spiritual understanding beyond mere academic analysis.</p>\n\n<p class=\"intro-text\">Believers should cultivate <strong>sensitivity to the Spirit's leading</strong>. \"As many as are led by the Spirit of God, they are the sons of God\" (Romans 8:14). This leading comes primarily through Scripture's application to specific circumstances, impressed upon the conscience by the Spirit. It may involve providential circumstances, wise counsel from mature believers, and inner conviction—always tested against Scripture's clear teaching. The Spirit never contradicts His inspired Word nor leads contrary to biblical principles.</p>\n\n<p class=\"intro-text\">The Spirit <strong>empowers Christian witness</strong>. \"Ye shall receive power, after that the Holy Ghost is come upon you: and ye shall be witnesses unto me\" (Acts 1:8). Effective evangelism depends not on human eloquence or technique but on the Spirit's convicting, converting power. Believers proclaim the gospel; the Spirit applies it to hearts. This truth liberates from both pride in success and despair in apparent failure—the Spirit alone produces genuine conversions.</p>\n\n<p class=\"intro-text\">In an age of spiritual confusion and charismatic excess, biblical pneumatology provides necessary balance. The Spirit draws attention to Christ, not Himself. He operates through Scripture, not apart from it. He produces holiness, not mere emotionalism. He unites believers, not divides them. Proper understanding of and submission to the Spirit's ministry proves essential for vital Christian living and faithful church life.</p>",
+    "subtopics": {
+      "Person and Deity": {
+        "description": "The Holy Spirit is God",
+        "verses": [
+          {
+            "ref": "Acts 5:3-4",
+            "note": "Lying to the Holy Ghost is lying to God"
+          },
+          {
+            "ref": "2 Corinthians 3:17",
+            "note": "The Lord is that Spirit"
+          },
+          {
+            "ref": "1 Corinthians 2:11",
+            "note": "Spirit knows things of God"
+          }
+        ]
+      },
+      "Indwelling": {
+        "description": "The Spirit lives in believers",
+        "verses": [
+          {
+            "ref": "Romans 8:9",
+            "note": "Spirit of God dwells in you"
+          },
+          {
+            "ref": "1 Corinthians 6:19",
+            "note": "Your body is His temple"
+          },
+          {
+            "ref": "Galatians 4:6",
+            "note": "Spirit sent into hearts"
+          }
+        ]
+      },
+      "Fruit of the Spirit": {
+        "description": "Character produced by the Spirit",
+        "verses": [
+          {
+            "ref": "Galatians 5:22-23",
+            "note": "Love, joy, peace, etc."
+          },
+          {
+            "ref": "Romans 8:5",
+            "note": "Mind the things of the Spirit"
+          },
+          {
+            "ref": "Galatians 5:16",
+            "note": "Walk in the Spirit"
+          }
+        ]
+      },
+      "Gifts of the Spirit": {
+        "description": "Spiritual abilities given to believers",
+        "verses": [
+          {
+            "ref": "1 Corinthians 12:4-11",
+            "note": "Diversity of gifts"
+          },
+          {
+            "ref": "Romans 12:6-8",
+            "note": "Gifts differ"
+          },
+          {
+            "ref": "1 Peter 4:10",
+            "note": "Minister gifts to one another"
+          }
+        ]
+      }
+    }
+  }
+}

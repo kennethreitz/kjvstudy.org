@@ -1,0 +1,71 @@
+{
+  "Spiritual Warfare": {
+    "description": "The believer's battle against Satan and spiritual forces of evil",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Spiritual warfare</span> is not metaphor but reality. Behind visible human conflicts lies an invisible cosmic battle. \"We wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places\" (Ephesians 6:12). Christians who ignore this dimension remain vulnerable to attacks they do not understand.</p>\n\n<p class=\"intro-text\">The enemy is real. Satan, a fallen angel of great power and cunning, leads demonic forces in opposition to God's purposes. He is called \"the prince of this world\" (John 12:31), \"the god of this world\" (2 Corinthians 4:4), and \"the accuser of our brethren\" (Revelation 12:10). His strategies include deception, temptation, accusation, and persecution. Yet his power is limited, his doom is certain, and his defeat was accomplished at the cross.</p>\n\n<p class=\"intro-text\">God provides comprehensive armor for His soldiers (Ephesians 6:13-17): the belt of <strong>truth</strong> (doctrinal integrity), the breastplate of <strong>righteousness</strong> (holy living), the shoes of the <strong>gospel</strong> (readiness to witness), the shield of <strong>faith</strong> (trust in God's promises), the helmet of <strong>salvation</strong> (assurance of identity), and the sword of the <strong>Spirit</strong> (Scripture's offensive power). Prayer undergirds all warfare, accessing divine resources for the battle.</p>\n\n<p class=\"intro-text\">Victory is already secured in Christ. \"Greater is he that is in you, than he that is in the world\" (1 John 4:4). \"Resist the devil, and he will flee from you\" (James 4:7). Christians fight from victory, not for victory. While vigilance remains necessary, fear is not, for nothing can separate believers from Christ's triumphant love.</p>",
+    "subtopics": {
+      "The Enemy": {
+        "description": "Understanding Satan's schemes",
+        "verses": [
+          {
+            "ref": "1 Peter 5:8",
+            "note": "Adversary the devil walketh about"
+          },
+          {
+            "ref": "2 Corinthians 11:14",
+            "note": "Satan transformed as angel of light"
+          },
+          {
+            "ref": "John 8:44",
+            "note": "Father of lies"
+          },
+          {
+            "ref": "Ephesians 6:11",
+            "note": "Wiles of the devil"
+          }
+        ]
+      },
+      "The Armor of God": {
+        "description": "Divine protection and weapons",
+        "verses": [
+          {
+            "ref": "Ephesians 6:13-17",
+            "note": "The whole armour of God"
+          },
+          {
+            "ref": "2 Corinthians 10:4",
+            "note": "Weapons mighty through God"
+          },
+          {
+            "ref": "Romans 13:12",
+            "note": "Put on the armour of light"
+          },
+          {
+            "ref": "1 Thessalonians 5:8",
+            "note": "Breastplate of faith and love"
+          }
+        ]
+      },
+      "Victory in Christ": {
+        "description": "Assured triumph",
+        "verses": [
+          {
+            "ref": "1 John 4:4",
+            "note": "Greater is he that is in you"
+          },
+          {
+            "ref": "James 4:7",
+            "note": "Resist the devil"
+          },
+          {
+            "ref": "Colossians 2:15",
+            "note": "Triumphing over them"
+          },
+          {
+            "ref": "Revelation 12:11",
+            "note": "They overcame by the blood"
+          }
+        ]
+      }
+    }
+  }
+}

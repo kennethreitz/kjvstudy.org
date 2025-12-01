@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-Script to add comprehensive commentary for 10 specific verses to verse_commentary.json
+Script to add comprehensive commentary for 10 specific verses to per-book commentary files
 Daniel 4:5, Psalms 6:9, Luke 23:29, Ezekiel 40:33, Job 18:14,
 Deuteronomy 33:25, John 20:7, John 13:18, Psalms 109:20, Numbers 33:1
 """
 
-import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from kjvstudy_org.utils.commentary_loader import merge_commentary_entries
 
 # Define the commentary data
 commentaries = {
@@ -159,30 +163,7 @@ commentaries = {
 }
 
 def main():
-    # Load existing commentary file
-    commentary_file = Path(__file__).parent.parent / "kjvstudy_org" / "data" / "verse_commentary.json"
-
-    print(f"Reading commentary file: {commentary_file}")
-    with open(commentary_file, 'r', encoding='utf-8') as f:
-        existing_data = json.load(f)
-
-    # Merge new commentaries
-    for book, chapters in commentaries.items():
-        if book not in existing_data:
-            existing_data[book] = {}
-
-        for chapter, verses in chapters.items():
-            if chapter not in existing_data[book]:
-                existing_data[book][chapter] = {}
-
-            for verse, content in verses.items():
-                existing_data[book][chapter][verse] = content
-                print(f"Added commentary for {book} {chapter}:{verse}")
-
-    # Save updated file
-    print(f"\nWriting updated commentary to: {commentary_file}")
-    with open(commentary_file, 'w', encoding='utf-8') as f:
-        json.dump(existing_data, f, indent=2, ensure_ascii=False)
+    merge_commentary_entries(commentaries)
 
     print("\n✓ Successfully added commentary for 10 verses:")
     print("  - Daniel 4:5")

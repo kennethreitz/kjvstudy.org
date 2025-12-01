@@ -1,0 +1,215 @@
+{
+  "gospels_acts_30": [
+    {
+      "day": 1,
+      "readings": [
+        "Matthew 1-4"
+      ],
+      "theme": "Birth and Beginning"
+    },
+    {
+      "day": 2,
+      "readings": [
+        "Matthew 5-7"
+      ],
+      "theme": "Sermon on the Mount"
+    },
+    {
+      "day": 3,
+      "readings": [
+        "Matthew 8-10"
+      ],
+      "theme": "Miracles and Mission"
+    },
+    {
+      "day": 4,
+      "readings": [
+        "Matthew 11-13"
+      ],
+      "theme": "Parables"
+    },
+    {
+      "day": 5,
+      "readings": [
+        "Matthew 14-17"
+      ],
+      "theme": "Identity Revealed"
+    },
+    {
+      "day": 6,
+      "readings": [
+        "Matthew 18-20"
+      ],
+      "theme": "Kingdom Teaching"
+    },
+    {
+      "day": 7,
+      "readings": [
+        "Matthew 21-23"
+      ],
+      "theme": "Jerusalem Ministry"
+    },
+    {
+      "day": 8,
+      "readings": [
+        "Matthew 24-25"
+      ],
+      "theme": "Future Things"
+    },
+    {
+      "day": 9,
+      "readings": [
+        "Matthew 26-28"
+      ],
+      "theme": "Death and Resurrection"
+    },
+    {
+      "day": 10,
+      "readings": [
+        "Mark 1-4"
+      ],
+      "theme": "Servant Ministry"
+    },
+    {
+      "day": 11,
+      "readings": [
+        "Mark 5-8"
+      ],
+      "theme": "Mighty Works"
+    },
+    {
+      "day": 12,
+      "readings": [
+        "Mark 9-12"
+      ],
+      "theme": "Road to Jerusalem"
+    },
+    {
+      "day": 13,
+      "readings": [
+        "Mark 13-16"
+      ],
+      "theme": "Passion Week"
+    },
+    {
+      "day": 14,
+      "readings": [
+        "Luke 1-3"
+      ],
+      "theme": "Perfect Man"
+    },
+    {
+      "day": 15,
+      "readings": [
+        "Luke 4-6"
+      ],
+      "theme": "Ministry Begins"
+    },
+    {
+      "day": 16,
+      "readings": [
+        "Luke 7-9"
+      ],
+      "theme": "Compassion"
+    },
+    {
+      "day": 17,
+      "readings": [
+        "Luke 10-12"
+      ],
+      "theme": "Journey"
+    },
+    {
+      "day": 18,
+      "readings": [
+        "Luke 13-16"
+      ],
+      "theme": "Parables of Grace"
+    },
+    {
+      "day": 19,
+      "readings": [
+        "Luke 17-19"
+      ],
+      "theme": "Faith"
+    },
+    {
+      "day": 20,
+      "readings": [
+        "Luke 20-22"
+      ],
+      "theme": "Final Days"
+    },
+    {
+      "day": 21,
+      "readings": [
+        "Luke 23-24"
+      ],
+      "theme": "Crucifixion and Resurrection"
+    },
+    {
+      "day": 22,
+      "readings": [
+        "John 1-3"
+      ],
+      "theme": "Word Made Flesh"
+    },
+    {
+      "day": 23,
+      "readings": [
+        "John 4-6"
+      ],
+      "theme": "Living Water and Bread"
+    },
+    {
+      "day": 24,
+      "readings": [
+        "John 7-9"
+      ],
+      "theme": "Light of the World"
+    },
+    {
+      "day": 25,
+      "readings": [
+        "John 10-12"
+      ],
+      "theme": "Good Shepherd"
+    },
+    {
+      "day": 26,
+      "readings": [
+        "John 13-16"
+      ],
+      "theme": "Upper Room"
+    },
+    {
+      "day": 27,
+      "readings": [
+        "John 17-19"
+      ],
+      "theme": "Prayer and Passion"
+    },
+    {
+      "day": 28,
+      "readings": [
+        "John 20-21",
+        "Acts 1"
+      ],
+      "theme": "Resurrection and Ascension"
+    },
+    {
+      "day": 29,
+      "readings": [
+        "Acts 2-7"
+      ],
+      "theme": "Church Begins"
+    },
+    {
+      "day": 30,
+      "readings": [
+        "Acts 8-12"
+      ],
+      "theme": "Gospel Spreads"
+    }
+  ]
+}

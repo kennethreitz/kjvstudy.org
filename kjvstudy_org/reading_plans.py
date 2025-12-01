@@ -5,18 +5,38 @@ Provides various reading schedules for different goals.
 
 import json
 from pathlib import Path
+from functools import lru_cache
 
-# Load reading plans from JSON data file
-_data_path = Path(__file__).parent / "data" / "reading_plans.json"
-with open(_data_path, "r", encoding="utf-8") as f:
-    _data = json.load(f)
 
-ONE_YEAR_PLAN = _data["one_year_plan"]
-CHRONOLOGICAL_PLAN = _data["chronological_plan"]
-NT_90_DAYS = _data["nt_90_days"]
-PSALMS_PROVERBS = _data["psalms_proverbs"]
-GOSPELS_ACTS_30 = _data["gospels_acts_30"]
-PAUL_EPISTLES_30 = _data["paul_epistles_30"]
+@lru_cache(maxsize=1)
+def _load_reading_plans():
+    """Load reading plans from per-plan files (fallback to legacy)."""
+    base_dir = Path(__file__).parent / "data"
+    plans_dir = base_dir / "reading_plans"
+    legacy_path = base_dir / "reading_plans.json"
+
+    merged = {}
+    if plans_dir.exists():
+        for path in sorted(plans_dir.glob("*.json")):
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    merged.update(data)
+    elif legacy_path.exists():
+        with open(legacy_path, "r", encoding="utf-8") as f:
+            merged = json.load(f)
+
+    return merged
+
+
+_data = _load_reading_plans()
+
+ONE_YEAR_PLAN = _data.get("one_year_plan", {})
+CHRONOLOGICAL_PLAN = _data.get("chronological_plan", {})
+NT_90_DAYS = _data.get("nt_90_days", {})
+PSALMS_PROVERBS = _data.get("psalms_proverbs", {})
+GOSPELS_ACTS_30 = _data.get("gospels_acts_30", {})
+PAUL_EPISTLES_30 = _data.get("paul_epistles_30", {})
 
 # Reading plans database
 READING_PLANS = {

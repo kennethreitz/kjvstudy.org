@@ -6,10 +6,28 @@ Organized by major theological and practical topics.
 import json
 from pathlib import Path
 
-# Load topics from JSON data file
-_data_path = Path(__file__).parent / "data" / "topics.json"
-with open(_data_path, "r", encoding="utf-8") as f:
-    TOPICS = json.load(f)
+
+def _load_topics():
+    """Load topics from per-topic JSON files, fallback to legacy single file."""
+    base_dir = Path(__file__).parent / "data"
+    topics_dir = base_dir / "topics"
+    legacy_path = base_dir / "topics.json"
+
+    aggregated = {}
+    if topics_dir.exists():
+        for path in sorted(topics_dir.glob("*.json")):
+            with open(path, "r", encoding="utf-8") as f:
+                content = json.load(f)
+            if isinstance(content, dict):
+                aggregated.update(content)
+    elif legacy_path.exists():
+        with open(legacy_path, "r", encoding="utf-8") as f:
+            aggregated = json.load(f)
+
+    return aggregated
+
+
+TOPICS = _load_topics()
 
 
 def get_all_topics():

@@ -11,6 +11,7 @@ from functools import lru_cache
 from pathlib import Path
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse
+from ..utils.commentary_loader import load_commentary, load_commentary_flat
 
 router = APIRouter(tags=["Commentary"])
 
@@ -20,7 +21,6 @@ templates = None
 # Data directory paths
 _DATA_DIR = Path(__file__).parent.parent / "data"
 _WORD_STUDIES_PATH = _DATA_DIR / "word_studies.json"
-_VERSE_COMMENTARY_PATH = _DATA_DIR / "verse_commentary.json"
 
 
 def init_templates(app_templates):
@@ -63,65 +63,92 @@ def _load_word_studies() -> dict:
 
 @lru_cache(maxsize=1)
 def _load_verse_commentary() -> dict:
-    """Load verse commentary from JSON file. Cached since data never changes."""
-    with open(_VERSE_COMMENTARY_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    """Load verse commentary from per-book JSON files."""
+    return load_commentary()
 
-    # Check if data is already in nested format (Book -> Chapter -> Verse)
-    # by looking at the first key - if it's a book name, it's nested
-    if data and not any(":" in str(key) for key in list(data.keys())[:5]):
-        # Already in nested format - just convert string keys to integers
-        converted = {}
-        for book, chapters in data.items():
-            converted[book] = {}
-            for chapter_str, verses in chapters.items():
-                chapter = int(chapter_str)
-                converted[book][chapter] = {}
-                for verse_str, commentary in verses.items():
-                    verse = int(verse_str)
-                    # Map JSON field names to code field names if needed
-                    converted[book][chapter][verse] = {
-                        "analysis": commentary.get("analysis", ""),
-                        "historical": commentary.get("historical", commentary.get("historical_context", "")),
-                        "questions": commentary.get("questions", [])
-                    }
+
+def _get_enhanced_commentary(book: str, chapter: int, verse_num: int):
+    """Fetch enhanced commentary entry with tolerant key handling."""
+    data = _load_verse_commentary()
+
+    # Try direct lookup
+    book_data = data.get(book) or data.get(book.strip())
+    if book_data:
+        chapter_data = book_data.get(chapter) or book_data.get(str(chapter))
+        if chapter_data:
+            entry = chapter_data.get(verse_num) or chapter_data.get(str(verse_num))
+            if entry:
+                return entry
+
+    # Fallback to flat lookup (handles any residual key formatting)
+    flat = load_commentary_flat()
+    return flat.get(f"{book} {chapter}:{verse_num}")
+
+
+def _format_numbered_lists(text: str) -> str:
+    """Convert (1), (2) style lists into HTML ordered lists."""
+    import re
+
+    if not text:
+        return text
+
+    def _convert(pattern: str, payload: str) -> str:
+        markers = list(re.finditer(pattern, payload))
+        if len(markers) < 2:
+            return payload
+
+        numbers = [int(m.group(1)) for m in markers]
+        if numbers[0] != 1:
+            return payload
+
+        seq_length = 1
+        for i in range(1, len(numbers)):
+            if numbers[i] == seq_length + 1:
+                seq_length += 1
+            else:
+                break
+
+        if seq_length < 2:
+            return payload
+
+        markers_seq = markers[:seq_length]
+        list_items = []
+        for i, marker in enumerate(markers_seq):
+            start = marker.end()
+            if i + 1 < len(markers_seq):
+                end = markers_seq[i + 1].start()
+            else:
+                remaining = payload[start:]
+                end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining)
+                end = start + end_match.start() + 1 if end_match else len(payload)
+
+            item_text = payload[start:end].strip().rstrip(';,')
+            if item_text.endswith(' and'):
+                item_text = item_text[:-4]
+            list_items.append(f'<li>{item_text}</li>')
+
+        html_list = '<ol>' + ''.join(list_items) + '</ol>'
+        list_start = markers_seq[0].start()
+        last_marker = markers_seq[-1]
+        last_item_start = last_marker.end()
+        remaining_after_last = payload[last_item_start:]
+        end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining_after_last)
+        list_end = last_item_start + end_match.start() + 1 if end_match else len(payload)
+
+        after_list = payload[list_end:].strip()
+        if after_list:
+            return payload[:list_start] + html_list + '</p><p>' + after_list
+        return payload[:list_start] + html_list
+
+    # Try classic (1) pattern first
+    primary_pattern = r'\((\d+)\)\s*'
+    converted = _convert(primary_pattern, text)
+    if converted != text:
         return converted
 
-    # Old flat structure (e.g., "Genesis 1:1") - convert to nested
-    converted = {}
-    for verse_ref, commentary in data.items():
-        # Parse verse reference like "Genesis 1:1"
-        parts = verse_ref.rsplit(" ", 1)  # Split from right to get book and chapter:verse
-        if len(parts) != 2:
-            continue
-
-        book = parts[0]
-        chapter_verse = parts[1]
-
-        if ":" not in chapter_verse:
-            continue
-
-        chapter_str, verse_str = chapter_verse.split(":", 1)
-        try:
-            chapter = int(chapter_str)
-            verse = int(verse_str)
-        except ValueError:
-            continue
-
-        # Create nested structure
-        if book not in converted:
-            converted[book] = {}
-        if chapter not in converted[book]:
-            converted[book][chapter] = {}
-
-        # Map JSON field names to code field names
-        converted[book][chapter][verse] = {
-            "analysis": commentary.get("analysis", ""),
-            "historical": commentary.get("historical_context", ""),
-            "questions": commentary.get("questions", [])
-        }
-
-    return converted
+    # Fallback: bare "1)" patterns preceded by whitespace
+    fallback_pattern = r'(?<=\s)(\d+)\)\s*'
+    return _convert(fallback_pattern, text)
 
 
 def get_books():
@@ -278,12 +305,19 @@ def generate_commentary(book, chapter, verse):
     enhanced_commentary = _load_verse_commentary()
 
     # Check for enhanced commentary first
-    if book in enhanced_commentary and chapter in enhanced_commentary[book] and verse.verse in enhanced_commentary[book][chapter]:
-        commentary_data = enhanced_commentary[book][chapter][verse.verse]
+    commentary_data = _get_enhanced_commentary(book, chapter, verse.verse)
+    if commentary_data:
+        commentary_data = {
+            "analysis": _format_numbered_lists(commentary_data.get("analysis", "")),
+            "historical": _format_numbered_lists(commentary_data.get("historical", "")),
+            "questions": commentary_data.get("questions", []),
+            "theological": _format_numbered_lists(commentary_data.get("theological", "")) if commentary_data.get("theological") else None,
+        }
         return {
             "analysis": commentary_data["analysis"],
             "historical": commentary_data["historical"],
             "questions": commentary_data["questions"],
+            "theological": commentary_data.get("theological"),
             "cross_references": generate_cross_references(book, chapter, verse.verse, verse.text),
             "is_enhanced": True
         }

@@ -1,0 +1,71 @@
+{
+  "Worship": {
+    "description": "Ascribing worth to God through adoration and service",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Worship constitutes</span> humanity's highest calling and creation's ultimate purpose. The English word derives from \"worth-ship\"—declaring and demonstrating God's supreme value. True worship involves the whole person: mind comprehending God's greatness, heart responding with love and awe, will submitting in obedience, and body expressing reverence through posture and action.</p>\n\n<p class=\"intro-text\">Scripture reveals that God seeks worshippers who worship \"in spirit and in truth\" (John 4:24). Worship \"in spirit\" means genuine, heartfelt engagement—not mere external ritual but internal reality. Worship \"in truth\" means worship informed by Scripture, responding to God as He has revealed Himself rather than as we imagine Him. Both dimensions are essential; one without the other produces either empty formalism or misguided enthusiasm.</p>\n\n<p class=\"intro-text\">While worship includes corporate gatherings, it extends to all of life. \"Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God\" (1 Corinthians 10:31). Every activity can become worship when offered to God with gratitude and performed for His glory. Work becomes worship, relationships become worship, even rest becomes worship when consciously rendered to God.</p>\n\n<p class=\"intro-text\">The worshipping life produces profound benefits: intimacy with God, transformation of character, liberation from self-focus, and joy that transcends circumstances. Yet these benefits are not worship's goal—God Himself is. We worship not to get something from God but to give something to God: the honor, praise, and devotion He infinitely deserves.</p>",
+    "subtopics": {
+      "Spirit and Truth": {
+        "description": "How God desires worship",
+        "verses": [
+          {
+            "ref": "John 4:23-24",
+            "note": "In spirit and in truth"
+          },
+          {
+            "ref": "Psalms 95:6",
+            "note": "Come, let us worship and bow down"
+          },
+          {
+            "ref": "Hebrews 12:28",
+            "note": "Serve God acceptably with reverence"
+          },
+          {
+            "ref": "Romans 12:1",
+            "note": "Your reasonable service"
+          }
+        ]
+      },
+      "God Alone": {
+        "description": "Exclusive worship of God",
+        "verses": [
+          {
+            "ref": "Matthew 4:10",
+            "note": "Worship the Lord thy God only"
+          },
+          {
+            "ref": "Exodus 20:3-5",
+            "note": "No other gods before me"
+          },
+          {
+            "ref": "Revelation 22:9",
+            "note": "Worship God"
+          },
+          {
+            "ref": "Psalms 29:2",
+            "note": "Worship the LORD in the beauty of holiness"
+          }
+        ]
+      },
+      "Expressions of Worship": {
+        "description": "Ways to worship",
+        "verses": [
+          {
+            "ref": "Psalms 150:1-6",
+            "note": "Praise Him with instruments"
+          },
+          {
+            "ref": "Psalms 100:1-2",
+            "note": "Serve the LORD with gladness"
+          },
+          {
+            "ref": "Colossians 3:16",
+            "note": "Psalms, hymns, spiritual songs"
+          },
+          {
+            "ref": "1 Chronicles 16:29",
+            "note": "Worship the LORD in the beauty of holiness"
+          }
+        ]
+      }
+    }
+  }
+}

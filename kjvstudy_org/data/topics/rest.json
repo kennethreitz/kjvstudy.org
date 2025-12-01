@@ -1,0 +1,92 @@
+{
+  "Rest": {
+    "description": "Ceasing from labor to worship God and restore the soul",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Rest is</span> not laziness but obedience. God rested on the seventh day—not from exhaustion but from completion. \"And God blessed the seventh day, and sanctified it: because that in it he had rested from all his work\" (Genesis 2:3). This divine pattern establishes rest as sacred, built into creation's rhythm.</p>\n\n<p class=\"intro-text\">The Sabbath command protected workers and pointed to greater rest. \"Remember the sabbath day, to keep it holy\" (Exodus 20:8). Israel's weekly rest testified that life depends on God, not endless labor. The sabbath was gift, not burden: \"The sabbath was made for man, and not man for the sabbath\" (Mark 2:27).</p>\n\n<p class=\"intro-text\">Christ offers rest for weary souls. \"Come unto me, all ye that labour and are heavy laden, and I will give you rest. Take my yoke upon you, and learn of me; for I am meek and lowly in heart: and ye shall find rest unto your souls\" (Matthew 11:28-29). This rest comes not from ceasing activity but from ceasing self-effort—resting in Christ's finished work rather than our own striving.</p>\n\n<p class=\"intro-text\">Hebrews speaks of \"a rest to the people of God\" (Hebrews 4:9)—the ultimate sabbath of eternal fellowship with God. Present rest in Christ anticipates future rest in glory. \"There remaineth therefore a rest to the people of God. For he that is entered into his rest, he also hath ceased from his own works, as God did from his\" (Hebrews 4:9-10). Christians labor to enter that rest through faith, not works.</p>",
+    "subtopics": {
+      "God's Rest": {
+        "description": "The divine pattern of sabbath",
+        "verses": [
+          {
+            "ref": "Genesis 2:2-3",
+            "note": "God rested on the seventh day"
+          },
+          {
+            "ref": "Exodus 20:8-11",
+            "note": "Remember the sabbath day"
+          },
+          {
+            "ref": "Exodus 31:17",
+            "note": "Sign between God and Israel"
+          },
+          {
+            "ref": "Deuteronomy 5:12-15",
+            "note": "Keep the sabbath holy"
+          }
+        ]
+      },
+      "Rest in Christ": {
+        "description": "Spiritual rest Jesus offers",
+        "verses": [
+          {
+            "ref": "Matthew 11:28-30",
+            "note": "Come unto me and rest"
+          },
+          {
+            "ref": "Hebrews 4:9-10",
+            "note": "Rest for the people of God"
+          },
+          {
+            "ref": "Hebrews 4:3",
+            "note": "We which believe do enter rest"
+          },
+          {
+            "ref": "Jeremiah 6:16",
+            "note": "Find rest for your souls"
+          }
+        ]
+      },
+      "Trusting God's Provision": {
+        "description": "Rest as expression of faith",
+        "verses": [
+          {
+            "ref": "Psalms 127:2",
+            "note": "Vain to rise up early"
+          },
+          {
+            "ref": "Psalms 37:7",
+            "note": "Rest in the LORD"
+          },
+          {
+            "ref": "Isaiah 30:15",
+            "note": "In quietness and confidence"
+          },
+          {
+            "ref": "Psalms 46:10",
+            "note": "Be still and know that I am God"
+          }
+        ]
+      },
+      "Eternal Rest": {
+        "description": "The ultimate sabbath in glory",
+        "verses": [
+          {
+            "ref": "Revelation 14:13",
+            "note": "Blessed are the dead, rest from labours"
+          },
+          {
+            "ref": "Hebrews 4:11",
+            "note": "Labour to enter that rest"
+          },
+          {
+            "ref": "Isaiah 57:2",
+            "note": "Enter into peace, rest"
+          },
+          {
+            "ref": "2 Thessalonians 1:7",
+            "note": "Rest with us"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,827 @@
+{
+  "providence": {
+    "title": "Providence",
+    "subtitle": "Divine Providence",
+    "introduction": "Divine providence is God's continuous activity in sustaining, governing, and directing all His creatures and all their actions. Scripture teaches that nothing occurs by chance but all things unfold according to God's eternal decree. These studies explore how God upholds and guides all things for His glory and His people's good.",
+    "categories": {
+      "Preservation": {
+        "God Sustains All Things": {
+          "title": "God Sustains All Things",
+          "description": "The doctrine of preservation asserts that God actively upholds and maintains all created things in existence by His powerful word. This continuous sustaining work distinguishes biblical theism from deism, which posits a God who creates but then withdraws, leaving creation to operate independently according to mechanistic laws.",
+          "verses": [
+            {
+              "reference": "Hebrews 1:3",
+              "text": "Who being the brightness of his glory, and the express image of his person, and upholding all things by the word of his power, when he had by himself purged our sins, sat down on the right hand of the Majesty on high;"
+            },
+            {
+              "reference": "Colossians 1:17",
+              "text": "And he is before all things, and by him all things consist."
+            },
+            {
+              "reference": "Nehemiah 9:6",
+              "text": "Thou, even thou, art LORD alone; thou hast made heaven, the heaven of heavens, with all their host, the earth, and all things that are therein, the seas, and all that is therein, and thou preservest them all; and the host of heaven worshippeth thee."
+            },
+            {
+              "reference": "Acts 17:28",
+              "text": "For in him we live, and move, and have our being; as certain also of your own poets have said, For we are also his offspring."
+            },
+            {
+              "reference": "Psalms 104:27-30",
+              "text": "These wait all upon thee; that thou mayest give them their meat in due season. That thou givest them they gather: thou openest thine hand, they are filled with good. Thou hidest thy face, they are troubled: thou takest away their breath, they die, and return to their dust. Thou sendest forth thy spirit, they are created: and thou renewest the face of the earth."
+            },
+            {
+              "reference": "Job 34:14-15",
+              "text": "If he set his heart upon man, if he gather unto himself his spirit and his breath; All flesh shall perish together, and man shall turn again unto dust."
+            }
+          ]
+        },
+        "Continuous Creation Rejected": {
+          "title": "Continuous Creation Rejected",
+          "description": "Scripture teaches preservation rather than continuous re-creation, affirming the ongoing existence of the original creation through divine upholding. God established natural orders and patterns that remain constant through His faithful maintenance, not through repeated acts of ex nihilo creation.",
+          "verses": [
+            {
+              "reference": "Genesis 8:22",
+              "text": "While the earth remaineth, seedtime and harvest, and cold and heat, and summer and winter, and day and night shall not cease."
+            },
+            {
+              "reference": "Jeremiah 31:35-36",
+              "text": "Thus saith the LORD, which giveth the sun for a light by day, and the ordinances of the moon and of the stars for a light by night, which divideth the sea when the waves thereof roar; The LORD of hosts is his name: If those ordinances depart from before me, saith the LORD, then the seed of Israel also shall cease from being a nation before me for ever."
+            },
+            {
+              "reference": "Psalms 119:90-91",
+              "text": "Thy faithfulness is unto all generations: thou hast established the earth, and it abideth. They continue this day according to thine ordinances: for all are thy servants."
+            },
+            {
+              "reference": "Jeremiah 33:25-26",
+              "text": "Thus saith the LORD; If my covenant be not with day and night, and if I have not appointed the ordinances of heaven and earth; Then will I cast away the seed of Jacob, and David my servant, so that I will not take any of his seed to be rulers over the seed of Abraham, Isaac, and Jacob: for I will cause their captivity to return, and have mercy on them."
+            },
+            {
+              "reference": "Genesis 1:31",
+              "text": "And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day."
+            },
+            {
+              "reference": "Psalms 148:5-6",
+              "text": "Let them praise the name of the LORD: for he commanded, and they were created. He hath also stablished them for ever and ever: he hath made a decree which shall not pass."
+            }
+          ]
+        },
+        "Moment by Moment Dependence": {
+          "title": "Moment by Moment Dependence",
+          "description": "All creation depends upon God's sustaining power not merely for initial existence but for continued being at every moment. Should God withdraw His preserving hand even briefly, all things would instantly collapse into nothingness, for creatures possess no inherent power of self-existence.",
+          "verses": [
+            {
+              "reference": "Acts 17:28",
+              "text": "For in him we live, and move, and have our being; as certain also of your own poets have said, For we are also his offspring."
+            },
+            {
+              "reference": "Job 34:14-15",
+              "text": "If he set his heart upon man, if he gather unto himself his spirit and his breath; All flesh shall perish together, and man shall turn again unto dust."
+            },
+            {
+              "reference": "Psalms 104:27-29",
+              "text": "These wait all upon thee; that thou mayest give them their meat in due season. That thou givest them they gather: thou openest thine hand, they are filled with good. Thou hidest thy face, they are troubled: thou takest away their breath, they die, and return to their dust."
+            },
+            {
+              "reference": "Daniel 5:23",
+              "text": "But hast lifted up thyself against the Lord of heaven; and they have brought the vessels of his house before thee, and thou, and thy lords, thy wives, and thy concubines, have drunk wine in them; and thou hast praised the gods of silver, and gold, of brass, iron, wood, and stone, which see not, nor hear, nor know: and the God in whose hand thy breath is, and whose are all thy ways, hast thou not glorified:"
+            },
+            {
+              "reference": "Job 12:10",
+              "text": "In whose hand is the soul of every living thing, and the breath of all mankind."
+            },
+            {
+              "reference": "Matthew 6:26",
+              "text": "Behold the fowls of the air: for they sow not, neither do they reap, nor gather into barns; yet your heavenly Father feedeth them. Are ye not much better than they?"
+            }
+          ]
+        },
+        "Providence and Natural Law": {
+          "title": "Providence and Natural Law",
+          "description": "God's ordinary providence operates through the regular patterns and laws He established in creation, which are themselves expressions of His faithful character and wise design. These natural laws describe God's normal mode of operation, not autonomous forces independent of divine will.",
+          "verses": [
+            {
+              "reference": "Genesis 8:22",
+              "text": "While the earth remaineth, seedtime and harvest, and cold and heat, and summer and winter, and day and night shall not cease."
+            },
+            {
+              "reference": "Psalms 104:19",
+              "text": "He appointed the moon for seasons: the sun knoweth his going down."
+            },
+            {
+              "reference": "Job 38:33",
+              "text": "Knowest thou the ordinances of heaven? canst thou set the dominion thereof in the earth?"
+            },
+            {
+              "reference": "Jeremiah 31:35-36",
+              "text": "Thus saith the LORD, which giveth the sun for a light by day, and the ordinances of the moon and of the stars for a light by night, which divideth the sea when the waves thereof roar; The LORD of hosts is his name: If those ordinances depart from before me, saith the LORD, then the seed of Israel also shall cease from being a nation before me for ever."
+            },
+            {
+              "reference": "Psalms 119:90-91",
+              "text": "Thy faithfulness is unto all generations: thou hast established the earth, and it abideth. They continue this day according to thine ordinances: for all are thy servants."
+            },
+            {
+              "reference": "Jeremiah 33:20-21",
+              "text": "Thus saith the LORD; If ye can break my covenant of the day, and my covenant of the night, and that there should not be day and night in their season; Then may also my covenant be broken with David my servant, that he should not have a son to reign upon his throne; and with the Levites the priests, my ministers."
+            }
+          ]
+        }
+      },
+      "Divine Governance": {
+        "God's Rule Over All": {
+          "title": "God's Rule Over All",
+          "description": "The sovereignty of God extends comprehensively over all realms of creation without exception. His providential rule encompasses not merely general oversight but particular governance of every detail, from cosmic movements to the minutest occurrences, all serving His eternal purposes.",
+          "verses": [
+            {
+              "reference": "Psalms 103:19",
+              "text": "The LORD hath prepared his throne in the heavens; and his kingdom ruleth over all."
+            },
+            {
+              "reference": "Daniel 4:35",
+              "text": "And all the inhabitants of the earth are reputed as nothing: and he doeth according to his will in the army of heaven, and among the inhabitants of the earth: and none can stay his hand, or say unto him, What doest thou?"
+            },
+            {
+              "reference": "Ephesians 1:11",
+              "text": "In whom also we have obtained an inheritance, being predestinated according to the purpose of him who worketh all things after the counsel of his own will:"
+            },
+            {
+              "reference": "Isaiah 46:10",
+              "text": "Declaring the end from the beginning, and from ancient times the things that are not yet done, saying, My counsel shall stand, and I will do all my pleasure:"
+            },
+            {
+              "reference": "Proverbs 16:33",
+              "text": "The lot is cast into the lap; but the whole disposing thereof is of the LORD."
+            },
+            {
+              "reference": "Matthew 10:29-30",
+              "text": "Are not two sparrows sold for a farthing? and one of them shall not fall on the ground without your Father. But the very hairs of your head are all numbered."
+            }
+          ]
+        },
+        "Governance of Nature": {
+          "title": "Governance of Nature",
+          "description": "God exercises direct control over all natural phenomena, commanding the elements and directing natural processes according to His wise purposes. Weather, seasons, celestial movements, and all physical processes operate under divine superintendence, not blind necessity.",
+          "verses": [
+            {
+              "reference": "Job 37:6-13",
+              "text": "For he saith to the snow, Be thou on the earth; likewise to the small rain, and to the great rain of his strength. He sealeth up the hand of every man; that all men may know his work. Then the beasts go into dens, and remain in their places. Out of the south cometh the whirlwind: and cold out of the north. By the breath of God frost is given: and the breadth of the waters is straitened. Also by watering he wearieth the thick cloud: he scattereth his bright cloud: And it is turned round about by his counsels: that they may do whatsoever he commandeth them upon the face of the world in the earth. He causeth it to come, whether for correction, or for his land, or for mercy."
+            },
+            {
+              "reference": "Psalms 135:6-7",
+              "text": "Whatsoever the LORD pleased, that did he in heaven, and in earth, in the seas, and all deep places. He causeth the vapours to ascend from the ends of the earth; he maketh lightnings for the rain; he bringeth the wind out of his treasuries."
+            },
+            {
+              "reference": "Matthew 5:45",
+              "text": "That ye may be the children of your Father which is in heaven: for he maketh his sun to rise on the evil and on the good, and sendeth rain on the just and on the unjust."
+            },
+            {
+              "reference": "Psalms 147:8-9",
+              "text": "Who covereth the heaven with clouds, who prepareth rain for the earth, who maketh grass to grow upon the mountains. He giveth to the beast his food, and to the young ravens which cry."
+            },
+            {
+              "reference": "Job 38:22-30",
+              "text": "Hast thou entered into the treasures of the snow? or hast thou seen the treasures of the hail, Which I have reserved against the time of trouble, against the day of battle and war? By what way is the light parted, which scattereth the east wind upon the earth? Who hath divided a watercourse for the overflowing of waters, or a way for the lightning of thunder; To cause it to rain on the earth, where no man is; on the wilderness, wherein there is no man; To satisfy the desolate and waste ground; and to cause the bud of the tender herb to spring forth? Hath the rain a father? or who hath begotten the drops of dew? Out of whose womb came the ice? and the hoary frost of heaven, who hath gendered it? The waters are hid as with a stone, and the face of the deep is frozen."
+            },
+            {
+              "reference": "Amos 4:7",
+              "text": "And also I have withholden the rain from you, when there were yet three months to the harvest: and I caused it to rain upon one city, and caused it not to rain upon another city: one piece was rained upon, and the piece whereupon it rained not withered."
+            }
+          ]
+        },
+        "Governance of Nations": {
+          "title": "Governance of Nations",
+          "description": "All human governments and political powers exist under God's sovereign control, serving His purposes whether they acknowledge Him or not. He raises up rulers and casts them down, directs national destinies, and uses even pagan empires to accomplish His redemptive plans.",
+          "verses": [
+            {
+              "reference": "Daniel 2:21",
+              "text": "And he changeth the times and the seasons: he removeth kings, and setteth up kings: he giveth wisdom unto the wise, and knowledge to them that know understanding:"
+            },
+            {
+              "reference": "Psalms 75:6-7",
+              "text": "For promotion cometh neither from the east, nor from the west, nor from the south. But God is the judge: he putteth down one, and setteth up another."
+            },
+            {
+              "reference": "Proverbs 21:1",
+              "text": "The king's heart is in the hand of the LORD, as the rivers of water: he turneth it whithersoever he will."
+            },
+            {
+              "reference": "Romans 13:1",
+              "text": "Let every soul be subject unto the higher powers. For there is no power but of God: the powers that be are ordained of God."
+            },
+            {
+              "reference": "Job 12:23",
+              "text": "He increaseth the nations, and destroyeth them: he enlargeth the nations, and straiteneth them again."
+            },
+            {
+              "reference": "Acts 17:26",
+              "text": "And hath made of one blood all nations of men for to dwell on all the face of the earth, and hath determined the times before appointed, and the bounds of their habitation;"
+            }
+          ]
+        },
+        "Governance of Individuals": {
+          "title": "Governance of Individuals",
+          "description": "God's providence extends to the particular circumstances of individual lives, directing personal histories according to His wise and loving purposes. Every person's days are numbered, their paths directed, and their circumstances arranged by divine wisdom for both individual good and ultimate glory.",
+          "verses": [
+            {
+              "reference": "Psalms 139:13-16",
+              "text": "For thou hast possessed my reins: thou hast covered me in my mother's womb. I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well. My substance was not hid from thee, when I was made in secret, and curiously wrought in the lowest parts of the earth. Thine eyes did see my substance, yet being unperfect; and in thy book all my members were written, which in continuance were fashioned, when as yet there was none of them."
+            },
+            {
+              "reference": "Jeremiah 1:5",
+              "text": "Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I sanctified thee, and I ordained thee a prophet unto the nations."
+            },
+            {
+              "reference": "Acts 17:26",
+              "text": "And hath made of one blood all nations of men for to dwell on all the face of the earth, and hath determined the times before appointed, and the bounds of their habitation;"
+            },
+            {
+              "reference": "Proverbs 16:9",
+              "text": "A man's heart deviseth his way: but the LORD directeth his steps."
+            },
+            {
+              "reference": "Psalms 37:23",
+              "text": "The steps of a good man are ordered by the LORD: and he delighteth in his way."
+            },
+            {
+              "reference": "Job 14:5",
+              "text": "Seeing his days are determined, the number of his months are with thee, thou hast appointed his bounds that he cannot pass;"
+            }
+          ]
+        }
+      },
+      "Concurrence": {
+        "Primary and Secondary Causes": {
+          "title": "Primary and Secondary Causes",
+          "description": "Divine providence operates through the concurrence of God's primary causation with creaturely secondary causes, wherein God works all things according to His will while creatures act according to their natures. God's sovereignty and human agency coexist without contradiction in the mystery of concurrence.",
+          "verses": [
+            {
+              "reference": "Acts 2:23",
+              "text": "Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain:"
+            },
+            {
+              "reference": "Genesis 50:20",
+              "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."
+            },
+            {
+              "reference": "Philippians 2:12-13",
+              "text": "Wherefore, my beloved, as ye have always obeyed, not as in my presence only, but now much more in my absence, work out your own salvation with fear and trembling. For it is God which worketh in you both to will and to do of his good pleasure."
+            },
+            {
+              "reference": "Isaiah 10:5-7",
+              "text": "O Assyrian, the rod of mine anger, and the staff in their hand is mine indignation. I will send him against an hypocritical nation, and against the people of my wrath will I give him a charge, to take the spoil, and to take the prey, and to tread them down like the mire of the streets. Howbeit he meaneth not so, neither doth his heart think so; but it is in his heart to destroy and cut off nations not a few."
+            },
+            {
+              "reference": "Acts 4:27-28",
+              "text": "For of a truth against thy holy child Jesus, whom thou hast anointed, both Herod, and Pontius Pilate, with the Gentiles, and the people of Israel, were gathered together, For to do whatsoever thy hand and thy counsel determined before to be done."
+            },
+            {
+              "reference": "Proverbs 16:1",
+              "text": "The preparations of the heart in man, and the answer of the tongue, is from the LORD."
+            }
+          ]
+        },
+        "Divine and Human Agency": {
+          "title": "Divine and Human Agency",
+          "description": "Scripture affirms both divine sovereignty and genuine human responsibility without presenting them as mutually exclusive. Men act freely according to their wills while God accomplishes His predetermined purposes through those very actions, demonstrating the compatibility of divine and human agency.",
+          "verses": [
+            {
+              "reference": "Acts 2:23",
+              "text": "Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain:"
+            },
+            {
+              "reference": "Acts 4:27-28",
+              "text": "For of a truth against thy holy child Jesus, whom thou hast anointed, both Herod, and Pontius Pilate, with the Gentiles, and the people of Israel, were gathered together, For to do whatsoever thy hand and thy counsel determined before to be done."
+            },
+            {
+              "reference": "Genesis 50:20",
+              "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."
+            },
+            {
+              "reference": "Philippians 2:12-13",
+              "text": "Wherefore, my beloved, as ye have always obeyed, not as in my presence only, but now much more in my absence, work out your own salvation with fear and trembling. For it is God which worketh in you both to will and to do of his good pleasure."
+            },
+            {
+              "reference": "Proverbs 16:9",
+              "text": "A man's heart deviseth his way: but the LORD directeth his steps."
+            },
+            {
+              "reference": "Isaiah 10:5-7",
+              "text": "O Assyrian, the rod of mine anger, and the staff in their hand is mine indignation. I will send him against an hypocritical nation, and against the people of my wrath will I give him a charge, to take the spoil, and to take the prey, and to tread them down like the mire of the streets. Howbeit he meaneth not so, neither doth his heart think so; but it is in his heart to destroy and cut off nations not a few."
+            }
+          ]
+        },
+        "God Works Through Means": {
+          "title": "God Works Through Means",
+          "description": "God ordinarily accomplishes His purposes through appointed means rather than by immediate divine intervention, using human instrumentality, natural processes, and ordained channels. This pattern demonstrates both divine wisdom in creation's design and the dignity of creaturely participation in providential purposes.",
+          "verses": [
+            {
+              "reference": "Psalms 127:1",
+              "text": "Except the LORD build the house, they labour in vain that build it: except the LORD keep the city, the watchman waketh but in vain."
+            },
+            {
+              "reference": "Matthew 9:38",
+              "text": "Pray ye therefore the Lord of the harvest, that he will send forth labourers into his harvest."
+            },
+            {
+              "reference": "I Corinthians 3:6-7",
+              "text": ""
+            },
+            {
+              "reference": "Romans 10:14-15",
+              "text": "How then shall they call on him in whom they have not believed? and how shall they believe in him of whom they have not heard? and how shall they hear without a preacher? And how shall they preach, except they be sent? as it is written, How beautiful are the feet of them that preach the gospel of peace, and bring glad tidings of good things!"
+            }
+          ]
+        },
+        "Compatibilism": {
+          "title": "Compatibilism",
+          "description": "Scripture affirms compatibilism, wherein divine sovereignty and human responsibility coexist harmoniously. God's eternal decree encompasses all events while humans act voluntarily according to their desires, both truths being simultaneously and fully valid without logical contradiction.",
+          "verses": [
+            {
+              "reference": "Philippians 2:12-13",
+              "text": "Wherefore, my beloved, as ye have always obeyed, not as in my presence only, but now much more in my absence, work out your own salvation with fear and trembling. For it is God which worketh in you both to will and to do of his good pleasure."
+            },
+            {
+              "reference": "Acts 13:48",
+              "text": "And when the Gentiles heard this, they were glad, and glorified the word of the Lord: and as many as were ordained to eternal life believed."
+            },
+            {
+              "reference": "Proverbs 16:1",
+              "text": "The preparations of the heart in man, and the answer of the tongue, is from the LORD."
+            },
+            {
+              "reference": "Proverbs 21:1",
+              "text": "The king's heart is in the hand of the LORD, as the rivers of water: he turneth it whithersoever he will."
+            },
+            {
+              "reference": "Ezra 1:1",
+              "text": "Now in the first year of Cyrus king of Persia, that the word of the LORD by the mouth of Jeremiah might be fulfilled, the LORD stirred up the spirit of Cyrus king of Persia, that he made a proclamation throughout all his kingdom, and put it also in writing, saying,"
+            },
+            {
+              "reference": "Acts 2:23",
+              "text": "Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain:"
+            }
+          ]
+        }
+      },
+      "Providence and Evil": {
+        "Permission of Sin": {
+          "title": "Permission of Sin",
+          "description": "God's providence includes the permission of sin and evil, wherein He allows moral agents to act contrary to His revealed will while ensuring that such actions ultimately serve His sovereign purposes. This permission demonstrates both divine respect for creaturely freedom and sovereign control over evil's extent and outcome.",
+          "verses": [
+            {
+              "reference": "Genesis 50:20",
+              "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."
+            },
+            {
+              "reference": "Acts 2:23",
+              "text": "Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain:"
+            },
+            {
+              "reference": "Acts 4:27-28",
+              "text": "For of a truth against thy holy child Jesus, whom thou hast anointed, both Herod, and Pontius Pilate, with the Gentiles, and the people of Israel, were gathered together, For to do whatsoever thy hand and thy counsel determined before to be done."
+            },
+            {
+              "reference": "Isaiah 10:5-7",
+              "text": "O Assyrian, the rod of mine anger, and the staff in their hand is mine indignation. I will send him against an hypocritical nation, and against the people of my wrath will I give him a charge, to take the spoil, and to take the prey, and to tread them down like the mire of the streets. Howbeit he meaneth not so, neither doth his heart think so; but it is in his heart to destroy and cut off nations not a few."
+            },
+            {
+              "reference": "Acts 14:16",
+              "text": "Who in times past suffered all nations to walk in their own ways."
+            },
+            {
+              "reference": "Psalms 81:12",
+              "text": "So I gave them up unto their own hearts' lust: and they walked in their own counsels."
+            }
+          ]
+        },
+        "God Not Author of Sin": {
+          "title": "God Not Author of Sin",
+          "description": "While God ordains whatsoever comes to pass, He is not the author of sin nor can He be justly charged with evil. His holy nature precludes any moral complicity in wickedness, and the guilt for sinful acts rests entirely upon the creatures who commit them freely according to their own wills.",
+          "verses": [
+            {
+              "reference": "James 1:13",
+              "text": "Let no man say when he is tempted, I am tempted of God: for God cannot be tempted with evil, neither tempteth he any man:"
+            },
+            {
+              "reference": "Psalms 5:4",
+              "text": "For thou art not a God that hath pleasure in wickedness: neither shall evil dwell with thee."
+            },
+            {
+              "reference": "Job 34:10",
+              "text": "Therefore hearken unto me, ye men of understanding: far be it from God, that he should do wickedness; and from the Almighty, that he should commit iniquity."
+            },
+            {
+              "reference": "Deuteronomy 32:4",
+              "text": "He is the Rock, his work is perfect: for all his ways are judgment: a God of truth and without iniquity, just and right is he."
+            },
+            {
+              "reference": "Habakkuk 1:13",
+              "text": "Thou art of purer eyes than to behold evil, and canst not look on iniquity: wherefore lookest thou upon them that deal treacherously, and holdest thy tongue when the wicked devoureth the man that is more righteous than he?"
+            }
+          ]
+        },
+        "Limiting and Directing Evil": {
+          "title": "Limiting and Directing Evil",
+          "description": "God's providence exercises sovereign control over evil, setting boundaries to its operation and directing it toward purposes that ultimately manifest His glory and accomplish good. Evil never operates beyond divinely appointed limits, and Satan himself remains on a leash held by the Almighty.",
+          "verses": [
+            {
+              "reference": "Job 1:12",
+              "text": "And the LORD said unto Satan, Behold, all that he hath is in thy power; only upon himself put not forth thine hand. So Satan went forth from the presence of the LORD."
+            },
+            {
+              "reference": "Job 2:6",
+              "text": "And the LORD said unto Satan, Behold, he is in thine hand; but save his life."
+            },
+            {
+              "reference": "Psalms 76:10",
+              "text": "Surely the wrath of man shall praise thee: the remainder of wrath shalt thou restrain."
+            },
+            {
+              "reference": "Acts 4:28",
+              "text": "For to do whatsoever thy hand and thy counsel determined before to be done."
+            },
+            {
+              "reference": "Isaiah 10:12-15",
+              "text": "Wherefore it shall come to pass, that when the Lord hath performed his whole work upon mount Zion and on Jerusalem, I will punish the fruit of the stout heart of the king of Assyria, and the glory of his high looks. For he saith, By the strength of my hand I have done it, and by my wisdom; for I am prudent: and I have removed the bounds of the people, and have robbed their treasures, and I have put down the inhabitants like a valiant man: And my hand hath found as a nest the riches of the people: and as one gathereth eggs that are left, have I gathered all the earth; and there was none that moved the wing, or opened the mouth, or peeped. Shall the axe boast itself against him that heweth therewith? or shall the saw magnify itself against him that shaketh it? as if the rod should shake itself against them that lift it up, or as if the staff should lift up itself, as if it were no wood."
+            },
+            {
+              "reference": "Genesis 50:20",
+              "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."
+            }
+          ]
+        },
+        "Greater Good": {
+          "title": "Greater Good",
+          "description": "Providence works all things, including evil and suffering, together for ultimate good to those who love God and for the manifestation of divine glory. What creatures intend for evil, God ordains for good purposes, bringing redemptive fruit from sinful actions and transforming curses into blessings.",
+          "verses": [
+            {
+              "reference": "Romans 8:28",
+              "text": "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."
+            },
+            {
+              "reference": "Genesis 45:5-8",
+              "text": "Now therefore be not grieved, nor angry with yourselves, that ye sold me hither: for God did send me before you to preserve life. For these two years hath the famine been in the land: and yet there are five years, in the which there shall neither be earing nor harvest. And God sent me before you to preserve you a posterity in the earth, and to save your lives by a great deliverance. So now it was not you that sent me hither, but God: and he hath made me a father to Pharaoh, and lord of all his house, and a ruler throughout all the land of Egypt."
+            },
+            {
+              "reference": "Genesis 50:20",
+              "text": "But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive."
+            },
+            {
+              "reference": "Psalms 119:71",
+              "text": "It is good for me that I have been afflicted; that I might learn thy statutes."
+            },
+            {
+              "reference": "II Corinthians 12:7-9",
+              "text": ""
+            },
+            {
+              "reference": "James 1:2-4",
+              "text": "My brethren, count it all joy when ye fall into divers temptations; Knowing this, that the trying of your faith worketh patience. But let patience have her perfect work, that ye may be perfect and entire, wanting nothing."
+            }
+          ]
+        }
+      },
+      "Providence and Prayer": {
+        "Prayer and Sovereignty": {
+          "title": "Prayer and Sovereignty",
+          "description": "Divine sovereignty does not render prayer superfluous but rather establishes it as the ordained means through which God's purposes are accomplished. Prayer changes circumstances not by overriding God's will but by conforming to it, serving as the appointed instrument through which predetermined ends are realized.",
+          "verses": [
+            {
+              "reference": "Daniel 9:2-3",
+              "text": "In the first year of his reign I Daniel understood by books the number of the years, whereof the word of the LORD came to Jeremiah the prophet, that he would accomplish seventy years in the desolations of Jerusalem. And I set my face unto the Lord God, to seek by prayer and supplications, with fasting, and sackcloth, and ashes:"
+            },
+            {
+              "reference": "Ezekiel 36:37",
+              "text": "Thus saith the Lord GOD; I will yet for this be enquired of by the house of Israel, to do it for them; I will increase them with men like a flock."
+            },
+            {
+              "reference": "James 5:16",
+              "text": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."
+            },
+            {
+              "reference": "Isaiah 62:6-7",
+              "text": "I have set watchmen upon thy walls, O Jerusalem, which shall never hold their peace day nor night: ye that make mention of the LORD, keep not silence, And give him no rest, till he establish, and till he make Jerusalem a praise in the earth."
+            },
+            {
+              "reference": "Philippians 4:6",
+              "text": "Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God."
+            }
+          ]
+        },
+        "God Ordains Means": {
+          "title": "God Ordains Means",
+          "description": "God ordains not only the ends but also the means to those ends, including prayer as the appointed channel through which His purposes flow to fulfillment. The certainty of divine purposes does not eliminate but rather necessitates prayer, for God has decreed both the outcome and the prayerful means to that outcome.",
+          "verses": [
+            {
+              "reference": "Matthew 6:8",
+              "text": "Be not ye therefore like unto them: for your Father knoweth what things ye have need of, before ye ask him."
+            },
+            {
+              "reference": "James 4:2",
+              "text": "Ye lust, and have not: ye kill, and desire to have, and cannot obtain: ye fight and war, yet ye have not, because ye ask not."
+            },
+            {
+              "reference": "Matthew 7:7-8",
+              "text": "Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened unto you: For every one that asketh receiveth; and he that seeketh findeth; and to him that knocketh it shall be opened."
+            },
+            {
+              "reference": "Luke 18:1",
+              "text": "And he spake a parable unto them to this end, that men ought always to pray, and not to faint;"
+            },
+            {
+              "reference": "Ezekiel 36:37",
+              "text": "Thus saith the Lord GOD; I will yet for this be enquired of by the house of Israel, to do it for them; I will increase them with men like a flock."
+            }
+          ]
+        },
+        "Effectual Prayer": {
+          "title": "Effectual Prayer",
+          "description": "Fervent prayer of the righteous accomplishes much, not through human merit but through divine promise to honor the prayers offered in faith according to His will. God delights to answer His children's petitions, using their intercession as the means to display His power and fulfill His predetermined purposes.",
+          "verses": [
+            {
+              "reference": "James 5:16-18",
+              "text": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much. Elias was a man subject to like passions as we are, and he prayed earnestly that it might not rain: and it rained not on the earth by the space of three years and six months. And he prayed again, and the heaven gave rain, and the earth brought forth her fruit."
+            },
+            {
+              "reference": "I Kings 18:42-45",
+              "text": ""
+            },
+            {
+              "reference": "Exodus 32:9-14",
+              "text": "And the LORD said unto Moses, I have seen this people, and, behold, it is a stiffnecked people: Now therefore let me alone, that my wrath may wax hot against them, and that I may consume them: and I will make of thee a great nation. And Moses besought the LORD his God, and said, LORD, why doth thy wrath wax hot against thy people, which thou hast brought forth out of the land of Egypt with great power, and with a mighty hand? Wherefore should the Egyptians speak, and say, For mischief did he bring them out, to slay them in the mountains, and to consume them from the face of the earth? Turn from thy fierce wrath, and repent of this evil against thy people. Remember Abraham, Isaac, and Israel, thy servants, to whom thou swarest by thine own self, and saidst unto them, I will multiply your seed as the stars of heaven, and all this land that I have spoken of will I give unto your seed, and they shall inherit it for ever. And the LORD repented of the evil which he thought to do unto his people."
+            },
+            {
+              "reference": "II Kings 20:1-6",
+              "text": ""
+            },
+            {
+              "reference": "Genesis 18:23-32",
+              "text": "And Abraham drew near, and said, Wilt thou also destroy the righteous with the wicked? Peradventure there be fifty righteous within the city: wilt thou also destroy and not spare the place for the fifty righteous that are therein? That be far from thee to do after this manner, to slay the righteous with the wicked: and that the righteous should be as the wicked, that be far from thee: Shall not the Judge of all the earth do right? And the LORD said, If I find in Sodom fifty righteous within the city, then I will spare all the place for their sakes. And Abraham answered and said, Behold now, I have taken upon me to speak unto the Lord, which am but dust and ashes: Peradventure there shall lack five of the fifty righteous: wilt thou destroy all the city for lack of five? And he said, If I find there forty and five, I will not destroy it. And he spake unto him yet again, and said, Peradventure there shall be forty found there. And he said, I will not do it for forty's sake. And he said unto him, Oh let not the Lord be angry, and I will speak: Peradventure there shall thirty be found there. And he said, I will not do it, if I find thirty there. And he said, Behold now, I have taken upon me to speak unto the Lord: Peradventure there shall be twenty found there. And he said, I will not destroy it for twenty's sake. And he said, Oh let not the Lord be angry, and I will speak yet but this once: Peradventure ten shall be found there. And he said, I will not destroy it for ten's sake."
+            },
+            {
+              "reference": "Daniel 9:20-23",
+              "text": "And whiles I was speaking, and praying, and confessing my sin and the sin of my people Israel, and presenting my supplication before the LORD my God for the holy mountain of my God; Yea, whiles I was speaking in prayer, even the man Gabriel, whom I had seen in the vision at the beginning, being caused to fly swiftly, touched me about the time of the evening oblation. And he informed me, and talked with me, and said, O Daniel, I am now come forth to give thee skill and understanding. At the beginning of thy supplications the commandment came forth, and I am come to shew thee; for thou art greatly beloved: therefore understand the matter, and consider the vision."
+            }
+          ]
+        },
+        "Providence Revealed Through Prayer": {
+          "title": "Providence Revealed Through Prayer",
+          "description": "Through prayer believers discern God's providential leading, learning to align their desires with divine purposes and to recognize answers that demonstrate His active involvement in their circumstances. Prayer serves as both means of providence and means of understanding providence.",
+          "verses": [
+            {
+              "reference": "Acts 12:5-12",
+              "text": "Peter therefore was kept in prison: but prayer was made without ceasing of the church unto God for him. And when Herod would have brought him forth, the same night Peter was sleeping between two soldiers, bound with two chains: and the keepers before the door kept the prison. And, behold, the angel of the Lord came upon him, and a light shined in the prison: and he smote Peter on the side, and raised him up, saying, Arise up quickly. And his chains fell off from his hands. And the angel said unto him, Gird thyself, and bind on thy sandals. And so he did. And he saith unto him, Cast thy garment about thee, and follow me. And he went out, and followed him; and wist not that it was true which was done by the angel; but thought he saw a vision. When they were past the first and the second ward, they came unto the iron gate that leadeth unto the city; which opened to them of his own accord: and they went out, and passed on through one street; and forthwith the angel departed from him. And when Peter was come to himself, he said, Now I know of a surety, that the Lord hath sent his angel, and hath delivered me out of the hand of Herod, and from all the expectation of the people of the Jews. And when he had considered the thing, he came to the house of Mary the mother of John, whose surname was Mark; where many were gathered together praying."
+            },
+            {
+              "reference": "Ephesians 6:18-19",
+              "text": "Praying always with all prayer and supplication in the Spirit, and watching thereunto with all perseverance and supplication for all saints; And for me, that utterance may be given unto me, that I may open my mouth boldly, to make known the mystery of the gospel,"
+            },
+            {
+              "reference": "Colossians 4:2-3",
+              "text": "Continue in prayer, and watch in the same with thanksgiving; Withal praying also for us, that God would open unto us a door of utterance, to speak the mystery of Christ, for which I am also in bonds:"
+            },
+            {
+              "reference": "Psalms 65:2",
+              "text": "O thou that hearest prayer, unto thee shall all flesh come."
+            },
+            {
+              "reference": "John 9:31",
+              "text": "Now we know that God heareth not sinners: but if any man be a worshipper of God, and doeth his will, him he heareth."
+            },
+            {
+              "reference": "I John 5:14-15",
+              "text": ""
+            }
+          ]
+        }
+      },
+      "Extraordinary Providence": {
+        "Miracles Defined": {
+          "title": "Miracles Defined",
+          "description": "Miracles constitute extraordinary works of divine power that transcend, suspend, or reverse natural laws to accomplish God's purposes and authenticate His messengers. These supernatural interventions demonstrate God's absolute sovereignty over creation and serve specific redemptive-historical functions in advancing His kingdom purposes.",
+          "verses": [
+            {
+              "reference": "Exodus 14:21",
+              "text": "And Moses stretched out his hand over the sea; and the LORD caused the sea to go back by a strong east wind all that night, and made the sea dry land, and the waters were divided."
+            },
+            {
+              "reference": "Joshua 10:12-13",
+              "text": "Then spake Joshua to the LORD in the day when the LORD delivered up the Amorites before the children of Israel, and he said in the sight of Israel, Sun, stand thou still upon Gibeon; and thou, Moon, in the valley of Ajalon. And the sun stood still, and the moon stayed, until the people had avenged themselves upon their enemies. Is not this written in the book of Jasher? So the sun stood still in the midst of heaven, and hasted not to go down about a whole day."
+            },
+            {
+              "reference": "II Kings 20:9-11",
+              "text": ""
+            },
+            {
+              "reference": "Daniel 3:25-27",
+              "text": "He answered and said, Lo, I see four men loose, walking in the midst of the fire, and they have no hurt; and the form of the fourth is like the Son of God. Then Nebuchadnezzar came near to the mouth of the burning fiery furnace, and spake, and said, Shadrach, Meshach, and Abed-nego, ye servants of the most high God, come forth, and come hither. Then Shadrach, Meshach, and Abed-nego, came forth of the midst of the fire. And the princes, governors, and captains, and the king's counsellors, being gathered together, saw these men, upon whose bodies the fire had no power, nor was an hair of their head singed, neither were their coats changed, nor the smell of fire had passed on them."
+            },
+            {
+              "reference": "Acts 12:6-10",
+              "text": "And when Herod would have brought him forth, the same night Peter was sleeping between two soldiers, bound with two chains: and the keepers before the door kept the prison. And, behold, the angel of the Lord came upon him, and a light shined in the prison: and he smote Peter on the side, and raised him up, saying, Arise up quickly. And his chains fell off from his hands. And the angel said unto him, Gird thyself, and bind on thy sandals. And so he did. And he saith unto him, Cast thy garment about thee, and follow me. And he went out, and followed him; and wist not that it was true which was done by the angel; but thought he saw a vision. When they were past the first and the second ward, they came unto the iron gate that leadeth unto the city; which opened to them of his own accord: and they went out, and passed on through one street; and forthwith the angel departed from him."
+            },
+            {
+              "reference": "John 11:43-44",
+              "text": "And when he thus had spoken, he cried with a loud voice, Lazarus, come forth. And he that was dead came forth, bound hand and foot with graveclothes: and his face was bound about with a napkin. Jesus saith unto them, Loose him, and let him go."
+            }
+          ]
+        },
+        "Cessation Question": {
+          "title": "Cessation Question",
+          "description": "The foundational sign gifts, including apostolic miracles, served to authenticate revelation and the apostolic office, ceasing with the completion of the biblical canon. While God remains sovereign to work miracles, the normative pattern of His present operation is through ordinary providence and the Word.",
+          "verses": [
+            {
+              "reference": "I Corinthians 13:8-10",
+              "text": ""
+            },
+            {
+              "reference": "Hebrews 1:1-2",
+              "text": "God, who at sundry times and in divers manners spake in time past unto the fathers by the prophets, Hath in these last days spoken unto us by his Son, whom he hath appointed heir of all things, by whom also he made the worlds;"
+            },
+            {
+              "reference": "Mark 16:20",
+              "text": "And they went forth, and preached every where, the Lord working with them, and confirming the word with signs following. Amen."
+            },
+            {
+              "reference": "Hebrews 2:3-4",
+              "text": "How shall we escape, if we neglect so great salvation; which at the first began to be spoken by the Lord, and was confirmed unto us by them that heard him; God also bearing them witness, both with signs and wonders, and with divers miracles, and gifts of the Holy Ghost, according to his own will?"
+            },
+            {
+              "reference": "Acts 2:22",
+              "text": "Ye men of Israel, hear these words; Jesus of Nazareth, a man approved of God among you by miracles and wonders and signs, which God did by him in the midst of you, as ye yourselves also know:"
+            }
+          ]
+        },
+        "Providence vs Miracle": {
+          "title": "Providence vs Miracle",
+          "description": "Ordinary providence operates through established natural laws while miracles transcend those laws, yet both demonstrate God's sovereign power and serve His purposes. The distinction lies not in divine power exercised but in the mode of operation, whether through regular patterns or supernatural intervention.",
+          "verses": [
+            {
+              "reference": "Psalms 104:4",
+              "text": "Who maketh his angels spirits; his ministers a flaming fire:"
+            },
+            {
+              "reference": "Daniel 6:22",
+              "text": "My God hath sent his angel, and hath shut the lions' mouths, that they have not hurt me: forasmuch as before him innocency was found in me; and also before thee, O king, have I done no hurt."
+            },
+            {
+              "reference": "Psalms 91:11",
+              "text": "For he shall give his angels charge over thee, to keep thee in all thy ways."
+            },
+            {
+              "reference": "Acts 5:19",
+              "text": "But the angel of the Lord by night opened the prison doors, and brought them forth, and said,"
+            },
+            {
+              "reference": "Acts 27:23-24",
+              "text": "For there stood by me this night the angel of God, whose I am, and whom I serve, Saying, Fear not, Paul; thou must be brought before Caesar: and, lo, God hath given thee all them that sail with thee."
+            },
+            {
+              "reference": "Psalms 135:6-7",
+              "text": "Whatsoever the LORD pleased, that did he in heaven, and in earth, in the seas, and all deep places. He causeth the vapours to ascend from the ends of the earth; he maketh lightnings for the rain; he bringeth the wind out of his treasuries."
+            }
+          ]
+        },
+        "Signs and Wonders": {
+          "title": "Signs and Wonders",
+          "description": "Miraculous signs and wonders served specific purposes in redemptive history: authenticating divine messengers, confirming new revelation, manifesting God's glory, and advancing His kingdom purposes. These extraordinary works pointed beyond themselves to spiritual realities and the supremacy of God over all creation.",
+          "verses": [
+            {
+              "reference": "Exodus 7:9-12",
+              "text": "When Pharaoh shall speak unto you, saying, Shew a miracle for you: then thou shalt say unto Aaron, Take thy rod, and cast it before Pharaoh, and it shall become a serpent. And Moses and Aaron went in unto Pharaoh, and they did so as the LORD had commanded: and Aaron cast down his rod before Pharaoh, and before his servants, and it became a serpent. Then Pharaoh also called the wise men and the sorcerers: now the magicians of Egypt, they also did in like manner with their enchantments. For they cast down every man his rod, and they became serpents: but Aaron's rod swallowed up their rods."
+            },
+            {
+              "reference": "Matthew 12:38-39",
+              "text": "Then certain of the scribes and of the Pharisees answered, saying, Master, we would see a sign from thee. But he answered and said unto them, An evil and adulterous generation seeketh after a sign; and there shall no sign be given to it, but the sign of the prophet Jonas:"
+            },
+            {
+              "reference": "John 20:30-31",
+              "text": "And many other signs truly did Jesus in the presence of his disciples, which are not written in this book: But these are written, that ye might believe that Jesus is the Christ, the Son of God; and that believing ye might have life through his name."
+            },
+            {
+              "reference": "Acts 2:22",
+              "text": "Ye men of Israel, hear these words; Jesus of Nazareth, a man approved of God among you by miracles and wonders and signs, which God did by him in the midst of you, as ye yourselves also know:"
+            }
+          ]
+        }
+      },
+      "Providence and the Believer": {
+        "All Things Work Together": {
+          "title": "All Things Work Together",
+          "description": "God's providence orchestrates all circumstances in the believer's life, both pleasant and painful, to accomplish spiritual good and conformity to Christ's image. This comprehensive working extends to every detail of existence, weaving trials and blessings alike into a tapestry that manifests divine wisdom and love.",
+          "verses": [
+            {
+              "reference": "Romans 8:28",
+              "text": "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."
+            },
+            {
+              "reference": "Ephesians 1:11",
+              "text": "In whom also we have obtained an inheritance, being predestinated according to the purpose of him who worketh all things after the counsel of his own will:"
+            },
+            {
+              "reference": "Psalms 37:23",
+              "text": "The steps of a good man are ordered by the LORD: and he delighteth in his way."
+            },
+            {
+              "reference": "Jeremiah 29:11",
+              "text": "For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end."
+            },
+            {
+              "reference": "Proverbs 3:5-6",
+              "text": "Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths."
+            },
+            {
+              "reference": "Romans 8:29",
+              "text": "For whom he did foreknow, he also did predestinate to be conformed to the image of his Son, that he might be the firstborn among many brethren."
+            }
+          ]
+        },
+        "Particular Providence": {
+          "title": "Particular Providence",
+          "description": "God exercises meticulous care over His children's individual circumstances, numbering their days, directing their steps, and ordering their affairs according to His perfect wisdom. No detail proves too small for divine attention, no concern too trivial for providential arrangement.",
+          "verses": [
+            {
+              "reference": "Matthew 10:29-31",
+              "text": "Are not two sparrows sold for a farthing? and one of them shall not fall on the ground without your Father. But the very hairs of your head are all numbered. Fear ye not therefore, ye are of more value than many sparrows."
+            },
+            {
+              "reference": "Psalms 121:3-4",
+              "text": "He will not suffer thy foot to be moved: he that keepeth thee will not slumber. Behold, he that keepeth Israel shall neither slumber nor sleep."
+            },
+            {
+              "reference": "Isaiah 41:10",
+              "text": "Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness."
+            },
+            {
+              "reference": "Psalms 23:1",
+              "text": "The LORD is my shepherd; I shall not want."
+            },
+            {
+              "reference": "Philippians 4:19",
+              "text": "But my God shall supply all your need according to his riches in glory by Christ Jesus."
+            },
+            {
+              "reference": "Psalms 37:23-24",
+              "text": "The steps of a good man are ordered by the LORD: and he delighteth in his way. Though he fall, he shall not be utterly cast down: for the LORD upholdeth him with his hand."
+            }
+          ]
+        },
+        "Chastening": {
+          "title": "Chastening",
+          "description": "Divine providence includes fatherly discipline of believers through trials and afflictions designed to correct, instruct, and mature them in holiness. This chastening demonstrates covenant love, distinguishes children from bastards, and produces the peaceable fruit of righteousness in those properly exercised thereby.",
+          "verses": [
+            {
+              "reference": "Hebrews 12:6-11",
+              "text": "For whom the Lord loveth he chasteneth, and scourgeth every son whom he receiveth. If ye endure chastening, God dealeth with you as with sons; for what son is he whom the father chasteneth not? But if ye be without chastisement, whereof all are partakers, then are ye bastards, and not sons. Furthermore we have had fathers of our flesh which corrected us, and we gave them reverence: shall we not much rather be in subjection unto the Father of spirits, and live? For they verily for a few days chastened us after their own pleasure; but he for our profit, that we might be partakers of his holiness. Now no chastening for the present seemeth to be joyous, but grievous: nevertheless afterward it yieldeth the peaceable fruit of righteousness unto them which are exercised thereby."
+            },
+            {
+              "reference": "Proverbs 3:11-12",
+              "text": "My son, despise not the chastening of the LORD; neither be weary of his correction: For whom the LORD loveth he correcteth; even as a father the son in whom he delighteth."
+            },
+            {
+              "reference": "Revelation 3:19",
+              "text": "As many as I love, I rebuke and chasten: be zealous therefore, and repent."
+            },
+            {
+              "reference": "Job 5:17",
+              "text": "Behold, happy is the man whom God correcteth: therefore despise not thou the chastening of the Almighty:"
+            },
+            {
+              "reference": "Psalms 94:12",
+              "text": "Blessed is the man whom thou chastenest, O LORD, and teachest him out of thy law;"
+            },
+            {
+              "reference": "Psalms 119:67",
+              "text": "Before I was afflicted I went astray: but now have I kept thy word."
+            }
+          ]
+        },
+        "Divine Protection": {
+          "title": "Divine Protection",
+          "description": "Providence encompasses God's watchful care over believers, protecting them from dangers seen and unseen, preserving them through trials, and keeping them unto final salvation. This protection operates through both natural and supernatural means, employing angels, circumstances, and direct intervention as wisdom dictates.",
+          "verses": [
+            {
+              "reference": "Psalms 91:11-12",
+              "text": "For he shall give his angels charge over thee, to keep thee in all thy ways. They shall bear thee up in their hands, lest thou dash thy foot against a stone."
+            },
+            {
+              "reference": "Psalms 34:7",
+              "text": "The angel of the LORD encampeth round about them that fear him, and delivereth them."
+            },
+            {
+              "reference": "Daniel 6:22",
+              "text": "My God hath sent his angel, and hath shut the lions' mouths, that they have not hurt me: forasmuch as before him innocency was found in me; and also before thee, O king, have I done no hurt."
+            },
+            {
+              "reference": "Psalms 121:7-8",
+              "text": "The LORD shall preserve thee from all evil: he shall preserve thy soul. The LORD shall preserve thy going out and thy coming in from this time forth, and even for evermore."
+            },
+            {
+              "reference": "Psalms 91:1-2",
+              "text": "He that dwelleth in the secret place of the most High shall abide under the shadow of the Almighty. I will say of the LORD, He is my refuge and my fortress: my God; in him will I trust."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

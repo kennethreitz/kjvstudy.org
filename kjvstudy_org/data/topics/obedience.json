@@ -1,0 +1,71 @@
+{
+  "Obedience": {
+    "description": "Submitting to God's commands out of love and reverence",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Obedience represents</span> the practical demonstration of faith, the visible evidence of invisible grace. Biblical obedience is not mere external compliance but wholehearted submission flowing from love. \"If ye love me, keep my commandments\" (John 14:15). This obedience does not earn salvation but expresses it—the grateful response of those who have received immeasurable grace.</p>\n\n<p class=\"intro-text\">Scripture presents obedience as <strong>better than sacrifice</strong> (1 Samuel 15:22), revealing that God desires hearts, not merely rituals. True obedience involves both attitude and action, inner motivation and outward conformity. It extends to all areas of life—thought, word, and deed—and grows from recognition of God's wisdom, goodness, and authority. \"Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths\" (Proverbs 3:5-6).</p>\n\n<p class=\"intro-text\">Christ provides the perfect model of obedience. He \"became obedient unto death, even the death of the cross\" (Philippians 2:8), demonstrating absolute submission to the Father's will. His obedience secured our justification—\"by the obedience of one shall many be made righteous\" (Romans 5:19). Now believers are called to follow His example, walking in obedience not to earn His favor but because they already possess it.</p>\n\n<p class=\"intro-text\">The blessings of obedience are numerous: peace, protection, provision, and intimacy with God. \"If ye be willing and obedient, ye shall eat the good of the land\" (Isaiah 1:19). Yet even apart from blessings, obedience remains right because God is worthy of our submission. His commands are not burdensome but beneficial, expressions of love from One who knows what is best for His creatures.</p>",
+    "subtopics": {
+      "Called to Obey": {
+        "description": "The command to obedience",
+        "verses": [
+          {
+            "ref": "John 14:15",
+            "note": "If ye love me, keep my commandments"
+          },
+          {
+            "ref": "Deuteronomy 11:13",
+            "note": "Diligently hearken to my commandments"
+          },
+          {
+            "ref": "1 Samuel 15:22",
+            "note": "To obey is better than sacrifice"
+          },
+          {
+            "ref": "Acts 5:29",
+            "note": "We ought to obey God rather than men"
+          }
+        ]
+      },
+      "Christ's Obedience": {
+        "description": "Jesus as our example",
+        "verses": [
+          {
+            "ref": "Philippians 2:8",
+            "note": "Obedient unto death"
+          },
+          {
+            "ref": "Romans 5:19",
+            "note": "By the obedience of one"
+          },
+          {
+            "ref": "Hebrews 5:8",
+            "note": "Learned obedience by suffering"
+          },
+          {
+            "ref": "John 6:38",
+            "note": "Not my will, but thy will"
+          }
+        ]
+      },
+      "Blessings of Obedience": {
+        "description": "The rewards of following God",
+        "verses": [
+          {
+            "ref": "Deuteronomy 28:1-2",
+            "note": "Blessings shall come upon thee"
+          },
+          {
+            "ref": "Isaiah 1:19",
+            "note": "If willing and obedient"
+          },
+          {
+            "ref": "John 14:23",
+            "note": "Father will love him"
+          },
+          {
+            "ref": "James 1:25",
+            "note": "Blessed in his deed"
+          }
+        ]
+      }
+    }
+  }
+}

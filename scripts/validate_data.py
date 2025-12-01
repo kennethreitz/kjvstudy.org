@@ -110,10 +110,21 @@ class GuideContent(BaseModel):
     sections: List[StudySection] = Field(..., min_length=1)
 
 
-class StudyGuides(BaseModel):
-    """Schema for study_guides.json"""
-    catalog: Dict[str, List[CatalogEntry]]
-    content: Dict[str, GuideContent]
+class StudyGuideFile(BaseModel):
+    """Schema for a single study guide file"""
+    content: GuideContent
+    catalog_entry: Optional[CatalogEntry] = None
+    category: Optional[str] = None
+
+
+class TopicsFile(BaseModel):
+    """Schema for a single topics file"""
+    root: Dict[str, dict]
+
+
+class ReadingPlanFile(BaseModel):
+    """Schema for a single reading plan file"""
+    plan: Dict[str, List[Dict[str, object]]]
 
 
 class VerseCommentaryEntry(BaseModel):
@@ -123,19 +134,25 @@ class VerseCommentaryEntry(BaseModel):
     questions: List[str] = Field(..., min_length=1)
 
 
-class VersesDict(RootModel[Dict[str, VerseCommentaryEntry]]):
-    """Dictionary of verse numbers to commentary entries"""
-    root: Dict[str, VerseCommentaryEntry]
+class VerseCommentaryBook(BaseModel):
+    """Schema for a single verse commentary book file"""
+    book: str = Field(..., min_length=1)
+    commentary: Dict[str, Dict[str, VerseCommentaryEntry]] = Field(..., min_length=1)
 
-
-class ChaptersDict(RootModel[Dict[str, VersesDict]]):
-    """Dictionary of chapter numbers to verses"""
-    root: Dict[str, VersesDict]
-
-
-class VerseCommentary(RootModel[Dict[str, ChaptersDict]]):
-    """Schema for verse_commentary.json - nested structure: Book -> Chapter -> Verse -> Commentary"""
-    root: Dict[str, ChaptersDict]
+    @field_validator('commentary')
+    @classmethod
+    def check_numeric_keys(cls, v):
+        for chapter_key, verses in v.items():
+            if not str(chapter_key).isdigit():
+                raise ValueError(f"Invalid chapter key: {chapter_key}")
+            if not isinstance(verses, dict) or len(verses) == 0:
+                raise ValueError(f"Chapter {chapter_key} must contain verse entries")
+            for verse_key, entry in verses.items():
+                if not str(verse_key).isdigit():
+                    raise ValueError(f"Invalid verse key: {verse_key}")
+                if not isinstance(entry, (dict, BaseModel)):
+                    raise ValueError(f"Verse {chapter_key}:{verse_key} must be an object")
+        return v
 
 
 class FeaturedVerse(BaseModel):
@@ -243,8 +260,10 @@ class BookIntroduction(BaseModel):
 MODEL_MAPPING = {
     "bible_metadata.json": BibleMetadata,
     "word_studies.json": WordStudies,
-    "study_guides.json": StudyGuides,
-    "verse_commentary.json": VerseCommentary,
+    "study_guides": StudyGuideFile,
+    "verse_commentary": VerseCommentaryBook,
+    "topics": TopicsFile,
+    "reading_plans": ReadingPlanFile,
     "featured_verses.json": FeaturedVerses,
     "red_letter_verses.json": RedLetterVerses,
     "resource_slugs.json": ResourceSlugs,
@@ -264,6 +283,15 @@ def load_json(file_path: Path) -> Tuple[dict, Optional[str]]:
 
 def validate_file(data_file: str, verbose: bool = False) -> bool:
     """Validate a single data file using its Pydantic model."""
+    if data_file == "verse_commentary":
+        return validate_verse_commentary_directory(verbose)
+    if data_file == "study_guides":
+        return validate_study_guides_directory(verbose)
+    if data_file == "topics":
+        return validate_topics_directory(verbose)
+    if data_file == "reading_plans":
+        return validate_reading_plans_directory(verbose)
+
     if data_file not in MODEL_MAPPING:
         if verbose:
             print(f"⚠️  {data_file}: No validation model defined (skipped)")
@@ -311,6 +339,173 @@ def validate_file(data_file: str, verbose: bool = False) -> bool:
         print(f"❌ {data_file}: Unexpected error")
         print(f"   Error: {str(e)}")
         return False
+
+
+def validate_verse_commentary_directory(verbose: bool = False) -> bool:
+    """Validate all per-book verse commentary files."""
+    dir_path = DATA_DIR / "verse_commentary"
+    if not dir_path.exists():
+        print(f"❌ verse_commentary: Directory not found at {dir_path}")
+        return False
+
+    passed = 0
+    failed = 0
+
+    for file_path in sorted(dir_path.glob("*.json")):
+        data, error = load_json(file_path)
+        if error:
+            print(f"❌ {file_path.name}: {error}")
+            failed += 1
+            continue
+
+        try:
+            VerseCommentaryBook(**data)
+            if verbose:
+                print(f"✅ {file_path.name}: Valid")
+            passed += 1
+        except ValidationError as e:
+            print(f"❌ {file_path.name}: Validation failed")
+            for error_detail in e.errors():
+                location = " -> ".join(str(loc) for loc in error_detail['loc'])
+                print(f"   {location}: {error_detail['msg']}")
+            failed += 1
+        except Exception as e:
+            print(f"❌ {file_path.name}: Unexpected error")
+            print(f"   Error: {str(e)}")
+            failed += 1
+
+    if failed == 0:
+        print(f"✅ verse_commentary: Valid ({passed} files)")
+        return True
+
+    print(f"❌ verse_commentary: {failed} files failed validation")
+    return False
+
+
+def validate_study_guides_directory(verbose: bool = False) -> bool:
+    """Validate per-guide study guide files."""
+    dir_path = DATA_DIR / "study_guides"
+    if not dir_path.exists():
+        print(f"❌ study_guides: Directory not found at {dir_path}")
+        return False
+
+    passed = 0
+    failed = 0
+
+    for file_path in sorted(dir_path.glob("*.json")):
+        data, error = load_json(file_path)
+        if error:
+            print(f"❌ {file_path.name}: {error}")
+            failed += 1
+            continue
+
+        try:
+            StudyGuideFile(**data)
+            if verbose:
+                print(f"✅ {file_path.name}: Valid")
+            passed += 1
+        except ValidationError as e:
+            print(f"❌ {file_path.name}: Validation failed")
+            for error_detail in e.errors():
+                location = " -> ".join(str(loc) for loc in error_detail['loc'])
+                print(f"   {location}: {error_detail['msg']}")
+            failed += 1
+        except Exception as e:
+            print(f"❌ {file_path.name}: Unexpected error")
+            print(f"   Error: {str(e)}")
+            failed += 1
+
+    if failed == 0:
+        print(f"✅ study_guides: Valid ({passed} files)")
+        return True
+
+    print(f"❌ study_guides: {failed} files failed validation")
+    return False
+
+
+def validate_topics_directory(verbose: bool = False) -> bool:
+    """Validate per-topic files."""
+    dir_path = DATA_DIR / "topics"
+    if not dir_path.exists():
+        print(f"❌ topics: Directory not found at {dir_path}")
+        return False
+
+    passed = 0
+    failed = 0
+
+    for file_path in sorted(dir_path.glob("*.json")):
+        data, error = load_json(file_path)
+        if error:
+            print(f"❌ {file_path.name}: {error}")
+            failed += 1
+            continue
+
+        try:
+            TopicsFile(root=data)
+            if verbose:
+                print(f"✅ {file_path.name}: Valid")
+            passed += 1
+        except ValidationError as e:
+            print(f"❌ {file_path.name}: Validation failed")
+            for error_detail in e.errors():
+                location = " -> ".join(str(loc) for loc in error_detail['loc'])
+                print(f"   {location}: {error_detail['msg']}")
+            failed += 1
+        except Exception as e:
+            print(f"❌ {file_path.name}: Unexpected error")
+            print(f"   Error: {str(e)}")
+            failed += 1
+
+    if failed == 0:
+        print(f"✅ topics: Valid ({passed} files)")
+        return True
+
+    print(f"❌ topics: {failed} files failed validation")
+    return False
+
+
+def validate_reading_plans_directory(verbose: bool = False) -> bool:
+    """Validate per-plan reading plan files."""
+    dir_path = DATA_DIR / "reading_plans"
+    if not dir_path.exists():
+        print(f"❌ reading_plans: Directory not found at {dir_path}")
+        return False
+
+    passed = 0
+    failed = 0
+
+    for file_path in sorted(dir_path.glob("*.json")):
+        data, error = load_json(file_path)
+        if error:
+            print(f"❌ {file_path.name}: {error}")
+            failed += 1
+            continue
+
+        try:
+            # Each file has one key with the plan id mapping to the plan object
+            if len(data) != 1:
+                raise ValueError("Reading plan file must contain exactly one plan")
+            ReadingPlanFile(plan=data)
+            if verbose:
+                print(f"✅ {file_path.name}: Valid")
+            passed += 1
+        except ValidationError as e:
+            print(f"❌ {file_path.name}: Validation failed")
+            for error_detail in e.errors():
+                location = " -> ".join(str(loc) for loc in error_detail['loc'])
+                print(f"   {location}: {error_detail['msg']}")
+            failed += 1
+        except Exception as e:
+            print(f"❌ {file_path.name}: Unexpected error")
+            print(f"   Error: {str(e)}")
+            failed += 1
+
+    if failed == 0:
+        print(f"✅ reading_plans: Valid ({passed} files)")
+        return True
+
+    print(f"❌ reading_plans: {failed} files failed validation")
+    return False
 
 
 def validate_all(verbose: bool = False) -> Tuple[int, int]:
@@ -401,7 +596,7 @@ def generate_json_schemas():
 
     # Generate schemas for main data files
     for data_file, model_class in MODEL_MAPPING.items():
-        schema_file = data_file.replace('.json', '.schema.json')
+        schema_file = data_file.replace('.json', '.schema.json') if data_file.endswith('.json') else f"{data_file}.schema.json"
         schema_path = SCHEMAS_DIR / schema_file
 
         try:

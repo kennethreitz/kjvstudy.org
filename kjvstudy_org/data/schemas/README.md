@@ -19,7 +19,7 @@ JSON Schema is a vocabulary that allows you to annotate and validate JSON docume
 | `bible_metadata.schema.json` | `bible_metadata.json` | Bible books, testaments, abbreviations |
 | `word_studies.schema.json` | `word_studies.json` | Hebrew/Greek word definitions |
 | `study_guides.schema.json` | `study_guides.json` | Study guide catalog and content |
-| `verse_commentary.schema.json` | `verse_commentary.json` | Verse analysis and commentary |
+| `verse_commentary.schema.json` | `verse_commentary/*.json` | Verse analysis and commentary (per book) |
 | `featured_verses.schema.json` | `featured_verses.json` | Verse-of-the-day rotation |
 | `resource_slugs.schema.json` | `resource_slugs.json` | Resource URL slugs for sitemap |
 | `book_introduction.schema.json` | `data/books/*.json` | Individual book introductions (66 files) |

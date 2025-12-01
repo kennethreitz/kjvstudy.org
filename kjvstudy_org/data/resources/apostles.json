@@ -1,0 +1,174 @@
+{
+  "apostles": {
+    "The Twelve": {
+      "Simon Peter": {
+        "title": "The Rock, Chief Apostle",
+        "description": "A fisherman from Bethsaida, Simon received the name Peter (Greek Πέτρος, <em>Petros</em>, 'rock') from Christ. His leadership among the apostles, his great confession, his threefold denial, and his restoration mark him as emblematic of both human weakness and divine grace.<label for=\"sn-peter\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-peter\" class=\"margin-toggle\"/><span class=\"sidenote\">Peter's prominence appears in the apostolic listings (always named first), his spokesmanship for the Twelve, his role at Pentecost, and his ministry to the circumcision. Tradition holds he was martyred in Rome, crucified upside down at his own request.</span>",
+        "verses": [
+          {
+            "reference": "Matthew 16:16",
+            "text": "And Simon Peter answered and said, Thou art the Christ, the Son of the living God."
+          },
+          {
+            "reference": "Matthew 16:18",
+            "text": "And I say also unto thee, That thou art Peter, and upon this rock I will build my church; and the gates of hell shall not prevail against it."
+          }
+        ]
+      },
+      "Andrew": {
+        "title": "The First Called, Bringer of Others",
+        "description": "Peter's brother, Andrew first followed John the Baptist before becoming Christ's disciple.<label for=\"sn-andrew\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-andrew\" class=\"margin-toggle\"/><span class=\"sidenote\">Andrew's Greek name (Ἀνδρέας, 'manly') was common in Hellenistic regions. From Bethsaida, a fishing village on Galilee's northern shore, Andrew and Peter operated a fishing partnership with Zebedee's sons. Early church tradition claims Andrew preached in Scythia (modern Ukraine/Russia) and was martyred by crucifixion on an X-shaped cross in Patras, Greece—the 'St. Andrew's Cross.'</span> His consistent pattern of bringing others to Jesus—his brother Peter, the lad with loaves and fishes, certain Greeks seeking the Lord—characterizes his ministry.",
+        "verses": [
+          {
+            "reference": "John 1:40",
+            "text": "One of the two which heard John speak, and followed him, was Andrew, Simon Peter's brother."
+          },
+          {
+            "reference": "John 1:41",
+            "text": "He first findeth his own brother Simon, and saith unto him, We have found the Messias, which is, being interpreted, the Christ."
+          }
+        ]
+      },
+      "James, son of Zebedee": {
+        "title": "Son of Thunder, First Martyred Apostle",
+        "description": "Brother of John, James belonged to the inner circle with Peter and John, witnessing the Transfiguration, Gethsemane's agony, and other pivotal moments. His martyrdom by Herod Agrippa (Acts 12:2) made him the first apostolic martyr.<label for=\"sn-james\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-james\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ called James and John 'Boanerges'—Sons of Thunder—possibly referring to their fiery temperament (as when they sought to call down fire on a Samaritan village). Their mother's ambitious request for them to sit at Christ's right and left hand revealed both her faith and misunderstanding of the kingdom's nature.</span>",
+        "verses": [
+          {
+            "reference": "Mark 3:17",
+            "text": "And James the son of Zebedee, and John the brother of James; and he surnamed them Boanerges, which is, The sons of thunder:"
+          },
+          {
+            "reference": "Acts 12:2",
+            "text": "And he killed James the brother of John with the sword."
+          }
+        ]
+      },
+      "John": {
+        "title": "The Beloved Disciple, Apostle of Love",
+        "description": "The son of Zebedee, John reclined on Christ's breast at the Last Supper, stood at the cross, received Mary into his care, and outlived all other apostles. His Gospel, epistles, and the Revelation present Christ's deity, emphasize love, and unveil prophetic mysteries.<label for=\"sn-john\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-john\" class=\"margin-toggle\"/><span class=\"sidenote\">Early church fathers unanimously identify John as the 'disciple whom Jesus loved'—not suggesting favoritism but intimate communion. Banished to Patmos under Domitian, he received the Revelation. Tradition holds he ministered in Ephesus until extreme old age, continually repeating 'Little children, love one another.'</span>",
+        "verses": [
+          {
+            "reference": "John 13:23",
+            "text": "Now there was leaning on Jesus' bosom one of his disciples, whom Jesus loved."
+          },
+          {
+            "reference": "John 21:20",
+            "text": "Then Peter, turning about, seeth the disciple whom Jesus loved following; which also leaned on his breast at supper, and said, Lord, which is he that betrayeth thee?"
+          }
+        ]
+      },
+      "Philip": {
+        "title": "The Practical Questioner",
+        "description": "From Bethsaida, Philip immediately brought Nathanael to Christ.<label for=\"sn-philip\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-philip\" class=\"margin-toggle\"/><span class=\"sidenote\">Philip's Greek name (Φίλιππος, 'lover of horses') and his role as intermediary when Greeks sought Jesus (John 12:20-22) suggest possible Hellenistic connections. Church tradition holds he ministered extensively in Asia Minor, particularly Hierapolis in Phrygia, where he was reportedly martyred by crucifixion. His daughters were noted prophetesses in the early church (Acts 21:8-9, though this may refer to Philip the Evangelist).</span> His practical, calculating nature appears in his questions about feeding the multitude and showing the Father. Despite his slowness to grasp spiritual truths, his earnest seeking characterized his discipleship.",
+        "verses": [
+          {
+            "reference": "John 1:45",
+            "text": "Philip findeth Nathanael, and saith unto him, We have found him, of whom Moses in the law, and the prophets, did write, Jesus of Nazareth, the son of Joseph."
+          },
+          {
+            "reference": "John 14:8",
+            "text": "Philip saith unto him, Lord, shew us the Father, and it sufficeth us."
+          }
+        ]
+      },
+      "Bartholomew (Nathanael)": {
+        "title": "The Israelite Without Guile",
+        "description": "Generally identified with Nathanael, Bartholomew received Christ's commendation as 'an Israelite indeed, in whom is no guile.' His initial skepticism ('Can any good thing come out of Nazareth?') gave way to profound confession: 'Rabbi, thou art the Son of God; thou art the King of Israel.'<label for=\"sn-bartholomew\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-bartholomew\" class=\"margin-toggle\"/><span class=\"sidenote\">The Synoptics list 'Bartholomew' while John's Gospel names 'Nathanael.' Since Bartholomew means 'son of Tolmai' (a patronymic, not a given name), and since Philip brought Nathanael to Christ just as he appears with Bartholomew in the lists, most scholars identify them as the same person.</span>",
+        "verses": [
+          {
+            "reference": "John 1:47",
+            "text": "Jesus saw Nathanael coming to him, and saith of him, Behold an Israelite indeed, in whom is no guile!"
+          },
+          {
+            "reference": "John 1:49",
+            "text": "Nathanael answered and saith unto him, Rabbi, thou art the Son of God; thou art the King of Israel."
+          }
+        ]
+      },
+      "Matthew (Levi)": {
+        "title": "The Tax Collector Transformed",
+        "description": "A publican (tax collector) called from the receipt of custom, Matthew left all to follow Christ. His occupation, despised by fellow Jews as collaboration with Rome, made his calling a demonstration of grace. His Gospel presents Christ as King of Israel.<label for=\"sn-matthew\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-matthew\" class=\"margin-toggle\"/><span class=\"sidenote\">Matthew's detailed attention to financial matters and numerical precision in his Gospel reflects his accounting background. His great feast for Christ (Luke 5:29) demonstrated both his wealth and his desire to introduce his former associates to the Savior.</span>",
+        "verses": [
+          {
+            "reference": "Matthew 9:9",
+            "text": "And as Jesus passed forth from thence, he saw a man, named Matthew, sitting at the receipt of custom: and he saith unto him, Follow me. And he arose, and followed him."
+          },
+          {
+            "reference": "Mark 2:14",
+            "text": "And as he passed by, he saw Levi the son of Alphaeus sitting at the receipt of custom, and said unto him, Follow me. And he arose and followed him."
+          }
+        ]
+      },
+      "Thomas": {
+        "title": "Doubting Thomas, Believing Confessor",
+        "description": "Thomas, called Didymus (twin), demanded empirical proof of Christ's resurrection yet made the highest christological confession when convinced: 'My Lord and my God.' His willingness to die with Christ (John 11:16) showed devotion; his doubt demonstrated humanity.<label for=\"sn-thomas\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-thomas\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ's gentle rebuke—'Thomas, because thou hast seen me, thou hast believed: blessed are they that have not seen, and yet have believed'—addresses all subsequent generations who must believe without physical sight. Tradition holds Thomas evangelized as far as India.</span>",
+        "verses": [
+          {
+            "reference": "John 20:25",
+            "text": "The other disciples therefore said unto him, We have seen the Lord. But he said unto them, Except I shall see in his hands the print of the nails, and put my finger into the print of the nails, and thrust my hand into his side, I will not believe."
+          },
+          {
+            "reference": "John 20:28",
+            "text": "And Thomas answered and said unto him, My Lord and my God."
+          }
+        ]
+      },
+      "James, son of Alphaeus": {
+        "title": "James the Less",
+        "description": "Distinguished from James the son of Zebedee by the designation 'the Less' (possibly meaning younger or smaller in stature), this apostle receives little individual mention in Scripture.<label for=\"sn-james-alphaeus\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-james-alphaeus\" class=\"margin-toggle\"/><span class=\"sidenote\">Identifying this James poses challenges. Some equate him with 'James the Lord's brother' (Galatians 1:19), who led the Jerusalem church, though others distinguish them. The designation 'son of Alphaeus' may connect him to Matthew (also called 'son of Alphaeus' in Mark 2:14), possibly making them brothers. Church tradition claims he preached in Syria and Persia, suffering martyrdom by stoning or crucifixion.</span> His faithful service despite obscurity exemplifies humble discipleship.",
+        "verses": [
+          {
+            "reference": "Matthew 10:3",
+            "text": "Philip, and Bartholomew; Thomas, and Matthew the publican; James the son of Alphaeus, and Lebbaeus, whose surname was Thaddaeus;"
+          },
+          {
+            "reference": "Mark 15:40",
+            "text": "There were also women looking on afar off: among whom was Mary Magdalene, and Mary the mother of James the less and of Joses, and Salome;"
+          }
+        ]
+      },
+      "Thaddaeus (Judas, son of James)": {
+        "title": "The Questioner of Love",
+        "description": "Also called Judas (not Iscariot) and Lebbaeus, Thaddaeus asked at the Last Supper why Christ would manifest Himself to the disciples but not to the world.<label for=\"sn-thaddaeus\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-thaddaeus\" class=\"margin-toggle\"/><span class=\"sidenote\">This apostle's multiple names—Thaddaeus (Θαδδαῖος, possibly 'courageous'), Lebbaeus (meaning 'heart'), and Judas son of James—reflect common ancient practice of bearing several names. Luke and Acts use 'Judas son of James' while Matthew and Mark prefer 'Thaddaeus,' likely to distinguish him from Judas Iscariot. Tradition claims he preached in Mesopotamia, Armenia, and Persia, where he was martyred.</span> This question elicited Christ's teaching on love and obedience as prerequisites for divine manifestation.",
+        "verses": [
+          {
+            "reference": "John 14:22",
+            "text": "Judas saith unto him, not Iscariot, Lord, how is it that thou wilt manifest thyself unto us, and not unto the world?"
+          },
+          {
+            "reference": "Matthew 10:3",
+            "text": "Philip, and Bartholomew; Thomas, and Matthew the publican; James the son of Alphaeus, and Lebbaeus, whose surname was Thaddaeus;"
+          }
+        ]
+      },
+      "Simon the Zealot": {
+        "title": "The Former Revolutionary",
+        "description": "Designated 'the Zealot' (or 'Canaanite,' from Aramaic <em>qanana</em>, meaning zealous), Simon possibly belonged to the Zealot party—Jewish nationalists opposing Roman rule. His transformation from political revolutionary to spiritual ambassador demonstrates grace's power.<label for=\"sn-simon\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-simon\" class=\"margin-toggle\"/><span class=\"sidenote\">The presence of both Simon the Zealot (a nationalist) and Matthew the tax collector (a Roman collaborator) among the Twelve illustrates the gospel's power to unite those formerly divided by irreconcilable political positions.</span>",
+        "verses": [
+          {
+            "reference": "Luke 6:15",
+            "text": "Matthew and Thomas, James the son of Alphaeus, and Simon called Zelotes,"
+          },
+          {
+            "reference": "Matthew 10:4",
+            "text": "Simon the Canaanite, and Judas Iscariot, who also betrayed him."
+          }
+        ]
+      },
+      "Judas Iscariot": {
+        "title": "The Betrayer, Son of Perdition",
+        "description": "The treasurer who became a thief, Judas betrayed Christ for thirty pieces of silver—the price of a slave. His suicide in despair contrasts with Peter's repentance. Scripture calls him 'son of perdition,' the only one of the Twelve ultimately lost.<label for=\"sn-judas\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-judas\" class=\"margin-toggle\"/><span class=\"sidenote\">Christ's statement 'Have not I chosen you twelve, and one of you is a devil?' (John 6:70) shows His foreknowledge. Yet Judas bore full responsibility for his actions. His betrayal fulfilled prophecy (Psalm 41:9) while demonstrating human depravity's depths.</span>",
+        "verses": [
+          {
+            "reference": "Matthew 26:14",
+            "text": "Then one of the twelve, called Judas Iscariot, went unto the chief priests,"
+          },
+          {
+            "reference": "Matthew 26:15",
+            "text": "And said unto them, What will ye give me, and I will deliver him unto you? And they covenanted with him for thirty pieces of silver."
+          }
+        ]
+      }
+    }
+  }
+}

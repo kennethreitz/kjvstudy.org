@@ -1,0 +1,71 @@
+{
+  "Humility": {
+    "description": "Lowliness of mind that exalts God and serves others",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Humility occupies</span> a unique place among virtues—it is both the foundation of all other graces and the most elusive to attain. The moment one considers oneself humble, pride has already crept in. Biblical humility involves accurate self-assessment in light of God's greatness and grace: recognizing our dependence, limitations, and unworthiness while trusting completely in God's sufficiency.</p>\n\n<p class=\"intro-text\">Scripture consistently <strong>exalts the humble and resists the proud</strong>. \"God resisteth the proud, but giveth grace unto the humble\" (James 4:6). This pattern pervades both testaments: Pharaoh is humbled while Moses, the meekest man on earth (Numbers 12:3), leads Israel. Nebuchadnezzar loses his throne until humbled. The proud Pharisee goes home unjustified while the humble tax collector receives mercy (Luke 18:9-14). God's kingdom operates on inverted values—the last shall be first, the servant shall be greatest.</p>\n\n<p class=\"intro-text\">Christ Jesus embodies perfect humility. \"Being in the form of God, thought it not robbery to be equal with God: But made himself of no reputation, and took upon him the form of a servant\" (Philippians 2:6-7). The infinite became finite, the Creator served creatures, the King washed feet. His humility was not weakness but strength—the voluntary condescension of absolute power for love's sake.</p>\n\n<p class=\"intro-text\">Practical humility manifests in multiple ways: esteeming others better than ourselves (Philippians 2:3), serving without seeking recognition, receiving correction graciously, acknowledging wrongs readily, and giving God glory for all accomplishments. Humility opens us to learn, frees us from defensiveness, and positions us for God's exaltation. \"Humble yourselves in the sight of the Lord, and he shall lift you up\" (James 4:10).</p>",
+    "subtopics": {
+      "God Exalts the Humble": {
+        "description": "Divine blessing on humility",
+        "verses": [
+          {
+            "ref": "James 4:6",
+            "note": "Giveth grace unto the humble"
+          },
+          {
+            "ref": "1 Peter 5:5-6",
+            "note": "Humble yourselves under God's hand"
+          },
+          {
+            "ref": "Matthew 23:12",
+            "note": "Whosoever shall humble himself"
+          },
+          {
+            "ref": "Luke 14:11",
+            "note": "He that humbleth himself shall be exalted"
+          }
+        ]
+      },
+      "Christ's Humility": {
+        "description": "Jesus as our example",
+        "verses": [
+          {
+            "ref": "Philippians 2:5-8",
+            "note": "Mind of Christ, made himself of no reputation"
+          },
+          {
+            "ref": "Matthew 11:29",
+            "note": "I am meek and lowly in heart"
+          },
+          {
+            "ref": "John 13:14-15",
+            "note": "Washed the disciples' feet"
+          },
+          {
+            "ref": "Zechariah 9:9",
+            "note": "Lowly, and riding upon an ass"
+          }
+        ]
+      },
+      "Walking in Humility": {
+        "description": "Practical humility",
+        "verses": [
+          {
+            "ref": "Philippians 2:3",
+            "note": "Esteem other better than themselves"
+          },
+          {
+            "ref": "Romans 12:3",
+            "note": "Not to think more highly"
+          },
+          {
+            "ref": "Micah 6:8",
+            "note": "Walk humbly with thy God"
+          },
+          {
+            "ref": "Colossians 3:12",
+            "note": "Put on humbleness of mind"
+          }
+        ]
+      }
+    }
+  }
+}

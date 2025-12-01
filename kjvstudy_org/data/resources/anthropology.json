@@ -1,0 +1,173 @@
+{
+  "anthropology": {
+    "title": "Anthropology",
+    "subtitle": "The Doctrine of Man",
+    "introduction": "Biblical anthropology examines humanity as created by God, fallen through sin, and redeemable through Christ. Scripture emphasizes both the original dignity of man as God's image-bearer and the radical corruption wrought by the Fall. These studies explore the nature, constitution, and condition of mankind.",
+    "categories": {
+      "Creation of Man": {
+        "The Image of God": {
+          "title": "The Image of God",
+          "description": "Man was created in the image and likeness of God, endowed with rationality, morality, and spirituality that distinguish humanity from all other earthly creatures. This image, though marred by sin, was not destroyed in the Fall and forms the basis for human dignity. It consists primarily in knowledge, righteousness, and holiness, which are restored in believers through regeneration.",
+          "verses": [
+            {
+              "reference": "Genesis 1:26-27",
+              "text": "And God said, Let us make man in our image, after our likeness: and let them have dominion over the fish of the sea, and over the fowl of the air, and over the cattle, and over all the earth, and over every creeping thing that creepeth upon the earth. So God created man in his own image, in the image of God created he him; male and female created he them."
+            },
+            {
+              "reference": "Colossians 3:10",
+              "text": "And have put on the new man, which is renewed in knowledge after the image of him that created him:"
+            },
+            {
+              "reference": "Ephesians 4:24",
+              "text": "And that ye put on the new man, which after God is created in righteousness and true holiness."
+            },
+            {
+              "reference": "Genesis 9:6",
+              "text": "Whoso sheddeth man's blood, by man shall his blood be shed: for in the image of God made he man."
+            },
+            {
+              "reference": "James 3:9",
+              "text": "Therewith bless we God, even the Father; and therewith curse we men, which are made after the similitude of God."
+            }
+          ]
+        },
+        "The Original State of Righteousness": {
+          "title": "The Original State of Righteousness",
+          "description": "Adam was created in a state of positive holiness, not merely innocent but possessing true righteousness. He was capable of not sinning and endowed with all requisite abilities to fulfill God's will. This original righteousness was not confirmed but probationary, capable of being lost through disobedience. Adam stood as the covenant head of all humanity.",
+          "verses": [
+            {
+              "reference": "Ecclesiastes 7:29",
+              "text": "Lo, this only have I found, that God hath made man upright; but they have sought out many inventions."
+            },
+            {
+              "reference": "Genesis 1:31",
+              "text": "And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day."
+            },
+            {
+              "reference": "Genesis 2:16-17",
+              "text": "And the LORD God commanded the man, saying, Of every tree of the garden thou mayest freely eat: But of the tree of the knowledge of good and evil, thou shalt not eat of it: for in the day that thou eatest thereof thou shalt surely die."
+            },
+            {
+              "reference": "Romans 5:12",
+              "text": "Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned:"
+            },
+            {
+              "reference": "Hosea 6:7",
+              "text": "But they like men have transgressed the covenant: there have they dealt treacherously against me."
+            }
+          ]
+        }
+      },
+      "Constitution of Man": {
+        "Body and Soul": {
+          "title": "Body and Soul",
+          "description": "Man is a unified being composed of material body and immaterial soul. Though distinct, these elements together constitute the whole person. At death they separate—the body returning to dust and the soul departing to its appointed destiny—but at the resurrection they shall be reunited. This unity of body and soul reflects the goodness of God's creation.",
+          "verses": [
+            {
+              "reference": "Genesis 2:7",
+              "text": "And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."
+            },
+            {
+              "reference": "Matthew 10:28",
+              "text": "And fear not them which kill the body, but are not able to kill the soul: but rather fear him which is able to destroy both soul and body in hell."
+            },
+            {
+              "reference": "Ecclesiastes 12:7",
+              "text": "Then shall the dust return to the earth as it was: and the spirit shall return unto God who gave it."
+            },
+            {
+              "reference": "2 Corinthians 5:8",
+              "text": "We are confident, I say, and willing rather to be absent from the body, and to be present with the Lord."
+            },
+            {
+              "reference": "James 2:26",
+              "text": "For as the body without the spirit is dead, so faith without works is dead also."
+            }
+          ]
+        },
+        "Heart, Mind, and Will": {
+          "title": "Heart, Mind, and Will",
+          "description": "Scripture speaks of the inner man using various terms—heart, mind, soul, spirit, will—which together describe different aspects of human personality. The heart is the center of one's being, the seat of thoughts, affections, and choices. In fallen man, the heart is deceitful and desperately wicked; in the regenerate, it becomes a new heart of flesh, responsive to God.",
+          "verses": [
+            {
+              "reference": "Proverbs 4:23",
+              "text": "Keep thy heart with all diligence; for out of it are the issues of life."
+            },
+            {
+              "reference": "Jeremiah 17:9",
+              "text": "The heart is deceitful above all things, and desperately wicked: who can know it?"
+            },
+            {
+              "reference": "Ezekiel 36:26",
+              "text": "A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh."
+            },
+            {
+              "reference": "Romans 12:2",
+              "text": "And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."
+            },
+            {
+              "reference": "Matthew 22:37",
+              "text": "Jesus said unto him, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind."
+            }
+          ]
+        }
+      },
+      "The Conscience": {
+        "The Nature of Conscience": {
+          "title": "The Nature of Conscience",
+          "description": "The conscience is that faculty of the soul which bears witness to God's moral law, approving what is right and condemning what is wrong. Though present in all people as evidence of God's law written on the heart, the conscience can be defiled, seared, or evil through persistent sin. A good conscience is maintained through faith and obedience to God's Word.",
+          "verses": [
+            {
+              "reference": "Romans 2:15",
+              "text": "Which shew the work of the law written in their hearts, their conscience also bearing witness, and their thoughts the mean while accusing or else excusing one another;"
+            },
+            {
+              "reference": "1 Timothy 4:2",
+              "text": "Speaking lies in hypocrisy; having their conscience seared with a hot iron;"
+            },
+            {
+              "reference": "Hebrews 10:22",
+              "text": "Let us draw near with a true heart in full assurance of faith, having our hearts sprinkled from an evil conscience, and our bodies washed with pure water."
+            },
+            {
+              "reference": "Acts 24:16",
+              "text": "And herein do I exercise myself, to have always a conscience void of offence toward God, and toward men."
+            },
+            {
+              "reference": "1 Timothy 1:19",
+              "text": "Holding faith, and a good conscience; which some having put away concerning faith have made shipwreck:"
+            }
+          ]
+        }
+      },
+      "Human Responsibility": {
+        "Human Moral Agency": {
+          "title": "Human Moral Agency",
+          "description": "Though man is totally depraved and unable to do spiritual good apart from grace, he remains a moral agent accountable for his choices. Human responsibility and divine sovereignty are not contradictory but complementary truths. Man chooses according to his nature—the unregenerate inevitably choosing sin, the regenerate enabled to choose righteousness—yet remains culpable for all choices.",
+          "verses": [
+            {
+              "reference": "Deuteronomy 30:19",
+              "text": "I call heaven and earth to record this day against you, that I have set before you life and death, blessing and cursing: therefore choose life, that both thou and thy seed may live:"
+            },
+            {
+              "reference": "Joshua 24:15",
+              "text": "And if it seem evil unto you to serve the LORD, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the Amorites, in whose land ye dwell: but as for me and my house, we will serve the LORD."
+            },
+            {
+              "reference": "John 6:44",
+              "text": "No man can come to me, except the Father which hath sent me draw him: and I will raise him up at the last day."
+            },
+            {
+              "reference": "Romans 9:19-20",
+              "text": "Thou wilt say then unto me, Why doth he yet find fault? For who hath resisted his will? Nay but, O man, who art thou that repliest against God? Shall the thing formed say to him that formed it, Why hast thou made me thus?"
+            },
+            {
+              "reference": "Ezekiel 18:20",
+              "text": "The soul that sinneth, it shall die. The son shall not bear the iniquity of the father, neither shall the father bear the iniquity of the son: the righteousness of the righteous shall be upon him, and the wickedness of the wicked shall be upon him."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

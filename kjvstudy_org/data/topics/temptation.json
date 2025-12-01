@@ -1,0 +1,71 @@
+{
+  "Temptation": {
+    "description": "Enticement to sin and God's provision for victory",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Temptation is universal</span>—every believer faces it. Yet temptation is not sin; yielding to temptation is. Jesus Himself \"was in all points tempted like as we are, yet without sin\" (Hebrews 4:15). Understanding temptation's nature and God's provision enables Christians to resist and overcome rather than fall and despair.</p>\n\n<p class=\"intro-text\">Temptation's sources are threefold: the <strong>world</strong> (external pressures from a godless culture), the <strong>flesh</strong> (internal desires from our fallen nature), and the <strong>devil</strong> (spiritual attacks from Satan and demons). \"Each man is tempted when he is drawn away by his own lust, and enticed\" (James 1:14). Temptation exploits legitimate desires, twisting them toward illegitimate fulfillments.</p>\n\n<p class=\"intro-text\">God's provision against temptation is comprehensive. He promises that no temptation is irresistible: \"God is faithful, who will not suffer you to be tempted above that ye are able; but will with the temptation also make a way to escape\" (1 Corinthians 10:13). Christ's sympathy ensures understanding intercession (Hebrews 4:15-16). Scripture provides the sword to resist lies (Matthew 4:4, 7, 10). Prayer keeps us from entering temptation (Matthew 26:41).</p>\n\n<p class=\"intro-text\">Practical wisdom includes fleeing certain temptations (2 Timothy 2:22), avoiding exposure to known triggers, cultivating godly friendships, maintaining spiritual disciplines, and confessing struggles to trusted believers. Repeated failure does not mean permanent defeat—God's grace extends to restore the fallen and strengthen against future attacks.</p>",
+    "subtopics": {
+      "Nature of Temptation": {
+        "description": "Understanding how temptation works",
+        "verses": [
+          {
+            "ref": "James 1:14-15",
+            "note": "Drawn away by his own lust"
+          },
+          {
+            "ref": "1 John 2:16",
+            "note": "Lust of the flesh, eyes, pride"
+          },
+          {
+            "ref": "Genesis 3:6",
+            "note": "Good for food, pleasant, desired"
+          },
+          {
+            "ref": "Matthew 4:1-11",
+            "note": "Jesus tempted by the devil"
+          }
+        ]
+      },
+      "Way of Escape": {
+        "description": "God's provision for victory",
+        "verses": [
+          {
+            "ref": "1 Corinthians 10:13",
+            "note": "Will make a way to escape"
+          },
+          {
+            "ref": "James 4:7",
+            "note": "Resist the devil"
+          },
+          {
+            "ref": "Hebrews 4:15-16",
+            "note": "Grace to help in time of need"
+          },
+          {
+            "ref": "Matthew 26:41",
+            "note": "Watch and pray"
+          }
+        ]
+      },
+      "Fleeing Temptation": {
+        "description": "Practical wisdom",
+        "verses": [
+          {
+            "ref": "2 Timothy 2:22",
+            "note": "Flee also youthful lusts"
+          },
+          {
+            "ref": "1 Corinthians 6:18",
+            "note": "Flee fornication"
+          },
+          {
+            "ref": "Genesis 39:12",
+            "note": "Joseph fled from Potiphar's wife"
+          },
+          {
+            "ref": "Proverbs 4:14-15",
+            "note": "Enter not the path of the wicked"
+          }
+        ]
+      }
+    }
+  }
+}

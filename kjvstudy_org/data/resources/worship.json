@@ -1,0 +1,173 @@
+{
+  "worship": {
+    "title": "Worship",
+    "subtitle": "The Doctrine of Worship",
+    "introduction": "Worship is the reverent response of the creature to the Creator, the adoring acknowledgment of God's worth. Scripture teaches that true worship must be regulated by God's Word, offered through Christ alone, and empowered by the Holy Spirit. These studies explore biblical principles of worship.",
+    "categories": {
+      "The Object of Worship": {
+        "God Alone is Worthy of Worship": {
+          "title": "God Alone is Worthy of Worship",
+          "description": "True worship is directed exclusively to the Triune God—Father, Son, and Holy Spirit. To worship anything or anyone else is idolatry, the most fundamental sin. God alone possesses the infinite perfections that merit adoration, and He alone has the right to prescribe how He shall be worshipped.",
+          "verses": [
+            {
+              "reference": "Matthew 4:10",
+              "text": "Then saith Jesus unto him, Get thee hence, Satan: for it is written, Thou shalt worship the Lord thy God, and him only shalt thou serve."
+            },
+            {
+              "reference": "Revelation 19:10",
+              "text": "And I fell at his feet to worship him. And he said unto me, See thou do it not: I am thy fellowservant, and of thy brethren that have the testimony of Jesus: worship God: for the testimony of Jesus is the spirit of prophecy."
+            },
+            {
+              "reference": "Exodus 20:3-5",
+              "text": "Thou shalt have no other gods before me. Thou shalt not make unto thee any graven image, or any likeness of any thing that is in heaven above, or that is in the earth beneath, or that is in the water under the earth: Thou shalt not bow down thyself to them, nor serve them: for I the LORD thy God am a jealous God, visiting the iniquity of the fathers upon the children unto the third and fourth generation of them that hate me;"
+            },
+            {
+              "reference": "Isaiah 42:8",
+              "text": "I am the LORD: that is my name: and my glory will I not give to another, neither my praise to graven images."
+            },
+            {
+              "reference": "John 4:24",
+              "text": "God is a Spirit: and they that worship him must worship him in spirit and in truth."
+            }
+          ]
+        }
+      },
+      "The Regulative Principle": {
+        "The Regulative Principle of Worship": {
+          "title": "The Regulative Principle of Worship",
+          "description": "Acceptable worship includes only those elements that God has commanded in Scripture. We may not add to or subtract from His prescribed worship. Human innovations, however well-intentioned, corrupt true worship. God determines how He will be worshipped, not man.",
+          "verses": [
+            {
+              "reference": "Deuteronomy 12:32",
+              "text": "What thing soever I command you, observe to do it: thou shalt not add thereto, nor diminish from it."
+            },
+            {
+              "reference": "Leviticus 10:1-2",
+              "text": "And Nadab and Abihu, the sons of Aaron, took either of them his censer, and put fire therein, and put incense thereon, and offered strange fire before the LORD, which he commanded them not. And there went out fire from the LORD, and devoured them, and they died before the LORD."
+            },
+            {
+              "reference": "Colossians 2:23",
+              "text": "Which things have indeed a shew of wisdom in will worship, and humility, and neglecting of the body; not in any honour to the satisfying of the flesh."
+            },
+            {
+              "reference": "Matthew 15:9",
+              "text": "But in vain they do worship me, teaching for doctrines the commandments of men."
+            },
+            {
+              "reference": "1 Samuel 15:22",
+              "text": "And Samuel said, Hath the LORD as great delight in burnt offerings and sacrifices, as in obeying the voice of the LORD? Behold, to obey is better than sacrifice, and to hearken than the fat of rams."
+            }
+          ]
+        }
+      },
+      "Elements of Worship": {
+        "Word and Sacrament": {
+          "title": "Word and Sacrament",
+          "description": "The reading and preaching of God's Word stand at the center of biblical worship. The sacraments of Baptism and the Lord's Supper, instituted by Christ, are visible words that seal the promises of the Gospel. These divinely appointed means of grace nourish faith and strengthen the church.",
+          "verses": [
+            {
+              "reference": "2 Timothy 4:2",
+              "text": "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine."
+            },
+            {
+              "reference": "Acts 2:42",
+              "text": "And they continued stedfastly in the apostles' doctrine and fellowship, and in breaking of bread, and in prayers."
+            },
+            {
+              "reference": "1 Timothy 4:13",
+              "text": "Till I come, give attendance to reading, to exhortation, to doctrine."
+            },
+            {
+              "reference": "1 Corinthians 11:26",
+              "text": "For as often as ye eat this bread, and drink this cup, ye do shew the Lord's death till he come."
+            },
+            {
+              "reference": "Matthew 28:19",
+              "text": "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost:"
+            }
+          ]
+        },
+        "Prayer and Praise": {
+          "title": "Prayer and Praise",
+          "description": "Prayer and praise are essential elements of biblical worship. Through prayer, the congregation addresses God in adoration, confession, thanksgiving, and supplication. Through singing, believers praise God and edify one another. Both must be offered in spirit and truth, from hearts transformed by grace.",
+          "verses": [
+            {
+              "reference": "Philippians 4:6",
+              "text": "Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God."
+            },
+            {
+              "reference": "Colossians 3:16",
+              "text": "Let the word of Christ dwell in you richly in all wisdom; teaching and admonishing one another in psalms and hymns and spiritual songs, singing with grace in your hearts to the Lord."
+            },
+            {
+              "reference": "Ephesians 5:19",
+              "text": "Speaking to yourselves in psalms and hymns and spiritual songs, singing and making melody in your heart to the Lord;"
+            },
+            {
+              "reference": "Hebrews 13:15",
+              "text": "By him therefore let us offer the sacrifice of praise to God continually, that is, the fruit of our lips giving thanks to his name."
+            },
+            {
+              "reference": "Psalm 100:4",
+              "text": "Enter into his gates with thanksgiving, and into his courts with praise: be thankful unto him, and bless his name."
+            }
+          ]
+        }
+      },
+      "The Heart of Worship": {
+        "Worship in Spirit and Truth": {
+          "title": "Worship in Spirit and Truth",
+          "description": "True worship engages both the heart and the mind—it is sincere (in spirit) and Scriptural (in truth). External forms without internal devotion are mere ritual; zeal without knowledge is misguided. God seeks worshippers whose hearts are captivated by His glory and whose worship conforms to His revealed will.",
+          "verses": [
+            {
+              "reference": "John 4:23-24",
+              "text": "But the hour cometh, and now is, when the true worshippers shall worship the Father in spirit and in truth: for the Father seeketh such to worship him. God is a Spirit: and they that worship him must worship him in spirit and in truth."
+            },
+            {
+              "reference": "Isaiah 29:13",
+              "text": "Wherefore the Lord said, Forasmuch as this people draw near me with their mouth, and with their lips do honour me, but have removed their heart far from me, and their fear toward me is taught by the precept of men:"
+            },
+            {
+              "reference": "Psalm 51:17",
+              "text": "The sacrifices of God are a broken spirit: a broken and a contrite heart, O God, thou wilt not despise."
+            },
+            {
+              "reference": "Romans 12:1",
+              "text": "I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service."
+            },
+            {
+              "reference": "Hebrews 12:28",
+              "text": "Wherefore we receiving a kingdom which cannot be moved, let us have grace, whereby we may serve God acceptably with reverence and godly fear:"
+            }
+          ]
+        },
+        "Worship Through Christ Alone": {
+          "title": "Worship Through Christ Alone",
+          "description": "Access to God in worship is through Jesus Christ alone—our High Priest and Mediator. We come to the Father only through the Son, in whose name our prayers ascend and through whose sacrifice our worship is acceptable. No other mediator is needed or permissible.",
+          "verses": [
+            {
+              "reference": "John 14:6",
+              "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."
+            },
+            {
+              "reference": "Hebrews 10:19-22",
+              "text": "Having therefore, brethren, boldness to enter into the holiest by the blood of Jesus, By a new and living way, which he hath consecrated for us, through the veil, that is to say, his flesh; And having an high priest over the house of God; Let us draw near with a true heart in full assurance of faith, having our hearts sprinkled from an evil conscience, and our bodies washed with pure water."
+            },
+            {
+              "reference": "1 Timothy 2:5",
+              "text": "For there is one God, and one mediator between God and men, the man Christ Jesus;"
+            },
+            {
+              "reference": "Hebrews 7:25",
+              "text": "Wherefore he is able also to save them to the uttermost that come unto God by him, seeing he ever liveth to make intercession for them."
+            },
+            {
+              "reference": "Ephesians 2:18",
+              "text": "For through him we both have access by one Spirit unto the Father."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

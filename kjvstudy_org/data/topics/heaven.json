@@ -1,0 +1,71 @@
+{
+  "Heaven": {
+    "description": "The eternal dwelling place of God and His redeemed people",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Heaven represents</span> the Christian's eternal home, the ultimate destination of all who trust in Christ. Scripture presents heaven both as God's present dwelling and as the future inheritance of believers. It is described as a place of unimaginable beauty, perfect fellowship, and complete joy—where sorrow, pain, and death are forever banished.</p>\n\n<p class=\"intro-text\">Central to heaven's glory is the <strong>presence of God</strong>. \"In thy presence is fulness of joy; at thy right hand there are pleasures for evermore\" (Psalms 16:11). Heaven's supreme attraction is not golden streets or pearly gates but face-to-face communion with the Triune God. \"They shall see his face\" (Revelation 22:4)—the beatific vision that satisfies every longing and surpasses every earthly pleasure.</p>\n\n<p class=\"intro-text\">The Bible reveals that believers who die go immediately to be with Christ, which is \"far better\" (Philippians 1:23) than earthly existence. Yet this intermediate state awaits the final resurrection when glorified bodies reunite with perfected souls. The new heavens and new earth will provide the eternal dwelling place where righteousness dwells and God's kingdom is fully consummated.</p>\n\n<p class=\"intro-text\">Heavenly hope transforms earthly living. Those who truly anticipate heaven hold earthly possessions loosely, endure suffering patiently, serve sacrificially, and witness urgently. \"Set your affection on things above, not on things on the earth\" (Colossians 3:2). This is not escapism but proper perspective—living in light of eternity.</p>",
+    "subtopics": {
+      "God's Dwelling": {
+        "description": "Heaven as God's throne",
+        "verses": [
+          {
+            "ref": "Psalms 11:4",
+            "note": "The LORD's throne is in heaven"
+          },
+          {
+            "ref": "Matthew 6:9",
+            "note": "Our Father which art in heaven"
+          },
+          {
+            "ref": "Isaiah 66:1",
+            "note": "Heaven is my throne"
+          },
+          {
+            "ref": "Revelation 4:2",
+            "note": "A throne was set in heaven"
+          }
+        ]
+      },
+      "Believers' Hope": {
+        "description": "Heaven as inheritance",
+        "verses": [
+          {
+            "ref": "John 14:2-3",
+            "note": "I go to prepare a place for you"
+          },
+          {
+            "ref": "1 Peter 1:4",
+            "note": "Inheritance reserved in heaven"
+          },
+          {
+            "ref": "Philippians 3:20",
+            "note": "Our conversation is in heaven"
+          },
+          {
+            "ref": "2 Corinthians 5:1",
+            "note": "House not made with hands"
+          }
+        ]
+      },
+      "Heaven's Glory": {
+        "description": "The beauty of heaven",
+        "verses": [
+          {
+            "ref": "Revelation 21:4",
+            "note": "No more death, sorrow, or crying"
+          },
+          {
+            "ref": "Revelation 22:5",
+            "note": "No need of sun"
+          },
+          {
+            "ref": "Revelation 21:21",
+            "note": "Streets of pure gold"
+          },
+          {
+            "ref": "1 Corinthians 2:9",
+            "note": "Eye hath not seen"
+          }
+        ]
+      }
+    }
+  }
+}

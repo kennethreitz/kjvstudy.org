@@ -15,15 +15,34 @@ router = APIRouter(tags=["Study Guides"])
 # Templates will be set by the main app
 templates = None
 
-# Path to study guides JSON file
-_STUDY_GUIDES_PATH = Path(__file__).parent.parent / "data" / "study_guides.json"
+# Path to study guides directory
+_STUDY_GUIDES_DIR = Path(__file__).parent.parent / "data" / "study_guides"
 
 
 @lru_cache(maxsize=1)
 def _load_study_guides():
-    """Load study guides from JSON file. Cached since data never changes."""
-    with open(_STUDY_GUIDES_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    """Load study guides from per-guide JSON files. Cached since data never changes."""
+    guides_dir = _STUDY_GUIDES_DIR
+    catalog = {}
+    content = {}
+
+    for path in sorted(guides_dir.glob("*.json")):
+        with open(path, "r", encoding="utf-8") as f:
+            payload = json.load(f)
+
+        guide_content = payload.get("content")
+        if not guide_content or "slug" not in guide_content:
+            continue
+
+        slug = guide_content["slug"]
+        content[slug] = guide_content
+
+        catalog_entry = payload.get("catalog_entry")
+        category = payload.get("category", "Uncategorized")
+        if catalog_entry:
+            catalog.setdefault(category, []).append(catalog_entry)
+
+    return {"catalog": catalog, "content": content}
 
 
 def init_templates(app_templates):

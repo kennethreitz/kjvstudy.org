@@ -1,0 +1,2666 @@
+{
+  "chronological_plan": [
+    {
+      "day": 1,
+      "readings": [
+        "Genesis 1-3"
+      ],
+      "theme": "Creation and Fall"
+    },
+    {
+      "day": 2,
+      "readings": [
+        "Genesis 4-5"
+      ],
+      "theme": "Cain, Abel, and Seth"
+    },
+    {
+      "day": 3,
+      "readings": [
+        "Genesis 6-8"
+      ],
+      "theme": "Noah and the Flood"
+    },
+    {
+      "day": 4,
+      "readings": [
+        "Genesis 9-11"
+      ],
+      "theme": "Post-Flood to Babel"
+    },
+    {
+      "day": 5,
+      "readings": [
+        "Job 1-3"
+      ],
+      "theme": "Job's Testing"
+    },
+    {
+      "day": 6,
+      "readings": [
+        "Job 4-7"
+      ],
+      "theme": "Eliphaz Speaks"
+    },
+    {
+      "day": 7,
+      "readings": [
+        "Job 8-10"
+      ],
+      "theme": "Bildad Speaks"
+    },
+    {
+      "day": 8,
+      "readings": [
+        "Job 11-13"
+      ],
+      "theme": "Zophar Speaks"
+    },
+    {
+      "day": 9,
+      "readings": [
+        "Job 14-17"
+      ],
+      "theme": "Job's Despair"
+    },
+    {
+      "day": 10,
+      "readings": [
+        "Job 18-20"
+      ],
+      "theme": "Second Cycle"
+    },
+    {
+      "day": 11,
+      "readings": [
+        "Job 21-24"
+      ],
+      "theme": "Job's Questions"
+    },
+    {
+      "day": 12,
+      "readings": [
+        "Job 25-28"
+      ],
+      "theme": "Wisdom's Source"
+    },
+    {
+      "day": 13,
+      "readings": [
+        "Job 29-31"
+      ],
+      "theme": "Job's Defense"
+    },
+    {
+      "day": 14,
+      "readings": [
+        "Job 32-34"
+      ],
+      "theme": "Elihu Speaks"
+    },
+    {
+      "day": 15,
+      "readings": [
+        "Job 35-37"
+      ],
+      "theme": "Elihu Continues"
+    },
+    {
+      "day": 16,
+      "readings": [
+        "Job 38-39"
+      ],
+      "theme": "God Speaks"
+    },
+    {
+      "day": 17,
+      "readings": [
+        "Job 40-42"
+      ],
+      "theme": "Job Restored"
+    },
+    {
+      "day": 18,
+      "readings": [
+        "Genesis 12-14"
+      ],
+      "theme": "Abram Called"
+    },
+    {
+      "day": 19,
+      "readings": [
+        "Genesis 15-17"
+      ],
+      "theme": "God's Covenant"
+    },
+    {
+      "day": 20,
+      "readings": [
+        "Genesis 18-19"
+      ],
+      "theme": "Sodom Destroyed"
+    },
+    {
+      "day": 21,
+      "readings": [
+        "Genesis 20-22"
+      ],
+      "theme": "Isaac Born and Tested"
+    },
+    {
+      "day": 22,
+      "readings": [
+        "Genesis 23-24"
+      ],
+      "theme": "Sarah Dies, Isaac Marries"
+    },
+    {
+      "day": 23,
+      "readings": [
+        "Genesis 25-26"
+      ],
+      "theme": "Jacob and Esau"
+    },
+    {
+      "day": 24,
+      "readings": [
+        "Genesis 27-28"
+      ],
+      "theme": "Jacob's Deception"
+    },
+    {
+      "day": 25,
+      "readings": [
+        "Genesis 29-30"
+      ],
+      "theme": "Jacob's Wives"
+    },
+    {
+      "day": 26,
+      "readings": [
+        "Genesis 31-32"
+      ],
+      "theme": "Jacob Returns"
+    },
+    {
+      "day": 27,
+      "readings": [
+        "Genesis 33-35"
+      ],
+      "theme": "Reconciliation"
+    },
+    {
+      "day": 28,
+      "readings": [
+        "Genesis 36-37"
+      ],
+      "theme": "Joseph's Dreams"
+    },
+    {
+      "day": 29,
+      "readings": [
+        "Genesis 38-40"
+      ],
+      "theme": "Joseph in Egypt"
+    },
+    {
+      "day": 30,
+      "readings": [
+        "Genesis 41-42"
+      ],
+      "theme": "Joseph Rises"
+    },
+    {
+      "day": 31,
+      "readings": [
+        "Genesis 43-45"
+      ],
+      "theme": "Brothers Return"
+    },
+    {
+      "day": 32,
+      "readings": [
+        "Genesis 46-47"
+      ],
+      "theme": "Israel in Egypt"
+    },
+    {
+      "day": 33,
+      "readings": [
+        "Genesis 48-50"
+      ],
+      "theme": "Jacob's Blessing"
+    },
+    {
+      "day": 34,
+      "readings": [
+        "Exodus 1-3"
+      ],
+      "theme": "Moses Called"
+    },
+    {
+      "day": 35,
+      "readings": [
+        "Exodus 4-6"
+      ],
+      "theme": "Moses Returns"
+    },
+    {
+      "day": 36,
+      "readings": [
+        "Exodus 7-9"
+      ],
+      "theme": "Plagues Begin"
+    },
+    {
+      "day": 37,
+      "readings": [
+        "Exodus 10-12"
+      ],
+      "theme": "Passover"
+    },
+    {
+      "day": 38,
+      "readings": [
+        "Exodus 13-15"
+      ],
+      "theme": "Red Sea"
+    },
+    {
+      "day": 39,
+      "readings": [
+        "Exodus 16-18"
+      ],
+      "theme": "Wilderness Journey"
+    },
+    {
+      "day": 40,
+      "readings": [
+        "Exodus 19-21"
+      ],
+      "theme": "Sinai and Law"
+    },
+    {
+      "day": 41,
+      "readings": [
+        "Exodus 22-24"
+      ],
+      "theme": "Covenant Confirmed"
+    },
+    {
+      "day": 42,
+      "readings": [
+        "Exodus 25-27"
+      ],
+      "theme": "Tabernacle Plans"
+    },
+    {
+      "day": 43,
+      "readings": [
+        "Exodus 28-29"
+      ],
+      "theme": "Priestly Garments"
+    },
+    {
+      "day": 44,
+      "readings": [
+        "Exodus 30-32"
+      ],
+      "theme": "Golden Calf"
+    },
+    {
+      "day": 45,
+      "readings": [
+        "Exodus 33-35"
+      ],
+      "theme": "Covenant Renewed"
+    },
+    {
+      "day": 46,
+      "readings": [
+        "Exodus 36-38"
+      ],
+      "theme": "Building Tabernacle"
+    },
+    {
+      "day": 47,
+      "readings": [
+        "Exodus 39-40"
+      ],
+      "theme": "Glory Fills"
+    },
+    {
+      "day": 48,
+      "readings": [
+        "Leviticus 1-4"
+      ],
+      "theme": "Offerings"
+    },
+    {
+      "day": 49,
+      "readings": [
+        "Leviticus 5-7"
+      ],
+      "theme": "More Offerings"
+    },
+    {
+      "day": 50,
+      "readings": [
+        "Leviticus 8-10"
+      ],
+      "theme": "Priests Ordained"
+    },
+    {
+      "day": 51,
+      "readings": [
+        "Leviticus 11-13"
+      ],
+      "theme": "Clean and Unclean"
+    },
+    {
+      "day": 52,
+      "readings": [
+        "Leviticus 14-15"
+      ],
+      "theme": "Cleansing"
+    },
+    {
+      "day": 53,
+      "readings": [
+        "Leviticus 16-18"
+      ],
+      "theme": "Day of Atonement"
+    },
+    {
+      "day": 54,
+      "readings": [
+        "Leviticus 19-21"
+      ],
+      "theme": "Holiness Laws"
+    },
+    {
+      "day": 55,
+      "readings": [
+        "Leviticus 22-23"
+      ],
+      "theme": "Feasts"
+    },
+    {
+      "day": 56,
+      "readings": [
+        "Leviticus 24-25"
+      ],
+      "theme": "Sabbath and Jubilee"
+    },
+    {
+      "day": 57,
+      "readings": [
+        "Leviticus 26-27"
+      ],
+      "theme": "Blessings and Curses"
+    },
+    {
+      "day": 58,
+      "readings": [
+        "Numbers 1-2"
+      ],
+      "theme": "Census"
+    },
+    {
+      "day": 59,
+      "readings": [
+        "Numbers 3-4"
+      ],
+      "theme": "Levites"
+    },
+    {
+      "day": 60,
+      "readings": [
+        "Numbers 5-6"
+      ],
+      "theme": "Camp Purity"
+    },
+    {
+      "day": 61,
+      "readings": [
+        "Numbers 7"
+      ],
+      "theme": "Offerings"
+    },
+    {
+      "day": 62,
+      "readings": [
+        "Numbers 8-10"
+      ],
+      "theme": "Journey Begins"
+    },
+    {
+      "day": 63,
+      "readings": [
+        "Numbers 11-13"
+      ],
+      "theme": "Spies Sent"
+    },
+    {
+      "day": 64,
+      "readings": [
+        "Numbers 14-15"
+      ],
+      "theme": "Rebellion"
+    },
+    {
+      "day": 65,
+      "readings": [
+        "Numbers 16-17"
+      ],
+      "theme": "Korah's Rebellion"
+    },
+    {
+      "day": 66,
+      "readings": [
+        "Numbers 18-20"
+      ],
+      "theme": "Aaron's Rod"
+    },
+    {
+      "day": 67,
+      "readings": [
+        "Numbers 21-22"
+      ],
+      "theme": "Bronze Serpent"
+    },
+    {
+      "day": 68,
+      "readings": [
+        "Numbers 23-25"
+      ],
+      "theme": "Balaam"
+    },
+    {
+      "day": 69,
+      "readings": [
+        "Numbers 26-27"
+      ],
+      "theme": "Second Census"
+    },
+    {
+      "day": 70,
+      "readings": [
+        "Numbers 28-30"
+      ],
+      "theme": "Offerings and Vows"
+    },
+    {
+      "day": 71,
+      "readings": [
+        "Numbers 31-32"
+      ],
+      "theme": "Midian"
+    },
+    {
+      "day": 72,
+      "readings": [
+        "Numbers 33-34"
+      ],
+      "theme": "Journey Review"
+    },
+    {
+      "day": 73,
+      "readings": [
+        "Numbers 35-36"
+      ],
+      "theme": "Cities of Refuge"
+    },
+    {
+      "day": 74,
+      "readings": [
+        "Deuteronomy 1-2"
+      ],
+      "theme": "Moses Reviews"
+    },
+    {
+      "day": 75,
+      "readings": [
+        "Deuteronomy 3-4"
+      ],
+      "theme": "Obedience"
+    },
+    {
+      "day": 76,
+      "readings": [
+        "Deuteronomy 5-7"
+      ],
+      "theme": "Ten Commandments"
+    },
+    {
+      "day": 77,
+      "readings": [
+        "Deuteronomy 8-10"
+      ],
+      "theme": "Remember"
+    },
+    {
+      "day": 78,
+      "readings": [
+        "Deuteronomy 11-13"
+      ],
+      "theme": "Love the Lord"
+    },
+    {
+      "day": 79,
+      "readings": [
+        "Deuteronomy 14-17"
+      ],
+      "theme": "Laws"
+    },
+    {
+      "day": 80,
+      "readings": [
+        "Deuteronomy 18-21"
+      ],
+      "theme": "Prophet"
+    },
+    {
+      "day": 81,
+      "readings": [
+        "Deuteronomy 22-25"
+      ],
+      "theme": "Various Laws"
+    },
+    {
+      "day": 82,
+      "readings": [
+        "Deuteronomy 26-28"
+      ],
+      "theme": "Blessings"
+    },
+    {
+      "day": 83,
+      "readings": [
+        "Deuteronomy 29-31"
+      ],
+      "theme": "Covenant"
+    },
+    {
+      "day": 84,
+      "readings": [
+        "Deuteronomy 32-34"
+      ],
+      "theme": "Moses Dies"
+    },
+    {
+      "day": 85,
+      "readings": [
+        "Joshua 1-3"
+      ],
+      "theme": "Joshua Leads"
+    },
+    {
+      "day": 86,
+      "readings": [
+        "Joshua 4-6"
+      ],
+      "theme": "Jericho"
+    },
+    {
+      "day": 87,
+      "readings": [
+        "Joshua 7-9"
+      ],
+      "theme": "Ai and Gibeon"
+    },
+    {
+      "day": 88,
+      "readings": [
+        "Joshua 10-12"
+      ],
+      "theme": "Southern Campaign"
+    },
+    {
+      "day": 89,
+      "readings": [
+        "Joshua 13-15"
+      ],
+      "theme": "Land Division"
+    },
+    {
+      "day": 90,
+      "readings": [
+        "Joshua 16-18"
+      ],
+      "theme": "More Division"
+    },
+    {
+      "day": 91,
+      "readings": [
+        "Joshua 19-21"
+      ],
+      "theme": "Tribal Allotments"
+    },
+    {
+      "day": 92,
+      "readings": [
+        "Joshua 22-24"
+      ],
+      "theme": "Choose This Day"
+    },
+    {
+      "day": 93,
+      "readings": [
+        "Judges 1-2"
+      ],
+      "theme": "Incomplete Conquest"
+    },
+    {
+      "day": 94,
+      "readings": [
+        "Judges 3-5"
+      ],
+      "theme": "Early Judges"
+    },
+    {
+      "day": 95,
+      "readings": [
+        "Judges 6-7"
+      ],
+      "theme": "Gideon Called"
+    },
+    {
+      "day": 96,
+      "readings": [
+        "Judges 8-9"
+      ],
+      "theme": "Gideon's Legacy"
+    },
+    {
+      "day": 97,
+      "readings": [
+        "Judges 10-12"
+      ],
+      "theme": "Jephthah"
+    },
+    {
+      "day": 98,
+      "readings": [
+        "Judges 13-15"
+      ],
+      "theme": "Samson's Rise"
+    },
+    {
+      "day": 99,
+      "readings": [
+        "Judges 16-18"
+      ],
+      "theme": "Samson's Fall"
+    },
+    {
+      "day": 100,
+      "readings": [
+        "Judges 19-21"
+      ],
+      "theme": "Days of Anarchy"
+    },
+    {
+      "day": 101,
+      "readings": [
+        "Ruth 1-4"
+      ],
+      "theme": "Kinsman Redeemer"
+    },
+    {
+      "day": 102,
+      "readings": [
+        "1 Samuel 1-3"
+      ],
+      "theme": "Samuel's Call"
+    },
+    {
+      "day": 103,
+      "readings": [
+        "1 Samuel 4-7"
+      ],
+      "theme": "Ark Captured"
+    },
+    {
+      "day": 104,
+      "readings": [
+        "1 Samuel 8-10"
+      ],
+      "theme": "Israel Wants a King"
+    },
+    {
+      "day": 105,
+      "readings": [
+        "1 Samuel 11-13"
+      ],
+      "theme": "Saul's Reign Begins"
+    },
+    {
+      "day": 106,
+      "readings": [
+        "1 Samuel 14-15"
+      ],
+      "theme": "Saul's Disobedience"
+    },
+    {
+      "day": 107,
+      "readings": [
+        "1 Samuel 16-17"
+      ],
+      "theme": "David Anointed"
+    },
+    {
+      "day": 108,
+      "readings": [
+        "1 Samuel 18-19",
+        "Psalm 59"
+      ],
+      "theme": "Saul's Jealousy"
+    },
+    {
+      "day": 109,
+      "readings": [
+        "1 Samuel 20-21",
+        "Psalm 34"
+      ],
+      "theme": "David Flees"
+    },
+    {
+      "day": 110,
+      "readings": [
+        "1 Samuel 22-23",
+        "Psalm 52",
+        "Psalm 142"
+      ],
+      "theme": "David in Hiding"
+    },
+    {
+      "day": 111,
+      "readings": [
+        "1 Samuel 24",
+        "Psalm 57"
+      ],
+      "theme": "David Spares Saul"
+    },
+    {
+      "day": 112,
+      "readings": [
+        "1 Samuel 25-26"
+      ],
+      "theme": "Nabal and Abigail"
+    },
+    {
+      "day": 113,
+      "readings": [
+        "1 Samuel 27-29"
+      ],
+      "theme": "David Among Philistines"
+    },
+    {
+      "day": 114,
+      "readings": [
+        "1 Samuel 30-31",
+        "1 Chronicles 10"
+      ],
+      "theme": "Saul's Death"
+    },
+    {
+      "day": 115,
+      "readings": [
+        "2 Samuel 1-2"
+      ],
+      "theme": "David Mourns"
+    },
+    {
+      "day": 116,
+      "readings": [
+        "2 Samuel 3-4"
+      ],
+      "theme": "Civil War"
+    },
+    {
+      "day": 117,
+      "readings": [
+        "2 Samuel 5",
+        "1 Chronicles 11-12"
+      ],
+      "theme": "David King of All Israel"
+    },
+    {
+      "day": 118,
+      "readings": [
+        "2 Samuel 6",
+        "1 Chronicles 13-16",
+        "Psalm 96"
+      ],
+      "theme": "Ark to Jerusalem"
+    },
+    {
+      "day": 119,
+      "readings": [
+        "2 Samuel 7",
+        "1 Chronicles 17",
+        "Psalm 89"
+      ],
+      "theme": "Davidic Covenant"
+    },
+    {
+      "day": 120,
+      "readings": [
+        "2 Samuel 8-9",
+        "1 Chronicles 18"
+      ],
+      "theme": "David's Victories"
+    },
+    {
+      "day": 121,
+      "readings": [
+        "2 Samuel 10",
+        "1 Chronicles 19",
+        "Psalm 20"
+      ],
+      "theme": "War with Ammon"
+    },
+    {
+      "day": 122,
+      "readings": [
+        "2 Samuel 11-12",
+        "Psalm 51"
+      ],
+      "theme": "David's Sin"
+    },
+    {
+      "day": 123,
+      "readings": [
+        "2 Samuel 13-14"
+      ],
+      "theme": "Amnon and Absalom"
+    },
+    {
+      "day": 124,
+      "readings": [
+        "2 Samuel 15-16",
+        "Psalm 3"
+      ],
+      "theme": "Absalom's Rebellion"
+    },
+    {
+      "day": 125,
+      "readings": [
+        "2 Samuel 17-18",
+        "Psalm 63"
+      ],
+      "theme": "Absalom's Death"
+    },
+    {
+      "day": 126,
+      "readings": [
+        "2 Samuel 19-20"
+      ],
+      "theme": "David Returns"
+    },
+    {
+      "day": 127,
+      "readings": [
+        "2 Samuel 21-22",
+        "Psalm 18"
+      ],
+      "theme": "David's Song"
+    },
+    {
+      "day": 128,
+      "readings": [
+        "2 Samuel 23-24",
+        "1 Chronicles 21"
+      ],
+      "theme": "David's Last Words"
+    },
+    {
+      "day": 129,
+      "readings": [
+        "1 Chronicles 22-24"
+      ],
+      "theme": "Temple Preparations"
+    },
+    {
+      "day": 130,
+      "readings": [
+        "1 Chronicles 25-27"
+      ],
+      "theme": "Levitical Duties"
+    },
+    {
+      "day": 131,
+      "readings": [
+        "1 Kings 1",
+        "1 Chronicles 28-29"
+      ],
+      "theme": "Solomon Made King"
+    },
+    {
+      "day": 132,
+      "readings": [
+        "1 Kings 2",
+        "Psalm 72"
+      ],
+      "theme": "David's Death"
+    },
+    {
+      "day": 133,
+      "readings": [
+        "1 Kings 3",
+        "2 Chronicles 1"
+      ],
+      "theme": "Solomon's Wisdom"
+    },
+    {
+      "day": 134,
+      "readings": [
+        "Song of Solomon 1-4"
+      ],
+      "theme": "Love's Beginning"
+    },
+    {
+      "day": 135,
+      "readings": [
+        "Song of Solomon 5-8"
+      ],
+      "theme": "Love's Strength"
+    },
+    {
+      "day": 136,
+      "readings": [
+        "Proverbs 1-3"
+      ],
+      "theme": "Wisdom's Call"
+    },
+    {
+      "day": 137,
+      "readings": [
+        "Proverbs 4-6"
+      ],
+      "theme": "A Father's Instruction"
+    },
+    {
+      "day": 138,
+      "readings": [
+        "Proverbs 7-9"
+      ],
+      "theme": "Wisdom vs Folly"
+    },
+    {
+      "day": 139,
+      "readings": [
+        "Proverbs 10-12"
+      ],
+      "theme": "Wise Sayings"
+    },
+    {
+      "day": 140,
+      "readings": [
+        "Proverbs 13-15"
+      ],
+      "theme": "More Wisdom"
+    },
+    {
+      "day": 141,
+      "readings": [
+        "Proverbs 16-18"
+      ],
+      "theme": "The Heart"
+    },
+    {
+      "day": 142,
+      "readings": [
+        "Proverbs 19-21"
+      ],
+      "theme": "Righteous Living"
+    },
+    {
+      "day": 143,
+      "readings": [
+        "Proverbs 22-24"
+      ],
+      "theme": "Words of the Wise"
+    },
+    {
+      "day": 144,
+      "readings": [
+        "Proverbs 25-27"
+      ],
+      "theme": "Hezekiah's Collection"
+    },
+    {
+      "day": 145,
+      "readings": [
+        "Proverbs 28-29"
+      ],
+      "theme": "Wisdom for Rulers"
+    },
+    {
+      "day": 146,
+      "readings": [
+        "Proverbs 30-31"
+      ],
+      "theme": "Agur and Lemuel"
+    },
+    {
+      "day": 147,
+      "readings": [
+        "Ecclesiastes 1-4"
+      ],
+      "theme": "Vanity of Life"
+    },
+    {
+      "day": 148,
+      "readings": [
+        "Ecclesiastes 5-8"
+      ],
+      "theme": "Wisdom Under Sun"
+    },
+    {
+      "day": 149,
+      "readings": [
+        "Ecclesiastes 9-12"
+      ],
+      "theme": "Fear God"
+    },
+    {
+      "day": 150,
+      "readings": [
+        "1 Kings 4-5",
+        "2 Chronicles 2"
+      ],
+      "theme": "Solomon's Prosperity"
+    },
+    {
+      "day": 151,
+      "readings": [
+        "1 Kings 6",
+        "2 Chronicles 3"
+      ],
+      "theme": "Temple Built"
+    },
+    {
+      "day": 152,
+      "readings": [
+        "1 Kings 7",
+        "2 Chronicles 4"
+      ],
+      "theme": "Temple Furnishings"
+    },
+    {
+      "day": 153,
+      "readings": [
+        "1 Kings 8",
+        "2 Chronicles 5-6"
+      ],
+      "theme": "Temple Dedication"
+    },
+    {
+      "day": 154,
+      "readings": [
+        "1 Kings 9",
+        "2 Chronicles 7"
+      ],
+      "theme": "God's Response"
+    },
+    {
+      "day": 155,
+      "readings": [
+        "1 Kings 10-11",
+        "2 Chronicles 8-9"
+      ],
+      "theme": "Queen of Sheba"
+    },
+    {
+      "day": 156,
+      "readings": [
+        "1 Kings 12",
+        "2 Chronicles 10-11"
+      ],
+      "theme": "Kingdom Divided"
+    },
+    {
+      "day": 157,
+      "readings": [
+        "1 Kings 13-14",
+        "2 Chronicles 12"
+      ],
+      "theme": "Jeroboam's Sin"
+    },
+    {
+      "day": 158,
+      "readings": [
+        "1 Kings 15",
+        "2 Chronicles 13-16"
+      ],
+      "theme": "Wars of Kings"
+    },
+    {
+      "day": 159,
+      "readings": [
+        "1 Kings 16"
+      ],
+      "theme": "Wicked Kings of Israel"
+    },
+    {
+      "day": 160,
+      "readings": [
+        "1 Kings 17-18"
+      ],
+      "theme": "Elijah and Carmel"
+    },
+    {
+      "day": 161,
+      "readings": [
+        "1 Kings 19-20"
+      ],
+      "theme": "Elijah's Flight"
+    },
+    {
+      "day": 162,
+      "readings": [
+        "1 Kings 21-22",
+        "2 Chronicles 17-18"
+      ],
+      "theme": "Naboth's Vineyard"
+    },
+    {
+      "day": 163,
+      "readings": [
+        "2 Kings 1-2"
+      ],
+      "theme": "Elijah's Departure"
+    },
+    {
+      "day": 164,
+      "readings": [
+        "2 Kings 3-4"
+      ],
+      "theme": "Elisha's Miracles"
+    },
+    {
+      "day": 165,
+      "readings": [
+        "2 Kings 5-6"
+      ],
+      "theme": "Naaman Healed"
+    },
+    {
+      "day": 166,
+      "readings": [
+        "2 Kings 7-8",
+        "2 Chronicles 21"
+      ],
+      "theme": "Siege Lifted"
+    },
+    {
+      "day": 167,
+      "readings": [
+        "2 Kings 9-10"
+      ],
+      "theme": "Jehu's Revolt"
+    },
+    {
+      "day": 168,
+      "readings": [
+        "2 Kings 11-12",
+        "2 Chronicles 22-24"
+      ],
+      "theme": "Joash"
+    },
+    {
+      "day": 169,
+      "readings": [
+        "Joel 1-3"
+      ],
+      "theme": "Day of the Lord"
+    },
+    {
+      "day": 170,
+      "readings": [
+        "2 Kings 13-14",
+        "2 Chronicles 25"
+      ],
+      "theme": "More Kings"
+    },
+    {
+      "day": 171,
+      "readings": [
+        "Jonah 1-4"
+      ],
+      "theme": "Jonah"
+    },
+    {
+      "day": 172,
+      "readings": [
+        "Amos 1-4"
+      ],
+      "theme": "Judgment on Nations"
+    },
+    {
+      "day": 173,
+      "readings": [
+        "Amos 5-9"
+      ],
+      "theme": "Call to Repentance"
+    },
+    {
+      "day": 174,
+      "readings": [
+        "Hosea 1-5"
+      ],
+      "theme": "Unfaithful Israel"
+    },
+    {
+      "day": 175,
+      "readings": [
+        "Hosea 6-10"
+      ],
+      "theme": "Israel's Sin"
+    },
+    {
+      "day": 176,
+      "readings": [
+        "Hosea 11-14"
+      ],
+      "theme": "God's Love"
+    },
+    {
+      "day": 177,
+      "readings": [
+        "2 Kings 15",
+        "2 Chronicles 26"
+      ],
+      "theme": "Uzziah"
+    },
+    {
+      "day": 178,
+      "readings": [
+        "Isaiah 1-3"
+      ],
+      "theme": "Isaiah's Vision"
+    },
+    {
+      "day": 179,
+      "readings": [
+        "Isaiah 4-6"
+      ],
+      "theme": "Holy, Holy, Holy"
+    },
+    {
+      "day": 180,
+      "readings": [
+        "Micah 1-4"
+      ],
+      "theme": "Bethlehem Prophecy"
+    },
+    {
+      "day": 181,
+      "readings": [
+        "Micah 5-7"
+      ],
+      "theme": "Walk Humbly"
+    },
+    {
+      "day": 182,
+      "readings": [
+        "2 Kings 16",
+        "2 Chronicles 27-28",
+        "Isaiah 7"
+      ],
+      "theme": "Ahaz"
+    },
+    {
+      "day": 183,
+      "readings": [
+        "Isaiah 8-10"
+      ],
+      "theme": "Immanuel"
+    },
+    {
+      "day": 184,
+      "readings": [
+        "Isaiah 11-14"
+      ],
+      "theme": "Root of Jesse"
+    },
+    {
+      "day": 185,
+      "readings": [
+        "Isaiah 15-19"
+      ],
+      "theme": "Oracles Against Nations"
+    },
+    {
+      "day": 186,
+      "readings": [
+        "Isaiah 20-24"
+      ],
+      "theme": "More Oracles"
+    },
+    {
+      "day": 187,
+      "readings": [
+        "Isaiah 25-28"
+      ],
+      "theme": "Songs of Praise"
+    },
+    {
+      "day": 188,
+      "readings": [
+        "Isaiah 29-32"
+      ],
+      "theme": "Woe to Jerusalem"
+    },
+    {
+      "day": 189,
+      "readings": [
+        "Isaiah 33-36"
+      ],
+      "theme": "Sennacherib"
+    },
+    {
+      "day": 190,
+      "readings": [
+        "2 Kings 17"
+      ],
+      "theme": "Israel Falls"
+    },
+    {
+      "day": 191,
+      "readings": [
+        "2 Kings 18-19",
+        "2 Chronicles 29-31"
+      ],
+      "theme": "Hezekiah's Reform"
+    },
+    {
+      "day": 192,
+      "readings": [
+        "Isaiah 37-39",
+        "Psalm 46"
+      ],
+      "theme": "Jerusalem Delivered"
+    },
+    {
+      "day": 193,
+      "readings": [
+        "Isaiah 40-42"
+      ],
+      "theme": "Comfort My People"
+    },
+    {
+      "day": 194,
+      "readings": [
+        "Isaiah 43-45"
+      ],
+      "theme": "I Am the LORD"
+    },
+    {
+      "day": 195,
+      "readings": [
+        "Isaiah 46-49"
+      ],
+      "theme": "Servant Songs"
+    },
+    {
+      "day": 196,
+      "readings": [
+        "Isaiah 50-52"
+      ],
+      "theme": "Suffering Servant"
+    },
+    {
+      "day": 197,
+      "readings": [
+        "Isaiah 53-55"
+      ],
+      "theme": "He Was Wounded"
+    },
+    {
+      "day": 198,
+      "readings": [
+        "Isaiah 56-59"
+      ],
+      "theme": "True Righteousness"
+    },
+    {
+      "day": 199,
+      "readings": [
+        "Isaiah 60-63"
+      ],
+      "theme": "Zion's Glory"
+    },
+    {
+      "day": 200,
+      "readings": [
+        "Isaiah 64-66"
+      ],
+      "theme": "New Heavens"
+    },
+    {
+      "day": 201,
+      "readings": [
+        "2 Kings 20-21",
+        "2 Chronicles 32-33"
+      ],
+      "theme": "Manasseh"
+    },
+    {
+      "day": 202,
+      "readings": [
+        "Nahum 1-3"
+      ],
+      "theme": "Nineveh's Fall"
+    },
+    {
+      "day": 203,
+      "readings": [
+        "Zephaniah 1-3"
+      ],
+      "theme": "Day of Wrath"
+    },
+    {
+      "day": 204,
+      "readings": [
+        "Habakkuk 1-3"
+      ],
+      "theme": "The Just Shall Live"
+    },
+    {
+      "day": 205,
+      "readings": [
+        "2 Kings 22",
+        "2 Chronicles 34"
+      ],
+      "theme": "Josiah's Reform"
+    },
+    {
+      "day": 206,
+      "readings": [
+        "2 Kings 23",
+        "2 Chronicles 35"
+      ],
+      "theme": "Passover Renewed"
+    },
+    {
+      "day": 207,
+      "readings": [
+        "Jeremiah 1-3"
+      ],
+      "theme": "Jeremiah Called"
+    },
+    {
+      "day": 208,
+      "readings": [
+        "Jeremiah 4-6"
+      ],
+      "theme": "Invasion Coming"
+    },
+    {
+      "day": 209,
+      "readings": [
+        "Jeremiah 7-9"
+      ],
+      "theme": "Temple Sermon"
+    },
+    {
+      "day": 210,
+      "readings": [
+        "Jeremiah 10-13"
+      ],
+      "theme": "Covenant Broken"
+    },
+    {
+      "day": 211,
+      "readings": [
+        "Jeremiah 14-16"
+      ],
+      "theme": "No Comfort"
+    },
+    {
+      "day": 212,
+      "readings": [
+        "Jeremiah 17-20"
+      ],
+      "theme": "Heart's Deceit"
+    },
+    {
+      "day": 213,
+      "readings": [
+        "2 Kings 24",
+        "2 Chronicles 36:1-8",
+        "Jeremiah 22"
+      ],
+      "theme": "Jehoiakim"
+    },
+    {
+      "day": 214,
+      "readings": [
+        "Jeremiah 25-26"
+      ],
+      "theme": "Seventy Years"
+    },
+    {
+      "day": 215,
+      "readings": [
+        "Jeremiah 35-36"
+      ],
+      "theme": "Scroll Burned"
+    },
+    {
+      "day": 216,
+      "readings": [
+        "Jeremiah 45-48"
+      ],
+      "theme": "Against Nations"
+    },
+    {
+      "day": 217,
+      "readings": [
+        "Jeremiah 49-50"
+      ],
+      "theme": "Babylon Judged"
+    },
+    {
+      "day": 218,
+      "readings": [
+        "Jeremiah 51"
+      ],
+      "theme": "Babylon Falls"
+    },
+    {
+      "day": 219,
+      "readings": [
+        "Jeremiah 21-24"
+      ],
+      "theme": "False Shepherds"
+    },
+    {
+      "day": 220,
+      "readings": [
+        "Jeremiah 27-29"
+      ],
+      "theme": "Letter to Exiles"
+    },
+    {
+      "day": 221,
+      "readings": [
+        "Jeremiah 30-31"
+      ],
+      "theme": "New Covenant"
+    },
+    {
+      "day": 222,
+      "readings": [
+        "Jeremiah 32-33"
+      ],
+      "theme": "Restoration"
+    },
+    {
+      "day": 223,
+      "readings": [
+        "Jeremiah 34",
+        "2 Kings 25:1-2",
+        "2 Chronicles 36:13-16"
+      ],
+      "theme": "Siege Begins"
+    },
+    {
+      "day": 224,
+      "readings": [
+        "Jeremiah 37-38"
+      ],
+      "theme": "Jeremiah Imprisoned"
+    },
+    {
+      "day": 225,
+      "readings": [
+        "Jeremiah 39",
+        "2 Kings 25:3-21",
+        "2 Chronicles 36:17-21"
+      ],
+      "theme": "Jerusalem Falls"
+    },
+    {
+      "day": 226,
+      "readings": [
+        "Jeremiah 40-42"
+      ],
+      "theme": "Gedaliah"
+    },
+    {
+      "day": 227,
+      "readings": [
+        "Jeremiah 43-44"
+      ],
+      "theme": "Flight to Egypt"
+    },
+    {
+      "day": 228,
+      "readings": [
+        "Lamentations 1-2"
+      ],
+      "theme": "How Lonely"
+    },
+    {
+      "day": 229,
+      "readings": [
+        "Lamentations 3-5"
+      ],
+      "theme": "Great Faithfulness"
+    },
+    {
+      "day": 230,
+      "readings": [
+        "Obadiah",
+        "Psalm 137"
+      ],
+      "theme": "Edom Judged"
+    },
+    {
+      "day": 231,
+      "readings": [
+        "Ezekiel 1-4"
+      ],
+      "theme": "Ezekiel's Vision"
+    },
+    {
+      "day": 232,
+      "readings": [
+        "Ezekiel 5-8"
+      ],
+      "theme": "Jerusalem's Sins"
+    },
+    {
+      "day": 233,
+      "readings": [
+        "Ezekiel 9-12"
+      ],
+      "theme": "Glory Departs"
+    },
+    {
+      "day": 234,
+      "readings": [
+        "Ezekiel 13-15"
+      ],
+      "theme": "False Prophets"
+    },
+    {
+      "day": 235,
+      "readings": [
+        "Ezekiel 16-17"
+      ],
+      "theme": "Unfaithful Jerusalem"
+    },
+    {
+      "day": 236,
+      "readings": [
+        "Ezekiel 18-20"
+      ],
+      "theme": "Personal Responsibility"
+    },
+    {
+      "day": 237,
+      "readings": [
+        "Ezekiel 21-23"
+      ],
+      "theme": "Sword of Judgment"
+    },
+    {
+      "day": 238,
+      "readings": [
+        "Ezekiel 24-26"
+      ],
+      "theme": "Ezekiel's Wife Dies"
+    },
+    {
+      "day": 239,
+      "readings": [
+        "Ezekiel 27-28"
+      ],
+      "theme": "Against Tyre"
+    },
+    {
+      "day": 240,
+      "readings": [
+        "Ezekiel 29-32"
+      ],
+      "theme": "Against Egypt"
+    },
+    {
+      "day": 241,
+      "readings": [
+        "Daniel 1-2"
+      ],
+      "theme": "Daniel in Babylon"
+    },
+    {
+      "day": 242,
+      "readings": [
+        "Daniel 3-4"
+      ],
+      "theme": "Fiery Furnace"
+    },
+    {
+      "day": 243,
+      "readings": [
+        "Daniel 5-6"
+      ],
+      "theme": "Writing on Wall"
+    },
+    {
+      "day": 244,
+      "readings": [
+        "Daniel 7-8"
+      ],
+      "theme": "Visions of Beasts"
+    },
+    {
+      "day": 245,
+      "readings": [
+        "Daniel 9-10"
+      ],
+      "theme": "Seventy Weeks"
+    },
+    {
+      "day": 246,
+      "readings": [
+        "Daniel 11-12"
+      ],
+      "theme": "End Times"
+    },
+    {
+      "day": 247,
+      "readings": [
+        "Ezekiel 33-34"
+      ],
+      "theme": "Shepherds of Israel"
+    },
+    {
+      "day": 248,
+      "readings": [
+        "Ezekiel 35-36"
+      ],
+      "theme": "New Heart"
+    },
+    {
+      "day": 249,
+      "readings": [
+        "Ezekiel 37"
+      ],
+      "theme": "Valley of Dry Bones"
+    },
+    {
+      "day": 250,
+      "readings": [
+        "Ezekiel 38-39"
+      ],
+      "theme": "Gog and Magog"
+    },
+    {
+      "day": 251,
+      "readings": [
+        "Ezekiel 40-42"
+      ],
+      "theme": "Temple Vision"
+    },
+    {
+      "day": 252,
+      "readings": [
+        "Ezekiel 43-45"
+      ],
+      "theme": "Glory Returns"
+    },
+    {
+      "day": 253,
+      "readings": [
+        "Ezekiel 46-48"
+      ],
+      "theme": "River of Life"
+    },
+    {
+      "day": 254,
+      "readings": [
+        "2 Chronicles 36:22-23",
+        "Ezra 1-2"
+      ],
+      "theme": "Cyrus Decree"
+    },
+    {
+      "day": 255,
+      "readings": [
+        "Ezra 3-4"
+      ],
+      "theme": "Temple Foundation"
+    },
+    {
+      "day": 256,
+      "readings": [
+        "Haggai 1-2"
+      ],
+      "theme": "Rebuild the Temple"
+    },
+    {
+      "day": 257,
+      "readings": [
+        "Zechariah 1-4"
+      ],
+      "theme": "Zechariah's Visions"
+    },
+    {
+      "day": 258,
+      "readings": [
+        "Zechariah 5-8"
+      ],
+      "theme": "More Visions"
+    },
+    {
+      "day": 259,
+      "readings": [
+        "Ezra 5-6"
+      ],
+      "theme": "Temple Completed"
+    },
+    {
+      "day": 260,
+      "readings": [
+        "Zechariah 9-11"
+      ],
+      "theme": "Coming King"
+    },
+    {
+      "day": 261,
+      "readings": [
+        "Zechariah 12-14"
+      ],
+      "theme": "Pierced One"
+    },
+    {
+      "day": 262,
+      "readings": [
+        "Esther 1-3"
+      ],
+      "theme": "Esther Chosen"
+    },
+    {
+      "day": 263,
+      "readings": [
+        "Esther 4-6"
+      ],
+      "theme": "For Such a Time"
+    },
+    {
+      "day": 264,
+      "readings": [
+        "Esther 7-10"
+      ],
+      "theme": "Purim"
+    },
+    {
+      "day": 265,
+      "readings": [
+        "Ezra 7-8"
+      ],
+      "theme": "Ezra's Return"
+    },
+    {
+      "day": 266,
+      "readings": [
+        "Ezra 9-10"
+      ],
+      "theme": "Intermarriage"
+    },
+    {
+      "day": 267,
+      "readings": [
+        "Nehemiah 1-3"
+      ],
+      "theme": "Nehemiah Returns"
+    },
+    {
+      "day": 268,
+      "readings": [
+        "Nehemiah 4-6"
+      ],
+      "theme": "Wall Completed"
+    },
+    {
+      "day": 269,
+      "readings": [
+        "Nehemiah 7-9"
+      ],
+      "theme": "Covenant Renewal"
+    },
+    {
+      "day": 270,
+      "readings": [
+        "Nehemiah 10-11"
+      ],
+      "theme": "The Covenant"
+    },
+    {
+      "day": 271,
+      "readings": [
+        "Nehemiah 12-13"
+      ],
+      "theme": "Dedication"
+    },
+    {
+      "day": 272,
+      "readings": [
+        "Malachi 1-2"
+      ],
+      "theme": "Honor My Name"
+    },
+    {
+      "day": 273,
+      "readings": [
+        "Malachi 3-4"
+      ],
+      "theme": "Messenger Coming"
+    },
+    {
+      "day": 274,
+      "readings": [
+        "Psalm 1-9"
+      ],
+      "theme": "Psalms of David"
+    },
+    {
+      "day": 275,
+      "readings": [
+        "Psalm 10-17"
+      ],
+      "theme": "Trust in God"
+    },
+    {
+      "day": 276,
+      "readings": [
+        "Psalm 19-24"
+      ],
+      "theme": "The Lord Is My Shepherd"
+    },
+    {
+      "day": 277,
+      "readings": [
+        "Psalm 25-31"
+      ],
+      "theme": "Into Your Hands"
+    },
+    {
+      "day": 278,
+      "readings": [
+        "Psalm 32-37"
+      ],
+      "theme": "Wait on the Lord"
+    },
+    {
+      "day": 279,
+      "readings": [
+        "Psalm 38-44"
+      ],
+      "theme": "Songs of Lament"
+    },
+    {
+      "day": 280,
+      "readings": [
+        "Psalm 45-50"
+      ],
+      "theme": "God Is Our Refuge"
+    },
+    {
+      "day": 281,
+      "readings": [
+        "Psalm 53-60"
+      ],
+      "theme": "Hear My Cry"
+    },
+    {
+      "day": 282,
+      "readings": [
+        "Psalm 61-68"
+      ],
+      "theme": "Praise the Lord"
+    },
+    {
+      "day": 283,
+      "readings": [
+        "Psalm 69-72"
+      ],
+      "theme": "Messianic Psalms"
+    },
+    {
+      "day": 284,
+      "readings": [
+        "Psalm 73-77"
+      ],
+      "theme": "Asaph's Psalms"
+    },
+    {
+      "day": 285,
+      "readings": [
+        "Psalm 78-83"
+      ],
+      "theme": "Historical Psalms"
+    },
+    {
+      "day": 286,
+      "readings": [
+        "Psalm 84-89"
+      ],
+      "theme": "Songs of Zion"
+    },
+    {
+      "day": 287,
+      "readings": [
+        "Psalm 90-99"
+      ],
+      "theme": "The Lord Reigns"
+    },
+    {
+      "day": 288,
+      "readings": [
+        "Psalm 100-106"
+      ],
+      "theme": "Give Thanks"
+    },
+    {
+      "day": 289,
+      "readings": [
+        "Psalm 107-112"
+      ],
+      "theme": "God's Works"
+    },
+    {
+      "day": 290,
+      "readings": [
+        "Psalm 113-118"
+      ],
+      "theme": "Hallel Psalms"
+    },
+    {
+      "day": 291,
+      "readings": [
+        "Psalm 119:1-88"
+      ],
+      "theme": "The Word"
+    },
+    {
+      "day": 292,
+      "readings": [
+        "Psalm 119:89-176"
+      ],
+      "theme": "Lamp to My Feet"
+    },
+    {
+      "day": 293,
+      "readings": [
+        "Psalm 120-134"
+      ],
+      "theme": "Songs of Ascent"
+    },
+    {
+      "day": 294,
+      "readings": [
+        "Psalm 135-142"
+      ],
+      "theme": "Praise and Prayer"
+    },
+    {
+      "day": 295,
+      "readings": [
+        "Psalm 143-150"
+      ],
+      "theme": "Final Hallelujahs"
+    },
+    {
+      "day": 296,
+      "readings": [
+        "Luke 1"
+      ],
+      "theme": "Annunciations"
+    },
+    {
+      "day": 297,
+      "readings": [
+        "Matthew 1",
+        "Luke 2:1-38"
+      ],
+      "theme": "Birth of Christ"
+    },
+    {
+      "day": 298,
+      "readings": [
+        "Matthew 2",
+        "Luke 2:39-52"
+      ],
+      "theme": "Magi and Childhood"
+    },
+    {
+      "day": 299,
+      "readings": [
+        "Matthew 3",
+        "Mark 1:1-11",
+        "Luke 3"
+      ],
+      "theme": "John the Baptist"
+    },
+    {
+      "day": 300,
+      "readings": [
+        "Matthew 4:1-11",
+        "Mark 1:12-13",
+        "Luke 4:1-13"
+      ],
+      "theme": "Temptation"
+    },
+    {
+      "day": 301,
+      "readings": [
+        "John 1"
+      ],
+      "theme": "The Word Made Flesh"
+    },
+    {
+      "day": 302,
+      "readings": [
+        "John 2-3"
+      ],
+      "theme": "New Birth"
+    },
+    {
+      "day": 303,
+      "readings": [
+        "John 4"
+      ],
+      "theme": "Woman at the Well"
+    },
+    {
+      "day": 304,
+      "readings": [
+        "Matthew 4:12-25",
+        "Mark 1:14-45",
+        "Luke 4:14-44"
+      ],
+      "theme": "Ministry Begins"
+    },
+    {
+      "day": 305,
+      "readings": [
+        "Matthew 5-6"
+      ],
+      "theme": "Sermon on the Mount"
+    },
+    {
+      "day": 306,
+      "readings": [
+        "Matthew 7-8:13",
+        "Luke 6:17-49",
+        "Luke 7:1-10"
+      ],
+      "theme": "Kingdom Teaching"
+    },
+    {
+      "day": 307,
+      "readings": [
+        "Matthew 8:14-34",
+        "Mark 4:35-5:20",
+        "Luke 8:22-39"
+      ],
+      "theme": "Miracles"
+    },
+    {
+      "day": 308,
+      "readings": [
+        "Matthew 9:1-34",
+        "Mark 2:1-22",
+        "Luke 5:17-39"
+      ],
+      "theme": "Healing and Controversy"
+    },
+    {
+      "day": 309,
+      "readings": [
+        "Matthew 9:35-10:42",
+        "Mark 6:6-13",
+        "Luke 9:1-6"
+      ],
+      "theme": "Twelve Sent"
+    },
+    {
+      "day": 310,
+      "readings": [
+        "Matthew 11-12:21",
+        "Luke 7:11-35"
+      ],
+      "theme": "Rest for Weary"
+    },
+    {
+      "day": 311,
+      "readings": [
+        "Matthew 12:22-50",
+        "Mark 3:20-35",
+        "Luke 8:19-21"
+      ],
+      "theme": "Blasphemy Warning"
+    },
+    {
+      "day": 312,
+      "readings": [
+        "Matthew 13:1-52",
+        "Mark 4:1-34",
+        "Luke 8:4-18"
+      ],
+      "theme": "Kingdom Parables"
+    },
+    {
+      "day": 313,
+      "readings": [
+        "Matthew 13:53-14:36",
+        "Mark 6:14-56",
+        "Luke 9:7-17"
+      ],
+      "theme": "Feeding 5000"
+    },
+    {
+      "day": 314,
+      "readings": [
+        "John 5-6"
+      ],
+      "theme": "Bread of Life"
+    },
+    {
+      "day": 315,
+      "readings": [
+        "Matthew 15-16:12",
+        "Mark 7:1-8:26"
+      ],
+      "theme": "Traditions"
+    },
+    {
+      "day": 316,
+      "readings": [
+        "Matthew 16:13-17:13",
+        "Mark 8:27-9:13",
+        "Luke 9:18-36"
+      ],
+      "theme": "Transfiguration"
+    },
+    {
+      "day": 317,
+      "readings": [
+        "Matthew 17:14-18:35",
+        "Mark 9:14-50",
+        "Luke 9:37-50"
+      ],
+      "theme": "Greatest in Kingdom"
+    },
+    {
+      "day": 318,
+      "readings": [
+        "John 7-8"
+      ],
+      "theme": "Living Water"
+    },
+    {
+      "day": 319,
+      "readings": [
+        "John 9-10"
+      ],
+      "theme": "Light and Shepherd"
+    },
+    {
+      "day": 320,
+      "readings": [
+        "Luke 10-11"
+      ],
+      "theme": "Good Samaritan"
+    },
+    {
+      "day": 321,
+      "readings": [
+        "Luke 12-13"
+      ],
+      "theme": "Fear Not"
+    },
+    {
+      "day": 322,
+      "readings": [
+        "Luke 14-15"
+      ],
+      "theme": "Lost and Found"
+    },
+    {
+      "day": 323,
+      "readings": [
+        "Luke 16-17"
+      ],
+      "theme": "Rich Man and Lazarus"
+    },
+    {
+      "day": 324,
+      "readings": [
+        "John 11"
+      ],
+      "theme": "Lazarus Raised"
+    },
+    {
+      "day": 325,
+      "readings": [
+        "Luke 18:1-19:27"
+      ],
+      "theme": "Pharisee and Publican"
+    },
+    {
+      "day": 326,
+      "readings": [
+        "Matthew 19-20:16",
+        "Mark 10:1-31",
+        "Luke 18:15-30"
+      ],
+      "theme": "Rich Young Ruler"
+    },
+    {
+      "day": 327,
+      "readings": [
+        "Matthew 20:17-21:11",
+        "Mark 10:32-11:11",
+        "Luke 19:28-44",
+        "John 12:12-19"
+      ],
+      "theme": "Triumphal Entry"
+    },
+    {
+      "day": 328,
+      "readings": [
+        "Matthew 21:12-22:14",
+        "Mark 11:12-12:12",
+        "Luke 19:45-20:18"
+      ],
+      "theme": "Temple Cleansed"
+    },
+    {
+      "day": 329,
+      "readings": [
+        "Matthew 22:15-46",
+        "Mark 12:13-37",
+        "Luke 20:19-44"
+      ],
+      "theme": "Controversies"
+    },
+    {
+      "day": 330,
+      "readings": [
+        "Matthew 23",
+        "Mark 12:38-44",
+        "Luke 20:45-21:4"
+      ],
+      "theme": "Woes to Pharisees"
+    },
+    {
+      "day": 331,
+      "readings": [
+        "Matthew 24",
+        "Mark 13",
+        "Luke 21:5-38"
+      ],
+      "theme": "Olivet Discourse"
+    },
+    {
+      "day": 332,
+      "readings": [
+        "Matthew 25"
+      ],
+      "theme": "Kingdom Parables"
+    },
+    {
+      "day": 333,
+      "readings": [
+        "John 12:20-50",
+        "John 13-14"
+      ],
+      "theme": "Upper Room"
+    },
+    {
+      "day": 334,
+      "readings": [
+        "John 15-17"
+      ],
+      "theme": "Vine and Branches"
+    },
+    {
+      "day": 335,
+      "readings": [
+        "Matthew 26:1-46",
+        "Mark 14:1-42",
+        "Luke 22:1-46"
+      ],
+      "theme": "Last Supper"
+    },
+    {
+      "day": 336,
+      "readings": [
+        "Matthew 26:47-75",
+        "Mark 14:43-72",
+        "Luke 22:47-71",
+        "John 18:1-27"
+      ],
+      "theme": "Arrest and Trial"
+    },
+    {
+      "day": 337,
+      "readings": [
+        "Matthew 27:1-31",
+        "Mark 15:1-20",
+        "Luke 23:1-25",
+        "John 18:28-19:16"
+      ],
+      "theme": "Before Pilate"
+    },
+    {
+      "day": 338,
+      "readings": [
+        "Matthew 27:32-66",
+        "Mark 15:21-47",
+        "Luke 23:26-56",
+        "John 19:17-42"
+      ],
+      "theme": "Crucifixion"
+    },
+    {
+      "day": 339,
+      "readings": [
+        "Matthew 28",
+        "Mark 16",
+        "Luke 24",
+        "John 20-21"
+      ],
+      "theme": "Resurrection"
+    },
+    {
+      "day": 340,
+      "readings": [
+        "Acts 1-2"
+      ],
+      "theme": "Pentecost"
+    },
+    {
+      "day": 341,
+      "readings": [
+        "Acts 3-4"
+      ],
+      "theme": "Early Church"
+    },
+    {
+      "day": 342,
+      "readings": [
+        "Acts 5-6"
+      ],
+      "theme": "Growth and Opposition"
+    },
+    {
+      "day": 343,
+      "readings": [
+        "Acts 7-8"
+      ],
+      "theme": "Stephen"
+    },
+    {
+      "day": 344,
+      "readings": [
+        "Acts 9-10"
+      ],
+      "theme": "Saul Converted"
+    },
+    {
+      "day": 345,
+      "readings": [
+        "Acts 11-12"
+      ],
+      "theme": "Gentile Church"
+    },
+    {
+      "day": 346,
+      "readings": [
+        "Acts 13-14"
+      ],
+      "theme": "First Journey"
+    },
+    {
+      "day": 347,
+      "readings": [
+        "James 1-5"
+      ],
+      "theme": "James' Letter"
+    },
+    {
+      "day": 348,
+      "readings": [
+        "Acts 15-16"
+      ],
+      "theme": "Jerusalem Council"
+    },
+    {
+      "day": 349,
+      "readings": [
+        "Galatians 1-6"
+      ],
+      "theme": "Faith Alone"
+    },
+    {
+      "day": 350,
+      "readings": [
+        "Acts 17-18:18"
+      ],
+      "theme": "Athens and Corinth"
+    },
+    {
+      "day": 351,
+      "readings": [
+        "1 Thessalonians 1-5"
+      ],
+      "theme": "Christ's Return"
+    },
+    {
+      "day": 352,
+      "readings": [
+        "2 Thessalonians 1-3"
+      ],
+      "theme": "Day of the Lord"
+    },
+    {
+      "day": 353,
+      "readings": [
+        "Acts 18:19-19:41"
+      ],
+      "theme": "Ephesus"
+    },
+    {
+      "day": 354,
+      "readings": [
+        "1 Corinthians 1-8"
+      ],
+      "theme": "Church Problems"
+    },
+    {
+      "day": 355,
+      "readings": [
+        "1 Corinthians 9-16"
+      ],
+      "theme": "Resurrection"
+    },
+    {
+      "day": 356,
+      "readings": [
+        "2 Corinthians 1-7"
+      ],
+      "theme": "Ministry"
+    },
+    {
+      "day": 357,
+      "readings": [
+        "2 Corinthians 8-13"
+      ],
+      "theme": "Generosity"
+    },
+    {
+      "day": 358,
+      "readings": [
+        "Romans 1-4"
+      ],
+      "theme": "Justification"
+    },
+    {
+      "day": 359,
+      "readings": [
+        "Romans 5-8"
+      ],
+      "theme": "No Condemnation"
+    },
+    {
+      "day": 360,
+      "readings": [
+        "Romans 9-11"
+      ],
+      "theme": "Israel"
+    },
+    {
+      "day": 361,
+      "readings": [
+        "Romans 12-16"
+      ],
+      "theme": "Living Sacrifice"
+    },
+    {
+      "day": 362,
+      "readings": [
+        "Acts 20-21"
+      ],
+      "theme": "To Jerusalem"
+    },
+    {
+      "day": 363,
+      "readings": [
+        "Acts 22-24"
+      ],
+      "theme": "Paul's Defense"
+    },
+    {
+      "day": 364,
+      "readings": [
+        "Acts 25-26"
+      ],
+      "theme": "Before Agrippa"
+    },
+    {
+      "day": 365,
+      "readings": [
+        "Acts 27-28"
+      ],
+      "theme": "To Rome"
+    }
+  ]
+}

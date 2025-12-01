@@ -10,7 +10,6 @@ Usage:
     python scripts/list_unwritten_commentary.py --random 10        # Show 10 random verses without commentary
 """
 
-import json
 import sys
 import argparse
 import random
@@ -20,13 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from kjvstudy_org.kjv import bible
-
-
-def load_commentary():
-    """Load the verse commentary JSON"""
-    commentary_path = Path(__file__).parent.parent / 'kjvstudy_org' / 'data' / 'verse_commentary.json'
-    with open(commentary_path, 'r') as f:
-        return json.load(f)
+from kjvstudy_org.utils.commentary_loader import load_commentary
 
 
 def get_all_verses():
@@ -45,8 +38,8 @@ def get_all_verses():
 def has_commentary(commentary_data, book, chapter, verse):
     """Check if a verse has commentary"""
     return (book in commentary_data and
-            str(chapter) in commentary_data[book] and
-            str(verse) in commentary_data[book][str(chapter)])
+            chapter in commentary_data[book] and
+            verse in commentary_data[book][chapter])
 
 
 def main():

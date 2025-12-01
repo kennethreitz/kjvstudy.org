@@ -1,0 +1,252 @@
+{
+  "psalms_proverbs": [
+    {
+      "day": 1,
+      "readings": [
+        "Psalm 1-5",
+        "Proverbs 1"
+      ],
+      "theme": "Wisdom's Foundation"
+    },
+    {
+      "day": 2,
+      "readings": [
+        "Psalm 6-9",
+        "Proverbs 2"
+      ],
+      "theme": "Seeking Wisdom"
+    },
+    {
+      "day": 3,
+      "readings": [
+        "Psalm 10-15",
+        "Proverbs 3"
+      ],
+      "theme": "Trust the Lord"
+    },
+    {
+      "day": 4,
+      "readings": [
+        "Psalm 16-18",
+        "Proverbs 4"
+      ],
+      "theme": "Paths of Life"
+    },
+    {
+      "day": 5,
+      "readings": [
+        "Psalm 19-22",
+        "Proverbs 5"
+      ],
+      "theme": "God's Glory"
+    },
+    {
+      "day": 6,
+      "readings": [
+        "Psalm 23-27",
+        "Proverbs 6"
+      ],
+      "theme": "The Good Shepherd"
+    },
+    {
+      "day": 7,
+      "readings": [
+        "Psalm 28-31",
+        "Proverbs 7"
+      ],
+      "theme": "Rock and Refuge"
+    },
+    {
+      "day": 8,
+      "readings": [
+        "Psalm 32-35",
+        "Proverbs 8"
+      ],
+      "theme": "Forgiveness"
+    },
+    {
+      "day": 9,
+      "readings": [
+        "Psalm 36-39",
+        "Proverbs 9"
+      ],
+      "theme": "God's Love"
+    },
+    {
+      "day": 10,
+      "readings": [
+        "Psalm 40-44",
+        "Proverbs 10"
+      ],
+      "theme": "Waiting on God"
+    },
+    {
+      "day": 11,
+      "readings": [
+        "Psalm 45-49",
+        "Proverbs 11"
+      ],
+      "theme": "The King"
+    },
+    {
+      "day": 12,
+      "readings": [
+        "Psalm 50-54",
+        "Proverbs 12"
+      ],
+      "theme": "God Speaks"
+    },
+    {
+      "day": 13,
+      "readings": [
+        "Psalm 55-59",
+        "Proverbs 13"
+      ],
+      "theme": "Cast Your Burden"
+    },
+    {
+      "day": 14,
+      "readings": [
+        "Psalm 60-65",
+        "Proverbs 14"
+      ],
+      "theme": "God's Power"
+    },
+    {
+      "day": 15,
+      "readings": [
+        "Psalm 66-69",
+        "Proverbs 15"
+      ],
+      "theme": "Praise"
+    },
+    {
+      "day": 16,
+      "readings": [
+        "Psalm 70-73",
+        "Proverbs 16"
+      ],
+      "theme": "God's Faithfulness"
+    },
+    {
+      "day": 17,
+      "readings": [
+        "Psalm 74-77",
+        "Proverbs 17"
+      ],
+      "theme": "Remembering God"
+    },
+    {
+      "day": 18,
+      "readings": [
+        "Psalm 78-80",
+        "Proverbs 18"
+      ],
+      "theme": "Israel's History"
+    },
+    {
+      "day": 19,
+      "readings": [
+        "Psalm 81-85",
+        "Proverbs 19"
+      ],
+      "theme": "Revival"
+    },
+    {
+      "day": 20,
+      "readings": [
+        "Psalm 86-89",
+        "Proverbs 20"
+      ],
+      "theme": "God's Steadfast Love"
+    },
+    {
+      "day": 21,
+      "readings": [
+        "Psalm 90-95",
+        "Proverbs 21"
+      ],
+      "theme": "Eternal God"
+    },
+    {
+      "day": 22,
+      "readings": [
+        "Psalm 96-101",
+        "Proverbs 22"
+      ],
+      "theme": "The Lord Reigns"
+    },
+    {
+      "day": 23,
+      "readings": [
+        "Psalm 102-104",
+        "Proverbs 23"
+      ],
+      "theme": "Bless the Lord"
+    },
+    {
+      "day": 24,
+      "readings": [
+        "Psalm 105-106",
+        "Proverbs 24"
+      ],
+      "theme": "God's Works"
+    },
+    {
+      "day": 25,
+      "readings": [
+        "Psalm 107-110",
+        "Proverbs 25"
+      ],
+      "theme": "Give Thanks"
+    },
+    {
+      "day": 26,
+      "readings": [
+        "Psalm 111-118",
+        "Proverbs 26"
+      ],
+      "theme": "Hallelujah"
+    },
+    {
+      "day": 27,
+      "readings": [
+        "Psalm 119:1-88",
+        "Proverbs 27"
+      ],
+      "theme": "Word of God"
+    },
+    {
+      "day": 28,
+      "readings": [
+        "Psalm 119:89-176",
+        "Proverbs 28"
+      ],
+      "theme": "Lamp and Light"
+    },
+    {
+      "day": 29,
+      "readings": [
+        "Psalm 120-134",
+        "Proverbs 29"
+      ],
+      "theme": "Songs of Ascent"
+    },
+    {
+      "day": 30,
+      "readings": [
+        "Psalm 135-142",
+        "Proverbs 30"
+      ],
+      "theme": "Praise Him"
+    },
+    {
+      "day": 31,
+      "readings": [
+        "Psalm 143-150",
+        "Proverbs 31"
+      ],
+      "theme": "Let Everything Praise"
+    }
+  ]
+}

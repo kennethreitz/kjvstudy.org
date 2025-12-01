@@ -1,0 +1,92 @@
+{
+  "Baptism": {
+    "description": "The ordinance signifying identification with Christ in His death, burial, and resurrection",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Baptism marks</span> the public beginning of the Christian life. From the Greek <em>baptizo</em> (to immerse, submerge), this ordinance pictures spiritual reality through physical action. When believers go under the water, they identify with Christ's death and burial; when they emerge, they proclaim His resurrection and their new life in Him.</p>\n\n<p class=\"intro-text\">Scripture presents baptism as the normal response to saving faith. \"Then Peter said unto them, Repent, and be baptized every one of you in the name of Jesus Christ\" (Acts 2:38). Throughout Acts, new believers were baptized immediately upon profession of faith—the Ethiopian eunuch, the Philippian jailer, Lydia, and thousands at Pentecost. Baptism follows faith; it does not produce it.</p>\n\n<p class=\"intro-text\">The meaning of baptism encompasses multiple truths. It symbolizes <strong>union with Christ</strong>: \"buried with him in baptism, wherein also ye are risen with him\" (Colossians 2:12). It signifies <strong>cleansing from sin</strong>, though not as the cause but as the picture: \"the washing of regeneration\" (Titus 3:5). It represents <strong>entrance into the visible church</strong>, publicly identifying with Christ's body.</p>\n\n<p class=\"intro-text\">Jesus Himself was baptized, not for His own sins but to \"fulfil all righteousness\" (Matthew 3:15). His baptism inaugurated His public ministry and received divine approval: \"This is my beloved Son, in whom I am well pleased.\" Believers follow their Lord's example, obeying His command: \"Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost\" (Matthew 28:19).</p>",
+    "subtopics": {
+      "Christ's Baptism": {
+        "description": "Jesus' baptism and its significance",
+        "verses": [
+          {
+            "ref": "Matthew 3:13-17",
+            "note": "Jesus baptized by John"
+          },
+          {
+            "ref": "Mark 1:9-11",
+            "note": "Spirit descending like a dove"
+          },
+          {
+            "ref": "Luke 3:21-22",
+            "note": "Heaven opened after baptism"
+          },
+          {
+            "ref": "John 1:31-34",
+            "note": "John's witness of Christ's baptism"
+          }
+        ]
+      },
+      "The Command to Baptize": {
+        "description": "Christ's instruction for the church",
+        "verses": [
+          {
+            "ref": "Matthew 28:19",
+            "note": "Baptizing in name of Trinity"
+          },
+          {
+            "ref": "Mark 16:16",
+            "note": "He that believeth and is baptized"
+          },
+          {
+            "ref": "Acts 2:38",
+            "note": "Repent and be baptized"
+          },
+          {
+            "ref": "Acts 22:16",
+            "note": "Arise and be baptized"
+          }
+        ]
+      },
+      "Meaning of Baptism": {
+        "description": "Spiritual significance of the ordinance",
+        "verses": [
+          {
+            "ref": "Romans 6:3-4",
+            "note": "Buried with him by baptism"
+          },
+          {
+            "ref": "Colossians 2:12",
+            "note": "Buried and risen with Christ"
+          },
+          {
+            "ref": "Galatians 3:27",
+            "note": "Put on Christ in baptism"
+          },
+          {
+            "ref": "1 Peter 3:21",
+            "note": "Answer of a good conscience"
+          }
+        ]
+      },
+      "Examples of Baptism": {
+        "description": "Baptisms recorded in Acts",
+        "verses": [
+          {
+            "ref": "Acts 2:41",
+            "note": "Three thousand baptized at Pentecost"
+          },
+          {
+            "ref": "Acts 8:36-38",
+            "note": "Ethiopian eunuch baptized"
+          },
+          {
+            "ref": "Acts 16:14-15",
+            "note": "Lydia and her household"
+          },
+          {
+            "ref": "Acts 16:33",
+            "note": "Philippian jailer baptized"
+          }
+        ]
+      }
+    }
+  }
+}

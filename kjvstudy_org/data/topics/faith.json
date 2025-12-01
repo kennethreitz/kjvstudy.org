@@ -1,0 +1,63 @@
+{
+  "Faith": {
+    "description": "Trust and confidence in God and His promises",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Faith serves</span> as the foundational posture of the Christian life, the essential means by which believers relate to God and receive His blessings. Hebrews 11:1 defines it: \"Faith is the substance of things hoped for, the evidence of things not seen.\" Far from blind optimism or irrational credulity, biblical faith constitutes confident trust in God's character and promises based on His self-revelation in Scripture. It looks beyond present circumstances to eternal realities, beyond visible evidence to divine testimony, beyond human ability to divine power.</p>\n\n<p class=\"intro-text\">The nature of saving faith encompasses several elements. <strong>Intellectual assent</strong>—acknowledging the truth of gospel facts (Christ's deity, death, and resurrection). <strong>Emotional conviction</strong>—recognizing personal sin and need for salvation. <strong>Volitional commitment</strong>—entrusting oneself wholly to Christ as Lord and Savior. Mere mental agreement with doctrinal propositions falls short of saving faith; even demons believe and tremble (James 2:19). True faith involves personal reliance, active trust, and heart-level commitment to Christ's person, not merely intellectual acknowledgment of theological facts.</p>\n\n<p class=\"intro-text\"><strong>Faith and works</strong> relate in vital connection. Scripture insists that salvation comes through faith alone—\"To him that worketh not, but believeth on him that justifieth the ungodly, his faith is counted for righteousness\" (Romans 4:5). Yet it equally maintains that genuine faith inevitably produces works—\"Faith without works is dead\" (James 2:20). This apparent tension resolves in understanding that works provide evidence of faith's reality, not basis for its acceptance. The tree is known by its fruit: genuine faith bears the fruit of obedience, though the fruit contributes nothing to the tree's life.</p>\n\n<p class=\"intro-text\">Faith operates as <strong>the instrument of Christian living</strong>. Justification comes through faith, sanctification proceeds by faith, and glorification will complete what faith began. \"The just shall live by faith\" (Romans 1:17)—not merely begin by faith then continue by works, but walk entirely by faith from conversion to glorification. Daily Christian living involves trusting God's promises for strength, wisdom, provision, and guidance. \"We walk by faith, not by sight\" (2 Corinthians 5:7), meaning believers order their lives according to divine revelation rather than visible circumstances.</p>\n\n<p class=\"intro-text\">The <strong>practical dimensions of faith</strong> touch every area of life. Faith trusts God's provision in financial difficulty, His wisdom in perplexing circumstances, His sovereignty in suffering, and His faithfulness in temptation. It ventures into obedience despite uncertainty, perseveres through trials despite hardship, and hopes for glory despite present affliction. Faith does not eliminate struggle but provides resources for endurance. It does not guarantee ease but ensures ultimate victory. It does not remove crosses but enables carrying them.</p>\n\n<p class=\"intro-text\">Scripture presents <strong>examples of faith</strong> throughout redemptive history. Hebrews 11 catalogs faith's heroes: Abel worshiping by faith, Noah preparing an ark by faith, Abraham leaving his homeland by faith, Moses choosing affliction with God's people by faith, and countless others who \"through faith subdued kingdoms, wrought righteousness, obtained promises\" (Hebrews 11:33). These examples demonstrate that faith manifests differently according to God's call—sometimes in dramatic action, sometimes in patient waiting, always in obedient trust.</p>\n\n<p class=\"intro-text\">Faith grows through <strong>spiritual means</strong>. \"Faith cometh by hearing, and hearing by the word of God\" (Romans 10:17). Regular intake of Scripture strengthens faith by revealing God's character, promises, and past faithfulness. Prayer exercises faith by expressing dependence on God. Trials test and refine faith, burning away dross and strengthening genuine trust. Fellowship with mature believers provides models of faith to emulate. Obedience in small matters prepares for faith in greater challenges.</p>\n\n<p class=\"intro-text\">The Christian life requires <strong>persevering faith</strong>. Temporary belief that abandons Christ under pressure reveals its spurious nature. \"They on the rock are they, which, when they hear, receive the word with joy; and these have no root, which for a while believe, and in time of temptation fall away\" (Luke 8:13). Genuine saving faith endures, not because of human determination but divine preservation. \"He which hath begun a good work in you will perform it until the day of Jesus Christ\" (Philippians 1:6). True believers may falter but will not finally fall.</p>\n\n<p class=\"intro-text\">In an age of skepticism and empiricism, biblical faith stands firm. It does not require seeing before believing but believes to see. It does not demand proof before trusting but trusts God's word as sufficient proof. It does not seek signs before obeying but obeys in confidence that God will provide. This faith—gift of God, instrument of salvation, foundation of Christian living—enables believers to say with Job, \"Though he slay me, yet will I trust in him\" (Job 13:15).</p>",
+    "subtopics": {
+      "Nature of Faith": {
+        "description": "What faith is",
+        "verses": [
+          {
+            "ref": "Hebrews 11:1",
+            "note": "Substance of things hoped for"
+          },
+          {
+            "ref": "2 Corinthians 5:7",
+            "note": "Walk by faith, not sight"
+          },
+          {
+            "ref": "Romans 10:17",
+            "note": "Faith comes by hearing"
+          }
+        ]
+      },
+      "Faith and Works": {
+        "description": "Faith demonstrated through obedience",
+        "verses": [
+          {
+            "ref": "James 2:17",
+            "note": "Faith without works is dead"
+          },
+          {
+            "ref": "James 2:26",
+            "note": "Body without spirit is dead"
+          },
+          {
+            "ref": "Ephesians 2:10",
+            "note": "Created unto good works"
+          }
+        ]
+      },
+      "Examples of Faith": {
+        "description": "Biblical models of faith",
+        "verses": [
+          {
+            "ref": "Hebrews 11:4",
+            "note": "Abel offered by faith"
+          },
+          {
+            "ref": "Hebrews 11:7",
+            "note": "Noah prepared an ark"
+          },
+          {
+            "ref": "Hebrews 11:8",
+            "note": "Abraham obeyed"
+          },
+          {
+            "ref": "Hebrews 11:17",
+            "note": "Abraham offered Isaac"
+          }
+        ]
+      }
+    }
+  }
+}

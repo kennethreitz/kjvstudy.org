@@ -1,0 +1,92 @@
+{
+  "Wisdom": {
+    "description": "Skill for living according to God's design and truth",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Biblical wisdom</span> differs fundamentally from worldly intelligence. While the world prizes clever strategy and self-advancement, Scripture defines wisdom as \"the fear of the LORD\" (Proverbs 9:10). This wisdom begins with right relationship to God and produces right living before men.</p>\n\n<p class=\"intro-text\">Wisdom is personified in Proverbs, calling out in the streets: \"How long, ye simple ones, will ye love simplicity?\" (Proverbs 1:22). This literary device emphasizes wisdom's availability and urgency. She offers life to those who find her: \"Whoso findeth me findeth life, and shall obtain favour of the LORD\" (Proverbs 8:35). Christ Himself is \"the wisdom of God\" (1 Corinthians 1:24), the ultimate revelation of divine truth.</p>\n\n<p class=\"intro-text\">James distinguishes two kinds of wisdom. Earthly wisdom is \"sensual, devilish\" and produces \"envying and strife\" (James 3:14-15). But \"the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits\" (James 3:17). The source determines the character—wisdom from below serves self; wisdom from above serves God and others.</p>\n\n<p class=\"intro-text\">God promises wisdom to those who ask. \"If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him\" (James 1:5). This liberality encourages persistent prayer for discernment. Solomon asked for wisdom above all else and received not only wisdom but riches and honor as well (1 Kings 3:9-13).</p>",
+    "subtopics": {
+      "The Fear of the Lord": {
+        "description": "Beginning of wisdom",
+        "verses": [
+          {
+            "ref": "Proverbs 9:10",
+            "note": "Fear of the LORD is beginning of wisdom"
+          },
+          {
+            "ref": "Proverbs 1:7",
+            "note": "Fear of the LORD beginning of knowledge"
+          },
+          {
+            "ref": "Job 28:28",
+            "note": "Fear of the Lord, that is wisdom"
+          },
+          {
+            "ref": "Psalms 111:10",
+            "note": "Good understanding to all who do them"
+          }
+        ]
+      },
+      "Seeking Wisdom": {
+        "description": "How to obtain wisdom",
+        "verses": [
+          {
+            "ref": "James 1:5",
+            "note": "Ask of God liberally"
+          },
+          {
+            "ref": "Proverbs 2:1-6",
+            "note": "Seek as silver, search as treasure"
+          },
+          {
+            "ref": "Proverbs 4:7",
+            "note": "Wisdom is the principal thing"
+          },
+          {
+            "ref": "1 Kings 3:9-12",
+            "note": "Solomon's request for wisdom"
+          }
+        ]
+      },
+      "Christ Our Wisdom": {
+        "description": "Jesus as God's wisdom",
+        "verses": [
+          {
+            "ref": "1 Corinthians 1:24",
+            "note": "Christ the wisdom of God"
+          },
+          {
+            "ref": "1 Corinthians 1:30",
+            "note": "Made unto us wisdom"
+          },
+          {
+            "ref": "Colossians 2:3",
+            "note": "All treasures of wisdom hidden in Christ"
+          },
+          {
+            "ref": "Matthew 12:42",
+            "note": "Greater than Solomon"
+          }
+        ]
+      },
+      "Wisdom vs. Folly": {
+        "description": "The two paths",
+        "verses": [
+          {
+            "ref": "James 3:13-17",
+            "note": "Earthly vs. heavenly wisdom"
+          },
+          {
+            "ref": "Proverbs 14:12",
+            "note": "Way seemeth right but ends in death"
+          },
+          {
+            "ref": "1 Corinthians 3:19",
+            "note": "Wisdom of world is foolishness"
+          },
+          {
+            "ref": "Proverbs 12:15",
+            "note": "Fool is right in own eyes"
+          }
+        ]
+      }
+    }
+  }
+}

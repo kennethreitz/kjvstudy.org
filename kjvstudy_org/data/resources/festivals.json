@@ -1,0 +1,106 @@
+{
+  "festivals": {
+    "The Spring Festivals": {
+      "Passover (Pesach)": {
+        "title": "Memorial of the Exodus from Egypt",
+        "description": "Instituted on the night of Israel's deliverance from Egypt, Passover commemorates the death angel passing over houses marked with lamb's blood. Celebrated on the fourteenth day of Nisan, this feast finds its fulfillment in Christ, our Passover Lamb sacrificed for us.<label for=\"sn-passover\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-passover\" class=\"margin-toggle\"/><span class=\"sidenote\">The Passover lamb's qualifications—male, without blemish, killed at twilight, blood applied for protection—all typify Christ's atoning work. Paul's declaration 'Christ our passover is sacrificed for us' (1 Corinthians 5:7) connects the Old Testament type with its New Testament antitype.</span>",
+        "verses": [
+          {
+            "reference": "Exodus 12:14",
+            "text": "And this day shall be unto you for a memorial; and ye shall keep it a feast to the LORD throughout your generations; ye shall keep it a feast by an ordinance for ever."
+          },
+          {
+            "reference": "1 Corinthians 5:7",
+            "text": "Purge out therefore the old leaven, that ye may be a new lump, as ye are unleavened. For even Christ our passover is sacrificed for us:"
+          }
+        ]
+      },
+      "Unleavened Bread (Chag HaMatzot)": {
+        "title": "Seven Days Without Leaven",
+        "description": "Beginning the day after Passover, this week-long observance required removal of all leaven from Israelite homes. Leaven symbolized sin and corruption; its absence represented purity and separation from evil. The festival commemorated Israel's hasty departure from Egypt without time for bread to rise.<label for=\"sn-unleavened\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-unleavened\" class=\"margin-toggle\"/><span class=\"sidenote\">Throughout Scripture, leaven represents doctrine and influence (Matthew 16:6-12). The requirement to purge all leaven prefigures the believer's need for sanctification and separation from sin. Christ's burial during this feast period connects the unleavened bread to His sinless body.</span>",
+        "verses": [
+          {
+            "reference": "Exodus 12:17",
+            "text": "And ye shall observe the feast of unleavened bread; for in this selfsame day have I brought your armies out of the land of Egypt: therefore shall ye observe this day in your generations by an ordinance for ever."
+          },
+          {
+            "reference": "Leviticus 23:6",
+            "text": "And on the fifteenth day of the same month is the feast of unleavened bread unto the LORD: seven days ye must eat unleavened bread."
+          }
+        ]
+      },
+      "Firstfruits (Yom HaBikkurim)": {
+        "title": "The First Sheaf of Harvest",
+        "description": "On the day after the Sabbath following Passover, Israel presented the first sheaf of barley harvest to the LORD. This offering acknowledged God's provision and consecrated the entire harvest to Him. Christ's resurrection on this very day makes Him the 'firstfruits of them that slept.'<label for=\"sn-firstfruits\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-firstfruits\" class=\"margin-toggle\"/><span class=\"sidenote\">Paul explicitly identifies Christ as 'the firstfruits of them that slept' (1 Corinthians 15:20). As the firstfruits guaranteed the coming harvest, so Christ's resurrection ensures the future resurrection of all believers. The exact timing of Christ's resurrection on Firstfruits demonstrates divine precision in fulfilling the festal calendar.</span>",
+        "verses": [
+          {
+            "reference": "Leviticus 23:10",
+            "text": "Speak unto the children of Israel, and say unto them, When ye be come into the land which I give unto you, and shall reap the harvest thereof, then ye shall bring a sheaf of the firstfruits of your harvest unto the priest:"
+          },
+          {
+            "reference": "1 Corinthians 15:20",
+            "text": "But now is Christ risen from the dead, and become the firstfruits of them that slept."
+          }
+        ]
+      },
+      "Pentecost (Shavuot)": {
+        "title": "The Feast of Weeks, Celebration of the Wheat Harvest",
+        "description": "Fifty days after Firstfruits, Israel celebrated the wheat harvest with two leavened loaves—representing Jew and Gentile united in the church. The Holy Spirit's descent on this feast (Acts 2) marked the church's birth and the ingathering of the first believers.<label for=\"sn-pentecost\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-pentecost\" class=\"margin-toggle\"/><span class=\"sidenote\">Pentecost's dual significance—commemorating the giving of the Law at Sinai and the wheat harvest—finds fulfillment when the Holy Spirit writes God's law upon believers' hearts. The three thousand converts at Pentecost reverse Sinai's three thousand dead (Exodus 32:28), demonstrating that the Spirit gives life while the letter kills.</span>",
+        "verses": [
+          {
+            "reference": "Leviticus 23:15",
+            "text": "And ye shall count unto you from the morrow after the sabbath, from the day that ye brought the sheaf of the wave offering; seven sabbaths shall be complete:"
+          },
+          {
+            "reference": "Acts 2:1",
+            "text": "And when the day of Pentecost was fully come, they were all with one accord in one place."
+          }
+        ]
+      }
+    },
+    "The Fall Festivals": {
+      "Trumpets (Rosh Hashanah)": {
+        "title": "The Feast of Trumpets, Beginning of the Civil New Year",
+        "description": "The first day of the seventh month, marked by trumpet blasts, inaugurated a period of solemn preparation for the Day of Atonement. This feast anticipated Messiah's return, when 'the trumpet shall sound, and the dead shall be raised incorruptible.'<label for=\"sn-trumpets\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-trumpets\" class=\"margin-toggle\"/><span class=\"sidenote\">The shofar (ram's horn) blasts on this feast served multiple purposes: calling Israel to remembrance, summoning them to judgment, and proclaiming God's kingship. Prophetic passages connect trumpet blasts with both the rapture of the church (1 Thessalonians 4:16) and Christ's second coming (Matthew 24:31).</span>",
+        "verses": [
+          {
+            "reference": "Leviticus 23:24",
+            "text": "Speak unto the children of Israel, saying, In the seventh month, in the first day of the month, shall ye have a sabbath, a memorial of blowing of trumpets, an holy convocation."
+          },
+          {
+            "reference": "1 Corinthians 15:52",
+            "text": "In a moment, in the twinkling of an eye, at the last trump: for the trumpet shall sound, and the dead shall be raised incorruptible, and we shall be changed."
+          }
+        ]
+      },
+      "Day of Atonement (Yom Kippur)": {
+        "title": "The Great Day of National Cleansing",
+        "description": "On the tenth day of the seventh month, Israel's High Priest entered the Holy of Holies with blood of atonement for the nation's sin. This solemn fast day, requiring complete cessation from work and affliction of soul, pointed to Christ's once-for-all sacrifice.<label for=\"sn-atonement\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-atonement\" class=\"margin-toggle\"/><span class=\"sidenote\">Leviticus 16's detailed ritual—the High Priest's multiple washings, the two goats (one sacrificed, one sent away), the blood sprinkled on the mercy seat—all typify aspects of Christ's atoning work. Hebrews 9-10 expounds these typological connections, showing Christ entered heaven itself with His own blood.</span>",
+        "verses": [
+          {
+            "reference": "Leviticus 16:30",
+            "text": "For on that day shall the priest make an atonement for you, to cleanse you, that ye may be clean from all your sins before the LORD."
+          },
+          {
+            "reference": "Hebrews 9:12",
+            "text": "Neither by the blood of goats and calves, but by his own blood he entered in once into the holy place, having obtained eternal redemption for us."
+          }
+        ]
+      },
+      "Tabernacles (Sukkot)": {
+        "title": "The Feast of Booths, Celebration of the Final Harvest",
+        "description": "For seven days beginning on the fifteenth of the seventh month, Israel dwelt in temporary shelters, commemorating their wilderness wanderings. This joyous feast, coinciding with the final harvest, anticipated the millennial rest when Messiah would tabernacle among His people.<label for=\"sn-tabernacles\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-tabernacles\" class=\"margin-toggle\"/><span class=\"sidenote\">Tabernacles' themes—dwelling in booths, water-drawing ceremonies, great illumination of the temple courts—provide context for Christ's declarations: 'If any man thirst, let him come unto me' and 'I am the light of the world' (John 7:37, 8:12). Zechariah 14:16 prophesies that surviving nations will celebrate this feast during the Millennium.</span>",
+        "verses": [
+          {
+            "reference": "Leviticus 23:42",
+            "text": "Ye shall dwell in booths seven days; all that are Israelites born shall dwell in booths:"
+          },
+          {
+            "reference": "Zechariah 14:16",
+            "text": "And it shall come to pass, that every one that is left of all the nations which came against Jerusalem shall even go up from year to year to worship the King, the LORD of hosts, and to keep the feast of tabernacles."
+          }
+        ]
+      }
+    }
+  }
+}

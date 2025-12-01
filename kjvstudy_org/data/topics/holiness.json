@@ -1,0 +1,71 @@
+{
+  "Holiness": {
+    "description": "Being set apart for God and conformed to His character",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Holiness defines</span> God's essential character and describes the life He calls His people to live. The Hebrew word <em>qadosh</em> and Greek <em>hagios</em> convey the idea of being set apart, separated from the common for sacred purposes. God is supremely holy—utterly distinct from creation, morally perfect, and worthy of absolute reverence. His holiness is not merely one attribute among many but the atmosphere in which all His attributes exist.</p>\n\n<p class=\"intro-text\">Because God is holy, He commands His people: \"Be ye holy; for I am holy\" (1 Peter 1:16). This call to holiness involves both <strong>positional sanctification</strong> (being set apart as God's possession through Christ) and <strong>progressive sanctification</strong> (growing in actual holiness of life). Believers are simultaneously declared holy in Christ and called to become holy in practice—to increasingly reflect the character of the One who saved them.</p>\n\n<p class=\"intro-text\">Practical holiness requires both separation from sin and consecration to God. \"Come out from among them, and be ye separate, saith the Lord, and touch not the unclean thing\" (2 Corinthians 6:17). Yet holiness is not merely negative—avoiding evil—but positive: pursuing righteousness, love, purity, and Christlikeness. The Holy Spirit empowers this pursuit, producing fruit that mere human effort cannot generate.</p>\n\n<p class=\"intro-text\">Without holiness, no one will see the Lord (Hebrews 12:14). This sobering truth underscores holiness as essential, not optional. Yet God graciously provides what He demands, sanctifying believers through His Word, His Spirit, and His providential working. The goal is not self-righteous perfection but Christ-centered transformation—becoming like Jesus for the glory of the Father.</p>",
+    "subtopics": {
+      "God's Holiness": {
+        "description": "The holy character of God",
+        "verses": [
+          {
+            "ref": "Isaiah 6:3",
+            "note": "Holy, holy, holy is the LORD"
+          },
+          {
+            "ref": "Revelation 4:8",
+            "note": "Holy, holy, holy, Lord God Almighty"
+          },
+          {
+            "ref": "1 Samuel 2:2",
+            "note": "None holy as the LORD"
+          },
+          {
+            "ref": "Psalms 99:9",
+            "note": "The LORD our God is holy"
+          }
+        ]
+      },
+      "Called to Holiness": {
+        "description": "The command to be holy",
+        "verses": [
+          {
+            "ref": "1 Peter 1:15-16",
+            "note": "Be ye holy; for I am holy"
+          },
+          {
+            "ref": "1 Thessalonians 4:7",
+            "note": "God hath called us unto holiness"
+          },
+          {
+            "ref": "Hebrews 12:14",
+            "note": "Follow peace and holiness"
+          },
+          {
+            "ref": "2 Corinthians 7:1",
+            "note": "Perfecting holiness in the fear of God"
+          }
+        ]
+      },
+      "Pursuing Holiness": {
+        "description": "Growing in sanctification",
+        "verses": [
+          {
+            "ref": "Romans 6:22",
+            "note": "Fruit unto holiness"
+          },
+          {
+            "ref": "2 Timothy 2:21",
+            "note": "Sanctified and meet for the master's use"
+          },
+          {
+            "ref": "1 Thessalonians 5:23",
+            "note": "Sanctify you wholly"
+          },
+          {
+            "ref": "Romans 12:1",
+            "note": "Present your bodies a living sacrifice"
+          }
+        ]
+      }
+    }
+  }
+}

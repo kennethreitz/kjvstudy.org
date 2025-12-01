@@ -1,0 +1,891 @@
+{
+  "theology_proper": {
+    "title": "Theology Proper",
+    "subtitle": "The Attributes of God",
+    "introduction": "Theology Proper concerns the being, nature, and attributes of God Himself. Scripture emphasizes both the transcendence and immanence of God—His infinite majesty and His intimate involvement with creation. These studies explore the perfections of the divine nature as revealed in Scripture.",
+    "categories": {
+      "The Being of God": {
+        "Divine Existence": {
+          "title": "Divine Existence",
+          "description": "God's being is utterly necessary, eternal, and independent of all creation. He alone possesses existence in and of Himself, requiring no cause or sustainer beyond His own infinite nature. God's existence is the foundation of all reality and the first truth upon which all knowledge rests.",
+          "verses": [
+            {
+              "reference": "Exodus 3:14",
+              "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."
+            },
+            {
+              "reference": "Psalms 90:2",
+              "text": "Before the mountains were brought forth, or ever thou hadst formed the earth and the world, even from everlasting to everlasting, thou art God."
+            },
+            {
+              "reference": "Isaiah 44:6",
+              "text": "Thus saith the LORD the King of Israel, and his redeemer the LORD of hosts; I am the first, and I am the last; and beside me there is no God."
+            },
+            {
+              "reference": "John 5:26",
+              "text": "For as the Father hath life in himself; so hath he given to the Son to have life in himself;"
+            },
+            {
+              "reference": "Acts 17:24-25",
+              "text": "God that made the world and all things therein, seeing that he is Lord of heaven and earth, dwelleth not in temples made with hands; Neither is worshipped with men's hands, as though he needed any thing, seeing he giveth to all life, and breath, and all things;"
+            },
+            {
+              "reference": "Revelation 1:8",
+              "text": "I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty."
+            }
+          ]
+        },
+        "Divine Essence": {
+          "title": "Divine Essence",
+          "description": "The essence of God is pure spirit, infinite in being and perfection, wholly other than His creation. He subsists in three distinct persons—Father, Son, and Holy Spirit—who are co-equal and co-eternal in the one undivided divine essence. This unity of essence with distinction of persons is the incomprehensible mystery of the Holy Trinity.",
+          "verses": [
+            {
+              "reference": "Deuteronomy 6:4",
+              "text": "Hear, O Israel: The LORD our God is one LORD:"
+            },
+            {
+              "reference": "John 4:24",
+              "text": "God is a Spirit: and they that worship him must worship him in spirit and in truth."
+            },
+            {
+              "reference": "Matthew 28:19",
+              "text": "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost:"
+            },
+            {
+              "reference": "Psalms 139:7-8",
+              "text": "Whither shall I go from thy spirit? or whither shall I flee from thy presence? If I ascend up into heaven, thou art there: if I make my bed in hell, behold, thou art there."
+            }
+          ]
+        },
+        "Divine Simplicity": {
+          "title": "Divine Simplicity",
+          "description": "God is absolutely simple, not composed of parts, accidents, or potentiality, but is pure actuality. His attributes are not additions to His being but are His very essence viewed from different aspects. God's simplicity ensures His absolute immutability and establishes the metaphysical foundation for His sovereignty over all things.",
+          "verses": [
+            {
+              "reference": "Exodus 3:14",
+              "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."
+            },
+            {
+              "reference": "James 1:17",
+              "text": "Every good gift and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning."
+            },
+            {
+              "reference": "Malachi 3:6",
+              "text": "For I am the LORD, I change not; therefore ye sons of Jacob are not consumed."
+            },
+            {
+              "reference": "Deuteronomy 32:4",
+              "text": "He is the Rock, his work is perfect: for all his ways are judgment: a God of truth and without iniquity, just and right is he."
+            },
+            {
+              "reference": "Psalms 102:27",
+              "text": "But thou art the same, and thy years shall have no end."
+            }
+          ]
+        },
+        "Creator-Creature Distinction": {
+          "title": "Creator-Creature Distinction",
+          "description": "An infinite qualitative chasm separates the uncreated Creator from all created things. God alone is self-existent and eternal; all creation depends absolutely upon His sustaining power. This ontological distinction grounds the creature's duty of worship and submission to the sovereign Lord.",
+          "verses": [
+            {
+              "reference": "Genesis 1:1",
+              "text": "In the beginning God created the heaven and the earth."
+            },
+            {
+              "reference": "Romans 1:25",
+              "text": "Who changed the truth of God into a lie, and worshipped and served the creature more than the Creator, who is blessed for ever. Amen."
+            },
+            {
+              "reference": "Isaiah 40:28",
+              "text": "Hast thou not known? hast thou not heard, that the everlasting God, the LORD, the Creator of the ends of the earth, fainteth not, neither is weary? there is no searching of his understanding."
+            },
+            {
+              "reference": "Colossians 1:16-17",
+              "text": "For by him were all things created, that are in heaven, and that are in earth, visible and invisible, whether they be thrones, or dominions, or principalities, or powers: all things were created by him, and for him: And he is before all things, and by him all things consist."
+            },
+            {
+              "reference": "Nehemiah 9:6",
+              "text": "Thou, even thou, art LORD alone; thou hast made heaven, the heaven of heavens, with all their host, the earth, and all things that are therein, the seas, and all that is therein, and thou preservest them all; and the host of heaven worshippeth thee."
+            },
+            {
+              "reference": "Revelation 4:11",
+              "text": "Thou art worthy, O Lord, to receive glory and honour and power: for thou hast created all things, and for thy pleasure they are and were created."
+            }
+          ]
+        }
+      },
+      "Incommunicable Attributes": {
+        "Aseity and Self-Existence": {
+          "title": "Aseity and Self-Existence",
+          "description": "God possesses life, being, and all perfections in Himself alone, deriving nothing from any external source. He is the uncaused cause, the unmoved mover, the self-sufficient ground of all existence. This divine aseity renders all creation utterly dependent while God remains eternally independent.",
+          "verses": [
+            {
+              "reference": "John 5:26",
+              "text": "For as the Father hath life in himself; so hath he given to the Son to have life in himself;"
+            },
+            {
+              "reference": "Acts 17:25",
+              "text": "Neither is worshipped with men's hands, as though he needed any thing, seeing he giveth to all life, and breath, and all things;"
+            },
+            {
+              "reference": "Psalms 50:10-12",
+              "text": "For every beast of the forest is mine, and the cattle upon a thousand hills. I know all the fowls of the mountains: and the wild beasts of the field are mine. If I were hungry, I would not tell thee: for the world is mine, and the fulness thereof."
+            },
+            {
+              "reference": "Isaiah 40:28",
+              "text": "Hast thou not known? hast thou not heard, that the everlasting God, the LORD, the Creator of the ends of the earth, fainteth not, neither is weary? there is no searching of his understanding."
+            },
+            {
+              "reference": "Exodus 3:14",
+              "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."
+            },
+            {
+              "reference": "Romans 11:35-36",
+              "text": "Or who hath first given to him, and it shall be recompensed unto him again? For of him, and through him, and to him, are all things: to whom be glory for ever. Amen."
+            }
+          ]
+        },
+        "Immutability": {
+          "title": "Immutability",
+          "description": "God is absolutely unchangeable in His being, perfections, purposes, and promises. He admits of no increase or decrease, no improvement or deterioration, no succession of states. Divine immutability provides the unshakable foundation for the believer's assurance and the certainty of God's eternal decree.",
+          "verses": [
+            {
+              "reference": "Malachi 3:6",
+              "text": "For I am the LORD, I change not; therefore ye sons of Jacob are not consumed."
+            },
+            {
+              "reference": "James 1:17",
+              "text": "Every good gift and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning."
+            },
+            {
+              "reference": "Psalms 102:26-27",
+              "text": "They shall perish, but thou shalt endure: yea, all of them shall wax old like a garment; as a vesture shalt thou change them, and they shall be changed: But thou art the same, and thy years shall have no end."
+            },
+            {
+              "reference": "Numbers 23:19",
+              "text": "God is not a man, that he should lie; neither the son of man, that he should repent: hath he said, and shall he not do it? or hath he spoken, and shall he not make it good?"
+            },
+            {
+              "reference": "Hebrews 13:8",
+              "text": "Jesus Christ the same yesterday, and to day, and for ever."
+            }
+          ]
+        },
+        "Eternity": {
+          "title": "Eternity",
+          "description": "God exists in the eternal now, transcending all temporal succession and duration. He is without beginning or end, encompassing all time in His timeless present. The eternal God inhabits eternity while sovereignly ordaining and governing all temporal events.",
+          "verses": [
+            {
+              "reference": "Psalms 90:2",
+              "text": "Before the mountains were brought forth, or ever thou hadst formed the earth and the world, even from everlasting to everlasting, thou art God."
+            },
+            {
+              "reference": "Isaiah 57:15",
+              "text": "For thus saith the high and lofty One that inhabiteth eternity, whose name is Holy; I dwell in the high and holy place, with him also that is of a contrite and humble spirit, to revive the spirit of the humble, and to revive the heart of the contrite ones."
+            },
+            {
+              "reference": "Revelation 1:8",
+              "text": "I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty."
+            },
+            {
+              "reference": "Deuteronomy 33:27",
+              "text": "The eternal God is thy refuge, and underneath are the everlasting arms: and he shall thrust out the enemy from before thee; and shall say, Destroy them."
+            }
+          ]
+        },
+        "Immensity and Omnipresence": {
+          "title": "Immensity and Omnipresence",
+          "description": "God's being infinitely transcends all spatial limitations and categories while simultaneously being wholly present at every point in space. He fills heaven and earth with His presence, yet the heaven of heavens cannot contain Him. This divine immensity establishes both God's transcendence and His immanent presence with His people.",
+          "verses": [
+            {
+              "reference": "Psalms 139:7-10",
+              "text": "Whither shall I go from thy spirit? or whither shall I flee from thy presence? If I ascend up into heaven, thou art there: if I make my bed in hell, behold, thou art there. If I take the wings of the morning, and dwell in the uttermost parts of the sea; Even there shall thy hand lead me, and thy right hand shall hold me."
+            },
+            {
+              "reference": "Jeremiah 23:23-24",
+              "text": "Am I a God at hand, saith the LORD, and not a God afar off? Can any hide himself in secret places that I shall not see him? saith the LORD. Do not I fill heaven and earth? saith the LORD."
+            },
+            {
+              "reference": "Acts 17:27-28",
+              "text": "That they should seek the Lord, if haply they might feel after him, and find him, though he be not far from every one of us: For in him we live, and move, and have our being; as certain also of your own poets have said, For we are also his offspring."
+            },
+            {
+              "reference": "Isaiah 66:1",
+              "text": "Thus saith the LORD, The heaven is my throne, and the earth is my footstool: where is the house that ye build unto me? and where is the place of my rest?"
+            },
+            {
+              "reference": "Proverbs 15:3",
+              "text": "The eyes of the LORD are in every place, beholding the evil and the good."
+            }
+          ]
+        },
+        "Infinity": {
+          "title": "Infinity",
+          "description": "God is infinite in all His perfections, unlimited and boundless in every attribute of His divine nature. His infinity transcends all creaturely comprehension and sets Him infinitely above all finite beings. Before the infinite God, all creation is as nothing and vanity.",
+          "verses": [
+            {
+              "reference": "Psalms 147:5",
+              "text": "Great is our Lord, and of great power: his understanding is infinite."
+            },
+            {
+              "reference": "Job 11:7-9",
+              "text": "Canst thou by searching find out God? canst thou find out the Almighty unto perfection? It is as high as heaven; what canst thou do? deeper than hell; what canst thou know? The measure thereof is longer than the earth, and broader than the sea."
+            },
+            {
+              "reference": "Romans 11:33",
+              "text": "O the depth of the riches both of the wisdom and knowledge of God! how unsearchable are his judgments, and his ways past finding out!"
+            },
+            {
+              "reference": "Isaiah 40:28",
+              "text": "Hast thou not known? hast thou not heard, that the everlasting God, the LORD, the Creator of the ends of the earth, fainteth not, neither is weary? there is no searching of his understanding."
+            },
+            {
+              "reference": "Job 36:26",
+              "text": "Behold, God is great, and we know him not, neither can the number of his years be searched out."
+            }
+          ]
+        }
+      },
+      "Communicable Attributes - Knowledge": {
+        "Omniscience": {
+          "title": "Omniscience",
+          "description": "God possesses perfect, comprehensive, and exhaustive knowledge of all things actual and possible, past, present, and future. His knowledge is immediate, intuitive, and simultaneous rather than discursive or successive. Divine omniscience extends to all events, including the free choices of moral agents, which He has eternally decreed.",
+          "verses": [
+            {
+              "reference": "Psalms 147:5",
+              "text": "Great is our Lord, and of great power: his understanding is infinite."
+            },
+            {
+              "reference": "Hebrews 4:13",
+              "text": "Neither is there any creature that is not manifest in his sight: but all things are naked and opened unto the eyes of him with whom we have to do."
+            },
+            {
+              "reference": "Isaiah 46:10",
+              "text": "Declaring the end from the beginning, and from ancient times the things that are not yet done, saying, My counsel shall stand, and I will do all my pleasure:"
+            },
+            {
+              "reference": "Psalms 139:1-4",
+              "text": "O LORD, thou hast searched me, and known me. Thou knowest my downsitting and mine uprising, thou understandest my thought afar off. Thou compassest my path and my lying down, and art acquainted with all my ways. For there is not a word in my tongue, but, lo, O LORD, thou knowest it altogether."
+            },
+            {
+              "reference": "Matthew 10:29-30",
+              "text": "Are not two sparrows sold for a farthing? and one of them shall not fall on the ground without your Father. But the very hairs of your head are all numbered."
+            }
+          ]
+        },
+        "Wisdom": {
+          "title": "Wisdom",
+          "description": "Divine wisdom is the perfect application of God's infinite knowledge to accomplish His eternal purposes in the most excellent manner. God's wisdom ordains all things for His glory and the good of His elect. The wisdom of God infinitely surpasses human understanding and often appears as foolishness to the natural man.",
+          "verses": [
+            {
+              "reference": "Romans 11:33",
+              "text": "O the depth of the riches both of the wisdom and knowledge of God! how unsearchable are his judgments, and his ways past finding out!"
+            },
+            {
+              "reference": "Proverbs 3:19",
+              "text": "The LORD by wisdom hath founded the earth; by understanding hath he established the heavens."
+            },
+            {
+              "reference": "Daniel 2:20-21",
+              "text": "Daniel answered and said, Blessed be the name of God for ever and ever: for wisdom and might are his: And he changeth the times and the seasons: he removeth kings, and setteth up kings: he giveth wisdom unto the wise, and knowledge to them that know understanding:"
+            },
+            {
+              "reference": "Job 12:13",
+              "text": "With him is wisdom and strength, he hath counsel and understanding."
+            },
+            {
+              "reference": "Ephesians 3:10",
+              "text": "To the intent that now unto the principalities and powers in heavenly places might be known by the church the manifold wisdom of God,"
+            }
+          ]
+        },
+        "Foreknowledge": {
+          "title": "Foreknowledge",
+          "description": "God's foreknowledge is not mere prescience of future events but is grounded in His eternal decree and sovereign determination of all things. He foreknows because He has foreordained; His knowledge and His will are united in the eternal counsel of His purpose. This foreknowledge ensures the salvation of the elect.",
+          "verses": [
+            {
+              "reference": "Acts 2:23",
+              "text": "Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain:"
+            },
+            {
+              "reference": "Romans 8:29",
+              "text": "For whom he did foreknow, he also did predestinate to be conformed to the image of his Son, that he might be the firstborn among many brethren."
+            },
+            {
+              "reference": "Isaiah 46:9-10",
+              "text": "Remember the former things of old: for I am God, and there is none else; I am God, and there is none like me, Declaring the end from the beginning, and from ancient times the things that are not yet done, saying, My counsel shall stand, and I will do all my pleasure:"
+            },
+            {
+              "reference": "Amos 3:2",
+              "text": "You only have I known of all the families of the earth: therefore I will punish you for all your iniquities."
+            },
+            {
+              "reference": "Acts 15:18",
+              "text": "Known unto God are all his works from the beginning of the world."
+            }
+          ]
+        },
+        "Middle Knowledge Rejected": {
+          "title": "Middle Knowledge Rejected",
+          "description": "The Molinist notion of middle knowledge is rejected in favor of the view that God's knowledge is grounded solely in His eternal decree. There is no knowledge in God dependent upon creaturely choices existing logically prior to His decree. All divine knowledge flows from God's sovereign will, preserving the absolute priority of grace.",
+          "verses": [
+            {
+              "reference": "Isaiah 46:10-11",
+              "text": "Declaring the end from the beginning, and from ancient times the things that are not yet done, saying, My counsel shall stand, and I will do all my pleasure: Calling a ravenous bird from the east, the man that executeth my counsel from a far country: yea, I have spoken it, I will also bring it to pass; I have purposed it, I will also do it."
+            },
+            {
+              "reference": "Ephesians 1:11",
+              "text": "In whom also we have obtained an inheritance, being predestinated according to the purpose of him who worketh all things after the counsel of his own will:"
+            },
+            {
+              "reference": "Romans 9:16",
+              "text": "So then it is not of him that willeth, nor of him that runneth, but of God that sheweth mercy."
+            },
+            {
+              "reference": "Daniel 4:35",
+              "text": "And all the inhabitants of the earth are reputed as nothing: and he doeth according to his will in the army of heaven, and among the inhabitants of the earth: and none can stay his hand, or say unto him, What doest thou?"
+            },
+            {
+              "reference": "Job 42:2",
+              "text": "I know that thou canst do every thing, and that no thought can be withholden from thee."
+            },
+            {
+              "reference": "Psalms 115:3",
+              "text": "But our God is in the heavens: he hath done whatsoever he hath pleased."
+            }
+          ]
+        }
+      },
+      "Communicable Attributes - Moral": {
+        "Holiness": {
+          "title": "Holiness",
+          "description": "God's holiness is His absolute moral perfection and infinite separation from all sin and moral evil. He is the thrice-holy One before whom the seraphim veil their faces. Divine holiness is the foundational attribute that governs God's dealings with sinful humanity and demands propitiation through the blood of Christ.",
+          "verses": [
+            {
+              "reference": "Isaiah 6:3",
+              "text": "And one cried unto another, and said, Holy, holy, holy, is the LORD of hosts: the whole earth is full of his glory."
+            },
+            {
+              "reference": "Leviticus 11:44",
+              "text": "For I am the LORD your God: ye shall therefore sanctify yourselves, and ye shall be holy; for I am holy: neither shall ye defile yourselves with any manner of creeping thing that creepeth upon the earth."
+            },
+            {
+              "reference": "Revelation 4:8",
+              "text": "And the four beasts had each of them six wings about him; and they were full of eyes within: and they rest not day and night, saying, Holy, holy, holy, Lord God Almighty, which was, and is, and is to come."
+            },
+            {
+              "reference": "Psalms 99:9",
+              "text": "Exalt the LORD our God, and worship at his holy hill; for the LORD our God is holy."
+            },
+            {
+              "reference": "Habakkuk 1:13",
+              "text": "Thou art of purer eyes than to behold evil, and canst not look on iniquity: wherefore lookest thou upon them that deal treacherously, and holdest thy tongue when the wicked devoureth the man that is more righteous than he?"
+            }
+          ]
+        },
+        "Righteousness": {
+          "title": "Righteousness",
+          "description": "God's righteousness is His eternal conformity to the moral perfection of His own nature and His just governance of all creation according to that standard. He is the righteous Judge who will by no means clear the guilty, yet who justifies the ungodly through faith in Christ's propitiatory sacrifice. Divine righteousness demands satisfaction for sin.",
+          "verses": [
+            {
+              "reference": "Psalms 145:17",
+              "text": "The LORD is righteous in all his ways, and holy in all his works."
+            },
+            {
+              "reference": "Deuteronomy 32:4",
+              "text": "He is the Rock, his work is perfect: for all his ways are judgment: a God of truth and without iniquity, just and right is he."
+            },
+            {
+              "reference": "Romans 3:26",
+              "text": "To declare, I say, at this time his righteousness: that he might be just, and the justifier of him which believeth in Jesus."
+            },
+            {
+              "reference": "Psalms 119:137",
+              "text": "Righteous art thou, O LORD, and upright are thy judgments."
+            },
+            {
+              "reference": "Daniel 9:14",
+              "text": "Therefore hath the LORD watched upon the evil, and brought it upon us: for the LORD our God is righteous in all his works which he doeth: for we obeyed not his voice."
+            }
+          ]
+        },
+        "Goodness": {
+          "title": "Goodness",
+          "description": "God is the supreme and infinite good, the fountain of all created goodness, and the final end of all things. His goodness extends to all His works in common grace, yet is supremely manifested to the elect in saving grace. The goodness of God leads sinners to repentance and establishes His people in perpetual thanksgiving.",
+          "verses": [
+            {
+              "reference": "Psalms 119:68",
+              "text": "Thou art good, and doest good; teach me thy statutes."
+            },
+            {
+              "reference": "Psalms 25:8",
+              "text": "Good and upright is the LORD: therefore will he teach sinners in the way."
+            },
+            {
+              "reference": "Mark 10:18",
+              "text": "And Jesus said unto him, Why callest thou me good? there is none good but one, that is, God."
+            },
+            {
+              "reference": "Romans 2:4",
+              "text": "Or despisest thou the riches of his goodness and forbearance and longsuffering; not knowing that the goodness of God leadeth thee to repentance?"
+            },
+            {
+              "reference": "Psalms 145:9",
+              "text": "The LORD is good to all: and his tender mercies are over all his works."
+            },
+            {
+              "reference": "James 1:17",
+              "text": "Every good gift and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning."
+            }
+          ]
+        },
+        "Love": {
+          "title": "Love",
+          "description": "God's love is the eternal, free, and sovereign disposition of His will toward the objects of His affection. His love for the elect is unchangeable, unconditional, and rooted in His eternal decree of election. Divine love is supremely demonstrated in the gift of His Son as a propitiation for sin.",
+          "verses": [
+            {
+              "reference": "John 3:16",
+              "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+            },
+            {
+              "reference": "Romans 5:8",
+              "text": "But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us."
+            },
+            {
+              "reference": "Ephesians 2:4-5",
+              "text": "But God, who is rich in mercy, for his great love wherewith he loved us, Even when we were dead in sins, hath quickened us together with Christ, (by grace ye are saved;)"
+            },
+            {
+              "reference": "Jeremiah 31:3",
+              "text": "The LORD hath appeared of old unto me, saying, Yea, I have loved thee with an everlasting love: therefore with lovingkindness have I drawn thee."
+            }
+          ]
+        },
+        "Grace": {
+          "title": "Grace",
+          "description": "Grace is God's free, unmerited favor toward the utterly undeserving, flowing from His sovereign good pleasure alone. It is the fountain of election, redemption, and glorification, bestowed without regard to any foreseen merit or cooperation in the creature. Salvation is of grace alone from beginning to end.",
+          "verses": [
+            {
+              "reference": "Ephesians 2:8-9",
+              "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."
+            },
+            {
+              "reference": "Romans 11:6",
+              "text": "And if by grace, then is it no more of works: otherwise grace is no more grace. But if it be of works, then is it no more grace: otherwise work is no more work."
+            },
+            {
+              "reference": "Titus 3:5",
+              "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost;"
+            },
+            {
+              "reference": "Romans 3:24",
+              "text": "Being justified freely by his grace through the redemption that is in Christ Jesus:"
+            },
+            {
+              "reference": "Acts 15:11",
+              "text": "But we believe that through the grace of the Lord Jesus Christ we shall be saved, even as they."
+            }
+          ]
+        },
+        "Mercy": {
+          "title": "Mercy",
+          "description": "God's mercy is His tender compassion toward the miserable, withholding deserved punishment and bestowing undeserved blessing. Divine mercy moved God to save a people from the ruin of sin, providing redemption through the blood of Christ. The mercy of God endures forever toward His covenant people.",
+          "verses": [
+            {
+              "reference": "Ephesians 2:4",
+              "text": "But God, who is rich in mercy, for his great love wherewith he loved us,"
+            },
+            {
+              "reference": "Psalms 103:8",
+              "text": "The LORD is merciful and gracious, slow to anger, and plenteous in mercy."
+            },
+            {
+              "reference": "Lamentations 3:22-23",
+              "text": "It is of the LORD'S mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness."
+            },
+            {
+              "reference": "Titus 3:5",
+              "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost;"
+            },
+            {
+              "reference": "Exodus 34:6",
+              "text": "And the LORD passed by before him, and proclaimed, The LORD, The LORD God, merciful and gracious, longsuffering, and abundant in goodness and truth,"
+            },
+            {
+              "reference": "Psalms 136:1",
+              "text": "O give thanks unto the LORD; for he is good: for his mercy endureth for ever."
+            }
+          ]
+        }
+      },
+      "Communicable Attributes - Power": {
+        "Omnipotence": {
+          "title": "Omnipotence",
+          "description": "God possesses infinite power to accomplish all His sovereign will, being limited only by His own perfect nature. He can do all things consistent with His wisdom, holiness, and truth. Divine omnipotence ensures the certain accomplishment of all His eternal purposes and the effectual application of redemption to the elect.",
+          "verses": [
+            {
+              "reference": "Job 42:2",
+              "text": "I know that thou canst do every thing, and that no thought can be withholden from thee."
+            },
+            {
+              "reference": "Matthew 19:26",
+              "text": "But Jesus beheld them, and said unto them, With men this is impossible; but with God all things are possible."
+            },
+            {
+              "reference": "Jeremiah 32:17",
+              "text": "Ah Lord GOD! behold, thou hast made the heaven and the earth by thy great power and stretched out arm, and there is nothing too hard for thee:"
+            },
+            {
+              "reference": "Revelation 19:6",
+              "text": "And I heard as it were the voice of a great multitude, and as the voice of many waters, and as the voice of mighty thunderings, saying, Alleluia: for the Lord God omnipotent reigneth."
+            },
+            {
+              "reference": "Genesis 18:14",
+              "text": "Is any thing too hard for the LORD? At the time appointed I will return unto thee, according to the time of life, and Sarah shall have a son."
+            },
+            {
+              "reference": "Ephesians 3:20",
+              "text": "Now unto him that is able to do exceeding abundantly above all that we ask or think, according to the power that worketh in us,"
+            }
+          ]
+        },
+        "Sovereignty": {
+          "title": "Sovereignty",
+          "description": "God's sovereignty is His absolute, universal, and eternal dominion over all creation, executing His will in heaven and earth without hindrance or limitation. He reigns supreme over all events, ordaining whatsoever comes to pass for His own glory. The sovereignty of God is the believer's refuge and the foundation of all assurance.",
+          "verses": [
+            {
+              "reference": "Daniel 4:35",
+              "text": "And all the inhabitants of the earth are reputed as nothing: and he doeth according to his will in the army of heaven, and among the inhabitants of the earth: and none can stay his hand, or say unto him, What doest thou?"
+            },
+            {
+              "reference": "Psalms 115:3",
+              "text": "But our God is in the heavens: he hath done whatsoever he hath pleased."
+            },
+            {
+              "reference": "Ephesians 1:11",
+              "text": "In whom also we have obtained an inheritance, being predestinated according to the purpose of him who worketh all things after the counsel of his own will:"
+            },
+            {
+              "reference": "Isaiah 46:10",
+              "text": "Declaring the end from the beginning, and from ancient times the things that are not yet done, saying, My counsel shall stand, and I will do all my pleasure:"
+            },
+            {
+              "reference": "Romans 9:19-21",
+              "text": "Thou wilt say then unto me, Why doth he yet find fault? For who hath resisted his will? Nay but, O man, who art thou that repliest against God? Shall the thing formed say to him that formed it, Why hast thou made me thus? Hath not the potter power over the clay, of the same lump to make one vessel unto honour, and another unto dishonour?"
+            }
+          ]
+        },
+        "Divine Freedom": {
+          "title": "Divine Freedom",
+          "description": "God acts according to the counsel of His own will, under no external constraint or obligation to any creature. His freedom is not arbitrary caprice but is the exercise of His will in perfect accord with His nature. Divine freedom establishes that creation and redemption flow from God's gracious good pleasure alone.",
+          "verses": [
+            {
+              "reference": "Ephesians 1:11",
+              "text": "In whom also we have obtained an inheritance, being predestinated according to the purpose of him who worketh all things after the counsel of his own will:"
+            },
+            {
+              "reference": "Romans 9:15",
+              "text": "For he saith to Moses, I will have mercy on whom I will have mercy, and I will have compassion on whom I will have compassion."
+            },
+            {
+              "reference": "Matthew 11:26",
+              "text": "Even so, Father: for so it seemed good in thy sight."
+            },
+            {
+              "reference": "Psalms 115:3",
+              "text": "But our God is in the heavens: he hath done whatsoever he hath pleased."
+            },
+            {
+              "reference": "Job 23:13",
+              "text": "But he is in one mind, and who can turn him? and what his soul desireth, even that he doeth."
+            },
+            {
+              "reference": "Isaiah 40:13-14",
+              "text": "Who hath directed the Spirit of the LORD, or being his counsellor hath taught him? With whom took he counsel, and who instructed him, and taught him in the path of judgment, and taught him knowledge, and shewed to him the way of understanding?"
+            }
+          ]
+        },
+        "Providence": {
+          "title": "Providence",
+          "description": "God's providence is His continuous, sovereign governance of all creation, directing all events to their appointed end. He upholds, directs, and governs all creatures and events by His most wise and holy decree. Providence extends to all things great and small, encompassing the free choices of moral agents.",
+          "verses": [
+            {
+              "reference": "Colossians 1:17",
+              "text": "And he is before all things, and by him all things consist."
+            },
+            {
+              "reference": "Hebrews 1:3",
+              "text": "Who being the brightness of his glory, and the express image of his person, and upholding all things by the word of his power, when he had by himself purged our sins, sat down on the right hand of the Majesty on high;"
+            },
+            {
+              "reference": "Matthew 10:29-30",
+              "text": "Are not two sparrows sold for a farthing? and one of them shall not fall on the ground without your Father. But the very hairs of your head are all numbered."
+            },
+            {
+              "reference": "Proverbs 16:33",
+              "text": "The lot is cast into the lap; but the whole disposing thereof is of the LORD."
+            },
+            {
+              "reference": "Acts 17:28",
+              "text": "For in him we live, and move, and have our being; as certain also of your own poets have said, For we are also his offspring."
+            },
+            {
+              "reference": "Psalms 103:19",
+              "text": "The LORD hath prepared his throne in the heavens; and his kingdom ruleth over all."
+            }
+          ]
+        }
+      },
+      "Divine Decrees": {
+        "The Eternal Decree": {
+          "title": "The Eternal Decree",
+          "description": "From all eternity, God by the most wise and holy counsel of His will freely and unchangeably ordained whatsoever comes to pass. This decree is singular, comprehensive, and all-encompassing, yet it neither destroys the liberty of second causes nor establishes God as the author of sin. The decree renders all things certain while maintaining the reality of creaturely agency.",
+          "verses": [
+            {
+              "reference": "Ephesians 1:11",
+              "text": "In whom also we have obtained an inheritance, being predestinated according to the purpose of him who worketh all things after the counsel of his own will:"
+            },
+            {
+              "reference": "Romans 8:28",
+              "text": "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."
+            },
+            {
+              "reference": "Isaiah 46:10",
+              "text": "Declaring the end from the beginning, and from ancient times the things that are not yet done, saying, My counsel shall stand, and I will do all my pleasure:"
+            },
+            {
+              "reference": "Acts 2:23",
+              "text": "Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain:"
+            },
+            {
+              "reference": "Acts 4:27-28",
+              "text": "For of a truth against thy holy child Jesus, whom thou hast anointed, both Herod, and Pontius Pilate, with the Gentiles, and the people of Israel, were gathered together, For to do whatsoever thy hand and thy counsel determined before to be done."
+            },
+            {
+              "reference": "Psalms 33:11",
+              "text": "The counsel of the LORD standeth for ever, the thoughts of his heart to all generations."
+            }
+          ]
+        },
+        "Predestination": {
+          "title": "Predestination",
+          "description": "Predestination is God's eternal purpose according to the counsel of His will, whereby He has chosen some persons to everlasting life and passed by others. This divine predestination is wholly unconditional, not based on any foreseen faith or works, but flowing solely from God's sovereign good pleasure. It is the eternal foundation of the believer's assurance.",
+          "verses": [
+            {
+              "reference": "Romans 8:29-30",
+              "text": "For whom he did foreknow, he also did predestinate to be conformed to the image of his Son, that he might be the firstborn among many brethren. Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified."
+            },
+            {
+              "reference": "Ephesians 1:5",
+              "text": "Having predestinated us unto the adoption of children by Jesus Christ to himself, according to the good pleasure of his will,"
+            },
+            {
+              "reference": "Romans 9:11-13",
+              "text": "(For the children being not yet born, neither having done any good or evil, that the purpose of God according to election might stand, not of works, but of him that calleth;) It was said unto her, The elder shall serve the younger. As it is written, Jacob have I loved, but Esau have I hated."
+            },
+            {
+              "reference": "Acts 13:48",
+              "text": "And when the Gentiles heard this, they were glad, and glorified the word of the Lord: and as many as were ordained to eternal life believed."
+            }
+          ]
+        },
+        "Election": {
+          "title": "Election",
+          "description": "Election is God's eternal, unconditional, and particular choice of specific persons to salvation through Jesus Christ. The elect are chosen in Christ before the foundation of the world, not because of anything in themselves, but according to the mere good pleasure of God's will. This election is unto holiness as well as unto glory.",
+          "verses": [
+            {
+              "reference": "Ephesians 1:4",
+              "text": "According as he hath chosen us in him before the foundation of the world, that we should be holy and without blame before him in love:"
+            },
+            {
+              "reference": "Romans 9:11",
+              "text": "(For the children being not yet born, neither having done any good or evil, that the purpose of God according to election might stand, not of works, but of him that calleth;)"
+            },
+            {
+              "reference": "John 15:16",
+              "text": "Ye have not chosen me, but I have chosen you, and ordained you, that ye should go and bring forth fruit, and that your fruit should remain: that whatsoever ye shall ask of the Father in my name, he may give it you."
+            },
+            {
+              "reference": "Matthew 24:22",
+              "text": "And except those days should be shortened, there should no flesh be saved: but for the elect's sake those days shall be shortened."
+            }
+          ]
+        },
+        "Reprobation": {
+          "title": "Reprobation",
+          "description": "Reprobation is God's eternal decree to pass by some persons with the operations of His special grace, leaving them in their sin and ordaining them to dishonor and wrath for their sin. This decree displays God's justice and power as election displays His mercy and grace. God is neither unjust in reprobation nor the author of sin, for all deserved damnation.",
+          "verses": [
+            {
+              "reference": "Romans 9:17-18",
+              "text": "For the scripture saith unto Pharaoh, Even for this same purpose have I raised thee up, that I might shew my power in thee, and that my name might be declared throughout all the earth. Therefore hath he mercy on whom he will have mercy, and whom he will he hardeneth."
+            },
+            {
+              "reference": "Romans 9:21-22",
+              "text": "Hath not the potter power over the clay, of the same lump to make one vessel unto honour, and another unto dishonour? What if God, willing to shew his wrath, and to make his power known, endured with much longsuffering the vessels of wrath fitted to destruction:"
+            },
+            {
+              "reference": "Jude 1:4",
+              "text": "For there are certain men crept in unawares, who were before of old ordained to this condemnation, ungodly men, turning the grace of our God into lasciviousness, and denying the only Lord God, and our Lord Jesus Christ."
+            },
+            {
+              "reference": "Proverbs 16:4",
+              "text": "The LORD hath made all things for himself: yea, even the wicked for the day of evil."
+            }
+          ]
+        }
+      },
+      "Divine Names": {
+        "Jehovah (YHWH)": {
+          "title": "Jehovah (YHWH)",
+          "description": "Jehovah is the covenant name of God, signifying His self-existence, eternality, and immutability. This most holy name reveals God as the I AM, the unchangeable One who keeps covenant with His people. Jehovah is the redemptive name by which God makes Himself known to His elect in grace.",
+          "verses": [
+            {
+              "reference": "Exodus 3:14-15",
+              "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you. And God said moreover unto Moses, Thus shalt thou say unto the children of Israel, The LORD God of your fathers, the God of Abraham, the God of Isaac, and the God of Jacob, hath sent me unto you: this is my name for ever, and this is my memorial unto all generations."
+            },
+            {
+              "reference": "Exodus 6:2-3",
+              "text": "And God spake unto Moses, and said unto him, I am the LORD: And I appeared unto Abraham, unto Isaac, and unto Jacob, by the name of God Almighty, but by my name JEHOVAH was I not known to them."
+            },
+            {
+              "reference": "Psalms 83:18",
+              "text": "That men may know that thou, whose name alone is JEHOVAH, art the most high over all the earth."
+            },
+            {
+              "reference": "Isaiah 42:8",
+              "text": "I am the LORD: that is my name: and my glory will I not give to another, neither my praise to graven images."
+            },
+            {
+              "reference": "Malachi 3:6",
+              "text": "For I am the LORD, I change not; therefore ye sons of Jacob are not consumed."
+            },
+            {
+              "reference": "John 8:58",
+              "text": "Jesus said unto them, Verily, verily, I say unto you, Before Abraham was, I am."
+            }
+          ]
+        },
+        "Elohim": {
+          "title": "Elohim",
+          "description": "Elohim is the plural form designating God as the mighty Creator and supreme object of worship. This name emphasizes God's transcendent power and majesty as the sovereign ruler over all creation. The plurality in unity foreshadows the doctrine of the Trinity revealed in the New Testament.",
+          "verses": [
+            {
+              "reference": "Genesis 1:1",
+              "text": "In the beginning God created the heaven and the earth."
+            },
+            {
+              "reference": "Psalms 19:1",
+              "text": "The heavens declare the glory of God; and the firmament sheweth his handywork."
+            },
+            {
+              "reference": "Deuteronomy 10:17",
+              "text": "For the LORD your God is God of gods, and Lord of lords, a great God, a mighty, and a terrible, which regardeth not persons, nor taketh reward:"
+            },
+            {
+              "reference": "Nehemiah 9:6",
+              "text": "Thou, even thou, art LORD alone; thou hast made heaven, the heaven of heavens, with all their host, the earth, and all things that are therein, the seas, and all that is therein, and thou preservest them all; and the host of heaven worshippeth thee."
+            },
+            {
+              "reference": "Genesis 1:26",
+              "text": "And God said, Let us make man in our image, after our likeness: and let them have dominion over the fish of the sea, and over the fowl of the air, and over the cattle, and over all the earth, and over every creeping thing that creepeth upon the earth."
+            },
+            {
+              "reference": "Psalms 86:10",
+              "text": "For thou art great, and doest wondrous things: thou art God alone."
+            }
+          ]
+        },
+        "Adonai": {
+          "title": "Adonai",
+          "description": "Adonai signifies God as sovereign Lord and Master, emphasizing His absolute ownership and authority over all creation. This name expresses the creature's duty of submission and obedience to the supreme Ruler. To confess Adonai is to acknowledge God's rightful claim to total lordship over every area of life.",
+          "verses": [
+            {
+              "reference": "Genesis 15:2",
+              "text": "And Abram said, Lord GOD, what wilt thou give me, seeing I go childless, and the steward of my house is this Eliezer of Damascus?"
+            },
+            {
+              "reference": "Psalms 110:1",
+              "text": "The LORD said unto my Lord, Sit thou at my right hand, until I make thine enemies thy footstool."
+            },
+            {
+              "reference": "Isaiah 6:1",
+              "text": "In the year that king Uzziah died I saw also the Lord sitting upon a throne, high and lifted up, and his train filled the temple."
+            },
+            {
+              "reference": "Matthew 22:44",
+              "text": "The LORD said unto my Lord, Sit thou on my right hand, till I make thine enemies thy footstool?"
+            },
+            {
+              "reference": "Ezekiel 18:25",
+              "text": "Yet ye say, The way of the Lord is not equal. Hear now, O house of Israel; Is not my way equal? are not your ways unequal?"
+            },
+            {
+              "reference": "Malachi 1:6",
+              "text": "A son honoureth his father, and a servant his master: if then I be a father, where is mine honour? and if I be a master, where is my fear? saith the LORD of hosts unto you, O priests, that despise my name. And ye say, Wherein have we despised thy name?"
+            }
+          ]
+        },
+        "El Shaddai": {
+          "title": "El Shaddai",
+          "description": "El Shaddai reveals God as the Almighty, the all-sufficient One who nourishes and blesses His people. This name emphasizes God's power to fulfill His covenant promises and His abundant provision for His children. El Shaddai is the God who is more than enough for all the needs of His elect.",
+          "verses": [
+            {
+              "reference": "Genesis 17:1",
+              "text": "And when Abram was ninety years old and nine, the LORD appeared to Abram, and said unto him, I am the Almighty God; walk before me, and be thou perfect."
+            },
+            {
+              "reference": "Genesis 28:3",
+              "text": "And God Almighty bless thee, and make thee fruitful, and multiply thee, that thou mayest be a multitude of people;"
+            },
+            {
+              "reference": "Genesis 35:11",
+              "text": "And God said unto him, I am God Almighty: be fruitful and multiply; a nation and a company of nations shall be of thee, and kings shall come out of thy loins;"
+            },
+            {
+              "reference": "Exodus 6:3",
+              "text": "And I appeared unto Abraham, unto Isaac, and unto Jacob, by the name of God Almighty, but by my name JEHOVAH was I not known to them."
+            },
+            {
+              "reference": "Genesis 49:25",
+              "text": "Even by the God of thy father, who shall help thee; and by the Almighty, who shall bless thee with blessings of heaven above, blessings of the deep that lieth under, blessings of the breasts, and of the womb:"
+            },
+            {
+              "reference": "Revelation 1:8",
+              "text": "I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty."
+            }
+          ]
+        },
+        "I AM": {
+          "title": "I AM",
+          "description": "I AM is the eternal name of self-existence and absolute being, revealing God as the unchangeable and eternally present One. Christ's appropriation of this divine name establishes His deity and equality with the Father. The I AM is the eternal God who was, is, and is to come.",
+          "verses": [
+            {
+              "reference": "Exodus 3:14",
+              "text": "And God said unto Moses, I AM THAT I AM: and he said, Thus shalt thou say unto the children of Israel, I AM hath sent me unto you."
+            },
+            {
+              "reference": "John 8:58",
+              "text": "Jesus said unto them, Verily, verily, I say unto you, Before Abraham was, I am."
+            },
+            {
+              "reference": "John 18:5-6",
+              "text": "They answered him, Jesus of Nazareth. Jesus saith unto them, I am he. And Judas also, which betrayed him, stood with them. As soon then as he had said unto them, I am he, they went backward, and fell to the ground."
+            },
+            {
+              "reference": "Revelation 1:8",
+              "text": "I am Alpha and Omega, the beginning and the ending, saith the Lord, which is, and which was, and which is to come, the Almighty."
+            },
+            {
+              "reference": "Isaiah 43:10",
+              "text": "Ye are my witnesses, saith the LORD, and my servant whom I have chosen: that ye may know and believe me, and understand that I am he: before me there was no God formed, neither shall there be after me."
+            },
+            {
+              "reference": "Deuteronomy 32:39",
+              "text": "See now that I, even I, am he, and there is no god with me: I kill, and I make alive; I wound, and I heal: neither is there any that can deliver out of my hand."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

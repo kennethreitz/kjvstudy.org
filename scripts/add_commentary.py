@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""Script to add verse commentary to the JSON file."""
+"""Script to add verse commentary to the per-book JSON files."""
 
-import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from kjvstudy_org.utils.commentary_loader import merge_commentary_entries
 
 # New commentaries to add
 new_commentaries = {
@@ -24,29 +28,8 @@ new_commentaries = {
 }
 
 def main():
-    commentary_file = Path(__file__).parent.parent / "kjvstudy_org" / "data" / "verse_commentary.json"
-
-    # Read existing commentary
-    with open(commentary_file, 'r', encoding='utf-8') as f:
-        existing_data = json.load(f)
-
-    # Merge new commentaries
-    for book, chapters in new_commentaries.items():
-        if book not in existing_data:
-            existing_data[book] = {}
-
-        for chapter, verses in chapters.items():
-            if chapter not in existing_data[book]:
-                existing_data[book][chapter] = {}
-
-            for verse, commentary in verses.items():
-                existing_data[book][chapter][verse] = commentary
-
-    # Write back to file
-    with open(commentary_file, 'w', encoding='utf-8') as f:
-        json.dump(existing_data, f, ensure_ascii=False, indent=2)
-
-    print("Successfully added commentary")
+    merge_commentary_entries(new_commentaries)
+    print("Successfully added commentary to per-book files")
 
 if __name__ == "__main__":
     main()

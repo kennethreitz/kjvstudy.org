@@ -1,0 +1,71 @@
+{
+  "Stewardship": {
+    "description": "Managing God's resources faithfully for His glory",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Stewardship recognizes</span> a fundamental reality: everything belongs to God. \"The earth is the LORD's, and the fulness thereof; the world, and they that dwell therein\" (Psalms 24:1). Humans are not owners but stewards—managers entrusted with resources that ultimately belong to Another. This truth transforms how we view possessions, time, abilities, and even our very lives.</p>\n\n<p class=\"intro-text\">Biblical stewardship extends beyond finances (though it certainly includes them). We are stewards of <strong>time</strong>—\"redeeming the time, because the days are evil\" (Ephesians 5:16). We are stewards of <strong>talents</strong>—spiritual gifts given for building up Christ's body. We are stewards of <strong>truth</strong>—the gospel entrusted to us for proclamation. We are stewards of <strong>treasure</strong>—material resources to be used for God's kingdom purposes.</p>\n\n<p class=\"intro-text\">The parable of the talents (Matthew 25:14-30) teaches crucial principles. God distributes resources according to His wisdom, not equally but appropriately. He expects multiplication, not mere preservation. He will call us to account for how we used what He provided. Faithful stewardship leads to increased responsibility and reward; unfaithfulness leads to loss and condemnation.</p>\n\n<p class=\"intro-text\">Generous giving demonstrates trust in God's provision and reflects His own generous character. \"God loveth a cheerful giver\" (2 Corinthians 9:7). Yet stewardship involves not just giving but wise management of what we retain. Christians should work diligently, spend thoughtfully, save prudently, and give liberally—all as acts of worship to the Owner of all things.</p>",
+    "subtopics": {
+      "God Owns Everything": {
+        "description": "Divine ownership",
+        "verses": [
+          {
+            "ref": "Psalms 24:1",
+            "note": "The earth is the LORD's"
+          },
+          {
+            "ref": "Haggai 2:8",
+            "note": "Silver and gold are mine"
+          },
+          {
+            "ref": "1 Chronicles 29:14",
+            "note": "All things come of thee"
+          },
+          {
+            "ref": "Deuteronomy 8:18",
+            "note": "He giveth thee power to get wealth"
+          }
+        ]
+      },
+      "Faithful Management": {
+        "description": "Using resources wisely",
+        "verses": [
+          {
+            "ref": "Luke 16:10",
+            "note": "Faithful in that which is least"
+          },
+          {
+            "ref": "Matthew 25:21",
+            "note": "Well done, good and faithful servant"
+          },
+          {
+            "ref": "1 Corinthians 4:2",
+            "note": "Required in stewards to be faithful"
+          },
+          {
+            "ref": "1 Peter 4:10",
+            "note": "Good stewards of the grace of God"
+          }
+        ]
+      },
+      "Generous Giving": {
+        "description": "The joy of liberality",
+        "verses": [
+          {
+            "ref": "2 Corinthians 9:7",
+            "note": "God loveth a cheerful giver"
+          },
+          {
+            "ref": "Proverbs 11:25",
+            "note": "Liberal soul shall be made fat"
+          },
+          {
+            "ref": "Luke 6:38",
+            "note": "Give, and it shall be given"
+          },
+          {
+            "ref": "Malachi 3:10",
+            "note": "Bring ye all the tithes"
+          }
+        ]
+      }
+    }
+  }
+}

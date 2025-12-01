@@ -1,0 +1,71 @@
+{
+  "Judgment": {
+    "description": "God's righteous evaluation of all human beings",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Divine judgment</span> stands as a sobering reality that all humanity must face. \"It is appointed unto men once to die, but after this the judgment\" (Hebrews 9:27). Scripture consistently teaches that God will hold every person accountable for their lives—thoughts, words, and deeds. This truth, while unsettling to the impenitent, provides comfort to those who trust in Christ's righteousness.</p>\n\n<p class=\"intro-text\">God's judgment is <strong>certain</strong>—no one will escape. It is <strong>just</strong>—perfectly fair, without favoritism or error. It is <strong>comprehensive</strong>—including even secret things. \"God shall bring every work into judgment, with every secret thing, whether it be good, or whether it be evil\" (Ecclesiastes 12:14). It is <strong>final</strong>—no appeals, no second chances. The Judge of all the earth will do right (Genesis 18:25).</p>\n\n<p class=\"intro-text\">For unbelievers, judgment means condemnation based on their works, which inevitably fall short of God's perfect standard. For believers, judgment has two aspects: Christ bore their condemnation at the cross (\"There is therefore now no condemnation to them which are in Christ Jesus\" - Romans 8:1), yet they will still face evaluation of their works for rewards at Christ's judgment seat (2 Corinthians 5:10).</p>\n\n<p class=\"intro-text\">The doctrine of judgment motivates holy living, urgent evangelism, and humble gratitude. Those who grasp the reality of judgment flee to Christ for refuge and warn others to do the same. Far from producing morbid fear, proper understanding of judgment produces wisdom: \"The fear of the LORD is the beginning of wisdom\" (Proverbs 9:10).</p>",
+    "subtopics": {
+      "Certainty of Judgment": {
+        "description": "Judgment is unavoidable",
+        "verses": [
+          {
+            "ref": "Hebrews 9:27",
+            "note": "Appointed unto men to die, then judgment"
+          },
+          {
+            "ref": "Romans 14:12",
+            "note": "Give account of himself to God"
+          },
+          {
+            "ref": "Ecclesiastes 12:14",
+            "note": "Every work into judgment"
+          },
+          {
+            "ref": "Acts 17:31",
+            "note": "Appointed a day to judge"
+          }
+        ]
+      },
+      "Christ the Judge": {
+        "description": "Jesus as righteous judge",
+        "verses": [
+          {
+            "ref": "John 5:22",
+            "note": "Father committed all judgment unto the Son"
+          },
+          {
+            "ref": "2 Timothy 4:1",
+            "note": "Judge the quick and the dead"
+          },
+          {
+            "ref": "Acts 10:42",
+            "note": "Ordained to be the Judge"
+          },
+          {
+            "ref": "Matthew 25:31-32",
+            "note": "Shall sit upon the throne of his glory"
+          }
+        ]
+      },
+      "Believers' Judgment": {
+        "description": "Evaluation of Christians' works",
+        "verses": [
+          {
+            "ref": "2 Corinthians 5:10",
+            "note": "Judgment seat of Christ"
+          },
+          {
+            "ref": "Romans 8:1",
+            "note": "No condemnation in Christ"
+          },
+          {
+            "ref": "1 Corinthians 3:13-15",
+            "note": "Fire shall try every man's work"
+          },
+          {
+            "ref": "Romans 14:10",
+            "note": "Stand before the judgment seat"
+          }
+        ]
+      }
+    }
+  }
+}

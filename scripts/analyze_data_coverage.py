@@ -12,6 +12,7 @@ from collections import defaultdict
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from kjvstudy_org.kjv import bible
+from kjvstudy_org.utils.commentary_loader import load_commentary_flat
 
 
 def analyze_commentary_coverage():
@@ -21,9 +22,7 @@ def analyze_commentary_coverage():
     print("=" * 80)
     print()
 
-    commentary_file = Path("kjvstudy_org/data/verse_commentary.json")
-    with open(commentary_file, 'r') as f:
-        commentary = json.load(f)
+    commentary = load_commentary_flat()
 
     total_verses = 31102
     verses_with_commentary = len(commentary)
@@ -142,9 +141,7 @@ def analyze_books_without_data():
     books = bible.get_books()
 
     # Load commentary
-    commentary_file = Path("kjvstudy_org/data/verse_commentary.json")
-    with open(commentary_file, 'r') as f:
-        commentary = json.load(f)
+    commentary = load_commentary_flat()
 
     # Count verses per book
     book_stats = {}

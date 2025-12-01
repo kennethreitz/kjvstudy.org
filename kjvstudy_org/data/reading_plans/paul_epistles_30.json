@@ -1,0 +1,214 @@
+{
+  "paul_epistles_30": [
+    {
+      "day": 1,
+      "readings": [
+        "Romans 1-2"
+      ],
+      "theme": "All Under Sin"
+    },
+    {
+      "day": 2,
+      "readings": [
+        "Romans 3-4"
+      ],
+      "theme": "Justification by Faith"
+    },
+    {
+      "day": 3,
+      "readings": [
+        "Romans 5-6"
+      ],
+      "theme": "Peace with God"
+    },
+    {
+      "day": 4,
+      "readings": [
+        "Romans 7-8"
+      ],
+      "theme": "Life in the Spirit"
+    },
+    {
+      "day": 5,
+      "readings": [
+        "Romans 9-10"
+      ],
+      "theme": "Israel and Salvation"
+    },
+    {
+      "day": 6,
+      "readings": [
+        "Romans 11-12"
+      ],
+      "theme": "Mercy and Service"
+    },
+    {
+      "day": 7,
+      "readings": [
+        "Romans 13-16"
+      ],
+      "theme": "Living for Christ"
+    },
+    {
+      "day": 8,
+      "readings": [
+        "1 Corinthians 1-3"
+      ],
+      "theme": "Wisdom and Unity"
+    },
+    {
+      "day": 9,
+      "readings": [
+        "1 Corinthians 4-6"
+      ],
+      "theme": "Church Discipline"
+    },
+    {
+      "day": 10,
+      "readings": [
+        "1 Corinthians 7-9"
+      ],
+      "theme": "Marriage and Ministry"
+    },
+    {
+      "day": 11,
+      "readings": [
+        "1 Corinthians 10-11"
+      ],
+      "theme": "Worship"
+    },
+    {
+      "day": 12,
+      "readings": [
+        "1 Corinthians 12-14"
+      ],
+      "theme": "Spiritual Gifts"
+    },
+    {
+      "day": 13,
+      "readings": [
+        "1 Corinthians 15-16"
+      ],
+      "theme": "Resurrection"
+    },
+    {
+      "day": 14,
+      "readings": [
+        "2 Corinthians 1-4"
+      ],
+      "theme": "Comfort and Ministry"
+    },
+    {
+      "day": 15,
+      "readings": [
+        "2 Corinthians 5-7"
+      ],
+      "theme": "Reconciliation"
+    },
+    {
+      "day": 16,
+      "readings": [
+        "2 Corinthians 8-10"
+      ],
+      "theme": "Generosity"
+    },
+    {
+      "day": 17,
+      "readings": [
+        "2 Corinthians 11-13"
+      ],
+      "theme": "Paul's Credentials"
+    },
+    {
+      "day": 18,
+      "readings": [
+        "Galatians 1-3"
+      ],
+      "theme": "Gospel of Grace"
+    },
+    {
+      "day": 19,
+      "readings": [
+        "Galatians 4-6"
+      ],
+      "theme": "Freedom in Christ"
+    },
+    {
+      "day": 20,
+      "readings": [
+        "Ephesians 1-3"
+      ],
+      "theme": "Blessings in Christ"
+    },
+    {
+      "day": 21,
+      "readings": [
+        "Ephesians 4-6"
+      ],
+      "theme": "Walking Worthy"
+    },
+    {
+      "day": 22,
+      "readings": [
+        "Philippians 1-4"
+      ],
+      "theme": "Joy in Christ"
+    },
+    {
+      "day": 23,
+      "readings": [
+        "Colossians 1-4"
+      ],
+      "theme": "Christ Preeminent"
+    },
+    {
+      "day": 24,
+      "readings": [
+        "1 Thessalonians 1-5"
+      ],
+      "theme": "Christ's Return"
+    },
+    {
+      "day": 25,
+      "readings": [
+        "2 Thessalonians 1-3"
+      ],
+      "theme": "Day of the Lord"
+    },
+    {
+      "day": 26,
+      "readings": [
+        "1 Timothy 1-3"
+      ],
+      "theme": "Church Leadership"
+    },
+    {
+      "day": 27,
+      "readings": [
+        "1 Timothy 4-6"
+      ],
+      "theme": "Godliness"
+    },
+    {
+      "day": 28,
+      "readings": [
+        "2 Timothy 1-4"
+      ],
+      "theme": "Finish Well"
+    },
+    {
+      "day": 29,
+      "readings": [
+        "Titus 1-3"
+      ],
+      "theme": "Good Works"
+    },
+    {
+      "day": 30,
+      "readings": [
+        "Philemon"
+      ],
+      "theme": "Reconciliation"
+    }
+  ]
+}

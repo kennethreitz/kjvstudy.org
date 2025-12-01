@@ -19,6 +19,7 @@ from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse, create_slug, CHAPTER_EXPLANATIONS
+from ..utils.commentary_loader import load_commentary
 from ..books import get_book_data, get_all_books_metadata, has_book_data
 from ..red_letter import get_christ_words, load_red_letter_verses
 from ..strongs import (
@@ -59,13 +60,8 @@ templates = None
 
 @lru_cache(maxsize=1)
 def _load_verse_commentary():
-    """Load verse commentary from JSON file. Cached since data never changes."""
-    commentary_path = FilePath(__file__).parent.parent / "data" / "verse_commentary.json"
-    if not commentary_path.exists():
-        return {}
-
-    with open(commentary_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    """Load verse commentary from split per-book files. Cached since data never changes."""
+    return load_commentary()
 
 
 @lru_cache(maxsize=1)
@@ -1911,13 +1907,13 @@ async def api_get_verse_commentary(
     if book not in commentary_data:
         raise HTTPException(status_code=404, detail="Commentary not available for this book")
 
-    if str(chapter) not in commentary_data[book]:
+    if chapter not in commentary_data[book]:
         raise HTTPException(status_code=404, detail="Commentary not available for this chapter")
 
-    if str(verse) not in commentary_data[book][str(chapter)]:
+    if verse not in commentary_data[book][chapter]:
         raise HTTPException(status_code=404, detail="Commentary not available for this verse")
 
-    verse_commentary = commentary_data[book][str(chapter)][str(verse)]
+    verse_commentary = commentary_data[book][chapter][verse]
 
     return {
         "book": book,

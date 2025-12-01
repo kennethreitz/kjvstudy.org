@@ -1,0 +1,225 @@
+{
+  "hamartiology": {
+    "title": "Hamartiology",
+    "subtitle": "The Doctrine of Sin",
+    "introduction": "Hamartiology is the study of sin—its origin, nature, transmission, and consequences. Scripture teaches that sin is not merely wrong actions but a corruption of human nature itself, inherited from Adam and rendering all humanity guilty and depraved. These studies examine the devastating reality of sin and its universal impact.",
+    "categories": {
+      "The Origin of Sin": {
+        "The Fall of Man": {
+          "title": "The Fall of Man",
+          "description": "Sin entered the human race through Adam's willful transgression in the Garden of Eden. Though created upright, Adam chose to disobey God's explicit command, bringing sin, guilt, and death upon himself and all his posterity. This was no mere accident but a deliberate act of rebellion that plunged humanity into spiritual ruin.",
+          "verses": [
+            {
+              "reference": "Genesis 3:6",
+              "text": "And when the woman saw that the tree was good for food, and that it was pleasant to the eyes, and a tree to be desired to make one wise, she took of the fruit thereof, and did eat, and gave also unto her husband with her; and he did eat."
+            },
+            {
+              "reference": "Romans 5:12",
+              "text": "Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned:"
+            },
+            {
+              "reference": "Romans 5:19",
+              "text": "For as by one man's disobedience many were made sinners, so by the obedience of one shall many be made righteous."
+            },
+            {
+              "reference": "1 Corinthians 15:22",
+              "text": "For as in Adam all die, even so in Christ shall all be made alive."
+            },
+            {
+              "reference": "Genesis 3:17",
+              "text": "And unto Adam he said, Because thou hast hearkened unto the voice of thy wife, and hast eaten of the tree, of which I commanded thee, saying, Thou shalt not eat of it: cursed is the ground for thy sake; in sorrow shalt thou eat of it all the days of thy life;"
+            }
+          ]
+        },
+        "Original Sin and Imputation": {
+          "title": "Original Sin and Imputation",
+          "description": "Original sin refers both to Adam's first transgression and to the guilt and corruption transmitted to all his descendants. Adam acted as the federal head of humanity, so that his guilt is imputed to all. Every person enters the world not neutral but guilty in Adam, inheriting a nature thoroughly corrupted by sin.",
+          "verses": [
+            {
+              "reference": "Psalm 51:5",
+              "text": "Behold, I was shapen in iniquity; and in sin did my mother conceive me."
+            },
+            {
+              "reference": "Romans 5:18",
+              "text": "Therefore as by the offence of one judgment came upon all men to condemnation; even so by the righteousness of one the free gift came upon all men unto justification of life."
+            },
+            {
+              "reference": "Ephesians 2:3",
+              "text": "Among whom also we all had our conversation in times past in the lusts of our flesh, fulfilling the desires of the flesh and of the mind; and were by nature the children of wrath, even as others."
+            },
+            {
+              "reference": "Psalm 58:3",
+              "text": "The wicked are estranged from the womb: they go astray as soon as they be born, speaking lies."
+            },
+            {
+              "reference": "Job 14:4",
+              "text": "Who can bring a clean thing out of an unclean? not one."
+            }
+          ]
+        }
+      },
+      "The Nature of Sin": {
+        "The Definition and Essence of Sin": {
+          "title": "The Definition and Essence of Sin",
+          "description": "Sin is any want of conformity unto, or transgression of, the law of God. It includes both acts of commission—doing what God forbids—and omission—failing to do what God requires. At its core, sin is rebellion against God, a failure to glorify Him and enjoy Him as the highest good, preferring the creature to the Creator.",
+          "verses": [
+            {
+              "reference": "1 John 3:4",
+              "text": "Whosoever committeth sin transgresseth also the law: for sin is the transgression of the law."
+            },
+            {
+              "reference": "James 4:17",
+              "text": "Therefore to him that knoweth to do good, and doeth it not, to him it is sin."
+            },
+            {
+              "reference": "Romans 14:23",
+              "text": "And he that doubteth is damned if he eat, because he eateth not of faith: for whatsoever is not of faith is sin."
+            },
+            {
+              "reference": "Isaiah 53:6",
+              "text": "All we like sheep have gone astray; we have turned every one to his own way; and the LORD hath laid on him the iniquity of us all."
+            },
+            {
+              "reference": "Romans 3:23",
+              "text": "For all have sinned, and come short of the glory of God;"
+            }
+          ]
+        },
+        "The Deceitfulness of Sin": {
+          "title": "The Deceitfulness of Sin",
+          "description": "Sin is inherently deceptive, promising pleasure while delivering death, offering freedom while forging chains. It blinds the mind, hardens the heart, and dulls the conscience. Sin rarely appears in its true character but disguises itself, minimizing its severity and maximizing its allure. Only the light of God's Word exposes sin's true nature.",
+          "verses": [
+            {
+              "reference": "Hebrews 3:13",
+              "text": "But exhort one another daily, while it is called To day; lest any of you be hardened through the deceitfulness of sin."
+            },
+            {
+              "reference": "Proverbs 14:12",
+              "text": "There is a way which seemeth right unto a man, but the end thereof are the ways of death."
+            },
+            {
+              "reference": "James 1:14-15",
+              "text": "But every man is tempted, when he is drawn away of his own lust, and enticed. Then when lust hath conceived, it bringeth forth sin: and sin, when it is finished, bringeth forth death."
+            },
+            {
+              "reference": "Genesis 3:4-5",
+              "text": "And the serpent said unto the woman, Ye shall not surely die: For God doth know that in the day ye eat thereof, then your eyes shall be opened, and ye shall be as gods, knowing good and evil."
+            },
+            {
+              "reference": "2 Corinthians 11:14",
+              "text": "And no marvel; for Satan himself is transformed into an angel of light."
+            }
+          ]
+        }
+      },
+      "Total Depravity": {
+        "The Doctrine of Total Depravity": {
+          "title": "The Doctrine of Total Depravity",
+          "description": "Total depravity means that sin has affected every part of human nature—mind, will, affections, and body. No aspect of man's being is untouched by the corruption of sin. This does not mean that people are as wicked as they could possibly be, but that sin's corruption extends to the totality of human existence, rendering man incapable of spiritual good.",
+          "verses": [
+            {
+              "reference": "Genesis 6:5",
+              "text": "And GOD saw that the wickedness of man was great in the earth, and that every imagination of the thoughts of his heart was only evil continually."
+            },
+            {
+              "reference": "Jeremiah 17:9",
+              "text": "The heart is deceitful above all things, and desperately wicked: who can know it?"
+            },
+            {
+              "reference": "Romans 3:10-12",
+              "text": "As it is written, There is none righteous, no, not one: There is none that understandeth, there is none that seeketh after God. They are all gone out of the way, they are together become unprofitable; there is none that doeth good, no, not one."
+            },
+            {
+              "reference": "Titus 1:15",
+              "text": "Unto the pure all things are pure: but unto them that are defiled and unbelieving is nothing pure; but even their mind and conscience is defiled."
+            },
+            {
+              "reference": "Isaiah 64:6",
+              "text": "But we are all as an unclean thing, and all our righteousnesses are as filthy rags; and we all do fade as a leaf; and our iniquities, like the wind, have taken us away."
+            }
+          ]
+        },
+        "Spiritual Inability": {
+          "title": "Spiritual Inability",
+          "description": "Fallen man, though retaining his faculties, lacks all ability to do anything spiritually pleasing to God or to save himself. He cannot come to Christ unless drawn by the Father, cannot understand spiritual truth apart from the Spirit's illumination, and cannot choose God apart from regenerating grace. This inability is moral, not physical—man cannot because he will not.",
+          "verses": [
+            {
+              "reference": "John 6:44",
+              "text": "No man can come to me, except the Father which hath sent me draw him: and I will raise him up at the last day."
+            },
+            {
+              "reference": "1 Corinthians 2:14",
+              "text": "But the natural man receiveth not the things of the Spirit of God: for they are foolishness unto him: neither can he know them, because they are spiritually discerned."
+            },
+            {
+              "reference": "Romans 8:7-8",
+              "text": "Because the carnal mind is enmity against God: for it is not subject to the law of God, neither indeed can be. So then they that are in the flesh cannot please God."
+            },
+            {
+              "reference": "John 8:34",
+              "text": "Jesus answered them, Verily, verily, I say unto you, Whosoever committeth sin is the servant of sin."
+            },
+            {
+              "reference": "Jeremiah 13:23",
+              "text": "Can the Ethiopian change his skin, or the leopard his spots? then may ye also do good, that are accustomed to do evil."
+            }
+          ]
+        }
+      },
+      "Consequences of Sin": {
+        "Guilt and Condemnation": {
+          "title": "Guilt and Condemnation",
+          "description": "Sin brings both guilt—liability to punishment—and pollution—corruption of nature. The guilt of sin places all mankind under divine condemnation, deserving of eternal punishment. This guilt cannot be removed by human effort but only by the atoning work of Christ, who bore the guilt of His people on the cross.",
+          "verses": [
+            {
+              "reference": "Romans 6:23",
+              "text": "For the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord."
+            },
+            {
+              "reference": "Galatians 3:10",
+              "text": "For as many as are of the works of the law are under the curse: for it is written, Cursed is every one that continueth not in all things which are written in the book of the law to do them."
+            },
+            {
+              "reference": "John 3:18",
+              "text": "He that believeth on him is not condemned: but he that believeth not is condemned already, because he hath not believed in the name of the only begotten Son of God."
+            },
+            {
+              "reference": "Romans 3:19",
+              "text": "Now we know that what things soever the law saith, it saith to them who are under the law: that every mouth may be stopped, and all the world may become guilty before God."
+            },
+            {
+              "reference": "Ezekiel 18:4",
+              "text": "Behold, all souls are mine; as the soul of the father, so also the soul of the son is mine: the soul that sinneth, it shall die."
+            }
+          ]
+        },
+        "The Three Deaths": {
+          "title": "The Three Deaths",
+          "description": "Scripture speaks of death in three senses: spiritual death—separation from God in this life; physical death—separation of soul from body; and eternal death—everlasting separation from God in hell. All three result from sin. Adam died spiritually the moment he sinned, was sentenced to physical death, and faced eternal death apart from grace.",
+          "verses": [
+            {
+              "reference": "Ephesians 2:1",
+              "text": "And you hath he quickened, who were dead in trespasses and sins;"
+            },
+            {
+              "reference": "Genesis 2:17",
+              "text": "But of the tree of the knowledge of good and evil, thou shalt not eat of it: for in the day that thou eatest thereof thou shalt surely die."
+            },
+            {
+              "reference": "Romans 5:12",
+              "text": "Wherefore, as by one man sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned:"
+            },
+            {
+              "reference": "Revelation 20:14",
+              "text": "And death and hell were cast into the lake of fire. This is the second death."
+            },
+            {
+              "reference": "Colossians 2:13",
+              "text": "And you, being dead in your sins and the uncircumcision of your flesh, hath he quickened together with him, having forgiven you all trespasses;"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

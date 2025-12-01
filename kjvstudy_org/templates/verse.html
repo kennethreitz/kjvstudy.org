@@ -631,7 +631,7 @@
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
 <section>
-    <p class="verse-text">{{ verse_text | red_letter(book, chapter, verse_num) | link_names | safe }}</p>
+    <p class="verse-text">{{ verse_text | format_lists | red_letter(book, chapter, verse_num) | link_names | safe }}</p>
 
     {% if interlinear_words %}
     <section class="interlinear-container">

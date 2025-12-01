@@ -1,0 +1,92 @@
+{
+  "Salvation": {
+    "description": "God's gift of eternal life through faith in Jesus Christ",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Salvation stands</span> as the central theme of Scripture and the foundation of Christian theology. It represents God's gracious work in rescuing sinners from the penalty, power, and ultimately the presence of sin through the person and work of Jesus Christ. Far from being a mere transaction or religious formality, salvation constitutes a comprehensive transformation wherein God justifies the ungodly, regenerates the spiritually dead, adopts rebels as children, and progressively sanctifies believers into the image of Christ.</p>\n\n<p class=\"intro-text\">The biblical doctrine of salvation rests upon several essential truths. First, <strong>the desperate need for salvation</strong>—all humanity stands under divine condemnation due to both Adam's original sin and personal transgression. \"All have sinned, and come short of the glory of God\" (Romans 3:23). Man's spiritual condition is not merely sickness requiring assistance but death demanding resurrection. Apart from divine intervention, no person can save themselves through moral effort, religious observance, or philosophical enlightenment. Second, <strong>salvation by grace alone</strong>—God's saving work flows entirely from His unmerited favor, not from human worthiness or works. \"By grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast\" (Ephesians 2:8-9). This grace excludes all human boasting and redirects glory solely to God.</p>\n\n<p class=\"intro-text\">Third, <strong>salvation through faith alone</strong>—the instrument by which sinners receive God's grace is faith, which itself is a gift from God. This faith involves not merely intellectual assent to theological propositions but wholehearted trust in Christ's person and finished work. \"Believe on the Lord Jesus Christ, and thou shalt be saved\" (Acts 16:31). Saving faith necessarily includes repentance—a turning from sin to God—and issues in a transformed life, though the works that follow are the fruit of salvation rather than its foundation. Fourth, <strong>salvation in Christ alone</strong>—Jesus Christ serves as the exclusive mediator between God and man. \"Neither is there salvation in any other: for there is none other name under heaven given among men, whereby we must be saved\" (Acts 4:12). His substitutionary death satisfied divine justice, His perfect righteousness provides the basis for justification, and His resurrection demonstrates victory over sin and death.</p>\n\n<p class=\"intro-text\"><strong>The mechanics of salvation</strong> encompass several distinct yet inseparable aspects. Justification declares the believing sinner righteous through the imputation of Christ's righteousness, reconciling the offender to God and removing all legal guilt. Regeneration imparts spiritual life to those dead in trespasses and sins, creating a new heart with new affections and capacities. Adoption brings believers into God's family as beloved children with full inheritance rights. Sanctification progressively conforms believers to Christ's image through the Spirit's work, though complete transformation awaits glorification. These elements work harmoniously as dimensions of the singular work of salvation, neither contradicting nor competing but rather complementing one another.</p>\n\n<p class=\"intro-text\">The practical implications of salvation prove profound. Believers experience <strong>immediate effects</strong>: peace with God, forgiveness of sins, eternal life, liberation from condemnation, and the indwelling Holy Spirit. They also embrace <strong>ongoing responsibilities</strong>: mortifying sin, pursuing holiness, serving Christ, loving fellow believers, and bearing witness to the gospel. Salvation delivers not merely from hell's punishment but unto God's purposes. Christians are \"created in Christ Jesus unto good works, which God hath before ordained that we should walk in them\" (Ephesians 2:10). The saved life demonstrates its authenticity through progressive transformation, not through perfection but through persistent pursuit of Christlikeness.</p>\n\n<p class=\"intro-text\">Moreover, biblical salvation provides <strong>assurance to genuine believers</strong>. Scripture offers multiple grounds for confidence: the promises of God's Word, the internal witness of the Holy Spirit, the evidence of transformed affections, and the perseverance in faith and obedience. \"We know that we have passed from death unto life, because we love the brethren\" (1 John 3:14). This assurance does not breed presumption but rather gratitude, worship, and obedience. It enables believers to face trials, resist temptation, and labor in ministry with confidence that their work is not in vain.</p>\n\n<p class=\"intro-text\">The doctrine of salvation intersects with every aspect of Christian living. It humbles the proud, comforts the struggling, motivates the weary, and sustains the persecuted. It grounds Christian ethics in grace rather than mere duty, transforms worship from ritual to heartfelt response, and fuels evangelism with urgent compassion. Those who truly grasp their salvation cannot remain unchanged—gratitude compels them to live for the One who died for them. \"The love of Christ constraineth us; because we thus judge, that if one died for all, then were all dead: And that he died for all, that they which live should not henceforth live unto themselves, but unto him which died for them\" (2 Corinthians 5:14-15).</p>\n\n<p class=\"intro-text\">In an age of religious confusion and therapeutic spirituality, the biblical gospel stands clear: salvation is God's work, accomplished by Christ, received through faith, and evidenced by transformation. It cannot be earned, purchased, or inherited, yet it is freely offered to all who will turn from sin and trust in Christ. This message—simultaneously humbling and exalting, convicting and comforting, exclusive and universal—remains \"the power of God unto salvation to every one that believeth\" (Romans 1:16).</p>",
+    "subtopics": {
+      "Grace": {
+        "description": "Salvation by grace alone, not by works",
+        "verses": [
+          {
+            "ref": "Ephesians 2:8-9",
+            "note": "Saved by grace through faith"
+          },
+          {
+            "ref": "Titus 3:5",
+            "note": "Not by works of righteousness"
+          },
+          {
+            "ref": "Romans 3:24",
+            "note": "Justified freely by His grace"
+          },
+          {
+            "ref": "Romans 11:6",
+            "note": "If by grace, then not by works"
+          }
+        ]
+      },
+      "Faith": {
+        "description": "Believing in Christ for salvation",
+        "verses": [
+          {
+            "ref": "Acts 16:31",
+            "note": "Believe on the Lord Jesus Christ"
+          },
+          {
+            "ref": "John 3:16",
+            "note": "Whosoever believeth in Him"
+          },
+          {
+            "ref": "Romans 10:9",
+            "note": "Confess and believe"
+          },
+          {
+            "ref": "Ephesians 2:8",
+            "note": "Through faith, not of yourselves"
+          }
+        ]
+      },
+      "Justification": {
+        "description": "Declared righteous through faith in Christ",
+        "verses": [
+          {
+            "ref": "Romans 5:1",
+            "note": "Justified by faith, we have peace"
+          },
+          {
+            "ref": "Romans 3:28",
+            "note": "Justified by faith without works"
+          },
+          {
+            "ref": "Galatians 2:16",
+            "note": "Not justified by works of law"
+          },
+          {
+            "ref": "Romans 4:5",
+            "note": "Faith counted for righteousness"
+          }
+        ]
+      },
+      "Regeneration": {
+        "description": "Born again by the Spirit",
+        "verses": [
+          {
+            "ref": "John 3:3",
+            "note": "Ye must be born again"
+          },
+          {
+            "ref": "2 Corinthians 5:17",
+            "note": "New creature in Christ"
+          },
+          {
+            "ref": "Titus 3:5",
+            "note": "Washing of regeneration"
+          },
+          {
+            "ref": "1 Peter 1:23",
+            "note": "Born again by the Word"
+          }
+        ]
+      }
+    }
+  }
+}

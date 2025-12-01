@@ -1,0 +1,71 @@
+{
+  "Grace": {
+    "description": "God's unmerited favor toward sinners through Jesus Christ",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Grace stands</span> as one of the most glorious words in Scripture, capturing the essence of God's character and the foundation of salvation. Unlike mercy, which withholds deserved punishment, grace bestows undeserved blessing. It represents God's free and sovereign favor toward those who merit only condemnation—the divine disposition to give what cannot be earned, purchased, or repaid.</p>\n\n<p class=\"intro-text\">The biblical concept of grace encompasses multiple dimensions. <strong>Saving grace</strong> brings sinners from death to life, from condemnation to justification, from alienation to adoption. \"By grace are ye saved through faith; and that not of yourselves: it is the gift of God\" (Ephesians 2:8). This saving grace excludes human contribution and silences all boasting. <strong>Sustaining grace</strong> empowers believers for daily living, providing strength sufficient for every trial. \"My grace is sufficient for thee: for my strength is made perfect in weakness\" (2 Corinthians 12:9). <strong>Sanctifying grace</strong> progressively transforms believers into Christ's likeness, producing holiness that human effort cannot achieve.</p>\n\n<p class=\"intro-text\">Grace does not compromise God's justice but satisfies it through Christ's substitutionary death. At the cross, grace and righteousness kiss—God demonstrates both His hatred of sin and His love for sinners. Grace is not cheap sentimentalism that ignores transgression but costly redemption that paid sin's full penalty. \"Being justified freely by his grace through the redemption that is in Christ Jesus\" (Romans 3:24). The grace that saves also sanctifies, for it \"teacheth us that, denying ungodliness and worldly lusts, we should live soberly, righteously, and godly, in this present world\" (Titus 2:12).</p>\n\n<p class=\"intro-text\">Understanding grace transforms Christian living. It produces humility (recognizing we deserve nothing), gratitude (appreciating what we've received), generosity (extending to others what God extended to us), and confidence (trusting God's ongoing provision). Grace motivates obedience more powerfully than law ever could, for love compels what duty cannot force. Those who truly grasp grace cannot remain unchanged—they become channels of grace to others.</p>",
+    "subtopics": {
+      "Saving Grace": {
+        "description": "Grace that brings salvation",
+        "verses": [
+          {
+            "ref": "Ephesians 2:8-9",
+            "note": "Saved by grace through faith"
+          },
+          {
+            "ref": "Romans 3:24",
+            "note": "Justified freely by His grace"
+          },
+          {
+            "ref": "Titus 2:11",
+            "note": "Grace that bringeth salvation"
+          },
+          {
+            "ref": "Romans 5:15",
+            "note": "The gift by grace"
+          }
+        ]
+      },
+      "Sustaining Grace": {
+        "description": "Grace for daily strength",
+        "verses": [
+          {
+            "ref": "2 Corinthians 12:9",
+            "note": "My grace is sufficient"
+          },
+          {
+            "ref": "Hebrews 4:16",
+            "note": "Find grace to help in time of need"
+          },
+          {
+            "ref": "James 4:6",
+            "note": "He giveth more grace"
+          },
+          {
+            "ref": "1 Peter 5:10",
+            "note": "The God of all grace"
+          }
+        ]
+      },
+      "Growing in Grace": {
+        "description": "Maturing through grace",
+        "verses": [
+          {
+            "ref": "2 Peter 3:18",
+            "note": "Grow in grace and knowledge"
+          },
+          {
+            "ref": "John 1:16",
+            "note": "Grace for grace"
+          },
+          {
+            "ref": "Colossians 4:6",
+            "note": "Speech with grace"
+          },
+          {
+            "ref": "2 Corinthians 8:7",
+            "note": "Abound in this grace also"
+          }
+        ]
+      }
+    }
+  }
+}

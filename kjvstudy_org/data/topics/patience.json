@@ -1,0 +1,71 @@
+{
+  "Patience": {
+    "description": "Enduring trials and waiting on God with steadfast faith",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Patience stands</span> among the most necessary yet difficult Christian virtues. In a culture of instant gratification, biblical patience requires supernatural grace. The Greek word <em>makrothumia</em> (longsuffering) combines \"long\" and \"temper\"—the ability to sustain composure over extended periods of trial. Scripture presents patience both as a command to obey and a fruit the Spirit produces.</p>\n\n<p class=\"intro-text\">Patience operates in multiple directions. <strong>Patience with God</strong> waits on His timing, trusting that His delays are not denials. \"Wait on the LORD: be of good courage, and he shall strengthen thine heart\" (Psalms 27:14). <strong>Patience with people</strong> forbears offenses, extending grace to those who frustrate or harm us. <strong>Patience in trials</strong> endures suffering without demanding immediate relief or abandoning faith.</p>\n\n<p class=\"intro-text\">Scripture reveals patience's fruit. \"The trying of your faith worketh patience. But let patience have her perfect work, that ye may be perfect and entire, wanting nothing\" (James 1:3-4). Trials develop patience, and patience produces maturity. There is no shortcut to spiritual depth—it requires time under pressure, sustained by grace.</p>\n\n<p class=\"intro-text\">God Himself models perfect patience. \"The Lord is not slack concerning his promise, as some men count slackness; but is longsuffering to us-ward, not willing that any should perish\" (2 Peter 3:9). His patience with sinners demonstrates both mercy and justice—providing time for repentance while guaranteeing eventual judgment. Believers reflect God's character when they extend similar patience to others.</p>",
+    "subtopics": {
+      "Waiting on God": {
+        "description": "Patient trust in God's timing",
+        "verses": [
+          {
+            "ref": "Psalms 27:14",
+            "note": "Wait on the LORD"
+          },
+          {
+            "ref": "Isaiah 40:31",
+            "note": "They that wait upon the LORD"
+          },
+          {
+            "ref": "Lamentations 3:25",
+            "note": "Good to them that wait"
+          },
+          {
+            "ref": "Psalms 37:7",
+            "note": "Rest in the LORD, wait patiently"
+          }
+        ]
+      },
+      "Patience in Trials": {
+        "description": "Endurance through suffering",
+        "verses": [
+          {
+            "ref": "James 1:3-4",
+            "note": "Trying of faith worketh patience"
+          },
+          {
+            "ref": "Romans 5:3-4",
+            "note": "Tribulation worketh patience"
+          },
+          {
+            "ref": "Hebrews 10:36",
+            "note": "Ye have need of patience"
+          },
+          {
+            "ref": "James 5:10-11",
+            "note": "Example of the prophets"
+          }
+        ]
+      },
+      "Patience with Others": {
+        "description": "Forbearing one another",
+        "verses": [
+          {
+            "ref": "Colossians 3:12-13",
+            "note": "Forbearing one another"
+          },
+          {
+            "ref": "Ephesians 4:2",
+            "note": "Longsuffering, forbearing in love"
+          },
+          {
+            "ref": "1 Thessalonians 5:14",
+            "note": "Be patient toward all men"
+          },
+          {
+            "ref": "2 Timothy 2:24",
+            "note": "Gentle unto all, patient"
+          }
+        ]
+      }
+    }
+  }
+}

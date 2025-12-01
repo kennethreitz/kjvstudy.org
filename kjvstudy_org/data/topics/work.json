@@ -1,0 +1,71 @@
+{
+  "Work": {
+    "description": "Labor as calling, service to God, and care for others",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Work is not</span> a consequence of the fall but a pre-fall blessing. God placed Adam in Eden \"to dress it and to keep it\" (Genesis 2:15) before sin entered the world. The curse affected work—adding toil, sweat, and frustration—but did not create it. Work reflects the image of God, who Himself works in creating, sustaining, and redeeming. Therefore, human labor possesses inherent dignity and purpose.</p>\n\n<p class=\"intro-text\">Scripture transforms our understanding of work. Every legitimate occupation becomes a <strong>calling</strong> when pursued for God's glory. \"Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God\" (1 Corinthians 10:31). The carpenter, teacher, farmer, and administrator all serve God through their labors. This \"Protestant work ethic\" elevates ordinary work to sacred significance.</p>\n\n<p class=\"intro-text\">Christian workers should be marked by <strong>excellence</strong> (\"whatsoever ye do, do it heartily, as to the Lord\" - Colossians 3:23), <strong>integrity</strong> (honest dealings, keeping commitments), <strong>diligence</strong> (\"not slothful in business\" - Romans 12:11), and <strong>contentment</strong> (neither workaholism nor laziness). Work provides for family needs (\"if any provide not for his own... he hath denied the faith\" - 1 Timothy 5:8) and enables generosity to others.</p>\n\n<p class=\"intro-text\">Yet work is not ultimate. The Sabbath principle reminds us that we are more than our productivity. Rest acknowledges our dependence on God and anticipates the eternal rest to come. A balanced life integrates work, rest, worship, and relationships—all ordered under God's lordship.</p>",
+    "subtopics": {
+      "Work as Worship": {
+        "description": "Laboring for God's glory",
+        "verses": [
+          {
+            "ref": "Colossians 3:23-24",
+            "note": "Do it heartily, as to the Lord"
+          },
+          {
+            "ref": "1 Corinthians 10:31",
+            "note": "Do all to the glory of God"
+          },
+          {
+            "ref": "Ephesians 6:7",
+            "note": "With good will doing service"
+          },
+          {
+            "ref": "Ecclesiastes 9:10",
+            "note": "Whatsoever thy hand findeth to do"
+          }
+        ]
+      },
+      "Diligence": {
+        "description": "Working faithfully",
+        "verses": [
+          {
+            "ref": "Proverbs 10:4",
+            "note": "Hand of the diligent maketh rich"
+          },
+          {
+            "ref": "Proverbs 12:24",
+            "note": "Hand of the diligent shall bear rule"
+          },
+          {
+            "ref": "2 Thessalonians 3:10",
+            "note": "If any would not work"
+          },
+          {
+            "ref": "Proverbs 6:6-8",
+            "note": "Go to the ant, thou sluggard"
+          }
+        ]
+      },
+      "Rest": {
+        "description": "Sabbath and restoration",
+        "verses": [
+          {
+            "ref": "Exodus 20:8-10",
+            "note": "Remember the sabbath day"
+          },
+          {
+            "ref": "Mark 6:31",
+            "note": "Come apart and rest a while"
+          },
+          {
+            "ref": "Matthew 11:28",
+            "note": "I will give you rest"
+          },
+          {
+            "ref": "Hebrews 4:9-10",
+            "note": "A rest to the people of God"
+          }
+        ]
+      }
+    }
+  }
+}

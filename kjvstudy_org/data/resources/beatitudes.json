@@ -1,0 +1,150 @@
+{
+  "beatitudes": {
+    "The Eight Beatitudes": {
+      "Blessed Are the Poor in Spirit": {
+        "title": "Theirs Is the Kingdom of Heaven",
+        "description": "The first beatitude establishes the foundation of all spiritual blessing—poverty of spirit. This describes not material poverty but spiritual bankruptcy before God, the humble recognition that we possess nothing of merit and depend entirely upon divine grace. The poor in spirit have abandoned all self-righteousness and self-sufficiency, acknowledging their desperate need for God. This poverty opposes the Pharisaic pride that trusts in its own righteousness. Those who recognize their spiritual destitution receive the kingdom of heaven—not as reward for humility but because empty hands alone can receive God's gift.",
+        "verses": [
+          {
+            "reference": "Matthew 5:3",
+            "text": "Blessed are the poor in spirit: for theirs is the kingdom of heaven."
+          },
+          {
+            "reference": "Isaiah 66:2",
+            "text": "But to this man will I look, even to him that is poor and of a contrite spirit, and trembleth at my word."
+          },
+          {
+            "reference": "Luke 18:13-14",
+            "text": "And the publican, standing afar off, would not lift up so much as his eyes unto heaven, but smote upon his breast, saying, God be merciful to me a sinner. I tell you, this man went down to his house justified."
+          }
+        ]
+      },
+      "Blessed Are They That Mourn": {
+        "title": "They Shall Be Comforted",
+        "description": "This beatitude pronounces blessing upon those who grieve—particularly over sin, both personal and corporate. While including natural sorrow, the primary meaning involves mourning over the sinful condition that separates humanity from God. Those who truly see their spiritual poverty will mourn over it. They weep over their own transgressions, the church's unfaithfulness, and the world's rebellion against God. Such mourners receive divine comfort—the consolation of forgiveness, the assurance of salvation, and the hope of glory.",
+        "verses": [
+          {
+            "reference": "Matthew 5:4",
+            "text": "Blessed are they that mourn: for they shall be comforted."
+          },
+          {
+            "reference": "Isaiah 61:1-3",
+            "text": "The Spirit of the Lord GOD is upon me; because the LORD hath anointed me to preach good tidings unto the meek; he hath sent me to bind up the brokenhearted... to comfort all that mourn."
+          },
+          {
+            "reference": "2 Corinthians 7:10",
+            "text": "For godly sorrow worketh repentance to salvation not to be repented of: but the sorrow of the world worketh death."
+          }
+        ]
+      },
+      "Blessed Are the Meek": {
+        "title": "They Shall Inherit the Earth",
+        "description": "Meekness is not weakness but strength under divine control—the tamed power of a disciplined spirit. The meek are gentle, humble, and patient under provocation, submitting to God's will rather than asserting their own rights. Moses, the meekest man on earth, demonstrated tremendous leadership authority exercised with profound humility. The meek inherit the earth—not through aggressive conquest but through patient trust in God's sovereign disposition. While the proud grasp and lose, the meek receive and keep.",
+        "verses": [
+          {
+            "reference": "Matthew 5:5",
+            "text": "Blessed are the meek: for they shall inherit the earth."
+          },
+          {
+            "reference": "Psalm 37:11",
+            "text": "But the meek shall inherit the earth; and shall delight themselves in the abundance of peace."
+          },
+          {
+            "reference": "Numbers 12:3",
+            "text": "Now the man Moses was very meek, above all the men which were upon the face of the earth."
+          }
+        ]
+      },
+      "Blessed Are They Which Do Hunger and Thirst After Righteousness": {
+        "title": "They Shall Be Filled",
+        "description": "This beatitude blesses those who intensely desire righteousness—both the imputed righteousness of justification and the practical righteousness of sanctification. The imagery of hunger and thirst conveys desperate longing, not casual preference. As starving people crave food and parched throats crave water, so the blessed intensely desire to be right with God and to live rightly before Him. Such seekers will be filled—satisfied with the righteousness of Christ and progressively transformed into His likeness.",
+        "verses": [
+          {
+            "reference": "Matthew 5:6",
+            "text": "Blessed are they which do hunger and thirst after righteousness: for they shall be filled."
+          },
+          {
+            "reference": "Psalm 42:1-2",
+            "text": "As the hart panteth after the water brooks, so panteth my soul after thee, O God. My soul thirsteth for God, for the living God."
+          },
+          {
+            "reference": "Isaiah 55:1",
+            "text": "Ho, every one that thirsteth, come ye to the waters, and he that hath no money; come ye, buy, and eat."
+          }
+        ]
+      },
+      "Blessed Are the Merciful": {
+        "title": "They Shall Obtain Mercy",
+        "description": "Mercy extends compassionate help to the miserable, forgiving those who offend, assisting those in need, and showing kindness to the undeserving. The merciful reflect God's own character, for He delights in mercy. This beatitude does not teach that mercy earns mercy—such would contradict grace. Rather, those who have received God's mercy naturally extend it to others, and those who refuse mercy to others demonstrate they have never truly received it themselves. Mercy given becomes mercy received in the divine economy.",
+        "verses": [
+          {
+            "reference": "Matthew 5:7",
+            "text": "Blessed are the merciful: for they shall obtain mercy."
+          },
+          {
+            "reference": "Micah 6:8",
+            "text": "He hath shewed thee, O man, what is good; and what doth the LORD require of thee, but to do justly, and to love mercy, and to walk humbly with thy God?"
+          },
+          {
+            "reference": "James 2:13",
+            "text": "For he shall have judgment without mercy, that hath shewed no mercy; and mercy rejoiceth against judgment."
+          }
+        ]
+      },
+      "Blessed Are the Pure in Heart": {
+        "title": "They Shall See God",
+        "description": "Purity of heart involves undivided devotion to God—singleness of purpose, unmixed motives, and internal integrity rather than mere external conformity. The pure in heart seek God Himself, not merely His gifts. They pursue holiness because they love the Holy One. Their reward exceeds all others: they shall see God—experiencing His presence now through faith and ultimately in the beatific vision of eternity. Only the pure can endure such sight, for God is 'of purer eyes than to behold evil.'",
+        "verses": [
+          {
+            "reference": "Matthew 5:8",
+            "text": "Blessed are the pure in heart: for they shall see God."
+          },
+          {
+            "reference": "Psalm 24:3-4",
+            "text": "Who shall ascend into the hill of the LORD? or who shall stand in his holy place? He that hath clean hands, and a pure heart; who hath not lifted up his soul unto vanity, nor sworn deceitfully."
+          },
+          {
+            "reference": "Hebrews 12:14",
+            "text": "Follow peace with all men, and holiness, without which no man shall see the Lord."
+          }
+        ]
+      },
+      "Blessed Are the Peacemakers": {
+        "title": "They Shall Be Called the Children of God",
+        "description": "Peacemakers actively work to establish peace—reconciling enemies, resolving conflicts, and promoting harmony. They reflect the God of peace who reconciled rebellious sinners to Himself through Christ. Peacemaking requires courage, wisdom, and sacrifice; it proves far more demanding than mere peacekeeping. Those who make peace demonstrate their divine parentage, for they share their Father's character and continue His reconciling work in the world.",
+        "verses": [
+          {
+            "reference": "Matthew 5:9",
+            "text": "Blessed are the peacemakers: for they shall be called the children of God."
+          },
+          {
+            "reference": "Romans 12:18",
+            "text": "If it be possible, as much as lieth in you, live peaceably with all men."
+          },
+          {
+            "reference": "James 3:17-18",
+            "text": "But the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits, without partiality, and without hypocrisy. And the fruit of righteousness is sown in peace of them that make peace."
+          }
+        ]
+      },
+      "Blessed Are They Which Are Persecuted for Righteousness' Sake": {
+        "title": "Theirs Is the Kingdom of Heaven",
+        "description": "The final beatitude pronounces blessing on those who suffer for doing right—not for wrongdoing or foolishness, but specifically for righteousness. The world hates righteousness because it exposes evil, and those who live righteously provoke opposition. Yet such persecution confirms kingdom citizenship and places sufferers in the noble company of the prophets. The promise returns to the first beatitude: theirs is the kingdom of heaven—forming an inclusio that encompasses all kingdom blessings.",
+        "verses": [
+          {
+            "reference": "Matthew 5:10-12",
+            "text": "Blessed are they which are persecuted for righteousness' sake: for theirs is the kingdom of heaven. Blessed are ye, when men shall revile you, and persecute you, and shall say all manner of evil against you falsely, for my sake. Rejoice, and be exceeding glad: for great is your reward in heaven: for so persecuted they the prophets which were before you."
+          },
+          {
+            "reference": "1 Peter 3:14",
+            "text": "But and if ye suffer for righteousness' sake, happy are ye: and be not afraid of their terror, neither be troubled."
+          },
+          {
+            "reference": "1 Peter 4:14",
+            "text": "If ye be reproached for the name of Christ, happy are ye; for the spirit of glory and of God resteth upon you."
+          }
+        ]
+      }
+    }
+  }
+}

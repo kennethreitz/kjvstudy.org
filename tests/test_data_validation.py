@@ -33,11 +33,31 @@ class TestDataValidation:
 
     def test_study_guides_structure(self):
         """Test that study_guides.json has correct structure."""
-        assert validate_file("study_guides.json")
+        guides_dir = DATA_DIR / "study_guides"
+        assert guides_dir.exists(), f"study_guides directory not found: {guides_dir}"
+        assert len(list(guides_dir.glob("*.json"))) > 0, "No per-guide files found"
+        assert validate_file("study_guides")
+
+    def test_topics_structure(self):
+        """Test that topics directory has correct structure."""
+        topics_dir = DATA_DIR / "topics"
+        assert topics_dir.exists(), f"topics directory not found: {topics_dir}"
+        assert len(list(topics_dir.glob("*.json"))) > 0, "No per-topic files found"
+        assert validate_file("topics")
+    
+    def test_reading_plans_structure(self):
+        """Test that reading_plans directory has correct structure."""
+        plans_dir = DATA_DIR / "reading_plans"
+        assert plans_dir.exists(), f"reading_plans directory not found: {plans_dir}"
+        assert len(list(plans_dir.glob("*.json"))) > 0, "No per-plan files found"
+        assert validate_file("reading_plans")
 
     def test_verse_commentary_structure(self):
-        """Test that verse_commentary.json has correct structure."""
-        assert validate_file("verse_commentary.json")
+        """Test that verse_commentary directory has correct structure."""
+        commentary_dir = DATA_DIR / "verse_commentary"
+        assert commentary_dir.exists(), f"verse_commentary directory not found: {commentary_dir}"
+        assert len(list(commentary_dir.glob("*.json"))) > 0, "No per-book commentary files found"
+        assert validate_file("verse_commentary")
 
     def test_featured_verses_structure(self):
         """Test that featured_verses.json has correct structure."""

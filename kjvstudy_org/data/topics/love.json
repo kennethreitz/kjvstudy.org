@@ -1,0 +1,67 @@
+{
+  "Love": {
+    "description": "God's love and our love for Him and others",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Love stands</span> at the very center of Christian theology and practice, for \"God is love\" (1 John 4:8). This divine attribute defines not merely one characteristic among many but God's essential nature—His every act flows from perfect love. Biblical love, however, differs radically from sentimental affection or romantic emotion. It constitutes a purposeful commitment to seek another's highest good, demonstrated supremely in Christ's sacrificial death for undeserving sinners.</p>\n\n<p class=\"intro-text\">The foundation of all Christian love is <strong>God's love for humanity</strong>. \"Herein is love, not that we loved God, but that he loved us, and sent his Son to be the propitiation for our sins\" (1 John 4:10). This love is unmerited—bestowed on rebels who deserve wrath. It is sacrificial—costing the Father His beloved Son. It is effectual—accomplishing complete redemption for the elect. It is eternal—having no beginning and no end. God's love provides both the motive for salvation and the model for human love. We love because He first loved us, and we love as He has loved us.</p>\n\n<p class=\"intro-text\"><strong>Love for God</strong> constitutes the first and greatest commandment. \"Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind\" (Matthew 22:37). This love involves the whole person—affections, will, and intellect—directed wholly toward God. It expresses itself through obedience (\"If ye love me, keep my commandments\"), worship (ascribing worth to God's character and works), trust (depending on His wisdom and power), and delight (finding supreme joy in His presence). Love for God proves authentic not through emotional highs but through faithful obedience during trials, persistent pursuit despite spiritual dryness, and choosing His glory above personal preference.</p>\n\n<p class=\"intro-text\"><strong>Love for others</strong> flows naturally from love for God as the second great commandment. \"Thou shalt love thy neighbour as thyself\" (Matthew 22:39). This love extends first to fellow believers—\"By this shall all men know that ye are my disciples, if ye have love one to another\" (John 13:35)—creating visible unity that testifies to Christ's transforming power. It also encompasses enemies, requiring believers to bless those who curse, pray for persecutors, and return good for evil. Such supernatural love demonstrates the gospel's reality, for fallen human nature cannot produce it apart from divine grace.</p>\n\n<p class=\"intro-text\">The characteristics of biblical love receive detailed exposition in 1 Corinthians 13. Love suffers long (enduring others' faults patiently), shows kindness (actively seeking to benefit others), envies not (rejoicing in others' blessings), vaunts not itself (avoiding self-promotion), is not puffed up (maintaining humility), does not behave unseemly (acting appropriately), seeks not its own (prioritizing others' welfare), is not easily provoked (controlling anger), thinks no evil (refusing to harbor grudges), rejoices not in iniquity but in truth (delighting in righteousness), bears all things (covering others' faults), believes all things (trusting until proven otherwise), hopes all things (maintaining optimism regarding others), and endures all things (persisting despite difficulty). This love \"never faileth\"—it perseveres where all else collapses.</p>\n\n<p class=\"intro-text\">Practically, Christian love requires <strong>concrete action</strong>. It feeds the hungry, clothes the naked, visits the sick and imprisoned, and provides for those in need. \"Whoso hath this world's good, and seeth his brother have need, and shutteth up his bowels of compassion from him, how dwelleth the love of God in him?\" (1 John 3:17). Love also speaks truth even when difficult, corrects when necessary, and confronts sin for restoration's sake. True love never tolerates sin out of fear or approval-seeking but addresses it redemptively.</p>\n\n<p class=\"intro-text\">The cultivation of love depends on spiritual means. Believers grow in love through <strong>beholding God's love</strong> in Scripture, particularly at the cross. Meditation on \"God so loved the world that he gave his only begotten Son\" melts hard hearts and kindles responsive love. Growth also comes through <strong>the Spirit's work</strong>, for \"the love of God is shed abroad in our hearts by the Holy Ghost\" (Romans 5:5). Prayer, worship, and obedience provide contexts wherein the Spirit produces His fruit of love. Fellowship with loving believers provides both models to imitate and opportunities to practice.</p>\n\n<p class=\"intro-text\">In a culture that equates love with tolerance and reduces it to sentiment, biblical love stands distinct. It pursues holiness while extending grace. It speaks truth while showing compassion. It maintains standards while offering mercy. It demonstrates that genuine love and genuine truth never conflict—both flow from God's nature and work harmoniously in Christian character and conduct.</p>",
+    "subtopics": {
+      "God's Love": {
+        "description": "The nature and extent of God's love",
+        "verses": [
+          {
+            "ref": "1 John 4:8",
+            "note": "God is love"
+          },
+          {
+            "ref": "John 3:16",
+            "note": "God so loved the world"
+          },
+          {
+            "ref": "Romans 5:8",
+            "note": "Christ died for us"
+          },
+          {
+            "ref": "1 John 4:10",
+            "note": "Herein is love"
+          }
+        ]
+      },
+      "Love for God": {
+        "description": "Our response of love to God",
+        "verses": [
+          {
+            "ref": "Matthew 22:37",
+            "note": "Love the Lord with all your heart"
+          },
+          {
+            "ref": "1 John 4:19",
+            "note": "We love Him because He first loved us"
+          },
+          {
+            "ref": "John 14:15",
+            "note": "If ye love me, keep my commandments"
+          }
+        ]
+      },
+      "Love for Others": {
+        "description": "Loving our neighbors as ourselves",
+        "verses": [
+          {
+            "ref": "John 13:34-35",
+            "note": "Love one another"
+          },
+          {
+            "ref": "1 Corinthians 13:4-7",
+            "note": "Characteristics of love"
+          },
+          {
+            "ref": "Romans 13:10",
+            "note": "Love fulfills the law"
+          },
+          {
+            "ref": "1 Peter 4:8",
+            "note": "Charity covers sins"
+          }
+        ]
+      }
+    }
+  }
+}

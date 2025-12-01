@@ -1,0 +1,617 @@
+{
+  "grace": {
+    "title": "Grace",
+    "subtitle": "The Doctrine of Grace",
+    "introduction": "Grace is God's unmerited favor toward sinners, bestowing blessings they do not deserve and withholding judgment they do deserve. Scripture teaches that salvation is entirely of grace—initiated, accomplished, and applied by God alone. These studies explore the nature and operations of divine grace in salvation.",
+    "categories": {
+      "Common Grace": {
+        "Nature of Common Grace": {
+          "title": "Nature of Common Grace",
+          "description": "Common grace denotes God's beneficent operations toward all humanity without discrimination, restraining sin's full expression, enabling civic virtue, and bestowing temporal blessings upon the just and unjust alike. This universal favor, while not redemptive in effect, demonstrates divine goodness and renders all men inexcusable before their Creator.",
+          "verses": [
+            {
+              "reference": "Matthew 5:45",
+              "text": "That ye may be the children of your Father which is in heaven: for he maketh his sun to rise on the evil and on the good, and sendeth rain on the just and on the unjust."
+            },
+            {
+              "reference": "Acts 14:17",
+              "text": "Nevertheless he left not himself without witness, in that he did good, and gave us rain from heaven, and fruitful seasons, filling our hearts with food and gladness."
+            },
+            {
+              "reference": "Psalms 145:9",
+              "text": "The LORD is good to all: and his tender mercies are over all his works."
+            },
+            {
+              "reference": "Psalms 104:27-28",
+              "text": "These wait all upon thee; that thou mayest give them their meat in due season. That thou givest them they gather: thou openest thine hand, they are filled with good."
+            },
+            {
+              "reference": "Luke 6:35",
+              "text": "But love ye your enemies, and do good, and lend, hoping for nothing again; and your reward shall be great, and ye shall be the children of the Highest: for he is kind unto the unthankful and to the evil."
+            },
+            {
+              "reference": "Acts 17:25",
+              "text": "Neither is worshipped with men's hands, as though he needed any thing, seeing he giveth to all life, and breath, and all things;"
+            }
+          ]
+        },
+        "Restraint of Sin": {
+          "title": "Restraint of Sin",
+          "description": "Through common grace, God mercifully restrains the full manifestation of human depravity, preventing society from descending into absolute chaos and enabling civil order to persist. This divine restraint operates through conscience, human government, social structures, and providential circumstances, holding back the floodgates of wickedness until the appointed time.",
+          "verses": [
+            {
+              "reference": "Genesis 20:6",
+              "text": "And God said unto him in a dream, Yea, I know that thou didst this in the integrity of thy heart; for I also withheld thee from sinning against me: therefore suffered I thee not to touch her."
+            },
+            {
+              "reference": "Romans 13:3-4",
+              "text": "For rulers are not a terror to good works, but to the evil. Wilt thou then not be afraid of the power? do that which is good, and thou shalt have praise of the same: For he is the minister of God to thee for good. But if thou do that which is evil, be afraid; for he beareth not the sword in vain: for he is the minister of God, a revenger to execute wrath upon him that doeth evil."
+            },
+            {
+              "reference": "Genesis 6:3",
+              "text": "And the LORD said, My spirit shall not always strive with man, for that he also is flesh: yet his days shall be an hundred and twenty years."
+            },
+            {
+              "reference": "Psalms 76:10",
+              "text": "Surely the wrath of man shall praise thee: the remainder of wrath shalt thou restrain."
+            },
+            {
+              "reference": "Job 1:12",
+              "text": "And the LORD said unto Satan, Behold, all that he hath is in thy power; only upon himself put not forth thine hand. So Satan went forth from the presence of the LORD."
+            }
+          ]
+        },
+        "Civic Righteousness": {
+          "title": "Civic Righteousness",
+          "description": "Common grace enables unregenerate persons to perform acts of relative righteousness in the civil sphere—acts that benefit society and reflect remnants of the divine image, though falling short of true spiritual goodness. These civic virtues, while commendable in their external manifestation, remain tainted by sin's corruption and cannot merit divine favor or contribute to salvation.",
+          "verses": [
+            {
+              "reference": "Romans 2:14-15",
+              "text": "For when the Gentiles, which have not the law, do by nature the things contained in the law, these, having not the law, are a law unto themselves: Which shew the work of the law written in their hearts, their conscience also bearing witness, and their thoughts the mean while accusing or else excusing one another;)"
+            },
+            {
+              "reference": "Luke 6:33",
+              "text": "And if ye do good to them which do good to you, what thank have ye? for sinners also do even the same."
+            },
+            {
+              "reference": "Titus 3:1-2",
+              "text": "Put them in mind to be subject to principalities and powers, to obey magistrates, to be ready to every good work, To speak evil of no man, to be no brawlers, but gentle, shewing all meekness unto all men."
+            },
+            {
+              "reference": "Matthew 7:11",
+              "text": "If ye then, being evil, know how to give good gifts unto your children, how much more shall your Father which is in heaven give good things to them that ask him?"
+            },
+            {
+              "reference": "Proverbs 21:1",
+              "text": "The king's heart is in the hand of the LORD, as the rivers of water: he turneth it whithersoever he will."
+            }
+          ]
+        },
+        "General Revelation": {
+          "title": "General Revelation",
+          "description": "God's self-disclosure through creation and conscience constitutes general revelation, rendering all humanity aware of divine existence, power, and moral requirements. This universal knowledge, sufficient to condemn yet insufficient to save, leaves every person accountable to worship the Creator while demonstrating the necessity of special revelation for redemption.",
+          "verses": [
+            {
+              "reference": "Romans 1:19-20",
+              "text": "Because that which may be known of God is manifest in them; for God hath shewed it unto them. For the invisible things of him from the creation of the world are clearly seen, being understood by the things that are made, even his eternal power and Godhead; so that they are without excuse:"
+            },
+            {
+              "reference": "Psalms 19:1-2",
+              "text": "The heavens declare the glory of God; and the firmament sheweth his handywork. Day unto day uttereth speech, and night unto night sheweth knowledge."
+            },
+            {
+              "reference": "Acts 14:17",
+              "text": "Nevertheless he left not himself without witness, in that he did good, and gave us rain from heaven, and fruitful seasons, filling our hearts with food and gladness."
+            },
+            {
+              "reference": "Romans 2:14-15",
+              "text": "For when the Gentiles, which have not the law, do by nature the things contained in the law, these, having not the law, are a law unto themselves: Which shew the work of the law written in their hearts, their conscience also bearing witness, and their thoughts the mean while accusing or else excusing one another;)"
+            },
+            {
+              "reference": "Acts 17:27-28",
+              "text": "That they should seek the Lord, if haply they might feel after him, and find him, though he be not far from every one of us: For in him we live, and move, and have our being; as certain also of your own poets have said, For we are also his offspring."
+            },
+            {
+              "reference": "Ecclesiastes 3:11",
+              "text": "He hath made every thing beautiful in his time: also he hath set the world in their heart, so that no man can find out the work that God maketh from the beginning to the end."
+            }
+          ]
+        }
+      },
+      "Special Grace": {
+        "Effectual Calling": {
+          "title": "Effectual Calling",
+          "description": "Effectual calling represents God's sovereign, irresistible summons whereby the Holy Spirit inwardly illuminates the mind, renews the will, and draws the elect infallibly to Christ. This internal call, distinguished from the external gospel proclamation, never fails to accomplish its intended purpose of bringing the chosen to saving faith.",
+          "verses": [
+            {
+              "reference": "Romans 8:30",
+              "text": "Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified."
+            },
+            {
+              "reference": "John 6:44",
+              "text": "No man can come to me, except the Father which hath sent me draw him: and I will raise him up at the last day."
+            },
+            {
+              "reference": "Acts 13:48",
+              "text": "And when the Gentiles heard this, they were glad, and glorified the word of the Lord: and as many as were ordained to eternal life believed."
+            }
+          ]
+        },
+        "Irresistible Grace": {
+          "title": "Irresistible Grace",
+          "description": "The grace of God in salvation proves ultimately irresistible to the elect, overcoming all human resistance and effectually accomplishing the divine purpose. While sinners may temporarily resist the external call, the internal operations of the Spirit inevitably triumph, transforming recalcitrant rebels into willing servants who come to Christ both freely and necessarily.",
+          "verses": [
+            {
+              "reference": "John 6:37",
+              "text": "All that the Father giveth me shall come to me; and him that cometh to me I will in no wise cast out."
+            },
+            {
+              "reference": "Philippians 2:13",
+              "text": "For it is God which worketh in you both to will and to do of his good pleasure."
+            },
+            {
+              "reference": "Ezekiel 36:26-27",
+              "text": "A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh. And I will put my spirit within you, and cause you to walk in my statutes, and ye shall keep my judgments, and do them."
+            },
+            {
+              "reference": "John 10:27-28",
+              "text": "My sheep hear my voice, and I know them, and they follow me: And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand."
+            },
+            {
+              "reference": "Psalms 110:3",
+              "text": "Thy people shall be willing in the day of thy power, in the beauties of holiness from the womb of the morning: thou hast the dew of thy youth."
+            },
+            {
+              "reference": "Acts 16:14",
+              "text": "And a certain woman named Lydia, a seller of purple, of the city of Thyatira, which worshipped God, heard us: whose heart the Lord opened, that she attended unto the things which were spoken of Paul."
+            }
+          ]
+        },
+        "Monergism": {
+          "title": "Monergism",
+          "description": "Salvation operates monergistically—God alone accomplishes the work of regeneration without human cooperation, for spiritual death precludes any capacity to contribute to one's resurrection. The sinner remains wholly passive in regeneration, though subsequently active in conversion, as divine sovereignty produces what human inability cannot—life from death, faith from unbelief.",
+          "verses": [
+            {
+              "reference": "Ephesians 2:4-5",
+              "text": "But God, who is rich in mercy, for his great love wherewith he loved us, Even when we were dead in sins, hath quickened us together with Christ, (by grace ye are saved;)"
+            },
+            {
+              "reference": "John 1:12-13",
+              "text": "But as many as received him, to them gave he power to become the sons of God, even to them that believe on his name: Which were born, not of blood, nor of the will of the flesh, nor of the will of man, but of God."
+            },
+            {
+              "reference": "Titus 3:5",
+              "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost;"
+            },
+            {
+              "reference": "James 1:18",
+              "text": "Of his own will begat he us with the word of truth, that we should be a kind of firstfruits of his creatures."
+            },
+            {
+              "reference": "John 3:3",
+              "text": "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God."
+            }
+          ]
+        },
+        "Regeneration Precedes Faith": {
+          "title": "Regeneration Precedes Faith",
+          "description": "Regeneration necessarily precedes and produces saving faith, for the spiritually dead possess no ability to believe until made alive by the Spirit. God imparts new life to His elect prior to their exercise of faith, thereby enabling what nature rendered impossible—the believing reception of Christ and His gospel.",
+          "verses": [
+            {
+              "reference": "Ezekiel 36:26",
+              "text": "A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh."
+            },
+            {
+              "reference": "John 3:3",
+              "text": "Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God."
+            },
+            {
+              "reference": "Acts 16:14",
+              "text": "And a certain woman named Lydia, a seller of purple, of the city of Thyatira, which worshipped God, heard us: whose heart the Lord opened, that she attended unto the things which were spoken of Paul."
+            },
+            {
+              "reference": "Ephesians 2:1",
+              "text": "And you hath he quickened, who were dead in trespasses and sins;"
+            },
+            {
+              "reference": "Colossians 2:13",
+              "text": "And you, being dead in your sins and the uncircumcision of your flesh, hath he quickened together with him, having forgiven you all trespasses;"
+            }
+          ]
+        }
+      },
+      "Covenant of Grace": {
+        "One Covenant": {
+          "title": "One Covenant in Substance",
+          "description": "The covenant of grace, though administered diversely across redemptive history, remains singular in substance—the gracious promise to save sinners through the mediatorial work of Christ. From the protoevangelium in Eden through the Abrahamic, Mosaic, Davidic, and New Covenants, God's redemptive plan unfolds progressively while maintaining essential unity in Christ.",
+          "verses": [
+            {
+              "reference": "Galatians 3:7-9",
+              "text": "Know ye therefore that they which are of faith, the same are the children of Abraham. And the scripture, foreseeing that God would justify the heathen through faith, preached before the gospel unto Abraham, saying, In thee shall all nations be blessed. So then they which be of faith are blessed with faithful Abraham."
+            },
+            {
+              "reference": "Romans 4:11",
+              "text": "And he received the sign of circumcision, a seal of the righteousness of the faith which he had yet being uncircumcised: that he might be the father of all them that believe, though they be not circumcised; that righteousness might be imputed unto them also:"
+            },
+            {
+              "reference": "Hebrews 9:15",
+              "text": "And for this cause he is the mediator of the new testament, that by means of death, for the redemption of the transgressions that were under the first testament, they which are called might receive the promise of eternal inheritance."
+            },
+            {
+              "reference": "Genesis 3:15",
+              "text": "And I will put enmity between thee and the woman, and between thy seed and her seed; it shall bruise thy head, and thou shalt bruise his heel."
+            },
+            {
+              "reference": "Galatians 3:16",
+              "text": "Now to Abraham and his seed were the promises made. He saith not, And to seeds, as of many; but as of one, And to thy seed, which is Christ."
+            },
+            {
+              "reference": "Acts 15:11",
+              "text": "But we believe that through the grace of the Lord Jesus Christ we shall be saved, even as they."
+            }
+          ]
+        },
+        "Progressive Revelation": {
+          "title": "Progressive Revelation",
+          "description": "God unfolds the covenant of grace progressively throughout Scripture, each successive administration adding clarity while maintaining continuity with previous revelations. The shadows of the old covenant find their substance in Christ, as types, prophecies, and promises achieve their intended fulfillment in the gospel age.",
+          "verses": [
+            {
+              "reference": "Hebrews 1:1-2",
+              "text": "God, who at sundry times and in divers manners spake in time past unto the fathers by the prophets, Hath in these last days spoken unto us by his Son, whom he hath appointed heir of all things, by whom also he made the worlds;"
+            },
+            {
+              "reference": "Colossians 1:26-27",
+              "text": "Even the mystery which hath been hid from ages and from generations, but now is made manifest to his saints: To whom God would make known what is the riches of the glory of this mystery among the Gentiles; which is Christ in you, the hope of glory:"
+            },
+            {
+              "reference": "Ephesians 3:4-6",
+              "text": "Whereby, when ye read, ye may understand my knowledge in the mystery of Christ) Which in other ages was not made known unto the sons of men, as it is now revealed unto his holy apostles and prophets by the Spirit; That the Gentiles should be fellowheirs, and of the same body, and partakers of his promise in Christ by the gospel:"
+            },
+            {
+              "reference": "Luke 24:27",
+              "text": "And beginning at Moses and all the prophets, he expounded unto them in all the scriptures the things concerning himself."
+            },
+            {
+              "reference": "John 5:39",
+              "text": "Search the scriptures; for in them ye think ye have eternal life: and they are they which testify of me."
+            }
+          ]
+        },
+        "Covenant of Redemption": {
+          "title": "Covenant of Redemption",
+          "description": "The covenant of redemption constitutes the eternal, intratrinitarian pact wherein the Father appointed the Son to accomplish salvation and the Son voluntarily undertook the work of mediation. This covenant of peace between the divine persons precedes temporal creation and grounds the covenant of grace extended to the elect throughout history.",
+          "verses": [
+            {
+              "reference": "Psalms 2:7-8",
+              "text": "I will declare the decree: the LORD hath said unto me, Thou art my Son; this day have I begotten thee. Ask of me, and I shall give thee the heathen for thine inheritance, and the uttermost parts of the earth for thy possession."
+            },
+            {
+              "reference": "Isaiah 53:10-11",
+              "text": "Yet it pleased the LORD to bruise him; he hath put him to grief: when thou shalt make his soul an offering for sin, he shall see his seed, he shall prolong his days, and the pleasure of the LORD shall prosper in his hand. He shall see of the travail of his soul, and shall be satisfied: by his knowledge shall my righteous servant justify many; for he shall bear their iniquities."
+            },
+            {
+              "reference": "John 17:4-6",
+              "text": "I have glorified thee on the earth: I have finished the work which thou gavest me to do. And now, O Father, glorify thou me with thine own self with the glory which I had with thee before the world was. I have manifested thy name unto the men which thou gavest me out of the world: thine they were, and thou gavest them me; and they have kept thy word."
+            },
+            {
+              "reference": "Ephesians 1:4-5",
+              "text": "According as he hath chosen us in him before the foundation of the world, that we should be holy and without blame before him in love: Having predestinated us unto the adoption of children by Jesus Christ to himself, according to the good pleasure of his will,"
+            },
+            {
+              "reference": "Titus 1:2",
+              "text": "In hope of eternal life, which God, that cannot lie, promised before the world began;"
+            }
+          ]
+        },
+        "Covenant Signs": {
+          "title": "Covenant Signs and Seals",
+          "description": "God graciously provides covenant signs and seals—circumcision in the old administration, baptism and the Lord's Supper in the new—to strengthen faith, ratify promises, and distinguish His people. These sacramental ordinances, when received by faith, confirm covenant blessings while serving as visible manifestations of invisible grace.",
+          "verses": [
+            {
+              "reference": "Genesis 17:10-11",
+              "text": "This is my covenant, which ye shall keep, between me and you and thy seed after thee; Every man child among you shall be circumcised. And ye shall circumcise the flesh of your foreskin; and it shall be a token of the covenant betwixt me and you."
+            },
+            {
+              "reference": "Romans 4:11",
+              "text": "And he received the sign of circumcision, a seal of the righteousness of the faith which he had yet being uncircumcised: that he might be the father of all them that believe, though they be not circumcised; that righteousness might be imputed unto them also:"
+            },
+            {
+              "reference": "Matthew 28:19",
+              "text": "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost:"
+            },
+            {
+              "reference": "Colossians 2:11-12",
+              "text": "In whom also ye are circumcised with the circumcision made without hands, in putting off the body of the sins of the flesh by the circumcision of Christ: Buried with him in baptism, wherein also ye are risen with him through the faith of the operation of God, who hath raised him from the dead."
+            },
+            {
+              "reference": "Acts 2:38",
+              "text": "Then Peter said unto them, Repent, and be baptized every one of you in the name of Jesus Christ for the remission of sins, and ye shall receive the gift of the Holy Ghost."
+            }
+          ]
+        }
+      },
+      "Election and Grace": {
+        "Unconditional Election": {
+          "title": "Unconditional Election",
+          "description": "God's election of specific individuals unto salvation proceeds from His sovereign pleasure alone, unconditioned by foreseen faith, works, or worthiness in the chosen. This discriminating love, exercised before the foundation of the world, ensures the certain salvation of the elect while demonstrating divine justice toward the non-elect who receive their deserved condemnation.",
+          "verses": [
+            {
+              "reference": "Ephesians 1:4-5",
+              "text": "According as he hath chosen us in him before the foundation of the world, that we should be holy and without blame before him in love: Having predestinated us unto the adoption of children by Jesus Christ to himself, according to the good pleasure of his will,"
+            },
+            {
+              "reference": "Romans 9:11",
+              "text": "(For the children being not yet born, neither having done any good or evil, that the purpose of God according to election might stand, not of works, but of him that calleth;)"
+            },
+            {
+              "reference": "Romans 8:29-30",
+              "text": "For whom he did foreknow, he also did predestinate to be conformed to the image of his Son, that he might be the firstborn among many brethren. Moreover whom he did predestinate, them he also called: and whom he called, them he also justified: and whom he justified, them he also glorified."
+            },
+            {
+              "reference": "Acts 13:48",
+              "text": "And when the Gentiles heard this, they were glad, and glorified the word of the Lord: and as many as were ordained to eternal life believed."
+            }
+          ]
+        },
+        "Particular Redemption": {
+          "title": "Particular Redemption",
+          "description": "Christ's atoning death accomplished certain redemption for the elect specifically, securing not merely the possibility of salvation for all but the certainty of salvation for those given to Him by the Father. The sufficiency of His sacrifice extends to all humanity while its efficiency applies particularly to the chosen, guaranteeing their complete redemption.",
+          "verses": [
+            {
+              "reference": "John 10:11",
+              "text": "I am the good shepherd: the good shepherd giveth his life for the sheep."
+            },
+            {
+              "reference": "John 10:15",
+              "text": "As the Father knoweth me, even so know I the Father: and I lay down my life for the sheep."
+            },
+            {
+              "reference": "Matthew 1:21",
+              "text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins."
+            },
+            {
+              "reference": "Ephesians 5:25",
+              "text": "Husbands, love your wives, even as Christ also loved the church, and gave himself for it;"
+            },
+            {
+              "reference": "Acts 20:28",
+              "text": "Take heed therefore unto yourselves, and to all the flock, over the which the Holy Ghost hath made you overseers, to feed the church of God, which he hath purchased with his own blood."
+            },
+            {
+              "reference": "John 17:9",
+              "text": "I pray for them: I pray not for the world, but for them which thou hast given me; for they are thine."
+            }
+          ]
+        },
+        "Sovereign Choice": {
+          "title": "God's Sovereign Choice",
+          "description": "Divine election flows from God's absolute sovereignty, exercised according to the counsel of His own will rather than human merit or decision. This sovereign choice humbles human pride, magnifies divine mercy, and establishes salvation upon the immutable foundation of God's eternal purpose rather than fickle human will.",
+          "verses": [
+            {
+              "reference": "Romans 9:15-16",
+              "text": "For he saith to Moses, I will have mercy on whom I will have mercy, and I will have compassion on whom I will have compassion. So then it is not of him that willeth, nor of him that runneth, but of God that sheweth mercy."
+            },
+            {
+              "reference": "Matthew 11:25-26",
+              "text": "At that time Jesus answered and said, I thank thee, O Father, Lord of heaven and earth, because thou hast hid these things from the wise and prudent, and hast revealed them unto babes. Even so, Father: for so it seemed good in thy sight."
+            },
+            {
+              "reference": "John 15:16",
+              "text": "Ye have not chosen me, but I have chosen you, and ordained you, that ye should go and bring forth fruit, and that your fruit should remain: that whatsoever ye shall ask of the Father in my name, he may give it you."
+            },
+            {
+              "reference": "Ephesians 1:11",
+              "text": "In whom also we have obtained an inheritance, being predestinated according to the purpose of him who worketh all things after the counsel of his own will:"
+            },
+            {
+              "reference": "Romans 9:18",
+              "text": "Therefore hath he mercy on whom he will have mercy, and whom he will he hardeneth."
+            }
+          ]
+        },
+        "Election and Assurance": {
+          "title": "Election and Assurance",
+          "description": "Far from breeding uncertainty, the doctrine of election provides believers their firmest ground of assurance, for salvation rests upon God's unchangeable decree rather than human constancy. The evidences of election—effectual calling, faith, repentance, sanctification—confirm one's membership among the chosen and afford confidence in final perseverance.",
+          "verses": [
+            {
+              "reference": "Romans 8:33",
+              "text": "Who shall lay any thing to the charge of God's elect? It is God that justifieth."
+            },
+            {
+              "reference": "John 10:27-29",
+              "text": "My sheep hear my voice, and I know them, and they follow me: And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand. My Father, which gave them me, is greater than all; and no man is able to pluck them out of my Father's hand."
+            },
+            {
+              "reference": "Romans 8:38-39",
+              "text": "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come, Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord."
+            }
+          ]
+        }
+      },
+      "Perseverance": {
+        "Preservation by God": {
+          "title": "Preservation by God",
+          "description": "The perseverance of the saints rests not upon human resolution but divine preservation—God's almighty power maintaining His elect in grace through every trial and temptation. The same sovereign power that effected regeneration ensures glorification, keeping believers from final apostasy through the Spirit's indwelling presence and Christ's continual intercession.",
+          "verses": [
+            {
+              "reference": "John 10:28-29",
+              "text": "And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand. My Father, which gave them me, is greater than all; and no man is able to pluck them out of my Father's hand."
+            },
+            {
+              "reference": "Philippians 1:6",
+              "text": "Being confident of this very thing, that he which hath begun a good work in you will perform it until the day of Jesus Christ:"
+            },
+            {
+              "reference": "Jude 1:24",
+              "text": "Now unto him that is able to keep you from falling, and to present you faultless before the presence of his glory with exceeding joy,"
+            },
+            {
+              "reference": "Romans 8:38-39",
+              "text": "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come, Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord."
+            }
+          ]
+        },
+        "Eternal Security": {
+          "title": "Eternal Security",
+          "description": "True believers, being eternally chosen, effectually called, and sealed by the Spirit, possess absolute security in their salvation, which cannot be forfeited through sin, doubt, or even temporary unbelief. This security, grounded in God's immutable decree and Christ's finished work, provides confident assurance while never licensing presumption or careless living.",
+          "verses": [
+            {
+              "reference": "Romans 8:38-39",
+              "text": "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come, Nor height, nor depth, nor any other creature, shall be able to separate us from the love of God, which is in Christ Jesus our Lord."
+            },
+            {
+              "reference": "John 6:39",
+              "text": "And this is the Father's will which hath sent me, that of all which he hath given me I should lose nothing, but should raise it up again at the last day."
+            },
+            {
+              "reference": "John 10:28",
+              "text": "And I give unto them eternal life; and they shall never perish, neither shall any man pluck them out of my hand."
+            },
+            {
+              "reference": "Romans 5:9-10",
+              "text": "Much more then, being now justified by his blood, we shall be saved from wrath through him. For if, when we were enemies, we were reconciled to God by the death of his Son, much more, being reconciled, we shall be saved by his life."
+            },
+            {
+              "reference": "Hebrews 7:25",
+              "text": "Wherefore he is able also to save them to the uttermost that come unto God by him, seeing he ever liveth to make intercession for them."
+            }
+          ]
+        },
+        "Warnings and Means": {
+          "title": "Warnings and Means",
+          "description": "Scripture's warnings against apostasy and exhortations to perseverance serve as ordained means whereby God preserves His elect, stimulating vigilance and prompting continued faith. These admonitions, rather than contradicting eternal security, constitute the very instruments through which God accomplishes the preservation of the saints, keeping them from the dangers warned against.",
+          "verses": [
+            {
+              "reference": "Hebrews 3:12-14",
+              "text": "Take heed, brethren, lest there be in any of you an evil heart of unbelief, in departing from the living God. But exhort one another daily, while it is called To day; lest any of you be hardened through the deceitfulness of sin. For we are made partakers of Christ, if we hold the beginning of our confidence stedfast unto the end;"
+            },
+            {
+              "reference": "Philippians 2:12-13",
+              "text": "Wherefore, my beloved, as ye have always obeyed, not as in my presence only, but now much more in my absence, work out your own salvation with fear and trembling. For it is God which worketh in you both to will and to do of his good pleasure."
+            },
+            {
+              "reference": "Hebrews 6:11-12",
+              "text": "And we desire that every one of you do shew the same diligence to the full assurance of hope unto the end: That ye be not slothful, but followers of them who through faith and patience inherit the promises."
+            },
+            {
+              "reference": "Colossians 1:22-23",
+              "text": "In the body of his flesh through death, to present you holy and unblameable and unreproveable in his sight: If ye continue in the faith grounded and settled, and be not moved away from the hope of the gospel, which ye have heard, and which was preached to every creature which is under heaven; whereof I Paul am made a minister;"
+            }
+          ]
+        },
+        "Apostasy Explained": {
+          "title": "Apostasy Explained",
+          "description": "Those who utterly and finally fall away demonstrate thereby that they never possessed genuine faith, for true believers, being born of incorruptible seed and sealed unto redemption, cannot experience total apostasy. Temporary backsliding differs categorically from final apostasy—the former characterizes genuine believers being chastened, the latter exposes false professors never truly regenerated.",
+          "verses": [
+            {
+              "reference": "Matthew 13:20-21",
+              "text": "But he that received the seed into stony places, the same is he that heareth the word, and anon with joy receiveth it; Yet hath he not root in himself, but dureth for a while: for when tribulation or persecution ariseth because of the word, by and by he is offended."
+            },
+            {
+              "reference": "Hebrews 6:4-6",
+              "text": "For it is impossible for those who were once enlightened, and have tasted of the heavenly gift, and were made partakers of the Holy Ghost, And have tasted the good word of God, and the powers of the world to come, If they shall fall away, to renew them again unto repentance; seeing they crucify to themselves the Son of God afresh, and put him to an open shame."
+            },
+            {
+              "reference": "Matthew 7:22-23",
+              "text": "Many will say to me in that day, Lord, Lord, have we not prophesied in thy name? and in thy name have cast out devils? and in thy name done many wonderful works? And then will I profess unto them, I never knew you: depart from me, ye that work iniquity."
+            },
+            {
+              "reference": "Luke 8:13",
+              "text": "They on the rock are they, which, when they hear, receive the word with joy; and these have no root, which for a while believe, and in time of temptation fall away."
+            }
+          ]
+        }
+      },
+      "Means of Grace": {
+        "The Word": {
+          "title": "The Word",
+          "description": "Scripture stands as the preeminent means of grace, through which the Holy Spirit ordinarily works to convert sinners, edify saints, and conform believers to Christ's image. The proclaimed and read Word accomplishes God's purposes, serving as the Spirit's sword to convict, instruct, sanctify, and sustain the people of God throughout their earthly pilgrimage.",
+          "verses": [
+            {
+              "reference": "Hebrews 4:12",
+              "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."
+            },
+            {
+              "reference": "James 1:21",
+              "text": "Wherefore lay apart all filthiness and superfluity of naughtiness, and receive with meekness the engrafted word, which is able to save your souls."
+            },
+            {
+              "reference": "Romans 10:17",
+              "text": "So then faith cometh by hearing, and hearing by the word of God."
+            },
+            {
+              "reference": "Psalms 119:105",
+              "text": "Thy word is a lamp unto my feet, and a light unto my path."
+            }
+          ]
+        },
+        "The Sacraments": {
+          "title": "The Sacraments",
+          "description": "Baptism and the Lord's Supper constitute divinely instituted sacraments wherein Christ communicates grace to believers through visible signs accompanying His Word. These holy ordinances, when received with faith, strengthen assurance, nourish spiritual life, and seal covenant promises, serving as means whereby God sustains His people in grace.",
+          "verses": [
+            {
+              "reference": "Acts 2:38",
+              "text": "Then Peter said unto them, Repent, and be baptized every one of you in the name of Jesus Christ for the remission of sins, and ye shall receive the gift of the Holy Ghost."
+            },
+            {
+              "reference": "Romans 6:3-4",
+              "text": "Know ye not, that so many of us as were baptized into Jesus Christ were baptized into his death? Therefore we are buried with him by baptism into death: that like as Christ was raised up from the dead by the glory of the Father, even so we also should walk in newness of life."
+            },
+            {
+              "reference": "Matthew 28:19-20",
+              "text": "Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost: Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world. Amen."
+            }
+          ]
+        },
+        "Prayer": {
+          "title": "Prayer",
+          "description": "Prayer operates as a vital means of grace, the appointed channel through which believers receive divine blessings, experience spiritual growth, and maintain communion with their heavenly Father. Through this discipline, God has ordained to bestow what He has purposed to give, making prayer both a privilege of sonship and a duty of discipleship.",
+          "verses": [
+            {
+              "reference": "James 5:16",
+              "text": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much."
+            },
+            {
+              "reference": "Philippians 4:6",
+              "text": "Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God."
+            },
+            {
+              "reference": "Matthew 7:7-8",
+              "text": "Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened unto you: For every one that asketh receiveth; and he that seeketh findeth; and to him that knocketh it shall be opened."
+            },
+            {
+              "reference": "John 15:7",
+              "text": "If ye abide in me, and my words abide in you, ye shall ask what ye will, and it shall be done unto you."
+            }
+          ]
+        },
+        "Corporate Worship": {
+          "title": "Corporate Worship",
+          "description": "The gathered assembly of believers constitutes an essential means of grace wherein God meets His people through Word, sacrament, prayer, and mutual edification. Corporate worship, far from being optional, provides the ordinary context for spiritual nourishment, as the body of Christ functions together for the strengthening of individual members and the glorification of the triune God.",
+          "verses": [
+            {
+              "reference": "Hebrews 10:24-25",
+              "text": "And let us consider one another to provoke unto love and to good works: Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another: and so much the more, as ye see the day approaching."
+            },
+            {
+              "reference": "Acts 2:42",
+              "text": "And they continued stedfastly in the apostles' doctrine and fellowship, and in breaking of bread, and in prayers."
+            },
+            {
+              "reference": "Ephesians 5:19-20",
+              "text": "Speaking to yourselves in psalms and hymns and spiritual songs, singing and making melody in your heart to the Lord; Giving thanks always for all things unto God and the Father in the name of our Lord Jesus Christ;"
+            },
+            {
+              "reference": "Colossians 3:16",
+              "text": "Let the word of Christ dwell in you richly in all wisdom; teaching and admonishing one another in psalms and hymns and spiritual songs, singing with grace in your hearts to the Lord."
+            },
+            {
+              "reference": "Psalms 122:1",
+              "text": "I was glad when they said unto me, Let us go into the house of the LORD."
+            }
+          ]
+        }
+      }
+    }
+  }
+}

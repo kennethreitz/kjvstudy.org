@@ -1,0 +1,863 @@
+{
+  "law_and_gospel": {
+    "title": "Law and Gospel",
+    "subtitle": "The Doctrine of Law and Gospel",
+    "introduction": "The proper distinction between Law and Gospel is essential to sound theology and pastoral care. The Law reveals God's holy standard and exposes human sin; the Gospel reveals God's gracious provision in Christ. These studies explore this vital distinction and the uses of God's moral law.",
+    "categories": {
+      "The Moral Law": {
+        "Eternal Standard": {
+          "title": "Eternal Standard",
+          "description": "The moral law of God, grounded in His eternal and unchangeable character, transcends all cultures, epochs, and dispensations. It is not an arbitrary imposition but a reflection of divine holiness, binding upon all rational creatures in every age. This law, existing prior to Sinai and perduring beyond it, manifests God's righteousness and establishes the immutable standard by which all human conduct must be measured.",
+          "verses": [
+            {
+              "reference": "Psalms 119:89",
+              "text": "For ever, O LORD, thy word is settled in heaven."
+            },
+            {
+              "reference": "Matthew 5:18",
+              "text": "For verily I say unto you, Till heaven and earth pass, one jot or one tittle shall in no wise pass from the law, till all be fulfilled."
+            },
+            {
+              "reference": "Romans 2:14-15",
+              "text": "For when the Gentiles, which have not the law, do by nature the things contained in the law, these, having not the law, are a law unto themselves: Which shew the work of the law written in their hearts, their conscience also bearing witness, and their thoughts the mean while accusing or else excusing one another;)"
+            },
+            {
+              "reference": "Psalms 19:7-8",
+              "text": "The law of the LORD is perfect, converting the soul: the testimony of the LORD is sure, making wise the simple. The statutes of the LORD are right, rejoicing the heart: the commandment of the LORD is pure, enlightening the eyes."
+            },
+            {
+              "reference": "Isaiah 40:8",
+              "text": "The grass withereth, the flower fadeth: but the word of our God shall stand for ever."
+            },
+            {
+              "reference": "Malachi 3:6",
+              "text": "For I am the LORD, I change not; therefore ye sons of Jacob are not consumed."
+            }
+          ]
+        },
+        "Summary in Decalogue": {
+          "title": "Summary in Decalogue",
+          "description": "The Ten Commandments constitute the distilled essence of moral obligation, a divine epitome of comprehensive duty toward God and neighbor. While the entire law expands upon these principles, the Decalogue provides the categorical framework within which all particular duties find their proper place. These ten words, spoken by God Himself and inscribed by His finger, possess unique authority as the summary expression of perpetual moral obligation.",
+          "verses": [
+            {
+              "reference": "Exodus 20:3",
+              "text": "Thou shalt have no other gods before me."
+            },
+            {
+              "reference": "Exodus 20:13",
+              "text": "Thou shalt not kill."
+            },
+            {
+              "reference": "Deuteronomy 5:22",
+              "text": "These words the LORD spake unto all your assembly in the mount out of the midst of the fire, of the cloud, and of the thick darkness, with a great voice: and he added no more. And he wrote them in two tables of stone, and delivered them unto me."
+            },
+            {
+              "reference": "Matthew 22:37-40",
+              "text": "Jesus said unto him, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind. This is the first and great commandment. And the second is like unto it, Thou shalt love thy neighbour as thyself. On these two commandments hang all the law and the prophets."
+            },
+            {
+              "reference": "Romans 13:9",
+              "text": "For this, Thou shalt not commit adultery, Thou shalt not kill, Thou shalt not steal, Thou shalt not bear false witness, Thou shalt not covet; and if there be any other commandment, it is briefly comprehended in this saying, namely, Thou shalt love thy neighbour as thyself."
+            },
+            {
+              "reference": "James 2:10-11",
+              "text": "For whosoever shall keep the whole law, and yet offend in one point, he is guilty of all. For he that said, Do not commit adultery, said also, Do not kill. Now if thou commit no adultery, yet if thou kill, thou art become a transgressor of the law."
+            }
+          ]
+        },
+        "Natural Law": {
+          "title": "Natural Law",
+          "description": "God has inscribed the substance of His moral law upon the human conscience, rendering all humanity without excuse for transgression. This natural revelation, though obscured by sin and insufficient for salvation, nonetheless establishes universal moral accountability. Even those who have never heard the written law possess an innate awareness of fundamental moral distinctions, demonstrating that God's law is written on the heart of His image-bearers.",
+          "verses": [
+            {
+              "reference": "Romans 2:14-15",
+              "text": "For when the Gentiles, which have not the law, do by nature the things contained in the law, these, having not the law, are a law unto themselves: Which shew the work of the law written in their hearts, their conscience also bearing witness, and their thoughts the mean while accusing or else excusing one another;)"
+            },
+            {
+              "reference": "Romans 1:20",
+              "text": "For the invisible things of him from the creation of the world are clearly seen, being understood by the things that are made, even his eternal power and Godhead; so that they are without excuse:"
+            },
+            {
+              "reference": "Romans 1:32",
+              "text": "Who knowing the judgment of God, that they which commit such things are worthy of death, not only do the same, but have pleasure in them that do them."
+            },
+            {
+              "reference": "John 1:9",
+              "text": "That was the true Light, which lighteth every man that cometh into the world."
+            },
+            {
+              "reference": "Genesis 2:16-17",
+              "text": "And the LORD God commanded the man, saying, Of every tree of the garden thou mayest freely eat: But of the tree of the knowledge of good and evil, thou shalt not eat of it: for in the day that thou eatest thereof thou shalt surely die."
+            },
+            {
+              "reference": "Acts 17:28-29",
+              "text": "For in him we live, and move, and have our being; as certain also of your own poets have said, For we are also his offspring. Forasmuch then as we are the offspring of God, we ought not to think that the Godhead is like unto gold, or silver, or stone, graven by art and man's device."
+            }
+          ]
+        },
+        "Binding on All": {
+          "title": "Binding on All",
+          "description": "The moral law obliges every human creature without exception or exemption. Neither Christ's redemptive work nor the believer's justification nullifies the law's demands for perfect obedience; rather, the gospel upholds and establishes the law while providing what the law requires but cannot produce. All persons, in all places, at all times, remain under obligation to render complete conformity to God's moral requirements, though believers alone possess both the desire and the enablement to pursue such conformity.",
+          "verses": [
+            {
+              "reference": "Romans 3:19",
+              "text": "Now we know that what things soever the law saith, it saith to them who are under the law: that every mouth may be stopped, and all the world may become guilty before God."
+            },
+            {
+              "reference": "Galatians 3:10",
+              "text": "For as many as are of the works of the law are under the curse: for it is written, Cursed is every one that continueth not in all things which are written in the book of the law to do them."
+            },
+            {
+              "reference": "James 2:10",
+              "text": "For whosoever shall keep the whole law, and yet offend in one point, he is guilty of all."
+            },
+            {
+              "reference": "Romans 3:31",
+              "text": "Do we then make void the law through faith? God forbid: yea, we establish the law."
+            },
+            {
+              "reference": "Matthew 5:19",
+              "text": "Whosoever therefore shall break one of these least commandments, and shall teach men so, he shall be called the least in the kingdom of heaven: but whosoever shall do and teach them, the same shall be called great in the kingdom of heaven."
+            },
+            {
+              "reference": "I Corinthians 9:21",
+              "text": ""
+            }
+          ]
+        }
+      },
+      "First Use of the Law": {
+        "Civil Use": {
+          "title": "Civil Use",
+          "description": "The law serves to establish and maintain civil order within human society, providing a framework for justice and governance. This political or civil function restrains outward wickedness and promotes external peace, enabling human community to exist despite universal depravity. Magistrates wield the sword as ministers of God's law, executing temporal judgment upon evildoers and thus preserving society from utter chaos.",
+          "verses": [
+            {
+              "reference": "Romans 13:1-4",
+              "text": "Let every soul be subject unto the higher powers. For there is no power but of God: the powers that be are ordained of God. Whosoever therefore resisteth the power, resisteth the ordinance of God: and they that resist shall receive to themselves damnation. For rulers are not a terror to good works, but to the evil. Wilt thou then not be afraid of the power? do that which is good, and thou shalt have praise of the same: For he is the minister of God to thee for good. But if thou do that which is evil, be afraid; for he beareth not the sword in vain: for he is the minister of God, a revenger to execute wrath upon him that doeth evil."
+            },
+            {
+              "reference": "I Timothy 1:9-10",
+              "text": ""
+            },
+            {
+              "reference": "I Peter 2:13-14",
+              "text": ""
+            },
+            {
+              "reference": "Deuteronomy 17:18-20",
+              "text": "And it shall be, when he sitteth upon the throne of his kingdom, that he shall write him a copy of this law in a book out of that which is before the priests the Levites: And it shall be with him, and he shall read therein all the days of his life: that he may learn to fear the LORD his God, to keep all the words of this law and these statutes, to do them: That his heart be not lifted up above his brethren, and that he turn not aside from the commandment, to the right hand, or to the left: to the end that he may prolong his days in his kingdom, he, and his children, in the midst of Israel."
+            },
+            {
+              "reference": "Proverbs 14:34",
+              "text": "Righteousness exalteth a nation: but sin is a reproach to any people."
+            },
+            {
+              "reference": "Proverbs 29:2",
+              "text": "When the righteous are in authority, the people rejoice: but when the wicked beareth rule, the people mourn."
+            }
+          ]
+        },
+        "Restraint of Sin": {
+          "title": "Restraint of Sin",
+          "description": "Through threat of punishment and appeal to conscience, the law curbs the expression of human depravity, checking the violent outbreak of sin that would otherwise render society impossible. This restraining function operates even upon the unregenerate, not transforming their hearts but limiting their hands. Like a dam that contains but does not cure the flood, the law prevents sin from achieving its full destructive potential in this present age.",
+          "verses": [
+            {
+              "reference": "I Timothy 1:9",
+              "text": ""
+            },
+            {
+              "reference": "Romans 13:3-4",
+              "text": "For rulers are not a terror to good works, but to the evil. Wilt thou then not be afraid of the power? do that which is good, and thou shalt have praise of the same: For he is the minister of God to thee for good. But if thou do that which is evil, be afraid; for he beareth not the sword in vain: for he is the minister of God, a revenger to execute wrath upon him that doeth evil."
+            },
+            {
+              "reference": "Galatians 3:23",
+              "text": "But before faith came, we were kept under the law, shut up unto the faith which should afterwards be revealed."
+            },
+            {
+              "reference": "Proverbs 16:6",
+              "text": "By mercy and truth iniquity is purged: and by the fear of the LORD men depart from evil."
+            },
+            {
+              "reference": "Genesis 20:6",
+              "text": "And God said unto him in a dream, Yea, I know that thou didst this in the integrity of thy heart; for I also withheld thee from sinning against me: therefore suffered I thee not to touch her."
+            },
+            {
+              "reference": "Psalms 76:10",
+              "text": "Surely the wrath of man shall praise thee: the remainder of wrath shalt thou restrain."
+            }
+          ]
+        },
+        "Order in Society": {
+          "title": "Order in Society",
+          "description": "God's law provides the foundational principles necessary for social cohesion, economic justice, and communal flourishing. It establishes boundaries for human interaction, protects the weak from the strong, and promotes general equity among people. Though civil government cannot save souls, it can and must employ divine law to structure society in ways that honor God and benefit humanity, creating conditions wherein the gospel may be freely proclaimed.",
+          "verses": [
+            {
+              "reference": "Romans 13:1",
+              "text": "Let every soul be subject unto the higher powers. For there is no power but of God: the powers that be are ordained of God."
+            },
+            {
+              "reference": "Deuteronomy 16:18-20",
+              "text": "Judges and officers shalt thou make thee in all thy gates, which the LORD thy God giveth thee, throughout thy tribes: and they shall judge the people with just judgment. Thou shalt not wrest judgment; thou shalt not respect persons, neither take a gift: for a gift doth blind the eyes of the wise, and pervert the words of the righteous. That which is altogether just shalt thou follow, that thou mayest live, and inherit the land which the LORD thy God giveth thee."
+            },
+            {
+              "reference": "Leviticus 19:15",
+              "text": "Ye shall do no unrighteousness in judgment: thou shalt not respect the person of the poor, nor honour the person of the mighty: but in righteousness shalt thou judge thy neighbour."
+            },
+            {
+              "reference": "Proverbs 29:4",
+              "text": "The king by judgment establisheth the land: but he that receiveth gifts overthroweth it."
+            },
+            {
+              "reference": "Jeremiah 22:3",
+              "text": "Thus saith the LORD; Execute ye judgment and righteousness, and deliver the spoiled out of the hand of the oppressor: and do no wrong, do no violence to the stranger, the fatherless, nor the widow, neither shed innocent blood in this place."
+            },
+            {
+              "reference": "I Timothy 2:1-2",
+              "text": ""
+            }
+          ]
+        },
+        "Common Grace Application": {
+          "title": "Common Grace Application",
+          "description": "Through common grace, God employs His law to confer temporal blessings upon all humanity without distinction between elect and reprobate. This gracious restraint of evil, promotion of civic virtue, and enablement of cultural achievement proceeds from divine goodness rather than human merit. While insufficient for salvation, common grace demonstrates God's beneficence toward His creatures and His commitment to uphold creation until redemption reaches its consummation.",
+          "verses": [
+            {
+              "reference": "Matthew 5:45",
+              "text": "That ye may be the children of your Father which is in heaven: for he maketh his sun to rise on the evil and on the good, and sendeth rain on the just and on the unjust."
+            },
+            {
+              "reference": "Acts 14:16-17",
+              "text": "Who in times past suffered all nations to walk in their own ways. Nevertheless he left not himself without witness, in that he did good, and gave us rain from heaven, and fruitful seasons, filling our hearts with food and gladness."
+            },
+            {
+              "reference": "Psalms 145:9",
+              "text": "The LORD is good to all: and his tender mercies are over all his works."
+            },
+            {
+              "reference": "Genesis 8:21-22",
+              "text": "And the LORD smelled a sweet savour; and the LORD said in his heart, I will not again curse the ground any more for man's sake; for the imagination of man's heart is evil from his youth; neither will I again smite any more every thing living, as I have done. While the earth remaineth, seedtime and harvest, and cold and heat, and summer and winter, and day and night shall not cease."
+            },
+            {
+              "reference": "Luke 6:35",
+              "text": "But love ye your enemies, and do good, and lend, hoping for nothing again; and your reward shall be great, and ye shall be the children of the Highest: for he is kind unto the unthankful and to the evil."
+            },
+            {
+              "reference": "Acts 17:25-26",
+              "text": "Neither is worshipped with men's hands, as though he needed any thing, seeing he giveth to all life, and breath, and all things; And hath made of one blood all nations of men for to dwell on all the face of the earth, and hath determined the times before appointed, and the bounds of their habitation;"
+            }
+          ]
+        }
+      },
+      "Second Use of the Law": {
+        "Pedagogical Use": {
+          "title": "Pedagogical Use",
+          "description": "The law serves as a pedagogue or schoolmaster, conducting sinners to Christ by exposing their desperate need for a Savior. This educational function strips away self-righteousness and destroys confidence in human ability, preparing the heart to receive grace. The law teaches not merely by instruction but by devastating demonstration—showing us our sin, our inability, and our danger, thereby making Christ precious to those who flee to Him for refuge.",
+          "verses": [
+            {
+              "reference": "Galatians 3:24",
+              "text": "Wherefore the law was our schoolmaster to bring us unto Christ, that we might be justified by faith."
+            },
+            {
+              "reference": "Romans 3:20",
+              "text": "Therefore by the deeds of the law there shall no flesh be justified in his sight: for by the law is the knowledge of sin."
+            },
+            {
+              "reference": "Romans 7:7",
+              "text": "What shall we say then? Is the law sin? God forbid. Nay, I had not known sin, but by the law: for I had not known lust, except the law had said, Thou shalt not covet."
+            },
+            {
+              "reference": "Galatians 3:22",
+              "text": "But the scripture hath concluded all under sin, that the promise by faith of Jesus Christ might be given to them that believe."
+            },
+            {
+              "reference": "Romans 5:20",
+              "text": "Moreover the law entered, that the offence might abound. But where sin abounded, grace did much more abound:"
+            },
+            {
+              "reference": "I Timothy 1:8",
+              "text": ""
+            }
+          ]
+        },
+        "Mirror of Sin": {
+          "title": "Mirror of Sin",
+          "description": "The law functions as a perfect mirror, reflecting with unbearable clarity the pollution and perversity of the human heart. It reveals not merely outward transgressions but the inward corruption from which all sin proceeds. Before this mirror, no one can maintain pretensions of goodness; every mouth is stopped and all the world stands guilty before God. This revelation of sin is necessary medicine, for those who are whole have no need of a physician.",
+          "verses": [
+            {
+              "reference": "Romans 7:13",
+              "text": "Was then that which is good made death unto me? God forbid. But sin, that it might appear sin, working death in me by that which is good; that sin by the commandment might become exceeding sinful."
+            },
+            {
+              "reference": "Romans 3:20",
+              "text": "Therefore by the deeds of the law there shall no flesh be justified in his sight: for by the law is the knowledge of sin."
+            },
+            {
+              "reference": "James 1:23-25",
+              "text": "For if any be a hearer of the word, and not a doer, he is like unto a man beholding his natural face in a glass: For he beholdeth himself, and goeth his way, and straightway forgetteth what manner of man he was. But whoso looketh into the perfect law of liberty, and continueth therein, he being not a forgetful hearer, but a doer of the work, this man shall be blessed in his deed."
+            },
+            {
+              "reference": "I John 3:4",
+              "text": ""
+            },
+            {
+              "reference": "Psalms 19:12",
+              "text": "Who can understand his errors? cleanse thou me from secret faults."
+            },
+            {
+              "reference": "Romans 7:9",
+              "text": "For I was alive without the law once: but when the commandment came, sin revived, and I died."
+            }
+          ]
+        },
+        "Driving to Christ": {
+          "title": "Driving to Christ",
+          "description": "The law's condemnation propels the awakened sinner toward Christ as the only refuge from impending wrath. It wounds in order to heal, kills that it might make alive, and casts down that grace might raise up. This is the law's kindest work—not to mock our misery but to end our complacency, not to destroy hope but to redirect it from self to Savior. Those thus driven to Christ discover that what the law demanded, grace supplies; what the law condemned, Christ endured.",
+          "verses": [
+            {
+              "reference": "Galatians 3:24",
+              "text": "Wherefore the law was our schoolmaster to bring us unto Christ, that we might be justified by faith."
+            },
+            {
+              "reference": "Romans 10:4",
+              "text": "For Christ is the end of the law for righteousness to every one that believeth."
+            },
+            {
+              "reference": "Matthew 5:3-6",
+              "text": "Blessed are the poor in spirit: for their's is the kingdom of heaven. Blessed are they that mourn: for they shall be comforted. Blessed are the meek: for they shall inherit the earth. Blessed are they which do hunger and thirst after righteousness: for they shall be filled."
+            },
+            {
+              "reference": "Luke 5:31-32",
+              "text": "And Jesus answering said unto them, They that are whole need not a physician; but they that are sick. I came not to call the righteous, but sinners to repentance."
+            },
+            {
+              "reference": "John 6:44",
+              "text": "No man can come to me, except the Father which hath sent me draw him: and I will raise him up at the last day."
+            },
+            {
+              "reference": "Acts 2:37-38",
+              "text": "Now when they heard this, they were pricked in their heart, and said unto Peter and to the rest of the apostles, Men and brethren, what shall we do? Then Peter said unto them, Repent, and be baptized every one of you in the name of Jesus Christ for the remission of sins, and ye shall receive the gift of the Holy Ghost."
+            }
+          ]
+        },
+        "Conviction and Despair": {
+          "title": "Conviction and Despair",
+          "description": "The Spirit employs the law to produce conviction of sin and despair of self-salvation, essential prerequisites to genuine conversion. This legal despair is not the end but the necessary beginning, not punishment but preparation. The law must slay all hope in human righteousness before the gospel can raise hope in divine mercy. This is severe mercy—the crushing that precedes healing, the emptying that makes room for filling, the death that issues in resurrection.",
+          "verses": [
+            {
+              "reference": "Romans 7:24",
+              "text": "O wretched man that I am! who shall deliver me from the body of this death?"
+            },
+            {
+              "reference": "Romans 7:9",
+              "text": "For I was alive without the law once: but when the commandment came, sin revived, and I died."
+            },
+            {
+              "reference": "Acts 2:37",
+              "text": "Now when they heard this, they were pricked in their heart, and said unto Peter and to the rest of the apostles, Men and brethren, what shall we do?"
+            },
+            {
+              "reference": "John 16:8",
+              "text": "And when he is come, he will reprove the world of sin, and of righteousness, and of judgment:"
+            },
+            {
+              "reference": "Psalms 51:3-4",
+              "text": "For I acknowledge my transgressions: and my sin is ever before me. Against thee, thee only, have I sinned, and done this evil in thy sight: that thou mightest be justified when thou speakest, and be clear when thou judgest."
+            },
+            {
+              "reference": "Luke 18:13",
+              "text": "And the publican, standing afar off, would not lift up so much as his eyes unto heaven, but smote upon his breast, saying, God be merciful to me a sinner."
+            }
+          ]
+        }
+      },
+      "Third Use of the Law": {
+        "Guide for Believers": {
+          "title": "Guide for Believers",
+          "description": "For the regenerate, the law serves as a trustworthy guide for holy living, directing the believer into paths of righteousness and conformity to the divine will. No longer a covenant of works demanding perfect obedience for justification, the law becomes a rule of gratitude showing how those already accepted in Christ ought to walk. The believer looks to the law not for salvation but for sanctification, not to be justified but to be instructed in righteousness.",
+          "verses": [
+            {
+              "reference": "Psalms 119:105",
+              "text": "Thy word is a lamp unto my feet, and a light unto my path."
+            },
+            {
+              "reference": "Psalms 19:7-8",
+              "text": "The law of the LORD is perfect, converting the soul: the testimony of the LORD is sure, making wise the simple. The statutes of the LORD are right, rejoicing the heart: the commandment of the LORD is pure, enlightening the eyes."
+            },
+            {
+              "reference": "II Timothy 3:16-17",
+              "text": ""
+            },
+            {
+              "reference": "Psalms 119:9-11",
+              "text": "Wherewithal shall a young man cleanse his way? by taking heed thereto according to thy word. With my whole heart have I sought thee: O let me not wander from thy commandments. Thy word have I hid in mine heart, that I might not sin against thee."
+            },
+            {
+              "reference": "Romans 7:22",
+              "text": "For I delight in the law of God after the inward man:"
+            },
+            {
+              "reference": "Psalms 119:35",
+              "text": "Make me to go in the path of thy commandments; for therein do I delight."
+            }
+          ]
+        },
+        "Rule of Gratitude": {
+          "title": "Rule of Gratitude",
+          "description": "Believers obey the law not from servile fear of condemnation but from filial gratitude for redemption. This evangelical obedience springs from love rather than compulsion, from thankfulness rather than terror. The law's requirements remain unchanged, but the believer's relationship to those requirements has been radically transformed. What was once an impossible burden becomes a delightful path, not because the law has altered but because the heart has been renewed.",
+          "verses": [
+            {
+              "reference": "I John 5:3",
+              "text": ""
+            },
+            {
+              "reference": "Romans 7:22",
+              "text": "For I delight in the law of God after the inward man:"
+            },
+            {
+              "reference": "Psalms 119:47-48",
+              "text": "And I will delight myself in thy commandments, which I have loved. My hands also will I lift up unto thy commandments, which I have loved; and I will meditate in thy statutes."
+            },
+            {
+              "reference": "John 14:15",
+              "text": "If ye love me, keep my commandments."
+            },
+            {
+              "reference": "I John 4:19",
+              "text": ""
+            },
+            {
+              "reference": "II Corinthians 5:14-15",
+              "text": ""
+            }
+          ]
+        },
+        "Delight in God's Law": {
+          "title": "Delight in God's Law",
+          "description": "The regenerate soul finds true pleasure in God's law, delighting in commandments once despised and loving precepts once hated. This delight proceeds from the new nature implanted by the Spirit, which instinctively loves what God loves and desires what God desires. Such delight is both evidence of genuine conversion and means of progressive sanctification, for those who love God's law meditate upon it continually and seek to embody it completely.",
+          "verses": [
+            {
+              "reference": "Psalms 1:2",
+              "text": "But his delight is in the law of the LORD; and in his law doth he meditate day and night."
+            },
+            {
+              "reference": "Psalms 119:97",
+              "text": "O how love I thy law! it is my meditation all the day."
+            },
+            {
+              "reference": "Romans 7:22",
+              "text": "For I delight in the law of God after the inward man:"
+            },
+            {
+              "reference": "Psalms 119:16",
+              "text": "I will delight myself in thy statutes: I will not forget thy word."
+            },
+            {
+              "reference": "Psalms 119:72",
+              "text": "The law of thy mouth is better unto me than thousands of gold and silver."
+            },
+            {
+              "reference": "Jeremiah 31:33",
+              "text": "But this shall be the covenant that I will make with the house of Israel; After those days, saith the LORD, I will put my law in their inward parts, and write it in their hearts; and will be their God, and they shall be my people."
+            }
+          ]
+        },
+        "Sanctification": {
+          "title": "Sanctification",
+          "description": "The law guides believers in the lifelong process of sanctification, marking out the path of increasing conformity to Christ. While justification is instantaneous and complete, sanctification is gradual and progressive, requiring both divine enablement and human effort. The law shows believers what holiness looks like in practice, exposing remaining sin and pointing toward fuller obedience. Thus the law serves as an instrument of the Spirit in transforming justified sinners into the image of the glorified Son.",
+          "verses": [
+            {
+              "reference": "Psalms 119:9",
+              "text": "Wherewithal shall a young man cleanse his way? by taking heed thereto according to thy word."
+            },
+            {
+              "reference": "II Timothy 3:16-17",
+              "text": ""
+            },
+            {
+              "reference": "James 1:25",
+              "text": "But whoso looketh into the perfect law of liberty, and continueth therein, he being not a forgetful hearer, but a doer of the work, this man shall be blessed in his deed."
+            },
+            {
+              "reference": "Philippians 3:12-14",
+              "text": "Not as though I had already attained, either were already perfect: but I follow after, if that I may apprehend that for which also I am apprehended of Christ Jesus. Brethren, I count not myself to have apprehended: but this one thing I do, forgetting those things which are behind, and reaching forth unto those things which are before, I press toward the mark for the prize of the high calling of God in Christ Jesus."
+            },
+            {
+              "reference": "II Corinthians 3:18",
+              "text": ""
+            },
+            {
+              "reference": "I Thessalonians 4:3",
+              "text": ""
+            }
+          ]
+        }
+      },
+      "The Gospel Defined": {
+        "Good News Proclaimed": {
+          "title": "Good News Proclaimed",
+          "description": "The gospel constitutes genuinely good news—the announcement that God has accomplished redemption through Christ's substitutionary death and victorious resurrection. This message declares what God has done, not what man must do; it proclaims divine achievement rather than human assignment. The gospel is news precisely because it reports accomplished facts, historical realities that secure salvation for all who believe. This is tidings of great joy: Christ has satisfied justice, conquered death, and opened heaven to sinners.",
+          "verses": [
+            {
+              "reference": "I Corinthians 15:1-4",
+              "text": ""
+            },
+            {
+              "reference": "Luke 2:10-11",
+              "text": "And the angel said unto them, Fear not: for, behold, I bring you good tidings of great joy, which shall be to all people. For unto you is born this day in the city of David a Saviour, which is Christ the Lord."
+            },
+            {
+              "reference": "Romans 1:16",
+              "text": "For I am not ashamed of the gospel of Christ: for it is the power of God unto salvation to every one that believeth; to the Jew first, and also to the Greek."
+            },
+            {
+              "reference": "Mark 1:14-15",
+              "text": "Now after that John was put in prison, Jesus came into Galilee, preaching the gospel of the kingdom of God, And saying, The time is fulfilled, and the kingdom of God is at hand: repent ye, and believe the gospel."
+            },
+            {
+              "reference": "Acts 13:32-33",
+              "text": "And we declare unto you glad tidings, how that the promise which was made unto the fathers, God hath fulfilled the same unto us their children, in that he hath raised up Jesus again; as it is also written in the second psalm, Thou art my Son, this day have I begotten thee."
+            },
+            {
+              "reference": "II Timothy 1:10",
+              "text": ""
+            }
+          ]
+        },
+        "Promise Not Command": {
+          "title": "Promise Not Command",
+          "description": "Unlike the law which commands and requires, the gospel promises and bestows. It does not demand what man must render but announces what God has provided. The gospel's indicatives precede its imperatives; its gifts ground its claims. Where law says \"do this and live,\" gospel says \"it is finished.\" This distinction is fundamental: law prescribes duty, gospel proclaims mercy; law requires righteousness, gospel grants righteousness; law threatens the disobedient, gospel invites the unworthy.",
+          "verses": [
+            {
+              "reference": "Acts 13:38-39",
+              "text": "Be it known unto you therefore, men and brethren, that through this man is preached unto you the forgiveness of sins: And by him all that believe are justified from all things, from which ye could not be justified by the law of Moses."
+            },
+            {
+              "reference": "Romans 4:16",
+              "text": "Therefore it is of faith, that it might be by grace; to the end the promise might be sure to all the seed; not to that only which is of the law, but to that also which is of the faith of Abraham; who is the father of us all,"
+            },
+            {
+              "reference": "Galatians 3:18",
+              "text": "For if the inheritance be of the law, it is no more of promise: but God gave it to Abraham by promise."
+            },
+            {
+              "reference": "Ephesians 2:8-9",
+              "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."
+            },
+            {
+              "reference": "II Corinthians 1:20",
+              "text": ""
+            },
+            {
+              "reference": "Titus 3:5",
+              "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost;"
+            }
+          ]
+        },
+        "Christ Offered": {
+          "title": "Christ Offered",
+          "description": "The heart of the gospel is the free offer of Christ Himself to sinners. Not merely His benefits but His person, not only His gifts but Himself, becomes the possession of believers. This offer extends to all who hear the gospel, though only the elect will embrace it through Spirit-worked faith. Christ is presented as Prophet, Priest, and King—the complete and sufficient Savior who perfectly meets every need of guilty, helpless, hell-deserving sinners.",
+          "verses": [
+            {
+              "reference": "John 3:16",
+              "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+            },
+            {
+              "reference": "Isaiah 55:1",
+              "text": "Ho, every one that thirsteth, come ye to the waters, and he that hath no money; come ye, buy, and eat; yea, come, buy wine and milk without money and without price."
+            },
+            {
+              "reference": "Revelation 22:17",
+              "text": "And the Spirit and the bride say, Come. And let him that heareth say, Come. And let him that is athirst come. And whosoever will, let him take the water of life freely."
+            },
+            {
+              "reference": "Matthew 11:28",
+              "text": "Come unto me, all ye that labour and are heavy laden, and I will give you rest."
+            },
+            {
+              "reference": "Acts 4:12",
+              "text": "Neither is there salvation in any other: for there is none other name under heaven given among men, whereby we must be saved."
+            },
+            {
+              "reference": "Romans 10:9-10",
+              "text": "That if thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved. For with the heart man believeth unto righteousness; and with the mouth confession is made unto salvation."
+            }
+          ]
+        },
+        "Free Grace": {
+          "title": "Free Grace",
+          "description": "The gospel reveals grace that is truly free—unmerited, unearned, and unconditional regarding human qualification. This grace flows from God's sovereign good pleasure rather than human worthiness, operates according to divine initiative rather than human cooperation, and persists despite human unfaithfulness. Free grace means that salvation costs sinners nothing because it cost Christ everything. Those who receive this grace discover that it is sovereign in its bestowal, efficacious in its operation, and unchanging in its character.",
+          "verses": [
+            {
+              "reference": "Romans 3:24",
+              "text": "Being justified freely by his grace through the redemption that is in Christ Jesus:"
+            },
+            {
+              "reference": "Ephesians 2:8-9",
+              "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."
+            },
+            {
+              "reference": "Romans 11:6",
+              "text": "And if by grace, then is it no more of works: otherwise grace is no more grace. But if it be of works, then is it no more grace: otherwise work is no more work."
+            },
+            {
+              "reference": "Titus 3:5",
+              "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost;"
+            },
+            {
+              "reference": "Romans 5:15",
+              "text": "But not as the offence, so also is the free gift. For if through the offence of one many be dead, much more the grace of God, and the gift by grace, which is by one man, Jesus Christ, hath abounded unto many."
+            },
+            {
+              "reference": "II Timothy 1:9",
+              "text": ""
+            }
+          ]
+        }
+      },
+      "Law and Gospel Distinguished": {
+        "Demands vs Gives": {
+          "title": "Demands vs Gives",
+          "description": "The law demands perfect obedience and threatens eternal punishment for failure; the gospel gives perfect righteousness and promises eternal life through faith. This fundamental distinction must be maintained: law requires, gospel provides; law extracts, gospel bestows; law drains, gospel fills. Confusing these categories produces either despair or presumption. The law shows what man owes God; the gospel shows what God gives man. Both are necessary, but they must not be conflated.",
+          "verses": [
+            {
+              "reference": "Romans 10:5",
+              "text": "For Moses describeth the righteousness which is of the law, That the man which doeth those things shall live by them."
+            },
+            {
+              "reference": "Romans 6:23",
+              "text": "For the wages of sin is death; but the gift of God is eternal life through Jesus Christ our Lord."
+            },
+            {
+              "reference": "Galatians 3:12",
+              "text": "And the law is not of faith: but, The man that doeth them shall live in them."
+            },
+            {
+              "reference": "Romans 5:17",
+              "text": "For if by one man's offence death reigned by one; much more they which receive abundance of grace and of the gift of righteousness shall reign in life by one, Jesus Christ.)"
+            },
+            {
+              "reference": "John 1:17",
+              "text": "For the law was given by Moses, but grace and truth came by Jesus Christ."
+            },
+            {
+              "reference": "Acts 15:10-11",
+              "text": "Now therefore why tempt ye God, to put a yoke upon the neck of the disciples, which neither our fathers nor we were able to bear? But we believe that through the grace of the Lord Jesus Christ we shall be saved, even as they."
+            }
+          ]
+        },
+        "Condemns vs Saves": {
+          "title": "Condemns vs Saves",
+          "description": "The law's ministry is condemnation, declaring all guilty and worthy of death; the gospel's ministry is salvation, declaring believers righteous and heirs of eternal life. The law cannot save because it demands what fallen man cannot provide; the gospel saves because it provides what condemned man desperately needs. The law kills, the gospel makes alive. The law curses, the gospel blesses. These ministries are not contradictory but complementary—the law prepares the way for the gospel by showing the need which the gospel alone can meet.",
+          "verses": [
+            {
+              "reference": "II Corinthians 3:6-9",
+              "text": ""
+            },
+            {
+              "reference": "Romans 8:1-3",
+              "text": "There is therefore now no condemnation to them which are in Christ Jesus, who walk not after the flesh, but after the Spirit. For the law of the Spirit of life in Christ Jesus hath made me free from the law of sin and death. For what the law could not do, in that it was weak through the flesh, God sending his own Son in the likeness of sinful flesh, and for sin, condemned sin in the flesh:"
+            },
+            {
+              "reference": "Galatians 3:10",
+              "text": "For as many as are of the works of the law are under the curse: for it is written, Cursed is every one that continueth not in all things which are written in the book of the law to do them."
+            },
+            {
+              "reference": "John 3:17",
+              "text": "For God sent not his Son into the world to condemn the world; but that the world through him might be saved."
+            },
+            {
+              "reference": "Romans 5:16",
+              "text": "And not as it was by one that sinned, so is the gift: for the judgment was by one to condemnation, but the free gift is of many offences unto justification."
+            },
+            {
+              "reference": "I Timothy 1:15",
+              "text": ""
+            }
+          ]
+        },
+        "Works vs Faith": {
+          "title": "Works vs Faith",
+          "description": "The law operates on the principle of works—do this and live; the gospel operates on the principle of faith—believe and be saved. These are mutually exclusive grounds of justification. If salvation is by works, then faith is unnecessary; if by faith, then works cannot contribute. The gospel announces that Christ has performed the works the law requires, and faith receives the benefits of His finished work. Thus faith and works are not competing contributions but sequential realities: faith in Christ's works, not trust in our own.",
+          "verses": [
+            {
+              "reference": "Romans 3:27-28",
+              "text": "Where is boasting then? It is excluded. By what law? of works? Nay: but by the law of faith. Therefore we conclude that a man is justified by faith without the deeds of the law."
+            },
+            {
+              "reference": "Galatians 2:16",
+              "text": "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ, even we have believed in Jesus Christ, that we might be justified by the faith of Christ, and not by the works of the law: for by the works of the law shall no flesh be justified."
+            },
+            {
+              "reference": "Romans 4:4-5",
+              "text": "Now to him that worketh is the reward not reckoned of grace, but of debt. But to him that worketh not, but believeth on him that justifieth the ungodly, his faith is counted for righteousness."
+            },
+            {
+              "reference": "Ephesians 2:8-9",
+              "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."
+            },
+            {
+              "reference": "Romans 11:6",
+              "text": "And if by grace, then is it no more of works: otherwise grace is no more grace. But if it be of works, then is it no more grace: otherwise work is no more work."
+            },
+            {
+              "reference": "Philippians 3:9",
+              "text": "And be found in him, not having mine own righteousness, which is of the law, but that which is through the faith of Christ, the righteousness which is of God by faith:"
+            }
+          ]
+        },
+        "Letter vs Spirit": {
+          "title": "Letter vs Spirit",
+          "description": "The letter of the law, written on stone, kills by exposing sin and pronouncing condemnation; the Spirit accompanying the gospel gives life by regenerating hearts and enabling obedience. The old covenant's letter demanded without empowering; the new covenant's Spirit enables what it commands. This is not a contrast between written and spiritual interpretation but between law without grace and law with grace, between command without enablement and command with power. The Spirit writes the law on hearts, accomplishing what the external letter never could.",
+          "verses": [
+            {
+              "reference": "II Corinthians 3:6",
+              "text": ""
+            },
+            {
+              "reference": "Romans 2:29",
+              "text": "But he is a Jew, which is one inwardly; and circumcision is that of the heart, in the spirit, and not in the letter; whose praise is not of men, but of God."
+            },
+            {
+              "reference": "Romans 7:6",
+              "text": "But now we are delivered from the law, that being dead wherein we were held; that we should serve in newness of spirit, and not in the oldness of the letter."
+            },
+            {
+              "reference": "Ezekiel 36:26-27",
+              "text": "A new heart also will I give you, and a new spirit will I put within you: and I will take away the stony heart out of your flesh, and I will give you an heart of flesh. And I will put my spirit within you, and cause you to walk in my statutes, and ye shall keep my judgments, and do them."
+            },
+            {
+              "reference": "Jeremiah 31:33",
+              "text": "But this shall be the covenant that I will make with the house of Israel; After those days, saith the LORD, I will put my law in their inward parts, and write it in their hearts; and will be their God, and they shall be my people."
+            },
+            {
+              "reference": "Romans 8:2",
+              "text": "For the law of the Spirit of life in Christ Jesus hath made me free from the law of sin and death."
+            }
+          ]
+        }
+      },
+      "Errors to Avoid": {
+        "Legalism Defined": {
+          "title": "Legalism Defined",
+          "description": "Legalism is the error of seeking justification or sanctification through law-keeping rather than through faith in Christ's finished work. It may add human traditions to divine commandments, or it may corrupt gospel grace by making salvation contingent upon human performance. Legalism kills by burdening consciences with requirements God never imposed or by suggesting that Christ's work requires human supplementation. It is the persistent temptation to trust in our obedience rather than Christ's, to build on works rather than grace.",
+          "verses": [
+            {
+              "reference": "Galatians 5:4",
+              "text": "Christ is become of no effect unto you, whosoever of you are justified by the law; ye are fallen from grace."
+            },
+            {
+              "reference": "Colossians 2:20-23",
+              "text": "Wherefore if ye be dead with Christ from the rudiments of the world, why, as though living in the world, are ye subject to ordinances, (Touch not; taste not; handle not; Which all are to perish with the using;) after the commandments and doctrines of men? Which things have indeed a shew of wisdom in will worship, and humility, and neglecting of the body; not in any honour to the satisfying of the flesh."
+            },
+            {
+              "reference": "Galatians 2:16",
+              "text": "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ, even we have believed in Jesus Christ, that we might be justified by the faith of Christ, and not by the works of the law: for by the works of the law shall no flesh be justified."
+            },
+            {
+              "reference": "Mark 7:6-9",
+              "text": "He answered and said unto them, Well hath Esaias prophesied of you hypocrites, as it is written, This people honoureth me with their lips, but their heart is far from me. Howbeit in vain do they worship me, teaching for doctrines the commandments of men. For laying aside the commandment of God, ye hold the tradition of men, as the washing of pots and cups: and many other such like things ye do. And he said unto them, Full well ye reject the commandment of God, that ye may keep your own tradition."
+            },
+            {
+              "reference": "Acts 15:10",
+              "text": "Now therefore why tempt ye God, to put a yoke upon the neck of the disciples, which neither our fathers nor we were able to bear?"
+            },
+            {
+              "reference": "Romans 10:3",
+              "text": "For they being ignorant of God's righteousness, and going about to establish their own righteousness, have not submitted themselves unto the righteousness of God."
+            }
+          ]
+        },
+        "Antinomianism Defined": {
+          "title": "Antinomianism Defined",
+          "description": "Antinomianism is the error of rejecting the law's ongoing authority over believers, denying its third use as a guide for Christian living. It may claim that grace nullifies moral obligation or that justification renders obedience unnecessary. This error fails to distinguish between the law as a covenant of works (from which believers are freed) and the law as a rule of life (to which believers are still bound). True gospel liberty is freedom from the law's curse, not license to violate the law's precepts.",
+          "verses": [
+            {
+              "reference": "Romans 6:1-2",
+              "text": "What shall we say then? Shall we continue in sin, that grace may abound? God forbid. How shall we, that are dead to sin, live any longer therein?"
+            },
+            {
+              "reference": "I John 3:4-6",
+              "text": ""
+            },
+            {
+              "reference": "Jude 1:4",
+              "text": "For there are certain men crept in unawares, who were before of old ordained to this condemnation, ungodly men, turning the grace of our God into lasciviousness, and denying the only Lord God, and our Lord Jesus Christ."
+            },
+            {
+              "reference": "Romans 3:31",
+              "text": "Do we then make void the law through faith? God forbid: yea, we establish the law."
+            },
+            {
+              "reference": "I Corinthians 9:21",
+              "text": ""
+            },
+            {
+              "reference": "Matthew 5:17-19",
+              "text": "Think not that I am come to destroy the law, or the prophets: I am not come to destroy, but to fulfil. For verily I say unto you, Till heaven and earth pass, one jot or one tittle shall in no wise pass from the law, till all be fulfilled. Whosoever therefore shall break one of these least commandments, and shall teach men so, he shall be called the least in the kingdom of heaven: but whosoever shall do and teach them, the same shall be called great in the kingdom of heaven."
+            }
+          ]
+        },
+        "Neonomianism": {
+          "title": "Neonomianism",
+          "description": "Neonomianism is the subtle error of presenting faith and repentance themselves as the new law, the new works that God requires for salvation. It transforms gospel grace into gospel requirement, making faith a condition we must fulfill rather than a gift we receive. This error maintains the vocabulary of grace while reintroducing the principle of works, suggesting that God accepts imperfect obedience (faith, repentance, etc.) in place of the perfect obedience He originally demanded. It thus obscures the sufficiency of Christ's righteousness and the freeness of grace.",
+          "verses": [
+            {
+              "reference": "Romans 4:4-5",
+              "text": "Now to him that worketh is the reward not reckoned of grace, but of debt. But to him that worketh not, but believeth on him that justifieth the ungodly, his faith is counted for righteousness."
+            },
+            {
+              "reference": "Ephesians 2:8",
+              "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God:"
+            },
+            {
+              "reference": "Romans 11:6",
+              "text": "And if by grace, then is it no more of works: otherwise grace is no more grace. But if it be of works, then is it no more grace: otherwise work is no more work."
+            },
+            {
+              "reference": "Philippians 1:29",
+              "text": "For unto you it is given in the behalf of Christ, not only to believe on him, but also to suffer for his sake;"
+            },
+            {
+              "reference": "Acts 18:27",
+              "text": "And when he was disposed to pass into Achaia, the brethren wrote, exhorting the disciples to receive him: who, when he was come, helped them much which had believed through grace:"
+            },
+            {
+              "reference": "II Timothy 2:25",
+              "text": ""
+            }
+          ]
+        },
+        "Moralism": {
+          "title": "Moralism",
+          "description": "Moralism reduces Christianity to ethical behavior, confusing moral improvement with spiritual transformation. It emphasizes external conformity to divine standards while neglecting the heart's renewal through union with Christ. Moralism can acknowledge total depravity yet deny the necessity of definitive sanctification, urging believers to \"try harder\" rather than pointing them to the resources available in Christ. It produces either proud Pharisees or despairing failures, for it knows the law's demands but not the gospel's provision.",
+          "verses": [
+            {
+              "reference": "Matthew 23:25-28",
+              "text": "Woe unto you, scribes and Pharisees, hypocrites! for ye make clean the outside of the cup and of the platter, but within they are full of extortion and excess. Thou blind Pharisee, cleanse first that which is within the cup and platter, that the outside of them may be clean also. Woe unto you, scribes and Pharisees, hypocrites! for ye are like unto whited sepulchres, which indeed appear beautiful outward, but are within full of dead men's bones, and of all uncleanness. Even so ye also outwardly appear righteous unto men, but within ye are full of hypocrisy and iniquity."
+            },
+            {
+              "reference": "Titus 3:5",
+              "text": "Not by works of righteousness which we have done, but according to his mercy he saved us, by the washing of regeneration, and renewing of the Holy Ghost;"
+            },
+            {
+              "reference": "Isaiah 64:6",
+              "text": "But we are all as an unclean thing, and all our righteousnesses are as filthy rags; and we all do fade as a leaf; and our iniquities, like the wind, have taken us away."
+            },
+            {
+              "reference": "Romans 8:3-4",
+              "text": "For what the law could not do, in that it was weak through the flesh, God sending his own Son in the likeness of sinful flesh, and for sin, condemned sin in the flesh: That the righteousness of the law might be fulfilled in us, who walk not after the flesh, but after the Spirit."
+            },
+            {
+              "reference": "Colossians 2:23",
+              "text": "Which things have indeed a shew of wisdom in will worship, and humility, and neglecting of the body; not in any honour to the satisfying of the flesh."
+            },
+            {
+              "reference": "I Corinthians 1:30",
+              "text": ""
+            }
+          ]
+        }
+      }
+    }
+  }
+}

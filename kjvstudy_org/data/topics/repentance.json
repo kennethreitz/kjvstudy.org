@@ -1,0 +1,71 @@
+{
+  "Repentance": {
+    "description": "Turning from sin to God with genuine sorrow and changed life",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Repentance marks</span> the beginning of the Christian life and characterizes its continuation. The Greek word <em>metanoia</em> signifies a change of mind that produces a change of direction—not merely feeling sorry for sin but actually turning from it to God. John the Baptist, Jesus, and the apostles all proclaimed repentance as essential to salvation. \"Except ye repent, ye shall all likewise perish\" (Luke 13:3).</p>\n\n<p class=\"intro-text\">True repentance involves several elements. First, <strong>recognition of sin</strong>—seeing transgression as God sees it, as rebellion against His holy law and character. Second, <strong>godly sorrow</strong>—genuine grief over having offended God, not merely regret over consequences. \"Godly sorrow worketh repentance to salvation not to be repented of\" (2 Corinthians 7:10). Third, <strong>confession</strong>—acknowledging sin specifically to God and, where appropriate, to others. Fourth, <strong>turning</strong>—actual change of behavior, forsaking the sin that grieves God.</p>\n\n<p class=\"intro-text\">Repentance is itself a gift from God, not something humans produce by their own will. \"Him hath God exalted with his right hand to be a Prince and a Saviour, for to give repentance to Israel\" (Acts 5:31). This understanding humbles us—even our repentance flows from grace. Yet this does not excuse delay, for God \"now commandeth all men every where to repent\" (Acts 17:30).</p>\n\n<p class=\"intro-text\">Repentance is not a one-time event but an ongoing posture. Believers continually turn from newly discovered sins, deepening in awareness of their need for Christ. The repentant life grows increasingly sensitive to sin while simultaneously more confident in grace. True repentance produces joy, not despair, because it leads to forgiveness and restoration.</p>",
+    "subtopics": {
+      "Call to Repentance": {
+        "description": "God's command to repent",
+        "verses": [
+          {
+            "ref": "Acts 17:30",
+            "note": "Commandeth all men everywhere to repent"
+          },
+          {
+            "ref": "Luke 13:3",
+            "note": "Except ye repent, ye shall perish"
+          },
+          {
+            "ref": "Matthew 4:17",
+            "note": "Repent: for the kingdom is at hand"
+          },
+          {
+            "ref": "Acts 2:38",
+            "note": "Repent, and be baptized"
+          }
+        ]
+      },
+      "True Repentance": {
+        "description": "The nature of genuine repentance",
+        "verses": [
+          {
+            "ref": "2 Corinthians 7:10",
+            "note": "Godly sorrow worketh repentance"
+          },
+          {
+            "ref": "Joel 2:13",
+            "note": "Rend your heart, not your garments"
+          },
+          {
+            "ref": "Isaiah 55:7",
+            "note": "Let the wicked forsake his way"
+          },
+          {
+            "ref": "Psalms 51:17",
+            "note": "Broken and contrite heart"
+          }
+        ]
+      },
+      "God's Response": {
+        "description": "Divine grace toward the repentant",
+        "verses": [
+          {
+            "ref": "1 John 1:9",
+            "note": "Faithful to forgive"
+          },
+          {
+            "ref": "Isaiah 1:18",
+            "note": "Though your sins be as scarlet"
+          },
+          {
+            "ref": "Luke 15:7",
+            "note": "Joy in heaven over one sinner"
+          },
+          {
+            "ref": "Acts 3:19",
+            "note": "Times of refreshing"
+          }
+        ]
+      }
+    }
+  }
+}

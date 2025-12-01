@@ -4,10 +4,32 @@ import json
 import re
 from pathlib import Path
 
-# Load resources from JSON data file
-_data_path = Path(__file__).parent / "resources.json"
-with open(_data_path, "r", encoding="utf-8") as f:
-    _data = json.load(f)
+
+def _load_resources() -> dict:
+    """Load resources from per-category JSON files, fallback to legacy single file."""
+    base_dir = Path(__file__).parent
+    resources_dir = base_dir / "resources"
+    legacy_path = base_dir / "resources.json"
+
+    aggregated = {}
+
+    if resources_dir.exists():
+        for path in sorted(resources_dir.glob("*.json")):
+            with open(path, "r", encoding="utf-8") as f:
+                content = json.load(f)
+                if isinstance(content, dict):
+                    aggregated.update(content)
+
+    elif legacy_path.exists():
+        with open(legacy_path, "r", encoding="utf-8") as f:
+            aggregated = json.load(f)
+
+    return aggregated
+
+
+_data = _load_resources()
+if not _data:
+    raise FileNotFoundError("Resource data not found. Ensure data/resources/*.json exists.")
 
 
 def _create_slug(text: str) -> str:

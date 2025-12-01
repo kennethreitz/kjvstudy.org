@@ -1,0 +1,71 @@
+{
+  "Marriage": {
+    "description": "The sacred covenant between husband and wife instituted by God",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Marriage stands</span> as God's first human institution, established in Eden before the fall. \"Therefore shall a man leave his father and his mother, and shall cleave unto his wife: and they shall be one flesh\" (Genesis 2:24). This foundational relationship pictures an even greater reality—Christ's love for His church (Ephesians 5:31-32). Marriage is thus both practically significant and profoundly symbolic.</p>\n\n<p class=\"intro-text\">Scripture defines marriage as a <strong>covenant</strong> between one man and one woman for life. Jesus affirmed this creation pattern: \"From the beginning of the creation God made them male and female\" (Mark 10:6). This exclusive, permanent union reflects God's faithful love and provides the context for sexual intimacy, procreation, and companionship. \"Marriage is honourable in all\" (Hebrews 13:4).</p>\n\n<p class=\"intro-text\">God assigns complementary roles within marriage. Husbands are called to love their wives sacrificially, as Christ loved the church—leading with gentleness, providing protection, and caring for her needs (Ephesians 5:25-28). Wives are called to respect and submit to their husbands, supporting their leadership and helping them fulfill their calling (Ephesians 5:22-24, 33). These roles do not imply inequality but reflect God's beautiful design for unity in diversity.</p>\n\n<p class=\"intro-text\">Christian marriage requires continual cultivation: communication, forgiveness, prayer, service, and renewed commitment. Divorce, while permitted in certain circumstances, was never God's intent—\"What therefore God hath joined together, let not man put asunder\" (Matthew 19:6). A godly marriage glorifies God, blesses the couple, provides stability for children, and witnesses to the world of gospel realities.</p>",
+    "subtopics": {
+      "God's Design": {
+        "description": "Marriage as God intended",
+        "verses": [
+          {
+            "ref": "Genesis 2:24",
+            "note": "Leave and cleave, one flesh"
+          },
+          {
+            "ref": "Matthew 19:4-6",
+            "note": "What God hath joined together"
+          },
+          {
+            "ref": "Hebrews 13:4",
+            "note": "Marriage is honourable"
+          },
+          {
+            "ref": "Proverbs 18:22",
+            "note": "Findeth a wife findeth a good thing"
+          }
+        ]
+      },
+      "Husbands and Wives": {
+        "description": "Roles in marriage",
+        "verses": [
+          {
+            "ref": "Ephesians 5:25",
+            "note": "Husbands, love your wives"
+          },
+          {
+            "ref": "Ephesians 5:22",
+            "note": "Wives, submit unto your husbands"
+          },
+          {
+            "ref": "Colossians 3:19",
+            "note": "Love your wives, be not bitter"
+          },
+          {
+            "ref": "1 Peter 3:7",
+            "note": "Dwell with them according to knowledge"
+          }
+        ]
+      },
+      "Christ and the Church": {
+        "description": "Marriage as gospel picture",
+        "verses": [
+          {
+            "ref": "Ephesians 5:31-32",
+            "note": "A great mystery: Christ and church"
+          },
+          {
+            "ref": "Revelation 19:7",
+            "note": "Marriage of the Lamb"
+          },
+          {
+            "ref": "2 Corinthians 11:2",
+            "note": "Espoused to one husband"
+          },
+          {
+            "ref": "Isaiah 54:5",
+            "note": "Thy Maker is thine husband"
+          }
+        ]
+      }
+    }
+  }
+}

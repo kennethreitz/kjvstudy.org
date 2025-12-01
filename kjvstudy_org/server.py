@@ -1004,89 +1004,64 @@ def format_numbered_lists(text):
     """Convert (1), (2), etc. patterns into HTML ordered lists"""
     import re
 
-    # Pattern to find all numbered items like (1), (2), etc.
-    item_pattern = r'\((\d+)\)\s*'
+    def _convert(pattern: str, payload: str) -> str:
+        markers = list(re.finditer(pattern, payload))
+        if len(markers) < 2:
+            return payload
 
-    # Find all numbered markers
-    markers = list(re.finditer(item_pattern, text))
+        numbers = [int(m.group(1)) for m in markers]
+        if numbers[0] != 1:
+            return payload
 
-    if len(markers) < 2:
-        return text
-
-    # Check if markers are sequential starting from 1
-    numbers = [int(m.group(1)) for m in markers]
-    if numbers[0] != 1:
-        return text
-
-    # Find the longest sequential run starting from 1
-    seq_length = 1
-    for i in range(1, len(numbers)):
-        if numbers[i] == seq_length + 1:
-            seq_length += 1
-        else:
-            break
-
-    if seq_length < 2:
-        return text
-
-    # Use only the sequential markers
-    markers = markers[:seq_length]
-
-    # Extract content for each item
-    list_items = []
-    for i, marker in enumerate(markers):
-        start = marker.end()  # After the (N) marker
-
-        if i + 1 < len(markers):
-            # Content ends where next marker begins
-            end = markers[i + 1].start()
-        else:
-            # Last item - find where it ends (next sentence or end of reasonable content)
-            # Look for a period followed by a capital letter (new sentence) or end of text
-            remaining = text[start:]
-            # Find the end of this list item - look for period followed by space and capital
-            # or semicolon, but capture meaningful content
-            end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining)
-            if end_match:
-                end = start + end_match.start() + 1  # Include the period
+        seq_length = 1
+        for i in range(1, len(numbers)):
+            if numbers[i] == seq_length + 1:
+                seq_length += 1
             else:
-                end = len(text)
+                break
 
-        item_text = text[start:end].strip()
-        # Clean up trailing punctuation
-        item_text = item_text.rstrip(';,.')
-        # Clean up trailing "and"
-        if item_text.endswith(' and'):
-            item_text = item_text[:-4]
+        if seq_length < 2:
+            return payload
 
-        list_items.append(f'<li>{item_text}</li>')
+        markers = markers[:seq_length]
+        list_items = []
+        for i, marker in enumerate(markers):
+            start = marker.end()
 
-    # Build the HTML list
-    html_list = '<ol>' + ''.join(list_items) + '</ol>'
+            if i + 1 < len(markers):
+                end = markers[i + 1].start()
+            else:
+                remaining = payload[start:]
+                end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining)
+                end = start + end_match.start() + 1 if end_match else len(payload)
 
-    # Find where to insert the list
-    list_start = markers[0].start()
+            item_text = payload[start:end].strip().rstrip(';,')
+            if item_text.endswith(' and'):
+                item_text = item_text[:-4]
+            list_items.append(f'<li>{item_text}</li>')
 
-    # Find where the list content ends
-    last_marker = markers[-1]
-    last_item_start = last_marker.end()
-    remaining_after_last = text[last_item_start:]
+        html_list = '<ol>' + ''.join(list_items) + '</ol>'
+        list_start = markers[0].start()
+        last_marker = markers[-1]
+        last_item_start = last_marker.end()
+        remaining_after_last = payload[last_item_start:]
+        end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining_after_last)
+        list_end = last_item_start + end_match.start() + 1 if end_match else len(payload)
 
-    # Find end of last item
-    end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining_after_last)
-    if end_match:
-        list_end = last_item_start + end_match.start() + 1
-    else:
-        list_end = len(text)
+        after_list = payload[list_end:].strip()
+        if after_list:
+            return payload[:list_start] + html_list + '</p><p>' + after_list
+        return payload[:list_start] + html_list
 
-    # Replace the numbered list portion with HTML
-    after_list = text[list_end:].strip()
-    if after_list:
-        result = text[:list_start] + html_list + '</p><p>' + after_list
-    else:
-        result = text[:list_start] + html_list
+    # Try classic (1) pattern first to avoid false positives in verse refs
+    primary_pattern = r'\((\d+)\)\s*'
+    converted = _convert(primary_pattern, text)
+    if converted != text:
+        return converted
 
-    return result
+    # Fallback: bare "1)" patterns preceded by whitespace (not verse refs)
+    fallback_pattern = r'(?<=\s)(\d+)\)\s*'
+    return _convert(fallback_pattern, text)
 
 templates.env.filters['format_lists'] = format_numbered_lists
 

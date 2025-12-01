@@ -1,0 +1,863 @@
+{
+  "bibliology": {
+    "title": "Bibliology",
+    "subtitle": "The Doctrine of Scripture",
+    "introduction": "Bibliology examines the nature, origin, and authority of Holy Scripture. Scripture is the inspired, inerrant, and sufficient Word of God—the sole infallible rule of faith and practice. These studies explore the divine inspiration, preservation, and illumination of the sacred text.",
+    "categories": {
+      "Divine Inspiration": {
+        "Nature of Inspiration": {
+          "title": "Nature of Inspiration",
+          "description": "The Scriptures are not merely human documents containing divine truth, but are themselves the very Word of God breathed out by the Holy Spirit. This divine inspiration extends to the selection of every word, making the Bible uniquely authoritative and trustworthy. The sacred text originates from God Himself, who moved holy men to write His revelation without error.",
+          "verses": [
+            {
+              "reference": "2 Timothy 3:16",
+              "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:"
+            },
+            {
+              "reference": "2 Peter 1:21",
+              "text": "For the prophecy came not in old time by the will of man: but holy men of God spake as they were moved by the Holy Ghost."
+            },
+            {
+              "reference": "Hebrews 1:1",
+              "text": "God, who at sundry times and in divers manners spake in time past unto the fathers by the prophets,"
+            },
+            {
+              "reference": "1 Thessalonians 2:13",
+              "text": "For this cause also thank we God without ceasing, because, when ye received the word of God which ye heard of us, ye received it not as the word of men, but as it is in truth, the word of God, which effectually worketh also in you that believe."
+            },
+            {
+              "reference": "Jeremiah 1:9",
+              "text": "Then the LORD put forth his hand, and touched my mouth. And the LORD said unto me, Behold, I have put my words in thy mouth."
+            },
+            {
+              "reference": "Exodus 4:12",
+              "text": "Now therefore go, and I will be with thy mouth, and teach thee what thou shalt say."
+            }
+          ]
+        },
+        "Verbal Plenary Inspiration": {
+          "title": "Verbal Plenary Inspiration",
+          "description": "Historic Christian orthodoxy confesses that inspiration extends to the very words of Scripture, not merely the concepts or general message. This verbal and plenary (full, complete) inspiration means that every word in the original autographs was superintended by the Holy Spirit, ensuring complete accuracy and authority. The distinction between word and thought dissolves when we recognize that precise words carry precise meanings ordained by God.",
+          "verses": [
+            {
+              "reference": "1 Corinthians 2:13",
+              "text": "Which things also we speak, not in the words which man's wisdom teacheth, but which the Holy Ghost teacheth; comparing spiritual things with spiritual."
+            },
+            {
+              "reference": "Matthew 4:4",
+              "text": "But he answered and said, It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God."
+            },
+            {
+              "reference": "Matthew 5:18",
+              "text": "For verily I say unto you, Till heaven and earth pass, one jot or one tittle shall in no wise pass from the law, till all be fulfilled."
+            },
+            {
+              "reference": "Proverbs 30:5-6",
+              "text": "Every word of God is pure: he is a shield unto them that put their trust in him. Add thou not unto his words, lest he reprove thee, and thou be found a liar."
+            },
+            {
+              "reference": "Galatians 3:16",
+              "text": "Now to Abraham and his seed were the promises made. He saith not, And to seeds, as of many; but as of one, And to thy seed, which is Christ."
+            },
+            {
+              "reference": "Psalm 12:6",
+              "text": "The words of the LORD are pure words: as silver tried in a furnace of earth, purified seven times."
+            }
+          ]
+        },
+        "Organic Inspiration": {
+          "title": "Organic Inspiration",
+          "description": "The Holy Spirit employed the distinct personalities, vocabularies, and historical contexts of the human authors as instruments of divine revelation. This organic process preserved the humanity of Scripture while ensuring its divinity, demonstrating that God works through means rather than obliterating human agency. The result is Scripture that is simultaneously fully divine and authentically human in its literary expression.",
+          "verses": [
+            {
+              "reference": "2 Samuel 23:2",
+              "text": "The Spirit of the LORD spake by me, and his word was in my tongue."
+            },
+            {
+              "reference": "Acts 1:16",
+              "text": "Men and brethren, this scripture must needs have been fulfilled, which the Holy Ghost by the mouth of David spake before concerning Judas, which was guide to them that took Jesus."
+            },
+            {
+              "reference": "Luke 1:1-3",
+              "text": "Forasmuch as many have taken in hand to set forth in order a declaration of those things which are most surely believed among us, Even as they delivered them unto us, which from the beginning were eyewitnesses, and ministers of the word; It seemed good to me also, having had perfect understanding of all things from the very first, to write unto thee in order, most excellent Theophilus,"
+            },
+            {
+              "reference": "1 Peter 1:10-11",
+              "text": "Of which salvation the prophets have enquired and searched diligently, who prophesied of the grace that should come unto you: Searching what, or what manner of time the Spirit of Christ which was in them did signify, when it testified beforehand the sufferings of Christ, and the glory that should follow."
+            },
+            {
+              "reference": "Romans 9:1",
+              "text": "I say the truth in Christ, I lie not, my conscience also bearing me witness in the Holy Ghost,"
+            },
+            {
+              "reference": "Jeremiah 36:2",
+              "text": "Take thee a roll of a book, and write therein all the words that I have spoken unto thee against Israel, and against Judah, and against all the nations, from the day I spake unto thee, from the days of Josiah, even unto this day."
+            }
+          ]
+        },
+        "Theopneustos": {
+          "title": "Theopneustos (God-Breathed)",
+          "description": "The Greek term theopneustos reveals that Scripture is exhaled from the mouth of God, emphasizing its divine origin and character. This breathing out of God makes Scripture living and active, carrying the very authority of the divine voice. The written Word proceeds from God with the same power and truthfulness as His spoken creative commands.",
+          "verses": [
+            {
+              "reference": "2 Timothy 3:16",
+              "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:"
+            },
+            {
+              "reference": "Psalm 33:6",
+              "text": "By the word of the LORD were the heavens made; and all the host of them by the breath of his mouth."
+            },
+            {
+              "reference": "Job 33:4",
+              "text": "The Spirit of God hath made me, and the breath of the Almighty hath given me life."
+            },
+            {
+              "reference": "Genesis 2:7",
+              "text": "And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul."
+            },
+            {
+              "reference": "John 20:22",
+              "text": "And when he had said this, he breathed on them, and saith unto them, Receive ye the Holy Ghost:"
+            },
+            {
+              "reference": "Hebrews 4:12",
+              "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."
+            }
+          ]
+        }
+      },
+      "Inerrancy and Infallibility": {
+        "Biblical Inerrancy": {
+          "title": "Biblical Inerrancy",
+          "description": "The Scripture, in its original manuscripts, is absolutely without error in all that it affirms, whether in matters of doctrine, history, science, or geography. This inerrancy flows necessarily from God's character as the God of truth who cannot lie or err. To affirm less than complete inerrancy impugns the veracity of God Himself and undermines the foundation of Christian certainty.",
+          "verses": [
+            {
+              "reference": "Psalm 19:7",
+              "text": "The law of the LORD is perfect, converting the soul: the testimony of the LORD is sure, making wise the simple."
+            },
+            {
+              "reference": "Proverbs 30:5",
+              "text": "Every word of God is pure: he is a shield unto them that put their trust in him."
+            },
+            {
+              "reference": "John 17:17",
+              "text": "Sanctify them through thy truth: thy word is truth."
+            },
+            {
+              "reference": "Titus 1:2",
+              "text": "In hope of eternal life, which God, that cannot lie, promised before the world began;"
+            },
+            {
+              "reference": "Numbers 23:19",
+              "text": "God is not a man, that he should lie; neither the son of man, that he should repent: hath he said, and shall he not do it? or hath he spoken, and shall he not make it good?"
+            },
+            {
+              "reference": "Psalm 119:160",
+              "text": "Thy word is true from the beginning: and every one of thy righteous judgments endureth for ever."
+            }
+          ]
+        },
+        "Infallibility Distinguished": {
+          "title": "Infallibility Distinguished",
+          "description": "While inerrancy addresses the truthfulness of Scripture's assertions, infallibility emphasizes its unfailing power to accomplish God's purposes and guide believers to salvation. Scripture is incapable of leading astray or failing in its divinely appointed mission to reveal Christ and transform souls. This infallibility guarantees that Scripture serves as a completely reliable rule for faith and practice.",
+          "verses": [
+            {
+              "reference": "Isaiah 55:11",
+              "text": "So shall my word be that goeth forth out of my mouth: it shall not return unto me void, but it shall accomplish that which I please, and it shall prosper in the thing whereto I sent it."
+            },
+            {
+              "reference": "Psalm 19:7-8",
+              "text": "The law of the LORD is perfect, converting the soul: the testimony of the LORD is sure, making wise the simple. The statutes of the LORD are right, rejoicing the heart: the commandment of the LORD is pure, enlightening the eyes."
+            },
+            {
+              "reference": "2 Timothy 3:15",
+              "text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus."
+            },
+            {
+              "reference": "Romans 15:4",
+              "text": "For whatsoever things were written aforetime were written for our learning, that we through patience and comfort of the scriptures might have hope."
+            },
+            {
+              "reference": "1 Peter 1:23",
+              "text": "Being born again, not of corruptible seed, but of incorruptible, by the word of God, which liveth and abideth for ever."
+            },
+            {
+              "reference": "James 1:18",
+              "text": "Of his own will begat he us with the word of truth, that we should be a kind of firstfruits of his creatures."
+            }
+          ]
+        },
+        "Autographa": {
+          "title": "Autographa (Original Manuscripts)",
+          "description": "The doctrine of inerrancy applies strictly to the autographa, the original manuscripts as penned by the inspired authors. While these original texts no longer exist, God has providentially preserved His Word through the science of textual criticism with such fidelity that we possess His revelation substantially intact. The distinction between autographa and copies does not diminish our confidence in the Bible's reliability.",
+          "verses": [
+            {
+              "reference": "Revelation 22:18-19",
+              "text": "For I testify unto every man that heareth the words of the prophecy of this book, If any man shall add unto these things, God shall add unto him the plagues that are written in this book: And if any man shall take away from the words of the book of this prophecy, God shall take away his part out of the book of life, and out of the holy city, and from the things which are written in this book."
+            },
+            {
+              "reference": "Deuteronomy 4:2",
+              "text": "Ye shall not add unto the word which I command you, neither shall ye diminish ought from it, that ye may keep the commandments of the LORD your God which I command you."
+            },
+            {
+              "reference": "Proverbs 30:6",
+              "text": "Add thou not unto his words, lest he reprove thee, and thou be found a liar."
+            },
+            {
+              "reference": "Deuteronomy 31:24-26",
+              "text": "And it came to pass, when Moses had made an end of writing the words of this law in a book, until they were finished, That Moses commanded the Levites, which bare the ark of the covenant of the LORD, saying, Take this book of the law, and put it in the side of the ark of the covenant of the LORD your God, that it may be there for a witness against thee."
+            },
+            {
+              "reference": "Isaiah 30:8",
+              "text": "Now go, write it before them in a table, and note it in a book, that it may be for the time to come for ever and ever:"
+            },
+            {
+              "reference": "Habakkuk 2:2",
+              "text": "And the LORD answered me, and said, Write the vision, and make it plain upon tables, that he may run that readeth it."
+            }
+          ]
+        },
+        "Historical Reliability": {
+          "title": "Historical Reliability",
+          "description": "Scripture's historical narratives are not theological myths or pious legends, but accurate records of God's redemptive acts in space and time. The historical trustworthiness of the Bible undergirds the objective reality of salvation history, from creation through the resurrection. To compromise the Bible's historical accuracy is to attack the foundation of Christian faith, which rests on God's actual intervention in human history.",
+          "verses": [
+            {
+              "reference": "Luke 1:1-4",
+              "text": "Forasmuch as many have taken in hand to set forth in order a declaration of those things which are most surely believed among us, Even as they delivered them unto us, which from the beginning were eyewitnesses, and ministers of the word; It seemed good to me also, having had perfect understanding of all things from the very first, to write unto thee in order, most excellent Theophilus, That thou mightest know the certainty of those things, wherein thou hast been instructed."
+            },
+            {
+              "reference": "2 Peter 1:16",
+              "text": "For we have not followed cunningly devised fables, when we made known unto you the power and coming of our Lord Jesus Christ, but were eyewitnesses of his majesty."
+            },
+            {
+              "reference": "1 Corinthians 15:3-6",
+              "text": "For I delivered unto you first of all that which I also received, how that Christ died for our sins according to the scriptures; And that he was buried, and that he rose again the third day according to the scriptures: And that he was seen of Cephas, then of the twelve: After that, he was seen of above five hundred brethren at once; of whom the greater part remain unto this present, but some are fallen asleep."
+            },
+            {
+              "reference": "Acts 26:25-26",
+              "text": "But he said, I am not mad, most noble Festus; but speak forth the words of truth and soberness. For the king knoweth of these things, before whom also I speak freely: for I am persuaded that none of these things are hidden from him; for this thing was not done in a corner."
+            },
+            {
+              "reference": "John 19:35",
+              "text": "And he that saw it bare record, and his record is true: and he knoweth that he saith true, that ye might believe."
+            },
+            {
+              "reference": "1 John 1:1",
+              "text": "That which was from the beginning, which we have heard, which we have seen with our eyes, which we have looked upon, and our hands have handled, of the Word of life;"
+            }
+          ]
+        }
+      },
+      "Authority of Scripture": {
+        "Supreme Authority": {
+          "title": "Supreme Authority",
+          "description": "Scripture alone possesses supreme and final authority in all matters of faith and practice, standing as the norming norm (norma normans) that judges all other authorities. No church council, papal decree, or human tradition can claim equal or superior authority to the Word of God. The Scripture's authority derives from God Himself, making submission to Scripture submission to the voice of the Almighty.",
+          "verses": [
+            {
+              "reference": "Isaiah 8:20",
+              "text": "To the law and to the testimony: if they speak not according to this word, it is because there is no light in them."
+            },
+            {
+              "reference": "Matthew 15:3-6",
+              "text": "But he answered and said unto them, Why do ye also transgress the commandment of God by your tradition? For God commanded, saying, Honour thy father and mother: and, He that curseth father or mother, let him die the death. But ye say, Whosoever shall say to his father or his mother, It is a gift, by whatsoever thou mightest be profited by me; And honour not his father or his mother, he shall be free. Thus have ye made the commandment of God of none effect by your tradition."
+            },
+            {
+              "reference": "Acts 17:11",
+              "text": "These were more noble than those in Thessalonica, in that they received the word with all readiness of mind, and searched the scriptures daily, whether those things were so."
+            },
+            {
+              "reference": "2 Timothy 3:16-17",
+              "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: That the man of God may be perfect, throughly furnished unto all good works."
+            },
+            {
+              "reference": "Galatians 1:8-9",
+              "text": "But though we, or an angel from heaven, preach any other gospel unto you than that which we have preached unto you, let him be accursed. As we said before, so say I now again, If any man preach any other gospel unto you than that ye have received, let him be accursed."
+            },
+            {
+              "reference": "1 Thessalonians 2:13",
+              "text": "For this cause also thank we God without ceasing, because, when ye received the word of God which ye heard of us, ye received it not as the word of men, but as it is in truth, the word of God, which effectually worketh also in you that believe."
+            }
+          ]
+        },
+        "Self-Authentication": {
+          "title": "Self-Authentication (Autopistia)",
+          "description": "Scripture authenticates itself through its inherent divine qualities and does not depend upon the testimony of the church or human reason for its authority. The Bible carries its own credentials of divinity—its majesty, purity, efficacy, and comprehensive scope all testify to its divine origin. The church recognizes but does not confer canonical authority; it submits to the self-evident voice of God in Scripture.",
+          "verses": [
+            {
+              "reference": "1 John 5:9",
+              "text": "If we receive the witness of men, the witness of God is greater: for this is the witness of God which he hath testified of his Son."
+            },
+            {
+              "reference": "John 5:39",
+              "text": "Search the scriptures; for in them ye think ye have eternal life: and they are they which testify of me."
+            },
+            {
+              "reference": "Psalm 119:105",
+              "text": "Thy word is a lamp unto my feet, and a light unto my path."
+            },
+            {
+              "reference": "Psalm 19:7-11",
+              "text": "The law of the LORD is perfect, converting the soul: the testimony of the LORD is sure, making wise the simple. The statutes of the LORD are right, rejoicing the heart: the commandment of the LORD is pure, enlightening the eyes. The fear of the LORD is clean, enduring for ever: the judgments of the LORD are true and righteous altogether. More to be desired are they than gold, yea, than much fine gold: sweeter also than honey and the honeycomb. Moreover by them is thy servant warned: and in keeping of them there is great reward."
+            },
+            {
+              "reference": "Hebrews 4:12",
+              "text": "For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart."
+            },
+            {
+              "reference": "1 Corinthians 2:4-5",
+              "text": "And my speech and my preaching was not with enticing words of man's wisdom, but in demonstration of the Spirit and of power: That your faith should not stand in the wisdom of men, but in the power of God."
+            }
+          ]
+        },
+        "Scripture and Tradition": {
+          "title": "Scripture and Tradition",
+          "description": "Against Rome's dual-source theory, Scripture alone is the inspired and infallible source of divine revelation. Tradition serves as a ministerial authority that can inform interpretation but never as a magisterial authority equal to Scripture. Human traditions must be tested by the touchstone of Scripture and rejected when they contradict or supplement the written Word.",
+          "verses": [
+            {
+              "reference": "Mark 7:7-9",
+              "text": "Howbeit in vain do they worship me, teaching for doctrines the commandments of men. For laying aside the commandment of God, ye hold the tradition of men, as the washing of pots and cups: and many other such like things ye do. And he said unto them, Full well ye reject the commandment of God, that ye may keep your own tradition."
+            },
+            {
+              "reference": "Colossians 2:8",
+              "text": "Beware lest any man spoil you through philosophy and vain deceit, after the tradition of men, after the rudiments of the world, and not after Christ."
+            },
+            {
+              "reference": "Matthew 15:9",
+              "text": "But in vain they do worship me, teaching for doctrines the commandments of men."
+            },
+            {
+              "reference": "Isaiah 29:13",
+              "text": "Wherefore the Lord said, Forasmuch as this people draw near me with their mouth, and with their lips do honour me, but have removed their heart far from me, and their fear toward me is taught by the precept of men:"
+            },
+            {
+              "reference": "2 Thessalonians 2:15",
+              "text": "Therefore, brethren, stand fast, and hold the traditions which ye have been taught, whether by word, or our epistle."
+            },
+            {
+              "reference": "Deuteronomy 12:32",
+              "text": "What thing soever I command you, observe to do it: thou shalt not add thereto, nor diminish from it."
+            }
+          ]
+        },
+        "Private Judgment": {
+          "title": "Private Judgment",
+          "description": "Every believer has the right and duty to search the Scriptures and judge all teaching by the Word of God under the illumination of the Holy Spirit. This Protestant principle does not promote individualism or autonomy but recognizes the priesthood of all believers and the Spirit's work in the covenant community. Private judgment is exercised responsibly within the communion of saints, not in isolation from the church's collective wisdom.",
+          "verses": [
+            {
+              "reference": "Acts 17:11",
+              "text": "These were more noble than those in Thessalonica, in that they received the word with all readiness of mind, and searched the scriptures daily, whether those things were so."
+            },
+            {
+              "reference": "1 John 2:27",
+              "text": "But the anointing which ye have received of him abideth in you, and ye need not that any man teach you: but as the same anointing teacheth you of all things, and is truth, and is no lie, and even as it hath taught you, ye shall abide in him."
+            },
+            {
+              "reference": "1 Thessalonians 5:21",
+              "text": "Prove all things; hold fast that which is good."
+            },
+            {
+              "reference": "John 5:39",
+              "text": "Search the scriptures; for in them ye think ye have eternal life: and they are they which testify of me."
+            },
+            {
+              "reference": "2 Corinthians 13:5",
+              "text": "Examine yourselves, whether ye be in the faith; prove your own selves. Know ye not your own selves, how that Jesus Christ is in you, except ye be reprobates?"
+            },
+            {
+              "reference": "1 John 4:1",
+              "text": "Beloved, believe not every spirit, but try the spirits whether they are of God: because many false prophets are gone out into the world."
+            }
+          ]
+        }
+      },
+      "Sufficiency of Scripture": {
+        "Material Sufficiency": {
+          "title": "Material Sufficiency",
+          "description": "Scripture contains all truths necessary for salvation and godliness, requiring no supplementary revelation or tradition. The Bible materially suffices to make the man of God complete and thoroughly furnished unto every good work. What God has not revealed in Scripture is not necessary for our spiritual welfare and eternal destiny.",
+          "verses": [
+            {
+              "reference": "2 Timothy 3:16-17",
+              "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness: That the man of God may be perfect, throughly furnished unto all good works."
+            },
+            {
+              "reference": "2 Peter 1:3",
+              "text": "According as his divine power hath given unto us all things that pertain unto life and godliness, through the knowledge of him that hath called us to glory and virtue:"
+            },
+            {
+              "reference": "Psalm 19:7",
+              "text": "The law of the LORD is perfect, converting the soul: the testimony of the LORD is sure, making wise the simple."
+            },
+            {
+              "reference": "Deuteronomy 29:29",
+              "text": "The secret things belong unto the LORD our God: but those things which are revealed belong unto us and to our children for ever, that we may do all the words of this law."
+            },
+            {
+              "reference": "John 20:31",
+              "text": "But these are written, that ye might believe that Jesus is the Christ, the Son of God; and that believing ye might have life through his name."
+            },
+            {
+              "reference": "Romans 15:4",
+              "text": "For whatsoever things were written aforetime were written for our learning, that we through patience and comfort of the scriptures might have hope."
+            }
+          ]
+        },
+        "Formal Sufficiency": {
+          "title": "Formal Sufficiency",
+          "description": "Not only is Scripture's content sufficient, but its form and manner of presentation make divine truth accessible to ordinary believers without requiring an infallible magisterium. The Scripture's formal sufficiency means that the Holy Spirit, not ecclesiastical authority, enables the faithful to understand God's Word. This doctrine liberates the Christian from bondage to human interpretive authorities while maintaining reverence for godly teachers.",
+          "verses": [
+            {
+              "reference": "Psalm 119:130",
+              "text": "The entrance of thy words giveth light; it giveth understanding unto the simple."
+            },
+            {
+              "reference": "2 Timothy 3:15",
+              "text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus."
+            },
+            {
+              "reference": "Colossians 4:16",
+              "text": "And when this epistle is read among you, cause that it be read also in the church of the Laodiceans; and that ye likewise read the epistle from Laodicea."
+            },
+            {
+              "reference": "1 Thessalonians 5:27",
+              "text": "I charge you by the Lord that this epistle be read unto all the holy brethren."
+            },
+            {
+              "reference": "Revelation 1:3",
+              "text": "Blessed is he that readeth, and they that hear the words of this prophecy, and keep those things which are written therein: for the time is at hand."
+            },
+            {
+              "reference": "Deuteronomy 6:6-7",
+              "text": "And these words, which I command thee this day, shall be in thine heart: And thou shalt teach them diligently unto thy children, and shalt talk of them when thou sittest in thine house, and when thou walkest by the way, and when thou liest down, and when thou risest up."
+            }
+          ]
+        },
+        "Sola Scriptura": {
+          "title": "Sola Scriptura",
+          "description": "Scripture alone is the sole infallible rule of faith for the church, the final court of appeal in all theological controversies. This Reformation principle does not deny the value of tradition, reason, or experience, but subordinates all to the supreme authority of God's Word. Sola Scriptura demands that every doctrine be established by the clear teaching of Scripture, not by human speculation or ecclesiastical innovation.",
+          "verses": [
+            {
+              "reference": "Isaiah 8:20",
+              "text": "To the law and to the testimony: if they speak not according to this word, it is because there is no light in them."
+            },
+            {
+              "reference": "Galatians 1:8-9",
+              "text": "But though we, or an angel from heaven, preach any other gospel unto you than that which we have preached unto you, let him be accursed. As we said before, so say I now again, If any man preach any other gospel unto you than that ye have received, let him be accursed."
+            },
+            {
+              "reference": "1 Corinthians 4:6",
+              "text": "And these things, brethren, I have in a figure transferred to myself and to Apollos for your sakes; that ye might learn in us not to think of men above that which is written, that no one of you be puffed up for one against another."
+            },
+            {
+              "reference": "Revelation 22:18-19",
+              "text": "For I testify unto every man that heareth the words of the prophecy of this book, If any man shall add unto these things, God shall add unto him the plagues that are written in this book: And if any man shall take away from the words of the book of this prophecy, God shall take away his part out of the book of life, and out of the holy city, and from the things which are written in this book."
+            },
+            {
+              "reference": "Deuteronomy 4:2",
+              "text": "Ye shall not add unto the word which I command you, neither shall ye diminish ought from it, that ye may keep the commandments of the LORD your God which I command you."
+            },
+            {
+              "reference": "Joshua 1:8",
+              "text": "This book of the law shall not depart out of thy mouth; but thou shalt meditate therein day and night, that thou mayest observe to do according to all that is written therein: for then thou shalt make thy way prosperous, and then thou shalt have good success."
+            }
+          ]
+        },
+        "Against Enthusiasm": {
+          "title": "Against Enthusiasm",
+          "description": "The sufficiency of Scripture guards against enthusiasm, the false claim to possess private revelations or new prophecies that supplement or supersede the written Word. The canon is closed; God's special revelation is complete in Christ and inscripturated in the Bible. Those who seek new revelations despise God's perfect provision and open themselves to delusion and error.",
+          "verses": [
+            {
+              "reference": "Jude 1:3",
+              "text": "Beloved, when I gave all diligence to write unto you of the common salvation, it was needful for me to write unto you, and exhort you that ye should earnestly contend for the faith which was once delivered unto the saints."
+            },
+            {
+              "reference": "Hebrews 1:1-2",
+              "text": "God, who at sundry times and in divers manners spake in time past unto the fathers by the prophets, Hath in these last days spoken unto us by his Son, whom he hath appointed heir of all things, by whom also he made the worlds;"
+            },
+            {
+              "reference": "Revelation 22:18",
+              "text": "For I testify unto every man that heareth the words of the prophecy of this book, If any man shall add unto these things, God shall add unto him the plagues that are written in this book:"
+            },
+            {
+              "reference": "2 Peter 1:19",
+              "text": "We have also a more sure word of prophecy; whereunto ye do well that ye take heed, as unto a light that shineth in a dark place, until the day dawn, and the day star arise in your hearts:"
+            },
+            {
+              "reference": "1 Corinthians 13:8-10",
+              "text": "Charity never faileth: but whether there be prophecies, they shall fail; whether there be tongues, they shall cease; whether there be knowledge, it shall vanish away. For we know in part, and we prophesy in part. But when that which is perfect is come, then that which is in part shall be done away."
+            },
+            {
+              "reference": "Ecclesiastes 3:14",
+              "text": "I know that, whatsoever God doeth, it shall be for ever: nothing can be put to it, nor any thing taken from it: and God doeth it, that men should fear before him."
+            }
+          ]
+        }
+      },
+      "Clarity of Scripture": {
+        "Perspicuity": {
+          "title": "Perspicuity (Clarity)",
+          "description": "The essential message of Scripture is sufficiently clear that ordinary believers, reading with faith and diligence, can understand the way of salvation and their duty toward God. This perspicuity does not deny that some passages are difficult, but affirms that Scripture's central teachings are plain. God has condescended to speak in human language so that His people might know His will without depending on an ecclesiastical elite.",
+          "verses": [
+            {
+              "reference": "Psalm 119:105",
+              "text": "Thy word is a lamp unto my feet, and a light unto my path."
+            },
+            {
+              "reference": "Psalm 19:7-8",
+              "text": "The law of the LORD is perfect, converting the soul: the testimony of the LORD is sure, making wise the simple. The statutes of the LORD are right, rejoicing the heart: the commandment of the LORD is pure, enlightening the eyes."
+            },
+            {
+              "reference": "2 Peter 1:19",
+              "text": "We have also a more sure word of prophecy; whereunto ye do well that ye take heed, as unto a light that shineth in a dark place, until the day dawn, and the day star arise in your hearts:"
+            },
+            {
+              "reference": "Proverbs 6:23",
+              "text": "For the commandment is a lamp; and the law is light; and reproofs of instruction are the way of life:"
+            },
+            {
+              "reference": "Deuteronomy 30:11-14",
+              "text": "For this commandment which I command thee this day, it is not hidden from thee, neither is it far off. It is not in heaven, that thou shouldest say, Who shall go up for us to heaven, and bring it unto us, that we may hear it, and do it? Neither is it beyond the sea, that thou shouldest say, Who shall go over the sea for us, and bring it unto us, that we may hear it, and do it? But the word is very nigh unto thee, in thy mouth, and in thy heart, that thou mayest do it."
+            },
+            {
+              "reference": "2 Corinthians 4:3-4",
+              "text": "But if our gospel be hid, it is hid to them that are lost: In whom the god of this world hath blinded the minds of them which believe not, lest the light of the glorious gospel of Christ, who is the image of God, should shine unto them."
+            }
+          ]
+        },
+        "Things Necessary": {
+          "title": "Things Necessary to Salvation",
+          "description": "Those doctrines essential for salvation and Christian living are set forth with such clarity in Scripture that even the unlearned, rightly using ordinary means, may attain sufficient understanding. God has not hidden the gospel in obscure texts or cryptic symbols, but has plainly revealed Christ and His benefits. The Westminster Confession wisely distinguishes between things necessary, which are clear, and other matters that require diligent study.",
+          "verses": [
+            {
+              "reference": "2 Timothy 3:15",
+              "text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus."
+            },
+            {
+              "reference": "Psalm 119:130",
+              "text": "The entrance of thy words giveth light; it giveth understanding unto the simple."
+            },
+            {
+              "reference": "Acts 8:30-31",
+              "text": "And Philip ran thither to him, and heard him read the prophet Esaias, and said, Understandest thou what thou readest? And he said, How can I, except some man should guide me? And he desired Philip that he would come up and sit with him."
+            },
+            {
+              "reference": "1 Corinthians 1:21",
+              "text": "For after that in the wisdom of God the world by wisdom knew not God, it pleased God by the foolishness of preaching to save them that believe."
+            },
+            {
+              "reference": "Romans 10:17",
+              "text": "So then faith cometh by hearing, and hearing by the word of God."
+            },
+            {
+              "reference": "John 20:31",
+              "text": "But these are written, that ye might believe that Jesus is the Christ, the Son of God; and that believing ye might have life through his name."
+            }
+          ]
+        },
+        "Analogy of Faith": {
+          "title": "Analogy of Faith",
+          "description": "Scripture must be interpreted in light of Scripture, comparing spiritual things with spiritual, allowing clearer passages to illumine more difficult ones. This hermeneutical principle assumes the unity and harmony of biblical revelation, rejecting interpretations that pit one passage against another. The analogy of faith prevents private fancies and ensures that our exegesis accords with the whole counsel of God.",
+          "verses": [
+            {
+              "reference": "Romans 12:6",
+              "text": "Having then gifts differing according to the grace that is given to us, whether prophecy, let us prophesy according to the proportion of faith;"
+            },
+            {
+              "reference": "2 Peter 1:20-21",
+              "text": "Knowing this first, that no prophecy of the scripture is of any private interpretation. For the prophecy came not in old time by the will of man: but holy men of God spake as they were moved by the Holy Ghost."
+            },
+            {
+              "reference": "Acts 17:11",
+              "text": "These were more noble than those in Thessalonica, in that they received the word with all readiness of mind, and searched the scriptures daily, whether those things were so."
+            },
+            {
+              "reference": "Isaiah 28:10",
+              "text": "For precept must be upon precept, precept upon precept; line upon line, line upon line; here a little, and there a little:"
+            },
+            {
+              "reference": "1 Corinthians 2:13",
+              "text": "Which things also we speak, not in the words which man's wisdom teacheth, but which the Holy Ghost teacheth; comparing spiritual things with spiritual."
+            },
+            {
+              "reference": "Luke 24:27",
+              "text": "And beginning at Moses and all the prophets, he expounded unto them in all the scriptures the things concerning himself."
+            }
+          ]
+        },
+        "Scripture Interprets Scripture": {
+          "title": "Scripture Interprets Scripture",
+          "description": "The infallible rule for interpreting Scripture is Scripture itself, making the Bible its own best commentary. When questions arise about the meaning of a passage, we must search the rest of Scripture for clarity, not rely primarily on human wisdom or external authorities. This principle maintains the sufficiency and finality of biblical revelation while acknowledging legitimate difficulties that require careful study.",
+          "verses": [
+            {
+              "reference": "Luke 24:44-45",
+              "text": "And he said unto them, These are the words which I spake unto you, while I was yet with you, that all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me. Then opened he their understanding, that they might understand the scriptures,"
+            },
+            {
+              "reference": "Acts 8:35",
+              "text": "Then Philip opened his mouth, and began at the same scripture, and preached unto him Jesus."
+            },
+            {
+              "reference": "1 Peter 1:10-12",
+              "text": "Of which salvation the prophets have enquired and searched diligently, who prophesied of the grace that should come unto you: Searching what, or what manner of time the Spirit of Christ which was in them did signify, when it testified beforehand the sufferings of Christ, and the glory that should follow. Unto whom it was revealed, that not unto themselves, but unto us they did minister the things, which are now reported unto you by them that have preached the gospel unto you with the Holy Ghost sent down from heaven; which things the angels desire to look into."
+            },
+            {
+              "reference": "2 Peter 3:16",
+              "text": "As also in all his epistles, speaking in them of these things; in which are some things hard to be understood, which they that are unlearned and unstable wrest, as they do also the other scriptures, unto their own destruction."
+            },
+            {
+              "reference": "John 5:39",
+              "text": "Search the scriptures; for in them ye think ye have eternal life: and they are they which testify of me."
+            },
+            {
+              "reference": "Acts 18:24-28",
+              "text": "And a certain Jew named Apollos, born at Alexandria, an eloquent man, and mighty in the scriptures, came to Ephesus. This man was instructed in the way of the Lord; and being fervent in the spirit, he spake and taught diligently the things of the Lord, knowing only the baptism of John. And he began to speak boldly in the synagogue: whom when Aquila and Priscilla had heard, they took him unto them, and expounded unto him the way of God more perfectly. And when he was disposed to pass into Achaia, the brethren wrote, exhorting the disciples to receive him: who, when he was come, helped them much which had believed through grace: For he mightily convinced the Jews, and that publickly, shewing by the scriptures that Jesus was Christ."
+            }
+          ]
+        }
+      },
+      "Preservation and Canon": {
+        "Divine Preservation": {
+          "title": "Divine Preservation",
+          "description": "God has providentially preserved His Word through the centuries, ensuring that His revelation remains accessible to His church in every generation. This preservation extends not to a single textual tradition but to the multitude of manuscripts that collectively witness to the original text. The doctrine of preservation gives confidence that our Bibles, though translations of copies, faithfully represent God's inspired Word.",
+          "verses": [
+            {
+              "reference": "Psalm 12:6-7",
+              "text": "The words of the LORD are pure words: as silver tried in a furnace of earth, purified seven times. Thou shalt keep them, O LORD, thou shalt preserve them from this generation for ever."
+            },
+            {
+              "reference": "Isaiah 40:8",
+              "text": "The grass withereth, the flower fadeth: but the word of our God shall stand for ever."
+            },
+            {
+              "reference": "1 Peter 1:24-25",
+              "text": "For all flesh is as grass, and all the glory of man as the flower of grass. The grass withereth, and the flower thereof falleth away: But the word of the Lord endureth for ever. And this is the word which by the gospel is preached unto you."
+            },
+            {
+              "reference": "Matthew 5:18",
+              "text": "For verily I say unto you, Till heaven and earth pass, one jot or one tittle shall in no wise pass from the law, till all be fulfilled."
+            },
+            {
+              "reference": "Matthew 24:35",
+              "text": "Heaven and earth shall pass away, but my words shall not pass away."
+            },
+            {
+              "reference": "Psalm 119:89",
+              "text": "For ever, O LORD, thy word is settled in heaven."
+            }
+          ]
+        },
+        "Canon Recognition": {
+          "title": "Canon Recognition",
+          "description": "The church recognizes but does not create the biblical canon, discerning which books bear the marks of divine inspiration. The canon is a closed collection, complete with the apostolic writings, accepting no additions or subtractions. Recognition of canonical books rested on criteria including apostolic authorship, universal reception, liturgical use, and doctrinal consistency, all confirmed by the Spirit's witness.",
+          "verses": [
+            {
+              "reference": "Revelation 22:18-19",
+              "text": "For I testify unto every man that heareth the words of the prophecy of this book, If any man shall add unto these things, God shall add unto him the plagues that are written in this book: And if any man shall take away from the words of the book of this prophecy, God shall take away his part out of the book of life, and out of the holy city, and from the things which are written in this book."
+            },
+            {
+              "reference": "Luke 24:44",
+              "text": "And he said unto them, These are the words which I spake unto you, while I was yet with you, that all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me."
+            },
+            {
+              "reference": "2 Peter 3:15-16",
+              "text": "And account that the longsuffering of our Lord is salvation; even as our beloved brother Paul also according to the wisdom given unto him hath written unto you; As also in all his epistles, speaking in them of these things; in which are some things hard to be understood, which they that are unlearned and unstable wrest, as they do also the other scriptures, unto their own destruction."
+            },
+            {
+              "reference": "Colossians 4:16",
+              "text": "And when this epistle is read among you, cause that it be read also in the church of the Laodiceans; and that ye likewise read the epistle from Laodicea."
+            },
+            {
+              "reference": "1 Thessalonians 5:27",
+              "text": "I charge you by the Lord that this epistle be read unto all the holy brethren."
+            },
+            {
+              "reference": "2 Timothy 3:16",
+              "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:"
+            }
+          ]
+        },
+        "Apocrypha Rejected": {
+          "title": "Apocrypha Rejected",
+          "description": "The deuterocanonical books, lacking divine inspiration and apostolic endorsement, do not belong to the canon of Scripture. These writings, while potentially useful for historical understanding, contain doctrinal errors and were never part of the Hebrew canon received by Christ and the apostles. The Protestant church rightly follows the Jewish and apostolic canon, rejecting Rome's addition of the Apocrypha at Trent.",
+          "verses": [
+            {
+              "reference": "Luke 24:44",
+              "text": "And he said unto them, These are the words which I spake unto you, while I was yet with you, that all things must be fulfilled, which were written in the law of Moses, and in the prophets, and in the psalms, concerning me."
+            },
+            {
+              "reference": "Romans 3:2",
+              "text": "Much every way: chiefly, because that unto them were committed the oracles of God."
+            },
+            {
+              "reference": "Nehemiah 8:1-3",
+              "text": "And all the people gathered themselves together as one man into the street that was before the water gate; and they spake unto Ezra the scribe to bring the book of the law of Moses, which the LORD had commanded to Israel. And Ezra the priest brought the law before the congregation both of men and women, and all that could hear with understanding, upon the first day of the seventh month. And he read therein before the street that was before the water gate from the morning until midday, before the men and the women, and those that could understand; and the ears of all the people were attentive unto the book of the law."
+            },
+            {
+              "reference": "2 Timothy 3:15",
+              "text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus."
+            },
+            {
+              "reference": "Acts 7:38",
+              "text": "This is he, that was in the church in the wilderness with the angel which spake to him in the mount Sina, and with our fathers: who received the lively oracles to give unto us:"
+            },
+            {
+              "reference": "Matthew 23:35",
+              "text": "That upon you may come all the righteous blood shed upon the earth, from the blood of righteous Abel unto the blood of Zacharias son of Barachias, whom ye slew between the temple and the altar."
+            }
+          ]
+        },
+        "Textual Transmission": {
+          "title": "Textual Transmission",
+          "description": "The science of textual criticism, far from undermining faith, demonstrates God's providential care in preserving His Word through thousands of manuscripts. Variant readings among manuscripts are typically minor and affect no essential doctrine, while the wealth of textual evidence enables scholars to establish the original text with remarkable confidence. The multiplicity of witnesses strengthens rather than weakens our assurance of possessing God's Word.",
+          "verses": [
+            {
+              "reference": "Deuteronomy 17:18",
+              "text": "And it shall be, when he sitteth upon the throne of his kingdom, that he shall write him a copy of this law in a book out of that which is before the priests the Levites:"
+            },
+            {
+              "reference": "Deuteronomy 31:26",
+              "text": "Take this book of the law, and put it in the side of the ark of the covenant of the LORD your God, that it may be there for a witness against thee."
+            },
+            {
+              "reference": "Joshua 24:26",
+              "text": "And Joshua wrote these words in the book of the law of God, and took a great stone, and set it up there under an oak, that was by the sanctuary of the LORD."
+            },
+            {
+              "reference": "Jeremiah 36:27-28",
+              "text": "Then the word of the LORD came to Jeremiah, after that the king had burned the roll, and the words which Baruch wrote at the mouth of Jeremiah, saying, Take thee again another roll, and write in it all the former words that were in the first roll, which Jehoiakim the king of Judah hath burned."
+            },
+            {
+              "reference": "2 Kings 22:8",
+              "text": "And Hilkiah the high priest said unto Shaphan the scribe, I have found the book of the law in the house of the LORD. And Hilkiah gave the book to Shaphan, and he read it."
+            },
+            {
+              "reference": "Colossians 4:16",
+              "text": "And when this epistle is read among you, cause that it be read also in the church of the Laodiceans; and that ye likewise read the epistle from Laodicea."
+            }
+          ]
+        }
+      },
+      "Illumination": {
+        "Work of the Spirit": {
+          "title": "Work of the Spirit",
+          "description": "The Holy Spirit illuminates the minds of believers, enabling them to understand and apply Scripture savingly to their lives. This illumination does not add new revelation but opens blind eyes to perceive the truth already present in God's Word. Without the Spirit's work, even the clearest scriptural teaching remains foolishness to the natural man.",
+          "verses": [
+            {
+              "reference": "1 Corinthians 2:12-14",
+              "text": "Now we have received, not the spirit of the world, but the spirit which is of God; that we might know the things that are freely given to us of God. Which things also we speak, not in the words which man's wisdom teacheth, but which the Holy Ghost teacheth; comparing spiritual things with spiritual. But the natural man receiveth not the things of the Spirit of God: for they are foolishness unto him: neither can he know them, because they are spiritually discerned."
+            },
+            {
+              "reference": "John 16:13",
+              "text": "Howbeit when he, the Spirit of truth, is come, he will guide you into all truth: for he shall not speak of himself; but whatsoever he shall hear, that shall he speak: and he will shew you things to come."
+            },
+            {
+              "reference": "Ephesians 1:17-18",
+              "text": "That the God of our Lord Jesus Christ, the Father of glory, may give unto you the spirit of wisdom and revelation in the knowledge of him: The eyes of your understanding being enlightened; that ye may know what is the hope of his calling, and what the riches of the glory of his inheritance in the saints,"
+            },
+            {
+              "reference": "Psalm 119:18",
+              "text": "Open thou mine eyes, that I may behold wondrous things out of thy law."
+            },
+            {
+              "reference": "2 Corinthians 3:14-16",
+              "text": "But their minds were blinded: for until this day remaineth the same vail untaken away in the reading of the old testament; which vail is done away in Christ. But even unto this day, when Moses is read, the vail is upon their heart. Nevertheless when it shall turn to the Lord, the vail shall be taken away."
+            },
+            {
+              "reference": "1 John 2:20",
+              "text": "But ye have an unction from the Holy One, and ye know all things."
+            }
+          ]
+        },
+        "Internal Testimony": {
+          "title": "Internal Testimony of the Spirit",
+          "description": "The Holy Spirit bears witness in the hearts of believers to Scripture's divine authority, producing a certainty beyond what mere rational arguments can achieve. This internal testimony is not a subjective feeling but the Spirit's objective work of conviction that Scripture is God's Word. Calvin rightly taught that the Spirit who inspired Scripture also testifies to its authority in the elect.",
+          "verses": [
+            {
+              "reference": "1 John 5:6-7",
+              "text": "This is he that came by water and blood, even Jesus Christ; not by water only, but by water and blood. And it is the Spirit that beareth witness, because the Spirit is truth. For there are three that bear record in heaven, the Father, the Word, and the Holy Ghost: and these three are one."
+            },
+            {
+              "reference": "Romans 8:16",
+              "text": "The Spirit itself beareth witness with our spirit, that we are the children of God:"
+            },
+            {
+              "reference": "1 Thessalonians 1:5",
+              "text": "For our gospel came not unto you in word only, but also in power, and in the Holy Ghost, and in much assurance; as ye know what manner of men we were among you for your sake."
+            },
+            {
+              "reference": "John 14:26",
+              "text": "But the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things, and bring all things to your remembrance, whatsoever I have said unto you."
+            },
+            {
+              "reference": "1 Corinthians 2:4-5",
+              "text": "And my speech and my preaching was not with enticing words of man's wisdom, but in demonstration of the Spirit and of power: That your faith should not stand in the wisdom of men, but in the power of God."
+            },
+            {
+              "reference": "Hebrews 10:15",
+              "text": "Whereof the Holy Ghost also is a witness to us: for after that he had said before,"
+            }
+          ]
+        },
+        "Natural Man's Blindness": {
+          "title": "Natural Man's Blindness",
+          "description": "The unregenerate person, lacking spiritual life, cannot discern the things of God revealed in Scripture. This blindness is not intellectual but spiritual, rooted in the noetic effects of sin that darken the understanding and harden the heart. Only regeneration and the Spirit's illumination can remove the veil and enable true comprehension of divine truth.",
+          "verses": [
+            {
+              "reference": "1 Corinthians 2:14",
+              "text": "But the natural man receiveth not the things of the Spirit of God: for they are foolishness unto him: neither can he know them, because they are spiritually discerned."
+            },
+            {
+              "reference": "2 Corinthians 4:3-4",
+              "text": "But if our gospel be hid, it is hid to them that are lost: In whom the god of this world hath blinded the minds of them which believe not, lest the light of the glorious gospel of Christ, who is the image of God, should shine unto them."
+            },
+            {
+              "reference": "Ephesians 4:18",
+              "text": "Having the understanding darkened, being alienated from the life of God through the ignorance that is in them, because of the blindness of their heart:"
+            },
+            {
+              "reference": "John 8:43",
+              "text": "Why do ye not understand my speech? even because ye cannot hear my word."
+            },
+            {
+              "reference": "Romans 8:7",
+              "text": "Because the carnal mind is enmity against God: for it is not subject to the law of God, neither indeed can be."
+            },
+            {
+              "reference": "1 Corinthians 1:18",
+              "text": "For the preaching of the cross is to them that perish foolishness; but unto us which are saved it is the power of God."
+            }
+          ]
+        },
+        "Spiritual Discernment": {
+          "title": "Spiritual Discernment",
+          "description": "The regenerate believer, indwelt by the Holy Spirit, possesses spiritual discernment to judge all things and test the spirits. This discernment is cultivated through the means of grace—prayer, meditation on Scripture, and fellowship with the saints. Mature Christians develop trained senses to distinguish good from evil, truth from error, through the Spirit's sanctifying work.",
+          "verses": [
+            {
+              "reference": "1 Corinthians 2:15",
+              "text": "But he that is spiritual judgeth all things, yet he himself is judged of no man."
+            },
+            {
+              "reference": "Hebrews 5:14",
+              "text": "But strong meat belongeth to them that are of full age, even those who by reason of use have their senses exercised to discern both good and evil."
+            },
+            {
+              "reference": "1 John 4:1",
+              "text": "Beloved, believe not every spirit, but try the spirits whether they are of God: because many false prophets are gone out into the world."
+            },
+            {
+              "reference": "Philippians 1:9-10",
+              "text": "And this I pray, that your love may abound yet more and more in knowledge and in all judgment; That ye may approve things that are excellent; that ye may be sincere and without offence till the day of Christ;"
+            },
+            {
+              "reference": "1 Thessalonians 5:21",
+              "text": "Prove all things; hold fast that which is good."
+            },
+            {
+              "reference": "Colossians 1:9",
+              "text": "For this cause we also, since the day we heard it, do not cease to pray for you, and to desire that ye might be filled with the knowledge of his will in all wisdom and spiritual understanding;"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

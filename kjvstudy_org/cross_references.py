@@ -4,12 +4,32 @@ Organized by major theological themes and narrative connections.
 """
 
 import json
+from functools import lru_cache
 from pathlib import Path
 
-# Load cross-references from JSON data file
-_data_path = Path(__file__).parent / "data" / "cross_references.json"
-with open(_data_path, "r", encoding="utf-8") as f:
-    CROSS_REFERENCES = json.load(f)
+
+@lru_cache(maxsize=1)
+def _load_cross_references():
+    """Load cross-references from per-book JSON files (fallback to legacy file)."""
+    base_dir = Path(__file__).parent / "data"
+    crossref_dir = base_dir / "cross_references"
+    legacy_path = base_dir / "cross_references.json"
+
+    aggregated = {}
+    if crossref_dir.exists():
+        for path in sorted(crossref_dir.glob("*.json")):
+            with open(path, "r", encoding="utf-8") as f:
+                content = json.load(f)
+                if isinstance(content, dict):
+                    aggregated.update(content)
+    elif legacy_path.exists():
+        with open(legacy_path, "r", encoding="utf-8") as f:
+            aggregated = json.load(f)
+
+    return aggregated
+
+
+CROSS_REFERENCES = _load_cross_references()
 
 
 def get_cross_references(book: str, chapter: int, verse: int) -> list:

@@ -1,0 +1,342 @@
+{
+  "parables": {
+    "Kingdom Parables": {
+      "The Sower": {
+        "title": "Parable of the Four Soils",
+        "description": "This foundational parable inaugurates Christ's extended discourse on the kingdom of heaven in Matthew 13, providing the interpretive key for understanding parables generally. When disciples questioned why He taught in parables (Matthew 13:10), Christ explained that parables simultaneously reveal truth to receptive hearts and conceal it from hardened ones—fulfilling Isaiah's prophecy that people would hear but not understand. The Sower parable itself demonstrates this principle by examining various responses to the Word of God, represented by seed sown on different soil types.<br><br>The sower broadcasts seed indiscriminately, reflecting God's gracious offer of His Word to all. Four soils represent four responses: The wayside path—hard ground where birds devour seed before it germinates—represents those whose hearts, trampled hard by worldly traffic, allow Satan to snatch away the Word before comprehension occurs. The stony ground—shallow soil overlaying bedrock—produces quick germination but no root depth. These represent those who receive the Word with immediate joy but, having no root, fall away when tribulation or persecution arises. The thorny ground permits germination and growth, but competing thorns eventually choke the plants before they bear fruit. Christ interprets these thorns as 'the care of this world, and the deceitfulness of riches'—earthly anxieties and material pursuits that strangle spiritual fruitfulness. The good ground alone produces abundant harvest—thirtyfold, sixtyfold, hundredfold—representing those who 'hear the word, and understand it.'<label for=\"sn-sower\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-sower\" class=\"margin-toggle\"/><span class=\"sidenote\">Palestinian farming methods involved broadcasting seed before plowing, explaining why seed fell on paths and rocky places. The 'hundredfold' yield far exceeded normal harvests (tenfold was good, twentyfold excellent), signifying supernatural fruitfulness. The parable's genius lies in shifting focus from the sower (who sows uniformly) to the soil (whose condition determines outcome). The seed's inherent power doesn't change; receptivity determines results. Mark 4:26-29 adds that the seed grows 'he knoweth not how,' emphasizing the Word's intrinsic power apart from human comprehension.</span><br><br>Significantly, Christ alone provides the authoritative interpretation (Matthew 13:18-23), establishing that parables require divine illumination rather than mere human ingenuity. The parable warns against superficial Christianity—immediate enthusiasm without genuine conversion, profession without possession, initial commitment without final perseverance. It also encourages faithful gospel proclamation despite varied results, assuring that some seed will fall on good ground and produce abundant fruit. The sower's duty is faithful sowing; the harvest belongs to God.",
+        "verses": [
+          {
+            "reference": "Matthew 13:3-4",
+            "text": "And he spake many things unto them in parables, saying, Behold, a sower went forth to sow; and when he sowed, some seeds fell by the way side, and the fowls came and devoured them up:"
+          },
+          {
+            "reference": "Matthew 13:19",
+            "text": "When any one heareth the word of the kingdom, and understandeth it not, then cometh the wicked one, and catcheth away that which was sown in his heart. This is he which received seed by the way side."
+          },
+          {
+            "reference": "Matthew 13:22",
+            "text": "He also that received seed among the thorns is he that heareth the word; and the care of this world, and the deceitfulness of riches, choke the word, and he becometh unfruitful."
+          },
+          {
+            "reference": "Matthew 13:23",
+            "text": "But he that received seed into the good ground is he that heareth the word, and understandeth it; which also beareth fruit, and bringeth forth, some an hundredfold, some sixty, some thirty."
+          },
+          {
+            "reference": "Mark 4:14",
+            "text": "The sower soweth the word."
+          },
+          {
+            "reference": "Luke 8:15",
+            "text": "But that on the good ground are they, which in an honest and good heart, having heard the word, keep it, and bring forth fruit with patience."
+          }
+        ]
+      },
+      "The Mustard Seed": {
+        "title": "From Small Beginnings to Great Growth",
+        "description": "This brief but powerful parable addresses a perplexing reality confronting Christ's early followers: How could the kingdom of heaven, announced with such apocalyptic grandeur by the prophets, commence so inauspiciously—with an itinerant rabbi, twelve unlearned disciples, and a message rejected by religious authorities? The mustard seed parable answers this dilemma by demonstrating that the kingdom's present obscurity and future glory both flow from divine design rather than human failure.<br><br>The mustard seed, proverbial in rabbinic literature for minuteness ('small as a mustard seed'), represents the kingdom's humble inauguration. What could appear more insignificant than Christ's earthly ministry—born in a stable, raised in despised Nazareth, ministering primarily to Galilean peasants and social outcasts? Yet this tiny seed contained inherent vitality destined for remarkable growth. The mature mustard plant, though technically an herb rather than a tree, could reach heights of ten to twelve feet in Palestinian soil, becoming 'the greatest among herbs.' Birds lodging in its branches recalls Old Testament imagery where great kingdoms appear as trees sheltering nations (Ezekiel 17:23, 31:6, Daniel 4:12). The kingdom that began with twelve Jews in an obscure province would expand to encompass believers from every tribe, tongue, and nation.<label for=\"sn-mustard\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-mustard\" class=\"margin-toggle\"/><span class=\"sidenote\">Some interpreters view the abnormal growth—from herb to tree-like size—and the birds (elsewhere representing evil, Matthew 13:4, 19) as indicating corruption within Christendom. This reading sees the parable warning that the visible church would grow beyond its intended size and harbor false professors. However, the parallel with Daniel's beneficial tree imagery and the overall positive tone suggest the parable celebrates legitimate kingdom expansion rather than warning against apostasy. The birds likely represent Gentile nations finding refuge in the gospel, fulfilling Abrahamic covenant promises.</span><br><br>The parable encourages patience and faith. Kingdom growth occurs gradually, organically, often imperceptibly—not through dramatic political revolution or military conquest but through the Word's quiet, persistent power. Disciples tempted to force premature visible manifestation or despair at apparent insignificance must trust the seed's inherent vitality. Just as the mustard plant's mature size was latent in the tiny seed, so the kingdom's future glory was guaranteed by Christ's incarnation, regardless of present appearances. The parable also corrects triumphalistic expectations—the kingdom advances through proclamation, not coercion; through transformed hearts, not reformed governments; through spiritual regeneration, not societal revolution.",
+        "verses": [
+          {
+            "reference": "Matthew 13:31-32",
+            "text": "Another parable put he forth unto them, saying, The kingdom of heaven is like to a grain of mustard seed, which a man took, and sowed in his field: which indeed is the least of all seeds: but when it is grown, it is the greatest among herbs, and becometh a tree, so that the birds of the air come and lodge in the branches thereof."
+          },
+          {
+            "reference": "Mark 4:30-32",
+            "text": "And he said, Whereunto shall we liken the kingdom of God? or with what comparison shall we compare it? It is like a grain of mustard seed, which, when it is sown in the earth, is less than all the seeds that be in the earth: but when it is sown, it groweth up, and becometh greater than all herbs, and shooteth out great branches; so that the fowls of the air may lodge under the shadow of it."
+          },
+          {
+            "reference": "Luke 13:19",
+            "text": "It is like a grain of mustard seed, which a man took, and cast into his garden; and it grew, and waxed a great tree; and the fowls of the air lodged in the branches of it."
+          },
+          {
+            "reference": "Daniel 4:12",
+            "text": "The leaves thereof were fair, and the fruit thereof much, and in it was meat for all: the beasts of the field had shadow under it, and the fowls of the heaven dwelt in the boughs thereof, and all flesh was fed of it."
+          },
+          {
+            "reference": "Zechariah 4:10",
+            "text": "For who hath despised the day of small things? for they shall rejoice, and shall see the plummet in the hand of Zerubbabel with those seven; they are the eyes of the LORD, which run to and fro through the whole earth."
+          },
+          {
+            "reference": "Acts 1:15",
+            "text": "And in those days Peter stood up in the midst of the disciples, and said, (the number of names together were about an hundred and twenty,)"
+          }
+        ]
+      },
+      "The Pearl of Great Price": {
+        "title": "The Kingdom's Surpassing Worth",
+        "description": "This brief parable, paired with the similar parable of the hidden treasure (Matthew 13:44), teaches the kingdom's surpassing value and the total commitment required to obtain it. The merchant man, already seeking 'goodly pearls' (καλοὺς μαργαρίτας, <em>kalous margaritas</em>, 'beautiful pearls'), was no casual observer but a professional dealer who understood pearl quality and value. His expertise makes his response all the more significant—upon finding one pearl of extraordinary worth, he immediately sold all his possessions to purchase it.<br><br>The pearl's significance in the ancient world cannot be overstated. Unlike gemstones requiring cutting and polishing to reveal their beauty, pearls emerge from oysters in perfect form—lustrous, unblemished, complete. This natural perfection made them supremely valuable; Pliny the Elder records that a single pearl might be worth more than a large estate. The merchant's willingness to liquidate his entire inventory and assets for this one pearl demonstrates rational economic calculation, not irrational obsession—the pearl's value far exceeded the combined worth of all his other possessions.<label for=\"sn-pearl\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-pearl\" class=\"margin-toggle\"/><span class=\"sidenote\">Interpretive debate exists regarding the parable's primary application. The traditional view sees the merchant as the believing sinner who, recognizing the gospel's supreme worth, gladly forsakes all to obtain salvation. An alternative interpretation identifies Christ as the merchant who sold all (His glory, His life) to purchase the pearl (His church). Both readings contain truth: Christ did give all to redeem His people, and believers must count all else loss compared to knowing Christ. The simpler, more direct reading focuses on human response to the kingdom's surpassing value.</span><br><br>The parable's brevity intensifies its impact. No explanation follows; the meaning seems self-evident—the kingdom's value infinitely exceeds all competing treasures. What earthly possession, pleasure, or pursuit can compare with eternal life, divine fellowship, and future glory? The merchant's decisive action models proper response: not reluctant resignation but joyful renunciation, not grim sacrifice but shrewd investment, not loss but incomparable gain. Christ elsewhere taught this same principle explicitly: 'For what is a man profited, if he shall gain the whole world, and lose his own soul?' (Matthew 16:26).<br><br>The parable also addresses prioritization and exclusivity. The kingdom doesn't merely deserve first place among competing goods; it demands sole allegiance, total commitment, comprehensive reorientation of values. The rich young ruler tragically chose earthly wealth over eternal treasure (Matthew 19:16-22), demonstrating that intellectual recognition of the kingdom's worth means nothing without wholehearted commitment. Paul exemplified the merchant's wisdom: 'But what things were gain to me, those I counted loss for Christ. Yea doubtless, and I count all things but loss for the excellency of the knowledge of Christ Jesus my Lord' (Philippians 3:7-8).",
+        "verses": [
+          {
+            "reference": "Matthew 13:45-46",
+            "text": "Again, the kingdom of heaven is like unto a merchant man, seeking goodly pearls: who, when he had found one pearl of great price, went and sold all that he had, and bought it."
+          },
+          {
+            "reference": "Matthew 13:44",
+            "text": "Again, the kingdom of heaven is like unto treasure hid in a field; the which when a man hath found, he hideth, and for joy thereof goeth and selleth all that he hath, and buyeth that field."
+          },
+          {
+            "reference": "Matthew 16:26",
+            "text": "For what is a man profited, if he shall gain the whole world, and lose his own soul? or what shall a man give in exchange for his soul?"
+          },
+          {
+            "reference": "Philippians 3:7-8",
+            "text": "But what things were gain to me, those I counted loss for Christ. Yea doubtless, and I count all things but loss for the excellency of the knowledge of Christ Jesus my Lord: for whom I have suffered the loss of all things, and do count them but dung, that I may win Christ,"
+          },
+          {
+            "reference": "Luke 14:33",
+            "text": "So likewise, whosoever he be of you that forsaketh not all that he hath, he cannot be my disciple."
+          },
+          {
+            "reference": "Hebrews 11:26",
+            "text": "Esteeming the reproach of Christ greater riches than the treasures in Egypt: for he had respect unto the recompence of the reward."
+          }
+        ]
+      },
+      "The Wheat and Tares": {
+        "title": "The Kingdom's Mixed Composition Until Harvest",
+        "description": "This parable directly follows the Sower and addresses a perplexing reality: Why does the kingdom contain both genuine and counterfeit members? A householder sowed good seed, but 'while men slept, his enemy came and sowed tares among the wheat.' The servants' discovery and alarm—'Sir, didst not thou sow good seed in thy field? from whence then hath it tares?'—reflects believers' confusion when encountering false professors within the church. The householder's response identifies satanic agency: 'An enemy hath done this.'<br><br>The Greek word ζιζάνια (<em>zizania</em>) refers to bearded darnel (<em>Lolium temulentum</em>), a poisonous weed virtually indistinguishable from wheat during early growth. Only at maturity, when wheat produces grain-bearing heads while darnel remains barren, does clear differentiation emerge. This biological reality underlies the parable's central command: 'Let both grow together until the harvest.' Premature attempts to purge tares risk uprooting wheat—overzealous church discipline might expel genuine believers whose faith remains immature or whose outward appearance raises suspicions.<label for=\"sn-tares\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-tares\" class=\"margin-toggle\"/><span class=\"sidenote\">Roman law specifically addressed malicious sowing of darnel among neighbors' wheat, indicating the practice's prevalence. The parable doesn't counsel absolute passivity toward error and sin within the church—Scripture commands church discipline (Matthew 18:15-20, 1 Corinthians 5). Rather, it warns against assuming infallible discernment of others' spiritual state and attempting to create a perfectly pure visible church through human effort. Final separation awaits divine judgment at harvest.</span><br><br>Christ provides authoritative interpretation (Matthew 13:36-43): The sower is the Son of Man; the field is the world; good seed represents children of the kingdom; tares are children of the wicked one; the enemy is the devil; harvest is the end of the age; reapers are angels. At history's consummation, angels will 'gather out of his kingdom all things that offend, and them which do iniquity' and cast them into 'a furnace of fire' where there shall be 'wailing and gnashing of teeth.' Meanwhile, 'the righteous shall shine forth as the sun in the kingdom of their Father.'<br><br>The parable corrects two opposite errors: First, perfectionism expecting the visible church to contain only genuine believers. The kingdom's present form inevitably includes false professors; wheat and tares grow together until harvest. Second, indifferentism unconcerned with truth and purity. Though believers cannot infallibly distinguish all false professors, they must still exercise discernment, maintain doctrinal standards, and practice appropriate discipline while acknowledging final judgment's reservation for God alone.",
+        "verses": [
+          {
+            "reference": "Matthew 13:24-25",
+            "text": "Another parable put he forth unto them, saying, The kingdom of heaven is likened unto a man which sowed good seed in his field: but while men slept, his enemy came and sowed tares among the wheat, and went his way."
+          },
+          {
+            "reference": "Matthew 13:28-30",
+            "text": "He said unto them, An enemy hath done this. The servants said unto him, Wilt thou then that we go and gather them up? But he said, Nay; lest while ye gather up the tares, ye root up also the wheat with them. Let both grow together until the harvest: and in the time of harvest I will say to the reapers, Gather ye together first the tares, and bind them in bundles to burn them: but gather the wheat into my barn."
+          },
+          {
+            "reference": "Matthew 13:38-39",
+            "text": "The field is the world; the good seed are the children of the kingdom; but the tares are the children of the wicked one; the enemy that sowed them is the devil; the harvest is the end of the world; and the reapers are the angels."
+          },
+          {
+            "reference": "Matthew 13:41-43",
+            "text": "The Son of man shall send forth his angels, and they shall gather out of his kingdom all things that offend, and them which do iniquity; and shall cast them into a furnace of fire: there shall be wailing and gnashing of teeth. Then shall the righteous shine forth as the sun in the kingdom of their Father. Who hath ears to hear, let him hear."
+          },
+          {
+            "reference": "2 Timothy 2:19",
+            "text": "Nevertheless the foundation of God standeth sure, having this seal, The Lord knoweth them that are his. And, Let every one that nameth the name of Christ depart from iniquity."
+          },
+          {
+            "reference": "1 Corinthians 4:5",
+            "text": "Therefore judge nothing before the time, until the Lord come, who both will bring to light the hidden things of darkness, and will make manifest the counsels of the hearts: and then shall every man have praise of God."
+          }
+        ]
+      }
+    },
+    "Grace and Forgiveness": {
+      "The Prodigal Son": {
+        "title": "The Father's Unfailing Love",
+        "description": "This masterpiece of storytelling, delivered in response to Pharisees' criticism that Christ received sinners and ate with them (Luke 15:2), vindicates divine grace toward repentant sinners while exposing self-righteous legalism. The parable contains two sons representing two opposite paths to lostness: the younger through profligacy, the elder through pride. Both need the father's grace; only one receives it.<br><br>The younger son's descent follows a tragic pattern: demanding his inheritance prematurely (implicitly wishing his father dead), journeying to a far country (geographic and spiritual distance), wasting his substance with riotous living (dissipation), experiencing famine, joining himself to a citizen of that country (attachment to the world), feeding swine (ultimate degradation for a Jew), desiring to fill his belly with swine's food (hitting bottom). His 'coming to himself' marks the turning point—recognition of his condition, remembrance of his father's house, repentance ('I have sinned against heaven, and before thee'), and resolution to return confessing unworthiness.<label for=\"sn-prodigal\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-prodigal\" class=\"margin-toggle\"/><span class=\"sidenote\">The word 'prodigal' (from Latin <em>prodigus</em>) means wastefully extravagant. While applied to the son's squandering, it equally describes the father's lavish grace. The best robe signified honor, the ring authority, the shoes sonship (slaves went barefoot), the fatted calf celebration. Each gift proclaimed full restoration, not probationary servanthood. The father's running (undignified for an elderly Middle Eastern patriarch) expressed eager, unrestrained love.</span><br><br>The father's response transcends expectation: seeing him 'a great way off' (had been watching), filled with compassion, running, falling on his neck, kissing him repeatedly (Greek verb form indicates continuous action). The son's prepared speech was interrupted—the father called for the best robe, ring, shoes, and fatted calf before the confession concluded. Grace precedes and exceeds repentance.<br><br>The elder brother's reaction reveals the self-righteous heart: refusing to enter despite the father's plea, recounting his faithful service ('these many years do I serve thee'), complaining he'd never received recognition ('thou never gavest me a kid'), resenting grace shown to the undeserving ('this thy son... hath devoured thy living with harlots'). The father's gentle response—'Son, thou art ever with me, and all that I have is thine'—exposed the elder brother's error: he'd served as a slave seeking wages, not as a son enjoying inheritance. The parable ends without revealing whether the elder brother relented, leaving Pharisees to supply their own conclusion.",
+        "verses": [
+          {
+            "reference": "Luke 15:17-18",
+            "text": "And when he came to himself, he said, How many hired servants of my father's have bread enough and to spare, and I perish with hunger! I will arise and go to my father, and will say unto him, Father, I have sinned against heaven, and before thee,"
+          },
+          {
+            "reference": "Luke 15:20",
+            "text": "And he arose, and came to his father. But when he was yet a great way off, his father saw him, and had compassion, and ran, and fell on his neck, and kissed him."
+          },
+          {
+            "reference": "Luke 15:22-24",
+            "text": "But the father said to his servants, Bring forth the best robe, and put it on him; and put a ring on his hand, and shoes on his feet: and bring hither the fatted calf, and kill it; and let us eat, and be merry: for this my son was dead, and is alive again; he was lost, and is found. And they began to be merry."
+          },
+          {
+            "reference": "Luke 15:28-29",
+            "text": "And he was angry, and would not go in: therefore came his father out, and intreated him. And he answering said to his father, Lo, these many years do I serve thee, neither transgressed I at any time thy commandment: and yet thou never gavest me a kid, that I might make merry with my friends:"
+          },
+          {
+            "reference": "Luke 15:31-32",
+            "text": "And he said unto him, Son, thou art ever with me, and all that I have is thine. It was meet that we should make merry, and be glad: for this thy brother was dead, and is alive again; and was lost, and is found."
+          },
+          {
+            "reference": "Romans 5:20",
+            "text": "Moreover the law entered, that the offence might abound. But where sin abounded, grace did much more abound:"
+          }
+        ]
+      },
+      "The Good Samaritan": {
+        "title": "Neighbor Love Without Boundaries",
+        "description": "A certain lawyer, seeking to justify himself, asked Jesus 'Who is my neighbor?' (Luke 10:29), hoping to limit the scope of the Levitical command 'Thou shalt love thy neighbour as thyself' (Leviticus 19:18). Rather than provide a definition, Christ told a story that demolished ethnic and religious boundaries while exposing the emptiness of mere profession without compassion. The parable indicts ceremonial religion divorced from mercy and reveals that true righteousness transcends tribal loyalties.<br><br>A man traveling the treacherous road from Jerusalem to Jericho—a seventeen-mile descent of 3,600 feet through rocky, desolate terrain notorious for bandits—fell among thieves who stripped, wounded, and abandoned him half dead. A priest came upon the scene, saw the wounded man, and passed by on the other side. Likewise a Levite observed the victim and crossed to avoid him.<label for=\"sn-samaritan\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-samaritan\" class=\"margin-toggle\"/><span class=\"sidenote\">Both priest and Levite likely reasoned that touching what might be a corpse would render them ceremonially unclean (Numbers 19:11-16), preventing temple service. They chose ritual purity over compassion, external religion over the weightier matters of the law. The Greek word <em>antiparēlthen</em> ('passed by on the other side') suggests deliberate avoidance. Their very proximity to the victim made their callousness more culpable.</span><br><br>But a certain Samaritan—member of a people whom Jews considered heretical half-breeds, despised for their mixed ancestry and corrupted worship—journeyed that way, saw the wounded man, and had compassion. Here Christ's Jewish audience would recoil: the hero of the story was their ethnic and religious enemy. The Samaritan's actions demonstrated covenant love: he bound up the victim's wounds, pouring in oil (soothing) and wine (disinfecting), set him on his own beast (walking himself), brought him to an inn, took care of him through the night, and the next day gave the innkeeper two pence (two denarii, roughly two days' wages) with instructions to provide whatever care was needed, promising to repay any additional expenses upon his return.<br><br>Christ then turned the lawyer's question inside out: 'Which now of these three, thinkest thou, was neighbour unto him that fell among the thieves?' (Luke 10:36). The lawyer couldn't bring himself to say 'the Samaritan' but replied, 'He that shewed mercy on him.' Jesus commanded, 'Go, and do thou likewise'—not 'determine who qualifies as your neighbor,' but 'be a neighbor to anyone in need.' The parable reveals that God's grace breaks down walls of hostility, that true religion consists of mercy rather than mere ceremony, and that love for God inevitably manifests in sacrificial love for others, regardless of ethnicity, religion, or social standing.",
+        "verses": [
+          {
+            "reference": "Luke 10:29-30",
+            "text": "But he, willing to justify himself, said unto Jesus, And who is my neighbour? And Jesus answering said, A certain man went down from Jerusalem to Jericho, and fell among thieves, which stripped him of his raiment, and wounded him, and departed, leaving him half dead."
+          },
+          {
+            "reference": "Luke 10:31-32",
+            "text": "And by chance there came down a certain priest that way: and when he saw him, he passed by on the other side. And likewise a Levite, when he was at the place, came and looked on him, and passed by on the other side."
+          },
+          {
+            "reference": "Luke 10:33-35",
+            "text": "But a certain Samaritan, as he journeyed, came where he was: and when he saw him, he had compassion on him, and went to him, and bound up his wounds, pouring in oil and wine, and set him on his own beast, and brought him to an inn, and took care of him. And on the morrow when he departed, he took out two pence, and gave them to the host, and said unto him, Take care of him; and whatsoever thou spendest more, when I come again, I will repay thee."
+          },
+          {
+            "reference": "Luke 10:36-37",
+            "text": "Which now of these three, thinkest thou, was neighbour unto him that fell among the thieves? And he said, He that shewed mercy on him. Then said Jesus unto him, Go, and do thou likewise."
+          },
+          {
+            "reference": "Leviticus 19:18",
+            "text": "Thou shalt not avenge, nor bear any grudge against the children of thy people, but thou shalt love thy neighbour as thyself: I am the LORD."
+          },
+          {
+            "reference": "James 2:15-16",
+            "text": "If a brother or sister be naked, and destitute of daily food, and one of you say unto them, Depart in peace, be ye warmed and filled; notwithstanding ye give them not those things which are needful to the body; what doth it profit?"
+          }
+        ]
+      },
+      "The Unmerciful Servant": {
+        "title": "Forgiven Much, Forgive Much",
+        "description": "When Peter asked Jesus, 'Lord, how oft shall my brother sin against me, and I forgive him? till seven times?' (Matthew 18:21)—thinking himself generous by exceeding the rabbinic standard of three times—Christ answered, 'I say not unto thee, Until seven times: but, Until seventy times seven' (Matthew 18:22), indicating limitless forgiveness. He then illustrated this principle with a parable demonstrating that those forgiven an infinite debt by God must extend forgiveness to others, regardless of the offense's magnitude.<br><br>A certain king began reckoning with his servants and found one who owed him ten thousand talents—an incomprehensibly vast sum, equivalent to millions of denarii (perhaps 60 million days' wages for a common laborer). No individual could accumulate such a debt through ordinary means; the figure represents the impossible burden of sin's debt before God.<label for=\"sn-unmerciful\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-unmerciful\" class=\"margin-toggle\"/><span class=\"sidenote\">One talent equaled approximately 6,000 denarii; ten thousand talents thus represented about 60 million days' wages. By comparison, the annual tax revenue of Galilee and Perea combined was only 200 talents. The debt was mathematically unpayable, symbolizing humanity's absolute insolvency before divine justice. The subsequent debt of 100 pence (denarii) was roughly 100 days' wages—substantial but manageable. The ratio between the two debts exceeds 600,000 to 1.</span> The servant, unable to pay, faced the legal consequence: he, his wife, his children, and all his possessions would be sold. Falling down, he worshiped the king, pleading, 'Lord, have patience with me, and I will pay thee all'—a promise he could never fulfill. Moved with compassion, the lord released him and forgave the entire debt.<br><br>But that same servant, immediately after receiving this extraordinary pardon, encountered a fellow servant who owed him a hundred pence—roughly 100 days' wages, less than one six-hundred-thousandth of what he'd been forgiven. He took him by the throat, demanding, 'Pay me that thou owest.' The fellow servant fell down at his feet, using the identical plea—'Have patience with me, and I will pay thee all'—that had moved the king to mercy. Yet the forgiven servant 'would not: but went and cast him into prison, till he should pay the debt.' The other servants, witnessing this cruelty, were grieved and reported everything to their lord.<br><br>The king summoned the unmerciful servant: 'O thou wicked servant, I forgave thee all that debt, because thou desiredst me: shouldest not thou also have had compassion on thy fellowservant, even as I had pity on thee?' In his wrath, the lord delivered him to the tormentors until he should pay all that was due—which, given the debt's magnitude, meant perpetual imprisonment. Christ concluded with a sobering warning: 'So likewise shall my heavenly Father do also unto you, if ye from your hearts forgive not every one his brother their trespasses' (Matthew 18:35). The parable reveals that genuine reception of divine forgiveness inevitably produces a forgiving spirit toward others. Those who withhold mercy after receiving it demonstrate they never truly embraced God's grace, and face judgment proportionate to their hardness of heart.",
+        "verses": [
+          {
+            "reference": "Matthew 18:23-25",
+            "text": "Therefore is the kingdom of heaven likened unto a certain king, which would take account of his servants. And when he had begun to reckon, one was brought unto him, which owed him ten thousand talents. But forasmuch as he had not to pay, his lord commanded him to be sold, and his wife, and children, and all that he had, and payment to be made."
+          },
+          {
+            "reference": "Matthew 18:26-27",
+            "text": "The servant therefore fell down, and worshipped him, saying, Lord, have patience with me, and I will pay thee all. Then the lord of that servant was moved with compassion, and loosed him, and forgave him the debt."
+          },
+          {
+            "reference": "Matthew 18:28-30",
+            "text": "But the same servant went out, and found one of his fellowservants, which owed him an hundred pence: and he laid hands on him, and took him by the throat, saying, Pay me that thou owest. And his fellowservant fell down at his feet, and besought him, saying, Have patience with me, and I will pay thee all. And he would not: but went and cast him into prison, till he should pay the debt."
+          },
+          {
+            "reference": "Matthew 18:32-34",
+            "text": "Then his lord, after that he had called him, said unto him, O thou wicked servant, I forgave thee all that debt, because thou desiredst me: shouldest not thou also have had compassion on thy fellowservant, even as I had pity on thee? And his lord was wroth, and delivered him to the tormentors, till he should pay all that was due unto him."
+          },
+          {
+            "reference": "Matthew 18:35",
+            "text": "So likewise shall my heavenly Father do also unto you, if ye from your hearts forgive not every one his brother their trespasses."
+          },
+          {
+            "reference": "Ephesians 4:32",
+            "text": "And be ye kind one to another, tenderhearted, forgiving one another, even as God for Christ's sake hath forgiven you."
+          }
+        ]
+      }
+    },
+    "Stewardship and Responsibility": {
+      "The Talents": {
+        "title": "Faithful Use of Divine Gifts",
+        "description": "This parable, delivered during Christ's final week before crucifixion as part of His Olivet Discourse concerning His return and the kingdom's consummation, addresses accountability for spiritual gifts and opportunities entrusted to believers during His absence. A man traveling into a far country called his servants and delivered unto them his goods: to one he gave five talents, to another two, to another one—'to every man according to his several ability' (Matthew 25:15). The distribution was sovereign yet proportionate, recognizing differing capacities while expecting faithful stewardship from all.<label for=\"sn-talents\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-talents\" class=\"margin-toggle\"/><span class=\"sidenote\">A talent (Greek <em>talanton</em>) represented approximately 6,000 denarii—roughly twenty years' wages for a common laborer, making even one talent a substantial sum. The amounts entrusted were not trivial but represented significant responsibility. The parable's structure parallels Christ's ascension (the journey to a far country), the church age (the time of stewardship), and His return (the reckoning). Similar themes appear in the parable of the pounds (Luke 19:11-27), though with important distinctions.</span><br><br>The servant receiving five talents 'went and traded with the same, and made them other five talents'—doubling his master's investment through diligent labor. Likewise, the servant with two talents gained two more. But the servant receiving one talent 'went and digged in the earth, and hid his lord's money,' taking no risk, making no effort, producing no return. After a long time—emphasizing the extended period between Christ's ascension and return—the lord of those servants returned and reckoned with them.<br><br>The five-talent servant reported his gain. The lord's commendation was identical for both faithful servants, regardless of the differing amounts: 'Well done, thou good and faithful servant: thou hast been faithful over a few things, I will make thee ruler over many things: enter thou into the joy of thy lord' (Matthew 25:21, 23). Reward was proportionate not to the quantity entrusted but to faithfulness in stewardship. The servant's entrance into his lord's joy signifies participation in messianic kingdom blessings and eternal fellowship.<br><br>The one-talent servant approached with accusation rather than confession: 'Lord, I knew thee that thou art an hard man, reaping where thou hast not sown, and gathering where thou hast not strawed: and I was afraid, and went and hid thy talent' (Matthew 25:24-25). His words reveal a wicked heart: he attributed harshness to his master, blamed fear rather than accepting responsibility, and presented inaction as if it were prudent caution. The lord condemned him out of his own mouth: 'Thou wicked and slothful servant'—wicked because he maligned his master's character, slothful because he failed to exercise even minimal diligence. 'Thou oughtest therefore to have put my money to the exchangers, and then at my coming I should have received mine own with usury' (Matthew 25:27). Even the least effort would have been acceptable; complete neglect was inexcusable. The talent was taken from him and given to the ten-talent servant, and the unprofitable servant was cast into outer darkness where there is weeping and gnashing of teeth—language indicating eternal judgment for false professors who received opportunity but produced no fruit.",
+        "verses": [
+          {
+            "reference": "Matthew 25:14-15",
+            "text": "For the kingdom of heaven is as a man travelling into a far country, who called his own servants, and delivered unto them his goods. And unto one he gave five talents, to another two, and to another one; to every man according to his several ability; and straightway took his journey."
+          },
+          {
+            "reference": "Matthew 25:20-21",
+            "text": "And so he that had received five talents came and brought other five talents, saying, Lord, thou deliveredst unto me five talents: behold, I have gained beside them five talents more. His lord said unto him, Well done, thou good and faithful servant: thou hast been faithful over a few things, I will make thee ruler over many things: enter thou into the joy of thy lord."
+          },
+          {
+            "reference": "Matthew 25:24-25",
+            "text": "Then he which had received the one talent came and said, Lord, I knew thee that thou art an hard man, reaping where thou hast not sown, and gathering where thou hast not strawed: and I was afraid, and went and hid thy talent in the earth: lo, there thou hast that is thine."
+          },
+          {
+            "reference": "Matthew 25:26-28",
+            "text": "His lord answered and said unto him, Thou wicked and slothful servant, thou knewest that I reap where I sowed not, and gather where I have not strawed: thou oughtest therefore to have put my money to the exchangers, and then at my coming I should have received mine own with usury. Take therefore the talent from him, and give it unto him which hath ten talents."
+          },
+          {
+            "reference": "Matthew 25:29",
+            "text": "For unto every one that hath shall be given, and he shall have abundance: but from him that hath not shall be taken away even that which he hath."
+          },
+          {
+            "reference": "1 Corinthians 4:2",
+            "text": "Moreover it is required in stewards, that a man be found faithful."
+          }
+        ]
+      },
+      "The Unjust Steward": {
+        "title": "Wisdom in Preparation",
+        "description": "This perplexing parable, in which Christ appears to commend dishonesty, requires careful interpretation. The Lord commends not the steward's unrighteousness but his shrewd foresight—his wise preparation for an inevitable future. The parable rebukes believers who fail to use present temporal resources to secure eternal rewards, demonstrating less prudence regarding heaven than worldlings display regarding earth.<br><br>A certain rich man's steward was accused of wasting his master's goods. The master demanded an account and announced the steward's dismissal: 'thou mayest be no longer steward' (Luke 16:2). Facing unemployment, the steward reasoned, 'I cannot dig; to beg I am ashamed' (Luke 16:3)—his position had left him unfit for manual labor, and pride prevented mendicancy. He resolved upon a scheme: 'I am resolved what to do, that, when I am put out of the stewardship, they may receive me into their houses' (Luke 16:4).<label for=\"sn-steward\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-steward\" class=\"margin-toggle\"/><span class=\"sidenote\">The steward's precise method remains debated. He may have reduced the debts by forgiving his own commission (making him generous rather than dishonest), or he may have genuinely defrauded his master (making the parable's point his foresight despite his dishonesty). Either way, Christ's commendation focuses on the steward's shrewd preparation for the future, not his ethics. The amounts reduced were substantial: fifty measures (Greek <em>batous</em>) of oil represented about 400 gallons, twenty measures (<em>korous</em>) of wheat roughly 1,000 bushels.</span><br><br>He called his master's debtors individually. To the first, owing 100 measures of oil, he said, 'Take thy bill, and sit down quickly, and write fifty.' To another, owing 100 measures of wheat, he commanded, 'Take thy bill, and write fourscore.' By reducing their debts, he secured their gratitude and future hospitality. When his lord discovered the scheme, he 'commended the unjust steward, because he had done wisely' (Luke 16:8)—not righteously, but prudently. The steward recognized his crisis, understood his limited time, and acted decisively to prepare for his future, though that action was morally compromised.<br><br>Christ then drew His startling conclusion: 'For the children of this world are in their generation wiser than the children of light' (Luke 16:8). Worldly people demonstrate greater shrewdness in temporal affairs than God's children often display regarding eternal matters. The unregenerate diligently pursue earthly security; believers should pursue heavenly treasure with equal or greater zeal. Jesus commanded, 'Make to yourselves friends of the mammon of unrighteousness; that, when ye fail, they may receive you into everlasting habitations' (Luke 16:9)—use worldly wealth strategically for eternal purposes, investing in people and kingdom work that will welcome you into heaven. The parable's subsequent applications emphasize faithfulness: 'He that is faithful in that which is least is faithful also in much: and he that is unjust in the least is unjust also in much' (Luke 16:10). If believers prove unfaithful in handling earthly 'mammon of unrighteousness,' who will entrust them with 'true riches' (Luke 16:11)? The parable challenges comfortable Christianity that fails to leverage temporal resources for eternal gain, rebuking spiritual complacency while commending sacrificial, forward-thinking stewardship.",
+        "verses": [
+          {
+            "reference": "Luke 16:1-2",
+            "text": "And he said also unto his disciples, There was a certain rich man, which had a steward; and the same was accused unto him that he had wasted his goods. And he called him, and said unto him, How is it that I hear this of thee? give an account of thy stewardship; for thou mayest be no longer steward."
+          },
+          {
+            "reference": "Luke 16:3-4",
+            "text": "Then the steward said within himself, What shall I do? for my lord taketh away from me the stewardship: I cannot dig; to beg I am ashamed. I am resolved what to do, that, when I am put out of the stewardship, they may receive me into their houses."
+          },
+          {
+            "reference": "Luke 16:5-7",
+            "text": "So he called every one of his lord's debtors unto him, and said unto the first, How much owest thou unto my lord? And he said, An hundred measures of oil. And he said unto him, Take thy bill, and sit down quickly, and write fifty. Then said he to another, And how much owest thou? And he said, An hundred measures of wheat. And he said unto him, Take thy bill, and write fourscore."
+          },
+          {
+            "reference": "Luke 16:8-9",
+            "text": "And the lord commended the unjust steward, because he had done wisely: for the children of this world are in their generation wiser than the children of light. And I say unto you, Make to yourselves friends of the mammon of unrighteousness; that, when ye fail, they may receive you into everlasting habitations."
+          },
+          {
+            "reference": "Luke 16:10-11",
+            "text": "He that is faithful in that which is least is faithful also in much: and he that is unjust in the least is unjust also in much. If therefore ye have not been faithful in the unrighteous mammon, who will commit to your trust the true riches?"
+          },
+          {
+            "reference": "1 Timothy 6:17-19",
+            "text": "Charge them that are rich in this world, that they be not highminded, nor trust in uncertain riches, but in the living God, who giveth us richly all things to enjoy; that they do good, that they be rich in good works, ready to distribute, willing to communicate; laying up in store for themselves a good foundation against the time to come, that they may lay hold on eternal life."
+          }
+        ]
+      }
+    },
+    "Prayer and Persistence": {
+      "The Importunate Widow": {
+        "title": "Perseverance in Prayer",
+        "description": "Luke introduces this parable with explicit purpose: Christ spoke it 'to this end, that men ought always to pray, and not to faint' (Luke 18:1). The context suggests believers facing delay in Christ's return, persecution, and unanswered prayer. The parable teaches that if persistent entreaty overcomes even an unjust judge's resistance, how much more will the righteous God respond to His elect's continual cries? Yet the parable concludes with a sobering question about whether persevering faith will characterize believers when Christ returns.<br><br>In a certain city dwelt a judge 'which feared not God, neither regarded man' (Luke 18:2)—a thoroughly corrupt magistrate, accountable to neither divine law nor human opinion, dispensing justice only when self-interest dictated. A widow in that city—representing the powerless, those without advocate or influence—came repeatedly to him, saying, 'Avenge me of mine adversary' (Luke 18:3). She sought legal vindication, likely regarding property rights or debt collection, matters in which widows were frequently exploited.<label for=\"sn-widow\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-widow\" class=\"margin-toggle\"/><span class=\"sidenote\">Widows occupied a particularly vulnerable position in ancient society, lacking male protection and advocacy. Scripture repeatedly commands care for widows (Exodus 22:22, Deuteronomy 27:19, James 1:27), and God identifies Himself as their defender (Psalm 68:5, 146:9). That this widow had no patron to bribe or pressure the judge emphasizes her complete dependence on his willingness to act justly. The Greek word <em>ekdikēson</em> ('avenge me') carries the sense of legal vindication or justice, not personal vengeance.</span><br><br>For a time, the judge refused. But the widow continued coming—the Greek imperfect tense indicates repeated, persistent action. Eventually the judge reasoned within himself: 'Though I fear not God, nor regard man; yet because this widow troubleth me, I will avenge her, lest by her continual coming she weary me' (Luke 18:4-5). The phrase 'weary me' literally means 'give me a black eye' or 'wear me out'—he granted justice not from compassion but from sheer annoyance at her persistence.<br><br>Christ then applied the parable through lesser-to-greater reasoning: 'Hear what the unjust judge saith. And shall not God avenge his own elect, which cry day and night unto him, though he bear long with them?' (Luke 18:6-7). If an unjust, self-interested judge eventually responded to persistent petition, how much more certain is the righteous, loving God to answer His elect who continually cry to Him? The phrase 'though he bear long with them' suggests God's apparent delay is not indifference but patience, allowing time for His purposes to mature. Yet Christ promises, 'I tell you that he will avenge them speedily' (Luke 18:8)—when God acts, it will be sudden and decisive, though the waiting may seem long from human perspective.<br><br>The parable concludes with Christ's penetrating question: 'Nevertheless when the Son of man cometh, shall he find faith on the earth?' (Luke 18:8). This challenges believers to maintain persistent prayer and enduring faith despite delayed answers and prolonged trials. The parable warns against fainting—losing heart, abandoning prayer, surrendering faith—when God's response tarries. It assures that persistent, faith-filled prayer will be answered, while questioning whether such persevering faith will characterize Christ's followers when He returns.",
+        "verses": [
+          {
+            "reference": "Luke 18:1-2",
+            "text": "And he spake a parable unto them to this end, that men ought always to pray, and not to faint; saying, There was in a city a judge, which feared not God, neither regarded man:"
+          },
+          {
+            "reference": "Luke 18:3-5",
+            "text": "And there was a widow in that city; and she came unto him, saying, Avenge me of mine adversary. And he would not for a while: but afterward he said within himself, Though I fear not God, nor regard man; yet because this widow troubleth me, I will avenge her, lest by her continual coming she weary me."
+          },
+          {
+            "reference": "Luke 18:6-8",
+            "text": "And the Lord said, Hear what the unjust judge saith. And shall not God avenge his own elect, which cry day and night unto him, though he bear long with them? I tell you that he will avenge them speedily. Nevertheless when the Son of man cometh, shall he find faith on the earth?"
+          },
+          {
+            "reference": "1 Thessalonians 5:17",
+            "text": "Pray without ceasing."
+          },
+          {
+            "reference": "Hebrews 10:36",
+            "text": "For ye have need of patience, that, after ye have done the will of God, ye might receive the promise."
+          },
+          {
+            "reference": "Luke 11:5-8",
+            "text": "And he said unto them, Which of you shall have a friend, and shall go unto him at midnight, and say unto him, Friend, lend me three loaves; for a friend of mine in his journey is come to me, and I have nothing to set before him? And he from within shall answer and say, Trouble me not: the door is now shut, and my children are with me in bed; I cannot rise and give thee. I say unto you, Though he will not rise and give him, because he is his friend, yet because of his importunity he will rise and give him as many as he needeth."
+          }
+        ]
+      },
+      "The Pharisee and Publican": {
+        "title": "Humility Before God",
+        "description": "Christ addressed this parable 'unto certain which trusted in themselves that they were righteous, and despised others' (Luke 18:9)—the Pharisaic party who found righteousness in legal observance and regarded publicans, sinners, and Gentiles with contempt. The parable demolishes self-righteousness while revealing that justification comes not through meritorious works but through humble acknowledgment of sin and desperate appeal to divine mercy. It exposes the fundamental contrast between religion rooted in human achievement and salvation grounded in God's grace.<br><br>Two men went up into the temple to pray: a Pharisee and a publican. The Pharisee 'stood and prayed thus with himself' (Luke 18:11)—whether meaning he prayed silently or that his prayer never rose higher than himself (being fundamentally self-directed rather than God-directed), the phrase suggests a prayer that was more self-congratulation than supplication. His prayer consisted entirely of comparison and enumeration of religious achievements: 'God, I thank thee, that I am not as other men are, extortioners, unjust, adulterers, or even as this publican. I fast twice in the week, I give tithes of all that I possess' (Luke 18:11-12). He fasted beyond the law's requirement (only the Day of Atonement was mandatory), tithed meticulously even on garden herbs (Matthew 23:23), and avoided obvious sins. Yet his entire approach was fatally flawed: he compared himself to other men rather than to God's holiness, found security in external observance rather than heart transformation, and approached God as creditor to be paid rather than as sovereign to be worshiped.<label for=\"sn-publican\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-publican\" class=\"margin-toggle\"/><span class=\"sidenote\">The publican's prayer—'God be merciful to me a sinner'—employs the Greek verb <em>hilaskomai</em>, meaning 'be propitiated' or 'be mercifully disposed through atonement.' The publican appealed to the mercy seat (<em>hilastērion</em>) where the high priest sprinkled atoning blood on the Day of Atonement. He didn't ask God to overlook his sin but to accept substitutionary atonement. The Greek includes the definite article: literally 'the sinner'—not merely one among many but the sinner <em>par excellence</em>, acknowledging himself chief of sinners. This theological precision in a tax collector's prayer suggests these were likely Christ's own words, distilling justifying faith to its essence.</span><br><br>The publican, by contrast, 'standing afar off'—maintaining distance befitting his sense of unworthiness—'would not lift up so much as his eyes unto heaven'—unable to claim the bold access that characterizes those confident in their own righteousness—'but smote upon his breast'—a gesture of profound grief and contrition, striking the seat of sin and shame—'saying, God be merciful to me a sinner' (Luke 18:13). His prayer was brief, addressed entirely to God rather than self, made no comparison to others, claimed no merit, offered no works, brought no righteousness of his own, but cast himself wholly upon divine mercy. He acknowledged what the Pharisee denied: his absolute need for grace.<br><br>Christ's verdict reversed human judgment: 'I tell you, this man went down to his house justified rather than the other' (Luke 18:14). The despised publican, not the respected Pharisee, received justification—legal declaration of righteousness, not through his own works (for he claimed none) but through faith that cast itself upon God's mercy. The Pharisee's supposed righteousness was filthy rags; the publican's acknowledged sin, covered by atonement, was imputed righteousness. Christ concluded with the parable's governing principle: 'For every one that exalteth himself shall be abased; and he that humbleth himself shall be exalted' (Luke 18:14). God resists the proud but gives grace to the humble. Salvation belongs not to those who trust in their own righteousness but to those who, acknowledging their sin, cry out for mercy. This parable stands as perpetual rebuke to every form of self-righteousness and perpetual comfort to every broken sinner who despairs of self but hopes in God.",
+        "verses": [
+          {
+            "reference": "Luke 18:9-10",
+            "text": "And he spake this parable unto certain which trusted in themselves that they were righteous, and despised others: two men went up into the temple to pray; the one a Pharisee, and the other a publican."
+          },
+          {
+            "reference": "Luke 18:11-12",
+            "text": "The Pharisee stood and prayed thus with himself, God, I thank thee, that I am not as other men are, extortioners, unjust, adulterers, or even as this publican. I fast twice in the week, I give tithes of all that I possess."
+          },
+          {
+            "reference": "Luke 18:13",
+            "text": "And the publican, standing afar off, would not lift up so much as his eyes unto heaven, but smote upon his breast, saying, God be merciful to me a sinner."
+          },
+          {
+            "reference": "Luke 18:14",
+            "text": "I tell you, this man went down to his house justified rather than the other: for every one that exalteth himself shall be abased; and he that humbleth himself shall be exalted."
+          },
+          {
+            "reference": "Isaiah 64:6",
+            "text": "But we are all as an unclean thing, and all our righteousnesses are as filthy rags; and we all do fade as a leaf; and our iniquities, like the wind, have taken us away."
+          },
+          {
+            "reference": "Romans 3:23-24",
+            "text": "For all have sinned, and come short of the glory of God; being justified freely by his grace through the redemption that is in Christ Jesus:"
+          }
+        ]
+      }
+    }
+  }
+}

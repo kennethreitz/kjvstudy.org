@@ -1,0 +1,71 @@
+{
+  "Joy": {
+    "description": "Deep gladness rooted in God's character and promises",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Joy in Scripture</span> differs fundamentally from worldly happiness. While happiness depends on favorable circumstances, biblical joy remains steadfast regardless of external conditions. This supernatural gladness flows from relationship with God, confidence in His sovereignty, and hope in eternal promises. Joy is simultaneously a gift of the Spirit and a discipline of faith—something received and something cultivated.</p>\n\n<p class=\"intro-text\">The sources of Christian joy are manifold. <strong>Joy in salvation</strong> celebrates the greatest reality: reconciliation with God and deliverance from condemnation. \"We also joy in God through our Lord Jesus Christ, by whom we have now received the atonement\" (Romans 5:11). <strong>Joy in God Himself</strong> delights in His character, finding satisfaction in who He is rather than merely what He gives. \"Whom having not seen, ye love; in whom, though now ye see him not, yet believing, ye rejoice with joy unspeakable\" (1 Peter 1:8). <strong>Joy in hope</strong> anticipates future glory, transforming present suffering into light affliction. \"Rejoicing in hope; patient in tribulation\" (Romans 12:12).</p>\n\n<p class=\"intro-text\">Remarkably, Scripture commands joy even amid trials. \"Count it all joy when ye fall into divers temptations\" (James 1:2). This is possible because joy depends not on circumstances but on unchanging realities: God's love, Christ's victory, the Spirit's presence, and heaven's certainty. Paul wrote his epistle of joy from prison, demonstrating that external chains cannot bind internal gladness. The joy of the Lord becomes the believer's strength (Nehemiah 8:10), enabling endurance when human resources fail.</p>\n\n<p class=\"intro-text\">Joy manifests in worship, gratitude, generosity, and witness. Joyful believers attract others to Christ more effectively than dutiful ones. Joy is contagious—it overflows to bless others and glorify God. \"These things have I spoken unto you, that my joy might remain in you, and that your joy might be full\" (John 15:11).</p>",
+    "subtopics": {
+      "Joy in Salvation": {
+        "description": "Rejoicing in redemption",
+        "verses": [
+          {
+            "ref": "Luke 10:20",
+            "note": "Rejoice that your names are written in heaven"
+          },
+          {
+            "ref": "Romans 5:11",
+            "note": "Joy in God through Christ"
+          },
+          {
+            "ref": "Psalms 51:12",
+            "note": "Restore unto me the joy of thy salvation"
+          },
+          {
+            "ref": "Isaiah 61:10",
+            "note": "My soul shall be joyful in my God"
+          }
+        ]
+      },
+      "Joy in Trials": {
+        "description": "Finding joy amid suffering",
+        "verses": [
+          {
+            "ref": "James 1:2",
+            "note": "Count it all joy"
+          },
+          {
+            "ref": "Romans 5:3",
+            "note": "Glory in tribulations"
+          },
+          {
+            "ref": "1 Peter 4:13",
+            "note": "Rejoice in Christ's sufferings"
+          },
+          {
+            "ref": "Acts 5:41",
+            "note": "Rejoicing to suffer for His name"
+          }
+        ]
+      },
+      "Fullness of Joy": {
+        "description": "Complete joy in God",
+        "verses": [
+          {
+            "ref": "John 15:11",
+            "note": "That your joy might be full"
+          },
+          {
+            "ref": "Psalms 16:11",
+            "note": "Fullness of joy in thy presence"
+          },
+          {
+            "ref": "John 16:24",
+            "note": "Ask, that your joy may be full"
+          },
+          {
+            "ref": "1 John 1:4",
+            "note": "That your joy may be full"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "Service": {
+    "description": "Using one's gifts and abilities to serve God and others",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Christian service</span> flows from gratitude for grace received. Jesus revolutionized leadership by modeling servant-hood: \"Whosoever will be great among you, let him be your minister; And whosoever will be chief among you, let him be your servant\" (Matthew 20:26-27). The greatest in God's kingdom serve the lowliest—this inverts worldly hierarchies entirely.</p>\n\n<p class=\"intro-text\">Every believer is gifted for service. \"As every man hath received the gift, even so minister the same one to another, as good stewards of the manifold grace of God\" (1 Peter 4:10). Spiritual gifts—teaching, helping, giving, mercy, leadership, and others—equip the body of Christ for mutual edification. No gift is insignificant; no member is dispensable.</p>\n\n<p class=\"intro-text\">Service to others is service to Christ. In the parable of the sheep and goats, Jesus identifies Himself with the hungry, thirsty, stranger, naked, sick, and imprisoned: \"Inasmuch as ye have done it unto one of the least of these my brethren, ye have done it unto me\" (Matthew 25:40). This transforms menial tasks into sacred ministry—every cup of water given becomes an offering to Christ.</p>\n\n<p class=\"intro-text\">True service requires humility. Jesus girded Himself with a towel and washed His disciples' feet—the task of the lowest household servant. \"If I then, your Lord and Master, have washed your feet; ye also ought to wash one another's feet\" (John 13:14). Position never exempts from service; rather, position increases the obligation to serve.</p>",
+    "subtopics": {
+      "Christ Our Example": {
+        "description": "Jesus modeling servant leadership",
+        "verses": [
+          {
+            "ref": "Mark 10:45",
+            "note": "Came not to be ministered unto"
+          },
+          {
+            "ref": "John 13:12-17",
+            "note": "Washing disciples' feet"
+          },
+          {
+            "ref": "Philippians 2:5-8",
+            "note": "Took the form of a servant"
+          },
+          {
+            "ref": "Matthew 20:26-28",
+            "note": "Whosoever will be great, serve"
+          }
+        ]
+      },
+      "Gifts for Service": {
+        "description": "Spiritual gifts equipping the church",
+        "verses": [
+          {
+            "ref": "1 Peter 4:10-11",
+            "note": "Minister gifts to one another"
+          },
+          {
+            "ref": "Romans 12:6-8",
+            "note": "Gifts differing according to grace"
+          },
+          {
+            "ref": "1 Corinthians 12:4-7",
+            "note": "Diversities of gifts, same Spirit"
+          },
+          {
+            "ref": "Ephesians 4:11-12",
+            "note": "Gifts for equipping saints"
+          }
+        ]
+      },
+      "Serving the Least": {
+        "description": "Ministry to those in need",
+        "verses": [
+          {
+            "ref": "Matthew 25:35-40",
+            "note": "Did it unto the least of these"
+          },
+          {
+            "ref": "James 1:27",
+            "note": "Visit orphans and widows"
+          },
+          {
+            "ref": "Galatians 6:10",
+            "note": "Do good unto all men"
+          },
+          {
+            "ref": "Proverbs 19:17",
+            "note": "He that hath pity on the poor"
+          }
+        ]
+      },
+      "Attitude in Service": {
+        "description": "Heart posture for serving",
+        "verses": [
+          {
+            "ref": "Colossians 3:23-24",
+            "note": "Whatsoever ye do, do heartily"
+          },
+          {
+            "ref": "Galatians 5:13",
+            "note": "By love serve one another"
+          },
+          {
+            "ref": "1 Corinthians 15:58",
+            "note": "Labour is not in vain"
+          },
+          {
+            "ref": "Ephesians 6:7",
+            "note": "With good will doing service"
+          }
+        ]
+      }
+    }
+  }
+}

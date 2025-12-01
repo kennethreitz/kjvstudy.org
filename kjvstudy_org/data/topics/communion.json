@@ -1,0 +1,92 @@
+{
+  "Communion": {
+    "description": "The Lord's Supper commemorating Christ's sacrifice and anticipating His return",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">The Lord's Supper</span> stands as the church's central act of worship and remembrance. Instituted by Christ on the night before His crucifixion, this meal proclaims His death until He comes again. \"This do in remembrance of me\" (Luke 22:19) commands believers to perpetuate this sacred meal throughout church history.</p>\n\n<p class=\"intro-text\">The elements carry profound meaning. The <strong>bread</strong> represents Christ's body, broken for our redemption: \"This is my body which is given for you\" (Luke 22:19). The <strong>cup</strong> signifies His blood, poured out for sin's forgiveness: \"This cup is the new testament in my blood\" (Luke 22:20). Together they proclaim the gospel in visible form—Christ's atoning death securing eternal life for all who believe.</p>\n\n<p class=\"intro-text\">Communion is both backward-looking and forward-looking. It <strong>remembers</strong> Calvary: \"as often as ye eat this bread, and drink this cup, ye do shew the Lord's death\" (1 Corinthians 11:26). It also <strong>anticipates</strong> Christ's return: \"till he come.\" The church celebrates between the cross and the crown, between redemption accomplished and redemption consummated.</p>\n\n<p class=\"intro-text\">Scripture calls for serious self-examination before partaking. \"Let a man examine himself, and so let him eat of that bread, and drink of that cup\" (1 Corinthians 11:28). Those who eat and drink unworthily bring judgment upon themselves. The table calls for confession, reconciliation, and renewed commitment. This solemn joy marks the communion of saints with their Lord and with one another.</p>",
+    "subtopics": {
+      "Institution of the Supper": {
+        "description": "Christ establishing the ordinance",
+        "verses": [
+          {
+            "ref": "Matthew 26:26-28",
+            "note": "Take, eat; this is my body"
+          },
+          {
+            "ref": "Mark 14:22-24",
+            "note": "This is my blood of the new testament"
+          },
+          {
+            "ref": "Luke 22:19-20",
+            "note": "This do in remembrance of me"
+          },
+          {
+            "ref": "1 Corinthians 11:23-25",
+            "note": "The Lord's own words"
+          }
+        ]
+      },
+      "Meaning of the Elements": {
+        "description": "Significance of bread and cup",
+        "verses": [
+          {
+            "ref": "1 Corinthians 10:16",
+            "note": "Communion of Christ's body and blood"
+          },
+          {
+            "ref": "John 6:53-56",
+            "note": "Eat my flesh, drink my blood"
+          },
+          {
+            "ref": "1 Corinthians 11:26",
+            "note": "Shew the Lord's death"
+          },
+          {
+            "ref": "Exodus 12:14",
+            "note": "Passover memorial foreshadowing"
+          }
+        ]
+      },
+      "Worthy Participation": {
+        "description": "Self-examination and preparation",
+        "verses": [
+          {
+            "ref": "1 Corinthians 11:27-29",
+            "note": "Examine himself"
+          },
+          {
+            "ref": "1 Corinthians 11:30-32",
+            "note": "Judgment for unworthiness"
+          },
+          {
+            "ref": "Matthew 5:23-24",
+            "note": "Reconciliation before worship"
+          },
+          {
+            "ref": "1 Corinthians 10:21",
+            "note": "Cannot partake of Lord's table and devils"
+          }
+        ]
+      },
+      "Unity of the Church": {
+        "description": "Communion expressing fellowship",
+        "verses": [
+          {
+            "ref": "1 Corinthians 10:17",
+            "note": "One bread, one body"
+          },
+          {
+            "ref": "Acts 2:42",
+            "note": "Breaking of bread together"
+          },
+          {
+            "ref": "Acts 20:7",
+            "note": "Gathered to break bread"
+          },
+          {
+            "ref": "1 Corinthians 11:33",
+            "note": "Tarry one for another"
+          }
+        ]
+      }
+    }
+  }
+}

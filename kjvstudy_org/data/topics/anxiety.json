@@ -1,0 +1,92 @@
+{
+  "Anxiety": {
+    "description": "Overcoming worry and fear through trust in God's sovereign care",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Anxiety afflicts</span> even the strongest believers. The rapid heartbeat, racing thoughts, and overwhelming dread that accompany worry are part of fallen human experience. Scripture neither minimizes anxiety nor merely tells us to \"just stop worrying.\" Instead, it provides the remedy: redirecting our focus from circumstances to the God who controls all circumstances.</p>\n\n<p class=\"intro-text\">Jesus addressed anxiety directly in the Sermon on the Mount. \"Take no thought for your life, what ye shall eat, or what ye shall drink; nor yet for your body, what ye shall put on\" (Matthew 6:25). His argument moves from greater to lesser: if God feeds birds and clothes lilies, will He not much more care for His children? Anxiety questions God's wisdom or goodness; trust affirms both.</p>\n\n<p class=\"intro-text\">The biblical antidote to anxiety is prayer combined with thanksgiving. \"Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus\" (Philippians 4:6-7). This is not passive resignation but active transfer of burdens to the One who can bear them.</p>\n\n<p class=\"intro-text\">Fear in its various forms—fear of man, fear of the future, fear of death—finds its answer in the fear of God. \"The fear of man bringeth a snare: but whoso putteth his trust in the LORD shall be safe\" (Proverbs 29:25). When God looms larger than our problems, anxiety loses its grip. \"Fear not\" appears throughout Scripture because God knows our tendency to fear—and commands us to counter it with faith.</p>",
+    "subtopics": {
+      "Jesus on Worry": {
+        "description": "Christ's teaching on anxiety",
+        "verses": [
+          {
+            "ref": "Matthew 6:25-27",
+            "note": "Take no thought for your life"
+          },
+          {
+            "ref": "Matthew 6:31-34",
+            "note": "Seek first the kingdom"
+          },
+          {
+            "ref": "Luke 12:22-26",
+            "note": "Consider the ravens"
+          },
+          {
+            "ref": "John 14:27",
+            "note": "Let not your heart be troubled"
+          }
+        ]
+      },
+      "Prayer for Peace": {
+        "description": "Exchanging anxiety for prayer",
+        "verses": [
+          {
+            "ref": "Philippians 4:6-7",
+            "note": "Be careful for nothing"
+          },
+          {
+            "ref": "1 Peter 5:7",
+            "note": "Casting all your care upon him"
+          },
+          {
+            "ref": "Psalms 55:22",
+            "note": "Cast thy burden upon the LORD"
+          },
+          {
+            "ref": "Psalms 94:19",
+            "note": "Thy comforts delight my soul"
+          }
+        ]
+      },
+      "Fear of Man": {
+        "description": "Overcoming people-pleasing anxiety",
+        "verses": [
+          {
+            "ref": "Proverbs 29:25",
+            "note": "Fear of man bringeth a snare"
+          },
+          {
+            "ref": "Isaiah 51:7",
+            "note": "Fear not the reproach of men"
+          },
+          {
+            "ref": "Hebrews 13:6",
+            "note": "The Lord is my helper; I will not fear"
+          },
+          {
+            "ref": "Matthew 10:28",
+            "note": "Fear not them which kill the body"
+          }
+        ]
+      },
+      "God's Promises to the Fearful": {
+        "description": "Assurances for the anxious",
+        "verses": [
+          {
+            "ref": "Isaiah 41:10",
+            "note": "Fear not; I am with thee"
+          },
+          {
+            "ref": "Psalms 23:4",
+            "note": "I will fear no evil"
+          },
+          {
+            "ref": "Psalms 56:3",
+            "note": "When I am afraid, I will trust"
+          },
+          {
+            "ref": "Romans 8:15",
+            "note": "Not received spirit of bondage to fear"
+          }
+        ]
+      }
+    }
+  }
+}

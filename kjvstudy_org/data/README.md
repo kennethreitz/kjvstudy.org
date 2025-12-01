@@ -156,8 +156,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ## Study Resources
 
-### `study_guides.json` (265K)
-**Contains**: 25 complete study guides with 183 sections and 732 verse references
+### `study_guides/` (36 files, ~265K combined)
+**Contains**: 25 complete study guides with 183 sections and 732 verse references, split per guide
 
 **Structure**:
 ```json
@@ -193,34 +193,35 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `verse_commentary.json` (56K)
-**Contains**: 22 verses with detailed theological analysis, historical context, applications, and reflection questions (66 total questions)
+### `verse_commentary/` (64 files, ~28MB)
+**Contains**: Detailed theological commentary for 12,321 verses across 64 books (analysis, historical context, reflection questions)
 
 **Structure**:
 ```json
 {
-  "John 3:16": {
-    "analysis": "...",
-    "historical_context": "...",
-    "application": "...",
-    "questions": [
-      "How does the phrase 'God so loved the world' challenge...",
-      ...
-    ]
+  "book": "John",
+  "commentary": {
+    "3": {
+      "16": {
+        "analysis": "...",
+        "historical": "...",
+        "questions": ["How does this verse fit into the broader biblical story?"]
+      }
+    }
   }
 }
 ```
 
-**Coverage**: 14 books (9 NT, 5 OT) including Genesis, John, Romans, Ephesians, Revelation
+**Coverage**: 64 books with verse-level commentary (12,321 verses total)
 
-**Used by**: `routes/commentary.py`, enhanced verse commentary pages
+**Used by**: `routes/commentary.py`, `routes/api.py`, enhanced verse commentary pages
 
 ---
 
-### `resources.json` (1.3M)
-**Contains**: All biblical reference resources including angels, prophets, parables, covenants, apostles, women, festivals, fruits of the Spirit, miracles, prayers, beatitudes, commandments, armor of God, I AM statements, and systematic theology topics
+### `resources/` (39 files, ~1.3M combined)
+**Contains**: All biblical reference resources split by major category (angels, prophets, parables, covenants, apostles, women, festivals, fruits of the Spirit, miracles, prayers, beatitudes, commandments, armor of God, I AM statements, systematic theology topics)
 
-**Structure**:
+**Structure** (per file):
 ```json
 {
   "angels": {
@@ -232,10 +233,7 @@ This directory contains all biblical reference data for the KJV Study applicatio
         "content": "..."
       }
     }
-  },
-  "prophets": {...},
-  "parables": {...},
-  ...
+  }
 }
 ```
 
@@ -251,7 +249,7 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ## Reference Materials
 
-### `topics.json` (160K)
+### `topics/` (36 files, ~160K combined)
 **Contains**: Topical verse index organized by major theological and practical topics with subtopics and verse references
 
 **Structure**:
@@ -275,8 +273,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `reading_plans.json` (122K)
-**Contains**: 8 comprehensive Bible reading plans with daily readings and themes
+### `reading_plans/` (6 files, ~122K combined)
+**Contains**: comprehensive Bible reading plans with daily readings and themes
 
 **Plans**:
 - Chronological (365 days) - Read in historical order
@@ -536,13 +534,13 @@ uv run pytest tests/ -v
 ### Adding New Content
 
 **New Study Guide**:
-1. Add to `study_guides.json` under appropriate category in `catalog`
+1. Add to appropriate category in `study_guides/` (catalog entry + content)
 2. Add full content with sections to `content` object
 3. Add slug to `resource_slugs.json` under `study_guides`
 4. Test with: `curl http://localhost:8000/study-guides/your-slug`
 
 **New Resource**:
-1. Add to appropriate section in `resources.json`
+1. Add to appropriate category file in `resources/`
 2. Add slug to `resource_slugs.json`
 3. Update sitemap in `routes/utility.py` if needed
 4. Test resource page rendering
@@ -592,8 +590,8 @@ All theological content has been reviewed for:
 | File | Size | Load Time* | Cache |
 |------|------|-----------|-------|
 | bible_metadata.json | 5.7K | <1ms | Yes |
-| study_guides.json | 265K | ~10ms | Yes |
-| resources.json | 1.3M | ~50ms | Yes |
+| study_guides/ | 265K (combined) | ~10ms | Yes (per-file merge) |
+| resources/ | 1.3M (combined) | ~50ms | Yes (per-file load & merge) |
 | interlinear.json.gz | 12M | ~500ms | Yes (lazy) |
 
 *Approximate times on modern hardware

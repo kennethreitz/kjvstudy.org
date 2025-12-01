@@ -1,0 +1,638 @@
+{
+  "nt_90_days": [
+    {
+      "day": 1,
+      "readings": [
+        "Matthew 1-4"
+      ],
+      "theme": "Birth and Ministry Begins"
+    },
+    {
+      "day": 2,
+      "readings": [
+        "Matthew 5-6"
+      ],
+      "theme": "Sermon on the Mount"
+    },
+    {
+      "day": 3,
+      "readings": [
+        "Matthew 7-9"
+      ],
+      "theme": "Authority and Miracles"
+    },
+    {
+      "day": 4,
+      "readings": [
+        "Matthew 10-11"
+      ],
+      "theme": "Disciples Sent"
+    },
+    {
+      "day": 5,
+      "readings": [
+        "Matthew 12-13"
+      ],
+      "theme": "Parables"
+    },
+    {
+      "day": 6,
+      "readings": [
+        "Matthew 14-16"
+      ],
+      "theme": "Peter's Confession"
+    },
+    {
+      "day": 7,
+      "readings": [
+        "Matthew 17-19"
+      ],
+      "theme": "Transfiguration"
+    },
+    {
+      "day": 8,
+      "readings": [
+        "Matthew 20-21"
+      ],
+      "theme": "Triumphal Entry"
+    },
+    {
+      "day": 9,
+      "readings": [
+        "Matthew 22-23"
+      ],
+      "theme": "Confrontations"
+    },
+    {
+      "day": 10,
+      "readings": [
+        "Matthew 24-25"
+      ],
+      "theme": "Olivet Discourse"
+    },
+    {
+      "day": 11,
+      "readings": [
+        "Matthew 26"
+      ],
+      "theme": "Last Supper and Arrest"
+    },
+    {
+      "day": 12,
+      "readings": [
+        "Matthew 27-28"
+      ],
+      "theme": "Death and Resurrection"
+    },
+    {
+      "day": 13,
+      "readings": [
+        "Mark 1-3"
+      ],
+      "theme": "Beginning"
+    },
+    {
+      "day": 14,
+      "readings": [
+        "Mark 4-5"
+      ],
+      "theme": "Parables and Miracles"
+    },
+    {
+      "day": 15,
+      "readings": [
+        "Mark 6-7"
+      ],
+      "theme": "Feeding 5000"
+    },
+    {
+      "day": 16,
+      "readings": [
+        "Mark 8-9"
+      ],
+      "theme": "Who Is Jesus?"
+    },
+    {
+      "day": 17,
+      "readings": [
+        "Mark 10-11"
+      ],
+      "theme": "Journey to Jerusalem"
+    },
+    {
+      "day": 18,
+      "readings": [
+        "Mark 12-13"
+      ],
+      "theme": "Temple Teaching"
+    },
+    {
+      "day": 19,
+      "readings": [
+        "Mark 14-16"
+      ],
+      "theme": "Passion and Resurrection"
+    },
+    {
+      "day": 20,
+      "readings": [
+        "Luke 1-2"
+      ],
+      "theme": "Birth Narratives"
+    },
+    {
+      "day": 21,
+      "readings": [
+        "Luke 3-4"
+      ],
+      "theme": "Baptism and Temptation"
+    },
+    {
+      "day": 22,
+      "readings": [
+        "Luke 5-6"
+      ],
+      "theme": "Disciples Called"
+    },
+    {
+      "day": 23,
+      "readings": [
+        "Luke 7-8"
+      ],
+      "theme": "Faith and Miracles"
+    },
+    {
+      "day": 24,
+      "readings": [
+        "Luke 9-10"
+      ],
+      "theme": "Mission"
+    },
+    {
+      "day": 25,
+      "readings": [
+        "Luke 11-12"
+      ],
+      "theme": "Prayer and Warnings"
+    },
+    {
+      "day": 26,
+      "readings": [
+        "Luke 13-14"
+      ],
+      "theme": "Repentance"
+    },
+    {
+      "day": 27,
+      "readings": [
+        "Luke 15-16"
+      ],
+      "theme": "Lost and Found"
+    },
+    {
+      "day": 28,
+      "readings": [
+        "Luke 17-18"
+      ],
+      "theme": "Faith"
+    },
+    {
+      "day": 29,
+      "readings": [
+        "Luke 19-20"
+      ],
+      "theme": "Jerusalem"
+    },
+    {
+      "day": 30,
+      "readings": [
+        "Luke 21-22"
+      ],
+      "theme": "End Times and Passover"
+    },
+    {
+      "day": 31,
+      "readings": [
+        "Luke 23-24"
+      ],
+      "theme": "Cross and Resurrection"
+    },
+    {
+      "day": 32,
+      "readings": [
+        "John 1-2"
+      ],
+      "theme": "Word Made Flesh"
+    },
+    {
+      "day": 33,
+      "readings": [
+        "John 3-4"
+      ],
+      "theme": "New Birth"
+    },
+    {
+      "day": 34,
+      "readings": [
+        "John 5-6"
+      ],
+      "theme": "Bread of Life"
+    },
+    {
+      "day": 35,
+      "readings": [
+        "John 7-8"
+      ],
+      "theme": "Living Water"
+    },
+    {
+      "day": 36,
+      "readings": [
+        "John 9-10"
+      ],
+      "theme": "Light and Shepherd"
+    },
+    {
+      "day": 37,
+      "readings": [
+        "John 11-12"
+      ],
+      "theme": "Lazarus"
+    },
+    {
+      "day": 38,
+      "readings": [
+        "John 13-14"
+      ],
+      "theme": "Upper Room"
+    },
+    {
+      "day": 39,
+      "readings": [
+        "John 15-16"
+      ],
+      "theme": "Vine and Spirit"
+    },
+    {
+      "day": 40,
+      "readings": [
+        "John 17-18"
+      ],
+      "theme": "Prayer and Arrest"
+    },
+    {
+      "day": 41,
+      "readings": [
+        "John 19-21"
+      ],
+      "theme": "Cross and Restoration"
+    },
+    {
+      "day": 42,
+      "readings": [
+        "Acts 1-2"
+      ],
+      "theme": "Pentecost"
+    },
+    {
+      "day": 43,
+      "readings": [
+        "Acts 3-4"
+      ],
+      "theme": "Early Church"
+    },
+    {
+      "day": 44,
+      "readings": [
+        "Acts 5-6"
+      ],
+      "theme": "Growth and Opposition"
+    },
+    {
+      "day": 45,
+      "readings": [
+        "Acts 7-8"
+      ],
+      "theme": "Stephen and Philip"
+    },
+    {
+      "day": 46,
+      "readings": [
+        "Acts 9-10"
+      ],
+      "theme": "Saul's Conversion"
+    },
+    {
+      "day": 47,
+      "readings": [
+        "Acts 11-12"
+      ],
+      "theme": "Gentile Mission"
+    },
+    {
+      "day": 48,
+      "readings": [
+        "Acts 13-14"
+      ],
+      "theme": "First Journey"
+    },
+    {
+      "day": 49,
+      "readings": [
+        "Acts 15-16"
+      ],
+      "theme": "Jerusalem Council"
+    },
+    {
+      "day": 50,
+      "readings": [
+        "Acts 17-18"
+      ],
+      "theme": "Second Journey"
+    },
+    {
+      "day": 51,
+      "readings": [
+        "Acts 19-20"
+      ],
+      "theme": "Third Journey"
+    },
+    {
+      "day": 52,
+      "readings": [
+        "Acts 21-22"
+      ],
+      "theme": "Arrest in Jerusalem"
+    },
+    {
+      "day": 53,
+      "readings": [
+        "Acts 23-24"
+      ],
+      "theme": "Before Felix"
+    },
+    {
+      "day": 54,
+      "readings": [
+        "Acts 25-26"
+      ],
+      "theme": "Before Festus and Agrippa"
+    },
+    {
+      "day": 55,
+      "readings": [
+        "Acts 27-28"
+      ],
+      "theme": "Journey to Rome"
+    },
+    {
+      "day": 56,
+      "readings": [
+        "Romans 1-3"
+      ],
+      "theme": "All Have Sinned"
+    },
+    {
+      "day": 57,
+      "readings": [
+        "Romans 4-6"
+      ],
+      "theme": "Justification"
+    },
+    {
+      "day": 58,
+      "readings": [
+        "Romans 7-8"
+      ],
+      "theme": "Life in the Spirit"
+    },
+    {
+      "day": 59,
+      "readings": [
+        "Romans 9-11"
+      ],
+      "theme": "Israel"
+    },
+    {
+      "day": 60,
+      "readings": [
+        "Romans 12-14"
+      ],
+      "theme": "Living Sacrifice"
+    },
+    {
+      "day": 61,
+      "readings": [
+        "Romans 15-16"
+      ],
+      "theme": "Unity"
+    },
+    {
+      "day": 62,
+      "readings": [
+        "1 Corinthians 1-4"
+      ],
+      "theme": "Wisdom and Unity"
+    },
+    {
+      "day": 63,
+      "readings": [
+        "1 Corinthians 5-8"
+      ],
+      "theme": "Church Issues"
+    },
+    {
+      "day": 64,
+      "readings": [
+        "1 Corinthians 9-11"
+      ],
+      "theme": "Freedom"
+    },
+    {
+      "day": 65,
+      "readings": [
+        "1 Corinthians 12-14"
+      ],
+      "theme": "Spiritual Gifts"
+    },
+    {
+      "day": 66,
+      "readings": [
+        "1 Corinthians 15-16"
+      ],
+      "theme": "Resurrection"
+    },
+    {
+      "day": 67,
+      "readings": [
+        "2 Corinthians 1-4"
+      ],
+      "theme": "Ministry"
+    },
+    {
+      "day": 68,
+      "readings": [
+        "2 Corinthians 5-8"
+      ],
+      "theme": "Reconciliation"
+    },
+    {
+      "day": 69,
+      "readings": [
+        "2 Corinthians 9-13"
+      ],
+      "theme": "Generosity"
+    },
+    {
+      "day": 70,
+      "readings": [
+        "Galatians 1-3"
+      ],
+      "theme": "Gospel Freedom"
+    },
+    {
+      "day": 71,
+      "readings": [
+        "Galatians 4-6"
+      ],
+      "theme": "Live by Spirit"
+    },
+    {
+      "day": 72,
+      "readings": [
+        "Ephesians 1-3"
+      ],
+      "theme": "In Christ"
+    },
+    {
+      "day": 73,
+      "readings": [
+        "Ephesians 4-6"
+      ],
+      "theme": "Walk Worthy"
+    },
+    {
+      "day": 74,
+      "readings": [
+        "Philippians 1-4"
+      ],
+      "theme": "Joy"
+    },
+    {
+      "day": 75,
+      "readings": [
+        "Colossians 1-4"
+      ],
+      "theme": "Christ Supreme"
+    },
+    {
+      "day": 76,
+      "readings": [
+        "1 Thessalonians 1-5"
+      ],
+      "theme": "Hope"
+    },
+    {
+      "day": 77,
+      "readings": [
+        "2 Thessalonians 1-3"
+      ],
+      "theme": "Day of Lord"
+    },
+    {
+      "day": 78,
+      "readings": [
+        "1 Timothy 1-6"
+      ],
+      "theme": "Church Order"
+    },
+    {
+      "day": 79,
+      "readings": [
+        "2 Timothy 1-4"
+      ],
+      "theme": "Faithfulness"
+    },
+    {
+      "day": 80,
+      "readings": [
+        "Titus 1-3",
+        "Philemon"
+      ],
+      "theme": "Good Works"
+    },
+    {
+      "day": 81,
+      "readings": [
+        "Hebrews 1-4"
+      ],
+      "theme": "Superior Christ"
+    },
+    {
+      "day": 82,
+      "readings": [
+        "Hebrews 5-8"
+      ],
+      "theme": "Better Covenant"
+    },
+    {
+      "day": 83,
+      "readings": [
+        "Hebrews 9-10"
+      ],
+      "theme": "Better Sacrifice"
+    },
+    {
+      "day": 84,
+      "readings": [
+        "Hebrews 11-13"
+      ],
+      "theme": "Faith"
+    },
+    {
+      "day": 85,
+      "readings": [
+        "James 1-5"
+      ],
+      "theme": "Faith and Works"
+    },
+    {
+      "day": 86,
+      "readings": [
+        "1 Peter 1-5"
+      ],
+      "theme": "Suffering"
+    },
+    {
+      "day": 87,
+      "readings": [
+        "2 Peter 1-3",
+        "Jude"
+      ],
+      "theme": "False Teachers"
+    },
+    {
+      "day": 88,
+      "readings": [
+        "1 John 1-5"
+      ],
+      "theme": "Fellowship"
+    },
+    {
+      "day": 89,
+      "readings": [
+        "2 John",
+        "3 John",
+        "Revelation 1-3"
+      ],
+      "theme": "Seven Churches"
+    },
+    {
+      "day": 90,
+      "readings": [
+        "Revelation 4-22"
+      ],
+      "theme": "Victory"
+    }
+  ]
+}

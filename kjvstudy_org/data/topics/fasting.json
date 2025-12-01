@@ -1,0 +1,92 @@
+{
+  "Fasting": {
+    "description": "Voluntary abstinence from food for spiritual purposes",
+    "overview": "<p class=\"intro-text\"><span class=\"newthought\">Fasting disciplines</span> the body to strengthen the soul. This ancient practice, found throughout Scripture, involves voluntarily abstaining from food (and sometimes drink) to intensify prayer, express repentance, or seek divine guidance. Jesus fasted, the apostles fasted, and the early church fasted—establishing a pattern for believers throughout history.</p>\n\n<p class=\"intro-text\">Biblical fasting serves multiple purposes. It accompanies <strong>urgent prayer</strong>, as when Nehemiah fasted and prayed for Jerusalem's restoration. It expresses <strong>mourning and repentance</strong>, as when Nineveh fasted at Jonah's preaching. It precedes <strong>major decisions</strong>, as when the church fasted before sending out Paul and Barnabas. Physical hunger reminds the soul of its deeper hunger for God.</p>\n\n<p class=\"intro-text\">Jesus taught that fasting should be done secretly, not for public admiration. \"When thou fastest, anoint thine head, and wash thy face; That thou appear not unto men to fast, but unto thy Father which is in secret\" (Matthew 6:17-18). Hypocrites fast to be seen by others; disciples fast to be heard by God. The reward comes from the Father who sees in secret.</p>\n\n<p class=\"intro-text\">True fasting must accompany genuine heart change. Isaiah rebuked Israel's empty fasts: \"Is not this the fast that I have chosen? to loose the bands of wickedness... to deal thy bread to the hungry\" (Isaiah 58:6-7). Fasting without justice and mercy is worthless. The discipline of the body must produce transformation of character and compassion for others.</p>",
+    "subtopics": {
+      "Jesus' Teaching on Fasting": {
+        "description": "Christ's instructions for fasting",
+        "verses": [
+          {
+            "ref": "Matthew 6:16-18",
+            "note": "Fast in secret to the Father"
+          },
+          {
+            "ref": "Matthew 9:14-15",
+            "note": "Bridegroom taken away, then fast"
+          },
+          {
+            "ref": "Matthew 4:1-2",
+            "note": "Jesus fasted forty days"
+          },
+          {
+            "ref": "Mark 9:29",
+            "note": "This kind goeth not out but by prayer and fasting"
+          }
+        ]
+      },
+      "Fasting for Prayer": {
+        "description": "Intensifying prayer through fasting",
+        "verses": [
+          {
+            "ref": "Acts 13:2-3",
+            "note": "Church fasted before sending missionaries"
+          },
+          {
+            "ref": "Acts 14:23",
+            "note": "Fasted when ordaining elders"
+          },
+          {
+            "ref": "Nehemiah 1:4",
+            "note": "Nehemiah fasted and prayed"
+          },
+          {
+            "ref": "Daniel 9:3",
+            "note": "Daniel sought God with fasting"
+          }
+        ]
+      },
+      "Fasting in Repentance": {
+        "description": "Expressing sorrow for sin",
+        "verses": [
+          {
+            "ref": "Jonah 3:5-8",
+            "note": "Nineveh's fast of repentance"
+          },
+          {
+            "ref": "Joel 2:12",
+            "note": "Turn with fasting and weeping"
+          },
+          {
+            "ref": "1 Samuel 7:6",
+            "note": "Israel fasted in repentance"
+          },
+          {
+            "ref": "Ezra 8:21",
+            "note": "Proclaimed a fast to seek God"
+          }
+        ]
+      },
+      "True vs. False Fasting": {
+        "description": "Heart attitude in fasting",
+        "verses": [
+          {
+            "ref": "Isaiah 58:3-7",
+            "note": "The fast God chooses"
+          },
+          {
+            "ref": "Zechariah 7:5-6",
+            "note": "Did ye at all fast unto me?"
+          },
+          {
+            "ref": "Luke 18:12",
+            "note": "Pharisee's boastful fasting"
+          },
+          {
+            "ref": "Jeremiah 14:12",
+            "note": "Fasting rejected without obedience"
+          }
+        ]
+      }
+    }
+  }
+}
