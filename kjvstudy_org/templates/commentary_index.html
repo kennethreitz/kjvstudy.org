@@ -26,7 +26,7 @@
             <strong>Chapter {{ chapter }}:</strong>
             <span class="verse-list">
                 {% for verse in verses %}
-                <a href="/book/{{ book }}/{{ chapter }}:{{ verse }}" class="verse-link">{{ verse }}</a>{% if not loop.last %},{% endif %}
+                <a href="/book/{{ book|urlencode }}/chapter/{{ chapter }}/verse/{{ verse }}" class="verse-link">{{ verse }}</a>{% if not loop.last %},{% endif %}
                 {% endfor %}
             </span>
             <span class="verse-count">({{ verses|length }} {% if verses|length == 1 %}verse{% else %}verses{% endif %})</span>

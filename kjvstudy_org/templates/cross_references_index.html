@@ -27,7 +27,7 @@
             <strong>Chapter {{ chapter }}:</strong>
             <span class="verse-list">
                 {% for verse_data in verses %}
-                <a href="/book/{{ book|replace(' ', '_') }}/{{ chapter }}:{{ verse_data.verse }}" class="verse-link" title="{{ verse_data.ref_count }} cross-references">
+                <a href="/book/{{ book|urlencode }}/chapter/{{ chapter }}/verse/{{ verse_data.verse }}" class="verse-link" title="{{ verse_data.ref_count }} cross-references">
                     {{ verse_data.verse }}<span class="ref-badge">{{ verse_data.ref_count }}</span>
                 </a>{% if not loop.last %} {% endif %}
                 {% endfor %}
