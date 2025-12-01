@@ -49,9 +49,5 @@ COPY . .
 # Build search index at image build time for fast searches
 RUN python3 -c "from kjvstudy_org.utils.search_index import init_search_index; init_search_index()"
 
-# Startup script for uvicorn
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-
 # Run uvicorn directly (no nginx sidecar)
-CMD ["/app/start.sh"]
+CMD ["sh", "-c", "uv run uvicorn kjvstudy_org.server:app --host ${HOST:-0.0.0.0} --port ${PORT:-8000} --workers ${WORKERS:-1} --proxy-headers"]
