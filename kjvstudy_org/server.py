@@ -1420,6 +1420,66 @@ async def stats(request: Request):
     )
 
 
+@app.get("/cross-references", response_class=HTMLResponse)
+async def cross_references_index(request: Request):
+    """Cross-references index - list all verses with cross-references"""
+    from collections import defaultdict
+    import json
+    from pathlib import Path
+
+    data_dir = PathLib(__file__).parent / "data" / "cross_references"
+
+    # Build index of all verses with cross-references, grouped by book
+    crossref_index = defaultdict(lambda: defaultdict(list))
+
+    for file in sorted(data_dir.glob('*.json')):
+        with open(file, 'r') as f:
+            data = json.load(f)
+
+            for verse_key, refs in data.items():
+                # Parse verse key: "Book:Chapter:Verse"
+                parts = verse_key.split(':')
+                if len(parts) == 3:
+                    book, chapter, verse = parts
+                    crossref_index[book][int(chapter)].append({
+                        'verse': int(verse),
+                        'ref_count': len(refs)
+                    })
+
+    # Convert to regular dict and sort
+    crossref_index = {
+        book: {
+            chapter: sorted(verses, key=lambda x: x['verse'])
+            for chapter, verses in sorted(chapters.items())
+        }
+        for book, chapters in sorted(crossref_index.items())
+    }
+
+    # Calculate statistics
+    total_books = len(crossref_index)
+    total_verses = sum(
+        len(verses)
+        for chapters in crossref_index.values()
+        for verses in chapters.values()
+    )
+    total_refs = sum(
+        sum(v['ref_count'] for v in verses)
+        for chapters in crossref_index.values()
+        for verses in chapters.values()
+    )
+
+    return templates.TemplateResponse(
+        "cross_references_index.html",
+        {
+            "request": request,
+            "crossref_index": crossref_index,
+            "total_books": total_books,
+            "total_verses": total_verses,
+            "total_refs": total_refs,
+        }
+    )
+
+
 @app.get("/about", response_class=HTMLResponse)
 async def about(request: Request):
     """About page - site information, creator, data sources, theological approach"""
