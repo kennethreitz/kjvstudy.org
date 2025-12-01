@@ -1420,7 +1420,7 @@ async def stats(request: Request):
     )
 
 
-@app.get("/cross-references", response_class=HTMLResponse)
+@app.get("/indexes/cross-references", response_class=HTMLResponse)
 async def cross_references_index(request: Request):
     """Cross-references index - list all verses with cross-references"""
     from collections import defaultdict

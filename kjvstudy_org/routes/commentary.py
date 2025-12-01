@@ -19,7 +19,7 @@ router = APIRouter(tags=["Commentary"])
 templates = None
 
 
-@router.get("/commentary", response_class=HTMLResponse)
+@router.get("/indexes/commentary", response_class=HTMLResponse)
 async def commentary_index(request: Request):
     """Commentary index - list all verses with commentary"""
     from collections import defaultdict
