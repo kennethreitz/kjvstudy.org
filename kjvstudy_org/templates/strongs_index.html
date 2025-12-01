@@ -257,7 +257,7 @@
 
 <form class="search-form" action="/strongs" method="get">
     <div class="search-input-group">
-        <input type="text" name="q" class="search-input" placeholder="Search by definition (e.g., love, faith, grace)" value="{{ query }}" autofocus>
+        <input type="text" name="q" class="search-input" placeholder="Search by definition (e.g., love, faith, grace)" value="{{ query }}" {% if not query %}autofocus{% endif %}>
         <button type="submit" class="search-btn">Search</button>
     </div>
 </form>

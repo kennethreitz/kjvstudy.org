@@ -177,7 +177,7 @@
                 autocorrect="off"
                 autocapitalize="off"
                 spellcheck="false"
-                autofocus
+                {% if not query %}autofocus{% endif %}
                 aria-label="Search for Bible verses, topics, and resources"
             >
             <div id="search-dropdown" class="search-dropdown" role="listbox" aria-live="polite"></div>
@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var currentResults = [];
     var selectedIndex = -1;
     var searchTimeout = null;
+
 
     var bookMap = {
         'gen': 'Genesis', 'ex': 'Exodus', 'lev': 'Leviticus', 'num': 'Numbers', 'deut': 'Deuteronomy',

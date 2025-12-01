@@ -301,8 +301,8 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `cross_references.json` (7.4M)
-**Contains**: Comprehensive cross-reference system linking related Bible verses based on Treasury of Scripture Knowledge
+### `cross_references/` (~7.4M combined)
+**Contains**: Comprehensive cross-reference system linking related Bible verses based on Treasury of Scripture Knowledge (split per book)
 
 **Structure**:
 ```json
@@ -546,7 +546,7 @@ uv run pytest tests/ -v
 4. Test resource page rendering
 
 **New Topic**:
-1. Add to `topics.json` with description and subtopics
+1. Add to the appropriate file in `topics/` with description and subtopics
 2. Include verse references in standard format
 3. Test with: `/topics/Your-Topic`
 

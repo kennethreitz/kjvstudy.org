@@ -54,9 +54,16 @@ def analyze_cross_reference_coverage():
     print("=" * 80)
     print()
 
-    xref_file = Path("kjvstudy_org/data/cross_references.json")
-    with open(xref_file, 'r') as f:
-        cross_refs = json.load(f)
+    cross_refs = {}
+    xref_dir = Path("kjvstudy_org/data/cross_references")
+    legacy = Path("kjvstudy_org/data/cross_references.json")
+    if xref_dir.exists():
+        for path in xref_dir.glob("*.json"):
+            with open(path, "r") as f:
+                cross_refs.update(json.load(f))
+    elif legacy.exists():
+        with open(legacy, "r") as f:
+            cross_refs = json.load(f)
 
     total_verses = 31102
     verses_with_xrefs = len(cross_refs)
