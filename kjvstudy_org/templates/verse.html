@@ -125,6 +125,44 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+/* Generic collapsible section toggle */
+.section-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: opacity 0.2s;
+}
+
+.section-toggle:hover {
+    opacity: 0.7;
+}
+
+.section-toggle:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.section-toggle .toggle-icon {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: transform 0.2s;
+}
+
+.section-heading {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
 .share-label {
     font-size: 0.9rem;
     color: var(--text-secondary);
@@ -132,6 +170,13 @@
     letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
     font-weight: 600;
+}
+
+.cross-references-section .section-heading {
+    font-size: 1.4rem;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text-color);
 }
 
 .share-buttons {
@@ -217,13 +262,52 @@
     margin: 2rem 0;
 }
 
+/* Collapsible toggle button */
+.interlinear-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 0;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+
+.interlinear-toggle:hover {
+    background: var(--code-bg);
+}
+
+.interlinear-toggle:focus {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: transform 0.2s;
+}
+
+.interlinear-toggle.expanded .toggle-icon {
+    transform: rotate(0deg);
+}
+
+.toggle-hint {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    font-weight: normal;
+}
+
 .interlinear-heading {
     font-size: 1.1rem;
     font-weight: 600;
-    margin: 0 0 0.5rem 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #eee;
-    color: #333;
+    margin: 0;
+    color: var(--text-color);
 }
 
 .interlinear-flow {
@@ -646,8 +730,12 @@
 
     {% if interlinear_words %}
     <section class="interlinear-container">
-        <h3 class="interlinear-heading">Original Language Analysis</h3>
-        <div class="interlinear-flow">
+        <button class="interlinear-toggle expanded" onclick="toggleInterlinear()" aria-expanded="true" aria-controls="interlinear-content">
+            <span class="toggle-icon">▼</span>
+            <span class="interlinear-heading">Original Language Analysis</span>
+            <span class="toggle-hint">({{ interlinear_words|length }} words)</span>
+        </button>
+        <div class="interlinear-flow" id="interlinear-content">
             {% for word in interlinear_words %}
             <div class="word-unit" onclick="toggleWord(this)">
                 <span class="word-original {% if is_old_testament %}hebrew{% else %}greek{% endif %}">{{ word.original }}</span>
@@ -699,6 +787,39 @@
         </div>
     </section>
     <script>
+    function toggleInterlinear() {
+        var content = document.getElementById('interlinear-content');
+        var toggle = document.querySelector('.interlinear-toggle');
+        var icon = toggle.querySelector('.toggle-icon');
+        var isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+        if (isExpanded) {
+            content.hidden = true;
+            toggle.setAttribute('aria-expanded', 'false');
+            icon.textContent = '▶';
+            toggle.classList.remove('expanded');
+            localStorage.setItem('interlinear-expanded', 'false');
+        } else {
+            content.hidden = false;
+            toggle.setAttribute('aria-expanded', 'true');
+            icon.textContent = '▼';
+            toggle.classList.add('expanded');
+            localStorage.setItem('interlinear-expanded', 'true');
+        }
+    }
+    // Apply user preference on load
+    (function() {
+        var pref = localStorage.getItem('interlinear-expanded');
+        if (pref === 'false') {
+            var content = document.getElementById('interlinear-content');
+            var toggle = document.querySelector('.interlinear-toggle');
+            var icon = toggle.querySelector('.toggle-icon');
+            content.hidden = true;
+            toggle.setAttribute('aria-expanded', 'false');
+            icon.textContent = '▶';
+            toggle.classList.remove('expanded');
+        }
+    })();
     function toggleWord(el) {
         document.querySelectorAll('.word-unit.expanded').forEach(function(word) {
             if (word !== el) word.classList.remove('expanded');
@@ -777,38 +898,88 @@
                 alert('Failed to copy: ' + err);
             });
         }
+
+        function toggleSection(sectionId) {
+            var contentId = sectionId + '-content';
+            var content = document.getElementById(contentId);
+            var toggle = content.previousElementSibling;
+            while (toggle && !toggle.classList.contains('section-toggle')) {
+                toggle = toggle.previousElementSibling;
+            }
+            if (!toggle) return;
+
+            var icon = toggle.querySelector('.toggle-icon');
+            var isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+            if (isExpanded) {
+                content.hidden = true;
+                toggle.setAttribute('aria-expanded', 'false');
+                icon.textContent = '▶';
+                toggle.classList.remove('expanded');
+                localStorage.setItem(sectionId + '-expanded', 'false');
+            } else {
+                content.hidden = false;
+                toggle.setAttribute('aria-expanded', 'true');
+                icon.textContent = '▼';
+                toggle.classList.add('expanded');
+                localStorage.setItem(sectionId + '-expanded', 'true');
+            }
+        }
+
     </script>
 </section>
 
 {% if cross_references %}
 <div class="cross-references-section">
-    <h2>Cross References</h2>
-    <p>Related verses that illuminate this passage:</p>
-    <ul style="max-width: 65%; list-style: none; padding: 0;">
-        {% for ref in cross_references %}
-        <li style="margin: 1.25rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
-            {% set ref_parts = ref.ref.rsplit(' ', 1) %}
-            {% if ref_parts|length == 2 %}
-                {% set book_name = ref_parts[0] %}
-                {% set chapter_verse = ref_parts[1] %}
-                {% if ':' in chapter_verse %}
-                    {% set ch = chapter_verse.split(':')[0] %}
-                    {% set v = chapter_verse.split(':')[1] %}
-                    <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ ref.ref }}</a></strong>
+    <button class="section-toggle expanded" onclick="toggleSection('crossrefs')" aria-expanded="true" aria-controls="crossrefs-content">
+        <span class="toggle-icon">▼</span>
+        <span class="section-heading">Cross References</span>
+        <span class="toggle-hint">({{ cross_references|length }} references)</span>
+    </button>
+    <div id="crossrefs-content">
+        <p>Related verses that illuminate this passage:</p>
+        <ul style="max-width: 65%; list-style: none; padding: 0;">
+            {% for ref in cross_references %}
+            <li style="margin: 1.25rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
+                {% set ref_parts = ref.ref.rsplit(' ', 1) %}
+                {% if ref_parts|length == 2 %}
+                    {% set book_name = ref_parts[0] %}
+                    {% set chapter_verse = ref_parts[1] %}
+                    {% if ':' in chapter_verse %}
+                        {% set ch = chapter_verse.split(':')[0] %}
+                        {% set v = chapter_verse.split(':')[1] %}
+                        <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ ref.ref }}</a></strong>
+                    {% else %}
+                        <strong>{{ ref.ref }}</strong>
+                    {% endif %}
                 {% else %}
                     <strong>{{ ref.ref }}</strong>
                 {% endif %}
-            {% else %}
-                <strong>{{ ref.ref }}</strong>
-            {% endif %}
-            {% if ref.note %} — <em style="color: var(--text-secondary);">{{ ref.note }}</em>{% endif %}
-            {% if ref.text %}
-            <p style="margin: 0.5rem 0 0 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">{{ ref.text }}</p>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
+                {% if ref.note %} — <em style="color: var(--text-secondary);">{{ ref.note }}</em>{% endif %}
+                {% if ref.text %}
+                <p style="margin: 0.5rem 0 0 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">{{ ref.text }}</p>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
+<script>
+(function() {
+    var pref = localStorage.getItem('crossrefs-expanded');
+    if (pref === 'false') {
+        var content = document.getElementById('crossrefs-content');
+        var toggle = document.querySelector('.cross-references-section .section-toggle');
+        if (content && toggle) {
+            var icon = toggle.querySelector('.toggle-icon');
+            content.hidden = true;
+            toggle.setAttribute('aria-expanded', 'false');
+            icon.textContent = '▶';
+            toggle.classList.remove('expanded');
+        }
+    }
+})();
+</script>
 {% endif %}
 
 {% if commentary %}
@@ -1008,11 +1179,19 @@
             }
         } else if (e.key === 'Enter') {
             e.preventDefault();
-            // If on interlinear, enter word mode
+            // If on interlinear, toggle expand or enter word mode
             if (isInterlinearSelected()) {
-                inWordMode = true;
-                elements[selectedIndex].style.outline = '';
-                selectWord(0);
+                var toggle = document.querySelector('.interlinear-toggle');
+                var content = document.getElementById('interlinear-content');
+                if (content && content.hidden) {
+                    // First expand the section
+                    toggleInterlinear();
+                } else {
+                    // Already expanded, enter word mode
+                    inWordMode = true;
+                    elements[selectedIndex].style.outline = '';
+                    selectWord(0);
+                }
             } else if (selectedIndex >= 0) {
                 // If on a cross-reference, navigate to it
                 var link = elements[selectedIndex].querySelector('a');
