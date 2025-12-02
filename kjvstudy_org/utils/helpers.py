@@ -151,10 +151,10 @@ def get_related_content(book: str, chapter: int = None, verse: int = None) -> Di
 
     # Map books to related people
     book_people_map = {
-        "Genesis": [{"name": "Abraham", "url": "/family-tree"}, {"name": "Jacob", "url": "/family-tree"}],
+        "Genesis": [{"name": "Abraham", "url": "/family-tree/person/i60"}, {"name": "Jacob", "url": "/family-tree/person/i58"}],
         "Exodus": [{"name": "Moses", "url": "/biblical-prophets/moses"}],
         "1 Samuel": [{"name": "Samuel", "url": "/biblical-prophets"}],
-        "2 Samuel": [{"name": "David", "url": "/family-tree"}],
+        "2 Samuel": [{"name": "David", "url": "/family-tree/person/i113"}],
         "1 Kings": [{"name": "Elijah", "url": "/biblical-prophets/elijah"}],
         "2 Kings": [{"name": "Elijah", "url": "/biblical-prophets/elijah"}, {"name": "Elisha", "url": "/biblical-prophets"}],
         "Isaiah": [{"name": "Isaiah", "url": "/biblical-prophets/isaiah"}],
@@ -164,9 +164,9 @@ def get_related_content(book: str, chapter: int = None, verse: int = None) -> Di
         "Jonah": [{"name": "Jonah", "url": "/biblical-prophets/jonah"}],
         "Matthew": [{"name": "The Twelve Apostles", "url": "/the-twelve-apostles"}],
         "Mark": [{"name": "The Twelve Apostles", "url": "/the-twelve-apostles"}],
-        "Luke": [{"name": "The Twelve Apostles", "url": "/the-twelve-apostles"}, {"name": "John the Baptist", "url": "/biblical-prophets/john-the-baptist"}],
+        "Luke": [{"name": "The Twelve Apostles", "url": "/the-twelve-apostles"}, {"name": "John the Baptist", "url": "/biblical-prophets"}],
         "John": [{"name": "John", "url": "/the-twelve-apostles/john"}],
-        "Acts": [{"name": "Peter", "url": "/the-twelve-apostles/peter"}, {"name": "Paul", "url": "/the-twelve-apostles"}],
+        "Acts": [{"name": "Peter", "url": "/the-twelve-apostles/simon-peter"}, {"name": "Paul", "url": "/the-twelve-apostles"}],
         "Ruth": [{"name": "Ruth", "url": "/women-of-the-bible/ruth"}],
         "Esther": [{"name": "Esther", "url": "/women-of-the-bible/esther"}],
     }
