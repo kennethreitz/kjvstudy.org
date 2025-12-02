@@ -1,0 +1,105 @@
+"""Biblical timeline routes."""
+import json
+from pathlib import Path
+
+from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.templating import Jinja2Templates
+
+from ..kjv import bible
+from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+
+router = APIRouter()
+templates = None
+
+
+def init_templates(t: Jinja2Templates):
+    """Initialize templates for timeline routes."""
+    global templates
+    templates = t
+
+
+# =============================================================================
+# Helper Functions
+# =============================================================================
+
+def get_biblical_timeline_context():
+    """
+    Load comprehensive biblical timeline data from JSON file.
+
+    Returns tuple of (timeline_events, introduction, chronology_note, chronology_comparison, conclusion)
+    """
+    # Load timeline data from JSON file
+    data_dir = Path(__file__).parent.parent / "data"
+    timeline_path = data_dir / "biblical_timeline.json"
+
+    with open(timeline_path, 'r', encoding='utf-8') as f:
+        timeline_data = json.load(f)
+
+    timeline_events = timeline_data.get("timeline_events", {})
+    introduction = timeline_data.get("introduction", "")
+    chronology_note = timeline_data.get("chronology_note", "")
+    chronology_comparison = timeline_data.get("chronology_comparison", [])
+    conclusion = timeline_data.get("conclusion", "")
+
+    return timeline_events, introduction, chronology_note, chronology_comparison, conclusion
+
+
+# =============================================================================
+# Routes
+# =============================================================================
+
+@router.get("/biblical-timeline", response_class=HTMLResponse)
+def biblical_timeline_page(request: Request):
+    """Biblical timeline page showing major biblical events chronologically"""
+    books = bible.get_books()
+
+    timeline_events, introduction, chronology_note, chronology_comparison, conclusion = get_biblical_timeline_context()
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Resources", "url": "/resources"},
+        {"text": "Biblical Timeline", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        request,
+        "biblical_timeline.html",
+        {
+            "books": books,
+            "timeline_events": timeline_events,
+            "introduction": introduction,
+            "chronology_note": chronology_note,
+            "chronology_comparison": chronology_comparison,
+            "conclusion": conclusion,
+            "breadcrumbs": breadcrumbs,
+            "pdf_available": WEASYPRINT_AVAILABLE
+        }
+    )
+
+
+@router.get("/biblical-timeline/pdf")
+async def biblical_timeline_pdf():
+    """Generate PDF export for the biblical timeline."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
+        )
+
+    timeline_events, introduction, chronology_note, chronology_comparison, conclusion = get_biblical_timeline_context()
+
+    html_content = templates.get_template("biblical_timeline_pdf.html").render(
+        timeline_events=timeline_events,
+        introduction=introduction,
+        chronology_note=chronology_note,
+        chronology_comparison=chronology_comparison,
+        conclusion=conclusion
+    )
+    pdf_buffer = await render_html_to_pdf_async(html_content)
+
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=biblical-timeline.pdf"}
+    )
