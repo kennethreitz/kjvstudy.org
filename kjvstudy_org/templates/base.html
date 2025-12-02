@@ -2388,7 +2388,7 @@
 
         // Parse verse URL to extract book, chapter, and verse
         function parseVerseUrl(url) {
-          // Try to match single verse URL: /book/John/chapter/3/verse/16
+          // Try to match single verse URL (old format): /book/John/chapter/3/verse/16
           var match = url.match(/\/book\/([^\/]+)\/chapter\/(\d+)\/verse\/(\d+)/);
           if (match) {
             return {
@@ -2411,6 +2411,19 @@
               verseEnd: match[4],
               cacheKey: match[1] + '_' + match[2] + '_' + match[3] + '-' + match[4],
               isRange: true
+            };
+          }
+
+          // Try to match single verse anchor URL (new format): /book/John/chapter/3#verse-16
+          match = url.match(/\/book\/([^\/]+)\/chapter\/(\d+)#verse-(\d+)$/);
+          if (match) {
+            return {
+              book: decodeURIComponent(match[1]),
+              chapter: match[2],
+              verse: match[3],
+              verseEnd: null,
+              cacheKey: match[1] + '_' + match[2] + '_' + match[3],
+              isRange: false
             };
           }
 
