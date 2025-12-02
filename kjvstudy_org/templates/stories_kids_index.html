@@ -229,6 +229,9 @@
 .category-section.hidden {
     display: none;
 }
+.toc-item.hidden {
+    display: none;
+}
 .category-section {
     margin-bottom: 3rem;
 }
@@ -256,6 +259,194 @@
 .no-results.visible {
     display: block;
 }
+
+/* Dark mode styles */
+[data-theme="dark"] .kids-page-header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d1f4e 50%, #3d1f3a 100%);
+}
+[data-theme="dark"] .kids-page-header h1 {
+    color: #a5b4fc;
+}
+[data-theme="dark"] .kids-page-header .subtitle {
+    color: #c4b5fd;
+}
+[data-theme="dark"] .kids-page-header .intro {
+    color: #d1d5db;
+}
+[data-theme="dark"] .adult-link {
+    color: #c4b5fd;
+}
+[data-theme="dark"] .toc-item {
+    background: linear-gradient(135deg, #1e2a3a 0%, #2a1f3a 100%);
+    border-left-color: #8b5cf6;
+}
+[data-theme="dark"] .toc-item a {
+    color: #a5b4fc;
+}
+[data-theme="dark"] .toc-item .count {
+    color: #9ca3af;
+}
+[data-theme="dark"] .story-search input {
+    background: #252525;
+    border-color: #404040;
+    color: #e5e7eb;
+}
+[data-theme="dark"] .story-search input::placeholder {
+    color: #6b7280;
+}
+[data-theme="dark"] .story-search-dropdown {
+    background: #252525;
+    border-color: #404040;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+[data-theme="dark"] .search-result-category {
+    background: linear-gradient(135deg, #1e2a3a 0%, #2a1f3a 100%);
+    border-bottom-color: #404040;
+    color: #9ca3af;
+}
+[data-theme="dark"] .search-result-item {
+    color: #a5b4fc;
+    border-bottom-color: #404040;
+}
+[data-theme="dark"] .search-result-item:hover,
+[data-theme="dark"] .search-result-item.selected {
+    background: linear-gradient(135deg, #1e2a3a 0%, #2a1f3a 100%);
+}
+[data-theme="dark"] .search-result-subtitle {
+    color: #9ca3af;
+}
+[data-theme="dark"] .kids-story-card {
+    background: #252525;
+    border-color: #404040;
+}
+[data-theme="dark"] .kids-story-card:hover,
+[data-theme="dark"] .kids-story-card:focus-visible {
+    border-color: #8b5cf6;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+}
+[data-theme="dark"] .kids-story-card h3 {
+    color: #a5b4fc;
+}
+[data-theme="dark"] .kids-story-card .description {
+    color: #d1d5db;
+}
+[data-theme="dark"] .kids-story-card .scripture {
+    color: #c4b5fd;
+}
+[data-theme="dark"] .character-badge {
+    background: linear-gradient(135deg, #1e3a5f, #2a2f5f);
+    color: #93c5fd;
+}
+[data-theme="dark"] .theme-badge {
+    background: linear-gradient(135deg, #4a3f1a, #3a3520);
+    color: #fcd34d;
+}
+[data-theme="dark"] .category-section h2 {
+    color: #a5b4fc;
+    border-bottom-color: #3730a3;
+}
+[data-theme="dark"] .category-description {
+    color: #d1d5db;
+}
+[data-theme="dark"] .no-results {
+    background: linear-gradient(135deg, #4a3f1a 0%, #3a3520 100%);
+    color: #fcd34d;
+}
+
+/* System preference dark mode */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .kids-page-header {
+        background: linear-gradient(135deg, #1e3a5f 0%, #2d1f4e 50%, #3d1f3a 100%);
+    }
+    html:not([data-theme="light"]) .kids-page-header h1 {
+        color: #a5b4fc;
+    }
+    html:not([data-theme="light"]) .kids-page-header .subtitle {
+        color: #c4b5fd;
+    }
+    html:not([data-theme="light"]) .kids-page-header .intro {
+        color: #d1d5db;
+    }
+    html:not([data-theme="light"]) .adult-link {
+        color: #c4b5fd;
+    }
+    html:not([data-theme="light"]) .toc-item {
+        background: linear-gradient(135deg, #1e2a3a 0%, #2a1f3a 100%);
+        border-left-color: #8b5cf6;
+    }
+    html:not([data-theme="light"]) .toc-item a {
+        color: #a5b4fc;
+    }
+    html:not([data-theme="light"]) .toc-item .count {
+        color: #9ca3af;
+    }
+    html:not([data-theme="light"]) .story-search input {
+        background: #252525;
+        border-color: #404040;
+        color: #e5e7eb;
+    }
+    html:not([data-theme="light"]) .story-search input::placeholder {
+        color: #6b7280;
+    }
+    html:not([data-theme="light"]) .story-search-dropdown {
+        background: #252525;
+        border-color: #404040;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    html:not([data-theme="light"]) .search-result-category {
+        background: linear-gradient(135deg, #1e2a3a 0%, #2a1f3a 100%);
+        border-bottom-color: #404040;
+        color: #9ca3af;
+    }
+    html:not([data-theme="light"]) .search-result-item {
+        color: #a5b4fc;
+        border-bottom-color: #404040;
+    }
+    html:not([data-theme="light"]) .search-result-item:hover,
+    html:not([data-theme="light"]) .search-result-item.selected {
+        background: linear-gradient(135deg, #1e2a3a 0%, #2a1f3a 100%);
+    }
+    html:not([data-theme="light"]) .search-result-subtitle {
+        color: #9ca3af;
+    }
+    html:not([data-theme="light"]) .kids-story-card {
+        background: #252525;
+        border-color: #404040;
+    }
+    html:not([data-theme="light"]) .kids-story-card:hover,
+    html:not([data-theme="light"]) .kids-story-card:focus-visible {
+        border-color: #8b5cf6;
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+    }
+    html:not([data-theme="light"]) .kids-story-card h3 {
+        color: #a5b4fc;
+    }
+    html:not([data-theme="light"]) .kids-story-card .description {
+        color: #d1d5db;
+    }
+    html:not([data-theme="light"]) .kids-story-card .scripture {
+        color: #c4b5fd;
+    }
+    html:not([data-theme="light"]) .character-badge {
+        background: linear-gradient(135deg, #1e3a5f, #2a2f5f);
+        color: #93c5fd;
+    }
+    html:not([data-theme="light"]) .theme-badge {
+        background: linear-gradient(135deg, #4a3f1a, #3a3520);
+        color: #fcd34d;
+    }
+    html:not([data-theme="light"]) .category-section h2 {
+        color: #a5b4fc;
+        border-bottom-color: #3730a3;
+    }
+    html:not([data-theme="light"]) .category-description {
+        color: #d1d5db;
+    }
+    html:not([data-theme="light"]) .no-results {
+        background: linear-gradient(135deg, #4a3f1a 0%, #3a3520 100%);
+        color: #fcd34d;
+    }
+}
 </style>
 {% endblock %}
 
@@ -276,7 +467,7 @@
     <h3>Categories</h3>
     <div class="toc-grid">
         {% for category in categories %}
-        <div class="toc-item">
+        <div class="toc-item" data-category="{{ category.slug }}">
             <a href="#{{ category.slug }}">{{ category.category }}</a>
             <span class="count">{{ category.stories|length }} stories</span>
         </div>
@@ -331,6 +522,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var dropdown = document.getElementById('story-search-dropdown');
     var stories = document.querySelectorAll('.kids-story-card');
     var categorySections = document.querySelectorAll('.category-section');
+    var tocItems = document.querySelectorAll('.toc-item');
     var noResults = document.getElementById('no-results');
     var currentResults = [];
     var selectedIndex = -1;
@@ -339,6 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!query) {
             stories.forEach(function(s) { s.classList.remove('hidden'); });
             categorySections.forEach(function(c) { c.classList.remove('hidden'); });
+            tocItems.forEach(function(t) { t.classList.remove('hidden'); });
             noResults.classList.remove('visible');
             return;
         }
@@ -364,12 +557,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         categorySections.forEach(function(category) {
+            var categoryId = category.id;
             var visibleStories = category.querySelectorAll('.kids-story-card:not(.hidden)');
-            if (visibleStories.length === 0) {
+            var isEmpty = visibleStories.length === 0;
+
+            if (isEmpty) {
                 category.classList.add('hidden');
             } else {
                 category.classList.remove('hidden');
             }
+
+            // Also hide/show corresponding TOC item
+            tocItems.forEach(function(tocItem) {
+                if (tocItem.dataset.category === categoryId) {
+                    if (isEmpty) {
+                        tocItem.classList.add('hidden');
+                    } else {
+                        tocItem.classList.remove('hidden');
+                    }
+                }
+            });
         });
 
         if (matchCount === 0) {
@@ -389,17 +596,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (title.includes(query) || description.includes(query) ||
                 characters.includes(query) || themes.includes(query)) {
-                var link = story.querySelector('h3 a');
-                if (link) {
+                // The story card itself is the anchor tag
+                var storyTitle = story.querySelector('h3');
+                var storyDesc = story.querySelector('.description');
+                if (storyTitle) {
                     matches.push({
-                        title: link.textContent,
-                        url: link.getAttribute('href'),
-                        description: story.querySelector('.description')?.textContent?.substring(0, 50) + '...'
+                        title: storyTitle.textContent,
+                        url: story.href,
+                        description: storyDesc ? storyDesc.textContent.substring(0, 50) + '...' : ''
                     });
                 }
             }
         });
-        return matches.slice(0, 5);
+        return matches.slice(0, 8);
     }
 
     function showDropdown(html) {

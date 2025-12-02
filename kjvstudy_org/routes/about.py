@@ -83,6 +83,32 @@ async def stats(request: Request):
     resource_files = len(list((data_dir / 'resources').glob('*.json')))
     story_files = len(list((data_dir / 'stories').glob('*.json')))
 
+    # Bible Stories statistics
+    total_stories = 0
+    stories_with_kids = 0
+    total_story_characters = set()
+    total_story_themes = set()
+    total_story_words = 0
+    total_kids_story_words = 0
+    for file in (data_dir / 'stories').glob('*.json'):
+        try:
+            story_data = json.load(open(file))
+            stories = story_data.get('stories', [])
+            total_stories += len(stories)
+            for story in stories:
+                # Count words in narrative
+                narrative = story.get('narrative', '')
+                total_story_words += len(narrative.split())
+                if story.get('kids_narrative'):
+                    stories_with_kids += 1
+                    total_kids_story_words += len(story.get('kids_narrative', '').split())
+                for char in story.get('characters', []):
+                    total_story_characters.add(char)
+                for theme in story.get('themes', []):
+                    total_story_themes.add(theme)
+        except (json.JSONDecodeError, IOError):
+            continue
+
     # Interlinear data size
     interlinear_file = data_dir / 'interlinear.json.gz'
     interlinear_size_mb = interlinear_file.stat().st_size / 1024 / 1024 if interlinear_file.exists() else 0
@@ -150,6 +176,15 @@ async def stats(request: Request):
             'stories': story_files,
             'biographies': total_biographies,
             'reading_plans': reading_plan_files,
+        },
+        'bible_stories': {
+            'categories': story_files,
+            'total_stories': total_stories,
+            'stories_with_kids': stories_with_kids,
+            'unique_characters': len(total_story_characters),
+            'unique_themes': len(total_story_themes),
+            'total_words': total_story_words,
+            'kids_words': total_kids_story_words,
         },
         'language_tools': {
             'hebrew_entries': total_hebrew_entries,

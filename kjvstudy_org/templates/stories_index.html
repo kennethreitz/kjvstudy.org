@@ -136,11 +136,19 @@
     border: 1px solid var(--border-color, #ddd);
     border-radius: 6px;
     padding: 1.25rem;
-    background: #fff;
+    background: var(--bg-color, #fff);
     text-decoration: none;
     color: inherit;
     position: relative;
     transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+[data-theme="dark"] .story-card {
+    background: #252525;
+}
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .story-card {
+        background: #252525;
+    }
 }
 .story-card:hover,
 .story-card:focus-visible {
@@ -158,7 +166,7 @@
 }
 .story-card .description {
     font-size: 0.9rem;
-    color: #555;
+    color: var(--text-secondary, #555);
     margin-bottom: 0.75rem;
     line-height: 1.5;
 }
@@ -179,7 +187,7 @@
     background: var(--code-bg, #f5f5f5);
     border-radius: 3px;
     font-size: 0.75rem;
-    color: #666;
+    color: var(--text-secondary, #666);
 }
 .story-card .tag.character {
     background: #e8f4f8;
@@ -188,6 +196,24 @@
 .story-card .tag.theme {
     background: #f0f4e8;
     color: #5a7a2a;
+}
+[data-theme="dark"] .story-card .tag.character {
+    background: #1e3a4a;
+    color: #7fc4e0;
+}
+[data-theme="dark"] .story-card .tag.theme {
+    background: #2a3a1e;
+    color: #a8c87a;
+}
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .story-card .tag.character {
+        background: #1e3a4a;
+        color: #7fc4e0;
+    }
+    html:not([data-theme="light"]) .story-card .tag.theme {
+        background: #2a3a1e;
+        color: #a8c87a;
+    }
 }
 .story-card .links {
     display: flex;
@@ -207,12 +233,15 @@
 .category-section.hidden {
     display: none;
 }
+.story-toc li.hidden {
+    display: none;
+}
 .category-section {
     margin-bottom: 3rem;
 }
 .category-description {
     font-size: 1rem;
-    color: #555;
+    color: var(--text-secondary, #555);
     margin-bottom: 1rem;
     max-width: 65ch;
 }
@@ -239,11 +268,16 @@
 
     <p style="margin-top: 1rem;"><a href="/stories/kids" style="color: #8b5cf6; font-weight: 500;">View Kids Version</a> — Stories written for younger readers</p>
 
+    <div class="story-search">
+        <input type="text" id="story-search" placeholder="Search stories by name, character, or theme..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <div id="story-search-dropdown" class="story-search-dropdown"></div>
+    </div>
+
     <h3>Categories</h3>
     <nav class="story-toc" aria-label="Story categories">
         <ul>
         {% for category in categories %}
-            <li>
+            <li data-category="{{ category.slug }}">
                 <a class="story-toc-item" href="#{{ category.slug }}">
                     <strong>{{ category.category }}</strong>
                     <span class="story-toc-count">{{ category.stories|length }} stories</span>
@@ -252,11 +286,6 @@
         {% endfor %}
         </ul>
     </nav>
-
-    <div class="story-search">
-        <input type="text" id="story-search" placeholder="Search stories by name, character, or theme..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-        <div id="story-search-dropdown" class="story-search-dropdown"></div>
-    </div>
 </section>
 
 <div class="no-results" id="no-results">
@@ -300,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var dropdown = document.getElementById('story-search-dropdown');
     var stories = document.querySelectorAll('.story-card');
     var categorySections = document.querySelectorAll('.category-section');
+    var tocItems = document.querySelectorAll('.story-toc li');
     var noResults = document.getElementById('no-results');
     var currentResults = [];
     var selectedIndex = -1;
@@ -308,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!query) {
             stories.forEach(function(s) { s.classList.remove('hidden'); });
             categorySections.forEach(function(c) { c.classList.remove('hidden'); });
+            tocItems.forEach(function(t) { t.classList.remove('hidden'); });
             noResults.classList.remove('visible');
             return;
         }
@@ -333,12 +364,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         categorySections.forEach(function(category) {
+            var categoryId = category.id;
             var visibleStories = category.querySelectorAll('.story-card:not(.hidden)');
-            if (visibleStories.length === 0) {
+            var isEmpty = visibleStories.length === 0;
+
+            if (isEmpty) {
                 category.classList.add('hidden');
             } else {
                 category.classList.remove('hidden');
             }
+
+            // Also hide/show corresponding TOC item
+            tocItems.forEach(function(tocItem) {
+                if (tocItem.dataset.category === categoryId) {
+                    if (isEmpty) {
+                        tocItem.classList.add('hidden');
+                    } else {
+                        tocItem.classList.remove('hidden');
+                    }
+                }
+            });
         });
 
         if (matchCount === 0) {
@@ -358,17 +403,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (title.includes(query) || description.includes(query) ||
                 characters.includes(query) || themes.includes(query)) {
-                var link = story.querySelector('h3 a');
-                if (link) {
+                // The story card itself is the anchor tag
+                var storyTitle = story.querySelector('h3');
+                var storyDesc = story.querySelector('.description');
+                if (storyTitle) {
                     matches.push({
-                        title: link.textContent,
-                        url: link.getAttribute('href'),
-                        description: story.querySelector('.description')?.textContent?.substring(0, 60) + '...'
+                        title: storyTitle.textContent,
+                        url: story.href,
+                        description: storyDesc ? storyDesc.textContent.substring(0, 60) + '...' : ''
                     });
                 }
             }
         });
-        return matches.slice(0, 5);
+        return matches.slice(0, 8);
     }
 
     function showDropdown(html) {

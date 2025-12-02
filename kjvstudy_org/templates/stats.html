@@ -112,6 +112,43 @@
     </section>
 
     <section>
+        <h2>Bible Stories</h2>
+        <p>Narrative retellings of Scripture for all ages
+            <br><a href="/stories">→ Browse Bible Stories</a>
+        </p>
+        <table>
+            <tr>
+                <td><strong>Story Categories</strong></td>
+                <td>{{ stats.bible_stories.categories }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Stories</strong></td>
+                <td>{{ stats.bible_stories.total_stories }}</td>
+            </tr>
+            <tr>
+                <td><strong>Kids Versions</strong></td>
+                <td>{{ stats.bible_stories.stories_with_kids }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Words (Adult)</strong></td>
+                <td>{{ "{:,}".format(stats.bible_stories.total_words) }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Words (Kids)</strong></td>
+                <td>{{ "{:,}".format(stats.bible_stories.kids_words) }}</td>
+            </tr>
+            <tr>
+                <td><strong>Biblical Characters</strong></td>
+                <td>{{ stats.bible_stories.unique_characters }}</td>
+            </tr>
+            <tr>
+                <td><strong>Unique Themes</strong></td>
+                <td>{{ stats.bible_stories.unique_themes }}</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
         <h2>Language Tools</h2>
         <p>Hebrew, Greek, and interlinear resources
             <br><a href="/strongs">→ Browse Strong's Concordance</a>
@@ -195,6 +232,7 @@
             <li>{{ "{:,}".format(stats.commentary.total_words) }} words of theological analysis</li>
             <li>{{ "{:,}".format(stats.cross_references.total_references) }} cross-references linking related passages</li>
             <li>{{ "{:,}".format(stats.language_tools.total_strongs) }} Strong's Concordance entries for word studies</li>
+            <li>{{ stats.bible_stories.total_stories }} Bible stories across {{ stats.bible_stories.categories }} categories</li>
             <li>{{ stats.study_resources.biographies }} biblical biographies</li>
             <li>{{ stats.study_resources.study_guides }} topical study guides</li>
             <li>{{ stats.study_resources.reading_plans }} reading plans</li>
