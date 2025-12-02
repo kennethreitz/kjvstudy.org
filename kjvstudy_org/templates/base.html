@@ -1361,33 +1361,6 @@
             <li><a href="/search">Search</a></li>
         </ul>
 
-        <!-- Bible Books -->
-        {% if books %}
-        <h3>Bible Books</h3>
-        <details id="old-testament" aria-label="Old Testament books">
-            <summary aria-expanded="false">Old Testament</summary>
-            <ul class="book-list">
-                {% set book_types = {'Genesis': 'law', 'Exodus': 'law', 'Leviticus': 'law', 'Numbers': 'law', 'Deuteronomy': 'law', 'Joshua': 'historical', 'Judges': 'historical', 'Ruth': 'historical', '1 Samuel': 'historical', '2 Samuel': 'historical', '1 Kings': 'historical', '2 Kings': 'historical', '1 Chronicles': 'historical', '2 Chronicles': 'historical', 'Ezra': 'historical', 'Nehemiah': 'historical', 'Esther': 'historical', 'Job': 'wisdom', 'Psalms': 'wisdom', 'Proverbs': 'wisdom', 'Ecclesiastes': 'wisdom', 'Song of Solomon': 'wisdom', 'Isaiah': 'major-prophets', 'Jeremiah': 'major-prophets', 'Lamentations': 'major-prophets', 'Ezekiel': 'major-prophets', 'Daniel': 'major-prophets', 'Hosea': 'minor-prophets', 'Joel': 'minor-prophets', 'Amos': 'minor-prophets', 'Obadiah': 'minor-prophets', 'Jonah': 'minor-prophets', 'Micah': 'minor-prophets', 'Nahum': 'minor-prophets', 'Habakkuk': 'minor-prophets', 'Zephaniah': 'minor-prophets', 'Haggai': 'minor-prophets', 'Zechariah': 'minor-prophets', 'Malachi': 'minor-prophets'} %}
-                {% for book in ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'] %}
-                    {% if book in books %}
-                    <li><a href="/book/{{ book }}" class="{{ book_types[book] }}{% if current_book == book %} current{% endif %}">{{ book }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </details>
-
-        <details id="new-testament" aria-label="New Testament books">
-            <summary aria-expanded="false">New Testament</summary>
-            <ul class="book-list">
-                {% set nt_book_types = {'Matthew': 'gospels', 'Mark': 'gospels', 'Luke': 'gospels', 'John': 'gospels', 'Acts': 'acts', 'Romans': 'pauline', '1 Corinthians': 'pauline', '2 Corinthians': 'pauline', 'Galatians': 'pauline', 'Ephesians': 'pauline', 'Philippians': 'pauline', 'Colossians': 'pauline', '1 Thessalonians': 'pauline', '2 Thessalonians': 'pauline', '1 Timothy': 'pauline', '2 Timothy': 'pauline', 'Titus': 'pauline', 'Philemon': 'pauline', 'Hebrews': 'general', 'James': 'general', '1 Peter': 'general', '2 Peter': 'general', '1 John': 'general', '2 John': 'general', '3 John': 'general', 'Jude': 'general', 'Revelation': 'apocalyptic'} %}
-                {% for book in ['Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'] %}
-                    {% if book in books %}
-                    <li><a href="/book/{{ book }}" class="{{ nt_book_types[book] }}{% if current_book == book %} current{% endif %}">{{ book }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </details>
-        {% endif %}
 
         <!-- Daily Reading -->
         <details class="resource-group" open aria-label="Daily reading resources">
