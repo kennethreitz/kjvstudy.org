@@ -20,74 +20,6 @@
         </ul>
     </nav>
 
-    <script>
-    (function() {
-        // Get all navigable items (sections with h2[id])
-        var items = Array.from(document.querySelectorAll('h2[id]'));
-        var selectedIndex = -1;
-
-        function selectItem(index) {
-            // Remove previous selection
-            items.forEach(function(item) {
-                item.classList.remove('nav-selected');
-            });
-
-            // Clamp index
-            if (index < 0) index = 0;
-            if (index >= items.length) index = items.length - 1;
-            selectedIndex = index;
-
-            // Add selection class and scroll
-            var item = items[selectedIndex];
-            item.classList.add('nav-selected');
-            item.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        document.addEventListener('keydown', function(e) {
-            // Don't trigger if user is typing
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
-                return;
-            }
-
-            // Up arrow or k: Previous item
-            if (e.key === 'ArrowUp' || e.key === 'k') {
-                e.preventDefault();
-                if (selectedIndex < 0) {
-                    selectItem(KJVNav.findFirstVisibleIndex(items));
-                } else if (KJVNav.isSelectionOffScreen(items, selectedIndex)) {
-                    selectItem(KJVNav.findFirstVisibleIndex(items));
-                } else {
-                    selectItem(selectedIndex - 1);
-                }
-            }
-
-            // Down arrow or j: Next item
-            if (e.key === 'ArrowDown' || e.key === 'j') {
-                e.preventDefault();
-                if (selectedIndex < 0) {
-                    selectItem(KJVNav.findFirstVisibleIndex(items));
-                } else if (KJVNav.isSelectionOffScreen(items, selectedIndex)) {
-                    selectItem(KJVNav.findFirstVisibleIndex(items));
-                } else {
-                    selectItem(selectedIndex + 1);
-                }
-            }
-
-            // Home: Go to first section
-            if (e.key === 'Home') {
-                e.preventDefault();
-                selectItem(0);
-            }
-
-            // End: Go to last section
-            if (e.key === 'End') {
-                e.preventDefault();
-                selectItem(items.length - 1);
-            }
-        });
-    })();
-    </script>
-
     <section>
         <p><span class="newthought">KJV Study was created</span> by <a href="https://kennethreitz.org" target="_blank" rel="noopener" class="no-arrow">Kenneth Reitz</a>, a software developer known for his work in open source software. What began as a personal study tool has grown into a comprehensive resource for serious study of the King James Bible, serving readers around the world.<label for="sn-purpose" class="margin-toggle sidenote-number"></label>
         <input type="checkbox" id="sn-purpose" class="margin-toggle"/>
@@ -316,15 +248,5 @@
         }
     }
 
-    /* Keyboard navigation selection */
-    h2.nav-selected {
-        background: var(--code-bg);
-        margin-left: -1rem;
-        margin-right: -1rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        border-left: 3px solid var(--link-color);
-        outline: none;
-    }
 </style>
 {% endblock %}
