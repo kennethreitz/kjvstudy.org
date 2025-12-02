@@ -1,0 +1,18 @@
+{
+  "general_epistles_14": [
+    {"day": 1, "readings": ["Hebrews 1-4"], "theme": "Christ Superior to Angels and Moses"},
+    {"day": 2, "readings": ["Hebrews 5-7"], "theme": "Melchizedek Priesthood"},
+    {"day": 3, "readings": ["Hebrews 8-10"], "theme": "New Covenant, Better Sacrifice"},
+    {"day": 4, "readings": ["Hebrews 11-13"], "theme": "Hall of Faith, Endurance"},
+    {"day": 5, "readings": ["James 1-3"], "theme": "Faith and Works, Taming the Tongue"},
+    {"day": 6, "readings": ["James 4-5"], "theme": "Humility, Patience, Prayer"},
+    {"day": 7, "readings": ["1 Peter 1-3"], "theme": "Living Hope, Submission"},
+    {"day": 8, "readings": ["1 Peter 4-5"], "theme": "Suffering for Christ, Shepherding"},
+    {"day": 9, "readings": ["2 Peter 1-3"], "theme": "Knowledge, False Teachers, Day of the Lord"},
+    {"day": 10, "readings": ["1 John 1-3"], "theme": "Fellowship, Walking in Light, Love"},
+    {"day": 11, "readings": ["1 John 4-5"], "theme": "Testing Spirits, God is Love, Assurance"},
+    {"day": 12, "readings": ["2 John", "3 John"], "theme": "Truth and Love, Hospitality"},
+    {"day": 13, "readings": ["Jude"], "theme": "Contending for the Faith"},
+    {"day": 14, "readings": ["Revelation 1-3"], "theme": "Vision of Christ, Letters to Churches"}
+  ]
+}

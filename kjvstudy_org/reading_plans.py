@@ -37,6 +37,12 @@ NT_90_DAYS = _data.get("nt_90_days", {})
 PSALMS_PROVERBS = _data.get("psalms_proverbs", {})
 GOSPELS_ACTS_30 = _data.get("gospels_acts_30", {})
 PAUL_EPISTLES_30 = _data.get("paul_epistles_30", {})
+PENTATEUCH_40 = _data.get("pentateuch_40", {})
+PROPHETS_60 = _data.get("prophets_60", {})
+MINOR_PROPHETS_14 = _data.get("minor_prophets_14", {})
+WISDOM_30 = _data.get("wisdom_30", {})
+HISTORICAL_45 = _data.get("historical_45", {})
+GENERAL_EPISTLES_14 = _data.get("general_epistles_14", {})
 
 # Reading plans database
 READING_PLANS = {
@@ -125,6 +131,7 @@ READING_PLANS = {
         "description": "Study the Law and foundational narratives",
         "duration_days": 40,
         "overview": "Read Genesis through Deuteronomy in 40 days, exploring creation, the patriarchs, the Exodus, and the giving of the Law.",
+        "days": PENTATEUCH_40,
         "sample_days": [
             {"day": 1, "readings": ["Genesis 1-3"], "theme": "Creation and Fall"},
             {"day": 10, "readings": ["Genesis 37-40"], "theme": "Joseph in Egypt"},
@@ -138,6 +145,7 @@ READING_PLANS = {
         "description": "Read Isaiah, Jeremiah, Ezekiel, and Daniel",
         "duration_days": 60,
         "overview": "Study the major prophets, their messages of judgment and hope, and their Messianic prophecies fulfilled in Christ.",
+        "days": PROPHETS_60,
         "sample_days": [
             {"day": 1, "readings": ["Isaiah 1-3"], "theme": "Isaiah's call"},
             {"day": 15, "readings": ["Isaiah 40-42"], "theme": "Comfort and the Servant"},
@@ -160,6 +168,61 @@ READING_PLANS = {
             {"day": 20, "readings": ["Ephesians 4-6"], "theme": "Unity and warfare"},
             {"day": 25, "readings": ["1 Timothy 3-5"], "theme": "Church order"},
             {"day": 30, "readings": ["Philemon"], "theme": "Forgiveness and brotherhood"},
+        ]
+    },
+    "minor-prophets": {
+        "name": "Minor Prophets in 14 Days",
+        "description": "Read Hosea through Malachi",
+        "duration_days": 14,
+        "overview": "Study the twelve Minor Prophets in two weeks, exploring themes of judgment, repentance, and the coming Messiah. These shorter books pack powerful messages of God's justice and mercy.",
+        "days": MINOR_PROPHETS_14,
+        "sample_days": [
+            {"day": 1, "readings": ["Hosea 1-7"], "theme": "God's Faithful Love for Unfaithful Israel"},
+            {"day": 6, "readings": ["Obadiah", "Jonah 1-4"], "theme": "Edom's Doom, Jonah and God's Mercy"},
+            {"day": 9, "readings": ["Habakkuk 1-3"], "theme": "The Just Shall Live by Faith"},
+            {"day": 14, "readings": ["Malachi 1-4"], "theme": "Messenger of the Covenant, Elijah Returns"},
+        ]
+    },
+    "wisdom": {
+        "name": "Wisdom Literature in 30 Days",
+        "description": "Study Job, Psalms, Proverbs, Ecclesiastes, and Song of Solomon",
+        "duration_days": 30,
+        "overview": "Immerse yourself in the wisdom books of Scripture, from Job's suffering to the praises of the Psalms, the practical wisdom of Proverbs, the philosophical reflections of Ecclesiastes, and the poetry of the Song of Solomon.",
+        "days": WISDOM_30,
+        "sample_days": [
+            {"day": 1, "readings": ["Job 1-3"], "theme": "Job's Suffering Begins"},
+            {"day": 9, "readings": ["Job 38-42"], "theme": "God Speaks, Job Restored"},
+            {"day": 19, "readings": ["Psalms 119"], "theme": "The Word of God"},
+            {"day": 27, "readings": ["Proverbs 26-31"], "theme": "Fools, Agur, The Virtuous Woman"},
+            {"day": 30, "readings": ["Song of Solomon 1-8"], "theme": "The Beloved and the Lover"},
+        ]
+    },
+    "historical": {
+        "name": "Historical Books in 45 Days",
+        "description": "Read Joshua through Esther",
+        "duration_days": 45,
+        "overview": "Journey through Israel's history from conquering the Promised Land to the exile and return. Experience the judges, kings, prophets, and God's faithfulness through triumph and tragedy.",
+        "days": HISTORICAL_45,
+        "sample_days": [
+            {"day": 1, "readings": ["Joshua 1-5"], "theme": "Entering the Promised Land"},
+            {"day": 11, "readings": ["Ruth 1-4"], "theme": "Loyalty, Redemption, David's Ancestry"},
+            {"day": 24, "readings": ["1 Kings 5-8"], "theme": "Temple Built and Dedicated"},
+            {"day": 34, "readings": ["2 Kings 24-25"], "theme": "Jerusalem Falls, Exile"},
+            {"day": 45, "readings": ["Nehemiah 3-13", "Esther 1-10"], "theme": "Walls Rebuilt, Esther Saves Her People"},
+        ]
+    },
+    "general-epistles": {
+        "name": "General Epistles in 14 Days",
+        "description": "Read Hebrews through Jude plus Revelation's letters",
+        "duration_days": 14,
+        "overview": "Study the non-Pauline letters of the New Testament, exploring themes of faith, perseverance, practical Christian living, and warnings against false teaching.",
+        "days": GENERAL_EPISTLES_14,
+        "sample_days": [
+            {"day": 1, "readings": ["Hebrews 1-4"], "theme": "Christ Superior to Angels and Moses"},
+            {"day": 5, "readings": ["James 1-3"], "theme": "Faith and Works, Taming the Tongue"},
+            {"day": 10, "readings": ["1 John 1-3"], "theme": "Fellowship, Walking in Light, Love"},
+            {"day": 13, "readings": ["Jude"], "theme": "Contending for the Faith"},
+            {"day": 14, "readings": ["Revelation 1-3"], "theme": "Vision of Christ, Letters to Churches"},
         ]
     }
 }

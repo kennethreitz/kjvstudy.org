@@ -223,41 +223,11 @@ app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 templates = Jinja2Templates(directory=str(templates_dir))
 
 # Register custom Jinja2 filters
-templates.env.filters['slugify'] = create_slug
+from .jinja_filters import register_filters
+register_filters(templates.env)
 
 # Add global template variables
 templates.env.globals['disable_analytics'] = os.getenv("DISABLE_ANALYTICS", "false").lower() == "true"
-
-# Initialize mistune for markdown rendering
-import mistune
-
-# Create mistune instance for full markdown (with paragraphs)
-_markdown = mistune.create_markdown(escape=False, hard_wrap=False)
-
-# Create inline renderer for markdown without paragraph wrapping
-_inline_markdown = mistune.create_markdown(
-    renderer=mistune.HTMLRenderer(escape=False),
-    plugins=['strikethrough']
-)
-
-def markdown_inline(text):
-    """Convert inline markdown to HTML (bold, italic, etc. - no paragraph wrapping)."""
-    if not text:
-        return text
-    # Render and strip any outer <p> tags that mistune might add
-    html = _inline_markdown(text).strip()
-    if html.startswith('<p>') and html.endswith('</p>'):
-        html = html[3:-4]
-    return html
-
-def markdown_to_html(text):
-    """Convert markdown to HTML (bold, italic, paragraphs, etc.)."""
-    if not text:
-        return text
-    return _markdown(text).strip()
-
-templates.env.filters['md'] = markdown_to_html
-templates.env.filters['mdi'] = markdown_inline
 
 # Initialize templates for route modules
 init_api_templates(templates)
@@ -821,274 +791,6 @@ def search_family_tree(query: str, limit: Optional[int] = None) -> List[Dict]:
 
     except Exception:
         return results
-
-
-def link_person_names_in_text(text: str) -> str:
-    """
-    Find person names and verse references in text and link them.
-    Links person names to family tree pages and verse references to verse pages.
-    Avoids linking content that's already inside HTML tags.
-    """
-    if not text:
-        return text
-
-    # First, link verse references (e.g., "Genesis 3:15", "1 Samuel 2:1")
-    # Pattern matches: Book name + chapter:verse
-    verse_pattern = r'\b((?:1|2|3)\s)?([A-Z][a-z]+(?:\s+of\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
-
-    def verse_replace_callback(match):
-        matched_text = match.group(0)
-        start_pos = match.start()
-
-        # Check if we're inside an HTML tag
-        text_before = text[:start_pos]
-        last_lt = text_before.rfind('<')
-        last_gt = text_before.rfind('>')
-
-        if last_lt > last_gt:
-            return matched_text
-
-        if last_lt != -1:
-            tag_content = text[last_lt:start_pos]
-            if 'href=' in tag_content or 'src=' in tag_content:
-                return matched_text
-
-        # Extract parts
-        number_prefix = match.group(1) or ''  # "1 ", "2 ", etc.
-        book_name = match.group(2)  # Main book name
-        chapter = match.group(3)
-        verse_start = match.group(4)
-        verse_end = match.group(5)  # May be None
-
-        # Construct full book name
-        full_book = (number_prefix + book_name).strip()
-
-        # Link to the first verse in the range
-        return f'<a href="/book/{full_book}/chapter/{chapter}/verse/{verse_start}">{matched_text}</a>'
-
-    text = re.sub(verse_pattern, verse_replace_callback, text)
-
-    # Then, link person names to family tree
-    name_to_id = get_person_name_mapping()
-
-    if not name_to_id:
-        return text
-
-    # Sort names by length (longest first) to handle multi-word names correctly
-    sorted_names = sorted(name_to_id.keys(), key=len, reverse=True)
-
-    # Process each name
-    for name_lower in sorted_names:
-        person_id = name_to_id[name_lower]
-
-        # Create a case-insensitive regex pattern with word boundaries
-        # This will match the name but not if it's inside an HTML tag
-        name_pattern = re.escape(name_lower)
-
-        # Use a callback function to avoid replacing text inside HTML tags
-        def replace_callback(match):
-            matched_text = match.group(0)
-            # Check if this match is inside an HTML tag
-            start_pos = match.start()
-
-            # Look backwards to see if we're inside a tag
-            text_before = text[:start_pos]
-            last_lt = text_before.rfind('<')
-            last_gt = text_before.rfind('>')
-
-            # If the last '<' is more recent than the last '>', we're inside a tag
-            if last_lt > last_gt:
-                return matched_text
-
-            # Also check if we're inside an href or other attribute
-            if last_lt != -1:
-                tag_content = text[last_lt:start_pos]
-                if 'href=' in tag_content or 'src=' in tag_content:
-                    return matched_text
-
-            # Safe to link
-            return f'<a href="/family-tree/person/{person_id}">{matched_text}</a>'
-
-        # Use word boundaries and case-insensitive matching
-        pattern = r'\b' + name_pattern + r'\b'
-        text = re.sub(pattern, replace_callback, text, flags=re.IGNORECASE)
-
-    return text
-
-
-# Register the custom Jinja2 filter for linking person names in templates
-templates.env.filters['link_names'] = link_person_names_in_text
-
-
-def link_verse_references_in_text(text):
-    """Automatically link verse references in text (e.g., 'Genesis 1:1', 'Hebrews 9:22')"""
-    if not text:
-        return text
-
-    # Pattern to match verse references like "Genesis 1:1", "1 Corinthians 5:7", "Romans 4:3"
-    # Matches: BookName Chapter:Verse or BookName Chapter:Verse-Verse
-    pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
-
-    def replace_reference(match):
-        number_prefix = match.group(1) or ''  # "1 ", "2 ", "3 " or empty
-        book_name = match.group(2)  # "Corinthians", "Kings", "Genesis"
-        chapter = match.group(3)
-        verse_start = match.group(4)
-        verse_end = match.group(5)  # Could be None if no range
-
-        # Construct full book name
-        full_book = (number_prefix + book_name).strip()
-        full_reference = match.group(0)
-
-        # Check if this match is inside an HTML tag
-        start_pos = match.start()
-        text_before = text[:start_pos]
-        last_lt = text_before.rfind('<')
-        last_gt = text_before.rfind('>')
-
-        # If inside a tag, don't replace
-        if last_lt > last_gt:
-            return full_reference
-
-        # Also check if we're inside an href or other attribute
-        if last_lt != -1:
-            tag_content = text[last_lt:start_pos]
-            if 'href=' in tag_content or 'src=' in tag_content:
-                return full_reference
-
-        # Create link to chapter view with anchor
-        if verse_end:
-            url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}-{verse_end}'
-        else:
-            url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}'
-        return f'<a href="{url}">{full_reference}</a>'
-
-    return re.sub(pattern, replace_reference, text)
-
-
-# Register the verse reference linking filter
-templates.env.filters['link_verses'] = link_verse_references_in_text
-
-
-def inject_word_markers(text, word_studies, verse_num):
-    """Inject sidenote markers into verse text next to annotated words"""
-    if not word_studies:
-        return text
-
-    # Process each word study
-    for idx, study in enumerate(word_studies, 1):
-        word = study['word']
-        # Create the sidenote marker HTML
-        marker = f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/><span class="sidenote"><strong>{word}:</strong> {study["term"]} (<em>{study["translit"]}</em>). {study["note"]}</span>'
-
-        # Find and replace the word with word + marker
-        # Use a more precise replacement to avoid replacing partial matches
-        import re
-        # Match the word with word boundaries, but NOT if followed by possessive 's
-        # This prevents breaking up "LORD'S" into "LORD" + "'S"
-        pattern = re.compile(r'\b(' + re.escape(word) + r')(?!\'[sS])\b', re.IGNORECASE)
-        text = pattern.sub(r'\1' + marker, text, count=1)
-
-    return text
-
-templates.env.filters['inject_word_markers'] = inject_word_markers
-
-
-def red_letter(text, book, chapter, verse_num):
-    """Wrap the words of Christ in red letter span tags"""
-    from .red_letter import wrap_red_letter_text
-
-    return wrap_red_letter_text(text, book, chapter, verse_num)
-
-templates.env.filters['red_letter'] = red_letter
-
-
-def format_numbered_lists(text):
-    """Convert (1), (2), etc. patterns into HTML ordered lists"""
-    import re
-
-    def _convert(pattern: str, payload: str) -> str:
-        markers = list(re.finditer(pattern, payload))
-        if len(markers) < 2:
-            return payload
-
-        numbers = [int(m.group(1)) for m in markers]
-        if numbers[0] != 1:
-            return payload
-
-        seq_length = 1
-        for i in range(1, len(numbers)):
-            if numbers[i] == seq_length + 1:
-                seq_length += 1
-            else:
-                break
-
-        if seq_length < 2:
-            return payload
-
-        markers = markers[:seq_length]
-        list_items = []
-        for i, marker in enumerate(markers):
-            start = marker.end()
-
-            if i + 1 < len(markers):
-                end = markers[i + 1].start()
-            else:
-                remaining = payload[start:]
-                end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining)
-                end = start + end_match.start() + 1 if end_match else len(payload)
-
-            item_text = payload[start:end].strip().rstrip(';,')
-            if item_text.endswith(' and'):
-                item_text = item_text[:-4]
-            list_items.append(f'<li>{item_text}</li>')
-
-        html_list = '<ol>' + ''.join(list_items) + '</ol>'
-        list_start = markers[0].start()
-        last_marker = markers[-1]
-        last_item_start = last_marker.end()
-        remaining_after_last = payload[last_item_start:]
-        end_match = re.search(r'[.;]\s+(?=[A-Z])|$', remaining_after_last)
-        list_end = last_item_start + end_match.start() + 1 if end_match else len(payload)
-
-        after_list = payload[list_end:].strip()
-        if after_list:
-            return payload[:list_start] + html_list + '</p><p>' + after_list
-        return payload[:list_start] + html_list
-
-    # Try classic (1) pattern first to avoid false positives in verse refs
-    primary_pattern = r'\((\d+)\)\s*'
-    converted = _convert(primary_pattern, text)
-    if converted != text:
-        return converted
-
-    # Fallback: bare "1)" patterns preceded by whitespace (not verse refs)
-    fallback_pattern = r'(?<=\s)(\d+)\)\s*'
-    return _convert(fallback_pattern, text)
-
-templates.env.filters['format_lists'] = format_numbered_lists
-
-def number_format(value):
-    """Format a number with commas (e.g., 31102 -> 31,102)"""
-    return f"{value:,}"
-
-templates.env.filters['number_format'] = number_format
-
-
-def linkify_strongs(text):
-    """Convert Strong's references like G1234 or H5678 to links."""
-    import re
-    if not text:
-        return text
-    # Match G or H followed by digits, optionally in parentheses with Greek/Hebrew text
-    pattern = r'\b([GH])(\d+)\b'
-    def replace(match):
-        prefix = match.group(1)
-        num = match.group(2)
-        return f'<a href="/strongs/{prefix}{num}" class="strongs-ref">{prefix}{num}</a>'
-    return re.sub(pattern, replace, text)
-
-templates.env.filters['linkify_strongs'] = linkify_strongs
 
 
 def get_biblical_timeline_context():
@@ -1769,6 +1471,22 @@ async def reading_plan_detail(request: Request, plan_id: str):
     if not plan:
         raise HTTPException(status_code=404, detail="Reading plan not found")
 
+    # For plans 90 days or less, include full Bible text
+    include_text = plan.get('duration_days', 365) <= 90
+    days_with_text = None
+
+    if include_text:
+        all_days = plan.get('days') or plan.get('sample_days', [])
+        days_with_text = []
+        for day in all_days:
+            day_data = {
+                'day': day['day'],
+                'theme': day.get('theme', ''),
+                'readings': day['readings'],
+                'text': get_reading_text(day['readings'])
+            }
+            days_with_text.append(day_data)
+
     breadcrumbs = [
         {"text": "Home", "url": "/"},
         {"text": "Reading Plans", "url": "/reading-plans"},
@@ -1784,9 +1502,60 @@ async def reading_plan_detail(request: Request, plan_id: str):
             "books": books,
             "breadcrumbs": breadcrumbs,
             "pdf_available": WEASYPRINT_AVAILABLE,
-            "pdf_url": f"/reading-plans/{plan_id}/pdf" if WEASYPRINT_AVAILABLE else None
+            "pdf_url": f"/reading-plans/{plan_id}/pdf" if WEASYPRINT_AVAILABLE else None,
+            "include_text": include_text,
+            "days_with_text": days_with_text
         }
     )
+
+
+def parse_reading_reference(ref: str) -> list:
+    """Parse a reading reference like 'Genesis 1-3' or 'Matthew 1' into chapter list.
+
+    Returns list of tuples: [(book, chapter), ...]
+    """
+    # Handle patterns like "Genesis 1-3", "Matthew 1", "1 John 2-3"
+    # Pattern: optional number prefix + book name + chapter range
+    pattern = r'^((?:\d\s+)?[A-Za-z]+(?:\s+[A-Za-z]+)?)\s+(\d+)(?:-(\d+))?$'
+    match = re.match(pattern, ref.strip())
+    if not match:
+        return []
+
+    book = match.group(1)
+    start_ch = int(match.group(2))
+    end_ch = int(match.group(3)) if match.group(3) else start_ch
+
+    # Normalize book name - if it's already canonical, use it as-is
+    normalized = normalize_book_name(book)
+    if not normalized:
+        # Check if it's already a valid canonical name
+        all_books = OT_BOOKS + NT_BOOKS
+        if book in all_books:
+            normalized = book
+        else:
+            return []
+
+    return [(normalized, ch) for ch in range(start_ch, end_ch + 1)]
+
+
+def get_reading_text(readings: list) -> list:
+    """Get the Bible text for a list of reading references.
+
+    Returns list of dicts with book, chapter, and verses.
+    """
+    result = []
+    for ref in readings:
+        chapters = parse_reading_reference(ref)
+        for book, chapter in chapters:
+            verses = bible.get_verses_by_book_chapter(book, chapter)
+            if verses:
+                result.append({
+                    'book': book,
+                    'chapter': chapter,
+                    'verses': verses,
+                    'reference': f"{book} {chapter}"
+                })
+    return result
 
 
 @app.get("/reading-plans/{plan_id}/pdf")
@@ -1802,7 +1571,27 @@ async def reading_plan_pdf(plan_id: str):
     if not plan:
         raise HTTPException(status_code=404, detail="Reading plan not found")
 
-    html_content = templates.get_template("reading_plan_pdf.html").render(plan=plan)
+    # For plans 90 days or less, include full Bible text (excludes 365-day plans)
+    include_text = plan.get('duration_days', 365) <= 90
+
+    days_with_text = None
+    if include_text:
+        all_days = plan.get('days') or plan.get('sample_days', [])
+        days_with_text = []
+        for day in all_days:
+            day_data = {
+                'day': day['day'],
+                'theme': day.get('theme', ''),
+                'readings': day['readings'],
+                'text': get_reading_text(day['readings'])
+            }
+            days_with_text.append(day_data)
+
+    html_content = templates.get_template("reading_plan_pdf.html").render(
+        plan=plan,
+        include_text=include_text,
+        days_with_text=days_with_text
+    )
     pdf_buffer = await render_html_to_pdf_async(html_content)
 
     filename = f"reading-plan-{plan_id}.pdf"

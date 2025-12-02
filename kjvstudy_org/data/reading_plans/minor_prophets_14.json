@@ -1,0 +1,18 @@
+{
+  "minor_prophets_14": [
+    {"day": 1, "readings": ["Hosea 1-7"], "theme": "God's Faithful Love for Unfaithful Israel"},
+    {"day": 2, "readings": ["Hosea 8-14"], "theme": "Judgment and Restoration"},
+    {"day": 3, "readings": ["Joel 1-3"], "theme": "Day of the Lord and Spirit Poured Out"},
+    {"day": 4, "readings": ["Amos 1-5"], "theme": "Judgment on Nations and Israel"},
+    {"day": 5, "readings": ["Amos 6-9"], "theme": "Woe and Future Restoration"},
+    {"day": 6, "readings": ["Obadiah", "Jonah 1-4"], "theme": "Edom's Doom, Jonah and God's Mercy"},
+    {"day": 7, "readings": ["Micah 1-7"], "theme": "Judgment, Bethlehem Prophecy, God's Requirements"},
+    {"day": 8, "readings": ["Nahum 1-3"], "theme": "Nineveh's Destruction"},
+    {"day": 9, "readings": ["Habakkuk 1-3"], "theme": "The Just Shall Live by Faith"},
+    {"day": 10, "readings": ["Zephaniah 1-3"], "theme": "Day of the Lord, Remnant Restored"},
+    {"day": 11, "readings": ["Haggai 1-2"], "theme": "Rebuild the Temple"},
+    {"day": 12, "readings": ["Zechariah 1-7"], "theme": "Visions of Restoration"},
+    {"day": 13, "readings": ["Zechariah 8-14"], "theme": "Messianic King, Pierced One"},
+    {"day": 14, "readings": ["Malachi 1-4"], "theme": "Messenger of the Covenant, Elijah Returns"}
+  ]
+}
