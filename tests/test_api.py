@@ -994,3 +994,73 @@ class TestFamilyTreeEndpoints:
         assert "family_tree" in data["endpoints"]
         assert "family_tree_stats" in data["endpoints"]
         assert "biography" in data["endpoints"]
+
+
+class TestStatsEndpoint:
+    """Tests for the /api/stats endpoint"""
+
+    def test_stats_endpoint_returns_200(self, client):
+        """Test /api/stats returns 200"""
+        response = client.get("/api/stats")
+        assert response.status_code == 200
+
+    def test_stats_has_bible_section(self, client):
+        """Test stats includes bible statistics"""
+        response = client.get("/api/stats")
+        data = response.json()
+        assert "bible" in data
+        assert data["bible"]["total_verses"] == 31102
+        assert data["bible"]["total_books"] == 66
+        assert data["bible"]["ot_books"] == 39
+        assert data["bible"]["nt_books"] == 27
+
+    def test_stats_has_commentary_section(self, client):
+        """Test stats includes commentary statistics"""
+        response = client.get("/api/stats")
+        data = response.json()
+        assert "commentary" in data
+        assert "files" in data["commentary"]
+        assert "verses_covered" in data["commentary"]
+        assert "coverage_percent" in data["commentary"]
+
+    def test_stats_has_cross_references_section(self, client):
+        """Test stats includes cross-references statistics"""
+        response = client.get("/api/stats")
+        data = response.json()
+        assert "cross_references" in data
+        assert "total_references" in data["cross_references"]
+        assert "coverage_percent" in data["cross_references"]
+
+    def test_stats_has_red_letter_section(self, client):
+        """Test stats includes red letter statistics"""
+        response = client.get("/api/stats")
+        data = response.json()
+        assert "red_letter" in data
+        assert "total_verses" in data["red_letter"]
+        assert "percent_of_bible" in data["red_letter"]
+
+    def test_stats_has_study_resources_section(self, client):
+        """Test stats includes study resources statistics"""
+        response = client.get("/api/stats")
+        data = response.json()
+        assert "study_resources" in data
+        assert "study_guides" in data["study_resources"]
+        assert "topics" in data["study_resources"]
+        assert "biographies" in data["study_resources"]
+
+    def test_stats_has_language_tools_section(self, client):
+        """Test stats includes language tools statistics"""
+        response = client.get("/api/stats")
+        data = response.json()
+        assert "language_tools" in data
+        assert "hebrew_entries" in data["language_tools"]
+        assert "greek_entries" in data["language_tools"]
+        assert "total_strongs" in data["language_tools"]
+
+    def test_stats_has_data_section(self, client):
+        """Test stats includes data statistics"""
+        response = client.get("/api/stats")
+        data = response.json()
+        assert "data" in data
+        assert "total_json_files" in data["data"]
+        assert "total_size_mb" in data["data"]
