@@ -10,6 +10,7 @@ from functools import lru_cache
 from ..kjv import bible, VerseReference
 from ..topics import get_all_topics
 from ..red_letter import get_christ_words
+from ..stories import get_all_stories_flat
 
 # Paths to data files
 _DATA_DIR = Path(__file__).parent.parent / "data"
@@ -146,8 +147,36 @@ def get_related_content(book: str, chapter: int = None, verse: int = None) -> Di
         "study_guides": [],
         "topics": [],
         "people": [],
-        "resources": []
+        "resources": [],
+        "stories": []
     }
+
+    # Find related Bible stories based on verse references
+    all_stories = get_all_stories_flat()
+    for story in all_stories:
+        story_verses = story.get("verses", [])
+        for verse_ref in story_verses:
+            # Parse verse references like "Genesis 1:1-31" or "Genesis 2:1-3"
+            if verse_ref.startswith(book + " "):
+                # Extract chapter from reference
+                ref_part = verse_ref[len(book) + 1:]  # e.g., "1:1-31" or "2:1-3"
+                if ":" in ref_part:
+                    ref_chapter = ref_part.split(":")[0]
+                    try:
+                        ref_chapter_num = int(ref_chapter)
+                        # If chapter matches (or no chapter specified), include this story
+                        if chapter is None or ref_chapter_num == chapter:
+                            story_entry = {
+                                "name": story.get("title", ""),
+                                "url": f"/stories/{story.get('slug', '')}",
+                                "description": story.get("description", "")[:100] + "..." if len(story.get("description", "")) > 100 else story.get("description", "")
+                            }
+                            # Avoid duplicates
+                            if story_entry not in related["stories"]:
+                                related["stories"].append(story_entry)
+                                break  # Only add each story once per book/chapter match
+                    except ValueError:
+                        pass
 
     # Map books to related people
     book_people_map = {
@@ -188,21 +217,34 @@ def get_related_content(book: str, chapter: int = None, verse: int = None) -> Di
     if book in ["Matthew", "Mark", "Luke", "John"]:
         related["resources"].append({"name": "Parables of Jesus", "url": "/parables"})
 
-    # Add topic links based on common themes
-    topic_keywords = {
-        "Salvation": ["John", "Romans", "Ephesians", "Titus"],
-        "Prayer": ["Matthew", "Luke", "1 Thessalonians", "James"],
-        "Love": ["John", "1 Corinthians", "1 John"],
-        "Faith": ["Hebrews", "James", "Romans"],
-        "Hope": ["Romans", "1 Peter", "Hebrews"],
-        "Peace": ["Philippians", "John", "Romans"],
-        "Wisdom": ["Proverbs", "Ecclesiastes", "James"],
-    }
-
+    # Add topic links based on verse references in topic data
     topics_data = get_all_topics()
-    for topic_name in topics_data.keys():
-        if topic_name in topic_keywords and book in topic_keywords[topic_name]:
-            related["topics"].append({"name": topic_name, "url": f"/topics/{topic_name}"})
+    for topic_name, topic_data in topics_data.items():
+        topic_matched = False
+        # Check subtopics for verse references
+        subtopics = topic_data.get("subtopics", {})
+        for subtopic_name, subtopic_data in subtopics.items():
+            if topic_matched:
+                break
+            verses = subtopic_data.get("verses", [])
+            for verse_entry in verses:
+                ref = verse_entry.get("ref", "")
+                # Check if this reference matches our book/chapter
+                if ref.startswith(book + " "):
+                    ref_part = ref[len(book) + 1:]
+                    if ":" in ref_part:
+                        ref_chapter = ref_part.split(":")[0]
+                        try:
+                            ref_chapter_num = int(ref_chapter)
+                            if chapter is None or ref_chapter_num == chapter:
+                                related["topics"].append({
+                                    "name": topic_name,
+                                    "url": f"/topics/{topic_name}"
+                                })
+                                topic_matched = True
+                                break
+                        except ValueError:
+                            pass
 
     return related
 

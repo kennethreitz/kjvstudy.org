@@ -984,28 +984,28 @@
 
 {% if commentary %}
     {% if commentary.analysis %}
-    <div>
+    <div class="commentary-section">
         <h2>Analysis</h2>
-        <p>{{ commentary.analysis|format_lists|safe }}</p>
+        {{ commentary.analysis|split_paragraphs|safe }}
     </div>
     {% endif %}
 
     {% if commentary.historical %}
-    <div>
+    <div class="commentary-section">
         <h2>Historical Context</h2>
-        <p>{{ commentary.historical|format_lists|safe }}</p>
+        {{ commentary.historical|split_paragraphs|safe }}
     </div>
     {% endif %}
 
     {% if commentary.theological %}
-    <div>
+    <div class="commentary-section">
         <h2>Theological Significance</h2>
-        <p>{{ commentary.theological|format_lists|safe }}</p>
+        {{ commentary.theological|split_paragraphs|safe }}
     </div>
     {% endif %}
 
     {% if commentary.questions %}
-    <div>
+    <div class="commentary-section">
         <h2>Questions for Reflection</h2>
         <ul>
             {% for question in commentary.questions %}
@@ -1020,15 +1020,24 @@
 <script>
 (function() {
     // Collect all readable elements: paragraphs, list items, cross-ref items
-    var elements = Array.from(document.querySelectorAll(
-        'section > p, ' +
-        '.cross-references-section li, ' +
-        'div > p, ' +
-        '.interlinear-container'
-    )).filter(function(el) {
-        // Filter out empty or very short elements
-        return el.textContent.trim().length > 10 || el.classList.contains('interlinear-container');
-    });
+    function getElements() {
+        return Array.from(document.querySelectorAll(
+            'section > p.verse-text, ' +
+            '.interlinear-container, ' +
+            '#crossrefs-content > p, ' +
+            '.cross-references-section li, ' +
+            '.commentary-section p, ' +
+            '.commentary-section li'
+        )).filter(function(el) {
+            // Filter out empty or very short elements, and UI elements
+            if (el.closest('.word-detail') || el.closest('.share-container') || el.closest('nav')) return false;
+            // Skip elements inside collapsed sections
+            var hiddenParent = el.closest('[hidden]');
+            if (hiddenParent) return false;
+            return el.textContent.trim().length > 10 || el.classList.contains('interlinear-container');
+        });
+    }
+    var elements = getElements();
 
     var selectedIndex = -1;
     var inWordMode = false;
@@ -1064,6 +1073,9 @@
 
     function selectElement(index) {
         clearSelection();
+        // Refresh elements list in case sections were toggled
+        elements = getElements();
+        if (elements.length === 0) return;
         selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
         elements[selectedIndex].style.outline = '2px solid #4a7c59';
         elements[selectedIndex].style.outlineOffset = '4px';
@@ -1210,7 +1222,7 @@
 })();
 </script>
 
-{% if related_content and (related_content.topics or related_content.people or related_content.resources) %}
+{% if related_content and (related_content.topics or related_content.people or related_content.resources or related_content.stories) %}
 <div style="border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 3rem;">
     <h2>Related Resources</h2>
     <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
@@ -1251,6 +1263,19 @@
                 {% for resource in related_content.resources %}
                 <li style="margin-bottom: 0.5rem;">
                     <a href="{{ resource.url }}" style="font-size: 0.95rem;">{{ resource.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if related_content.stories %}
+        <div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.75rem; color: var(--text-secondary);">Bible Stories</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                {% for story in related_content.stories %}
+                <li style="margin-bottom: 0.5rem;">
+                    <a href="{{ story.url }}" style="font-size: 0.95rem;">{{ story.name }}</a>
                 </li>
                 {% endfor %}
             </ul>
