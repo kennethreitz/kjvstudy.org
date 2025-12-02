@@ -2573,8 +2573,16 @@
         function linkVerseReferences(element) {
           if (!element) return;
 
-          // Get all text nodes
-          const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+          // Get all text nodes, but skip those inside anchors (already linked)
+          const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
+            acceptNode: function(node) {
+              // Skip text nodes that are inside anchor tags (already linked)
+              if (node.parentNode && node.parentNode.tagName === 'A') {
+                return NodeFilter.FILTER_REJECT;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }, false);
           const textNodes = [];
           let node;
           while (node = walker.nextNode()) {
@@ -2607,7 +2615,8 @@
                   if (verseEnd) {
                     return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + book + ' ' + chapter + ':' + verseStart + '-' + verseEnd + '</a>';
                   } else {
-                    return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + book + ' ' + chapter + ':' + verseStart + '</a>';
+                    // Use chapter anchor instead of verse page
+                    return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '">' + book + ' ' + chapter + ':' + verseStart + '</a>';
                   }
                 }
                 return verseRef;
@@ -2623,7 +2632,8 @@
               if (verseEnd) {
                 return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
               } else {
-                return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + match + '</a>';
+                // Use chapter anchor instead of verse page
+                return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '">' + match + '</a>';
               }
             });
 
