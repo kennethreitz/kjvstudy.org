@@ -55,6 +55,93 @@
     margin-top: 0.75rem;
 }
 
+.plan-progress {
+    margin-top: 0.75rem;
+    display: none;
+}
+
+.plan-progress.has-progress {
+    display: block;
+}
+
+.plan-progress-bar {
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.plan-progress-fill {
+    height: 100%;
+    background: #4a7c59;
+    transition: width 0.3s;
+}
+
+.plan-progress-text {
+    font-size: 0.8rem;
+    color: #4a7c59;
+    margin-top: 0.3rem;
+    font-weight: 500;
+}
+
+.your-plans {
+    display: none;
+}
+
+.your-plans.has-plans {
+    display: block;
+}
+
+.your-plans-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    max-width: 60%;
+}
+
+.your-plans-list li {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--code-bg);
+}
+
+.your-plans-list li:hover {
+    border-color: #4a7c59;
+}
+
+.your-plan-link {
+    font-weight: 600;
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.your-plan-link:hover {
+    color: #4a7c59;
+}
+
+.your-plan-next {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-left: auto;
+}
+
+.your-plan-progress {
+    font-size: 0.85rem;
+    color: #4a7c59;
+    font-weight: 500;
+}
+
+.your-plan-completed {
+    color: #4a7c59;
+    font-weight: 600;
+}
+
 .intro-text {
     max-width: 60%;
     font-size: 1.2rem;
@@ -74,15 +161,26 @@
     <p class="intro-text">Whether pursuing canonical familiarity through complete Bible reading or concentrating on specific portions, these schedules provide daily guidance for disciplined Scripture intake. Select a plan suited to your current season and study objectives.</p>
 </section>
 
+<section class="your-plans" id="your-plans">
+    <h2>Your Reading Plans</h2>
+    <ul class="your-plans-list" id="your-plans-list"></ul>
+</section>
+
 <section>
     <h2>Available Reading Plans</h2>
 
     <div class="plan-grid">
         {% for plan in plans %}
-        <a href="/reading-plans/{{ plan.id }}" class="plan-card">
+        <a href="/reading-plans/{{ plan.id }}" class="plan-card" data-plan-id="{{ plan.id }}" data-total-days="{{ plan.days }}">
             <div class="plan-name">{{ plan.name }}</div>
             <div class="plan-description">{{ plan.description }}</div>
             <div class="plan-duration">{{ plan.days }} days</div>
+            <div class="plan-progress">
+                <div class="plan-progress-bar">
+                    <div class="plan-progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="plan-progress-text"></div>
+            </div>
         </a>
         {% endfor %}
     </div>
@@ -95,7 +193,74 @@
 
 <script>
 (function() {
+    // Load and display progress for each plan
     const cards = Array.from(document.querySelectorAll('.plan-card'));
+    var yourPlansSection = document.getElementById('your-plans');
+    var yourPlansList = document.getElementById('your-plans-list');
+    var plansWithProgress = [];
+
+    cards.forEach(function(card) {
+        var planId = card.dataset.planId;
+        var totalDays = parseInt(card.dataset.totalDays);
+        var storageKey = 'reading-plan-' + planId;
+        var saved = localStorage.getItem(storageKey);
+
+        if (saved) {
+            try {
+                var data = JSON.parse(saved);
+                var completed = data.completed ? data.completed.length : 0;
+                if (completed > 0) {
+                    var percent = Math.round((completed / totalDays) * 100);
+                    var progressEl = card.querySelector('.plan-progress');
+                    var fillEl = card.querySelector('.plan-progress-fill');
+                    var textEl = card.querySelector('.plan-progress-text');
+
+                    progressEl.classList.add('has-progress');
+                    fillEl.style.width = percent + '%';
+
+                    if (completed === totalDays) {
+                        textEl.textContent = 'Completed!';
+                    } else {
+                        textEl.textContent = completed + '/' + totalDays + ' days (' + percent + '%)';
+                    }
+
+                    // Add to your plans list
+                    var planName = card.querySelector('.plan-name').textContent;
+                    var nextDay = completed + 1;
+                    var isComplete = completed >= totalDays;
+
+                    plansWithProgress.push({
+                        id: planId,
+                        name: planName,
+                        completed: completed,
+                        totalDays: totalDays,
+                        nextDay: nextDay,
+                        isComplete: isComplete,
+                        percent: percent
+                    });
+                }
+            } catch(e) {}
+        }
+    });
+
+    // Populate "Your Reading Plans" section
+    if (plansWithProgress.length > 0) {
+        yourPlansSection.classList.add('has-plans');
+        plansWithProgress.forEach(function(plan) {
+            var li = document.createElement('li');
+            var statusText;
+            if (plan.isComplete) {
+                statusText = '<span class="your-plan-completed">Completed!</span>';
+            } else {
+                statusText = '<span class="your-plan-next">Up next: Day ' + plan.nextDay + '</span>';
+            }
+            li.innerHTML = '<a href="/reading-plans/' + plan.id + '" class="your-plan-link">' + plan.name + '</a>' +
+                '<span class="your-plan-progress">' + plan.percent + '%</span>' +
+                statusText;
+            yourPlansList.appendChild(li);
+        });
+    }
+
     if (cards.length === 0) return;
 
     let selectedIndex = -1;

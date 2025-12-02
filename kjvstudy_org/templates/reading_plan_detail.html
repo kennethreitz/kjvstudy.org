@@ -146,9 +146,9 @@
 }
 
 .day-nav a.completed {
-    background: var(--link-color);
+    background: #4a7c59;
     color: white;
-    border-color: var(--link-color);
+    border-color: #4a7c59;
 }
 
 /* Day entries */
@@ -160,7 +160,7 @@
 }
 
 .reading-day.completed {
-    border-color: var(--link-color);
+    border-color: #4a7c59;
 }
 
 .day-header {
@@ -191,32 +191,38 @@
     min-width: 70px;
 }
 
+.day-readings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-right: auto;
+}
+
+.day-readings span {
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: var(--text-color);
+}
+
 .day-theme {
     font-style: italic;
     color: var(--text-secondary);
-    flex: 1;
-}
-
-.day-readings-summary {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-.day-readings-summary span {
-    margin-left: 0.5rem;
-    padding: 0.15rem 0.4rem;
-    background: var(--bg-color);
-    border-radius: 3px;
+    font-size: 0.9rem;
+    margin-left: 1rem;
 }
 
 .day-toggle {
     font-size: 1.2rem;
     color: var(--text-secondary);
     transition: transform 0.2s;
+    transform: rotate(-90deg);
 }
 
 .day-toggle.expanded {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
 }
 
 /* Scripture content */
@@ -376,10 +382,10 @@
     <div class="day-header" onclick="toggleDay({{ day.day }}, event)">
         <input type="checkbox" class="day-checkbox" id="check-{{ day.day }}" onclick="event.stopPropagation(); markDay({{ day.day }})">
         <span class="day-number">Day {{ day.day }}</span>
-        <span class="day-theme">{{ day.theme }}</span>
-        <span class="day-readings-summary">
+        <span class="day-readings">
             {% for reading in day.readings %}<span>{{ reading }}</span>{% endfor %}
         </span>
+        <span class="day-theme">{{ day.theme }}</span>
         <span class="day-toggle" id="toggle-{{ day.day }}">▼</span>
     </div>
     <div class="day-content" id="content-{{ day.day }}"></div>
@@ -595,45 +601,123 @@
 
     // Keyboard navigation
     var days = Array.from(document.querySelectorAll('.reading-day'));
-    var selectedIndex = -1;
+    var selectedDayIndex = -1;
+    var selectedSectionIndex = -1; // -1 means day header selected, 0+ means section within expanded day
+    var inExpandedMode = false;
+
+    function clearSelection() {
+        // Clear day selection
+        if (selectedDayIndex >= 0 && selectedDayIndex < days.length) {
+            days[selectedDayIndex].style.outline = '';
+            // Clear any section selection
+            var sections = days[selectedDayIndex].querySelectorAll('.chapter-section');
+            sections.forEach(function(s) { s.style.outline = ''; });
+        }
+    }
 
     function selectDay(index) {
-        if (selectedIndex >= 0 && selectedIndex < days.length) {
-            days[selectedIndex].style.outline = '';
-        }
-        selectedIndex = Math.max(0, Math.min(index, days.length - 1));
-        days[selectedIndex].style.outline = '2px solid #4a7c59';
-        days[selectedIndex].style.outlineOffset = '4px';
-        days[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
+        clearSelection();
+        inExpandedMode = false;
+        selectedSectionIndex = -1;
+        selectedDayIndex = Math.max(0, Math.min(index, days.length - 1));
+        days[selectedDayIndex].style.outline = '2px solid #4a7c59';
+        days[selectedDayIndex].style.outlineOffset = '4px';
+        days[selectedDayIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
+    }
+
+    function selectSection(sectionIndex) {
+        if (selectedDayIndex < 0) return;
+        var content = document.getElementById('content-' + days[selectedDayIndex].dataset.day);
+        if (!content || !content.classList.contains('expanded')) return;
+
+        var sections = content.querySelectorAll('.chapter-section');
+        if (sections.length === 0) return;
+
+        // Clear previous section highlight
+        sections.forEach(function(s) { s.style.outline = ''; });
+        days[selectedDayIndex].style.outline = '';
+
+        selectedSectionIndex = Math.max(0, Math.min(sectionIndex, sections.length - 1));
+        inExpandedMode = true;
+        sections[selectedSectionIndex].style.outline = '2px solid #4a7c59';
+        sections[selectedSectionIndex].style.outlineOffset = '4px';
+        sections[selectedSectionIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+        var currentDay = selectedDayIndex >= 0 ? days[selectedDayIndex] : null;
+        var isExpanded = currentDay && document.getElementById('content-' + currentDay.dataset.day).classList.contains('expanded');
+
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectDay(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            if (inExpandedMode && isExpanded) {
+                // Navigate within sections
+                var content = document.getElementById('content-' + currentDay.dataset.day);
+                var sections = content.querySelectorAll('.chapter-section');
+                if (selectedSectionIndex < sections.length - 1) {
+                    selectSection(selectedSectionIndex + 1);
+                } else {
+                    // Move to next day
+                    selectDay(selectedDayIndex + 1);
+                }
+            } else {
+                selectDay(selectedDayIndex < 0 ? 0 : selectedDayIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (selectedIndex <= 0) selectDay(0);
-            else selectDay(selectedIndex - 1);
+            if (inExpandedMode && isExpanded) {
+                if (selectedSectionIndex > 0) {
+                    selectSection(selectedSectionIndex - 1);
+                } else {
+                    // Back to day header
+                    selectDay(selectedDayIndex);
+                }
+            } else {
+                if (selectedDayIndex <= 0) selectDay(0);
+                else selectDay(selectedDayIndex - 1);
+            }
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            history.back();
-        } else if ((e.key === 'Enter' || e.key === ' ') && selectedIndex >= 0) {
+            if (inExpandedMode) {
+                // Exit section mode, go back to day
+                selectDay(selectedDayIndex);
+            } else {
+                history.back();
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
             e.preventDefault();
-            var dayNum = parseInt(days[selectedIndex].dataset.day);
-            toggleDay(dayNum);
-        } else if (e.key === 'x' && selectedIndex >= 0) {
+            if (selectedDayIndex >= 0 && isExpanded && !inExpandedMode) {
+                // Enter section navigation
+                selectSection(0);
+            }
+        } else if ((e.key === 'Enter' || e.key === ' ') && selectedDayIndex >= 0) {
             e.preventDefault();
-            var dayNum = parseInt(days[selectedIndex].dataset.day);
+            if (inExpandedMode) {
+                // Click the chapter link
+                var content = document.getElementById('content-' + currentDay.dataset.day);
+                var sections = content.querySelectorAll('.chapter-section');
+                if (sections[selectedSectionIndex]) {
+                    var link = sections[selectedSectionIndex].querySelector('.chapter-heading a');
+                    if (link) link.click();
+                }
+            } else {
+                var dayNum = parseInt(currentDay.dataset.day);
+                toggleDay(dayNum);
+            }
+        } else if (e.key === 'x' && selectedDayIndex >= 0) {
+            e.preventDefault();
+            var dayNum = parseInt(currentDay.dataset.day);
             markDay(dayNum);
             updateUI();
         } else if (e.key === 'Escape') {
             e.preventDefault();
-            if (selectedIndex >= 0) {
-                days[selectedIndex].style.outline = '';
-                selectedIndex = -1;
+            if (inExpandedMode) {
+                selectDay(selectedDayIndex);
+            } else if (selectedDayIndex >= 0) {
+                clearSelection();
+                selectedDayIndex = -1;
             }
         }
     });

@@ -1566,8 +1566,8 @@ async def reading_plan_pdf(plan_id: str):
     if not plan:
         raise HTTPException(status_code=404, detail="Reading plan not found")
 
-    # For plans 90 days or less, include full Bible text (excludes 365-day plans)
-    include_text = plan.get('duration_days', 365) <= 90
+    # Include full Bible text for all plans (including 365-day plans)
+    include_text = True
 
     days_with_text = None
     if include_text:
