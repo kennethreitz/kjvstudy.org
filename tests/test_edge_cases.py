@@ -12,17 +12,17 @@ class TestErrorHandling:
     def test_invalid_book_name(self, client):
         """Test verse endpoint with non-existent book"""
         response = client.get("/api/verse/NotABook/1/1")
-        assert response.status_code in [404, 500]
+        assert response.status_code == 404
 
     def test_invalid_chapter_number(self, client):
         """Test verse endpoint with invalid chapter"""
         response = client.get("/api/verse/Genesis/999/1")
-        assert response.status_code in [404, 500]
+        assert response.status_code == 404
 
     def test_invalid_verse_number(self, client):
         """Test verse endpoint with invalid verse"""
         response = client.get("/api/verse/John/3/999")
-        assert response.status_code in [404, 500]
+        assert response.status_code == 404
 
     def test_negative_chapter(self, client):
         """Test verse endpoint with negative chapter"""
@@ -98,7 +98,7 @@ class TestBookAbbreviations:
 
         for abbrev, full_name in abbreviations.items():
             response = client.get(f"/api/books/{abbrev}")
-            assert response.status_code in [200, 404, 500]
+            assert response.status_code in [200, 404]
             if response.status_code == 200:
                 data = response.json()
                 # Response has "name" field, not "book"

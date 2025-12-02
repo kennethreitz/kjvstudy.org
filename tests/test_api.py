@@ -64,8 +64,7 @@ class TestVerseEndpoints:
     def test_get_nonexistent_verse(self, client):
         """Test verse endpoint with invalid verse"""
         response = client.get("/api/verse/John/3/999")
-        # Currently returns 500, should return 404
-        assert response.status_code in [404, 500]
+        assert response.status_code == 404
 
     def test_get_verse_range(self, client):
         """Test /api/verse-range/{book}/{chapter}/{start}/{end}"""
@@ -326,8 +325,7 @@ class TestInterlinearEndpoint:
     def test_get_interlinear_nonexistent_verse(self, client):
         """Test interlinear with invalid verse"""
         response = client.get("/api/interlinear/John/1/999")
-        # Currently returns 500, should return 404
-        assert response.status_code in [404, 500]
+        assert response.status_code == 404
 
 
 class TestCrossReferencesEndpoint:

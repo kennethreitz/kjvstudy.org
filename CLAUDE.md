@@ -244,7 +244,7 @@ docker compose exec web uv run pytest tests/ -v # Run tests in container
 - Use `uv` for all Python package management
 - API responses use `name` field for books, not `book`
 - API responses use `start`/`end` for verse ranges, not `start_verse`/`end_verse`
-- Error handling currently returns 500 for invalid inputs (should be 404, but tests accept both)
+- Error handling returns proper 404 for invalid inputs (not found resources)
 - Book abbreviations are comprehensive but some edge cases may not work
 - The project uses Tufte CSS for clean, readable typography
 - Interlinear data is available for most verses but not all
