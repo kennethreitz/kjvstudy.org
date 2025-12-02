@@ -6,123 +6,327 @@
     <style>
         @page {
             size: letter;
-            margin: 0.85in;
+            margin: 0.75in 0.85in 0.85in 0.85in;
+            @top-center {
+                content: "{{ book }} {{ chapter }}";
+                font-family: Georgia, serif;
+                font-size: 9pt;
+                font-style: italic;
+                color: #888;
+            }
             @bottom-center {
                 content: counter(page);
-                font-family: "et-book", Georgia, serif;
-                font-size: 10pt;
+                font-family: Georgia, serif;
+                font-size: 9pt;
                 color: #666;
-            }
-            @footnote {
-                border-top: 0.5pt solid #666;
-                padding-top: 6pt;
-                margin-top: 12pt;
             }
         }
 
+        @page:first {
+            @top-center { content: none; }
+        }
+
         body {
-            font-family: "et-book", Georgia, "Times New Roman", serif;
-            font-size: 11.25pt;
-            line-height: 1.65;
-            color: #111;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 11pt;
+            line-height: 1.7;
+            color: #1a1a1a;
+        }
+
+        /* Title Page / Header */
+        .title-section {
+            text-align: center;
+            margin-bottom: 0.4in;
+            padding-bottom: 0.25in;
+            border-bottom: 2px solid #333;
         }
 
         h1 {
             font-weight: normal;
-            letter-spacing: 0.05em;
-            font-size: 24pt;
-            margin: 0 0 0.1in 0;
+            font-size: 32pt;
+            margin: 0 0 0.08in 0;
+            letter-spacing: 0.02em;
         }
 
-        .subtitle {
+        .book-title {
+            font-size: 14pt;
             font-style: italic;
+            color: #555;
+            margin: 0 0 0.15in 0;
+        }
+
+        .chapter-info {
+            font-size: 10pt;
             color: #666;
+        }
+
+        /* Book Introduction */
+        .book-intro {
+            margin-bottom: 0.35in;
+            padding: 0.2in;
+            background: #f8f8f8;
+            border-left: 3px solid #4a7c59;
+        }
+
+        .book-intro p {
+            margin: 0;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        .book-meta {
+            margin-top: 0.1in;
+            font-size: 9pt;
+            color: #666;
+        }
+
+        /* Scripture Text */
+        .scripture-section {
             margin-bottom: 0.3in;
         }
 
-        .chapter-meta {
-            font-size: 10pt;
-            color: #666;
-            margin-bottom: 0.35in;
+        .section-heading {
+            font-size: 12pt;
+            font-weight: 600;
+            color: #333;
+            margin: 0.3in 0 0.15in 0;
+            padding-bottom: 0.05in;
             border-bottom: 1px solid #ddd;
-            padding-bottom: 0.15in;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
         }
 
         .verses {
-            margin-bottom: 0.4in;
+            columns: 1;
         }
 
         .verse {
-            display: flex;
-            gap: 0.15in;
-            margin-bottom: 0.08in;
+            display: block;
+            margin-bottom: 0.12in;
+            text-align: justify;
+            text-indent: 0;
         }
 
         .verse-number {
-            font-variant-numeric: lining-nums;
-            font-size: 10pt;
-            color: #777;
-            min-width: 0.35in;
-            text-align: right;
+            font-size: 8pt;
+            font-weight: bold;
+            color: #4a7c59;
+            vertical-align: super;
+            margin-right: 0.03in;
         }
 
         .verse-text {
-            flex: 1;
-            text-align: justify;
+            /* inline with verse number */
         }
 
-        /* Footnote markers and content */
-        .footnote {
-            float: footnote;
+        /* Red letter for words of Christ */
+        .red-letter {
+            color: #8b0000;
+        }
+
+        /* Word Study Markers */
+        .word-marker {
+            font-size: 7pt;
+            vertical-align: super;
+            color: #4a7c59;
+            font-weight: bold;
+        }
+
+        /* Cross Reference Section */
+        .cross-references {
+            margin-top: 0.35in;
+            padding-top: 0.2in;
+            border-top: 1px solid #ccc;
+        }
+
+        .ref-group {
+            margin-bottom: 0.15in;
+        }
+
+        .ref-verse {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .ref-list {
+            font-size: 9.5pt;
+            color: #555;
+            margin-left: 0.15in;
+        }
+
+        .ref-description {
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Glossary / Word Studies Section */
+        .glossary {
+            margin-top: 0.4in;
+            padding-top: 0.2in;
+            border-top: 2px solid #333;
+            page-break-before: auto;
+        }
+
+        .glossary-grid {
+            columns: 2;
+            column-gap: 0.3in;
+        }
+
+        .glossary-entry {
+            break-inside: avoid;
+            margin-bottom: 0.2in;
+            padding-bottom: 0.1in;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .glossary-word {
+            font-weight: 600;
+            font-size: 10.5pt;
+            color: #1a1a1a;
+        }
+
+        .glossary-original {
+            font-size: 10pt;
+            color: #4a7c59;
+        }
+
+        .glossary-translit {
+            font-style: italic;
+            color: #666;
+        }
+
+        .glossary-meaning {
+            font-size: 9.5pt;
+            color: #333;
+            margin-top: 0.03in;
+        }
+
+        .glossary-note {
             font-size: 9pt;
+            color: #555;
+            margin-top: 0.03in;
             line-height: 1.4;
         }
 
-        .footnote-marker {
-            vertical-align: super;
-            font-size: 8pt;
-            color: #666;
-        }
-
-        ::footnote-marker {
-            font-size: 8pt;
-            color: #666;
-        }
-
-        ::footnote-call {
-            content: counter(footnote);
-            font-size: 8pt;
-            vertical-align: super;
-            color: #666;
-        }
-
+        /* Footer */
         .footer {
-            margin-top: 0.4in;
-            font-size: 9pt;
-            color: #888;
+            margin-top: 0.5in;
+            padding-top: 0.15in;
+            border-top: 1px solid #ddd;
             text-align: center;
+            font-size: 8.5pt;
+            color: #888;
+        }
+
+        .footer a {
+            color: #4a7c59;
+            text-decoration: none;
+        }
+
+        /* Hide sidenote checkboxes */
+        .margin-toggle,
+        .sidenote-number,
+        input[type="checkbox"] {
+            display: none !important;
+        }
+
+        .sidenote,
+        .marginnote {
+            display: none !important;
+        }
+
+        /* Utility */
+        .small-caps {
+            font-variant: small-caps;
         }
     </style>
 </head>
 <body>
-    <h1>{{ book }} {{ chapter }}</h1>
-    <p class="subtitle">Authorized King James Version (KJV)</p>
-    <p class="chapter-meta">{{ verse_count }} verses &middot; Cross-references and word studies included as footnotes.</p>
+    <!-- Title Section -->
+    <div class="title-section">
+        <h1>{{ book }} {{ chapter }}</h1>
+        {% if book_data and book_data.full_title %}
+        <p class="book-title">{{ book_data.full_title }}</p>
+        {% endif %}
+        <p class="chapter-info">
+            Chapter {{ chapter }} of {{ total_chapters }} · {{ verse_count }} Verses · Authorized King James Version
+        </p>
+    </div>
 
-    <div class="verses">
+    {% if book_data and book_data.description and chapter == 1 %}
+    <!-- Book Introduction (only on chapter 1) -->
+    <div class="book-intro">
+        <p>{{ book_data.description }}</p>
+        {% if book_data.author or book_data.date_written %}
+        <p class="book-meta">
+            {% if book_data.author %}Author: {{ book_data.author }}{% endif %}
+            {% if book_data.author and book_data.date_written %} · {% endif %}
+            {% if book_data.date_written %}Written: {{ book_data.date_written }}{% endif %}
+        </p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Scripture Text -->
+    <div class="scripture-section">
+        <h2 class="section-heading">Scripture</h2>
+        <div class="verses">
+            {% for verse in verses %}
+            <p class="verse">
+                <span class="verse-number">{{ verse.verse }}</span>
+                <span class="verse-text">{{ verse.text | link_names | safe }}</span>
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if glossary %}
+    <!-- Word Studies / Glossary -->
+    <div class="glossary">
+        <h2 class="section-heading">Hebrew & Greek Word Studies</h2>
+        <div class="glossary-grid">
+            {% for study in glossary %}
+            <div class="glossary-entry">
+                <div>
+                    <span class="glossary-word">{{ study.word }}</span>
+                    —
+                    <span class="glossary-original">{{ study.term }}</span>
+                    <span class="glossary-translit">({{ study.translit }})</span>
+                </div>
+                <div class="glossary-meaning">{{ study.meaning }}</div>
+                {% if study.note %}
+                <div class="glossary-note">{{ study.note | safe }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Cross References -->
+    <div class="cross-references">
+        <h2 class="section-heading">Cross References</h2>
         {% for verse in verses %}
         {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
-        <div class="verse">
-            <span class="verse-number">{{ verse.verse }}</span>
-            <span class="verse-text">
-                {{ verse.text }}{% if commentary %}{% if commentary.cross_reference_groups %}<span class="footnote-marker">*</span>{% for group in commentary.cross_reference_groups %}<span class="footnote"><strong>{{ group.description }}:</strong> {% for ref in group.refs %}{{ ref }}{% if not loop.last %}; {% endif %}{% endfor %}.</span>{% endfor %}{% endif %}{% if commentary.word_studies %}{% for study in commentary.word_studies %}<span class="footnote-marker">†</span><span class="footnote"><strong>{{ study.word }}:</strong> {{ study.term }} ({{ study.translit }}) — {{ study.meaning }}.</span>{% endfor %}{% endif %}{% endif %}
+        {% if commentary and commentary.cross_reference_groups and commentary.cross_reference_groups|length > 0 %}
+        <div class="ref-group">
+            <span class="ref-verse">{{ book }} {{ chapter }}:{{ verse.verse }}</span>
+            <span class="ref-list">
+                {% for group in commentary.cross_reference_groups %}
+                <span class="ref-description">{{ group.description }}:</span>
+                {% for ref in group.refs %}{{ ref }}{% if not loop.last %}; {% endif %}{% endfor %}{% if not loop.last %}. {% endif %}
+                {% endfor %}
             </span>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 
+    <!-- Footer -->
     <div class="footer">
-        From KJV Study &bull; kjvstudy.org
+        <p>From <strong>KJV Study</strong> · kjvstudy.org</p>
+        <p>The Authorized King James Version · Public Domain</p>
     </div>
 </body>
 </html>

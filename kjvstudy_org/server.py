@@ -2428,8 +2428,8 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
     shown_words = set()
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
-        # Add word study sidenotes (avoiding repetition within chapter)
-        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, shown_words)
+        # Add word study sidenotes (avoiding repetition within chapter, more liberal for PDF)
+        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, shown_words, for_pdf=True)
         commentary['word_studies'] = word_studies
         for study in word_studies:
             shown_words.add(study['word'].lower())
@@ -2448,12 +2448,30 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
         ]
         commentaries[verse.verse] = commentary
 
+    # Get book metadata for richer PDF
+    book_data = get_book_data(book)
+    total_chapters = len(chapters)
+
+    # Collect all unique word studies shown for glossary
+    glossary = []
+    seen_words = set()
+    for verse_num, commentary in commentaries.items():
+        for study in commentary.get('word_studies', []):
+            word_lower = study['word'].lower()
+            if word_lower not in seen_words:
+                seen_words.add(word_lower)
+                glossary.append(study)
+    glossary.sort(key=lambda x: x['word'])
+
     html_content = templates.get_template("chapter_pdf.html").render(
         book=book,
         chapter=chapter,
         verses=verses,
         verse_count=len(verses),
         commentaries=commentaries,
+        book_data=book_data,
+        total_chapters=total_chapters,
+        glossary=glossary,
     )
 
     pdf_buffer = await render_html_to_pdf_async(html_content)

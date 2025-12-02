@@ -281,7 +281,7 @@ def link_bible_references(text):
     return linked_text
 
 
-def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_words=None):
+def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_words=None, for_pdf=False):
     """Generate Hebrew/Greek/Aramaic word study sidenotes for key terms in the verse
 
     Uses intelligent selection to show only 1-2 word studies per verse, creating variety
@@ -294,6 +294,7 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
         chapter: The chapter number
         verse_num: The verse number
         shown_words: Set of words already shown in this chapter (lowercase)
+        for_pdf: If True, show word studies more liberally for PDF output
     """
     if shown_words is None:
         shown_words = set()
@@ -336,6 +337,14 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     # Use verse position to determine which studies to show
     if not potential_sidenotes:
         return []
+
+    # For PDF output, show all unique word studies (still avoiding repetition across chapter)
+    if for_pdf:
+        import random
+        random.seed(f"{book}{chapter}{verse_num}")
+        # Show up to 2 word studies per verse for PDF
+        max_sidenotes = min(2, len(potential_sidenotes))
+        return random.sample(potential_sidenotes, max_sidenotes) if max_sidenotes > 0 else []
 
     # Deterministic selection based on verse number for consistency
     # Show sidenotes on every other verse (verses 1, 3, 5, 7, etc.)

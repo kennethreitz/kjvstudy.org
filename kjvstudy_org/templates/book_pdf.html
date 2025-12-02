@@ -132,6 +132,33 @@
             border-bottom: 2px solid #333;
             page-break-before: always;
         }
+
+        /* Style sidenotes as inline notes for PDF */
+        .margin-toggle,
+        .sidenote-number,
+        input[type="checkbox"] {
+            display: none !important;
+        }
+
+        .sidenote,
+        .marginnote {
+            display: block;
+            float: none;
+            width: 100%;
+            margin: 0.15in 0;
+            padding: 0.1in 0.15in;
+            font-size: 9pt;
+            font-style: italic;
+            color: #555;
+            background: #f9f9f9;
+            border-left: 2px solid #ccc;
+        }
+
+        .sidenote::before {
+            content: "Note: ";
+            font-weight: 600;
+            font-style: normal;
+        }
     </style>
 </head>
 <body>

@@ -1,5 +1,129 @@
 {
   "prophets": {
+    "Non-Writing Prophets": {
+      "Moses": {
+        "title": "The Prophet Like No Other",
+        "description": "Moses stands unique among Israel's prophets, the one with whom God spoke 'mouth to mouth, even apparently, and not in dark speeches' (Numbers 12:8). Scripture explicitly identifies him as a prophet: 'And there arose not a prophet since in Israel like unto Moses, whom the LORD knew face to face' (Deuteronomy 34:10). His prophetic ministry began at the burning bush, where God commissioned him to deliver Israel from Egyptian bondage, authenticating his message through miraculous signs. Through Moses, God delivered the Torah—the foundational revelation upon which all subsequent prophecy builds. He mediated the covenant at Sinai, receiving the law directly from God's hand, and interceded repeatedly for rebellious Israel, even offering his own life for their forgiveness. Moses's greatest prophecy concerned the coming Messiah: 'The LORD thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken' (Deuteronomy 18:15). The New Testament repeatedly identifies Jesus as this prophet like Moses (Acts 3:22, 7:37). At the Transfiguration, Moses appeared with Elijah, representing the Law and the Prophets, both bearing witness to Christ. Though Moses died on Mount Nebo viewing but not entering Canaan, his prophetic legacy endures as the foundation of biblical revelation.<label for=\"sn-moses\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-moses\" class=\"margin-toggle\"/><span class=\"sidenote\">The phrase 'face to face' describing God's communication with Moses distinguishes his prophetic experience from all others. While other prophets received visions and dreams, Moses enjoyed direct divine discourse. His sister Miriam and brother Aaron were rebuked for claiming equal prophetic authority (Numbers 12). The 'prophet like Moses' prophecy establishes a typological pattern: as Moses delivered Israel from Egyptian bondage, so Christ delivers His people from sin's slavery; as Moses mediated the old covenant, Christ mediates the new.</span>",
+        "verses": [
+          {
+            "reference": "Deuteronomy 18:15",
+            "text": "The LORD thy God will raise up unto thee a Prophet from the midst of thee, of thy brethren, like unto me; unto him ye shall hearken."
+          },
+          {
+            "reference": "Deuteronomy 34:10",
+            "text": "And there arose not a prophet since in Israel like unto Moses, whom the LORD knew face to face."
+          },
+          {
+            "reference": "Numbers 12:6-8",
+            "text": "And he said, Hear now my words: If there be a prophet among you, I the LORD will make myself known unto him in a vision, and will speak unto him in a dream. My servant Moses is not so, who is faithful in all mine house. With him will I speak mouth to mouth, even apparently, and not in dark speeches; and the similitude of the LORD shall he behold."
+          },
+          {
+            "reference": "Exodus 3:10",
+            "text": "Come now therefore, and I will send thee unto Pharaoh, that thou mayest bring forth my people the children of Israel out of Egypt."
+          },
+          {
+            "reference": "Acts 3:22",
+            "text": "For Moses truly said unto the fathers, A prophet shall the Lord your God raise up unto you of your brethren, like unto me; him shall ye hear in all things whatsoever he shall say unto you."
+          }
+        ]
+      },
+      "Samuel": {
+        "title": "The Kingmaker Prophet",
+        "description": "Samuel, the last of Israel's judges and first of the prophetic order that would continue until Malachi, bridged the transition from theocracy to monarchy. Dedicated to the LORD before birth by his barren mother Hannah, he was raised in the tabernacle at Shiloh under Eli the priest. As a child, he received his prophetic call when God spoke to him in the night, revealing judgment upon Eli's house. Scripture testifies that 'the LORD was with him, and did let none of his words fall to the ground' and 'all Israel from Dan even to Beersheba knew that Samuel was established to be a prophet of the LORD' (1 Samuel 3:19-20). His ministry included anointing Israel's first two kings: Saul, whom God later rejected, and David, the man after God's own heart. Samuel established schools of prophets (1 Samuel 19:20), institutionalizing prophetic ministry in Israel. He rebuked Saul's disobedience with words that define true worship: 'Hath the LORD as great delight in burnt offerings and sacrifices, as in obeying the voice of the LORD? Behold, to obey is better than sacrifice, and to hearken than the fat of rams.' Even after death, Samuel appeared to Saul at Endor, pronouncing his doom. His influence continued through the prophetic guilds he established, which trained generations of prophets.<label for=\"sn-samuel\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-samuel\" class=\"margin-toggle\"/><span class=\"sidenote\">Samuel's birth narrative parallels Hannah's song with Mary's Magnificat, both celebrating God's reversal of human conditions. The 'sons of the prophets' (schools of prophets) Samuel established appear throughout Kings and represent an institutional prophetic tradition distinct from the lone figures like Elijah. Peter's sermon at Pentecost cites Samuel as inaugurating the prophetic witness to Christ: 'All the prophets from Samuel and those that follow after' (Acts 3:24).</span>",
+        "verses": [
+          {
+            "reference": "1 Samuel 3:19-20",
+            "text": "And Samuel grew, and the LORD was with him, and did let none of his words fall to the ground. And all Israel from Dan even to Beersheba knew that Samuel was established to be a prophet of the LORD."
+          },
+          {
+            "reference": "1 Samuel 3:10",
+            "text": "And the LORD came, and stood, and called as at other times, Samuel, Samuel. Then Samuel answered, Speak; for thy servant heareth."
+          },
+          {
+            "reference": "1 Samuel 15:22",
+            "text": "And Samuel said, Hath the LORD as great delight in burnt offerings and sacrifices, as in obeying the voice of the LORD? Behold, to obey is better than sacrifice, and to hearken than the fat of rams."
+          },
+          {
+            "reference": "1 Samuel 16:13",
+            "text": "Then Samuel took the horn of oil, and anointed him in the midst of his brethren: and the Spirit of the LORD came upon David from that day forward."
+          },
+          {
+            "reference": "Acts 3:24",
+            "text": "Yea, and all the prophets from Samuel and those that follow after, as many as have spoken, have likewise foretold of these days."
+          }
+        ]
+      },
+      "Nathan": {
+        "title": "Prophet to King David",
+        "description": "Nathan served as court prophet during David's reign and into Solomon's, delivering some of Scripture's most significant prophecies and confrontations. Through Nathan, God revealed the Davidic covenant—the unconditional promise that David's throne would be established forever, finding ultimate fulfillment in Christ, 'great David's greater Son.' When David desired to build God a house, Nathan initially approved but was corrected by divine revelation: God would instead build David a house (dynasty), promising that his seed would establish an eternal kingdom. This prophecy (2 Samuel 7) forms the theological foundation for Messianic expectation. Nathan's most dramatic moment came after David's adultery with Bathsheba and murder of Uriah. Through the parable of the rich man who stole a poor man's lamb, Nathan drew David into pronouncing his own judgment before declaring, 'Thou art the man!' His courageous confrontation of royal sin exemplifies prophetic boldness in speaking truth to power. Nathan also played a crucial role in securing Solomon's succession, informing Bathsheba of Adonijah's coup and orchestrating the actions that placed Solomon on the throne before David's death.<label for=\"sn-nathan\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-nathan\" class=\"margin-toggle\"/><span class=\"sidenote\">Nathan's parable technique—leading the hearer to condemn himself before revealing application—demonstrates sophisticated prophetic methodology. David's response to Nathan's accusation—immediate confession rather than defensive anger—reveals his heart, explaining why Scripture calls him 'a man after God's own heart' despite his grievous sin. Chronicles credits Nathan with writing portions of royal history (1 Chronicles 29:29, 2 Chronicles 9:29), though these works have not survived.</span>",
+        "verses": [
+          {
+            "reference": "2 Samuel 7:12-13",
+            "text": "And when thy days be fulfilled, and thou shalt sleep with thy fathers, I will set up thy seed after thee, which shall proceed out of thy bowels, and I will establish his kingdom. He shall build an house for my name, and I will stablish the throne of his kingdom for ever."
+          },
+          {
+            "reference": "2 Samuel 12:7",
+            "text": "And Nathan said to David, Thou art the man. Thus saith the LORD God of Israel, I anointed thee king over Israel, and I delivered thee out of the hand of Saul."
+          },
+          {
+            "reference": "2 Samuel 12:13",
+            "text": "And David said unto Nathan, I have sinned against the LORD. And Nathan said unto David, The LORD also hath put away thy sin; thou shalt not die."
+          },
+          {
+            "reference": "2 Samuel 7:16",
+            "text": "And thine house and thy kingdom shall be established for ever before thee: thy throne shall be established for ever."
+          }
+        ]
+      },
+      "Elijah": {
+        "title": "The Prophet of Fire",
+        "description": "Elijah the Tishbite, from Gilead's rugged terrain, appeared suddenly in Scripture's narrative to confront Ahab and Jezebel's Baal worship with uncompromising boldness. His very name—'My God is Yahweh'—proclaimed his message. He announced a three-year drought, was fed by ravens at Cherith and by a widow at Zarephath (where he raised her son from death), and challenged 450 prophets of Baal to a contest on Mount Carmel. There, fire from heaven consumed his sacrifice, vindicating Yahweh and leading Israel to cry, 'The LORD, he is the God!' Yet immediately after this triumph, Elijah fled from Jezebel's death threat, experiencing such despair that he requested death. God met him at Horeb (Sinai) not in wind, earthquake, or fire, but in a still small voice, commissioning him to anoint kings and his prophetic successor. Elijah confronted Ahab again over Naboth's vineyard, pronouncing doom on his dynasty. His ministry concluded uniquely: he did not die but was taken to heaven in a chariot of fire with horses of fire, parting from Elisha with a whirlwind. Malachi prophesied Elijah's return before the Day of the LORD, which Christ identified with John the Baptist's ministry. At the Transfiguration, Elijah appeared with Moses, witnessing to Christ as the fulfillment of Law and Prophets.<label for=\"sn-elijah\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-elijah\" class=\"margin-toggle\"/><span class=\"sidenote\">Elijah's translation without death parallels only Enoch's experience (Genesis 5:24). Jewish tradition expected Elijah to return personally, leading some to ask John the Baptist if he was Elijah (he denied being Elijah literally returned but fulfilled the Malachi prophecy in Spirit). The 'spirit and power of Elijah' characterizes prophetic ministry that confronts apostasy and calls for decision. James cites Elijah's prayer as exemplary: 'Elias was a man subject to like passions as we are, and he prayed earnestly' (James 5:17).</span>",
+        "verses": [
+          {
+            "reference": "1 Kings 18:21",
+            "text": "And Elijah came unto all the people, and said, How long halt ye between two opinions? if the LORD be God, follow him: but if Baal, then follow him. And the people answered him not a word."
+          },
+          {
+            "reference": "1 Kings 18:38-39",
+            "text": "Then the fire of the LORD fell, and consumed the burnt sacrifice, and the wood, and the stones, and the dust, and licked up the water that was in the trench. And when all the people saw it, they fell on their faces: and they said, The LORD, he is the God; the LORD, he is the God."
+          },
+          {
+            "reference": "1 Kings 19:12",
+            "text": "And after the earthquake a fire; but the LORD was not in the fire: and after the fire a still small voice."
+          },
+          {
+            "reference": "2 Kings 2:11",
+            "text": "And it came to pass, as they still went on, and talked, that, behold, there appeared a chariot of fire, and horses of fire, and parted them both asunder; and Elijah went up by a whirlwind into heaven."
+          },
+          {
+            "reference": "Malachi 4:5",
+            "text": "Behold, I will send you Elijah the prophet before the coming of the great and dreadful day of the LORD."
+          }
+        ]
+      },
+      "Elisha": {
+        "title": "The Prophet of Grace",
+        "description": "Elisha son of Shaphat received Elijah's mantle—literally and figuratively—when the elder prophet was taken to heaven. Having asked for 'a double portion' of Elijah's spirit (the firstborn's inheritance share), Elisha's ministry was marked by twice as many recorded miracles as his master's. While Elijah's ministry emphasized judgment, Elisha's demonstrated grace: purifying poisoned water, multiplying a widow's oil to pay her debts, providing food during famine, healing Naaman the Syrian leper, raising the Shunammite's son, and causing an iron axe head to float. His ministry extended beyond Israel's borders—he wept knowing the evil Hazael would do to Israel, yet anointed him king of Syria as God commanded. He served as Israel's true defense: 'My father, my father, the chariot of Israel, and the horsemen thereof!' When Syrian armies surrounded Dothan to capture him, Elisha's servant panicked until the prophet prayed that his eyes be opened to see the mountain filled with horses and chariots of fire. Elisha then led the blinded Syrian army into Samaria, where he commanded Israel to feed rather than slay them. His influence continued even after death: a corpse thrown into his grave revived upon touching his bones, demonstrating that prophetic power derived from God, not human vitality.<label for=\"sn-elisha\" class=\"margin-toggle sidenote-number\"></label><input type=\"checkbox\" id=\"sn-elisha\" class=\"margin-toggle\"/><span class=\"sidenote\">Elisha's 'double portion' request was not for twice Elijah's power but for the recognized inheritance of the firstborn son—the right of prophetic succession. His miracles often parallel and exceed Elijah's: Elijah multiplied meal and oil for one widow; Elisha did likewise and additionally raised her son. The contrast between Elijah's severity and Elisha's compassion may reflect different emphases within unified prophetic tradition. Naaman's healing prefigures Gentile inclusion: Christ cited it as evidence that 'no prophet is accepted in his own country' (Luke 4:27).</span>",
+        "verses": [
+          {
+            "reference": "2 Kings 2:9",
+            "text": "And it came to pass, when they were gone over, that Elijah said unto Elisha, Ask what I shall do for thee, before I be taken away from thee. And Elisha said, I pray thee, let a double portion of thy spirit be upon me."
+          },
+          {
+            "reference": "2 Kings 6:16-17",
+            "text": "And he answered, Fear not: for they that be with us are more than they that be with them. And Elisha prayed, and said, LORD, I pray thee, open his eyes, that he may see. And the LORD opened the eyes of the young man; and he saw: and, behold, the mountain was full of horses and chariots of fire round about Elisha."
+          },
+          {
+            "reference": "2 Kings 5:14",
+            "text": "Then went he down, and dipped himself seven times in Jordan, according to the saying of the man of God: and his flesh came again like unto the flesh of a little child, and he was clean."
+          },
+          {
+            "reference": "2 Kings 4:43-44",
+            "text": "And his servitor said, What, should I set this before an hundred men? He said again, Give the people, that they may eat: for thus saith the LORD, They shall eat, and shall leave thereof. So he set it before them, and they did eat, and left thereof, according to the word of the LORD."
+          }
+        ]
+      }
+    },
     "Major Prophets": {
       "Isaiah": {
         "title": "The Evangelical Prophet",

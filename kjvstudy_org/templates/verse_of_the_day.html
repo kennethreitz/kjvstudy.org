@@ -48,61 +48,9 @@
 </section>
 
 <script>
-(function() {
-    const rows = Array.from(document.querySelectorAll('tbody tr'));
-    if (rows.length === 0) return;
-
-    let selectedIndex = -1;
-
-    function selectRow(index) {
-        if (selectedIndex >= 0 && selectedIndex < rows.length) {
-            rows[selectedIndex].style.outline = '';
-            rows[selectedIndex].style.outlineOffset = '';
-            rows[selectedIndex].classList.remove('selected');
-        }
-        selectedIndex = Math.max(0, Math.min(index, rows.length - 1));
-        rows[selectedIndex].style.outline = '2px solid #4a7c59';
-        rows[selectedIndex].style.outlineOffset = '2px';
-        rows[selectedIndex].classList.add('selected');
-        rows[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-        if (e.key === 'ArrowDown' || e.key === 'j') {
-            e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(rows, selectedIndex)) {
-                selectRow(KJVNav.findFirstVisibleIndex(rows));
-            } else {
-                selectRow(selectedIndex < 0 ? 0 : selectedIndex + 1);
-            }
-        } else if (e.key === 'ArrowUp' || e.key === 'k') {
-            e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(rows, selectedIndex)) {
-                selectRow(KJVNav.findFirstVisibleIndex(rows));
-            } else if (selectedIndex <= 0) {
-                selectRow(0);
-            } else {
-                selectRow(selectedIndex - 1);
-            }
-        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
-            e.preventDefault();
-            history.back();
-        } else if (e.key === 'Enter' && selectedIndex >= 0) {
-            e.preventDefault();
-            const link = rows[selectedIndex].querySelector('a');
-            if (link) window.location.href = link.href;
-        } else if (e.key === 'Escape') {
-            e.preventDefault();
-            if (selectedIndex >= 0 && selectedIndex < rows.length) {
-                rows[selectedIndex].style.outline = '';
-                rows[selectedIndex].style.outlineOffset = '';
-                rows[selectedIndex].classList.remove('selected');
-            }
-            selectedIndex = -1;
-        }
-    });
-})();
+document.addEventListener('DOMContentLoaded', function() {
+    // Simple keyboard navigation - verse blockquote, section paragraphs, and table rows
+    KJVNav.initSimpleNav('.epigraph blockquote, section > p, tbody tr');
+});
 </script>
 {% endblock %}
