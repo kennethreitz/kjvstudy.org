@@ -64,8 +64,8 @@ async def commentary_index(request: Request):
     ]
 
     # Get books list for navigation
-    from ..kjv import get_books
-    books = get_books()
+    from ..kjv import bible
+    books = bible.get_books()
 
     return templates.TemplateResponse(
         "commentary_index.html",
