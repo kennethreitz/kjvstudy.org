@@ -248,5 +248,115 @@
         }
     }
 
+    /* Keyboard navigation selection */
+    .nav-paragraph.selected {
+        outline: 2px solid #4a7c59;
+        outline-offset: 4px;
+        background: rgba(74, 124, 89, 0.05);
+        border-radius: 4px;
+    }
+
+    [data-theme="dark"] .nav-paragraph.selected {
+        outline-color: #6b9b7a;
+        background: rgba(107, 155, 122, 0.1);
+    }
+
 </style>
+
+<script>
+(function() {
+    // Get all navigable paragraphs (p elements inside article sections, excluding TOC and footer)
+    const paragraphs = Array.from(document.querySelectorAll('article section p')).filter(function(p) {
+        // Exclude TOC
+        if (p.closest('.toc')) return false;
+        // Exclude centered footer quote
+        if (p.style.textAlign === 'center') return false;
+        return true;
+    });
+
+    // Add nav-paragraph class to all navigable paragraphs
+    paragraphs.forEach(function(p) {
+        p.classList.add('nav-paragraph');
+    });
+
+    let selectedIndex = -1;
+
+    function clearSelection() {
+        paragraphs.forEach(function(p) {
+            p.classList.remove('selected');
+        });
+    }
+
+    function selectParagraph(index) {
+        clearSelection();
+        selectedIndex = Math.max(0, Math.min(index, paragraphs.length - 1));
+        paragraphs[selectedIndex].classList.add('selected');
+        paragraphs[selectedIndex].scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+        });
+    }
+
+    function getSelectedText() {
+        if (selectedIndex < 0 || selectedIndex >= paragraphs.length) return null;
+        const clone = paragraphs[selectedIndex].cloneNode(true);
+        // Remove sidenotes from text
+        clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) {
+            el.remove();
+        });
+        return (clone.textContent || clone.innerText || '').trim();
+    }
+
+    document.addEventListener('keydown', function(e) {
+        // Don't trigger if user is typing
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+        }
+
+        // j or Down: Next paragraph
+        if (e.key === 'j' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (selectedIndex < 0) {
+                // Start at first visible paragraph
+                selectParagraph(window.KJVNav ? window.KJVNav.findFirstVisibleIndex(paragraphs) : 0);
+            } else if (window.KJVNav && window.KJVNav.isSelectionOffScreen(paragraphs, selectedIndex)) {
+                // Selection scrolled off screen, reset to visible
+                selectParagraph(window.KJVNav.findFirstVisibleIndex(paragraphs));
+            } else {
+                selectParagraph(selectedIndex + 1);
+            }
+        }
+
+        // k or Up: Previous paragraph
+        if (e.key === 'k' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (selectedIndex < 0) {
+                selectParagraph(window.KJVNav ? window.KJVNav.findFirstVisibleIndex(paragraphs) : 0);
+            } else if (window.KJVNav && window.KJVNav.isSelectionOffScreen(paragraphs, selectedIndex)) {
+                selectParagraph(window.KJVNav.findFirstVisibleIndex(paragraphs));
+            } else {
+                selectParagraph(selectedIndex - 1);
+            }
+        }
+
+        // Space: Read selected paragraph
+        if (e.key === ' ' && selectedIndex >= 0) {
+            e.preventDefault();
+            const text = getSelectedText();
+            if (text && window.KJVSpeech) {
+                window.KJVSpeech.toggle(text);
+            }
+        }
+
+        // Escape: Clear selection
+        if (e.key === 'Escape') {
+            clearSelection();
+            selectedIndex = -1;
+            if (window.KJVSpeech) {
+                window.KJVSpeech.stop();
+            }
+        }
+    });
+})();
+</script>
 {% endblock %}
