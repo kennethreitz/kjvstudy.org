@@ -34,13 +34,7 @@
         {% for chapter, verses in chapters.items() %}
         <div class="chapter-group">
             <strong>Chapter {{ chapter }}:</strong>
-            <span class="verse-list">
-                {% for verse_data in verses %}
-                <a href="/book/{{ book|urlencode }}/chapter/{{ chapter }}/verse/{{ verse_data.verse }}" class="verse-link" title="{{ verse_data.ref_count }} cross-references">
-                    {{ verse_data.verse }}<span class="ref-badge">{{ verse_data.ref_count }}</span>
-                </a>{% if not loop.last %} {% endif %}
-                {% endfor %}
-            </span>
+            <span class="verse-list">{% for verse_data in verses %}<a href="/book/{{ book|urlencode }}/chapter/{{ chapter }}/verse/{{ verse_data.verse }}" class="verse-link" title="{{ verse_data.ref_count }} cross-references">{{ verse_data.verse }}</a><span class="ref-badge">{{ verse_data.ref_count }}</span>{% if not loop.last %}, {% endif %}{% endfor %}</span>
             <span class="verse-count">({{ verses|length }} {% if verses|length == 1 %}verse{% else %}verses{% endif %})</span>
         </div>
         {% endfor %}
@@ -105,21 +99,12 @@
     }
 
     .toc-link {
-        display: block;
-        padding: 0.4rem 0.6rem;
-        background: var(--code-bg);
-        border-radius: 3px;
         text-decoration: none;
         color: var(--link-color);
-        font-size: 0.95rem;
-        transition: all 0.2s;
-        text-align: center;
     }
 
     .toc-link:hover {
-        background: var(--border-color-dark);
-        color: var(--link-hover);
-        transform: translateY(-1px);
+        text-decoration: underline;
     }
 
     .book-section {
@@ -156,33 +141,17 @@
     }
 
     .verse-link {
-        display: inline-block;
-        padding: 0.15rem 0.4rem;
-        margin: 0.1rem;
-        background: var(--code-bg);
-        border-radius: 3px;
         text-decoration: none;
         color: var(--link-color);
-        font-family: 'Consolas', 'Monaco', monospace;
-        font-size: 0.9rem;
-        transition: background 0.2s;
-        position: relative;
     }
 
     .verse-link:hover {
-        background: var(--border-color-dark);
-        color: var(--link-hover);
+        text-decoration: underline;
     }
 
     .ref-badge {
-        display: inline-block;
-        margin-left: 0.25rem;
-        padding: 0.1rem 0.3rem;
-        background: #4a90e2;
-        color: white;
-        border-radius: 10px;
-        font-size: 0.75rem;
-        font-weight: bold;
+        font-size: 0.85em;
+        color: var(--text-tertiary);
         vertical-align: super;
     }
 
