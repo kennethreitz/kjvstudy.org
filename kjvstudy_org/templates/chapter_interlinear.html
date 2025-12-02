@@ -379,52 +379,53 @@
     border-bottom-color: #333;
 }
 
+/* Only apply OS dark mode when explicit theme is not set to light */
 @media (prefers-color-scheme: dark) {
-    .word-original {
+    html:not([data-theme="light"]) .word-original {
         color: #eee;
     }
 
-    .word-unit:hover .word-original {
+    html:not([data-theme="light"]) .word-unit:hover .word-original {
         color: #fff;
     }
 
-    .word-unit:hover {
+    html:not([data-theme="light"]) .word-unit:hover {
         background: #2a2a2a;
         border-color: #444;
     }
 
-    .word-unit.expanded {
+    html:not([data-theme="light"]) .word-unit.expanded {
         background: #1a2e1a;
         border-color: #4a7c59;
     }
 
-    .word-detail {
+    html:not([data-theme="light"]) .word-detail {
         background: #222;
         border-color: #444;
     }
 
-    .word-detail-original {
+    html:not([data-theme="light"]) .word-detail-original {
         color: #eee;
     }
 
-    .word-detail-value {
+    html:not([data-theme="light"]) .word-detail-value {
         color: #ddd;
     }
 
-    .word-detail-definition {
+    html:not([data-theme="light"]) .word-detail-definition {
         color: #bbb;
         border-top-color: #444;
     }
 
-    .word-detail-header {
+    html:not([data-theme="light"]) .word-detail-header {
         border-bottom-color: #444;
     }
 
-    .verse-text {
+    html:not([data-theme="light"]) .verse-text {
         color: #ccc;
     }
 
-    .verse-section {
+    html:not([data-theme="light"]) .verse-section {
         border-bottom-color: #333;
     }
 }

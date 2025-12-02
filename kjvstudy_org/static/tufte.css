@@ -52,29 +52,31 @@ body {
     counter-reset: sidenote-counter;
 }
 
-/* Adds dark mode - system preference */
+/* Adds dark mode - system preference (only when explicit theme not set to light) */
 @media (prefers-color-scheme: dark) {
-    body {
+    html:not([data-theme="light"]) body {
         background-color: #151515;
         color: #ddd;
     }
 
-    .sidenote,
-    .marginnote {
+    html:not([data-theme="light"]) .sidenote,
+    html:not([data-theme="light"]) .marginnote {
         background-color: #151515;
         color: #ddd;
     }
 
-    a:link,
-    a:visited {
+    html:not([data-theme="light"]) a:link,
+    html:not([data-theme="light"]) a:visited {
         color: #aaa;
     }
 
-    hr {
+    html:not([data-theme="light"]) hr {
         border-top-color: #444;
     }
 
-    h1, h2, h3 {
+    html:not([data-theme="light"]) h1,
+    html:not([data-theme="light"]) h2,
+    html:not([data-theme="light"]) h3 {
         color: #ddd;
     }
 }

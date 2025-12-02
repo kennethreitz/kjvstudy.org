@@ -1087,38 +1087,38 @@
     }
 }
 
-/* Dark mode support */
+/* Dark mode support (only when explicit theme not set to light) */
 @media (prefers-color-scheme: dark) {
-    .family-search-container,
-    .family-analytics-container {
+    html:not([data-theme="light"]) .family-search-container,
+    html:not([data-theme="light"]) .family-analytics-container {
         background: #2d3436;
         border-color: #636e72;
         color: #ddd;
     }
-    
-    .search-input {
+
+    html:not([data-theme="light"]) .search-input {
         background: #2d3436;
         border-color: #636e72;
         color: #ddd;
     }
-    
-    .search-filters,
-    .breadcrumb-navigation,
-    .quick-navigation {
+
+    html:not([data-theme="light"]) .search-filters,
+    html:not([data-theme="light"]) .breadcrumb-navigation,
+    html:not([data-theme="light"]) .quick-navigation {
         background: #2d3436;
         border-color: #636e72;
     }
-    
-    .stat-card,
-    .chart-insights,
-    .insight-card,
-    .metric-item {
+
+    html:not([data-theme="light"]) .stat-card,
+    html:not([data-theme="light"]) .chart-insights,
+    html:not([data-theme="light"]) .insight-card,
+    html:not([data-theme="light"]) .metric-item {
         background: #2d3436;
         border-color: #636e72;
         color: #ddd;
     }
-    
-    .analytics-header {
+
+    html:not([data-theme="light"]) .analytics-header {
         background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%);
     }
 }
