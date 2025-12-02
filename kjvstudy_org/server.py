@@ -364,7 +364,7 @@ def verse_reference_to_url(reference: str):
     """Convert a verse reference to a URL path.
 
     Examples:
-        "John 3:16" -> "/book/John/chapter/3/verse/16"
+        "John 3:16" -> "/book/John/chapter/3#verse-16"
         "Romans 8:38-39" -> "/book/Romans/chapter/8#verse-38-39"
         "Ephesians 2:8-9" -> "/book/Ephesians/chapter/2#verse-8-9"
     """
@@ -382,8 +382,8 @@ def verse_reference_to_url(reference: str):
         # Verse range - link to chapter with anchor
         return f"/book/{book}/chapter/{chapter}#verse-{verse_start}-{verse_end}"
     else:
-        # Single verse - link to verse page
-        return f"/book/{book}/chapter/{chapter}/verse/{verse_start}"
+        # Single verse - link to chapter with anchor
+        return f"/book/{book}/chapter/{chapter}#verse-{verse_start}"
 
 @app.get("/random-verse")
 async def random_verse(request: Request):
@@ -956,8 +956,11 @@ def link_verse_references_in_text(text):
             if 'href=' in tag_content or 'src=' in tag_content:
                 return full_reference
 
-        # Create link to verse page
-        url = f'/book/{full_book}/chapter/{chapter}/verse/{verse_start}'
+        # Create link to chapter view with anchor
+        if verse_end:
+            url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}-{verse_end}'
+        else:
+            url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}'
         return f'<a href="{url}">{full_reference}</a>'
 
     return re.sub(pattern, replace_reference, text)
