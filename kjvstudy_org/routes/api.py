@@ -1286,8 +1286,8 @@ async def api_get_reading_plan_day_text(
     if not day_data:
         raise HTTPException(status_code=404, detail=f"Day {day_num} not found in plan")
 
-    # Import the get_reading_text function from server
-    from ..server import get_reading_text
+    # Import the get_reading_text function from reading_plans routes
+    from .reading_plans import get_reading_text
 
     # Get the text for this day's readings
     text_sections = get_reading_text(day_data['readings'])

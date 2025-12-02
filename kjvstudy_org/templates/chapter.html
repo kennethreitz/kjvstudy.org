@@ -125,6 +125,11 @@ hr::before {
     text-decoration: underline;
 }
 
+/* Verses are clickable to navigate to verse page */
+p[id^="verse-"] {
+    cursor: pointer;
+}
+
 /* Keyboard navigation selected verse */
 p[id^="verse-"].selected {
     background: rgba(74, 124, 89, 0.1);
@@ -708,12 +713,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Click to select verse
+    // Click on verse text navigates to verse page (mouse users)
+    // Green selection is only for keyboard navigation
     verses.forEach((verse, index) => {
         verse.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A' && e.target.tagName !== 'LABEL') {
-                selectVerse(index);
+            // Let links and labels handle their own clicks
+            if (e.target.tagName === 'A' || e.target.tagName === 'LABEL') {
+                return;
             }
+            // Navigate to verse page on click
+            const verseNum = verse.id.replace('verse-', '');
+            window.location.href = `/book/{{ book }}/chapter/{{ chapter }}/verse/${verseNum}`;
         });
     });
 
@@ -792,6 +802,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </ul>
         </div>
         {% endif %}
+
     </div>
 </div>
 {% endif %}

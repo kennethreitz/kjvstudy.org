@@ -246,6 +246,134 @@ def get_related_content(book: str, chapter: int = None, verse: int = None) -> Di
                         except ValueError:
                             pass
 
+    # Add specific resource pages based on book/chapter
+    specific_resources = {
+        # Sermon on the Mount / Beatitudes
+        ("Matthew", 5): [{"name": "The Beatitudes", "url": "/beatitudes"}],
+        ("Matthew", 6): [{"name": "Prayers of the Bible", "url": "/prayers-of-the-bible"}],
+        ("Matthew", 7): [{"name": "The Beatitudes", "url": "/beatitudes"}],
+        # Ten Commandments
+        ("Exodus", 20): [{"name": "Ten Commandments", "url": "/ten-commandments"}],
+        ("Deuteronomy", 5): [{"name": "Ten Commandments", "url": "/ten-commandments"}],
+        # Armor of God & Spiritual Warfare
+        ("Ephesians", 6): [{"name": "Armor of God", "url": "/armor-of-god"}, {"name": "Spirits and Demons", "url": "/spirits-and-demons"}],
+        # Fruits of the Spirit
+        ("Galatians", 5): [{"name": "Fruits of the Spirit", "url": "/fruits-of-the-spirit"}],
+        # I Am Statements (John's Gospel)
+        ("John", 6): [{"name": "I Am Statements of Jesus", "url": "/i-am-statements"}],
+        ("John", 8): [{"name": "I Am Statements of Jesus", "url": "/i-am-statements"}],
+        ("John", 10): [{"name": "I Am Statements of Jesus", "url": "/i-am-statements"}],
+        ("John", 11): [{"name": "I Am Statements of Jesus", "url": "/i-am-statements"}],
+        ("John", 14): [{"name": "I Am Statements of Jesus", "url": "/i-am-statements"}, {"name": "The Trinity", "url": "/trinity"}],
+        ("John", 15): [{"name": "I Am Statements of Jesus", "url": "/i-am-statements"}],
+        # John 1 - Christology, Names of Christ
+        ("John", 1): [{"name": "Names of Christ", "url": "/names-of-christ"}, {"name": "Christology", "url": "/christology"}],
+        # Love chapter
+        ("1 Corinthians", 13): [{"name": "Biblical Love", "url": "/topics/Love"}],
+        # Faith chapter
+        ("Hebrews", 11): [{"name": "Heroes of Faith", "url": "/topics/Faith"}],
+        # Messianic prophecies in key OT chapters
+        ("Isaiah", 7): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Isaiah", 9): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Isaiah", 11): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Isaiah", 53): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Micah", 5): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Zechariah", 9): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Zechariah", 12): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Psalm", 22): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Psalms", 22): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Psalms", 110): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Daniel", 7): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        ("Daniel", 9): [{"name": "Messianic Prophecies", "url": "/messianic-prophecies"}],
+        # Names of God
+        ("Exodus", 3): [{"name": "Names of God", "url": "/names-of-god"}, {"name": "Tetragrammaton", "url": "/tetragrammaton"}],
+        ("Exodus", 6): [{"name": "Names of God", "url": "/names-of-god"}],
+        ("Genesis", 14): [{"name": "Names of God", "url": "/names-of-god"}],
+        ("Genesis", 22): [{"name": "Names of God", "url": "/names-of-god"}],
+        # Biblical covenants
+        ("Genesis", 9): [{"name": "Biblical Covenants", "url": "/biblical-covenants"}],
+        ("Genesis", 15): [{"name": "Biblical Covenants", "url": "/biblical-covenants"}],
+        ("Genesis", 17): [{"name": "Biblical Covenants", "url": "/biblical-covenants"}],
+        ("2 Samuel", 7): [{"name": "Biblical Covenants", "url": "/biblical-covenants"}],
+        ("Jeremiah", 31): [{"name": "Biblical Covenants", "url": "/biblical-covenants"}],
+        ("Hebrews", 8): [{"name": "Biblical Covenants", "url": "/biblical-covenants"}],
+        ("Hebrews", 9): [{"name": "Biblical Covenants", "url": "/biblical-covenants"}, {"name": "Blood in Scripture", "url": "/blood-in-scripture"}],
+        # Angels
+        ("Genesis", 18): [{"name": "Biblical Angels", "url": "/biblical-angels"}],
+        ("Genesis", 19): [{"name": "Biblical Angels", "url": "/biblical-angels"}],
+        ("Daniel", 10): [{"name": "Biblical Angels", "url": "/biblical-angels"}],
+        ("Luke", 1): [{"name": "Biblical Angels", "url": "/biblical-angels"}],
+        ("Luke", 2): [{"name": "Biblical Angels", "url": "/biblical-angels"}],
+        ("Revelation", 4): [{"name": "Biblical Angels", "url": "/biblical-angels"}],
+        ("Revelation", 5): [{"name": "Biblical Angels", "url": "/biblical-angels"}],
+        # Trinity
+        ("Matthew", 3): [{"name": "The Trinity", "url": "/trinity"}],
+        ("Matthew", 28): [{"name": "The Trinity", "url": "/trinity"}],
+        ("2 Corinthians", 13): [{"name": "The Trinity", "url": "/trinity"}],
+        # Holy Spirit / Pneumatology
+        ("Acts", 2): [{"name": "Pneumatology", "url": "/pneumatology"}],
+        ("John", 16): [{"name": "Pneumatology", "url": "/pneumatology"}],
+        ("Romans", 8): [{"name": "Pneumatology", "url": "/pneumatology"}, {"name": "Providence", "url": "/providence"}],
+        # Eschatology
+        ("Matthew", 24): [{"name": "Eschatology", "url": "/eschatology"}],
+        ("Matthew", 25): [{"name": "Eschatology", "url": "/eschatology"}],
+        ("1 Thessalonians", 4): [{"name": "Eschatology", "url": "/eschatology"}],
+        ("2 Thessalonians", 2): [{"name": "Eschatology", "url": "/eschatology"}],
+        ("Revelation", 20): [{"name": "Eschatology", "url": "/eschatology"}],
+        ("Revelation", 21): [{"name": "Eschatology", "url": "/eschatology"}],
+        ("Revelation", 22): [{"name": "Eschatology", "url": "/eschatology"}],
+        # Ecclesiology (Church)
+        ("Matthew", 16): [{"name": "Ecclesiology", "url": "/ecclesiology"}],
+        ("Matthew", 18): [{"name": "Ecclesiology", "url": "/ecclesiology"}],
+        ("1 Corinthians", 12): [{"name": "Ecclesiology", "url": "/ecclesiology"}],
+        ("Ephesians", 4): [{"name": "Ecclesiology", "url": "/ecclesiology"}],
+        # Soteriology (Salvation)
+        ("Romans", 3): [{"name": "Soteriology", "url": "/soteriology"}],
+        ("Romans", 5): [{"name": "Soteriology", "url": "/soteriology"}, {"name": "Justification", "url": "/justification"}],
+        ("Romans", 6): [{"name": "Soteriology", "url": "/soteriology"}, {"name": "Sanctification", "url": "/sanctification"}],
+        ("Ephesians", 2): [{"name": "Soteriology", "url": "/soteriology"}, {"name": "Grace", "url": "/grace"}],
+        ("Titus", 3): [{"name": "Soteriology", "url": "/soteriology"}],
+        # Types and Shadows
+        ("Hebrews", 10): [{"name": "Types and Shadows", "url": "/types-and-shadows"}],
+        # Blood in Scripture
+        ("Leviticus", 17): [{"name": "Blood in Scripture", "url": "/blood-in-scripture"}],
+        # Kingdom of God
+        ("Matthew", 13): [{"name": "Kingdom of God", "url": "/kingdom-of-god"}],
+        ("Mark", 4): [{"name": "Kingdom of God", "url": "/kingdom-of-god"}],
+        ("Luke", 17): [{"name": "Kingdom of God", "url": "/kingdom-of-god"}],
+        # Miracles of Jesus
+        ("Matthew", 8): [{"name": "Miracles of Jesus", "url": "/miracles-of-jesus"}],
+        ("Matthew", 9): [{"name": "Miracles of Jesus", "url": "/miracles-of-jesus"}],
+        ("Mark", 5): [{"name": "Miracles of Jesus", "url": "/miracles-of-jesus"}],
+        ("John", 2): [{"name": "Miracles of Jesus", "url": "/miracles-of-jesus"}],
+        ("John", 9): [{"name": "Miracles of Jesus", "url": "/miracles-of-jesus"}],
+        # Christology
+        ("Colossians", 1): [{"name": "Christology", "url": "/christology"}],
+        ("Philippians", 2): [{"name": "Christology", "url": "/christology"}],
+        ("Hebrews", 1): [{"name": "Christology", "url": "/christology"}],
+        # Law and Gospel
+        ("Romans", 7): [{"name": "Law and Gospel", "url": "/law-and-gospel"}],
+        ("Galatians", 3): [{"name": "Law and Gospel", "url": "/law-and-gospel"}],
+        # Hamartiology (Sin)
+        ("Genesis", 3): [{"name": "Hamartiology", "url": "/hamartiology"}],
+        ("Romans", 1): [{"name": "Hamartiology", "url": "/hamartiology"}],
+        # Providence
+        ("Genesis", 50): [{"name": "Providence", "url": "/providence"}],
+        # Worship
+        ("Psalms", 100): [{"name": "Worship", "url": "/worship"}],
+        ("Psalms", 150): [{"name": "Worship", "url": "/worship"}],
+        ("John", 4): [{"name": "Worship", "url": "/worship"}],
+        # Spirits and Demons
+        ("1 Peter", 5): [{"name": "Spirits and Demons", "url": "/spirits-and-demons"}],
+    }
+
+    if chapter is not None:
+        key = (book, chapter)
+        if key in specific_resources:
+            for resource in specific_resources[key]:
+                if resource not in related["resources"]:
+                    related["resources"].append(resource)
+
     return related
 
 
