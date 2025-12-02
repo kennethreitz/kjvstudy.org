@@ -275,8 +275,11 @@ def link_bible_references(text):
         # Full matched text (e.g., "Genesis 6:8" or "Romans 5:1-5")
         full_ref = match.group(0)
 
-        # Create the link URL (link to the first verse in the range)
-        url = f'/book/{book_name}/chapter/{chapter}/verse/{verse_start}'
+        # Create the link URL using chapter anchor
+        if verse_end:
+            url = f'/book/{book_name}/chapter/{chapter}#verse-{verse_start}-{verse_end}'
+        else:
+            url = f'/book/{book_name}/chapter/{chapter}#verse-{verse_start}'
 
         # Return the linked reference
         return f'<a href="{url}">{full_ref}</a>'
