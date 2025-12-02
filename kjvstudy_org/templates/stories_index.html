@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedCardIndex = -1;
         selectedCatIndex = Math.max(0, Math.min(index, categoryItems.length - 1));
         categoryItems[selectedCatIndex].classList.add('selected');
-        categoryItems[selectedCatIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        categoryItems[selectedCatIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function selectStoryCard(index) {
@@ -516,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedCardIndex = Math.max(0, Math.min(index, cards.length - 1));
         cards[selectedCardIndex].style.outline = '2px solid #4a7c59';
         cards[selectedCardIndex].style.outlineOffset = '4px';
-        cards[selectedCardIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        cards[selectedCardIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     document.addEventListener('keydown', function(e) {

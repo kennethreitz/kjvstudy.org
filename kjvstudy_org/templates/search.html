@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
             resultIndex = Math.max(0, Math.min(index, searchResults.length - 1));
             searchResults[resultIndex].style.outline = '2px solid #4a7c59';
             searchResults[resultIndex].style.outlineOffset = '4px';
-            searchResults[resultIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            searchResults[resultIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
         }
 
         document.addEventListener('keydown', function(e) {

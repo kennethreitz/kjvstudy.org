@@ -753,7 +753,7 @@ document.addEventListener('click', function(e) {
         verses[selectedVerseIndex].style.outline = '2px solid #4a7c59';
         verses[selectedVerseIndex].style.outlineOffset = '4px';
         verses[selectedVerseIndex].classList.add('selected');
-        verses[selectedVerseIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        verses[selectedVerseIndex].scrollIntoView({ behavior: 'auto', block: 'start' });
     }
 
     function getWordsInVerse(verseIndex) {
@@ -772,7 +772,7 @@ document.addEventListener('click', function(e) {
         word.classList.add('keyboard-selected');
         word.style.outline = '2px solid #4a7c59';
         word.style.outlineOffset = '2px';
-        word.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        word.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function expandSelectedWord() {

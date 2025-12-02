@@ -714,7 +714,7 @@
         sections[selectedSectionIndex].style.outline = '2px solid #4a7c59';
         sections[selectedSectionIndex].style.outlineOffset = '4px';
         sections[selectedSectionIndex].classList.add('selected');
-        sections[selectedSectionIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        sections[selectedSectionIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function selectItem(index) {
@@ -724,7 +724,7 @@
         allItems[selectedItemIndex].style.outline = '2px solid #4a7c59';
         allItems[selectedItemIndex].style.outlineOffset = '4px';
         allItems[selectedItemIndex].classList.add('selected');
-        allItems[selectedItemIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        allItems[selectedItemIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function getItemsInSection(section) {

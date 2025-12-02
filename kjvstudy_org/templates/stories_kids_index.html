@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cards[selectedCardIndex].style.outline = '2px solid #8b5cf6';
         cards[selectedCardIndex].style.outlineOffset = '4px';
         cards[selectedCardIndex].classList.add('selected');
-        cards[selectedCardIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        cards[selectedCardIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     document.addEventListener('keydown', function(e) {

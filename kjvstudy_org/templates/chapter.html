@@ -409,14 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Scroll to first verse
                 const firstVerse = document.getElementById('verse-' + start);
                 if (firstVerse) {
-                    firstVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstVerse.scrollIntoView({ behavior: 'auto', block: 'center' });
                 }
             } else {
                 // Single verse
                 const verseEl = document.getElementById('verse-' + versePart);
                 if (verseEl) {
                     verseEl.style.backgroundColor = 'rgba(255, 235, 59, 0.2)';
-                    verseEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    verseEl.scrollIntoView({ behavior: 'auto', block: 'center' });
                 }
             }
         }

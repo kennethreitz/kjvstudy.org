@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedTocIndex = -1;
         toc.style.outline = '2px solid #4a7c59';
         toc.style.outlineOffset = '8px';
-        toc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        toc.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function selectTocItem(index) {
@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedTocIndex = Math.max(0, Math.min(index, tocItems.length - 1));
         tocItems[selectedTocIndex].style.background = 'rgba(74, 124, 89, 0.15)';
         tocItems[selectedTocIndex].style.outline = '2px solid #4a7c59';
-        tocItems[selectedTocIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        tocItems[selectedTocIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function selectElement(index) {
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
         contentElements[selectedIndex].style.outline = '2px solid #4a7c59';
         contentElements[selectedIndex].style.outlineOffset = '8px';
         contentElements[selectedIndex].classList.add('selected');
-        contentElements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        contentElements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function shouldResetToViewport() {

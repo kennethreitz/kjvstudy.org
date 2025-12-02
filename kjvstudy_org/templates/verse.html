@@ -887,7 +887,7 @@
         elements[selectedIndex].style.outline = '2px solid #4a7c59';
         elements[selectedIndex].style.outlineOffset = '4px';
         elements[selectedIndex].classList.add('selected');
-        elements[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function selectWord(index) {
@@ -906,7 +906,7 @@
         word.classList.add('keyboard-selected');
         word.style.outline = '2px solid #4a7c59';
         word.style.outlineOffset = '2px';
-        word.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        word.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     function isInterlinearSelected() {

@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (chapterSection) {
             chapterSection.classList.add('selected');
             chapterSection.scrollIntoView({
-                behavior: 'smooth',
+                behavior: 'auto',
                 block: 'center'
             });
         }
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Scroll into view if needed
         chapterLinks[selectedChapterIndex].scrollIntoView({
-            behavior: 'smooth',
+            behavior: 'auto',
             block: 'nearest'
         });
     }
@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Scroll into view if needed
         contentParagraphs[selectedParagraphIndex].scrollIntoView({
-            behavior: 'smooth',
+            behavior: 'auto',
             block: 'center'
         });
     }

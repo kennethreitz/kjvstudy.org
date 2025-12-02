@@ -531,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             const target = document.querySelector(window.location.hash);
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                target.scrollIntoView({ behavior: 'auto', block: 'center' });
                 target.classList.add('highlight-verse');
                 setTimeout(() => {
                     target.classList.remove('highlight-verse');
