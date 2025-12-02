@@ -50,10 +50,13 @@
 }
 
 .plan-actions {
+    display: flex;
+    gap: 1rem;
     margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
 }
 
-.print-btn {
+.action-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -68,39 +71,73 @@
     text-decoration: none;
 }
 
-.print-btn:hover {
+.action-btn:hover {
     background: var(--bg-color);
     border-color: var(--link-color);
     color: var(--link-color);
 }
 
-.print-btn svg {
+.action-btn svg {
     width: 16px;
     height: 16px;
+}
+
+/* Progress bar */
+.progress-section {
+    margin: 1.5rem 0;
+    max-width: 60%;
+}
+
+.progress-bar-container {
+    background: var(--code-bg);
+    border-radius: 4px;
+    height: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--link-color);
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.progress-text {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
 /* Day navigation */
 .day-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
     margin: 1.5rem 0;
     padding: 1rem;
     background: var(--code-bg);
     border-radius: 4px;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 .day-nav a {
     display: inline-block;
-    padding: 0.3rem 0.6rem;
-    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     background: var(--bg-color);
     border: 1px solid var(--border-color);
     border-radius: 3px;
     text-decoration: none;
     transition: all 0.15s;
+    min-width: 28px;
+    text-align: center;
 }
 
 .day-nav a:hover {
@@ -108,57 +145,101 @@
     color: var(--link-color);
 }
 
-/* Day entries with scripture */
+.day-nav a.completed {
+    background: var(--link-color);
+    color: white;
+    border-color: var(--link-color);
+}
+
+/* Day entries */
 .reading-day {
-    margin: 2.5rem 0;
-    padding-bottom: 2rem;
-    border-bottom: 2px solid var(--border-color);
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.reading-day.completed {
+    border-color: var(--link-color);
 }
 
 .day-header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 1rem;
-    margin-bottom: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--code-bg);
+    cursor: pointer;
+    user-select: none;
+}
+
+.day-header:hover {
+    background: var(--border-color);
+}
+
+.day-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--link-color);
 }
 
 .day-number {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--link-color);
+    min-width: 70px;
 }
 
 .day-theme {
     font-style: italic;
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    flex: 1;
 }
 
 .day-readings-summary {
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
 }
 
 .day-readings-summary span {
-    display: inline-block;
-    margin-right: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    background: var(--code-bg);
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.4rem;
+    background: var(--bg-color);
     border-radius: 3px;
 }
 
-/* Scripture text display */
-.scripture-content {
-    margin-top: 1rem;
+.day-toggle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    transition: transform 0.2s;
+}
+
+.day-toggle.expanded {
+    transform: rotate(180deg);
+}
+
+/* Scripture content */
+.day-content {
+    display: none;
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.day-content.expanded {
+    display: block;
 }
 
 .chapter-section {
     margin: 1.5rem 0;
 }
 
+.chapter-section:first-child {
+    margin-top: 0;
+}
+
 .chapter-heading {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-color);
     margin-bottom: 0.75rem;
@@ -188,33 +269,16 @@
     margin-right: 0.1rem;
 }
 
-/* Reference-only view (for 365-day plans) */
-.sample-days {
-    max-width: 70%;
-    margin: 2rem 0;
-}
-
-.day-entry {
-    padding: 1rem;
-    margin: 1rem 0;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-}
-
-.reading-ref {
-    display: inline-block;
-    margin: 0.25rem 0.5rem 0.25rem 0;
-    padding: 0.25rem 0.5rem;
-    background: var(--code-bg);
-    border-radius: 3px;
-    font-size: 0.95rem;
-}
-
 @media print {
     .plan-actions,
-    .print-btn,
-    .day-nav {
+    .action-btn,
+    .day-nav,
+    .progress-section,
+    .day-checkbox {
         display: none;
+    }
+    .day-content {
+        display: block !important;
     }
 }
 
@@ -222,12 +286,19 @@
     .plan-overview,
     .plan-stats,
     .intro-text,
-    .sample-days {
+    .progress-section {
         max-width: 100%;
     }
-
     .day-nav {
         max-width: 100%;
+    }
+    .day-header {
+        flex-wrap: wrap;
+    }
+    .day-theme {
+        order: 3;
+        width: 100%;
+        margin-top: 0.5rem;
     }
 }
 </style>
@@ -237,16 +308,34 @@
 <h1>{{ plan.name }}</h1>
 <p class="subtitle">{{ plan.description }}</p>
 
-{% if pdf_available and pdf_url %}
 <div class="plan-actions">
-    <a href="{{ pdf_url }}" class="print-btn">
+    {% if pdf_available and pdf_url %}
+    <a href="{{ pdf_url }}" class="action-btn">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        Download PDF{% if include_text %} (with Scripture text){% endif %}
+        Download PDF
     </a>
+    {% endif %}
+    <button class="action-btn" onclick="expandAll()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+        </svg>
+        Expand All
+    </button>
+    <button class="action-btn" onclick="collapseAll()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+        </svg>
+        Collapse All
+    </button>
+    <button class="action-btn" onclick="resetProgress()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Reset Progress
+    </button>
 </div>
-{% endif %}
 
 <section>
     <div class="plan-stats">
@@ -258,6 +347,17 @@
             <div class="stat-value">{{ (plan.duration_days / 7) | round | int }}</div>
             <div class="stat-label">Weeks</div>
         </div>
+        <div class="stat-item">
+            <div class="stat-value" id="completed-count">0</div>
+            <div class="stat-label">Completed</div>
+        </div>
+    </div>
+
+    <div class="progress-section">
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
+        </div>
+        <p class="progress-text" id="progress-text">Start reading to track your progress</p>
     </div>
 
     <div class="plan-overview">
@@ -265,34 +365,31 @@
     </div>
 </section>
 
-{% if include_text and days_with_text %}
-{# Full text version with scripture #}
 <section>
     <h2>Reading Schedule</h2>
-    <p class="intro-text">Jump to any day:</p>
+    <p class="intro-text">Click a day to expand. Check the box to mark as read.</p>
 
-    <div class="day-nav">
+    <div class="day-nav" id="day-nav">
         {% for day in days_with_text %}
-        <a href="#day-{{ day.day }}">{{ day.day }}</a>
+        <a href="#day-{{ day.day }}" id="nav-{{ day.day }}">{{ day.day }}</a>
         {% endfor %}
     </div>
 </section>
 
 {% for day in days_with_text %}
-<section class="reading-day" id="day-{{ day.day }}">
-    <div class="day-header">
+<div class="reading-day" id="day-{{ day.day }}" data-day="{{ day.day }}">
+    <div class="day-header" onclick="toggleDay({{ day.day }}, event)">
+        <input type="checkbox" class="day-checkbox" id="check-{{ day.day }}" onclick="event.stopPropagation(); markDay({{ day.day }})">
         <span class="day-number">Day {{ day.day }}</span>
-        {% if day.theme %}<span class="day-theme">{{ day.theme }}</span>{% endif %}
-    </div>
-
-    <div class="day-readings-summary">
-        {% for reading in day.readings %}
-        <span>{{ reading }}</span>
-        {% endfor %}
+        <span class="day-theme">{{ day.theme }}</span>
+        <span class="day-readings-summary">
+            {% for reading in day.readings %}<span>{{ reading }}</span>{% endfor %}
+        </span>
+        <span class="day-toggle" id="toggle-{{ day.day }}">▼</span>
     </div>
 
     {% if day.text %}
-    <div class="scripture-content">
+    <div class="day-content" id="content-{{ day.day }}">
         {% for section in day.text %}
         <div class="chapter-section">
             <div class="chapter-heading">
@@ -307,65 +404,14 @@
         {% endfor %}
     </div>
     {% endif %}
-</section>
+</div>
 {% endfor %}
-
-{% else %}
-{# Reference-only version for longer plans #}
-<section>
-    <h2>Complete Reading Schedule</h2>
-    <p class="intro-text">All {{ plan.duration_days }} days of readings for this plan.</p>
-
-    <div class="sample-days">
-        {% set all_days = plan.days if plan.days else plan.sample_days %}
-        {% for day in all_days %}
-        <div class="day-entry">
-            <div class="day-number">Day {{ day.day }}</div>
-            <div class="day-readings">
-                {% for reading in day.readings %}
-                <span class="reading-ref">
-                    {% set ref_parts = reading.split(' ') %}
-                    {% if ref_parts|length >= 2 %}
-                        {% set chapter_verse = ref_parts[-1] %}
-                        {% if ':' in chapter_verse %}
-                            {% set chapter = chapter_verse.split(':')[0] %}
-                            {% set verse_part = chapter_verse.split(':')[1] %}
-                            {% if '-' in verse_part %}
-                                {% set verse_num = verse_part.split('-')[0] %}
-                            {% else %}
-                                {% set verse_num = verse_part %}
-                            {% endif %}
-                            {% set book = ' '.join(ref_parts[:-1]) %}
-                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ reading }}</a>
-                        {% elif '-' in chapter_verse %}
-                            {% set first_chapter = chapter_verse.split('-')[0] %}
-                            {% set book = ' '.join(ref_parts[:-1]) %}
-                            <a href="/book/{{ book }}/chapter/{{ first_chapter }}">{{ reading }}</a>
-                        {% else %}
-                            {% set chapter = ref_parts[-1] %}
-                            {% set book = ' '.join(ref_parts[:-1]) %}
-                            <a href="/book/{{ book }}/chapter/{{ chapter }}">{{ reading }}</a>
-                        {% endif %}
-                    {% else %}
-                        {{ reading }}
-                    {% endif %}
-                </span>
-                {% endfor %}
-            </div>
-            <div class="day-theme">Theme: {{ day.theme }}</div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
 
 <section>
     <h2>How to Use This Plan</h2>
     <p class="intro-text"><span class="newthought">Consistency matters more</span> than perfection. If you miss a day, simply continue where you left off rather than attempting to catch up through extended readings. The goal is sustainable Scripture engagement, not merely completing a schedule.</p>
 
-    <p class="intro-text">Consider maintaining a journal to record insights, questions, and applications. Many find morning reading sets a godly tone for the day, though evening reflection suits others better. Discover what timing best facilitates your consistent engagement with God's Word.</p>
-
-    <p class="intro-text">Prayer should accompany reading. Ask the Holy Spirit for illumination, understanding, and application. Scripture study transforms when approached not merely as information gathering but as communion with the living God who speaks through His Word.</p>
+    <p class="intro-text">Your progress is saved automatically in your browser. Check each day as you complete it to track your journey through Scripture.</p>
 </section>
 
 <section>
@@ -374,22 +420,166 @@
 
 <script>
 (function() {
-    const elements = Array.from(document.querySelectorAll('.plan-overview, .intro-text, .reading-day, .day-entry, .print-btn'));
-    if (elements.length === 0) return;
+    var planId = '{{ plan_id }}';
+    var totalDays = {{ total_days }};
+    var storageKey = 'reading-plan-' + planId;
 
-    let selectedIndex = -1;
+    // Load saved progress
+    function loadProgress() {
+        var saved = localStorage.getItem(storageKey);
+        return saved ? JSON.parse(saved) : { completed: [], expanded: [] };
+    }
 
-    function selectElement(index) {
-        if (selectedIndex >= 0 && selectedIndex < elements.length) {
-            elements[selectedIndex].style.outline = '';
-            elements[selectedIndex].style.outlineOffset = '';
-            elements[selectedIndex].classList.remove('selected');
+    // Save progress
+    function saveProgress(data) {
+        localStorage.setItem(storageKey, JSON.stringify(data));
+    }
+
+    // Update UI based on saved state
+    function updateUI() {
+        var data = loadProgress();
+        var completedCount = data.completed.length;
+
+        // Update checkboxes and day styling
+        for (var i = 1; i <= totalDays; i++) {
+            var checkbox = document.getElementById('check-' + i);
+            var dayEl = document.getElementById('day-' + i);
+            var navEl = document.getElementById('nav-' + i);
+
+            if (checkbox && data.completed.indexOf(i) !== -1) {
+                checkbox.checked = true;
+                if (dayEl) dayEl.classList.add('completed');
+                if (navEl) navEl.classList.add('completed');
+            } else {
+                if (checkbox) checkbox.checked = false;
+                if (dayEl) dayEl.classList.remove('completed');
+                if (navEl) navEl.classList.remove('completed');
+            }
         }
-        selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
-        elements[selectedIndex].style.outline = '2px solid #4a7c59';
-        elements[selectedIndex].style.outlineOffset = '8px';
-        elements[selectedIndex].classList.add('selected');
-        elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
+
+        // Update expanded state
+        data.expanded.forEach(function(day) {
+            var content = document.getElementById('content-' + day);
+            var toggle = document.getElementById('toggle-' + day);
+            if (content) {
+                content.classList.add('expanded');
+                if (toggle) toggle.classList.add('expanded');
+            }
+        });
+
+        // Update progress bar
+        var percent = Math.round((completedCount / totalDays) * 100);
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var completedEl = document.getElementById('completed-count');
+
+        if (progressBar) {
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = percent + '%';
+        }
+        if (completedEl) {
+            completedEl.textContent = completedCount;
+        }
+        if (progressText) {
+            if (completedCount === 0) {
+                progressText.textContent = 'Start reading to track your progress';
+            } else if (completedCount === totalDays) {
+                progressText.textContent = 'Congratulations! You\'ve completed the plan!';
+            } else {
+                var remaining = totalDays - completedCount;
+                progressText.textContent = remaining + ' day' + (remaining === 1 ? '' : 's') + ' remaining';
+            }
+        }
+    }
+
+    // Toggle day expansion
+    window.toggleDay = function(day, event) {
+        if (event && event.target.classList.contains('day-checkbox')) return;
+
+        var content = document.getElementById('content-' + day);
+        var toggle = document.getElementById('toggle-' + day);
+        var data = loadProgress();
+
+        if (content.classList.contains('expanded')) {
+            content.classList.remove('expanded');
+            toggle.classList.remove('expanded');
+            var idx = data.expanded.indexOf(day);
+            if (idx > -1) data.expanded.splice(idx, 1);
+        } else {
+            content.classList.add('expanded');
+            toggle.classList.add('expanded');
+            if (data.expanded.indexOf(day) === -1) data.expanded.push(day);
+        }
+        saveProgress(data);
+    };
+
+    // Mark day as complete/incomplete
+    window.markDay = function(day) {
+        var data = loadProgress();
+        var idx = data.completed.indexOf(day);
+
+        if (idx > -1) {
+            data.completed.splice(idx, 1);
+        } else {
+            data.completed.push(day);
+        }
+        saveProgress(data);
+        updateUI();
+    };
+
+    // Expand all days
+    window.expandAll = function() {
+        var data = loadProgress();
+        data.expanded = [];
+        for (var i = 1; i <= totalDays; i++) {
+            var content = document.getElementById('content-' + i);
+            var toggle = document.getElementById('toggle-' + i);
+            if (content) {
+                content.classList.add('expanded');
+                data.expanded.push(i);
+            }
+            if (toggle) toggle.classList.add('expanded');
+        }
+        saveProgress(data);
+    };
+
+    // Collapse all days
+    window.collapseAll = function() {
+        var data = loadProgress();
+        data.expanded = [];
+        for (var i = 1; i <= totalDays; i++) {
+            var content = document.getElementById('content-' + i);
+            var toggle = document.getElementById('toggle-' + i);
+            if (content) content.classList.remove('expanded');
+            if (toggle) toggle.classList.remove('expanded');
+        }
+        saveProgress(data);
+    };
+
+    // Reset all progress
+    window.resetProgress = function() {
+        if (confirm('Reset all progress for this reading plan?')) {
+            localStorage.removeItem(storageKey);
+            updateUI();
+            collapseAll();
+        }
+    };
+
+    // Initialize
+    updateUI();
+
+    // Keyboard navigation
+    var days = Array.from(document.querySelectorAll('.reading-day'));
+    var selectedIndex = -1;
+
+    function selectDay(index) {
+        if (selectedIndex >= 0 && selectedIndex < days.length) {
+            days[selectedIndex].style.outline = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, days.length - 1));
+        days[selectedIndex].style.outline = '2px solid #4a7c59';
+        days[selectedIndex].style.outlineOffset = '4px';
+        days[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
 
     document.addEventListener('keydown', function(e) {
@@ -397,40 +587,29 @@
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(elements, selectedIndex)) {
-                selectElement(KJVNav.findFirstVisibleIndex(elements));
-            } else {
-                selectElement(selectedIndex < 0 ? 0 : selectedIndex + 1);
-            }
+            selectDay(selectedIndex < 0 ? 0 : selectedIndex + 1);
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(elements, selectedIndex)) {
-                selectElement(KJVNav.findFirstVisibleIndex(elements));
-            } else if (selectedIndex <= 0) {
-                selectElement(0);
-            } else {
-                selectElement(selectedIndex - 1);
-            }
+            if (selectedIndex <= 0) selectDay(0);
+            else selectDay(selectedIndex - 1);
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
             history.back();
-        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        } else if ((e.key === 'Enter' || e.key === ' ') && selectedIndex >= 0) {
             e.preventDefault();
-            var el = elements[selectedIndex];
-            if (el.tagName === 'A' && el.href) {
-                window.location.href = el.href;
-            } else {
-                var link = el.querySelector('.reading-ref a') || el.querySelector('a');
-                if (link) window.location.href = link.href;
-            }
+            var dayNum = parseInt(days[selectedIndex].dataset.day);
+            toggleDay(dayNum);
+        } else if (e.key === 'x' && selectedIndex >= 0) {
+            e.preventDefault();
+            var dayNum = parseInt(days[selectedIndex].dataset.day);
+            markDay(dayNum);
+            updateUI();
         } else if (e.key === 'Escape') {
             e.preventDefault();
-            if (selectedIndex >= 0 && selectedIndex < elements.length) {
-                elements[selectedIndex].style.outline = '';
-                elements[selectedIndex].style.outlineOffset = '';
-                elements[selectedIndex].classList.remove('selected');
+            if (selectedIndex >= 0) {
+                days[selectedIndex].style.outline = '';
+                selectedIndex = -1;
             }
-            selectedIndex = -1;
         }
     });
 })();
