@@ -33,11 +33,7 @@
         {% for chapter, verses in chapters.items() %}
         <div class="chapter-group">
             <strong>Chapter {{ chapter }}:</strong>
-            <span class="verse-list">
-                {% for verse in verses %}
-                <a href="/book/{{ book|urlencode }}/chapter/{{ chapter }}/verse/{{ verse }}" class="verse-link">{{ verse }}</a>{% if not loop.last %},{% endif %}
-                {% endfor %}
-            </span>
+            <span class="verse-list">{% for verse in verses %}<a href="/book/{{ book|urlencode }}/chapter/{{ chapter }}/verse/{{ verse }}" class="verse-link">{{ verse }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>
             <span class="verse-count">({{ verses|length }} {% if verses|length == 1 %}verse{% else %}verses{% endif %})</span>
         </div>
         {% endfor %}
@@ -94,21 +90,12 @@
     }
 
     .toc-link {
-        display: block;
-        padding: 0.4rem 0.6rem;
-        background: var(--code-bg);
-        border-radius: 3px;
         text-decoration: none;
         color: var(--link-color);
-        font-size: 0.95rem;
-        transition: all 0.2s;
-        text-align: center;
     }
 
     .toc-link:hover {
-        background: var(--border-color-dark);
-        color: var(--link-hover);
-        transform: translateY(-1px);
+        text-decoration: underline;
     }
 
     .book-section {
@@ -145,21 +132,12 @@
     }
 
     .verse-link {
-        display: inline-block;
-        padding: 0.15rem 0.4rem;
-        margin: 0.1rem;
-        background: var(--code-bg);
-        border-radius: 3px;
         text-decoration: none;
         color: var(--link-color);
-        font-family: 'Consolas', 'Monaco', monospace;
-        font-size: 0.9rem;
-        transition: background 0.2s;
     }
 
     .verse-link:hover {
-        background: var(--border-color-dark);
-        color: var(--link-hover);
+        text-decoration: underline;
     }
 
     .verse-count {
