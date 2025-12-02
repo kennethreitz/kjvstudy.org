@@ -367,9 +367,9 @@
             height: 100vh;
             overflow-y: auto;
             background: var(--bg-color);
-            padding: 1.5rem 0.75rem 1rem 0.75rem;
-            font-size: 0.7rem;
-            line-height: 1.3;
+            padding: 1.25rem 0.85rem 1.5rem 0.85rem;
+            font-size: 0.8rem;
+            line-height: 1.4;
             z-index: 100;
             border-right: 1px solid var(--border-color);
             direction: rtl;
@@ -380,7 +380,7 @@
         }
 
         .nav-sidebar::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
 
         .nav-sidebar::-webkit-scrollbar-track {
@@ -388,125 +388,112 @@
         }
 
         .nav-sidebar::-webkit-scrollbar-thumb {
-            background: #ddd;
-            border-radius: 2px;
+            background: var(--border-color);
+            border-radius: 3px;
         }
 
+        .nav-sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
+        }
+
+        /* Section headers */
         .nav-sidebar h3 {
-            font-size: 0.65rem;
-            font-weight: 600;
-            font-style: italic;
-            margin: 0 0 0.3rem 0;
-            padding-bottom: 0.25rem;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-secondary);
+            font-size: 0.6rem;
+            font-weight: 500;
+            font-style: normal;
+            margin: 1.25rem 0 0.5rem 0;
+            padding: 0;
+            color: var(--text-tertiary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            border: none;
         }
 
+        .nav-sidebar h3:first-of-type {
+            margin-top: 0.5rem;
+        }
+
+        /* Lists */
         .nav-sidebar ul {
             list-style: none;
             padding: 0;
-            margin: 0 0 0.75rem 0;
+            margin: 0 0 0.5rem 0;
         }
 
         .nav-sidebar li {
-            margin: 0.15rem 0;
+            margin: 0;
         }
 
+        /* Links */
         .nav-sidebar a {
             color: var(--text-secondary);
             text-decoration: none;
             border-bottom: none;
             display: block;
-            padding: 0.15rem 0;
-            transition: color 0.2s;
-            font-size: 0.85rem;
+            padding: 0.25rem 0.4rem;
+            margin: 0 -0.4rem;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            font-size: 0.8rem;
         }
 
         .nav-sidebar a:hover {
-            color: var(--link-hover);
+            color: var(--text-color);
+            background: rgba(74, 124, 89, 0.08);
         }
 
         .nav-sidebar a.current {
-            color: var(--link-hover);
-            font-weight: 600;
+            color: #4a7c59;
+            background: rgba(74, 124, 89, 0.1);
+            font-weight: 500;
         }
 
         /* Book type color indicators in sidebar */
         .nav-sidebar .book-list a {
-            border-left: 3px solid transparent;
-            padding-left: 0.3rem;
+            border-left: 2px solid transparent;
+            padding-left: 0.5rem;
+            margin-left: 0;
+            border-radius: 0 4px 4px 0;
         }
 
-        .nav-sidebar .book-list a.law {
-            border-left-color: rgba(59, 130, 246, 0.6);
+        .nav-sidebar .book-list a.law { border-left-color: #3b82f6; }
+        .nav-sidebar .book-list a.historical { border-left-color: #22c55e; }
+        .nav-sidebar .book-list a.wisdom { border-left-color: #a855f7; }
+        .nav-sidebar .book-list a.major-prophets { border-left-color: #f97316; }
+        .nav-sidebar .book-list a.minor-prophets { border-left-color: #ef4444; }
+        .nav-sidebar .book-list a.gospels { border-left-color: #eab308; }
+        .nav-sidebar .book-list a.acts { border-left-color: #14b8a6; }
+        .nav-sidebar .book-list a.pauline { border-left-color: #6366f1; }
+        .nav-sidebar .book-list a.general { border-left-color: #ec4899; }
+        .nav-sidebar .book-list a.apocalyptic { border-left-color: #dc2626; }
+
+        .nav-sidebar .book-list {
+            font-size: 0.75rem;
         }
 
-        .nav-sidebar .book-list a.historical {
-            border-left-color: rgba(34, 197, 94, 0.6);
+        .nav-sidebar .book-list a {
+            padding: 0.2rem 0.4rem 0.2rem 0.5rem;
         }
 
-        .nav-sidebar .book-list a.wisdom {
-            border-left-color: rgba(168, 85, 247, 0.6);
-        }
-
-        .nav-sidebar .book-list a.major-prophets {
-            border-left-color: rgba(249, 115, 22, 0.6);
-        }
-
-        .nav-sidebar .book-list a.minor-prophets {
-            border-left-color: rgba(239, 68, 68, 0.6);
-        }
-
-        .nav-sidebar .book-list a.gospels {
-            border-left-color: rgba(234, 179, 8, 0.6);
-        }
-
-        .nav-sidebar .book-list a.acts {
-            border-left-color: rgba(20, 184, 166, 0.6);
-        }
-
-        .nav-sidebar .book-list a.pauline {
-            border-left-color: rgba(99, 102, 241, 0.6);
-        }
-
-        .nav-sidebar .book-list a.general {
-            border-left-color: rgba(236, 72, 153, 0.6);
-        }
-
-        .nav-sidebar .book-list a.apocalyptic {
-            border-left-color: rgba(220, 38, 38, 0.6);
-        }
-
-        .nav-sidebar .testament-section {
-            margin-bottom: 0.75rem;
-        }
-
-        .nav-sidebar .testament-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-tertiary);
-            margin-bottom: 0.3rem;
-            font-weight: 600;
-        }
-
+        /* Collapsible sections */
         .nav-sidebar details {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.35rem;
         }
 
         .nav-sidebar summary {
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             color: var(--text-tertiary);
-            margin-bottom: 0.3rem;
-            font-weight: 600;
+            padding: 0.35rem 0;
+            font-weight: 500;
             list-style: none;
             user-select: none;
-            transition: color 0.2s;
+            transition: color 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
         }
 
         .nav-sidebar summary:hover {
@@ -518,10 +505,15 @@
         }
 
         .nav-sidebar summary::before {
-            content: '▸ ';
+            content: '';
             display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 4px solid currentColor;
+            border-top: 3px solid transparent;
+            border-bottom: 3px solid transparent;
             transition: transform 0.2s ease;
-            margin-right: 0.2rem;
+            opacity: 0.6;
         }
 
         .nav-sidebar details[open] summary::before {
@@ -530,13 +522,14 @@
 
         /* Smooth expand/collapse animation */
         .nav-sidebar details > ul {
-            animation: slideDown 0.2s ease-out;
+            animation: navSlideDown 0.15s ease-out;
+            padding-left: 0.15rem;
         }
 
-        @keyframes slideDown {
+        @keyframes navSlideDown {
             from {
                 opacity: 0;
-                transform: translateY(-5px);
+                transform: translateY(-4px);
             }
             to {
                 opacity: 1;
@@ -544,36 +537,76 @@
             }
         }
 
+        /* Resource group sections */
+        .nav-sidebar .resource-group {
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-sidebar .resource-group ul {
+            margin-bottom: 0.25rem;
+        }
+
         /* Smooth scrolling */
         .nav-sidebar {
             scroll-behavior: smooth;
         }
 
-        .nav-sidebar .book-list {
-            font-size: 0.7rem;
+        /* Divider between Bible books and resources */
+        .nav-sidebar details#new-testament {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Nav footer */
+        .nav-footer {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .nav-footer a {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .nav-footer a:hover {
+            color: var(--text-secondary);
+            background: rgba(74, 124, 89, 0.08);
         }
 
         /* Sidebar search box */
         .sidebar-search {
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             position: relative;
         }
 
         .sidebar-search input {
-            width: 90%;
-            padding: 0.4rem 0.5rem;
-            border: 1px solid var(--border-color-dark);
-            border-radius: 3px;
+            width: 100%;
+            padding: 0.45rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
             font-size: 0.75rem;
             background: var(--bg-color);
             color: var(--text-color);
-            transition: border-color 0.2s;
+            transition: all 0.15s ease;
             box-sizing: border-box;
+        }
+
+        .sidebar-search input::placeholder {
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
         }
 
         .sidebar-search input:focus {
             outline: none;
-            border-color: var(--text-tertiary);
+            border-color: #4a7c59;
+            box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.1);
         }
 
         /* Universal search dropdown */
@@ -1351,9 +1384,9 @@
         <details class="resource-group" open aria-label="Daily reading resources">
             <summary aria-expanded="true">Daily Reading</summary>
             <ul>
-                <li><a href="/verse-of-the-day">Verse of the Day</a></li>
-                <li><a href="/random-verse">Random Verse</a></li>
-                <li><a href="/reading-plans">Reading Plans</a></li>
+                <li><a href="/verse-of-the-day" {% if request.url.path == "/verse-of-the-day" %}class="current"{% endif %}>Verse of the Day</a></li>
+                <li><a href="/random-verse" {% if request.url.path == "/random-verse" %}class="current"{% endif %}>Random Verse</a></li>
+                <li><a href="/reading-plans" {% if request.url.path.startswith("/reading-plans") %}class="current"{% endif %}>Reading Plans</a></li>
             </ul>
         </details>
 
@@ -1361,10 +1394,10 @@
         <details class="resource-group" open aria-label="Study resources">
             <summary aria-expanded="true">Study Resources</summary>
             <ul>
-                <li><a href="/study-guides">Study Guides</a></li>
-                <li><a href="/stories">Bible Stories</a></li>
-                <li><a href="/topics">Topics</a></li>
-                <li><a href="/resources">Resources</a></li>
+                <li><a href="/study-guides" {% if request.url.path.startswith("/study-guides") %}class="current"{% endif %}>Study Guides</a></li>
+                <li><a href="/stories" {% if request.url.path.startswith("/stories") %}class="current"{% endif %}>Bible Stories</a></li>
+                <li><a href="/topics" {% if request.url.path.startswith("/topics") %}class="current"{% endif %}>Topics</a></li>
+                <li><a href="/resources" {% if request.url.path == "/resources" %}class="current"{% endif %}>Resources</a></li>
             </ul>
         </details>
 
@@ -1372,17 +1405,14 @@
         <details class="resource-group" open aria-label="Reference tools">
             <summary aria-expanded="true">Reference Tools</summary>
             <ul>
-                <li><a href="/strongs">Strong's Concordance</a></li>
-                <li><a href="/interlinear">Interlinear</a></li>
+                <li><a href="/strongs" {% if request.url.path.startswith("/strongs") %}class="current"{% endif %}>Strong's Concordance</a></li>
+                <li><a href="/interlinear" {% if request.url.path.startswith("/interlinear") %}class="current"{% endif %}>Interlinear</a></li>
             </ul>
         </details>
 
         <!-- About -->
-        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-            <p style="font-size: 0.9rem; text-align: center;">
-                <a href="/about" {% if request.url.path == "/about" %}class="current"{% endif %}>About KJV Study</a>
-            </p>
-            <p style="text-align: center; color: var(--text-tertiary); margin-top: -0.5rem; padding-bottom: 1rem; font-size: 0.7rem;">⁂</p>
+        <div class="nav-footer">
+            <a href="/about" {% if request.url.path == "/about" %}class="current"{% endif %}>About</a>
         </div>
     </nav>
 
@@ -1704,12 +1734,127 @@
           if (selectedIndex >= elements.length) return true;
           return !this.isInViewport(elements[selectedIndex]);
         },
+        // Sidebar navigation state
+        sidebarActive: false,
+        sidebarIndex: -1,
+        sidebarLinks: [],
+        currentPageNav: null,
+
+        // Activate sidebar navigation with 'n' key
+        initSidebarNav: function() {
+          var self = this;
+          var sidebar = document.querySelector('.nav-sidebar');
+          if (!sidebar) return;
+
+          // Get all navigable links in sidebar
+          self.sidebarLinks = Array.from(sidebar.querySelectorAll('a'));
+
+          function clearSidebarSelection() {
+            self.sidebarLinks.forEach(function(link) {
+              link.style.outline = '';
+              link.style.background = '';
+            });
+          }
+
+          function selectSidebarLink(index) {
+            clearSidebarSelection();
+            if (self.sidebarLinks.length === 0) return;
+            self.sidebarIndex = Math.max(0, Math.min(index, self.sidebarLinks.length - 1));
+            var link = self.sidebarLinks[self.sidebarIndex];
+            link.style.outline = '2px solid #4a7c59';
+            link.style.background = 'rgba(74, 124, 89, 0.1)';
+            link.scrollIntoView({ behavior: 'auto', block: 'center' });
+
+            // Expand parent details if collapsed
+            var details = link.closest('details');
+            if (details && !details.open) {
+              details.open = true;
+            }
+          }
+
+          function exitSidebar() {
+            clearSidebarSelection();
+            self.sidebarActive = false;
+            self.sidebarIndex = -1;
+            // Clear page nav selection if exists
+            if (self.currentPageNav && self.currentPageNav.clearSelection) {
+              self.currentPageNav.clearSelection();
+            }
+          }
+
+          document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            // 'n' to enter sidebar nav mode
+            if (e.key === 'n' && !self.sidebarActive) {
+              e.preventDefault();
+              self.sidebarActive = true;
+              // Clear any page content selection
+              if (self.currentPageNav && self.currentPageNav.clearSelection) {
+                self.currentPageNav.clearSelection();
+              }
+              // Start at first link or current page link
+              var currentLink = sidebar.querySelector('a.current');
+              var startIndex = currentLink ? self.sidebarLinks.indexOf(currentLink) : 0;
+              selectSidebarLink(startIndex >= 0 ? startIndex : 0);
+              return;
+            }
+
+            // Handle sidebar navigation when active
+            if (self.sidebarActive) {
+              if (e.key === 'ArrowDown' || e.key === 'j') {
+                e.preventDefault();
+                selectSidebarLink(self.sidebarIndex + 1);
+              } else if (e.key === 'ArrowUp' || e.key === 'k') {
+                e.preventDefault();
+                selectSidebarLink(self.sidebarIndex - 1);
+              } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (self.sidebarIndex >= 0 && self.sidebarLinks[self.sidebarIndex]) {
+                  window.location.href = self.sidebarLinks[self.sidebarIndex].href;
+                }
+              } else if (e.key === 'Escape') {
+                e.preventDefault();
+                exitSidebar();
+              } else if (e.key === 'ArrowRight' || e.key === 'l') {
+                // Expand details or go to link
+                e.preventDefault();
+                if (self.sidebarIndex >= 0) {
+                  var link = self.sidebarLinks[self.sidebarIndex];
+                  var details = link.closest('details');
+                  var summary = link.closest('summary');
+                  if (summary && details && !details.open) {
+                    details.open = true;
+                  } else {
+                    window.location.href = link.href;
+                  }
+                }
+              } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+                // Collapse details or exit sidebar
+                e.preventDefault();
+                if (self.sidebarIndex >= 0) {
+                  var link = self.sidebarLinks[self.sidebarIndex];
+                  var details = link.closest('details');
+                  if (details && details.open) {
+                    details.open = false;
+                  } else {
+                    exitSidebar();
+                  }
+                } else {
+                  exitSidebar();
+                }
+              }
+            }
+          });
+        },
+
         // Simple linear keyboard navigation - just pass a CSS selector
         initSimpleNav: function(selector, options) {
           options = options || {};
           var elements = Array.from(document.querySelectorAll(selector));
           var selectedIndex = -1;
           var pdfSelector = options.pdfSelector || '[class*="-download-btn"]';
+          var self = this;
 
           function clearSelection() {
             if (selectedIndex >= 0 && selectedIndex < elements.length) {
@@ -1720,6 +1865,15 @@
           }
 
           function selectElement(index) {
+            // Exit sidebar mode if active
+            if (self.sidebarActive) {
+              self.sidebarActive = false;
+              self.sidebarIndex = -1;
+              document.querySelectorAll('.nav-sidebar a').forEach(function(link) {
+                link.style.outline = '';
+                link.style.background = '';
+              });
+            }
             clearSelection();
             if (elements.length === 0) return;
             selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
@@ -1729,8 +1883,14 @@
             elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
           }
 
+          // Store reference for sidebar to clear
+          var navInstance = { elements: elements, selectElement: selectElement, clearSelection: clearSelection };
+          self.currentPageNav = navInstance;
+
           document.addEventListener('keydown', function(e) {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            // Don't handle if sidebar is active (except 'n' is handled above)
+            if (self.sidebarActive) return;
 
             if (e.key === 'ArrowDown' || e.key === 'j') {
               e.preventDefault();
@@ -1753,7 +1913,7 @@
               e.preventDefault();
               if (selectedIndex >= 0) {
                 var el = elements[selectedIndex];
-                var link = el.querySelector('a');
+                var link = el.tagName === 'A' ? el : el.querySelector('a');
                 if (link) window.location.href = link.href;
               }
             } else if (e.key === 'Escape') {
@@ -1773,9 +1933,14 @@
             }
           });
 
-          return { elements: elements, selectElement: selectElement, clearSelection: clearSelection };
+          return navInstance;
         }
       };
+
+      // Initialize sidebar navigation globally
+      document.addEventListener('DOMContentLoaded', function() {
+        KJVNav.initSidebarNav();
+      });
 
       // Text-to-speech for any selected content
       window.KJVSpeech = {
