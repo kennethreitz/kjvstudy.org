@@ -2353,7 +2353,19 @@ async def read_chapter(request: Request, book: str, chapter: int):
         grouped_refs = defaultdict(list)
         for ref in cross_refs:
             description = ref['note'] if ref['note'] else 'Related'
-            url = f"/book/{ref['ref'].rsplit(' ', 1)[0]}/chapter/{ref['ref'].rsplit(' ', 1)[1].split(':')[0]}/verse/{ref['ref'].rsplit(' ', 1)[1].split(':')[1]}" if ' ' in ref['ref'] and ':' in ref['ref'] else '#'
+            # Parse the reference to build URL
+            if ' ' in ref['ref'] and ':' in ref['ref']:
+                ref_book = ref['ref'].rsplit(' ', 1)[0]
+                ref_chapter_verse = ref['ref'].rsplit(' ', 1)[1]
+                ref_chapter = ref_chapter_verse.split(':')[0]
+                ref_verse = ref_chapter_verse.split(':')[1]
+                # Same chapter: use anchor link; different chapter/book: link to chapter view with anchor
+                if ref_book == book and ref_chapter == str(chapter):
+                    url = f"#verse-{ref_verse}"
+                else:
+                    url = f"/book/{ref_book}/chapter/{ref_chapter}#verse-{ref_verse}"
+            else:
+                url = '#'
             grouped_refs[description].append({
                 'text': ref['ref'],
                 'url': url
