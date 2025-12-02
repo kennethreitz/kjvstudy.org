@@ -708,7 +708,8 @@ document.addEventListener('keydown', function(e) {
         break;
       case 'p':
         e.preventDefault();
-        window.location.href = '/reading-plans';
+        var pdfBtn = document.querySelector('.pdf-btn, a[href$="/pdf"]');
+        if (pdfBtn) window.location.href = pdfBtn.href;
         break;
       case 'f':
         e.preventDefault();
@@ -895,7 +896,7 @@ function showKeyboardHelp() {
           '<div class="shortcut"><kbd>s</kbd><span>Stories</span></div>' +
           '<div class="shortcut"><kbd>r</kbd><span>Resources</span></div>' +
           '<div class="shortcut"><kbd>t</kbd><span>Topics</span></div>' +
-          '<div class="shortcut"><kbd>p</kbd><span>Reading Plans</span></div>' +
+          '<div class="shortcut"><kbd>p</kbd><span>PDF (when available)</span></div>' +
           '<div class="shortcut"><kbd>f</kbd><span>Family Tree</span></div>' +
           '<div class="shortcut"><kbd>c</kbd><span>Strong\'s Concordance</span></div>' +
           '<div class="shortcut"><kbd>v</kbd><span>Verse of the Day</span></div>' +
