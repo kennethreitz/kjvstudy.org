@@ -230,6 +230,13 @@
     display: block;
 }
 
+.day-content.loading {
+    display: block;
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
 .chapter-section {
     margin: 1.5rem 0;
 }
@@ -317,18 +324,6 @@
         Download PDF
     </a>
     {% endif %}
-    <button class="action-btn" onclick="expandAll()">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-        </svg>
-        Expand All
-    </button>
-    <button class="action-btn" onclick="collapseAll()">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-        </svg>
-        Collapse All
-    </button>
     <button class="action-btn" onclick="resetProgress()">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -367,16 +362,16 @@
 
 <section>
     <h2>Reading Schedule</h2>
-    <p class="intro-text">Click a day to expand. Check the box to mark as read.</p>
+    <p class="intro-text">Click a day to expand and load the Scripture text. Check the box to mark as read.</p>
 
     <div class="day-nav" id="day-nav">
-        {% for day in days_with_text %}
+        {% for day in days_data %}
         <a href="#day-{{ day.day }}" id="nav-{{ day.day }}">{{ day.day }}</a>
         {% endfor %}
     </div>
 </section>
 
-{% for day in days_with_text %}
+{% for day in days_data %}
 <div class="reading-day" id="day-{{ day.day }}" data-day="{{ day.day }}">
     <div class="day-header" onclick="toggleDay({{ day.day }}, event)">
         <input type="checkbox" class="day-checkbox" id="check-{{ day.day }}" onclick="event.stopPropagation(); markDay({{ day.day }})">
@@ -387,23 +382,7 @@
         </span>
         <span class="day-toggle" id="toggle-{{ day.day }}">▼</span>
     </div>
-
-    {% if day.text %}
-    <div class="day-content" id="content-{{ day.day }}">
-        {% for section in day.text %}
-        <div class="chapter-section">
-            <div class="chapter-heading">
-                <a href="/book/{{ section.book }}/chapter/{{ section.chapter }}">{{ section.reference }}</a>
-            </div>
-            <div class="verse-text">
-                {% for verse in section.verses %}
-                <sup class="verse-num">{{ verse.verse }}</sup>{{ verse.text }}
-                {% endfor %}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+    <div class="day-content" id="content-{{ day.day }}"></div>
 </div>
 {% endfor %}
 
@@ -423,6 +402,7 @@
     var planId = '{{ plan_id }}';
     var totalDays = {{ total_days }};
     var storageKey = 'reading-plan-' + planId;
+    var loadedDays = {}; // Track which days have been loaded
 
     // Load saved progress
     function loadProgress() {
@@ -433,6 +413,51 @@
     // Save progress
     function saveProgress(data) {
         localStorage.setItem(storageKey, JSON.stringify(data));
+    }
+
+    // Render scripture text into a day's content div
+    function renderDayContent(day, data) {
+        var content = document.getElementById('content-' + day);
+        if (!content || !data.text) return;
+
+        var html = '';
+        data.text.forEach(function(section) {
+            html += '<div class="chapter-section">';
+            html += '<div class="chapter-heading">';
+            html += '<a href="/book/' + section.book + '/chapter/' + section.chapter + '">' + section.reference + '</a>';
+            html += '</div>';
+            html += '<div class="verse-text">';
+            section.verses.forEach(function(verse) {
+                html += '<sup class="verse-num">' + verse.verse + '</sup>' + verse.text + ' ';
+            });
+            html += '</div></div>';
+        });
+
+        content.innerHTML = html;
+        content.classList.remove('loading');
+        loadedDays[day] = true;
+    }
+
+    // Load day text from API
+    function loadDayText(day) {
+        if (loadedDays[day]) return Promise.resolve();
+
+        var content = document.getElementById('content-' + day);
+        content.innerHTML = 'Loading Scripture text...';
+        content.classList.add('loading');
+
+        return fetch('/api/reading-plans/' + planId + '/day/' + day)
+            .then(function(response) {
+                if (!response.ok) throw new Error('Failed to load');
+                return response.json();
+            })
+            .then(function(data) {
+                renderDayContent(day, data);
+            })
+            .catch(function(err) {
+                content.innerHTML = 'Failed to load Scripture text. <a href="javascript:void(0)" onclick="loadDayText(' + day + ')">Try again</a>';
+                content.classList.remove('loading');
+            });
     }
 
     // Update UI based on saved state
@@ -456,16 +481,6 @@
                 if (navEl) navEl.classList.remove('completed');
             }
         }
-
-        // Update expanded state
-        data.expanded.forEach(function(day) {
-            var content = document.getElementById('content-' + day);
-            var toggle = document.getElementById('toggle-' + day);
-            if (content) {
-                content.classList.add('expanded');
-                if (toggle) toggle.classList.add('expanded');
-            }
-        });
 
         // Update progress bar
         var percent = Math.round((completedCount / totalDays) * 100);
@@ -492,6 +507,20 @@
         }
     }
 
+    // Restore expanded state on load
+    function restoreExpandedState() {
+        var data = loadProgress();
+        data.expanded.forEach(function(day) {
+            var content = document.getElementById('content-' + day);
+            var toggle = document.getElementById('toggle-' + day);
+            if (content) {
+                content.classList.add('expanded');
+                if (toggle) toggle.classList.add('expanded');
+                loadDayText(day);
+            }
+        });
+    }
+
     // Toggle day expansion
     window.toggleDay = function(day, event) {
         if (event && event.target.classList.contains('day-checkbox')) return;
@@ -509,64 +538,60 @@
             content.classList.add('expanded');
             toggle.classList.add('expanded');
             if (data.expanded.indexOf(day) === -1) data.expanded.push(day);
+            loadDayText(day);
         }
         saveProgress(data);
     };
 
     // Mark day as complete/incomplete
+    // When checking a day, mark all previous days as complete
+    // When unchecking a day, uncheck all subsequent days
     window.markDay = function(day) {
         var data = loadProgress();
-        var idx = data.completed.indexOf(day);
+        var isCompleted = data.completed.indexOf(day) !== -1;
 
-        if (idx > -1) {
-            data.completed.splice(idx, 1);
+        if (isCompleted) {
+            // Unchecking: remove this day and all days after it
+            data.completed = data.completed.filter(function(d) {
+                return d < day;
+            });
         } else {
-            data.completed.push(day);
+            // Checking: add this day and all days before it
+            for (var i = 1; i <= day; i++) {
+                if (data.completed.indexOf(i) === -1) {
+                    data.completed.push(i);
+                }
+            }
         }
         saveProgress(data);
         updateUI();
-    };
-
-    // Expand all days
-    window.expandAll = function() {
-        var data = loadProgress();
-        data.expanded = [];
-        for (var i = 1; i <= totalDays; i++) {
-            var content = document.getElementById('content-' + i);
-            var toggle = document.getElementById('toggle-' + i);
-            if (content) {
-                content.classList.add('expanded');
-                data.expanded.push(i);
-            }
-            if (toggle) toggle.classList.add('expanded');
-        }
-        saveProgress(data);
-    };
-
-    // Collapse all days
-    window.collapseAll = function() {
-        var data = loadProgress();
-        data.expanded = [];
-        for (var i = 1; i <= totalDays; i++) {
-            var content = document.getElementById('content-' + i);
-            var toggle = document.getElementById('toggle-' + i);
-            if (content) content.classList.remove('expanded');
-            if (toggle) toggle.classList.remove('expanded');
-        }
-        saveProgress(data);
     };
 
     // Reset all progress
     window.resetProgress = function() {
         if (confirm('Reset all progress for this reading plan?')) {
             localStorage.removeItem(storageKey);
+            loadedDays = {};
+            // Collapse all
+            for (var i = 1; i <= totalDays; i++) {
+                var content = document.getElementById('content-' + i);
+                var toggle = document.getElementById('toggle-' + i);
+                if (content) {
+                    content.classList.remove('expanded');
+                    content.innerHTML = '';
+                }
+                if (toggle) toggle.classList.remove('expanded');
+            }
             updateUI();
-            collapseAll();
         }
     };
 
+    // Make loadDayText globally available for retry links
+    window.loadDayText = loadDayText;
+
     // Initialize
     updateUI();
+    restoreExpandedState();
 
     // Keyboard navigation
     var days = Array.from(document.querySelectorAll('.reading-day'));

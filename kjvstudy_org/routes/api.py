@@ -1264,6 +1264,52 @@ async def api_get_reading_plan(plan_id: str = Path(..., description="Reading pla
     return plan
 
 
+@router.get("/reading-plans/{plan_id}/day/{day_num}")
+async def api_get_reading_plan_day_text(
+    plan_id: str = Path(..., description="Reading plan ID", example="paul-epistles"),
+    day_num: int = Path(..., description="Day number", example=1)
+):
+    """Get the Scripture text for a specific day in a reading plan."""
+    plan = get_plan(plan_id)
+    if not plan:
+        raise HTTPException(status_code=404, detail="Reading plan not found")
+
+    all_days = plan.get('days') or plan.get('sample_days', [])
+
+    # Find the specific day
+    day_data = None
+    for day in all_days:
+        if day['day'] == day_num:
+            day_data = day
+            break
+
+    if not day_data:
+        raise HTTPException(status_code=404, detail=f"Day {day_num} not found in plan")
+
+    # Import the get_reading_text function from server
+    from ..server import get_reading_text
+
+    # Get the text for this day's readings
+    text_sections = get_reading_text(day_data['readings'])
+
+    # Convert Verse objects to dicts for JSON serialization
+    result = []
+    for section in text_sections:
+        result.append({
+            'book': section['book'],
+            'chapter': section['chapter'],
+            'reference': section['reference'],
+            'verses': [{'verse': v.verse, 'text': v.text} for v in section['verses']]
+        })
+
+    return {
+        'day': day_num,
+        'theme': day_data.get('theme', ''),
+        'readings': day_data['readings'],
+        'text': result
+    }
+
+
 @router.get("/stories")
 async def api_get_stories():
     """Get list of all Bible stories organized by category."""

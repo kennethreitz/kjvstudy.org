@@ -1471,17 +1471,16 @@ async def reading_plan_detail(request: Request, plan_id: str):
     if not plan:
         raise HTTPException(status_code=404, detail="Reading plan not found")
 
-    # Always include full Bible text - collapsible for longer plans
+    # Pass day info without text - text will be lazy loaded via API
     all_days = plan.get('days') or plan.get('sample_days', [])
-    days_with_text = []
+    days_data = []
     for day in all_days:
         day_data = {
             'day': day['day'],
             'theme': day.get('theme', ''),
-            'readings': day['readings'],
-            'text': get_reading_text(day['readings'])
+            'readings': day['readings']
         }
-        days_with_text.append(day_data)
+        days_data.append(day_data)
 
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -1499,8 +1498,8 @@ async def reading_plan_detail(request: Request, plan_id: str):
             "breadcrumbs": breadcrumbs,
             "pdf_available": WEASYPRINT_AVAILABLE,
             "pdf_url": f"/reading-plans/{plan_id}/pdf" if WEASYPRINT_AVAILABLE else None,
-            "days_with_text": days_with_text,
-            "total_days": plan.get('duration_days', len(days_with_text))
+            "days_data": days_data,
+            "total_days": plan.get('duration_days', len(days_data))
         }
     )
 
