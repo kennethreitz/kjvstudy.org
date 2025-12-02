@@ -126,11 +126,46 @@
             max-height: none !important;
         }
 
+        /* Mobile: hide sidenotes by default, show on click */
+        @media (max-width: 760px) {
+            .sidenote,
+            .marginnote {
+                display: none;
+            }
+
+            .margin-toggle:checked + .sidenote,
+            .margin-toggle:checked + .marginnote {
+                display: block;
+                float: left;
+                left: 1rem;
+                clear: both;
+                width: 95%;
+                margin: 1rem 2.5%;
+                vertical-align: baseline;
+                position: relative;
+                background-color: var(--code-bg);
+                padding: 1rem;
+                border-radius: 4px;
+                border-left: 3px solid var(--border-color-darker);
+            }
+
+            label.sidenote-number {
+                cursor: pointer;
+            }
+        }
+
         /* Ensure sidenotes respect explicit theme (override OS dark prefs from tufte.css) */
         .sidenote,
         .marginnote {
             background-color: transparent !important;
             color: var(--text-color) !important;
+        }
+
+        @media (max-width: 760px) {
+            .margin-toggle:checked + .sidenote,
+            .margin-toggle:checked + .marginnote {
+                background-color: var(--code-bg) !important;
+            }
         }
 
         [data-theme="dark"] .sidenote,
