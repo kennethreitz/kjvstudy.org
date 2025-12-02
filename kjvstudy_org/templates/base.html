@@ -184,6 +184,15 @@
             color: var(--link-hover) !important;
         }
 
+        /* Links inside red letter text should stay red */
+        .words-of-christ a {
+            color: #c41e3a !important;
+        }
+
+        [data-theme="dark"] .words-of-christ a {
+            color: #ff6b6b !important;
+        }
+
         a[href*="/book/"][href*="/chapter/"][href*="/verse/"]:not(.verse-number-link),
         a[href*="/book/"][href*="/chapter/"][href*="#verse-"]:not(.verse-number-link) {
             cursor: pointer;

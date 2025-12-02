@@ -672,7 +672,11 @@ document.addEventListener('keydown', function(e) {
     switch(e.key) {
       case '1':
         e.preventDefault();
-        window.location.href = '/';
+        window.location.href = '/book/Genesis';
+        break;
+      case '2':
+        e.preventDefault();
+        window.location.href = '/book/Matthew';
         break;
       case '`':
         e.preventDefault();
@@ -892,6 +896,8 @@ function showKeyboardHelp() {
       '<div class="keyboard-help-columns">' +
         '<div class="keyboard-help-section">' +
           '<h3>Navigation</h3>' +
+          '<div class="shortcut"><kbd>1</kbd><span>Genesis (OT)</span></div>' +
+          '<div class="shortcut"><kbd>2</kbd><span>Matthew (NT)</span></div>' +
           '<div class="shortcut"><kbd>b</kbd><span>Books</span></div>' +
           '<div class="shortcut"><kbd>s</kbd><span>Stories</span></div>' +
           '<div class="shortcut"><kbd>r</kbd><span>Resources</span></div>' +
