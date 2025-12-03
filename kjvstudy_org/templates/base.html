@@ -1500,7 +1500,7 @@
             <nav class="sticky-header-breadcrumb">
                 {% for crumb in breadcrumbs[:-1] %}
                 <a href="{{ crumb.url }}">{{ crumb.text }}</a>
-                {% if not loop.last %}<span class="sep">›</span>{% endif %}
+                {% if not loop.last %}<span class="sep">/</span>{% endif %}
                 {% endfor %}
             </nav>
         </div>
