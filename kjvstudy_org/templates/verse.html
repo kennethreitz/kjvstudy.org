@@ -931,12 +931,12 @@
 
 {% if cross_references %}
 <div class="cross-references-section" id="cross-references">
-    <button class="section-toggle expanded" onclick="toggleSection('crossrefs')" aria-expanded="true" aria-controls="crossrefs-content">
-        <span class="toggle-icon">▼</span>
+    <button class="section-toggle" onclick="toggleSection('crossrefs')" aria-expanded="false" aria-controls="crossrefs-content">
+        <span class="toggle-icon">▶</span>
         <span class="section-heading">Cross References</span>
         <span class="toggle-hint">({{ cross_references|length }} references)</span>
     </button>
-    <div id="crossrefs-content">
+    <div id="crossrefs-content" hidden>
         <p>Related verses that illuminate this passage:</p>
         <ul style="max-width: 65%; list-style: none; padding: 0;">
             {% for ref in cross_references %}
@@ -967,15 +967,15 @@
 <script>
 (function() {
     var pref = localStorage.getItem('crossrefs-expanded');
-    if (pref === 'false') {
+    if (pref === 'true') {
         var content = document.getElementById('crossrefs-content');
         var toggle = document.querySelector('.cross-references-section .section-toggle');
         if (content && toggle) {
             var icon = toggle.querySelector('.toggle-icon');
-            content.hidden = true;
-            toggle.setAttribute('aria-expanded', 'false');
-            icon.textContent = '▶';
-            toggle.classList.remove('expanded');
+            content.hidden = false;
+            toggle.setAttribute('aria-expanded', 'true');
+            icon.textContent = '▼';
+            toggle.classList.add('expanded');
         }
     }
 })();
