@@ -546,27 +546,6 @@ This directory contains all biblical reference data for the KJV Study applicatio
 
 ---
 
-### `verse_collections.json` (11K)
-**Contains**: Curated collections of verses grouped by theme
-
-**Structure**:
-```json
-{
-  "comfort": {
-    "title": "Verses of Comfort",
-    "description": "...",
-    "verses": [
-      {"ref": "Psalms 23:4", "text": "..."},
-      ...
-    ]
-  }
-}
-```
-
-**Used by**: Verse collection pages, themed verse displays
-
----
-
 ## Story Resources
 
 ### `stories/` Directory (24 files)

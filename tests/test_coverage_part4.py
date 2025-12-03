@@ -5,7 +5,6 @@ Targeting modules with lowest coverage:
 - reading_plans routes helper functions
 - search_index module
 - interlinear_loader module
-- verse_collections module
 - various uncovered code paths
 """
 import pytest
@@ -233,31 +232,6 @@ class TestInterlinearLoaderDirect:
         from kjvstudy_org.interlinear_loader import preload_data
         # Should not raise
         preload_data()
-
-
-class TestVerseCollections:
-    """Tests for verse_collections module."""
-
-    def test_get_all_collections(self):
-        """Test getting all verse collections."""
-        from kjvstudy_org.verse_collections import get_all_collections
-        result = get_all_collections()
-        assert isinstance(result, dict)
-
-    def test_get_collection_valid(self):
-        """Test getting a valid collection."""
-        from kjvstudy_org.verse_collections import get_all_collections, get_collection
-        all_collections = get_all_collections()
-        if all_collections:
-            collection_id = list(all_collections.keys())[0]
-            result = get_collection(collection_id)
-            assert result is not None
-
-    def test_get_collection_invalid(self):
-        """Test getting an invalid collection."""
-        from kjvstudy_org.verse_collections import get_collection
-        result = get_collection("nonexistent_collection_xyz")
-        assert result is None
 
 
 class TestKJVModuleExtended:
