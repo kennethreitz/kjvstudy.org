@@ -357,6 +357,11 @@ window.KJVNav = {
       clearSidebarSelection();
       self.sidebarActive = false;
       self.sidebarIndex = -1;
+      // Close sidebar on mobile when exiting nav mode
+      var sidebarToggle = document.getElementById('sidebar-toggle');
+      if (sidebarToggle && sidebarToggle.checked) {
+        sidebarToggle.checked = false;
+      }
       // Clear page nav selection if exists
       if (self.currentPageNav && self.currentPageNav.clearSelection) {
         self.currentPageNav.clearSelection();
@@ -369,6 +374,11 @@ window.KJVNav = {
       // 'n' to enter sidebar nav mode
       if (e.key === 'n' && !self.sidebarActive) {
         e.preventDefault();
+        // Open sidebar if it's not visible (mobile/collapsed state)
+        var sidebarToggle = document.getElementById('sidebar-toggle');
+        if (sidebarToggle && !sidebarToggle.checked) {
+          sidebarToggle.checked = true;
+        }
         self.sidebarActive = true;
         // Clear any page content selection
         if (self.currentPageNav && self.currentPageNav.clearSelection) {
