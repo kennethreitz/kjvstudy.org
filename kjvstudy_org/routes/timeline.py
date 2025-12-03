@@ -23,24 +23,34 @@ def init_templates(t: Jinja2Templates):
 # Helper Functions
 # =============================================================================
 
-def get_biblical_timeline_context():
-    """
-    Load comprehensive biblical timeline data from JSON file.
+# Cache timeline data at module level
+_TIMELINE_CACHE: dict | None = None
 
-    Returns tuple of (timeline_events, introduction, chronology_note, chronology_comparison, conclusion)
-    """
-    # Load timeline data from JSON file
+
+def _load_timeline_data() -> dict:
+    """Load timeline data from JSON file (internal, uncached)."""
     data_dir = Path(__file__).parent.parent / "data"
     timeline_path = data_dir / "biblical_timeline.json"
 
     with open(timeline_path, 'r', encoding='utf-8') as f:
-        timeline_data = json.load(f)
+        return json.load(f)
 
-    timeline_events = timeline_data.get("timeline_events", {})
-    introduction = timeline_data.get("introduction", "")
-    chronology_note = timeline_data.get("chronology_note", "")
-    chronology_comparison = timeline_data.get("chronology_comparison", [])
-    conclusion = timeline_data.get("conclusion", "")
+
+def get_biblical_timeline_context():
+    """
+    Load comprehensive biblical timeline data from JSON file (cached).
+
+    Returns tuple of (timeline_events, introduction, chronology_note, chronology_comparison, conclusion)
+    """
+    global _TIMELINE_CACHE
+    if _TIMELINE_CACHE is None:
+        _TIMELINE_CACHE = _load_timeline_data()
+
+    timeline_events = _TIMELINE_CACHE.get("timeline_events", {})
+    introduction = _TIMELINE_CACHE.get("introduction", "")
+    chronology_note = _TIMELINE_CACHE.get("chronology_note", "")
+    chronology_comparison = _TIMELINE_CACHE.get("chronology_comparison", [])
+    conclusion = _TIMELINE_CACHE.get("conclusion", "")
 
     return timeline_events, introduction, chronology_note, chronology_comparison, conclusion
 

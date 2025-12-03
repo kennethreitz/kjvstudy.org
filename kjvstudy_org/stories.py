@@ -3,6 +3,7 @@
 Loads all story JSON files and provides access to stories by category and slug.
 """
 import json
+from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
@@ -11,8 +12,8 @@ from typing import Optional
 STORIES_DIR = Path(__file__).parent / "data" / "stories"
 
 
-def load_all_stories() -> list[dict]:
-    """Load all story categories from JSON files."""
+def _load_all_stories_uncached() -> list[dict]:
+    """Load all story categories from JSON files (internal, uncached)."""
     categories = []
 
     if not STORIES_DIR.exists():
@@ -31,6 +32,18 @@ def load_all_stories() -> list[dict]:
             continue
 
     return categories
+
+
+# Load stories once at module import time
+_STORIES_CACHE: list[dict] | None = None
+
+
+def load_all_stories() -> list[dict]:
+    """Load all story categories from JSON files (cached)."""
+    global _STORIES_CACHE
+    if _STORIES_CACHE is None:
+        _STORIES_CACHE = _load_all_stories_uncached()
+    return _STORIES_CACHE
 
 
 def get_all_stories_flat() -> list[dict]:
