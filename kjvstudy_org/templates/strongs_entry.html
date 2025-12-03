@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Strong's {{ entry.strongs }} - {{ entry.word }} ({{ entry.transliteration }}) | {{ entry.language }} Lexicon{% endblock %}
+{% block title %}{{ entry.strongs }} - {{ entry.word }} - Strong's Concordance{% endblock %}
 
-{% block description %}Strong's {{ entry.strongs }}: {{ entry.word }} ({{ entry.transliteration }}) - {{ entry.definition[:150] }}. {{ entry.language }} word study with KJV translations and Bible occurrences.{% endblock %}
+{% block description %}{{ entry.strongs }}: {{ entry.word }} ({{ entry.transliteration }}) - {{ entry.definition[:150] }}{% endblock %}
 
 {% block head %}
 <style>
@@ -38,27 +38,6 @@
 .word-card > * {
     position: relative;
     z-index: 1;
-}
-
-/* Page header with Strong's number */
-.strongs-page h1 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.strongs-page h1 .strongs-id {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 0.25rem;
-}
-
-.strongs-page h1 .strongs-subtitle {
-    display: block;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--text-secondary);
 }
 
 .word-card .strongs-number {
@@ -573,10 +552,7 @@
 
 {% block content %}
 <div class="strongs-page">
-    <h1>
-        <span class="strongs-id">Strong's {{ entry.strongs }}</span>
-        <span class="strongs-subtitle">{{ entry.language }} Lexicon</span>
-    </h1>
+    <p class="subtitle" style="margin-bottom: 1.5rem;">Strong's Concordance</p>
 
     <div class="word-card">
         <div class="strongs-number">
