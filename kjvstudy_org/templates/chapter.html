@@ -47,6 +47,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    user-select: none;
 }
 
 label.sidenote-number {
@@ -733,22 +734,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Clean copied text to exclude sidenotes, verse numbers, and margin elements
-    // But allow copying if selection is entirely within a sidenote
     document.addEventListener('copy', function(e) {
         const selection = window.getSelection();
         if (!selection.rangeCount) return;
 
         const range = selection.getRangeAt(0);
-
-        // Check if selection is entirely within a sidenote or marginnote
-        const container = range.commonAncestorContainer;
-        const parentEl = container.nodeType === Node.TEXT_NODE ? container.parentElement : container;
-        if (parentEl && parentEl.closest('.sidenote, .marginnote')) {
-            // Allow normal copy behavior for sidenote content
-            return;
-        }
-
-        // Create a document fragment from the selection
         const fragment = range.cloneContents();
 
         // Create a temporary container
