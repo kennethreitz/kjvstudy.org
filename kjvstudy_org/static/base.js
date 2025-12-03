@@ -996,6 +996,12 @@ function showKeyboardHelp() {
 
 // Verse tooltip functionality
 (function() {
+  // Remove any existing tooltip (handles bfcache restoration)
+  var existingTooltip = document.querySelector('.verse-tooltip');
+  if (existingTooltip) {
+    existingTooltip.remove();
+  }
+
   // Create tooltip element
   var tooltip = document.createElement('div');
   tooltip.className = 'verse-tooltip';
@@ -1196,6 +1202,13 @@ function showKeyboardHelp() {
       hideTooltip();
       target.removeEventListener('mousemove', mouseMoveHandler);
     }, { once: true });
+  });
+
+  // Hide tooltip on page restore from bfcache (Safari fix)
+  window.addEventListener('pageshow', function() {
+    hideTooltip();
+    setTimeout(hideTooltip, 0);
+    setTimeout(hideTooltip, 100);
   });
 })();
 

@@ -53,16 +53,6 @@
     border-left-color: #d4af37;
 }
 
-.kekule-badge {
-    display: inline-block;
-    font-size: 0.75rem;
-    background: #d4af37;
-    color: white;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    margin-left: 0.5rem;
-}
-
 .person-name {
     font-size: 1.1rem;
     font-weight: 600;
@@ -127,7 +117,6 @@
         <div class="tree-node{% if is_root %} tree-node-root{% endif %}{% if node.kekule_number %} kekule{% endif %}">
             <div class="person-name">
                 <a href="/family-tree/person/{{ node.id }}">{{ node.name }}</a>
-                {% if node.kekule_number %}<span class="kekule-badge">#{{ node.kekule_number }}</span>{% endif %}
             </div>
             {% if node.generation %}
             <div class="person-meta">
