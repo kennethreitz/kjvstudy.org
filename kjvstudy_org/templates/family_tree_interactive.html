@@ -99,14 +99,14 @@
 
 /* Tree container */
 .tree-container {
-    max-width: 55%;
+    max-width: 80%;
     margin: 2rem 0;
 }
 
 /* Tree nodes */
 .tree-node {
-    margin: 0.5rem 0 0.5rem 1.5rem;
-    border-left: 2px solid #ddd;
+    margin: 1rem 0 1rem 2rem;
+    border-left: 2px solid #ccc;
     padding-left: 1rem;
 }
 
@@ -117,16 +117,9 @@
 }
 
 .tree-node.selected {
-    background: rgba(74, 124, 89, 0.1);
-    margin-left: calc(1.5rem - 4px);
-    padding-left: calc(1rem + 2px);
-    border-left: 4px solid #4a7c59;
-}
-
-.tree-node-root.selected {
-    margin-left: -4px;
-    padding-left: 6px;
-    border-left: 4px solid #4a7c59;
+    background: rgba(74, 124, 89, 0.08);
+    outline: 2px solid #4a7c59;
+    outline-offset: 4px;
 }
 
 .tree-node.kekule {
@@ -134,38 +127,14 @@
 }
 
 .tree-node.kekule.selected {
-    border-left-color: #d4af37;
-    background: rgba(212, 175, 55, 0.1);
-}
-
-.person-row {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    padding: 0.25rem 0;
-}
-
-.expand-toggle {
-    font-family: monospace;
-    font-size: 1rem;
-    width: 1.2rem;
-    color: #666;
-    cursor: pointer;
-    user-select: none;
-    flex-shrink: 0;
-}
-
-.expand-toggle:hover {
-    color: #4a7c59;
-}
-
-.expand-toggle.empty {
-    visibility: hidden;
+    background: rgba(212, 175, 55, 0.08);
+    outline-color: #d4af37;
 }
 
 .person-name {
     font-size: 1.1rem;
     font-weight: 600;
+    margin-bottom: 0.25rem;
 }
 
 .person-name a {
@@ -177,38 +146,17 @@
     text-decoration: underline;
 }
 
-.person-meta {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.person-spouse {
+.person-name .expand-toggle {
+    font-family: monospace;
     font-size: 0.9rem;
     color: #888;
-    font-style: italic;
+    cursor: pointer;
+    user-select: none;
+    margin-left: 0.5rem;
 }
 
-.person-spouse a {
-    color: #888;
-    text-decoration: none;
-}
-
-.person-spouse a:hover {
-    text-decoration: underline;
-}
-
-.person-verse {
-    font-size: 0.85rem;
-    color: #888;
-}
-
-.person-verse a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-.person-verse a:hover {
-    text-decoration: underline;
+.person-name .expand-toggle:hover {
+    color: #4a7c59;
 }
 
 .kekule-badge {
@@ -219,6 +167,30 @@
     padding: 0.1rem 0.4rem;
     border-radius: 3px;
     margin-left: 0.5rem;
+}
+
+.person-meta {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.person-details {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.person-details a {
+    color: #888;
+    text-decoration: none;
+}
+
+.person-details a:hover {
+    text-decoration: underline;
+}
+
+.person-verse a {
+    color: var(--link-color);
 }
 
 .children-container {
@@ -418,50 +390,43 @@ function buildTreeHTML(personId, depth = 0, visited = new Set(), isRoot = false)
 
     let html = `<div class="tree-node${isRoot ? ' tree-node-root' : ''}${hasKekule ? ' kekule' : ''}" data-id="${personId}">`;
 
-    // Person row
-    html += '<div class="person-row">';
-
-    // Expand toggle
-    if (hasChildren) {
-        html += `<span class="expand-toggle" data-id="${personId}">${isCollapsed ? '▶' : '▼'}</span>`;
-    } else {
-        html += '<span class="expand-toggle empty">·</span>';
-    }
-
-    // Name
-    html += `<span class="person-name"><a href="/family-tree/person/${personId}">${person.name}</a></span>`;
-
-    // Kekulé badge
+    // Name line with expand toggle showing child count
+    html += '<div class="person-name">';
+    html += `<a href="/family-tree/person/${personId}">${person.name}</a>`;
     if (hasKekule) {
         html += `<span class="kekule-badge">#${person.kekule_number}</span>`;
     }
+    if (hasChildren) {
+        html += `<span class="expand-toggle" data-id="${personId}">${isCollapsed ? '+' : '−'}</span>`;
+    }
+    html += '</div>';
 
-    // Meta info
-    let meta = [];
-    if (person.generation) meta.push(`Gen ${person.generation}`);
+    // Generation line
+    if (person.generation) {
+        html += `<div class="person-meta">Generation ${person.generation} from Adam</div>`;
+    }
+
+    // Details line (lifespan, children, spouse, verse)
+    let details = [];
 
     // Extract lifespan from death_year if it contains "Lived X years"
     const lifespanMatch = person.death_year && person.death_year.match(/Lived (\d+) years/);
     if (lifespanMatch) {
-        meta.push(`${lifespanMatch[1]} yrs`);
+        details.push(`Lived ${lifespanMatch[1]} years`);
     }
 
     // Number of children
     if (children.length > 0) {
-        meta.push(`${children.length} child${children.length > 1 ? 'ren' : ''}`);
+        details.push(`${children.length} ${children.length > 1 ? 'children' : 'child'}`);
     }
 
-    if (meta.length > 0) {
-        html += `<span class="person-meta">(${meta.join(', ')})</span>`;
-    }
-
-    // Spouse (try to link if they exist in data)
+    // Spouse
     if (person.spouse) {
         const spouseId = findPersonId(person.spouse);
         if (spouseId) {
-            html += `<span class="person-spouse">∞ <a href="/family-tree/person/${spouseId}">${person.spouse}</a></span>`;
+            details.push(`∞ <a href="/family-tree/person/${spouseId}">${person.spouse}</a>`);
         } else {
-            html += `<span class="person-spouse">∞ ${person.spouse}</span>`;
+            details.push(`∞ ${person.spouse}`);
         }
     }
 
@@ -474,11 +439,13 @@ function buildTreeHTML(personId, depth = 0, visited = new Set(), isRoot = false)
             const chapter = refMatch[2];
             const verseNum = refMatch[3];
             const verseUrl = `/book/${encodeURIComponent(book)}/chapter/${chapter}#verse-${verseNum}`;
-            html += `<span class="person-verse"><a href="${verseUrl}">${verse.reference}</a></span>`;
+            details.push(`<span class="person-verse"><a href="${verseUrl}">${verse.reference}</a></span>`);
         }
     }
 
-    html += '</div>';
+    if (details.length > 0) {
+        html += `<div class="person-details">${details.join(' · ')}</div>`;
+    }
 
     // Children
     if (hasChildren) {
@@ -509,46 +476,44 @@ function buildAncestorsHTML(personId, depth = 0, visited = new Set(), isRoot = f
 
     let html = `<div class="tree-node${isRoot ? ' tree-node-root' : ''}${hasKekule ? ' kekule' : ''}" data-id="${personId}">`;
 
-    html += '<div class="person-row">';
-
-    if (hasParents) {
-        html += `<span class="expand-toggle" data-id="${personId}">${isCollapsed ? '▶' : '▼'}</span>`;
-    } else {
-        html += '<span class="expand-toggle empty">·</span>';
-    }
-
-    html += `<span class="person-name"><a href="/family-tree/person/${personId}">${person.name}</a></span>`;
-
+    // Name line with expand toggle showing parent count
+    html += '<div class="person-name">';
+    html += `<a href="/family-tree/person/${personId}">${person.name}</a>`;
     if (hasKekule) {
         html += `<span class="kekule-badge">#${person.kekule_number}</span>`;
     }
+    if (hasParents) {
+        html += `<span class="expand-toggle" data-id="${personId}">${isCollapsed ? '+' : '−'}</span>`;
+    }
+    html += '</div>';
 
-    let meta = [];
-    if (person.generation) meta.push(`Gen ${person.generation}`);
+    // Generation line
+    if (person.generation) {
+        html += `<div class="person-meta">Generation ${person.generation} from Adam</div>`;
+    }
+
+    // Details line (lifespan, children count, spouse, verse)
+    let details = [];
 
     // Extract lifespan from death_year if it contains "Lived X years"
     const lifespanMatch = person.death_year && person.death_year.match(/Lived (\d+) years/);
     if (lifespanMatch) {
-        meta.push(`${lifespanMatch[1]} yrs`);
+        details.push(`Lived ${lifespanMatch[1]} years`);
     }
 
-    // Number of children (for ancestors view, show children count)
+    // Number of children
     const children = person.children || [];
     if (children.length > 0) {
-        meta.push(`${children.length} child${children.length > 1 ? 'ren' : ''}`);
+        details.push(`${children.length} ${children.length > 1 ? 'children' : 'child'}`);
     }
 
-    if (meta.length > 0) {
-        html += `<span class="person-meta">(${meta.join(', ')})</span>`;
-    }
-
-    // Spouse (try to link if they exist in data)
+    // Spouse
     if (person.spouse) {
         const spouseId = findPersonId(person.spouse);
         if (spouseId) {
-            html += `<span class="person-spouse">∞ <a href="/family-tree/person/${spouseId}">${person.spouse}</a></span>`;
+            details.push(`∞ <a href="/family-tree/person/${spouseId}">${person.spouse}</a>`);
         } else {
-            html += `<span class="person-spouse">∞ ${person.spouse}</span>`;
+            details.push(`∞ ${person.spouse}`);
         }
     }
 
@@ -561,11 +526,13 @@ function buildAncestorsHTML(personId, depth = 0, visited = new Set(), isRoot = f
             const chapter = refMatch[2];
             const verseNum = refMatch[3];
             const verseUrl = `/book/${encodeURIComponent(book)}/chapter/${chapter}#verse-${verseNum}`;
-            html += `<span class="person-verse"><a href="${verseUrl}">${verse.reference}</a></span>`;
+            details.push(`<span class="person-verse"><a href="${verseUrl}">${verse.reference}</a></span>`);
         }
     }
 
-    html += '</div>';
+    if (details.length > 0) {
+        html += `<div class="person-details">${details.join(' · ')}</div>`;
+    }
 
     if (hasParents) {
         html += `<div class="children-container${isCollapsed ? ' collapsed' : ''}" data-parent="${personId}">`;
@@ -650,7 +617,7 @@ function toggleNode(personId) {
     // Update the UI
     if (toggle && children) {
         const shouldCollapse = !isCurrentlyCollapsed;
-        toggle.textContent = shouldCollapse ? '▶' : '▼';
+        toggle.textContent = shouldCollapse ? '+' : '−';
         children.classList.toggle('collapsed', shouldCollapse);
     }
 
