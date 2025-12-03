@@ -682,6 +682,10 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault();
         window.location.href = '/book/Matthew';
         break;
+      case '9':
+        e.preventDefault();
+        window.location.href = '/book/Revelation';
+        break;
       case '`':
         e.preventDefault();
         var toggle = document.getElementById('sidebar-toggle');
@@ -903,6 +907,7 @@ function showKeyboardHelp() {
           '<div class="shortcut"><kbd>0</kbd><span>Homepage</span></div>' +
           '<div class="shortcut"><kbd>1</kbd><span>Genesis (OT)</span></div>' +
           '<div class="shortcut"><kbd>2</kbd><span>Matthew (NT)</span></div>' +
+          '<div class="shortcut"><kbd>9</kbd><span>Revelation</span></div>' +
           '<div class="shortcut"><kbd>b</kbd><span>Books</span></div>' +
           '<div class="shortcut"><kbd>s</kbd><span>Stories</span></div>' +
           '<div class="shortcut"><kbd>r</kbd><span>Resources</span></div>' +
