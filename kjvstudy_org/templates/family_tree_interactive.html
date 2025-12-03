@@ -1143,7 +1143,8 @@ function createPersonCard(d, showSpouse = true) {
     const data = d.data.data || d.data;
     const gender = data.gender || 'male';
     const hasHiddenChildren = d._children && d._children.length > 0;
-    const hasExpandableChildren = data.hasChildren && !d.children && !d._children;
+    // Check if node has children in source data but none displayed (at depth limit or collapsed)
+    const hasExpandableChildren = data.hasChildren && (!d.children || d.children.length === 0) && !d._children;
     const isCollapsed = hasHiddenChildren || hasExpandableChildren;
     const hasKekule = data.kekule_number !== null && data.kekule_number !== undefined;
     const isAncestor = data.isAncestor === true;  // Check if this is an ancestor node
@@ -1533,10 +1534,11 @@ function renderTree() {
         event.stopPropagation();
 
         const target = event.target;
+        const targetClass = target.getAttribute('class') || '';
 
         // Check if clicking on the info button
-        const isInfoClick = target.classList.contains('info-btn') ||
-                           target.classList.contains('info-icon');
+        const isInfoClick = targetClass.includes('info-btn') ||
+                           targetClass.includes('info-icon');
 
         if (isInfoClick) {
             showPersonInfo(d.data);
@@ -1544,12 +1546,13 @@ function renderTree() {
         }
 
         // Check if clicking on the expand indicator
-        const isExpandClick = target.classList.contains('expand-indicator') ||
-                             target.classList.contains('expand-icon');
+        const isExpandClick = targetClass.includes('expand-indicator') ||
+                             targetClass.includes('expand-icon');
 
         // Check if node can be expanded/collapsed
+        const data = d.data.data || d.data;
         const hasHiddenChildren = d._children && d._children.length > 0;
-        const hasExpandableChildren = d.data.data && d.data.data.hasChildren && !d.children && !d._children;
+        const hasExpandableChildren = data.hasChildren && (!d.children || d.children.length === 0) && !d._children;
         const canExpand = hasHiddenChildren || hasExpandableChildren;
 
         if (isExpandClick && canExpand) {
@@ -1784,10 +1787,11 @@ function renderTreeFromId(personId, animate = true) {
         event.stopPropagation();
 
         const target = event.target;
+        const targetClass = target.getAttribute('class') || '';
 
         // Check if clicking on the info button
-        const isInfoClick = target.classList.contains('info-btn') ||
-                           target.classList.contains('info-icon');
+        const isInfoClick = targetClass.includes('info-btn') ||
+                           targetClass.includes('info-icon');
 
         if (isInfoClick) {
             showPersonInfo(d.data);
@@ -1795,12 +1799,13 @@ function renderTreeFromId(personId, animate = true) {
         }
 
         // Check if clicking on the expand indicator
-        const isExpandClick = target.classList.contains('expand-indicator') ||
-                             target.classList.contains('expand-icon');
+        const isExpandClick = targetClass.includes('expand-indicator') ||
+                             targetClass.includes('expand-icon');
 
         // Check if node can be expanded/collapsed
+        const data = d.data.data || d.data;
         const hasHiddenChildren = d._children && d._children.length > 0;
-        const hasExpandableChildren = d.data.data && d.data.data.hasChildren && !d.children && !d._children;
+        const hasExpandableChildren = data.hasChildren && (!d.children || d.children.length === 0) && !d._children;
         const canExpand = hasHiddenChildren || hasExpandableChildren;
 
         if (isExpandClick && canExpand) {
@@ -1925,10 +1930,11 @@ function updateTree(source) {
             event.stopPropagation();
 
             const target = event.target;
+            const targetClass = target.getAttribute('class') || '';
 
             // Check if clicking on the info button
-            const isInfoClick = target.classList.contains('info-btn') ||
-                               target.classList.contains('info-icon');
+            const isInfoClick = targetClass.includes('info-btn') ||
+                               targetClass.includes('info-icon');
 
             if (isInfoClick) {
                 showPersonInfo(d.data);
@@ -1936,12 +1942,13 @@ function updateTree(source) {
             }
 
             // Check if clicking on the expand indicator
-            const isExpandClick = target.classList.contains('expand-indicator') ||
-                                 target.classList.contains('expand-icon');
+            const isExpandClick = targetClass.includes('expand-indicator') ||
+                                 targetClass.includes('expand-icon');
 
             // Check if node can be expanded
+            const data = d.data.data || d.data;
             const hasHiddenChildren = d._children && d._children.length > 0;
-            const hasExpandableChildren = d.data.data && d.data.data.hasChildren && !d.children && !d._children;
+            const hasExpandableChildren = data.hasChildren && (!d.children || d.children.length === 0) && !d._children;
             const canExpand = hasHiddenChildren || hasExpandableChildren;
 
             if (isExpandClick && canExpand) {
