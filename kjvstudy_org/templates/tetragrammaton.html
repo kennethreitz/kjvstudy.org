@@ -5,6 +5,11 @@
 
 {% block head %}
 <style>
+.verse-text {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
 .toc {
     max-width: 55%;
     margin: 2rem 0;
@@ -134,7 +139,7 @@
     {% for verse in section.verses %}
     <p style="margin: 1rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
         <strong><a href="/book/{{ verse.reference.rsplit(' ', 1)[0] }}/chapter/{{ verse.reference.rsplit(' ', 1)[1].split(':')[0] }}/verse/{{ verse.reference.rsplit(' ', 1)[1].split(':')[1] if ':' in verse.reference else '1' }}">{{ verse.reference }}</a></strong><br/>
-        <em style="color: #e8e8e8;">{{ verse.text }}</em>
+        <em class="verse-text">{{ verse.text }}</em>
     </p>
     {% endfor %}
     {% endif %}
