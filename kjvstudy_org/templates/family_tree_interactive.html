@@ -657,21 +657,25 @@ function expandPathTo(targetId) {
     const person = familyTreeData[targetId];
     if (!person) return;
 
-    // For descendants view, expand all ancestors of the target
+    // For descendants view, expand all ancestors of the target (walk up to root)
     if (currentRoot !== 'jesus') {
         const parents = person.parents || [];
         for (const parentId of parents) {
+            expandedNodes.add(parentId);
             collapsedNodes.delete(parentId);
             expandPathTo(parentId);
         }
     } else {
-        // For ancestors view, expand children path
+        // For ancestors view, expand children path (walk down to root)
         const children = person.children || [];
         for (const childId of children) {
+            expandedNodes.add(childId);
             collapsedNodes.delete(childId);
+            expandPathTo(childId);
         }
     }
 
+    expandedNodes.add(targetId);
     collapsedNodes.delete(targetId);
     renderTree();
 }
