@@ -228,7 +228,7 @@
 <h1>Books of the Bible</h1>
 <p class="subtitle">The Authorized King James Version</p>
 
-<section class="testament-section">
+<section id="old-testament" class="testament-section">
     <h2 class="testament-header">Old Testament</h2>
     <div class="book-grid">
         {% for book in old_testament %}
@@ -242,7 +242,7 @@
     </div>
 </section>
 
-<section class="testament-section">
+<section id="new-testament" class="testament-section">
     <h2 class="testament-header">New Testament</h2>
     <div class="book-grid">
         {% for book in new_testament %}
@@ -256,7 +256,7 @@
     </div>
 </section>
 
-<div class="legend">
+<div id="book-categories" class="legend">
     <div class="legend-title">Book Categories</div>
     <div class="legend-grid">
         <div class="legend-item">

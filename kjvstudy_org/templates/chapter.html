@@ -781,8 +781,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 {% if related_content and (related_content.topics or related_content.people or related_content.resources or related_content.stories) %}
-<div style="border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 3rem;">
-    <h2>Related Resources</h2>
+<div id="related-resources" style="border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 3rem;">
+    <h2 id="related-resources-heading">Related Resources</h2>
     <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
         Explore related topics, people, and study resources to deepen your understanding of this chapter.
     </p>

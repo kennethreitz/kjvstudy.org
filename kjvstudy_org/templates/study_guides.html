@@ -15,7 +15,7 @@
 </section>
 
 {% for category, guides in study_guides.items() %}
-<section>
+<section id="{{ category | lower | replace(' ', '-') }}">
     <h2>{{ category }}</h2>
 
     {% for guide in guides %}

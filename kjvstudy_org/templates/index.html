@@ -9,34 +9,41 @@
 /* Title Page - Classical Book Style */
 .title-page {
     text-align: center;
-    padding: 2.5rem 0 1.5rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
+    padding: 3rem 0 2rem;
+    margin-bottom: 2rem;
     margin-left: -150px;
 }
 
 .title-page h1 {
-    font-size: 2.6rem;
-    margin-bottom: 0.25rem;
-    letter-spacing: 0.02em;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.08em;
     font-weight: 400;
+    text-transform: uppercase;
 }
 
 .title-page .subtitle {
-    font-style: italic;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    margin: 0 0 1.25rem 0;
+    margin: 0 0 2rem 0;
     line-height: 1.6;
+    letter-spacing: 0.05em;
+}
+
+.title-page .divider {
+    width: 120px;
+    height: 1px;
+    background: var(--border-color-darker);
+    margin: 0 auto 2rem;
 }
 
 .title-page .epigraph {
-    max-width: 34rem;
+    max-width: 36rem;
     margin: 0 auto;
-    font-size: 1.05rem;
-    line-height: 1.7;
+    font-size: 1.15rem;
+    line-height: 1.8;
     font-style: italic;
-    color: var(--text-secondary);
+    color: var(--text-color);
 }
 
 .title-page .epigraph p {
@@ -44,234 +51,282 @@
 }
 
 .title-page .epigraph footer {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    font-style: normal;
 }
 
 .title-page .epigraph footer a {
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
 }
 
-/* Verse Lookup */
-.verse-lookup {
-    max-width: 32rem;
-    margin: 2rem auto;
-    margin-left: calc(50% - 16rem - 50px);
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    transition: all 0.2s;
+/* Search Section */
+.search-section {
+    max-width: 38rem;
+    margin: 0 auto 3rem;
+    margin-left: calc(50% - 19rem - 75px);
 }
 
-.verse-lookup.selected {
-    border-color: #4a7c59;
-    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
-    background: rgba(74, 124, 89, 0.03);
-}
-
-[data-theme="dark"] .verse-lookup.selected {
-    border-color: #6b9b7a;
-    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
-    background: rgba(107, 155, 122, 0.05);
-}
-
-.verse-lookup h2 {
-    margin-top: 0;
-    font-size: 1.1rem;
-    font-style: italic;
-    font-weight: 600;
-    text-align: center;
-}
-
-.lookup-form {
+.search-form {
     display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 0;
+    border: 1px solid var(--border-color-darker);
 }
 
-.lookup-input {
+.search-input {
     flex: 1;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border: 1px solid var(--border-color);
+    padding: 1rem 1.25rem;
+    font-size: 1.05rem;
+    border: none;
     background: var(--bg-color);
     color: var(--text-color);
     font-family: inherit;
 }
 
-.lookup-input:focus {
+.search-input:focus {
     outline: none;
-    border-color: var(--text-color);
 }
 
-.lookup-btn {
-    padding: 0.75rem 1.5rem;
+.search-input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.search-btn {
+    padding: 1rem 2rem;
     font-size: 1rem;
     background: var(--text-color);
     color: var(--bg-color);
-    border: 1px solid var(--text-color);
+    border: none;
     cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.05em;
 }
 
-.lookup-btn:hover {
-    background: var(--bg-color);
-    color: var(--text-color);
+.search-btn:hover {
+    opacity: 0.85;
 }
 
-.lookup-help {
+.search-help {
     font-size: 0.85rem;
     color: var(--text-tertiary);
-    margin-top: 0.5rem;
-    font-style: italic;
+    margin-top: 0.75rem;
     text-align: center;
 }
 
-/* Navigation Links */
-.nav-links {
+/* Quick Links */
+.quick-links {
     text-align: center;
-    margin: 1.5rem 0 2.5rem;
+    margin: 2rem 0 3rem;
     margin-left: -150px;
-    font-size: 1.05rem;
+    font-size: 1rem;
 }
 
-.nav-links a {
-    margin: 0 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 3px;
-    transition: all 0.2s;
-}
-
-.nav-links a.selected {
-    background: rgba(74, 124, 89, 0.15);
-    outline: 2px solid #4a7c59;
-    outline-offset: 2px;
-}
-
-[data-theme="dark"] .nav-links a.selected {
-    background: rgba(107, 155, 122, 0.15);
-    outline-color: #6b9b7a;
-}
-
-/* Daily verse link */
-.daily-verse-link {
-    padding: 0.15rem 0.4rem;
-    border-radius: 3px;
-    transition: all 0.2s;
-}
-
-.daily-verse-link.selected {
-    background: rgba(74, 124, 89, 0.15);
-    outline: 2px solid #4a7c59;
-    outline-offset: 2px;
-}
-
-[data-theme="dark"] .daily-verse-link.selected {
-    background: rgba(107, 155, 122, 0.15);
-    outline-color: #6b9b7a;
-}
-
-/* Feature Cards */
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
-
-.feature-card {
-    display: block;
-    padding: 1.25rem 1.5rem;
+.quick-links a {
+    display: inline-block;
+    margin: 0.25rem 0.75rem;
+    padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
-    text-decoration: none;
     color: var(--text-color);
-    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+    transition: all 0.2s;
 }
 
-.feature-card:hover,
-.feature-card:focus-visible {
-    border-color: var(--border-color-darker);
+.quick-links a:hover {
+    border-color: var(--text-color);
     background: var(--code-bg);
 }
 
-.feature-card.selected {
+.quick-links a.primary {
+    background: #4a7c59;
+    color: #fff !important;
     border-color: #4a7c59;
-    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
-    background: rgba(74, 124, 89, 0.05);
 }
 
-[data-theme="dark"] .feature-card.selected {
-    border-color: #6b9b7a;
-    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
-    background: rgba(107, 155, 122, 0.1);
+.quick-links a.primary:hover {
+    background: #3d6a4b;
+    border-color: #3d6a4b;
 }
 
-.feature-card h3 {
-    font-size: 1.05rem;
-    margin: 0 0 0.5rem 0;
-    color: var(--text-color);
+/* Section Styling */
+section {
+    margin-bottom: 3rem;
 }
 
-.feature-card p {
-    font-size: 0.92rem;
-    color: var(--text-secondary);
-    margin: 0;
-    line-height: 1.55;
+section h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-/* Explore Section */
-.explore-grid {
+/* Resource Grid */
+.resource-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
     margin: 1.5rem 0;
 }
 
-.explore-link {
+.resource-card {
     display: block;
-    padding: 1rem;
-    text-align: center;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
     text-decoration: none;
     color: var(--text-color);
-    border: 1px solid var(--border-color);
-    font-size: 0.95rem;
     transition: all 0.2s;
 }
 
-.explore-link:hover {
+.resource-card:hover {
     border-color: var(--border-color-darker);
     background: var(--code-bg);
 }
 
-.explore-link.selected {
-    border-color: #4a7c59;
-    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
-    background: rgba(74, 124, 89, 0.05);
+.resource-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
 }
 
-[data-theme="dark"] .explore-link.selected {
-    border-color: #6b9b7a;
-    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
-    background: rgba(107, 155, 122, 0.1);
+.resource-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
 }
 
-.explore-link.featured {
-    border-color: #d4af37;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.03));
+/* Topic Links */
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin: 1.5rem 0;
 }
 
-.explore-link.featured:hover {
-    border-color: #b8972e;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+.topic-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    transition: all 0.2s;
 }
 
-[data-theme="dark"] .explore-link.featured {
-    border-color: #d4af37;
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+.topic-link:hover {
+    border-color: var(--border-color-darker);
+    background: var(--code-bg);
+}
+
+/* Interlinear Sample */
+.interlinear-samples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1.5rem 0;
+}
+
+.interlinear-sample {
+    padding: 0;
+}
+
+.sample-reference {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.sample-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.sample-word {
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.sample-original {
+    display: block;
+    font-size: 2.2rem;
+    color: var(--text-color);
+    margin-bottom: 0.35rem;
+}
+
+.sample-original.greek {
+    font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
+}
+
+.sample-original.hebrew {
+    font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif;
+    direction: rtl;
+}
+
+.sample-english {
+    display: block;
+    font-size: 0.85rem;
+    color: #4a7c59;
+    font-weight: 600;
+}
+
+.sample-strongs {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    margin-top: 0.15rem;
+}
+
+.sample-link {
+    font-size: 0.9rem;
+}
+
+/* Interactive Resources */
+.interactive-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+/* Testament Columns */
+.testament-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 1.5rem 0;
+}
+
+.testament h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.testament p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0 0 1rem 0;
+    color: var(--text-secondary);
+}
+
+.testament a.view-all {
+    font-size: 0.9rem;
+    color: var(--text-color);
 }
 
 /* Footer */
 .home-footer {
-    margin-top: 2.5rem;
-    padding-top: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
     text-align: center;
 }
@@ -283,54 +338,80 @@
 
 .home-footer a {
     color: var(--text-tertiary);
-    border-bottom: 1px dotted var(--border-color-darker);
+}
+
+/* Selection states */
+.selected {
+    outline: 2px solid #4a7c59 !important;
+    outline-offset: 2px;
+    background: rgba(74, 124, 89, 0.05) !important;
+}
+
+[data-theme="dark"] .selected {
+    outline-color: #6b9b7a !important;
+    background: rgba(107, 155, 122, 0.1) !important;
 }
 
 /* Mobile */
 @media (max-width: 760px) {
     .title-page {
-        padding: 1.5rem 0 1rem;
+        padding: 2rem 0 1.5rem;
         margin-left: 0;
     }
 
     .title-page h1 {
         font-size: 2rem;
+        letter-spacing: 0.04em;
     }
 
     .title-page .epigraph {
-        font-size: 0.95rem;
+        font-size: 1rem;
+        padding: 0 1rem;
     }
 
-    .verse-lookup {
+    .search-section {
         max-width: 100%;
         margin-left: auto;
-        padding: 1.25rem;
+        margin-right: auto;
     }
 
-    .nav-links {
-        margin-left: 0;
-    }
-
-    .lookup-form {
+    .search-form {
         flex-direction: column;
     }
 
-    .lookup-btn {
+    .search-btn {
         width: 100%;
     }
 
-    .nav-links a {
-        display: inline-block;
-        margin: 0.25rem 0.5rem;
+    .quick-links {
+        margin-left: 0;
     }
 
-    .feature-grid {
+    .quick-links a {
+        margin: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .interlinear-samples {
         grid-template-columns: 1fr;
-        gap: 1rem;
     }
 
-    .explore-grid {
+    .resource-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topic-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .interactive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testament-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 }
 </style>
@@ -340,63 +421,149 @@
 <div class="title-page">
     <h1>The Holy Bible</h1>
     <p class="subtitle">Authorized King James Version · <em>Anno Domini</em> 1611</p>
+    <div class="divider"></div>
     <div class="epigraph">
-        <p>{{ daily_verse.text | link_names | safe }}</p>
-        <footer>— <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}" class="daily-verse-link">{{ daily_verse.reference }}</a></footer>
+        <p>"{{ daily_verse.text | link_names | safe }}"</p>
+        <footer>— <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a></footer>
     </div>
 </div>
 
-<section class="verse-lookup" id="search-section">
-    <h2>Search or Navigate Scripture</h2>
-    <form class="lookup-form" onsubmit="return handleSearch(event)">
-        <input type="text" class="lookup-input" id="verse-lookup-input"
-               placeholder="Search scripture or jump to verse..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-        <button type="submit" class="lookup-btn">Go</button>
+<div class="search-section" id="search-section">
+    <form class="search-form" onsubmit="return handleSearch(event)">
+        <input type="text" class="search-input" id="verse-lookup-input"
+               placeholder="John 3:16, Romans 8, or search any word..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+        <button type="submit" class="search-btn">Go</button>
     </form>
-    <div class="lookup-help">Navigate: John 3:16, Romans 8, Genesis · Search: love, faith, salvation</div>
-</section>
+    <div class="search-help">Navigate to any verse or search the Scriptures</div>
+</div>
 
-<p class="nav-links">
-    <strong><a href="/books">Browse All 66 Books</a></strong> ·
-    <a href="/random-verse">Random Verse</a> ·
-    <a href="/reading-plans">Reading Plans</a> ·
-    <a href="/topics">Topics</a> ·
+<div class="quick-links">
+    <a href="/books" class="primary">Browse All 66 Books</a>
+    <a href="/random-verse">Random Verse</a>
+    <a href="/reading-plans">Reading Plans</a>
+    <a href="/topics">Topics</a>
     <a href="/resources">Resources</a>
-</p>
+</div>
 
 <section>
-    <p><span class="newthought">Welcome to KJV Study</span>, a digital resource for studying the Authorized Version of the Holy Scriptures.<label for="sn-welcome" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-welcome" class="margin-toggle"/><span class="sidenote">This digital edition presents the 1769 Oxford Standard text, enriched with apparatus drawn from judicious commentators and modern scholarship. Scripture is profitable 'for doctrine, for reproof, for correction, for instruction in righteousness' (2 Timothy 3:16)—yet such profit requires more than cursory reading.</span> This site provides the complete text of the King James Bible enriched with original language analysis, cross-references, historical context, and theological commentary—instruments designed to help both the careful scholar and the earnest student understand God's Word more deeply.</p>
+    <p><span class="newthought">Welcome to KJV Study</span>, a digital resource for studying the Authorized Version of the Holy Scriptures.<label for="sn-welcome" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-welcome" class="margin-toggle"/><span class="sidenote">This digital edition presents the 1769 Oxford Standard text, enriched with apparatus drawn from judicious commentators and modern scholarship.</span> This site provides the complete text of the King James Bible enriched with original language analysis, cross-references, historical context, and theological commentary—instruments designed to help both the careful scholar and the earnest student understand God's Word more deeply.</p>
 
-    <p><span class="newthought">The King James Bible</span> is not merely a translation—it is the wellspring of English itself.<label for="sn-wellspring" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-wellspring" class="margin-toggle"/><span class="sidenote">When Lincoln spoke of 'a house divided,' when King dreamed from the mountaintop, when the weary whisper 'thy will, not mine'—they drew from this well.</span> For four centuries, its cadences have shaped how we speak of love and death, justice and mercy, the weight of truth and the gravity of oath. To study the King James is to study the foundations of the language. To read it is to hear the echo beneath all English prose that reaches for the sacred.</p>
+    <p><span class="newthought">The King James Bible</span> is not merely a translation—it is the wellspring of English itself.<label for="sn-wellspring" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-wellspring" class="margin-toggle"/><span class="sidenote">When Lincoln spoke of 'a house divided,' when King dreamed from the mountaintop, when the weary whisper 'thy will, not mine'—they drew from this well.</span> For four centuries, its cadences have shaped how we speak of love and death, justice and mercy, the weight of truth and the gravity of oath.</p>
+</section>
+
+<section>
+    <h2>Original Language Study</h2>
+
+    <p><span class="newthought">Study Scripture</span> word-by-word in Hebrew and Greek. Each word shows the original text, transliteration, Strong's number, and English translation.</p>
+
+    <div class="interlinear-samples">
+        <div class="interlinear-sample">
+            <div class="sample-reference">Genesis 1:1 (Hebrew)</div>
+            <div class="sample-words">
+                <div class="sample-word">
+                    <span class="sample-original hebrew">בְּרֵאשִׁית</span>
+                    <span class="sample-english">In the beginning</span>
+                    <span class="sample-strongs">H7225</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original hebrew">בָּרָא</span>
+                    <span class="sample-english">created</span>
+                    <span class="sample-strongs">H1254</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original hebrew">אֱלֹהִים</span>
+                    <span class="sample-english">God</span>
+                    <span class="sample-strongs">H430</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original hebrew">הַשָּׁמַיִם</span>
+                    <span class="sample-english">the heavens</span>
+                    <span class="sample-strongs">H8064</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original hebrew">הָאָרֶץ</span>
+                    <span class="sample-english">the earth</span>
+                    <span class="sample-strongs">H776</span>
+                </div>
+            </div>
+            <a href="/book/Genesis/chapter/1/verse/1" class="sample-link">View full analysis →</a>
+        </div>
+
+        <div class="interlinear-sample">
+            <div class="sample-reference">John 1:1 (Greek)</div>
+            <div class="sample-words">
+                <div class="sample-word">
+                    <span class="sample-original greek">Ἐν</span>
+                    <span class="sample-english">In</span>
+                    <span class="sample-strongs">G1722</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original greek">ἀρχῇ</span>
+                    <span class="sample-english">the beginning</span>
+                    <span class="sample-strongs">G746</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original greek">ἦν</span>
+                    <span class="sample-english">was</span>
+                    <span class="sample-strongs">G1510</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original greek">ὁ</span>
+                    <span class="sample-english">the</span>
+                    <span class="sample-strongs">G3588</span>
+                </div>
+                <div class="sample-word">
+                    <span class="sample-original greek">λόγος</span>
+                    <span class="sample-english">Word</span>
+                    <span class="sample-strongs">G3056</span>
+                </div>
+            </div>
+            <a href="/book/John/chapter/1/verse/1" class="sample-link">View full analysis →</a>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Theological Commentary</h2>
+
+    <p><span class="newthought">Over 20,000 verses</span> include scholarly commentary exploring historical context, theological significance, and practical application.<label for="sn-commentary" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-commentary" class="margin-toggle"/><span class="sidenote">Commentary draws from the Church Fathers, classical expositors, and contemporary biblical scholarship—always in service of the text itself.</span> Cross-references illuminate connections across Scripture, while study notes clarify difficult passages and unfamiliar customs of the ancient world.</p>
+
+    <p>
+        <a href="/book/Genesis/chapter/1/verse/1#commentary">Genesis 1:1</a> ·
+        <a href="/book/John/chapter/1/verse/1#commentary">John 1:1</a> ·
+        <a href="/book/Romans/chapter/9/verse/13#commentary">Romans 9:13</a> ·
+        <a href="/book/Hebrews/chapter/6/verse/4#commentary">Hebrews 6:4</a> ·
+        <a href="/book/1%20John/chapter/4/verse/4#commentary">1 John 4:4</a>
+    </p>
 </section>
 
 <section>
     <h2>Study Resources</h2>
 
-    <div class="feature-grid">
-        <a class="feature-card" href="/interlinear">
+    <div class="resource-grid">
+        <a class="resource-card" href="/interlinear">
             <h3>Original Languages</h3>
-            <p>Word-by-word Hebrew (תּוֹרָה) and Greek (Ἑλληνική) analysis with Strong's numbers, transliterations, parsing, and lexical definitions.</p>
+            <p>Word-by-word Hebrew and Greek analysis with Strong's numbers, transliterations, and lexical definitions.</p>
         </a>
-        <a class="feature-card" href="/strongs">
+        <a class="resource-card" href="/strongs">
             <h3>Strong's Concordance</h3>
-            <p>Search Hebrew and Greek word definitions with Strong's numbers. Browse all 14,000+ original language entries with KJV translations.</p>
+            <p>Search 14,000+ Hebrew and Greek word definitions with Strong's numbers and KJV translations.</p>
         </a>
-        <a class="feature-card" href="/topics">
+        <a class="resource-card" href="/topics">
             <h3>Topical Index</h3>
-            <p>Scripture organized by subject—Salvation, Grace, Faith, Prayer, Forgiveness, the Holy Spirit, and other essential doctrines.</p>
+            <p>Scripture organized by subject—Salvation, Grace, Faith, Prayer, and other essential doctrines.</p>
         </a>
-        <a class="feature-card" href="/study-guides">
+        <a class="resource-card" href="/study-guides">
             <h3>Study Guides</h3>
-            <p>Thematic studies exploring salvation, Christian living, prayer, and foundational doctrines with extensive Scripture references.</p>
+            <p>Thematic studies exploring salvation, Christian living, prayer, and foundational doctrines.</p>
         </a>
-        <a class="feature-card" href="/stories">
+        <a class="resource-card" href="/stories">
             <h3>Bible Stories</h3>
-            <p>Scripture narratives from Creation to the early Church, with both adult versions and kid-friendly retellings for family devotions.</p>
+            <p>Scripture narratives from Creation to the early Church, with versions for adults and families.</p>
         </a>
-        <a class="feature-card" href="/reading-plans">
+        <a class="resource-card" href="/reading-plans">
             <h3>Reading Plans</h3>
-            <p>Structured schedules for systematic Scripture study: chronological, one-year, New Testament, Gospels, Psalms & Proverbs.</p>
+            <p>Structured schedules for systematic study: chronological, one-year, Gospels, Psalms & Proverbs.</p>
         </a>
     </div>
 </section>
@@ -404,67 +571,54 @@
 <section>
     <h2>The Sacred Scriptures</h2>
 
-    <p><span class="newthought">The Holy Bible</span> comprises sixty-six books penned by approximately forty authors over fifteen centuries—yet unified by one divine Author.<label for="sn-scriptures" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-scriptures" class="margin-toggle"/><span class="sidenote">The Hebrew Scriptures (תנ״ך, <em>TaNaKh</em>) consist of תּוֹרָה (<em>Torah</em>, Law), נְבִיאִים (<em>Nevi'im</em>, Prophets), and כְּתוּבִים (<em>Ketuvim</em>, Writings). The Greek New Testament (καινὴ διαθήκη) records Christ's incarnation, the establishment of His church, and apostolic teaching.</span> These sacred writings preserve God's progressive self-revelation to humanity: His character, His purposes, and His redemptive plan accomplished through Jesus Christ. The Scriptures consist of two testaments, the Old and the New, which together form a coherent testimony to the gospel.</p>
+    <p><span class="newthought">The Authorized Version</span>, commissioned by King James I in 1604 and completed in 1611,<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators worked in six companies at Westminster, Oxford, and Cambridge, consulting the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew).</span> represents the work of forty-seven learned divines and scholars. This translation has shaped English-speaking Christianity for more than four centuries, achieving a remarkable union of scholarly precision with nobility of expression. This digital edition presents the 1769 Oxford Standard text.</p>
+</section>
 
-    <p><span class="newthought">The Old Testament</span> contains God's covenant with Israel, from creation through the prophetic age. It includes the Law of Moses (<em>Torah</em>), which establishes God's covenant and moral order; the Historical Books, which narrate Israel's history from conquest to exile and restoration; the Wisdom Literature, which explores the deepest questions of human existence; and the Prophets, who called Israel to faithfulness and foretold the coming Messiah.</p>
+<section>
+    <h2>Interactive Resources</h2>
 
-    <p><span class="newthought">The New Testament</span> presents the fulfillment of Old Testament promises in Jesus Christ. The four Gospels provide comprehensive testimony to Christ's life, death, and resurrection from different perspectives. Acts chronicles the early church's establishment and growth. The Epistles expound Christian doctrine and provide pastoral instruction. Revelation unveils the consummation of God's redemptive plan.</p>
-
-    <p><strong><a href="/books">Browse all sixty-six books</a></strong> to read any chapter or verse.</p>
+    <div class="interactive-grid">
+        <a href="/family-tree" class="topic-link">Genealogies & Family Trees</a>
+        <a href="/biblical-timeline" class="topic-link">Biblical Timeline</a>
+        <a href="/maps" class="topic-link">Maps</a>
+        <a href="/stories" class="topic-link">Bible Stories</a>
+    </div>
 </section>
 
 <section>
     <h2>Theological Studies</h2>
 
-    <p><span class="newthought">Explore</span> the riches of Scripture through in-depth studies of major biblical themes, persons, and theological concepts:</p>
-
-    <div class="explore-grid">
-        <a href="/trinity" class="explore-link">The Trinity</a>
-        <a href="/christology" class="explore-link">Christology</a>
-        <a href="/pneumatology" class="explore-link">Pneumatology</a>
-        <a href="/soteriology" class="explore-link">Soteriology</a>
-        <a href="/ecclesiology" class="explore-link">Ecclesiology</a>
-        <a href="/eschatology" class="explore-link">Eschatology</a>
-        <a href="/kingdom-of-god" class="explore-link">The Kingdom of God</a>
-        <a href="/types-and-shadows" class="explore-link">Types and Shadows</a>
-        <a href="/messianic-prophecies" class="explore-link">Messianic Prophecies</a>
-        <a href="/blood-in-scripture" class="explore-link">The Blood in Scripture</a>
-        <a href="/names-of-christ" class="explore-link">Names of Christ</a>
-        <a href="/spirits-and-demons" class="explore-link">Spirits & Demons</a>
-        <a href="/personifications" class="explore-link">Personifications</a>
-        <a href="/names-of-god" class="explore-link">Names of God</a>
-        <a href="/tetragrammaton" class="explore-link">The Tetragrammaton</a>
-        <a href="/i-am-statements" class="explore-link">I Am Statements</a>
-        <a href="/biblical-covenants" class="explore-link">Biblical Covenants</a>
-        <a href="/ten-commandments" class="explore-link">Ten Commandments</a>
-        <a href="/beatitudes" class="explore-link">The Beatitudes</a>
-        <a href="/parables" class="explore-link">Parables of Jesus</a>
-        <a href="/miracles-of-jesus" class="explore-link">Miracles of Jesus</a>
-        <a href="/prayers-of-the-bible" class="explore-link">Prayers of the Bible</a>
-        <a href="/armor-of-god" class="explore-link">Armor of God</a>
-        <a href="/fruits-of-the-spirit" class="explore-link">Fruits of the Spirit</a>
-        <a href="/biblical-festivals" class="explore-link">Biblical Festivals</a>
-        <a href="/the-twelve-apostles" class="explore-link">The Twelve Apostles</a>
-        <a href="/biblical-prophets" class="explore-link">The Prophets</a>
-        <a href="/women-of-the-bible" class="explore-link">Women of the Bible</a>
-        <a href="/biblical-angels" class="explore-link">Angelology</a>
-        <a href="/biblical-timeline" class="explore-link featured">Biblical Timeline</a>
-        <a href="/family-tree" class="explore-link featured">Genealogies</a>
-        <a href="/stories" class="explore-link">Bible Stories</a>
+    <div class="topic-grid">
+        <a href="/trinity" class="topic-link">The Trinity</a>
+        <a href="/christology" class="topic-link">Christology</a>
+        <a href="/pneumatology" class="topic-link">Pneumatology</a>
+        <a href="/soteriology" class="topic-link">Soteriology</a>
+        <a href="/ecclesiology" class="topic-link">Ecclesiology</a>
+        <a href="/eschatology" class="topic-link">Eschatology</a>
+        <a href="/kingdom-of-god" class="topic-link">The Kingdom of God</a>
+        <a href="/types-and-shadows" class="topic-link">Types and Shadows</a>
+        <a href="/messianic-prophecies" class="topic-link">Messianic Prophecies</a>
+        <a href="/blood-in-scripture" class="topic-link">The Blood in Scripture</a>
+        <a href="/names-of-christ" class="topic-link">Names of Christ</a>
+        <a href="/spirits-and-demons" class="topic-link">Spirits & Demons</a>
+        <a href="/personifications" class="topic-link">Personifications</a>
+        <a href="/names-of-god" class="topic-link">Names of God</a>
+        <a href="/tetragrammaton" class="topic-link">The Tetragrammaton</a>
+        <a href="/i-am-statements" class="topic-link">I Am Statements</a>
+        <a href="/biblical-covenants" class="topic-link">Biblical Covenants</a>
+        <a href="/ten-commandments" class="topic-link">Ten Commandments</a>
+        <a href="/beatitudes" class="topic-link">The Beatitudes</a>
+        <a href="/parables" class="topic-link">Parables of Jesus</a>
+        <a href="/miracles-of-jesus" class="topic-link">Miracles of Jesus</a>
+        <a href="/prayers-of-the-bible" class="topic-link">Prayers of the Bible</a>
+        <a href="/armor-of-god" class="topic-link">Armor of God</a>
+        <a href="/fruits-of-the-spirit" class="topic-link">Fruits of the Spirit</a>
+        <a href="/biblical-festivals" class="topic-link">Biblical Festivals</a>
+        <a href="/the-twelve-apostles" class="topic-link">The Twelve Apostles</a>
+        <a href="/biblical-prophets" class="topic-link">The Prophets</a>
+        <a href="/women-of-the-bible" class="topic-link">Women of the Bible</a>
+        <a href="/biblical-angels" class="topic-link">Angelology</a>
     </div>
-</section>
-
-<section>
-    <h2>Study Guides</h2>
-
-    {% for category, guides in study_guides.items() %}
-    <p><span class="newthought">{{ category }}</span> —
-    {% for guide in guides %}<a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
-    {% endfor %}
-</section>
-
-<section>
-    <p><span class="newthought">About the Translation</span> — The Authorized Version, commissioned by King James I in 1604 and completed in 1611,<label for="sn-translation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-translation" class="margin-toggle"/><span class="sidenote">The translators worked in six companies at Westminster, Oxford, and Cambridge. They consulted previous English translations—particularly Tyndale, whose felicity of phrase permeates the work—while maintaining fidelity to the original tongues.</span> represents the work of forty-seven learned divines and scholars working from the <em>Textus Receptus</em> (Greek) and <em>Masoretic Text</em> (Hebrew). This translation has shaped English-speaking Christianity for more than four centuries, achieving a remarkable union of scholarly precision with nobility of expression. This digital edition presents the 1769 Oxford Standard text.</p>
 </section>
 
 <div class="home-footer">
@@ -575,100 +729,38 @@ function handleSearch(event) {
     return false;
 }
 
-// Combined keyboard navigation for intro + feature cards + explore links + daily verse (skip title, lookup, nav links)
-var dailyVerseLink = Array.from(document.querySelectorAll('.daily-verse-link'));
-var featureCards = Array.from(document.querySelectorAll('.feature-card'));
-var exploreLinks = Array.from(document.querySelectorAll('.explore-link'));
-var introParagraphs = Array.from(document.querySelectorAll('.intro-text'));
-var allCards = (introParagraphs.length ? introParagraphs : [])
-    .concat(featureCards)
-    .concat(exploreLinks)
-    .concat(dailyVerseLink);
-var selectedCardIndex = -1;
+// Keyboard navigation
+var navItems = Array.from(document.querySelectorAll('.resource-card, .topic-link, .quick-links a'));
+var selectedIndex = -1;
 
-function getGridColumns() {
-    // Detect number of columns based on viewport and which section we're in
-    var introEnd = introParagraphs.length;
-    var featureEnd = introEnd + featureCards.length;
-    var exploreEnd = featureEnd + exploreLinks.length;
-
-    // Intro and daily verse: single column
-    if (selectedCardIndex < introEnd) return 1;
-    if (selectedCardIndex >= exploreEnd) return 1;
-
-    if (window.innerWidth <= 760) {
-        // Mobile: feature cards = 1 col, explore = 2 cols
-        return selectedCardIndex < featureEnd ? 1 : 2;
+function selectItem(index) {
+    if (selectedIndex >= 0 && selectedIndex < navItems.length) {
+        navItems[selectedIndex].classList.remove('selected');
     }
-    // Desktop: feature cards = 3 cols, explore = 4 cols
-    return selectedCardIndex < featureEnd ? 3 : 4;
-}
-
-function selectCard(index) {
-    // Remove previous selection
-    if (selectedCardIndex >= 0 && selectedCardIndex < allCards.length) {
-        allCards[selectedCardIndex].classList.remove('selected');
-    }
-
-    // Update index with bounds checking
-    selectedCardIndex = Math.max(0, Math.min(index, allCards.length - 1));
-
-    // Add selection to new card
-    allCards[selectedCardIndex].classList.add('selected');
-
-    // Scroll into view
-    allCards[selectedCardIndex].scrollIntoView({
-        behavior: 'auto',
-        block: 'center'
-    });
+    selectedIndex = Math.max(0, Math.min(index, navItems.length - 1));
+    navItems[selectedIndex].classList.add('selected');
+    navItems[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
 }
 
 document.addEventListener('keydown', function(e) {
-    if (e.defaultPrevented) return;
     var el = document.activeElement;
     var isTyping = el.tagName === 'INPUT' || el.tagName === 'TEXTAREA';
 
-    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        if (!isTyping) {
-            e.preventDefault();
-            document.getElementById('verse-lookup-input').focus();
-        }
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey && !isTyping) {
+        e.preventDefault();
+        document.getElementById('verse-lookup-input').focus();
     }
 
-    // Arrow keys for cards (2D grid navigation)
     if (!isTyping) {
-        var cols = getGridColumns();
-
-        if (e.key === 'ArrowRight' || e.key === 'l') {
+        if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectCard(selectedCardIndex + 1);
-        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
-            e.preventDefault();
-            selectCard(selectedCardIndex - 1);
-        } else if (e.key === 'ArrowDown' || e.key === 'j') {
-            e.preventDefault();
-            selectCard(selectedCardIndex < 0 ? 0 : selectedCardIndex + cols);
+            selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            selectCard(selectedCardIndex - cols);
-        }
-    }
-
-    // Enter key: navigate to selected card or books page
-    if (e.key === 'Enter' && !isTyping && el.tagName !== 'A' && el.tagName !== 'BUTTON') {
-        e.preventDefault();
-        if (selectedCardIndex >= 0) {
-            var selectedEl = allCards[selectedCardIndex];
-            // If search section is selected, focus the input
-            if (selectedEl.id === 'search-section') {
-                document.getElementById('verse-lookup-input').focus();
-            } else if (selectedEl.href) {
-                window.location.href = selectedEl.href;
-            } else if (selectedEl.classList.contains('intro-text') || selectedEl.classList.contains('subtitle')) {
-                // no navigation; allow speech/selection only
-            }
-        } else {
-            window.location.href = '/books';
+            selectItem(selectedIndex - 1);
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            window.location.href = navItems[selectedIndex].href;
         }
     }
 });

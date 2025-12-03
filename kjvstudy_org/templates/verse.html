@@ -729,7 +729,7 @@
     <p class="verse-text">{{ verse_text | format_lists | red_letter(book, chapter, verse_num) | link_names | safe }}</p>
 
     {% if interlinear_words %}
-    <section class="interlinear-container">
+    <section class="interlinear-container" id="interlinear">
         <button class="interlinear-toggle expanded" onclick="toggleInterlinear()" aria-expanded="true" aria-controls="interlinear-content">
             <span class="toggle-icon">▼</span>
             <span class="interlinear-heading">Original Language Analysis</span>
@@ -930,7 +930,7 @@
 </section>
 
 {% if cross_references %}
-<div class="cross-references-section">
+<div class="cross-references-section" id="cross-references">
     <button class="section-toggle expanded" onclick="toggleSection('crossrefs')" aria-expanded="true" aria-controls="crossrefs-content">
         <span class="toggle-icon">▼</span>
         <span class="section-heading">Cross References</span>
@@ -983,29 +983,30 @@
 {% endif %}
 
 {% if commentary %}
+<div id="commentary"></div>
     {% if commentary.analysis %}
-    <div class="commentary-section">
+    <div class="commentary-section" id="analysis">
         <h2>Analysis</h2>
         {{ commentary.analysis|split_paragraphs|safe }}
     </div>
     {% endif %}
 
     {% if commentary.historical %}
-    <div class="commentary-section">
+    <div class="commentary-section" id="historical">
         <h2>Historical Context</h2>
         {{ commentary.historical|split_paragraphs|safe }}
     </div>
     {% endif %}
 
     {% if commentary.theological %}
-    <div class="commentary-section">
+    <div class="commentary-section" id="theological">
         <h2>Theological Significance</h2>
         {{ commentary.theological|split_paragraphs|safe }}
     </div>
     {% endif %}
 
     {% if commentary.questions %}
-    <div class="commentary-section">
+    <div class="commentary-section" id="questions">
         <h2>Questions for Reflection</h2>
         <ul>
             {% for question in commentary.questions %}

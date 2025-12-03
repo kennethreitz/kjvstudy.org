@@ -127,7 +127,7 @@
 </div>
 {% endif %}
 
-<section aria-labelledby="description-heading">
+<section id="description" aria-labelledby="description-heading">
     <h2 id="description-heading">Description</h2>
     <div class="resource-description">
         <p class="resource-description-body">
@@ -141,8 +141,8 @@
     {% endif %}
 </section>
 
-<section aria-labelledby="verses-heading">
-    <h2 id="verses-heading">Key Verses</h2>
+<section id="key-verses" aria-labelledby="verses-heading">
+    <h2 id="key-verses-heading">Key Verses</h2>
     <div class="verse-list" role="list">
         {% for verse in item.verses %}
         <div class="verse-item" role="listitem">

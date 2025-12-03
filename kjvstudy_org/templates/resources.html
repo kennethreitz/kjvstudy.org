@@ -194,7 +194,7 @@
 </div>
 
 {% for category, items in resources.items() %}
-<div class="resource-category">
+<div id="{{ category | lower | replace(' ', '-') }}" class="resource-category">
     <h2 class="category-title">{{ category }}</h2>
     <div class="resource-grid">
         {% for resource in items %}
@@ -213,7 +213,7 @@
 </div>
 {% endfor %}
 
-<div>
+<div id="additional-tools">
     <h2>Additional Tools</h2>
     <p>Beyond these theological resources, explore our <a href="/reading-plans">Reading Plans</a> for structured Bible study, browse the <a href="/topics">Topical Index</a> for thematic studies, or use the <a href="/search">Search</a> to find specific passages.</p>
 </div>

@@ -144,7 +144,7 @@ document.body.dataset.resourceReader = 'true';
 </section>
 {% endif %}
 
-<section>
+<section id="timeline-introduction">
     <p>This timeline presents key events of biblical history with calculated dates and relevant scripture references.</p>
 
     {% if chronology_note %}
@@ -267,7 +267,7 @@ document.body.dataset.resourceReader = 'true';
 {% endfor %}
 
 {% if conclusion %}
-<section style="max-width: 75%; margin: 3rem 0 2rem 0;">
+<section id="conclusion" style="max-width: 75%; margin: 3rem 0 2rem 0;">
     <h2>Conclusion</h2>
     <p style="font-size: 1.05rem; line-height: 1.8;">{{ conclusion | link_verses | safe }}</p>
 </section>
