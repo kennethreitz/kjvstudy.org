@@ -572,9 +572,9 @@
 {% endblock %}
 
 {% block content %}
-<article class="strongs-page" itemscope itemtype="https://schema.org/DefinedTerm">
+<div class="strongs-page">
     <h1>
-        <span class="strongs-id" itemprop="termCode">Strong's {{ entry.strongs }}</span>
+        <span class="strongs-id">Strong's {{ entry.strongs }}</span>
         <span class="strongs-subtitle">{{ entry.language }} Lexicon</span>
     </h1>
 
@@ -583,25 +583,25 @@
             {{ entry.strongs }}
             <span class="lang-badge {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.language }}</span>
         </div>
-        <div class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}" itemprop="name" lang="{% if entry.language == 'Hebrew' %}he{% else %}el{% endif %}">{{ entry.word }}</div>
-        <div class="transliteration" itemprop="alternateName">{{ entry.transliteration }}</div>
+        <div class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.word }}</div>
+        <div class="transliteration">{{ entry.transliteration }}</div>
         {% if entry.pronunciation %}
         <div class="pronunciation">{{ entry.pronunciation }}</div>
         {% endif %}
-        <div class="quick-def" itemprop="description">{{ entry.definition }}</div>
+        <div class="quick-def">{{ entry.definition }}</div>
     </div>
 
-    <section class="info-cards">
+    <div class="info-cards">
         {% if entry.kjv_usage %}
         <div class="info-card kjv">
-            <h2>KJV Translations for {{ entry.strongs }}</h2>
+            <h2>KJV Translations</h2>
             <p>{{ entry.kjv_usage | linkify_strongs | safe }}</p>
         </div>
         {% endif %}
 
         {% if entry.derivation %}
         <div class="info-card derivation">
-            <h2>Etymology &amp; Derivation</h2>
+            <h2>Derivation</h2>
             <p>{{ entry.derivation | linkify_strongs | safe }}</p>
             {% if related_entries %}
             <div class="related-entries">
@@ -619,23 +619,23 @@
             {% endif %}
         </div>
         {% endif %}
-    </section>
+    </div>
 
     {% if verse_occurrences %}
-    <section class="occurrences-section">
+    <div class="occurrences-section">
         <div class="occurrences-header">
-            <h2>{{ entry.strongs }} in the KJV Bible</h2>
+            <h2>Occurrences in Scripture</h2>
             <span class="occurrences-count">{{ total_occurrences }} verse{% if total_occurrences != 1 %}s{% endif %}</span>
         </div>
         <div class="occurrences-grid" id="occurrences-grid">
             {% for occ in verse_occurrences %}
-            <article class="occurrence-card{% if loop.index > 10 %} hidden{% endif %}" data-index="{{ loop.index }}">
+            <div class="occurrence-card{% if loop.index > 10 %} hidden{% endif %}" data-index="{{ loop.index }}">
                 <div class="occ-header">
                     <a href="{{ occ.url }}" class="occ-reference">{{ occ.reference }}</a>
                     <span class="occ-original">{{ occ.original }}</span>
                 </div>
                 <p class="occ-verse-text">{{ occ.verse_text | safe }}</p>
-            </article>
+            </div>
             {% endfor %}
         </div>
         {% if total_occurrences > 10 %}
@@ -645,21 +645,21 @@
             </button>
         </div>
         {% endif %}
-    </section>
+    </div>
     {% endif %}
 
-    <nav class="nav-row" aria-label="Strong's number navigation">
+    <nav class="nav-row">
         <a href="/strongs" class="nav-btn primary">← Search Strong's</a>
         <div class="prev-next">
             {% set num = entry.strongs[1:] | int %}
             {% set prefix = entry.strongs[0] %}
             {% if num > 1 %}
-            <a href="/strongs/{{ prefix }}{{ num - 1 }}" class="nav-btn" rel="prev">← {{ prefix }}{{ num - 1 }}</a>
+            <a href="/strongs/{{ prefix }}{{ num - 1 }}" class="nav-btn">← {{ prefix }}{{ num - 1 }}</a>
             {% endif %}
-            <a href="/strongs/{{ prefix }}{{ num + 1 }}" class="nav-btn" rel="next">{{ prefix }}{{ num + 1 }} →</a>
+            <a href="/strongs/{{ prefix }}{{ num + 1 }}" class="nav-btn">{{ prefix }}{{ num + 1 }} →</a>
         </div>
     </nav>
-</article>
+</div>
 
 <script>
 // Show more occurrences
