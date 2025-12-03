@@ -37,56 +37,29 @@ function changeFontSize(direction) {
   }
 }
 
-// Page speech toggle (for breadcrumb button)
+// Page speech toggle (for breadcrumb button) - triggers spacebar speech
 function togglePageSpeech() {
-  var btn = document.getElementById('speech-toggle-btn');
-  if (!btn || !('speechSynthesis' in window)) return;
+  // Simulate spacebar press to use existing speech system
+  var event = new KeyboardEvent('keydown', { key: ' ', code: 'Space', bubbles: true });
+  document.dispatchEvent(event);
 
-  // If speaking, stop
-  if (speechSynthesis.speaking || speechSynthesis.pending) {
-    speechSynthesis.cancel();
-    btn.classList.remove('speaking');
-    return;
-  }
-
-  // Get page content to read
-  var article = document.querySelector('article');
-  if (!article) return;
-
-  var clone = article.cloneNode(true);
-  // Remove elements we don't want to read
-  clone.querySelectorAll('.breadcrumb, .sidenote, .marginnote, .toc, script, style, nav, .chapter-nav, .verse-nav, button, .breadcrumb-actions').forEach(function(el) {
-    el.remove();
-  });
-
-  var text = (clone.textContent || clone.innerText || '').trim();
-  if (!text) return;
-
-  var utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 0.9;
-
-  // Try to use a good English voice
-  var voices = speechSynthesis.getVoices();
-  var englishVoice = voices.find(function(v) {
-    return v.lang && v.lang.startsWith('en') && v.name.includes('Daniel');
-  }) || voices.find(function(v) {
-    return v.lang && v.lang.startsWith('en-GB');
-  }) || voices.find(function(v) {
-    return v.lang && v.lang.startsWith('en');
-  });
-  if (englishVoice) utterance.voice = englishVoice;
-
-  btn.classList.add('speaking');
-
-  utterance.onend = function() {
-    btn.classList.remove('speaking');
-  };
-  utterance.onerror = function() {
-    btn.classList.remove('speaking');
-  };
-
-  speechSynthesis.speak(utterance);
+  // Update button state after a tick
+  setTimeout(updateSpeechButtonState, 50);
 }
+
+function updateSpeechButtonState() {
+  var btn = document.getElementById('speech-toggle-btn');
+  if (!btn) return;
+
+  if (window.KJVResourceSpeech && window.KJVResourceSpeech.speaking) {
+    btn.classList.add('speaking');
+  } else {
+    btn.classList.remove('speaking');
+  }
+}
+
+// Poll for speech state changes to keep button in sync
+setInterval(updateSpeechButtonState, 500);
 
 // Red letter toggle functionality
 (function() {
