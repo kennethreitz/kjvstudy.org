@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}{{ entry.strongs }} - {{ entry.word }} - Strong's Concordance{% endblock %}
+{% block title %}Strong's {{ entry.strongs }} - {{ entry.word }} ({{ entry.transliteration }}) | {{ entry.language }} Lexicon{% endblock %}
 
-{% block description %}{{ entry.strongs }}: {{ entry.word }} ({{ entry.transliteration }}) - {{ entry.definition[:150] }}{% endblock %}
+{% block description %}Strong's {{ entry.strongs }}: {{ entry.word }} ({{ entry.transliteration }}) - {{ entry.definition[:150] }}. {{ entry.language }} word study with KJV translations and Bible occurrences.{% endblock %}
 
 {% block head %}
 <style>
@@ -38,6 +38,27 @@
 .word-card > * {
     position: relative;
     z-index: 1;
+}
+
+/* Page header with Strong's number */
+.strongs-page h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.strongs-page h1 .strongs-id {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.strongs-page h1 .strongs-subtitle {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
 }
 
 .word-card .strongs-number {
@@ -551,33 +572,36 @@
 {% endblock %}
 
 {% block content %}
-<div class="strongs-page">
-    <p class="subtitle" style="margin-bottom: 1.5rem;">Strong's Concordance</p>
+<article class="strongs-page" itemscope itemtype="https://schema.org/DefinedTerm">
+    <h1>
+        <span class="strongs-id" itemprop="termCode">Strong's {{ entry.strongs }}</span>
+        <span class="strongs-subtitle">{{ entry.language }} Lexicon</span>
+    </h1>
 
     <div class="word-card">
         <div class="strongs-number">
             {{ entry.strongs }}
             <span class="lang-badge {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.language }}</span>
         </div>
-        <div class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.word }}</div>
-        <div class="transliteration">{{ entry.transliteration }}</div>
+        <div class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}" itemprop="name" lang="{% if entry.language == 'Hebrew' %}he{% else %}el{% endif %}">{{ entry.word }}</div>
+        <div class="transliteration" itemprop="alternateName">{{ entry.transliteration }}</div>
         {% if entry.pronunciation %}
         <div class="pronunciation">{{ entry.pronunciation }}</div>
         {% endif %}
-        <div class="quick-def">{{ entry.definition }}</div>
+        <div class="quick-def" itemprop="description">{{ entry.definition }}</div>
     </div>
 
-    <div class="info-cards">
+    <section class="info-cards">
         {% if entry.kjv_usage %}
         <div class="info-card kjv">
-            <h2>KJV Translations</h2>
+            <h2>KJV Translations for {{ entry.strongs }}</h2>
             <p>{{ entry.kjv_usage | linkify_strongs | safe }}</p>
         </div>
         {% endif %}
 
         {% if entry.derivation %}
         <div class="info-card derivation">
-            <h2>Derivation</h2>
+            <h2>Etymology &amp; Derivation</h2>
             <p>{{ entry.derivation | linkify_strongs | safe }}</p>
             {% if related_entries %}
             <div class="related-entries">
@@ -595,23 +619,23 @@
             {% endif %}
         </div>
         {% endif %}
-    </div>
+    </section>
 
     {% if verse_occurrences %}
-    <div class="occurrences-section">
+    <section class="occurrences-section">
         <div class="occurrences-header">
-            <h2>Occurrences in Scripture</h2>
+            <h2>{{ entry.strongs }} in the KJV Bible</h2>
             <span class="occurrences-count">{{ total_occurrences }} verse{% if total_occurrences != 1 %}s{% endif %}</span>
         </div>
         <div class="occurrences-grid" id="occurrences-grid">
             {% for occ in verse_occurrences %}
-            <div class="occurrence-card{% if loop.index > 10 %} hidden{% endif %}" data-index="{{ loop.index }}">
+            <article class="occurrence-card{% if loop.index > 10 %} hidden{% endif %}" data-index="{{ loop.index }}">
                 <div class="occ-header">
                     <a href="{{ occ.url }}" class="occ-reference">{{ occ.reference }}</a>
                     <span class="occ-original">{{ occ.original }}</span>
                 </div>
                 <p class="occ-verse-text">{{ occ.verse_text | safe }}</p>
-            </div>
+            </article>
             {% endfor %}
         </div>
         {% if total_occurrences > 10 %}
@@ -621,21 +645,21 @@
             </button>
         </div>
         {% endif %}
-    </div>
+    </section>
     {% endif %}
 
-    <nav class="nav-row">
+    <nav class="nav-row" aria-label="Strong's number navigation">
         <a href="/strongs" class="nav-btn primary">← Search Strong's</a>
         <div class="prev-next">
             {% set num = entry.strongs[1:] | int %}
             {% set prefix = entry.strongs[0] %}
             {% if num > 1 %}
-            <a href="/strongs/{{ prefix }}{{ num - 1 }}" class="nav-btn">← {{ prefix }}{{ num - 1 }}</a>
+            <a href="/strongs/{{ prefix }}{{ num - 1 }}" class="nav-btn" rel="prev">← {{ prefix }}{{ num - 1 }}</a>
             {% endif %}
-            <a href="/strongs/{{ prefix }}{{ num + 1 }}" class="nav-btn">{{ prefix }}{{ num + 1 }} →</a>
+            <a href="/strongs/{{ prefix }}{{ num + 1 }}" class="nav-btn" rel="next">{{ prefix }}{{ num + 1 }} →</a>
         </div>
     </nav>
-</div>
+</article>
 
 <script>
 // Show more occurrences
