@@ -229,3 +229,23 @@ async def verse_of_the_day_page(request: Request):
             "breadcrumbs": breadcrumbs
         }
     )
+
+
+@router.get("/bookmarks", response_class=HTMLResponse)
+async def bookmarks_page(request: Request):
+    """Bookmarks page - displays user's saved bookmarks from localStorage"""
+    books = bible.get_books()
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Bookmarks", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        request,
+        "bookmarks.html",
+        {
+            "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )

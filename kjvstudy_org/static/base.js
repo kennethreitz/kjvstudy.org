@@ -32,6 +32,82 @@ function toggleFontSize() {
   }
 }
 
+// Copy page text to clipboard
+function copyPageText() {
+  var btn = document.getElementById('copy-btn');
+  var article = document.querySelector('article');
+  if (!article) return;
+
+  var clone = article.cloneNode(true);
+  clone.querySelectorAll('.breadcrumb, .breadcrumb-actions, .sidenote, .marginnote, .toc, script, style, nav, button').forEach(function(el) {
+    el.remove();
+  });
+
+  var text = (clone.textContent || clone.innerText || '').trim();
+
+  navigator.clipboard.writeText(text).then(function() {
+    if (btn) {
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.classList.remove('copied');
+      }, 1500);
+    }
+  });
+}
+
+// Bookmark functionality
+function getBookmarks() {
+  try {
+    return JSON.parse(localStorage.getItem('kjvBookmarks') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveBookmarks(bookmarks) {
+  localStorage.setItem('kjvBookmarks', JSON.stringify(bookmarks));
+}
+
+function isBookmarked(url) {
+  var bookmarks = getBookmarks();
+  return bookmarks.some(function(b) { return b.url === url; });
+}
+
+function toggleBookmark() {
+  var btn = document.getElementById('bookmark-btn');
+  var url = window.location.pathname;
+  var title = document.title.replace(' - KJV Study', '').replace(' - KJV Bible', '');
+  var bookmarks = getBookmarks();
+
+  var existingIndex = bookmarks.findIndex(function(b) { return b.url === url; });
+
+  if (existingIndex >= 0) {
+    // Remove bookmark
+    bookmarks.splice(existingIndex, 1);
+    if (btn) btn.classList.remove('bookmarked');
+  } else {
+    // Add bookmark
+    bookmarks.unshift({
+      url: url,
+      title: title,
+      date: new Date().toISOString()
+    });
+    if (btn) btn.classList.add('bookmarked');
+  }
+
+  saveBookmarks(bookmarks);
+}
+
+// Check bookmark state on page load
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('bookmark-btn');
+    if (btn && isBookmarked(window.location.pathname)) {
+      btn.classList.add('bookmarked');
+    }
+  });
+})();
+
 // Page speech toggle (for breadcrumb button) - triggers spacebar speech
 function togglePageSpeech() {
   // Simulate spacebar press to use existing speech system
