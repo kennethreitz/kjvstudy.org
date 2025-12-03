@@ -457,9 +457,12 @@
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 0.9rem;
+    font-family: inherit;
     color: var(--text-color);
     cursor: pointer;
     transition: all 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .show-more-btn:hover {
@@ -520,6 +523,11 @@
 [data-theme="dark"] .show-more-btn {
     background: #2a2a2a;
     border-color: #444;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .show-more-btn .count {
+    color: var(--text-secondary);
 }
 
 [data-theme="dark"] .occurrences-count {
