@@ -346,113 +346,78 @@
             padding-bottom: 1rem;
         }
 
-        /* Sticky header on scroll */
-        .sticky-header {
-            position: fixed;
+        /* Sticky breadcrumb on scroll */
+        .breadcrumb {
+            position: sticky;
             top: 0;
-            left: 140px;
-            right: 0;
             background: var(--bg-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.6rem 2rem;
             z-index: 99;
-            transform: translateY(-100%);
-            transition: transform 0.2s ease;
+            transition: box-shadow 0.2s, padding 0.2s;
+        }
+
+        .breadcrumb.stuck {
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding-top: 0.75rem;
+            margin-top: 0;
         }
 
-        .sticky-header.visible {
-            transform: translateY(0);
-        }
-
-        .sticky-header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 800px;
-            gap: 1rem;
-        }
-
-        .sticky-header-title {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-color);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .sticky-header-breadcrumb {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .sticky-header-breadcrumb a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-bottom: none;
-        }
-
-        .sticky-header-breadcrumb a:hover {
-            color: var(--link-color);
-        }
-
-        .sticky-header-breadcrumb .sep {
-            color: var(--text-quaternary);
-        }
-
-        [data-theme="dark"] .sticky-header {
+        [data-theme="dark"] .breadcrumb.stuck {
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
-        @media (max-width: 1200px) {
-            .sticky-header {
-                left: 0;
-            }
-        }
-
-        /* Font size controls */
-        .font-size-controls {
-            position: fixed;
-            top: 2rem;
-            right: 4rem;
-            z-index: 101;
-            margin: -25px 0 0 0;
+        .breadcrumb-actions {
+            float: right;
             display: flex;
-            gap: 0.25rem;
+            gap: 0.5rem;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
         }
 
-        .font-size-btn {
-            width: 24px;
-            height: 24px;
+        .breadcrumb.stuck .breadcrumb-actions {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .breadcrumb-action-btn {
+            width: 28px;
+            height: 28px;
             cursor: pointer;
             background: transparent;
-            border: 1px solid var(--border-color-darker);
-            border-radius: 3px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            transition: all 0.2s;
+            transition: all 0.15s;
             font-family: inherit;
         }
 
-        .font-size-btn:hover {
+        .breadcrumb-action-btn:hover {
             border-color: var(--text-tertiary);
-            color: var(--link-hover);
+            color: var(--link-color);
+            background: var(--code-bg);
         }
 
-        .font-size-btn.decrease {
+        .breadcrumb-action-btn.font-decrease {
             font-size: 0.65rem;
+            font-weight: 600;
         }
 
-        .font-size-btn.increase {
-            font-size: 0.85rem;
+        .breadcrumb-action-btn.font-increase {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .breadcrumb-action-btn.dark-toggle::before {
+            content: '☀';
+        }
+
+        [data-theme="dark"] .breadcrumb-action-btn.dark-toggle::before {
+            content: '☾';
         }
 
         /* Font size scale classes */
@@ -507,21 +472,6 @@
 
         [data-font-size="x-large"] article h2 {
             font-size: 2.6rem;
-        }
-
-        @media (max-width: 768px) {
-            .font-size-controls {
-                top: 1rem;
-                right: 3.5rem;
-                margin: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .font-size-controls {
-                top: 0.5rem;
-                right: 3rem;
-            }
         }
 
         .breadcrumb a {
@@ -1484,32 +1434,18 @@
     <p class="sidebar-toggle-container">
         <label for="sidebar-toggle" class="sidebar-toggle-btn" title="Toggle sidebar" aria-label="Toggle navigation sidebar"></label>
     </p>
-    <div class="font-size-controls">
-        <button class="font-size-btn decrease" title="Decrease font size" onclick="changeFontSize(-1)" aria-label="Decrease font size">A</button>
-        <button class="font-size-btn increase" title="Increase font size" onclick="changeFontSize(1)" aria-label="Increase font size">A</button>
-    </div>
     <p class="dark-mode-toggle">
         <button class="dark-mode-btn" title="Toggle dark mode" onclick="toggleDarkMode()" aria-label="Toggle dark mode"></button>
     </p>
 
-    <!-- Sticky header (appears on scroll) -->
-    {% if breadcrumbs %}
-    <header class="sticky-header" id="sticky-header" aria-hidden="true">
-        <div class="sticky-header-content">
-            <span class="sticky-header-title">{{ breadcrumbs[-1].text if breadcrumbs else '' }}</span>
-            <nav class="sticky-header-breadcrumb">
-                {% for crumb in breadcrumbs[:-1] %}
-                <a href="{{ crumb.url }}">{{ crumb.text }}</a>
-                {% if not loop.last %}<span class="sep">/</span>{% endif %}
-                {% endfor %}
-            </nav>
-        </div>
-    </header>
-    {% endif %}
-
     <article role="main" id="main-content">
         {% if breadcrumbs %}
-        <nav class="breadcrumb" aria-label="Breadcrumb">
+        <nav class="breadcrumb" aria-label="Breadcrumb" id="breadcrumb">
+            <span class="breadcrumb-actions">
+                <button class="breadcrumb-action-btn font-decrease" title="Decrease font size" onclick="changeFontSize(-1)" aria-label="Decrease font size">A</button>
+                <button class="breadcrumb-action-btn font-increase" title="Increase font size" onclick="changeFontSize(1)" aria-label="Increase font size">A</button>
+                <button class="breadcrumb-action-btn dark-toggle" title="Toggle dark mode" onclick="toggleDarkMode()" aria-label="Toggle dark mode"></button>
+            </span>
             {% for crumb in breadcrumbs %}
                 {% if not loop.last %}
                     <a href="{{ crumb.url }}">{{ crumb.text }}</a>

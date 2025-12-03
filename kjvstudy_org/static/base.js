@@ -59,36 +59,27 @@ function toggleRedLetters() {
   }
 }
 
-// Sticky header on scroll
+// Sticky breadcrumb detection
 (function() {
-  var stickyHeader = document.getElementById('sticky-header');
-  var breadcrumb = document.querySelector('.breadcrumb');
-  if (!stickyHeader || !breadcrumb) return;
+  var breadcrumb = document.getElementById('breadcrumb');
+  if (!breadcrumb) return;
 
-  var lastScrollY = 0;
   var ticking = false;
-  var threshold = 150; // Show after scrolling 150px past breadcrumb
 
-  function updateStickyHeader() {
-    var breadcrumbBottom = breadcrumb.getBoundingClientRect().bottom;
-    var scrollY = window.scrollY;
-
-    // Show sticky header when breadcrumb is scrolled out of view
-    if (breadcrumbBottom < -threshold) {
-      stickyHeader.classList.add('visible');
-      stickyHeader.setAttribute('aria-hidden', 'false');
+  function updateStickyState() {
+    // Check if breadcrumb is at the top (stuck)
+    var rect = breadcrumb.getBoundingClientRect();
+    if (rect.top <= 0) {
+      breadcrumb.classList.add('stuck');
     } else {
-      stickyHeader.classList.remove('visible');
-      stickyHeader.setAttribute('aria-hidden', 'true');
+      breadcrumb.classList.remove('stuck');
     }
-
     ticking = false;
   }
 
   window.addEventListener('scroll', function() {
-    lastScrollY = window.scrollY;
     if (!ticking) {
-      window.requestAnimationFrame(updateStickyHeader);
+      window.requestAnimationFrame(updateStickyState);
       ticking = true;
     }
   }, { passive: true });
