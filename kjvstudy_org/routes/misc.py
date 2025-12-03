@@ -117,6 +117,11 @@ async def search_page(request: Request, q: str = Query(None, description="Search
         if _search_family_tree_fn:
             family_tree_results = _search_family_tree_fn(q.strip(), limit=5)
 
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Search", "url": None}
+    ]
+
     return templates.TemplateResponse(
             request,
             "search.html",
@@ -126,7 +131,8 @@ async def search_page(request: Request, q: str = Query(None, description="Search
             "family_tree_results": family_tree_results,
             "books": books,
             "total_results": len(search_results) + len(family_tree_results),
-            "is_direct_verse": is_direct_verse
+            "is_direct_verse": is_direct_verse,
+            "breadcrumbs": breadcrumbs
         }
     )
 

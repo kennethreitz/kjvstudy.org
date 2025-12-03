@@ -1434,9 +1434,11 @@
     <p class="sidebar-toggle-container">
         <label for="sidebar-toggle" class="sidebar-toggle-btn" title="Toggle sidebar" aria-label="Toggle navigation sidebar"></label>
     </p>
+    {% if not breadcrumbs %}
     <p class="dark-mode-toggle">
         <button class="dark-mode-btn" title="Toggle dark mode" onclick="toggleDarkMode()" aria-label="Toggle dark mode"></button>
     </p>
+    {% endif %}
 
     <article role="main" id="main-content">
         {% if breadcrumbs %}
