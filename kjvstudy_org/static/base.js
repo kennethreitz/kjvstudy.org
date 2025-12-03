@@ -1076,7 +1076,8 @@ function showKeyboardHelp() {
         '<div class="keyboard-help-section">' +
           '<h3>Other</h3>' +
           '<div class="shortcut"><kbd>Space</kbd><span>Read aloud</span></div>' +
-          '<div class="shortcut"><kbd>`</kbd><span>Toggle sidebar</span></div>' +
+          '<div class="shortcut"><kbd>`</kbd><span>Toggle sidebar open/closed</span></div>' +
+          '<div class="shortcut"><kbd>n</kbd><span>Navigate sidebar</span></div>' +
           '<div class="shortcut"><kbd>⌘</kbd>+<kbd>D</kbd><span>Toggle dark mode</span></div>' +
           '<div class="shortcut"><kbd>R</kbd><span>Toggle red letters</span></div>' +
           '<div class="shortcut"><kbd>/</kbd><span>Search</span></div>' +
