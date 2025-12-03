@@ -50,7 +50,7 @@ def get_biblical_timeline_context():
 # =============================================================================
 
 @router.get("/biblical-timeline", response_class=HTMLResponse)
-def biblical_timeline_page(request: Request):
+async def biblical_timeline_page(request: Request):
     """Biblical timeline page showing major biblical events chronologically"""
     books = bible.get_books()
 
