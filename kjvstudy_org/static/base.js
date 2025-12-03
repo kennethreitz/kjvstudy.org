@@ -395,21 +395,30 @@ window.KJVNav = {
       if (self.sidebarActive) {
         if (e.key === 'ArrowDown' || e.key === 'j') {
           e.preventDefault();
+          e.stopPropagation();
           selectSidebarLink(self.sidebarIndex + 1);
+          return;
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
           e.preventDefault();
+          e.stopPropagation();
           selectSidebarLink(self.sidebarIndex - 1);
+          return;
         } else if (e.key === 'Enter') {
           e.preventDefault();
+          e.stopPropagation();
           if (self.sidebarIndex >= 0 && self.sidebarLinks[self.sidebarIndex]) {
             window.location.href = self.sidebarLinks[self.sidebarIndex].href;
           }
+          return;
         } else if (e.key === 'Escape') {
           e.preventDefault();
+          e.stopPropagation();
           exitSidebar();
+          return;
         } else if (e.key === 'ArrowRight' || e.key === 'l') {
           // Expand details or go to link
           e.preventDefault();
+          e.stopPropagation();
           if (self.sidebarIndex >= 0) {
             var link = self.sidebarLinks[self.sidebarIndex];
             var details = link.closest('details');
@@ -420,9 +429,11 @@ window.KJVNav = {
               window.location.href = link.href;
             }
           }
+          return;
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
           // Collapse details or exit sidebar
           e.preventDefault();
+          e.stopPropagation();
           if (self.sidebarIndex >= 0) {
             var link = self.sidebarLinks[self.sidebarIndex];
             var details = link.closest('details');
@@ -434,6 +445,7 @@ window.KJVNav = {
           } else {
             exitSidebar();
           }
+          return;
         }
       }
     });
