@@ -12,6 +12,31 @@ function toggleDarkMode() {
   localStorage.setItem('theme', newTheme);
 }
 
+// Font size functionality
+(function() {
+  const sizes = ['small', 'normal', 'large', 'x-large'];
+  const savedSize = localStorage.getItem('fontSize') || 'normal';
+  if (savedSize !== 'normal') {
+    document.documentElement.setAttribute('data-font-size', savedSize);
+  }
+})();
+
+function changeFontSize(direction) {
+  const sizes = ['small', 'normal', 'large', 'x-large'];
+  const currentSize = document.documentElement.getAttribute('data-font-size') || 'normal';
+  const currentIndex = sizes.indexOf(currentSize);
+  const newIndex = Math.max(0, Math.min(sizes.length - 1, currentIndex + direction));
+  const newSize = sizes[newIndex];
+
+  if (newSize === 'normal') {
+    document.documentElement.removeAttribute('data-font-size');
+    localStorage.removeItem('fontSize');
+  } else {
+    document.documentElement.setAttribute('data-font-size', newSize);
+    localStorage.setItem('fontSize', newSize);
+  }
+}
+
 // Red letter toggle functionality
 (function() {
   // Check for saved red letter preference or default to enabled
@@ -33,6 +58,41 @@ function toggleRedLetters() {
     localStorage.removeItem('redLetters');
   }
 }
+
+// Sticky header on scroll
+(function() {
+  var stickyHeader = document.getElementById('sticky-header');
+  var breadcrumb = document.querySelector('.breadcrumb');
+  if (!stickyHeader || !breadcrumb) return;
+
+  var lastScrollY = 0;
+  var ticking = false;
+  var threshold = 150; // Show after scrolling 150px past breadcrumb
+
+  function updateStickyHeader() {
+    var breadcrumbBottom = breadcrumb.getBoundingClientRect().bottom;
+    var scrollY = window.scrollY;
+
+    // Show sticky header when breadcrumb is scrolled out of view
+    if (breadcrumbBottom < -threshold) {
+      stickyHeader.classList.add('visible');
+      stickyHeader.setAttribute('aria-hidden', 'false');
+    } else {
+      stickyHeader.classList.remove('visible');
+      stickyHeader.setAttribute('aria-hidden', 'true');
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function() {
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(updateStickyHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
 
 // Sidebar collapse state persistence (mobile only)
 (function() {
@@ -1408,5 +1468,47 @@ function showKeyboardHelp() {
     element.dataset.verseLinked = 'true';
     linkVerseReferences(element);
   });
+})();
+
+// Prefetch next/prev pages for faster navigation
+(function() {
+  // Wait for page to be fully loaded and idle
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(prefetchNavigationLinks, { timeout: 2000 });
+  } else {
+    setTimeout(prefetchNavigationLinks, 1000);
+  }
+
+  function prefetchNavigationLinks() {
+    // Find navigation links (next/prev chapter, verse, book)
+    var prefetchSelectors = [
+      'a[rel="next"]',
+      'a[rel="prev"]',
+      '.chapter-nav a',
+      '.verse-nav a',
+      '.book-nav a',
+      '.nav-btn[href*="/chapter/"]',
+      '.nav-btn[href*="/verse/"]'
+    ];
+
+    var links = document.querySelectorAll(prefetchSelectors.join(', '));
+    var prefetched = new Set();
+
+    links.forEach(function(link) {
+      var href = link.href;
+      if (!href || prefetched.has(href)) return;
+      if (href.includes('#')) return; // Skip anchor links
+      if (!href.startsWith(window.location.origin)) return; // Skip external links
+
+      prefetched.add(href);
+
+      // Use link prefetch hint
+      var prefetchLink = document.createElement('link');
+      prefetchLink.rel = 'prefetch';
+      prefetchLink.href = href;
+      prefetchLink.as = 'document';
+      document.head.appendChild(prefetchLink);
+    });
+  }
 })();
 
