@@ -38,6 +38,7 @@
 (function() {
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (KJVNav.sidebarActive) return;
 
         if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();

@@ -1112,6 +1112,8 @@
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             return;
         }
+        // Don't handle if sidebar navigation is active
+        if (KJVNav.sidebarActive) return;
 
         // Escape: Exit word mode or clear selection
         if (e.key === 'Escape') {

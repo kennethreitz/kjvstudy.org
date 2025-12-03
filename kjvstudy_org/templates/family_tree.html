@@ -917,6 +917,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(e) {
         // Don't handle if user is typing in an input
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (KJVNav.sidebarActive) return;
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();

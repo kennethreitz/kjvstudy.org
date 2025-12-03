@@ -781,6 +781,9 @@ document.addEventListener('keydown', function(e) {
         document.getElementById('verse-lookup-input').focus();
     }
 
+    // Don't handle if sidebar navigation is active
+    if (KJVNav.sidebarActive) return;
+
     if (!isTyping) {
         var currentItem = selectedIndex >= 0 ? navItems[selectedIndex] : null;
         var gridInfo = currentItem ? getGridInfo(currentItem) : { isGrid: false };

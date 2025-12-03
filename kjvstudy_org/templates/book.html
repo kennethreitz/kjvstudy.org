@@ -491,6 +491,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             return;
         }
+        // Don't handle if sidebar navigation is active
+        if (KJVNav.sidebarActive) return;
 
         // Up arrow or k: Previous item
         if (e.key === 'ArrowUp' || e.key === 'k') {
@@ -620,6 +622,18 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             var pdfBtn = document.querySelector('.print-btn');
             if (pdfBtn) window.location.href = pdfBtn.href;
+        }
+
+        // [ : Previous book
+        if (e.key === '[' && currentBookIndex > 0) {
+            e.preventDefault();
+            window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex - 1]);
+        }
+
+        // ] : Next book
+        if (e.key === ']' && currentBookIndex < bibleBooks.length - 1) {
+            e.preventDefault();
+            window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex + 1]);
         }
     });
 

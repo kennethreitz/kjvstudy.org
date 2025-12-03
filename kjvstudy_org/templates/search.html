@@ -458,6 +458,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('keydown', function(e) {
             // Don't handle when typing in search input or dropdown is open
             if (e.target === searchInput || dropdown.classList.contains('show')) return;
+            // Don't handle if sidebar navigation is active
+            if (KJVNav.sidebarActive) return;
 
             if (e.key === 'ArrowDown' || e.key === 'j') {
                 e.preventDefault();

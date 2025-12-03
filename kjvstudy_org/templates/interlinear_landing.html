@@ -144,6 +144,7 @@ function selectItem(index) {
 document.addEventListener('keydown', function(e) {
     // Don't handle if user is typing in an input
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (KJVNav.sidebarActive) return;
 
     if (e.key === 'ArrowLeft') {
         e.preventDefault();

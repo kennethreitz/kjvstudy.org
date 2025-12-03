@@ -727,6 +727,8 @@ document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
         return;
     }
+    // Don't handle if sidebar navigation is active
+    if (KJVNav.sidebarActive) return;
 
     switch (e.key) {
         case 'ArrowDown':

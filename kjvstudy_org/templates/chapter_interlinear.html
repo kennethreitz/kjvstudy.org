@@ -789,6 +789,7 @@ document.addEventListener('click', function(e) {
 
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (KJVNav.sidebarActive) return;
 
         // Check if we're in word-selection mode (a verse is selected)
         const inWordMode = selectedVerseIndex >= 0 && selectedWordIndex >= 0;

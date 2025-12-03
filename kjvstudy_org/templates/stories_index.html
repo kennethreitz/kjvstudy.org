@@ -568,6 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (KJVNav.sidebarActive) return;
 
         var cards = visibleStories();
         var catCols = getCatGridColumns();

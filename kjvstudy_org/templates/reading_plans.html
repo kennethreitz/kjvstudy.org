@@ -313,6 +313,7 @@
 
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (KJVNav.sidebarActive) return;
 
         var cols = getGridColumns();
         var inYourPlans = selectedIndex >= 0 && selectedIndex < yourPlansCount;

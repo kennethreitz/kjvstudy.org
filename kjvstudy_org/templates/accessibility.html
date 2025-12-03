@@ -47,12 +47,96 @@
                     <td>Focus search box</td>
                 </tr>
                 <tr>
+                    <td><kbd>n</kbd></td>
+                    <td>Navigate sidebar (then use j/k to move, Enter to select)</td>
+                </tr>
+                <tr>
+                    <td><kbd>g</kbd></td>
+                    <td>Quick verse lookup (prompts for reference)</td>
+                </tr>
+                <tr>
                     <td><kbd>Escape</kbd></td>
-                    <td>Clear selection / close dialogs</td>
+                    <td>Clear selection / close dialogs / stop speech</td>
                 </tr>
                 <tr>
                     <td><kbd>?</kbd></td>
-                    <td>Show keyboard shortcuts help (on most pages)</td>
+                    <td>Show keyboard shortcuts help</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Quick Navigation Keys</h3>
+        <table class="keyboard-table">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Destination</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><kbd>0</kbd></td>
+                    <td>Homepage</td>
+                </tr>
+                <tr>
+                    <td><kbd>1</kbd></td>
+                    <td>Genesis</td>
+                </tr>
+                <tr>
+                    <td><kbd>2</kbd></td>
+                    <td>Matthew</td>
+                </tr>
+                <tr>
+                    <td><kbd>3</kbd></td>
+                    <td>John</td>
+                </tr>
+                <tr>
+                    <td><kbd>4</kbd></td>
+                    <td>Romans</td>
+                </tr>
+                <tr>
+                    <td><kbd>7</kbd></td>
+                    <td>Psalms</td>
+                </tr>
+                <tr>
+                    <td><kbd>8</kbd></td>
+                    <td>Proverbs</td>
+                </tr>
+                <tr>
+                    <td><kbd>9</kbd></td>
+                    <td>Revelation</td>
+                </tr>
+                <tr>
+                    <td><kbd>b</kbd></td>
+                    <td>All Books</td>
+                </tr>
+                <tr>
+                    <td><kbd>r</kbd></td>
+                    <td>Resources</td>
+                </tr>
+                <tr>
+                    <td><kbd>t</kbd></td>
+                    <td>Topics</td>
+                </tr>
+                <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Stories</td>
+                </tr>
+                <tr>
+                    <td><kbd>c</kbd></td>
+                    <td>Strong's Concordance</td>
+                </tr>
+                <tr>
+                    <td><kbd>f</kbd></td>
+                    <td>Family Tree</td>
+                </tr>
+                <tr>
+                    <td><kbd>v</kbd></td>
+                    <td>Verse of the Day</td>
+                </tr>
+                <tr>
+                    <td><kbd>.</kbd></td>
+                    <td>Random Verse</td>
                 </tr>
             </tbody>
         </table>
@@ -108,11 +192,11 @@
                 </tr>
                 <tr>
                     <td><kbd>Space</kbd></td>
-                    <td>Read selected text aloud</td>
+                    <td>Read selected text aloud (press again to stop)</td>
                 </tr>
                 <tr>
-                    <td><kbd>s</kbd></td>
-                    <td>Stop text-to-speech</td>
+                    <td><kbd>p</kbd></td>
+                    <td>Download PDF</td>
                 </tr>
             </tbody>
         </table>
@@ -135,13 +219,68 @@
                     <td>Next chapter</td>
                 </tr>
                 <tr>
-                    <td><kbd>1</kbd>-<kbd>9</kbd></td>
-                    <td>Jump to verse 1-9</td>
+                    <td><kbd>→</kbd></td>
+                    <td>Next chapter (alternative)</td>
+                </tr>
+                <tr>
+                    <td><kbd>←</kbd></td>
+                    <td>Go back</td>
+                </tr>
+                <tr>
+                    <td><kbd>i</kbd></td>
+                    <td>Interlinear view</td>
+                </tr>
+                <tr>
+                    <td><kbd>p</kbd></td>
+                    <td>Download PDF</td>
+                </tr>
+                <tr>
+                    <td><kbd>=</kbd></td>
+                    <td>Read entire chapter aloud</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Book Pages</h3>
+        <table class="keyboard-table">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><kbd>[</kbd></td>
+                    <td>Previous book</td>
+                </tr>
+                <tr>
+                    <td><kbd>]</kbd></td>
+                    <td>Next book</td>
+                </tr>
+                <tr>
+                    <td><kbd>→</kbd></td>
+                    <td>Next book (alternative)</td>
+                </tr>
+                <tr>
+                    <td><kbd>←</kbd></td>
+                    <td>Go back</td>
+                </tr>
+                <tr>
+                    <td><kbd>Enter</kbd></td>
+                    <td>Navigate to selected chapter</td>
+                </tr>
+                <tr>
+                    <td><kbd>p</kbd></td>
+                    <td>Download book PDF</td>
                 </tr>
             </tbody>
         </table>
 
         <p>Navigation keys are inspired by Vim conventions (<kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>) for users familiar with that paradigm, while also supporting standard arrow keys for everyone else.</p>
+
+        <h3>A Note on Keyboard Navigation</h3>
+        <p>Building comprehensive keyboard navigation across a site of this complexity is challenging. While we strive for consistency, behavior may vary slightly between different types of pages—book pages, chapter pages, verse pages, grid layouts, and resource pages each have unique navigational needs. We're continuously working to improve the experience. If you encounter any issues or have suggestions, please <a href="https://github.com/kennethreitz/kjvstudy.org/issues" target="_blank" rel="noopener">let us know</a>.</p>
     </section>
 
     <section>
@@ -150,9 +289,10 @@
 
         <h3>How to Use</h3>
         <ul>
-            <li>On verse pages, select any paragraph with <kbd>j</kbd>/<kbd>k</kbd> and press <kbd>Space</kbd> to hear it read aloud</li>
-            <li>Press <kbd>Space</kbd> again to pause/resume</li>
-            <li>Press <kbd>s</kbd> or <kbd>Escape</kbd> to stop</li>
+            <li>Select any paragraph with <kbd>j</kbd>/<kbd>k</kbd> and press <kbd>Space</kbd> to hear it read aloud</li>
+            <li>Press <kbd>Space</kbd> again to stop playback</li>
+            <li>Press <kbd>Escape</kbd> to stop and clear selection</li>
+            <li>On chapter pages, press <kbd>=</kbd> to read the entire chapter with auto-advance</li>
             <li>The verse text, commentary, and other content can all be read aloud</li>
         </ul>
 

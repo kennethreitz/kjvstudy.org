@@ -578,6 +578,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
             return;
         }
+        // Don't handle if sidebar navigation is active
+        if (KJVNav.sidebarActive) return;
 
         // Up arrow or k: Previous item
         if (e.key === 'ArrowUp' || e.key === 'k') {
@@ -684,6 +686,20 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             var pdfBtn = document.querySelector('.pdf-btn');
             if (pdfBtn) window.location.href = pdfBtn.href;
+        }
+
+        // [ : Previous chapter
+        if (e.key === '[') {
+            e.preventDefault();
+            var prevBtn = document.getElementById('prev-chapter');
+            if (prevBtn) window.location.href = prevBtn.href;
+        }
+
+        // ] : Next chapter
+        if (e.key === ']') {
+            e.preventDefault();
+            var nextBtn = document.getElementById('next-chapter');
+            if (nextBtn) window.location.href = nextBtn.href;
         }
 
         // = : Read whole chapter with autoadvance

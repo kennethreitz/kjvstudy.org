@@ -515,6 +515,110 @@ window.KJVNav = {
     });
 
     return navInstance;
+  },
+
+  // 2D Grid navigation for card grids - handles up/down by row, left/right within row
+  initGridNav: function(selector, options) {
+    options = options || {};
+    var gridSelector = options.gridSelector || '.book-grid, .topic-grid, .resource-grid, .story-grid, .card-grid';
+    var elements = Array.from(document.querySelectorAll(selector));
+    var selectedIndex = -1;
+    var self = this;
+
+    function getGridColumns() {
+      var grid = document.querySelector(gridSelector);
+      if (!grid) return 1;
+      var style = getComputedStyle(grid);
+      var cols = style.gridTemplateColumns.split(' ').length;
+      return cols || 1;
+    }
+
+    function clearSelection() {
+      if (selectedIndex >= 0 && selectedIndex < elements.length) {
+        elements[selectedIndex].style.outline = '';
+        elements[selectedIndex].style.outlineOffset = '';
+        elements[selectedIndex].classList.remove('selected');
+      }
+    }
+
+    function selectElement(index) {
+      // Exit sidebar mode if active
+      if (self.sidebarActive) {
+        self.sidebarActive = false;
+        self.sidebarIndex = -1;
+        document.querySelectorAll('.nav-sidebar a').forEach(function(link) {
+          link.style.outline = '';
+          link.style.background = '';
+        });
+      }
+      clearSelection();
+      if (elements.length === 0) return;
+      selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
+      elements[selectedIndex].style.outline = '2px solid #4a7c59';
+      elements[selectedIndex].style.outlineOffset = '4px';
+      elements[selectedIndex].classList.add('selected');
+      elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
+    }
+
+    // Store reference for sidebar to clear
+    var navInstance = { elements: elements, selectElement: selectElement, clearSelection: clearSelection };
+    self.currentPageNav = navInstance;
+
+    document.addEventListener('keydown', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (self.sidebarActive) return;
+
+      var cols = getGridColumns();
+
+      if (e.key === 'ArrowDown' || e.key === 'j') {
+        e.preventDefault();
+        if (selectedIndex < 0) {
+          selectElement(0);
+        } else {
+          selectElement(selectedIndex + cols);
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'k') {
+        e.preventDefault();
+        if (selectedIndex < 0) {
+          selectElement(0);
+        } else if (selectedIndex - cols >= 0) {
+          selectElement(selectedIndex - cols);
+        }
+      } else if (e.key === 'ArrowRight' || e.key === 'l') {
+        e.preventDefault();
+        if (selectedIndex < 0) {
+          selectElement(0);
+        } else {
+          selectElement(selectedIndex + 1);
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+        e.preventDefault();
+        if (selectedIndex <= 0) {
+          history.back();
+        } else {
+          selectElement(selectedIndex - 1);
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (selectedIndex >= 0) {
+          var el = elements[selectedIndex];
+          var link = el.tagName === 'A' ? el : el.querySelector('a');
+          if (link) window.location.href = link.href;
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        clearSelection();
+        selectedIndex = -1;
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        if (selectedIndex >= 0 && window.KJVSpeech) {
+          var text = elements[selectedIndex].textContent || elements[selectedIndex].innerText;
+          KJVSpeech.speak(text);
+        }
+      }
+    });
+
+    return navInstance;
   }
 };
 

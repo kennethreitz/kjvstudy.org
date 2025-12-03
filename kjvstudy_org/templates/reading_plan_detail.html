@@ -646,6 +646,7 @@
 
     document.addEventListener('keydown', function(e) {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (KJVNav.sidebarActive) return;
 
         var currentDay = selectedDayIndex >= 0 ? days[selectedDayIndex] : null;
         var isExpanded = currentDay && document.getElementById('content-' + currentDay.dataset.day).classList.contains('expanded');
