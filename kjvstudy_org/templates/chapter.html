@@ -125,9 +125,9 @@ hr::before {
     text-decoration: underline;
 }
 
-/* Verses are clickable to navigate to verse page */
+/* Verses have normal text selection cursor */
 p[id^="verse-"] {
-    cursor: pointer;
+    cursor: text;
 }
 
 /* Keyboard navigation selected verse */
@@ -358,7 +358,7 @@ document.body.dataset.resourceReader = 'false';
         </a>
     </div>
     <div class="nav-help">
-        Tip: ↑/↓ to select verses • ? for more shortcuts
+        Tip: ↑/↓ to select verses • Enter to open • double-click verse text • ? for more shortcuts
     </div>
 </nav>
 
@@ -713,15 +713,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Click on verse text navigates to verse page (mouse users)
-    // Green selection is only for keyboard navigation
+    // Double-click on verse text navigates to verse page (mouse users)
+    // Single click allows text selection; green selection is only for keyboard navigation
     verses.forEach((verse, index) => {
-        verse.addEventListener('click', function(e) {
+        verse.addEventListener('dblclick', function(e) {
             // Let links and labels handle their own clicks
             if (e.target.tagName === 'A' || e.target.tagName === 'LABEL') {
                 return;
             }
-            // Navigate to verse page on click
+            // Navigate to verse page on double-click
             const verseNum = verse.id.replace('verse-', '');
             window.location.href = `/book/{{ book }}/chapter/{{ chapter }}/verse/${verseNum}`;
         });
