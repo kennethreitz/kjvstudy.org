@@ -764,7 +764,24 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Handle URL parameters (e.g., ?person=i77)
+function handleUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    const personId = params.get('person');
+
+    if (personId && familyTreeData[personId]) {
+        // Expand path to this person and select them
+        expandPathTo(personId);
+        updateVisibleNodes();
+        const nodeIndex = visibleNodes.findIndex(n => n.dataset.id === personId);
+        if (nodeIndex >= 0) {
+            selectNode(nodeIndex);
+        }
+    }
+}
+
 // Initial render
 renderTree();
+handleUrlParams();
 </script>
 {% endblock %}
