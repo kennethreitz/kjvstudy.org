@@ -34,25 +34,25 @@ function toggleRedLetters() {
   }
 }
 
-// Sidebar collapse state persistence
+// Sidebar collapse state persistence (mobile only)
 (function() {
   var toggle = document.getElementById('sidebar-toggle');
-  var savedState = localStorage.getItem('sidebarExpanded');
-  var isMobile = window.innerWidth <= 768;
+  if (!toggle) return;
 
-  // If user has explicitly set a preference, respect that
-  if (savedState === 'false') {
-    toggle.checked = false;
-  } else if (savedState === 'true') {
-    toggle.checked = true;
-  } else {
-    // No saved state - default to collapsed on mobile, expanded on desktop
-    toggle.checked = !isMobile;
+  // On mobile, default to collapsed
+  var isMobile = window.innerWidth <= 1200;
+  if (isMobile) {
+    var savedState = localStorage.getItem('sidebarExpanded');
+    if (savedState === 'true') {
+      toggle.checked = true;
+    } else {
+      toggle.checked = false;
+    }
+
+    toggle.addEventListener('change', function() {
+      localStorage.setItem('sidebarExpanded', toggle.checked ? 'true' : 'false');
+    });
   }
-
-  toggle.addEventListener('change', function() {
-    localStorage.setItem('sidebarExpanded', toggle.checked ? 'true' : 'false');
-  });
 })();
 
 // Details elements (subsections) collapse state persistence
@@ -777,16 +777,6 @@ document.addEventListener('keydown', function(e) {
     toggleDarkMode();
   }
 
-  // Cmd/Ctrl + B: Toggle sidebar
-  if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
-    e.preventDefault();
-    var toggle = document.getElementById('sidebar-toggle');
-    if (toggle) {
-      toggle.checked = !toggle.checked;
-      toggle.dispatchEvent(new Event('change'));
-    }
-  }
-
   // Cmd/Ctrl + K or /: Focus search
   if (((e.metaKey || e.ctrlKey) && e.key === 'k') || e.key === '/') {
     e.preventDefault();
@@ -827,14 +817,6 @@ document.addEventListener('keydown', function(e) {
       case '9':
         e.preventDefault();
         window.location.href = '/book/Revelation';
-        break;
-      case '`':
-        e.preventDefault();
-        var toggle = document.getElementById('sidebar-toggle');
-        if (toggle) {
-          toggle.checked = !toggle.checked;
-          toggle.dispatchEvent(new Event('change'));
-        }
         break;
       case 'g':
         e.preventDefault();
@@ -1076,7 +1058,6 @@ function showKeyboardHelp() {
         '<div class="keyboard-help-section">' +
           '<h3>Other</h3>' +
           '<div class="shortcut"><kbd>Space</kbd><span>Read aloud</span></div>' +
-          '<div class="shortcut"><kbd>`</kbd><span>Toggle sidebar open/closed</span></div>' +
           '<div class="shortcut"><kbd>n</kbd><span>Navigate sidebar</span></div>' +
           '<div class="shortcut"><kbd>⌘</kbd>+<kbd>D</kbd><span>Toggle dark mode</span></div>' +
           '<div class="shortcut"><kbd>R</kbd><span>Toggle red letters</span></div>' +
