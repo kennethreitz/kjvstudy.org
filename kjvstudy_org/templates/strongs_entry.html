@@ -121,6 +121,13 @@
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 1.5rem;
+    transition: all 0.15s;
+}
+
+.info-card.selected {
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
+    background: #f8fff8;
 }
 
 .info-card h2 {
@@ -230,6 +237,12 @@
     box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
+.related-entry-card.selected {
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
+    background: #f8fff8;
+}
+
 .related-entry-header {
     display: flex;
     align-items: baseline;
@@ -268,6 +281,11 @@
 [data-theme="dark"] .related-entry-card {
     background: #1a1a1a;
     border-color: #333;
+}
+
+[data-theme="dark"] .related-entry-card.selected {
+    background: #1a2a1a;
+    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
 }
 
 [data-theme="dark"] .related-entry-header a {
@@ -480,6 +498,11 @@
     border-color: #333;
 }
 
+[data-theme="dark"] .info-card.selected {
+    background: #1a2a1a;
+    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
+}
+
 [data-theme="dark"] .kjv-tag {
     background: #2a2a2a;
     border-color: #444;
@@ -551,9 +574,9 @@
             {{ entry.strongs }}
             <span class="lang-badge {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.language }}</span>
         </div>
-        <p class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}" lang="{% if entry.language == 'Hebrew' %}he{% else %}el{% endif %}">{{ entry.word }}</p>
-        <p class="transliteration"><em>{{ entry.transliteration }}</em>{% if entry.pronunciation %} ({{ entry.pronunciation }}){% endif %}</p>
-        <p class="quick-def"><strong>Definition:</strong> {{ entry.definition }}</p>
+        <div class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}" lang="{% if entry.language == 'Hebrew' %}he{% else %}el{% endif %}">{{ entry.word }}</div>
+        <div class="transliteration">{{ entry.transliteration }}{% if entry.pronunciation %} ({{ entry.pronunciation }}){% endif %}</div>
+        <div class="quick-def">{{ entry.definition }}</div>
     </section>
 
     <section class="info-cards">
@@ -661,24 +684,23 @@ function showMoreOccurrences() {
 }
 
 (function() {
-    const allCards = document.querySelectorAll('.occurrence-card');
-    const visibleCards = document.querySelectorAll('.occurrence-card:not(.hidden)');
-    if (visibleCards.length === 0) return;
+    // Include info cards, related entries, and occurrence cards in keyboard nav
+    function getAllNavigableCards() {
+        const infoCards = document.querySelectorAll('.info-card');
+        const related = document.querySelectorAll('.related-entry-card');
+        const occurrences = document.querySelectorAll('.occurrence-card:not(.hidden)');
+        return [...infoCards, ...related, ...occurrences];
+    }
 
     let selectedIndex = -1;
 
-    function getVisibleCards() {
-        return document.querySelectorAll('.occurrence-card:not(.hidden)');
-    }
-
     function selectCard(index) {
-        const cards = getVisibleCards();
+        const cards = getAllNavigableCards();
+        if (cards.length === 0) return;
 
         // Remove previous selection
-        if (selectedIndex >= 0) {
-            const prevCard = document.querySelector('.occurrence-card.selected');
-            if (prevCard) prevCard.classList.remove('selected');
-        }
+        const prevCard = document.querySelector('.info-card.selected, .related-entry-card.selected, .occurrence-card.selected');
+        if (prevCard) prevCard.classList.remove('selected');
 
         // Update index with bounds checking
         selectedIndex = Math.max(0, Math.min(index, cards.length - 1));
@@ -698,7 +720,8 @@ function showMoreOccurrences() {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
         if (typeof KJVNav !== 'undefined' && KJVNav.sidebarActive) return;
 
-        const cards = getVisibleCards();
+        const cards = getAllNavigableCards();
+        if (cards.length === 0) return;
 
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
@@ -708,18 +731,27 @@ function showMoreOccurrences() {
             selectCard(selectedIndex - 1);
         } else if (e.key === 'Enter' && selectedIndex >= 0 && selectedIndex < cards.length) {
             e.preventDefault();
-            const link = cards[selectedIndex].querySelector('.occ-reference');
+            // Check for link in any card type
+            const link = cards[selectedIndex].querySelector('.occ-reference, .related-entry-header a, .strongs-ref');
             if (link) window.location.href = link.href;
+        } else if (e.key === '[') {
+            // Navigate to previous Strong's number
+            const prevLink = document.querySelector('.nav-btn[rel="prev"]');
+            if (prevLink) window.location.href = prevLink.href;
+        } else if (e.key === ']') {
+            // Navigate to next Strong's number
+            const nextLink = document.querySelector('.nav-btn[rel="next"]');
+            if (nextLink) window.location.href = nextLink.href;
         }
     });
 
-    // Click to select
-    allCards.forEach((card, index) => {
+    // Click to select - attach to all card types
+    document.querySelectorAll('.info-card, .related-entry-card, .occurrence-card').forEach((card) => {
         card.addEventListener('click', function(e) {
             if (e.target.tagName !== 'A') {
-                const visCards = getVisibleCards();
-                const visIndex = Array.from(visCards).indexOf(card);
-                if (visIndex >= 0) selectCard(visIndex);
+                const allCards = getAllNavigableCards();
+                const cardIndex = allCards.indexOf(card);
+                if (cardIndex >= 0) selectCard(cardIndex);
             }
         });
     });

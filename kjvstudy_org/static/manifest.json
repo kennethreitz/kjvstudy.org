@@ -1,0 +1,9 @@
+{
+  "name": "KJV Study",
+  "short_name": "KJV Study",
+  "description": "Study the King James Bible with AI-powered commentary, Strong's Concordance, and interlinear analysis",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffff8",
+  "theme_color": "#4a7c59"
+}
