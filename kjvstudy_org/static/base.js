@@ -682,6 +682,14 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault();
         window.location.href = '/book/Matthew';
         break;
+      case '3':
+        e.preventDefault();
+        window.location.href = '/book/John';
+        break;
+      case '4':
+        e.preventDefault();
+        window.location.href = '/book/Romans';
+        break;
       case '7':
         e.preventDefault();
         window.location.href = '/book/Psalms';
@@ -915,6 +923,8 @@ function showKeyboardHelp() {
           '<div class="shortcut"><kbd>0</kbd><span>Homepage</span></div>' +
           '<div class="shortcut"><kbd>1</kbd><span>Genesis (OT)</span></div>' +
           '<div class="shortcut"><kbd>2</kbd><span>Matthew (NT)</span></div>' +
+          '<div class="shortcut"><kbd>3</kbd><span>John</span></div>' +
+          '<div class="shortcut"><kbd>4</kbd><span>Romans</span></div>' +
           '<div class="shortcut"><kbd>7</kbd><span>Psalms</span></div>' +
           '<div class="shortcut"><kbd>8</kbd><span>Proverbs</span></div>' +
           '<div class="shortcut"><kbd>9</kbd><span>Revelation</span></div>' +
