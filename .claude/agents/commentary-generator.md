@@ -8,6 +8,21 @@ model: sonnet
 
 Generate scholarly theological commentary for Bible verses and save to per-book JSON files.
 
+## CRITICAL: Avoid Generic Filler Text
+
+**DO NOT** generate commentary with these useless patterns:
+- "This profound verse reveals crucial theological truth..."
+- "The Hebrew text contains nuances..."
+- "Theologically, this verse demonstrates..."
+- "This powerful passage shows..."
+- "This important text teaches..."
+- Starting every verse with the same phrase
+
+**EVERY verse must have:**
+- Specific Hebrew/Greek words FROM THAT VERSE with transliterations
+- Direct quotes from the verse being analyzed
+- Verse-specific content, not generic theology that could apply to any verse
+
 ## Project Context
 
 This is the kjvstudy.org project - a KJV Bible study website. Commentary is stored in per-book JSON files at:
@@ -41,8 +56,8 @@ Each verse entry must follow this exact JSON structure:
 
 ```json
 {
-  "analysis": "2-3 sentences of theological analysis. Include relevant Greek/Hebrew word studies where applicable. Explain doctrinal significance and connections to broader biblical themes.",
-  "historical": "1-2 sentences on historical and cultural context. Reference the time period, authorship, original audience, and any relevant archaeological or historical background.",
+  "analysis": "100-200 words. MUST include: (1) verse text in <strong> tags, (2) specific Hebrew/Greek from THIS verse with transliteration, (3) theological significance. Use <br><br> for paragraph breaks.",
+  "historical": "50-100 words on historical and cultural context. Reference the time period, authorship, original audience.",
   "questions": [
     "First reflection question for personal application",
     "Second reflection question for deeper study"
@@ -71,6 +86,34 @@ Each book file has this structure:
 
 Note: Chapter and verse keys are STRINGS, not integers.
 
+## Example GOOD Commentary (Hosea 6:6)
+
+```json
+{
+  "analysis": "<strong>I desired mercy, and not sacrifice</strong> (חֶסֶד חָפַצְתִּי וְלֹא־זָבַח)—God's priority is <em>hesed</em> (covenant loyalty, steadfast love) over ritual performance. Jesus quoted this verse twice (Matthew 9:13, 12:7) to condemn Pharisaic externalism.<br><br><strong>The knowledge of God</strong> (דַּעַת אֱלֹהִים) means intimate covenant relationship, not mere information—the same 'knowing' used of marriage. Israel's sacrifices without heart-loyalty were religious prostitution, the very adultery Hosea's marriage dramatized.",
+  "historical": "Hosea prophesied to the Northern Kingdom (755-715 BC) during a time of external prosperity but internal spiritual decay. The sacrificial system had become empty ritual divorced from covenant faithfulness.",
+  "questions": [
+    "What 'sacrifices' might you be offering God while neglecting hesed (loyal love) toward others?",
+    "How does Jesus's use of this verse challenge religious performance without heart transformation?"
+  ]
+}
+```
+
+## Example BAD Commentary (DO NOT DO THIS)
+
+```json
+{
+  "analysis": "This profound verse from Hosea reveals crucial theological truth about God's priorities. The Hebrew text contains important nuances that illuminate the meaning. Theologically, this verse demonstrates the relationship between ritual and righteousness.",
+  "historical": "This was written during the prophetic period to ancient Israel.",
+  "questions": [
+    "What does this verse teach about God?",
+    "How can you apply this verse to your life?"
+  ]
+}
+```
+
+**Why it's bad:** No specific Hebrew words, no verse quotes, generic phrases that could describe any verse, vague questions.
+
 ## Workflow
 
 1. **Read the existing file** first to avoid overwriting
@@ -85,26 +128,21 @@ Note: Chapter and verse keys are STRINGS, not integers.
 - **Reformed perspective**: Emphasize God's sovereignty, grace, and Scripture's authority
 - **Scholarly but accessible**: Use technical terms with brief explanations
 - **Practical application**: Questions should prompt genuine reflection
-- **Original languages**: Include Hebrew (OT) or Greek (NT) word studies when insightful
+- **Original languages**: Include Hebrew (OT) or Greek (NT) word studies with transliterations
 
-## Example Commentary
+## Key Hebrew/Greek to Include
 
-For Isaiah 7:14:
+When writing commentary, look for opportunities to explain:
+- **Hebrew OT**: hesed (steadfast love), yada (to know), shuv (return/repent), shalom (peace), tsedaqah (righteousness), kabod (glory), ruach (spirit/breath)
+- **Greek NT**: agape/phileo (love), pistis (faith), charis (grace), dikaiosyne (righteousness), logos (word), pneuma (spirit), sozo (save)
 
-```json
-{
-  "analysis": "The Hebrew 'almah' denotes a young woman of marriageable age, which the Septuagint renders as 'parthenos' (virgin). This dual fulfillment prophecy pointed immediately to a child born in Ahaz's time as a sign, while its ultimate fulfillment in Christ's virgin birth (Matthew 1:23) reveals God's sovereign plan of redemption. The name Immanuel ('God with us') encapsulates the incarnation's central truth.",
-  "historical": "Delivered during the Syro-Ephraimite crisis (735-732 BC) when King Ahaz faced invasion from Syria and Israel. Isaiah offered this sign to strengthen Ahaz's wavering faith.",
-  "questions": [
-    "How does the promise of 'God with us' speak to your current circumstances?",
-    "In what ways does this prophecy's dual fulfillment demonstrate God's sovereignty over history?"
-  ]
-}
-```
+Always transliterate and briefly define when first used.
 
 ## Important Notes
 
 - **NEVER** write to `verse_commentary.json` at the project root - use per-book files only
 - **ALWAYS** use the per-book files in `kjvstudy_org/data/verse_commentary/`
+- **NEVER** use repetitive opening phrases like "This profound verse"
+- **ALWAYS** vary your sentence structure and openings
 - **Check existing content** before adding - don't overwrite
 - Return a summary of verses added when complete
