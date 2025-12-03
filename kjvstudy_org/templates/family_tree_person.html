@@ -495,15 +495,18 @@
                         {% if ':' in chapter_verse %}
                             {% set chapter = chapter_verse.split(':')[0] %}
                             {% set verse_part = chapter_verse.split(':')[1] %}
-                            {% if '-' in verse_part %}
-                                {% set verse_num = verse_part.split('-')[0] %}
-                            {% else %}
-                                {% set verse_num = verse_part %}
-                            {% endif %}
                             {% set book = ' '.join(ref_parts[:-1]) %}
-                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ event.verse }}</a>
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}">{{ event.verse }}</a>
+                        {% elif '-' in chapter_verse %}
+                            {# Chapter range like "27-28" #}
+                            {% set start_chapter = chapter_verse.split('-')[0] %}
+                            {% set end_chapter = chapter_verse.split('-')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            {{ book }} <a href="/book/{{ book }}/chapter/{{ start_chapter }}">{{ start_chapter }}</a>-<a href="/book/{{ book }}/chapter/{{ end_chapter }}">{{ end_chapter }}</a>
                         {% else %}
-                            {{ event.verse }}
+                            {# Single chapter like "27" #}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter_verse }}">{{ event.verse }}</a>
                         {% endif %}
                     {% else %}
                         {{ event.verse }}
@@ -642,15 +645,18 @@
                         {% if ':' in chapter_verse %}
                             {% set chapter = chapter_verse.split(':')[0] %}
                             {% set verse_part = chapter_verse.split(':')[1] %}
-                            {% if '-' in verse_part %}
-                                {% set verse_num = verse_part.split('-')[0] %}
-                            {% else %}
-                                {% set verse_num = verse_part %}
-                            {% endif %}
                             {% set book = ' '.join(ref_parts[:-1]) %}
-                            <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num }}">{{ verse.reference }}</a>
+                            <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_part }}">{{ verse.reference }}</a>
+                        {% elif '-' in chapter_verse %}
+                            {# Chapter range like "27-28" #}
+                            {% set start_chapter = chapter_verse.split('-')[0] %}
+                            {% set end_chapter = chapter_verse.split('-')[1] %}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            {{ book }} <a href="/book/{{ book }}/chapter/{{ start_chapter }}">{{ start_chapter }}</a>-<a href="/book/{{ book }}/chapter/{{ end_chapter }}">{{ end_chapter }}</a>
                         {% else %}
-                            {{ verse.reference }}
+                            {# Single chapter like "27" #}
+                            {% set book = ' '.join(ref_parts[:-1]) %}
+                            <a href="/book/{{ book }}/chapter/{{ chapter_verse }}">{{ verse.reference }}</a>
                         {% endif %}
                     {% else %}
                         {{ verse.reference }}
