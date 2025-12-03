@@ -670,6 +670,10 @@ document.addEventListener('keydown', function(e) {
   // Single key shortcuts for navigation (only work without modifiers)
   if (!e.metaKey && !e.ctrlKey && !e.altKey) {
     switch(e.key) {
+      case '0':
+        e.preventDefault();
+        window.location.href = '/';
+        break;
       case '1':
         e.preventDefault();
         window.location.href = '/book/Genesis';
@@ -896,6 +900,7 @@ function showKeyboardHelp() {
       '<div class="keyboard-help-columns">' +
         '<div class="keyboard-help-section">' +
           '<h3>Navigation</h3>' +
+          '<div class="shortcut"><kbd>0</kbd><span>Homepage</span></div>' +
           '<div class="shortcut"><kbd>1</kbd><span>Genesis (OT)</span></div>' +
           '<div class="shortcut"><kbd>2</kbd><span>Matthew (NT)</span></div>' +
           '<div class="shortcut"><kbd>b</kbd><span>Books</span></div>' +
@@ -1216,8 +1221,7 @@ function showKeyboardHelp() {
             if (verseEnd) {
               return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + book + ' ' + chapter + ':' + verseStart + '-' + verseEnd + '</a>';
             } else {
-              // Use chapter anchor instead of verse page
-              return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '">' + book + ' ' + chapter + ':' + verseStart + '</a>';
+              return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + book + ' ' + chapter + ':' + verseStart + '</a>';
             }
           }
           return verseRef;
@@ -1233,8 +1237,7 @@ function showKeyboardHelp() {
         if (verseEnd) {
           return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '-' + verseEnd + '">' + match + '</a>';
         } else {
-          // Use chapter anchor instead of verse page
-          return '<a href="/book/' + book + '/chapter/' + chapter + '#verse-' + verseStart + '">' + match + '</a>';
+          return '<a href="/book/' + book + '/chapter/' + chapter + '/verse/' + verseStart + '">' + match + '</a>';
         }
       });
 
