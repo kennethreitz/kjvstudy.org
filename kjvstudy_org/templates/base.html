@@ -402,14 +402,13 @@
             background: var(--code-bg);
         }
 
-        .breadcrumb-action-btn.font-decrease {
-            font-size: 0.6rem;
+        .breadcrumb-action-btn.font-toggle {
+            font-size: 0.85rem;
             font-weight: 700;
         }
 
-        .breadcrumb-action-btn.font-increase {
-            font-size: 1rem;
-            font-weight: 700;
+        [data-font-size="large"] .breadcrumb-action-btn.font-toggle {
+            font-size: 1.1rem;
         }
 
         .breadcrumb-action-btn.dark-toggle::before {
@@ -428,58 +427,23 @@
             content: '■';
         }
 
-        /* Font size scale classes */
-        [data-font-size="small"] article {
-            font-size: 0.9rem;
-        }
-
-        [data-font-size="small"] article p,
-        [data-font-size="small"] article li {
-            font-size: 1.2rem;
-        }
-
-        [data-font-size="small"] article h1 {
-            font-size: 2.4rem;
-        }
-
-        [data-font-size="small"] article h2 {
-            font-size: 1.7rem;
-        }
-
+        /* Large font size */
         [data-font-size="large"] article {
             font-size: 1.1rem;
         }
 
         [data-font-size="large"] article p,
         [data-font-size="large"] article li {
-            font-size: 1.6rem;
-            line-height: 2.2;
+            font-size: 1.5rem;
+            line-height: 2;
         }
 
         [data-font-size="large"] article h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
         }
 
         [data-font-size="large"] article h2 {
-            font-size: 2.3rem;
-        }
-
-        [data-font-size="x-large"] article {
-            font-size: 1.2rem;
-        }
-
-        [data-font-size="x-large"] article p,
-        [data-font-size="x-large"] article li {
-            font-size: 1.8rem;
-            line-height: 2.4;
-        }
-
-        [data-font-size="x-large"] article h1 {
-            font-size: 3.5rem;
-        }
-
-        [data-font-size="x-large"] article h2 {
-            font-size: 2.6rem;
+            font-size: 2.2rem;
         }
 
         .breadcrumb a {
@@ -1452,8 +1416,7 @@
         {% if breadcrumbs %}
         <nav class="breadcrumb" aria-label="Breadcrumb" id="breadcrumb">
             <span class="breadcrumb-actions">
-                <button class="breadcrumb-action-btn font-decrease" title="Decrease font size" onclick="changeFontSize(-1)" aria-label="Decrease font size">A</button>
-                <button class="breadcrumb-action-btn font-increase" title="Increase font size" onclick="changeFontSize(1)" aria-label="Increase font size">A</button>
+                <button class="breadcrumb-action-btn font-toggle" title="Toggle large text" onclick="toggleFontSize()" aria-label="Toggle large text">A</button>
                 <button class="breadcrumb-action-btn speech-toggle" id="speech-toggle-btn" title="Read aloud" onclick="togglePageSpeech()" aria-label="Read page aloud"></button>
                 <button class="breadcrumb-action-btn dark-toggle" title="Toggle dark mode" onclick="toggleDarkMode()" aria-label="Toggle dark mode"></button>
             </span>

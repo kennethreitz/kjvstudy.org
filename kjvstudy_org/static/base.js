@@ -21,19 +21,14 @@ function toggleDarkMode() {
   }
 })();
 
-function changeFontSize(direction) {
-  const sizes = ['small', 'normal', 'large', 'x-large'];
-  const currentSize = document.documentElement.getAttribute('data-font-size') || 'normal';
-  const currentIndex = sizes.indexOf(currentSize);
-  const newIndex = Math.max(0, Math.min(sizes.length - 1, currentIndex + direction));
-  const newSize = sizes[newIndex];
-
-  if (newSize === 'normal') {
+function toggleFontSize() {
+  const currentSize = document.documentElement.getAttribute('data-font-size');
+  if (currentSize === 'large') {
     document.documentElement.removeAttribute('data-font-size');
     localStorage.removeItem('fontSize');
   } else {
-    document.documentElement.setAttribute('data-font-size', newSize);
-    localStorage.setItem('fontSize', newSize);
+    document.documentElement.setAttribute('data-font-size', 'large');
+    localStorage.setItem('fontSize', 'large');
   }
 }
 
