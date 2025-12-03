@@ -619,11 +619,6 @@ kbd {
 
 {% block content %}
 <div class="stars-container">
-    <div class="stars-header">
-        <h1>Starred Passages & Pages<span class="stars-count" id="stars-count"></span></h1>
-        <p class="stars-subtitle">Your personal collection of Scripture and study resources</p>
-    </div>
-
     <div id="stars-content">
         <!-- Populated by JavaScript -->
     </div>
@@ -1123,7 +1118,14 @@ kbd {
             selectItem(selectedIndex <= 0 ? 0 : selectedIndex - 1);
         } else if (e.key === 'ArrowLeft' || e.key === 'h') {
             e.preventDefault();
-            history.back();
+            // If selected item is expanded, collapse it
+            if (selectedIndex >= 0 && items[selectedIndex] && items[selectedIndex].classList.contains('expanded')) {
+                var url = items[selectedIndex].getAttribute('data-url');
+                if (url) toggleItem(url);
+            } else if (selectedIndex < 0) {
+                // Nothing selected, go back
+                history.back();
+            }
         } else if (e.key === 'ArrowRight' || e.key === 'l') {
             // Expand selected item
             if (selectedIndex >= 0 && items[selectedIndex]) {
