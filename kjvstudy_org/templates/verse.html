@@ -1220,6 +1220,18 @@
             {% if verse_num < total_verses %}
             window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}';
             {% endif %}
+        } else if (e.key === '[') {
+            // Previous verse
+            e.preventDefault();
+            {% if verse_num > 1 %}
+            window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}';
+            {% endif %}
+        } else if (e.key === ']') {
+            // Next verse
+            e.preventDefault();
+            {% if verse_num < total_verses %}
+            window.location.href = '/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}';
+            {% endif %}
         }
     });
 })();
