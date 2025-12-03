@@ -159,16 +159,6 @@
     color: #4a7c59;
 }
 
-.kekule-badge {
-    display: inline-block;
-    font-size: 0.75rem;
-    background: #d4af37;
-    color: white;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    margin-left: 0.5rem;
-}
-
 .person-meta {
     font-size: 0.95rem;
     color: #666;
@@ -393,9 +383,6 @@ function buildTreeHTML(personId, depth = 0, visited = new Set(), isRoot = false)
     // Name line with expand toggle showing child count
     html += '<div class="person-name">';
     html += `<a href="/family-tree/person/${personId}">${person.name}</a>`;
-    if (hasKekule) {
-        html += `<span class="kekule-badge">#${person.kekule_number}</span>`;
-    }
     if (hasChildren) {
         html += `<span class="expand-toggle" data-id="${personId}">${isCollapsed ? '+' : '−'}</span>`;
     }
@@ -479,9 +466,6 @@ function buildAncestorsHTML(personId, depth = 0, visited = new Set(), isRoot = f
     // Name line with expand toggle showing parent count
     html += '<div class="person-name">';
     html += `<a href="/family-tree/person/${personId}">${person.name}</a>`;
-    if (hasKekule) {
-        html += `<span class="kekule-badge">#${person.kekule_number}</span>`;
-    }
     if (hasParents) {
         html += `<span class="expand-toggle" data-id="${personId}">${isCollapsed ? '+' : '−'}</span>`;
     }
