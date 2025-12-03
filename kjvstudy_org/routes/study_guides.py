@@ -163,12 +163,18 @@ async def study_guides_page(request: Request):
                 for verse in guide['verses']
             ]
 
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Study Guides", "url": None}
+    ]
+
     return templates.TemplateResponse(
             request,
             "study_guides.html",
             {
             "books": books,
-            "study_guides": study_guides
+            "study_guides": study_guides,
+            "breadcrumbs": breadcrumbs
         }
     )
 
