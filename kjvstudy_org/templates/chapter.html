@@ -748,12 +748,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove sidenotes, marginnotes, labels, and verse number links
         temp.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .verse-number-link').forEach(el => el.remove());
 
-        // Get clean text
-        const cleanText = temp.textContent || temp.innerText || '';
+        // Get clean text and normalize whitespace
+        let cleanText = temp.textContent || temp.innerText || '';
+        cleanText = cleanText.replace(/\s+/g, ' ').trim();
 
-        if (cleanText.trim()) {
+        if (cleanText) {
             e.preventDefault();
-            e.clipboardData.setData('text/plain', cleanText.trim());
+            e.clipboardData.setData('text/plain', cleanText);
         }
     });
 
