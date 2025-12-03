@@ -758,9 +758,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove sidenotes, marginnotes, labels, and verse number links
         temp.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle, .verse-number-link').forEach(el => el.remove());
 
-        // Get clean text and normalize whitespace
-        let cleanText = temp.textContent || temp.innerText || '';
-        cleanText = cleanText.replace(/\s+/g, ' ').trim();
+        // Process each verse paragraph separately to preserve line breaks between verses
+        const verseParagraphs = temp.querySelectorAll('p[id^="verse-"]');
+        let cleanText;
+
+        if (verseParagraphs.length > 0) {
+            // Multiple verses selected - join with newlines
+            const verseTexts = Array.from(verseParagraphs).map(p => {
+                return (p.textContent || p.innerText || '').replace(/\s+/g, ' ').trim();
+            }).filter(t => t);
+            cleanText = verseTexts.join('\n');
+        } else {
+            // Single partial selection - normalize whitespace
+            cleanText = (temp.textContent || temp.innerText || '').replace(/\s+/g, ' ').trim();
+        }
 
         if (cleanText) {
             e.preventDefault();
