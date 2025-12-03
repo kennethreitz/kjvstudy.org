@@ -2183,14 +2183,14 @@ function showPersonInfo(person) {
     const verseField = document.getElementById('field-verse');
     if (fullPerson && fullPerson.verses && fullPerson.verses.length > 0) {
         const verse = fullPerson.verses[0];
-        // Parse reference to create URL (e.g., "Genesis 5:3" -> "/book/Genesis/chapter/5/verse/3")
+        // Parse reference to create URL (e.g., "Genesis 5:3" -> "/book/Genesis/chapter/5#verse-3")
         const refMatch = verse.reference.match(/^(\d?\s*[A-Za-z]+)\s+(\d+):(\d+)/);
         let verseUrl = '#';
         if (refMatch) {
             const book = refMatch[1].trim();
             const chapter = refMatch[2];
             const verseNum = refMatch[3];
-            verseUrl = `/book/${encodeURIComponent(book)}/chapter/${chapter}/verse/${verseNum}`;
+            verseUrl = `/book/${encodeURIComponent(book)}/chapter/${chapter}#verse-${verseNum}`;
         }
         const verseHtml = `<a href="${verseUrl}">${verse.reference}</a><br><em>"${verse.text.substring(0, 100)}${verse.text.length > 100 ? '...' : ''}"</em>`;
         verseField.innerHTML = `<div class="info-field-label">Scripture</div><div class="info-field-value">${verseHtml}</div>`;
