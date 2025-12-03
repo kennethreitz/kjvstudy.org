@@ -649,6 +649,7 @@ async def family_tree_descendants_page(request: Request, person_id: str):
             "id": pid,
             "name": person_data["name"],
             "generation": person_data.get("generation"),
+            "kekule_number": person_data.get("kekule_number"),
             "children": children,
             "child_count": len(person_data.get("children", []))
         }
@@ -705,6 +706,7 @@ async def family_tree_ancestors_page(request: Request, person_id: str):
             "id": pid,
             "name": person_data["name"],
             "generation": person_data.get("generation"),
+            "kekule_number": person_data.get("kekule_number"),
             "parents": parents,
             "parent_count": len(person_data.get("parents", []))
         }
