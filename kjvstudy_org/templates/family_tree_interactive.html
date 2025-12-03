@@ -1779,7 +1779,7 @@ function renderTreeFromId(personId, animate = true) {
         this.appendChild(card);
     });
 
-    // Single click: handle info button
+    // Single click: handle info button and expand
     nodes.on('click', (event, d) => {
         event.stopPropagation();
 
@@ -1791,8 +1791,21 @@ function renderTreeFromId(personId, animate = true) {
 
         if (isInfoClick) {
             showPersonInfo(d.data);
+            return;
         }
-        // Clicking elsewhere does nothing (use info button or double-click)
+
+        // Check if clicking on the expand indicator
+        const isExpandClick = target.classList.contains('expand-indicator') ||
+                             target.classList.contains('expand-icon');
+
+        // Check if node can be expanded/collapsed
+        const hasHiddenChildren = d._children && d._children.length > 0;
+        const hasExpandableChildren = d.data.data && d.data.data.hasChildren && !d.children && !d._children;
+        const canExpand = hasHiddenChildren || hasExpandableChildren;
+
+        if (isExpandClick && canExpand) {
+            toggleNode(d);
+        }
     });
 
     // Double click: re-center
