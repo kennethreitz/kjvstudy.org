@@ -295,17 +295,6 @@ img {
     line-height: 1.3;
     vertical-align: baseline;
     position: relative;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
-.sidenote::selection,
-.marginnote::selection,
-.sidenote *::selection,
-.marginnote *::selection {
-    background: transparent;
 }
 
 .sidenote-number {
@@ -405,10 +394,6 @@ input.margin-toggle {
 label.sidenote-number {
     display: inline-block;
     max-height: 2rem; /* should be less than or equal to paragraph line-height */
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 
 label.margin-toggle:not(.sidenote-number) {
