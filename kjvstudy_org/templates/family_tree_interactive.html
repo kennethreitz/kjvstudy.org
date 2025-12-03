@@ -762,7 +762,9 @@ document.addEventListener('keydown', (e) => {
             e.preventDefault();
             if (selectedIndex >= 0 && selectedIndex < visibleNodes.length) {
                 const id = visibleNodes[selectedIndex].dataset.id;
-                if (collapsedNodes.has(id)) {
+                const childContainer = document.querySelector(`.children-container[data-parent="${id}"]`);
+                // Expand if currently collapsed
+                if (childContainer && childContainer.classList.contains('collapsed')) {
                     toggleNode(id);
                 }
             }
@@ -773,14 +775,10 @@ document.addEventListener('keydown', (e) => {
             e.preventDefault();
             if (selectedIndex >= 0 && selectedIndex < visibleNodes.length) {
                 const id = visibleNodes[selectedIndex].dataset.id;
-                if (!collapsedNodes.has(id)) {
-                    const person = familyTreeData[id];
-                    const hasExpandable = currentRoot === 'jesus'
-                        ? (person.parents && person.parents.length > 0)
-                        : (person.children && person.children.length > 0);
-                    if (hasExpandable) {
-                        toggleNode(id);
-                    }
+                const childContainer = document.querySelector(`.children-container[data-parent="${id}"]`);
+                // Collapse if currently expanded
+                if (childContainer && !childContainer.classList.contains('collapsed')) {
+                    toggleNode(id);
                 }
             }
             break;
