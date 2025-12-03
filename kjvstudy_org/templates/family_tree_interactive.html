@@ -795,12 +795,62 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Find best root for a given person (nearest "save point" ancestor)
+function findBestRoot(personId) {
+    const rootOrder = ['david', 'jacob', 'abraham', 'noah', 'adam'];
+    const rootIds = {};
+
+    // Find IDs for each root
+    for (const rootName of rootOrder) {
+        const id = findPersonId(rootMappings[rootName] || rootName);
+        if (id) rootIds[rootName] = id;
+    }
+
+    // Check if person is a descendant of each root (starting from most specific)
+    for (const rootName of rootOrder) {
+        const rootId = rootIds[rootName];
+        if (!rootId) continue;
+
+        // Check if personId is a descendant of rootId
+        if (isDescendantOf(personId, rootId)) {
+            return rootName;
+        }
+    }
+
+    return 'adam'; // Default fallback
+}
+
+// Check if personId is a descendant of ancestorId
+function isDescendantOf(personId, ancestorId, visited = new Set()) {
+    if (personId === ancestorId) return true;
+    if (visited.has(personId)) return false;
+    visited.add(personId);
+
+    const person = familyTreeData[personId];
+    if (!person || !person.parents) return false;
+
+    for (const parentId of person.parents) {
+        if (isDescendantOf(parentId, ancestorId, visited)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Handle URL parameters (e.g., ?person=i77)
 function handleUrlParams() {
     const params = new URLSearchParams(window.location.search);
     const personId = params.get('person');
 
     if (personId && familyTreeData[personId]) {
+        // Find best root for this person
+        const bestRoot = findBestRoot(personId);
+        if (bestRoot !== currentRoot) {
+            currentRoot = bestRoot;
+            document.getElementById('root-select').value = bestRoot;
+            renderTree();
+        }
+
         // Expand path to this person and select them
         expandPathTo(personId);
         updateVisibleNodes();
