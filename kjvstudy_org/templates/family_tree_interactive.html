@@ -188,6 +188,29 @@
     font-style: italic;
 }
 
+.person-spouse a {
+    color: #888;
+    text-decoration: none;
+}
+
+.person-spouse a:hover {
+    text-decoration: underline;
+}
+
+.person-verse {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.person-verse a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.person-verse a:hover {
+    text-decoration: underline;
+}
+
 .kekule-badge {
     display: inline-block;
     font-size: 0.75rem;
@@ -416,20 +439,43 @@ function buildTreeHTML(personId, depth = 0, visited = new Set(), isRoot = false)
     // Meta info
     let meta = [];
     if (person.generation) meta.push(`Gen ${person.generation}`);
-    if (person.birth_year && person.birth_year !== 'Unknown') {
-        let dates = person.birth_year;
-        if (person.death_year && person.death_year !== 'Unknown') {
-            dates += '–' + person.death_year;
-        }
-        meta.push(dates);
+
+    // Extract lifespan from death_year if it contains "Lived X years"
+    const lifespanMatch = person.death_year && person.death_year.match(/Lived (\d+) years/);
+    if (lifespanMatch) {
+        meta.push(`${lifespanMatch[1]} yrs`);
     }
+
+    // Number of children
+    if (children.length > 0) {
+        meta.push(`${children.length} child${children.length > 1 ? 'ren' : ''}`);
+    }
+
     if (meta.length > 0) {
         html += `<span class="person-meta">(${meta.join(', ')})</span>`;
     }
 
-    // Spouse
+    // Spouse (try to link if they exist in data)
     if (person.spouse) {
-        html += `<span class="person-spouse">∞ ${person.spouse}</span>`;
+        const spouseId = findPersonId(person.spouse);
+        if (spouseId) {
+            html += `<span class="person-spouse">∞ <a href="/family-tree/person/${spouseId}">${person.spouse}</a></span>`;
+        } else {
+            html += `<span class="person-spouse">∞ ${person.spouse}</span>`;
+        }
+    }
+
+    // Scripture reference
+    if (person.verses && person.verses.length > 0) {
+        const verse = person.verses[0];
+        const refMatch = verse.reference.match(/^(\d?\s*[A-Za-z]+)\s+(\d+):(\d+)/);
+        if (refMatch) {
+            const book = refMatch[1].trim();
+            const chapter = refMatch[2];
+            const verseNum = refMatch[3];
+            const verseUrl = `/book/${encodeURIComponent(book)}/chapter/${chapter}#verse-${verseNum}`;
+            html += `<span class="person-verse"><a href="${verseUrl}">${verse.reference}</a></span>`;
+        }
     }
 
     html += '</div>';
@@ -479,12 +525,44 @@ function buildAncestorsHTML(personId, depth = 0, visited = new Set(), isRoot = f
 
     let meta = [];
     if (person.generation) meta.push(`Gen ${person.generation}`);
+
+    // Extract lifespan from death_year if it contains "Lived X years"
+    const lifespanMatch = person.death_year && person.death_year.match(/Lived (\d+) years/);
+    if (lifespanMatch) {
+        meta.push(`${lifespanMatch[1]} yrs`);
+    }
+
+    // Number of children (for ancestors view, show children count)
+    const children = person.children || [];
+    if (children.length > 0) {
+        meta.push(`${children.length} child${children.length > 1 ? 'ren' : ''}`);
+    }
+
     if (meta.length > 0) {
         html += `<span class="person-meta">(${meta.join(', ')})</span>`;
     }
 
+    // Spouse (try to link if they exist in data)
     if (person.spouse) {
-        html += `<span class="person-spouse">∞ ${person.spouse}</span>`;
+        const spouseId = findPersonId(person.spouse);
+        if (spouseId) {
+            html += `<span class="person-spouse">∞ <a href="/family-tree/person/${spouseId}">${person.spouse}</a></span>`;
+        } else {
+            html += `<span class="person-spouse">∞ ${person.spouse}</span>`;
+        }
+    }
+
+    // Scripture reference
+    if (person.verses && person.verses.length > 0) {
+        const verse = person.verses[0];
+        const refMatch = verse.reference.match(/^(\d?\s*[A-Za-z]+)\s+(\d+):(\d+)/);
+        if (refMatch) {
+            const book = refMatch[1].trim();
+            const chapter = refMatch[2];
+            const verseNum = refMatch[3];
+            const verseUrl = `/book/${encodeURIComponent(book)}/chapter/${chapter}#verse-${verseNum}`;
+            html += `<span class="person-verse"><a href="${verseUrl}">${verse.reference}</a></span>`;
+        }
     }
 
     html += '</div>';
