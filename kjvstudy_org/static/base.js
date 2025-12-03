@@ -32,29 +32,6 @@ function toggleFontSize() {
   }
 }
 
-// Copy page text to clipboard
-function copyPageText() {
-  var btn = document.getElementById('copy-btn');
-  var article = document.querySelector('article');
-  if (!article) return;
-
-  var clone = article.cloneNode(true);
-  clone.querySelectorAll('.breadcrumb, .breadcrumb-actions, .sidenote, .marginnote, .toc, script, style, nav, button').forEach(function(el) {
-    el.remove();
-  });
-
-  var text = (clone.textContent || clone.innerText || '').trim();
-
-  navigator.clipboard.writeText(text).then(function() {
-    if (btn) {
-      btn.classList.add('copied');
-      setTimeout(function() {
-        btn.classList.remove('copied');
-      }, 1500);
-    }
-  });
-}
-
 // Bookmark functionality
 function getBookmarks() {
   try {

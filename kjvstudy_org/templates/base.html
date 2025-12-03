@@ -427,14 +427,6 @@
             content: '■';
         }
 
-        .breadcrumb-action-btn.copy-btn::before {
-            content: '⎘';
-        }
-
-        .breadcrumb-action-btn.copy-btn.copied::before {
-            content: '✓';
-        }
-
         .breadcrumb-action-btn.bookmark-btn::before {
             content: '☆';
         }
@@ -1434,7 +1426,6 @@
             <span class="breadcrumb-actions">
                 <button class="breadcrumb-action-btn font-toggle" title="Toggle large text" onclick="toggleFontSize()" aria-label="Toggle large text">A</button>
                 <button class="breadcrumb-action-btn speech-toggle" id="speech-toggle-btn" title="Read aloud" onclick="togglePageSpeech()" aria-label="Read page aloud"></button>
-                <button class="breadcrumb-action-btn copy-btn" id="copy-btn" title="Copy page text" onclick="copyPageText()" aria-label="Copy page text"></button>
                 <button class="breadcrumb-action-btn bookmark-btn" id="bookmark-btn" title="Bookmark this page" onclick="toggleBookmark()" aria-label="Bookmark this page"></button>
                 <button class="breadcrumb-action-btn dark-toggle" title="Toggle dark mode" onclick="toggleDarkMode()" aria-label="Toggle dark mode"></button>
             </span>
