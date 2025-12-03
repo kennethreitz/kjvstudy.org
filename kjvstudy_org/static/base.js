@@ -50,6 +50,49 @@ function isBookmarked(url) {
   return bookmarks.some(function(b) { return b.url === url; });
 }
 
+function getPageExcerpt() {
+  var article = document.querySelector('article');
+  if (!article) return '';
+
+  var clone = article.cloneNode(true);
+  clone.querySelectorAll('.breadcrumb, .breadcrumb-actions, .sidenote, .marginnote, .toc, script, style, nav, button, h1, h2, h3').forEach(function(el) {
+    el.remove();
+  });
+
+  var text = (clone.textContent || clone.innerText || '').trim();
+  // Get first meaningful chunk
+  text = text.replace(/\s+/g, ' ').substring(0, 300);
+  return text;
+}
+
+function getPageDescription() {
+  var meta = document.querySelector('meta[name="description"]');
+  return meta ? meta.getAttribute('content') : '';
+}
+
+function getPageBreadcrumbs() {
+  var breadcrumb = document.querySelector('.breadcrumb');
+  if (!breadcrumb) return [];
+
+  var crumbs = [];
+  breadcrumb.querySelectorAll('a, span:not(.breadcrumb-separator):not(.breadcrumb-actions)').forEach(function(el) {
+    if (el.classList.contains('breadcrumb-actions')) return;
+    if (el.closest('.breadcrumb-actions')) return;
+    var text = el.textContent.trim();
+    if (text && text !== '>' && text.length > 0) {
+      crumbs.push({
+        text: text,
+        url: el.tagName === 'A' ? el.getAttribute('href') : null
+      });
+    }
+  });
+  // Drop the last item (it's the current page title)
+  if (crumbs.length > 0) {
+    crumbs.pop();
+  }
+  return crumbs;
+}
+
 function toggleBookmark() {
   var btn = document.getElementById('bookmark-btn');
   var url = window.location.pathname;
@@ -62,28 +105,116 @@ function toggleBookmark() {
     // Remove bookmark
     bookmarks.splice(existingIndex, 1);
     if (btn) btn.classList.remove('bookmarked');
+    showBookmarkToast(false);
   } else {
-    // Add bookmark
+    // Add bookmark with description, breadcrumbs, and excerpt
     bookmarks.unshift({
       url: url,
       title: title,
+      description: getPageDescription(),
+      breadcrumbs: getPageBreadcrumbs(),
+      excerpt: getPageExcerpt(),
       date: new Date().toISOString()
     });
     if (btn) btn.classList.add('bookmarked');
+    showBookmarkToast(true);
   }
 
   saveBookmarks(bookmarks);
+  updateStarsBadge();
 }
 
-// Check bookmark state on page load
+function showBookmarkToast(added) {
+  var toast = document.getElementById('bookmark-toast');
+  if (!toast) return;
+
+  if (added) {
+    toast.innerHTML = 'Added to <a href="/stars">Starred Pages</a>';
+  } else {
+    toast.innerHTML = 'Removed from Starred Pages';
+  }
+
+  toast.classList.add('show');
+
+  // Hide after 3 seconds
+  setTimeout(function() {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+// Check bookmark state on page load and update nav badges
 (function() {
   document.addEventListener('DOMContentLoaded', function() {
     var btn = document.getElementById('bookmark-btn');
     if (btn && isBookmarked(window.location.pathname)) {
       btn.classList.add('bookmarked');
     }
+
+    // Update nav badges
+    updateStarsBadge();
+    updateReadingPlansBadge();
   });
 })();
+
+function updateStarsBadge() {
+  var badge = document.getElementById('stars-badge');
+  if (!badge) return;
+
+  var bookmarks = getBookmarks();
+  badge.textContent = bookmarks.length > 0 ? bookmarks.length : '';
+}
+
+// Reading plans progress badge
+function updateReadingPlansBadge() {
+  var badge = document.getElementById('reading-plans-badge');
+  if (!badge) return;
+
+  // Reading plan IDs and their total days
+  var planDays = {
+    'chronological': 365,
+    'one-year': 365,
+    'new-testament': 90,
+    'gospels-acts': 30,
+    'psalms-proverbs': 31,
+    'pentateuch': 40,
+    'prophets': 60,
+    'paul-epistles': 30,
+    'minor-prophets': 14,
+    'wisdom': 30,
+    'historical': 45,
+    'general-epistles': 14
+  };
+
+  var totalCompleted = 0;
+  var totalDays = 0;
+  var activePlans = 0;
+
+  // Check each plan
+  for (var planId in planDays) {
+    var storageKey = 'reading-plan-' + planId;
+    var saved = localStorage.getItem(storageKey);
+    if (saved) {
+      try {
+        var data = JSON.parse(saved);
+        if (data.completed && data.completed.length > 0) {
+          activePlans++;
+          totalCompleted += data.completed.length;
+          totalDays += planDays[planId];
+        }
+      } catch (e) {
+        // Invalid JSON, skip
+      }
+    }
+  }
+
+  if (activePlans === 0 || totalDays === 0) {
+    badge.textContent = '';
+    return;
+  }
+
+  var percent = Math.round((totalCompleted / totalDays) * 100);
+  badge.textContent = percent + '%';
+}
 
 // Page speech toggle (for breadcrumb button) - triggers spacebar speech
 function togglePageSpeech() {
@@ -900,6 +1031,12 @@ document.addEventListener('keydown', function(e) {
     toggleDarkMode();
   }
 
+  // Cmd/Ctrl + S: Toggle star (overrides browser save)
+  if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+    e.preventDefault();
+    toggleBookmark();
+  }
+
   // Cmd/Ctrl + K or /: Focus search
   if (((e.metaKey || e.ctrlKey) && e.key === 'k') || e.key === '/') {
     e.preventDefault();
@@ -955,7 +1092,7 @@ document.addEventListener('keydown', function(e) {
         break;
       case 's':
         e.preventDefault();
-        window.location.href = '/stories';
+        window.location.href = '/stars';
         break;
       case '/':
         e.preventDefault();
@@ -1160,7 +1297,7 @@ function showKeyboardHelp() {
           '<div class="shortcut"><kbd>8</kbd><span>Proverbs</span></div>' +
           '<div class="shortcut"><kbd>9</kbd><span>Revelation</span></div>' +
           '<div class="shortcut"><kbd>b</kbd><span>Books</span></div>' +
-          '<div class="shortcut"><kbd>s</kbd><span>Stories</span></div>' +
+          '<div class="shortcut"><kbd>s</kbd><span>Stars</span></div>' +
           '<div class="shortcut"><kbd>r</kbd><span>Resources</span></div>' +
           '<div class="shortcut"><kbd>t</kbd><span>Topics</span></div>' +
           '<div class="shortcut"><kbd>p</kbd><span>PDF (when available)</span></div>' +
@@ -1184,6 +1321,7 @@ function showKeyboardHelp() {
           '<div class="shortcut"><kbd>n</kbd><span>Navigate sidebar</span></div>' +
           '<div class="shortcut"><kbd>⌘</kbd>+<kbd>D</kbd><span>Toggle dark mode</span></div>' +
           '<div class="shortcut"><kbd>R</kbd><span>Toggle red letters</span></div>' +
+          '<div class="shortcut"><kbd>⌘</kbd>+<kbd>S</kbd><span>Toggle star</span></div>' +
           '<div class="shortcut"><kbd>/</kbd><span>Search</span></div>' +
           '<div class="shortcut"><kbd>?</kbd><span>Show this help</span></div>' +
           '<div class="shortcut"><kbd>Esc</kbd><span>Close / Clear focus</span></div>' +

@@ -433,6 +433,44 @@
 
         .breadcrumb-action-btn.bookmark-btn.bookmarked::before {
             content: '★';
+            color: #eab308;
+        }
+
+        .bookmark-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .bookmark-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .bookmark-toast a {
+            color: var(--bg-color) !important;
+            margin-left: 0.5rem;
+            text-decoration: underline;
+            border-bottom: none !important;
+        }
+
+        .bookmark-toast a:hover {
+            opacity: 0.8;
+        }
+
+        [data-theme="dark"] .bookmark-toast a {
+            color: var(--bg-color) !important;
         }
 
         /* Large font size */
@@ -717,6 +755,23 @@
         .nav-footer a:hover {
             color: var(--text-secondary);
             background: rgba(74, 124, 89, 0.08);
+        }
+
+        /* Nav badge for counts */
+        .nav-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: var(--code-bg);
+            color: var(--text-secondary);
+            padding: 0.1rem 0.4rem;
+            border-radius: 8px;
+            margin-left: 0.35rem;
+            vertical-align: middle;
+        }
+
+        .nav-badge:empty {
+            display: none;
         }
 
         /* Sidebar search box */
@@ -1420,6 +1475,8 @@
     </p>
     {% endif %}
 
+    <div class="bookmark-toast" id="bookmark-toast"></div>
+
     <article role="main" id="main-content">
         {% if breadcrumbs %}
         <nav class="breadcrumb" aria-label="Breadcrumb" id="breadcrumb">
@@ -1456,19 +1513,8 @@
         <ul>
             <li><a href="/" {% if request.url.path == "/" %}class="current"{% endif %}>Home</a></li>
             <li><a href="/books" {% if request.url.path == "/books" or request.url.path.startswith("/book/") %}class="current"{% endif %}>Books</a></li>
-            <li><a href="/search">Search</a></li>
         </ul>
 
-
-        <!-- Daily Reading -->
-        <details class="resource-group" open aria-label="Daily reading resources">
-            <summary aria-expanded="true">Daily Reading</summary>
-            <ul>
-                <li><a href="/verse-of-the-day" {% if request.url.path == "/verse-of-the-day" %}class="current"{% endif %}>Verse of the Day</a></li>
-                <li><a href="/random-verse" {% if request.url.path == "/random-verse" %}class="current"{% endif %}>Random Verse</a></li>
-                <li><a href="/reading-plans" {% if request.url.path.startswith("/reading-plans") %}class="current"{% endif %}>Reading Plans</a></li>
-            </ul>
-        </details>
 
         <!-- Study Resources -->
         <details class="resource-group" open aria-label="Study resources">
@@ -1478,6 +1524,7 @@
                 <li><a href="/stories" {% if request.url.path.startswith("/stories") %}class="current"{% endif %}>Bible Stories</a></li>
                 <li><a href="/topics" {% if request.url.path.startswith("/topics") %}class="current"{% endif %}>Topics</a></li>
                 <li><a href="/resources" {% if request.url.path == "/resources" or request.url.path.startswith("/biblical-") or request.url.path.startswith("/names-of-") or request.url.path.startswith("/parables") or request.url.path.startswith("/the-twelve-apostles") or request.url.path.startswith("/women-of-the-bible") or request.url.path.startswith("/fruits-of-the-spirit") or request.url.path.startswith("/miracles-of-jesus") or request.url.path.startswith("/prayers-of-the-bible") or request.url.path.startswith("/beatitudes") or request.url.path.startswith("/ten-commandments") or request.url.path.startswith("/armor-of-god") or request.url.path.startswith("/i-am-statements") or request.url.path.startswith("/trinity") or request.url.path.startswith("/christology") or request.url.path.startswith("/soteriology") or request.url.path.startswith("/pneumatology") or request.url.path.startswith("/eschatology") or request.url.path.startswith("/ecclesiology") or request.url.path.startswith("/types-and-shadows") or request.url.path.startswith("/messianic-prophecies") or request.url.path.startswith("/blood-in-scripture") or request.url.path.startswith("/kingdom-of-god") or request.url.path.startswith("/spirits-and-demons") or request.url.path.startswith("/personifications") or request.url.path.startswith("/bibliology") or request.url.path.startswith("/theology-proper") or request.url.path.startswith("/anthropology") or request.url.path.startswith("/hamartiology") or request.url.path.startswith("/providence") or request.url.path.startswith("/grace") or request.url.path.startswith("/justification") or request.url.path.startswith("/sanctification") or request.url.path.startswith("/law-and-gospel") or request.url.path.startswith("/worship") or request.url.path.startswith("/tetragrammaton") %}class="current"{% endif %}>Resources</a></li>
+                <li><a href="/random-verse" {% if request.url.path == "/random-verse" %}class="current"{% endif %}>Random Verse</a></li>
             </ul>
         </details>
 
@@ -1487,6 +1534,15 @@
             <ul>
                 <li><a href="/strongs" {% if request.url.path.startswith("/strongs") %}class="current"{% endif %}>Strong's Concordance</a></li>
                 <li><a href="/interlinear" {% if request.url.path.startswith("/interlinear") %}class="current"{% endif %}>Interlinear</a></li>
+            </ul>
+        </details>
+
+        <!-- Your Library -->
+        <details class="resource-group" open aria-label="Your personal library">
+            <summary aria-expanded="true">Your Library</summary>
+            <ul>
+                <li><a href="/reading-plans" {% if request.url.path.startswith("/reading-plans") %}class="current"{% endif %}>Reading Plans <span class="nav-badge" id="reading-plans-badge"></span></a></li>
+                <li><a href="/stars" {% if request.url.path == "/stars" %}class="current"{% endif %}>Starred Pages <span class="nav-badge" id="stars-badge"></span></a></li>
             </ul>
         </details>
 
