@@ -71,8 +71,9 @@
 .word-card .original-word {
     font-size: 5rem;
     line-height: 1.2;
-    margin-bottom: 0.75rem;
+    margin: 0 0 0.75rem 0;
     color: var(--text-color);
+    font-weight: normal;
 }
 
 .word-card .original-word.hebrew {
@@ -575,14 +576,12 @@
 
 {% block content %}
 <article class="strongs-page">
-    <h1>Strong's Concordance: {{ entry.strongs }}</h1>
-
     <section class="word-card">
         <div class="strongs-number">
             {{ entry.strongs }}
             <span class="lang-badge {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.language }}</span>
         </div>
-        <div class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}" lang="{% if entry.language == 'Hebrew' %}he{% else %}el{% endif %}">{{ entry.word }}</div>
+        <h1 class="original-word {% if entry.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}" lang="{% if entry.language == 'Hebrew' %}he{% else %}el{% endif %}">{{ entry.word }}</h1>
         <div class="transliteration">{{ entry.transliteration }}{% if entry.pronunciation %} ({{ entry.pronunciation }}){% endif %}</div>
         <div class="quick-def">{{ entry.definition }}</div>
     </section>
