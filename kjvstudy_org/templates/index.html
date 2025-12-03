@@ -454,7 +454,7 @@ section h2 {
 <section>
     <h2>Original Language Study</h2>
 
-    <p><span class="newthought">Study Scripture</span> word-by-word in Hebrew and Greek. Each word shows the original text, transliteration, Strong's number, and English translation.</p>
+    <p><span class="newthought">Study Scripture</span> word-by-word in Hebrew and Greek with our <a href="/interlinear">interlinear Bible</a> and <a href="/strongs">Strong's Concordance</a>. Each word links to its original text, transliteration, and lexical definition.</p>
 
     <div class="interlinear-samples">
         <div class="interlinear-sample">
@@ -620,10 +620,19 @@ section h2 {
     </div>
 </section>
 
+<section>
+    <h2>Accessibility</h2>
+
+    <p><span class="newthought">Full keyboard navigation</span> is available throughout the site. Use <kbd>j</kbd>/<kbd>k</kbd> or arrow keys to navigate, <kbd>Enter</kbd> to select, and <kbd>/</kbd> to focus search. Text-to-speech is supported on verse pages for listening to Scripture read aloud.</p>
+
+    <p><a href="/about/accessibility">Learn more →</a></p>
+</section>
+
 <div class="home-footer">
     <p>
         <a href="/about">About KJV Study</a> ·
-        <a href="/api/docs">API Documentation</a> ·
+        <a href="/about/accessibility">Accessibility</a> ·
+        <a href="/api/docs">API</a> ·
         <a href="https://github.com/kennethreitz/kjvstudy.org" target="_blank" rel="noopener">Source Code</a>
     </p>
 </div>
@@ -728,9 +737,26 @@ function handleSearch(event) {
     return false;
 }
 
-// Keyboard navigation
-var navItems = Array.from(document.querySelectorAll('.resource-card, .topic-link, .quick-links a'));
+// Keyboard navigation with 2D grid support for topic-grid
+var navItems = Array.from(document.querySelectorAll('.resource-card, .topic-link, .quick-links a, .interactive-grid a'));
 var selectedIndex = -1;
+
+function getGridInfo(item) {
+    var parent = item.parentElement;
+    if (parent && parent.classList.contains('topic-grid')) {
+        var siblings = Array.from(parent.querySelectorAll('.topic-link'));
+        var indexInGrid = siblings.indexOf(item);
+        var cols = 4; // topic-grid has 4 columns
+        return { isGrid: true, siblings: siblings, indexInGrid: indexInGrid, cols: cols, parent: parent };
+    }
+    if (parent && parent.classList.contains('interactive-grid')) {
+        var siblings = Array.from(parent.querySelectorAll('a'));
+        var indexInGrid = siblings.indexOf(item);
+        var cols = 4;
+        return { isGrid: true, siblings: siblings, indexInGrid: indexInGrid, cols: cols, parent: parent };
+    }
+    return { isGrid: false };
+}
 
 function selectItem(index) {
     if (selectedIndex >= 0 && selectedIndex < navItems.length) {
@@ -739,6 +765,11 @@ function selectItem(index) {
     selectedIndex = Math.max(0, Math.min(index, navItems.length - 1));
     navItems[selectedIndex].classList.add('selected');
     navItems[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
+}
+
+function selectByElement(el) {
+    var idx = navItems.indexOf(el);
+    if (idx >= 0) selectItem(idx);
 }
 
 document.addEventListener('keydown', function(e) {
@@ -751,15 +782,63 @@ document.addEventListener('keydown', function(e) {
     }
 
     if (!isTyping) {
+        var currentItem = selectedIndex >= 0 ? navItems[selectedIndex] : null;
+        var gridInfo = currentItem ? getGridInfo(currentItem) : { isGrid: false };
+
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
-            selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            if (gridInfo.isGrid) {
+                // Move down one row in grid
+                var newGridIndex = gridInfo.indexInGrid + gridInfo.cols;
+                if (newGridIndex < gridInfo.siblings.length) {
+                    selectByElement(gridInfo.siblings[newGridIndex]);
+                } else {
+                    // Exit grid, go to next item after grid
+                    var lastInGrid = gridInfo.siblings[gridInfo.siblings.length - 1];
+                    var lastIdx = navItems.indexOf(lastInGrid);
+                    selectItem(lastIdx + 1);
+                }
+            } else {
+                selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            }
         } else if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
-            selectItem(selectedIndex - 1);
+            if (gridInfo.isGrid) {
+                // Move up one row in grid
+                var newGridIndex = gridInfo.indexInGrid - gridInfo.cols;
+                if (newGridIndex >= 0) {
+                    selectByElement(gridInfo.siblings[newGridIndex]);
+                } else {
+                    // Exit grid, go to item before grid
+                    var firstInGrid = gridInfo.siblings[0];
+                    var firstIdx = navItems.indexOf(firstInGrid);
+                    selectItem(firstIdx - 1);
+                }
+            } else {
+                selectItem(selectedIndex - 1);
+            }
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (gridInfo.isGrid && gridInfo.indexInGrid < gridInfo.siblings.length - 1) {
+                selectByElement(gridInfo.siblings[gridInfo.indexInGrid + 1]);
+            } else {
+                selectItem(selectedIndex < 0 ? 0 : selectedIndex + 1);
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (gridInfo.isGrid && gridInfo.indexInGrid > 0) {
+                selectByElement(gridInfo.siblings[gridInfo.indexInGrid - 1]);
+            } else {
+                selectItem(selectedIndex - 1);
+            }
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
             window.location.href = navItems[selectedIndex].href;
+        } else if (e.key === 'Escape') {
+            if (selectedIndex >= 0) {
+                navItems[selectedIndex].classList.remove('selected');
+                selectedIndex = -1;
+            }
         }
     }
 });

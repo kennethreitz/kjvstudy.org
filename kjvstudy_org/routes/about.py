@@ -302,3 +302,22 @@ async def about(request: Request):
             "breadcrumbs": breadcrumbs,
         }
     )
+
+
+@router.get("/about/accessibility", response_class=HTMLResponse)
+async def accessibility(request: Request):
+    """Accessibility page - keyboard navigation, screen readers, text-to-speech"""
+    books = bible.get_books()
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "About", "url": "/about"},
+        {"text": "Accessibility", "url": None}
+    ]
+    return templates.TemplateResponse(
+        "accessibility.html",
+        {
+            "request": request,
+            "books": books,
+            "breadcrumbs": breadcrumbs,
+        }
+    )

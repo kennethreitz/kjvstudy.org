@@ -1,0 +1,458 @@
+{% extends "base.html" %}
+
+{% block title %}Accessibility - KJV Study{% endblock %}
+{% block description %}KJV Study is designed to be fully accessible with keyboard navigation, screen reader support, text-to-speech, and high contrast modes.{% endblock %}
+
+{% block content %}
+<article>
+    <h1>Accessibility</h1>
+    <p class="subtitle">Scripture for everyone, without barriers</p>
+
+    <nav class="toc" aria-label="Table of contents">
+        <strong>Contents</strong>
+        <ul role="list">
+            <li><a href="#our-commitment">Our Commitment</a></li>
+            <li><a href="#keyboard-navigation">Keyboard Navigation</a></li>
+            <li><a href="#text-to-speech">Text-to-Speech</a></li>
+            <li><a href="#visual-accessibility">Visual Accessibility</a></li>
+            <li><a href="#screen-readers">Screen Reader Support</a></li>
+            <li><a href="#feedback">Feedback</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2 id="our-commitment">Our Commitment</h2>
+        <p><span class="newthought">God's Word belongs to all</span>, and we believe every person should be able to read, study, and meditate on Scripture regardless of physical ability.<label for="sn-commitment" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-commitment" class="margin-toggle"/>
+        <span class="sidenote">"So then faith cometh by hearing, and hearing by the word of God" (Romans 10:17). Access to Scripture has always been central to Christian faith.</span> KJV Study is designed from the ground up with accessibility in mind.</p>
+
+        <p>We strive to follow accessibility best practices including semantic HTML, sufficient color contrast, full keyboard operability, and compatibility with assistive technologies. While we haven't conducted a formal WCAG audit, accessibility is a priority in our development.</p>
+    </section>
+
+    <section>
+        <h2 id="keyboard-navigation">Keyboard Navigation</h2>
+        <p><span class="newthought">Full keyboard navigation</span> is available throughout the site. You never need a mouse to read or study Scripture.</p>
+
+        <h3>Global Shortcuts</h3>
+        <table class="keyboard-table">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><kbd>/</kbd></td>
+                    <td>Focus search box</td>
+                </tr>
+                <tr>
+                    <td><kbd>Escape</kbd></td>
+                    <td>Clear selection / close dialogs</td>
+                </tr>
+                <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Show keyboard shortcuts help (on most pages)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Navigation</h3>
+        <table class="keyboard-table">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><kbd>j</kbd> or <kbd>↓</kbd></td>
+                    <td>Move to next item</td>
+                </tr>
+                <tr>
+                    <td><kbd>k</kbd> or <kbd>↑</kbd></td>
+                    <td>Move to previous item</td>
+                </tr>
+                <tr>
+                    <td><kbd>h</kbd> or <kbd>←</kbd></td>
+                    <td>Move left (in grids) / Go back</td>
+                </tr>
+                <tr>
+                    <td><kbd>l</kbd> or <kbd>→</kbd></td>
+                    <td>Move right (in grids) / Go forward</td>
+                </tr>
+                <tr>
+                    <td><kbd>Enter</kbd></td>
+                    <td>Select / follow link</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Verse Pages</h3>
+        <table class="keyboard-table">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><kbd>←</kbd></td>
+                    <td>Previous verse</td>
+                </tr>
+                <tr>
+                    <td><kbd>→</kbd></td>
+                    <td>Next verse</td>
+                </tr>
+                <tr>
+                    <td><kbd>Space</kbd></td>
+                    <td>Read selected text aloud</td>
+                </tr>
+                <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Stop text-to-speech</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Chapter Pages</h3>
+        <table class="keyboard-table">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><kbd>[</kbd></td>
+                    <td>Previous chapter</td>
+                </tr>
+                <tr>
+                    <td><kbd>]</kbd></td>
+                    <td>Next chapter</td>
+                </tr>
+                <tr>
+                    <td><kbd>1</kbd>-<kbd>9</kbd></td>
+                    <td>Jump to verse 1-9</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Navigation keys are inspired by Vim conventions (<kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>) for users familiar with that paradigm, while also supporting standard arrow keys for everyone else.</p>
+    </section>
+
+    <section>
+        <h2 id="text-to-speech">Text-to-Speech</h2>
+        <p><span class="newthought">Listen to Scripture</span> read aloud using your browser's built-in speech synthesis. This feature uses the Web Speech API, which is supported in all modern browsers.</p>
+
+        <h3>How to Use</h3>
+        <ul>
+            <li>On verse pages, select any paragraph with <kbd>j</kbd>/<kbd>k</kbd> and press <kbd>Space</kbd> to hear it read aloud</li>
+            <li>Press <kbd>Space</kbd> again to pause/resume</li>
+            <li>Press <kbd>s</kbd> or <kbd>Escape</kbd> to stop</li>
+            <li>The verse text, commentary, and other content can all be read aloud</li>
+        </ul>
+
+        <h3>Voice Settings</h3>
+        <p>Text-to-speech uses your system's default voice. You can change the voice in your operating system's accessibility settings:</p>
+        <ul>
+            <li><strong>macOS</strong>: System Preferences → Accessibility → Spoken Content</li>
+            <li><strong>Windows</strong>: Settings → Time & Language → Speech</li>
+            <li><strong>iOS</strong>: Settings → Accessibility → Spoken Content</li>
+            <li><strong>Android</strong>: Settings → Accessibility → Text-to-speech</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2 id="visual-accessibility">Visual Accessibility</h2>
+
+        <h3>Dark Mode</h3>
+        <p>KJV Study supports both light and dark color schemes. The site respects your system preference automatically, or you can toggle manually using the theme switcher in the navigation bar.</p>
+
+        <h3>Color Contrast</h3>
+        <p>All text meets WCAG AA contrast requirements (minimum 4.5:1 for normal text, 3:1 for large text). We use carefully chosen color palettes for both light and dark modes.</p>
+
+        <h3>Typography</h3>
+        <ul>
+            <li>Readable serif fonts based on Edward Tufte's design principles</li>
+            <li>Generous line height (1.6-1.8) for comfortable reading</li>
+            <li>Responsive text sizing that works at any zoom level</li>
+            <li>Maximum line width for optimal readability</li>
+        </ul>
+
+        <h3>Zoom Support</h3>
+        <p>The site is fully functional at any zoom level up to 400%. All layouts adapt gracefully, and no content is lost or obscured when zooming.</p>
+
+        <h3>Reduced Motion</h3>
+        <p>If you have "reduce motion" enabled in your system preferences, animations and transitions are minimized or disabled.</p>
+    </section>
+
+    <section>
+        <h2 id="screen-readers">Screen Reader Support</h2>
+        <p><span class="newthought">KJV Study is built</span> with semantic HTML and ARIA attributes to ensure compatibility with screen readers.</p>
+
+        <h3>Semantic Structure</h3>
+        <ul>
+            <li>Proper heading hierarchy (<code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>)</li>
+            <li>Landmark regions (<code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, etc.)</li>
+            <li>Labeled form controls</li>
+            <li>Descriptive link text (no "click here")</li>
+        </ul>
+
+        <h3>ARIA Labels</h3>
+        <ul>
+            <li>Navigation menus are labeled with <code>aria-label</code></li>
+            <li>Interactive elements have appropriate roles</li>
+            <li>Dynamic content updates are announced</li>
+            <li>Tables have proper headers and captions</li>
+        </ul>
+
+        <h3>Skip Links</h3>
+        <p>A "Skip to content" link appears when you tab into any page, allowing you to bypass navigation and jump directly to the main content.</p>
+
+        <h3>Tested With</h3>
+        <ul>
+            <li>VoiceOver (macOS/iOS) in Safari</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2 id="feedback">Feedback</h2>
+        <p>We are continually working to improve accessibility. If you encounter any barriers while using KJV Study, or have suggestions for improvement, please let us know:</p>
+
+        <ul>
+            <li><strong>GitHub Issues</strong>: <a href="https://github.com/kennethreitz/kjvstudy.org/issues" target="_blank" rel="noopener">Report an accessibility issue</a></li>
+        </ul>
+
+        <p>When reporting issues, please include:</p>
+        <ul>
+            <li>The page URL where you encountered the problem</li>
+            <li>Your browser and operating system</li>
+            <li>Any assistive technology you're using</li>
+            <li>A description of what you expected vs. what happened</li>
+        </ul>
+    </section>
+
+    <section style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+        <p style="text-align: center; color: var(--text-secondary);">
+            <em>"The entrance of thy words giveth light; it giveth understanding unto the simple."</em><br>
+            <span style="font-size: 0.9rem;">— Psalm 119:130</span>
+        </p>
+    </section>
+</article>
+
+<style>
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    section {
+        margin: 3rem 0;
+    }
+
+    section h2 {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    section h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+    }
+
+    .toc {
+        background: var(--code-bg);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem 2rem;
+        margin: 2rem 0 3rem 0;
+        max-width: 400px;
+    }
+
+    .toc strong {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-secondary);
+    }
+
+    .toc ul {
+        margin: 1rem 0 0 0;
+        padding-left: 0;
+        list-style: none;
+        columns: 2;
+        column-gap: 2rem;
+    }
+
+    .toc li {
+        margin: 0.4rem 0;
+    }
+
+    .toc a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .toc a:hover {
+        color: var(--link-color);
+    }
+
+    kbd {
+        display: inline-block;
+        padding: 0.2rem 0.5rem;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 0.85rem;
+        background: var(--code-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        box-shadow: 0 1px 0 var(--border-color);
+    }
+
+    .keyboard-table {
+        width: 100%;
+        max-width: 500px;
+        margin: 1rem 0 1.5rem;
+        border-collapse: collapse;
+    }
+
+    .keyboard-table th,
+    .keyboard-table td {
+        padding: 0.5rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .keyboard-table th {
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--text-secondary);
+    }
+
+    .keyboard-table td:first-child {
+        width: 120px;
+    }
+
+    code {
+        background: var(--code-bg);
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    ul {
+        margin: 1rem 0;
+    }
+
+    li {
+        margin: 0.5rem 0;
+    }
+
+    a[target="_blank"]::after {
+        content: " ↗";
+        font-size: 0.8em;
+        opacity: 0.6;
+    }
+
+    /* Keyboard navigation selection */
+    .nav-paragraph.selected {
+        outline: 2px solid #4a7c59;
+        outline-offset: 4px;
+        background: rgba(74, 124, 89, 0.05);
+        border-radius: 4px;
+    }
+
+    [data-theme="dark"] .nav-paragraph.selected {
+        outline-color: #6b9b7a;
+        background: rgba(107, 155, 122, 0.1);
+    }
+</style>
+
+<script>
+(function() {
+    // Get all navigable paragraphs
+    const paragraphs = Array.from(document.querySelectorAll('article section p, article section li')).filter(function(p) {
+        if (p.closest('.toc')) return false;
+        if (p.style.textAlign === 'center') return false;
+        return true;
+    });
+
+    paragraphs.forEach(function(p) {
+        p.classList.add('nav-paragraph');
+    });
+
+    let selectedIndex = -1;
+
+    function clearSelection() {
+        paragraphs.forEach(function(p) {
+            p.classList.remove('selected');
+        });
+    }
+
+    function selectParagraph(index) {
+        clearSelection();
+        selectedIndex = Math.max(0, Math.min(index, paragraphs.length - 1));
+        paragraphs[selectedIndex].classList.add('selected');
+        paragraphs[selectedIndex].scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+        });
+    }
+
+    function getSelectedText() {
+        if (selectedIndex < 0 || selectedIndex >= paragraphs.length) return null;
+        const clone = paragraphs[selectedIndex].cloneNode(true);
+        clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) {
+            el.remove();
+        });
+        return (clone.textContent || clone.innerText || '').trim();
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+        }
+
+        if (e.key === 'j' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectParagraph(selectedIndex < 0 ? 0 : selectedIndex + 1);
+        }
+
+        if (e.key === 'k' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectParagraph(selectedIndex < 0 ? 0 : selectedIndex - 1);
+        }
+
+        if (e.key === ' ' && selectedIndex >= 0) {
+            e.preventDefault();
+            const text = getSelectedText();
+            if (text && window.KJVSpeech) {
+                window.KJVSpeech.toggle(text);
+            }
+        }
+
+        if (e.key === 'Escape') {
+            clearSelection();
+            selectedIndex = -1;
+            if (window.KJVSpeech) {
+                window.KJVSpeech.stop();
+            }
+        }
+
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            history.back();
+        }
+    });
+})();
+</script>
+{% endblock %}
