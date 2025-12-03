@@ -420,6 +420,15 @@
             content: '☾';
         }
 
+        .breadcrumb-action-btn.speech-toggle::before {
+            content: '🔊';
+            font-size: 0.75rem;
+        }
+
+        .breadcrumb-action-btn.speech-toggle.speaking::before {
+            content: '⏹';
+        }
+
         /* Font size scale classes */
         [data-font-size="small"] article {
             font-size: 0.9rem;
@@ -1446,6 +1455,7 @@
             <span class="breadcrumb-actions">
                 <button class="breadcrumb-action-btn font-decrease" title="Decrease font size" onclick="changeFontSize(-1)" aria-label="Decrease font size">A</button>
                 <button class="breadcrumb-action-btn font-increase" title="Increase font size" onclick="changeFontSize(1)" aria-label="Increase font size">A</button>
+                <button class="breadcrumb-action-btn speech-toggle" id="speech-toggle-btn" title="Read aloud" onclick="togglePageSpeech()" aria-label="Read page aloud"></button>
                 <button class="breadcrumb-action-btn dark-toggle" title="Toggle dark mode" onclick="toggleDarkMode()" aria-label="Toggle dark mode"></button>
             </span>
             {% for crumb in breadcrumbs %}
