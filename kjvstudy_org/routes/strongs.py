@@ -26,8 +26,22 @@ def init_templates(t: Jinja2Templates):
 @router.get("/strongs", response_class=HTMLResponse)
 async def strongs_index(request: Request, q: str = None):
     """Strong's Concordance search and lookup page."""
+    from fastapi.responses import RedirectResponse
+
     results = []
     if q:
+        # Check if query looks like a Strong's number (H123, G456, etc.)
+        q_stripped = q.strip().upper()
+        if re.match(r'^[HG]\d+$', q_stripped):
+            # Normalize leading zeros (H0001 -> H1)
+            prefix = q_stripped[0]
+            num = str(int(q_stripped[1:]))
+            normalized = f"{prefix}{num}"
+            # Check if entry exists before redirecting
+            entry = format_strongs_entry(normalized)
+            if entry:
+                return RedirectResponse(url=f"/strongs/{normalized}", status_code=302)
+
         results = search_strongs(q, language="both", limit=100)
 
     books = bible.get_books()
