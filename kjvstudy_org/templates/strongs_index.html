@@ -55,15 +55,25 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    gap: 0.75rem;
 }
 
 .result-item {
+    display: block;
     padding: 1rem;
-    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
 }
 
-.result-item:last-child {
-    border-bottom: none;
+.result-item:hover {
+    border-color: var(--link-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .result-header {
@@ -77,12 +87,7 @@
     font-family: monospace;
     font-size: 0.9rem;
     color: var(--link-color);
-    text-decoration: none;
     font-weight: 600;
-}
-
-.result-strongs:hover {
-    text-decoration: underline;
 }
 
 .result-word {
@@ -239,6 +244,15 @@
     font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
 }
 
+[data-theme="dark"] .result-item {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .result-item:hover {
+    border-color: var(--link-color);
+}
+
 [data-theme="dark"] .browse-card {
     background: #1a1a1a;
     border-color: #333;
@@ -266,11 +280,11 @@
 <p class="results-count">{{ results|length }} result{% if results|length != 1 %}s{% endif %} for "{{ query }}"</p>
 
 {% if results %}
-<ul class="results-list">
+<div class="results-list">
     {% for result in results %}
-    <li class="result-item">
+    <a href="/strongs/{{ result.strongs }}" class="result-item">
         <div class="result-header">
-            <a href="/strongs/{{ result.strongs }}" class="result-strongs">{{ result.strongs }}</a>
+            <span class="result-strongs">{{ result.strongs }}</span>
             <span class="result-word {% if result.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ result.word }}</span>
             <span class="result-lang {% if result.language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ result.language }}</span>
         </div>
@@ -278,9 +292,9 @@
         {% if result.kjv_usage %}
         <p class="result-kjv"><strong>KJV:</strong> {{ result.kjv_usage }}</p>
         {% endif %}
-    </li>
+    </a>
     {% endfor %}
-</ul>
+</div>
 {% else %}
 <p>No results found for "{{ query }}".</p>
 {% endif %}
@@ -376,8 +390,10 @@
             history.back();
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
-            const link = allItems[selectedIndex].tagName === 'A' ? allItems[selectedIndex] : allItems[selectedIndex].querySelector('a');
-            if (link) window.location.href = link.href;
+            // All items are now anchors
+            if (allItems[selectedIndex].href) {
+                window.location.href = allItems[selectedIndex].href;
+            }
         } else if (e.key === 'Escape') {
             e.preventDefault();
             if (selectedIndex >= 0 && selectedIndex < allItems.length) {

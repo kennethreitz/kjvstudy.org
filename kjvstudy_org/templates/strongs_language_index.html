@@ -26,32 +26,35 @@
 }
 
 .entry-card {
+    display: block;
     background: var(--bg-color);
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 0.875rem 1rem;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.75rem 1rem;
-    align-items: start;
-    transition: border-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
 }
 
 .entry-card:hover {
     border-color: var(--link-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.entry-card-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem 1rem;
+    align-items: start;
 }
 
 .entry-number {
     font-family: monospace;
     font-size: 0.85rem;
     color: var(--link-color);
-    text-decoration: none;
     font-weight: 600;
     white-space: nowrap;
-}
-
-.entry-number:hover {
-    text-decoration: underline;
 }
 
 .entry-content {
@@ -173,7 +176,7 @@
 }
 
 @media (max-width: 600px) {
-    .entry-card {
+    .entry-card-inner {
         grid-template-columns: 1fr;
         gap: 0.25rem;
     }
@@ -245,18 +248,20 @@
 
     <div class="entries-grid">
         {% for entry in entries %}
-        <div class="entry-card">
-            <a href="/strongs/{{ entry.strongs }}" class="entry-number">{{ entry.strongs }}</a>
-            <div class="entry-content">
-                <div class="entry-word-row">
-                    <span class="entry-word {% if language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.word }}</span>
-                    {% if entry.transliteration %}
-                    <span class="entry-translit">({{ entry.transliteration }})</span>
-                    {% endif %}
+        <a href="/strongs/{{ entry.strongs }}" class="entry-card">
+            <div class="entry-card-inner">
+                <span class="entry-number">{{ entry.strongs }}</span>
+                <div class="entry-content">
+                    <div class="entry-word-row">
+                        <span class="entry-word {% if language == 'Hebrew' %}hebrew{% else %}greek{% endif %}">{{ entry.word }}</span>
+                        {% if entry.transliteration %}
+                        <span class="entry-translit">({{ entry.transliteration }})</span>
+                        {% endif %}
+                    </div>
+                    <p class="entry-definition">{{ entry.definition }}{% if entry.definition|length >= 147 %}...{% endif %}</p>
                 </div>
-                <p class="entry-definition">{{ entry.definition }}{% if entry.definition|length >= 147 %}...{% endif %}</p>
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
 
@@ -349,8 +354,8 @@
             if (nextLink) window.location.href = nextLink.href;
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
-            const link = entries[selectedIndex].querySelector('.entry-number');
-            if (link) window.location.href = link.href;
+            // Card is now the link itself
+            window.location.href = entries[selectedIndex].href;
         } else if (e.key === 'Escape') {
             e.preventDefault();
             if (selectedIndex >= 0 && selectedIndex < entries.length) {
