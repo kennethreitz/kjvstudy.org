@@ -27,17 +27,13 @@ class VerseReference(BaseModel):
         # Split the string into parts.
         split_s = s.split(" ")
 
-        # Handle the case where the book name has multiple words (e.g., "I Corinthians").
-        # If the book name has more than one word, we need to join them.
-        # The chapter and verse will always be the last part.
-        # Example: "I Corinthians 1:1" -> ["I", "Corinthians", "1:1"]
+        # Handle book names with multiple words (e.g., "I Corinthians", "Song of Solomon").
+        # The chapter:verse will always be the last part (contains ":").
+        # Everything before that is the book name.
+        # Example: "Song of Solomon 1:1" -> book="Song of Solomon", chapter_verse="1:1"
 
-        if len(split_s) > 2:
-            book = split_s[0] + " " + split_s[1]
-            chapter_verse = split_s[2]
-        else:
-            book = split_s[0]
-            chapter_verse = split_s[1]
+        chapter_verse = split_s[-1]  # Last part is always chapter:verse
+        book = " ".join(split_s[:-1])  # Everything else is the book name
 
         chapter, verse = chapter_verse.split(":")
         return cls(book=book, chapter=int(chapter), verse=int(verse))
