@@ -145,8 +145,8 @@
 .search-tips {
     margin: 2rem 0;
     padding: 1.5rem;
-    background: #f9f9f9;
-    border-left: 3px solid #111;
+    background: var(--code-bg);
+    border-left: 3px solid var(--text-color);
 }
 
 .search-tips h3 {
@@ -155,6 +155,11 @@
 
 .search-tips ul {
     line-height: 1.8;
+}
+
+[data-theme="dark"] .search-tips {
+    background: #1a1a1a;
+    border-left-color: #6b9b7a;
 }
 
 /* Mobile optimizations */
