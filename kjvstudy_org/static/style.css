@@ -1778,7 +1778,8 @@ html,
   text-decoration: underline;
 }
 
-.verse-tooltip {
+/* Inline verse tooltip (inside .verse-reference elements) */
+.verse-reference .verse-tooltip {
   display: none;
   position: absolute;
   background: var(--text-primary);
@@ -1967,7 +1968,7 @@ html,
         font-size: 0.95rem;
     }
 
-    .verse-tooltip {
+    .verse-reference .verse-tooltip {
         position: fixed;
         bottom: 2rem;
         left: 1rem;
@@ -1997,7 +1998,7 @@ html,
         width: 100% !important;
     }
 
-    .verse-tooltip {
+    .verse-reference .verse-tooltip {
         max-width: 380px;
         min-width: 280px;
         font-size: 0.875rem;
@@ -2006,7 +2007,7 @@ html,
 
 /* Large screen tooltips */
 @media (min-width: 1200px) {
-    .verse-tooltip {
+    .verse-reference .verse-tooltip {
         max-width: 500px;
         min-width: 400px;
         font-size: 0.95rem;
