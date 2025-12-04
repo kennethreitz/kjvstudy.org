@@ -302,19 +302,22 @@ function toggleRedLetters() {
   var toggle = document.getElementById('sidebar-toggle');
   if (!toggle) return;
 
-  // On mobile, default to collapsed
+  // On mobile, default to collapsed (don't restore from localStorage - always start closed)
   var isMobile = window.innerWidth <= 1200;
   if (isMobile) {
-    var savedState = localStorage.getItem('sidebarExpanded');
-    if (savedState === 'true') {
-      toggle.checked = true;
-    } else {
-      toggle.checked = false;
-    }
+    toggle.checked = false;
 
-    toggle.addEventListener('change', function() {
-      localStorage.setItem('sidebarExpanded', toggle.checked ? 'true' : 'false');
-    });
+    // Close sidebar when clicking any link inside it (for mobile navigation)
+    var sidebar = document.querySelector('.nav-sidebar');
+    if (sidebar) {
+      sidebar.addEventListener('click', function(e) {
+        var link = e.target.closest('a');
+        if (link && link.href) {
+          // Close sidebar on navigation
+          toggle.checked = false;
+        }
+      });
+    }
   }
 })();
 
