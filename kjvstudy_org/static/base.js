@@ -1554,6 +1554,7 @@ function showKeyboardHelp() {
         target.closest('button') || target.closest('[class*="-btn"]') || target.closest('[class*="-actions"]') ||
         target.closest('[class*="download"]') || target.closest('[class*="print"]') ||
         target.closest('.share-container') || target.closest('.share-buttons') ||
+        target.closest('.share-section') || target.closest('.share-pills') ||
         target.closest('.chapter-nav') || target.closest('.verse-nav') ||
         target.closest('h1') || target.closest('h2') || target.closest('h3')) return;
 

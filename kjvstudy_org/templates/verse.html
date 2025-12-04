@@ -115,12 +115,62 @@
     margin-bottom: 0.5rem;
 }
 
-.share-container {
-    max-width: 60%;
-    margin: 1.5rem 0;
-    padding: 1rem;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+.share-section {
+    max-width: 65%;
+    margin: 1.5rem 0 2rem 0;
+}
+
+.share-section .section-heading {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.share-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.75rem 0;
+}
+
+.share-pill {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-color-darker);
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.share-pill:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+    background: rgba(74, 124, 89, 0.05);
+}
+
+.share-pill.copied {
+    border-color: var(--link-color);
+    color: var(--link-color);
+}
+
+[data-theme="dark"] .share-pill {
+    border-color: #444;
+}
+
+[data-theme="dark"] .share-pill:hover {
+    background: rgba(74, 124, 89, 0.15);
+}
+
+[data-font-size="large"] .share-pill {
+    font-size: 1rem;
+    padding: 0.3rem 0.75rem;
 }
 
 /* Generic collapsible section toggle */
@@ -420,10 +470,12 @@ a.crossref-pill:hover {
 }
 
 .interlinear-heading {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-weight: 600;
     margin: 0;
     color: var(--text-color);
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 .interlinear-flow {
@@ -945,28 +997,44 @@ a.crossref-pill:hover {
         {% if verse_num < total_verses %}<a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}" class="nav-pill">Verse {{ verse_num + 1 }} →</a>{% endif %}
     </nav>
 
-    <div class="share-container">
-        <div class="share-label">Share This Verse</div>
-        <div class="share-buttons">
-            <button class="share-btn" onclick="copyToClipboard()" id="copy-btn">
-                <span>📋</span> Copy
-            </button>
-            <a class="share-btn twitter"
+    {% if cross_references %}
+    <div class="cross-references-section" id="cross-references">
+        <h3 class="section-heading">Cross References</h3>
+        <div class="crossrefs-compact">
+            {% for ref in cross_references %}
+                {%- set ref_parts = ref.ref.rsplit(' ', 1) -%}
+                {%- if ref_parts|length == 2 -%}
+                    {%- set book_name = ref_parts[0] -%}
+                    {%- set chapter_verse = ref_parts[1] -%}
+                    {%- if ':' in chapter_verse -%}
+                        {%- set ch = chapter_verse.split(':')[0] -%}
+                        {%- set v = chapter_verse.split(':')[1] -%}
+                        <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}" class="crossref-pill cross-ref-link">{{ ref.ref }}{% if ref.text %}<span class="cross-ref-tooltip">{{ ref.text }}</span>{% endif %}</a>
+                    {%- else -%}
+                        <span class="crossref-pill">{{ ref.ref }}</span>
+                    {%- endif -%}
+                {%- else -%}
+                    <span class="crossref-pill">{{ ref.ref }}</span>
+                {%- endif -%}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="share-section">
+        <h3 class="section-heading">Share</h3>
+        <div class="share-pills">
+            <button class="share-pill" onclick="copyToClipboard()" id="copy-btn">Copy</button>
+            <a class="share-pill"
                href="https://twitter.com/intent/tweet?text={{ verse_text | striptags | urlencode }}%20—%20{{ book }}%20{{ chapter }}:{{ verse_num }}%20(KJV)&url={{ request.url }}"
                target="_blank"
-               rel="noopener">
-                <span>🐦</span> Tweet
-            </a>
-            <a class="share-btn facebook"
+               rel="noopener">Tweet</a>
+            <a class="share-pill"
                href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}"
                target="_blank"
-               rel="noopener">
-                <span>f</span> Share
-            </a>
+               rel="noopener">Share</a>
             {% if pdf_available and pdf_url %}
-            <a class="share-btn pdf" href="{{ pdf_url }}">
-                <span>📄</span> PDF
-            </a>
+            <a class="share-pill" href="{{ pdf_url }}">PDF</a>
             {% endif %}
         </div>
     </div>
@@ -979,13 +1047,13 @@ a.crossref-pill:hover {
 
             navigator.clipboard.writeText(fullText).then(function() {
                 const btn = document.getElementById('copy-btn');
-                const originalHTML = btn.innerHTML;
+                const originalText = btn.textContent;
                 btn.classList.add('copied');
-                btn.innerHTML = '<span>✓</span> Copied!';
+                btn.textContent = 'Copied!';
 
                 setTimeout(function() {
                     btn.classList.remove('copied');
-                    btn.innerHTML = originalHTML;
+                    btn.textContent = originalText;
                 }, 2000);
             }, function(err) {
                 alert('Failed to copy: ' + err);
@@ -1021,30 +1089,6 @@ a.crossref-pill:hover {
 
     </script>
 </section>
-
-{% if cross_references %}
-<div class="cross-references-section" id="cross-references">
-    <h3 class="section-heading">Cross References</h3>
-    <div class="crossrefs-compact">
-        {% for ref in cross_references %}
-            {%- set ref_parts = ref.ref.rsplit(' ', 1) -%}
-            {%- if ref_parts|length == 2 -%}
-                {%- set book_name = ref_parts[0] -%}
-                {%- set chapter_verse = ref_parts[1] -%}
-                {%- if ':' in chapter_verse -%}
-                    {%- set ch = chapter_verse.split(':')[0] -%}
-                    {%- set v = chapter_verse.split(':')[1] -%}
-                    <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}" class="crossref-pill cross-ref-link">{{ ref.ref }}{% if ref.text %}<span class="cross-ref-tooltip">{{ ref.text }}</span>{% endif %}</a>
-                {%- else -%}
-                    <span class="crossref-pill">{{ ref.ref }}</span>
-                {%- endif -%}
-            {%- else -%}
-                <span class="crossref-pill">{{ ref.ref }}</span>
-            {%- endif -%}
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
 
 {% if commentary %}
 <div id="commentary"></div>
