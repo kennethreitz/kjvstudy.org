@@ -11,6 +11,7 @@ from ..kjv import bible, VerseReference
 from ..topics import get_all_topics
 from ..red_letter import get_christ_words
 from ..stories import get_all_stories_flat
+from .books import normalize_book_name
 
 # Paths to data files
 _DATA_DIR = Path(__file__).parent.parent / "data"
@@ -84,8 +85,11 @@ def get_verse_text(book: str, chapter: int, verse: int) -> str:
 def is_verse_reference(query: str) -> bool:
     """Check if query looks like a verse reference."""
     # Pattern for verse references like "John 3:16", "1 John 4:8", "Genesis 1:1", etc.
-    verse_pattern = r'^(I{1,3}|1|2|3)?\s*[A-Za-z]+(\s+[A-Za-z]+)?\s+\d+:\d+$'
-    return bool(re.match(verse_pattern, query.strip()))
+    # Also supports space format like "Rev 22 20" (without colon)
+    colon_pattern = r'^(I{1,3}|1|2|3)?\s*[A-Za-z]+(\s+[A-Za-z]+)?\s+\d+:\d+$'
+    space_pattern = r'^(I{1,3}|1|2|3)?\s*[A-Za-z]+(\s+[A-Za-z]+)?\s+\d+\s+\d+$'
+    query = query.strip()
+    return bool(re.match(colon_pattern, query) or re.match(space_pattern, query))
 
 
 def parse_verse_reference(query: str) -> Optional[Dict]:
@@ -93,16 +97,23 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
     try:
         cleaned_query = query.strip()
         verse_ref = VerseReference.from_string(cleaned_query)
-        verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
+
+        # Try to normalize the book name (handles abbreviations like "Rev" -> "Revelation")
+        book = verse_ref.book
+        normalized = normalize_book_name(book)
+        if normalized:
+            book = normalized
+
+        verse_text = bible.get_verse_text(book, verse_ref.chapter, verse_ref.verse)
 
         if verse_text:
             return {
-                "book": verse_ref.book,
+                "book": book,
                 "chapter": verse_ref.chapter,
                 "verse": verse_ref.verse,
                 "text": verse_text,
-                "reference": f"{verse_ref.book} {verse_ref.chapter}:{verse_ref.verse}",
-                "url": f"/book/{verse_ref.book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
+                "reference": f"{book} {verse_ref.chapter}:{verse_ref.verse}",
+                "url": f"/book/{book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
                 "score": 100.0,
                 "highlighted_text": verse_text
             }
@@ -118,16 +129,23 @@ def parse_verse_reference(query: str) -> Optional[Dict]:
 
         if alternative_query != query.strip():
             verse_ref = VerseReference.from_string(alternative_query)
-            verse_text = bible.get_verse_text(verse_ref.book, verse_ref.chapter, verse_ref.verse)
+
+            # Try to normalize the book name
+            book = verse_ref.book
+            normalized = normalize_book_name(book)
+            if normalized:
+                book = normalized
+
+            verse_text = bible.get_verse_text(book, verse_ref.chapter, verse_ref.verse)
 
             if verse_text:
                 return {
-                    "book": verse_ref.book,
+                    "book": book,
                     "chapter": verse_ref.chapter,
                     "verse": verse_ref.verse,
                     "text": verse_text,
-                    "reference": f"{verse_ref.book} {verse_ref.chapter}:{verse_ref.verse}",
-                    "url": f"/book/{verse_ref.book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
+                    "reference": f"{book} {verse_ref.chapter}:{verse_ref.verse}",
+                    "url": f"/book/{book}/chapter/{verse_ref.chapter}#verse-{verse_ref.verse}",
                     "score": 100.0,
                     "highlighted_text": verse_text
                 }

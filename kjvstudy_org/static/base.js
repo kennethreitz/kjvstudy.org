@@ -1248,13 +1248,23 @@ document.addEventListener('keyup', function(e) {
 
 // Quick verse lookup
 function showVerseLookup() {
-  var reference = prompt('Enter verse reference (e.g., John 3:16, Psalm 23, Genesis 1):');
+  var reference = prompt('Enter verse reference (e.g., John 3:16, Rev 22 20, Psalm 23, Genesis 1):');
   if (!reference) return;
 
   reference = reference.trim();
 
-  // Try to match: Book Chapter:Verse
+  // Try to match: Book Chapter:Verse (with colon)
   var match = reference.match(/^(.+?)\s+(\d+):(\d+)$/i);
+  if (match) {
+    var book = match[1].trim();
+    var chapter = match[2];
+    var verse = match[3];
+    window.location.href = '/book/' + encodeURIComponent(book) + '/chapter/' + chapter + '/verse/' + verse;
+    return;
+  }
+
+  // Try to match: Book Chapter Verse (space instead of colon)
+  match = reference.match(/^(.+?)\s+(\d+)\s+(\d+)$/i);
   if (match) {
     var book = match[1].trim();
     var chapter = match[2];

@@ -21,7 +21,10 @@ class VerseReference(BaseModel):
     @lru_cache(maxsize=2048)
     def from_string(cls, s: str):
         """
-        Parses a string in the format "Book Chapter:Verse" and returns a VerseReference object.
+        Parses a string in the format "Book Chapter:Verse" or "Book Chapter Verse"
+        and returns a VerseReference object.
+
+        Supports both colon format (John 3:16) and space format (John 3 16).
         """
 
         # Split the string into parts.
@@ -32,10 +35,24 @@ class VerseReference(BaseModel):
         # Everything before that is the book name.
         # Example: "Song of Solomon 1:1" -> book="Song of Solomon", chapter_verse="1:1"
 
-        chapter_verse = split_s[-1]  # Last part is always chapter:verse
-        book = " ".join(split_s[:-1])  # Everything else is the book name
+        chapter_verse = split_s[-1]  # Last part is always chapter:verse or just verse
 
-        chapter, verse = chapter_verse.split(":")
+        # Check if using colon format (e.g., "3:16") or space format (e.g., "Rev 22 20")
+        if ":" in chapter_verse:
+            # Standard format: Book Chapter:Verse
+            book = " ".join(split_s[:-1])
+            chapter, verse = chapter_verse.split(":")
+        else:
+            # Space format: Book Chapter Verse (last two parts are chapter and verse)
+            if len(split_s) >= 3 and split_s[-1].isdigit() and split_s[-2].isdigit():
+                verse = split_s[-1]
+                chapter = split_s[-2]
+                book = " ".join(split_s[:-2])
+            else:
+                # Fallback to original behavior (will likely fail, but maintains compatibility)
+                book = " ".join(split_s[:-1])
+                chapter, verse = chapter_verse.split(":")
+
         return cls(book=book, chapter=int(chapter), verse=int(verse))
 
 

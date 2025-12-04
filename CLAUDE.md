@@ -201,15 +201,36 @@ The test suite shows several deprecation warnings:
 
 None of these warnings affect functionality.
 
+## Data Validation
+
+Always validate data before committing changes to JSON files:
+
+```bash
+# Validate all data files with Pydantic models
+uv run python scripts/validate_data.py
+```
+
+This validates:
+- `bible_metadata.json`
+- `featured_verses.json`
+- `reading_plans/` (12 files)
+- `red_letter_verses.json`
+- `resource_slugs.json`
+- `study_guides/` (36 files)
+- `topics/` (36 files)
+- `verse_commentary/` (66 files - one per book)
+- `word_studies.json`
+
 ## Contributing
 
 When making changes:
 
 1. **Write tests** for new features
 2. **Run tests** before committing: `uv run pytest tests/ -v`
-3. **Check CI** - GitHub Actions will run tests automatically
-4. **Update docs** if adding API endpoints
-5. **Follow existing patterns** in the codebase
+3. **Validate data** before committing: `uv run python scripts/validate_data.py`
+4. **Check CI** - GitHub Actions will run tests automatically
+5. **Update docs** if adding API endpoints
+6. **Follow existing patterns** in the codebase
 
 ## Useful Commands
 
@@ -228,6 +249,9 @@ uv run pytest tests/test_api.py::TestAPIHealth -v
 
 # Check test coverage
 uv run pytest tests/ --cov=kjvstudy_org --cov-report=term-missing
+
+# Validate data files
+uv run python scripts/validate_data.py
 
 # Format code (if ruff is configured)
 uv run ruff check .
