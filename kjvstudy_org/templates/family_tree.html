@@ -354,16 +354,18 @@
     }
 }
 
-/* Dark mode - .section-card and .person-card-name/verse rules are in base.html */
+/* Dark mode */
 [data-theme="dark"] .search-card,
 [data-theme="dark"] .feature-card,
-[data-theme="dark"] .stats-card {
+[data-theme="dark"] .stats-card,
+[data-theme="dark"] .section-card {
     background: #1a1a1a;
     border-color: #333;
 }
 
 [data-theme="dark"] .search-card h2,
-[data-theme="dark"] .stats-card h2 {
+[data-theme="dark"] .stats-card h2,
+[data-theme="dark"] .section-card h2 {
     color: #e0e0e0;
     border-bottom-color: #333;
 }
@@ -442,7 +444,9 @@
     background: linear-gradient(to right, #2a2a1a, #252525);
 }
 
-/* .person-card-name and .person-card-verse dark mode rules are in base.html */
+[data-theme="dark"] .person-card-name {
+    color: #e0e0e0;
+}
 
 [data-theme="dark"] .person-card-meta {
     color: #888;
@@ -450,6 +454,10 @@
 
 [data-theme="dark"] .person-card-details {
     color: #bbb;
+}
+
+[data-theme="dark"] .person-card-verse {
+    color: #888;
 }
 
 [data-theme="dark"] .page-header .subtitle {

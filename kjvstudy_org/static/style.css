@@ -2530,25 +2530,11 @@ label.sidenote-number {
     color: #ff6b6b;
 }
 
-[data-theme="dark"] .section-card {
-    background: #1a1a1a !important;
-    border-color: #333 !important;
-}
-
-[data-theme="dark"] .section-card h2 {
-    color: #e0e0e0 !important;
-    border-bottom-color: #333 !important;
-}
-
-[data-theme="dark"] .person-card-name {
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .person-card-verse {
-    color: #888;
-}
-
 [data-theme="dark"] .nav-paragraph.selected {
     outline-color: #6b9b7a;
     background: rgba(107, 155, 122, 0.1);
 }
+
+/* Note: .section-card, .person-card-name, .person-card-verse dark mode rules
+   must stay in individual templates due to CSS cascade order (template <style>
+   blocks load after style.css) */
