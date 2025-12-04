@@ -372,6 +372,10 @@
 
 <script>
 // Use standardized grid navigation from base.js
-KJVNav.initGridNav('.book-card', { gridSelector: '.book-grid' });
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.KJVNav && KJVNav.initGridNav) {
+        KJVNav.initGridNav('.book-card', { gridSelector: '.book-grid' });
+    }
+});
 </script>
 {% endblock %}
