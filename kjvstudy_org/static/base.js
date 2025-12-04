@@ -398,13 +398,19 @@ function toggleRedLetters() {
 
   // Try to parse as verse reference and return URL, or null
   function parseVerseReference(input) {
-    // Book Chapter:Verse
+    // Book Chapter:Verse (e.g., "John 3:16")
     var match = input.match(/^(.+)\s+(\d+):(\d+)$/i);
     if (match) {
       var book = capitalizeBook(match[1].trim());
       return '/book/' + encodeURIComponent(book) + '/chapter/' + match[2] + '/verse/' + match[3];
     }
-    // Book Chapter
+    // Book Chapter Verse (e.g., "Rev 22 20" or "John 3 16")
+    match = input.match(/^(.+)\s+(\d+)\s+(\d+)$/i);
+    if (match) {
+      var book = capitalizeBook(match[1].trim());
+      return '/book/' + encodeURIComponent(book) + '/chapter/' + match[2] + '/verse/' + match[3];
+    }
+    // Book Chapter (e.g., "Genesis 1")
     match = input.match(/^(.+)\s+(\d+)$/i);
     if (match) {
       var book = capitalizeBook(match[1].trim());
