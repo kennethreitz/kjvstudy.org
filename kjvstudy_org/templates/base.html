@@ -303,6 +303,17 @@
             margin-left: 30px;
         }
 
+        /* At narrow tablet widths, add extra margin to clear sidebar */
+        @media (min-width: 769px) and (max-width: 950px) {
+            article {
+                margin-left: 85px;
+            }
+            .breadcrumb {
+                margin-left: -85px;
+                padding-left: 85px;
+            }
+        }
+
         /* Remove margin on mobile when sidebar is hidden */
         @media (max-width: 768px) {
             article {
