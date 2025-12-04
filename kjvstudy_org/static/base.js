@@ -218,6 +218,11 @@ function updateReadingPlansBadge() {
 
 // Page speech toggle (for breadcrumb button) - triggers spacebar speech
 function togglePageSpeech() {
+  // Clear suppressSpace flag since this is a button click, not a keyboard repeat
+  if (window.KJVResourceSpeech) {
+    window.KJVResourceSpeech.suppressSpace = false;
+  }
+
   // Simulate spacebar press to use existing speech system
   var event = new KeyboardEvent('keydown', { key: ' ', code: 'Space', bubbles: true });
   document.dispatchEvent(event);
@@ -230,7 +235,11 @@ function updateSpeechButtonState() {
   var btn = document.getElementById('speech-toggle-btn');
   if (!btn) return;
 
-  if (window.KJVResourceSpeech && window.KJVResourceSpeech.speaking) {
+  var isSpeaking = (window.KJVResourceSpeech && window.KJVResourceSpeech.speaking) ||
+                   (window.KJVSpeech && window.KJVSpeech.speaking) ||
+                   ('speechSynthesis' in window && (speechSynthesis.speaking || speechSynthesis.pending));
+
+  if (isSpeaking) {
     btn.classList.add('speaking');
   } else {
     btn.classList.remove('speaking');
