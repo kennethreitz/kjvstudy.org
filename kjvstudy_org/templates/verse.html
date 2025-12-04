@@ -179,6 +179,50 @@
     color: var(--text-color);
 }
 
+.crossrefs-compact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.75rem 0;
+    max-width: 65%;
+}
+
+.crossref-pill {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.15s;
+    white-space: nowrap;
+    position: relative;
+}
+
+a.crossref-pill:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+    background: rgba(74, 124, 89, 0.05);
+}
+
+.crossref-pill .cross-ref-tooltip {
+    left: 0;
+    transform: none;
+    min-width: 200px;
+    max-width: 350px;
+    white-space: normal;
+}
+
+[data-theme="dark"] .crossref-pill {
+    border-color: #444;
+}
+
+[data-theme="dark"] a.crossref-pill:hover {
+    background: rgba(74, 124, 89, 0.15);
+}
+
 .share-buttons {
     display: flex;
     gap: 0.75rem;
@@ -958,55 +1002,26 @@
 
 {% if cross_references %}
 <div class="cross-references-section" id="cross-references">
-    <button class="section-toggle" onclick="toggleSection('crossrefs')" aria-expanded="false" aria-controls="crossrefs-content">
-        <span class="toggle-icon">▶</span>
-        <span class="section-heading">Cross References</span>
-        <span class="toggle-hint">({{ cross_references|length }} references)</span>
-    </button>
-    <div id="crossrefs-content" hidden>
-        <p>Related verses that illuminate this passage:</p>
-        <ul style="max-width: 65%; list-style: none; padding: 0;">
-            {% for ref in cross_references %}
-            <li style="margin: 1.25rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
-                {% set ref_parts = ref.ref.rsplit(' ', 1) %}
-                {% if ref_parts|length == 2 %}
-                    {% set book_name = ref_parts[0] %}
-                    {% set chapter_verse = ref_parts[1] %}
-                    {% if ':' in chapter_verse %}
-                        {% set ch = chapter_verse.split(':')[0] %}
-                        {% set v = chapter_verse.split(':')[1] %}
-                        <strong><a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}">{{ ref.ref }}</a></strong>
-                    {% else %}
-                        <strong>{{ ref.ref }}</strong>
-                    {% endif %}
-                {% else %}
-                    <strong>{{ ref.ref }}</strong>
-                {% endif %}
-                {% if ref.note %} — <em style="color: var(--text-secondary);">{{ ref.note }}</em>{% endif %}
-                {% if ref.text %}
-                <p style="margin: 0.5rem 0 0 0; font-style: italic; color: var(--text-secondary); line-height: 1.6;">{{ ref.text }}</p>
-                {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
+    <h3 class="section-heading">Cross References</h3>
+    <div class="crossrefs-compact">
+        {% for ref in cross_references %}
+            {%- set ref_parts = ref.ref.rsplit(' ', 1) -%}
+            {%- if ref_parts|length == 2 -%}
+                {%- set book_name = ref_parts[0] -%}
+                {%- set chapter_verse = ref_parts[1] -%}
+                {%- if ':' in chapter_verse -%}
+                    {%- set ch = chapter_verse.split(':')[0] -%}
+                    {%- set v = chapter_verse.split(':')[1] -%}
+                    <a href="/book/{{ book_name }}/chapter/{{ ch }}/verse/{{ v }}" class="crossref-pill cross-ref-link">{{ ref.ref }}{% if ref.text %}<span class="cross-ref-tooltip">{{ ref.text }}</span>{% endif %}</a>
+                {%- else -%}
+                    <span class="crossref-pill">{{ ref.ref }}</span>
+                {%- endif -%}
+            {%- else -%}
+                <span class="crossref-pill">{{ ref.ref }}</span>
+            {%- endif -%}
+        {% endfor %}
     </div>
 </div>
-<script>
-(function() {
-    var pref = localStorage.getItem('crossrefs-expanded');
-    if (pref === 'true') {
-        var content = document.getElementById('crossrefs-content');
-        var toggle = document.querySelector('.cross-references-section .section-toggle');
-        if (content && toggle) {
-            var icon = toggle.querySelector('.toggle-icon');
-            content.hidden = false;
-            toggle.setAttribute('aria-expanded', 'true');
-            icon.textContent = '▼';
-            toggle.classList.add('expanded');
-        }
-    }
-})();
-</script>
 {% endif %}
 
 {% if commentary %}
@@ -1052,8 +1067,6 @@
         return Array.from(document.querySelectorAll(
             'section > p.verse-text, ' +
             '.interlinear-container, ' +
-            '#crossrefs-content > p, ' +
-            '.cross-references-section li, ' +
             '.commentary-section p, ' +
             '.commentary-section li'
         )).filter(function(el) {
