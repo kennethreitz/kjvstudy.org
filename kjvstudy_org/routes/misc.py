@@ -1,13 +1,15 @@
-"""Miscellaneous routes - search, interlinear, random verse, verse of the day."""
+"""Miscellaneous routes - search, interlinear, random verse, verse of the day, red letter."""
 import hashlib
 import random
 from datetime import datetime, timedelta
+from typing import Optional
 
 from fastapi import APIRouter, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
+from ..red_letter import load_red_letter_verses
 from ..utils.search import perform_full_text_search
 
 router = APIRouter()
@@ -246,6 +248,106 @@ async def stars_page(request: Request):
         "stars.html",
         {
             "books": books,
+            "breadcrumbs": breadcrumbs
+        }
+    )
+
+
+@router.get("/red-letter", response_class=HTMLResponse)
+async def red_letter_page(
+    request: Request,
+    book: Optional[str] = Query(None, description="Filter by book"),
+    page: int = Query(1, ge=1, description="Page number")
+):
+    """Red Letter Edition - Words of Christ page"""
+    books = bible.get_books()
+    red_letter_data = load_red_letter_verses()
+
+    # Build list of all red letter verses
+    all_verses = []
+    by_book = {}
+
+    for verse_ref, christ_words in red_letter_data.items():
+        # Parse the reference (format: "Book Chapter:Verse")
+        parts = verse_ref.rsplit(' ', 1)
+        if len(parts) != 2:
+            continue
+
+        book_name = parts[0]
+        chapter_verse = parts[1].split(':')
+        if len(chapter_verse) != 2:
+            continue
+
+        try:
+            chapter_num = int(chapter_verse[0])
+            verse_num = int(chapter_verse[1])
+        except ValueError:
+            continue
+
+        # Count by book
+        by_book[book_name] = by_book.get(book_name, 0) + 1
+
+        # Apply book filter if specified
+        if book and book_name != book:
+            continue
+
+        # Get the verse text
+        verse_text = bible.get_verse_text(book_name, chapter_num, verse_num)
+        if not verse_text:
+            continue
+
+        all_verses.append({
+            "reference": verse_ref,
+            "book": book_name,
+            "chapter": chapter_num,
+            "verse": verse_num,
+            "text": verse_text,
+            "christ_words": christ_words,
+            "is_full_verse": christ_words == "full"
+        })
+
+    # Sort by book order, then chapter, then verse
+    book_order = {b: i for i, b in enumerate(books)}
+    all_verses.sort(key=lambda v: (book_order.get(v["book"], 999), v["chapter"], v["verse"]))
+
+    # Pagination
+    per_page = 50
+    total = len(all_verses)
+    total_pages = (total + per_page - 1) // per_page
+    page = min(page, total_pages) if total_pages > 0 else 1
+    offset = (page - 1) * per_page
+    verses = all_verses[offset:offset + per_page]
+
+    # Stats
+    total_all = len(red_letter_data)
+    full_verses = sum(1 for v in red_letter_data.values() if v == "full")
+    partial_verses = total_all - full_verses
+
+    # Sort books by count for sidebar
+    books_with_counts = sorted(by_book.items(), key=lambda x: x[1], reverse=True)
+
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "Red Letter", "url": "/red-letter"}
+    ]
+    if book:
+        breadcrumbs.append({"text": book, "url": None})
+
+    return templates.TemplateResponse(
+        request,
+        "red_letter.html",
+        {
+            "books": books,
+            "verses": verses,
+            "total": total,
+            "total_all": total_all,
+            "full_verses": full_verses,
+            "partial_verses": partial_verses,
+            "books_with_counts": books_with_counts,
+            "selected_book": book,
+            "page": page,
+            "total_pages": total_pages,
+            "per_page": per_page,
             "breadcrumbs": breadcrumbs
         }
     )

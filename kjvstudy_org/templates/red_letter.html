@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+
+{% block title %}Red Letter Edition - Words of Christ - KJV Study{% endblock %}
+{% block description %}Explore the words of Jesus Christ in the King James Bible. {{ total_all }} verses containing Christ's direct speech, highlighted in red.{% endblock %}
+
+{% block head %}
+<style>
+.red-letter-page {
+    max-width: 900px;
+}
+
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+.stat-number.red {
+    color: #b22222;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.filter-section {
+    margin-bottom: 2rem;
+}
+
+.filter-section h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.book-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.book-filter {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: all 0.15s;
+}
+
+.book-filter:hover {
+    border-color: #b22222;
+    color: #b22222;
+}
+
+.book-filter.active {
+    background: #b22222;
+    border-color: #b22222;
+    color: #fff;
+}
+
+.book-filter .count {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-left: 0.25rem;
+}
+
+.verses-section {
+    margin-bottom: 2rem;
+}
+
+.verses-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.verses-header h2 {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.verses-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.verse-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid #b22222;
+}
+
+.verse-card:hover {
+    border-color: #b22222;
+}
+
+.verse-reference {
+    font-weight: 600;
+    color: #b22222;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.verse-reference:hover {
+    text-decoration: underline;
+}
+
+.verse-text {
+    margin-top: 0.5rem;
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.verse-text .words-of-christ {
+    color: #b22222;
+}
+
+.verse-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+.verse-badge.full {
+    background: #b22222;
+    color: #fff;
+}
+
+.verse-badge.partial {
+    background: var(--code-bg);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 0.5rem 0.9rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: all 0.15s;
+}
+
+.page-link:hover {
+    border-color: #b22222;
+    color: #b22222;
+}
+
+.page-link.active {
+    background: #b22222;
+    border-color: #b22222;
+    color: #fff;
+}
+
+.page-link.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.page-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+[data-theme="dark"] .verse-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .stat-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .book-filter {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .page-link {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+@media (max-width: 600px) {
+    .stats-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .verse-text {
+        font-size: 1rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<article class="red-letter-page">
+    <h1>Red Letter Edition</h1>
+    <p class="subtitle">The Words of Jesus Christ</p>
+
+    <section class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-number red">{{ "{:,}".format(total_all) }}</div>
+            <div class="stat-label">Total Verses</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ "{:,}".format(full_verses) }}</div>
+            <div class="stat-label">Full Red Letter</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ "{:,}".format(partial_verses) }}</div>
+            <div class="stat-label">Partial</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ books_with_counts | length }}</div>
+            <div class="stat-label">Books</div>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <h3>Filter by Book</h3>
+        <div class="book-filters">
+            <a href="/red-letter" class="book-filter {% if not selected_book %}active{% endif %}">All</a>
+            {% for book_name, count in books_with_counts %}
+            <a href="/red-letter?book={{ book_name | urlencode }}" class="book-filter {% if selected_book == book_name %}active{% endif %}">
+                {{ book_name }}<span class="count">({{ count }})</span>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="verses-section">
+        <div class="verses-header">
+            <h2>{% if selected_book %}{{ selected_book }}{% else %}All Books{% endif %}</h2>
+            <span class="verses-count">{{ "{:,}".format(total) }} verse{% if total != 1 %}s{% endif %}</span>
+        </div>
+
+        {% for v in verses %}
+        <div class="verse-card">
+            <a href="/book/{{ v.book }}/chapter/{{ v.chapter }}/verse/{{ v.verse }}" class="verse-reference">
+                {{ v.reference }}
+            </a>
+            <span class="verse-badge {% if v.is_full_verse %}full{% else %}partial{% endif %}">
+                {% if v.is_full_verse %}Full{% else %}Partial{% endif %}
+            </span>
+            <p class="verse-text">{{ v.text | red_letter(v.book, v.chapter, v.verse) | safe }}</p>
+        </div>
+        {% endfor %}
+    </section>
+
+    {% if total_pages > 1 %}
+    <nav class="pagination" aria-label="Page navigation">
+        {% if page > 1 %}
+        <a href="/red-letter?{% if selected_book %}book={{ selected_book | urlencode }}&{% endif %}page={{ page - 1 }}" class="page-link">&larr; Prev</a>
+        {% else %}
+        <span class="page-link disabled">&larr; Prev</span>
+        {% endif %}
+
+        <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+        <a href="/red-letter?{% if selected_book %}book={{ selected_book | urlencode }}&{% endif %}page={{ page + 1 }}" class="page-link">Next &rarr;</a>
+        {% else %}
+        <span class="page-link disabled">Next &rarr;</span>
+        {% endif %}
+    </nav>
+    {% endif %}
+</article>
+
+<script>
+(function() {
+    const cards = document.querySelectorAll('.verse-card');
+    let selectedIndex = -1;
+
+    function selectCard(index) {
+        if (selectedIndex >= 0 && selectedIndex < cards.length) {
+            cards[selectedIndex].style.outline = '';
+            cards[selectedIndex].style.outlineOffset = '';
+        }
+        selectedIndex = Math.max(0, Math.min(index, cards.length - 1));
+        cards[selectedIndex].style.outline = '2px solid #b22222';
+        cards[selectedIndex].style.outlineOffset = '2px';
+        cards[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (typeof KJVNav !== 'undefined' && KJVNav.sidebarActive) return;
+
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            selectCard(selectedIndex + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            selectCard(selectedIndex <= 0 ? 0 : selectedIndex - 1);
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const link = cards[selectedIndex].querySelector('.verse-reference');
+            if (link) window.location.href = link.href;
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            history.back();
+        } else if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            const nextLink = document.querySelector('.pagination .page-link:last-of-type:not(.disabled)');
+            if (nextLink && nextLink.textContent.includes('Next')) {
+                window.location.href = nextLink.href;
+            }
+        } else if (e.key === 'Escape') {
+            if (selectedIndex >= 0 && selectedIndex < cards.length) {
+                cards[selectedIndex].style.outline = '';
+                cards[selectedIndex].style.outlineOffset = '';
+            }
+            selectedIndex = -1;
+        }
+    });
+})();
+</script>
+{% endblock %}
