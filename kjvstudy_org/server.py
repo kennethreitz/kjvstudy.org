@@ -261,6 +261,23 @@ register_filters(templates.env)
 # Add global template variables
 templates.env.globals['disable_analytics'] = os.getenv("DISABLE_ANALYTICS", "false").lower() == "true"
 
+# Cache-busting for static files using file modification time
+import hashlib
+_static_hashes = {}
+
+def static_hash(filename):
+    """Generate a short hash based on file modification time for cache busting."""
+    if filename not in _static_hashes:
+        filepath = static_dir / filename
+        if filepath.exists():
+            mtime = int(filepath.stat().st_mtime)
+            _static_hashes[filename] = hashlib.md5(str(mtime).encode()).hexdigest()[:8]
+        else:
+            _static_hashes[filename] = "0"
+    return _static_hashes[filename]
+
+templates.env.globals['static_hash'] = static_hash
+
 # Initialize templates for route modules
 init_api_templates(templates)
 init_resources_templates(templates)

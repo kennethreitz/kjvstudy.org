@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="{% block twitter_description %}{% block description_plain %}Study the Authorized King James Version Bible{% endblock %}{% endblock %}"/>
     <meta name="twitter:image" content="{% block twitter_image %}https://kjvstudy.org/static/og-image.png{% endblock %}"/>
 
-    <link rel="stylesheet" href="/static/tufte.css"/>
+    <link rel="stylesheet" href="/static/tufte.css?v={{ static_hash('tufte.css') }}"/>
     <link rel="manifest" href="/static/manifest.json"/>
 
     <!-- Analytics opt-out detection (kr=1 parameter) -->
@@ -1577,7 +1577,7 @@
     </nav>
 
 
-    <script src="/static/base.js?v=20251203"></script>
+    <script src="/static/base.js?v={{ static_hash('base.js') }}"></script>
     <script type="text/javascript">
       {% if not disable_analytics %}
       // Gauges analytics (respects kr=1 opt-out)
