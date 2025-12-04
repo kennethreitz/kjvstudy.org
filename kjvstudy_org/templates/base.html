@@ -302,6 +302,13 @@
             padding: 2rem 5%;
         }
 
+        /* When sidebar is visible (768px to 1200px), push content over */
+        @media (min-width: 769px) and (max-width: 1200px) {
+            article {
+                margin-left: 140px;
+            }
+        }
+
         h1, h2, h3 {
             font-weight: 400;
             font-style: normal;
@@ -1001,8 +1008,8 @@
             display: none;
         }
 
-        /* Responsive design for tablets and mobile */
-        @media (max-width: 1200px) {
+        /* Responsive design for mobile only */
+        @media (max-width: 768px) {
             .nav-sidebar {
                 width: 140px;
                 left: -140px;
@@ -1052,9 +1059,7 @@
             #sidebar-toggle:checked ~ .sidebar-toggle-container .sidebar-toggle-btn::before {
                 content: '×';
             }
-        }
 
-        @media (max-width: 768px) {
             /* iOS-specific optimizations */
             body {
                 -webkit-text-size-adjust: 100%;
