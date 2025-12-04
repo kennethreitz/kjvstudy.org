@@ -156,6 +156,42 @@
 .search-tips ul {
     line-height: 1.8;
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .search-input-wrapper {
+        max-width: 100%;
+    }
+
+    .search-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.9rem;
+    }
+
+    .search-button {
+        width: 100%;
+        padding: 0.9rem 1.5rem;
+        min-height: 44px;
+    }
+
+    .search-result {
+        margin: 1.5rem 0;
+        padding: 0.75rem;
+    }
+
+    .search-tips {
+        padding: 1rem;
+    }
+
+    .search-dropdown {
+        max-height: 300px;
+    }
+
+    .search-result-item {
+        padding: 0.75rem;
+        min-height: 44px;
+    }
+}
 </style>
 {% endblock %}
 

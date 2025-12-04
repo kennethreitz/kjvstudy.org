@@ -148,6 +148,37 @@ section ul li strong {
         display: none;
     }
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .chapters-section h2 + p a {
+        font-size: 1.4rem;
+    }
+
+    .book-meta {
+        font-size: 0.9rem;
+    }
+
+    section blockquote {
+        margin: 0.75rem 0 1rem;
+        padding-left: 0.75rem;
+    }
+
+    .print-btn {
+        padding: 0.75rem 1rem;
+        min-height: 44px;
+    }
+
+    .nav-hint {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .chapters-section h2 + p a {
+        font-size: 1.2rem;
+    }
+}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function() {

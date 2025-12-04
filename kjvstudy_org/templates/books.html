@@ -221,6 +221,74 @@
     background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(220, 38, 38, 0.03));
     border-left: 3px solid rgba(220, 38, 38, 0.4);
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .book-grid {
+        max-width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .book-card {
+        padding: 0.9rem;
+        min-height: 70px;
+    }
+
+    .book-name {
+        font-size: 1.05rem;
+    }
+
+    .book-info {
+        font-size: 0.8rem;
+    }
+
+    .testament-header {
+        font-size: 1.3rem;
+    }
+
+    .intro-text {
+        max-width: 100%;
+        font-size: 1.1rem;
+    }
+
+    .legend {
+        padding: 0.75rem;
+    }
+
+    .legend-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.4rem;
+    }
+
+    .legend-item {
+        font-size: 0.75rem;
+    }
+
+    .legend-color {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .book-card {
+        padding: 0.75rem;
+    }
+
+    .book-name {
+        font-size: 0.95rem;
+    }
+
+    .legend-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 </style>
 {% endblock %}
 

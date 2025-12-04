@@ -60,6 +60,32 @@
     line-height: 1.9;
     margin: 1rem 0;
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .topic-grid {
+        max-width: 100%;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .topic-card {
+        padding: 1.25rem;
+    }
+
+    .topic-name {
+        font-size: 1.2rem;
+    }
+
+    .topic-description {
+        font-size: 0.95rem;
+    }
+
+    .intro-text {
+        max-width: 100%;
+        font-size: 1.05rem;
+    }
+}
 </style>
 {% endblock %}
 

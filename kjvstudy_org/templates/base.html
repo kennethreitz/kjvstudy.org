@@ -1221,27 +1221,45 @@
                 justify-content: center;
             }
 
-            /* Optimize breadcrumbs with strong contrast */
+            /* Optimize breadcrumbs for mobile - disable sticky, hide actions */
             .breadcrumb {
-                font-size: 0.95rem;
+                position: static;
+                font-size: 0.9rem;
                 flex-wrap: wrap;
-                border-bottom: 3px solid #999;
+                border-bottom: 1px solid var(--border-color);
                 padding-bottom: 0.75rem;
+                margin: 1rem 0 1.5rem 0;
+                background: transparent;
+                box-shadow: none !important;
+            }
+
+            .breadcrumb.stuck {
+                box-shadow: none;
+                padding-top: 0;
+                margin-top: 1rem;
+            }
+
+            /* Hide breadcrumb action buttons on mobile */
+            .breadcrumb-actions {
+                display: none !important;
             }
 
             [data-theme="dark"] .breadcrumb {
-                border-bottom-color: #666;
+                border-bottom-color: var(--border-color);
             }
 
             .breadcrumb a {
-                font-weight: 600;
-                border-bottom: 2px solid #999;
-                color: #000;
+                font-weight: 500;
+                border-bottom: none;
+                color: var(--link-color);
             }
 
             [data-theme="dark"] .breadcrumb a {
-                border-bottom-color: #666;
-                color: #e0e0e0;
+                color: var(--text-secondary);
+            }
+
+            .breadcrumb-separator {
+                margin: 0 0.4rem;
             }
 
             /* Improve button visibility on mobile with strong contrast */

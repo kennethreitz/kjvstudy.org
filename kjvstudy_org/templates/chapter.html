@@ -282,6 +282,79 @@ p[id^="verse-"].selected {
         display: none;
     }
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .chapter-nav {
+        max-width: 100%;
+        padding: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .chapter-nav-controls {
+        gap: 0.75rem;
+    }
+
+    .chapter-nav-btn {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        min-height: 44px;
+        flex: 1;
+        text-align: center;
+    }
+
+    .chapter-select {
+        padding: 0.75rem;
+        font-size: 1rem;
+        min-height: 44px;
+        flex: 1;
+    }
+
+    .nav-help {
+        display: none;
+    }
+
+    .chapter-actions {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+
+    .verse-number-link {
+        font-size: 0.85rem;
+        padding: 0.25rem;
+        margin-right: 0.15rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chapter-nav-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .chapter-nav-btn {
+        width: 100%;
+    }
+
+    .chapter-select {
+        width: 100%;
+    }
+
+    .chapter-actions {
+        justify-content: center;
+    }
+
+    .action-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
 </style>
 {% endblock %}
 
