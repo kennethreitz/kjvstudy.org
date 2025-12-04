@@ -23,7 +23,7 @@ Open **http://localhost:8000** and start studying.
 - [Full-text search](https://kjvstudy.org/search) with concordance functionality
 - [Cross-references](https://kjvstudy.org/book/John/chapter/3/verse/16) throughout Scripture
 - [Verse of the Day](https://kjvstudy.org/verse-of-the-day) and [Random Verse](https://kjvstudy.org/random-verse) discovery
-- [Red Letter edition](https://kjvstudy.org/red-letter) tracking words of Christ
+- Red Letter edition tracking words of Christ
 
 ### Original Language Tools
 
