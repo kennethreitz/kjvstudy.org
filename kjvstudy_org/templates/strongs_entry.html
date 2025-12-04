@@ -743,12 +743,16 @@ function showMoreOccurrences() {
             // Check for link in any card type
             const link = cards[selectedIndex].querySelector('.occ-reference, .related-entry-header a, .strongs-ref');
             if (link) window.location.href = link.href;
-        } else if (e.key === '[' || e.key === 'ArrowLeft' || e.key === 'h') {
+        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
+            // Navigate back in browser history
+            e.preventDefault();
+            history.back();
+        } else if (e.key === '[') {
             // Navigate to previous Strong's number
             e.preventDefault();
             const prevLink = document.querySelector('.nav-btn[rel="prev"]');
             if (prevLink) window.location.href = prevLink.href;
-        } else if (e.key === ']' || e.key === 'ArrowRight' || e.key === 'l') {
+        } else if (e.key === 'ArrowRight' || e.key === 'l' || e.key === ']') {
             // Navigate to next Strong's number
             e.preventDefault();
             const nextLink = document.querySelector('.nav-btn[rel="next"]');
