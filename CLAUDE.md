@@ -20,34 +20,24 @@ KJV Study is a modern web application for studying the King James Bible with AI-
 
 ### Test Suite
 
-The project has **100 comprehensive tests** with **100% pass rate**:
+The project has **941 comprehensive tests** across 16 test files:
 
-- **25 API endpoint tests** (`test_api.py`)
-  - Health checks
-  - Verse endpoints (single, range, verse of the day)
-  - Book endpoints (list, details, chapters, full text)
-  - Bible endpoint (entire Bible)
-  - Search functionality
-  - Interlinear data (Hebrew/Greek)
-  - Cross-references
-  - Topics and reading plans
-
-- **60 edge case tests** (`test_edge_cases.py`)
-  - Error handling (invalid inputs)
-  - Verse range edge cases
-  - Book abbreviations
-  - Book boundaries (shortest, longest, etc.)
-  - Search functionality edge cases
-  - Content validation
-  - Performance tests with large datasets
-
-- **15 web route tests** (`test_web_routes.py`)
-  - Homepage and navigation
-  - Book pages
-  - Chapter and verse pages
-  - Search pages
-  - Topics and reading plans
-  - HTML structure and accessibility
+- **87 API endpoint tests** (`test_api.py`) - Health checks, verse/book/Bible endpoints, search, interlinear, cross-references, topics, reading plans
+- **87 utility tests** (`test_utils.py`) - Helper functions and utilities
+- **85 coverage tests part 5** (`test_coverage_part5.py`)
+- **84 coverage tests part 6** (`test_coverage_part6.py`)
+- **77 coverage tests part 2** (`test_coverage_part2.py`)
+- **77 coverage improvement tests** (`test_coverage_improvements.py`)
+- **76 resource route tests** (`test_resource_routes.py`) - Biblical resources, parables, names of God, etc.
+- **64 web route tests** (`test_web_routes.py`) - Homepage, book/chapter/verse pages, search, topics, accessibility
+- **62 Strong's concordance tests** (`test_strongs.py`) - Hebrew/Greek lexicon functionality
+- **61 coverage tests part 4** (`test_coverage_part4.py`)
+- **59 coverage tests part 3** (`test_coverage_part3.py`)
+- **46 advanced route tests** (`test_advanced_routes.py`) - Commentary, stories, family trees, etc.
+- **39 edge case tests** (`test_edge_cases.py`) - Error handling, boundary conditions, validation
+- **22 data validation tests** (`test_data_validation.py`) - JSON data integrity
+- **14 sitemap/utility tests** (`test_sitemap_and_utilities.py`)
+- **1 KJV core test** (`test_kjv.py`)
 
 ### Running Tests
 
