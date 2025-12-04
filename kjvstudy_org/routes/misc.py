@@ -144,12 +144,12 @@ async def interlinear_landing_page(request: Request):
 
     # Featured verses with interlinear data
     featured_verses = [
-        {"reference": "John 3:16", "url": "/book/John/chapter/3/verse/16", "note": "God's love for the world"},
-        {"reference": "Genesis 1:1", "url": "/book/Genesis/chapter/1/verse/1", "note": "In the beginning"},
-        {"reference": "Psalm 23:1", "url": "/book/Psalms/chapter/23/verse/1", "note": "The Lord is my shepherd"},
-        {"reference": "Romans 8:28", "url": "/book/Romans/chapter/8/verse/28", "note": "All things work together for good"},
-        {"reference": "Matthew 28:19", "url": "/book/Matthew/chapter/28/verse/19", "note": "The Great Commission"},
-        {"reference": "1 Corinthians 13:4", "url": "/book/1 Corinthians/chapter/13/verse/4", "note": "Love is patient"},
+        {"reference": "John 3:16", "url": "/book/John/chapter/3/verse/16#interlinear", "note": "God's love for the world"},
+        {"reference": "Genesis 1:1", "url": "/book/Genesis/chapter/1/verse/1#interlinear", "note": "In the beginning"},
+        {"reference": "Psalm 23:1", "url": "/book/Psalms/chapter/23/verse/1#interlinear", "note": "The Lord is my shepherd"},
+        {"reference": "Romans 8:28", "url": "/book/Romans/chapter/8/verse/28#interlinear", "note": "All things work together for good"},
+        {"reference": "Matthew 28:19", "url": "/book/Matthew/chapter/28/verse/19#interlinear", "note": "The Great Commission"},
+        {"reference": "1 Corinthians 13:4", "url": "/book/1 Corinthians/chapter/13/verse/4#interlinear", "note": "Love is patient"},
     ]
 
     # Build breadcrumbs
