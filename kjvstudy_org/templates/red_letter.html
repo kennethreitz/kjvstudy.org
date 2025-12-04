@@ -62,18 +62,19 @@
 .book-filter {
     display: inline-block;
     padding: 0.4rem 0.75rem;
-    background: var(--code-bg);
+    background: transparent;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: 20px;
     text-decoration: none;
-    color: var(--text-color);
-    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
     transition: all 0.15s;
 }
 
 .book-filter:hover {
     border-color: #b22222;
     color: #b22222;
+    background: rgba(178, 34, 34, 0.05);
 }
 
 .book-filter.active {
@@ -83,8 +84,8 @@
 }
 
 .book-filter .count {
-    font-size: 0.8rem;
-    opacity: 0.7;
+    font-size: 0.75rem;
+    opacity: 0.6;
     margin-left: 0.25rem;
 }
 
@@ -220,8 +221,12 @@
 }
 
 [data-theme="dark"] .book-filter {
-    background: #2a2a2a;
+    background: transparent;
     border-color: #444;
+}
+
+[data-theme="dark"] .book-filter:hover {
+    background: rgba(178, 34, 34, 0.15);
 }
 
 [data-theme="dark"] .page-link {
