@@ -2531,13 +2531,13 @@ label.sidenote-number {
 }
 
 [data-theme="dark"] .section-card {
-    background: #1a1a1a;
-    border-color: #333;
+    background: #1a1a1a !important;
+    border-color: #333 !important;
 }
 
 [data-theme="dark"] .section-card h2 {
-    color: #e0e0e0;
-    border-bottom-color: #333;
+    color: #e0e0e0 !important;
+    border-bottom-color: #333 !important;
 }
 
 [data-theme="dark"] .person-card-name {
