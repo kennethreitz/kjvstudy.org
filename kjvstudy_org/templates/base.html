@@ -1241,9 +1241,17 @@
                 margin-top: 1rem;
             }
 
-            /* Hide breadcrumb action buttons on mobile */
+            /* Hide most breadcrumb action buttons on mobile, but show font toggle */
             .breadcrumb-actions {
-                display: none !important;
+                display: flex !important;
+            }
+
+            .breadcrumb-actions .breadcrumb-action-btn {
+                display: none;
+            }
+
+            .breadcrumb-actions .breadcrumb-action-btn.font-toggle {
+                display: flex;
             }
 
             [data-theme="dark"] .breadcrumb {
