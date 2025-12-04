@@ -300,15 +300,13 @@
 
         article {
             padding: 2rem 5%;
+            margin-left: 30px;
         }
 
-        /* When sidebar is visible (768px to 1200px), push content over */
-        @media (min-width: 769px) and (max-width: 1200px) {
+        /* Remove margin on mobile when sidebar is hidden */
+        @media (max-width: 768px) {
             article {
-                margin-left: 140px;
-            }
-            .breadcrumb {
-                margin-left: 140px;
+                margin-left: 0;
             }
         }
 
@@ -348,8 +346,8 @@
 
         /* Refined breadcrumb navigation */
         .breadcrumb {
-            margin: 2rem 0 3rem -5%;
-            padding-left: 3rem;
+            margin: 2rem 0 3rem -30px;
+            padding-left: 30px;
             font-size: 0.95rem;
             color: var(--text-secondary);
             font-style: italic;
@@ -1241,6 +1239,7 @@
                 flex-wrap: wrap;
                 border-bottom: 1px solid var(--border-color);
                 padding-bottom: 0.75rem;
+                padding-left: 1rem;
                 margin: 1rem 0 1.5rem 0;
                 background: transparent;
                 box-shadow: none !important;
