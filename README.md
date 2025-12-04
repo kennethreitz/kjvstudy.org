@@ -53,10 +53,10 @@ Open **http://localhost:8000** and start studying.
 
 | Category | Examples |
 |----------|----------|
-| Biblical People | Twelve Apostles, Women of the Bible, Prophets, Angels |
-| Systematic Theology | Christology, Soteriology, Eschatology, Pneumatology |
-| Biblical Themes | Parables, Covenants, Names of God, Fruits of the Spirit |
-| Historical Context | Timeline, Maps, Festivals, Family Trees |
+| Biblical People | [Twelve Apostles](https://kjvstudy.org/the-twelve-apostles), [Women of the Bible](https://kjvstudy.org/women-of-the-bible), [Prophets](https://kjvstudy.org/biblical-prophets), [Angels](https://kjvstudy.org/biblical-angels) |
+| Systematic Theology | [Christology](https://kjvstudy.org/christology), [Soteriology](https://kjvstudy.org/soteriology), [Eschatology](https://kjvstudy.org/eschatology), [Pneumatology](https://kjvstudy.org/pneumatology) |
+| Biblical Themes | [Parables](https://kjvstudy.org/parables), [Covenants](https://kjvstudy.org/biblical-covenants), [Names of God](https://kjvstudy.org/names-of-god), [Fruits of the Spirit](https://kjvstudy.org/fruits-of-the-spirit) |
+| Historical Context | [Timeline](https://kjvstudy.org/biblical-timeline), [Maps](https://kjvstudy.org/biblical-maps), [Festivals](https://kjvstudy.org/biblical-festivals), [Family Trees](https://kjvstudy.org/family-tree) |
 
 **Study Guides:**
 - The Gospel Message
