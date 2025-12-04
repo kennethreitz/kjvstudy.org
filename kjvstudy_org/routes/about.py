@@ -50,7 +50,8 @@ async def stats(request: Request):
     total_commentary_verses = 0
     total_commentary_words = 0
     for file in (data_dir / 'verse_commentary').glob('*.json'):
-        data = json.load(open(file))
+        with open(file) as f:
+            data = json.load(f)
         commentary = data.get('commentary', {})
         for chapter in commentary.values():
             for verse_data in chapter.values():
@@ -68,13 +69,15 @@ async def stats(request: Request):
     total_cross_refs = 0
     verses_with_cross_refs = 0
     for file in (data_dir / 'cross_references').glob('*.json'):
-        data = json.load(open(file))
+        with open(file) as f:
+            data = json.load(f)
         verses_with_cross_refs += len(data)
         for verse_refs in data.values():
             total_cross_refs += len(verse_refs)
 
     # Red letter statistics
-    red_letter_data = json.load(open(data_dir / 'red_letter_verses.json'))
+    with open(data_dir / 'red_letter_verses.json') as f:
+        red_letter_data = json.load(f)
     total_red_letter_verses = len(red_letter_data['verses'])
 
     # Study resources
@@ -92,7 +95,8 @@ async def stats(request: Request):
     total_kids_story_words = 0
     for file in (data_dir / 'stories').glob('*.json'):
         try:
-            story_data = json.load(open(file))
+            with open(file) as f:
+                story_data = json.load(f)
             stories = story_data.get('stories', [])
             total_stories += len(stories)
             for story in stories:
@@ -119,11 +123,13 @@ async def stats(request: Request):
 
     # Book abbreviations
     bible_metadata_file = data_dir / 'bible_metadata.json'
-    bible_metadata = json.load(open(bible_metadata_file))
+    with open(bible_metadata_file) as f:
+        bible_metadata = json.load(f)
     total_abbreviations = len(bible_metadata.get('book_abbreviations', {}))
 
     # Biographies
-    bio_data = json.load(open(data_dir / 'biographies.json'))
+    with open(data_dir / 'biographies.json') as f:
+        bio_data = json.load(f)
     total_biographies = len(bio_data.get('biographies', {}))
 
     # Reading plans
@@ -132,8 +138,10 @@ async def stats(request: Request):
     # Strong's concordance
     strongs_dir = data_dir / 'strongs'
     if strongs_dir.exists():
-        hebrew_data = json.load(open(strongs_dir / 'hebrew.json'))
-        greek_data = json.load(open(strongs_dir / 'greek.json'))
+        with open(strongs_dir / 'hebrew.json') as f:
+            hebrew_data = json.load(f)
+        with open(strongs_dir / 'greek.json') as f:
+            greek_data = json.load(f)
         total_hebrew_entries = len(hebrew_data)
         total_greek_entries = len(greek_data)
     else:

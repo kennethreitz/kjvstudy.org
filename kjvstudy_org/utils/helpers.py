@@ -78,7 +78,7 @@ def get_verse_text(book: str, chapter: int, verse: int) -> str:
         if text:
             return text
         return f"{book} {chapter}:{verse} text not found"
-    except:
+    except (KeyError, ValueError, TypeError, AttributeError):
         return f"{book} {chapter}:{verse}"
 
 
