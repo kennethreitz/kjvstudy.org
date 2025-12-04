@@ -851,9 +851,14 @@ kbd {
     }
 
     function getGroupBreadcrumbs(breadcrumbs) {
+        // Group by the first two meaningful breadcrumbs (e.g., "Books / 1 Corinthians")
+        // This keeps chapters and verses of the same book together
         if (!breadcrumbs || breadcrumbs.length === 0) return [];
-        if (breadcrumbs.length <= 1) return breadcrumbs;
-        return breadcrumbs.slice(0, -1);
+        // Filter out "Home"
+        var filtered = breadcrumbs.filter(function(c) { return c.text !== 'Home'; });
+        if (filtered.length === 0) return [];
+        // Take first two items max (e.g., "Books" + "1 Corinthians")
+        return filtered.slice(0, 2);
     }
 
     function getBreadcrumbKey(breadcrumbs) {
