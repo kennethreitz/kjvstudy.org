@@ -121,11 +121,14 @@ def format_strongs_entry(strongs_number: str) -> Optional[Dict[str, Any]]:
 
     Returns a normalized dictionary with consistent keys.
     """
+    # Normalize: strip leading zeros from number portion (H04566 -> H4566)
+    strongs_number = strongs_number.upper().strip()
+    if len(strongs_number) > 1 and strongs_number[0] in ('H', 'G'):
+        strongs_number = strongs_number[0] + str(int(strongs_number[1:]))
+
     entry = get_strongs_entry(strongs_number)
     if not entry:
         return None
-
-    strongs_number = strongs_number.upper().strip()
     is_hebrew = strongs_number.startswith("H")
 
     return {

@@ -241,13 +241,16 @@ def number_format(value):
 
 
 def linkify_strongs(text):
-    """Convert Strong's references like G1234 or H5678 to links."""
+    """Convert Strong's references like G1234 or H5678 to links.
+
+    Handles leading zeros in numbers (H04566 -> H4566).
+    """
     if not text:
         return text
     pattern = r'\b([GH])(\d+)\b'
     def replace(match):
         prefix = match.group(1)
-        num = match.group(2)
+        num = str(int(match.group(2)))  # Strip leading zeros
         return f'<a href="/strongs/{prefix}{num}" class="strongs-ref">{prefix}{num}</a>'
     return re.sub(pattern, replace, text)
 
