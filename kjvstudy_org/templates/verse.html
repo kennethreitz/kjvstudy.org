@@ -253,6 +253,50 @@ a.crossref-pill:hover {
     gap: 0.5rem;
 }
 
+/* Verse navigation pills */
+.verse-nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1.5rem 0;
+}
+
+.nav-pill {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.nav-pill:hover {
+    border-color: var(--link-color);
+    color: var(--link-color);
+    background: rgba(74, 124, 89, 0.05);
+}
+
+[data-theme="dark"] .nav-pill {
+    border-color: #444;
+}
+
+[data-theme="dark"] .nav-pill:hover {
+    background: rgba(74, 124, 89, 0.15);
+}
+
+[data-font-size="large"] .nav-pill {
+    font-size: 1.1rem;
+    padding: 0.4rem 0.9rem;
+}
+
+[data-font-size="large"] .verse-nav-pills {
+    gap: 0.5rem;
+}
+
 .share-buttons {
     display: flex;
     gap: 0.75rem;
@@ -896,13 +940,11 @@ a.crossref-pill:hover {
     </script>
     {% endif %}
 
-    <nav style="margin: 1.5rem 0;">
-        <p>
-            <a href="/book/{{ book }}">← {{ book }}</a> |
-            <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}">View in Chapter {{ chapter }}</a>
-            {% if verse_num > 1 %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}">← Verse {{ verse_num - 1 }}</a>{% endif %}
-            {% if verse_num < total_verses %} | <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}">Verse {{ verse_num + 1 }} →</a>{% endif %}
-        </p>
+    <nav class="verse-nav-pills">
+        <a href="/book/{{ book }}" class="nav-pill">← {{ book }}</a>
+        <a href="/book/{{ book }}/chapter/{{ chapter }}#verse-{{ verse_num }}" class="nav-pill">Read in Chapter {{ chapter }}</a>
+        {% if verse_num > 1 %}<a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num - 1 }}" class="nav-pill">← Verse {{ verse_num - 1 }}</a>{% endif %}
+        {% if verse_num < total_verses %}<a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse_num + 1 }}" class="nav-pill">Verse {{ verse_num + 1 }} →</a>{% endif %}
     </nav>
 
     <div class="share-container">
