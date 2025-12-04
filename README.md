@@ -19,29 +19,29 @@ Open **http://localhost:8000** and start studying.
 ## Features
 
 ### Complete Bible Text
-- **31,102 verses** from the 1769 Cambridge KJV edition
-- Full-text search with concordance functionality
-- Cross-references throughout Scripture
-- Verse of the Day and Random Verse discovery
-- Red Letter edition tracking words of Christ
+- [**31,102 verses**](https://kjvstudy.org/books) from the 1769 Cambridge KJV edition
+- [Full-text search](https://kjvstudy.org/search) with concordance functionality
+- [Cross-references](https://kjvstudy.org/book/John/chapter/3/verse/16) throughout Scripture
+- [Verse of the Day](https://kjvstudy.org/verse-of-the-day) and [Random Verse](https://kjvstudy.org/random-verse) discovery
+- [Red Letter edition](https://kjvstudy.org/red-letter) tracking words of Christ
 
 ### Original Language Tools
 
-**Interlinear Bible**
+**[Interlinear Bible](https://kjvstudy.org/interlinear)**
 - Complete Greek (NT) and Hebrew (OT) word-by-word analysis
 - Morphological tagging and grammatical parsing
 - Root word exploration and etymology
 - Word occurrence tracking across the entire Bible
 
-**Strong's Concordance**
-- 8,674 Hebrew entries (H1-H8674)
-- 5,624 Greek entries (G1-G5624)
+**[Strong's Concordance](https://kjvstudy.org/strongs)**
+- [8,674 Hebrew entries](https://kjvstudy.org/strongs/hebrew) (H1-H8674)
+- [5,624 Greek entries](https://kjvstudy.org/strongs/greek) (G1-G5624)
 - Definitions, transliterations, pronunciation guides
 - Searchable by word, definition, or Strong's number
 - Related word derivations and cross-references
 
 ### AI-Powered Commentary
-- Verse-by-verse theological analysis
+- [Verse-by-verse theological analysis](https://kjvstudy.org/book/John/chapter/3/verse/16)
 - Chapter overviews and book summaries
 - Historical and cultural context
 - Reflection questions for personal study
@@ -73,7 +73,7 @@ Open **http://localhost:8000** and start studying.
 - [Gospels and Acts](https://kjvstudy.org/reading-plans/gospels-acts)
 - &c.
 
-### Family Tree Explorer
+### [Family Tree Explorer](https://kjvstudy.org/family-tree)
 - 429+ biblical figures with genealogical data
 - 77+ generations from Adam through the New Testament
 - Interactive ancestor/descendant navigation
@@ -84,10 +84,10 @@ Open **http://localhost:8000** and start studying.
 Generate downloadable PDFs for:
 - Individual verses, chapters, or entire books
 - Study guides and topical collections
-- Bible stories (including children's versions)
+- [Bible stories](https://kjvstudy.org/stories) (including children's versions)
 - Reading plans and resources
 
-### Accessibility
+### [Accessibility](https://kjvstudy.org/accessibility)
 - Full keyboard navigation (Vim-style and arrow keys)
 - Screen reader support with semantic HTML
 - Text-to-speech for Scripture reading
@@ -110,7 +110,7 @@ Generate downloadable PDFs for:
 
 ## API
 
-Full RESTful API with OpenAPI documentation at `/api/docs`.
+Full RESTful API with [OpenAPI documentation](https://kjvstudy.org/api/docs).
 
 **Key Endpoints:**
 ```
