@@ -59,21 +59,19 @@ Open **http://localhost:8000** and start studying.
 | Historical Context | [Timeline](https://kjvstudy.org/biblical-timeline), [Maps](https://kjvstudy.org/biblical-maps), [Festivals](https://kjvstudy.org/biblical-festivals), [Family Trees](https://kjvstudy.org/family-tree) |
 
 **Study Guides:**
-- The Gospel Message
-- Salvation by Grace
-- New Believer's Guide
-- Prayer and Faith
-- Christian Living
-- Hope and Comfort
-- Wisdom and Guidance
+- [The Gospel Message](https://kjvstudy.org/study-guides/gospel)
+- [Salvation by Grace](https://kjvstudy.org/study-guides/salvation)
+- [New Believer's Guide](https://kjvstudy.org/study-guides/new-believer)
+- [Prayer and Faith](https://kjvstudy.org/study-guides/prayer-faith)
+- [Christian Living](https://kjvstudy.org/study-guides/christian-living)
+- &c.
 
 **Reading Plans:**
-- One-Year Bible
-- 90-Day New Testament
-- Chronological Reading
-- Gospels and Acts (30 days)
-- Psalms and Proverbs
-- And more
+- [One-Year Bible](https://kjvstudy.org/reading-plans/one-year)
+- [90-Day New Testament](https://kjvstudy.org/reading-plans/90-day-nt)
+- [Chronological Reading](https://kjvstudy.org/reading-plans/chronological)
+- [Gospels and Acts](https://kjvstudy.org/reading-plans/gospels-acts)
+- &c.
 
 ### Family Tree Explorer
 - 429+ biblical figures with genealogical data
