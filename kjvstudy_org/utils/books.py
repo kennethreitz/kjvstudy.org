@@ -46,11 +46,14 @@ def normalize_book_name(book: str) -> Optional[str]:
     """
     # First try exact match in abbreviations
     if book in BOOK_ABBREVIATIONS:
-        return BOOK_ABBREVIATIONS[book]
+        canonical = BOOK_ABBREVIATIONS[book]
+        # Only return if it's actually different (not self-referential)
+        if canonical != book:
+            return canonical
     # Then try case-insensitive match in abbreviations
     lowercase_abbrevs = _get_lowercase_abbreviations()
     result = lowercase_abbrevs.get(book.lower())
-    if result:
+    if result and result != book:
         return result
     # Finally, check if it's a case variation of a canonical name
     lowercase_canonical = _get_lowercase_canonical_names()
