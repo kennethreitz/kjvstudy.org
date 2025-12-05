@@ -301,6 +301,13 @@
             }
         }
 
+        /* Disable tooltips on mobile */
+        @media (max-width: 768px) {
+            .verse-tooltip {
+                display: none !important;
+            }
+        }
+
         /* Enhanced typography and spacing */
         body {
             counter-reset: sidenote-counter;
