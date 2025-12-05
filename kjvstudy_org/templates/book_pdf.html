@@ -94,6 +94,18 @@
             border-top: none;
         }
 
+        /* Poetry formatting */
+        .poetry-chapter .verse {
+            display: block;
+            margin-bottom: 0.06in;
+        }
+
+        .poetry-chapter .stanza-break {
+            margin-top: 0.25in;
+            padding-top: 0.12in;
+            border-top: 1px solid #ccc;
+        }
+
         .footer {
             margin-top: 0.4in;
             font-size: 9pt;
@@ -280,13 +292,13 @@
     {% endif %}
 
     {% for chapter in chapters %}
-    <section class="chapter-block">
+    <section class="chapter-block{% if is_poetry %} poetry-chapter{% endif %}">
         <h2 class="chapter-title">Chapter {{ chapter.chapter }}</h2>
         {% for verse in chapter.verses %}
         {% if chapter.section_headings and verse.verse in chapter.section_headings %}
         <h3 class="verse-section-heading">{{ chapter.section_headings[verse.verse] }}</h3>
         {% endif %}
-        <div class="verse">
+        <div class="verse{% if is_poetry and verse.verse in chapter.stanza_breaks %} stanza-break{% endif %}">
             <span class="verse-number">{{ verse.verse }}</span>
             <span class="verse-text">{{ verse.text }}</span>
         </div>

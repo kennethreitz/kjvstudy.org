@@ -124,6 +124,20 @@
             text-indent: 0;
         }
 
+        /* Poetry formatting */
+        .poetry-verses .verse {
+            text-indent: -0.25in;
+            padding-left: 0.25in;
+            margin-bottom: 0.08in;
+            text-align: left;
+        }
+
+        .poetry-verses .stanza-break {
+            margin-top: 0.3in;
+            padding-top: 0.15in;
+            border-top: 1px solid #ccc;
+        }
+
         .verse-number {
             font-size: 8pt;
             font-weight: bold;
@@ -286,12 +300,12 @@
 
     <!-- Scripture Text -->
     <div class="scripture-section">
-        <div class="verses">
+        <div class="verses{% if is_poetry %} poetry-verses{% endif %}">
             {% for verse in verses %}
             {% if section_headings and verse.verse in section_headings %}
             <h3 class="verse-section-heading">{{ section_headings[verse.verse] }}</h3>
             {% endif %}
-            <p class="verse">
+            <p class="verse{% if is_poetry and verse.verse in stanza_breaks %} stanza-break{% endif %}">
                 <span class="verse-number">{{ verse.verse }}</span>
                 <span class="verse-text">{{ verse.text | safe }}</span>
             </p>
