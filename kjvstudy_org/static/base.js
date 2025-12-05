@@ -1619,6 +1619,113 @@ function showKeyboardHelp() {
   });
 })();
 
+// Strong's tooltip functionality
+(function() {
+  // Create tooltip element
+  var tooltip = document.createElement('div');
+  tooltip.className = 'strongs-tooltip';
+  document.body.appendChild(tooltip);
+
+  // Cache for fetched Strong's entries
+  var strongsCache = {};
+
+  // Fetch Strong's entry from API
+  async function fetchStrongsEntry(strongsNumber) {
+    if (strongsCache[strongsNumber]) {
+      return strongsCache[strongsNumber];
+    }
+
+    try {
+      var response = await fetch('/api/strongs/' + strongsNumber);
+      if (!response.ok) {
+        throw new Error('Not found');
+      }
+      var data = await response.json();
+      strongsCache[strongsNumber] = data;
+      return data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Show tooltip positioned relative to a link element
+  function showTooltip(data, linkElement) {
+    var isHebrew = data.strongs.startsWith('H');
+    var langClass = isHebrew ? 'hebrew' : 'greek';
+
+    tooltip.innerHTML =
+      '<div class="strongs-tooltip-word ' + langClass + '">' + data.word + '</div>' +
+      '<div class="strongs-tooltip-translit">' + data.transliteration + '</div>' +
+      '<div class="strongs-tooltip-number">' + data.strongs + '</div>' +
+      '<div class="strongs-tooltip-def">' + data.definition + '</div>';
+
+    // Position off-screen first to measure
+    tooltip.style.left = '-9999px';
+    tooltip.style.top = '-9999px';
+    tooltip.classList.add('show');
+
+    var tooltipWidth = tooltip.offsetWidth;
+    var tooltipHeight = tooltip.offsetHeight;
+
+    var linkRect = linkElement.getBoundingClientRect();
+    var padding = 10;
+
+    // Position below the link, centered
+    var x = linkRect.left + (linkRect.width / 2) - (tooltipWidth / 2);
+    var y = linkRect.bottom + 8 + window.scrollY;
+
+    // Keep within viewport
+    if (x + tooltipWidth > window.innerWidth - padding) {
+      x = window.innerWidth - tooltipWidth - padding;
+    }
+    if (x < padding) {
+      x = padding;
+    }
+    if (linkRect.bottom + 8 + tooltipHeight > window.innerHeight) {
+      y = linkRect.top - tooltipHeight - 8 + window.scrollY;
+    }
+    if (y < window.scrollY + padding) {
+      y = window.scrollY + padding;
+    }
+
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  }
+
+  function hideTooltip() {
+    tooltip.classList.remove('show');
+  }
+
+  // Event delegation for Strong's links
+  document.addEventListener('mouseover', function(e) {
+    var target = e.target;
+    if (!target.classList.contains('strongs-link')) return;
+
+    var strongsNumber = target.getAttribute('data-strongs');
+    if (!strongsNumber) return;
+
+    // Show loading state
+    tooltip.innerHTML = '<span style="color: var(--text-tertiary);">Loading...</span>';
+    var linkRect = target.getBoundingClientRect();
+    tooltip.style.left = linkRect.left + 'px';
+    tooltip.style.top = (linkRect.bottom + 8 + window.scrollY) + 'px';
+    tooltip.classList.add('show');
+
+    // Fetch and display
+    fetchStrongsEntry(strongsNumber).then(function(data) {
+      if (data && target.matches(':hover')) {
+        showTooltip(data, target);
+      } else if (!data) {
+        hideTooltip();
+      }
+    });
+
+    target.addEventListener('mouseleave', function() {
+      hideTooltip();
+    }, { once: true });
+  });
+})();
+
 // Site-wide verse linking
 (function() {
   function linkVerseReferences(element) {
