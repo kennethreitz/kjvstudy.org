@@ -216,6 +216,48 @@ class ResourceSlugs(BaseModel):
         return v
 
 
+class PoetryBookData(BaseModel):
+    """Schema for individual book poetry data"""
+    is_poetry: bool = Field(..., description="Whether the entire book is poetry")
+    poetry_chapters: List[int] = Field(..., description="List of chapter numbers that are poetry")
+    stanza_breaks: Dict[str, List[int]] = Field(..., description="Map of chapter number to list of verse numbers with stanza breaks")
+
+    @field_validator('poetry_chapters')
+    @classmethod
+    def check_chapters_sorted(cls, v):
+        if v != sorted(v):
+            raise ValueError("poetry_chapters must be sorted")
+        if len(v) != len(set(v)):
+            raise ValueError("Duplicate chapter numbers found")
+        return v
+
+    @field_validator('stanza_breaks')
+    @classmethod
+    def check_stanza_breaks(cls, v):
+        for chapter_key, verses in v.items():
+            if not chapter_key.isdigit():
+                raise ValueError(f"Invalid chapter key: {chapter_key}")
+            if verses != sorted(verses):
+                raise ValueError(f"Stanza breaks for chapter {chapter_key} must be sorted")
+            if len(verses) != len(set(verses)):
+                raise ValueError(f"Duplicate verse numbers in chapter {chapter_key}")
+        return v
+
+
+class PoetryFormatting(BaseModel):
+    """Schema for poetry_formatting.json"""
+    books: Dict[str, PoetryBookData] = Field(..., min_length=1)
+
+    @field_validator('books')
+    @classmethod
+    def check_valid_books(cls, v):
+        valid_poetry_books = {'Psalms', 'Job', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Lamentations'}
+        for book_name in v.keys():
+            if book_name not in valid_poetry_books:
+                raise ValueError(f"Unexpected poetry book: {book_name}")
+        return v
+
+
 class OutlineSection(BaseModel):
     """Schema for book outline section"""
     section: str = Field(..., min_length=1)
@@ -267,6 +309,7 @@ MODEL_MAPPING = {
     "featured_verses.json": FeaturedVerses,
     "red_letter_verses.json": RedLetterVerses,
     "resource_slugs.json": ResourceSlugs,
+    "poetry_formatting.json": PoetryFormatting,
 }
 
 
