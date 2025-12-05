@@ -218,11 +218,13 @@ async def read_chapter(request: Request, book: str, chapter: int):
         # Add cross-references with cooldown to prevent margin overload
         cross_refs = get_cross_references(book, chapter, verse.verse)
 
-        # Skip if within cooldown period (show condensed count instead)
+        # If within cooldown period, keep collapsed; otherwise auto-expand
         if cross_refs and verse.verse - last_xref_verse < xref_cooldown:
-            commentary['cross_reference_groups'] = []
-            commentary['cross_ref_count'] = len(cross_refs)  # Just show "+N refs"
+            commentary['xref_auto_expand'] = False  # Stay collapsed
         elif cross_refs:
+            commentary['xref_auto_expand'] = True  # Auto-expand when there's room
+
+        if cross_refs:
             # Group cross-references by their description/note
             grouped_refs = defaultdict(list)
             for ref in cross_refs:
