@@ -404,30 +404,15 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
                     })
                     added_words.add(word)
 
-    # Intelligently select only 1-2 word studies per verse to avoid repetition
-    # Use verse position to determine which studies to show
     if not potential_sidenotes:
         return []
 
-    # For PDF output, show all unique word studies (still avoiding repetition across chapter)
-    if for_pdf:
-        import random
-        random.seed(f"{book}{chapter}{verse_num}")
-        # Show up to 2 word studies per verse for PDF
-        max_sidenotes = min(2, len(potential_sidenotes))
-        return random.sample(potential_sidenotes, max_sidenotes) if max_sidenotes > 0 else []
-
-    # Deterministic selection based on verse number for consistency
-    # Show sidenotes on every other verse (verses 1, 3, 5, 7, etc.)
-    # This ensures roughly 50% of verses show studies while being predictable
-    if verse_num % 2 == 0:
-        return []  # Skip even-numbered verses
-
+    # Deterministic selection based on verse for consistency
     import random
     random.seed(f"{book}{chapter}{verse_num}")
 
-    # Show only 1 sidenote per verse to prevent horizontal collision in margin
-    max_sidenotes = 1
+    # Show 1 sidenote per verse (2 for PDF) to prevent horizontal collision in margin
+    max_sidenotes = 2 if for_pdf else 1
 
     # Randomly select which word study to show from those available
     selected = random.sample(potential_sidenotes, min(max_sidenotes, len(potential_sidenotes)))
