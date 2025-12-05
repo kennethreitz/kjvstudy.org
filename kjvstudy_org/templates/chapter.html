@@ -446,7 +446,7 @@ p[id^="verse-"].selected {
 /* Mobile optimizations */
 @media (max-width: 768px) {
     .chapter-nav {
-        max-width: 100%;
+        max-width: calc(100% - 2rem);
         padding: 1rem;
         margin: 1.5rem 0;
     }
@@ -459,7 +459,6 @@ p[id^="verse-"].selected {
         padding: 0.75rem 1rem;
         font-size: 1rem;
         min-height: 44px;
-        flex: 1;
         text-align: center;
     }
 
