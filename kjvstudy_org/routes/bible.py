@@ -201,6 +201,7 @@ async def read_chapter(request: Request, book: str, chapter: int):
     # Generate AI commentary for the chapter (two-pass for lookahead)
     commentaries = {}
     recent_words = {}  # Track {word: verse_num} for cooldown
+    seen_words = set()  # Track words shown for first-occurrence expansion
     cooldown_verses = 5  # Don't repeat same word within 5 verses
 
     # First pass: collect all data
@@ -210,10 +211,16 @@ async def read_chapter(request: Request, book: str, chapter: int):
         excluded_words = {w for w, v in recent_words.items() if verse.verse - v < cooldown_verses}
         # Add word study sidenotes
         word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, excluded_words)
-        commentary['word_studies'] = word_studies
-        # Track which words were shown
+        # Mark first occurrence of each word as auto-expanded
         for study in word_studies:
-            recent_words[study['word'].lower()] = verse.verse
+            word_lower = study['word'].lower()
+            if word_lower not in seen_words:
+                study['auto_expand'] = True
+                seen_words.add(word_lower)
+            else:
+                study['auto_expand'] = False
+            recent_words[word_lower] = verse.verse
+        commentary['word_studies'] = word_studies
 
         # Add cross-references
         cross_refs = get_cross_references(book, chapter, verse.verse)
@@ -248,15 +255,11 @@ async def read_chapter(request: Request, book: str, chapter: int):
 
         commentaries[verse.verse] = commentary
 
-    # Simple expand rules: cross-refs expanded, word studies collapsed
+    # Cross-refs: always expanded (word studies are handled per-study above)
     for verse_num in [v.verse for v in verses]:
         commentary = commentaries.get(verse_num)
         if not commentary:
             continue
-        # Word studies: always collapsed (user clicks to expand)
-        # Cross-refs: always expanded
-        if commentary.get('word_studies'):
-            commentary['word_study_auto_expand'] = False
         if commentary.get('cross_reference_groups'):
             commentary['xref_auto_expand'] = True
 

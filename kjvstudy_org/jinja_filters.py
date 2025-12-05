@@ -154,13 +154,15 @@ def inject_word_markers(text, word_studies, verse_num, auto_expand=False):
 
     Word studies are collapsed by default, showing only the word and Greek/Hebrew term.
     Clicking expands to show transliteration and full definition.
-    If auto_expand is True, show expanded by default.
+    If auto_expand is True (global) or study has 'auto_expand': True, show expanded.
     """
     if not word_studies:
         return text
 
-    expanded_class = ' expanded' if auto_expand else ''
     for idx, study in enumerate(word_studies, 1):
+        # Per-study auto_expand takes precedence, then fall back to global
+        study_expand = study.get('auto_expand', auto_expand)
+        expanded_class = ' expanded' if study_expand else ''
         word = study['word']
         # Link the original term to Strong's page if we have a Strong's number
         strongs = study.get('strongs')
