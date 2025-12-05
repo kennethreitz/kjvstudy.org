@@ -327,6 +327,22 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     # Load word studies from JSON file
     word_studies = _load_word_studies()
 
+    # Only show important theological terms (not common words like 'walk', 'call')
+    priority_words = {
+        'god', 'lord', 'spirit', 'holy', 'christ', 'messiah',
+        'salvation', 'save', 'redeem', 'atonement', 'propitiation', 'reconcile',
+        'grace', 'mercy', 'faith', 'hope', 'love', 'truth',
+        'sin', 'iniquity', 'transgression', 'wrath', 'judgment', 'forgive',
+        'covenant', 'law', 'gospel', 'word',
+        'heaven', 'kingdom', 'eternal', 'resurrection', 'glory',
+        'blood', 'sacrifice', 'lamb', 'altar', 'priest',
+        'righteous', 'justify', 'sanctify', 'holy',
+        'angel', 'prophet', 'apostle',
+        'baptize', 'repent', 'believe', 'confess',
+        'born again', 'adoption', 'elect', 'predestine',
+    }
+    word_studies = {k: v for k, v in word_studies.items() if k in priority_words}
+
     # Get interlinear data for this verse to cross-reference Strong's numbers
     interlinear = get_interlinear_data(book, chapter, verse_num)
     verse_strongs = set()
