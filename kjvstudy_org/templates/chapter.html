@@ -19,6 +19,24 @@
     width: 55%;
 }
 
+@media (max-width: 760px) {
+    .poetry-chapter p.verse-line {
+        width: 100%;
+    }
+
+    p[id^="verse-"] {
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    a.verse-number-link,
+    a.verse-number-link:visited,
+    a.verse-number-link:hover,
+    a.verse-number-link:active {
+        text-decoration: none !important;
+    }
+}
+
 .poetry-chapter .stanza-break {
     margin-top: 3.5em;
 }
