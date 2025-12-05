@@ -356,6 +356,9 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     added_words = set()  # Track which word studies we've added
 
     for word, studies in word_studies.items():
+        # Skip if this word was recently shown (within cooldown period)
+        if word in shown_words:
+            continue
         if word in verse_lower:
             # Use appropriate testament
             study = studies.get(testament_key, studies.get('ot') or studies.get('nt'))
@@ -372,7 +375,7 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
                         for strongs_num in verse_strongs:
                             if strongs_num in strongs_to_study:
                                 for alt_word, alt_study in strongs_to_study[strongs_num]:
-                                    if alt_word not in added_words:
+                                    if alt_word not in shown_words and alt_word not in added_words:
                                         # Get the first matching Strong's number for this study
                                         alt_strongs = alt_study.get('strongs', [])
                                         matched_strongs = next((s for s in alt_strongs if s in verse_strongs), alt_strongs[0] if alt_strongs else None)

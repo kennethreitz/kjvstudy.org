@@ -200,11 +200,18 @@ async def read_chapter(request: Request, book: str, chapter: int):
 
     # Generate AI commentary for the chapter
     commentaries = {}
+    recent_words = {}  # Track {word: verse_num} for cooldown
+    cooldown_verses = 5  # Don't repeat same word within 5 verses
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
+        # Filter out words shown recently (within cooldown period)
+        excluded_words = {w for w, v in recent_words.items() if verse.verse - v < cooldown_verses}
         # Add word study sidenotes
-        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse)
+        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, excluded_words)
         commentary['word_studies'] = word_studies
+        # Track which words were shown
+        for study in word_studies:
+            recent_words[study['word'].lower()] = verse.verse
         # Add cross-references with proper URLs, grouped by description
         cross_refs = get_cross_references(book, chapter, verse.verse)
 
