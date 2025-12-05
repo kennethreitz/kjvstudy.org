@@ -198,14 +198,12 @@ async def read_chapter(request: Request, book: str, chapter: int):
                 detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
             )
 
-    # Generate AI commentary for the chapter
+    # Generate AI commentary for the chapter (two-pass for lookahead)
     commentaries = {}
     recent_words = {}  # Track {word: verse_num} for cooldown
     cooldown_verses = 5  # Don't repeat same word within 5 verses
-    last_xref_verse = 0  # Track last verse with cross-refs
-    xref_cooldown = 2  # Collapse when within 2 verses
-    last_word_study_verse = 0  # Track last verse with word study
-    word_study_cooldown = 2  # Collapse when within 2 verses
+
+    # First pass: collect all data
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
         # Filter out words shown recently (within cooldown period)
@@ -213,26 +211,12 @@ async def read_chapter(request: Request, book: str, chapter: int):
         # Add word study sidenotes
         word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, excluded_words)
         commentary['word_studies'] = word_studies
-        # Auto-expand word studies when there's room
-        if word_studies:
-            if verse.verse - last_word_study_verse < word_study_cooldown:
-                commentary['word_study_auto_expand'] = False
-            else:
-                commentary['word_study_auto_expand'] = True
-            last_word_study_verse = verse.verse
         # Track which words were shown
         for study in word_studies:
             recent_words[study['word'].lower()] = verse.verse
 
-        # Add cross-references with cooldown to prevent margin overload
+        # Add cross-references
         cross_refs = get_cross_references(book, chapter, verse.verse)
-
-        # If within cooldown period, keep collapsed; otherwise auto-expand
-        if cross_refs and verse.verse - last_xref_verse < xref_cooldown:
-            commentary['xref_auto_expand'] = False  # Stay collapsed
-        elif cross_refs:
-            commentary['xref_auto_expand'] = True  # Auto-expand when there's room
-
         if cross_refs:
             # Group cross-references by their description/note
             grouped_refs = defaultdict(list)
@@ -255,17 +239,43 @@ async def read_chapter(request: Request, book: str, chapter: int):
                     'text': ref['ref'],
                     'url': url
                 })
-
-            # Convert to list of groups for template (collapsible - shows first ref, expand for all)
             commentary['cross_reference_groups'] = [
                 {'description': desc, 'refs': refs}
                 for desc, refs in grouped_refs.items()
             ]
-            last_xref_verse = verse.verse
         else:
             commentary['cross_reference_groups'] = []
 
         commentaries[verse.verse] = commentary
+
+    # Second pass: decide expand/collapse with lookahead
+    verse_nums = [v.verse for v in verses]
+    margin_buffer = 2  # Need 2 verses of space before/after to expand
+
+    for verse_num in verse_nums:
+        commentary = commentaries[verse_num]
+        has_word_study = bool(commentary.get('word_studies'))
+        has_xref = bool(commentary.get('cross_reference_groups'))
+
+        # Check nearby verses for sidenotes
+        def has_nearby_sidenote(check_verse):
+            if check_verse not in commentaries:
+                return False
+            c = commentaries[check_verse]
+            return bool(c.get('word_studies')) or bool(c.get('cross_reference_groups'))
+
+        # Look ahead and behind
+        crowded = False
+        for offset in range(1, margin_buffer + 1):
+            if has_nearby_sidenote(verse_num - offset) or has_nearby_sidenote(verse_num + offset):
+                crowded = True
+                break
+
+        # Auto-expand if there's room
+        if has_word_study:
+            commentary['word_study_auto_expand'] = not crowded
+        if has_xref:
+            commentary['xref_auto_expand'] = not crowded
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
