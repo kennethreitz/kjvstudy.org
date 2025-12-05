@@ -12,7 +12,7 @@ from ..kjv import bible
 from ..cross_references import get_cross_references
 from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..books import get_book_data, has_book_data
-from ..utils.books import normalize_book_name, OT_BOOKS
+from ..utils.books import normalize_book_name, OT_BOOKS, get_canonical_book_order
 from ..utils.helpers import create_slug, get_related_content, get_chapter_popularity_score, get_chapter_popularity_explanation
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
 
@@ -274,9 +274,10 @@ async def read_chapter(request: Request, book: str, chapter: int):
                     'book': ref_book,
                     'chapter_verse': ref_chapter_verse
                 })
-            # Sort refs by book so same-book refs are grouped together
+            # Sort refs by canonical book order (Genesis → Revelation)
+            book_order = get_canonical_book_order()
             for desc, refs in grouped_refs.items():
-                refs.sort(key=lambda r: (r['book'] or '', r['chapter_verse']))
+                refs.sort(key=lambda r: (book_order.get(r['book'], 999), r['chapter_verse']))
             # Condense refs: show book only when it changes
             for desc, refs in grouped_refs.items():
                 last_book = None

@@ -80,3 +80,10 @@ def get_testament(book: str) -> str:
     elif is_new_testament(book):
         return "New Testament"
     return "Unknown"
+
+
+@lru_cache(maxsize=1)
+def get_canonical_book_order() -> dict:
+    """Return a dict mapping book name to canonical order index (0-65)."""
+    all_books = OT_BOOKS + NT_BOOKS
+    return {book: i for i, book in enumerate(all_books)}
