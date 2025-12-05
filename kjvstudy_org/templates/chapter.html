@@ -129,24 +129,21 @@
 
 /* Cross-refs: collapsed by default, show just first ref per group */
 .sidenote.cross-refs {
-    max-height: none;
-    overflow: visible;
     cursor: pointer;
 }
 
-.sidenote.cross-refs .xref-details {
+/* Extra refs hidden by default */
+.sidenote.cross-refs .xref-extra {
     display: none;
 }
 
-.sidenote.cross-refs.expanded .xref-details {
-    display: block;
-    margin-top: 0.3em;
-    padding-top: 0.3em;
-    border-top: 1px solid var(--border-color);
+/* Show extra refs when expanded */
+.sidenote.cross-refs.expanded .xref-extra {
+    display: inline;
 }
 
-/* Hide preview when expanded, show full details */
-.sidenote.cross-refs.expanded .xref-preview {
+/* Hide the +N indicator when expanded */
+.sidenote.cross-refs.expanded .xref-more {
     display: none;
 }
 
@@ -154,6 +151,7 @@
     font-size: 0.85em;
     color: var(--text-secondary);
     font-style: italic;
+    cursor: pointer;
 }
 
 @media (max-width: 760px) {
@@ -464,14 +462,7 @@ document.body.dataset.resourceReader = 'false';
                 {% set preview_count = commentary.cross_reference_groups | length %}
                 <label for="sn-{{ verse.verse }}-xrefs" class="margin-toggle sidenote-number"></label>
                 <input type="checkbox" id="sn-{{ verse.verse }}-xrefs" class="margin-toggle"/>
-                <span class="sidenote cross-refs">
-                    <span class="xref-preview">{% for group in commentary.cross_reference_groups %}<strong>{{ group.description }}:</strong> <a href="{{ group.refs[0].url }}">{{ group.refs[0].text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}{% if total_refs > preview_count %} <span class="xref-more">+{{ total_refs - preview_count }}</span>{% endif %}</span>
-                    <span class="xref-details">
-                    {% for group in commentary.cross_reference_groups %}
-                        <strong>{{ group.description }}:</strong> {% for ref in group.refs %}<a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}.{% if not loop.last %}<br>{% endif %}
-                    {% endfor %}
-                    </span>
-                </span>
+                <span class="sidenote cross-refs">{% for group in commentary.cross_reference_groups %}<strong>{{ group.description }}:</strong> <a href="{{ group.refs[0].url }}">{{ group.refs[0].text }}</a>{% if group.refs|length > 1 %}<span class="xref-extra">; {% for ref in group.refs[1:] %}<a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}</span>{% endif %}{% if not loop.last %}. {% endif %}{% endfor %}{% if total_refs > preview_count %}<span class="xref-more"> +{{ total_refs - preview_count }}</span>{% endif %}</span>
             {% endif %}
         {% endif %}
     </p>
