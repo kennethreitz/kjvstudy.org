@@ -101,6 +101,32 @@
     margin-bottom: 1rem;
 }
 
+/* Word studies: collapsed by default, show only word + Greek term */
+.sidenote.word-study {
+    max-height: none;
+    overflow: visible;
+    cursor: pointer;
+}
+
+.sidenote.word-study .word-study-details {
+    display: none;
+}
+
+.sidenote.word-study.expanded .word-study-details {
+    display: inline;
+}
+
+/* Show expand indicator for collapsed word studies */
+.sidenote.word-study:not(.expanded)::after {
+    content: " ▸";
+    font-size: 0.8em;
+    color: var(--text-secondary);
+}
+
+.sidenote.word-study.expanded::after {
+    content: "";
+}
+
 @media (max-width: 760px) {
     .sidenote,
     .marginnote {

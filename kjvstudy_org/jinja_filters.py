@@ -147,7 +147,11 @@ def link_verse_references_in_text(text):
 
 
 def inject_word_markers(text, word_studies, verse_num):
-    """Inject sidenote markers into verse text next to annotated words"""
+    """Inject sidenote markers into verse text next to annotated words.
+
+    Word studies are collapsed by default, showing only the word and Greek/Hebrew term.
+    Clicking expands to show transliteration and full definition.
+    """
     if not word_studies:
         return text
 
@@ -159,7 +163,15 @@ def inject_word_markers(text, word_studies, verse_num):
             term_html = f'<a href="/strongs/{strongs}">{study["term"]}</a>'
         else:
             term_html = study["term"]
-        marker = f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/><span class="sidenote"><strong>{word}:</strong> {term_html} (<em>{study["translit"]}</em>). {study["note"]}</span>'
+        # Wrap details (translit + note) in a span that's hidden by default
+        marker = (
+            f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label>'
+            f'<input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/>'
+            f'<span class="sidenote word-study">'
+            f'<strong>{word}:</strong> {term_html}'
+            f'<span class="word-study-details"> (<em>{study["translit"]}</em>). {study["note"]}</span>'
+            f'</span>'
+        )
         pattern = re.compile(r'\b(' + re.escape(word) + r')(?!\'[sS])\b', re.IGNORECASE)
         text = pattern.sub(r'\1' + marker, text, count=1)
 
