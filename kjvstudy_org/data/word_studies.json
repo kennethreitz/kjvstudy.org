@@ -3,50 +3,89 @@
     "ot_term": "אֱלֹהִים",
     "ot_transliteration": "Elohim",
     "ot_meaning": "God (plural of majesty)",
+    "ot_strongs": [
+      "H430",
+      "H410",
+      "H433"
+    ],
     "ot_note": "The Hebrew <strong>Elohim</strong> (אֱלֹהִים) is a plural form denoting majesty and fullness of deity. Though grammatically plural, it takes singular verbs when referring to the one true God, suggesting the Trinity's plurality within unity.",
     "nt_term": "Θεός",
     "nt_transliteration": "Theos",
     "nt_meaning": "God",
+    "nt_strongs": [
+      "G2316"
+    ],
     "nt_note": "The Greek <strong>Theos</strong> (Θεός) refers to deity, used both for the one true God and false gods. Context determines whether it denotes the Father specifically or the Godhead generally."
   },
   "lord": {
     "ot_term": "יְהוָה / אֲדֹנָי",
     "ot_transliteration": "YHWH / Adonai",
     "ot_meaning": "The LORD / Lord",
+    "ot_strongs": [
+      "H3068",
+      "H136",
+      "H113"
+    ],
     "ot_note": "When 'LORD' appears in small capitals, it represents the Tetragrammaton <strong>YHWH</strong> (יְהוָה), God's personal covenant name meaning 'I AM.' When 'Lord' appears normally, it's <strong>Adonai</strong> (אֲדֹנָי), meaning 'my Lord,' emphasizing sovereignty.",
     "nt_term": "Κύριος",
     "nt_transliteration": "Kurios",
     "nt_meaning": "Lord, Master",
+    "nt_strongs": [
+      "G2962"
+    ],
     "nt_note": "The Greek <strong>Kurios</strong> (Κύριος) means 'lord' or 'master,' used both for human masters and divinely for God the Father and Jesus Christ. Its application to Jesus affirms His deity, as it translates YHWH in the Septuagint."
   },
   "love": {
     "ot_term": "אַהֲבָה / חֶסֶד",
     "ot_transliteration": "Ahavah / Chesed",
     "ot_meaning": "Love / Loyal-love",
+    "ot_strongs": [
+      "H160",
+      "H157",
+      "H2617"
+    ],
     "ot_note": "Hebrew uses <strong>ahavah</strong> (אַהֲבָה) for love generally, but the covenant term <strong>chesed</strong> (חֶסֶד) describes God's steadfast, loyal love—faithful covenant commitment beyond mere emotion.",
     "nt_term": "ἀγάπη",
     "nt_transliteration": "Agape",
     "nt_meaning": "Divine love",
+    "nt_strongs": [
+      "G26",
+      "G25"
+    ],
     "nt_note": "The Greek <strong>agape</strong> (ἀγάπη) denotes self-sacrificial, unconditional love—the highest form of love, characterizing God's nature (1 John 4:8) and the love Christians are called to demonstrate."
   },
   "faith": {
     "ot_term": "אֱמוּנָה",
     "ot_transliteration": "Emunah",
     "ot_meaning": "Faithfulness, trust",
+    "ot_strongs": [
+      "H530",
+      "H539"
+    ],
     "ot_note": "The Hebrew <strong>emunah</strong> (אֱמוּנָה) encompasses both faith and faithfulness—trusting God and being trustworthy. It implies steadfast reliability, as in 'The just shall live by his faith' (Habakkuk 2:4).",
     "nt_term": "πίστις",
     "nt_transliteration": "Pistis",
     "nt_meaning": "Faith, belief, trust",
+    "nt_strongs": [
+      "G4102",
+      "G4103"
+    ],
     "nt_note": "The Greek <strong>pistis</strong> (πίστις) denotes faith, belief, or trust—confidence in God's character and promises. It's both intellectual assent and relational trust, central to justification (Romans 5:1)."
   },
   "grace": {
     "ot_term": "חֵן",
     "ot_transliteration": "Chen",
     "ot_meaning": "Grace, favor",
+    "ot_strongs": [
+      "H2580"
+    ],
     "ot_note": "The Hebrew <strong>chen</strong> (חֵן) means grace or favor—unmerited kindness bestowed by a superior. Noah 'found grace in the eyes of the LORD' (Genesis 6:8), receiving undeserved favor.",
     "nt_term": "χάρις",
     "nt_transliteration": "Charis",
     "nt_meaning": "Grace, favor",
+    "nt_strongs": [
+      "G5485"
+    ],
     "nt_note": "The Greek <strong>charis</strong> (χάρις) denotes unmerited divine favor—God's kindness toward the undeserving. Salvation is 'by grace through faith' (Ephesians 2:8), not human merit."
   },
   "mercy": {
@@ -57,7 +96,16 @@
     "nt_term": "ἔλεος",
     "nt_transliteration": "Eleos",
     "nt_meaning": "Mercy, compassion",
-    "nt_note": "The Greek <strong>eleos</strong> (ἔλεος) denotes compassionate mercy—pity for those in distress. God is 'rich in mercy' (Ephesians 2:4), withholding deserved punishment and granting undeserved kindness."
+    "nt_note": "The Greek <strong>eleos</strong> (ἔλεος) denotes compassionate mercy—pity for those in distress. God is 'rich in mercy' (Ephesians 2:4), withholding deserved punishment and granting undeserved kindness.",
+    "ot_strongs": [
+      "H7356",
+      "H2617",
+      "H2603"
+    ],
+    "nt_strongs": [
+      "G1656",
+      "G3628"
+    ]
   },
   "righteous": {
     "ot_term": "צַדִּיק",
@@ -67,7 +115,16 @@
     "nt_term": "δίκαιος",
     "nt_transliteration": "Dikaios",
     "nt_meaning": "Righteous, just",
-    "nt_note": "The Greek <strong>dikaios</strong> (δίκαιος) means righteous or just—conforming to God's standard. Christ's righteousness is imputed to believers through faith (Romans 4:5), making them legally righteous before God."
+    "nt_note": "The Greek <strong>dikaios</strong> (δίκαιος) means righteous or just—conforming to God's standard. Christ's righteousness is imputed to believers through faith (Romans 4:5), making them legally righteous before God.",
+    "ot_strongs": [
+      "H6662",
+      "H6664",
+      "H6666"
+    ],
+    "nt_strongs": [
+      "G1342",
+      "G1343"
+    ]
   },
   "salvation": {
     "ot_term": "יְשׁוּעָה",
@@ -77,7 +134,16 @@
     "nt_term": "σωτηρία",
     "nt_transliteration": "Soteria",
     "nt_meaning": "Salvation, deliverance",
-    "nt_note": "The Greek <strong>soteria</strong> (σωτηρία) denotes salvation, deliverance, or preservation—rescue from sin's penalty and power. It encompasses justification, sanctification, and glorification."
+    "nt_note": "The Greek <strong>soteria</strong> (σωτηρία) denotes salvation, deliverance, or preservation—rescue from sin's penalty and power. It encompasses justification, sanctification, and glorification.",
+    "ot_strongs": [
+      "H3444",
+      "H3467",
+      "H8668"
+    ],
+    "nt_strongs": [
+      "G4991",
+      "G4992"
+    ]
   },
   "redeem": {
     "ot_term": "גָּאַל",
@@ -87,7 +153,17 @@
     "nt_term": "λυτρόω",
     "nt_transliteration": "Lutroo",
     "nt_meaning": "To redeem, ransom",
-    "nt_note": "The Greek <strong>lutroo</strong> (λυτρόω) means to redeem or ransom—purchasing freedom by paying a price. Christ redeemed us 'with the precious blood' (1 Peter 1:18-19), the ransom for sin."
+    "nt_note": "The Greek <strong>lutroo</strong> (λυτρόω) means to redeem or ransom—purchasing freedom by paying a price. Christ redeemed us 'with the precious blood' (1 Peter 1:18-19), the ransom for sin.",
+    "ot_strongs": [
+      "H1350",
+      "H6299",
+      "H7069"
+    ],
+    "nt_strongs": [
+      "G3084",
+      "G1805",
+      "G629"
+    ]
   },
   "covenant": {
     "ot_term": "בְּרִית",
@@ -97,7 +173,13 @@
     "nt_term": "διαθήκη",
     "nt_transliteration": "Diatheke",
     "nt_meaning": "Covenant, testament",
-    "nt_note": "The Greek <strong>diatheke</strong> (διαθήκη) means covenant or testament—a binding arrangement. The New Covenant (Jeremiah 31:31-34) is ratified by Christ's blood, surpassing the old (Hebrews 8:6-13)."
+    "nt_note": "The Greek <strong>diatheke</strong> (διαθήκη) means covenant or testament—a binding arrangement. The New Covenant (Jeremiah 31:31-34) is ratified by Christ's blood, surpassing the old (Hebrews 8:6-13).",
+    "ot_strongs": [
+      "H1285"
+    ],
+    "nt_strongs": [
+      "G1242"
+    ]
   },
   "glory": {
     "ot_term": "כָּבוֹד",
@@ -107,7 +189,14 @@
     "nt_term": "δόξα",
     "nt_transliteration": "Doxa",
     "nt_meaning": "Glory, majesty, splendor",
-    "nt_note": "The Greek <strong>doxa</strong> (δόξα) means glory, splendor, or magnificence—the radiant manifestation of God's perfection. Christ revealed the Father's glory: 'we beheld his glory' (John 1:14)."
+    "nt_note": "The Greek <strong>doxa</strong> (δόξα) means glory, splendor, or magnificence—the radiant manifestation of God's perfection. Christ revealed the Father's glory: 'we beheld his glory' (John 1:14).",
+    "ot_strongs": [
+      "H3519",
+      "H1926"
+    ],
+    "nt_strongs": [
+      "G1391"
+    ]
   },
   "holy": {
     "ot_term": "קָדוֹשׁ",
@@ -117,7 +206,14 @@
     "nt_term": "ἅγιος",
     "nt_transliteration": "Hagios",
     "nt_meaning": "Holy, sacred, set apart",
-    "nt_note": "The Greek <strong>hagios</strong> (ἅγιος) denotes holiness—moral purity and separation unto God. Believers are called 'saints' (<em>hagioi</em>), those set apart for God through Christ's sanctifying work."
+    "nt_note": "The Greek <strong>hagios</strong> (ἅγιος) denotes holiness—moral purity and separation unto God. Believers are called 'saints' (<em>hagioi</em>), those set apart for God through Christ's sanctifying work.",
+    "ot_strongs": [
+      "H6918",
+      "H6944"
+    ],
+    "nt_strongs": [
+      "G40"
+    ]
   },
   "peace": {
     "ot_term": "שָׁלוֹם",
@@ -127,7 +223,13 @@
     "nt_term": "εἰρήνη",
     "nt_transliteration": "Eirene",
     "nt_meaning": "Peace, harmony",
-    "nt_note": "The Greek <strong>eirene</strong> (εἰρήνη) means peace or harmony—both the inner tranquility of reconciliation with God and relational harmony. Christ is 'our peace' (Ephesians 2:14), reconciling us to God."
+    "nt_note": "The Greek <strong>eirene</strong> (εἰρήνη) means peace or harmony—both the inner tranquility of reconciliation with God and relational harmony. Christ is 'our peace' (Ephesians 2:14), reconciling us to God.",
+    "ot_strongs": [
+      "H7965"
+    ],
+    "nt_strongs": [
+      "G1515"
+    ]
   },
   "spirit": {
     "ot_term": "רוּחַ",
@@ -137,7 +239,13 @@
     "nt_term": "πνεῦμα",
     "nt_transliteration": "Pneuma",
     "nt_meaning": "Spirit, wind, breath",
-    "nt_note": "The Greek <strong>pneuma</strong> (πνεῦμα) means spirit, wind, or breath—the immaterial aspect of persons. The Holy Spirit (<em>Pneuma Hagion</em>) is the third person of the Trinity, dwelling in believers."
+    "nt_note": "The Greek <strong>pneuma</strong> (πνεῦμα) means spirit, wind, or breath—the immaterial aspect of persons. The Holy Spirit (<em>Pneuma Hagion</em>) is the third person of the Trinity, dwelling in believers.",
+    "ot_strongs": [
+      "H7307"
+    ],
+    "nt_strongs": [
+      "G4151"
+    ]
   },
   "wisdom": {
     "ot_term": "חָכְמָה",
@@ -147,7 +255,14 @@
     "nt_term": "σοφία",
     "nt_transliteration": "Sophia",
     "nt_meaning": "Wisdom, insight",
-    "nt_note": "The Greek <strong>sophia</strong> (σοφία) means wisdom or insight—skillful living and right judgment. Christ is 'the wisdom of God' (1 Corinthians 1:24), and God gives wisdom liberally to those who ask (James 1:5)."
+    "nt_note": "The Greek <strong>sophia</strong> (σοφία) means wisdom or insight—skillful living and right judgment. Christ is 'the wisdom of God' (1 Corinthians 1:24), and God gives wisdom liberally to those who ask (James 1:5).",
+    "ot_strongs": [
+      "H2451",
+      "H2454"
+    ],
+    "nt_strongs": [
+      "G4678"
+    ]
   },
   "truth": {
     "ot_term": "אֱמֶת",
@@ -157,7 +272,13 @@
     "nt_term": "ἀλήθεια",
     "nt_transliteration": "Aletheia",
     "nt_meaning": "Truth, reality",
-    "nt_note": "The Greek <strong>aletheia</strong> (ἀλήθεια) denotes truth or reality—that which corresponds to actuality. Jesus declared, 'I am the way, the truth, and the life' (John 14:6), embodying ultimate reality."
+    "nt_note": "The Greek <strong>aletheia</strong> (ἀλήθεια) denotes truth or reality—that which corresponds to actuality. Jesus declared, 'I am the way, the truth, and the life' (John 14:6), embodying ultimate reality.",
+    "ot_strongs": [
+      "H571"
+    ],
+    "nt_strongs": [
+      "G225"
+    ]
   },
   "sin": {
     "ot_term": "חַטָּאת",
@@ -167,7 +288,16 @@
     "nt_term": "ἁμαρτία",
     "nt_transliteration": "Hamartia",
     "nt_meaning": "Sin, missing the mark",
-    "nt_note": "The Greek <strong>hamartia</strong> (ἁμαρτία) means sin—missing the target of God's perfection. 'All have sinned and fall short of the glory of God' (Romans 3:23), requiring Christ's atoning sacrifice."
+    "nt_note": "The Greek <strong>hamartia</strong> (ἁμαρτία) means sin—missing the target of God's perfection. 'All have sinned and fall short of the glory of God' (Romans 3:23), requiring Christ's atoning sacrifice.",
+    "ot_strongs": [
+      "H2403",
+      "H2399",
+      "H5771"
+    ],
+    "nt_strongs": [
+      "G266",
+      "G265"
+    ]
   },
   "kingdom": {
     "ot_term": "מַלְכוּת",
@@ -177,7 +307,14 @@
     "nt_term": "βασιλεία",
     "nt_transliteration": "Basileia",
     "nt_meaning": "Kingdom, reign",
-    "nt_note": "The Greek <strong>basileia</strong> (βασιλεία) means kingdom—both the realm ruled and the exercise of royal authority. The 'kingdom of God' is central to Jesus' teaching, representing God's saving rule breaking into history."
+    "nt_note": "The Greek <strong>basileia</strong> (βασιλεία) means kingdom—both the realm ruled and the exercise of royal authority. The 'kingdom of God' is central to Jesus' teaching, representing God's saving rule breaking into history.",
+    "ot_strongs": [
+      "H4438",
+      "H4467"
+    ],
+    "nt_strongs": [
+      "G932"
+    ]
   },
   "sacrifice": {
     "ot_term": "זֶבַח",
@@ -187,7 +324,14 @@
     "nt_term": "θυσία",
     "nt_transliteration": "Thusia",
     "nt_meaning": "Sacrifice, offering",
-    "nt_note": "The Greek <strong>thusia</strong> (θυσία) means sacrifice or offering. Christ offered Himself as the perfect sacrifice 'once for all' (Hebrews 10:10), ending the need for repeated animal sacrifices."
+    "nt_note": "The Greek <strong>thusia</strong> (θυσία) means sacrifice or offering. Christ offered Himself as the perfect sacrifice 'once for all' (Hebrews 10:10), ending the need for repeated animal sacrifices.",
+    "ot_strongs": [
+      "H2077",
+      "H2076"
+    ],
+    "nt_strongs": [
+      "G2378"
+    ]
   },
   "word": {
     "ot_term": "דָּבָר",
@@ -197,25 +341,41 @@
     "nt_term": "λόγος",
     "nt_transliteration": "Logos",
     "nt_meaning": "Word, reason, message",
-    "nt_note": "The Greek <strong>Logos</strong> (Λόγος) means word, reason, or message—the rational principle underlying reality. John identifies Christ as the eternal Logos: 'In the beginning was the Word' (John 1:1)."
+    "nt_note": "The Greek <strong>Logos</strong> (Λόγος) means word, reason, or message—the rational principle underlying reality. John identifies Christ as the eternal Logos: 'In the beginning was the Word' (John 1:1).",
+    "ot_strongs": [
+      "H1697"
+    ],
+    "nt_strongs": [
+      "G3056",
+      "G4487"
+    ]
   },
   "church": {
     "nt_term": "ἐκκλησία",
     "nt_transliteration": "Ekklesia",
     "nt_meaning": "Assembly, church",
-    "nt_note": "The Greek <strong>ekklesia</strong> (ἐκκλησία) means assembly or called-out ones—the gathering of believers. Christ builds His church (Matthew 16:18), the body of Christ comprising all the redeemed."
+    "nt_note": "The Greek <strong>ekklesia</strong> (ἐκκλησία) means assembly or called-out ones—the gathering of believers. Christ builds His church (Matthew 16:18), the body of Christ comprising all the redeemed.",
+    "nt_strongs": [
+      "G1577"
+    ]
   },
   "baptize": {
     "nt_term": "βαπτίζω",
     "nt_transliteration": "Baptizo",
     "nt_meaning": "To baptize, immerse",
-    "nt_note": "The Greek <strong>baptizo</strong> (βαπτίζω) means to dip, immerse, or baptize. Christian baptism symbolizes identification with Christ's death, burial, and resurrection (Romans 6:3-4)."
+    "nt_note": "The Greek <strong>baptizo</strong> (βαπτίζω) means to dip, immerse, or baptize. Christian baptism symbolizes identification with Christ's death, burial, and resurrection (Romans 6:3-4).",
+    "nt_strongs": [
+      "G907"
+    ]
   },
   "gospel": {
     "nt_term": "εὐαγγέλιον",
     "nt_transliteration": "Euangelion",
     "nt_meaning": "Good news, gospel",
-    "nt_note": "The Greek <strong>euangelion</strong> (εὐαγγέλιον) means good news or gospel—the message of salvation through Christ's death and resurrection. It's 'the power of God unto salvation' (Romans 1:16)."
+    "nt_note": "The Greek <strong>euangelion</strong> (εὐαγγέλιον) means good news or gospel—the message of salvation through Christ's death and resurrection. It's 'the power of God unto salvation' (Romans 1:16).",
+    "nt_strongs": [
+      "G2098"
+    ]
   },
   "worship": {
     "ot_term": "שָׁחָה",
@@ -225,7 +385,13 @@
     "nt_term": "προσκυνέω",
     "nt_transliteration": "Proskuneo",
     "nt_meaning": "To worship, bow down",
-    "nt_note": "The Greek <strong>proskuneo</strong> (προσκυνέω) means to worship or pay homage—literally 'to kiss toward.' Jesus taught that true worshipers must worship 'in spirit and in truth' (John 4:24)."
+    "nt_note": "The Greek <strong>proskuneo</strong> (προσκυνέω) means to worship or pay homage—literally 'to kiss toward.' Jesus taught that true worshipers must worship 'in spirit and in truth' (John 4:24).",
+    "ot_strongs": [
+      "H7812"
+    ],
+    "nt_strongs": [
+      "G4352"
+    ]
   },
   "prayer": {
     "ot_term": "תְּפִלָּה",
@@ -235,7 +401,14 @@
     "nt_term": "προσευχή",
     "nt_transliteration": "Proseuche",
     "nt_meaning": "Prayer, petition",
-    "nt_note": "The Greek <strong>proseuche</strong> (προσευχή) denotes prayer—communication with God. Believers are exhorted to 'pray without ceasing' (1 Thessalonians 5:17) and 'in everything by prayer and supplication' present requests to God (Philippians 4:6)."
+    "nt_note": "The Greek <strong>proseuche</strong> (προσευχή) denotes prayer—communication with God. Believers are exhorted to 'pray without ceasing' (1 Thessalonians 5:17) and 'in everything by prayer and supplication' present requests to God (Philippians 4:6).",
+    "ot_strongs": [
+      "H8605"
+    ],
+    "nt_strongs": [
+      "G4335",
+      "G4336"
+    ]
   },
   "praise": {
     "ot_term": "הָלַל",
@@ -245,7 +418,15 @@
     "nt_term": "αἰνέω",
     "nt_transliteration": "Aineo",
     "nt_meaning": "To praise, extol",
-    "nt_note": "The Greek <strong>aineo</strong> (αἰνέω) means to praise or extol—expressing admiration and gratitude. The early church devoted themselves to 'praising God' (Acts 2:47) continually."
+    "nt_note": "The Greek <strong>aineo</strong> (αἰνέω) means to praise or extol—expressing admiration and gratitude. The early church devoted themselves to 'praising God' (Acts 2:47) continually.",
+    "ot_strongs": [
+      "H1984",
+      "H8416"
+    ],
+    "nt_strongs": [
+      "G134",
+      "G136"
+    ]
   },
   "temple": {
     "ot_term": "הֵיכָל",
@@ -255,7 +436,14 @@
     "nt_term": "ναός",
     "nt_transliteration": "Naos",
     "nt_meaning": "Temple, sanctuary",
-    "nt_note": "The Greek <strong>naos</strong> (ναός) means temple or inner sanctuary. Paul declares believers are 'the temple of the living God' (2 Corinthians 6:16), individually (1 Corinthians 6:19) and corporately as the church."
+    "nt_note": "The Greek <strong>naos</strong> (ναός) means temple or inner sanctuary. Paul declares believers are 'the temple of the living God' (2 Corinthians 6:16), individually (1 Corinthians 6:19) and corporately as the church.",
+    "ot_strongs": [
+      "H1964"
+    ],
+    "nt_strongs": [
+      "G3485",
+      "G2411"
+    ]
   },
   "altar": {
     "ot_term": "מִזְבֵּחַ",
@@ -265,7 +453,13 @@
     "nt_term": "θυσιαστήριον",
     "nt_transliteration": "Thusiastērion",
     "nt_meaning": "Altar",
-    "nt_note": "The Greek <strong>thusiastērion</strong> (θυσιαστήριον) denotes an altar for sacrifice. Hebrews 13:10 declares 'We have an altar' from which temple priests cannot eat—referring to Christ's sacrifice outside the camp."
+    "nt_note": "The Greek <strong>thusiastērion</strong> (θυσιαστήριον) denotes an altar for sacrifice. Hebrews 13:10 declares 'We have an altar' from which temple priests cannot eat—referring to Christ's sacrifice outside the camp.",
+    "ot_strongs": [
+      "H4196"
+    ],
+    "nt_strongs": [
+      "G2379"
+    ]
   },
   "priest": {
     "ot_term": "כֹּהֵן",
@@ -275,7 +469,13 @@
     "nt_term": "ἱερεύς",
     "nt_transliteration": "Hiereus",
     "nt_meaning": "Priest",
-    "nt_note": "The Greek <strong>hiereus</strong> (ἱερεύς) means priest. Christ is our eternal High Priest (Hebrews 4:14) after the order of Melchizedek, and believers form a 'royal priesthood' (1 Peter 2:9)."
+    "nt_note": "The Greek <strong>hiereus</strong> (ἱερεύς) means priest. Christ is our eternal High Priest (Hebrews 4:14) after the order of Melchizedek, and believers form a 'royal priesthood' (1 Peter 2:9).",
+    "ot_strongs": [
+      "H3548"
+    ],
+    "nt_strongs": [
+      "G2409"
+    ]
   },
   "angel": {
     "ot_term": "מַלְאָךְ",
@@ -285,7 +485,13 @@
     "nt_term": "ἄγγελος",
     "nt_transliteration": "Angelos",
     "nt_meaning": "Angel, messenger",
-    "nt_note": "The Greek <strong>angelos</strong> (ἄγγελος) means angel or messenger. Angels announced Christ's birth (Luke 2:9-14), ministered to Him (Matthew 4:11), and will accompany His return (Matthew 25:31)."
+    "nt_note": "The Greek <strong>angelos</strong> (ἄγγελος) means angel or messenger. Angels announced Christ's birth (Luke 2:9-14), ministered to Him (Matthew 4:11), and will accompany His return (Matthew 25:31).",
+    "ot_strongs": [
+      "H4397"
+    ],
+    "nt_strongs": [
+      "G32"
+    ]
   },
   "heaven": {
     "ot_term": "שָׁמַיִם",
@@ -295,7 +501,13 @@
     "nt_term": "οὐρανός",
     "nt_transliteration": "Ouranos",
     "nt_meaning": "Heaven, sky",
-    "nt_note": "The Greek <strong>ouranos</strong> (οὐρανός) denotes heaven—God's throne and the believer's eternal home. Jesus taught His disciples to pray 'Our Father which art in heaven' (Matthew 6:9) and promised to prepare a place there (John 14:2)."
+    "nt_note": "The Greek <strong>ouranos</strong> (οὐρανός) denotes heaven—God's throne and the believer's eternal home. Jesus taught His disciples to pray 'Our Father which art in heaven' (Matthew 6:9) and promised to prepare a place there (John 14:2).",
+    "ot_strongs": [
+      "H8064"
+    ],
+    "nt_strongs": [
+      "G3772"
+    ]
   },
   "earth": {
     "ot_term": "אֶרֶץ",
@@ -305,7 +517,13 @@
     "nt_term": "γῆ",
     "nt_transliteration": "Gē",
     "nt_meaning": "Earth, land",
-    "nt_note": "The Greek <strong>gē</strong> (γῆ) denotes earth or land. While believers are 'strangers and pilgrims on the earth' (Hebrews 11:13), they await 'new heavens and a new earth' (2 Peter 3:13) where righteousness dwells."
+    "nt_note": "The Greek <strong>gē</strong> (γῆ) denotes earth or land. While believers are 'strangers and pilgrims on the earth' (Hebrews 11:13), they await 'new heavens and a new earth' (2 Peter 3:13) where righteousness dwells.",
+    "ot_strongs": [
+      "H776"
+    ],
+    "nt_strongs": [
+      "G1093"
+    ]
   },
   "soul": {
     "ot_term": "נֶפֶשׁ",
@@ -315,7 +533,13 @@
     "nt_term": "ψυχή",
     "nt_transliteration": "Psuche",
     "nt_meaning": "Soul, life, self",
-    "nt_note": "The Greek <strong>psuche</strong> (ψυχή) means soul or life—the seat of emotions and will. Jesus asked, 'What shall it profit a man, if he shall gain the whole world, and lose his own soul?' (Mark 8:36)."
+    "nt_note": "The Greek <strong>psuche</strong> (ψυχή) means soul or life—the seat of emotions and will. Jesus asked, 'What shall it profit a man, if he shall gain the whole world, and lose his own soul?' (Mark 8:36).",
+    "ot_strongs": [
+      "H5315"
+    ],
+    "nt_strongs": [
+      "G5590"
+    ]
   },
   "heart": {
     "ot_term": "לֵב",
@@ -325,7 +549,14 @@
     "nt_term": "καρδία",
     "nt_transliteration": "Kardia",
     "nt_meaning": "Heart, mind, inner self",
-    "nt_note": "The Greek <strong>kardia</strong> (καρδία) means heart—the inner person, seat of thoughts and affections. 'Out of the abundance of the heart the mouth speaketh' (Matthew 12:34), and believers must guard their hearts (Proverbs 4:23)."
+    "nt_note": "The Greek <strong>kardia</strong> (καρδία) means heart—the inner person, seat of thoughts and affections. 'Out of the abundance of the heart the mouth speaketh' (Matthew 12:34), and believers must guard their hearts (Proverbs 4:23).",
+    "ot_strongs": [
+      "H3820",
+      "H3824"
+    ],
+    "nt_strongs": [
+      "G2588"
+    ]
   },
   "flesh": {
     "ot_term": "בָּשָׂר",
@@ -335,13 +566,22 @@
     "nt_term": "σάρξ",
     "nt_transliteration": "Sarx",
     "nt_meaning": "Flesh, sinful nature",
-    "nt_note": "The Greek <strong>sarx</strong> (σάρξ) denotes flesh—both physical body and fallen human nature opposed to God. Paul contrasts walking 'after the flesh' versus 'after the Spirit' (Romans 8:4-5). The Word became flesh (John 1:14) in the incarnation."
+    "nt_note": "The Greek <strong>sarx</strong> (σάρξ) denotes flesh—both physical body and fallen human nature opposed to God. Paul contrasts walking 'after the flesh' versus 'after the Spirit' (Romans 8:4-5). The Word became flesh (John 1:14) in the incarnation.",
+    "ot_strongs": [
+      "H1320"
+    ],
+    "nt_strongs": [
+      "G4561"
+    ]
   },
   "mind": {
     "nt_term": "νοῦς",
     "nt_transliteration": "Nous",
     "nt_meaning": "Mind, understanding",
-    "nt_note": "The Greek <strong>nous</strong> (νοῦς) means mind or understanding—the faculty of thought and perception. Believers are to be transformed by the 'renewing of your mind' (Romans 12:2) and have 'the mind of Christ' (1 Corinthians 2:16)."
+    "nt_note": "The Greek <strong>nous</strong> (νοῦς) means mind or understanding—the faculty of thought and perception. Believers are to be transformed by the 'renewing of your mind' (Romans 12:2) and have 'the mind of Christ' (1 Corinthians 2:16).",
+    "nt_strongs": [
+      "G3563"
+    ]
   },
   "blessing": {
     "ot_term": "בְּרָכָה",
@@ -351,7 +591,13 @@
     "nt_term": "εὐλογία",
     "nt_transliteration": "Eulogia",
     "nt_meaning": "Blessing, praise",
-    "nt_note": "The Greek <strong>eulogia</strong> (εὐλογία) denotes blessing—divine favor or words of praise. Believers are blessed with 'all spiritual blessings in heavenly places in Christ' (Ephesians 1:3) and called to 'bless them which persecute you' (Romans 12:14)."
+    "nt_note": "The Greek <strong>eulogia</strong> (εὐλογία) denotes blessing—divine favor or words of praise. Believers are blessed with 'all spiritual blessings in heavenly places in Christ' (Ephesians 1:3) and called to 'bless them which persecute you' (Romans 12:14).",
+    "ot_strongs": [
+      "H1293"
+    ],
+    "nt_strongs": [
+      "G2129"
+    ]
   },
   "hope": {
     "ot_term": "תִּקְוָה",
@@ -361,7 +607,13 @@
     "nt_term": "ἐλπίς",
     "nt_transliteration": "Elpis",
     "nt_meaning": "Hope, expectation",
-    "nt_note": "The Greek <strong>elpis</strong> (ἐλπίς) denotes hope—confident expectation of good. This hope is 'an anchor of the soul' (Hebrews 6:19), grounded in Christ's resurrection and the believer's future inheritance (1 Peter 1:3-4)."
+    "nt_note": "The Greek <strong>elpis</strong> (ἐλπίς) denotes hope—confident expectation of good. This hope is 'an anchor of the soul' (Hebrews 6:19), grounded in Christ's resurrection and the believer's future inheritance (1 Peter 1:3-4).",
+    "ot_strongs": [
+      "H8615"
+    ],
+    "nt_strongs": [
+      "G1680"
+    ]
   },
   "joy": {
     "ot_term": "שִׂמְחָה",
@@ -371,7 +623,14 @@
     "nt_term": "χαρά",
     "nt_transliteration": "Chara",
     "nt_meaning": "Joy, gladness",
-    "nt_note": "The Greek <strong>chara</strong> (χαρά) denotes joy—deep spiritual gladness. This joy is a fruit of the Spirit (Galatians 5:22), independent of circumstances. Jesus promised that His joy would remain in believers, making their joy full (John 15:11)."
+    "nt_note": "The Greek <strong>chara</strong> (χαρά) denotes joy—deep spiritual gladness. This joy is a fruit of the Spirit (Galatians 5:22), independent of circumstances. Jesus promised that His joy would remain in believers, making their joy full (John 15:11).",
+    "ot_strongs": [
+      "H8057",
+      "H8342"
+    ],
+    "nt_strongs": [
+      "G5479"
+    ]
   },
   "fear": {
     "ot_term": "יִרְאָה",
@@ -381,7 +640,13 @@
     "nt_term": "φόβος",
     "nt_transliteration": "Phobos",
     "nt_meaning": "Fear, reverence",
-    "nt_note": "The Greek <strong>phobos</strong> (φόβος) means fear—both terror and reverential awe. While perfect love casts out servile fear (1 John 4:18), believers are to 'fear God, and give glory to him' (Revelation 14:7) with holy reverence."
+    "nt_note": "The Greek <strong>phobos</strong> (φόβος) means fear—both terror and reverential awe. While perfect love casts out servile fear (1 John 4:18), believers are to 'fear God, and give glory to him' (Revelation 14:7) with holy reverence.",
+    "ot_strongs": [
+      "H3374"
+    ],
+    "nt_strongs": [
+      "G5401"
+    ]
   },
   "prophet": {
     "ot_term": "נָבִיא",
@@ -391,19 +656,31 @@
     "nt_term": "προφήτης",
     "nt_transliteration": "Prophētēs",
     "nt_meaning": "Prophet",
-    "nt_note": "The Greek <strong>prophētēs</strong> (προφήτης) denotes a prophet—one who speaks forth God's message. Jesus was recognized as 'a prophet mighty in deed and word' (Luke 24:19), fulfilling and surpassing the prophetic office."
+    "nt_note": "The Greek <strong>prophētēs</strong> (προφήτης) denotes a prophet—one who speaks forth God's message. Jesus was recognized as 'a prophet mighty in deed and word' (Luke 24:19), fulfilling and surpassing the prophetic office.",
+    "ot_strongs": [
+      "H5030"
+    ],
+    "nt_strongs": [
+      "G4396"
+    ]
   },
   "apostle": {
     "nt_term": "ἀπόστολος",
     "nt_transliteration": "Apostolos",
     "nt_meaning": "Apostle, sent one",
-    "nt_note": "The Greek <strong>apostolos</strong> (ἀπόστολος) means apostle or sent one—an authorized messenger. The twelve apostles were chosen by Christ and empowered as His witnesses, laying the foundation of the church (Ephesians 2:20)."
+    "nt_note": "The Greek <strong>apostolos</strong> (ἀπόστολος) means apostle or sent one—an authorized messenger. The twelve apostles were chosen by Christ and empowered as His witnesses, laying the foundation of the church (Ephesians 2:20).",
+    "nt_strongs": [
+      "G652"
+    ]
   },
   "disciple": {
     "nt_term": "μαθητής",
     "nt_transliteration": "Mathētēs",
     "nt_meaning": "Disciple, learner",
-    "nt_note": "The Greek <strong>mathētēs</strong> (μαθητής) means disciple or learner—one who follows a teacher. Jesus called His followers to deny themselves, take up their cross, and follow Him (Matthew 16:24), learning from Him continually."
+    "nt_note": "The Greek <strong>mathētēs</strong> (μαθητής) means disciple or learner—one who follows a teacher. Jesus called His followers to deny themselves, take up their cross, and follow Him (Matthew 16:24), learning from Him continually.",
+    "nt_strongs": [
+      "G3101"
+    ]
   },
   "law": {
     "ot_term": "תּוֹרָה",
@@ -413,7 +690,13 @@
     "nt_term": "νόμος",
     "nt_transliteration": "Nomos",
     "nt_meaning": "Law",
-    "nt_note": "The Greek <strong>nomos</strong> (νόμος) denotes law—particularly the Mosaic law. While believers are not under law but under grace (Romans 6:14), Christ fulfilled the law (Matthew 5:17) and wrote it on believers' hearts (Hebrews 8:10)."
+    "nt_note": "The Greek <strong>nomos</strong> (νόμος) denotes law—particularly the Mosaic law. While believers are not under law but under grace (Romans 6:14), Christ fulfilled the law (Matthew 5:17) and wrote it on believers' hearts (Hebrews 8:10).",
+    "ot_strongs": [
+      "H8451"
+    ],
+    "nt_strongs": [
+      "G3551"
+    ]
   },
   "judgment": {
     "ot_term": "מִשְׁפָּט",
@@ -423,7 +706,13 @@
     "nt_term": "κρίσις",
     "nt_transliteration": "Krisis",
     "nt_meaning": "Judgment, decision",
-    "nt_note": "The Greek <strong>krisis</strong> (κρίσις) denotes judgment—evaluation and sentence. All will stand before God's judgment seat (Romans 14:10), and Christ has been appointed Judge of the living and dead (Acts 10:42)."
+    "nt_note": "The Greek <strong>krisis</strong> (κρίσις) denotes judgment—evaluation and sentence. All will stand before God's judgment seat (Romans 14:10), and Christ has been appointed Judge of the living and dead (Acts 10:42).",
+    "ot_strongs": [
+      "H4941"
+    ],
+    "nt_strongs": [
+      "G2920"
+    ]
   },
   "wrath": {
     "ot_term": "אַף",
@@ -433,13 +722,23 @@
     "nt_term": "ὀργή",
     "nt_transliteration": "Orgē",
     "nt_meaning": "Wrath, anger",
-    "nt_note": "The Greek <strong>orgē</strong> (ὀργή) means wrath—settled, righteous anger against sin. Believers are 'saved from wrath through him' (Romans 5:9), as Christ bore God's wrath on the cross, satisfying divine justice."
+    "nt_note": "The Greek <strong>orgē</strong> (ὀργή) means wrath—settled, righteous anger against sin. Believers are 'saved from wrath through him' (Romans 5:9), as Christ bore God's wrath on the cross, satisfying divine justice.",
+    "ot_strongs": [
+      "H639",
+      "H2534"
+    ],
+    "nt_strongs": [
+      "G3709"
+    ]
   },
   "resurrection": {
     "nt_term": "ἀνάστασις",
     "nt_transliteration": "Anastasis",
     "nt_meaning": "Resurrection, rising",
-    "nt_note": "The Greek <strong>anastasis</strong> (ἀνάστασις) means resurrection—rising from death to life. Christ's resurrection is the 'firstfruits' (1 Corinthians 15:20), guaranteeing believers' future bodily resurrection and victory over death."
+    "nt_note": "The Greek <strong>anastasis</strong> (ἀνάστασις) means resurrection—rising from death to life. Christ's resurrection is the 'firstfruits' (1 Corinthians 15:20), guaranteeing believers' future bodily resurrection and victory over death.",
+    "nt_strongs": [
+      "G386"
+    ]
   },
   "eternal": {
     "ot_term": "עוֹלָם",
@@ -449,7 +748,13 @@
     "nt_term": "αἰώνιος",
     "nt_transliteration": "Aiōnios",
     "nt_meaning": "Eternal, everlasting",
-    "nt_note": "The Greek <strong>aiōnios</strong> (αἰώνιος) denotes eternal or everlasting—unending duration. Believers possess 'eternal life' (John 3:16) now and will dwell with God eternally, while the impenitent face 'eternal punishment' (Matthew 25:46)."
+    "nt_note": "The Greek <strong>aiōnios</strong> (αἰώνιος) denotes eternal or everlasting—unending duration. Believers possess 'eternal life' (John 3:16) now and will dwell with God eternally, while the impenitent face 'eternal punishment' (Matthew 25:46).",
+    "ot_strongs": [
+      "H5769"
+    ],
+    "nt_strongs": [
+      "G166"
+    ]
   },
   "life": {
     "ot_term": "חַיִּים",
@@ -459,7 +764,13 @@
     "nt_term": "ζωή",
     "nt_transliteration": "Zōē",
     "nt_meaning": "Life",
-    "nt_note": "The Greek <strong>zōē</strong> (ζωή) denotes life—particularly spiritual and eternal life. Jesus declared 'I am the way, the truth, and the life' (John 14:6) and came that believers 'might have life, and have it more abundantly' (John 10:10)."
+    "nt_note": "The Greek <strong>zōē</strong> (ζωή) denotes life—particularly spiritual and eternal life. Jesus declared 'I am the way, the truth, and the life' (John 14:6) and came that believers 'might have life, and have it more abundantly' (John 10:10).",
+    "ot_strongs": [
+      "H2416"
+    ],
+    "nt_strongs": [
+      "G2222"
+    ]
   },
   "death": {
     "ot_term": "מָוֶת",
@@ -469,7 +780,13 @@
     "nt_term": "θάνατος",
     "nt_transliteration": "Thanatos",
     "nt_meaning": "Death",
-    "nt_note": "The Greek <strong>thanatos</strong> (θάνατος) denotes death—both physical death and spiritual separation from God. Christ conquered death through His resurrection, making death merely a transition for believers: 'to be absent from the body, and to be present with the Lord' (2 Corinthians 5:8)."
+    "nt_note": "The Greek <strong>thanatos</strong> (θάνατος) denotes death—both physical death and spiritual separation from God. Christ conquered death through His resurrection, making death merely a transition for believers: 'to be absent from the body, and to be present with the Lord' (2 Corinthians 5:8).",
+    "ot_strongs": [
+      "H4194"
+    ],
+    "nt_strongs": [
+      "G2288"
+    ]
   },
   "blood": {
     "ot_term": "דָּם",
@@ -479,7 +796,13 @@
     "nt_term": "αἷμα",
     "nt_transliteration": "Haima",
     "nt_meaning": "Blood",
-    "nt_note": "The Greek <strong>haima</strong> (αἷμα) denotes blood. Christ's blood 'cleanseth us from all sin' (1 John 1:7), securing 'eternal redemption' (Hebrews 9:12) through His once-for-all sacrifice. Believers have been 'purchased with his own blood' (Acts 20:28)."
+    "nt_note": "The Greek <strong>haima</strong> (αἷμα) denotes blood. Christ's blood 'cleanseth us from all sin' (1 John 1:7), securing 'eternal redemption' (Hebrews 9:12) through His once-for-all sacrifice. Believers have been 'purchased with his own blood' (Acts 20:28).",
+    "ot_strongs": [
+      "H1818"
+    ],
+    "nt_strongs": [
+      "G129"
+    ]
   },
   "power": {
     "ot_term": "כֹּחַ",
@@ -489,7 +812,13 @@
     "nt_term": "δύναμις",
     "nt_transliteration": "Dunamis",
     "nt_meaning": "Power, ability",
-    "nt_note": "The Greek <strong>dunamis</strong> (δύναμις) denotes power or ability—the source of 'dynamite.' The gospel is 'the power of God unto salvation' (Romans 1:16), and believers receive power when the Holy Spirit comes upon them (Acts 1:8)."
+    "nt_note": "The Greek <strong>dunamis</strong> (δύναμις) denotes power or ability—the source of 'dynamite.' The gospel is 'the power of God unto salvation' (Romans 1:16), and believers receive power when the Holy Spirit comes upon them (Acts 1:8).",
+    "ot_strongs": [
+      "H3581"
+    ],
+    "nt_strongs": [
+      "G1411"
+    ]
   },
   "name": {
     "ot_term": "שֵׁם",
@@ -499,6 +828,12 @@
     "nt_term": "ὄνομα",
     "nt_transliteration": "Onoma",
     "nt_meaning": "Name, authority",
-    "nt_note": "The Greek <strong>onoma</strong> (ὄνομα) denotes name or authority. At Jesus' name 'every knee should bow' (Philippians 2:10), and 'there is none other name under heaven given among men, whereby we must be saved' (Acts 4:12)."
+    "nt_note": "The Greek <strong>onoma</strong> (ὄνομα) denotes name or authority. At Jesus' name 'every knee should bow' (Philippians 2:10), and 'there is none other name under heaven given among men, whereby we must be saved' (Acts 4:12).",
+    "ot_strongs": [
+      "H8034"
+    ],
+    "nt_strongs": [
+      "G3686"
+    ]
   }
 }

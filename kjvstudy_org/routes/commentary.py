@@ -12,6 +12,7 @@ from pathlib import Path
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from ..utils.commentary_loader import load_commentary, load_commentary_flat
+from ..interlinear_loader import get_interlinear_data
 
 router = APIRouter(tags=["Commentary"])
 
@@ -107,7 +108,8 @@ def _load_word_studies() -> dict:
                 "term": info["ot_term"],
                 "translit": info["ot_transliteration"],
                 "meaning": info["ot_meaning"],
-                "note": info["ot_note"]
+                "note": info["ot_note"],
+                "strongs": info.get("ot_strongs", [])
             }
 
         if "nt_term" in info:
@@ -115,7 +117,8 @@ def _load_word_studies() -> dict:
                 "term": info["nt_term"],
                 "translit": info["nt_transliteration"],
                 "meaning": info["nt_meaning"],
-                "note": info["nt_note"]
+                "note": info["nt_note"],
+                "strongs": info.get("nt_strongs", [])
             }
 
         converted[word] = entry
@@ -296,6 +299,9 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     across chapters rather than showing every theological term. Avoids repeating words
     that have already been shown in the same chapter.
 
+    Cross-references with interlinear data to ensure the word study matches the actual
+    Greek/Hebrew word used in this specific verse (via Strong's numbers).
+
     Args:
         verse_text: The text of the verse
         book: The book name
@@ -321,6 +327,15 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     # Load word studies from JSON file
     word_studies = _load_word_studies()
 
+    # Get interlinear data for this verse to cross-reference Strong's numbers
+    interlinear = get_interlinear_data(book, chapter, verse_num)
+    verse_strongs = set()
+    if interlinear:
+        for word_data in interlinear:
+            strongs = word_data.get('strongs', '')
+            if strongs:
+                verse_strongs.add(strongs)
+
     # First, collect all potential word studies in this verse
     # EXCLUDE words that have already been shown in this chapter
     potential_sidenotes = []
@@ -333,6 +348,15 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
             # Use appropriate testament
             study = studies.get('ot' if is_ot else 'nt', studies.get('ot') or studies.get('nt'))
             if study:
+                # Cross-reference with interlinear data if available
+                # Only show this word study if one of its Strong's numbers appears in the verse
+                study_strongs = study.get('strongs', [])
+                if verse_strongs and study_strongs:
+                    # Check if any of the word study's Strong's numbers match the verse
+                    if not any(s in verse_strongs for s in study_strongs):
+                        # The word appears in English but doesn't match the expected Hebrew/Greek
+                        continue
+
                 potential_sidenotes.append({
                     "word": word.title(),
                     "term": study['term'],
