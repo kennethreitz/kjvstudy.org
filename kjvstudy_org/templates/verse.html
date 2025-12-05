@@ -963,7 +963,7 @@ a.crossref-pill:hover {
 {% endif %}
 
 <section>
-    <p class="verse-text">{{ verse_text | format_lists | red_letter(book, chapter, verse_num) | link_names | safe }}</p>
+    <p class="verse-text">{{ verse_text | format_lists | red_letter(book, chapter, verse_num) | safe }}</p>
 
     {% if interlinear_words %}
     <section class="interlinear-container" id="interlinear">
