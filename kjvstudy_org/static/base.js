@@ -1498,17 +1498,28 @@ function showKeyboardHelp() {
 
     // Position tooltip
     var tooltipRect = tooltip.getBoundingClientRect();
+    var padding = 10; // Minimum distance from viewport edge
     var x = mouseX + 15;
     var y = mouseY + 15;
 
     // Adjust if tooltip goes off right edge
-    if (x + tooltipRect.width > window.innerWidth) {
+    if (x + tooltipRect.width > window.innerWidth - padding) {
       x = mouseX - tooltipRect.width - 15;
     }
 
+    // Ensure tooltip doesn't go off left edge
+    if (x < padding) {
+      x = padding;
+    }
+
     // Adjust if tooltip goes off bottom edge
-    if (y + tooltipRect.height > window.innerHeight) {
+    if (y + tooltipRect.height > window.innerHeight - padding) {
       y = mouseY - tooltipRect.height - 15;
+    }
+
+    // Ensure tooltip doesn't go off top edge
+    if (y < padding) {
+      y = padding;
     }
 
     tooltip.style.left = x + 'px';
