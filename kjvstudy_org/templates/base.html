@@ -301,19 +301,18 @@
             }
         }
 
-        /* Strong's tooltip styles - Tufte-inspired */
+        /* Strong's tooltip styles - minimal Tufte */
         .strongs-tooltip {
             position: absolute;
             background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            padding: 1rem 1.25rem;
-            min-width: 280px;
-            max-width: 380px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 3px solid var(--link-color);
+            padding: 0.75rem 1rem;
+            max-width: 320px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
             z-index: 9999;
             font-family: 'Crimson Text', 'Times New Roman', serif;
-            font-size: 1rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.6;
             color: var(--text-color);
             pointer-events: none;
             opacity: 0;
@@ -324,18 +323,9 @@
             opacity: 1;
         }
 
-        .strongs-tooltip-header {
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            flex-wrap: wrap;
-        }
-
         .strongs-tooltip-word {
-            font-size: 1.6rem;
-            font-weight: 400;
-            letter-spacing: 0.02em;
+            font-size: 1.5rem;
+            display: inline;
         }
 
         .strongs-tooltip-word.hebrew {
@@ -350,63 +340,27 @@
         .strongs-tooltip-translit {
             font-style: italic;
             color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        .strongs-tooltip-number {
-            font-family: 'SF Mono', 'Monaco', monospace;
-            font-size: 0.75rem;
-            color: var(--text-tertiary);
-            background: var(--code-bg);
-            padding: 0.15rem 0.4rem;
-            border-radius: 3px;
-            margin-left: auto;
         }
 
         .strongs-tooltip-def {
-            font-size: 0.95rem;
-            color: var(--text-color);
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
+            margin-top: 0.4rem;
         }
 
-        .strongs-tooltip-meta {
+        .strongs-tooltip-kjv {
+            margin-top: 0.4rem;
             font-size: 0.85rem;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-            padding-top: 0.6rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .strongs-tooltip-meta-row {
-            display: flex;
-            gap: 0.4rem;
-        }
-
-        .strongs-tooltip-label {
-            font-variant: small-caps;
-            letter-spacing: 0.05em;
             color: var(--text-tertiary);
-            min-width: 3.5rem;
-        }
-
-        .strongs-tooltip-value {
-            color: var(--text-secondary);
         }
 
         [data-theme="dark"] .strongs-tooltip {
             background: #1a1a1a;
-            border-color: #333;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
         }
 
         @media (prefers-color-scheme: dark) {
             html:not([data-theme="light"]) .strongs-tooltip {
                 background: #1a1a1a;
-                border-color: #333;
-                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
             }
         }
 
