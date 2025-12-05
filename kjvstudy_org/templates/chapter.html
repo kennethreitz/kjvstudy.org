@@ -472,8 +472,14 @@ document.body.dataset.resourceReader = 'false';
                     {% endfor %}
                 {% endfor %}
                 {% set total_refs = ns.all_refs | length %}
-                {% set preview_refs = ns.all_refs[:3] %}
-                {% set extra_refs = ns.all_refs[3:] %}
+                {# Show all if 4 or fewer (avoid "+1"), otherwise show 3 with expand #}
+                {% if total_refs <= 4 %}
+                    {% set preview_refs = ns.all_refs %}
+                    {% set extra_refs = [] %}
+                {% else %}
+                    {% set preview_refs = ns.all_refs[:3] %}
+                    {% set extra_refs = ns.all_refs[3:] %}
+                {% endif %}
                 <label for="sn-{{ verse.verse }}-xrefs" class="margin-toggle sidenote-number"></label>
                 <input type="checkbox" id="sn-{{ verse.verse }}-xrefs" class="margin-toggle"/>
                 <span class="sidenote cross-refs{% if commentary.xref_auto_expand %} expanded{% endif %}">{% for ref in preview_refs %}<a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}{% if extra_refs %}<span class="xref-extra">; {% for ref in extra_refs %}<a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}</span><span class="xref-more"> +{{ extra_refs|length }}</span>{% endif %}</span>
