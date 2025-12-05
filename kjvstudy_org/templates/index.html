@@ -360,37 +360,64 @@ section h2 {
     }
 
     .title-page h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
         letter-spacing: 0.04em;
     }
 
-    .title-page .epigraph {
+    .title-page .subtitle {
         font-size: 1rem;
-        padding: 0 1rem;
+    }
+
+    .title-page .epigraph {
+        font-size: 1.1rem;
+        padding: 0 0.5rem;
+        line-height: 1.9;
+    }
+
+    .title-page .epigraph footer {
+        font-size: 1rem;
     }
 
     .search-section {
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
+        padding: 0;
     }
 
     .search-form {
         flex-direction: column;
     }
 
+    .search-input {
+        padding: 1.1rem 1rem;
+        font-size: 1.1rem;
+    }
+
     .search-btn {
         width: 100%;
+        padding: 1.1rem 2rem;
+        font-size: 1.1rem;
+        min-height: 50px;
+    }
+
+    .search-help {
+        font-size: 0.9rem;
     }
 
     .quick-links {
         margin-left: 0;
+        padding: 0;
     }
 
     .quick-links a {
-        margin: 0.25rem;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.9rem;
+        margin: 0.35rem;
+        padding: 0.7rem 1rem;
+        font-size: 1rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .interlinear-samples {
@@ -401,17 +428,84 @@ section h2 {
         grid-template-columns: 1fr;
     }
 
+    .resource-card {
+        padding: 1.25rem;
+        min-height: 44px;
+    }
+
+    .resource-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .resource-card p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
     .topic-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .topic-link {
+        padding: 0.85rem 0.75rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
     .interactive-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .interactive-grid a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .testament-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+
+    section h2 {
+        font-size: 1.5rem;
+    }
+
+    section p {
+        font-size: 1.1rem;
+        line-height: 1.9;
+    }
+
+    .sample-word {
+        padding: 0.4rem 0.5rem;
+    }
+
+    .sample-original {
+        font-size: 1.8rem;
+    }
+
+    .sample-english {
+        font-size: 0.8rem;
+    }
+
+    .home-footer {
+        padding-top: 1rem;
+    }
+
+    .home-footer p {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .home-footer a {
+        padding: 0.25rem;
     }
 }
 </style>
