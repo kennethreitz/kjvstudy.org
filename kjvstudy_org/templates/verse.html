@@ -1028,36 +1028,15 @@ a.crossref-pill:hover {
     </div>
     {% endif %}
 
+    {% if pdf_available and pdf_url %}
     <div class="share-section">
         <div class="share-pills">
-            <button class="share-pill" onclick="copyToClipboard()" id="copy-btn">Copy Verse Text</button>
-            {% if pdf_available and pdf_url %}
             <a class="share-pill" href="{{ pdf_url }}">Download PDF</a>
-            {% endif %}
         </div>
     </div>
+    {% endif %}
 
     <script>
-        function copyToClipboard() {
-            const verseText = {{ verse_text | striptags | tojson }};
-            const reference = "{{ book }} {{ chapter }}:{{ verse_num }} (KJV)";
-            const fullText = verseText + " — " + reference;
-
-            navigator.clipboard.writeText(fullText).then(function() {
-                const btn = document.getElementById('copy-btn');
-                const originalText = btn.textContent;
-                btn.classList.add('copied');
-                btn.textContent = 'Copied!';
-
-                setTimeout(function() {
-                    btn.classList.remove('copied');
-                    btn.textContent = originalText;
-                }, 2000);
-            }, function(err) {
-                alert('Failed to copy: ' + err);
-            });
-        }
-
         function toggleSection(sectionId) {
             var contentId = sectionId + '-content';
             var content = document.getElementById(contentId);
