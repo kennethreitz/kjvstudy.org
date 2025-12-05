@@ -1,5 +1,8 @@
 """Bible routes - book, chapter, verse, and interlinear views."""
+import json
 from collections import defaultdict
+from functools import lru_cache
+from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
@@ -12,6 +15,27 @@ from ..books import get_book_data, has_book_data
 from ..utils.books import normalize_book_name, OT_BOOKS
 from ..utils.helpers import create_slug, get_related_content, get_chapter_popularity_score, get_chapter_popularity_explanation
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+
+
+@lru_cache(maxsize=1)
+def _load_section_headings():
+    """Load section headings data from JSON file."""
+    data_path = Path(__file__).parent.parent / "data" / "section_headings.json"
+    if data_path.exists():
+        with open(data_path) as f:
+            return json.load(f)
+    return {}
+
+
+def get_section_headings(book: str, chapter: int) -> dict:
+    """Get section headings for a specific chapter.
+
+    Returns dict mapping verse number (int) to heading text.
+    """
+    headings_data = _load_section_headings()
+    chapter_headings = headings_data.get(book, {}).get(str(chapter), {})
+    # Convert string keys to int for easier template use
+    return {int(k): v for k, v in chapter_headings.items()}
 
 router = APIRouter()
 templates = None
@@ -287,6 +311,9 @@ async def read_chapter(request: Request, book: str, chapter: int):
     # Get related content for internal linking
     related_content = get_related_content(book, chapter)
 
+    # Get section headings for this chapter
+    section_headings = get_section_headings(book, chapter)
+
     # Build breadcrumbs
     breadcrumbs = [
         {"text": "Home", "url": "/"},
@@ -310,7 +337,8 @@ async def read_chapter(request: Request, book: str, chapter: int):
             "current_book": book,
             "current_chapter": chapter,
             "pdf_available": WEASYPRINT_AVAILABLE,
-            "related_content": related_content
+            "related_content": related_content,
+            "section_headings": section_headings
         }
     )
 

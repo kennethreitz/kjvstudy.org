@@ -181,6 +181,27 @@ hr::before {
     color: var(--text-color);
 }
 
+/* Section headings - like study Bible pericopes */
+.section-heading {
+    font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: normal;
+    font-style: italic;
+    color: var(--text-secondary, #666);
+    margin: 1.8rem 0 0.6rem 0;
+    padding: 0;
+    border: none;
+    letter-spacing: 0.02em;
+}
+
+.section-heading:first-child {
+    margin-top: 0;
+}
+
+[data-theme="dark"] .section-heading {
+    color: #a0a0a0;
+}
+
 .verse-number-link {
     font-family: et-book-roman-old-style;
     font-size: 1rem;
@@ -460,6 +481,9 @@ document.body.dataset.resourceReader = 'false';
 {% for verse in verses %}
 {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
 {% set has_commentary = commentary and (commentary.get('is_enhanced') or commentary.get('analysis')) %}
+    {% if section_headings and verse.verse in section_headings %}
+    <h3 class="section-heading">{{ section_headings[verse.verse] }}</h3>
+    {% endif %}
     <p id="verse-{{ verse.verse }}">
         <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link{% if has_commentary %} has-commentary{% endif %}">{{ verse.verse }}</a> {{ verse.text | red_letter(book, chapter, verse.verse) | inject_word_markers(commentary.word_studies if commentary else [], verse.verse, commentary.word_study_auto_expand if commentary else false) | link_names | safe }}
         {% if commentary %}
