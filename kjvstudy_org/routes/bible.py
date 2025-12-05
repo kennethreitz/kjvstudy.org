@@ -284,11 +284,12 @@ async def read_chapter(request: Request, book: str, chapter: int):
                 crowded = True
                 break
 
-        # Auto-expand if there's room
+        # Auto-expand if there's room (always expand first verse)
+        is_first = (verse_num == verse_nums[0])
         if has_word_study:
-            commentary['word_study_auto_expand'] = not crowded
+            commentary['word_study_auto_expand'] = is_first or not crowded
         if has_xref:
-            commentary['xref_auto_expand'] = not crowded
+            commentary['xref_auto_expand'] = is_first or not crowded
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
