@@ -15,6 +15,15 @@ logger = logging.getLogger(__name__)
 _interlinear_data = None
 _load_failed = False
 
+# Map site book names to interlinear data book names
+BOOK_NAME_MAP = {
+    "Song of Solomon": "Solomon's Song",
+}
+
+def _normalize_book_name(book: str) -> str:
+    """Normalize book name for interlinear data lookup."""
+    return BOOK_NAME_MAP.get(book, book)
+
 
 def _load_interlinear_data():
     """Load and decompress interlinear data from gzipped JSON file"""
@@ -52,14 +61,16 @@ def _load_interlinear_data():
 def get_interlinear_data(book: str, chapter: int, verse: int) -> Optional[List[Dict]]:
     """Get interlinear data for a specific verse"""
     data = _load_interlinear_data()
-    key = f"{book}:{chapter}:{verse}"
+    normalized_book = _normalize_book_name(book)
+    key = f"{normalized_book}:{chapter}:{verse}"
     return data.get(key)
 
 
 def has_interlinear_data(book: str, chapter: int, verse: int) -> bool:
     """Check if interlinear data exists for a verse"""
     data = _load_interlinear_data()
-    key = f"{book}:{chapter}:{verse}"
+    normalized_book = _normalize_book_name(book)
+    key = f"{normalized_book}:{chapter}:{verse}"
     return key in data
 
 
