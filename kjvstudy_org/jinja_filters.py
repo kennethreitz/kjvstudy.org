@@ -67,9 +67,12 @@ def link_person_names_in_text(text):
         book_name = match.group(2)
         chapter = match.group(3)
         verse_start = match.group(4)
+        verse_end = match.group(5)
         matched_text = match.group(0)
         full_book = (number_prefix + book_name).strip()
-        return f'<a href="/book/{full_book}/chapter/{chapter}/verse/{verse_start}">{matched_text}</a>'
+        if verse_end:
+            return f'<a href="/book/{full_book}/chapter/{chapter}#verse-{verse_start}-{verse_end}">{matched_text}</a>'
+        return f'<a href="/book/{full_book}/chapter/{chapter}#verse-{verse_start}">{matched_text}</a>'
 
     text = re.sub(verse_pattern, verse_replace_callback, text)
 
