@@ -189,7 +189,35 @@ def link_verse_references_in_text(text):
             url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}'
         return f'<a href="{url}">{full_reference}</a>'
 
-    return re.sub(pattern, replace_reference, text)
+    text = re.sub(pattern, replace_reference, text)
+
+    # Finally handle chapter-only format: "Book chapter" (e.g., "Isaiah 53")
+    chapter_pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+)\b(?!:)'
+
+    def replace_chapter_ref(match):
+        number_prefix = match.group(1) or ''
+        book_name = match.group(2)
+        chapter = match.group(3)
+        full_book = (number_prefix + book_name).strip()
+        full_reference = match.group(0)
+
+        start_pos = match.start()
+        text_before = text[:start_pos]
+        last_lt = text_before.rfind('<')
+        last_gt = text_before.rfind('>')
+
+        if last_lt > last_gt:
+            return full_reference
+
+        if last_lt != -1:
+            tag_content = text[last_lt:start_pos]
+            if 'href=' in tag_content or 'src=' in tag_content:
+                return full_reference
+
+        url = f'/book/{full_book}/chapter/{chapter}'
+        return f'<a href="{url}">{full_reference}</a>'
+
+    return re.sub(chapter_pattern, replace_chapter_ref, text)
 
 
 def inject_word_markers(text, word_studies, verse_num, auto_expand=False):
