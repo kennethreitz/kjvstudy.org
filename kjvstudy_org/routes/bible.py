@@ -248,69 +248,17 @@ async def read_chapter(request: Request, book: str, chapter: int):
 
         commentaries[verse.verse] = commentary
 
-    # Second pass: smart expand/collapse decisions
-    verse_texts = {v.verse: v.text for v in verses}
-    verse_nums = [v.verse for v in verses]
-
-    # Verse length thresholds
-    SHORT_VERSE = 100  # chars - less margin room
-    LONG_VERSE = 250   # chars - more margin room
-
-    # Track expansion state for rhythm
-    recent_expansions = []  # Track last few expansion decisions
-    max_consecutive_expanded = 2  # Don't expand more than 2 in a row
-
-    for verse_num in verse_nums:
-        commentary = commentaries[verse_num]
-        has_word_study = bool(commentary.get('word_studies'))
-        has_xref = bool(commentary.get('cross_reference_groups'))
-        verse_len = len(verse_texts.get(verse_num, ''))
-        is_first = (verse_num == verse_nums[0])
-
-        # Skip if no sidenotes
-        if not has_word_study and not has_xref:
+    # Simple expand rules: cross-refs expanded, word studies collapsed
+    for verse_num in [v.verse for v in verses]:
+        commentary = commentaries.get(verse_num)
+        if not commentary:
             continue
-
-        # Check how many recent sidenotes were expanded
-        recently_expanded = sum(recent_expansions[-max_consecutive_expanded:])
-        needs_breathing_room = recently_expanded >= max_consecutive_expanded
-
-        # Adjust buffer based on verse length (longer verse = more margin space)
-        if verse_len > LONG_VERSE:
-            margin_buffer = 1  # Long verse, plenty of margin room
-        elif verse_len < SHORT_VERSE:
-            margin_buffer = 3  # Short verse, less margin room
-        else:
-            margin_buffer = 2  # Normal
-
-        # Check nearby verses for sidenotes
-        def has_nearby_sidenote(check_verse):
-            if check_verse not in commentaries:
-                return False
-            c = commentaries[check_verse]
-            return bool(c.get('word_studies')) or bool(c.get('cross_reference_groups'))
-
-        # Look ahead and behind
-        crowded = False
-        for offset in range(1, margin_buffer + 1):
-            if has_nearby_sidenote(verse_num - offset) or has_nearby_sidenote(verse_num + offset):
-                crowded = True
-                break
-
-        # Decide what to expand
-        should_expand = is_first or (not crowded and not needs_breathing_room)
-
-        # If verse has both word study and xref, only expand one (prefer word study)
-        if has_word_study and has_xref:
-            commentary['word_study_auto_expand'] = should_expand
-            commentary['xref_auto_expand'] = False  # Keep xref collapsed
-            recent_expansions.append(1 if should_expand else 0)
-        elif has_word_study:
-            commentary['word_study_auto_expand'] = should_expand
-            recent_expansions.append(1 if should_expand else 0)
-        elif has_xref:
-            commentary['xref_auto_expand'] = should_expand
-            recent_expansions.append(1 if should_expand else 0)
+        # Word studies: always collapsed (user clicks to expand)
+        # Cross-refs: always expanded
+        if commentary.get('word_studies'):
+            commentary['word_study_auto_expand'] = False
+        if commentary.get('cross_reference_groups'):
+            commentary['xref_auto_expand'] = True
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
