@@ -1490,8 +1490,8 @@ function showKeyboardHelp() {
     }
   }
 
-  // Show tooltip
-  function showTooltip(verseData, mouseX, mouseY) {
+  // Show tooltip positioned relative to a link element
+  function showTooltip(verseData, linkElement) {
     tooltip.innerHTML =
       '<span class="verse-tooltip-reference">' + verseData.reference + '</span>' +
       '<span class="verse-tooltip-text">' + verseData.text + '</span>';
@@ -1505,13 +1505,17 @@ function showKeyboardHelp() {
     var tooltipWidth = tooltip.offsetWidth;
     var tooltipHeight = tooltip.offsetHeight;
 
-    var padding = 10; // Minimum distance from viewport edge
-    var x = mouseX + 15;
-    var y = mouseY + 15;
+    // Get link position
+    var linkRect = linkElement.getBoundingClientRect();
+    var padding = 10;
+
+    // Position below the link, centered horizontally
+    var x = linkRect.left + (linkRect.width / 2) - (tooltipWidth / 2);
+    var y = linkRect.bottom + 8 + window.scrollY;
 
     // Adjust if tooltip goes off right edge
     if (x + tooltipWidth > window.innerWidth - padding) {
-      x = mouseX - tooltipWidth - 15;
+      x = window.innerWidth - tooltipWidth - padding;
     }
 
     // Ensure tooltip doesn't go off left edge
@@ -1519,14 +1523,14 @@ function showKeyboardHelp() {
       x = padding;
     }
 
-    // Adjust if tooltip goes off bottom edge
-    if (y + tooltipHeight > window.innerHeight - padding) {
-      y = mouseY - tooltipHeight - 15;
+    // If tooltip goes off bottom edge, show above the link instead
+    if (linkRect.bottom + 8 + tooltipHeight > window.innerHeight) {
+      y = linkRect.top - tooltipHeight - 8 + window.scrollY;
     }
 
     // Ensure tooltip doesn't go off top edge
-    if (y < padding) {
-      y = padding;
+    if (y < window.scrollY + padding) {
+      y = window.scrollY + padding;
     }
 
     tooltip.style.left = x + 'px';
@@ -1585,10 +1589,11 @@ function showKeyboardHelp() {
     var verseInfo = parseVerseUrl(target.pathname + target.hash);
     if (!verseInfo) return;
 
-    // Show loading state
+    // Show loading state positioned relative to link
     tooltip.innerHTML = '<span class="verse-tooltip-loading">Loading...</span>';
-    tooltip.style.left = (e.pageX + 15) + 'px';
-    tooltip.style.top = (e.pageY + 15) + 'px';
+    var linkRect = target.getBoundingClientRect();
+    tooltip.style.left = linkRect.left + 'px';
+    tooltip.style.top = (linkRect.bottom + 8 + window.scrollY) + 'px';
     tooltip.classList.add('show');
 
     // Fetch and display verse
@@ -1596,26 +1601,13 @@ function showKeyboardHelp() {
       .then(function(verseData) {
         // Only show if still hovering
         if (target.matches(':hover')) {
-          showTooltip(verseData, e.pageX, e.pageY);
+          showTooltip(verseData, target);
         }
       });
-
-    // Track mouse movement for tooltip positioning
-    var mouseMoveHandler = function(e) {
-      if (tooltip.classList.contains('show')) {
-        var x = e.pageX + 15;
-        var y = e.pageY + 15;
-        tooltip.style.left = x + 'px';
-        tooltip.style.top = y + 'px';
-      }
-    };
-
-    target.addEventListener('mousemove', mouseMoveHandler);
 
     // Hide tooltip on mouse leave
     target.addEventListener('mouseleave', function() {
       hideTooltip();
-      target.removeEventListener('mousemove', mouseMoveHandler);
     }, { once: true });
   });
 
