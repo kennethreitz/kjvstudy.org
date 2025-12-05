@@ -2593,6 +2593,221 @@
           35
         ]
       }
+    },
+    "Ezekiel": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        19,
+        26,
+        27,
+        28,
+        31,
+        32
+      ],
+      "stanza_breaks": {
+        "19": [
+          5,
+          10,
+          14
+        ],
+        "26": [
+          7,
+          14,
+          19
+        ],
+        "27": [
+          9,
+          19,
+          27,
+          36
+        ],
+        "28": [
+          6,
+          10,
+          17,
+          23
+        ],
+        "31": [
+          9,
+          14,
+          18
+        ],
+        "32": [
+          8,
+          16,
+          21,
+          27,
+          32
+        ]
+      }
+    },
+    "Numbers": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        21,
+        23,
+        24
+      ],
+      "stanza_breaks": {
+        "21": [
+          18,
+          20,
+          27,
+          30
+        ],
+        "23": [
+          8,
+          12,
+          19,
+          24,
+          26
+        ],
+        "24": [
+          5,
+          9,
+          15,
+          20,
+          24
+        ]
+      }
+    },
+    "1 Chronicles": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        16
+      ],
+      "stanza_breaks": {
+        "16": [
+          8,
+          14,
+          22,
+          29,
+          34
+        ]
+      }
+    },
+    "John": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        1
+      ],
+      "stanza_breaks": {
+        "1": [
+          5,
+          9,
+          14,
+          18
+        ]
+      }
+    },
+    "Philippians": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        2
+      ],
+      "stanza_breaks": {
+        "2": [
+          8,
+          11
+        ]
+      }
+    },
+    "Colossians": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        1
+      ],
+      "stanza_breaks": {
+        "1": [
+          17,
+          20
+        ]
+      }
+    },
+    "1 Timothy": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        3
+      ],
+      "stanza_breaks": {
+        "3": [
+          16
+        ]
+      }
+    },
+    "Revelation": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        4,
+        5,
+        7,
+        11,
+        15,
+        19
+      ],
+      "stanza_breaks": {
+        "4": [
+          9,
+          11
+        ],
+        "5": [
+          10,
+          13,
+          14
+        ],
+        "7": [
+          12,
+          17
+        ],
+        "11": [
+          17,
+          18
+        ],
+        "15": [
+          4
+        ],
+        "19": [
+          4,
+          8
+        ]
+      }
+    },
+    "Romans": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        8,
+        11
+      ],
+      "stanza_breaks": {
+        "8": [
+          35,
+          39
+        ],
+        "11": [
+          35,
+          36
+        ]
+      }
+    },
+    "1 Corinthians": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        13,
+        15
+      ],
+      "stanza_breaks": {
+        "13": [
+          4,
+          7,
+          13
+        ],
+        "15": [
+          42,
+          49,
+          55,
+          58
+        ]
+      }
     }
   }
 }
