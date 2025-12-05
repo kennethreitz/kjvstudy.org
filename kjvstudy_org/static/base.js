@@ -396,6 +396,18 @@ function toggleRedLetters() {
     return bookMap[name.toLowerCase()] || name;
   }
 
+  // Try to parse as Strong's number and return URL, or null
+  function parseStrongsNumber(input) {
+    // Strong's number format: H1234, G5678, h1234, g5678
+    var match = input.match(/^([HhGg])(\d+)$/);
+    if (match) {
+      var prefix = match[1].toUpperCase();
+      var number = match[2];
+      return '/strongs/' + prefix + number;
+    }
+    return null;
+  }
+
   // Try to parse as verse reference and return URL, or null
   function parseVerseReference(input) {
     // Book Chapter:Verse (e.g., "John 3:16")
@@ -435,9 +447,22 @@ function toggleRedLetters() {
     var html = '';
     currentResults = [];
 
+    // Check if query looks like a Strong's number
+    var strongsUrl = parseStrongsNumber(data.query.trim());
+    if (strongsUrl) {
+      html += '<div class="search-results-category">';
+      html += '<div class="search-results-category-title">Go to</div>';
+      currentResults.push(strongsUrl);
+      html += '<a href="' + strongsUrl + '" class="search-result-item selected">';
+      html += '<span class="result-title">' + data.query.trim().toUpperCase() + '</span>';
+      html += '<span class="result-meta">Strong\'s Concordance</span>';
+      html += '</a></div>';
+      selectedIndex = 0;
+    }
+
     // Check if query looks like a verse reference
     var verseUrl = parseVerseReference(data.query);
-    if (verseUrl) {
+    if (verseUrl && !strongsUrl) {
       html += '<div class="search-results-category">';
       html += '<div class="search-results-category-title">Go to</div>';
       currentResults.push(verseUrl);
@@ -448,7 +473,7 @@ function toggleRedLetters() {
       selectedIndex = 0;
     }
 
-    if (Object.keys(results).length === 0 && !verseUrl) {
+    if (Object.keys(results).length === 0 && !verseUrl && !strongsUrl) {
       html = '<div class="search-no-results">No results found</div>';
     } else {
       // Render categories in specific order: books, topics, resources, stories, plans, verses
@@ -534,12 +559,17 @@ function toggleRedLetters() {
       if (selectedIndex >= 0 && currentResults[selectedIndex]) {
         window.location.href = currentResults[selectedIndex];
       } else {
-        // Try verse reference first, then search
-        var verseUrl = parseVerseReference(this.value.trim());
-        if (verseUrl) {
-          window.location.href = verseUrl;
-        } else if (this.value.trim()) {
-          window.location.href = '/search?q=' + encodeURIComponent(this.value.trim());
+        // Try Strong's number first, then verse reference, then search
+        var strongsUrl = parseStrongsNumber(this.value.trim());
+        if (strongsUrl) {
+          window.location.href = strongsUrl;
+        } else {
+          var verseUrl = parseVerseReference(this.value.trim());
+          if (verseUrl) {
+            window.location.href = verseUrl;
+          } else if (this.value.trim()) {
+            window.location.href = '/search?q=' + encodeURIComponent(this.value.trim());
+          }
         }
       }
     } else if (e.key === 'Escape') {

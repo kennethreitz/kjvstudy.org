@@ -1,6 +1,7 @@
 """Miscellaneous routes - search, interlinear, random verse, verse of the day, red letter."""
 import hashlib
 import random
+import re
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -100,9 +101,29 @@ def get_daily_verse(date_str=None):
 # Routes
 # =============================================================================
 
+def parse_strongs_number(query: str) -> str | None:
+    """Parse a Strong's number query and return the redirect URL, or None."""
+    if not query:
+        return None
+    query = query.strip()
+    # Match H1, H1234, G1, G5678, etc. (case insensitive)
+    match = re.match(r'^([HhGg])(\d+)$', query)
+    if match:
+        prefix = match.group(1).upper()
+        number = match.group(2)
+        return f'/strongs/{prefix}{number}'
+    return None
+
+
 @router.get("/search", response_class=HTMLResponse)
 async def search_page(request: Request, q: str = Query(None, description="Search query")):
     """Search page with results (includes Bible verses and family tree)"""
+    # Check if query is a Strong's number - redirect if so
+    if q:
+        strongs_url = parse_strongs_number(q)
+        if strongs_url:
+            return RedirectResponse(url=strongs_url, status_code=302)
+
     books = bible.get_books()
     search_results = []
     family_tree_results = []
