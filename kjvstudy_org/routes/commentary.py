@@ -330,15 +330,31 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     # Get interlinear data for this verse to cross-reference Strong's numbers
     interlinear = get_interlinear_data(book, chapter, verse_num)
     verse_strongs = set()
+    strongs_to_interlinear = {}  # Map Strong's number to interlinear word data
     if interlinear:
         for word_data in interlinear:
             strongs = word_data.get('strongs', '')
             if strongs:
                 verse_strongs.add(strongs)
+                strongs_to_interlinear[strongs] = word_data
+
+    # Build reverse lookup: Strong's number -> word study entries
+    # This allows us to find word studies that match the verse's actual Greek/Hebrew
+    strongs_to_study = {}
+    testament_key = 'ot' if is_ot else 'nt'
+    for word, studies in word_studies.items():
+        study = studies.get(testament_key)
+        if study:
+            for s in study.get('strongs', []):
+                if s not in strongs_to_study:
+                    strongs_to_study[s] = []
+                strongs_to_study[s].append((word, study))
 
     # First, collect all potential word studies in this verse
     # EXCLUDE words that have already been shown in this chapter
     potential_sidenotes = []
+    added_words = set()  # Track which word studies we've added
+
     for word, studies in word_studies.items():
         # Skip if this word was already shown in this chapter
         if word in shown_words:
@@ -346,24 +362,44 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
 
         if word in verse_lower:
             # Use appropriate testament
-            study = studies.get('ot' if is_ot else 'nt', studies.get('ot') or studies.get('nt'))
+            study = studies.get(testament_key, studies.get('ot') or studies.get('nt'))
             if study:
                 # Cross-reference with interlinear data if available
-                # Only show this word study if one of its Strong's numbers appears in the verse
                 study_strongs = study.get('strongs', [])
                 if verse_strongs and study_strongs:
                     # Check if any of the word study's Strong's numbers match the verse
-                    if not any(s in verse_strongs for s in study_strongs):
+                    matching_strongs = [s for s in study_strongs if s in verse_strongs]
+                    if not matching_strongs:
                         # The word appears in English but doesn't match the expected Hebrew/Greek
+                        # Try to find another word study that DOES match the verse's Strong's
+                        found_alternative = False
+                        for strongs_num in verse_strongs:
+                            if strongs_num in strongs_to_study:
+                                for alt_word, alt_study in strongs_to_study[strongs_num]:
+                                    if alt_word not in shown_words and alt_word not in added_words:
+                                        potential_sidenotes.append({
+                                            "word": alt_word.title(),
+                                            "term": alt_study['term'],
+                                            "translit": alt_study['translit'],
+                                            "meaning": alt_study['meaning'],
+                                            "note": link_bible_references(alt_study['note'])
+                                        })
+                                        added_words.add(alt_word)
+                                        found_alternative = True
+                                        break
+                            if found_alternative:
+                                break
                         continue
 
-                potential_sidenotes.append({
-                    "word": word.title(),
-                    "term": study['term'],
-                    "translit": study['translit'],
-                    "meaning": study['meaning'],
-                    "note": link_bible_references(study['note'])
-                })
+                if word not in added_words:
+                    potential_sidenotes.append({
+                        "word": word.title(),
+                        "term": study['term'],
+                        "translit": study['translit'],
+                        "meaning": study['meaning'],
+                        "note": link_bible_references(study['note'])
+                    })
+                    added_words.add(word)
 
     # Intelligently select only 1-2 word studies per verse to avoid repetition
     # Use verse position to determine which studies to show
