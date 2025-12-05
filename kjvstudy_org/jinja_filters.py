@@ -112,10 +112,53 @@ def link_person_names_in_text(text):
 
 
 def link_verse_references_in_text(text):
-    """Automatically link verse references in text (e.g., 'Genesis 1:1', 'Hebrews 9:22')"""
+    """Automatically link verse references in text (e.g., 'Genesis 1:1', 'Hebrews 9:22')
+
+    Also handles parenthetical format like 'Daniel (8:16, 9:21)' -> linked refs
+    """
     if not text:
         return text
 
+    # First, handle parenthetical format: "Book (chapter:verse, chapter:verse)"
+    paren_pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+\(([^)]+)\)'
+
+    def replace_paren_refs(match):
+        number_prefix = match.group(1) or ''
+        book_name = match.group(2)
+        refs_str = match.group(3)
+        full_book = (number_prefix + book_name).strip()
+
+        # Check if inside HTML tag
+        start_pos = match.start()
+        text_before = text[:start_pos]
+        last_lt = text_before.rfind('<')
+        last_gt = text_before.rfind('>')
+        if last_lt > last_gt:
+            return match.group(0)
+
+        # Parse individual refs like "8:16, 9:21" or "1:19, 1:26"
+        ref_parts = [r.strip() for r in refs_str.split(',')]
+        linked_refs = []
+        for ref in ref_parts:
+            # Match chapter:verse or chapter:verse-verse
+            ref_match = re.match(r'(\d+):(\d+)(?:-(\d+))?', ref)
+            if ref_match:
+                chapter = ref_match.group(1)
+                verse_start = ref_match.group(2)
+                verse_end = ref_match.group(3)
+                if verse_end:
+                    url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}-{verse_end}'
+                else:
+                    url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}'
+                linked_refs.append(f'<a href="{url}">{ref}</a>')
+            else:
+                linked_refs.append(ref)
+
+        return f'{full_book} ({", ".join(linked_refs)})'
+
+    text = re.sub(paren_pattern, replace_paren_refs, text)
+
+    # Then handle standard format: "Book chapter:verse"
     pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
 
     def replace_reference(match):
