@@ -274,10 +274,10 @@ async def read_chapter(request: Request, book: str, chapter: int):
                     'book': ref_book,
                     'chapter_verse': ref_chapter_verse
                 })
-            # Sort refs by canonical book order (Genesis → Revelation)
+            # Sort refs: same book first, then canonical order (Genesis → Revelation)
             book_order = get_canonical_book_order()
             for desc, refs in grouped_refs.items():
-                refs.sort(key=lambda r: (book_order.get(r['book'], 999), r['chapter_verse']))
+                refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), r['chapter_verse']))
             # Condense refs: show book only when it changes
             for desc, refs in grouped_refs.items():
                 last_book = None
