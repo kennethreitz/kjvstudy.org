@@ -200,15 +200,11 @@ async def read_chapter(request: Request, book: str, chapter: int):
 
     # Generate AI commentary for the chapter
     commentaries = {}
-    shown_words = set()  # Track which words have already been shown in this chapter
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
-        # Add word study sidenotes (avoiding repetition within chapter)
-        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, shown_words)
+        # Add word study sidenotes
+        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse)
         commentary['word_studies'] = word_studies
-        # Track which words were shown
-        for study in word_studies:
-            shown_words.add(study['word'].lower())
         # Add cross-references with proper URLs, grouped by description
         cross_refs = get_cross_references(book, chapter, verse.verse)
 
@@ -304,14 +300,11 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
 
     # Generate commentaries with cross-references and word studies for PDF
     commentaries = {}
-    shown_words = set()
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
-        # Add word study sidenotes (avoiding repetition within chapter, more liberal for PDF)
-        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, shown_words, for_pdf=True)
+        # Add word study sidenotes
+        word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, for_pdf=True)
         commentary['word_studies'] = word_studies
-        for study in word_studies:
-            shown_words.add(study['word'].lower())
 
         # Add cross-references grouped by description
         cross_refs = get_cross_references(book, chapter, verse.verse)
