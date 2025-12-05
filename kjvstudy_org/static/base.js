@@ -1653,11 +1653,33 @@ function showKeyboardHelp() {
     var isHebrew = data.strongs.startsWith('H');
     var langClass = isHebrew ? 'hebrew' : 'greek';
 
-    tooltip.innerHTML =
-      '<div class="strongs-tooltip-word ' + langClass + '">' + data.word + '</div>' +
-      '<div class="strongs-tooltip-translit">' + data.transliteration + '</div>' +
-      '<div class="strongs-tooltip-number">' + data.strongs + '</div>' +
+    var html =
+      '<div class="strongs-tooltip-header">' +
+        '<span class="strongs-tooltip-word ' + langClass + '">' + data.word + '</span>' +
+        '<span class="strongs-tooltip-translit">(' + data.transliteration + ')</span>' +
+        '<span class="strongs-tooltip-number">' + data.strongs + '</span>' +
+      '</div>' +
       '<div class="strongs-tooltip-def">' + data.definition + '</div>';
+
+    // Add meta section if we have kjv_usage or derivation
+    if (data.kjv_usage || data.derivation) {
+      html += '<div class="strongs-tooltip-meta">';
+      if (data.kjv_usage) {
+        html += '<div class="strongs-tooltip-meta-row">' +
+          '<span class="strongs-tooltip-label">kjv</span>' +
+          '<span class="strongs-tooltip-value">' + data.kjv_usage + '</span>' +
+        '</div>';
+      }
+      if (data.derivation) {
+        html += '<div class="strongs-tooltip-meta-row">' +
+          '<span class="strongs-tooltip-label">from</span>' +
+          '<span class="strongs-tooltip-value">' + data.derivation + '</span>' +
+        '</div>';
+      }
+      html += '</div>';
+    }
+
+    tooltip.innerHTML = html;
 
     // Position off-screen first to measure
     tooltip.style.left = '-9999px';

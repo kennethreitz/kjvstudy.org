@@ -301,33 +301,41 @@
             }
         }
 
-        /* Strong's tooltip styles */
+        /* Strong's tooltip styles - Tufte-inspired */
         .strongs-tooltip {
             position: absolute;
             background: var(--bg-color);
-            border: 1px solid var(--border-color-darker);
-            border-radius: 6px;
-            padding: 0.75rem 1rem;
-            min-width: 250px;
-            max-width: 350px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.25rem;
+            min-width: 280px;
+            max-width: 380px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             z-index: 9999;
-            font-size: 0.95rem;
+            font-family: 'Crimson Text', 'Times New Roman', serif;
+            font-size: 1rem;
             line-height: 1.5;
             color: var(--text-color);
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.2s ease-in-out;
+            transition: opacity 0.15s ease-in-out;
         }
 
         .strongs-tooltip.show {
             opacity: 1;
         }
 
+        .strongs-tooltip-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
         .strongs-tooltip-word {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
         }
 
         .strongs-tooltip-word.hebrew {
@@ -342,32 +350,63 @@
         .strongs-tooltip-translit {
             font-style: italic;
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
 
         .strongs-tooltip-number {
-            font-family: monospace;
-            font-size: 0.8rem;
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 0.75rem;
             color: var(--text-tertiary);
-            margin-bottom: 0.5rem;
+            background: var(--code-bg);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            margin-left: auto;
         }
 
         .strongs-tooltip-def {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-color);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .strongs-tooltip-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .strongs-tooltip-meta-row {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .strongs-tooltip-label {
+            font-variant: small-caps;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            min-width: 3.5rem;
+        }
+
+        .strongs-tooltip-value {
+            color: var(--text-secondary);
         }
 
         [data-theme="dark"] .strongs-tooltip {
-            background: #2a2a2a;
-            border-color: #444;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            background: #1a1a1a;
+            border-color: #333;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
         }
 
         @media (prefers-color-scheme: dark) {
             html:not([data-theme="light"]) .strongs-tooltip {
-                background: #2a2a2a;
-                border-color: #444;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                background: #1a1a1a;
+                border-color: #333;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
             }
         }
 
