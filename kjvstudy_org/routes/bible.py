@@ -255,13 +255,13 @@ async def read_chapter(request: Request, book: str, chapter: int):
 
         commentaries[verse.verse] = commentary
 
-    # Cross-refs: always expanded (word studies are handled per-study above)
+    # Cross-refs: collapsed by default, shows first 3 refs with "+N" to expand
     for verse_num in [v.verse for v in verses]:
         commentary = commentaries.get(verse_num)
         if not commentary:
             continue
         if commentary.get('cross_reference_groups'):
-            commentary['xref_auto_expand'] = True
+            commentary['xref_auto_expand'] = False
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
