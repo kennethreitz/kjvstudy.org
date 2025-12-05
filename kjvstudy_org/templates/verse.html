@@ -1036,10 +1036,6 @@ a.crossref-pill:hover {
                href="https://twitter.com/intent/tweet?text={{ verse_text | striptags | urlencode }}%20—%20{{ book }}%20{{ chapter }}:{{ verse_num }}%20(KJV)&url={{ request.url }}"
                target="_blank"
                rel="noopener">Tweet</a>
-            <a class="share-pill"
-               href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}"
-               target="_blank"
-               rel="noopener">Share</a>
             {% if pdf_available and pdf_url %}
             <a class="share-pill" href="{{ pdf_url }}">PDF</a>
             {% endif %}
