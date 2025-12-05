@@ -2808,6 +2808,135 @@
           58
         ]
       }
+    },
+    "2 Chronicles": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        6
+      ],
+      "stanza_breaks": {
+        "6": [
+          11,
+          21,
+          31,
+          39,
+          42
+        ]
+      }
+    },
+    "Nehemiah": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        9
+      ],
+      "stanza_breaks": {
+        "9": [
+          6,
+          12,
+          17,
+          21,
+          27,
+          31,
+          37
+        ]
+      }
+    },
+    "Daniel": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        2,
+        9
+      ],
+      "stanza_breaks": {
+        "2": [
+          21,
+          23,
+          44,
+          47
+        ],
+        "9": [
+          7,
+          13,
+          16,
+          19,
+          24,
+          27
+        ]
+      }
+    },
+    "Hebrews": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        1
+      ],
+      "stanza_breaks": {
+        "1": [
+          4,
+          8,
+          13
+        ]
+      }
+    },
+    "Jude": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        1
+      ],
+      "stanza_breaks": {
+        "1": [
+          4,
+          11,
+          16,
+          20,
+          25
+        ]
+      }
+    },
+    "Ephesians": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        1
+      ],
+      "stanza_breaks": {
+        "1": [
+          6,
+          10,
+          14,
+          19,
+          23
+        ]
+      }
+    },
+    "2 Timothy": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        2
+      ],
+      "stanza_breaks": {
+        "2": [
+          7,
+          13,
+          19,
+          26
+        ]
+      }
+    },
+    "1 Kings": {
+      "is_poetry": false,
+      "poetry_chapters": [
+        8
+      ],
+      "stanza_breaks": {
+        "8": [
+          13,
+          21,
+          30,
+          40,
+          51,
+          61,
+          66
+        ]
+      }
     }
   }
 }
