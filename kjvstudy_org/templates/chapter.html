@@ -127,7 +127,7 @@
     content: "";
 }
 
-/* Cross-refs: collapsed by default, show just first ref */
+/* Cross-refs: collapsed by default, show just first ref per group */
 .sidenote.cross-refs {
     max-height: none;
     overflow: visible;
@@ -138,15 +138,14 @@
     display: none;
 }
 
-.sidenote.cross-refs .xref-preview {
-    display: inline;
-}
-
 .sidenote.cross-refs.expanded .xref-details {
     display: block;
-    margin-top: 0.5em;
+    margin-top: 0.3em;
+    padding-top: 0.3em;
+    border-top: 1px solid var(--border-color);
 }
 
+/* Hide preview when expanded, show full details */
 .sidenote.cross-refs.expanded .xref-preview {
     display: none;
 }
@@ -155,17 +154,6 @@
     font-size: 0.85em;
     color: var(--text-secondary);
     font-style: italic;
-}
-
-/* Show expand indicator for collapsed cross-refs */
-.sidenote.cross-refs:not(.expanded)::after {
-    content: " ▸";
-    font-size: 0.8em;
-    color: var(--text-secondary);
-}
-
-.sidenote.cross-refs.expanded::after {
-    content: "";
 }
 
 @media (max-width: 760px) {
