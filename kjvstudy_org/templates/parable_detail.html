@@ -85,7 +85,7 @@
 <section>
     <h2>Description</h2>
     <div class="parable-description">
-        {{ parable.description | safe }}
+        {{ parable.description | link_verses | link_names | safe }}
     </div>
 </section>
 

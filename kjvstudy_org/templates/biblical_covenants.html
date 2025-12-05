@@ -233,7 +233,7 @@ document.body.dataset.resourceReader = 'true';
         <p class="covenant-title">{{ covenant.title }}</p>
 
         <div class="covenant-description">
-            <p>{{ covenant.description | safe }}</p>
+            <p>{{ covenant.description | link_verses | link_names | safe }}</p>
         </div>
 
         {% if covenant.verses %}

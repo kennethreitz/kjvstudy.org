@@ -116,7 +116,7 @@
         {% for name, parable in parables.items() %}
         <article>
             <h3>{{ name }} — {{ parable.title }}</h3>
-            <div class="description">{{ parable.description | safe }}</div>
+            <div class="description">{{ parable.description | link_verses | link_names | safe }}</div>
 
             {% if parable.verses %}
             <div class="verses">

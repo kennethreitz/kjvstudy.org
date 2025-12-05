@@ -229,7 +229,7 @@
         <p class="name-title">{{ name.title }}</p>
 
         <div class="name-description">
-            <p>{{ name.description | safe }}</p>
+            <p>{{ name.description | link_verses | link_names | safe }}</p>
         </div>
 
         {% if name.verses %}

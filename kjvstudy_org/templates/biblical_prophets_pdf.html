@@ -115,7 +115,7 @@
         {% for name, prophet in prophets.items() %}
         <article>
             <h3>{{ name }} — {{ prophet.title }}</h3>
-            <div class="prophet-description">{{ prophet.description | safe }}</div>
+            <div class="prophet-description">{{ prophet.description | link_verses | link_names | safe }}</div>
 
             {% if prophet.verses %}
             <div class="verses">
