@@ -203,7 +203,7 @@ async def read_chapter(request: Request, book: str, chapter: int):
     recent_words = {}  # Track {word: verse_num} for cooldown
     cooldown_verses = 5  # Don't repeat same word within 5 verses
     last_xref_verse = 0  # Track last verse with cross-refs
-    xref_cooldown = 3  # Don't show cross-refs within 3 verses of each other
+    xref_cooldown = 1  # Only collapse when back-to-back
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
         # Filter out words shown recently (within cooldown period)
