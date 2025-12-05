@@ -114,7 +114,7 @@
 
     {% if item.description %}
     <div class="description">
-        {{ item.description | link_names | link_verses | safe }}
+        {{ item.description | link_verses | link_names | safe }}
     </div>
     {% endif %}
 

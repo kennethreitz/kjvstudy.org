@@ -144,7 +144,7 @@ article {
     <h2 id="description-heading">Description</h2>
     <div class="resource-description">
         <p class="resource-description-body">
-            {{ item.description | link_names | link_verses | safe }}
+            {{ item.description | link_verses | link_names | safe }}
         </p>
     </div>
     {% if item.family_tree_link %}

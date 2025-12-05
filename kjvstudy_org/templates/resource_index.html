@@ -221,7 +221,7 @@ document.body.dataset.resourceReader = 'true';
 
 {% if page_description %}
 <section aria-label="Introduction">
-    <p class="intro-text">{{ page_description | mdi | link_names | link_verses | safe }}</p>
+    <p class="intro-text">{{ page_description | mdi | link_verses | link_names | safe }}</p>
 </section>
 {% endif %}
 
@@ -233,7 +233,7 @@ document.body.dataset.resourceReader = 'true';
 {% if intro_sidenotes %}
 <section aria-label="Additional notes">
     {% for intro in intro_sidenotes %}
-    <p class="intro-text">{{ intro.text | mdi | link_names | link_verses | safe }}</p>
+    <p class="intro-text">{{ intro.text | mdi | link_verses | link_names | safe }}</p>
     {% endfor %}
 </section>
 {% endif %}
@@ -248,7 +248,7 @@ document.body.dataset.resourceReader = 'true';
         <p class="resource-item-title">{{ item.title }}</p>
 
         <div class="resource-item-description">
-            <p>{{ item.description | mdi | link_names | link_verses | safe }}</p>
+            <p>{{ item.description | mdi | link_verses | link_names | safe }}</p>
         </div>
 
         {% if item.verses %}
