@@ -249,13 +249,26 @@ async def read_chapter(request: Request, book: str, chapter: int):
         commentaries[verse.verse] = commentary
 
     # Second pass: decide expand/collapse with lookahead
+    verse_texts = {v.verse: v.text for v in verses}
     verse_nums = [v.verse for v in verses]
-    margin_buffer = 2  # Need 2 verses of space before/after to expand
+
+    # Verse length thresholds
+    SHORT_VERSE = 100  # chars - less margin room
+    LONG_VERSE = 250   # chars - more margin room
 
     for verse_num in verse_nums:
         commentary = commentaries[verse_num]
         has_word_study = bool(commentary.get('word_studies'))
         has_xref = bool(commentary.get('cross_reference_groups'))
+        verse_len = len(verse_texts.get(verse_num, ''))
+
+        # Adjust buffer based on verse length (longer verse = more margin space)
+        if verse_len > LONG_VERSE:
+            margin_buffer = 1  # Long verse, plenty of margin room
+        elif verse_len < SHORT_VERSE:
+            margin_buffer = 3  # Short verse, less margin room
+        else:
+            margin_buffer = 2  # Normal
 
         # Check nearby verses for sidenotes
         def has_nearby_sidenote(check_verse):
