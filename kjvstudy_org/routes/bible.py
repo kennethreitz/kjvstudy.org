@@ -241,11 +241,24 @@ async def read_chapter(request: Request, book: str, chapter: int):
                     else:
                         url = f"/book/{ref_book}/chapter/{ref_chapter}#verse-{ref_verse}"
                 else:
+                    ref_book = None
+                    ref_chapter_verse = ref['ref']
                     url = '#'
                 grouped_refs[description].append({
                     'text': ref['ref'],
-                    'url': url
+                    'url': url,
+                    'book': ref_book,
+                    'chapter_verse': ref_chapter_verse
                 })
+            # Condense refs: show book only when it changes
+            for desc, refs in grouped_refs.items():
+                last_book = None
+                for r in refs:
+                    if r['book'] == last_book:
+                        r['display'] = r['chapter_verse']  # Just "1:20"
+                    else:
+                        r['display'] = r['text']  # Full "Revelation 1:20"
+                        last_book = r['book']
             commentary['cross_reference_groups'] = [
                 {'description': desc, 'refs': refs}
                 for desc, refs in grouped_refs.items()
