@@ -106,6 +106,18 @@
             border-top: 1px solid #ccc;
         }
 
+        .poetry-chapter .stanza-break-wrapper {
+            margin-top: 0.25in;
+            padding-top: 0.12in;
+            border-top: 1px solid #ccc;
+        }
+
+        .poetry-chapter .stanza-break-wrapper .verse-section-heading {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
         .footer {
             margin-top: 0.4in;
             font-size: 9pt;
@@ -292,16 +304,24 @@
     {% endif %}
 
     {% for chapter in chapters %}
-    <section class="chapter-block{% if is_poetry %} poetry-chapter{% endif %}">
+    <section class="chapter-block{% if chapter.is_poetry %} poetry-chapter{% endif %}">
         <h2 class="chapter-title">Chapter {{ chapter.chapter }}</h2>
         {% for verse in chapter.verses %}
-        {% if chapter.section_headings and verse.verse in chapter.section_headings %}
+        {% set has_stanza_break = chapter.is_poetry and verse.verse in chapter.stanza_breaks %}
+        {% set has_section_heading = chapter.section_headings and verse.verse in chapter.section_headings %}
+        {% if has_stanza_break and has_section_heading %}
+        <div class="stanza-break-wrapper">
+        <h3 class="verse-section-heading">{{ chapter.section_headings[verse.verse] }}</h3>
+        {% elif has_section_heading %}
         <h3 class="verse-section-heading">{{ chapter.section_headings[verse.verse] }}</h3>
         {% endif %}
-        <div class="verse{% if is_poetry and verse.verse in chapter.stanza_breaks %} stanza-break{% endif %}">
+        <div class="verse{% if has_stanza_break and not has_section_heading %} stanza-break{% endif %}">
             <span class="verse-number">{{ verse.verse }}</span>
             <span class="verse-text">{{ verse.text }}</span>
         </div>
+        {% if has_stanza_break and has_section_heading %}
+        </div>
+        {% endif %}
         {% endfor %}
     </section>
     {% endfor %}

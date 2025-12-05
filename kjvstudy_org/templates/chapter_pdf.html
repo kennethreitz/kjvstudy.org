@@ -138,6 +138,18 @@
             border-top: 1px solid #ccc;
         }
 
+        .poetry-verses .stanza-break-wrapper {
+            margin-top: 0.3in;
+            padding-top: 0.15in;
+            border-top: 1px solid #ccc;
+        }
+
+        .poetry-verses .stanza-break-wrapper .verse-section-heading {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
         .verse-number {
             font-size: 8pt;
             font-weight: bold;
@@ -302,13 +314,21 @@
     <div class="scripture-section">
         <div class="verses{% if is_poetry %} poetry-verses{% endif %}">
             {% for verse in verses %}
-            {% if section_headings and verse.verse in section_headings %}
+            {% set has_stanza_break = is_poetry and verse.verse in stanza_breaks %}
+            {% set has_section_heading = section_headings and verse.verse in section_headings %}
+            {% if has_stanza_break and has_section_heading %}
+            <div class="stanza-break-wrapper">
+            <h3 class="verse-section-heading">{{ section_headings[verse.verse] }}</h3>
+            {% elif has_section_heading %}
             <h3 class="verse-section-heading">{{ section_headings[verse.verse] }}</h3>
             {% endif %}
-            <p class="verse{% if is_poetry and verse.verse in stanza_breaks %} stanza-break{% endif %}">
+            <p class="verse{% if has_stanza_break and not has_section_heading %} stanza-break{% endif %}">
                 <span class="verse-number">{{ verse.verse }}</span>
                 <span class="verse-text">{{ verse.text | safe }}</span>
             </p>
+            {% if has_stanza_break and has_section_heading %}
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

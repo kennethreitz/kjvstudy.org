@@ -15,7 +15,7 @@ from ..books import get_book_data, has_book_data
 from ..utils.books import normalize_book_name, OT_BOOKS, get_canonical_book_order
 from ..utils.helpers import create_slug, get_related_content, get_chapter_popularity_score, get_chapter_popularity_explanation
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
-from ..utils.poetry_loader import is_poetry_book, get_stanza_breaks
+from ..utils.poetry_loader import is_poetry_chapter, get_stanza_breaks
 
 
 @lru_cache(maxsize=1)
@@ -143,9 +143,6 @@ async def book_pdf(request: Request, book: str):
             detail=f"The book '{book}' was not found. Please check the spelling or browse all available books."
         )
 
-    # Check if this is a poetry book
-    is_poetry = is_poetry_book(book)
-
     chapters_data = []
     total_verses = 0
     for chapter_num in chapters:
@@ -153,11 +150,13 @@ async def book_pdf(request: Request, book: str):
         if not verses:
             continue
         total_verses += len(verses)
+        chapter_is_poetry = is_poetry_chapter(book, chapter_num)
         chapters_data.append({
             "chapter": chapter_num,
             "verses": verses,
             "section_headings": get_section_headings(book, chapter_num),
-            "stanza_breaks": get_stanza_breaks(book, chapter_num) if is_poetry else set()
+            "stanza_breaks": get_stanza_breaks(book, chapter_num) if chapter_is_poetry else set(),
+            "is_poetry": chapter_is_poetry
         })
 
     if not chapters_data:
@@ -175,7 +174,6 @@ async def book_pdf(request: Request, book: str):
         chapter_count=len(chapters_data),
         verse_count=total_verses,
         book_intro=book_intro,
-        is_poetry=is_poetry,
     )
 
     pdf_buffer = await render_html_to_pdf_async(html_content)
@@ -353,7 +351,7 @@ async def read_chapter(request: Request, book: str, chapter: int):
     section_headings = get_section_headings(book, chapter)
 
     # Get poetry formatting info
-    is_poetry = is_poetry_book(book)
+    is_poetry = is_poetry_chapter(book, chapter)
     stanza_breaks = get_stanza_breaks(book, chapter) if is_poetry else set()
 
     # Build breadcrumbs
@@ -486,7 +484,7 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
     section_headings = get_section_headings(book, chapter)
 
     # Get poetry formatting info
-    is_poetry = is_poetry_book(book)
+    is_poetry = is_poetry_chapter(book, chapter)
     stanza_breaks = get_stanza_breaks(book, chapter) if is_poetry else set()
 
     html_content = templates.get_template("chapter_pdf.html").render(
