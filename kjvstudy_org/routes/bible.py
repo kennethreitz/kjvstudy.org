@@ -255,13 +255,18 @@ async def read_chapter(request: Request, book: str, chapter: int):
 
         commentaries[verse.verse] = commentary
 
-    # Cross-refs: collapsed by default, shows first 3 refs with "+N" to expand
-    for verse_num in [v.verse for v in verses]:
-        commentary = commentaries.get(verse_num)
+    # Cross-refs: expand if next verse is long (more margin space), collapse if short
+    verse_list = [v for v in verses]
+    for i, verse in enumerate(verse_list):
+        commentary = commentaries.get(verse.verse)
         if not commentary:
             continue
         if commentary.get('cross_reference_groups'):
-            commentary['xref_auto_expand'] = False
+            # Check next verse length - long verse = more margin room
+            next_verse = verse_list[i + 1] if i + 1 < len(verse_list) else None
+            next_verse_len = len(next_verse.text) if next_verse else 0
+            # Expand if next verse is 150+ chars (provides margin space)
+            commentary['xref_auto_expand'] = next_verse_len >= 150
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
