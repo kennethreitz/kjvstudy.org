@@ -430,11 +430,10 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     import random
     random.seed(f"{book}{chapter}{verse_num}")
 
-    # Show 1-2 sidenotes max
-    # Every 3rd odd verse (1, 7, 13, etc.) gets 2 sidenotes, others get 1
-    max_sidenotes = 2 if (verse_num % 6 == 1) else 1
+    # Show only 1 sidenote per verse to prevent horizontal collision in margin
+    max_sidenotes = 1
 
-    # Randomly select which word studies to show from those available
+    # Randomly select which word study to show from those available
     selected = random.sample(potential_sidenotes, min(max_sidenotes, len(potential_sidenotes)))
     return selected
 
