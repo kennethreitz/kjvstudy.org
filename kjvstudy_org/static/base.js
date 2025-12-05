@@ -1542,8 +1542,14 @@ function showKeyboardHelp() {
     tooltip.classList.remove('show');
   }
 
+  // Check if we're on a chapter page (tooltips disabled there - sidenotes provide context)
+  var isChapterPage = /^\/book\/[^/]+\/chapter\/\d+\/?$/.test(window.location.pathname);
+
   // Event delegation for verse links
   document.addEventListener('mouseover', function(e) {
+    // Skip tooltips entirely on chapter pages
+    if (isChapterPage) return;
+
     var target = e.target;
 
     // Check if target is a link or inside a link
