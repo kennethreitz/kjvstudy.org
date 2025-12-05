@@ -202,6 +202,8 @@ async def read_chapter(request: Request, book: str, chapter: int):
     commentaries = {}
     recent_words = {}  # Track {word: verse_num} for cooldown
     cooldown_verses = 5  # Don't repeat same word within 5 verses
+    last_xref_verse = 0  # Track last verse with cross-refs
+    xref_cooldown = 3  # Don't show cross-refs within 3 verses of each other
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
         # Filter out words shown recently (within cooldown period)
@@ -212,36 +214,46 @@ async def read_chapter(request: Request, book: str, chapter: int):
         # Track which words were shown
         for study in word_studies:
             recent_words[study['word'].lower()] = verse.verse
-        # Add cross-references with proper URLs, grouped by description
+
+        # Add cross-references with cooldown to prevent margin overload
         cross_refs = get_cross_references(book, chapter, verse.verse)
 
-        # Group cross-references by their description/note
-        grouped_refs = defaultdict(list)
-        for ref in cross_refs:
-            description = ref['note'] if ref['note'] else 'Related'
-            # Parse the reference to build URL
-            if ' ' in ref['ref'] and ':' in ref['ref']:
-                ref_book = ref['ref'].rsplit(' ', 1)[0]
-                ref_chapter_verse = ref['ref'].rsplit(' ', 1)[1]
-                ref_chapter = ref_chapter_verse.split(':')[0]
-                ref_verse = ref_chapter_verse.split(':')[1]
-                # Same chapter: use anchor link; different chapter/book: link to chapter view with anchor
-                if ref_book == book and ref_chapter == str(chapter):
-                    url = f"#verse-{ref_verse}"
+        # Skip if within cooldown period (show condensed count instead)
+        if cross_refs and verse.verse - last_xref_verse < xref_cooldown:
+            commentary['cross_reference_groups'] = []
+            commentary['cross_ref_count'] = len(cross_refs)  # Just show "+N refs"
+        elif cross_refs:
+            # Group cross-references by their description/note
+            grouped_refs = defaultdict(list)
+            for ref in cross_refs:
+                description = ref['note'] if ref['note'] else 'Related'
+                # Parse the reference to build URL
+                if ' ' in ref['ref'] and ':' in ref['ref']:
+                    ref_book = ref['ref'].rsplit(' ', 1)[0]
+                    ref_chapter_verse = ref['ref'].rsplit(' ', 1)[1]
+                    ref_chapter = ref_chapter_verse.split(':')[0]
+                    ref_verse = ref_chapter_verse.split(':')[1]
+                    # Same chapter: use anchor link; different chapter/book: link to chapter view with anchor
+                    if ref_book == book and ref_chapter == str(chapter):
+                        url = f"#verse-{ref_verse}"
+                    else:
+                        url = f"/book/{ref_book}/chapter/{ref_chapter}#verse-{ref_verse}"
                 else:
-                    url = f"/book/{ref_book}/chapter/{ref_chapter}#verse-{ref_verse}"
-            else:
-                url = '#'
-            grouped_refs[description].append({
-                'text': ref['ref'],
-                'url': url
-            })
+                    url = '#'
+                grouped_refs[description].append({
+                    'text': ref['ref'],
+                    'url': url
+                })
 
-        # Convert to list of groups for template (collapsible - shows first ref, expand for all)
-        commentary['cross_reference_groups'] = [
-            {'description': desc, 'refs': refs}
-            for desc, refs in grouped_refs.items()
-        ]
+            # Convert to list of groups for template (collapsible - shows first ref, expand for all)
+            commentary['cross_reference_groups'] = [
+                {'description': desc, 'refs': refs}
+                for desc, refs in grouped_refs.items()
+            ]
+            last_xref_verse = verse.verse
+        else:
+            commentary['cross_reference_groups'] = []
+
         commentaries[verse.verse] = commentary
 
     # Generate chapter overview
