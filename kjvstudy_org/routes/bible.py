@@ -248,7 +248,7 @@ async def read_chapter(request: Request, book: str, chapter: int):
 
         commentaries[verse.verse] = commentary
 
-    # Second pass: decide expand/collapse with lookahead
+    # Second pass: smart expand/collapse decisions
     verse_texts = {v.verse: v.text for v in verses}
     verse_nums = [v.verse for v in verses]
 
@@ -256,11 +256,24 @@ async def read_chapter(request: Request, book: str, chapter: int):
     SHORT_VERSE = 100  # chars - less margin room
     LONG_VERSE = 250   # chars - more margin room
 
+    # Track expansion state for rhythm
+    recent_expansions = []  # Track last few expansion decisions
+    max_consecutive_expanded = 2  # Don't expand more than 2 in a row
+
     for verse_num in verse_nums:
         commentary = commentaries[verse_num]
         has_word_study = bool(commentary.get('word_studies'))
         has_xref = bool(commentary.get('cross_reference_groups'))
         verse_len = len(verse_texts.get(verse_num, ''))
+        is_first = (verse_num == verse_nums[0])
+
+        # Skip if no sidenotes
+        if not has_word_study and not has_xref:
+            continue
+
+        # Check how many recent sidenotes were expanded
+        recently_expanded = sum(recent_expansions[-max_consecutive_expanded:])
+        needs_breathing_room = recently_expanded >= max_consecutive_expanded
 
         # Adjust buffer based on verse length (longer verse = more margin space)
         if verse_len > LONG_VERSE:
@@ -284,12 +297,20 @@ async def read_chapter(request: Request, book: str, chapter: int):
                 crowded = True
                 break
 
-        # Auto-expand if there's room (always expand first verse)
-        is_first = (verse_num == verse_nums[0])
-        if has_word_study:
-            commentary['word_study_auto_expand'] = is_first or not crowded
-        if has_xref:
-            commentary['xref_auto_expand'] = is_first or not crowded
+        # Decide what to expand
+        should_expand = is_first or (not crowded and not needs_breathing_room)
+
+        # If verse has both word study and xref, only expand one (prefer xref)
+        if has_word_study and has_xref:
+            commentary['xref_auto_expand'] = should_expand
+            commentary['word_study_auto_expand'] = False  # Keep word study collapsed
+            recent_expansions.append(1 if should_expand else 0)
+        elif has_xref:
+            commentary['xref_auto_expand'] = should_expand
+            recent_expansions.append(1 if should_expand else 0)
+        elif has_word_study:
+            commentary['word_study_auto_expand'] = should_expand
+            recent_expansions.append(1 if should_expand else 0)
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
