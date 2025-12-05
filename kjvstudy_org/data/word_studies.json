@@ -561,18 +561,18 @@
   "flesh": {
     "ot_term": "בָּשָׂר",
     "ot_transliteration": "Basar",
-    "ot_meaning": "Flesh, body",
-    "ot_note": "The Hebrew <strong>basar</strong> (בָּשָׂר) means flesh or body—humanity's physical, mortal nature. 'All flesh is grass' (Isaiah 40:6), emphasizing human frailty and mortality before the eternal God.",
-    "nt_term": "σάρξ",
-    "nt_transliteration": "Sarx",
-    "nt_meaning": "Flesh, sinful nature",
-    "nt_note": "The Greek <strong>sarx</strong> (σάρξ) denotes flesh—both physical body and fallen human nature opposed to God. Paul contrasts walking 'after the flesh' versus 'after the Spirit' (Romans 8:4-5). The Word became flesh (John 1:14) in the incarnation.",
+    "ot_meaning": "Flesh, body, mankind",
     "ot_strongs": [
       "H1320"
     ],
+    "ot_note": "The Hebrew <strong>basar</strong> (בָּשָׂר) means flesh—humanity's physical, mortal nature. 'All flesh is grass' (Isaiah 40:6), emphasizing human frailty before the eternal God.",
+    "nt_term": "σάρξ",
+    "nt_transliteration": "Sarx",
+    "nt_meaning": "Flesh, sinful nature",
     "nt_strongs": [
       "G4561"
-    ]
+    ],
+    "nt_note": "The Greek <strong>sarx</strong> (σάρξ) means flesh—both the physical body and the fallen nature opposed to God. Paul contrasts walking 'after the flesh' versus 'after the Spirit' (Romans 8:4). Yet 'the Word was made flesh' (John 1:14) in the incarnation."
   },
   "mind": {
     "nt_term": "νοῦς",
@@ -835,5 +835,274 @@
     "nt_strongs": [
       "G3686"
     ]
+  },
+  "repent": {
+    "ot_term": "שׁוּב / נָחַם",
+    "ot_transliteration": "Shuv / Nacham",
+    "ot_meaning": "To turn back, relent",
+    "ot_strongs": [
+      "H7725",
+      "H5162"
+    ],
+    "ot_note": "The Hebrew <strong>shuv</strong> (שׁוּב) means to turn or return—a physical turning that represents spiritual redirection back to God. <strong>Nacham</strong> (נָחַם) conveys grief or relenting, often used of God 'repenting' of judgment.",
+    "nt_term": "μετανοέω",
+    "nt_transliteration": "Metanoeo",
+    "nt_meaning": "To change one's mind, repent",
+    "nt_strongs": [
+      "G3340",
+      "G3341"
+    ],
+    "nt_note": "The Greek <strong>metanoeo</strong> (μετανοέω) means to change one's mind or purpose—a complete transformation of thinking. John the Baptist and Jesus both began their ministries with 'Repent: for the kingdom of heaven is at hand' (Matthew 3:2; 4:17)."
+  },
+  "forgive": {
+    "ot_term": "סָלַח / נָשָׂא",
+    "ot_transliteration": "Salach / Nasa",
+    "ot_meaning": "To forgive, pardon, lift up",
+    "ot_strongs": [
+      "H5545",
+      "H5375"
+    ],
+    "ot_note": "The Hebrew <strong>salach</strong> (סָלַח) is used exclusively of God's forgiveness—divine pardon that only He can grant. <strong>Nasa</strong> (נָשָׂא) means to lift up or carry away, picturing sin being removed.",
+    "nt_term": "ἀφίημι",
+    "nt_transliteration": "Aphiemi",
+    "nt_meaning": "To send away, forgive, release",
+    "nt_strongs": [
+      "G863",
+      "G859"
+    ],
+    "nt_note": "The Greek <strong>aphiemi</strong> (ἀφίημι) means to send away or release—canceling a debt or dismissing an offense. Jesus taught us to pray 'forgive us our debts, as we forgive our debtors' (Matthew 6:12)."
+  },
+  "justify": {
+    "ot_term": "צָדַק",
+    "ot_transliteration": "Tsadaq",
+    "ot_meaning": "To be righteous, declare righteous",
+    "ot_strongs": [
+      "H6663"
+    ],
+    "ot_note": "The Hebrew <strong>tsadaq</strong> (צָדַק) means to be righteous or to declare righteous—a legal verdict of innocence. Abraham 'believed in the LORD; and he counted it to him for righteousness' (Genesis 15:6).",
+    "nt_term": "δικαιόω",
+    "nt_transliteration": "Dikaioo",
+    "nt_meaning": "To justify, declare righteous",
+    "nt_strongs": [
+      "G1344",
+      "G1347"
+    ],
+    "nt_note": "The Greek <strong>dikaioo</strong> (δικαιόω) means to declare righteous—a forensic term for acquittal. Believers are 'justified freely by his grace through the redemption that is in Christ Jesus' (Romans 3:24)."
+  },
+  "sanctify": {
+    "ot_term": "קָדַשׁ",
+    "ot_transliteration": "Qadash",
+    "ot_meaning": "To set apart, make holy",
+    "ot_strongs": [
+      "H6942"
+    ],
+    "ot_note": "The Hebrew <strong>qadash</strong> (קָדַשׁ) means to set apart or consecrate—separating something for God's sacred purposes. God sanctified the seventh day (Genesis 2:3) and calls His people to 'be holy; for I am holy' (Leviticus 11:44).",
+    "nt_term": "ἁγιάζω",
+    "nt_transliteration": "Hagiazo",
+    "nt_meaning": "To sanctify, make holy",
+    "nt_strongs": [
+      "G37",
+      "G38"
+    ],
+    "nt_note": "The Greek <strong>hagiazo</strong> (ἁγιάζω) means to sanctify or make holy—setting apart for God. Christ sanctifies believers: 'by the which will we are sanctified through the offering of the body of Jesus Christ once for all' (Hebrews 10:10)."
+  },
+  "believe": {
+    "ot_term": "אָמַן",
+    "ot_transliteration": "Aman",
+    "ot_meaning": "To believe, trust, be faithful",
+    "ot_strongs": [
+      "H539"
+    ],
+    "ot_note": "The Hebrew <strong>aman</strong> (אָמַן) means to believe or confirm—the root of 'Amen.' It conveys firm trust and reliability. Abraham 'believed in the LORD; and he counted it to him for righteousness' (Genesis 15:6).",
+    "nt_term": "πιστεύω",
+    "nt_transliteration": "Pisteuo",
+    "nt_meaning": "To believe, trust, have faith",
+    "nt_strongs": [
+      "G4100"
+    ],
+    "nt_note": "The Greek <strong>pisteuo</strong> (πιστεύω) means to believe or trust—active reliance upon Christ. 'For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish' (John 3:16)."
+  },
+  "propitiation": {
+    "nt_term": "ἱλασμός",
+    "nt_transliteration": "Hilasmos",
+    "nt_meaning": "Propitiation, atoning sacrifice",
+    "nt_strongs": [
+      "G2434",
+      "G2435"
+    ],
+    "nt_note": "The Greek <strong>hilasmos</strong> (ἱλασμός) means propitiation—a sacrifice that satisfies God's wrath against sin. Christ 'is the propitiation for our sins: and not for our's only, but also for the sins of the whole world' (1 John 2:2)."
+  },
+  "reconcile": {
+    "nt_term": "καταλλάσσω",
+    "nt_transliteration": "Katallasso",
+    "nt_meaning": "To reconcile, restore relationship",
+    "nt_strongs": [
+      "G2644",
+      "G2643"
+    ],
+    "nt_note": "The Greek <strong>katallasso</strong> (καταλλάσσω) means to reconcile—restoring a broken relationship. 'God was in Christ, reconciling the world unto himself, not imputing their trespasses unto them' (2 Corinthians 5:19)."
+  },
+  "mediator": {
+    "nt_term": "μεσίτης",
+    "nt_transliteration": "Mesites",
+    "nt_meaning": "Mediator, go-between",
+    "nt_strongs": [
+      "G3316"
+    ],
+    "nt_note": "The Greek <strong>mesites</strong> (μεσίτης) means mediator—one who stands between two parties. 'There is one God, and one mediator between God and men, the man Christ Jesus' (1 Timothy 2:5)."
+  },
+  "comforter": {
+    "nt_term": "παράκλητος",
+    "nt_transliteration": "Parakletos",
+    "nt_meaning": "Comforter, Advocate, Helper",
+    "nt_strongs": [
+      "G3875"
+    ],
+    "nt_note": "The Greek <strong>parakletos</strong> (παράκλητος) means one called alongside—an advocate, helper, or comforter. Jesus promised 'the Comforter, which is the Holy Ghost, whom the Father will send in my name, he shall teach you all things' (John 14:26)."
+  },
+  "confess": {
+    "ot_term": "יָדָה",
+    "ot_transliteration": "Yadah",
+    "ot_meaning": "To confess, praise, give thanks",
+    "ot_strongs": [
+      "H3034"
+    ],
+    "ot_note": "The Hebrew <strong>yadah</strong> (יָדָה) means to confess or give thanks—acknowledging truth openly. 'He that covereth his sins shall not prosper: but whoso confesseth and forsaketh them shall have mercy' (Proverbs 28:13).",
+    "nt_term": "ὁμολογέω",
+    "nt_transliteration": "Homologeo",
+    "nt_meaning": "To confess, acknowledge, agree",
+    "nt_strongs": [
+      "G3670"
+    ],
+    "nt_note": "The Greek <strong>homologeo</strong> (ὁμολογέω) means to say the same thing—agreeing with God about sin or truth. 'If we confess our sins, he is faithful and just to forgive us our sins' (1 John 1:9)."
+  },
+  "elect": {
+    "ot_term": "בָּחַר",
+    "ot_transliteration": "Bachar",
+    "ot_meaning": "To choose, select, elect",
+    "ot_strongs": [
+      "H977"
+    ],
+    "ot_note": "The Hebrew <strong>bachar</strong> (בָּחַר) means to choose or select—God's sovereign election. 'The LORD thy God hath chosen thee to be a special people unto himself' (Deuteronomy 7:6).",
+    "nt_term": "ἐκλεκτός",
+    "nt_transliteration": "Eklektos",
+    "nt_meaning": "Elect, chosen",
+    "nt_strongs": [
+      "G1588",
+      "G1586"
+    ],
+    "nt_note": "The Greek <strong>eklektos</strong> (ἐκλεκτός) means chosen or elect—those selected by God. Believers are 'elect according to the foreknowledge of God the Father' (1 Peter 1:2)."
+  },
+  "adoption": {
+    "nt_term": "υἱοθεσία",
+    "nt_transliteration": "Huiothesia",
+    "nt_meaning": "Adoption as sons",
+    "nt_strongs": [
+      "G5206"
+    ],
+    "nt_note": "The Greek <strong>huiothesia</strong> (υἱοθεσία) means adoption as sons—full legal standing as heirs. Believers receive 'the Spirit of adoption, whereby we cry, Abba, Father' (Romans 8:15), becoming co-heirs with Christ."
+  },
+  "inheritance": {
+    "ot_term": "נַחֲלָה",
+    "ot_transliteration": "Nachalah",
+    "ot_meaning": "Inheritance, possession",
+    "ot_strongs": [
+      "H5159"
+    ],
+    "ot_note": "The Hebrew <strong>nachalah</strong> (נַחֲלָה) means inheritance or possession—the promised land given to Israel. The LORD Himself is the inheritance of the Levites (Numbers 18:20) and of all who trust Him (Psalm 16:5).",
+    "nt_term": "κληρονομία",
+    "nt_transliteration": "Kleronomia",
+    "nt_meaning": "Inheritance, heritage",
+    "nt_strongs": [
+      "G2817",
+      "G2818"
+    ],
+    "nt_note": "The Greek <strong>kleronomia</strong> (κληρονομία) means inheritance—what is received as an heir. Believers are 'heirs of God, and joint-heirs with Christ' (Romans 8:17), awaiting 'an inheritance incorruptible' (1 Peter 1:4)."
+  },
+  "impute": {
+    "ot_term": "חָשַׁב",
+    "ot_transliteration": "Chashav",
+    "ot_meaning": "To reckon, count, impute",
+    "ot_strongs": [
+      "H2803"
+    ],
+    "ot_note": "The Hebrew <strong>chashav</strong> (חָשַׁב) means to reckon or count—crediting something to someone's account. God 'counted' Abraham's faith 'to him for righteousness' (Genesis 15:6).",
+    "nt_term": "λογίζομαι",
+    "nt_transliteration": "Logizomai",
+    "nt_meaning": "To reckon, impute, count",
+    "nt_strongs": [
+      "G3049"
+    ],
+    "nt_note": "The Greek <strong>logizomai</strong> (λογίζομαι) means to reckon or credit—an accounting term. Christ's righteousness is imputed to believers: 'faith is counted for righteousness' (Romans 4:5)."
+  },
+  "save": {
+    "ot_term": "יָשַׁע",
+    "ot_transliteration": "Yasha",
+    "ot_meaning": "To save, deliver, rescue",
+    "ot_strongs": [
+      "H3467"
+    ],
+    "ot_note": "The Hebrew <strong>yasha</strong> (יָשַׁע) means to save or deliver—rescue from danger or distress. This is the root of 'Jesus' (Yeshua), meaning 'YHWH saves.' God alone is Savior: 'I, even I, am the LORD; and beside me there is no saviour' (Isaiah 43:11).",
+    "nt_term": "σῴζω",
+    "nt_transliteration": "Sozo",
+    "nt_meaning": "To save, deliver, heal",
+    "nt_strongs": [
+      "G4982"
+    ],
+    "nt_note": "The Greek <strong>sozo</strong> (σῴζω) means to save—deliverance from sin, death, and judgment. 'Believe on the Lord Jesus Christ, and thou shalt be saved' (Acts 16:31). The word also encompasses physical healing and spiritual wholeness."
+  },
+  "witness": {
+    "ot_term": "עֵד",
+    "ot_transliteration": "Ed",
+    "ot_meaning": "Witness, testimony",
+    "ot_strongs": [
+      "H5707",
+      "H5715"
+    ],
+    "ot_note": "The Hebrew <strong>ed</strong> (עֵד) means witness—one who testifies to what they have seen or known. 'At the mouth of two witnesses, or three witnesses, shall the matter be established' (Deuteronomy 19:15).",
+    "nt_term": "μάρτυς",
+    "nt_transliteration": "Martus",
+    "nt_meaning": "Witness, martyr",
+    "nt_strongs": [
+      "G3144",
+      "G3141"
+    ],
+    "nt_note": "The Greek <strong>martus</strong> (μάρτυς) means witness—the source of 'martyr,' as many witnesses died for their testimony. Jesus told the disciples 'ye shall be witnesses unto me' (Acts 1:8)."
+  },
+  "atonement": {
+    "ot_term": "כָּפַר",
+    "ot_transliteration": "Kaphar",
+    "ot_meaning": "To cover, make atonement",
+    "ot_strongs": [
+      "H3722",
+      "H3725"
+    ],
+    "ot_note": "The Hebrew <strong>kaphar</strong> (כָּפַר) means to cover or make atonement—the basis for Yom Kippur (Day of Atonement). The blood of sacrifices covered sin: 'it is the blood that maketh an atonement for the soul' (Leviticus 17:11).",
+    "nt_term": "καταλλαγή",
+    "nt_transliteration": "Katallage",
+    "nt_meaning": "Reconciliation, atonement",
+    "nt_strongs": [
+      "G2643"
+    ],
+    "nt_note": "The Greek <strong>katallage</strong> (καταλλαγή) means reconciliation—restoring relationship with God. Christ's death accomplished 'the atonement' (Romans 5:11), bringing peace between God and man."
+  },
+  "born again": {
+    "nt_term": "γεννάω ἄνωθεν",
+    "nt_transliteration": "Gennao Anothen",
+    "nt_meaning": "Born again, born from above",
+    "nt_strongs": [
+      "G1080",
+      "G509"
+    ],
+    "nt_note": "The Greek phrase combines <strong>gennao</strong> (to beget/birth) with <strong>anothen</strong> (from above/again). Jesus told Nicodemus, 'Except a man be born again, he cannot see the kingdom of God' (John 3:3)—a spiritual rebirth by the Holy Spirit."
+  },
+  "predestine": {
+    "nt_term": "προορίζω",
+    "nt_transliteration": "Proorizo",
+    "nt_meaning": "To predetermine, foreordain",
+    "nt_strongs": [
+      "G4309"
+    ],
+    "nt_note": "The Greek <strong>proorizo</strong> (προορίζω) means to determine beforehand—God's eternal decree. Believers are 'predestinated according to the purpose of him who worketh all things after the counsel of his own will' (Ephesians 1:11)."
   }
 }

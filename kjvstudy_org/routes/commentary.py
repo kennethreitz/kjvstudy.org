@@ -377,12 +377,16 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
                             if strongs_num in strongs_to_study:
                                 for alt_word, alt_study in strongs_to_study[strongs_num]:
                                     if alt_word not in shown_words and alt_word not in added_words:
+                                        # Get the first matching Strong's number for this study
+                                        alt_strongs = alt_study.get('strongs', [])
+                                        matched_strongs = next((s for s in alt_strongs if s in verse_strongs), alt_strongs[0] if alt_strongs else None)
                                         potential_sidenotes.append({
                                             "word": alt_word.title(),
                                             "term": alt_study['term'],
                                             "translit": alt_study['translit'],
                                             "meaning": alt_study['meaning'],
-                                            "note": link_bible_references(alt_study['note'])
+                                            "note": link_bible_references(alt_study['note']),
+                                            "strongs": matched_strongs
                                         })
                                         added_words.add(alt_word)
                                         found_alternative = True
@@ -392,12 +396,15 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
                         continue
 
                 if word not in added_words:
+                    # Get the first matching Strong's number for this study
+                    matched_strongs = next((s for s in study_strongs if s in verse_strongs), study_strongs[0] if study_strongs else None)
                     potential_sidenotes.append({
                         "word": word.title(),
                         "term": study['term'],
                         "translit": study['translit'],
                         "meaning": study['meaning'],
-                        "note": link_bible_references(study['note'])
+                        "note": link_bible_references(study['note']),
+                        "strongs": matched_strongs
                     })
                     added_words.add(word)
 

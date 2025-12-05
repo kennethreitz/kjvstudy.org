@@ -153,7 +153,13 @@ def inject_word_markers(text, word_studies, verse_num):
 
     for idx, study in enumerate(word_studies, 1):
         word = study['word']
-        marker = f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/><span class="sidenote"><strong>{word}:</strong> {study["term"]} (<em>{study["translit"]}</em>). {study["note"]}</span>'
+        # Link the original term to Strong's page if we have a Strong's number
+        strongs = study.get('strongs')
+        if strongs:
+            term_html = f'<a href="/strongs/{strongs}">{study["term"]}</a>'
+        else:
+            term_html = study["term"]
+        marker = f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/><span class="sidenote"><strong>{word}:</strong> {term_html} (<em>{study["translit"]}</em>). {study["note"]}</span>'
         pattern = re.compile(r'\b(' + re.escape(word) + r')(?!\'[sS])\b', re.IGNORECASE)
         text = pattern.sub(r'\1' + marker, text, count=1)
 
