@@ -300,16 +300,16 @@ async def read_chapter(request: Request, book: str, chapter: int):
         # Decide what to expand
         should_expand = is_first or (not crowded and not needs_breathing_room)
 
-        # If verse has both word study and xref, only expand one (prefer xref)
+        # If verse has both word study and xref, only expand one (prefer word study)
         if has_word_study and has_xref:
-            commentary['xref_auto_expand'] = should_expand
-            commentary['word_study_auto_expand'] = False  # Keep word study collapsed
-            recent_expansions.append(1 if should_expand else 0)
-        elif has_xref:
-            commentary['xref_auto_expand'] = should_expand
+            commentary['word_study_auto_expand'] = should_expand
+            commentary['xref_auto_expand'] = False  # Keep xref collapsed
             recent_expansions.append(1 if should_expand else 0)
         elif has_word_study:
             commentary['word_study_auto_expand'] = should_expand
+            recent_expansions.append(1 if should_expand else 0)
+        elif has_xref:
+            commentary['xref_auto_expand'] = should_expand
             recent_expansions.append(1 if should_expand else 0)
 
     # Generate chapter overview
