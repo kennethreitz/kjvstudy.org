@@ -146,15 +146,17 @@ def link_verse_references_in_text(text):
     return re.sub(pattern, replace_reference, text)
 
 
-def inject_word_markers(text, word_studies, verse_num):
+def inject_word_markers(text, word_studies, verse_num, auto_expand=False):
     """Inject sidenote markers into verse text next to annotated words.
 
     Word studies are collapsed by default, showing only the word and Greek/Hebrew term.
     Clicking expands to show transliteration and full definition.
+    If auto_expand is True, show expanded by default.
     """
     if not word_studies:
         return text
 
+    expanded_class = ' expanded' if auto_expand else ''
     for idx, study in enumerate(word_studies, 1):
         word = study['word']
         # Link the original term to Strong's page if we have a Strong's number
@@ -167,7 +169,7 @@ def inject_word_markers(text, word_studies, verse_num):
         marker = (
             f'<label for="sn-{verse_num}-word-{idx}" class="margin-toggle sidenote-number"></label>'
             f'<input type="checkbox" id="sn-{verse_num}-word-{idx}" class="margin-toggle"/>'
-            f'<span class="sidenote word-study">'
+            f'<span class="sidenote word-study{expanded_class}">'
             f'<strong>{word}:</strong> {term_html}'
             f'<span class="word-study-details"> (<em>{study["translit"]}</em>). {study["note"]}</span>'
             f'</span>'

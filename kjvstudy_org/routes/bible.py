@@ -204,6 +204,8 @@ async def read_chapter(request: Request, book: str, chapter: int):
     cooldown_verses = 5  # Don't repeat same word within 5 verses
     last_xref_verse = 0  # Track last verse with cross-refs
     xref_cooldown = 2  # Collapse when within 2 verses
+    last_word_study_verse = 0  # Track last verse with word study
+    word_study_cooldown = 2  # Collapse when within 2 verses
     for verse in verses:
         commentary = generate_commentary(book, chapter, verse)
         # Filter out words shown recently (within cooldown period)
@@ -211,6 +213,13 @@ async def read_chapter(request: Request, book: str, chapter: int):
         # Add word study sidenotes
         word_studies = generate_word_study_sidenotes(verse.text, book, chapter, verse.verse, excluded_words)
         commentary['word_studies'] = word_studies
+        # Auto-expand word studies when there's room
+        if word_studies:
+            if verse.verse - last_word_study_verse < word_study_cooldown:
+                commentary['word_study_auto_expand'] = False
+            else:
+                commentary['word_study_auto_expand'] = True
+            last_word_study_verse = verse.verse
         # Track which words were shown
         for study in word_studies:
             recent_words[study['word'].lower()] = verse.verse
