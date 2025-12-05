@@ -117,7 +117,7 @@
         <article>
             <h3>{{ name }}{% if entry.title %} — {{ entry.title }}{% endif %}</h3>
             {% if entry.description %}
-            <div class="entry-description">{{ entry.description | link_verses | link_names | safe }}</div>
+            <div class="entry-description">{{ entry.description | safe }}</div>
             {% endif %}
 
             {% if entry.verses %}
@@ -126,7 +126,7 @@
                 <div class="verse-item">
                     <div class="verse-ref">{{ verse.reference if verse.reference else verse }}</div>
                     {% if verse.text %}
-                    <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+                    <div class="verse-text">{{ verse.text | safe }}</div>
                     {% endif %}
                 </div>
                 {% endfor %}

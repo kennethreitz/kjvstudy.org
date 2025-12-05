@@ -151,7 +151,7 @@
         {% for event in events %}
         <article>
             <h3>{{ event.title }} {% if event.date %}<span style="font-size:10pt; color:#666;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span>{% endif %}</h3>
-            <div class="event-description">{{ event.description | link_verses | link_names | safe }}</div>
+            <div class="event-description">{{ event.description | safe }}</div>
             {% if event.verses %}
             <div class="verses">
                 {% for verse in event.verses %}

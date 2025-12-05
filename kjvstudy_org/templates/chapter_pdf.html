@@ -97,6 +97,22 @@
             text-transform: uppercase;
         }
 
+        .verse-section-heading {
+            font-size: 11pt;
+            font-weight: 600;
+            font-style: italic;
+            color: #444;
+            margin: 0.25in 0 0.1in 0;
+            padding-top: 0.1in;
+            border-top: 1px dotted #ccc;
+        }
+
+        .verse-section-heading:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
         .verses {
             columns: 1;
         }
@@ -156,8 +172,8 @@
         }
 
         .ref-description {
-            font-style: italic;
-            color: #666;
+            font-weight: 600;
+            color: #444;
         }
 
         /* Glossary / Word Studies Section */
@@ -270,12 +286,14 @@
 
     <!-- Scripture Text -->
     <div class="scripture-section">
-        <h2 class="section-heading">Scripture</h2>
         <div class="verses">
             {% for verse in verses %}
+            {% if section_headings and verse.verse in section_headings %}
+            <h3 class="verse-section-heading">{{ section_headings[verse.verse] }}</h3>
+            {% endif %}
             <p class="verse">
                 <span class="verse-number">{{ verse.verse }}</span>
-                <span class="verse-text">{{ verse.text | link_names | safe }}</span>
+                <span class="verse-text">{{ verse.text | safe }}</span>
             </p>
             {% endfor %}
         </div>
@@ -296,7 +314,7 @@
                 </div>
                 <div class="glossary-meaning">{{ study.meaning }}</div>
                 {% if study.note %}
-                <div class="glossary-note">{{ study.note | safe }}</div>
+                <div class="glossary-note">{{ study.note | strip_links | safe }}</div>
                 {% endif %}
             </div>
             {% endfor %}

@@ -115,14 +115,14 @@
         {% for name, prophet in prophets.items() %}
         <article>
             <h3>{{ name }} — {{ prophet.title }}</h3>
-            <div class="prophet-description">{{ prophet.description | link_verses | link_names | safe }}</div>
+            <div class="prophet-description">{{ prophet.description | safe }}</div>
 
             {% if prophet.verses %}
             <div class="verses">
                 {% for verse in prophet.verses %}
                 <div class="verse-item">
                     <div class="verse-ref">{{ verse.reference }}</div>
-                    <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+                    <div class="verse-text">{{ verse.text | safe }}</div>
                 </div>
                 {% endfor %}
             </div>

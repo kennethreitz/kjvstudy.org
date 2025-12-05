@@ -116,14 +116,14 @@
         {% for name, parable in parables.items() %}
         <article>
             <h3>{{ name }} — {{ parable.title }}</h3>
-            <div class="description">{{ parable.description | link_verses | link_names | safe }}</div>
+            <div class="description">{{ parable.description | safe }}</div>
 
             {% if parable.verses %}
             <div class="verses">
                 {% for verse in parable.verses %}
                 <div class="verse-item">
                     <div class="verse-ref">{{ verse.reference }}</div>
-                    <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+                    <div class="verse-text">{{ verse.text | safe }}</div>
                 </div>
                 {% endfor %}
             </div>

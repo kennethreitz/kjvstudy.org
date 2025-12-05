@@ -151,7 +151,8 @@ async def book_pdf(request: Request, book: str):
         total_verses += len(verses)
         chapters_data.append({
             "chapter": chapter_num,
-            "verses": verses
+            "verses": verses,
+            "section_headings": get_section_headings(book, chapter_num)
         })
 
     if not chapters_data:
@@ -291,11 +292,18 @@ async def read_chapter(request: Request, book: str, chapter: int):
                 'Judgment': 3,
                 'Parallel theme': 5,  # Generic - lower priority
             }
-            # Sort refs: same book first, then by note priority, then canonical order
+            # Sort refs: same book first, then by note priority, then canonical order, then chapter:verse numerically
             book_order = get_canonical_book_order()
+            def parse_cv(cv):
+                """Parse '3:14' into (3, 14) for numeric sorting."""
+                try:
+                    parts = cv.split(':')
+                    return (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+                except (ValueError, IndexError):
+                    return (999, 999)
             for desc, refs in grouped_refs.items():
                 priority = note_priority.get(desc, 4)  # Default priority for unlisted notes
-                refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), r['chapter_verse']))
+                refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), parse_cv(r['chapter_verse'])))
             # Condense refs: show book only when it changes
             for desc, refs in grouped_refs.items():
                 last_book = None
@@ -407,11 +415,42 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
         grouped_refs = defaultdict(list)
         for ref in cross_refs:
             description = ref['note'] if ref['note'] else 'Related'
-            grouped_refs[description].append(ref['ref'])
+            # Parse the reference to extract book and chapter:verse
+            if ' ' in ref['ref'] and ':' in ref['ref']:
+                ref_book = ref['ref'].rsplit(' ', 1)[0]
+                ref_chapter_verse = ref['ref'].rsplit(' ', 1)[1]
+            else:
+                ref_book = None
+                ref_chapter_verse = ref['ref']
+            grouped_refs[description].append({
+                'text': ref['ref'],
+                'book': ref_book,
+                'chapter_verse': ref_chapter_verse
+            })
+
+        # Sort and condense refs: same book first, then canonical order, then chapter:verse numerically
+        book_order = get_canonical_book_order()
+        def parse_chapter_verse(cv):
+            """Parse '3:14' into (3, 14) for numeric sorting."""
+            try:
+                parts = cv.split(':')
+                return (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+            except (ValueError, IndexError):
+                return (999, 999)
+        for desc, refs in grouped_refs.items():
+            refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), parse_chapter_verse(r['chapter_verse'])))
+            # Condense: show book only when it changes
+            last_book = None
+            for r in refs:
+                if r['book'] == last_book:
+                    r['display'] = r['chapter_verse']
+                else:
+                    r['display'] = r['text']
+                    last_book = r['book']
 
         # Pass all cross-refs (PDF has more space)
         commentary['cross_reference_groups'] = [
-            {'description': desc, 'refs': refs}
+            {'description': desc, 'refs': [r['display'] for r in refs]}
             for desc, refs in grouped_refs.items()
         ]
         commentaries[verse.verse] = commentary
@@ -431,6 +470,9 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
                 glossary.append(study)
     glossary.sort(key=lambda x: x['word'])
 
+    # Get section headings for this chapter
+    section_headings = get_section_headings(book, chapter)
+
     html_content = templates.get_template("chapter_pdf.html").render(
         book=book,
         chapter=chapter,
@@ -440,6 +482,7 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
         book_data=book_data,
         total_chapters=total_chapters,
         glossary=glossary,
+        section_headings=section_headings,
     )
 
     pdf_buffer = await render_html_to_pdf_async(html_content)

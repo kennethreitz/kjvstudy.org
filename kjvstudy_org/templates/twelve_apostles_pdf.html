@@ -122,7 +122,7 @@
                 {% for verse in apostle.verses %}
                 <div class="verse-item">
                     <div class="verse-ref">{{ verse.reference }}</div>
-                    <div class="verse-text">{{ verse.text | link_names | safe }}</div>
+                    <div class="verse-text">{{ verse.text | safe }}</div>
                 </div>
                 {% endfor %}
             </div>

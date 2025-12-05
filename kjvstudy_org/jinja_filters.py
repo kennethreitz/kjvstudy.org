@@ -351,6 +351,17 @@ def linkify_strongs(text):
     return re.sub(pattern, replace, text)
 
 
+def strip_links(text):
+    """Strip HTML anchor tags, keeping only the link text.
+
+    Useful for PDF output where links are not clickable.
+    """
+    if not text:
+        return text
+    # Replace <a href="...">text</a> with just text
+    return re.sub(r'<a\s+[^>]*>([^<]*)</a>', r'\1', text)
+
+
 def register_filters(env):
     """Register all custom filters with a Jinja2 environment."""
     env.filters['slugify'] = create_slug
@@ -364,3 +375,4 @@ def register_filters(env):
     env.filters['split_paragraphs'] = split_paragraphs
     env.filters['number_format'] = number_format
     env.filters['linkify_strongs'] = linkify_strongs
+    env.filters['strip_links'] = strip_links
