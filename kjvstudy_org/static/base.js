@@ -1496,15 +1496,22 @@ function showKeyboardHelp() {
       '<span class="verse-tooltip-reference">' + verseData.reference + '</span>' +
       '<span class="verse-tooltip-text">' + verseData.text + '</span>';
 
-    // Position tooltip
-    var tooltipRect = tooltip.getBoundingClientRect();
+    // Position off-screen first to measure dimensions accurately
+    tooltip.style.left = '-9999px';
+    tooltip.style.top = '-9999px';
+    tooltip.classList.add('show');
+
+    // Force reflow to get accurate dimensions
+    var tooltipWidth = tooltip.offsetWidth;
+    var tooltipHeight = tooltip.offsetHeight;
+
     var padding = 10; // Minimum distance from viewport edge
     var x = mouseX + 15;
     var y = mouseY + 15;
 
     // Adjust if tooltip goes off right edge
-    if (x + tooltipRect.width > window.innerWidth - padding) {
-      x = mouseX - tooltipRect.width - 15;
+    if (x + tooltipWidth > window.innerWidth - padding) {
+      x = mouseX - tooltipWidth - 15;
     }
 
     // Ensure tooltip doesn't go off left edge
@@ -1513,8 +1520,8 @@ function showKeyboardHelp() {
     }
 
     // Adjust if tooltip goes off bottom edge
-    if (y + tooltipRect.height > window.innerHeight - padding) {
-      y = mouseY - tooltipRect.height - 15;
+    if (y + tooltipHeight > window.innerHeight - padding) {
+      y = mouseY - tooltipHeight - 15;
     }
 
     // Ensure tooltip doesn't go off top edge
@@ -1524,7 +1531,6 @@ function showKeyboardHelp() {
 
     tooltip.style.left = x + 'px';
     tooltip.style.top = y + 'px';
-    tooltip.classList.add('show');
   }
 
   // Hide tooltip
