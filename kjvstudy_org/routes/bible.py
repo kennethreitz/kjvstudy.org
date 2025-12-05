@@ -274,6 +274,9 @@ async def read_chapter(request: Request, book: str, chapter: int):
                     'book': ref_book,
                     'chapter_verse': ref_chapter_verse
                 })
+            # Sort refs by book so same-book refs are grouped together
+            for desc, refs in grouped_refs.items():
+                refs.sort(key=lambda r: (r['book'] or '', r['chapter_verse']))
             # Condense refs: show book only when it changes
             for desc, refs in grouped_refs.items():
                 last_book = None
