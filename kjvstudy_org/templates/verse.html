@@ -39,6 +39,41 @@
 
 {% block head %}
 <style>
+/* Action buttons */
+.chapter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.action-btn:hover {
+    background: var(--bg-color);
+    border-color: var(--link-color);
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.action-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
 /* Red Letter Edition - Words of Christ */
 .words-of-christ {
     color: #c41e3a;
