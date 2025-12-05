@@ -160,7 +160,7 @@ def inject_word_markers(text, word_studies, verse_num):
         # Link the original term to Strong's page if we have a Strong's number
         strongs = study.get('strongs')
         if strongs:
-            term_html = f'<a href="/strongs/{strongs}" class="strongs-link" data-strongs="{strongs}">{study["term"]}</a>'
+            term_html = f'<a href="/strongs/{strongs}">{study["term"]}</a>'
         else:
             term_html = study["term"]
         # Wrap details (translit + note) in a span that's hidden by default
