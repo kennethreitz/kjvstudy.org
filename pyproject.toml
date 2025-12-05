@@ -45,6 +45,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
+addopts = "-n 8"
 filterwarnings = [
     "ignore::DeprecationWarning:pydantic.*",
     "ignore:.*example.* has been deprecated.*:DeprecationWarning",
