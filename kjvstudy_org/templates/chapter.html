@@ -497,8 +497,8 @@ document.body.dataset.resourceReader = 'false';
                     {% endfor %}
                 {% endfor %}
                 {% set total_refs = ns.ref_count %}
-                {# Show all if 4 or fewer (avoid "+1"), otherwise show 3 with expand #}
-                {% set preview_count = total_refs if total_refs <= 4 else 3 %}
+                {# Show all if 6 or fewer (avoid "+1"), otherwise show 5 with expand #}
+                {% set preview_count = total_refs if total_refs <= 6 else 5 %}
                 {% set extra_count = total_refs - preview_count %}
                 <label for="sn-{{ verse.verse }}-xrefs" class="margin-toggle sidenote-number"></label>
                 <input type="checkbox" id="sn-{{ verse.verse }}-xrefs" class="margin-toggle"/>

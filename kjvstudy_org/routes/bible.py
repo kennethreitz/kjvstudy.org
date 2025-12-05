@@ -274,9 +274,27 @@ async def read_chapter(request: Request, book: str, chapter: int):
                     'book': ref_book,
                     'chapter_verse': ref_chapter_verse
                 })
-            # Sort refs: same book first, then canonical order (Genesis → Revelation)
+            # Priority ordering for note types (lower = higher priority)
+            note_priority = {
+                'Prophecy': 1,
+                'Covenant': 1,
+                'Fulfillment': 1,
+                'References Jesus': 2,
+                'References Christ': 2,
+                'Resurrection': 2,
+                'Salvation': 2,
+                'References Lord': 3,
+                'References God': 3,
+                'Kingdom': 3,
+                'Faith': 3,
+                'Grace': 3,
+                'Judgment': 3,
+                'Parallel theme': 5,  # Generic - lower priority
+            }
+            # Sort refs: same book first, then by note priority, then canonical order
             book_order = get_canonical_book_order()
             for desc, refs in grouped_refs.items():
+                priority = note_priority.get(desc, 4)  # Default priority for unlisted notes
                 refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), r['chapter_verse']))
             # Condense refs: show book only when it changes
             for desc, refs in grouped_refs.items():
@@ -287,9 +305,11 @@ async def read_chapter(request: Request, book: str, chapter: int):
                     else:
                         r['display'] = r['text']  # Full "Revelation 1:20"
                         last_book = r['book']
+            # Sort groups by note priority
+            sorted_groups = sorted(grouped_refs.items(), key=lambda x: note_priority.get(x[0], 4))
             commentary['cross_reference_groups'] = [
                 {'description': desc, 'refs': refs}
-                for desc, refs in grouped_refs.items()
+                for desc, refs in sorted_groups
             ]
         else:
             commentary['cross_reference_groups'] = []
