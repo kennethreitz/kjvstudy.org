@@ -265,8 +265,8 @@ async def read_chapter(request: Request, book: str, chapter: int):
             # Check next verse length - long verse = more margin room
             next_verse = verse_list[i + 1] if i + 1 < len(verse_list) else None
             next_verse_len = len(next_verse.text) if next_verse else 0
-            # Expand if next verse is 150+ chars (provides margin space)
-            commentary['xref_auto_expand'] = next_verse_len >= 150
+            # Expand if next verse is 120+ chars (provides margin space)
+            commentary['xref_auto_expand'] = next_verse_len >= 120
 
     # Generate chapter overview
     chapter_overview = generate_chapter_overview(book, chapter, verses)
