@@ -234,10 +234,10 @@ async def read_chapter(request: Request, book: str, chapter: int):
                 'url': url
             })
 
-        # Convert to list of groups for template
+        # Convert to list of groups for template (limit to 3 groups, 4 refs per group)
         commentary['cross_reference_groups'] = [
-            {'description': desc, 'refs': refs}
-            for desc, refs in grouped_refs.items()
+            {'description': desc, 'refs': refs[:4]}
+            for desc, refs in list(grouped_refs.items())[:3]
         ]
         commentaries[verse.verse] = commentary
 
@@ -320,9 +320,10 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
             description = ref['note'] if ref['note'] else 'Related'
             grouped_refs[description].append(ref['ref'])
 
+        # Limit to 3 groups, 4 refs per group (same as web view)
         commentary['cross_reference_groups'] = [
-            {'description': desc, 'refs': refs}
-            for desc, refs in grouped_refs.items()
+            {'description': desc, 'refs': refs[:4]}
+            for desc, refs in list(grouped_refs.items())[:3]
         ]
         commentaries[verse.verse] = commentary
 
