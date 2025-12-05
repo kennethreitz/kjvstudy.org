@@ -472,13 +472,12 @@ document.body.dataset.resourceReader = 'false';
         <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="verse-number-link{% if has_commentary %} has-commentary{% endif %}">{{ verse.verse }}</a> {{ verse.text | red_letter(book, chapter, verse.verse) | inject_word_markers(commentary.word_studies if commentary else [], verse.verse) | link_names | safe }}
         {% if commentary %}
             {% if commentary.cross_reference_groups %}
-                {% set first_group = commentary.cross_reference_groups[0] %}
-                {% set first_ref = first_group.refs[0] if first_group.refs else none %}
                 {% set total_refs = commentary.cross_reference_groups | sum(attribute='refs', start=[]) | length %}
+                {% set preview_count = commentary.cross_reference_groups | length %}
                 <label for="sn-{{ verse.verse }}-xrefs" class="margin-toggle sidenote-number"></label>
                 <input type="checkbox" id="sn-{{ verse.verse }}-xrefs" class="margin-toggle"/>
                 <span class="sidenote cross-refs">
-                    <span class="xref-preview">{% if first_ref %}<a href="{{ first_ref.url }}">{{ first_ref.text }}</a>{% if total_refs > 1 %} <span class="xref-more">+{{ total_refs - 1 }} more</span>{% endif %}{% endif %}</span>
+                    <span class="xref-preview">{% for group in commentary.cross_reference_groups %}<strong>{{ group.description }}:</strong> <a href="{{ group.refs[0].url }}">{{ group.refs[0].text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}{% if total_refs > preview_count %} <span class="xref-more">+{{ total_refs - preview_count }}</span>{% endif %}</span>
                     <span class="xref-details">
                     {% for group in commentary.cross_reference_groups %}
                         <strong>{{ group.description }}:</strong> {% for ref in group.refs %}<a href="{{ ref.url }}">{{ ref.text }}</a>{% if not loop.last %}; {% endif %}{% endfor %}.{% if not loop.last %}<br>{% endif %}
