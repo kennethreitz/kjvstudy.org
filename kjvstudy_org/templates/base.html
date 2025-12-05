@@ -211,8 +211,19 @@
             color: #c41e3a !important;
         }
 
+        /* But sidenote links should use normal link color (more specific selector wins) */
+        .words-of-christ .sidenote a,
+        .words-of-christ .marginnote a {
+            color: var(--link-color) !important;
+        }
+
         [data-theme="dark"] .words-of-christ a {
             color: #ff6b6b !important;
+        }
+
+        [data-theme="dark"] .words-of-christ .sidenote a,
+        [data-theme="dark"] .words-of-christ .marginnote a {
+            color: var(--link-color) !important;
         }
 
         a[href*="/book/"][href*="/chapter/"][href*="/verse/"]:not(.verse-number-link),
