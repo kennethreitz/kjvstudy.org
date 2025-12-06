@@ -32,6 +32,9 @@ def is_poetry_chapter(book: str, chapter: int) -> bool:
     data = _load_poetry_data()
     book_data = data.get("books", {}).get(book, {})
     poetry_chapters = book_data.get("poetry_chapters", [])
+    # Handle "all" for books that are entirely poetry
+    if poetry_chapters == "all":
+        return True
     return chapter in poetry_chapters
 
 

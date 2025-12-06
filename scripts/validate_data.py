@@ -219,12 +219,15 @@ class ResourceSlugs(BaseModel):
 class PoetryBookData(BaseModel):
     """Schema for individual book poetry data"""
     is_poetry: bool = Field(..., description="Whether the entire book is poetry")
-    poetry_chapters: List[int] = Field(..., description="List of chapter numbers that are poetry")
+    poetry_chapters: List[int] | str = Field(..., description="List of chapter numbers that are poetry, or 'all'")
     stanza_breaks: Dict[str, List[int]] = Field(..., description="Map of chapter number to list of verse numbers with stanza breaks")
 
     @field_validator('poetry_chapters')
     @classmethod
     def check_chapters_sorted(cls, v):
+        # Allow "all" as a special value for entirely poetry books
+        if v == "all":
+            return v
         if v != sorted(v):
             raise ValueError("poetry_chapters must be sorted")
         if len(v) != len(set(v)):
@@ -251,10 +254,25 @@ class PoetryFormatting(BaseModel):
     @field_validator('books')
     @classmethod
     def check_valid_books(cls, v):
-        valid_poetry_books = {'Psalms', 'Job', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Lamentations'}
+        # Many books have poetic sections (Psalms, Prophets, NT hymns, etc.)
+        # Just validate that book names are valid Bible books
+        valid_books = {
+            'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
+            'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings',
+            '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther',
+            'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon',
+            'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel',
+            'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum',
+            'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi',
+            'Matthew', 'Mark', 'Luke', 'John', 'Acts',
+            'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians',
+            'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians',
+            '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews',
+            'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation'
+        }
         for book_name in v.keys():
-            if book_name not in valid_poetry_books:
-                raise ValueError(f"Unexpected poetry book: {book_name}")
+            if book_name not in valid_books:
+                raise ValueError(f"Invalid book name: {book_name}")
         return v
 
 
