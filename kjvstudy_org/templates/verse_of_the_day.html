@@ -3,54 +3,423 @@
 {% block title %}Verse of the Day - {{ daily_verse.reference }} - KJV Study{% endblock %}
 {% block description %}Today's verse from the King James Bible: {{ daily_verse.reference }} - {{ daily_verse.text[:100] }}...{% endblock %}
 
-{% block content %}
-<h1>Verse of the Day</h1>
-<p class="subtitle">{{ daily_verse.date }}</p>
+{% block head %}
+<style>
+/* Hero verse section */
+.votd-hero {
+    text-align: center;
+    padding: 2rem 0 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
 
-<div class="epigraph">
-    <blockquote>
-        <p>{{ daily_verse.text | link_names | safe }}</p>
-        <footer><a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a></footer>
-    </blockquote>
+.votd-date {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.votd-theme {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--link-color);
+    background: var(--code-bg);
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.votd-title {
+    font-size: 2rem;
+    font-weight: 400;
+    margin: 0 0 2rem 0;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+
+.votd-verse {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    font-style: italic;
+    color: var(--text-color);
+    margin: 0 0 1rem 0;
+}
+
+.votd-reference {
+    font-size: 1rem;
+    font-style: normal;
+}
+
+.votd-reference a {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.votd-reference a:hover {
+    border-bottom-color: var(--link-color);
+}
+
+/* Divider */
+.votd-divider {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+}
+
+/* Devotional content */
+.votd-content {
+    width: 100%;
+}
+
+.votd-section {
+    margin: 2.5rem auto;
+    max-width: 700px;
+    text-align: center;
+}
+
+.votd-section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.votd-section p {
+    font-size: 1.5rem;
+    line-height: 1.9;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+/* Application card */
+.votd-application {
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2.5rem auto;
+    text-align: left;
+    max-width: 550px;
+}
+
+.votd-application p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* Prayer card */
+.votd-prayer {
+    background: linear-gradient(135deg, rgba(74, 124, 89, 0.08) 0%, rgba(74, 124, 89, 0.03) 100%);
+    border-left: 3px solid var(--link-color);
+    border-radius: 0 8px 8px 0;
+    padding: 1.5rem 2rem;
+    margin: 2.5rem auto;
+    text-align: left;
+    max-width: 550px;
+}
+
+.votd-prayer p {
+    font-style: italic;
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+[data-theme="dark"] .votd-prayer {
+    background: linear-gradient(135deg, rgba(74, 124, 89, 0.15) 0%, rgba(74, 124, 89, 0.05) 100%);
+}
+
+/* Actions */
+.votd-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.votd-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.votd-action-btn:hover {
+    color: var(--link-color);
+    border-color: var(--link-color);
+    text-decoration: none;
+}
+
+.votd-action-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Further study - compact */
+.votd-study-links {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.votd-study-links p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.votd-study-links a {
+    color: var(--link-color);
+}
+
+/* Archive - collapsible */
+.votd-archive {
+    margin-top: 3rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.votd-archive-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.votd-archive-toggle:hover {
+    color: var(--text-color);
+}
+
+.votd-archive-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s;
+}
+
+.votd-archive-toggle.open svg {
+    transform: rotate(180deg);
+}
+
+.votd-archive-content {
+    display: none;
+    padding-top: 1rem;
+}
+
+.votd-archive-content.open {
+    display: block;
+}
+
+.votd-archive table {
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.votd-archive th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Large font mode */
+[data-font-size="large"] .votd-verse {
+    font-size: 1.8rem;
+}
+
+[data-font-size="large"] .votd-title {
+    font-size: 2.3rem;
+}
+
+[data-font-size="large"] .votd-section p,
+[data-font-size="large"] .votd-application p,
+[data-font-size="large"] .votd-prayer p {
+    font-size: 1.3rem;
+}
+
+/* Print styles */
+@media print {
+    .votd-actions,
+    .votd-archive {
+        display: none;
+    }
+
+    .votd-hero {
+        padding: 0 0 1.5rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="votd-hero">
+    <p class="votd-date">{{ daily_verse.date }}</p>
+
+    {% if daily_verse.devotional %}
+    <span class="votd-theme">{{ daily_verse.devotional.theme }}</span>
+    <h1 class="votd-title">{{ daily_verse.devotional.title }}</h1>
+    {% else %}
+    <h1 class="votd-title">Verse of the Day</h1>
+    {% endif %}
+
+    <p class="votd-verse">{{ daily_verse.text | link_names | safe }}</p>
+    <p class="votd-reference">
+        <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a>
+    </p>
 </div>
 
-<section>
-    <h2>For Meditation</h2>
-    <p><span class="newthought">The practice</span> of daily meditation upon Scripture has been commended by the godly throughout the ages. As the Psalmist declares, "Blessed is the man... [whose] delight is in the law of the LORD; and in his law doth he meditate day and night." Consider, as you reflect upon this portion of God's Word:</p>
+{% if daily_verse.devotional %}
+<div class="votd-divider">· · ·</div>
 
-    <p>What does this verse reveal concerning the character and purposes of the Almighty? How might its truth be applied to the circumstances of your own life? What action or change of heart does the Holy Spirit call forth in response to this divine instruction?</p>
-</section>
+<div class="votd-content">
+    <section class="votd-section">
+        <p><span class="newthought">{{ daily_verse.devotional.opening.split(' ')[:3] | join(' ') }}</span> {{ daily_verse.devotional.opening.split(' ')[3:] | join(' ') }}</p>
+    </section>
 
-<section>
-    <h2>Further Study</h2>
-    <p>The careful student of Scripture will wish to examine this verse within its fuller context. Proceed to <a href="/book/{{ daily_verse.book }}">the book of {{ daily_verse.book }}</a>, or read <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}">chapter {{ daily_verse.chapter }} entire</a>, or consult the <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">full commentary</a> upon this passage.</p>
-</section>
+    <section class="votd-section">
+        <p>{{ daily_verse.devotional.meditation }}</p>
+    </section>
 
-<section>
-    <h2>Archive of Recent Verses</h2>
-    <p>For those who would review the portions appointed for meditation during the past month:</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Scripture Reference</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for verse in past_verses %}
-            <tr>
-                <td>{{ verse.date }}</td>
-                <td><a href="/book/{{ verse.book }}/chapter/{{ verse.chapter }}/verse/{{ verse.verse }}">{{ verse.reference }}</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
+    <div class="votd-application">
+        <p class="votd-section-label">For Today</p>
+        <p>{{ daily_verse.devotional.application }}</p>
+    </div>
+
+    <div class="votd-prayer">
+        <p class="votd-section-label">Prayer</p>
+        <p>{{ daily_verse.devotional.prayer }}</p>
+    </div>
+</div>
+{% else %}
+<div class="votd-content">
+    <section class="votd-section">
+        <p><span class="newthought">The practice</span> of daily meditation upon Scripture has been commended by the godly throughout the ages. Consider what this verse reveals about God's character and how it applies to your life today.</p>
+    </section>
+</div>
+{% endif %}
+
+<div class="votd-actions">
+    <button class="votd-action-btn" id="listen-btn" title="Listen to devotional">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        </svg>
+        Listen
+    </button>
+    <a class="votd-action-btn" href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}#commentary">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        Full Commentary
+    </a>
+    <a class="votd-action-btn" href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        Read Chapter
+    </a>
+</div>
+
+<div class="votd-archive">
+    <div class="votd-archive-toggle" id="archive-toggle">
+        <span>Past 30 Days</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </div>
+    <div class="votd-archive-content" id="archive-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Scripture</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for verse in past_verses %}
+                <tr>
+                    <td>{{ verse.date }}</td>
+                    <td><a href="/book/{{ verse.book }}/chapter/{{ verse.chapter }}/verse/{{ verse.verse }}">{{ verse.reference }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Simple keyboard navigation - verse blockquote, section paragraphs, and table rows
-    KJVNav.initSimpleNav('.epigraph blockquote, section > p, tbody tr');
-});
+(function() {
+    // Archive toggle
+    var toggle = document.getElementById('archive-toggle');
+    var content = document.getElementById('archive-content');
+
+    toggle.addEventListener('click', function() {
+        toggle.classList.toggle('open');
+        content.classList.toggle('open');
+    });
+
+    // Listen button - read the devotional
+    var listenBtn = document.getElementById('listen-btn');
+    var isPlaying = false;
+
+    listenBtn.addEventListener('click', function() {
+        if (isPlaying) {
+            if (window.KJVSpeech) window.KJVSpeech.stop();
+            listenBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg> Listen';
+            isPlaying = false;
+            return;
+        }
+
+        // Gather text to read
+        var parts = [];
+        var verse = document.querySelector('.votd-verse');
+        var reference = document.querySelector('.votd-reference');
+        var sections = document.querySelectorAll('.votd-section p, .votd-application p:not(.votd-section-label), .votd-prayer p:not(.votd-section-label)');
+
+        if (verse) parts.push(verse.textContent);
+        if (reference) parts.push(reference.textContent);
+        sections.forEach(function(p) {
+            if (!p.classList.contains('votd-section-label')) {
+                parts.push(p.textContent);
+            }
+        });
+
+        var fullText = parts.join('. ');
+
+        if (window.KJVSpeech && fullText) {
+            window.KJVSpeech.speak(fullText);
+            listenBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" /></svg> Stop';
+            isPlaying = true;
+        }
+    });
+
+    // Stop playing on escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isPlaying) {
+            listenBtn.click();
+        }
+    });
+})();
 </script>
 {% endblock %}

@@ -1,13 +1,12 @@
 """Main page routes - homepage, books browser, and resources."""
-import hashlib
 import re
-from datetime import datetime
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
+from .misc import get_daily_verse
 
 router = APIRouter()
 templates = None
@@ -47,67 +46,6 @@ def verse_reference_to_url(reference: str):
     else:
         # Single verse - link to chapter with anchor
         return f"/book/{book}/chapter/{chapter}#verse-{verse_start}"
-
-
-def get_daily_verse(date_str=None):
-    """Get the verse of the day based on a specific date (or current date if not provided)"""
-    # Use date as seed for consistent daily verse
-    if date_str is None:
-        date_str = datetime.now().strftime("%Y-%m-%d")
-    seed = int(hashlib.md5(date_str.encode()).hexdigest(), 16) % 1000000
-
-    # Featured verses for rotation
-    featured_verses = [
-        ("John", 3, 16),
-        ("Jeremiah", 29, 11),
-        ("Philippians", 4, 13),
-        ("Romans", 8, 28),
-        ("Proverbs", 3, 5),
-        ("Isaiah", 41, 10),
-        ("Matthew", 11, 28),
-        ("1 John", 4, 19),
-        ("Psalms", 23, 1),
-        ("2 Corinthians", 5, 17),
-        ("Ephesians", 2, 8),
-        ("Romans", 10, 9),
-        ("1 Peter", 5, 7),
-        ("James", 1, 5),
-        ("Philippians", 4, 19),
-        ("Psalms", 119, 105),
-        ("Matthew", 6, 33),
-        ("Romans", 12, 2),
-        ("1 Corinthians", 13, 13),
-        ("Galatians", 5, 22),
-        ("Hebrews", 11, 1),
-        ("1 Thessalonians", 5, 18),
-        ("Psalms", 46, 1),
-        ("Isaiah", 40, 31),
-        ("Matthew", 5, 16),
-        ("Romans", 15, 13),
-        ("Colossians", 3, 23),
-        ("1 John", 1, 9),
-        ("Psalms", 37, 4),
-        ("Proverbs", 27, 17)
-    ]
-
-    # Select verse based on seed
-    verse_index = seed % len(featured_verses)
-    book, chapter, verse = featured_verses[verse_index]
-
-    verse_text = bible.get_verse_text(book, chapter, verse)
-    if not verse_text:
-        # Fallback to John 3:16
-        book, chapter, verse = "John", 3, 16
-        verse_text = bible.get_verse_text(book, chapter, verse)
-
-    return {
-        "book": book,
-        "chapter": chapter,
-        "verse": verse,
-        "text": verse_text,
-        "reference": f"{book} {chapter}:{verse}",
-        "date": date_str
-    }
 
 
 # =============================================================================

@@ -1,35 +1,407 @@
 {
   "verses": [
-    {"book": "John", "chapter": 3, "verse": 16},
-    {"book": "Psalms", "chapter": 23, "verse": 1},
-    {"book": "Proverbs", "chapter": 3, "verse": 5},
-    {"book": "Philippians", "chapter": 4, "verse": 13},
-    {"book": "Romans", "chapter": 8, "verse": 28},
-    {"book": "Isaiah", "chapter": 40, "verse": 31},
-    {"book": "Jeremiah", "chapter": 29, "verse": 11},
-    {"book": "Joshua", "chapter": 1, "verse": 9},
-    {"book": "Matthew", "chapter": 11, "verse": 28},
-    {"book": "Psalms", "chapter": 46, "verse": 10},
-    {"book": "Romans", "chapter": 12, "verse": 2},
-    {"book": "2 Timothy", "chapter": 1, "verse": 7},
-    {"book": "Proverbs", "chapter": 22, "verse": 6},
-    {"book": "1 Corinthians", "chapter": 13, "verse": 4},
-    {"book": "Galatians", "chapter": 5, "verse": 22},
-    {"book": "Hebrews", "chapter": 11, "verse": 1},
-    {"book": "James", "chapter": 1, "verse": 2},
-    {"book": "1 Peter", "chapter": 5, "verse": 7},
-    {"book": "Psalms", "chapter": 119, "verse": 105},
-    {"book": "Matthew", "chapter": 6, "verse": 33},
-    {"book": "John", "chapter": 14, "verse": 6},
-    {"book": "Romans", "chapter": 5, "verse": 8},
-    {"book": "Ephesians", "chapter": 2, "verse": 8},
-    {"book": "Psalms", "chapter": 27, "verse": 1},
-    {"book": "Isaiah", "chapter": 41, "verse": 10},
-    {"book": "Matthew", "chapter": 28, "verse": 19},
-    {"book": "John", "chapter": 1, "verse": 1},
-    {"book": "Psalms", "chapter": 51, "verse": 10},
-    {"book": "Proverbs", "chapter": 18, "verse": 10},
-    {"book": "2 Corinthians", "chapter": 5, "verse": 17},
-    {"book": "Colossians", "chapter": 3, "verse": 23}
+    {
+      "book": "John",
+      "chapter": 3,
+      "verse": 16,
+      "devotional": {
+        "title": "The Heart of the Gospel",
+        "theme": "God's Love",
+        "opening": "No verse captures the essence of Christianity more completely than these words spoken by Jesus to Nicodemus under cover of night.",
+        "meditation": "God's love is not passive sentiment but active sacrifice. Before we loved Him, while we were yet sinners, He gave. The cross was not God's reluctant concession but His deliberate demonstration of love. 'Whosoever believeth'\u2014the offer stands open to all.",
+        "application": "Rest today in the security of a love that reached you before you reached for it. Extend that same unconditional love to someone difficult.",
+        "prayer": "Father, thank You that Your love found me. Help me live as one who is deeply loved, and love others the same way. Amen."
+      }
+    },
+    {
+      "book": "Psalms",
+      "chapter": 23,
+      "verse": 1,
+      "devotional": {
+        "title": "The Shepherd's Care",
+        "theme": "God's Provision",
+        "opening": "David, once a shepherd himself, understood what it meant to care for vulnerable sheep\u2014and recognized that same tender care in his God.",
+        "meditation": "To say 'The LORD is my shepherd' is to acknowledge both dependence and provision. Sheep cannot guide themselves, defend themselves, or provide for themselves. Neither can we. But in this admission of weakness lies our greatest security.",
+        "application": "What need are you anxiously trying to meet yourself? Release it to your Shepherd today.",
+        "prayer": "Lord, You are my Shepherd. I surrender my striving and trust Your provision. Lead me in paths of righteousness today. Amen."
+      }
+    },
+    {
+      "book": "Proverbs",
+      "chapter": 3,
+      "verse": 5,
+      "devotional": {
+        "title": "Trust Over Understanding",
+        "theme": "Faith",
+        "opening": "Our minds crave certainty, yet God often asks us to walk by faith into uncertainty\u2014trusting His character when we cannot trace His hand.",
+        "meditation": "The command is not to stop thinking but to stop leaning\u2014putting our full weight on our own conclusions. 'With all thine heart' means no reservations, no backup plans, no contingencies held in reserve.",
+        "application": "Identify one situation where you're trying to figure everything out. Choose to trust God's wisdom over your own analysis.",
+        "prayer": "Father, I acknowledge that Your ways are higher than mine. I choose to trust You with all my heart, even when I don't understand. Amen."
+      }
+    },
+    {
+      "book": "Philippians",
+      "chapter": 4,
+      "verse": 13,
+      "devotional": {
+        "title": "Strength for Every Season",
+        "theme": "Dependence on God",
+        "opening": "Often quoted as a promise of personal achievement, this verse is actually Paul's secret to contentment in all circumstances\u2014written from a prison cell.",
+        "meditation": "Paul had learned to be content whether abased or abounding. The 'all things' aren't worldly ambitions but the circumstances God ordains\u2014suffering, lack, opposition. Christ's strength enables endurance, not necessarily escape.",
+        "application": "Instead of asking God to change your circumstances, ask for His strength to glorify Him within them.",
+        "prayer": "Lord Jesus, be my strength today. Not for my agenda, but for Yours. Help me be content in whatever You ordain. Amen."
+      }
+    },
+    {
+      "book": "Romans",
+      "chapter": 8,
+      "verse": 28,
+      "devotional": {
+        "title": "All Things Working Together",
+        "theme": "God's Sovereignty",
+        "opening": "In a world of suffering and chaos, this verse stands as an anchor\u2014not a denial of pain but a declaration of purpose.",
+        "meditation": "God doesn't promise that all things are good, but that He works them together for good. The master weaver takes even the dark threads\u2014suffering, loss, failure\u2014and incorporates them into a pattern of beauty we'll one day see clearly.",
+        "application": "What 'dark thread' in your life do you struggle to trust God with? Surrender it to His sovereign purpose.",
+        "prayer": "Sovereign Lord, I trust that You are working all things\u2014even this\u2014for my good and Your glory. Give me eyes to see Your hand. Amen."
+      }
+    },
+    {
+      "book": "Isaiah",
+      "chapter": 40,
+      "verse": 31,
+      "devotional": {
+        "title": "Renewed Strength",
+        "theme": "Waiting on God",
+        "opening": "To a weary, exiled Israel, God spoke these words of hope\u2014and they speak still to every exhausted soul today.",
+        "meditation": "The world says 'try harder.' God says 'wait on Me.' This is not passive resignation but active expectation\u2014looking to God as the source of strength rather than mustering our own reserves. Those who wait exchange their weakness for His power.",
+        "application": "Where are you running on empty? Stop striving and spend time simply waiting in God's presence today.",
+        "prayer": "Lord, I am weary. I stop running on my own strength and wait on You. Renew my strength; let me mount up with wings as eagles. Amen."
+      }
+    },
+    {
+      "book": "Jeremiah",
+      "chapter": 29,
+      "verse": 11,
+      "devotional": {
+        "title": "Plans for Hope",
+        "theme": "God's Purposes",
+        "opening": "Spoken to exiles in Babylon facing 70 years of captivity, this promise reminds us that God's plans operate on a timeline larger than our immediate circumstances.",
+        "meditation": "God's good plans don't always mean immediate deliverance. The exiles would live and die in Babylon\u2014yet God's purposes for His people remained. Our hope rests not in quick fixes but in the character of the One who holds our future.",
+        "application": "Trust that God is working even when His timeline differs from yours. His plans for you are good, even in seasons of waiting.",
+        "prayer": "Father, I trust Your plans over my own. You know the end from the beginning. Give me patience and hope in the waiting. Amen."
+      }
+    },
+    {
+      "book": "Joshua",
+      "chapter": 1,
+      "verse": 9,
+      "devotional": {
+        "title": "Courage for the Unknown",
+        "theme": "God's Presence",
+        "opening": "Moses was dead. The wilderness was behind. An unconquered land lay ahead. And God spoke to Joshua: 'Be strong and of good courage.'",
+        "meditation": "The command is not 'feel brave' but 'be strong'\u2014a choice rooted in reality, not emotion. Why courage? Not because the challenges are small, but because 'the LORD thy God is with thee whithersoever thou goest.' His presence is our courage.",
+        "application": "What unknown territory lies before you? Step forward today, not in your own bravery, but in the reality of God's presence with you.",
+        "prayer": "Lord, I will be strong and courageous, not because I am able, but because You are with me. Go before me into the unknown. Amen."
+      }
+    },
+    {
+      "book": "Matthew",
+      "chapter": 11,
+      "verse": 28,
+      "devotional": {
+        "title": "Rest for the Weary",
+        "theme": "Grace",
+        "opening": "To those crushed under the weight of religious obligation, Jesus offers the most beautiful invitation in Scripture: 'Come unto me... and I will give you rest.'",
+        "meditation": "Jesus doesn't say 'try harder' or 'do more.' He says 'come.' This is grace\u2014rest given, not earned. The weary and heavy-laden are precisely those He invites. Your exhaustion qualifies you for His rest.",
+        "application": "What burden are you carrying that Christ wants to take? Come to Him today\u2014not with performance, but with your weariness.",
+        "prayer": "Jesus, I come to You weary and heavy-laden. I lay down my burdens and receive Your rest. Teach me Your easy yoke. Amen."
+      }
+    },
+    {
+      "book": "Psalms",
+      "chapter": 46,
+      "verse": 10,
+      "devotional": {
+        "title": "Be Still and Know",
+        "theme": "God's Sovereignty",
+        "opening": "Amid earthquakes, roaring seas, and falling kingdoms, God speaks: 'Be still, and know that I am God.'",
+        "meditation": "Stillness is not passivity but profound trust. When chaos surrounds us, our souls clamor for action. But God invites us to cease striving\u2014to stop fighting as if everything depends on us\u2014and remember who He is.",
+        "application": "Find a moment of stillness today. Turn off the noise. Remember: He is God, and you are not. Let that truth settle your anxious heart.",
+        "prayer": "Lord, I am still before You. I release my need to control. You are God\u2014sovereign over nations, sovereign over my life. I rest in that. Amen."
+      }
+    },
+    {
+      "book": "Romans",
+      "chapter": 12,
+      "verse": 2,
+      "devotional": {
+        "title": "Transformed Thinking",
+        "theme": "Sanctification",
+        "opening": "The world presses us into its mold\u2014its values, its priorities, its definition of success. But God calls us to a different pattern.",
+        "meditation": "Transformation begins in the mind. We are not merely to resist the world's squeeze but to be actively renewed\u2014reprogrammed by God's truth. Only then can we discern His will: good, acceptable, and perfect.",
+        "application": "What worldly pattern of thinking has shaped you? Identify one area and intentionally renew your mind with Scripture today.",
+        "prayer": "Father, renew my mind. Transform my thinking by Your truth. Help me discern and walk in Your good and perfect will. Amen."
+      }
+    },
+    {
+      "book": "2 Timothy",
+      "chapter": 1,
+      "verse": 7,
+      "devotional": {
+        "title": "Spirit of Power",
+        "theme": "Courage",
+        "opening": "To a young, timid Timothy, Paul writes words that echo across centuries to every fearful believer.",
+        "meditation": "Fear is not from God. What He has given is power\u2014supernatural enablement; love\u2014that casts out fear; and a sound mind\u2014disciplined self-control. These are not personality traits to develop but gifts already given.",
+        "application": "What fear is holding you back? Remember: that spirit is not from God. Walk today in the power, love, and sound mind He has already given you.",
+        "prayer": "Father, I reject the spirit of fear. I receive Your Spirit of power, love, and a sound mind. Empower me to live boldly today. Amen."
+      }
+    },
+    {
+      "book": "Proverbs",
+      "chapter": 22,
+      "verse": 6,
+      "devotional": {
+        "title": "Training the Next Generation",
+        "theme": "Parenting",
+        "opening": "In an age of endless parenting theories, ancient wisdom cuts through: shape the trajectory early, and it tends to hold.",
+        "meditation": "This is not a guarantee but a proverb\u2014a general principle of wisdom. Children trained in God's ways have a foundation that calls them back even when they stray. The 'way he should go' is not our agenda for them but God's path of wisdom.",
+        "application": "Whether parent, mentor, or influence in any child's life\u2014what are you modeling? What path are you pointing toward?",
+        "prayer": "Lord, give me wisdom to train the next generation in Your ways. May the seeds planted bear fruit for eternity. Amen."
+      }
+    },
+    {
+      "book": "1 Corinthians",
+      "chapter": 13,
+      "verse": 4,
+      "devotional": {
+        "title": "Love Defined",
+        "theme": "Love",
+        "opening": "We speak of love constantly, yet rarely define it. Paul gives us not poetry but precision: this is what love does.",
+        "meditation": "Love is patient\u2014it bears delays without irritation. Love is kind\u2014it actively seeks the good of others. It envies not\u2014it celebrates others' blessings. It vaunts not itself\u2014it doesn't parade or self-promote. This is not feeling but action.",
+        "application": "Choose one quality from this verse. Practice it deliberately with someone today\u2014especially someone difficult to love.",
+        "prayer": "Father, Your love is patient and kind. Pour that love through me today. Where I fall short, fill in with Your Spirit. Amen."
+      }
+    },
+    {
+      "book": "Galatians",
+      "chapter": 5,
+      "verse": 22,
+      "devotional": {
+        "title": "Fruit of the Spirit",
+        "theme": "Holy Spirit",
+        "opening": "What the law could never produce, the Spirit grows naturally in those who walk with Him.",
+        "meditation": "This is fruit, not works\u2014organic growth rather than strained effort. Love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, temperance\u2014these emerge from abiding in Christ, not from self-improvement programs.",
+        "application": "Which fruit feels most lacking in your life? Rather than trying harder, spend more time with the Vine. Fruit grows from connection.",
+        "prayer": "Holy Spirit, grow Your fruit in me. I abide in Christ today. Produce in me what I could never manufacture myself. Amen."
+      }
+    },
+    {
+      "book": "Hebrews",
+      "chapter": 11,
+      "verse": 1,
+      "devotional": {
+        "title": "The Substance of Faith",
+        "theme": "Faith",
+        "opening": "Faith is not wishful thinking or blind optimism. Here is its precise definition\u2014the substance of things hoped for.",
+        "meditation": "Faith is 'substance'\u2014real, tangible spiritual reality. Things hoped for are not yet seen, yet faith treats them as present. Faith is 'evidence'\u2014proof that convinces, even without physical sight. This is how the ancients lived and died.",
+        "application": "What are you hoping for that you cannot yet see? Hold it with faith's certainty\u2014as substance, as evidence\u2014while you wait.",
+        "prayer": "Lord, increase my faith. Help me treat Your promises as substance, Your word as evidence. I walk by faith, not by sight. Amen."
+      }
+    },
+    {
+      "book": "James",
+      "chapter": 1,
+      "verse": 2,
+      "devotional": {
+        "title": "Joy in Trials",
+        "theme": "Suffering",
+        "opening": "Count it all joy? When trials come? James's opening words challenge our natural instincts.",
+        "meditation": "The command is not to feel happy but to count\u2014to reckon, to consider, to choose a perspective. Trials test faith, testing produces patience, patience leads to maturity. The math works out: trials are gain, not loss.",
+        "application": "What trial are you facing? Reframe it: what might God be producing in you through this? Count it as investment, not punishment.",
+        "prayer": "Father, I choose to count it joy. I don't understand this trial, but I trust Your purpose in it. Complete Your work in me. Amen."
+      }
+    },
+    {
+      "book": "1 Peter",
+      "chapter": 5,
+      "verse": 7,
+      "devotional": {
+        "title": "Casting Your Cares",
+        "theme": "Anxiety",
+        "opening": "Anxiety weighs us down with burdens we were never meant to carry. Peter offers a simple solution: cast them.",
+        "meditation": "The word 'casting' means to throw upon\u2014a deliberate transfer. We don't merely share our cares with God; we throw them onto Him. Why? Because He cares for us. His care for you enables your release of care.",
+        "application": "What worry are you clutching? Name it specifically. Now cast it\u2014throw it onto God who cares for you.",
+        "prayer": "Father, I cast all my anxieties on You\u2014[name them]. You care for me. I release these burdens into Your capable hands. Amen."
+      }
+    },
+    {
+      "book": "Psalms",
+      "chapter": 119,
+      "verse": 105,
+      "devotional": {
+        "title": "Light for the Path",
+        "theme": "Scripture",
+        "opening": "In darkness, we need light\u2014not to see the whole journey, but enough for the next step.",
+        "meditation": "God's word is lamp and light\u2014not a floodlight revealing miles ahead, but a lamp illuminating the path at our feet. Step by step, Scripture guides. We don't need to see the destination; we need light for today's obedience.",
+        "application": "What decision or direction needs clarity? Open God's word. Let it illuminate not the whole future, but your next step.",
+        "prayer": "Lord, Your word is my lamp. I don't need to see the whole path\u2014just the next step. Illuminate my way through Scripture today. Amen."
+      }
+    },
+    {
+      "book": "Matthew",
+      "chapter": 6,
+      "verse": 33,
+      "devotional": {
+        "title": "First Things First",
+        "theme": "Priorities",
+        "opening": "What shall we eat? What shall we wear? Jesus addresses our anxious questions with a radical reordering of priorities.",
+        "meditation": "Seek first\u2014not second, not when convenient, not after other needs are met. God's kingdom and His righteousness take priority; all else follows. This is not neglect of needs but proper ordering of concern.",
+        "application": "Examine today's agenda. What's getting your 'first' energy? Reorder if necessary\u2014put God's kingdom ahead of earthly anxieties.",
+        "prayer": "Father, I seek first Your kingdom and righteousness. I trust You to add what I need. Realign my priorities today. Amen."
+      }
+    },
+    {
+      "book": "John",
+      "chapter": 14,
+      "verse": 6,
+      "devotional": {
+        "title": "The Exclusive Way",
+        "theme": "Salvation",
+        "opening": "In an age of many paths, Jesus makes a singular claim: not a way, but THE way\u2014the only route to the Father.",
+        "meditation": "Jesus is way\u2014the path itself, not merely a pointer. He is truth\u2014not just true things but truth embodied. He is life\u2014not a philosophy of living but life itself. No one comes to the Father but through Him. This is exclusive love.",
+        "application": "Is Jesus your way, or one option among many? His exclusive claim demands exclusive trust. Settle it today.",
+        "prayer": "Jesus, You are the way, the truth, and the life. I come to the Father through You alone. Be my only path. Amen."
+      }
+    },
+    {
+      "book": "Romans",
+      "chapter": 5,
+      "verse": 8,
+      "devotional": {
+        "title": "Love While Sinners",
+        "theme": "Grace",
+        "opening": "We tend to love those who deserve it. God's love operates on an entirely different basis.",
+        "meditation": "While we were yet sinners\u2014not after we cleaned up, not when we deserved it, not in response to our seeking\u2014Christ died for us. This is the order of grace: love first, then redemption. God's love is not a response to our goodness but the cause of it.",
+        "application": "You didn't earn God's love then; you can't earn it now. Rest in love given while you were His enemy.",
+        "prayer": "Father, thank You for loving me while I was yet a sinner. Your grace came first. I rest in love I didn't earn. Amen."
+      }
+    },
+    {
+      "book": "Ephesians",
+      "chapter": 2,
+      "verse": 8,
+      "devotional": {
+        "title": "Saved by Grace",
+        "theme": "Salvation",
+        "opening": "The heart of the Reformation, the core of Christianity, in one verse: grace through faith, not works.",
+        "meditation": "Saved\u2014rescued, delivered, redeemed. By grace\u2014unmerited favor, God's riches at Christ's expense. Through faith\u2014the empty hand that receives. Not of works\u2014lest any man should boast. This leaves no room for human contribution to salvation.",
+        "application": "Are you resting in grace or secretly trusting your own effort? Receive salvation as gift, not paycheck.",
+        "prayer": "Father, I am saved by grace through faith\u2014Your gift, not my work. I boast only in Christ. Thank You for this free gift. Amen."
+      }
+    },
+    {
+      "book": "Psalms",
+      "chapter": 27,
+      "verse": 1,
+      "devotional": {
+        "title": "Light, Salvation, Strength",
+        "theme": "Courage",
+        "opening": "David asks a rhetorical question whose answer banishes fear: if the LORD is these things, whom shall I fear?",
+        "meditation": "Light dispels darkness; salvation rescues from danger; strength of life sustains through trial. With God as all three, fear loses its rational basis. 'Of whom shall I be afraid?' becomes not bravado but reasonable conclusion.",
+        "application": "What person or circumstance causes you fear? Set it against this truth: the LORD is your light, salvation, and strength. Whom shall you fear?",
+        "prayer": "Lord, You are my light\u2014I will not fear darkness. You are my salvation\u2014I will not fear danger. You are my strength\u2014I will not be shaken. Amen."
+      }
+    },
+    {
+      "book": "Isaiah",
+      "chapter": 41,
+      "verse": 10,
+      "devotional": {
+        "title": "Fear Not, I Am With You",
+        "theme": "God's Presence",
+        "opening": "Three times in this verse, God addresses our fear. He knows how prone we are to it\u2014and how completely His presence answers it.",
+        "meditation": "'Fear thou not'\u2014a command. 'For I am with thee'\u2014the reason. 'Be not dismayed'\u2014don't look around in anxiety. 'For I am thy God'\u2014the relationship. He will strengthen, help, and uphold. Our fear meets His presence and finds no foothold.",
+        "application": "Which fear needs to hear 'I am with you' today? Let God's presence, not changed circumstances, be your answer to fear.",
+        "prayer": "Lord, I will not fear because You are with me. I will not be dismayed because You are my God. Strengthen, help, and uphold me. Amen."
+      }
+    },
+    {
+      "book": "Matthew",
+      "chapter": 28,
+      "verse": 19,
+      "devotional": {
+        "title": "The Great Commission",
+        "theme": "Mission",
+        "opening": "Jesus's final command\u2014not a suggestion, not for specialists only\u2014a commission to every disciple in every age.",
+        "meditation": "Go\u2014this is movement, not stationary faith. Make disciples\u2014not just converts but learners becoming teachers. All nations\u2014no ethnic, geographic, or social boundary limits this mission. The command flows from all authority in heaven and earth.",
+        "application": "How are you participating in making disciples? Start with one person\u2014share, teach, model the faith.",
+        "prayer": "Lord Jesus, I receive Your commission. Use me to make disciples. Show me who to invest in. May Your kingdom expand through me. Amen."
+      }
+    },
+    {
+      "book": "John",
+      "chapter": 1,
+      "verse": 1,
+      "devotional": {
+        "title": "The Eternal Word",
+        "theme": "Christ's Divinity",
+        "opening": "Before time began, before creation existed, before anything was\u2014the Word already was, and the Word was God.",
+        "meditation": "In the beginning\u2014echoing Genesis 1:1, John establishes Christ's eternal pre-existence. The Word was with God\u2014distinct person, intimate fellowship. The Word was God\u2014full deity, not created being. This is the foundation of Christian faith: Jesus Christ is eternally God.",
+        "application": "Marvel today at who Jesus really is\u2014not merely teacher or prophet, but the eternal Word made flesh for your salvation.",
+        "prayer": "Lord Jesus, You are the eternal Word\u2014with God, and God. I worship You, not as creature but as Creator. You are God. Amen."
+      }
+    },
+    {
+      "book": "Psalms",
+      "chapter": 51,
+      "verse": 10,
+      "devotional": {
+        "title": "Create in Me",
+        "theme": "Repentance",
+        "opening": "After grievous sin with Bathsheba, David prays for more than forgiveness\u2014he prays for inward transformation.",
+        "meditation": "Create\u2014the word used in Genesis 1:1\u2014something only God can do. A clean heart is not self-improvement but divine recreation. Renew a right spirit\u2014restore steadfastness where instability led to sin. David wants changed character, not just cleared record.",
+        "application": "Beyond forgiven sins, what needs God's creative work in your heart? Ask Him to make new what self-effort cannot fix.",
+        "prayer": "Create in me a clean heart, O God. Renew a right spirit within me. Do what only You can do\u2014remake me from within. Amen."
+      }
+    },
+    {
+      "book": "Proverbs",
+      "chapter": 18,
+      "verse": 10,
+      "devotional": {
+        "title": "The Strong Tower",
+        "theme": "God's Protection",
+        "opening": "In ancient warfare, the tower was refuge when battle overwhelmed. God's name\u2014His character, His nature\u2014is that tower for His people.",
+        "meditation": "The name of the LORD encompasses all His attributes: faithful, powerful, loving, just, sovereign. The righteous run into it\u2014active fleeing to refuge. And they are safe\u2014set on high, out of reach of the enemy. Safety is not circumstantial but positional.",
+        "application": "What threatens you today? Run into the strong tower of who God is. His name\u2014His character\u2014is your protection.",
+        "prayer": "Lord, Your name is my strong tower. I run into who You are\u2014faithful, mighty, loving. I am safe in You. Amen."
+      }
+    },
+    {
+      "book": "2 Corinthians",
+      "chapter": 5,
+      "verse": 17,
+      "devotional": {
+        "title": "New Creation",
+        "theme": "New Life",
+        "opening": "Christianity is not reformation but regeneration\u2014not improvement of the old but creation of something entirely new.",
+        "meditation": "In Christ\u2014the key phrase\u2014everything changes. A new creature\u2014not upgraded but recreated. Old things passed away\u2014former identity, old bondages, past definitions. All things become new\u2014new identity, new power, new possibilities. This is present reality, not future hope.",
+        "application": "Do you live as a new creation or keep returning to old identities? You are not who you were. Live from your new reality in Christ.",
+        "prayer": "Father, I am a new creation in Christ. Old things have passed away. I embrace the newness You have made me. I am Yours. Amen."
+      }
+    },
+    {
+      "book": "Colossians",
+      "chapter": 3,
+      "verse": 23,
+      "devotional": {
+        "title": "Working for the Lord",
+        "theme": "Work",
+        "opening": "Whatever your job, however mundane the task\u2014here is the perspective that transforms labor into worship.",
+        "meditation": "Whatsoever ye do\u2014every task, not just 'spiritual' ones. Heartily\u2014from the soul, with genuine engagement. As to the Lord\u2014here's the transformation: your boss isn't your ultimate audience. Whether noticed or not, you work for Christ.",
+        "application": "View today's tasks\u2014even the tedious ones\u2014as service to Christ. Let that reality change your diligence and attitude.",
+        "prayer": "Lord, I work today as unto You, not men. Receive my labor as worship. Help me give my best because You are my true Master. Amen."
+      }
+    }
   ]
 }

@@ -36,6 +36,17 @@ def init_search_family_tree(fn):
 # Helper Functions
 # =============================================================================
 
+def _load_featured_verses():
+    """Load featured verses from JSON file."""
+    import json
+    from pathlib import Path
+    data_file = Path(__file__).parent.parent / "data" / "featured_verses.json"
+    if data_file.exists():
+        with open(data_file, "r", encoding="utf-8") as f:
+            return json.load(f).get("verses", [])
+    return []
+
+
 def get_daily_verse(date_str=None):
     """Get the verse of the day based on a specific date (or current date if not provided)"""
     # Use date as seed for consistent daily verse
@@ -43,49 +54,27 @@ def get_daily_verse(date_str=None):
         date_str = datetime.now().strftime("%Y-%m-%d")
     seed = int(hashlib.md5(date_str.encode()).hexdigest(), 16) % 1000000
 
-    # Featured verses for rotation
-    featured_verses = [
-        ("John", 3, 16),
-        ("Jeremiah", 29, 11),
-        ("Philippians", 4, 13),
-        ("Romans", 8, 28),
-        ("Proverbs", 3, 5),
-        ("Isaiah", 41, 10),
-        ("Matthew", 11, 28),
-        ("1 John", 4, 19),
-        ("Psalms", 23, 1),
-        ("2 Corinthians", 5, 17),
-        ("Ephesians", 2, 8),
-        ("Romans", 10, 9),
-        ("1 Peter", 5, 7),
-        ("James", 1, 5),
-        ("Philippians", 4, 19),
-        ("Psalms", 119, 105),
-        ("Matthew", 6, 33),
-        ("Romans", 12, 2),
-        ("1 Corinthians", 13, 13),
-        ("Galatians", 5, 22),
-        ("Hebrews", 11, 1),
-        ("1 Thessalonians", 5, 18),
-        ("Psalms", 46, 1),
-        ("Isaiah", 40, 31),
-        ("Matthew", 5, 16),
-        ("Romans", 15, 13),
-        ("Colossians", 3, 23),
-        ("1 John", 1, 9),
-        ("Psalms", 37, 4),
-        ("Proverbs", 27, 17)
-    ]
+    # Load featured verses from JSON file
+    featured_verses = _load_featured_verses()
+
+    if not featured_verses:
+        # Fallback if file not found
+        featured_verses = [{"book": "John", "chapter": 3, "verse": 16}]
 
     # Select verse based on seed
     verse_index = seed % len(featured_verses)
-    book, chapter, verse = featured_verses[verse_index]
+    verse_data = featured_verses[verse_index]
+    book = verse_data["book"]
+    chapter = verse_data["chapter"]
+    verse = verse_data["verse"]
+    devotional = verse_data.get("devotional")
 
     verse_text = bible.get_verse_text(book, chapter, verse)
     if not verse_text:
         # Fallback to John 3:16
         book, chapter, verse = "John", 3, 16
         verse_text = bible.get_verse_text(book, chapter, verse)
+        devotional = None
 
     return {
         "book": book,
@@ -93,7 +82,8 @@ def get_daily_verse(date_str=None):
         "verse": verse,
         "text": verse_text,
         "reference": f"{book} {chapter}:{verse}",
-        "date": date_str
+        "date": date_str,
+        "devotional": devotional
     }
 
 
