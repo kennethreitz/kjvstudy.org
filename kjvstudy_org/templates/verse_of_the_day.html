@@ -414,10 +414,49 @@
         }
     });
 
-    // Stop playing on escape
+    // Paragraph navigation (j/k or arrows)
+    var sections = document.querySelectorAll('.votd-hero, .votd-section, .votd-application, .votd-prayer, .votd-actions, .votd-archive');
+    var currentSection = 0;
+
+    function scrollToSection(index) {
+        if (index >= 0 && index < sections.length) {
+            currentSection = index;
+            sections[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
+        // Don't trigger if typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
         if (e.key === 'Escape' && isPlaying) {
             listenBtn.click();
+        } else if (e.key === '[') {
+            // Previous day
+            e.preventDefault();
+            window.location.href = '/verse-of-the-day?date={{ prev_date }}';
+        } else if (e.key === ']') {
+            // Next day (only if not viewing future)
+            e.preventDefault();
+            {% if not is_today %}
+            window.location.href = '/verse-of-the-day?date={{ next_date }}';
+            {% else %}
+            // Already on today, go to today's page (removes query param)
+            window.location.href = '/verse-of-the-day';
+            {% endif %}
+        } else if (e.key === 't') {
+            // Jump to today
+            e.preventDefault();
+            window.location.href = '/verse-of-the-day';
+        } else if (e.key === 'j' || e.key === 'ArrowDown') {
+            // Next section
+            e.preventDefault();
+            scrollToSection(currentSection + 1);
+        } else if (e.key === 'k' || e.key === 'ArrowUp') {
+            // Previous section
+            e.preventDefault();
+            scrollToSection(currentSection - 1);
         }
     });
 })();

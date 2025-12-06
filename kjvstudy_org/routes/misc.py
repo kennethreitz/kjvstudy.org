@@ -219,18 +219,36 @@ async def random_verse(request: Request):
 
 
 @router.get("/verse-of-the-day", response_class=HTMLResponse)
-async def verse_of_the_day_page(request: Request):
-    """Verse of the day page"""
+async def verse_of_the_day_page(
+    request: Request,
+    date: Optional[str] = Query(None, description="Date in YYYY-MM-DD format")
+):
+    """Verse of the day page with optional date parameter for navigation."""
     books = bible.get_books()
-    daily_verse = get_daily_verse()
 
-    # Generate past 30 days of verses
+    # Use provided date or default to today
+    if date:
+        try:
+            current_date = datetime.strptime(date, "%Y-%m-%d")
+        except ValueError:
+            current_date = datetime.now()
+    else:
+        current_date = datetime.now()
+
+    date_str = current_date.strftime("%Y-%m-%d")
+    daily_verse = get_daily_verse(date_str)
+
+    # Calculate prev/next dates for navigation
+    prev_date = (current_date - timedelta(days=1)).strftime("%Y-%m-%d")
+    next_date = (current_date + timedelta(days=1)).strftime("%Y-%m-%d")
+    today_str = datetime.now().strftime("%Y-%m-%d")
+
+    # Generate past 30 days of verses (from the viewed date)
     past_verses = []
-    today = datetime.now()
-    for i in range(1, 31):  # Past 30 days (not including today)
-        past_date = today - timedelta(days=i)
-        date_str = past_date.strftime("%Y-%m-%d")
-        verse = get_daily_verse(date_str)
+    for i in range(1, 31):  # Past 30 days (not including current)
+        past_date = current_date - timedelta(days=i)
+        past_date_str = past_date.strftime("%Y-%m-%d")
+        verse = get_daily_verse(past_date_str)
         past_verses.append(verse)
 
     # Build breadcrumbs
@@ -246,7 +264,10 @@ async def verse_of_the_day_page(request: Request):
             "books": books,
             "daily_verse": daily_verse,
             "past_verses": past_verses,
-            "breadcrumbs": breadcrumbs
+            "breadcrumbs": breadcrumbs,
+            "prev_date": prev_date,
+            "next_date": next_date,
+            "is_today": date_str == today_str
         }
     )
 
