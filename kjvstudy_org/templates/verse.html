@@ -1539,11 +1539,21 @@ a.crossref-pill:hover {
             }
             // Collect verse text and commentary
             var parts = [];
-            var verseText = document.querySelector('.verse-text');
-            if (verseText) parts.push(verseText.textContent.trim());
-            // Add commentary sections
-            document.querySelectorAll('.commentary-section p, .commentary-section li').forEach(function(el) {
-                parts.push(el.textContent.trim());
+            var verseEl = document.querySelector('.verse-text');
+            var verseText = verseEl ? verseEl.textContent.trim() : '';
+            if (verseText) parts.push(verseText);
+            // Add commentary sections, skipping first paragraph if it contains the verse text
+            var commentaryEls = document.querySelectorAll('.commentary-section p, .commentary-section li');
+            var isFirst = true;
+            commentaryEls.forEach(function(el) {
+                var elText = el.textContent.trim();
+                // Skip first paragraph if it starts with the verse text (common pattern)
+                if (isFirst && el.tagName === 'P' && verseText && elText.substring(0, 50).includes(verseText.substring(0, 50))) {
+                    isFirst = false;
+                    return;
+                }
+                isFirst = false;
+                parts.push(elText);
             });
             var text = parts.join(' ');
             if (window.KJVSpeech && text) {
