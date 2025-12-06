@@ -6,23 +6,50 @@
 
 {% block head %}
 <style>
-.chapters-section h2 + p a {
-    font-size: 1.8rem;
-    font-weight: 500;
+/* Chapter grid layout */
+.chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    max-width: 500px;
 }
 
-.chapters-section h2 + p a.selected {
+.chapter-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.chapter-grid a:hover {
+    background: rgba(74, 124, 89, 0.1);
+    border-color: #4a7c59;
+}
+
+.chapter-grid a.selected {
     background: rgba(74, 124, 89, 0.15);
     color: #4a7c59;
-    padding: 0.1rem 0.4rem;
-    border-radius: 4px;
+    border-color: #4a7c59;
     outline: 2px solid rgba(74, 124, 89, 0.4);
+    outline-offset: 1px;
 }
 
-[data-theme="dark"] .chapters-section h2 + p a.selected {
+[data-theme="dark"] .chapter-grid a.selected {
     background: rgba(107, 155, 122, 0.2);
     color: #6b9b7a;
+    border-color: #6b9b7a;
     outline-color: rgba(107, 155, 122, 0.4);
+}
+
+.chapter-grid a.popular-chapter {
+    font-weight: bold;
 }
 
 /* Selected chapter section (green box) */
@@ -151,9 +178,16 @@ section ul li strong {
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
-    .chapters-section h2 + p a {
-        font-size: 2.2rem;
-        line-height: 1.6;
+    .chapter-grid {
+        grid-template-columns: repeat(auto-fill, minmax(2.5rem, 1fr));
+        gap: 0.4rem;
+        max-width: none;
+    }
+
+    .chapter-grid a {
+        padding: 0.6rem 0.4rem;
+        font-size: 1.1rem;
+        min-height: 44px;
     }
 
     .book-meta {
@@ -432,9 +466,10 @@ document.addEventListener('DOMContentLoaded', function() {
         linkVerseReferences(section);
     });
 
-    // Navigation with chapter drilldown
+    // Navigation with chapter grid
     const chapterSection = document.querySelector('.chapters-section');
-    const chapterLinks = document.querySelectorAll('.chapters-section a[data-chapter]');
+    const chapterGrid = document.querySelector('.chapter-grid');
+    const chapterLinks = document.querySelectorAll('.chapter-grid a[data-chapter]');
     // Select paragraphs, list items, and blockquotes, but exclude paragraphs inside blockquotes
     const contentParagraphs = document.querySelectorAll('section:not(.chapters-section) > p, section:not(.chapters-section) li, section:not(.chapters-section) blockquote');
 
@@ -445,6 +480,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get current book index for left/right navigation
     const currentBookIndex = bibleBooks.findIndex(b => b.toLowerCase() === bookName.toLowerCase());
+
+    // Calculate the number of columns in the grid dynamically
+    function getGridColumns() {
+        if (!chapterGrid || chapterLinks.length === 0) return 1;
+        const gridRect = chapterGrid.getBoundingClientRect();
+        const firstItemRect = chapterLinks[0].getBoundingClientRect();
+        // Calculate columns based on grid width and item width (including gap)
+        const itemWidth = firstItemRect.width;
+        const gap = parseFloat(getComputedStyle(chapterGrid).gap) || 8;
+        const cols = Math.floor((gridRect.width + gap) / (itemWidth + gap));
+        return Math.max(1, cols);
+    }
 
     function clearAllSelections() {
         if (chapterSection) {
@@ -520,24 +567,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Don't handle if sidebar navigation is active
         if (KJVNav.sidebarActive) return;
 
-        // Up arrow or k: Previous item
+        const cols = getGridColumns();
+
+        // Up arrow or k: Previous row in grid, or previous item
         if (e.key === 'ArrowUp' || e.key === 'k') {
             e.preventDefault();
             if (inChapterDrilldown) {
-                // Navigating within chapter numbers
-                if (selectedChapterIndex > 0) {
-                    selectChapter(selectedChapterIndex - 1);
+                // In grid: move up one row
+                const newIndex = selectedChapterIndex - cols;
+                if (newIndex >= 0) {
+                    selectChapter(newIndex);
                 } else {
                     // Exit drilldown, go back to chapter section
                     selectChapterSection();
                 }
             } else if (chapterSectionSelected) {
                 // At chapter section, can't go up (it's the first item)
-                // Stay here
             } else if (selectedParagraphIndex >= 0) {
-                // In paragraph zone
                 if (selectedParagraphIndex === 0) {
-                    // Move back to chapter section
                     selectChapterSection();
                 } else {
                     selectParagraph(selectedParagraphIndex - 1);
@@ -555,34 +602,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Down arrow or j: Next item
+        // Down arrow or j: Next row in grid, or next item
         if (e.key === 'ArrowDown' || e.key === 'j') {
             e.preventDefault();
             if (inChapterDrilldown) {
-                // Navigating within chapter numbers
-                if (selectedChapterIndex < chapterLinks.length - 1) {
-                    selectChapter(selectedChapterIndex + 1);
+                // In grid: move down one row
+                const newIndex = selectedChapterIndex + cols;
+                if (newIndex < chapterLinks.length) {
+                    selectChapter(newIndex);
                 } else {
                     // Exit drilldown to first paragraph
                     if (contentParagraphs.length > 0) {
                         selectParagraph(0);
                     } else {
-                        // No paragraphs, exit drilldown back to chapter section
                         selectChapterSection();
                     }
                 }
             } else if (chapterSectionSelected) {
-                // At chapter section, move to first paragraph
                 if (contentParagraphs.length > 0) {
                     selectParagraph(0);
                 }
             } else if (selectedParagraphIndex >= 0) {
-                // In paragraph zone
                 if (selectedParagraphIndex < contentParagraphs.length - 1) {
                     selectParagraph(selectedParagraphIndex + 1);
                 }
             } else {
-                // No selection - start with first visible item
                 if (chapterSection && KJVNav.isInViewport(chapterSection)) {
                     selectChapterSection();
                 } else if (contentParagraphs.length > 0) {
@@ -591,6 +635,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     selectChapterSection();
                 }
+            }
+        }
+
+        // Left arrow or h: Previous chapter in grid, otherwise previous book
+        if (e.key === 'ArrowLeft' || e.key === 'h') {
+            e.preventDefault();
+            if (inChapterDrilldown) {
+                if (selectedChapterIndex > 0) {
+                    selectChapter(selectedChapterIndex - 1);
+                }
+            } else if (currentBookIndex > 0) {
+                window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex - 1]);
+            }
+        }
+
+        // Right arrow or l: Next chapter in grid, otherwise next book
+        if (e.key === 'ArrowRight' || e.key === 'l') {
+            e.preventDefault();
+            if (inChapterDrilldown) {
+                if (selectedChapterIndex < chapterLinks.length - 1) {
+                    selectChapter(selectedChapterIndex + 1);
+                }
+            } else if (currentBookIndex < bibleBooks.length - 1) {
+                window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex + 1]);
             }
         }
 
@@ -604,42 +672,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Navigate to selected chapter
                 window.location.href = chapterLinks[selectedChapterIndex].href;
             }
-            // Paragraphs and chapter section don't navigate anywhere
         }
 
         // Escape: Exit drilldown mode
         if (e.key === 'Escape') {
             e.preventDefault();
             if (inChapterDrilldown) {
-                // Exit drilldown back to chapter section
                 selectChapterSection();
             } else {
-                // Clear all selections
                 clearAllSelections();
                 chapterSectionSelected = false;
                 inChapterDrilldown = false;
                 selectedChapterIndex = -1;
                 selectedParagraphIndex = -1;
-            }
-        }
-
-        // Left arrow: Previous chapter in drilldown, otherwise previous book
-        if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            if (inChapterDrilldown && selectedChapterIndex > 0) {
-                selectChapter(selectedChapterIndex - 1);
-            } else if (!inChapterDrilldown && currentBookIndex > 0) {
-                window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex - 1]);
-            }
-        }
-
-        // Right arrow: Next chapter in drilldown, otherwise next book
-        if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            if (inChapterDrilldown && selectedChapterIndex < chapterLinks.length - 1) {
-                selectChapter(selectedChapterIndex + 1);
-            } else if (!inChapterDrilldown && currentBookIndex < bibleBooks.length - 1) {
-                window.location.href = '/book/' + encodeURIComponent(bibleBooks[currentBookIndex + 1]);
             }
         }
 
@@ -694,15 +739,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <section class="chapters-section">
     <h2>Chapters</h2>
-    <p>
-        <label for="mn-popular" class="margin-toggle">⊕</label>
-        <input type="checkbox" id="mn-popular" class="margin-toggle"/>
-        <span class="marginnote">Chapters in <strong>bold</strong> are among the most frequently read and studied passages.</span>
+    <div class="chapter-grid" role="grid" aria-label="Chapter selection">
         {% for chapter in chapters %}
-        <a href="/book/{{ book }}/chapter/{{ chapter }}" {% if chapter_popularity[chapter] >= 7 %}class="popular-chapter"{% endif %} data-chapter="{{ chapter }}">{{ chapter }}</a>{% if not loop.last %} · {% endif %}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}" {% if chapter_popularity[chapter] >= 7 %}class="popular-chapter"{% endif %} data-chapter="{{ chapter }}" role="gridcell">{{ chapter }}</a>
         {% endfor %}
-    </p>
-    <p class="nav-hint">Tip: ↑/↓ to navigate • Enter to drill into chapters • Esc to exit • ←/→ for adjacent books</p>
+    </div>
+    <p class="nav-hint">Tip: Arrow keys to navigate grid • Enter to select • Esc to exit • [ / ] for adjacent books</p>
 </section>
 
 {% if book_intro and book_intro.introduction %}
