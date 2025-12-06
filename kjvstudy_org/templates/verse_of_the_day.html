@@ -259,6 +259,17 @@
     font-size: 1.3rem;
 }
 
+/* Selection highlight for keyboard nav */
+.votd-hero.selected,
+.votd-section.selected,
+.votd-application.selected,
+.votd-prayer.selected,
+.votd-actions.selected {
+    outline: 2px solid var(--link-color);
+    outline-offset: 8px;
+    border-radius: 4px;
+}
+
 /* Print styles */
 @media print {
     .votd-actions,
@@ -415,23 +426,38 @@
     });
 
     // Paragraph navigation (j/k or arrows)
-    var sections = document.querySelectorAll('.votd-hero, .votd-section, .votd-application, .votd-prayer, .votd-actions, .votd-archive');
-    var currentSection = 0;
+    var sections = Array.from(document.querySelectorAll('.votd-hero, .votd-section, .votd-application, .votd-prayer, .votd-actions'));
+    var selectedIndex = -1;
 
-    function scrollToSection(index) {
-        if (index >= 0 && index < sections.length) {
-            currentSection = index;
-            sections[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+    function clearSelection() {
+        sections.forEach(function(el) {
+            el.classList.remove('selected');
+        });
+    }
+
+    function selectSection(index) {
+        if (sections.length === 0) return;
+        clearSelection();
+        selectedIndex = Math.max(0, Math.min(index, sections.length - 1));
+        sections[selectedIndex].classList.add('selected');
+        sections[selectedIndex].scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+        });
     }
 
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-        // Don't trigger if typing in an input
+        // Don't trigger if typing in an input or sidebar is active
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (window.KJVNav && window.KJVNav.sidebarActive) return;
 
-        if (e.key === 'Escape' && isPlaying) {
-            listenBtn.click();
+        if (e.key === 'Escape') {
+            if (isPlaying) {
+                listenBtn.click();
+            }
+            clearSelection();
+            selectedIndex = -1;
         } else if (e.key === '[') {
             // Previous day
             e.preventDefault();
@@ -452,11 +478,18 @@
         } else if (e.key === 'j' || e.key === 'ArrowDown') {
             // Next section
             e.preventDefault();
-            scrollToSection(currentSection + 1);
+            selectSection(selectedIndex < 0 ? 0 : selectedIndex + 1);
         } else if (e.key === 'k' || e.key === 'ArrowUp') {
             // Previous section
             e.preventDefault();
-            scrollToSection(currentSection - 1);
+            selectSection(selectedIndex <= 0 ? 0 : selectedIndex - 1);
+        } else if (e.key === ' ' && selectedIndex >= 0) {
+            // Space: read selected section
+            e.preventDefault();
+            var text = sections[selectedIndex].textContent;
+            if (text && window.KJVSpeech) {
+                window.KJVSpeech.toggle(text);
+            }
         }
     });
 })();
