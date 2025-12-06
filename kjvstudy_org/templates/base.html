@@ -1628,6 +1628,7 @@
         <details class="resource-group" open aria-label="Study resources">
             <summary aria-expanded="true">Study Resources</summary>
             <ul>
+                <li><a href="/verse-of-the-day" {% if request.url.path == "/verse-of-the-day" %}class="current"{% endif %}>Verse of the Day</a></li>
                 <li><a href="/study-guides" {% if request.url.path.startswith("/study-guides") %}class="current"{% endif %}>Study Guides</a></li>
                 <li><a href="/stories" {% if request.url.path.startswith("/stories") %}class="current"{% endif %}>Bible Stories</a></li>
                 <li><a href="/topics" {% if request.url.path.startswith("/topics") %}class="current"{% endif %}>Topics</a></li>
