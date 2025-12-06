@@ -538,6 +538,12 @@ document.body.dataset.resourceReader = 'false';
         PDF
     </a>
     {% endif %}
+    <button class="action-btn listen-btn" id="chapter-listen-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        </svg>
+        Listen
+    </button>
 </div>
 
 <section{% if is_poetry %} class="poetry-chapter"{% endif %}>
@@ -619,6 +625,33 @@ document.body.dataset.resourceReader = 'false';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Listen button - read chapter aloud
+    var listenBtn = document.getElementById('chapter-listen-btn');
+    var isListening = false;
+
+    if (listenBtn) {
+        listenBtn.addEventListener('click', function() {
+            if (isListening) {
+                if (window.KJVSpeech) window.KJVSpeech.stop();
+                listenBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg> Listen';
+                isListening = false;
+                return;
+            }
+
+            // Gather all verse text
+            var verses = document.querySelectorAll('p[id^="verse-"]');
+            var text = Array.from(verses).map(function(v) {
+                return v.textContent.replace(/^\d+\s*/, '').trim();
+            }).join('. ');
+
+            if (window.KJVSpeech && text) {
+                window.KJVSpeech.speak(text);
+                listenBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" /></svg> Stop';
+                isListening = true;
+            }
+        });
+    }
+
     // Function to link verse references
     function linkVerseReferences(element) {
         let html = element.innerHTML;

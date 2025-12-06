@@ -53,10 +53,12 @@
 }
 
 .parables-actions {
+    display: flex;
+    gap: 0.75rem;
     margin: 1rem 0 1.5rem;
 }
 
-.parable-download-btn {
+.action-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -67,18 +69,25 @@
     border: 1px solid var(--border-color, #ddd);
     border-radius: 4px;
     text-decoration: none;
+    cursor: pointer;
     transition: all 0.2s;
 }
 
-.parable-download-btn:hover {
+.action-btn:hover {
     background: var(--bg-color, #fff);
     border-color: var(--link-color);
     color: var(--link-color);
 }
 
-.parable-download-btn svg {
+.action-btn svg {
     width: 14px;
     height: 14px;
+}
+
+.action-btn.playing {
+    background: var(--link-color);
+    color: white;
+    border-color: var(--link-color);
 }
 
 .verse-list {
@@ -164,7 +173,6 @@
 @media print {
     .parables-actions,
     .parable-actions,
-    .parable-download-btn,
     .toc {
         display: none !important;
     }
@@ -200,16 +208,22 @@ document.body.dataset.resourceReader = 'true';
 <h1>Parables of Jesus</h1>
 <p class="subtitle">Teaching in Earthly Stories with Heavenly Meanings</p>
 
-{% if resource_pdf_available %}
 <div class="parables-actions">
-    <a class="parable-download-btn" href="/parables/pdf">
+    <button class="action-btn" id="listen-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+        </svg>
+        Listen
+    </button>
+    {% if resource_pdf_available %}
+    <a class="action-btn" href="/parables/pdf">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        Download All Parables (PDF)
+        Download PDF
     </a>
+    {% endif %}
 </div>
-{% endif %}
 
 <nav class="toc" id="toc">
     <h2>Contents</h2>
@@ -293,6 +307,20 @@ document.body.dataset.resourceReader = 'true';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Listen button handler
+    var listenBtn = document.getElementById('listen-btn');
+    if (listenBtn) {
+        listenBtn.addEventListener('click', function() {
+            var paragraphs = document.querySelectorAll('.intro-text, .parable-description p, .verse-text');
+            var text = Array.from(paragraphs).map(function(p) {
+                return p.textContent.trim();
+            }).join(' ');
+            if (window.KJVSpeech && text) {
+                window.KJVSpeech.speak(text);
+            }
+        });
+    }
+
     // Generate TOC from h2 and h3 headings
     const tocList = document.getElementById('toc-list');
     const headings = document.querySelectorAll('section h2, section h3, section article h3');
@@ -311,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Simple keyboard navigation
-    KJVNav.initSimpleNav('.parable-download-btn, .intro-text, .parable-name, .parable-description > p, .verse-item');
+    KJVNav.initSimpleNav('.action-btn, .intro-text, .parable-name, .parable-description > p, .verse-item');
 });
 </script>
 {% endblock %}
