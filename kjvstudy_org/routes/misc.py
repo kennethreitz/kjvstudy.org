@@ -218,22 +218,24 @@ async def random_verse(request: Request):
     return response
 
 
-@router.get("/verse-of-the-day", response_class=HTMLResponse)
-async def verse_of_the_day_page(
-    request: Request,
-    date: Optional[str] = Query(None, description="Date in YYYY-MM-DD format")
-):
-    """Verse of the day page with optional date parameter for navigation."""
+@router.get("/verse-of-the-day")
+async def verse_of_the_day_redirect():
+    """Redirect to today's verse of the day (prevents caching, allows bookmarking)."""
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    return RedirectResponse(url=f"/verse-of-the-day/{today_str}", status_code=302)
+
+
+@router.get("/verse-of-the-day/{date}", response_class=HTMLResponse)
+async def verse_of_the_day_page(request: Request, date: str):
+    """Verse of the day page for a specific date."""
     books = bible.get_books()
 
-    # Use provided date or default to today
-    if date:
-        try:
-            current_date = datetime.strptime(date, "%Y-%m-%d")
-        except ValueError:
-            current_date = datetime.now()
-    else:
-        current_date = datetime.now()
+    # Parse the date
+    try:
+        current_date = datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        # Invalid date format, redirect to today
+        return RedirectResponse(url="/verse-of-the-day", status_code=302)
 
     date_str = current_date.strftime("%Y-%m-%d")
     daily_verse = get_daily_verse(date_str)

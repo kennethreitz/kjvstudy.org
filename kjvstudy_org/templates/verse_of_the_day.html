@@ -370,7 +370,7 @@
             <tbody>
                 {% for verse in past_verses %}
                 <tr>
-                    <td>{{ verse.date }}</td>
+                    <td><a href="/verse-of-the-day/{{ verse.date }}">{{ verse.date }}</a></td>
                     <td><a href="/book/{{ verse.book }}/chapter/{{ verse.chapter }}/verse/{{ verse.verse }}">{{ verse.reference }}</a></td>
                 </tr>
                 {% endfor %}
@@ -461,12 +461,12 @@
         } else if (e.key === '[') {
             // Previous day
             e.preventDefault();
-            window.location.href = '/verse-of-the-day?date={{ prev_date }}';
+            window.location.href = '/verse-of-the-day/{{ prev_date }}';
         } else if (e.key === ']') {
             // Next day (only if not viewing future)
             e.preventDefault();
             {% if next_date %}
-            window.location.href = '/verse-of-the-day?date={{ next_date }}';
+            window.location.href = '/verse-of-the-day/{{ next_date }}';
             {% endif %}
         } else if (e.key === 't') {
             // Jump to today
