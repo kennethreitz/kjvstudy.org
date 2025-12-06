@@ -1542,18 +1542,28 @@ a.crossref-pill:hover {
             var verseEl = document.querySelector('.verse-text');
             var verseText = verseEl ? verseEl.textContent.trim() : '';
             if (verseText) parts.push(verseText);
-            // Add commentary sections, skipping first paragraph if it contains the verse text
+            // Add commentary sections, skipping bold verse text in first paragraph
             var commentaryEls = document.querySelectorAll('.commentary-section p, .commentary-section li');
             var isFirst = true;
             commentaryEls.forEach(function(el) {
-                var elText = el.textContent.trim();
-                // Skip first paragraph if it starts with the verse text (common pattern)
-                if (isFirst && el.tagName === 'P' && verseText && elText.substring(0, 50).includes(verseText.substring(0, 50))) {
+                var elText;
+                // For first paragraph, skip the bold/strong part (usually contains verse text)
+                if (isFirst && el.tagName === 'P') {
+                    var strong = el.querySelector('strong');
+                    if (strong && verseText && strong.textContent.trim().substring(0, 40) === verseText.substring(0, 40)) {
+                        // Clone the element and remove the strong tag to get remaining text
+                        var clone = el.cloneNode(true);
+                        var strongInClone = clone.querySelector('strong');
+                        if (strongInClone) strongInClone.remove();
+                        elText = clone.textContent.trim();
+                    } else {
+                        elText = el.textContent.trim();
+                    }
                     isFirst = false;
-                    return;
+                } else {
+                    elText = el.textContent.trim();
                 }
-                isFirst = false;
-                parts.push(elText);
+                if (elText) parts.push(elText);
             });
             var text = parts.join(' ');
             if (window.KJVSpeech && text) {
