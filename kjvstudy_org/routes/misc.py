@@ -48,11 +48,16 @@ def _load_featured_verses():
 
 
 def get_daily_verse(date_str=None):
-    """Get the verse of the day based on a specific date (or current date if not provided)"""
-    # Use date as seed for consistent daily verse
+    """Get the verse of the day based on a specific date (or current date if not provided).
+
+    Uses calendar-based selection: verses are organized by month theme, so
+    January dates get January-themed verses, December dates get Advent verses, etc.
+    """
     if date_str is None:
-        date_str = datetime.now().strftime("%Y-%m-%d")
-    seed = int(hashlib.md5(date_str.encode()).hexdigest(), 16) % 1000000
+        date_obj = datetime.now()
+        date_str = date_obj.strftime("%Y-%m-%d")
+    else:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
 
     # Load featured verses from JSON file
     featured_verses = _load_featured_verses()
@@ -61,8 +66,10 @@ def get_daily_verse(date_str=None):
         # Fallback if file not found
         featured_verses = [{"book": "John", "chapter": 3, "verse": 16}]
 
-    # Select verse based on seed
-    verse_index = seed % len(featured_verses)
+    # Use day of year for calendar-based selection (1-365/366)
+    # This ensures January verses appear in January, December verses in December, etc.
+    day_of_year = date_obj.timetuple().tm_yday  # 1-366
+    verse_index = (day_of_year - 1) % len(featured_verses)  # 0-364
     verse_data = featured_verses[verse_index]
     book = verse_data["book"]
     chapter = verse_data["chapter"]
