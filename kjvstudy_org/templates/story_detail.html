@@ -440,6 +440,14 @@ hr.story-divider::before {
             e.preventDefault();
             var nextLink = document.querySelector('.nav-next .nav-title');
             if (nextLink) window.location.href = nextLink.href;
+        } else if (e.key === '[') {
+            e.preventDefault();
+            var prevLink = document.querySelector('.nav-prev .nav-title');
+            if (prevLink) window.location.href = prevLink.href;
+        } else if (e.key === ']') {
+            e.preventDefault();
+            var nextLink = document.querySelector('.nav-next .nav-title');
+            if (nextLink) window.location.href = nextLink.href;
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
             var el = elements[selectedIndex];
