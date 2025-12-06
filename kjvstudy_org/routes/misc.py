@@ -242,9 +242,8 @@ async def verse_of_the_day_page(request: Request, date: str):
 
     # Calculate prev/next dates for navigation
     prev_date = (current_date - timedelta(days=1)).strftime("%Y-%m-%d")
+    next_date = (current_date + timedelta(days=1)).strftime("%Y-%m-%d")
     today_str = datetime.now().strftime("%Y-%m-%d")
-    # Only allow next_date if viewing a past date (can't go to future)
-    next_date = (current_date + timedelta(days=1)).strftime("%Y-%m-%d") if date_str < today_str else None
 
     # Generate past 30 days of verses (from the viewed date)
     past_verses = []
