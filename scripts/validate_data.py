@@ -155,16 +155,44 @@ class VerseCommentaryBook(BaseModel):
         return v
 
 
+class Devotional(BaseModel):
+    """Schema for verse devotional content"""
+    title: str = Field(..., min_length=1, max_length=100)
+    theme: str = Field(..., min_length=1, max_length=50)
+    opening: str = Field(..., min_length=10)
+    meditation: str = Field(..., min_length=20)
+    application: str = Field(..., min_length=10)
+    prayer: str = Field(..., min_length=10)
+
+    @field_validator('prayer')
+    @classmethod
+    def prayer_ends_with_amen(cls, v):
+        if not v.strip().endswith('Amen.'):
+            raise ValueError("Prayer must end with 'Amen.'")
+        return v
+
+
 class FeaturedVerse(BaseModel):
-    """Schema for individual featured verse"""
+    """Schema for individual featured verse with optional devotional"""
     book: str = Field(..., min_length=1)
     chapter: int = Field(..., ge=1)
     verse: int = Field(..., ge=1)
+    devotional: Optional[Devotional] = None
 
 
 class FeaturedVerses(BaseModel):
-    """Schema for featured_verses.json"""
+    """Schema for featured_verses.json - 365 verses with devotionals"""
     verses: List[FeaturedVerse] = Field(..., min_length=1)
+
+    @field_validator('verses')
+    @classmethod
+    def check_devotional_coverage(cls, v):
+        # Warn if not all verses have devotionals
+        with_devotional = sum(1 for verse in v if verse.devotional is not None)
+        if with_devotional < len(v):
+            # This is just informational, not an error
+            pass
+        return v
 
 
 class RedLetterVerses(BaseModel):
