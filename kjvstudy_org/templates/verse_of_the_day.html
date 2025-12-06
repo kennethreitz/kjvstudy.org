@@ -364,6 +364,7 @@
             <thead>
                 <tr>
                     <th>Date</th>
+                    <th>Title</th>
                     <th>Scripture</th>
                 </tr>
             </thead>
@@ -371,6 +372,7 @@
                 {% for verse in past_verses %}
                 <tr>
                     <td><a href="/verse-of-the-day/{{ verse.date }}">{{ verse.date }}</a></td>
+                    <td><a href="/verse-of-the-day/{{ verse.date }}">{% if verse.devotional %}{{ verse.devotional.title }}{% else %}—{% endif %}</a></td>
                     <td><a href="/book/{{ verse.book }}/chapter/{{ verse.chapter }}/verse/{{ verse.verse }}">{{ verse.reference }}</a></td>
                 </tr>
                 {% endfor %}
