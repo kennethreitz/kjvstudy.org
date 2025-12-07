@@ -2,7 +2,7 @@
 import re
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
@@ -22,6 +22,12 @@ def init_templates(t: Jinja2Templates):
 # =============================================================================
 # Routes
 # =============================================================================
+
+@router.get("/concordance")
+async def concordance_redirect():
+    """Redirect /concordance to /strongs."""
+    return RedirectResponse(url="/strongs", status_code=301)
+
 
 @router.get("/strongs", response_class=HTMLResponse)
 async def strongs_index(request: Request, q: str = None):
