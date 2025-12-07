@@ -229,6 +229,16 @@
 .story-card .links .kids-link {
     color: #8b5cf6;
 }
+.kids-version-link {
+    color: #8b5cf6;
+    font-weight: 500;
+    text-decoration: none;
+    text-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+    transition: text-shadow 0.2s;
+}
+.kids-version-link:hover {
+    text-shadow: 0 2px 12px rgba(139, 92, 246, 0.6);
+}
 
 .category-section.hidden {
     display: none;
@@ -288,7 +298,7 @@
 <section>
     <p><span class="newthought">These Bible stories</span> bring Scripture to life through engaging narratives that remain faithful to God's Word. Each story includes both an adult version with theological depth and a kid-friendly version perfect for family devotions or Sunday school.</p>
 
-    <p style="margin-top: 1rem;"><a href="/stories/kids" style="color: #8b5cf6; font-weight: 500;">View Kids Version</a> — Stories written for younger readers</p>
+    <p style="margin-top: 1rem;"><a href="/stories/kids" class="kids-version-link">View Kids Version</a> — Stories written for younger readers</p>
 
     <div class="story-search">
         <input type="text" id="story-search" placeholder="Search stories by name, character, or theme..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
