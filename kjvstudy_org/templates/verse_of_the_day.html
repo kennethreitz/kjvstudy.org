@@ -297,7 +297,7 @@
 
     <p class="votd-verse">{{ daily_verse.text | link_names | safe }}</p>
     <p class="votd-reference">
-        <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}/verse/{{ daily_verse.verse }}">{{ daily_verse.reference }}</a>
+        <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}#verse-{{ daily_verse.verse }}">{{ daily_verse.reference }}</a>
     </p>
 </div>
 
@@ -373,7 +373,7 @@
                 <tr>
                     <td><a href="/verse-of-the-day/{{ verse.date }}">{{ verse.date }}</a></td>
                     <td><a href="/verse-of-the-day/{{ verse.date }}">{% if verse.devotional %}{{ verse.devotional.title }}{% else %}—{% endif %}</a></td>
-                    <td><a href="/book/{{ verse.book }}/chapter/{{ verse.chapter }}/verse/{{ verse.verse }}">{{ verse.reference }}</a></td>
+                    <td><a href="/book/{{ verse.book }}/chapter/{{ verse.chapter }}#verse-{{ verse.verse }}">{{ verse.reference }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
