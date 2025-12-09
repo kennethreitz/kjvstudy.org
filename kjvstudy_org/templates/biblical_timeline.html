@@ -9,30 +9,30 @@
     max-width: 75%;
     margin: 2rem 0 3rem 0;
     padding: 1.5rem 2rem;
-    background: #fafafa;
-    border: 2px solid #ddd;
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
     border-radius: 4px;
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
 .timeline-nav a {
-    color: var(--text-color);
+    color: var(--text-primary);
     text-decoration: none;
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px dotted var(--text-muted);
     transition: all 0.2s;
 }
 
 .timeline-nav a:hover {
-    color: var(--link-color);
-    border-bottom-color: var(--link-color);
+    color: var(--primary-light);
+    border-bottom-color: var(--primary-light);
     border-bottom-style: solid;
 }
 
 .timeline-nav-period {
     margin: 1.25rem 0;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .timeline-nav-period:last-child {
@@ -44,12 +44,12 @@
     font-size: 1.05rem;
     display: block;
     margin-bottom: 0.5rem;
-    color: #111;
+    color: var(--text-primary);
 }
 
 .timeline-nav-events {
     margin-left: 1.5rem;
-    color: #555;
+    color: var(--text-secondary);
     font-size: 0.9rem;
 }
 
@@ -122,7 +122,7 @@ document.body.dataset.resourceReader = 'true';
 {% endif %}
 
 <div class="timeline-nav">
-    <h2 style="margin: 0 0 1rem 0; font-size: 1.3rem; font-weight: 600; color: #333;">Table of Contents</h2>
+    <h2 style="margin: 0 0 1rem 0; font-size: 1.3rem; font-weight: 600; color: var(--text-primary);">Table of Contents</h2>
     {% for period_name, events in timeline_events.items() %}
     <div class="timeline-nav-period">
         <span class="timeline-nav-period-name"><a href="#{{ period_name | lower | replace(' ', '-') | replace('&', 'and') }}">{{ period_name }}</a></span>
@@ -130,7 +130,7 @@ document.body.dataset.resourceReader = 'true';
             {% for event in events %}
             <div style="margin: 0.25rem 0;">
                 <a href="#{{ (period_name + '-' + event.title) | lower | replace(' ', '-') | replace('&', 'and') | replace('\'', '') }}">{{ event.title }}</a>
-                {% if event.date %}<span style="color: #999; margin-left: 0.5rem;">({{ event.date }})</span>{% endif %}
+                {% if event.date %}<span style="color: var(--text-muted); margin-left: 0.5rem;">({{ event.date }})</span>{% endif %}
             </div>
             {% endfor %}
         </div>
@@ -148,7 +148,7 @@ document.body.dataset.resourceReader = 'true';
     <p>This timeline presents key events of biblical history with calculated dates and relevant scripture references.</p>
 
     {% if chronology_note %}
-    <p style="font-size: 0.95rem; color: #555; margin-top: 1.5rem; padding: 1rem; background: #f9f9f9; border-left: 3px solid #666;">
+    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 1.5rem; padding: 1rem; background: var(--surface-color); border-left: 3px solid var(--text-muted);">
         {{ chronology_note | link_verses | safe }}
     </p>
     {% endif %}
@@ -159,28 +159,28 @@ document.body.dataset.resourceReader = 'true';
             Alternative Date Interpretations
         </summary>
         <div style="margin-top: 1rem;">
-            <p style="font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.7;">
+            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
                 Biblical chronology has been calculated in different ways by faithful scholars. This table compares three major chronological systems, all based on the Masoretic text but differing in their interpretation of genealogical relationships in Genesis 5 and 11.
             </p>
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
                     <thead>
-                        <tr style="border-bottom: 2px solid #333; background: #f9f9f9;">
+                        <tr style="border-bottom: 2px solid var(--border-color); background: var(--surface-color);">
                             <th style="text-align: left; padding: 0.85rem; font-weight: 600;">Event</th>
-                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 140px; background: #e6f3ff;">This Timeline<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(Traditional)</span></th>
-                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Ussher<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(1650)</span></th>
-                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Scofield<br><span style="font-weight: 400; font-size: 0.85rem; color: #666;">(1909)</span></th>
+                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 140px; background: rgba(75, 46, 131, 0.15);">This Timeline<br><span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">(Traditional)</span></th>
+                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Ussher<br><span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">(1650)</span></th>
+                            <th style="text-align: center; padding: 0.85rem; font-weight: 600; min-width: 130px;">Scofield<br><span style="font-weight: 400; font-size: 0.85rem; color: var(--text-muted);">(1909)</span></th>
                             <th style="text-align: left; padding: 0.85rem; font-weight: 600; min-width: 200px;">Note</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for row in chronology_comparison %}
-                        <tr style="border-bottom: 1px solid #ddd;">
+                        <tr style="border-bottom: 1px solid var(--border-color);">
                             <td style="padding: 0.85rem; font-weight: 500;">{{ row.event }}</td>
-                            <td style="text-align: center; padding: 0.85rem; background: #e6f3ff; font-weight: 700; color: #0d47a1;">{{ row.masoretic }}</td>
-                            <td style="text-align: center; padding: 0.85rem; color: #666;">{{ row.ussher }}</td>
-                            <td style="text-align: center; padding: 0.85rem; color: #666;">{{ row.scofield }}</td>
-                            <td style="padding: 0.85rem; font-size: 0.85rem; color: #555;">
+                            <td style="text-align: center; padding: 0.85rem; background: rgba(75, 46, 131, 0.15); font-weight: 700; color: var(--primary-light);">{{ row.masoretic }}</td>
+                            <td style="text-align: center; padding: 0.85rem; color: var(--text-muted);">{{ row.ussher }}</td>
+                            <td style="text-align: center; padding: 0.85rem; color: var(--text-muted);">{{ row.scofield }}</td>
+                            <td style="padding: 0.85rem; font-size: 0.85rem; color: var(--text-secondary);">
                                 {% if row.event == "Creation/Adam" %}
                                     Difference reflects genealogical interpretation
                                 {% elif row.event == "The Flood" %}
@@ -202,7 +202,7 @@ document.body.dataset.resourceReader = 'true';
                     </tbody>
                 </table>
             </div>
-            <p style="font-size: 0.85rem; color: #666; margin-top: 1rem; font-style: italic;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; font-style: italic;">
                 <strong>Key Difference:</strong> This timeline follows traditional conservative chronology with successive reckoning of Genesis genealogies, similar to Ussher and Scofield. Some interpreters allow for potential genealogical gaps, yielding earlier dates for Creation and the Flood. All conservative chronologies agree on dates from the Assyrian period onward (8th century BC), confirmed by extrabiblical sources.
             </p>
         </div>
@@ -215,7 +215,7 @@ document.body.dataset.resourceReader = 'true';
     <h2>{{ period_name }}</h2>
 
     {% for event in events %}
-    <h3 id="{{ (period_name + '-' + event.title) | lower | replace(' ', '-') | replace('&', 'and') | replace('\'', '') }}">{{ event.title }} <span style="color: #666; font-size: 0.9rem; font-weight: normal;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span></h3>
+    <h3 id="{{ (period_name + '-' + event.title) | lower | replace(' ', '-') | replace('&', 'and') | replace('\'', '') }}">{{ event.title }} <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: normal;">({{ event.date }}{% if event.alt_dates %} • {{ event.alt_dates }}{% endif %})</span></h3>
     <p>{% if event.sidenote %}<label for="sn-{{ loop.index }}-{{ period_name | lower | replace(' ', '-') }}" class="margin-toggle sidenote-number"></label>
         <input type="checkbox" id="sn-{{ loop.index }}-{{ period_name | lower | replace(' ', '-') }}" class="margin-toggle"/>
         <span class="sidenote">{{ event.sidenote | link_verses | safe }}</span>{% endif %}{{ event.description | link_verses | safe }}</p>
