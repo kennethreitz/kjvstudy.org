@@ -368,8 +368,55 @@
     margin-top: 0.5rem;
 }
 
-/* Dark mode */
-/* rely on theme variables */
+/* Dark mode - explicit theme */
+[data-theme="dark"] .word-original {
+    color: #eee;
+}
+
+[data-theme="dark"] .word-unit:hover .word-original {
+    color: #fff;
+}
+
+[data-theme="dark"] .word-unit:hover {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .word-unit.expanded {
+    background: #1a2e1a;
+    border-color: #4a7c59;
+}
+
+[data-theme="dark"] .word-detail {
+    background: #1a1a1a;
+    border-color: #444;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+[data-theme="dark"] .word-detail-header {
+    border-bottom-color: #333;
+}
+
+[data-theme="dark"] .word-detail-original {
+    color: #eee;
+}
+
+[data-theme="dark"] .word-detail-label {
+    color: #888;
+}
+
+[data-theme="dark"] .word-detail-value {
+    color: #ddd;
+}
+
+[data-theme="dark"] .word-detail-value a {
+    color: #6b9b7a;
+}
+
+[data-theme="dark"] .word-detail-definition {
+    color: #bbb;
+    border-top-color: #333;
+}
 
 [data-theme="dark"] .verse-text {
     color: #ccc;
