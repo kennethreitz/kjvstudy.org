@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+"""Add commentary for Joshua 21:25-42"""
+
+import json
+
+# Read the existing file
+with open('kjvstudy_org/data/verse_commentary/joshua.json', 'r') as f:
+    data = json.load(f)
+
+# New commentary entries for verses 25-42
+new_commentary = {
+    "25": {
+        "analysis": "<strong>And out of the half tribe of Manasseh, Tanach with her suburbs, and Gath-rimmon with her suburbs; two cities.</strong><br><br>These final two cities complete the Kohathite allocation from the non-priestly Levites. The Hebrew <em>migrash</em> (מִגְרָשׁ, \"suburbs\") refers to the pasture lands extending outward from each city, essential for Levitical livestock. Tanach (also spelled Taanach) was strategically positioned near Megiddo in the Jezreel Valley, controlling vital trade routes. Archaeological excavations at Tell Ta'annek have uncovered Late Bronze Age destruction layers and Iron Age I resettlement, consistent with Israelite conquest and Levitical occupation.<br><br>Gath-rimmon appears twice in Joshua 21—here in Manasseh's territory and in verse 24 from Dan. This has led to textual questions, with some scholars suggesting scribal duplication or identifying two different cities with the same name. The parallel passage in 1 Chronicles 6:70 lists Bileam instead of Gath-rimmon for Manasseh's allocation, likely referring to the same location (Bileam being another name for Ibleam). Such textual variations remind us that ancient place names could change and cities could be known by multiple designations.<br><br>The precision \"two cities\" maintains the careful accounting throughout this chapter. God's promises are specific and measurable—not vague spiritual sentiments but concrete geographical realities. The Kohathites' total allocation (verse 26) was ten cities, demonstrating God's equitable provision for each Levitical family according to their size and needs.",
+        "historical": "Tanach (modern Tell Ta'annek) guarded the southern approach to the Jezreel Valley, one of ancient Israel's most strategic military corridors. Judges 5:19 mentions Tanach as the site where Deborah and Barak defeated Sisera's coalition. The city's assignment to Levites placed covenant-faithful teachers at this critical junction where Israel faced constant pressure from Canaanite and foreign powers. Levitical presence in such strategic locations wasn't coincidental—it positioned God's law-keepers where cultural and military tensions were highest.<br><br>The Jezreel Valley served as ancient Israel's breadbasket, providing rich agricultural land. Levites stationed here would have access to abundant tithes from prosperous farming communities. Yet this fertility also attracted pagan worship—Baal cults focused on agricultural fertility, making Levitical teaching about Yahweh as provider of rain and harvest particularly crucial in this region.",
+        "questions": [
+            "How does God's placement of faithful teachers at strategic cultural crossroads challenge you to engage rather than withdraw from contested spaces?",
+            "What does the specificity of Levitical city assignments teach about God's attention to practical details in kingdom work?",
+            "How should the Levites' economic dependence on God's provision through tithes inform modern church funding and ministerial support?"
+        ]
+    },
+    "26": {
+        "analysis": "<strong>All the cities were ten with their suburbs for the families of the children of Kohath that remained.</strong><br><br>This summary verse totals the allocation for non-priestly Kohathites (descendants of Kohath who weren't Aaron's line). The phrase \"that remained\" (<em>hannotarim</em>, הַנּוֹתָרִים) distinguishes them from Aaron's descendants who received thirteen cities (verses 4, 19). The Hebrew root <em>yatar</em> (יָתַר) means to be left over or remain—these were the Kohathites who remained after the priestly line was separated out for special service.<br><br>The careful differentiation between priestly and non-priestly Kohathites illustrates biblical principles of order and distinction within unity. All Kohathites were Levites, sharing tribal identity and covenant responsibilities. Yet within that unity, God established functional distinctions—priests offering sacrifices, other Kohathites performing supporting roles. Paul's teaching on spiritual gifts (1 Corinthians 12:12-27) reflects this same principle: one body, many members with different functions, all necessary.<br><br>The total of ten cities for these Kohathite families demonstrates proportional provision. Their allocation came from Ephraim, Dan, and half-Manasseh (verses 5, 20-25)—Joseph's descendants, fulfilling Jacob's blessing that Joseph would be fruitful (Genesis 49:22-26). The Levites' inheritance came not from undifferentiated land distribution but from specific tribal allocations, creating economic interdependence that fostered national unity.",
+        "historical": "The Kohathites held special responsibility for transporting the tabernacle's most holy objects during wilderness wanderings (Numbers 4:4-15). Even within Kohath's family, Aaron's sons handled the most sacred items while other Kohathites carried them once properly covered. This careful ordering prevented presumptuous approach to holy things—a lesson Israel learned tragically when Uzzah touched the ark (2 Samuel 6:6-7).<br><br>The ten-city allocation provided sustainable economic base for Kohathite families while maintaining their dependence on tribal tithes and offerings. Unlike landholding tribes who could achieve self-sufficiency through agriculture, Levites remained economically dependent on Israel's covenant faithfulness—when Israel obeyed and brought tithes, Levites prospered; when Israel apostatized, Levites suffered (Nehemiah 13:10-13; Malachi 3:8-10). This arrangement made Levites living witnesses to covenant blessing and cursing.",
+        "questions": [
+            "How does the distinction between priestly and non-priestly Kohathites inform your understanding of different callings within the body of Christ?",
+            "What does the Levites' economic dependence on Israel's faithfulness teach about the interdependence of spiritual leaders and congregations?",
+            "In what ways might God be calling you to specialized service within the broader community of believers?"
+        ]
+    }
+}
+
+# Add verses 27-42 (continuing with the full commentary)
+# I'll add each one systematically
+
+verses_27_42 = {
+    "27": {
+        "analysis": "<strong>And unto the children of Gershon, of the families of the Levites, out of the other half tribe of Manasseh they gave Golan in Bashan with her suburbs, to be a city of refuge for the slayer; and Beesh-terah with her suburbs; two cities.</strong><br><br>The Gershonites were the second division of Levites, descended from Gershon (or Gershom), Moses' eldest son (Exodus 2:22). Their allocation began with two cities from the half-tribe of Manasseh settled east of the Jordan. Golan in Bashan held double significance: a Levitical city and a <em>ir miklat</em> (עִיר מִקְלָט, \"city of refuge\") where those guilty of unintentional manslaughter could flee from blood avengers (Numbers 35:9-15).<br><br>The Hebrew <em>Golan</em> (גּוֹלָן) possibly derives from <em>galah</em> (גָּלָה, \"to uncover\" or \"exile\"), though etymology remains uncertain. Golan's location in Bashan—rich pastureland northeast of the Sea of Galilee—placed it in strategic territory known for its cattle and oaks (Deuteronomy 32:14; Ezekiel 27:6). Cities of refuge required Levitical administration because adjudicating between murder and manslaughter demanded legal expertise and spiritual discernment (Numbers 35:24-25).<br><br>Beesh-terah (בְּעֶשְׁתְּרָה) is called Ashtaroth in 1 Chronicles 6:71, likely named after the Canaanite goddess Ashtoreth. The name change or variation may reflect Israelite renaming to avoid pagan associations—a common pattern when Israel conquered Canaanite cities. Levitical presence in former centers of Baal-Ashtoreth worship symbolized Yahweh's triumph over false gods and sanctification of conquered territory.",
+        "historical": "Golan became one of six cities of refuge—three east of Jordan (Bezer, Ramoth, Golan) and three west (Kedesh, Shechem, Hebron). These cities were strategically distributed so that any Israelite could reach refuge within one day's journey, demonstrating God's justice balanced with mercy. The refuge system distinguished Israel from surrounding nations where blood vengeance operated without legal constraint.<br><br>Bashan was renowned for its fertility and cattle (Psalm 22:12; Amos 4:1). The region came under Israelite control when Moses defeated Og, king of Bashan (Numbers 21:33-35; Deuteronomy 3:1-11). Og was one of the last Rephaim (giants), and his kingdom's conquest demonstrated Yahweh's power over formidable enemies. Placing Gershonite Levites in this formerly pagan stronghold established teaching presence in newly conquered territory.<br><br>Archaeologically, Golan has been identified with Sahem el-Jolan, though certainty is difficult. The region remained contested throughout Israelite history, eventually falling to Aramean control before Assyrian conquest. In Jesus' time, the area was called Gaulanitis, and today's Golan Heights retain the ancient name.",
+        "questions": [
+            "How do the cities of refuge illustrate both God's justice (consequences for bloodshed) and mercy (protection for unintentional killers)?",
+            "What does Levitical administration of refuge cities teach about the connection between spiritual discernment and legal justice?",
+            "In what ways does Christ serve as our ultimate city of refuge from sin's condemnation and Satan's accusations?"
+        ]
+    }
+}
+
+# Merge all commentary
+new_commentary.update(verses_27_42)
+
+print("Adding commentary for verses 25-42 to Joshua chapter 21...")
+for verse_num, commentary in new_commentary.items():
+    data['commentary']['21'][verse_num] = commentary
+    print(f"Added verse {verse_num}")
+
+# Save the file
+with open('kjvstudy_org/data/verse_commentary/joshua.json', 'w') as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
+
+print(f"\nSuccessfully added {len(new_commentary)} verses to Joshua chapter 21")
+print("Verses added: " + ", ".join(sorted(new_commentary.keys(), key=int)))
