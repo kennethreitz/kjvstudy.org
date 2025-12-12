@@ -295,7 +295,7 @@
     <h1 class="votd-title">Verse of the Day</h1>
     {% endif %}
 
-    <p class="votd-verse">{{ daily_verse.text | link_names | safe }}</p>
+    <p class="votd-verse">{{ daily_verse.text }}</p>
     <p class="votd-reference">
         <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}#verse-{{ daily_verse.verse }}">{{ daily_verse.reference }}</a>
     </p>
