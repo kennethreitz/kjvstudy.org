@@ -35,6 +35,43 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://kjvstudy.org"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Books",
+      "item": "https://kjvstudy.org/books"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ book | tojson }},
+      "item": "https://kjvstudy.org/book/{{ book | urlencode }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Chapter {{ chapter }}",
+      "item": "https://kjvstudy.org/book/{{ book | urlencode }}/chapter/{{ chapter }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Verse {{ verse_num }}"
+    }
+  ]
+}
+</script>
 {% endblock %}
 
 {% block head %}

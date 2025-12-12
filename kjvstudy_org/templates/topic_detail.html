@@ -3,6 +3,55 @@
 {% block title %}{{ topic_name }} - Topical Index - KJV Study{% endblock %}
 {% block description %}{{ topic.description }}{% endblock %}
 
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ topic_name | tojson }},
+  "description": {{ topic.description | tojson }},
+  "author": {
+    "@type": "Organization",
+    "name": "KJV Study"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KJV Study",
+    "url": "https://kjvstudy.org"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kjvstudy.org/topics/{{ topic_name | urlencode }}"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://kjvstudy.org"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Topics",
+      "item": "https://kjvstudy.org/topics"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ topic_name | tojson }}
+    }
+  ]
+}
+</script>
+{% endblock %}
+
 {% block head %}
 <style>
 .topic-overview {

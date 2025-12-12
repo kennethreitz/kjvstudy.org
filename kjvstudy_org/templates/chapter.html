@@ -4,6 +4,40 @@
 
 {% block description %}Read {{ book }} chapter {{ chapter }} from the King James Version Bible. {{ verses[0].text[:100] if verses and verses|length > 0 else '' }}...{% endblock %}
 
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://kjvstudy.org"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Books",
+      "item": "https://kjvstudy.org/books"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ book | tojson }},
+      "item": "https://kjvstudy.org/book/{{ book | urlencode }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Chapter {{ chapter }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
 {% block head %}
 <style>
 /* Anchor offset for sticky breadcrumb */

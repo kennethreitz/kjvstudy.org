@@ -4,6 +4,58 @@
 
 {% block description %}Study the book of {{ book }} from the King James Bible (KJV). {% if book_intro and book_intro.introduction %}{{ book_intro.introduction[:110]|striptags }}...{% elif introduction %}{{ introduction[:110]|striptags }}...{% else %}Complete KJV text with chapters, commentary, and study resources.{% endif %}{% endblock %}
 
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": {{ book | tojson }},
+  "url": "https://kjvstudy.org/book/{{ book | urlencode }}",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "Authorized Version Translators"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KJV Study",
+    "url": "https://kjvstudy.org"
+  },
+  "isPartOf": {
+    "@type": "Book",
+    "name": "King James Version Bible",
+    "url": "https://kjvstudy.org/books"
+  },
+  "numberOfPages": {{ chapters|length }}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://kjvstudy.org"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Books",
+      "item": "https://kjvstudy.org/books"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ book | tojson }}
+    }
+  ]
+}
+</script>
+{% endblock %}
+
 {% block head %}
 <style>
 /* Chapter grid layout */
