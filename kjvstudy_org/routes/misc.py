@@ -413,7 +413,8 @@ async def og_image_verse(
         # Return default image if verse not found
         from pathlib import Path as PathLib
         default_path = PathLib(__file__).parent.parent / "static" / "og-image.png"
-        return Response(content=default_path.read_bytes(), media_type="image/png")
+        content = await asyncio.to_thread(default_path.read_bytes)
+        return Response(content=content, media_type="image/png")
 
     title = f"{book} {chapter}:{verse}"
     cache_key = f"verse:{book}:{chapter}:{verse}"

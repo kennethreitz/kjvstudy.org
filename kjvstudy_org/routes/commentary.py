@@ -5,8 +5,10 @@ This module contains the commentary generation system including:
 - Helper functions for generating theological commentary
 - Book summaries, chapter overviews, and verse analysis
 """
+import asyncio
 import json
 import random
+from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
 from fastapi import APIRouter, Request, HTTPException
@@ -20,10 +22,8 @@ router = APIRouter(tags=["Commentary"])
 templates = None
 
 
-@router.get("/about/commentary", response_class=HTMLResponse)
-async def commentary_index(request: Request):
-    """Commentary index - list all verses with commentary"""
-    from collections import defaultdict
+def _compute_commentary_index() -> tuple:
+    """Compute commentary index - runs in thread pool."""
     from ..utils.books import OT_BOOKS, NT_BOOKS
 
     data_dir = Path(__file__).parent.parent / "data" / "verse_commentary"
@@ -58,6 +58,15 @@ async def commentary_index(request: Request):
         for verses in chapters.values()
     )
 
+    return commentary_index, total_books, total_verses
+
+
+@router.get("/about/commentary", response_class=HTMLResponse)
+async def commentary_index(request: Request):
+    """Commentary index - list all verses with commentary"""
+    # Run heavy I/O in thread pool
+    commentary_idx, total_books, total_verses = await asyncio.to_thread(_compute_commentary_index)
+
     breadcrumbs = [
         {"text": "Home", "url": "/"},
         {"text": "About", "url": "/about"},
@@ -73,7 +82,7 @@ async def commentary_index(request: Request):
         {
             "request": request,
             "books": books,
-            "commentary_index": commentary_index,
+            "commentary_index": commentary_idx,
             "total_books": total_books,
             "total_verses": total_verses,
             "breadcrumbs": breadcrumbs,

@@ -1,4 +1,5 @@
 """About routes - stats, cross-references index, and about page."""
+import asyncio
 import json
 import re
 from collections import defaultdict
@@ -22,12 +23,11 @@ def init_templates(t: Jinja2Templates):
 
 
 # =============================================================================
-# Routes
+# Helper Functions (run in thread pool)
 # =============================================================================
 
-@router.get("/about/stats", response_class=HTMLResponse)
-async def stats(request: Request):
-    """Hidden statistics page - comprehensive site metrics"""
+def _compute_stats() -> dict:
+    """Compute all statistics - runs in thread pool to avoid blocking."""
     data_dir = Path(__file__).parent.parent / "data"
 
     # Bible statistics
@@ -148,7 +148,7 @@ async def stats(request: Request):
         total_hebrew_entries = 0
         total_greek_entries = 0
 
-    stats_data = {
+    return {
         'bible': {
             'total_verses': total_verses,
             'total_books': total_books,
@@ -207,27 +207,9 @@ async def stats(request: Request):
         }
     }
 
-    books = bible.get_books()
-    breadcrumbs = [
-        {"text": "Home", "url": "/"},
-        {"text": "About", "url": "/about"},
-        {"text": "Statistics", "url": None}
-    ]
 
-    return templates.TemplateResponse(
-        "stats.html",
-        {
-            "request": request,
-            "books": books,
-            "stats": stats_data,
-            "breadcrumbs": breadcrumbs,
-        }
-    )
-
-
-@router.get("/about/cross-references", response_class=HTMLResponse)
-async def cross_references_index(request: Request):
-    """Cross-references index - list all verses with cross-references"""
+def _compute_crossref_index() -> tuple:
+    """Compute cross-reference index - runs in thread pool."""
     data_dir = Path(__file__).parent.parent / "data" / "cross_references"
 
     # Build index of all verses with cross-references, grouped by book
@@ -272,6 +254,43 @@ async def cross_references_index(request: Request):
         for chapters in crossref_index.values()
         for verses in chapters.values()
     )
+
+    return crossref_index, total_books, total_verses, total_refs
+
+
+# =============================================================================
+# Routes
+# =============================================================================
+
+@router.get("/about/stats", response_class=HTMLResponse)
+async def stats(request: Request):
+    """Hidden statistics page - comprehensive site metrics"""
+    # Run heavy computation in thread pool
+    stats_data = await asyncio.to_thread(_compute_stats)
+
+    books = bible.get_books()
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "About", "url": "/about"},
+        {"text": "Statistics", "url": None}
+    ]
+
+    return templates.TemplateResponse(
+        "stats.html",
+        {
+            "request": request,
+            "books": books,
+            "stats": stats_data,
+            "breadcrumbs": breadcrumbs,
+        }
+    )
+
+
+@router.get("/about/cross-references", response_class=HTMLResponse)
+async def cross_references_index(request: Request):
+    """Cross-references index - list all verses with cross-references"""
+    # Run heavy I/O in thread pool
+    crossref_index, total_books, total_verses, total_refs = await asyncio.to_thread(_compute_crossref_index)
 
     books = bible.get_books()
     breadcrumbs = [
