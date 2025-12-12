@@ -1,17 +1,18 @@
-"""Miscellaneous routes - search, interlinear, random verse, verse of the day, red letter."""
+"""Miscellaneous routes - search, interlinear, random verse, verse of the day, red letter, OG images."""
 import hashlib
 import random
 import re
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import APIRouter, Query, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi import APIRouter, Query, Request, Path
+from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..red_letter import load_red_letter_verses
 from ..utils.search import perform_full_text_search
+from ..og_image import get_cached_or_generate
 
 router = APIRouter()
 templates = None
@@ -391,4 +392,164 @@ async def red_letter_page(
             "per_page": per_page,
             "breadcrumbs": breadcrumbs
         }
+    )
+
+
+# =============================================================================
+# Dynamic OG Image Generation
+# =============================================================================
+
+@router.get("/og/verse/{book}/{chapter}/{verse}.png", response_class=Response)
+async def og_image_verse(
+    book: str = Path(..., description="Book name"),
+    chapter: int = Path(..., description="Chapter number"),
+    verse: int = Path(..., description="Verse number")
+):
+    """Generate OG image for a specific verse."""
+    verse_text = bible.get_verse_text(book, chapter, verse)
+    if not verse_text:
+        # Return default image if verse not found
+        from pathlib import Path as PathLib
+        default_path = PathLib(__file__).parent.parent / "static" / "og-image.png"
+        return Response(content=default_path.read_bytes(), media_type="image/png")
+
+    title = f"{book} {chapter}:{verse}"
+    cache_key = f"verse:{book}:{chapter}:{verse}"
+
+    image_bytes = get_cached_or_generate(
+        cache_key=cache_key,
+        title=title,
+        subtitle="King James Version",
+        verse_text=verse_text,
+        page_type="verse"
+    )
+
+    return Response(
+        content=image_bytes,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+    )
+
+
+@router.get("/og/chapter/{book}/{chapter}.png", response_class=Response)
+async def og_image_chapter(
+    book: str = Path(..., description="Book name"),
+    chapter: int = Path(..., description="Chapter number")
+):
+    """Generate OG image for a chapter."""
+    # Get first verse as preview
+    verse_text = bible.get_verse_text(book, chapter, 1)
+
+    title = f"{book} {chapter}"
+    cache_key = f"chapter:{book}:{chapter}"
+
+    image_bytes = get_cached_or_generate(
+        cache_key=cache_key,
+        title=title,
+        subtitle="King James Version",
+        verse_text=verse_text[:150] + "..." if verse_text and len(verse_text) > 150 else verse_text,
+        page_type="chapter"
+    )
+
+    return Response(
+        content=image_bytes,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+    )
+
+
+@router.get("/og/book/{book}.png", response_class=Response)
+async def og_image_book(book: str = Path(..., description="Book name")):
+    """Generate OG image for a book."""
+    title = book
+    cache_key = f"book:{book}"
+
+    image_bytes = get_cached_or_generate(
+        cache_key=cache_key,
+        title=title,
+        subtitle="King James Version Bible",
+        page_type="book"
+    )
+
+    return Response(
+        content=image_bytes,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+    )
+
+
+@router.get("/og/topic/{topic}.png", response_class=Response)
+async def og_image_topic(topic: str = Path(..., description="Topic name")):
+    """Generate OG image for a topic."""
+    from urllib.parse import unquote
+    topic_name = unquote(topic)
+
+    title = topic_name
+    cache_key = f"topic:{topic_name}"
+
+    image_bytes = get_cached_or_generate(
+        cache_key=cache_key,
+        title=title,
+        subtitle="Topical Bible Study",
+        page_type="topic"
+    )
+
+    return Response(
+        content=image_bytes,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+    )
+
+
+@router.get("/og/story/{slug}.png", response_class=Response)
+async def og_image_story(slug: str = Path(..., description="Story slug")):
+    """Generate OG image for a Bible story."""
+    import json
+    from pathlib import Path as PathLib
+
+    # Load story data to get title
+    stories_file = PathLib(__file__).parent.parent / "data" / "stories.json"
+    title = slug.replace("-", " ").title()  # Fallback
+
+    if stories_file.exists():
+        with open(stories_file, "r", encoding="utf-8") as f:
+            stories_data = json.load(f)
+            for story in stories_data.get("stories", []):
+                if story.get("slug") == slug:
+                    title = story.get("title", title)
+                    break
+
+    cache_key = f"story:{slug}"
+
+    image_bytes = get_cached_or_generate(
+        cache_key=cache_key,
+        title=title,
+        subtitle="Bible Stories",
+        page_type="story"
+    )
+
+    return Response(
+        content=image_bytes,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+    )
+
+
+@router.get("/og/guide/{slug}.png", response_class=Response)
+async def og_image_guide(slug: str = Path(..., description="Study guide slug")):
+    """Generate OG image for a study guide."""
+    title = slug.replace("-", " ").title()  # Fallback title
+    cache_key = f"guide:{slug}"
+
+    image_bytes = get_cached_or_generate(
+        cache_key=cache_key,
+        title=title,
+        subtitle="Bible Study Guide",
+        page_type="guide"
+    )
+
+    return Response(
+        content=image_bytes,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"}
     )

@@ -7,6 +7,8 @@
 {% block og_type %}article{% endblock %}
 {% block og_title %}{{ guide.title }} - Bible Study Guide{% endblock %}
 {% block og_description %}{{ guide.description }}{% endblock %}
+{% block og_image %}https://kjvstudy.org/og/guide/{{ guide.slug }}.png{% endblock %}
+{% block twitter_image %}https://kjvstudy.org/og/guide/{{ guide.slug }}.png{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">

@@ -4,6 +4,9 @@
 
 {% block description %}Study the book of {{ book }} from the King James Bible (KJV). {% if book_intro and book_intro.introduction %}{{ book_intro.introduction[:110]|striptags }}...{% elif introduction %}{{ introduction[:110]|striptags }}...{% else %}Complete KJV text with chapters, commentary, and study resources.{% endif %}{% endblock %}
 
+{% block og_image %}https://kjvstudy.org/og/book/{{ book | urlencode }}.png{% endblock %}
+{% block twitter_image %}https://kjvstudy.org/og/book/{{ book | urlencode }}.png{% endblock %}
+
 {% block structured_data %}
 <script type="application/ld+json">
 {

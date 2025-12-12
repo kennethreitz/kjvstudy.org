@@ -4,6 +4,9 @@
 
 {% block description %}Read {{ book }} chapter {{ chapter }} from the King James Version Bible. {{ verses[0].text[:100] if verses and verses|length > 0 else '' }}...{% endblock %}
 
+{% block og_image %}https://kjvstudy.org/og/chapter/{{ book | urlencode }}/{{ chapter }}.png{% endblock %}
+{% block twitter_image %}https://kjvstudy.org/og/chapter/{{ book | urlencode }}/{{ chapter }}.png{% endblock %}
+
 {% block structured_data %}
 <script type="application/ld+json">
 {

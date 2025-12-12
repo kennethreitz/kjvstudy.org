@@ -7,6 +7,8 @@
 {% block og_type %}article{% endblock %}
 {% block og_title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
 {% block og_description %}{{ verse_text[:150] if verse_text else '' }}...{% endblock %}
+{% block og_image %}https://kjvstudy.org/og/verse/{{ book | urlencode }}/{{ chapter }}/{{ verse_num }}.png{% endblock %}
+{% block twitter_image %}https://kjvstudy.org/og/verse/{{ book | urlencode }}/{{ chapter }}/{{ verse_num }}.png{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">

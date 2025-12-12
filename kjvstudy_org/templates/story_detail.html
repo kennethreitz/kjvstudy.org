@@ -6,6 +6,8 @@
 {% block og_type %}article{% endblock %}
 {% block og_title %}{{ story.title }} - Bible Story{% endblock %}
 {% block og_description %}{{ story.description }}{% endblock %}
+{% block og_image %}https://kjvstudy.org/og/story/{{ story.slug }}.png{% endblock %}
+{% block twitter_image %}https://kjvstudy.org/og/story/{{ story.slug }}.png{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">

@@ -3,6 +3,9 @@
 {% block title %}{{ topic_name }} - Topical Index - KJV Study{% endblock %}
 {% block description %}{{ topic.description }}{% endblock %}
 
+{% block og_image %}https://kjvstudy.org/og/topic/{{ topic_name | urlencode }}.png{% endblock %}
+{% block twitter_image %}https://kjvstudy.org/og/topic/{{ topic_name | urlencode }}.png{% endblock %}
+
 {% block structured_data %}
 <script type="application/ld+json">
 {
