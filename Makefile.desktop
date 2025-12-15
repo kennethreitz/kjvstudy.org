@@ -9,7 +9,7 @@ all: install-deps bundle-python build-tauri
 # Install required dependencies
 install-deps:
 	@echo "=== Installing dependencies ==="
-	pip install pyinstaller
+	uv pip install pyinstaller
 	cd src-tauri && cargo fetch
 	@echo "Dependencies installed!"
 

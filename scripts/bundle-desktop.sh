@@ -20,8 +20,8 @@ mkdir -p "$OUTPUT_DIR"
 # Install desktop dependencies (without weasyprint)
 echo ""
 echo "=== Installing desktop dependencies ==="
-pip install pyinstaller
-pip install "fastapi[standard]>=0.115.12" "ged4py>=0.5.2" "mistune>=3.0.2" "parse>=1.20.2" "python-gedcom>=1.0.0"
+uv pip install pyinstaller
+uv pip install "fastapi[standard]>=0.115.12" "ged4py>=0.5.2" "mistune>=3.0.2" "parse>=1.20.2" "python-gedcom>=1.0.0"
 
 # Create PyInstaller spec file
 echo ""

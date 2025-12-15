@@ -24,23 +24,35 @@ Everything from kjvstudy.org, completely offline:
 ### For Development
 - macOS 10.15+ (Catalina or later)
 - Rust (install via [rustup](https://rustup.rs/))
-- Python 3.11+
-- Node.js 18+ (for Tauri CLI)
+- Python 3.11+ with uv package manager
+- Xcode Command Line Tools
 
 ### For Users
 - macOS 10.15+ (Catalina or later)
 - ~200MB disk space
 
+## First-Time Setup
+
+```bash
+# 1. Install Rust (if not already installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+
+# 2. Install Tauri CLI
+cargo install tauri-cli
+
+# 3. Verify installations
+cargo --version      # Should show cargo 1.x.x
+cargo tauri --version # Should show tauri-cli 2.x.x
+```
+
 ## Quick Start (Development)
 
 ```bash
-# 1. Install Tauri CLI
-cargo install tauri-cli
-
-# 2. Start the Python server (in one terminal)
+# 1. Start the Python server (in one terminal)
 make -f Makefile.desktop dev
 
-# 3. Run Tauri in dev mode (in another terminal)
+# 2. Run Tauri in dev mode (in another terminal)
 make -f Makefile.desktop dev-tauri
 ```
 
