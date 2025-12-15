@@ -1,0 +1,80 @@
+# Makefile for KJV Study Desktop App
+# Usage: make -f Makefile.desktop [target]
+
+.PHONY: all clean bundle-python build-tauri build dev install-deps icons
+
+# Default target: build everything
+all: install-deps bundle-python build-tauri
+
+# Install required dependencies
+install-deps:
+	@echo "=== Installing dependencies ==="
+	pip install pyinstaller
+	cd src-tauri && cargo fetch
+	@echo "Dependencies installed!"
+
+# Bundle Python application with PyInstaller
+bundle-python:
+	@echo "=== Bundling Python server ==="
+	./scripts/bundle-desktop.sh
+	@echo "Python bundle complete!"
+
+# Build Tauri application
+build-tauri:
+	@echo "=== Building Tauri app ==="
+	cd src-tauri && cargo tauri build
+	@echo "Tauri build complete!"
+
+# Full production build
+build: all
+	@echo ""
+	@echo "=== Build Complete! ==="
+	@echo "App bundle: src-tauri/target/release/bundle/"
+
+# Development mode (runs server + opens browser)
+dev:
+	@echo "=== Starting development server ==="
+	uv run uvicorn kjvstudy_org.server:app --host 127.0.0.1 --port 31102 --reload
+
+# Development with Tauri
+dev-tauri:
+	@echo "=== Starting Tauri dev mode ==="
+	@echo "Make sure the Python server is running (make -f Makefile.desktop dev)"
+	cd src-tauri && cargo tauri dev
+
+# Generate app icons from source PNG (requires ImageMagick)
+icons:
+	@echo "=== Generating icons ==="
+	@if [ -f "kjvstudy_org/static/images/icon-source.png" ]; then \
+		convert kjvstudy_org/static/images/icon-source.png -resize 32x32 src-tauri/icons/32x32.png; \
+		convert kjvstudy_org/static/images/icon-source.png -resize 128x128 src-tauri/icons/128x128.png; \
+		convert kjvstudy_org/static/images/icon-source.png -resize 256x256 src-tauri/icons/128x128@2x.png; \
+		convert kjvstudy_org/static/images/icon-source.png -resize 512x512 src-tauri/icons/icon.png; \
+		echo "Icons generated!"; \
+	else \
+		echo "No icon-source.png found. Using placeholders."; \
+	fi
+
+# Clean build artifacts
+clean:
+	@echo "=== Cleaning build artifacts ==="
+	rm -rf build/ dist/ *.spec
+	rm -rf sidecar/
+	rm -rf src-tauri/target/
+	@echo "Clean complete!"
+
+# Help
+help:
+	@echo "KJV Study Desktop Build System"
+	@echo ""
+	@echo "Targets:"
+	@echo "  all          - Build everything (default)"
+	@echo "  install-deps - Install Python and Rust dependencies"
+	@echo "  bundle-python- Bundle Python server with PyInstaller"
+	@echo "  build-tauri  - Build Tauri application"
+	@echo "  build        - Full production build"
+	@echo "  dev          - Run development server on port 31102"
+	@echo "  dev-tauri    - Run Tauri in development mode"
+	@echo "  icons        - Generate icons from source PNG"
+	@echo "  clean        - Remove build artifacts"
+	@echo "  help         - Show this help"

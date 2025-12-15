@@ -1,0 +1,32 @@
+# Desktop-specific pyproject.toml (without WeasyPrint for easier bundling)
+# Use this for building the Tauri desktop application
+
+[project]
+name = "kjvstudy-desktop"
+version = "1.0.0"
+description = "KJV Study - Offline Bible Study Desktop Application"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi[standard]>=0.115.12",
+    "ged4py>=0.5.2",
+    "mistune>=3.0.2",
+    "parse>=1.20.2",
+    "python-gedcom>=1.0.0",
+    # Note: weasyprint intentionally excluded - PDF buttons will be hidden
+    # Note: requests excluded - not actually used in the codebase
+]
+
+[project.scripts]
+kjvstudy-server = "kjvstudy_org.desktop:main"
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["kjvstudy_org*"]
+
+[tool.setuptools.package-data]
+kjvstudy_org = ["static/**/*", "templates/**/*"]
