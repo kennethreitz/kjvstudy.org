@@ -17,3 +17,10 @@ kjvstudy_org/verse_collections.py
 *.backup
 *.json
 .coverage
+
+# Desktop app build artifacts
+sidecar/
+*.spec
+src-tauri/target/
+src-tauri/Cargo.lock
+src-tauri/gen/

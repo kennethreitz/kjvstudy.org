@@ -140,7 +140,7 @@ fn main() {
                     println!("Shutting down server...");
                     let _ = child.kill();
                     let _ = child.wait();
-                }
+                };
             }
         });
 }
