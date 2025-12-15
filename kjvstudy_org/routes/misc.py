@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from ..kjv import bible
 from ..red_letter import load_red_letter_verses
 from ..utils.search import perform_full_text_search
-from ..og_image import get_cached_or_generate
+from ..og_image import get_cached_or_generate, PIL_AVAILABLE, DEFAULT_OG_IMAGE
 
 router = APIRouter()
 templates = None
@@ -399,6 +399,17 @@ async def red_letter_page(
 # Dynamic OG Image Generation
 # =============================================================================
 
+async def _get_default_og_image():
+    """Return the default OG image when PIL is unavailable or generation fails."""
+    import asyncio
+    content = await asyncio.to_thread(DEFAULT_OG_IMAGE.read_bytes)
+    return Response(
+        content=content,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+    )
+
+
 @router.get("/og/verse/{book}/{chapter}/{verse}.png", response_class=Response)
 async def og_image_verse(
     book: str = Path(..., description="Book name"),
@@ -428,6 +439,9 @@ async def og_image_verse(
         verse_text=verse_text,
         page_type="verse"
     )
+
+    if image_bytes is None:
+        return await _get_default_og_image()
 
     return Response(
         content=image_bytes,
@@ -459,6 +473,9 @@ async def og_image_chapter(
         page_type="chapter"
     )
 
+    if image_bytes is None:
+        return await _get_default_og_image()
+
     return Response(
         content=image_bytes,
         media_type="image/png",
@@ -481,6 +498,9 @@ async def og_image_book(book: str = Path(..., description="Book name")):
         subtitle="King James Version Bible",
         page_type="book"
     )
+
+    if image_bytes is None:
+        return await _get_default_og_image()
 
     return Response(
         content=image_bytes,
@@ -507,6 +527,9 @@ async def og_image_topic(topic: str = Path(..., description="Topic name")):
         subtitle="Topical Bible Study",
         page_type="topic"
     )
+
+    if image_bytes is None:
+        return await _get_default_og_image()
 
     return Response(
         content=image_bytes,
@@ -544,6 +567,9 @@ async def og_image_story(slug: str = Path(..., description="Story slug")):
         page_type="story"
     )
 
+    if image_bytes is None:
+        return await _get_default_og_image()
+
     return Response(
         content=image_bytes,
         media_type="image/png",
@@ -566,6 +592,9 @@ async def og_image_guide(slug: str = Path(..., description="Study guide slug")):
         subtitle="Bible Study Guide",
         page_type="guide"
     )
+
+    if image_bytes is None:
+        return await _get_default_og_image()
 
     return Response(
         content=image_bytes,

@@ -6,7 +6,14 @@ import textwrap
 from io import BytesIO
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+    Image = None
+    ImageDraw = None
+    ImageFont = None
 
 # Image dimensions (standard OG image size)
 WIDTH = 1200
@@ -22,8 +29,11 @@ ACCENT_COLOR = (74, 124, 89)  # #4a7c59 - green accent
 # Cache directory
 CACHE_DIR = Path(__file__).parent / "static" / "og-cache"
 
+# Default OG image path (used when PIL not available)
+DEFAULT_OG_IMAGE = Path(__file__).parent / "static" / "og-image.png"
 
-def get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
+
+def get_font(size: int, bold: bool = False):
     """Get a font, falling back to default if custom font not available."""
     # Try to use system fonts that look like et-book/Georgia
     font_paths = [
@@ -52,7 +62,7 @@ def get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-def wrap_text(text: str, font: ImageFont.FreeTypeFont, max_width: int) -> list[str]:
+def wrap_text(text: str, font, max_width: int) -> list[str]:
     """Wrap text to fit within max_width pixels."""
     words = text.split()
     lines = []
@@ -79,7 +89,7 @@ def generate_og_image(
     subtitle: str | None = None,
     verse_text: str | None = None,
     page_type: str = "default"
-) -> bytes:
+) -> bytes | None:
     """
     Generate an OG image with the given content.
 
@@ -90,8 +100,11 @@ def generate_og_image(
         page_type: Type of page for styling variations
 
     Returns:
-        PNG image as bytes
+        PNG image as bytes, or None if PIL is not available
     """
+    if not PIL_AVAILABLE:
+        return None
+
     # Create image
     img = Image.new("RGB", (WIDTH, HEIGHT), BG_COLOR)
     draw = ImageDraw.Draw(img)
@@ -176,7 +189,7 @@ def get_cached_or_generate(
     subtitle: str | None = None,
     verse_text: str | None = None,
     page_type: str = "default"
-) -> bytes:
+) -> bytes | None:
     """
     Get a cached OG image or generate a new one.
 
@@ -188,8 +201,11 @@ def get_cached_or_generate(
         page_type: Type of page
 
     Returns:
-        PNG image as bytes
+        PNG image as bytes, or None if PIL is not available
     """
+    if not PIL_AVAILABLE:
+        return None
+
     cache_path = get_cache_path(cache_key)
 
     # Check cache

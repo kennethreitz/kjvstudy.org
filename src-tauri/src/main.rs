@@ -72,9 +72,37 @@ const LOADING_HTML: &str = r#"
 "#;
 
 fn start_server() -> Option<Child> {
-    let working_dir = std::env::current_dir().ok()?;
-
     println!("Starting KJV Study server...");
+
+    // Try to find bundled server executable first (for standalone build)
+    let exe_dir = std::env::current_exe().ok()?.parent()?.to_path_buf();
+
+    // On macOS, resources are in ../Resources relative to the executable
+    // Tauri preserves path structure, so ../dist/kjvstudy-server becomes _up_/dist/kjvstudy-server
+    let resources_dir = exe_dir.parent()?.join("Resources");
+    let bundled_server = resources_dir
+        .join("_up_")
+        .join("dist")
+        .join("kjvstudy-server")
+        .join("kjvstudy-server");
+
+    println!("Looking for bundled server at: {:?}", bundled_server);
+
+    if bundled_server.exists() {
+        println!("Found bundled server, starting...");
+        let child = Command::new(&bundled_server)
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped())
+            .spawn()
+            .ok()?;
+
+        println!("Server process started with PID: {}", child.id());
+        return Some(child);
+    }
+
+    // Fall back to development mode (uv or python3)
+    println!("Bundled server not found, trying development mode...");
+    let working_dir = std::env::current_dir().ok()?;
     println!("Working directory: {:?}", working_dir);
 
     let child = Command::new("uv")
@@ -330,6 +358,7 @@ fn main() {
             .inner_size(1200.0, 800.0)
             .min_inner_size(800.0, 600.0)
             .center()
+            .title_bar_style(tauri::TitleBarStyle::Transparent)
             .build()?;
 
             // Wait for server in background, then navigate
