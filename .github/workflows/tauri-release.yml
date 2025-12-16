@@ -37,11 +37,19 @@ jobs:
 
       # Build with Tauri CLI v2
       - name: Install Tauri CLI
-        run: cargo install tauri-cli --version "^2.0.0"
+        run: |
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+          cargo binstall tauri-cli --version "^2.0.0" -y
+
+      - name: Debug - list files
+        run: |
+          echo "Root directory:"
+          ls -la
+          echo "src-tauri directory:"
+          ls -la src-tauri/
 
       - name: Build Tauri app
         run: cargo tauri build
-        working-directory: src-tauri
 
       # Upload artifacts
       - name: Upload DMG
