@@ -39,13 +39,6 @@ jobs:
       - name: Install Tauri CLI
         run: cargo install tauri-cli --version "^2.0.0" --locked
 
-      - name: Debug files
-        run: |
-          pwd
-          ls -la
-          ls -la src-tauri/ || echo "src-tauri not found"
-          cat src-tauri/tauri.conf.json || echo "tauri.conf.json not found"
-
       - name: Build Tauri app
         run: cargo tauri build
 

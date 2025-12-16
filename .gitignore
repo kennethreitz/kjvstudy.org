@@ -16,6 +16,7 @@ kjvstudy_org/interlinear_data.py
 kjvstudy_org/verse_collections.py
 *.backup
 *.json
+!src-tauri/tauri.conf.json
 .coverage
 
 # Desktop app build artifacts
