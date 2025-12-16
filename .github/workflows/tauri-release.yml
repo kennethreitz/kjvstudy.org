@@ -35,14 +35,9 @@ jobs:
         with:
           workspaces: './src-tauri -> target'
 
-      # Install Tauri CLI v2
-      - name: Install Tauri CLI
-        run: npm install -g @tauri-apps/cli@^2.0.0
-
-      # Build manually instead of using tauri-action (which defaults to v1)
+      # Build with Tauri CLI v2
       - name: Build Tauri app
-        run: cargo tauri build
-        working-directory: src-tauri
+        run: npx @tauri-apps/cli@^2.0.0 build
 
       # Upload artifacts
       - name: Upload DMG
