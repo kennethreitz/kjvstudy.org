@@ -38,6 +38,7 @@ jobs:
       # Build with Tauri CLI v2
       - name: Build Tauri app
         run: npx @tauri-apps/cli@^2.0.0 build
+        working-directory: src-tauri
 
       # Upload artifacts
       - name: Upload DMG
