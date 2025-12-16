@@ -7,13 +7,11 @@ use std::time::Duration;
 use tauri::{
     Manager, RunEvent, WebviewUrl, WebviewWindowBuilder,
     menu::{Menu, MenuItem, PredefinedMenuItem, Submenu},
-    Emitter,
 };
 
 struct ServerProcess(Mutex<Option<Child>>);
 
 const SERVER_URL: &str = "http://127.0.0.1:31102";
-const APP_VERSION: &str = "0.1.0";
 
 // Loading screen HTML
 const LOADING_HTML: &str = r#"
@@ -25,13 +23,13 @@ const LOADING_HTML: &str = r#"
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, #f5f5dc 0%, #e8e4d4 100%);
+            background: #0f0f0f;
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #333;
+            color: #f5f5f5;
         }
         .logo {
             font-size: 48px;
@@ -42,13 +40,13 @@ const LOADING_HTML: &str = r#"
             font-weight: 300;
             letter-spacing: 2px;
             margin-bottom: 40px;
-            color: #4a4a4a;
+            color: #c4c4c4;
         }
         .spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid #ddd;
-            border-top-color: #8b7355;
+            border: 3px solid #2a2a2a;
+            border-top-color: #6d4bb3;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -58,7 +56,7 @@ const LOADING_HTML: &str = r#"
         .status {
             margin-top: 20px;
             font-size: 14px;
-            color: #666;
+            color: #737373;
         }
     </style>
 </head>
@@ -91,6 +89,7 @@ fn start_server() -> Option<Child> {
     if bundled_server.exists() {
         println!("Found bundled server, starting...");
         let child = Command::new(&bundled_server)
+            .env("DISABLE_ANALYTICS", "true")
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .spawn()
@@ -113,6 +112,7 @@ fn start_server() -> Option<Child> {
             "--port", "31102",
             "--log-level", "warning"
         ])
+        .env("DISABLE_ANALYTICS", "true")
         .current_dir(&working_dir)
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -127,6 +127,7 @@ fn start_server() -> Option<Child> {
                     "--port", "31102",
                     "--log-level", "warning"
                 ])
+                .env("DISABLE_ANALYTICS", "true")
                 .current_dir(&working_dir)
                 .stdout(Stdio::piped())
                 .stderr(Stdio::piped())
@@ -164,13 +165,12 @@ fn wait_for_server(max_attempts: u32) -> bool {
 
 fn create_menu(app: &tauri::AppHandle) -> tauri::Result<Menu<tauri::Wry>> {
     // App menu (macOS)
-    let about = MenuItem::with_id(app, "about", "About KJV Study", true, None::<&str>)?;
     let quit = PredefinedMenuItem::quit(app, Some("Quit KJV Study"))?;
     let app_menu = Submenu::with_items(
         app,
         "KJV Study",
         true,
-        &[&about, &PredefinedMenuItem::separator(app)?, &quit],
+        &[&quit],
     )?;
 
     // File menu
@@ -278,57 +278,6 @@ fn create_menu(app: &tauri::AppHandle) -> tauri::Result<Menu<tauri::Wry>> {
     )
 }
 
-fn show_about_dialog(app: &tauri::AppHandle) {
-    let about_html = format!(r#"
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body {{
-                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    padding: 30px;
-                    text-align: center;
-                    background: #fafafa;
-                    color: #333;
-                }}
-                .logo {{ font-size: 64px; margin-bottom: 10px; }}
-                h1 {{ font-size: 24px; font-weight: 500; margin: 0; }}
-                .version {{ color: #666; margin: 8px 0 20px; }}
-                .desc {{ font-size: 13px; color: #555; line-height: 1.6; max-width: 280px; margin: 0 auto; }}
-                .footer {{ margin-top: 20px; font-size: 11px; color: #999; }}
-            </style>
-        </head>
-        <body>
-            <div class="logo">📖</div>
-            <h1>KJV Study</h1>
-            <p class="version">Version {}</p>
-            <p class="desc">
-                A comprehensive offline Bible study application featuring the 1769 Cambridge King James Version
-                with commentary, cross-references, and original language tools.
-            </p>
-            <p class="footer">© 2024 Kenneth Reitz</p>
-        </body>
-        </html>
-    "#, APP_VERSION);
-
-    let about_url = format!("data:text/html,{}", urlencoding::encode(&about_html));
-
-    if let Ok(_) = WebviewWindowBuilder::new(
-        app,
-        "about",
-        WebviewUrl::External(about_url.parse().unwrap())
-    )
-    .title("About KJV Study")
-    .inner_size(350.0, 320.0)
-    .resizable(false)
-    .minimizable(false)
-    .maximizable(false)
-    .center()
-    .build() {
-        println!("About dialog opened");
-    }
-}
-
 fn main() {
     // Start server BEFORE Tauri
     let server_child = start_server();
@@ -359,6 +308,7 @@ fn main() {
             .min_inner_size(800.0, 600.0)
             .center()
             .title_bar_style(tauri::TitleBarStyle::Transparent)
+            .theme(Some(tauri::Theme::Dark))
             .build()?;
 
             // Wait for server in background, then navigate
@@ -380,7 +330,6 @@ fn main() {
             let window = app.get_webview_window("main");
 
             match event.id().as_ref() {
-                "about" => show_about_dialog(app),
                 "website" => {
                     let _ = tauri_plugin_shell::ShellExt::shell(app).open("https://kjvstudy.org", None);
                 }
