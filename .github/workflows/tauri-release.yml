@@ -36,8 +36,11 @@ jobs:
           workspaces: './src-tauri -> target'
 
       # Build with Tauri CLI v2
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --version "^2.0.0"
+
       - name: Build Tauri app
-        run: npx @tauri-apps/cli@^2.0.0 build
+        run: cargo tauri build
         working-directory: src-tauri
 
       # Upload artifacts
