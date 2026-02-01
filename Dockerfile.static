@@ -1,0 +1,89 @@
+# =============================================================================
+# Stage 1: Builder — install deps, generate static HTML pages
+# =============================================================================
+FROM python:3.13 AS builder
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy
+
+WORKDIR /app
+
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-install-project --no-dev
+
+COPY . .
+
+# Build search index (needed by app startup)
+RUN uv run python3 -c "from kjvstudy_org.utils.search_index import init_search_index; init_search_index()"
+
+# Generate static HTML pages (~50K files, no PDFs or API JSON)
+RUN uv run python scripts/generate_static_site.py --output /app/dist --workers 4
+
+# =============================================================================
+# Stage 2: Runtime — nginx for static files + FastAPI sidecar for dynamic routes
+# =============================================================================
+FROM python:3.13-slim
+
+# Install nginx + runtime deps for WeasyPrint (PDF generation in sidecar)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nginx \
+    curl \
+    libpango-1.0-0 \
+    libharfbuzz0b \
+    libpangoft2-1.0-0 \
+    libffi8 \
+    libgdk-pixbuf-2.0-0 \
+    shared-mime-info \
+    fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH="/app" \
+    PATH="/app/.venv/bin:$PATH"
+
+WORKDIR /app
+
+# Copy virtualenv from builder
+COPY --from=builder /app/.venv /app/.venv
+
+# Copy application code (needed by the sidecar)
+COPY --from=builder /app/kjvstudy_org /app/kjvstudy_org
+COPY --from=builder /app/scripts/search_api.py /app/scripts/search_api.py
+
+# Copy pre-rendered static site
+COPY --from=builder /app/dist /app/dist
+
+# Copy nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Entrypoint: start FastAPI sidecar + nginx
+COPY <<'ENTRY' /app/start.sh
+#!/bin/sh
+set -e
+
+# Start the FastAPI sidecar in the background
+# It handles: search, API, PDFs, OG images, and any uncached pages
+python3 /app/scripts/search_api.py &
+SIDECAR_PID=$!
+
+# Wait briefly for sidecar to be ready
+sleep 1
+
+# Start nginx in the foreground
+exec nginx -g 'daemon off;'
+ENTRY
+RUN chmod +x /app/start.sh
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=10s \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+CMD ["/app/start.sh"]

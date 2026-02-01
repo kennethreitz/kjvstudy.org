@@ -49,5 +49,9 @@ COPY . .
 # Build search index at image build time for fast searches
 RUN python3 -c "from kjvstudy_org.utils.search_index import init_search_index; init_search_index()"
 
-# Run uvicorn directly (no nginx sidecar)
-CMD ["sh", "-c", "uv run uvicorn kjvstudy_org.server:app --host ${HOST:-0.0.0.0} --port ${PORT:-8000} --workers ${WORKERS:-1} --proxy-headers"]
+# Run with gunicorn + uvicorn workers for production resilience:
+#   --max-requests: recycle workers after N requests (prevents memory leaks)
+#   --max-requests-jitter: stagger recycling so workers don't all restart at once
+#   --timeout: kill workers that hang for >60s
+#   --graceful-timeout: give workers 10s to finish after SIGTERM
+CMD ["sh", "-c", "uv run gunicorn kjvstudy_org.server:app --worker-class uvicorn.workers.UvicornWorker --bind ${HOST:-0.0.0.0}:${PORT:-8000} --workers ${WORKERS:-2} --max-requests 2000 --max-requests-jitter 500 --timeout 60 --graceful-timeout 10 --proxy-protocol --forwarded-allow-ips='*' --access-logfile -"]

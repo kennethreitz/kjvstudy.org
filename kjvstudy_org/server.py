@@ -3,6 +3,7 @@ import json
 import os
 import re
 import random
+import time
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path as PathLib
@@ -236,6 +237,70 @@ class BotLoggerMiddleware(BaseHTTPMiddleware):
         return response
 
 
+# Rate limiting middleware — per-IP request throttle
+class RateLimitMiddleware(BaseHTTPMiddleware):
+    """Simple in-memory per-IP rate limiter using a sliding window."""
+
+    def __init__(self, app, requests_per_second: float = 10.0):
+        super().__init__(app)
+        self.rate = requests_per_second
+        # {ip: (token_count, last_refill_time)}
+        self._buckets: dict[str, tuple[float, float]] = {}
+        self._max_tokens = requests_per_second * 5  # burst allowance
+
+    async def dispatch(self, request: Request, call_next):
+        # Skip rate limiting for health checks
+        if request.url.path == "/health":
+            return await call_next(request)
+
+        ip = request.client.host if request.client else "unknown"
+        now = time.monotonic()
+
+        tokens, last = self._buckets.get(ip, (self._max_tokens, now))
+        elapsed = now - last
+        tokens = min(self._max_tokens, tokens + elapsed * self.rate)
+
+        if tokens < 1.0:
+            return JSONResponse(
+                {"detail": "Too many requests"},
+                status_code=429,
+                headers={"Retry-After": "1"},
+            )
+
+        self._buckets[ip] = (tokens - 1.0, now)
+
+        # Periodic cleanup — evict stale entries every ~1000 requests
+        if len(self._buckets) > 5000:
+            cutoff = now - 60
+            self._buckets = {
+                k: (t, ts) for k, (t, ts) in self._buckets.items() if ts > cutoff
+            }
+
+        return await call_next(request)
+
+
+# Request timeout middleware — kill requests that take too long
+class TimeoutMiddleware(BaseHTTPMiddleware):
+    """Cancel requests that exceed a time limit."""
+
+    def __init__(self, app, timeout_seconds: float = 30.0):
+        super().__init__(app)
+        self.timeout = timeout_seconds
+
+    async def dispatch(self, request: Request, call_next):
+        import asyncio
+        try:
+            return await asyncio.wait_for(
+                call_next(request),
+                timeout=self.timeout,
+            )
+        except asyncio.TimeoutError:
+            return JSONResponse(
+                {"detail": "Request timeout"},
+                status_code=504,
+            )
+
+
 # Add GZip compression middleware (compress responses > 500 bytes)
 app.add_middleware(GZipMiddleware, minimum_size=500)
 
@@ -244,6 +309,12 @@ app.add_middleware(CacheControlMiddleware)
 
 # Add bot logging middleware
 app.add_middleware(BotLoggerMiddleware)
+
+# Add rate limiting (10 req/s per IP, burst of 50)
+app.add_middleware(RateLimitMiddleware, requests_per_second=10.0)
+
+# Add request timeout (30 seconds max, 60 for PDFs handled by route-level timeout)
+app.add_middleware(TimeoutMiddleware, timeout_seconds=30.0)
 
 
 # Set up Jinja2 templates and static files
