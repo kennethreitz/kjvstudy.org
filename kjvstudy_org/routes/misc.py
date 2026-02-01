@@ -128,8 +128,8 @@ async def search_page(request: Request, q: str = Query(None, description="Search
     is_direct_verse = False
 
     if q and len(q.strip()) >= 2:
-        # Search Bible verses
-        search_results = perform_full_text_search(q.strip())
+        # Search Bible verses (cap at 50 to keep template rendering fast)
+        search_results = perform_full_text_search(q.strip(), limit=50)
         # Check if this was a direct verse reference match
         if search_results and len(search_results) == 1 and search_results[0].get("score") == 100.0:
             is_direct_verse = True
