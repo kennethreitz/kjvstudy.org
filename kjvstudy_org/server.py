@@ -249,11 +249,13 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         self._max_tokens = requests_per_second * 5  # burst allowance
 
     async def dispatch(self, request: Request, call_next):
-        # Skip rate limiting for health checks
+        # Skip rate limiting for health checks and local/test clients
         if request.url.path == "/health":
             return await call_next(request)
 
         ip = request.client.host if request.client else "unknown"
+        if ip in ("127.0.0.1", "testclient"):
+            return await call_next(request)
         now = time.monotonic()
 
         tokens, last = self._buckets.get(ip, (self._max_tokens, now))

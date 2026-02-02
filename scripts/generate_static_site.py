@@ -28,12 +28,21 @@ def get_test_client(app):
 
 
 def enumerate_urls():
-    """Enumerate high-traffic HTML pages only (~1,300 URLs).
+    """Enumerate HTML pages to pre-render.
 
-    Covers: homepage, book listing, 66 book pages, ~1,189 chapter pages,
-    and a handful of top-level resource/about pages.
+    Covers: homepage, books, chapters, topics, stories, reading plans,
+    study guides, resource categories + detail pages, about pages.
     """
     from kjvstudy_org.kjv import bible
+    from kjvstudy_org.topics import get_all_topics
+    from kjvstudy_org.stories import get_all_stories_flat
+    from kjvstudy_org.reading_plans import get_all_plans
+    from kjvstudy_org.routes.utility import _load_resource_slugs
+
+    slugs = _load_resource_slugs()
+    topics = get_all_topics()
+    stories = get_all_stories_flat()
+    plans = get_all_plans()
 
     urls = [
         "/",
@@ -54,19 +63,80 @@ def enumerate_urls():
         "/strongs/greek",
         "/interlinear",
         "/family-tree",
+        "/family-tree/interactive",
+        "/family-tree/lineage",
         "/biblical-timeline",
         "/biblical-maps",
         "/red-letter",
         "/stars",
     ]
 
-    # 66 book pages + ~1,189 chapter pages
+    # ---- Resource category index pages ----
+    resource_categories = [
+        "biblical-angels", "biblical-prophets", "names-of-god", "parables",
+        "biblical-covenants", "the-twelve-apostles", "women-of-the-bible",
+        "biblical-festivals", "fruits-of-the-spirit", "tetragrammaton",
+        "miracles-of-jesus", "prayers-of-the-bible", "beatitudes",
+        "ten-commandments", "armor-of-god", "i-am-statements",
+        "trinity", "christology", "soteriology", "pneumatology",
+        "eschatology", "ecclesiology", "types-and-shadows",
+        "messianic-prophecies", "blood-in-scripture", "kingdom-of-god",
+        "names-of-christ", "spirits-and-demons", "personifications",
+        "bibliology", "theology-proper", "anthropology", "hamartiology",
+        "providence", "grace", "justification", "sanctification",
+        "law-and-gospel", "worship",
+    ]
+    urls.extend(f"/{cat}" for cat in resource_categories)
+
+    # ---- Resource detail pages ----
+    slug_to_category = {
+        "angels": "biblical-angels",
+        "prophets": "biblical-prophets",
+        "names_of_god": "names-of-god",
+        "parables": "parables",
+        "covenants": "biblical-covenants",
+        "apostles": "the-twelve-apostles",
+        "women": "women-of-the-bible",
+        "festivals": "biblical-festivals",
+        "fruits_of_spirit": "fruits-of-the-spirit",
+    }
+    for key, category in slug_to_category.items():
+        for slug in slugs.get(key, []):
+            urls.append(f"/{category}/{slug}")
+
+    # ---- Study guides ----
+    seen_guides = set()
+    for slug in slugs.get("study_guides", []):
+        seen_guides.add(slug)
+        urls.append(f"/study-guides/{slug}")
+    study_guide_dir = PROJECT_ROOT / "kjvstudy_org" / "data" / "study_guides"
+    if study_guide_dir.exists():
+        for f in study_guide_dir.glob("*.json"):
+            if f.stem not in seen_guides:
+                urls.append(f"/study-guides/{f.stem}")
+
+    # ---- Topics ----
+    for topic_name in topics.keys():
+        urls.append(f"/topics/{topic_name}")
+
+    # ---- Reading plans ----
+    for plan_id in plans.keys():
+        urls.append(f"/reading-plans/{plan_id}")
+
+    # ---- Stories ----
+    for story in stories:
+        slug = story.get("slug", "")
+        if slug:
+            urls.append(f"/stories/{slug}")
+            urls.append(f"/stories/{slug}/kids")
+
+    # ---- Books + chapters ----
     for book in bible.get_books():
         urls.append(f"/book/{book}")
         for chapter in bible.get_chapters_for_book(book):
             urls.append(f"/book/{book}/chapter/{chapter}")
 
-    return urls
+    return list(dict.fromkeys(urls))
 
 
 def url_to_filepath(output_dir: Path, url: str) -> Path:
@@ -81,6 +151,8 @@ def render_url(client, output_dir: Path, url: str) -> tuple[str, bool, str]:
         filepath = url_to_filepath(output_dir, url)
         response = client.get(url)
 
+        if response.status_code == 404:
+            return (url, True, "skipped:404")
         if response.status_code >= 400:
             return (url, False, f"HTTP {response.status_code}")
 
@@ -212,7 +284,8 @@ def main():
 
         print(f"\nRendering {len(all_urls)} HTML pages...")
         start = time.time()
-        ok = 0
+        rendered = 0
+        skipped = 0
         fail = 0
         errors = []
 
@@ -222,8 +295,10 @@ def main():
             for future in as_completed(futures):
                 done += 1
                 url, success, msg = future.result()
-                if success:
-                    ok += 1
+                if success and msg == "skipped:404":
+                    skipped += 1
+                elif success:
+                    rendered += 1
                 else:
                     fail += 1
                     errors.append((url, msg))
@@ -231,11 +306,12 @@ def main():
                 if done % 200 == 0 or done == len(all_urls):
                     elapsed = time.time() - start
                     rate = done / elapsed if elapsed > 0 else 0
-                    print(f"  [{done}/{len(all_urls)}] {rate:.0f}/sec  errors={fail}")
+                    print(f"  [{done}/{len(all_urls)}] {rate:.0f}/sec  rendered={rendered} skipped={skipped} errors={fail}")
 
         elapsed = time.time() - start
         print(f"\nDone in {elapsed:.1f}s")
-        print(f"  Success: {ok}")
+        print(f"  Rendered: {rendered}")
+        print(f"  Skipped (404): {skipped}")
         print(f"  Errors:  {fail}")
 
         if errors:
