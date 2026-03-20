@@ -176,7 +176,7 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
 
         # Skip caching for API endpoints and dynamic content
-        if request.url.path.startswith("/api/") or request.url.path in ["/verse-of-the-day", "/random-verse"]:
+        if request.url.path.startswith("/api/") or request.url.path in ["/", "/verse-of-the-day", "/random-verse"]:
             response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
             response.headers["Pragma"] = "no-cache"
             response.headers["Expires"] = "0"
@@ -193,7 +193,7 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
                                                    "/tetragrammaton", "/commentary/"]):
             response.headers["Cache-Control"] = "public, max-age=86400"  # 1 day
         # Homepage and main sections - cache for 1 hour
-        elif request.url.path in ["/", "/books", "/search", "/resources", "/strongs"]:
+        elif request.url.path in ["/books", "/search", "/resources", "/strongs"]:
             response.headers["Cache-Control"] = "public, max-age=3600"  # 1 hour
         # Sitemap and robots.txt - cache for 1 day
         elif request.url.path in ["/sitemap.xml", "/robots.txt"]:
