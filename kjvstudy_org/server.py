@@ -4,10 +4,185 @@ import os
 import re
 import random
 import time
+import inspect as _inspect
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from pathlib import Path as PathLib
 from typing import List, Dict, Optional
+from urllib.parse import parse_qs
+
+# --- Patch turboAPI to inject Starlette Request objects BEFORE any route registration ---
+import turboapi.request_handler as _rh
+_original_create_enhanced = _rh.create_enhanced_handler
+
+def _make_starlette_request(method, path, query_string="", headers=None, body=b""):
+    """Build a Starlette Request from raw HTTP components."""
+    from starlette.requests import Request as StarletteRequest
+    qs = (query_string or "").encode("utf-8") if isinstance(query_string, str) else (query_string or b"")
+    scope = {
+        "type": "http",
+        "method": method.upper(),
+        "path": path,
+        "query_string": qs,
+        "headers": [(k.lower().encode(), v.encode()) for k, v in (headers or {}).items()],
+        "root_path": "",
+        "scheme": "http",
+        "server": ("localhost", 8000),
+    }
+    return StarletteRequest(scope)
+
+def _patched_create_enhanced(original_handler, route_definition):
+    """Wrap create_enhanced_handler to inject Request when the handler needs it."""
+    sig = _inspect.signature(original_handler)
+    needs_request = "request" in sig.parameters
+
+    if not needs_request:
+        return _original_create_enhanced(original_handler, route_definition)
+
+    # Handler needs a Request — build a custom wrapper
+    is_async = _inspect.iscoroutinefunction(original_handler)
+
+    def _build_call_kwargs(kwargs):
+        req = _make_starlette_request(
+            method=kwargs.get("method", "GET"),
+            path=kwargs.get("path", route_definition.path),
+            query_string=kwargs.get("query_string", ""),
+            headers=kwargs.get("headers", {}),
+            body=kwargs.get("body", b""),
+        )
+        parsed_params = {"request": req}
+        # Parse query params
+        qs = kwargs.get("query_string", "")
+        if qs:
+            for key, values in parse_qs(qs, keep_blank_values=True).items():
+                if key in sig.parameters:
+                    param = sig.parameters[key]
+                    val = values[0] if len(values) == 1 else values
+                    if param.annotation is int:
+                        try: val = int(val)
+                        except (ValueError, TypeError): pass
+                    elif param.annotation is float:
+                        try: val = float(val)
+                        except (ValueError, TypeError): pass
+                    parsed_params[key] = val
+        # Parse path params
+        if "path" in kwargs and hasattr(route_definition, 'path'):
+            from turboapi.request_handler import PathParamParser
+            pp = PathParamParser.extract_path_params(route_definition.path, kwargs["path"])
+            # Type-coerce path params
+            for k, v in pp.items():
+                if k in sig.parameters:
+                    param = sig.parameters[k]
+                    if param.annotation is int:
+                        try: v = int(v)
+                        except (ValueError, TypeError): pass
+                    parsed_params[k] = v
+        return {k: v for k, v in parsed_params.items() if k in sig.parameters}
+
+    def _handle_result(result):
+        if hasattr(result, 'body'):
+            body_bytes = result.body
+            status = getattr(result, 'status_code', 200)
+            hdrs = getattr(result, 'headers', {})
+            ct = hdrs.get('content-type', 'text/html') if isinstance(hdrs, dict) else dict(hdrs.raw).get(b'content-type', b'text/html').decode()
+            return {
+                "content": body_bytes.decode('utf-8') if isinstance(body_bytes, bytes) else body_bytes,
+                "status_code": status,
+                "content_type": ct,
+            }
+        return _rh.ResponseHandler.format_json_response(result, 200)
+
+    def _handle_error(e):
+        if hasattr(e, 'status_code') and hasattr(e, 'detail'):
+            return _rh.ResponseHandler.format_json_response({"detail": e.detail}, e.status_code)
+        import traceback
+        return _rh.ResponseHandler.format_json_response(
+            {"error": "Internal Server Error", "detail": str(e)}, 500
+        )
+
+    if is_async:
+        async def wrapper_async(**kwargs):
+            try:
+                filtered = _build_call_kwargs(kwargs)
+                result = await original_handler(**filtered)
+                return _handle_result(result)
+            except Exception as e:
+                return _handle_error(e)
+        return wrapper_async
+    else:
+        def wrapper_sync(**kwargs):
+            try:
+                filtered = _build_call_kwargs(kwargs)
+                result = original_handler(**filtered)
+                return _handle_result(result)
+            except Exception as e:
+                return _handle_error(e)
+        return wrapper_sync
+
+# Patch in the module — must happen before rust_integration imports it
+_rh.create_enhanced_handler = _patched_create_enhanced
+
+# Also patch rust_integration if already imported, AND monkey-patch _register_routes_with_rust
+# to use our patched version
+import sys
+if 'turboapi.rust_integration' in sys.modules:
+    sys.modules['turboapi.rust_integration'].create_enhanced_handler = _patched_create_enhanced
+else:
+    # Force-load request_handler first so rust_integration picks up our patch
+    # by replacing the module-level function before rust_integration loads
+    pass
+
+# Patch _register_routes_with_rust to wrap handlers that need Request injection.
+# The Rust server calls route.handler directly (fast path), so we must wrap the
+# original handler itself, not just the enhanced wrapper.
+def _patch_register_routes():
+    import turboapi.rust_integration as _ri
+    _ri.create_enhanced_handler = _patched_create_enhanced
+    _orig_register = _ri.RustIntegratedTurboAPI._register_routes_with_rust
+
+    def _new_register(self):
+        # Before registering, wrap any handler that needs a Request
+        for route in self.registry.get_routes():
+            sig = _inspect.signature(route.handler)
+            if "request" in sig.parameters:
+                original = route.handler
+                route_def = route
+
+                if _inspect.iscoroutinefunction(original):
+                    async def _wrapped(*args, _orig=original, _rd=route_def, _sig=sig, **kw):
+                        # The Rust server passes path params as positional/keyword args
+                        # Build a Request from what we can infer
+                        req = _make_starlette_request(
+                            method="GET",
+                            path=_rd.path,
+                            headers=kw.pop("headers", {}),
+                            query_string=kw.pop("query_string", ""),
+                        )
+                        kw["request"] = req
+                        filtered = {k: v for k, v in kw.items() if k in _sig.parameters}
+                        return await _orig(**filtered)
+                    route.handler = _wrapped
+                else:
+                    def _wrapped_sync(*args, _orig=original, _rd=route_def, _sig=sig, **kw):
+                        req = _make_starlette_request(
+                            method="GET",
+                            path=_rd.path,
+                            headers=kw.pop("headers", {}),
+                            query_string=kw.pop("query_string", ""),
+                        )
+                        kw["request"] = req
+                        filtered = {k: v for k, v in kw.items() if k in _sig.parameters}
+                        return _orig(**filtered)
+                    route.handler = _wrapped_sync
+
+        # Now also patch create_enhanced_handler in rust_integration namespace
+        _ri.create_enhanced_handler = _patched_create_enhanced
+        return _orig_register(self)
+
+    _ri.RustIntegratedTurboAPI._register_routes_with_rust = _new_register
+
+_patch_register_routes()
+# --- End patch ---
 
 from turboapi import TurboAPI, HTTPException, Request, Query, Path
 from turboapi import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
@@ -82,6 +257,50 @@ async def lifespan(app):
         preload_data()
     yield
     # Shutdown (nothing needed currently)
+
+
+# Patch TurboAPI to skip unsupported middleware during Rust server init
+_original_init_rust = TurboAPI._initialize_rust_server
+
+def _patched_init_rust(self, host="127.0.0.1", port=8000):
+    """Skip unsupported middleware gracefully instead of failing."""
+    try:
+        import turboapi.turbonet as turbonet
+    except (ImportError, AttributeError):
+        return False
+
+    try:
+        self.rust_server = turbonet.TurboServer(host, port)
+
+        for middleware_class, kwargs in self.middleware_stack:
+            name = middleware_class.__name__
+            try:
+                if name == "CorsMiddleware":
+                    cors = turbonet.CorsMiddleware(
+                        kwargs.get("origins", ["*"]),
+                        kwargs.get("methods", ["GET", "POST", "PUT", "DELETE"]),
+                        kwargs.get("headers", ["*"]),
+                        kwargs.get("max_age", 3600)
+                    )
+                    self.rust_server.add_middleware(cors)
+                elif name == "GZipMiddleware":
+                    if hasattr(turbonet, "GZipMiddleware"):
+                        self.rust_server.add_middleware(turbonet.GZipMiddleware())
+                    else:
+                        print(f"  [SKIP] {name} (not yet supported in Rust core)")
+                else:
+                    print(f"  [SKIP] {name} (Python middleware, not in Rust core)")
+            except Exception:
+                print(f"  [SKIP] {name} (failed to register)")
+
+        self._register_routes_with_rust()
+        print(f"  Rust server initialized with {len(self.registry.get_routes())} routes")
+        return True
+    except Exception as e:
+        print(f"  Rust server init failed: {e}")
+        return False
+
+TurboAPI._initialize_rust_server = _patched_init_rust
 
 
 app = TurboAPI(
