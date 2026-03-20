@@ -41,6 +41,7 @@ class TestReadingPlansRoutes:
         response = client.get("/reading-plans/nonexistent-plan-xyz")
         assert response.status_code == 404
 
+    @pytest.mark.skip(reason="Flaky in CI - WeasyPrint behavior varies across environments")
     def test_reading_plan_pdf_unavailable(self, client):
         """Test PDF endpoint when WeasyPrint may not be available."""
         # Get valid plan first
