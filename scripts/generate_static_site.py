@@ -23,8 +23,8 @@ def create_app():
 
 
 def get_test_client(app):
-    from fastapi.testclient import TestClient
-    return TestClient(app, raise_server_exceptions=False)
+    from turboapi.testclient import TestClient
+    return TestClient(app)
 
 
 def enumerate_urls():

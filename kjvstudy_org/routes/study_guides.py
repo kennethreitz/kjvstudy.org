@@ -5,8 +5,8 @@ This module contains the study guides routes and content.
 import json
 from pathlib import Path
 from functools import lru_cache
-from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse, StreamingResponse
+from turboapi import APIRouter, Request, HTTPException
+from turboapi import HTMLResponse, StreamingResponse
 from ..kjv import bible
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
 

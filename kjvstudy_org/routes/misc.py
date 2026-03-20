@@ -5,9 +5,9 @@ import re
 from datetime import datetime, timedelta
 from typing import Optional
 
-from fastapi import APIRouter, Query, Request, Path
-from fastapi.responses import HTMLResponse, RedirectResponse, Response
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, Query, Request, Path
+from turboapi import HTMLResponse, RedirectResponse, Response
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..red_letter import load_red_letter_verses

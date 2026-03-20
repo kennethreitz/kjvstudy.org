@@ -9,13 +9,11 @@ from datetime import datetime, timedelta
 from pathlib import Path as PathLib
 from typing import List, Dict, Optional
 
-from fastapi import FastAPI, HTTPException, Request, Query, Path
-from fastapi.exception_handlers import http_exception_handler
-from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.openapi.utils import get_openapi
+from turboapi import TurboAPI, HTTPException, Request, Query, Path
+from turboapi import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
+from turboapi import GZipMiddleware
+from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -73,7 +71,7 @@ except ImportError:
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app):
     """Lifespan context manager for startup/shutdown events"""
     # Startup
     # Initialize search index for fast searches
@@ -86,7 +84,7 @@ async def lifespan(app: FastAPI):
     # Shutdown (nothing needed currently)
 
 
-app = FastAPI(
+app = TurboAPI(
     title="KJV Study API",
     description="RESTful API for accessing King James Bible verses, chapters, and study resources",
     version="1.0.0",
@@ -143,27 +141,26 @@ app.include_router(misc_router)
 
 
 # Custom OpenAPI schema to only include /api routes
-def custom_openapi():
-    if app.openapi_schema:
-        return app.openapi_schema
+_custom_openapi_schema = None
 
-    openapi_schema = get_openapi(
-        title=app.title,
-        version=app.version,
-        description=app.description,
-        routes=app.routes,
-    )
+def custom_openapi():
+    global _custom_openapi_schema
+    if _custom_openapi_schema:
+        return _custom_openapi_schema
+
+    openapi_schema = app.openapi()
 
     # Filter paths to only include /api routes
-    filtered_paths = {
-        path: path_item
-        for path, path_item in openapi_schema["paths"].items()
-        if path.startswith("/api/")
-    }
+    if "paths" in openapi_schema:
+        filtered_paths = {
+            path: path_item
+            for path, path_item in openapi_schema["paths"].items()
+            if path.startswith("/api/")
+        }
+        openapi_schema["paths"] = filtered_paths
 
-    openapi_schema["paths"] = filtered_paths
-    app.openapi_schema = openapi_schema
-    return app.openapi_schema
+    _custom_openapi_schema = openapi_schema
+    return _custom_openapi_schema
 
 app.openapi = custom_openapi
 
@@ -394,8 +391,11 @@ async def custom_http_exception_handler(request: Request, exc: StarletteHTTPExce
             status_code=exc.status_code,
         )
 
-    # For other errors, use the default handler
-    return await http_exception_handler(request, exc)
+    # For other errors, return a JSON response
+    return JSONResponse(
+        {"detail": exc.detail},
+        status_code=exc.status_code,
+    )
 
 
 

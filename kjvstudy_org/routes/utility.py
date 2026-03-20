@@ -4,8 +4,8 @@ from datetime import datetime
 from pathlib import Path
 from functools import lru_cache
 
-from fastapi import APIRouter
-from fastapi.responses import Response, FileResponse
+from turboapi import APIRouter
+from turboapi import Response, FileResponse
 
 from ..kjv import bible
 from ..topics import get_all_topics

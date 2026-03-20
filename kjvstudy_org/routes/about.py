@@ -5,9 +5,9 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, Request
+from turboapi import HTMLResponse
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..utils.books import OT_BOOKS, NT_BOOKS

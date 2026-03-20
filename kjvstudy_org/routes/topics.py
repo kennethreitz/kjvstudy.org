@@ -1,7 +1,7 @@
 """Topics routes - browse and view topical Bible studies."""
-from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, HTTPException, Request
+from turboapi import HTMLResponse, StreamingResponse
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..topics import get_all_topics, get_topic_with_text

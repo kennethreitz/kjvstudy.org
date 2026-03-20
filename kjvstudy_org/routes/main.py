@@ -1,9 +1,9 @@
 """Main page routes - homepage, books browser, and resources."""
 import re
 
-from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, Request
+from turboapi import HTMLResponse
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from .misc import get_daily_verse

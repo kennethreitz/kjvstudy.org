@@ -11,8 +11,8 @@ import random
 from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
-from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse
+from turboapi import APIRouter, Request, HTTPException
+from turboapi import HTMLResponse
 from ..utils.commentary_loader import load_commentary, load_commentary_flat
 from ..interlinear_loader import get_interlinear_data
 
@@ -239,7 +239,7 @@ def get_verse_text(book, chapter, verse):
 @router.get("/commentary/{book}/{chapter}")
 async def commentary_redirect(book: str, chapter: int):
     """Redirect old chapter commentary URLs to chapter page"""
-    from fastapi.responses import RedirectResponse
+    from turboapi import RedirectResponse
     return RedirectResponse(url=f"/book/{book}/chapter/{chapter}", status_code=301)
 
 

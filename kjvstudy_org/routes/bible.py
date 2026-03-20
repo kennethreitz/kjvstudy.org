@@ -4,9 +4,9 @@ from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, HTTPException, Request
+from turboapi import HTMLResponse, RedirectResponse, StreamingResponse
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..cross_references import get_cross_references

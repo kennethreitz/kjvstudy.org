@@ -3,7 +3,7 @@ Tests for utility modules - search, books, stories, biographies, etc.
 Targeting modules with lower test coverage.
 """
 import pytest
-from fastapi.testclient import TestClient
+from turboapi.testclient import TestClient
 
 
 class TestSearchModule:

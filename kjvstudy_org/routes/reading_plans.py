@@ -1,9 +1,9 @@
 """Reading plans routes - browse and view Bible reading plans."""
 import re
 
-from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, HTTPException, Request
+from turboapi import HTMLResponse, StreamingResponse
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..reading_plans import get_plan, get_plan_summary

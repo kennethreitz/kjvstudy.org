@@ -1,9 +1,9 @@
 """Strong's Concordance routes - Hebrew and Greek word study."""
 import re
 
-from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, HTTPException, Request
+from turboapi import HTMLResponse, RedirectResponse
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..strongs import format_strongs_entry, search_strongs, get_all_strongs
@@ -32,7 +32,7 @@ async def concordance_redirect():
 @router.get("/strongs", response_class=HTMLResponse)
 async def strongs_index(request: Request, q: str = None):
     """Strong's Concordance search and lookup page."""
-    from fastapi.responses import RedirectResponse
+    from turboapi import RedirectResponse
 
     results = []
     if q:

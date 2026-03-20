@@ -3,8 +3,8 @@
 These routes handle the biblical reference and study resources pages.
 Data is imported from the centralized data module to avoid duplication.
 """
-from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse, StreamingResponse
+from turboapi import APIRouter, Request, HTTPException
+from turboapi import HTMLResponse, StreamingResponse
 
 from ..data import (
     BIBLICAL_LOCATIONS,

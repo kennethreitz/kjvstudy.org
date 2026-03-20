@@ -9,7 +9,7 @@ Targets:
 - interlinear_loader.py (58% -> higher)
 """
 import pytest
-from fastapi.testclient import TestClient
+from turboapi.testclient import TestClient
 
 
 class TestReadingPlansRoutes:

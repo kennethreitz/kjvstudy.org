@@ -2,9 +2,9 @@
 import json
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
+from turboapi import APIRouter, HTTPException, Request
+from turboapi import HTMLResponse, StreamingResponse
+from starlette.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async

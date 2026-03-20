@@ -2,8 +2,8 @@
 
 Routes for browsing Bible stories with adult and kids versions.
 """
-from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse, StreamingResponse
+from turboapi import APIRouter, Request, HTTPException
+from turboapi import HTMLResponse, StreamingResponse
 from ..kjv import bible
 from ..stories import (
     get_categories,
