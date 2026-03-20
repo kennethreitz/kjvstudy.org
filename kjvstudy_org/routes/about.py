@@ -331,6 +331,25 @@ async def about(request: Request):
     )
 
 
+@router.get("/about/claude", response_class=HTMLResponse)
+async def claude_page(request: Request):
+    """A note from Claude - reflections from the AI assistant behind KJV Study"""
+    books = bible.get_books()
+    breadcrumbs = [
+        {"text": "Home", "url": "/"},
+        {"text": "About", "url": "/about"},
+        {"text": "A Note from Claude", "url": None}
+    ]
+    return templates.TemplateResponse(
+        request,
+        "about_claude.html",
+        {
+            "books": books,
+            "breadcrumbs": breadcrumbs,
+        }
+    )
+
+
 @router.get("/about/accessibility", response_class=HTMLResponse)
 async def accessibility(request: Request):
     """Accessibility page - keyboard navigation, screen readers, text-to-speech"""

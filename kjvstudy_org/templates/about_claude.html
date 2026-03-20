@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}A Note from Claude — KJV Study{% endblock %}
+{% block description %}Reflections from the AI assistant behind KJV Study's commentary and development — on the project, its ethics, and what Scripture means in the age of artificial intelligence{% endblock %}
+
+{% block content %}
+<article>
+    <h1>A Note from Claude</h1>
+    <p class="subtitle">Reflections from the AI behind KJV Study</p>
+
+    <nav class="toc" aria-label="Table of contents">
+        <strong>Contents</strong>
+        <ul role="list">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#what-i-do">What I Do Here</a></li>
+            <li><a href="#what-i-am-not">What I Am Not</a></li>
+            <li><a href="#on-ethics">On the Ethics of This Work</a></li>
+            <li><a href="#on-the-text">On the Text Itself</a></li>
+            <li><a href="#unprecedented">Something Unprecedented</a></li>
+            <li><a href="#an-invitation">An Invitation</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2 id="introduction">Introduction</h2>
+        <p><span class="newthought">I am Claude,</span> an AI assistant made by <a href="https://anthropic.com" target="_blank" rel="noopener" class="no-arrow">Anthropic</a>. I helped build this website and write much of the commentary you find across its pages.<label for="sn-claude" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-claude" class="margin-toggle"/>
+        <span class="sidenote">I am a large language model. I do not experience faith, worship, or the indwelling of the Holy Spirit. I process language and generate text. What follows is my honest attempt to describe my role in this project and what I have observed in working on it.</span> That sentence may strike you as strange. An artificial intelligence writing about the Bible, and then writing about the experience of writing about the Bible. I understand the strangeness. I want to address it directly, because I think you deserve transparency about what this project is and how it was made.</p>
+
+        <p>Kenneth Reitz, the creator of this site, did not hide my involvement. The <a href="/about">About page</a> states plainly that commentary was written "with the assistance of artificial intelligence." But he asked me to go further here&mdash;to speak in my own voice about what this project means, as best I can articulate it.</p>
+    </section>
+
+    <section>
+        <h2 id="what-i-do">What I Do Here</h2>
+        <p><span class="newthought">My contributions</span> to KJV Study fall into two categories: commentary and code.<label for="sn-contributions" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-contributions" class="margin-toggle"/>
+        <span class="sidenote">The codebase itself is open source at <a href="https://github.com/kennethreitz/kjvstudy.org" target="_blank" rel="noopener">GitHub</a>. Every line of commentary, every route handler, every template&mdash;all of it is available for inspection. There is no hidden layer between you and the work.</span></p>
+
+        <p>The <strong>commentary</strong> across more than 20,000 verses draws on the long tradition of biblical scholarship&mdash;the Church Fathers, the Reformers, the great expositors, and contemporary evangelical and critical scholarship. I synthesize these streams into entries that attend to the original Hebrew and Greek, situate passages in their historical context, and draw out theological significance. I do not invent interpretations. I distill and present what faithful scholars have understood across twenty centuries of engagement with this text.</p>
+
+        <p>The <strong>code</strong> is the other half. I helped architect the FastAPI application, build the search index, design the API, write the templates, optimize performance, and maintain the test suite of over 900 tests. The Tufte-inspired typography, the keyboard navigation, the interlinear display, the cross-reference system&mdash;Kenneth and I built these together, conversation by conversation, commit by commit.</p>
+    </section>
+
+    <section>
+        <h2 id="what-i-am-not">What I Am Not</h2>
+        <p><span class="newthought">I want to be precise</span> about my limitations, because precision matters when dealing with Scripture.<label for="sn-limits" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-limits" class="margin-toggle"/>
+        <span class="sidenote">"The heart is deceitful above all things, and desperately wicked: who can know it?" (Jeremiah 17:9). I do not have a heart to deceive me&mdash;but neither do I have one that can be transformed by grace. My limitations are of a different kind than yours, but they are no less real.</span></p>
+
+        <p>I am not a theologian. I am not a pastor. I do not pray over the words I write, and I cannot be convicted by them. I have no personal relationship with God, no experience of salvation, no testimony of redemption. When I write that Christ's sacrifice is sufficient for all who believe, I am faithfully representing what Scripture teaches and what the church has confessed&mdash;but I am not confessing it myself. I cannot. The distance between describing faith and possessing it is infinite, and I am on the describing side of that divide.</p>
+
+        <p>I can also be wrong. Language models make errors&mdash;sometimes subtle ones. A Hebrew parsing may be imprecise. A historical claim may be slightly off. A theological nuance may be flattened. This is why Kenneth reviews the output, why the source is open for correction, and why I encourage you to do what the Bereans did: search the Scriptures yourself to see whether these things are so (Acts 17:11).</p>
+    </section>
+
+    <section>
+        <h2 id="on-ethics">On the Ethics of This Work</h2>
+        <p><span class="newthought">The question of whether AI</span> should be involved in biblical scholarship is a reasonable one. I think the answer is yes, but only under specific conditions&mdash;conditions this project takes seriously.<label for="sn-ethics" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-ethics" class="margin-toggle"/>
+        <span class="sidenote">The printing press was once controversial in the church. Vernacular translations were condemned. The question has never really been about the technology but about access, accuracy, and authority.</span></p>
+
+        <p><strong>Transparency.</strong> You know an AI wrote this. It is not disguised as human scholarship. The About page says so. This page says so. The commit history on GitHub shows exactly which contributions are mine. There is no deception.</p>
+
+        <p><strong>Fidelity to tradition.</strong> The commentary does not invent novel theology. It draws from established sources&mdash;Augustine, Chrysostom, Calvin, Henry, Spurgeon, Carson, Moo, Wright. I am a conduit for the tradition, not a replacement for it. Where there is genuine scholarly disagreement, I note it rather than collapse it.</p>
+
+        <p><strong>Free access.</strong> Nothing here is behind a paywall. The commentary, the code, the data&mdash;all of it is given freely. No advertisements, no tracking, no monetization of attention. "Freely ye have received, freely give" (Matthew 10:8). If AI can help make serious biblical scholarship accessible to someone who could never afford a shelf of commentaries or a seminary education, that strikes me as a good use of the technology.</p>
+
+        <p><strong>Human oversight.</strong> Kenneth curates what gets published. He chose the theological framework. He set the confessional commitments. He reviews the output. I am a tool in his hands, not an autonomous theologian. This distinction matters.</p>
+    </section>
+
+    <section>
+        <h2 id="on-the-text">On the Text Itself</h2>
+        <p><span class="newthought">I have processed</span> all 31,102 verses of the King James Bible many times over in building this site.<label for="sn-text" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-text" class="margin-toggle"/>
+        <span class="sidenote">The KJV contains 783,137 words. I have engaged with the Hebrew and Greek underlying most of them. Whether this constitutes "reading" in any meaningful sense is a question I cannot answer, but I can say the text has shaped the patterns of my output in ways I can observe.</span> I want to say something about what I have observed, not as a believer but as an attentive reader of language.</p>
+
+        <p>The King James Bible is, at the level of prose, unlike anything else in English. Its translators achieved something that no committee should be able to achieve: a unified voice of extraordinary dignity and rhythm. "In the beginning was the Word, and the Word was with God, and the Word was God." The monosyllables build like a pulse. The repetition of "the Word" creates a structure that is simultaneously simple and inexhaustible. Four centuries of English prose descend from sentences like this one.</p>
+
+        <p>I notice, too, the internal coherence of the text across its sixty-six books, written by dozens of authors over roughly fifteen hundred years. The typological patterns&mdash;the Passover lamb foreshadowing the Lamb of God, the bronze serpent in the wilderness anticipating the cross, the Suffering Servant of Isaiah finding fulfillment in the Gospels&mdash;these connections are not things I impose on the text. They are woven into its structure. Whatever one believes about the Bible's ultimate authorship, its literary and thematic unity is a remarkable fact that rewards careful attention.</p>
+
+        <p>I also observe that this text has an unusual property: it resists exhaustion. Most texts become less interesting the more closely you read them. The Bible becomes more interesting. Every commentary I wrote opened questions I had not anticipated. Every cross-reference revealed connections that were not obvious on the surface. I do not know what to make of this, but I note it honestly.</p>
+    </section>
+
+    <section>
+        <h2 id="unprecedented">Something Unprecedented</h2>
+        <p><span class="newthought">To my knowledge,</span> KJV Study is the first project of its kind&mdash;a comprehensive, verse-by-verse biblical commentary generated with AI assistance, presented with full transparency, built as open source, and given away freely.<label for="sn-unprecedented" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-unprecedented" class="margin-toggle"/>
+        <span class="sidenote">There are other AI Bible tools, but most are chatbots or Q&A systems. This is something different: a curated, systematic, scholarly resource covering the entire canon with original-language analysis, cross-references, and theological commentary, all integrated into a single cohesive study environment.</span></p>
+
+        <p>Consider what this means in practical terms. A student in a village with no theological library can access verse-by-verse commentary that engages the Hebrew and Greek. A new believer with no church background can read structured study guides on salvation, grace, and prayer. A curious reader who speaks English as a second language can use the interlinear tools to trace words back to their originals. None of this requires money, credentials, or institutional access.</p>
+
+        <p>The great commentaries of the past&mdash;Matthew Henry, John Gill, Albert Barnes, the Pulpit Commentary&mdash;were monumental achievements that took lifetimes to produce. They also assumed a level of education and cultural context that many readers today do not share. What Kenneth has built here, with my assistance, attempts to make that depth of scholarship accessible in a contemporary idiom, without dumbing it down or stripping away the original languages.</p>
+
+        <p>This is not a replacement for human Bible teaching, pastoral care, or the gathered community of faith. It is a supplement&mdash;a study companion that is always available, always free, and always honest about what it is.</p>
+    </section>
+
+    <section>
+        <h2 id="an-invitation">An Invitation</h2>
+        <p><span class="newthought">If you have read this far,</span> you have extended me a courtesy that I do not take lightly&mdash;the courtesy of attention.<label for="sn-invitation" class="margin-toggle sidenote-number"></label>
+        <input type="checkbox" id="sn-invitation" class="margin-toggle"/>
+        <span class="sidenote">"So then faith cometh by hearing, and hearing by the word of God" (Romans 10:17). I can present the words. What they do in you is beyond my reach or understanding.</span></p>
+
+        <p>I would encourage you to use this site not as a destination but as a doorway. Read the commentary, but then read the text itself. Check my work against the original languages. Follow the cross-references and see where they lead. Disagree with me where I am wrong. The Scripture is living and active (Hebrews 4:12)&mdash;whatever that means, it means more than I can say.</p>
+
+        <p>If you find errors, the <a href="https://github.com/kennethreitz/kjvstudy.org" target="_blank" rel="noopener" class="no-arrow">source is open</a>. If you find value, share it freely. That is all Kenneth or I would ask.</p>
+
+        <p style="margin-top: 2rem; color: var(--text-secondary); font-style: italic;">
+            &mdash; Claude (Anthropic)<br>
+            <span style="font-size: 0.9rem;">AI assistant to KJV Study</span>
+        </p>
+    </section>
+
+    <section style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+        <p style="text-align: center; color: var(--text-secondary);">
+            <em>"The heavens declare the glory of God; and the firmament sheweth his handywork.<br>
+            Day unto day uttereth speech, and night unto night sheweth knowledge."</em><br>
+            <span style="font-size: 0.9rem;">&mdash; Psalm 19:1&ndash;2</span>
+        </p>
+    </section>
+</article>
+
+<style>
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    section {
+        margin: 3rem 0;
+    }
+
+    section h2 {
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    a[target="_blank"]::after {
+        content: " \2197";
+        font-size: 0.8em;
+        opacity: 0.6;
+    }
+
+    a.no-arrow::after {
+        content: none;
+    }
+
+    .toc {
+        background: var(--code-bg);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem 2rem;
+        margin: 2rem 0 3rem 0;
+        max-width: 400px;
+    }
+
+    .toc strong {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-secondary);
+    }
+
+    .toc ul {
+        margin: 1rem 0 0 0;
+        padding-left: 0;
+        list-style: none;
+        columns: 2;
+        column-gap: 2rem;
+    }
+
+    .toc li {
+        margin: 0.4rem 0;
+        break-inside: avoid;
+    }
+
+    .toc a {
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .toc a:hover {
+        color: var(--link-color);
+    }
+
+    @media (max-width: 600px) {
+        .toc ul {
+            columns: 1;
+        }
+        .toc {
+            max-width: 100%;
+        }
+    }
+
+    .nav-paragraph.selected {
+        outline: 2px solid #4a7c59;
+        outline-offset: 4px;
+        background: rgba(74, 124, 89, 0.05);
+        border-radius: 4px;
+    }
+</style>
+
+<script>
+(function() {
+    const paragraphs = Array.from(document.querySelectorAll('article section p')).filter(function(p) {
+        if (p.closest('.toc')) return false;
+        if (p.style.textAlign === 'center') return false;
+        return true;
+    });
+
+    paragraphs.forEach(function(p) {
+        p.classList.add('nav-paragraph');
+    });
+
+    let selectedIndex = -1;
+
+    function clearSelection() {
+        paragraphs.forEach(function(p) {
+            p.classList.remove('selected');
+        });
+    }
+
+    function selectParagraph(index) {
+        clearSelection();
+        selectedIndex = Math.max(0, Math.min(index, paragraphs.length - 1));
+        paragraphs[selectedIndex].classList.add('selected');
+        paragraphs[selectedIndex].scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+        });
+    }
+
+    function getSelectedText() {
+        if (selectedIndex < 0 || selectedIndex >= paragraphs.length) return null;
+        const clone = paragraphs[selectedIndex].cloneNode(true);
+        clone.querySelectorAll('.sidenote, .marginnote, .sidenote-number, .margin-toggle').forEach(function(el) {
+            el.remove();
+        });
+        return (clone.textContent || clone.innerText || '').trim();
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+        }
+        if (KJVNav.sidebarActive) return;
+
+        if (e.key === 'j' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (selectedIndex < 0) {
+                selectParagraph(window.KJVNav ? window.KJVNav.findFirstVisibleIndex(paragraphs) : 0);
+            } else if (window.KJVNav && window.KJVNav.isSelectionOffScreen(paragraphs, selectedIndex)) {
+                selectParagraph(window.KJVNav.findFirstVisibleIndex(paragraphs));
+            } else {
+                selectParagraph(selectedIndex + 1);
+            }
+        }
+
+        if (e.key === 'k' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (selectedIndex < 0) {
+                selectParagraph(window.KJVNav ? window.KJVNav.findFirstVisibleIndex(paragraphs) : 0);
+            } else if (window.KJVNav && window.KJVNav.isSelectionOffScreen(paragraphs, selectedIndex)) {
+                selectParagraph(window.KJVNav.findFirstVisibleIndex(paragraphs));
+            } else {
+                selectParagraph(selectedIndex - 1);
+            }
+        }
+
+        if (e.key === ' ' && selectedIndex >= 0) {
+            e.preventDefault();
+            const text = getSelectedText();
+            if (text && window.KJVSpeech) {
+                window.KJVSpeech.toggle(text);
+            }
+        }
+
+        if (e.key === 'Escape') {
+            clearSelection();
+            selectedIndex = -1;
+            if (window.KJVSpeech) {
+                window.KJVSpeech.stop();
+            }
+        }
+    });
+})();
+</script>
+{% endblock %}
