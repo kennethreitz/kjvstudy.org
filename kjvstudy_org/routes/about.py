@@ -35,8 +35,8 @@ def _compute_stats() -> dict:
     total_books = len(bible.get_books())
     total_chapters = len(bible.get_chapters())
 
-    # Calculate words in Bible
-    total_words = sum(len(verse.text.split()) for verse in bible.iter_verses())
+    # Use pre-computed word count from Bible init
+    total_words = bible.get_total_words()
 
     # Count unique book types
     ot_books = len(OT_BOOKS)

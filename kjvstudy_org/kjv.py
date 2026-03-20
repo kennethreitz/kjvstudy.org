@@ -80,6 +80,34 @@ class Bible:
             for key, text in self.verses.items()
         }
 
+        # Build indexes for O(1) lookups instead of O(n) iteration
+        self._book_index = {}       # book -> [verse_keys]
+        self._chapter_index = {}    # (book, chapter) -> [verse_keys]
+        self._book_chapters = {}    # book -> sorted list of chapter numbers
+        self._total_words = 0
+
+        for key in self.verses:
+            ref = VerseReference.from_string(key)
+            # Book index
+            if ref.book not in self._book_index:
+                self._book_index[ref.book] = []
+            self._book_index[ref.book].append(key)
+            # Chapter index
+            ch_key = (ref.book, ref.chapter)
+            if ch_key not in self._chapter_index:
+                self._chapter_index[ch_key] = []
+            self._chapter_index[ch_key].append(key)
+            # Book chapters
+            if ref.book not in self._book_chapters:
+                self._book_chapters[ref.book] = set()
+            self._book_chapters[ref.book].add(ref.chapter)
+            # Word count
+            self._total_words += len(self._cleaned_verses[key].split())
+
+        # Sort chapter sets into lists
+        for book in self._book_chapters:
+            self._book_chapters[book] = sorted(self._book_chapters[book])
+
     @lru_cache(maxsize=1024)
     def __getitem__(self, verse):
         """Returns the text of the verse."""
@@ -167,29 +195,22 @@ class Bible:
     @lru_cache(maxsize=256)
     def get_verses_by_book_chapter(self, book, chapter):
         """Returns a list of verses for a specific book and chapter."""
+        keys = self._chapter_index.get((book, chapter), [])
         verses = []
-        for verse in self.verses:
-            verse_ref = VerseReference.from_string(verse)
-            if verse_ref.book == book and verse_ref.chapter == chapter:
-                # Use pre-cleaned text for performance
-                text = self._cleaned_verses[verse]
-                verses.append(Verse(
-                    book=verse_ref.book,
-                    chapter=verse_ref.chapter,
-                    verse=verse_ref.verse,
-                    text=text,
-                ))
+        for key in keys:
+            ref = VerseReference.from_string(key)
+            verses.append(Verse(
+                book=ref.book,
+                chapter=ref.chapter,
+                verse=ref.verse,
+                text=self._cleaned_verses[key],
+            ))
         return sorted(verses, key=lambda v: v.verse)
 
     @lru_cache(maxsize=128)
     def get_chapters_for_book(self, book):
         """Returns a list of chapter numbers for a specific book."""
-        chapters = set()
-        for verse in self.verses:
-            verse_ref = VerseReference.from_string(verse)
-            if verse_ref.book == book:
-                chapters.add(verse_ref.chapter)
-        return sorted(list(chapters))
+        return self._book_chapters.get(book, [])
 
     @lru_cache(maxsize=2048)
     def get_verse_text(self, book, chapter, verse_num):
@@ -204,6 +225,15 @@ class Bible:
     def get_verse_count(self):
         """Returns the total number of verses in the Bible."""
         return len(self.verses)
+
+    def get_total_words(self):
+        """Returns the total word count across all verses (pre-computed at init)."""
+        return self._total_words
+
+    def get_verses_by_book(self, book):
+        """Returns all verses for a specific book, grouped by chapter."""
+        chapters = self._book_chapters.get(book, [])
+        return {ch: self.get_verses_by_book_chapter(book, ch) for ch in chapters}
 
 
 # Create an instance of the Bible class.

@@ -889,7 +889,7 @@ async def api_get_books():
     new_testament = []
 
     for book in books:
-        chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+        chapters = bible.get_chapters_for_book(book)
         book_data = get_book_data(book) if has_book_data(book) else None
 
         book_info = {
@@ -924,13 +924,13 @@ async def api_get_book(book: str = Path(..., description="Book name", example="G
     if canonical_name:
         book = canonical_name
 
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    chapters = bible.get_chapters_for_book(book)
     if not chapters:
         raise HTTPException(status_code=404, detail="Book not found")
 
     chapter_details = []
     for chapter in chapters:
-        verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+        verses = bible.get_verses_by_book_chapter(book, chapter)
         chapter_details.append({
             "chapter": chapter,
             "verses": len(verses)
@@ -979,7 +979,7 @@ async def api_book_pdf(book: str = Path(..., description="Book name", example="G
     if canonical_name:
         book = canonical_name
 
-    chapters = [ch for bk, ch in bible.iter_chapters() if bk == book]
+    chapters = bible.get_chapters_for_book(book)
     if not chapters:
         raise HTTPException(status_code=404, detail="Book not found")
 
@@ -990,14 +990,9 @@ async def api_book_pdf(book: str = Path(..., description="Book name", example="G
     chapters_data = []
     total_verses = 0
     for chapter in chapters:
-        verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+        verses = bible.get_verses_by_book_chapter(book, chapter)
         if verses:
-            chapter_verses = []
-            for v in verses:
-                chapter_verses.append({
-                    "verse": v.verse,
-                    "text": v.text
-                })
+            chapter_verses = [{"verse": v.verse, "text": v.text} for v in verses]
             chapters_data.append({
                 "chapter": chapter,
                 "verses": chapter_verses
@@ -1037,16 +1032,11 @@ async def api_get_chapter(
     if canonical_name:
         book = canonical_name
 
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+    verses = bible.get_verses_by_book_chapter(book, chapter)
     if not verses:
         raise HTTPException(status_code=404, detail="Chapter not found")
 
-    verse_list = []
-    for v in verses:
-        verse_list.append({
-            "verse": v.verse,
-            "text": v.text
-        })
+    verse_list = [{"verse": v.verse, "text": v.text} for v in verses]
 
     return {
         "book": book,
@@ -1075,7 +1065,7 @@ async def api_chapter_pdf(
     if canonical_name:
         book = canonical_name
 
-    verses = [v for v in bible.iter_verses() if v.book == book and v.chapter == chapter]
+    verses = bible.get_verses_by_book_chapter(book, chapter)
     if not verses:
         raise HTTPException(status_code=404, detail="Chapter not found")
 
@@ -1083,12 +1073,7 @@ async def api_chapter_pdf(
         raise HTTPException(status_code=500, detail="Templates not initialized")
 
     # Prepare data for template
-    verse_list = []
-    for v in verses:
-        verse_list.append({
-            "verse": v.verse,
-            "text": v.text
-        })
+    verse_list = [{"verse": v.verse, "text": v.text} for v in verses]
 
     # Render the PDF template
     html_content = templates.get_template("chapter_pdf.html").render(
@@ -1117,30 +1102,24 @@ async def api_get_book_text(book: str = Path(..., description="Book name", examp
     if canonical_name:
         book = canonical_name
 
-    verses = [v for v in bible.iter_verses() if v.book == book]
-    if not verses:
+    book_chapters = bible.get_chapters_for_book(book)
+    if not book_chapters:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    chapters = {}
-    for v in verses:
-        if v.chapter not in chapters:
-            chapters[v.chapter] = []
-        chapters[v.chapter].append({
-            "verse": v.verse,
-            "text": v.text
-        })
-
     chapter_list = []
-    for chapter_num in sorted(chapters.keys()):
+    total_verses = 0
+    for ch in book_chapters:
+        verses = bible.get_verses_by_book_chapter(book, ch)
         chapter_list.append({
-            "chapter": chapter_num,
-            "verses": chapters[chapter_num]
+            "chapter": ch,
+            "verses": [{"verse": v.verse, "text": v.text} for v in verses]
         })
+        total_verses += len(verses)
 
     return {
         "book": book,
-        "total_chapters": len(chapters),
-        "total_verses": len(verses),
+        "total_chapters": len(book_chapters),
+        "total_verses": total_verses,
         "chapters": chapter_list
     }
 
@@ -1148,35 +1127,24 @@ async def api_get_book_text(book: str = Path(..., description="Book name", examp
 @router.get("/bible")
 async def api_get_bible():
     """Get the entire Bible text."""
-    books_data = {}
-    for v in bible.iter_verses():
-        if v.book not in books_data:
-            books_data[v.book] = {}
-        if v.chapter not in books_data[v.book]:
-            books_data[v.book][v.chapter] = []
-        books_data[v.book][v.chapter].append({
-            "verse": v.verse,
-            "text": v.text
-        })
-
     books_list = []
-    for book_name in books_data:
+    total_verses = 0
+    for book_name in bible.get_books():
         chapter_list = []
-        for chapter_num in sorted(books_data[book_name].keys()):
+        for ch in bible.get_chapters_for_book(book_name):
+            verses = bible.get_verses_by_book_chapter(book_name, ch)
             chapter_list.append({
-                "chapter": chapter_num,
-                "verses": books_data[book_name][chapter_num]
+                "chapter": ch,
+                "verses": [{"verse": v.verse, "text": v.text} for v in verses]
             })
-
+            total_verses += len(verses)
         books_list.append({
             "book": book_name,
             "chapters": chapter_list
         })
 
-    total_verses = sum(len(books_data[book][ch]) for book in books_data for ch in books_data[book])
-
     return {
-        "total_books": len(books_data),
+        "total_books": len(books_list),
         "total_verses": total_verses,
         "books": books_list
     }
@@ -2394,8 +2362,8 @@ def _get_site_stats():
     total_books = len(bible.get_books())
     total_chapters = len(bible.get_chapters())
 
-    # Calculate words in Bible
-    total_words = sum(len(verse.text.split()) for verse in bible.iter_verses())
+    # Use pre-computed word count from Bible init
+    total_words = bible.get_total_words()
 
     # Count unique book types
     ot_books = len(OT_BOOKS)

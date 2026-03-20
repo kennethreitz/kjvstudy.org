@@ -303,8 +303,8 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
             )
 
 
-# Add GZip compression middleware (compress responses > 500 bytes)
-app.add_middleware(GZipMiddleware, minimum_size=500)
+# Add GZip compression middleware (compress responses > 1000 bytes)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # Add caching middleware
 app.add_middleware(CacheControlMiddleware)
@@ -368,14 +368,6 @@ init_about_templates(templates)
 init_main_templates(templates)
 init_misc_templates(templates)
 
-# Load Scofield commentary for cross-references
-scofield_commentary = {}
-try:
-    scofield_path = static_dir / "scofield_commentary.json"
-    with open(scofield_path, 'r') as f:
-        scofield_commentary = json.load(f)
-except Exception as e:
-    print(f"Warning: Could not load Scofield commentary: {e}")
 
 
 @app.exception_handler(StarletteHTTPException)
