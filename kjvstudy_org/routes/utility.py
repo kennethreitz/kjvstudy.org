@@ -50,8 +50,9 @@ async def robots_txt():
 Allow: /
 Disallow: /api/
 Disallow: /*/pdf
+Disallow: /og/
 Disallow: /verse-of-the-day/2
-Crawl-delay: 5
+Crawl-delay: 2
 
 # Sitemap location
 Sitemap: https://kjvstudy.org/sitemap.xml

@@ -218,7 +218,7 @@ class BotLoggerMiddleware(BaseHTTPMiddleware):
         'redditbot', 'applebot', 'whatsapp', 'flipboard', 'tumblr',
         'bitlybot', 'skypeuripreview', 'nuzzel', 'discordbot',
         'telegrambot', 'perplexitybot', 'amazonbot', 'claudebot',
-        'anthropic-ai', 'gptbot', 'chatgpt-user', 'ccbot', 'claudebot',
+        'anthropic-ai', 'gptbot', 'chatgpt-user', 'ccbot',
         'diffbot', 'bytespider', 'petalbot'
     ]
 
