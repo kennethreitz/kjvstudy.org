@@ -177,6 +177,9 @@ async def reading_plan_pdf(plan_id: str):
     )
     pdf_buffer = await render_html_to_pdf_async(html_content)
 
+    if pdf_buffer is None:
+        raise HTTPException(status_code=503, detail="PDF generation failed")
+
     filename = f"reading-plan-{plan_id}.pdf"
     return StreamingResponse(
         pdf_buffer,
