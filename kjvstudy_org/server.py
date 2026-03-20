@@ -182,6 +182,21 @@ def _patch_register_routes():
     _ri.RustIntegratedTurboAPI._register_routes_with_rust = _new_register
 
 _patch_register_routes()
+
+# Patch ResponseHandler to recognize Response objects (for static files, redirects, etc.)
+_orig_format_response = _rh.ResponseHandler.format_response
+
+def _patched_format_response(content, status_code, content_type=None):
+    # Check if content is a turboapi Response object
+    if hasattr(content, 'body') and hasattr(content, 'status_code') and hasattr(content, 'media_type'):
+        return {
+            "content": content.body,
+            "status_code": content.status_code,
+            "content_type": content.media_type or content_type or "application/octet-stream",
+        }
+    return _orig_format_response(content, status_code, content_type)
+
+_rh.ResponseHandler.format_response = _patched_format_response
 # --- End patch ---
 
 from turboapi import TurboAPI, HTTPException, Request, Query, Path
@@ -541,6 +556,31 @@ static_dir = current_dir / "static"
 templates_dir = current_dir / "templates"
 
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
+# Explicit static file route for turboAPI's Rust server (mount isn't served by Rust core)
+import mimetypes
+mimetypes.init()
+
+def _serve_static_file(rel_path: str):
+    """Serve a static file by relative path."""
+    file_path = static_dir / rel_path
+    if not file_path.exists() or not file_path.is_file():
+        raise HTTPException(status_code=404, detail="Not found")
+    try:
+        file_path.resolve().relative_to(static_dir.resolve())
+    except ValueError:
+        raise HTTPException(status_code=403, detail="Forbidden")
+    content_type, _ = mimetypes.guess_type(str(file_path))
+    return Response(content=file_path.read_bytes(), media_type=content_type or "application/octet-stream")
+
+@app.get("/static/{filepath}")
+def serve_static(filepath: str):
+    return _serve_static_file(filepath)
+
+@app.get("/static/{subdir}/{filepath}")
+def serve_static_subdir(subdir: str, filepath: str):
+    return _serve_static_file(f"{subdir}/{filepath}")
+
 templates = Jinja2Templates(directory=str(templates_dir))
 
 # Register custom Jinja2 filters
