@@ -574,11 +574,11 @@ def _serve_static_file(rel_path: str):
     return Response(content=file_path.read_bytes(), media_type=content_type or "application/octet-stream")
 
 @app.get("/static/{filepath}")
-def serve_static(filepath: str):
+def serve_static(filepath: str, **kwargs):
     return _serve_static_file(filepath)
 
 @app.get("/static/{subdir}/{filepath}")
-def serve_static_subdir(subdir: str, filepath: str):
+def serve_static_subdir(subdir: str, filepath: str, **kwargs):
     return _serve_static_file(f"{subdir}/{filepath}")
 
 templates = Jinja2Templates(directory=str(templates_dir))
