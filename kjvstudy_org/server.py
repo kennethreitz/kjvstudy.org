@@ -80,17 +80,15 @@ def _patched_create_enhanced(original_handler, route_definition):
         return {k: v for k, v in parsed_params.items() if k in sig.parameters}
 
     def _handle_result(result):
-        if hasattr(result, 'body'):
-            body_bytes = result.body
-            status = getattr(result, 'status_code', 200)
-            hdrs = getattr(result, 'headers', {})
-            ct = hdrs.get('content-type', 'text/html') if isinstance(hdrs, dict) else dict(hdrs.raw).get(b'content-type', b'text/html').decode()
-            return {
-                "content": body_bytes.decode('utf-8') if isinstance(body_bytes, bytes) else body_bytes,
-                "status_code": status,
-                "content_type": ct,
-            }
-        return _rh.ResponseHandler.format_json_response(result, 200)
+        """Convert Response objects — return HTML strings directly for the Rust server."""
+        if hasattr(result, 'body') and hasattr(result, 'status_code'):
+            body = result.body
+            # For HTML template responses, return raw HTML string
+            # The Rust server will serve it (albeit with wrong content-type for now)
+            if isinstance(body, bytes):
+                return body.decode('utf-8')
+            return body or ""
+        return result
 
     def _handle_error(e):
         if hasattr(e, 'status_code') and hasattr(e, 'detail'):
@@ -140,18 +138,35 @@ def _patch_register_routes():
     _ri.create_enhanced_handler = _patched_create_enhanced
     _orig_register = _ri.RustIntegratedTurboAPI._register_routes_with_rust
 
+    def _response_to_dict(result):
+        """Convert a Response object to a dict."""
+        if not (hasattr(result, 'body') and hasattr(result, 'status_code')):
+            return result
+        body = result.body
+        hdrs = result.headers if isinstance(result.headers, dict) else dict(result.headers)
+        ct = hdrs.pop('content-type', 'text/html')
+        resp = {
+            "content": body.decode('utf-8') if isinstance(body, bytes) else (body or ""),
+            "status_code": result.status_code,
+            "content_type": ct,
+        }
+        if hdrs:
+            resp["headers"] = hdrs
+        return resp
+
     def _new_register(self):
-        # Before registering, wrap any handler that needs a Request
+        # Before registering, wrap handlers to:
+        # 1. Inject Request for handlers that need it
+        # 2. Convert Response objects to dicts for ALL handlers
         for route in self.registry.get_routes():
             sig = _inspect.signature(route.handler)
-            if "request" in sig.parameters:
-                original = route.handler
-                route_def = route
+            needs_request = "request" in sig.parameters
+            original = route.handler
+            route_def = route
 
-                if _inspect.iscoroutinefunction(original):
+            if _inspect.iscoroutinefunction(original):
+                if needs_request:
                     async def _wrapped(*args, _orig=original, _rd=route_def, _sig=sig, **kw):
-                        # The Rust server passes path params as positional/keyword args
-                        # Build a Request from what we can infer
                         req = _make_starlette_request(
                             method="GET",
                             path=_rd.path,
@@ -160,9 +175,16 @@ def _patch_register_routes():
                         )
                         kw["request"] = req
                         filtered = {k: v for k, v in kw.items() if k in _sig.parameters}
-                        return await _orig(**filtered)
+                        result = await _orig(**filtered)
+                        return _response_to_dict(result)
                     route.handler = _wrapped
                 else:
+                    async def _wrapped_no_req(*args, _orig=original, **kw):
+                        result = await _orig(**kw)
+                        return _response_to_dict(result)
+                    route.handler = _wrapped_no_req
+            else:
+                if needs_request:
                     def _wrapped_sync(*args, _orig=original, _rd=route_def, _sig=sig, **kw):
                         req = _make_starlette_request(
                             method="GET",
@@ -172,8 +194,14 @@ def _patch_register_routes():
                         )
                         kw["request"] = req
                         filtered = {k: v for k, v in kw.items() if k in _sig.parameters}
-                        return _orig(**filtered)
+                        result = _orig(**filtered)
+                        return _response_to_dict(result)
                     route.handler = _wrapped_sync
+                else:
+                    def _wrapped_sync_no_req(*args, _orig=original, **kw):
+                        result = _orig(**kw)
+                        return _response_to_dict(result)
+                    route.handler = _wrapped_sync_no_req
 
         # Now also patch create_enhanced_handler in rust_integration namespace
         _ri.create_enhanced_handler = _patched_create_enhanced
@@ -197,6 +225,47 @@ def _patched_format_response(content, status_code, content_type=None):
     return _orig_format_response(content, status_code, content_type)
 
 _rh.ResponseHandler.format_response = _patched_format_response
+
+# Force all routes through the "enhanced" handler path so _convert_to_rust_response
+# is called (fast path bypasses it and can't handle Response objects or custom headers)
+import turboapi.rust_integration as _ri_classify
+def _always_enhanced(handler, route):
+    return "enhanced", {}, {}
+_ri_classify.classify_handler = _always_enhanced
+
+# Patch _convert_to_rust_response to handle content_type and headers in response dicts
+import turboapi.rust_integration as _ri2
+_orig_convert = _ri2.RustIntegratedTurboAPI._convert_to_rust_response
+
+def _patched_convert(self, result):
+    try:
+        import turboapi.turbonet as turbonet
+    except (ImportError, AttributeError):
+        return result
+
+    if isinstance(result, dict) and "content_type" in result:
+        status = result.get("status_code", 200)
+        content = result.get("content", "")
+        ct = result.get("content_type", "application/json")
+        headers = result.get("headers", {})
+
+        response = turbonet.ResponseView(status)
+        if isinstance(content, bytes):
+            response.set_body_bytes(content)
+        elif isinstance(content, str):
+            response.set_body(content)
+        else:
+            import json as _json
+            response.set_body(_json.dumps(content))
+
+        response.set_header("content-type", ct)
+        for k, v in headers.items():
+            response.set_header(k, v)
+        return response
+
+    return _orig_convert(self, result)
+
+_ri2.RustIntegratedTurboAPI._convert_to_rust_response = _patched_convert
 # --- End patch ---
 
 from turboapi import TurboAPI, HTTPException, Request, Query, Path
