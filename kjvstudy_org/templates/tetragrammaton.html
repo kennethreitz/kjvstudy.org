@@ -138,7 +138,7 @@
     <h3>Key Scripture</h3>
     {% for verse in section.verses %}
     <p style="margin: 1rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
-        {% set _rp = verse.reference|rsplit(' ', 1) %}<strong><a href="/book/{{ _rp[0] }}/chapter/{{ _rp[1].split(':')[0] }}/verse/{{ _rp[1].split(':')[1] if ':' in verse.reference else '1' }}">{{ verse.reference }}</a></strong><br/>
+        <strong><a href="/book/{{ verse.reference.rsplit(' ', 1)[0] }}/chapter/{{ verse.reference.rsplit(' ', 1)[1].split(':')[0] }}/verse/{{ verse.reference.rsplit(' ', 1)[1].split(':')[1] if ':' in verse.reference else '1' }}">{{ verse.reference }}</a></strong><br/>
         <em class="verse-text">{{ verse.text }}</em>
     </p>
     {% endfor %}
