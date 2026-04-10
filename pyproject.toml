@@ -7,7 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.115.12",
     "ged4py>=0.5.2",
-    "gunicorn>=24.1.1",
+    "granian>=2.0",
     "mistune>=3.0.2",
     "parse>=1.20.2",
     "python-gedcom>=1.0.0",

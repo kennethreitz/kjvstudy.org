@@ -12,7 +12,6 @@ from typing import List, Dict, Optional
 from fastapi import FastAPI, HTTPException, Request, Query, Path
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.openapi.utils import get_openapi
@@ -324,7 +323,6 @@ current_dir = PathLib(__file__).parent
 static_dir = current_dir / "static"
 templates_dir = current_dir / "templates"
 
-app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 templates = Jinja2Templates(directory=str(templates_dir))
 
 # Register custom Jinja2 filters

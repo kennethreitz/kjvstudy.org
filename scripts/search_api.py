@@ -10,7 +10,7 @@ Handles routes that can't be pre-rendered as static HTML:
   - /og/* (dynamic OG images)
 
 Runs on port 8001, proxied by nginx.
-Uses gunicorn with uvicorn workers for resilience.
+Uses granian for performance.
 """
 
 import os
@@ -27,17 +27,18 @@ if __name__ == "__main__":
     port = int(os.getenv("SIDECAR_PORT", "8001"))
     workers = int(os.getenv("SIDECAR_WORKERS", "1"))
 
+    static_dir = str(PROJECT_ROOT / "kjvstudy_org" / "static")
+
     subprocess.run([
-        sys.executable, "-m", "gunicorn",
+        sys.executable, "-m", "granian",
         "kjvstudy_org.server:app",
-        "--worker-class", "uvicorn.workers.UvicornWorker",
-        "--bind", f"0.0.0.0:{port}",
+        "--interface", "asgi",
+        "--host", "0.0.0.0",
+        "--port", str(port),
         "--workers", str(workers),
-        "--max-requests", "1000",
-        "--max-requests-jitter", "200",
-        "--timeout", "60",
-        "--graceful-timeout", "10",
-        "--forwarded-allow-ips", "*",
-        "--log-level", "warning",
-        "--access-logfile", "-",
+        "--respawn-failed-workers",
+        "--access-log",
+        "--static-path-route", "/static",
+        "--static-path-mount", static_dir,
+        "--static-path-expires", "86400",
     ])

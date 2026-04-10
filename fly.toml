@@ -46,5 +46,5 @@ PYTHONDONTWRITEBYTECODE = "1"
 # Lazy-load interlinear data to reduce memory usage
 PRELOAD_INTERLINEAR = "false"
 
-# Sidecar workers (gunicorn)
+# Sidecar workers (granian)
 SIDECAR_WORKERS = "1"
