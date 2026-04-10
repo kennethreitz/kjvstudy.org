@@ -51,4 +51,4 @@ RUN python3 -c "from kjvstudy_org.utils.search_index import init_search_index; i
 
 # Run with granian for production:
 #   Rust-based ASGI server — static files served directly from Rust layer
-CMD ["sh", "-c", "uv run granian kjvstudy_org.server:app --interface asgi --host ${HOST:-0.0.0.0} --port ${PORT:-8000} --workers ${WORKERS:-2} --respawn-failed-workers --access-log --static-path-route /static --static-path-mount /app/kjvstudy_org/static --static-path-expires 86400"]
+CMD ["sh", "-c", "uv run granian kjvstudy_org.server:app --interface asgi --host ${HOST:-0.0.0.0} --port ${PORT:-8000} --workers ${WORKERS:-2} --runtime-threads ${RUNTIME_THREADS:-2} --respawn-failed-workers --access-log --static-path-route /static --static-path-mount /app/kjvstudy_org/static --static-path-expires 86400"]

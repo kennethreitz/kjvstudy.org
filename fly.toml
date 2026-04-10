@@ -46,5 +46,6 @@ PYTHONDONTWRITEBYTECODE = "1"
 # Lazy-load interlinear data to reduce memory usage
 PRELOAD_INTERLINEAR = "false"
 
-# Granian workers (1 dedicated CPU = 2 workers)
+# Granian: 2 workers x 2 runtime threads on 1 dedicated CPU
 WORKERS = "2"
+RUNTIME_THREADS = "2"
