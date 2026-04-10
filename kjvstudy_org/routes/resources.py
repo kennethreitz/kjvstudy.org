@@ -63,7 +63,7 @@ def init_templates(app_templates):
     """Initialize templates from the main app."""
     global templates
     templates = app_templates
-    templates.env.globals['resource_pdf_available'] = WEASYPRINT_AVAILABLE
+    templates.env.add_global('resource_pdf_available', WEASYPRINT_AVAILABLE)
 
 
 def get_books():

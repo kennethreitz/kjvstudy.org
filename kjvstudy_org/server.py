@@ -12,7 +12,7 @@ from typing import List, Dict, Optional
 from fastapi import FastAPI, HTTPException, Request, Query, Path
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
+from .minijinja_templates import MiniJinjaTemplates
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.openapi.utils import get_openapi
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -327,14 +327,14 @@ current_dir = PathLib(__file__).parent
 static_dir = current_dir / "static"
 templates_dir = current_dir / "templates"
 
-templates = Jinja2Templates(directory=str(templates_dir))
+templates = MiniJinjaTemplates(directory=str(templates_dir))
 
-# Register custom Jinja2 filters
+# Register custom filters
 from .jinja_filters import register_filters
 register_filters(templates.env)
 
 # Add global template variables
-templates.env.globals['disable_analytics'] = os.getenv("DISABLE_ANALYTICS", "false").lower() == "true"
+templates.env.add_global('disable_analytics', os.getenv("DISABLE_ANALYTICS", "false").lower() == "true")
 
 # Cache-busting for static files using file modification time
 import hashlib
@@ -351,7 +351,7 @@ def static_hash(filename):
             _static_hashes[filename] = "0"
     return _static_hashes[filename]
 
-templates.env.globals['static_hash'] = static_hash
+templates.env.add_function('static_hash', static_hash)
 
 # Initialize templates for route modules
 init_api_templates(templates)

@@ -275,19 +275,15 @@
     {% endif %}
 </nav>
 
-{% set kekule_count = [] %}
-{% set with_children = [] %}
-{% set total_children = [] %}
+{% set ns = namespace(kekule_count=0, with_children=0, total_children=0) %}
 {% for person_id in generation_people %}
     {% set person = family_tree_data[person_id] %}
     {% if person.kekule_number is not none %}
-        {% set _ = kekule_count.append(1) %}
+        {% set ns.kekule_count = ns.kekule_count + 1 %}
     {% endif %}
     {% if person.children|length > 0 %}
-        {% set _ = with_children.append(1) %}
-        {% for c in person.children %}
-            {% set _ = total_children.append(1) %}
-        {% endfor %}
+        {% set ns.with_children = ns.with_children + 1 %}
+        {% set ns.total_children = ns.total_children + person.children|length %}
     {% endif %}
 {% endfor %}
 
@@ -296,22 +292,22 @@
         <span class="gen-stat-label">People:</span>
         <span class="gen-stat-value">{{ generation_people|length }}</span>
     </div>
-    {% if kekule_count|length > 0 %}
+    {% if ns.kekule_count > 0 %}
     <div class="gen-stat">
         <span class="gen-stat-label">In Christ's line:</span>
-        <span class="gen-stat-value">{{ kekule_count|length }}</span>
+        <span class="gen-stat-value">{{ ns.kekule_count }}</span>
     </div>
     {% endif %}
-    {% if with_children|length > 0 %}
+    {% if ns.with_children > 0 %}
     <div class="gen-stat">
         <span class="gen-stat-label">With children:</span>
-        <span class="gen-stat-value">{{ with_children|length }}</span>
+        <span class="gen-stat-value">{{ ns.with_children }}</span>
     </div>
     {% endif %}
-    {% if total_children|length > 0 %}
+    {% if ns.total_children > 0 %}
     <div class="gen-stat">
         <span class="gen-stat-label">Total offspring:</span>
-        <span class="gen-stat-value">{{ total_children|length }}</span>
+        <span class="gen-stat-value">{{ ns.total_children }}</span>
     </div>
     {% endif %}
 </div>

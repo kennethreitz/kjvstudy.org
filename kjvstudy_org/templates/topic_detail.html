@@ -229,7 +229,7 @@
                         {% endif %}
                         {% set reference = reference.strip() %}
                         {% if reference %}
-                            {% set ref_parts = reference.rsplit(' ', 1) %}
+                            {% set ref_parts = reference|rsplit(' ', 1) %}
                             {% if ref_parts|length == 2 %}
                                 {% set book_name = ref_parts[0] %}
                                 {% set chapter_verse = ref_parts[1] %}

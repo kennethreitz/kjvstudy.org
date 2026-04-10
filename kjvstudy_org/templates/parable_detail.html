@@ -95,7 +95,7 @@
         {% for verse in parable.verses %}
         <div class="verse-item">
             <div class="verse-ref">
-                {% set ref_parts = verse.reference.rsplit(' ', 1) %}
+                {% set ref_parts = verse.reference|rsplit(' ', 1) %}
                 {% if ref_parts|length == 2 %}
                     {% set book_name = ref_parts[0] %}
                     {% set chapter_verse = ref_parts[1] %}

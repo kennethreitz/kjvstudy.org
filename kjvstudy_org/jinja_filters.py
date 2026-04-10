@@ -1,8 +1,8 @@
 """
-Custom Jinja2 template filters for KJV Study.
+Custom template filters for KJV Study.
 
 All filters are registered in register_filters() which should be called with
-the Jinja2 environment after templates are initialized.
+the MiniJinja environment after templates are initialized.
 
 Available Filters:
     slugify         - Create URL-safe slugs from text
@@ -20,6 +20,7 @@ Available Filters:
 
 import re
 import mistune
+import minijinja
 
 from .utils.helpers import create_slug
 
@@ -362,17 +363,35 @@ def strip_links(text):
     return re.sub(r'<a\s+[^>]*>([^<]*)</a>', r'\1', text)
 
 
+def _safe_html(func):
+    """Wrap a filter function so its return value is marked as safe HTML."""
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        if result is None:
+            return result
+        return minijinja.safe(str(result))
+    return wrapper
+
+
+def rsplit(text, sep=' ', maxsplit=-1):
+    """Python rsplit as a template filter, since MiniJinja lacks it."""
+    if not text:
+        return []
+    return text.rsplit(sep, maxsplit)
+
+
 def register_filters(env):
-    """Register all custom filters with a Jinja2 environment."""
-    env.filters['slugify'] = create_slug
-    env.filters['md'] = markdown_to_html
-    env.filters['mdi'] = markdown_inline
-    env.filters['link_names'] = link_person_names_in_text
-    env.filters['link_verses'] = link_verse_references_in_text
-    env.filters['inject_word_markers'] = inject_word_markers
-    env.filters['red_letter'] = red_letter
-    env.filters['format_lists'] = format_numbered_lists
-    env.filters['split_paragraphs'] = split_paragraphs
-    env.filters['number_format'] = number_format
-    env.filters['linkify_strongs'] = linkify_strongs
-    env.filters['strip_links'] = strip_links
+    """Register all custom filters with a MiniJinja environment."""
+    env.add_filter('slugify', create_slug)
+    env.add_filter('md', _safe_html(markdown_to_html))
+    env.add_filter('mdi', _safe_html(markdown_inline))
+    env.add_filter('link_names', _safe_html(link_person_names_in_text))
+    env.add_filter('link_verses', _safe_html(link_verse_references_in_text))
+    env.add_filter('inject_word_markers', _safe_html(inject_word_markers))
+    env.add_filter('red_letter', _safe_html(red_letter))
+    env.add_filter('format_lists', _safe_html(format_numbered_lists))
+    env.add_filter('split_paragraphs', _safe_html(split_paragraphs))
+    env.add_filter('number_format', number_format)
+    env.add_filter('linkify_strongs', _safe_html(linkify_strongs))
+    env.add_filter('strip_links', strip_links)
+    env.add_filter('rsplit', rsplit)

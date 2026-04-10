@@ -1101,7 +1101,7 @@ a.crossref-pill:hover {
         <h3 class="section-heading">Cross References</h3>
         <div class="crossrefs-compact">
             {% for ref in cross_references %}
-                {%- set ref_parts = ref.ref.rsplit(' ', 1) -%}
+                {%- set ref_parts = ref.ref|rsplit(' ', 1) -%}
                 {%- if ref_parts|length == 2 -%}
                     {%- set book_name = ref_parts[0] -%}
                     {%- set chapter_verse = ref_parts[1] -%}
