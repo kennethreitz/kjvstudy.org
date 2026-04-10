@@ -1,5 +1,6 @@
 """Main page routes - homepage, books browser, and resources."""
 import re
+from datetime import date
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
@@ -10,6 +11,9 @@ from .misc import get_daily_verse
 
 router = APIRouter()
 templates = None
+
+# Server-side cache for homepage (rebuilds once per day)
+_homepage_cache = {"date": None, "html": None}
 
 
 def init_templates(t: Jinja2Templates):
@@ -54,6 +58,10 @@ def verse_reference_to_url(reference: str):
 
 @router.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
+    today = date.today()
+    if _homepage_cache["date"] == today and _homepage_cache["html"] is not None:
+        return HTMLResponse(content=_homepage_cache["html"], headers={"Cache-Control": "public, max-age=3600"})
+
     books = bible.get_books()
     daily_verse = get_daily_verse()
 
@@ -172,8 +180,12 @@ async def read_root(request: Request):
                 for verse in guide['verses']
             ]
 
-    return templates.TemplateResponse(
-        request, "index.html", {"books": books, "daily_verse": daily_verse, "study_guides": study_guides}
+    html = templates.get_template("index.html").render(
+        {"request": request, "books": books, "daily_verse": daily_verse, "study_guides": study_guides}
+    )
+    _homepage_cache["date"] = today
+    _homepage_cache["html"] = html
+    return HTMLResponse(content=html, headers={"Cache-Control": "public, max-age=3600"}
     )
 
 

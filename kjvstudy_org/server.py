@@ -175,10 +175,13 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
 
         # Skip caching for API endpoints and dynamic content
-        if request.url.path.startswith("/api/") or request.url.path in ["/", "/verse-of-the-day", "/random-verse"]:
+        if request.url.path.startswith("/api/") or request.url.path in ["/verse-of-the-day", "/random-verse"]:
             response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
             response.headers["Pragma"] = "no-cache"
             response.headers["Expires"] = "0"
+        # Homepage - cache for 1 hour (only changes daily with verse of the day)
+        elif request.url.path == "/":
+            response.headers["Cache-Control"] = "public, max-age=3600"
         # Static files (CSS, JS, images) - cache for 1 year
         elif request.url.path.startswith("/static/"):
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
