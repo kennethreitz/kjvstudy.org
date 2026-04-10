@@ -1,7 +1,9 @@
-"""Utility helpers for HTML-to-PDF generation."""
+"""Utility helpers for HTML-to-PDF generation with disk caching."""
+import hashlib
 import io
 import sys
 import os
+from pathlib import Path
 from typing import BinaryIO
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
@@ -25,16 +27,40 @@ except (ImportError, OSError):  # pragma: no cover - handled gracefully elsewher
     WEASYPRINT_AVAILABLE = False
 
 # Thread pool for CPU-intensive PDF generation
-_pdf_executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="pdf_worker")
+_pdf_executor = ThreadPoolExecutor(max_workers=8, thread_name_prefix="pdf_worker")
+
+# Disk cache directory for generated PDFs
+PDF_CACHE_DIR = Path(os.getenv("PDF_CACHE_DIR", "/tmp/pdf-cache"))
+PDF_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _cache_key(html_content: str) -> str:
+    """Generate a stable cache key from HTML content."""
+    return hashlib.sha256(html_content.encode()).hexdigest()
 
 
 def _render_pdf_sync(html_content: str) -> BinaryIO:
-    """Internal synchronous PDF rendering function."""
+    """Internal synchronous PDF rendering function with disk cache."""
     if not WEASYPRINT_AVAILABLE or HTML is None:
         raise RuntimeError("WeasyPrint is not available for PDF generation")
 
+    key = _cache_key(html_content)
+    cache_path = PDF_CACHE_DIR / f"{key}.pdf"
+
+    # Serve from disk cache if available
+    if cache_path.exists():
+        pdf_buffer = io.BytesIO(cache_path.read_bytes())
+        return pdf_buffer
+
+    # Render and cache to disk
     pdf_buffer = io.BytesIO()
     HTML(string=html_content).write_pdf(pdf_buffer)
+
+    # Write atomically to avoid serving partial files
+    tmp_path = cache_path.with_suffix(".tmp")
+    tmp_path.write_bytes(pdf_buffer.getvalue())
+    tmp_path.rename(cache_path)
+
     pdf_buffer.seek(0)
     return pdf_buffer
 
@@ -54,6 +80,7 @@ async def render_html_to_pdf_async(html_content: str) -> BinaryIO:
     """Async-compatible PDF rendering that won't block the event loop.
 
     Runs PDF generation in a thread pool to prevent blocking FastAPI.
+    Cached PDFs are served from disk without re-rendering.
 
     Returns a BytesIO instance positioned at the beginning of the generated PDF.
     Raises RuntimeError if WeasyPrint isn't available at runtime.
