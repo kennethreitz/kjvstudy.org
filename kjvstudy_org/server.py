@@ -169,13 +169,7 @@ app.openapi = custom_openapi
 
 # Caching middleware for performance optimization
 class CacheControlMiddleware(BaseHTTPMiddleware):
-    """Add cache control headers and Fly edge cache headers to responses."""
-
-    def _set_cache(self, response, cache_control, fly_cache=None):
-        """Set Cache-Control and optionally Fly edge cache headers."""
-        response.headers["Cache-Control"] = cache_control
-        if fly_cache:
-            response.headers["fly-cache-control"] = fly_cache
+    """Add cache control headers to responses for better performance."""
 
     async def dispatch(self, request: Request, call_next):
         response = await call_next(request)
@@ -186,44 +180,30 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
             response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
             response.headers["Pragma"] = "no-cache"
             response.headers["Expires"] = "0"
-        # Static files (CSS, JS, images) - cache 1 year, edge 1 year
+        # Static files (CSS, JS, images) - cache 1 year
         elif path.startswith("/static/"):
-            self._set_cache(response,
-                "public, max-age=31536000, immutable",
-                "public, max-age=31536000")
-        # Bible content (verses, chapters, books) - cache 1 week, edge 1 day + stale-while-revalidate
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        # Bible content (verses, chapters, books) - cache 1 week
         elif any(x in path for x in ["/book/", "/chapter/", "/verse/"]):
-            self._set_cache(response,
-                "public, max-age=604800",
-                "public, max-age=86400, stale-while-revalidate=604800")
-        # Study resources and special pages - cache 1 day, edge 1 day
+            response.headers["Cache-Control"] = "public, max-age=604800"
+        # Study resources and special pages - cache 1 day
         elif any(x in path for x in ["/study-guides/", "/topics/", "/reading-plans/",
                                       "/biblical-", "/names-of-god", "/parables/",
                                       "/the-twelve-apostles/", "/women-of-the-bible/",
                                       "/tetragrammaton", "/commentary/"]):
-            self._set_cache(response,
-                "public, max-age=86400",
-                "public, max-age=86400, stale-while-revalidate=86400")
-        # Homepage - cache 1 hour, edge 1 hour + stale-while-revalidate
+            response.headers["Cache-Control"] = "public, max-age=86400"
+        # Homepage - cache 1 hour
         elif path == "/":
-            self._set_cache(response,
-                "public, max-age=3600",
-                "public, max-age=3600, stale-while-revalidate=86400")
-        # Main sections - cache 1 hour, edge 1 hour
+            response.headers["Cache-Control"] = "public, max-age=3600"
+        # Main sections - cache 1 hour
         elif path in ["/books", "/search", "/resources", "/strongs"]:
-            self._set_cache(response,
-                "public, max-age=3600",
-                "public, max-age=3600, stale-while-revalidate=3600")
-        # Sitemap and robots.txt - cache 1 day, edge 1 day
+            response.headers["Cache-Control"] = "public, max-age=3600"
+        # Sitemap and robots.txt - cache 1 day
         elif path in ["/sitemap.xml", "/robots.txt"]:
-            self._set_cache(response,
-                "public, max-age=86400",
-                "public, max-age=86400")
-        # Default - cache 10 min, edge 10 min + stale-while-revalidate
+            response.headers["Cache-Control"] = "public, max-age=86400"
+        # Default - cache 10 minutes
         else:
-            self._set_cache(response,
-                "public, max-age=600",
-                "public, max-age=600, stale-while-revalidate=3600")
+            response.headers["Cache-Control"] = "public, max-age=600"
 
         return response
 
