@@ -10,7 +10,7 @@ primary_region = 'iad'
 strategy = "bluegreen"
 
 [build]
-dockerfile = "Dockerfile.static"
+dockerfile = "Dockerfile"
 
 [http_service]
 internal_port = 8000
@@ -46,5 +46,5 @@ PYTHONDONTWRITEBYTECODE = "1"
 # Lazy-load interlinear data to reduce memory usage
 PRELOAD_INTERLINEAR = "false"
 
-# Sidecar workers (granian)
-SIDECAR_WORKERS = "1"
+# Granian workers
+WORKERS = "2"
