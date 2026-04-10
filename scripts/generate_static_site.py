@@ -45,7 +45,6 @@ def enumerate_urls():
     plans = get_all_plans()
 
     urls = [
-        "/",
         "/books",
         "/resources",
         "/about",
