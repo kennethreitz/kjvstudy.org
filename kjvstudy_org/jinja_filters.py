@@ -22,7 +22,28 @@ import re
 import mistune
 import minijinja
 
+from functools import lru_cache
+
 from .utils.helpers import create_slug
+
+
+@lru_cache(maxsize=1)
+def _get_person_name_pattern(name_to_id_items=None):
+    """Build and cache a single combined regex for all person names.
+
+    Uses lru_cache so the regex is compiled once and reused across all calls.
+    Accepts a frozenset of items to make it hashable for caching.
+    """
+    if name_to_id_items is None:
+        return None, {}
+    name_to_id = dict(name_to_id_items)
+    sorted_names = sorted(name_to_id.keys(), key=len, reverse=True)
+    # Build lookup: lowercased name -> person_id
+    name_lookup = {name: name_to_id[name] for name in sorted_names}
+    # Single alternation pattern, longest-first
+    alternatives = '|'.join(re.escape(name) for name in sorted_names)
+    pattern = re.compile(r'\b(?:' + alternatives + r')\b', re.IGNORECASE)
+    return pattern, name_lookup
 
 
 # Initialize mistune for markdown rendering
@@ -83,33 +104,30 @@ def link_person_names_in_text(text):
     if not name_to_id:
         return text
 
-    sorted_names = sorted(name_to_id.keys(), key=len, reverse=True)
+    # Build a single combined regex for all names (sorted longest-first so
+    # "Seth or Sheth" matches before "Seth"). This runs one pass over the text
+    # instead of 523 separate re.sub() calls.
+    combined_pattern, name_lookup = _get_person_name_pattern(frozenset(name_to_id.items()))
 
-    for name_lower in sorted_names:
-        person_id = name_to_id[name_lower]
-        name_pattern = re.escape(name_lower)
+    def replace_callback(match):
+        matched_text = match.group(0)
+        start_pos = match.start()
+        text_before = text[:start_pos]
+        last_lt = text_before.rfind('<')
+        last_gt = text_before.rfind('>')
 
-        def replace_callback(match, text=text, person_id=person_id):
-            matched_text = match.group(0)
-            start_pos = match.start()
-            text_before = text[:start_pos]
-            last_lt = text_before.rfind('<')
-            last_gt = text_before.rfind('>')
+        if last_lt > last_gt:
+            return matched_text
 
-            if last_lt > last_gt:
+        if last_lt != -1:
+            tag_content = text[last_lt:start_pos]
+            if 'href=' in tag_content or 'src=' in tag_content:
                 return matched_text
 
-            if last_lt != -1:
-                tag_content = text[last_lt:start_pos]
-                if 'href=' in tag_content or 'src=' in tag_content:
-                    return matched_text
+        person_id = name_lookup[matched_text.lower()]
+        return f'<a href="/family-tree/person/{person_id}">{matched_text}</a>'
 
-            return f'<a href="/family-tree/person/{person_id}">{matched_text}</a>'
-
-        pattern = r'\b' + name_pattern + r'\b'
-        text = re.sub(pattern, replace_callback, text, flags=re.IGNORECASE)
-
-    return text
+    return combined_pattern.sub(replace_callback, text)
 
 
 def link_verse_references_in_text(text):
