@@ -35,8 +35,8 @@ path = "/health"
 
 [[vm]]
 memory = '2gb'
-cpu_kind = 'shared'
-cpus = 2
+cpu_kind = 'performance'
+cpus = 1
 
 [env]
 # Production optimizations
@@ -46,5 +46,5 @@ PYTHONDONTWRITEBYTECODE = "1"
 # Lazy-load interlinear data to reduce memory usage
 PRELOAD_INTERLINEAR = "false"
 
-# Granian workers
+# Granian workers (1 dedicated CPU = 2 workers)
 WORKERS = "2"
