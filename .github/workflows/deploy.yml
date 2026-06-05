@@ -27,6 +27,12 @@ jobs:
     concurrency: deploy-group
     steps:
       - name: Trigger Dokploy deploy
-        run: curl -fsS -X POST "$DOKPLOY_DEPLOY_URL"
+        # Dokploy's deploy endpoint expects a GitHub-style push event;
+        # a bare POST returns 200 but deploys nothing.
+        run: |
+          curl -fsS -X POST "$DOKPLOY_DEPLOY_URL" \
+            -H 'Content-Type: application/json' \
+            -H 'x-github-event: push' \
+            -d "{\"ref\":\"refs/heads/${GITHUB_REF_NAME}\"}"
         env:
           DOKPLOY_DEPLOY_URL: ${{ secrets.DOKPLOY_DEPLOY_URL }}
