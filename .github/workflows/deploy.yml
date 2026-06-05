@@ -1,6 +1,7 @@
-# See https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
+# Deploys to the Dokploy instance on mercury (mercury.kennethreitz.org)
+# by hitting the application's deploy webhook after tests pass.
 
-name: Fly Deploy
+name: Deploy
 on:
   push:
     branches: [main]
@@ -25,8 +26,7 @@ jobs:
     environment: prod
     concurrency: deploy-group
     steps:
-      - uses: actions/checkout@v4
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --strategy bluegreen
+      - name: Trigger Dokploy deploy
+        run: curl -fsS -X POST "$DOKPLOY_DEPLOY_URL"
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          DOKPLOY_DEPLOY_URL: ${{ secrets.DOKPLOY_DEPLOY_URL }}
