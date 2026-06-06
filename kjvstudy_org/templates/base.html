@@ -1570,7 +1570,7 @@
             }
         }
     </style>
-<script defer src="https://analytics.kennethreitz.org/script.js" data-website-id="b8877828-28c8-4fa1-8179-7e2cd5aca1bc"></script>
+{% if not disable_analytics %}<script defer src="https://analytics.kennethreitz.org/script.js" data-website-id="b8877828-28c8-4fa1-8179-7e2cd5aca1bc"></script>{% endif %}
 </head>
 <body>
     <a href="#main-content" class="skip-link" tabindex="0">Skip to main content</a>
@@ -1660,24 +1660,5 @@
 
 
     <script src="/static/base.js?v={{ static_hash('base.js') }}"></script>
-    <script type="text/javascript">
-      {% if not disable_analytics %}
-      // Gauges analytics (respects kr=1 opt-out)
-      if (!window.analyticsDisabled) {
-        var _gauges = _gauges || [];
-        (function() {
-          var t   = document.createElement('script');
-          t.type  = 'text/javascript';
-          t.async = true;
-          t.id    = 'gauges-tracker';
-          t.setAttribute('data-site-id', '6834bd650d851064ae28dc13');
-          t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
-          t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
-          var s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(t, s);
-        })();
-      }
-      {% endif %}
-    </script>
 </body>
 </html>
