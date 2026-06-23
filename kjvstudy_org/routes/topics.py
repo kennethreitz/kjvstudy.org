@@ -1,10 +1,10 @@
 """Topics routes - browse and view topical Bible studies."""
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import HTMLResponse
 
 from ..kjv import bible
 from ..topics import get_all_topics, get_topic_with_text
-from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
 from ._templates import templates
 
 router = APIRouter()
@@ -69,11 +69,7 @@ async def topic_detail(request: Request, topic_name: str):
 @router.get("/topics/{topic_name}/pdf")
 async def topic_detail_pdf(topic_name: str):
     """Generate a PDF export for a topic detail page."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     topic = get_topic_with_text(topic_name)
     if not topic:
@@ -83,11 +79,5 @@ async def topic_detail_pdf(topic_name: str):
         topic=topic,
         topic_name=topic_name,
     )
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     filename = f"{topic_name}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)

@@ -5,7 +5,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from ..kjv import bible
 from ..cross_references import get_cross_references
@@ -13,7 +13,7 @@ from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..books import get_book_data, has_book_data
 from ..utils.books import normalize_book_name, OT_BOOKS, get_canonical_book_order
 from ..utils.helpers import create_slug, get_related_content, get_chapter_popularity_score, get_chapter_popularity_explanation
-from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
 from ..utils.poetry_loader import is_poetry_chapter, get_stanza_breaks
 
 
@@ -120,11 +120,7 @@ async def read_book(request: Request, book: str):
 @router.get("/book/{book}/pdf")
 async def book_pdf(request: Request, book: str):
     """Generate a PDF export for an entire Bible book."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -170,14 +166,8 @@ async def book_pdf(request: Request, book: str):
         book_intro=book_intro,
     )
 
-    pdf_buffer = await render_html_to_pdf_async(html_content)
     filename = f"{create_slug(book)}.pdf"
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/book/{book}/commentary")
@@ -382,11 +372,7 @@ async def read_chapter(request: Request, book: str, chapter: int):
 @router.get("/book/{book}/chapter/{chapter}/pdf")
 async def chapter_pdf(request: Request, book: str, chapter: int):
     """Generate a PDF export for a specific Bible chapter."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -495,14 +481,8 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
         stanza_breaks=stanza_breaks,
     )
 
-    pdf_buffer = await render_html_to_pdf_async(html_content)
     filename = f"{create_slug(book)}-chapter-{chapter}.pdf"
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 # =============================================================================
@@ -517,11 +497,7 @@ async def chapter_interlinear_pdf(book: str, chapter: int):
     if canonical_name:
         return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/interlinear/pdf", status_code=301)
 
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     verses = bible.get_verses_by_book_chapter(book, chapter)
     chapters = bible.get_chapters_for_book(book)
@@ -550,14 +526,8 @@ async def chapter_interlinear_pdf(book: str, chapter: int):
         verses_with_interlinear=verses_with_interlinear,
         is_old_testament=is_old_testament
     )
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     filename = f"{book.lower().replace(' ', '-')}-{chapter}-interlinear.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/book/{book}/chapter/{chapter}/interlinear", response_class=HTMLResponse)
@@ -636,11 +606,7 @@ async def verse_pdf(book: str, chapter: int, verse_num: int):
     if canonical_name:
         return RedirectResponse(url=f"/book/{canonical_name}/chapter/{chapter}/verse/{verse_num}/pdf", status_code=301)
 
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     verses = bible.get_verses_by_book_chapter(book, chapter)
     if not verses:
@@ -681,14 +647,8 @@ async def verse_pdf(book: str, chapter: int, verse_num: int):
         interlinear_words=interlinear_words,
         is_old_testament=is_ot
     )
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     filename = f"{book.lower().replace(' ', '-')}-{chapter}-{verse_num}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/book/{book}/chapter/{chapter}/verse/{verse_num}", response_class=HTMLResponse)

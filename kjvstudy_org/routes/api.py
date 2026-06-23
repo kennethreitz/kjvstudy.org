@@ -8,9 +8,9 @@ from pathlib import Path as FilePath
 from functools import lru_cache
 
 from fastapi import APIRouter, HTTPException, Query, Path, Body
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse
 
-from ..utils.pdf import render_html_to_pdf, render_html_to_pdf_async, WEASYPRINT_AVAILABLE
+from ..utils.pdf import pdf_response, require_pdf_available
 
 from ..kjv import bible
 from ..cross_references import get_cross_references
@@ -962,11 +962,7 @@ async def api_get_book(book: str = Path(..., description="Book name", example="G
 @router.get("/books/{book}/pdf")
 async def api_book_pdf(book: str = Path(..., description="Book name", example="Genesis")):
     """Generate PDF for an entire Bible book."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -1001,16 +997,9 @@ async def api_book_pdf(book: str = Path(..., description="Book name", example="G
         verse_count=total_verses,
     )
 
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     # Return as downloadable PDF
     filename = f"{create_slug(book)}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/books/{book}/chapters/{chapter}")
@@ -1046,11 +1035,7 @@ async def api_chapter_pdf(
     chapter: int = Path(..., description="Chapter number", example=8)
 ):
     """Generate PDF for a specific Bible chapter."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     canonical_name = normalize_book_name(book)
     if canonical_name:
@@ -1072,16 +1057,9 @@ async def api_chapter_pdf(
         verse_count=len(verses),
     )
 
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     # Return as downloadable PDF
     filename = f"{create_slug(book)}-chapter-{chapter}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/books/{book}/text")
@@ -1338,11 +1316,7 @@ async def api_get_story(slug: str = Path(..., description="Story slug", example=
 @router.get("/stories/{slug}/pdf")
 async def api_story_pdf(slug: str = Path(..., description="Story slug")):
     """Generate PDF for a story (adult version)."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     story = get_story_by_slug(slug)
 
@@ -1353,26 +1327,15 @@ async def api_story_pdf(slug: str = Path(..., description="Story slug")):
     # Render the PDF template
     html_content = templates.get_template("story_pdf.html").render(story=story)
 
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     # Return as downloadable PDF
     filename = f"{slug}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/stories/{slug}/kids/pdf")
 async def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
     """Generate PDF for a story (kids version)."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     story = get_story_by_slug(slug)
 
@@ -1386,16 +1349,9 @@ async def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
     # Render the PDF template
     html_content = templates.get_template("story_kids_pdf.html").render(story=story)
 
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     # Return as downloadable PDF
     filename = f"{slug}-kids.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 # ============================================================================
 # RESOURCES ENDPOINTS
@@ -1597,20 +1553,15 @@ async def api_get_resource_category_pdf(
     if category not in CATEGORY_TO_DATA:
         raise HTTPException(status_code=404, detail=f"Resource category '{category}' not found")
 
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
-    
-    
+    require_pdf_available()
+
     cat_data = CATEGORY_TO_DATA[category]
-    
+
     def format_title(key: str) -> str:
         return key.replace('_', ' ').title()
-    
+
     title = format_title(category)
-    
+
     # Render the PDF template
     html_content = templates.get_template("resource_index_pdf.html").render(
         resource_data=cat_data,
@@ -1618,17 +1569,10 @@ async def api_get_resource_category_pdf(
         page_subtitle=f"Biblical study resource",
         page_description=f"Explore {title.lower()} from the King James Bible"
     )
-    
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-    
+
     # Return as downloadable PDF
     filename = f"{category}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/resources/{category}/{slug}/pdf")
@@ -1663,11 +1607,7 @@ async def api_get_resource_item_pdf(
         raise HTTPException(status_code=404, detail=f"Resource item '{slug}' not found")
 
     # Now check WeasyPrint availability
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     item_data, item_name = result
 
@@ -1681,17 +1621,10 @@ async def api_get_resource_item_pdf(
         category_name="",  # Not used in simple template
         resource_title=format_title(category)
     )
-    
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
 
     # Return as downloadable PDF
     filename = f"{slug}-{category}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get(

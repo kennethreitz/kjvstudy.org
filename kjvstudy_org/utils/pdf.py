@@ -8,6 +8,9 @@ from typing import BinaryIO
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 
+from fastapi import HTTPException
+from fastapi.responses import StreamingResponse
+
 try:  # pragma: no cover - optional dependency
     # Suppress WeasyPrint's stdout/stderr noise during import
     _stdout = sys.stdout
@@ -87,3 +90,22 @@ async def render_html_to_pdf_async(html_content: str) -> BinaryIO:
     """
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(_pdf_executor, _render_pdf_sync, html_content)
+
+
+def require_pdf_available():
+    """Raise 503 if PDF generation isn't available (WeasyPrint missing)."""
+    if not WEASYPRINT_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF generation is not available. WeasyPrint system libraries are not installed.",
+        )
+
+
+async def pdf_response(html: str, filename: str) -> StreamingResponse:
+    """Render HTML to a PDF download response (attachment)."""
+    pdf_buffer = await render_html_to_pdf_async(html)
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename={filename}"},
+    )

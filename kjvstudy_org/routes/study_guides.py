@@ -6,10 +6,10 @@ import json
 from pathlib import Path
 from functools import lru_cache
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import HTMLResponse
 from ..kjv import bible
 from ..utils.helpers import verse_reference_to_url
-from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
 
 router = APIRouter(tags=["Study Guides"])
 
@@ -185,11 +185,7 @@ async def study_guide_detail(request: Request, slug: str):
 @router.get("/study-guides/{slug}/pdf")
 async def study_guide_pdf(slug: str):
     """Generate a PDF export for a study guide."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     guides_content = _get_study_guides_content()
     guide = guides_content.get(slug)
@@ -199,11 +195,5 @@ async def study_guide_pdf(slug: str):
     _attach_verse_texts(guide)
 
     html_content = templates.get_template("study_guide_pdf.html").render(guide=guide)
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     filename = f"{slug}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)

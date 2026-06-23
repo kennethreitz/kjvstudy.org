@@ -2,11 +2,11 @@
 import json
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi import APIRouter, Request
+from fastapi.responses import HTMLResponse
 
 from ..kjv import bible
-from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
 from ._templates import templates
 
 router = APIRouter()
@@ -84,11 +84,7 @@ async def biblical_timeline_page(request: Request):
 @router.get("/biblical-timeline/pdf")
 async def biblical_timeline_pdf():
     """Generate PDF export for the biblical timeline."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     timeline_events, introduction, chronology_note, chronology_comparison, conclusion = get_biblical_timeline_context()
 
@@ -99,10 +95,4 @@ async def biblical_timeline_pdf():
         chronology_comparison=chronology_comparison,
         conclusion=conclusion
     )
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": "attachment; filename=biblical-timeline.pdf"}
-    )
+    return await pdf_response(html_content, "biblical-timeline.pdf")

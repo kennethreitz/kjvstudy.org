@@ -4,7 +4,7 @@ These routes handle the biblical reference and study resources pages.
 Data is imported from the centralized data module to avoid duplication.
 """
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import HTMLResponse
 
 from ..data import (
     BIBLICAL_LOCATIONS,
@@ -51,7 +51,7 @@ from ..data import (
     find_resource_by_slug,
 )
 from ..utils.helpers import create_slug
-from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
 
 router = APIRouter(tags=["Biblical Resources"])
 
@@ -126,11 +126,7 @@ async def _resource_detail_pdf_response(
     not_found_message: str,
 ):
     """Generate a PDF export for a resource detail entry."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     item, item_name, category_name = _get_resource_item_or_404(data, slug, not_found_message)
 
@@ -141,23 +137,13 @@ async def _resource_detail_pdf_response(
         resource_title=resource_title,
     )
 
-    pdf_buffer = await render_html_to_pdf_async(html_content)
     filename = f"{create_slug(item_name)}-{create_slug(resource_title)}.pdf"
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 async def _resource_index_pdf_response(resource_data: dict, page_title: str, page_subtitle: str, page_description: str):
     """Generate PDF for resource index-style pages."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     html_content = templates.get_template("resource_index_pdf.html").render(
         resource_data=resource_data,
@@ -166,13 +152,8 @@ async def _resource_index_pdf_response(resource_data: dict, page_title: str, pag
         page_description=page_description,
     )
 
-    pdf_buffer = await render_html_to_pdf_async(html_content)
     filename = f"{create_slug(page_title)}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 # ============================================================================
@@ -278,20 +259,10 @@ async def biblical_prophets_page(request: Request):
 @router.get("/biblical-prophets/pdf")
 async def biblical_prophets_pdf():
     """PDF export for the prophets index."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     html_content = templates.get_template("biblical_prophets_pdf.html").render(prophets_data=PROPHETS_DATA)
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": "attachment; filename=biblical-prophets.pdf"}
-    )
+    return await pdf_response(html_content, "biblical-prophets.pdf")
 
 
 @router.get("/biblical-prophets/{prophet_slug}", response_class=HTMLResponse)
@@ -401,20 +372,10 @@ async def parables_page(request: Request):
 @router.get("/parables/pdf")
 async def parables_pdf():
     """PDF export for the parables index."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     html_content = templates.get_template("parables_pdf.html").render(parables_data=PARABLES_DATA)
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": "attachment; filename=parables.pdf"}
-    )
+    return await pdf_response(html_content, "parables.pdf")
 
 
 @router.get("/parables/{parable_slug}", response_class=HTMLResponse)
@@ -524,20 +485,10 @@ async def apostles_page(request: Request):
 @router.get("/the-twelve-apostles/pdf")
 async def apostles_page_pdf():
     """PDF export for the apostles index."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     html_content = templates.get_template("twelve_apostles_pdf.html").render(apostles_data=APOSTLES_DATA)
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": "attachment; filename=twelve-apostles.pdf"}
-    )
+    return await pdf_response(html_content, "twelve-apostles.pdf")
 
 
 @router.get("/the-twelve-apostles/{apostle_slug}", response_class=HTMLResponse)
@@ -803,20 +754,10 @@ async def tetragrammaton_page(request: Request):
 @router.get("/tetragrammaton/pdf")
 async def tetragrammaton_pdf():
     """PDF export for the Tetragrammaton page."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     html_content = templates.get_template("tetragrammaton_pdf.html").render(content=TETRAGRAMMATON_CONTENT)
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": "attachment; filename=tetragrammaton.pdf"}
-    )
+    return await pdf_response(html_content, "tetragrammaton.pdf")
 
 
 # ============================================================================

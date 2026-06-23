@@ -3,7 +3,7 @@
 Routes for browsing Bible stories with adult and kids versions.
 """
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import HTMLResponse
 from ..kjv import bible
 from ..stories import (
     get_categories,
@@ -11,7 +11,7 @@ from ..stories import (
     get_story_count,
     get_category_count,
 )
-from ..utils.pdf import render_html_to_pdf, render_html_to_pdf_async, WEASYPRINT_AVAILABLE
+from ..utils.pdf import pdf_response, require_pdf_available
 
 router = APIRouter(tags=["Bible Stories"])
 
@@ -75,11 +75,7 @@ async def stories_kids_index(request: Request):
 @router.get("/stories/{slug}/pdf")
 async def story_pdf(request: Request, slug: str):
     """Generate PDF for a story (adult version)."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     story = get_story_by_slug(slug)
 
@@ -89,26 +85,15 @@ async def story_pdf(request: Request, slug: str):
     # Render the PDF template
     html_content = templates.get_template("story_pdf.html").render(story=story)
 
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     # Return as downloadable PDF
     filename = f"{slug}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/stories/{slug}/kids/pdf")
 async def story_kids_pdf(request: Request, slug: str):
     """Generate PDF for a story (kids version)."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     story = get_story_by_slug(slug)
 
@@ -121,16 +106,9 @@ async def story_kids_pdf(request: Request, slug: str):
     # Render the PDF template
     html_content = templates.get_template("story_kids_pdf.html").render(story=story)
 
-    # Generate PDF
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
     # Return as downloadable PDF
     filename = f"{slug}-kids.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, filename)
 
 
 @router.get("/stories/{slug}", response_class=HTMLResponse)
