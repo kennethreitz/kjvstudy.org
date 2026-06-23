@@ -36,7 +36,6 @@ from ..stories import (
 )
 from ..data import (
     _data as RESOURCES_DATA,
-    find_resource_by_slug,
     _create_slug,
     # Import all specific resource dicts
     BIBLICAL_LOCATIONS, ANGELS_DATA, PROPHETS_DATA, NAMES_DATA,
@@ -983,8 +982,6 @@ async def api_book_pdf(book: str = Path(..., description="Book name", example="G
     if not chapters:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    if not templates:
-        raise HTTPException(status_code=500, detail="Templates not initialized")
 
     # Prepare data for template
     chapters_data = []
@@ -1069,8 +1066,6 @@ async def api_chapter_pdf(
     if not verses:
         raise HTTPException(status_code=404, detail="Chapter not found")
 
-    if not templates:
-        raise HTTPException(status_code=500, detail="Templates not initialized")
 
     # Prepare data for template
     verse_list = [{"verse": v.verse, "text": v.text} for v in verses]
@@ -1360,8 +1355,6 @@ async def api_story_pdf(slug: str = Path(..., description="Story slug")):
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
 
-    if not templates:
-        raise HTTPException(status_code=500, detail="Templates not initialized")
 
     # Render the PDF template
     html_content = templates.get_template("story_pdf.html").render(story=story)
@@ -1395,8 +1388,6 @@ async def api_story_kids_pdf(slug: str = Path(..., description="Story slug")):
     if not story.get("kids_narrative"):
         raise HTTPException(status_code=404, detail="Kids version not available for this story")
 
-    if not templates:
-        raise HTTPException(status_code=500, detail="Templates not initialized")
 
     # Render the PDF template
     html_content = templates.get_template("story_kids_pdf.html").render(story=story)
@@ -1618,8 +1609,6 @@ async def api_get_resource_category_pdf(
             detail="PDF generation is not available. WeasyPrint system libraries are not installed."
         )
     
-    if not templates:
-        raise HTTPException(status_code=500, detail="Templates not initialized")
     
     cat_data = CATEGORY_TO_DATA[category]
     
@@ -1658,8 +1647,6 @@ async def api_get_resource_item_pdf(
     if category not in CATEGORY_TO_DATA:
         raise HTTPException(status_code=404, detail=f"Resource category '{category}' not found")
     
-    if not templates:
-        raise HTTPException(status_code=500, detail="Templates not initialized")
     
     cat_data = CATEGORY_TO_DATA[category]
     
