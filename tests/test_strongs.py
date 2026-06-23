@@ -11,9 +11,7 @@ Tests cover:
 """
 
 import pytest
-from fastapi.testclient import TestClient
 
-from kjvstudy_org.server import app
 from kjvstudy_org.strongs import (
     get_strongs_entry,
     get_strongs_definition,
@@ -24,12 +22,6 @@ from kjvstudy_org.strongs import (
     search_strongs,
     get_all_strongs,
 )
-
-
-@pytest.fixture
-def client():
-    """Create test client"""
-    return TestClient(app)
 
 
 class TestStrongsDataLoading:
