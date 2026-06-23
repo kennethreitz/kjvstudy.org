@@ -26,6 +26,26 @@ from functools import lru_cache
 from .utils.helpers import create_slug
 
 
+# Matches "Book Chapter:Verse" / "Book Chapter:Verse-Verse" (e.g. "1 John 4:8",
+# "Genesis 1:1-3"). Shared by the verse-linking filters.
+_VERSE_REF_RE = re.compile(
+    r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
+)
+
+
+def _inside_html_tag(text, pos):
+    """True if `pos` falls inside an HTML tag, or inside an anchor/src attribute,
+    so we must not inject a link there (prevents nested/broken anchors)."""
+    before = text[:pos]
+    last_lt = before.rfind('<')
+    last_gt = before.rfind('>')
+    if last_lt > last_gt:
+        return True
+    if last_lt != -1 and ('href=' in text[last_lt:pos] or 'src=' in text[last_lt:pos]):
+        return True
+    return False
+
+
 @lru_cache(maxsize=1)
 def _get_person_name_pattern(name_to_id_items=None):
     """Build and cache a single combined regex for all person names.
@@ -80,10 +100,11 @@ def link_person_names_in_text(text):
     if not text:
         return text
 
-    # First, link verse references
-    verse_pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
-
+    # First, link verse references (skipping any already inside an HTML tag/anchor,
+    # since this filter is often chained after link_verses)
     def verse_replace_callback(match):
+        if _inside_html_tag(text, match.start()):
+            return match.group(0)
         number_prefix = match.group(1) or ''
         book_name = match.group(2)
         chapter = match.group(3)
@@ -95,7 +116,7 @@ def link_person_names_in_text(text):
             return f'<a href="/book/{full_book}/chapter/{chapter}#verse-{verse_start}-{verse_end}">{matched_text}</a>'
         return f'<a href="/book/{full_book}/chapter/{chapter}#verse-{verse_start}">{matched_text}</a>'
 
-    text = re.sub(verse_pattern, verse_replace_callback, text)
+    text = _VERSE_REF_RE.sub(verse_replace_callback, text)
 
     # Then, link person names to family tree (lazy import to avoid circular dependency)
     from .server import get_person_name_mapping
@@ -110,19 +131,8 @@ def link_person_names_in_text(text):
 
     def replace_callback(match):
         matched_text = match.group(0)
-        start_pos = match.start()
-        text_before = text[:start_pos]
-        last_lt = text_before.rfind('<')
-        last_gt = text_before.rfind('>')
-
-        if last_lt > last_gt:
+        if _inside_html_tag(text, match.start()):
             return matched_text
-
-        if last_lt != -1:
-            tag_content = text[last_lt:start_pos]
-            if 'href=' in tag_content or 'src=' in tag_content:
-                return matched_text
-
         person_id = name_lookup[matched_text.lower()]
         return f'<a href="/family-tree/person/{person_id}">{matched_text}</a>'
 
@@ -146,12 +156,7 @@ def link_verse_references_in_text(text):
         refs_str = match.group(3)
         full_book = (number_prefix + book_name).strip()
 
-        # Check if inside HTML tag
-        start_pos = match.start()
-        text_before = text[:start_pos]
-        last_lt = text_before.rfind('<')
-        last_gt = text_before.rfind('>')
-        if last_lt > last_gt:
+        if _inside_html_tag(text, match.start()):
             return match.group(0)
 
         # Parse individual refs like "8:16, 9:21" or "1:19, 1:26"
@@ -177,8 +182,6 @@ def link_verse_references_in_text(text):
     text = re.sub(paren_pattern, replace_paren_refs, text)
 
     # Then handle standard format: "Book chapter:verse"
-    pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?\b'
-
     def replace_reference(match):
         number_prefix = match.group(1) or ''
         book_name = match.group(2)
@@ -188,18 +191,8 @@ def link_verse_references_in_text(text):
         full_book = (number_prefix + book_name).strip()
         full_reference = match.group(0)
 
-        start_pos = match.start()
-        text_before = text[:start_pos]
-        last_lt = text_before.rfind('<')
-        last_gt = text_before.rfind('>')
-
-        if last_lt > last_gt:
+        if _inside_html_tag(text, match.start()):
             return full_reference
-
-        if last_lt != -1:
-            tag_content = text[last_lt:start_pos]
-            if 'href=' in tag_content or 'src=' in tag_content:
-                return full_reference
 
         if verse_end:
             url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}-{verse_end}'
@@ -207,7 +200,7 @@ def link_verse_references_in_text(text):
             url = f'/book/{full_book}/chapter/{chapter}#verse-{verse_start}'
         return f'<a href="{url}">{full_reference}</a>'
 
-    text = re.sub(pattern, replace_reference, text)
+    text = _VERSE_REF_RE.sub(replace_reference, text)
 
     # Finally handle chapter-only format: "Book chapter" (e.g., "Isaiah 53")
     chapter_pattern = r'\b((?:1|2|3)\s+)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+(\d+)\b(?!:)'
@@ -219,18 +212,8 @@ def link_verse_references_in_text(text):
         full_book = (number_prefix + book_name).strip()
         full_reference = match.group(0)
 
-        start_pos = match.start()
-        text_before = text[:start_pos]
-        last_lt = text_before.rfind('<')
-        last_gt = text_before.rfind('>')
-
-        if last_lt > last_gt:
+        if _inside_html_tag(text, match.start()):
             return full_reference
-
-        if last_lt != -1:
-            tag_content = text[last_lt:start_pos]
-            if 'href=' in tag_content or 'src=' in tag_content:
-                return full_reference
 
         url = f'/book/{full_book}/chapter/{chapter}'
         return f'<a href="{url}">{full_reference}</a>'

@@ -50,14 +50,9 @@ def _load_popular_chapters() -> dict:
 
 @lru_cache(maxsize=1)
 def _load_featured_verses() -> list:
-    """Load featured verses from JSON file. Cached since data never changes."""
+    """Load featured verses (with their devotionals) from JSON. Data never changes."""
     with open(_FEATURED_VERSES_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    # Convert dict format to tuple format for compatibility
-    return [
-        (verse["book"], verse["chapter"], verse["verse"])
-        for verse in data["verses"]
-    ]
+        return json.load(f)["verses"]
 
 
 @lru_cache(maxsize=512)
@@ -461,15 +456,35 @@ def get_chapter_popularity_explanation(book: str, chapter: int) -> str:
 FEATURED_VERSES = _load_featured_verses()
 
 
-def get_daily_verse() -> Dict:
-    """Get the verse of the day based on the current date."""
-    today = datetime.now()
-    day_of_year = today.timetuple().tm_yday
-    verse_index = day_of_year % len(FEATURED_VERSES)
+def get_daily_verse(date_str: Optional[str] = None) -> Dict:
+    """Get the verse of the day for a given date (current date if omitted).
 
-    book, chapter, verse = FEATURED_VERSES[verse_index]
+    Calendar-aligned (Jan 1 -> the first featured verse). This is the single
+    source of truth shared by the web pages and /api/verse-of-the-day so they
+    always show the same verse for a given day.
+    """
+    if date_str is None:
+        date_obj = datetime.now()
+        date_str = date_obj.strftime("%Y-%m-%d")
+    else:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+
+    if FEATURED_VERSES:
+        day_of_year = date_obj.timetuple().tm_yday  # 1-366
+        verse_data = FEATURED_VERSES[(day_of_year - 1) % len(FEATURED_VERSES)]
+    else:
+        verse_data = {"book": "John", "chapter": 3, "verse": 16}
+
+    book = verse_data["book"]
+    chapter = verse_data["chapter"]
+    verse = verse_data["verse"]
+    devotional = verse_data.get("devotional")
+
     verse_text = bible.get_verse_text(book, chapter, verse)
-    christ_words = get_christ_words(book, chapter, verse)
+    if not verse_text:
+        # Fallback to John 3:16 if the configured verse is missing
+        book, chapter, verse, devotional = "John", 3, 16, None
+        verse_text = bible.get_verse_text(book, chapter, verse)
 
     return {
         "book": book,
@@ -478,5 +493,30 @@ def get_daily_verse() -> Dict:
         "text": verse_text,
         "reference": f"{book} {chapter}:{verse}",
         "url": f"/book/{book}/chapter/{chapter}#verse-{verse}",
-        "red_letter": christ_words
+        "date": date_str,
+        "devotional": devotional,
+        "red_letter": get_christ_words(book, chapter, verse),
     }
+
+
+def verse_reference_to_url(reference: str) -> Optional[str]:
+    """Convert a verse reference to its chapter-anchor URL (the site-wide form).
+
+    Examples:
+        "John 3:16"      -> "/book/John/chapter/3#verse-16"
+        "Romans 8:38-39" -> "/book/Romans/chapter/8#verse-38-39"
+    Returns None if the reference cannot be parsed. Handles multi-word and
+    numbered book names (e.g. "Song of Solomon", "1 Corinthians").
+    """
+    match = re.match(r'^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$', reference.strip())
+    if not match:
+        return None
+
+    book = match.group(1).strip()
+    chapter = match.group(2)
+    verse_start = match.group(3)
+    verse_end = match.group(4)
+
+    if verse_end:
+        return f"/book/{book}/chapter/{chapter}#verse-{verse_start}-{verse_end}"
+    return f"/book/{book}/chapter/{chapter}#verse-{verse_start}"

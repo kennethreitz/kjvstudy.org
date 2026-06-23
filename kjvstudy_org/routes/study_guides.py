@@ -8,6 +8,7 @@ from functools import lru_cache
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse, StreamingResponse
 from ..kjv import bible
+from ..utils.helpers import verse_reference_to_url
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
 
 router = APIRouter(tags=["Study Guides"])
@@ -54,31 +55,6 @@ def init_templates(app_templates):
 def get_books():
     """Get list of Bible books."""
     return bible.get_books()
-
-
-def verse_reference_to_url(reference: str):
-    """Convert a verse reference like 'John 3:16' to a URL."""
-    import re
-    # Pattern to parse verse references with optional chapter:verse-verse format
-    pattern = r'^(?:(\d)\s+)?([A-Za-z]+(?:\s+of\s+[A-Za-z]+)?)\s+(\d+):(\d+)(?:-(\d+))?$'
-    match = re.match(pattern, reference.strip())
-    
-    if not match:
-        return None
-    
-    number_prefix = match.group(1)
-    book = match.group(2)
-    chapter = match.group(3)
-    verse_start = match.group(4)
-    verse_end = match.group(5)
-    
-    if number_prefix:
-        book = f"{number_prefix} {book}"
-    
-    if verse_end:
-        return f"/book/{book}/chapter/{chapter}#verse-{verse_start}-{verse_end}"
-    else:
-        return f"/book/{book}/chapter/{chapter}/verse/{verse_start}"
 
 
 def _get_study_guides_catalog():

@@ -12,7 +12,9 @@ from fastapi.templating import Jinja2Templates
 from ..kjv import bible
 from ..red_letter import load_red_letter_verses
 from ..utils.search import perform_full_text_search
+from ..utils.helpers import get_daily_verse
 from ..og_image import get_cached_or_generate
+from ..stories import get_story_by_slug
 
 router = APIRouter()
 templates = None
@@ -31,68 +33,6 @@ def init_search_family_tree(fn):
     """Initialize the search_family_tree function from server.py."""
     global _search_family_tree_fn
     _search_family_tree_fn = fn
-
-
-# =============================================================================
-# Helper Functions
-# =============================================================================
-
-def _load_featured_verses():
-    """Load featured verses from JSON file."""
-    import json
-    from pathlib import Path
-    data_file = Path(__file__).parent.parent / "data" / "featured_verses.json"
-    if data_file.exists():
-        with open(data_file, "r", encoding="utf-8") as f:
-            return json.load(f).get("verses", [])
-    return []
-
-
-def get_daily_verse(date_str=None):
-    """Get the verse of the day based on a specific date (or current date if not provided).
-
-    Uses calendar-based selection: verses are organized by month theme, so
-    January dates get January-themed verses, December dates get Advent verses, etc.
-    """
-    if date_str is None:
-        date_obj = datetime.now()
-        date_str = date_obj.strftime("%Y-%m-%d")
-    else:
-        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
-
-    # Load featured verses from JSON file
-    featured_verses = _load_featured_verses()
-
-    if not featured_verses:
-        # Fallback if file not found
-        featured_verses = [{"book": "John", "chapter": 3, "verse": 16}]
-
-    # Use day of year for calendar-based selection (1-365/366)
-    # This ensures January verses appear in January, December verses in December, etc.
-    day_of_year = date_obj.timetuple().tm_yday  # 1-366
-    verse_index = (day_of_year - 1) % len(featured_verses)  # 0-364
-    verse_data = featured_verses[verse_index]
-    book = verse_data["book"]
-    chapter = verse_data["chapter"]
-    verse = verse_data["verse"]
-    devotional = verse_data.get("devotional")
-
-    verse_text = bible.get_verse_text(book, chapter, verse)
-    if not verse_text:
-        # Fallback to John 3:16
-        book, chapter, verse = "John", 3, 16
-        verse_text = bible.get_verse_text(book, chapter, verse)
-        devotional = None
-
-    return {
-        "book": book,
-        "chapter": chapter,
-        "verse": verse,
-        "text": verse_text,
-        "reference": f"{book} {chapter}:{verse}",
-        "date": date_str,
-        "devotional": devotional
-    }
 
 
 # =============================================================================
@@ -519,20 +459,12 @@ async def og_image_topic(topic: str = Path(..., description="Topic name")):
 async def og_image_story(slug: str = Path(..., description="Story slug")):
     """Generate OG image for a Bible story."""
     import asyncio
-    import json
-    from pathlib import Path as PathLib
 
-    # Load story data to get title
-    stories_file = PathLib(__file__).parent.parent / "data" / "stories.json"
-    title = slug.replace("-", " ").title()  # Fallback
-
-    if stories_file.exists():
-        with open(stories_file, "r", encoding="utf-8") as f:
-            stories_data = json.load(f)
-            for story in stories_data.get("stories", []):
-                if story.get("slug") == slug:
-                    title = story.get("title", title)
-                    break
+    # Look up the story title, falling back to a humanized slug
+    title = slug.replace("-", " ").title()
+    story = get_story_by_slug(slug)
+    if story:
+        title = story.get("title", title)
 
     cache_key = f"story:{slug}"
 

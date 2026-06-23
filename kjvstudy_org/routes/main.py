@@ -1,5 +1,4 @@
 """Main page routes - homepage, books browser, and resources."""
-import re
 from datetime import date
 
 from fastapi import APIRouter, Request
@@ -7,7 +6,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
-from .misc import get_daily_verse
+from ..utils.helpers import get_daily_verse, verse_reference_to_url
 
 router = APIRouter()
 templates = None
@@ -20,36 +19,6 @@ def init_templates(t: Jinja2Templates):
     """Initialize templates for main routes."""
     global templates
     templates = t
-
-
-# =============================================================================
-# Helper Functions
-# =============================================================================
-
-def verse_reference_to_url(reference: str):
-    """Convert a verse reference to a URL path.
-
-    Examples:
-        "John 3:16" -> "/book/John/chapter/3#verse-16"
-        "Romans 8:38-39" -> "/book/Romans/chapter/8#verse-38-39"
-        "Ephesians 2:8-9" -> "/book/Ephesians/chapter/2#verse-8-9"
-    """
-    # Pattern: Book Chapter:Verse or Book Chapter:Verse-Verse
-    match = re.match(r'^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$', reference.strip())
-    if not match:
-        return None
-
-    book = match.group(1).strip()
-    chapter = match.group(2)
-    verse_start = match.group(3)
-    verse_end = match.group(4)
-
-    if verse_end:
-        # Verse range - link to chapter with anchor
-        return f"/book/{book}/chapter/{chapter}#verse-{verse_start}-{verse_end}"
-    else:
-        # Single verse - link to chapter with anchor
-        return f"/book/{book}/chapter/{chapter}#verse-{verse_start}"
 
 
 # =============================================================================
