@@ -1950,7 +1950,7 @@ async def api_bulk_verse_lookup(request: BulkVerseRequest):
 )
 async def api_family_tree_stats():
     """Get statistics about the biblical family tree from GEDCOM data."""
-    from ..routes.family_tree import get_family_tree_data
+    from ..utils.family_tree import get_family_tree_data
     import re
 
     try:

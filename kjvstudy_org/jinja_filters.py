@@ -118,8 +118,8 @@ def link_person_names_in_text(text):
 
     text = _VERSE_REF_RE.sub(verse_replace_callback, text)
 
-    # Then, link person names to family tree (lazy import to avoid circular dependency)
-    from .server import get_person_name_mapping
+    # Then, link person names to family tree
+    from .utils.family_tree import get_person_name_mapping
     name_to_id = get_person_name_mapping()
     if not name_to_id:
         return text
