@@ -639,6 +639,25 @@ section h2 {
     </p>
 </section>
 
+{% if study_guides %}
+<section>
+    <h2>Guided Studies</h2>
+
+    <p><span class="newthought">Begin a study</span> on an essential theme. Each guide gathers key passages with commentary to walk you through a doctrine or season of life, one Scripture at a time.</p>
+
+    {% for category, guides in study_guides.items() %}
+    <h3 style="font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);font-weight:600;margin:1.75rem 0 0.75rem;">{{ category }}</h3>
+    <div class="topic-grid">
+        {% for guide in guides %}
+        <a href="/study-guides/{{ guide.slug }}" class="topic-link" title="{{ guide.description }}">{{ guide.title }}</a>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <p style="margin-top:1.5rem;"><a href="/study-guides">Browse all study guides →</a></p>
+</section>
+{% endif %}
+
 <section>
     <h2>Study Resources</h2>
 

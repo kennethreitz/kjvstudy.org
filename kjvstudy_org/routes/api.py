@@ -580,17 +580,17 @@ async def universal_search_api(
         ("biblical marriage husband wife", "/study-guides/biblical-marriage", "Biblical Marriage"),
         ("raising children parenting family", "/study-guides/raising-children", "Raising Children"),
         ("money stewardship finances tithe giving", "/study-guides/money-stewardship", "Money & Stewardship"),
-        # Biblical figures (link to family tree)
-        ("adam eve first man woman creation", "/family-tree/adam", "Adam"),
-        ("noah ark flood", "/family-tree/noah", "Noah"),
-        ("abraham abram father faith", "/family-tree/abraham", "Abraham"),
-        ("isaac son promise", "/family-tree/isaac", "Isaac"),
-        ("jacob israel twelve tribes", "/family-tree/jacob", "Jacob"),
-        ("joseph dreamer coat egypt", "/family-tree/joseph", "Joseph"),
-        ("moses exodus law lawgiver", "/family-tree/moses", "Moses"),
-        ("david king shepherd psalmist", "/family-tree/david", "David"),
-        ("solomon wisdom temple", "/family-tree/solomon", "Solomon"),
-        ("paul apostle gentiles saul tarsus", "/family-tree/paul", "Paul the Apostle"),
+        # Biblical figures (link to family tree search, which resolves the person)
+        ("adam eve first man woman creation", "/family-tree/search?q=Adam", "Adam"),
+        ("noah ark flood", "/family-tree/search?q=Noah", "Noah"),
+        ("abraham abram father faith", "/family-tree/search?q=Abraham", "Abraham"),
+        ("isaac son promise", "/family-tree/search?q=Isaac", "Isaac"),
+        ("jacob israel twelve tribes", "/family-tree/search?q=Jacob", "Jacob"),
+        ("joseph dreamer coat egypt", "/family-tree/search?q=Joseph", "Joseph"),
+        ("moses exodus law lawgiver", "/family-tree/search?q=Moses", "Moses"),
+        ("david king shepherd psalmist", "/family-tree/search?q=David", "David"),
+        ("solomon wisdom temple", "/family-tree/search?q=Solomon", "Solomon"),
+        ("paul apostle gentiles saul tarsus", "/family-tree/search?q=Paul", "Paul the Apostle"),
     ]
     matching_resources = [
         {"name": name, "url": url}

@@ -110,13 +110,13 @@
 
 .search-stats {
     margin: 2rem 0;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .search-result {
     margin: 2rem 0;
     padding: 1rem;
-    border-left: 3px solid #111;
+    border-left: 3px solid var(--text-color);
 }
 
 .result-reference {
@@ -126,11 +126,12 @@
 
 .result-reference a {
     text-decoration: none;
-    color: #111;
+    color: var(--link-color);
 }
 
 .result-reference a:hover {
     text-decoration: underline;
+    color: var(--link-hover);
 }
 
 .result-text {
@@ -138,8 +139,15 @@
 }
 
 .result-text mark {
-    background: #fffacd;
+    background: #fff3b0;
+    color: #111;
     padding: 0.1rem 0.2rem;
+    border-radius: 2px;
+}
+
+[data-theme="dark"] .result-text mark {
+    background: rgba(255, 213, 79, 0.25);
+    color: var(--text-color);
 }
 
 .search-tips {
@@ -268,7 +276,7 @@
                 <div class="result-reference">
                     <a href="{{ result.url }}">{{ result.name }}</a>
                 </div>
-                <div class="result-text" style="color: #666;">
+                <div class="result-text" style="color: var(--text-secondary);">
                     {{ result.description }}
                     {% if result.birth_year != "Unknown" or result.death_year != "Unknown" %}
                         •

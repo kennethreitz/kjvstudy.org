@@ -180,9 +180,14 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
             response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
             response.headers["Pragma"] = "no-cache"
             response.headers["Expires"] = "0"
-        # Static files (CSS, JS, images) - cache 1 year
+        # Static files (CSS, JS, images) - cache 1 year, but ONLY on success.
+        # Never cache a 404/500 as immutable, or a transient outage poisons the
+        # client cache for a year.
         elif path.startswith("/static/"):
-            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+            if response.status_code < 400:
+                response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+            else:
+                response.headers["Cache-Control"] = "no-store"
         # Bible content (verses, chapters, books) - cache 1 week
         elif any(x in path for x in ["/book/", "/chapter/", "/verse/"]):
             response.headers["Cache-Control"] = "public, max-age=604800"
@@ -352,6 +357,13 @@ def static_hash(filename):
     return _static_hashes[filename]
 
 templates.env.globals['static_hash'] = static_hash
+
+# Serve /static from the app itself so styling works under any ASGI server
+# (uvicorn, granian, etc.). In production Granian also mounts /static via its
+# own --static-path-route and short-circuits before reaching this app, so this
+# mount is a harmless fallback there but the source of truth for `uvicorn`.
+from fastapi.staticfiles import StaticFiles
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 # Initialize templates for route modules
 init_api_templates(templates)

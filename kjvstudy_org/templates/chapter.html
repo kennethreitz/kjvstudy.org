@@ -352,12 +352,13 @@ p[id^="verse-"].selected {
     outline-color: #6b9b7a;
 }
 
+/* Commentary indicator: green accent, distinct from red-letter (words of Christ) */
 .verse-number-link.has-commentary {
-    color: #c41e3a !important;
+    color: #4a7c59 !important;
 }
 
 [data-theme="dark"] .verse-number-link.has-commentary {
-    color: #ff6b6b !important;
+    color: #6b9b7a !important;
 }
 
 /* Prevent sidenote numbers from appearing too close to verse numbers */
@@ -549,6 +550,158 @@ p[id^="verse-"].selected {
         justify-content: center;
     }
 }
+
+/* =========================================================================
+   Inline study apparatus: per-verse commentary + chapter overview
+   ========================================================================= */
+
+/* Chapter overview disclosure (collapsed orientation at top of chapter) */
+.chapter-overview {
+    max-width: 60%;
+    margin: 1.5rem 0 2rem 0;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.chapter-overview > summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    user-select: none;
+}
+
+.chapter-overview > summary::-webkit-details-marker { display: none; }
+
+.chapter-overview > summary::before {
+    content: '';
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 5px solid currentColor;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 0.15s ease;
+    opacity: 0.7;
+}
+
+.chapter-overview[open] > summary::before { transform: rotate(90deg); }
+
+.chapter-overview-body { margin-top: 1rem; }
+
+.chapter-overview-body p,
+.chapter-overview-body li {
+    font-size: 1.1rem !important;
+    line-height: 1.7 !important;
+    color: var(--text-secondary);
+    margin: 0.6rem 0 !important;
+}
+
+/* Per-verse commentary disclosure (sits beneath the verse it annotates) */
+/* Per-verse study notes: a quiet footnote-style marker so the chapter reads
+   like a Bible. Collapsed by default — scripture only. The glyph is CSS
+   generated content, so it never leaks into copied or spoken verse text. */
+.vc-marker {
+    cursor: pointer;
+    vertical-align: super;
+    font-size: 0.6rem;
+    line-height: 0;
+    margin-left: 0.15rem;
+    color: #4a7c59;
+    opacity: 0.6;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: opacity 0.15s ease;
+}
+
+.vc-marker::before { content: "\2726"; }  /* four-pointed star — quiet study-note mark */
+
+.vc-marker:hover { opacity: 1; }
+
+[data-theme="dark"] .vc-marker { color: #6b9b7a; }
+
+/* Decorative toggle (mouse). The same note is reachable via the verse link. */
+.vc-toggle { display: none; }
+
+.verse-commentary-body {
+    display: none;
+    max-width: 55%;
+    margin: 0.8rem 0 1.9rem 0;
+    border-left: 2px solid var(--border-color-darker);
+    padding: 0.1rem 0 0.4rem 1.25rem;
+}
+
+.vc-toggle:checked + .verse-commentary-body { display: block; }
+
+.verse-commentary-body .vc-eyebrow {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #4a7c59;
+    margin-bottom: 0.6rem;
+}
+
+[data-theme="dark"] .verse-commentary-body .vc-eyebrow { color: #6b9b7a; }
+
+.verse-commentary-body h4 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    margin: 1.2rem 0 0.35rem 0;
+    font-style: normal;
+}
+
+.verse-commentary-body h4:first-of-type { margin-top: 0; }
+
+.verse-commentary-body p,
+.verse-commentary-body li {
+    font-size: 1.05rem !important;
+    line-height: 1.7 !important;
+    color: var(--text-secondary);
+    margin: 0.5rem 0 !important;
+}
+
+.verse-commentary-body ul {
+    margin: 0.35rem 0;
+    padding-left: 1.2rem;
+}
+
+.verse-commentary-body .vc-permalink {
+    display: inline-block;
+    margin-top: 0.85rem;
+    font-size: 0.8rem;
+    color: #4a7c59;
+    border-bottom: none;
+}
+
+.verse-commentary-body .vc-permalink:hover { text-decoration: underline; }
+
+[data-theme="dark"] .verse-commentary-body .vc-permalink { color: #6b9b7a; }
+
+@media (max-width: 768px) {
+    .chapter-overview { max-width: 100%; }
+    .verse-commentary-body { max-width: 100%; }
+    .verse-commentary-body p,
+    .verse-commentary-body li { font-size: 1.1rem !important; }
+    /* Larger tap target on touch screens */
+    .vc-marker { font-size: 0.85rem; padding: 0 0.35rem; }
+}
+
+@media print {
+    .vc-marker { display: none; }
+    .verse-commentary-body { display: block !important; max-width: 100%; }
+    .chapter-overview > summary { display: none; }
+    .chapter-overview-body { display: block; }
+}
 </style>
 {% endblock %}
 
@@ -583,10 +736,19 @@ document.body.dataset.resourceReader = 'false';
     </button>
 </div>
 
+{% if chapter_overview %}
+<details class="chapter-overview">
+    <summary>Chapter Overview</summary>
+    <div class="chapter-overview-body">
+        {{ chapter_overview | safe }}
+    </div>
+</details>
+{% endif %}
+
 <section{% if is_poetry %} class="poetry-chapter"{% endif %}>
 {% for verse in verses %}
 {% set commentary = commentaries[verse.verse] if commentaries and verse.verse in commentaries else none %}
-{% set has_commentary = commentary and (commentary.get('is_enhanced') or commentary.get('analysis')) %}
+{% set has_commentary = commentary and (commentary.analysis or commentary.historical or commentary.theological or commentary.questions) %}
 {% set has_stanza_break = is_poetry and verse.verse in stanza_breaks %}
 {% set has_section_heading = section_headings and verse.verse in section_headings %}
     {% if has_stanza_break and has_section_heading %}
@@ -618,7 +780,35 @@ document.body.dataset.resourceReader = 'false';
                 <span class="sidenote cross-refs{% if commentary.xref_auto_expand %} expanded{% endif %}">{% for item in ns.all_refs[:preview_count] %}{% if item.is_first_in_group %}{% if not loop.first %}. {% endif %}<strong>{{ item.group }}:</strong> {% endif %}<a href="{{ item.ref.url }}">{{ item.ref.display }}</a>{% if not loop.last and not ns.all_refs[loop.index].is_first_in_group %}, {% endif %}{% endfor %}{% if extra_count > 0 %}<span class="xref-extra">{% for item in ns.all_refs[preview_count:] %}{% if item.is_first_in_group %}. <strong>{{ item.group }}:</strong> {% elif loop.first %}, {% endif %}<a href="{{ item.ref.url }}">{{ item.ref.display }}</a>{% if not loop.last and not ns.all_refs[preview_count + loop.index].is_first_in_group %}, {% endif %}{% endfor %}</span><span class="xref-more"> +{{ extra_count }}</span>{% endif %}</span>
             {% endif %}
         {% endif %}
+        {% if has_commentary %}<label for="vc-{{ verse.verse }}" class="vc-marker" title="Study note on verse {{ verse.verse }}" aria-hidden="true"></label>{% endif %}
     </p>
+    {% if has_commentary %}
+    <input type="checkbox" id="vc-{{ verse.verse }}" class="vc-toggle" aria-hidden="true" tabindex="-1">
+    <aside class="verse-commentary-body" role="note">
+        <span class="vc-eyebrow">Study Note · {{ book }} {{ chapter }}:{{ verse.verse }}</span>
+        {% if commentary.analysis %}
+        <h4>Analysis</h4>
+        {{ commentary.analysis | split_paragraphs | safe }}
+        {% endif %}
+        {% if commentary.historical %}
+        <h4>Historical Context</h4>
+        {{ commentary.historical | split_paragraphs | safe }}
+        {% endif %}
+        {% if commentary.theological %}
+        <h4>Theological Significance</h4>
+        {{ commentary.theological | split_paragraphs | safe }}
+        {% endif %}
+        {% if commentary.questions %}
+        <h4>Questions for Reflection</h4>
+        <ul>
+            {% for question in commentary.questions %}
+            <li>{{ question }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <a href="/book/{{ book }}/chapter/{{ chapter }}/verse/{{ verse.verse }}" class="vc-permalink">Open full verse page →</a>
+    </aside>
+    {% endif %}
     {% if has_stanza_break and has_section_heading %}
     </div>
     {% endif %}

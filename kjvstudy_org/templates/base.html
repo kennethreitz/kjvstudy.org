@@ -84,8 +84,8 @@
             --bg-color: #fffff8;
             --text-color: #111;
             --text-secondary: #666;
-            --text-tertiary: #888;
-            --text-quaternary: #999;
+            --text-tertiary: #767676;   /* WCAG AA on #fffff8 (4.5:1); was #888 (3.53:1) */
+            --text-quaternary: #767676;  /* was #999 (2.84:1, failed AA) */
             --border-color: #eee;
             --border-color-dark: #ddd;
             --border-color-darker: #ccc;
@@ -319,6 +319,7 @@
         article {
             padding: 2rem 5%;
             margin-left: 30px;
+            box-sizing: border-box;
         }
 
         /* At narrow tablet widths, add extra margin to clear sidebar */
@@ -706,6 +707,11 @@
             color: #4a7c59;
             background: rgba(74, 124, 89, 0.1);
             font-weight: 700;
+        }
+
+        [data-theme="dark"] .nav-sidebar a.current {
+            color: #6b9b7a;
+            background: rgba(107, 155, 122, 0.15);
         }
 
         /* Book type color indicators in sidebar */
@@ -1625,36 +1631,27 @@
         </ul>
 
 
-        <!-- Study Resources -->
-        <details class="resource-group" open aria-label="Study resources">
-            <summary aria-expanded="true">Study Resources</summary>
-            <ul>
-                <li><a href="/verse-of-the-day" {% if request.url.path == "/verse-of-the-day" %}class="current"{% endif %}>Verse of the Day</a></li>
-                <li><a href="/study-guides" {% if request.url.path.startswith("/study-guides") %}class="current"{% endif %}>Study Guides</a></li>
-                <li><a href="/stories" {% if request.url.path.startswith("/stories") %}class="current"{% endif %}>Bible Stories</a></li>
-                <li><a href="/topics" {% if request.url.path.startswith("/topics") %}class="current"{% endif %}>Topics</a></li>
-                <li><a href="/resources" {% if request.url.path == "/resources" or request.url.path.startswith("/biblical-") or request.url.path.startswith("/names-of-") or request.url.path.startswith("/parables") or request.url.path.startswith("/the-twelve-apostles") or request.url.path.startswith("/women-of-the-bible") or request.url.path.startswith("/fruits-of-the-spirit") or request.url.path.startswith("/miracles-of-jesus") or request.url.path.startswith("/prayers-of-the-bible") or request.url.path.startswith("/beatitudes") or request.url.path.startswith("/ten-commandments") or request.url.path.startswith("/armor-of-god") or request.url.path.startswith("/i-am-statements") or request.url.path.startswith("/trinity") or request.url.path.startswith("/christology") or request.url.path.startswith("/soteriology") or request.url.path.startswith("/pneumatology") or request.url.path.startswith("/eschatology") or request.url.path.startswith("/ecclesiology") or request.url.path.startswith("/types-and-shadows") or request.url.path.startswith("/messianic-prophecies") or request.url.path.startswith("/blood-in-scripture") or request.url.path.startswith("/kingdom-of-god") or request.url.path.startswith("/spirits-and-demons") or request.url.path.startswith("/personifications") or request.url.path.startswith("/bibliology") or request.url.path.startswith("/theology-proper") or request.url.path.startswith("/anthropology") or request.url.path.startswith("/hamartiology") or request.url.path.startswith("/providence") or request.url.path.startswith("/grace") or request.url.path.startswith("/justification") or request.url.path.startswith("/sanctification") or request.url.path.startswith("/law-and-gospel") or request.url.path.startswith("/worship") or request.url.path.startswith("/tetragrammaton") %}class="current"{% endif %}>Resources</a></li>
-                <li><a href="/random-verse" {% if request.url.path == "/random-verse" %}class="current"{% endif %}>Random Verse</a></li>
-            </ul>
-        </details>
+        <!-- Study -->
+        <h3>Study</h3>
+        <ul>
+            <li><a href="/verse-of-the-day" {% if request.url.path == "/verse-of-the-day" %}class="current"{% endif %}>Verse of the Day</a></li>
+            <li><a href="/study-guides" {% if request.url.path.startswith("/study-guides") %}class="current"{% endif %}>Study Guides</a></li>
+            <li><a href="/topics" {% if request.url.path.startswith("/topics") %}class="current"{% endif %}>Topics</a></li>
+            <li><a href="/reading-plans" {% if request.url.path.startswith("/reading-plans") %}class="current"{% endif %}>Reading Plans <span class="nav-badge" id="reading-plans-badge"></span></a></li>
+            <li><a href="/stars" {% if request.url.path == "/stars" %}class="current"{% endif %}>Starred Pages <span class="nav-badge" id="stars-badge"></span></a></li>
+            <li><a href="/resources" {% if request.url.path == "/resources" or request.url.path.startswith("/biblical-") or request.url.path.startswith("/names-of-") or request.url.path.startswith("/parables") or request.url.path.startswith("/the-twelve-apostles") or request.url.path.startswith("/women-of-the-bible") or request.url.path.startswith("/fruits-of-the-spirit") or request.url.path.startswith("/miracles-of-jesus") or request.url.path.startswith("/prayers-of-the-bible") or request.url.path.startswith("/beatitudes") or request.url.path.startswith("/ten-commandments") or request.url.path.startswith("/armor-of-god") or request.url.path.startswith("/i-am-statements") or request.url.path.startswith("/trinity") or request.url.path.startswith("/christology") or request.url.path.startswith("/soteriology") or request.url.path.startswith("/pneumatology") or request.url.path.startswith("/eschatology") or request.url.path.startswith("/ecclesiology") or request.url.path.startswith("/types-and-shadows") or request.url.path.startswith("/messianic-prophecies") or request.url.path.startswith("/blood-in-scripture") or request.url.path.startswith("/kingdom-of-god") or request.url.path.startswith("/spirits-and-demons") or request.url.path.startswith("/personifications") or request.url.path.startswith("/bibliology") or request.url.path.startswith("/theology-proper") or request.url.path.startswith("/anthropology") or request.url.path.startswith("/hamartiology") or request.url.path.startswith("/providence") or request.url.path.startswith("/grace") or request.url.path.startswith("/justification") or request.url.path.startswith("/sanctification") or request.url.path.startswith("/law-and-gospel") or request.url.path.startswith("/worship") or request.url.path.startswith("/tetragrammaton") or request.url.path.startswith("/stories") %}class="current"{% endif %}>Resources</a></li>
+        </ul>
 
-        <!-- Reference Tools -->
-        <details class="resource-group" open aria-label="Reference tools">
-            <summary aria-expanded="true">Reference Tools</summary>
-            <ul>
-                <li><a href="/strongs" {% if request.url.path.startswith("/strongs") %}class="current"{% endif %}>Strong's Concordance</a></li>
-                <li><a href="/interlinear" {% if request.url.path.startswith("/interlinear") %}class="current"{% endif %}>Interlinear</a></li>
-            </ul>
-        </details>
-
-        <!-- Your Library -->
-        <details class="resource-group" open aria-label="Your personal library">
-            <summary aria-expanded="true">Your Library</summary>
-            <ul>
-                <li><a href="/reading-plans" {% if request.url.path.startswith("/reading-plans") %}class="current"{% endif %}>Reading Plans <span class="nav-badge" id="reading-plans-badge"></span></a></li>
-                <li><a href="/stars" {% if request.url.path == "/stars" %}class="current"{% endif %}>Starred Pages <span class="nav-badge" id="stars-badge"></span></a></li>
-            </ul>
-        </details>
+        <!-- Tools -->
+        <h3>Tools</h3>
+        <ul>
+            <li><a href="/strongs" {% if request.url.path.startswith("/strongs") %}class="current"{% endif %}>Strong's Concordance</a></li>
+            <li><a href="/interlinear" {% if request.url.path.startswith("/interlinear") %}class="current"{% endif %}>Interlinear</a></li>
+            <li><a href="/family-tree" {% if request.url.path.startswith("/family-tree") %}class="current"{% endif %}>Family Tree</a></li>
+            <li><a href="/biblical-timeline" {% if request.url.path.startswith("/biblical-timeline") %}class="current"{% endif %}>Timeline</a></li>
+            <li><a href="/biblical-maps" {% if request.url.path.startswith("/biblical-maps") %}class="current"{% endif %}>Maps</a></li>
+            <li><a href="/red-letter" {% if request.url.path.startswith("/red-letter") %}class="current"{% endif %}>Red Letter</a></li>
+        </ul>
 
     </nav>
 
