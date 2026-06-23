@@ -69,7 +69,7 @@ class Bible:
             self.fname = Path(fname)
 
         # Load the JSON data from the file.
-        with open(self.fname, "r") as f:
+        with open(self.fname, "r", encoding="utf-8") as f:
             self.verses = json.load(f)
 
         # Pre-process verse text for performance (clean once instead of on every access)

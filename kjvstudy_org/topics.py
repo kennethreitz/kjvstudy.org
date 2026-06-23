@@ -3,31 +3,18 @@ Topical index for finding Bible verses by theme.
 Organized by major theological and practical topics.
 """
 
-import json
 from functools import lru_cache
 from pathlib import Path
 
 from typing import Dict, Any
 
+from .utils.data_access import load_merged_json_dir
+
 @lru_cache(maxsize=1)
 def _load_topics():
     """Load topics from per-topic JSON files, fallback to legacy single file."""
     base_dir = Path(__file__).parent / "data"
-    topics_dir = base_dir / "topics"
-    legacy_path = base_dir / "topics.json"
-
-    aggregated = {}
-    if topics_dir.exists():
-        for path in sorted(topics_dir.glob("*.json")):
-            with open(path, "r", encoding="utf-8") as f:
-                content = json.load(f)
-            if isinstance(content, dict):
-                aggregated.update(content)
-    elif legacy_path.exists():
-        with open(legacy_path, "r", encoding="utf-8") as f:
-            aggregated = json.load(f)
-
-    return aggregated
+    return load_merged_json_dir(base_dir / "topics", base_dir / "topics.json")
 
 
 def _get_verse_text_for_reference(reference: str) -> str:

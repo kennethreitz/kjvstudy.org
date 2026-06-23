@@ -3,30 +3,17 @@ Bible reading plans for structured Scripture study.
 Provides various reading schedules for different goals.
 """
 
-import json
 from pathlib import Path
 from functools import lru_cache
+
+from .utils.data_access import load_merged_json_dir
 
 
 @lru_cache(maxsize=1)
 def _load_reading_plans():
     """Load reading plans from per-plan files (fallback to legacy)."""
     base_dir = Path(__file__).parent / "data"
-    plans_dir = base_dir / "reading_plans"
-    legacy_path = base_dir / "reading_plans.json"
-
-    merged = {}
-    if plans_dir.exists():
-        for path in sorted(plans_dir.glob("*.json")):
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                if isinstance(data, dict):
-                    merged.update(data)
-    elif legacy_path.exists():
-        with open(legacy_path, "r", encoding="utf-8") as f:
-            merged = json.load(f)
-
-    return merged
+    return load_merged_json_dir(base_dir / "reading_plans", base_dir / "reading_plans.json")
 
 
 _data = _load_reading_plans()

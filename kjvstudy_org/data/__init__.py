@@ -1,30 +1,15 @@
 """Biblical resource data - maps, angels, prophets, names of God, etc."""
 
-import json
 import re
 from pathlib import Path
+
+from ..utils.data_access import load_merged_json_dir
 
 
 def _load_resources() -> dict:
     """Load resources from per-category JSON files, fallback to legacy single file."""
     base_dir = Path(__file__).parent
-    resources_dir = base_dir / "resources"
-    legacy_path = base_dir / "resources.json"
-
-    aggregated = {}
-
-    if resources_dir.exists():
-        for path in sorted(resources_dir.glob("*.json")):
-            with open(path, "r", encoding="utf-8") as f:
-                content = json.load(f)
-                if isinstance(content, dict):
-                    aggregated.update(content)
-
-    elif legacy_path.exists():
-        with open(legacy_path, "r", encoding="utf-8") as f:
-            aggregated = json.load(f)
-
-    return aggregated
+    return load_merged_json_dir(base_dir / "resources", base_dir / "resources.json")
 
 
 _data = _load_resources()

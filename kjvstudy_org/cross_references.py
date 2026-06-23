@@ -3,30 +3,17 @@ Cross-reference system for linking related Bible verses.
 Organized by major theological themes and narrative connections.
 """
 
-import json
 from functools import lru_cache
 from pathlib import Path
+
+from .utils.data_access import load_merged_json_dir
 
 
 @lru_cache(maxsize=1)
 def _load_cross_references():
     """Load cross-references from per-book JSON files (fallback to legacy file)."""
     base_dir = Path(__file__).parent / "data"
-    crossref_dir = base_dir / "cross_references"
-    legacy_path = base_dir / "cross_references.json"
-
-    aggregated = {}
-    if crossref_dir.exists():
-        for path in sorted(crossref_dir.glob("*.json")):
-            with open(path, "r", encoding="utf-8") as f:
-                content = json.load(f)
-                if isinstance(content, dict):
-                    aggregated.update(content)
-    elif legacy_path.exists():
-        with open(legacy_path, "r", encoding="utf-8") as f:
-            aggregated = json.load(f)
-
-    return aggregated
+    return load_merged_json_dir(base_dir / "cross_references", base_dir / "cross_references.json")
 
 
 CROSS_REFERENCES = _load_cross_references()
