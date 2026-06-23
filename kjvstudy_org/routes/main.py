@@ -3,22 +3,15 @@ from datetime import date
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..utils.helpers import get_daily_verse, verse_reference_to_url
+from ._templates import templates
 
 router = APIRouter()
-templates = None
 
 # Server-side cache for homepage (rebuilds once per day)
 _homepage_cache = {"date": None, "html": None}
-
-
-def init_templates(t: Jinja2Templates):
-    """Initialize templates for main routes."""
-    global templates
-    templates = t
 
 
 # =============================================================================

@@ -3,21 +3,14 @@ import re
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..reading_plans import get_plan, get_plan_summary
 from ..utils.books import normalize_book_name, OT_BOOKS, NT_BOOKS
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+from ._templates import templates
 
 router = APIRouter()
-templates = None
-
-
-def init_templates(t: Jinja2Templates):
-    """Initialize templates for reading plans routes."""
-    global templates
-    templates = t
 
 
 # =============================================================================

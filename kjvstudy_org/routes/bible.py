@@ -6,7 +6,6 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..cross_references import get_cross_references
@@ -39,13 +38,8 @@ def get_section_headings(book: str, chapter: int) -> dict:
     return {int(k): v for k, v in chapter_headings.items()}
 
 router = APIRouter()
-templates = None
 
-
-def init_bible_templates(t: Jinja2Templates):
-    """Initialize templates for Bible routes."""
-    global templates
-    templates = t
+from ._templates import templates
 
 
 # Import these from commentary route to avoid circular imports

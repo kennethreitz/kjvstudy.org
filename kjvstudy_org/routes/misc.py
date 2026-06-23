@@ -7,7 +7,6 @@ from typing import Optional
 
 from fastapi import APIRouter, Query, Request, Path
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..red_letter import load_red_letter_verses
@@ -15,18 +14,12 @@ from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse
 from ..og_image import get_cached_or_generate
 from ..stories import get_story_by_slug
+from ._templates import templates
 
 router = APIRouter()
-templates = None
 
 # Will be set by init_search_family_tree()
 _search_family_tree_fn = None
-
-
-def init_templates(t: Jinja2Templates):
-    """Initialize templates for misc routes."""
-    global templates
-    templates = t
 
 
 def init_search_family_tree(fn):

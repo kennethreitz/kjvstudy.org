@@ -54,8 +54,7 @@ from ..data import (
 
 router = APIRouter(prefix="/api", tags=["API"])
 
-# Templates will be set by the main app
-templates = None
+from ._templates import templates
 
 
 @lru_cache(maxsize=1)
@@ -325,12 +324,6 @@ CATEGORY_TO_DATA = {
     'law_and_gospel': LAW_AND_GOSPEL_DATA,
     'worship': WORSHIP_DATA
 }
-
-
-def init_templates(app_templates):
-    """Initialize templates from the main app."""
-    global templates
-    templates = app_templates
 
 
 @router.get("/")

@@ -55,15 +55,7 @@ from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to
 
 router = APIRouter(tags=["Biblical Resources"])
 
-# Templates will be set by the main app
-templates = None
-
-
-def init_templates(app_templates):
-    """Initialize templates from the main app."""
-    global templates
-    templates = app_templates
-    templates.env.globals['resource_pdf_available'] = WEASYPRINT_AVAILABLE
+from ._templates import templates
 
 
 def get_books():

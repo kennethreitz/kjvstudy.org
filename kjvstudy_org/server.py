@@ -12,7 +12,6 @@ from typing import List, Dict, Optional
 from fastapi import FastAPI, HTTPException, Request, Query, Path
 from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.openapi.utils import get_openapi
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -28,21 +27,21 @@ from .books import get_book_data, has_book_data
 
 # Import from modular packages
 from .routes import (
-    api_router, init_api_templates,
-    resources_router, init_resources_templates,
-    family_tree_router, init_family_tree_templates,
-    study_guides_router, init_study_guides_templates,
-    commentary_router, init_commentary_templates,
-    stories_router, init_stories_templates,
+    api_router,
+    resources_router,
+    family_tree_router,
+    study_guides_router,
+    commentary_router,
+    stories_router,
     utility_router,
-    bible_router, init_bible_templates, init_bible_commentary,
-    reading_plans_router, init_reading_plans_templates,
-    topics_router, init_topics_templates,
-    strongs_router, init_strongs_templates,
-    timeline_router, init_timeline_templates,
-    about_router, init_about_templates,
-    main_router, init_main_templates,
-    misc_router, init_misc_templates, init_search_family_tree,
+    bible_router, init_bible_commentary,
+    reading_plans_router,
+    topics_router,
+    strongs_router,
+    timeline_router,
+    about_router,
+    main_router,
+    misc_router, init_search_family_tree,
 )
 from .routes.commentary import (
     generate_commentary,
@@ -330,9 +329,8 @@ app.add_middleware(TimeoutMiddleware, timeout_seconds=30.0)
 # Set up Jinja2 templates and static files
 current_dir = PathLib(__file__).parent
 static_dir = current_dir / "static"
-templates_dir = current_dir / "templates"
 
-templates = Jinja2Templates(directory=str(templates_dir))
+from .routes._templates import templates
 
 # Register custom Jinja2 filters
 from .jinja_filters import register_filters
@@ -357,6 +355,7 @@ def static_hash(filename):
     return _static_hashes[filename]
 
 templates.env.globals['static_hash'] = static_hash
+templates.env.globals['resource_pdf_available'] = WEASYPRINT_AVAILABLE
 
 # Serve /static from the app itself so styling works under any ASGI server
 # (uvicorn, granian, etc.). In production Granian also mounts /static via its
@@ -365,22 +364,8 @@ templates.env.globals['static_hash'] = static_hash
 from fastapi.staticfiles import StaticFiles
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
-# Initialize templates for route modules
-init_api_templates(templates)
-init_resources_templates(templates)
-init_family_tree_templates(templates)
-init_study_guides_templates(templates)
-init_commentary_templates(templates)
-init_stories_templates(templates)
-init_bible_templates(templates)
+# Initialize commentary functions for the Bible route module
 init_bible_commentary(generate_commentary, generate_chapter_overview, generate_book_commentary, generate_word_study_sidenotes)
-init_reading_plans_templates(templates)
-init_topics_templates(templates)
-init_strongs_templates(templates)
-init_timeline_templates(templates)
-init_about_templates(templates)
-init_main_templates(templates)
-init_misc_templates(templates)
 
 
 

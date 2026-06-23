@@ -15,14 +15,7 @@ from ..utils.pdf import render_html_to_pdf, render_html_to_pdf_async, WEASYPRINT
 
 router = APIRouter(tags=["Bible Stories"])
 
-# Templates will be set by the main app
-templates = None
-
-
-def init_templates(app_templates):
-    """Initialize templates from the main app."""
-    global templates
-    templates = app_templates
+from ._templates import templates
 
 
 def get_books():

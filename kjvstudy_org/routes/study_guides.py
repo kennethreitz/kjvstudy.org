@@ -13,8 +13,7 @@ from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to
 
 router = APIRouter(tags=["Study Guides"])
 
-# Templates will be set by the main app
-templates = None
+from ._templates import templates
 
 # Path to study guides directory
 _STUDY_GUIDES_DIR = Path(__file__).parent.parent / "data" / "study_guides"
@@ -44,12 +43,6 @@ def _load_study_guides():
             catalog.setdefault(category, []).append(catalog_entry)
 
     return {"catalog": catalog, "content": content}
-
-
-def init_templates(app_templates):
-    """Initialize templates from the main app."""
-    global templates
-    templates = app_templates
 
 
 def get_books():

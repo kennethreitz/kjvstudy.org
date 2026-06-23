@@ -18,8 +18,7 @@ from ..interlinear_loader import get_interlinear_data
 
 router = APIRouter(tags=["Commentary"])
 
-# Templates will be set by the main app
-templates = None
+from ._templates import templates
 
 
 def _compute_commentary_index() -> tuple:
@@ -92,12 +91,6 @@ async def commentary_index(request: Request):
 # Data directory paths
 _DATA_DIR = Path(__file__).parent.parent / "data"
 _WORD_STUDIES_PATH = _DATA_DIR / "word_studies.json"
-
-
-def init_templates(app_templates):
-    """Initialize templates from the main app."""
-    global templates
-    templates = app_templates
 
 
 @lru_cache(maxsize=1)

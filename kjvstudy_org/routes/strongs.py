@@ -3,20 +3,13 @@ import re
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..strongs import format_strongs_entry, search_strongs, get_all_strongs
 from ..interlinear_loader import find_verses_by_strongs
+from ._templates import templates
 
 router = APIRouter()
-templates = None
-
-
-def init_templates(t: Jinja2Templates):
-    """Initialize templates for Strong's routes."""
-    global templates
-    templates = t
 
 
 # =============================================================================

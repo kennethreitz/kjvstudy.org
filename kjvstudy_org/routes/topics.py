@@ -1,20 +1,13 @@
 """Topics routes - browse and view topical Bible studies."""
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..topics import get_all_topics, get_topic_with_text
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+from ._templates import templates
 
 router = APIRouter()
-templates = None
-
-
-def init_templates(t: Jinja2Templates):
-    """Initialize templates for topics routes."""
-    global templates
-    templates = t
 
 
 # =============================================================================

@@ -7,19 +7,12 @@ from pathlib import Path
 
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..utils.books import OT_BOOKS, NT_BOOKS
+from ._templates import templates
 
 router = APIRouter()
-templates = None
-
-
-def init_templates(t: Jinja2Templates):
-    """Initialize templates for about routes."""
-    global templates
-    templates = t
 
 
 # =============================================================================

@@ -4,19 +4,12 @@ from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
-from fastapi.templating import Jinja2Templates
 
 from ..kjv import bible
 from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+from ._templates import templates
 
 router = APIRouter()
-templates = None
-
-
-def init_templates(t: Jinja2Templates):
-    """Initialize templates for timeline routes."""
-    global templates
-    templates = t
 
 
 # =============================================================================
