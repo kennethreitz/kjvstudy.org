@@ -235,7 +235,7 @@ def copy_static_assets(output_dir: Path):
     dst = output_dir / "static"
     if dst.exists():
         shutil.rmtree(dst)
-    skip = {"search_index.db", "scofield_commentary.json"}
+    skip = {"search_index.db"}
     shutil.copytree(src, dst, ignore=lambda d, files: [f for f in files if f in skip])
     print(f"  Static assets copied to {dst}")
 
