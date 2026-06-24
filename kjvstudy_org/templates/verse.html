@@ -1499,69 +1499,8 @@ a.crossref-pill:hover {
 })();
 </script>
 
-{% if related_content and (related_content.topics or related_content.people or related_content.resources or related_content.stories) %}
-<div style="border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 3rem;">
-    <h2>Related Resources</h2>
-    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
-        Explore related topics, people, and study resources to deepen your understanding of this passage.
-    </p>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-        {% if related_content.topics %}
-        <div>
-            <h3 style="font-size: 1rem; margin-bottom: 0.75rem; color: var(--text-secondary);">Topics</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                {% for topic in related_content.topics %}
-                <li style="margin-bottom: 0.5rem;">
-                    <a href="{{ topic.url }}" style="font-size: 0.95rem;">{{ topic.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        {% if related_content.people %}
-        <div>
-            <h3 style="font-size: 1rem; margin-bottom: 0.75rem; color: var(--text-secondary);">People</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                {% for person in related_content.people %}
-                <li style="margin-bottom: 0.5rem;">
-                    <a href="{{ person.url }}" style="font-size: 0.95rem;">{{ person.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        {% if related_content.resources %}
-        <div>
-            <h3 style="font-size: 1rem; margin-bottom: 0.75rem; color: var(--text-secondary);">Study Resources</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                {% for resource in related_content.resources %}
-                <li style="margin-bottom: 0.5rem;">
-                    <a href="{{ resource.url }}" style="font-size: 0.95rem;">{{ resource.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        {% if related_content.stories %}
-        <div>
-            <h3 style="font-size: 1rem; margin-bottom: 0.75rem; color: var(--text-secondary);">Bible Stories</h3>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                {% for story in related_content.stories %}
-                <li style="margin-bottom: 0.5rem;">
-                    <a href="{{ story.url }}" style="font-size: 0.95rem;">{{ story.name }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-    </div>
-</div>
-{% endif %}
+{% set related_noun = "passage" %}
+{% include "partials/_related_resources.html" %}
 
 <script>
 (function() {
