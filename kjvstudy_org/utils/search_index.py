@@ -10,6 +10,7 @@ from typing import List, Dict, Optional
 from contextlib import contextmanager
 
 from ..kjv import bible
+from .books import OT_BOOKS
 
 # Database location - store in static directory alongside other data
 DB_PATH = Path(__file__).parent.parent / "static" / "search_index.db"
@@ -175,16 +176,7 @@ def search_verses(
             params.append(book_filter)
 
         if testament_filter:
-            ot_books = [
-                'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy',
-                'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
-                '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles',
-                'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
-                'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah',
-                'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
-                'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah',
-                'Haggai', 'Zechariah', 'Malachi'
-            ]
+            ot_books = OT_BOOKS
             if testament_filter.lower() == 'old':
                 placeholders = ','.join('?' * len(ot_books))
                 sql += f" AND book IN ({placeholders})"

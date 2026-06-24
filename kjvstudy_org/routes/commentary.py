@@ -14,6 +14,7 @@ from pathlib import Path
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from ..utils.commentary_loader import load_commentary, load_commentary_flat
+from ..utils.books import OT_BOOKS, NT_BOOKS, is_old_testament
 from ..interlinear_loader import get_interlinear_data
 
 router = APIRouter(tags=["Commentary"])
@@ -23,8 +24,6 @@ from ._templates import templates
 
 def _compute_commentary_index() -> tuple:
     """Compute commentary index - runs in thread pool."""
-    from ..utils.books import OT_BOOKS, NT_BOOKS
-
     data_dir = Path(__file__).parent.parent / "data" / "verse_commentary"
 
     # Build index of all verses with commentary, grouped by book
@@ -299,13 +298,7 @@ def generate_word_study_sidenotes(verse_text, book, chapter, verse_num, shown_wo
     verse_lower = verse_text.lower()
 
     # Determine if Old Testament (Hebrew/Aramaic) or New Testament (Greek)
-    ot_books = ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth",
-                "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra",
-                "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Solomon",
-                "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos",
-                "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"]
-
-    is_ot = book in ot_books
+    is_ot = is_old_testament(book)
 
     # Load word studies from JSON file
     word_studies = _load_word_studies()
@@ -1278,18 +1271,7 @@ def get_chapter_type(book, chapter):
 
 def get_testament_for_book(book):
     """Determine if a book is in the Old or New Testament"""
-    old_testament = [
-        "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy",
-        "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel",
-        "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles",
-        "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs",
-        "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah",
-        "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos",
-        "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah",
-        "Haggai", "Zechariah", "Malachi"
-    ]
-
-    return "Old Testament" if book in old_testament else "New Testament"
+    return "Old Testament" if is_old_testament(book) else "New Testament"
 
 
 def generate_literary_features(book, genre):
