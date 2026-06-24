@@ -37,9 +37,9 @@ def enumerate_urls():
     from kjvstudy_org.topics import get_all_topics
     from kjvstudy_org.stories import get_all_stories_flat
     from kjvstudy_org.reading_plans import get_all_plans
-    from kjvstudy_org.routes.utility import _load_resource_slugs
+    from kjvstudy_org.data import get_slugs
+    from kjvstudy_org.routes.study_guides import _get_study_guides_content
 
-    slugs = _load_resource_slugs()
     topics = get_all_topics()
     stories = get_all_stories_flat()
     plans = get_all_plans()
@@ -87,32 +87,25 @@ def enumerate_urls():
     ]
     urls.extend(f"/{cat}" for cat in resource_categories)
 
-    # ---- Resource detail pages ----
-    slug_to_category = {
+    # ---- Resource detail pages (slugs derived from the canonical slug index) ----
+    index_key_to_category = {
         "angels": "biblical-angels",
         "prophets": "biblical-prophets",
-        "names_of_god": "names-of-god",
+        "names": "names-of-god",
         "parables": "parables",
         "covenants": "biblical-covenants",
         "apostles": "the-twelve-apostles",
         "women": "women-of-the-bible",
         "festivals": "biblical-festivals",
-        "fruits_of_spirit": "fruits-of-the-spirit",
+        "fruits": "fruits-of-the-spirit",
     }
-    for key, category in slug_to_category.items():
-        for slug in slugs.get(key, []):
+    for key, category in index_key_to_category.items():
+        for slug in get_slugs(key):
             urls.append(f"/{category}/{slug}")
 
-    # ---- Study guides ----
-    seen_guides = set()
-    for slug in slugs.get("study_guides", []):
-        seen_guides.add(slug)
+    # ---- Study guides (slugs from the actual study-guide content) ----
+    for slug in _get_study_guides_content().keys():
         urls.append(f"/study-guides/{slug}")
-    study_guide_dir = PROJECT_ROOT / "kjvstudy_org" / "data" / "study_guides"
-    if study_guide_dir.exists():
-        for f in study_guide_dir.glob("*.json"):
-            if f.stem not in seen_guides:
-                urls.append(f"/study-guides/{f.stem}")
 
     # ---- Topics ----
     for topic_name in topics.keys():

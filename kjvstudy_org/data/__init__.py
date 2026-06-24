@@ -126,6 +126,15 @@ _SLUG_INDEXES = {
 }
 
 
+def get_slugs(category: str) -> list:
+    """Return every detail-page slug for a resource category.
+
+    Derived from the same slug index the detail routes resolve against, so the
+    sitemap can never reference a 404 or omit a real page.
+    """
+    return list(_SLUG_INDEXES.get(category, {}).keys())
+
+
 def find_resource_by_slug(data: dict, slug: str):
     """Fast O(1) lookup for resource items by slug using pre-built indexes."""
     # Find which resource type this data dict corresponds to

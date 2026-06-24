@@ -1,5 +1,4 @@
 """Utility routes for KJV Study - sitemap, robots.txt, health checks."""
-import json
 from datetime import datetime
 from pathlib import Path
 from functools import lru_cache
@@ -11,6 +10,8 @@ from ..kjv import bible
 from ..topics import get_all_topics
 from ..strongs import get_all_strongs
 from ..stories import load_all_stories
+from ..reading_plans import READING_PLANS
+from ..data import get_slugs
 
 router = APIRouter(tags=["Utility"])
 
@@ -20,21 +21,6 @@ _VERSE_SITEMAP_PATH = Path(__file__).parent.parent / "static" / "sitemap-verses.
 # Sitemap cache
 _sitemap_cache = None
 _sitemap_cache_date = None
-
-# Path to resource slugs JSON file
-_RESOURCE_SLUGS_PATH = Path(__file__).parent.parent / "data" / "resource_slugs.json"
-
-
-@lru_cache(maxsize=1)
-def _load_resource_slugs() -> dict:
-    """Load resource slugs from JSON file. Cached since data never changes."""
-    with open(_RESOURCE_SLUGS_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-# Load slugs from JSON
-_slugs = _load_resource_slugs()
-STUDY_GUIDE_SLUGS = _slugs["study_guides"]
 
 
 @router.get("/health")
@@ -472,8 +458,9 @@ async def sitemap_main():
     </url>
 """
 
-    # Study guide slugs
-    for slug in STUDY_GUIDE_SLUGS:
+    # Study guide slugs (derived from the actual study-guide content files)
+    from .study_guides import _get_study_guides_content
+    for slug in sorted(_get_study_guides_content().keys()):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/study-guides/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -482,12 +469,8 @@ async def sitemap_main():
     </url>
 """
 
-    # Reading plan IDs
-    reading_plan_ids = [
-        "chronological", "one-year", "new-testament", "gospels-acts",
-        "psalms-proverbs", "pentateuch", "prophets", "paul-epistles"
-    ]
-    for plan_id in reading_plan_ids:
+    # Reading plan IDs (derived from the canonical plan registry)
+    for plan_id in READING_PLANS:
         sitemap_xml += f"""    <url>
         <loc>{base_url}/reading-plans/{plan_id}</loc>
         <lastmod>{current_date}</lastmod>
@@ -508,7 +491,7 @@ async def sitemap_main():
 """
 
     # Biblical angels, prophets, names of God, parables, covenants, apostles, women, festivals slugs
-    for slug in _slugs["angels"]:
+    for slug in get_slugs("angels"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-angels/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -517,7 +500,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["prophets"]:
+    for slug in get_slugs("prophets"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-prophets/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -526,7 +509,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["names_of_god"]:
+    for slug in get_slugs("names"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/names-of-god/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -535,7 +518,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["parables"]:
+    for slug in get_slugs("parables"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/parables/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -544,7 +527,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["covenants"]:
+    for slug in get_slugs("covenants"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-covenants/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -553,7 +536,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["apostles"]:
+    for slug in get_slugs("apostles"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/the-twelve-apostles/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -562,7 +545,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["women"]:
+    for slug in get_slugs("women"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/women-of-the-bible/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -571,7 +554,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["festivals"]:
+    for slug in get_slugs("festivals"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/biblical-festivals/{slug}</loc>
         <lastmod>{current_date}</lastmod>
@@ -580,7 +563,7 @@ async def sitemap_main():
     </url>
 """
 
-    for slug in _slugs["fruits_of_spirit"]:
+    for slug in get_slugs("fruits"):
         sitemap_xml += f"""    <url>
         <loc>{base_url}/fruits-of-the-spirit/{slug}</loc>
         <lastmod>{current_date}</lastmod>

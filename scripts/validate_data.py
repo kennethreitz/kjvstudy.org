@@ -216,33 +216,6 @@ class RedLetterVerses(BaseModel):
         return v
 
 
-class ResourceSlugs(BaseModel):
-    """Schema for resource_slugs.json"""
-    study_guides: List[str]
-    angels: List[str]
-    prophets: List[str]
-    names_of_god: List[str]
-    parables: List[str]
-    covenants: List[str]
-    apostles: List[str]
-    women: List[str]
-    festivals: List[str]
-    fruits_of_spirit: List[str]
-
-    @field_validator('*')
-    @classmethod
-    def check_slugs(cls, v):
-        # Check for duplicates
-        if len(v) != len(set(v)):
-            raise ValueError("Duplicate slugs found")
-        # Check slug format
-        import re
-        pattern = r'^[a-z-]+$'
-        for slug in v:
-            if not re.match(pattern, slug):
-                raise ValueError(f"Invalid slug format: {slug}")
-        return v
-
 
 class PoetryBookData(BaseModel):
     """Schema for individual book poetry data"""
@@ -354,7 +327,6 @@ MODEL_MAPPING = {
     "reading_plans": ReadingPlanFile,
     "featured_verses.json": FeaturedVerses,
     "red_letter_verses.json": RedLetterVerses,
-    "resource_slugs.json": ResourceSlugs,
     "poetry_formatting.json": PoetryFormatting,
 }
 
