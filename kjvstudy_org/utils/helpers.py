@@ -11,7 +11,7 @@ from ..kjv import bible, VerseReference
 from ..topics import get_all_topics
 from ..red_letter import get_christ_words
 from ..stories import get_all_stories_flat
-from .books import normalize_book_name
+from .books import normalize_book_name, GOSPELS
 
 # Paths to data files
 _DATA_DIR = Path(__file__).parent.parent / "data"
@@ -227,7 +227,7 @@ def get_related_content(book: str, chapter: int = None, verse: int = None) -> Di
     if book in ["Joshua", "Judges", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings"]:
         related["resources"].append({"name": "Biblical Maps", "url": "/biblical-maps"})
 
-    if book in ["Matthew", "Mark", "Luke", "John"]:
+    if book in GOSPELS:
         related["resources"].append({"name": "Parables of Jesus", "url": "/parables"})
 
     # Add topic links based on verse references in topic data
@@ -432,7 +432,7 @@ def get_chapter_popularity_explanation(book: str, chapter: int) -> str:
     if chapter == 1:
         return f"Opening chapter of {book} - introduces key themes and characters"
 
-    if book in ["Matthew", "Mark", "Luke", "John"]:
+    if book in GOSPELS:
         return "Gospel account of Jesus' life and ministry"
     elif book in ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"]:
         return "Torah/Pentateuch - foundational law and history of Israel"

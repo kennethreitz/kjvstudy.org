@@ -5,6 +5,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 
 from ..kjv import bible
+from ..utils.books import OT_BOOKS, NT_BOOKS
 from ..utils.helpers import get_daily_verse, verse_reference_to_url
 from ._templates import templates
 
@@ -183,22 +184,6 @@ async def books_page(request: Request):
         'Revelation': 'apocalyptic'
     }
 
-    # Organize books by testament
-    old_testament_books = [
-        'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth',
-        '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra',
-        'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon',
-        'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos',
-        'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'
-    ]
-
-    new_testament_books = [
-        'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians',
-        'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians',
-        '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter',
-        '1 John', '2 John', '3 John', 'Jude', 'Revelation'
-    ]
-
     # Get chapter counts for each book
     def get_chapter_count(book_name):
         chapters = bible.get_chapters_for_book(book_name)
@@ -211,7 +196,7 @@ async def books_page(request: Request):
             'available': book in books,
             'type': book_types.get(book, '')
         }
-        for book in old_testament_books
+        for book in OT_BOOKS
     ]
 
     new_testament = [
@@ -221,7 +206,7 @@ async def books_page(request: Request):
             'available': book in books,
             'type': book_types.get(book, '')
         }
-        for book in new_testament_books
+        for book in NT_BOOKS
     ]
 
     breadcrumbs = [

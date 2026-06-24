@@ -351,6 +351,7 @@ def static_hash(filename):
 
 templates.env.globals['static_hash'] = static_hash
 templates.env.globals['resource_pdf_available'] = WEASYPRINT_AVAILABLE
+templates.env.globals['github_repo_url'] = "https://github.com/kennethreitz/kjvstudy.org"
 
 # Serve /static from the app itself so styling works under any ASGI server
 # (uvicorn, granian, etc.). In production Granian also mounts /static via its

@@ -24,6 +24,9 @@ OT_BOOKS = _metadata["old_testament_books"]
 NT_BOOKS = _metadata["new_testament_books"]
 BOOK_ABBREVIATIONS = _metadata["book_abbreviations"]
 
+# The four Gospels — used for membership tests across the app.
+GOSPELS = ("Matthew", "Mark", "Luke", "John")
+
 
 @lru_cache(maxsize=1)
 def _get_lowercase_abbreviations() -> dict:
