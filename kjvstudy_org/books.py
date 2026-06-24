@@ -8,79 +8,16 @@ from pathlib import Path
 from functools import lru_cache
 from typing import Optional
 
+from .utils.books import OT_BOOKS, NT_BOOKS
+
 # Path to books data directory
 _books_dir = Path(__file__).parent / "data" / "books"
 
-# Mapping of book names to their JSON filenames
+# Book name -> JSON filename, derived from the canonical book list so it stays
+# in sync (and uses the same Arabic-numeral names as the rest of the app).
 _BOOK_FILENAME_MAP = {
-    # Old Testament
-    "Genesis": "genesis.json",
-    "Exodus": "exodus.json",
-    "Leviticus": "leviticus.json",
-    "Numbers": "numbers.json",
-    "Deuteronomy": "deuteronomy.json",
-    "Joshua": "joshua.json",
-    "Judges": "judges.json",
-    "Ruth": "ruth.json",
-    "I Samuel": "1_samuel.json",
-    "II Samuel": "2_samuel.json",
-    "I Kings": "1_kings.json",
-    "II Kings": "2_kings.json",
-    "I Chronicles": "1_chronicles.json",
-    "II Chronicles": "2_chronicles.json",
-    "Ezra": "ezra.json",
-    "Nehemiah": "nehemiah.json",
-    "Esther": "esther.json",
-    "Job": "job.json",
-    "Psalms": "psalms.json",
-    "Proverbs": "proverbs.json",
-    "Ecclesiastes": "ecclesiastes.json",
-    "Song of Solomon": "song_of_solomon.json",
-    "Isaiah": "isaiah.json",
-    "Jeremiah": "jeremiah.json",
-    "Lamentations": "lamentations.json",
-    "Ezekiel": "ezekiel.json",
-    "Daniel": "daniel.json",
-    "Hosea": "hosea.json",
-    "Joel": "joel.json",
-    "Amos": "amos.json",
-    "Obadiah": "obadiah.json",
-    "Jonah": "jonah.json",
-    "Micah": "micah.json",
-    "Nahum": "nahum.json",
-    "Habakkuk": "habakkuk.json",
-    "Zephaniah": "zephaniah.json",
-    "Haggai": "haggai.json",
-    "Zechariah": "zechariah.json",
-    "Malachi": "malachi.json",
-    # New Testament
-    "Matthew": "matthew.json",
-    "Mark": "mark.json",
-    "Luke": "luke.json",
-    "John": "john.json",
-    "Acts": "acts.json",
-    "Romans": "romans.json",
-    "I Corinthians": "1_corinthians.json",
-    "II Corinthians": "2_corinthians.json",
-    "Galatians": "galatians.json",
-    "Ephesians": "ephesians.json",
-    "Philippians": "philippians.json",
-    "Colossians": "colossians.json",
-    "I Thessalonians": "1_thessalonians.json",
-    "II Thessalonians": "2_thessalonians.json",
-    "I Timothy": "1_timothy.json",
-    "II Timothy": "2_timothy.json",
-    "Titus": "titus.json",
-    "Philemon": "philemon.json",
-    "Hebrews": "hebrews.json",
-    "James": "james.json",
-    "I Peter": "1_peter.json",
-    "II Peter": "2_peter.json",
-    "I John": "1_john.json",
-    "II John": "2_john.json",
-    "III John": "3_john.json",
-    "Jude": "jude.json",
-    "Revelation": "revelation.json",
+    book: book.lower().replace(" ", "_") + ".json"
+    for book in OT_BOOKS + NT_BOOKS
 }
 
 
