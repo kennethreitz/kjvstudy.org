@@ -21,6 +21,7 @@ from ..utils.books import normalize_book_name, OT_BOOKS, NT_BOOKS
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse, create_slug, CHAPTER_EXPLANATIONS
 from ..utils.stats import compute_site_stats
+from ..resource_catalog import iter_resources, RESOURCE_SEARCH_KEYWORDS
 from ..utils.commentary_loader import load_commentary
 from ..books import get_book_data, get_all_books_metadata, has_book_data
 from ..red_letter import get_christ_words, load_red_letter_verses
@@ -510,43 +511,16 @@ async def universal_search_api(
         results["plans"] = matching_plans
 
     # Search resources (theological studies, biblical figures, etc.)
+    # Theological resources -- derived from the shared catalog so search always
+    # covers every resource (incl. systematic-theology pages) with no drift.
     resources_to_search = [
-        # Theological studies with synonyms
-        ("trinity godhead three persons father son spirit", "/trinity", "The Trinity"),
-        ("christology jesus christ lord savior messiah", "/christology", "Christology"),
-        ("soteriology salvation saved redemption atonement", "/soteriology", "Soteriology"),
-        ("pneumatology holy spirit ghost comforter paraclete", "/pneumatology", "Pneumatology"),
-        ("eschatology end times last days rapture tribulation millennium", "/eschatology", "Eschatology"),
-        ("ecclesiology church body believers congregation", "/ecclesiology", "Ecclesiology"),
-        ("types_and_shadows typology foreshadow prefigure", "/types-and-shadows", "Types and Shadows"),
-        ("messianic_prophecies prophecy predictions foretold", "/messianic-prophecies", "Messianic Prophecies"),
-        ("blood_in_scripture sacrifice atonement covering", "/blood-in-scripture", "The Blood in Scripture"),
-        ("kingdom_of_god reign throne rule", "/kingdom-of-god", "The Kingdom of God"),
-        ("names_of_christ jesus titles lord savior", "/names-of-christ", "Names of Christ"),
-        ("spirits_and_demons devils satan evil unclean", "/spirits-and-demons", "Spirits and Demons"),
-        ("personifications wisdom folly death", "/personifications", "Personifications"),
-        ("angels cherubim seraphim michael gabriel", "/biblical-angels", "Biblical Angels"),
-        ("prophets elijah elisha isaiah jeremiah ezekiel daniel", "/biblical-prophets", "Biblical Prophets"),
-        ("names_of_god yahweh jehovah el shaddai adonai", "/names-of-god", "Names of God"),
-        ("parables stories teachings", "/parables", "Parables of Jesus"),
-        ("covenants abrahamic mosaic davidic new", "/biblical-covenants", "Biblical Covenants"),
-        ("apostles disciples twelve peter james john", "/the-twelve-apostles", "The Twelve Apostles"),
-        ("women ruth esther mary martha rahab", "/women-of-the-bible", "Women of the Bible"),
-        ("festivals passover pentecost tabernacles feast", "/biblical-festivals", "Biblical Festivals"),
-        ("fruits love joy peace patience kindness goodness faithfulness gentleness self-control", "/fruits-of-the-spirit", "Fruits of the Spirit"),
-        ("miracles healing signs wonders", "/miracles-of-jesus", "Miracles of Jesus"),
-        ("prayers lord's prayer model", "/prayers-of-the-bible", "Prayers of the Bible"),
-        ("beatitudes blessed sermon mount", "/beatitudes", "The Beatitudes"),
-        ("ten_commandments decalogue law sinai", "/ten-commandments", "Ten Commandments"),
-        ("armor_of_god warfare helmet breastplate shield sword", "/armor-of-god", "Armor of God"),
-        ("i_am_statements bread light door shepherd resurrection way truth life vine", "/i-am-statements", "I Am Statements"),
-        ("tetragrammaton yhwh yahweh jehovah lord", "/tetragrammaton", "The Tetragrammaton"),
-        ("timeline chronology history dates", "/biblical-timeline", "Biblical Timeline"),
-        ("family_tree genealogy lineage ancestors descendants", "/family-tree", "Biblical Genealogies"),
+        (f"{RESOURCE_SEARCH_KEYWORDS.get(r['url'], '')} {r['name']}", r["url"], r["name"])
+        for r in iter_resources()
+    ]
+    resources_to_search += [
+        # Search-only study tools (not part of the resource catalog)
         ("interlinear hebrew greek original language", "/interlinear", "Interlinear Bible"),
         ("concordance word search find", "/concordance", "Concordance"),
-        ("study_guides", "/study-guides", "Study Guides"),
-        ("maps geography places locations", "/maps", "Bible Maps"),
         # Individual study guides
         ("new believer faith basics beginner", "/study-guides/new-believer", "New Believer's Guide"),
         ("salvation saved born again", "/study-guides/salvation", "Understanding Salvation"),
