@@ -710,35 +710,9 @@ section h2 {
     <h2>Theological Studies</h2>
 
     <div class="topic-grid">
-        <a href="/trinity" class="topic-link">The Trinity</a>
-        <a href="/christology" class="topic-link">Christology</a>
-        <a href="/pneumatology" class="topic-link">Pneumatology</a>
-        <a href="/soteriology" class="topic-link">Soteriology</a>
-        <a href="/ecclesiology" class="topic-link">Ecclesiology</a>
-        <a href="/eschatology" class="topic-link">Eschatology</a>
-        <a href="/kingdom-of-god" class="topic-link">The Kingdom of God</a>
-        <a href="/types-and-shadows" class="topic-link">Types and Shadows</a>
-        <a href="/messianic-prophecies" class="topic-link">Messianic Prophecies</a>
-        <a href="/blood-in-scripture" class="topic-link">The Blood in Scripture</a>
-        <a href="/names-of-christ" class="topic-link">Names of Christ</a>
-        <a href="/spirits-and-demons" class="topic-link">Spirits & Demons</a>
-        <a href="/personifications" class="topic-link">Personifications</a>
-        <a href="/names-of-god" class="topic-link">Names of God</a>
-        <a href="/tetragrammaton" class="topic-link">The Tetragrammaton</a>
-        <a href="/i-am-statements" class="topic-link">I Am Statements</a>
-        <a href="/biblical-covenants" class="topic-link">Biblical Covenants</a>
-        <a href="/ten-commandments" class="topic-link">Ten Commandments</a>
-        <a href="/beatitudes" class="topic-link">The Beatitudes</a>
-        <a href="/parables" class="topic-link">Parables of Jesus</a>
-        <a href="/miracles-of-jesus" class="topic-link">Miracles of Jesus</a>
-        <a href="/prayers-of-the-bible" class="topic-link">Prayers of the Bible</a>
-        <a href="/armor-of-god" class="topic-link">Armor of God</a>
-        <a href="/fruits-of-the-spirit" class="topic-link">Fruits of the Spirit</a>
-        <a href="/biblical-festivals" class="topic-link">Biblical Festivals</a>
-        <a href="/the-twelve-apostles" class="topic-link">The Twelve Apostles</a>
-        <a href="/biblical-prophets" class="topic-link">The Prophets</a>
-        <a href="/women-of-the-bible" class="topic-link">Women of the Bible</a>
-        <a href="/biblical-angels" class="topic-link">Angelology</a>
+        {% for r in theology_links %}
+        <a href="{{ r.url }}" class="topic-link">{{ r.name }}</a>
+        {% endfor %}
     </div>
 </section>
 

@@ -5,7 +5,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 
 from ..kjv import bible
-from ..resource_catalog import RESOURCE_CATEGORIES
+from ..resource_catalog import RESOURCE_CATEGORIES, iter_resources
 from ..utils.books import OT_BOOKS, NT_BOOKS
 from ..utils.helpers import get_daily_verse, verse_reference_to_url
 from ._templates import templates
@@ -144,8 +144,15 @@ async def read_root(request: Request):
                 for verse in guide['verses']
             ]
 
+    # Doctrine/people resources for the homepage grid, from the shared catalog.
+    # Excludes items already surfaced in the Study Resources / Interactive
+    # Resources sections above (study guides, family tree, timeline, maps).
+    _homepage_exclude = {"/study-guides", "/family-tree", "/biblical-timeline", "/biblical-maps"}
+    theology_links = [r for r in iter_resources() if r["url"] not in _homepage_exclude]
+
     html = templates.get_template("index.html").render(
-        {"request": request, "books": books, "daily_verse": daily_verse, "study_guides": study_guides}
+        {"request": request, "books": books, "daily_verse": daily_verse,
+         "study_guides": study_guides, "theology_links": theology_links}
     )
     _homepage_cache["date"] = today
     _homepage_cache["html"] = html
