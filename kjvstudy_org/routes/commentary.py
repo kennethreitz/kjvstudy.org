@@ -1152,92 +1152,99 @@ def get_historical_context(book):
     return historical_contexts.get(book, "This text emerged within the historical context of ancient religious traditions.")
 
 
+# Canonical literary genre per book -- single source for get_book_genre()
+# (label form) and get_chapter_type() (lowercased, with per-chapter overrides).
+BOOK_GENRE = {
+    # Torah
+    "Genesis": "Narrative with genealogy",
+    "Exodus": "Narrative with law",
+    "Leviticus": "Law and ritual instruction",
+    "Numbers": "Narrative with law and census",
+    "Deuteronomy": "Sermonic law",
+
+    # Historical books
+    "Joshua": "Historical narrative",
+    "Judges": "Cyclical historical narrative",
+    "Ruth": "Historical narrative",
+    "1 Samuel": "Historical narrative",
+    "2 Samuel": "Historical narrative",
+    "1 Kings": "Historical narrative",
+    "2 Kings": "Historical narrative",
+    "1 Chronicles": "Historical narrative with genealogy",
+    "2 Chronicles": "Historical narrative",
+    "Ezra": "Historical narrative",
+    "Nehemiah": "Historical narrative with memoir",
+    "Esther": "Historical narrative",
+
+    # Wisdom literature
+    "Job": "Wisdom literature with poetic dialogue",
+    "Psalms": "Poetry and liturgy",
+    "Proverbs": "Wisdom literature",
+    "Ecclesiastes": "Wisdom literature with philosophical reflection",
+    "Song of Solomon": "Poetry and love song",
+
+    # Major Prophets
+    "Isaiah": "Prophetic literature with poetry",
+    "Jeremiah": "Prophetic literature with biography",
+    "Lamentations": "Poetic lament",
+    "Ezekiel": "Prophetic literature with apocalyptic elements",
+    "Daniel": "Narrative with apocalyptic visions",
+
+    # Minor Prophets
+    "Hosea": "Prophetic literature",
+    "Joel": "Prophetic literature",
+    "Amos": "Prophetic literature",
+    "Obadiah": "Prophetic literature",
+    "Jonah": "Prophetic narrative",
+    "Micah": "Prophetic literature",
+    "Nahum": "Prophetic literature",
+    "Habakkuk": "Prophetic literature with dialogue",
+    "Zephaniah": "Prophetic literature",
+    "Haggai": "Prophetic literature",
+    "Zechariah": "Prophetic literature with apocalyptic visions",
+    "Malachi": "Prophetic literature with disputation",
+
+    # Gospels
+    "Matthew": "Gospel narrative",
+    "Mark": "Gospel narrative",
+    "Luke": "Gospel narrative with historiography",
+    "John": "Gospel narrative with theology",
+
+    # Acts
+    "Acts": "Historical narrative",
+
+    # Pauline Epistles
+    "Romans": "Epistle with systematic theology",
+    "1 Corinthians": "Epistle",
+    "2 Corinthians": "Epistle",
+    "Galatians": "Epistle",
+    "Ephesians": "Epistle",
+    "Philippians": "Epistle",
+    "Colossians": "Epistle",
+    "1 Thessalonians": "Epistle",
+    "2 Thessalonians": "Epistle",
+    "1 Timothy": "Pastoral epistle",
+    "2 Timothy": "Pastoral epistle",
+    "Titus": "Pastoral epistle",
+    "Philemon": "Personal epistle",
+    "Hebrews": "Epistle with sermonic elements",
+
+    # General Epistles
+    "James": "Epistle with wisdom elements",
+    "1 Peter": "Epistle",
+    "2 Peter": "Epistle",
+    "1 John": "Epistle with theological discourse",
+    "2 John": "Brief epistle",
+    "3 John": "Brief epistle",
+    "Jude": "Epistle",
+
+    # Apocalyptic
+    "Revelation": "Apocalyptic literature with epistle elements"
+}
+
+
 def get_chapter_type(book, chapter):
     """Identify the type of chapter"""
-    # Simplified mapping of books to primary genre
-    book_genres = {
-        # Torah
-        "Genesis": "narrative",
-        "Exodus": "narrative with legal sections",
-        "Leviticus": "legal and ritual",
-        "Numbers": "mixed narrative and legal",
-        "Deuteronomy": "sermonic and legal",
-
-        # Historical
-        "Joshua": "historical narrative",
-        "Judges": "cyclical narrative",
-        "Ruth": "historical narrative",
-        "1 Samuel": "biographical narrative",
-        "2 Samuel": "biographical narrative",
-        "1 Kings": "historical narrative",
-        "2 Kings": "historical narrative",
-        "1 Chronicles": "historical and genealogical",
-        "2 Chronicles": "historical narrative",
-        "Ezra": "historical narrative",
-        "Nehemiah": "historical memoir",
-        "Esther": "historical narrative",
-
-        # Wisdom
-        "Job": "wisdom dialogue",
-        "Psalms": "poetic and liturgical",
-        "Proverbs": "wisdom sayings",
-        "Ecclesiastes": "philosophical reflection",
-        "Song of Solomon": "poetic love song",
-
-        # Prophetic
-        "Isaiah": "prophetic oracle",
-        "Jeremiah": "prophetic oracle",
-        "Lamentations": "funeral dirge",
-        "Ezekiel": "prophetic vision",
-        "Daniel": "apocalyptic and narrative",
-        "Hosea": "prophetic oracle",
-        "Joel": "prophetic oracle",
-        "Amos": "prophetic oracle",
-        "Obadiah": "prophetic oracle",
-        "Jonah": "prophetic narrative",
-        "Micah": "prophetic oracle",
-        "Nahum": "prophetic oracle",
-        "Habakkuk": "prophetic dialogue",
-        "Zephaniah": "prophetic oracle",
-        "Haggai": "prophetic oracle",
-        "Zechariah": "prophetic vision",
-        "Malachi": "prophetic disputation",
-
-        # Gospels
-        "Matthew": "biographical gospel",
-        "Mark": "action-oriented gospel",
-        "Luke": "historical gospel",
-        "John": "theological gospel",
-
-        # Acts
-        "Acts": "historical narrative",
-
-        # Epistles
-        "Romans": "theological epistle",
-        "1 Corinthians": "pastoral epistle",
-        "2 Corinthians": "apologetic epistle",
-        "Galatians": "polemical epistle",
-        "Ephesians": "theological epistle",
-        "Philippians": "friendship epistle",
-        "Colossians": "christological epistle",
-        "1 Thessalonians": "eschatological epistle",
-        "2 Thessalonians": "eschatological epistle",
-        "1 Timothy": "pastoral epistle",
-        "2 Timothy": "pastoral epistle",
-        "Titus": "pastoral epistle",
-        "Philemon": "personal epistle",
-        "Hebrews": "homiletical epistle",
-        "James": "wisdom epistle",
-        "1 Peter": "pastoral epistle",
-        "2 Peter": "polemical epistle",
-        "1 John": "theological epistle",
-        "2 John": "pastoral epistle",
-        "3 John": "personal epistle",
-        "Jude": "polemical epistle",
-
-        # Apocalyptic
-        "Revelation": "apocalyptic vision"
-    }
 
     # Special cases for specific chapters
     special_chapters = {
@@ -1266,7 +1273,7 @@ def get_chapter_type(book, chapter):
         return special_chapters[(book, chapter)]
 
     # Otherwise return the general book genre
-    return book_genres.get(book, "scriptural")
+    return BOOK_GENRE.get(book, "Scriptural").lower()
 
 
 def get_testament_for_book(book):
@@ -1809,95 +1816,7 @@ def generate_book_tags(book, genre):
 
 def get_book_genre(book):
     """Return the literary genre of a book"""
-    genres = {
-        # Torah
-        "Genesis": "Narrative with genealogy",
-        "Exodus": "Narrative with law",
-        "Leviticus": "Law and ritual instruction",
-        "Numbers": "Narrative with law and census",
-        "Deuteronomy": "Sermonic law",
-
-        # Historical books
-        "Joshua": "Historical narrative",
-        "Judges": "Cyclical historical narrative",
-        "Ruth": "Historical narrative",
-        "1 Samuel": "Historical narrative",
-        "2 Samuel": "Historical narrative",
-        "1 Kings": "Historical narrative",
-        "2 Kings": "Historical narrative",
-        "1 Chronicles": "Historical narrative with genealogy",
-        "2 Chronicles": "Historical narrative",
-        "Ezra": "Historical narrative",
-        "Nehemiah": "Historical narrative with memoir",
-        "Esther": "Historical narrative",
-
-        # Wisdom literature
-        "Job": "Wisdom literature with poetic dialogue",
-        "Psalms": "Poetry and liturgy",
-        "Proverbs": "Wisdom literature",
-        "Ecclesiastes": "Wisdom literature with philosophical reflection",
-        "Song of Solomon": "Poetry and love song",
-
-        # Major Prophets
-        "Isaiah": "Prophetic literature with poetry",
-        "Jeremiah": "Prophetic literature with biography",
-        "Lamentations": "Poetic lament",
-        "Ezekiel": "Prophetic literature with apocalyptic elements",
-        "Daniel": "Narrative with apocalyptic visions",
-
-        # Minor Prophets
-        "Hosea": "Prophetic literature",
-        "Joel": "Prophetic literature",
-        "Amos": "Prophetic literature",
-        "Obadiah": "Prophetic literature",
-        "Jonah": "Prophetic narrative",
-        "Micah": "Prophetic literature",
-        "Nahum": "Prophetic literature",
-        "Habakkuk": "Prophetic literature with dialogue",
-        "Zephaniah": "Prophetic literature",
-        "Haggai": "Prophetic literature",
-        "Zechariah": "Prophetic literature with apocalyptic visions",
-        "Malachi": "Prophetic literature with disputation",
-
-        # Gospels
-        "Matthew": "Gospel narrative",
-        "Mark": "Gospel narrative",
-        "Luke": "Gospel narrative with historiography",
-        "John": "Gospel narrative with theology",
-
-        # Acts
-        "Acts": "Historical narrative",
-
-        # Pauline Epistles
-        "Romans": "Epistle with systematic theology",
-        "1 Corinthians": "Epistle",
-        "2 Corinthians": "Epistle",
-        "Galatians": "Epistle",
-        "Ephesians": "Epistle",
-        "Philippians": "Epistle",
-        "Colossians": "Epistle",
-        "1 Thessalonians": "Epistle",
-        "2 Thessalonians": "Epistle",
-        "1 Timothy": "Pastoral epistle",
-        "2 Timothy": "Pastoral epistle",
-        "Titus": "Pastoral epistle",
-        "Philemon": "Personal epistle",
-        "Hebrews": "Epistle with sermonic elements",
-
-        # General Epistles
-        "James": "Epistle with wisdom elements",
-        "1 Peter": "Epistle",
-        "2 Peter": "Epistle",
-        "1 John": "Epistle with theological discourse",
-        "2 John": "Brief epistle",
-        "3 John": "Brief epistle",
-        "Jude": "Epistle",
-
-        # Apocalyptic
-        "Revelation": "Apocalyptic literature with epistle elements"
-    }
-
-    return genres.get(book, "Biblical literature")
+    return BOOK_GENRE.get(book, "Biblical literature")
 
 
 def generate_book_introduction(book):
