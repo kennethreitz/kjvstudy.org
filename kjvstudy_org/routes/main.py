@@ -8,6 +8,7 @@ from ..kjv import bible
 from ..resource_catalog import RESOURCE_CATEGORIES, iter_resources
 from ..utils.books import OT_BOOKS, NT_BOOKS
 from ..utils.helpers import get_daily_verse, verse_reference_to_url
+from .study_guides import get_featured_study_guides
 from ._templates import templates
 
 router = APIRouter()
@@ -29,109 +30,8 @@ async def read_root(request: Request):
     books = bible.get_books()
     daily_verse = get_daily_verse()
 
-    # Define study guide categories
-    study_guides = {
-        "Foundational Studies": [
-            {
-                "title": "New Believer's Guide",
-                "description": "Essential truths for new Christians",
-                "slug": "new-believer",
-                "verses": ["John 3:16", "Romans 10:9", "1 John 1:9", "2 Corinthians 5:17"]
-            },
-            {
-                "title": "Salvation by Grace",
-                "description": "Understanding God's gift of salvation",
-                "slug": "salvation",
-                "verses": ["Ephesians 2:8-9", "Romans 3:23", "Romans 6:23", "Titus 3:5"]
-            },
-            {
-                "title": "The Gospel Message",
-                "description": "The good news of Jesus Christ",
-                "slug": "gospel",
-                "verses": ["1 Corinthians 15:3-4", "Romans 1:16", "Mark 16:15", "Acts 4:12"]
-            }
-        ],
-        "Character & Living": [
-            {
-                "title": "Fruits of the Spirit",
-                "description": "Developing Christian character",
-                "slug": "fruits-spirit",
-                "verses": ["Galatians 5:22-23", "1 Corinthians 13:4-7", "Philippians 4:8", "Colossians 3:12-14"]
-            },
-            {
-                "title": "Prayer & Faith",
-                "description": "Growing in prayer and trust",
-                "slug": "prayer-faith",
-                "verses": ["Matthew 6:9-13", "1 Thessalonians 5:17", "Hebrews 11:1", "James 1:6"]
-            },
-            {
-                "title": "Christian Living",
-                "description": "Walking as followers of Christ",
-                "slug": "christian-living",
-                "verses": ["Romans 12:1-2", "1 Peter 2:9", "Matthew 5:14-16", "Philippians 2:14-16"]
-            }
-        ],
-        "Biblical Themes": [
-            {
-                "title": "God's Love",
-                "description": "Understanding the depth of God's love",
-                "slug": "gods-love",
-                "verses": ["1 John 4:8", "John 3:16", "Romans 8:38-39", "1 John 3:1"]
-            },
-            {
-                "title": "Hope & Comfort",
-                "description": "Finding hope in difficult times",
-                "slug": "hope-comfort",
-                "verses": ["Romans 15:13", "2 Corinthians 1:3-4", "Psalm 23:4", "Isaiah 41:10"]
-            },
-            {
-                "title": "Wisdom & Guidance",
-                "description": "Seeking God's wisdom for life",
-                "slug": "wisdom-guidance",
-                "verses": ["Proverbs 3:5-6", "James 1:5", "Psalm 119:105", "Proverbs 27:17"]
-            }
-        ],
-        "Doctrinal Studies": [
-            {
-                "title": "The Trinity",
-                "description": "Understanding God as Father, Son, and Holy Spirit",
-                "slug": "trinity",
-                "verses": ["Matthew 28:19", "2 Corinthians 13:14", "1 Peter 1:2", "John 14:16-17"]
-            },
-            {
-                "title": "The Resurrection",
-                "description": "Christ's victory over death and our hope",
-                "slug": "resurrection",
-                "verses": ["1 Corinthians 15:20-22", "Romans 6:4-5", "John 11:25-26", "1 Thessalonians 4:16-17"]
-            },
-            {
-                "title": "Heaven & Eternity",
-                "description": "Our eternal home with God",
-                "slug": "heaven-eternity",
-                "verses": ["Revelation 21:1-4", "John 14:2-3", "Philippians 3:20-21", "1 Corinthians 2:9"]
-            }
-        ],
-        "Family & Relationships": [
-            {
-                "title": "Biblical Marriage",
-                "description": "God's design for marriage",
-                "slug": "biblical-marriage",
-                "verses": ["Ephesians 5:22-33", "Genesis 2:24", "1 Corinthians 7:3-5", "Hebrews 13:4"]
-            },
-            {
-                "title": "Raising Children",
-                "description": "Biblical principles for parenting",
-                "slug": "raising-children",
-                "verses": ["Proverbs 22:6", "Ephesians 6:4", "Deuteronomy 6:6-7", "Colossians 3:21"]
-            },
-            {
-                "title": "Money & Stewardship",
-                "description": "Biblical wisdom on finances",
-                "slug": "money-stewardship",
-                "verses": ["Malachi 3:10", "Luke 16:10-11", "1 Timothy 6:10", "Proverbs 3:9-10"]
-            }
-        ]
-    }
+    # Curated homepage study-guide cards, content sourced from the catalog
+    study_guides = get_featured_study_guides()
 
     # Process verse references to add URLs
     for category in study_guides.values():
