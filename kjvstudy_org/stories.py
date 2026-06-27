@@ -134,7 +134,10 @@ def get_categories() -> list[dict]:
 
 def refresh_stories():
     """Refresh the cached stories (useful after adding new files)."""
-    global STORY_CATEGORIES, _CACHED_STORY_COUNT, _CACHED_CATEGORY_COUNT
-    STORY_CATEGORIES = load_all_stories()
+    global _STORIES_CACHE, STORY_CATEGORIES, _CACHED_STORY_COUNT, _CACHED_CATEGORY_COUNT
+    # Clear the primary cache first; otherwise load_all_stories() just returns
+    # the stale data and nothing actually reloads.
+    _STORIES_CACHE = None
     _CACHED_STORY_COUNT = None
     _CACHED_CATEGORY_COUNT = None
+    STORY_CATEGORIES = load_all_stories()
