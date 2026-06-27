@@ -1152,8 +1152,7 @@ def get_historical_context(book):
     return historical_contexts.get(book, "This text emerged within the historical context of ancient religious traditions.")
 
 
-# Canonical literary genre per book -- single source for get_book_genre()
-# (label form) and get_chapter_type() (lowercased, with per-chapter overrides).
+# Literary genre per book, used by get_book_genre() (label form).
 BOOK_GENRE = {
     # Torah
     "Genesis": "Narrative with genealogy",
@@ -1246,6 +1245,91 @@ BOOK_GENRE = {
 def get_chapter_type(book, chapter):
     """Identify the type of chapter"""
 
+    # Simplified mapping of books to primary genre
+    book_genres = {
+        # Torah
+        "Genesis": "narrative",
+        "Exodus": "narrative with legal sections",
+        "Leviticus": "legal and ritual",
+        "Numbers": "mixed narrative and legal",
+        "Deuteronomy": "sermonic and legal",
+
+        # Historical
+        "Joshua": "historical narrative",
+        "Judges": "cyclical narrative",
+        "Ruth": "historical narrative",
+        "1 Samuel": "biographical narrative",
+        "2 Samuel": "biographical narrative",
+        "1 Kings": "historical narrative",
+        "2 Kings": "historical narrative",
+        "1 Chronicles": "historical and genealogical",
+        "2 Chronicles": "historical narrative",
+        "Ezra": "historical narrative",
+        "Nehemiah": "historical memoir",
+        "Esther": "historical narrative",
+
+        # Wisdom
+        "Job": "wisdom dialogue",
+        "Psalms": "poetic and liturgical",
+        "Proverbs": "wisdom sayings",
+        "Ecclesiastes": "philosophical reflection",
+        "Song of Solomon": "poetic love song",
+
+        # Prophetic
+        "Isaiah": "prophetic oracle",
+        "Jeremiah": "prophetic oracle",
+        "Lamentations": "funeral dirge",
+        "Ezekiel": "prophetic vision",
+        "Daniel": "apocalyptic and narrative",
+        "Hosea": "prophetic oracle",
+        "Joel": "prophetic oracle",
+        "Amos": "prophetic oracle",
+        "Obadiah": "prophetic oracle",
+        "Jonah": "prophetic narrative",
+        "Micah": "prophetic oracle",
+        "Nahum": "prophetic oracle",
+        "Habakkuk": "prophetic dialogue",
+        "Zephaniah": "prophetic oracle",
+        "Haggai": "prophetic oracle",
+        "Zechariah": "prophetic vision",
+        "Malachi": "prophetic disputation",
+
+        # Gospels
+        "Matthew": "biographical gospel",
+        "Mark": "action-oriented gospel",
+        "Luke": "historical gospel",
+        "John": "theological gospel",
+
+        # Acts
+        "Acts": "historical narrative",
+
+        # Epistles
+        "Romans": "theological epistle",
+        "1 Corinthians": "pastoral epistle",
+        "2 Corinthians": "apologetic epistle",
+        "Galatians": "polemical epistle",
+        "Ephesians": "theological epistle",
+        "Philippians": "friendship epistle",
+        "Colossians": "christological epistle",
+        "1 Thessalonians": "eschatological epistle",
+        "2 Thessalonians": "eschatological epistle",
+        "1 Timothy": "pastoral epistle",
+        "2 Timothy": "pastoral epistle",
+        "Titus": "pastoral epistle",
+        "Philemon": "personal epistle",
+        "Hebrews": "homiletical epistle",
+        "James": "wisdom epistle",
+        "1 Peter": "pastoral epistle",
+        "2 Peter": "polemical epistle",
+        "1 John": "theological epistle",
+        "2 John": "pastoral epistle",
+        "3 John": "personal epistle",
+        "Jude": "polemical epistle",
+
+        # Apocalyptic
+        "Revelation": "apocalyptic vision"
+    }
+
     # Special cases for specific chapters
     special_chapters = {
         ("Genesis", 1): "creation account",
@@ -1273,7 +1357,7 @@ def get_chapter_type(book, chapter):
         return special_chapters[(book, chapter)]
 
     # Otherwise return the general book genre
-    return BOOK_GENRE.get(book, "Scriptural").lower()
+    return book_genres.get(book, "scriptural")
 
 
 def get_testament_for_book(book):
