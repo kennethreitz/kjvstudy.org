@@ -441,8 +441,8 @@ class TestMainModule:
     def test_main_app_exists(self):
         """Test main has app reference."""
         from kjvstudy_org import main
-        # main.py typically imports app from server
-        assert hasattr(main, 'app') or hasattr(main, 'server')
+        # main.py imports the Responder app (`api`)
+        assert hasattr(main, 'api') or hasattr(main, 'app')
 
 
 class TestKjvModule:

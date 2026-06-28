@@ -2,17 +2,16 @@
 Shared pytest configuration and fixtures
 """
 import pytest
-from fastapi.testclient import TestClient
-from kjvstudy_org.server import app
+from kjvstudy_org.server import api
 
 
 @pytest.fixture(scope="session")
 def client():
     """
     Create test client fixture with session scope for reuse across tests.
-    FastAPI's TestClient is safe to reuse.
+    api.session() returns a Starlette TestClient against the Responder app.
     """
-    return TestClient(app)
+    return api.session()
 
 
 @pytest.fixture(scope="session")

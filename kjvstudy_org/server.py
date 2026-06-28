@@ -1,217 +1,121 @@
+"""KJV Study web app, built on Responder (https://responder.kennethreitz.org).
+
+Every framework-agnostic module is reused unchanged; routing and response
+construction live here and in ``kjvstudy_org/responder_routes/``. The ASGI app
+is the module-level ``api``.
+
+Run it::
+
+    uv run granian kjvstudy_org.server:api --interface asgi --reload
+    # or
+    uv run python -m kjvstudy_org.server
+"""
 import hashlib
-import json
 import os
-import re
-import random
-import time
-from contextlib import asynccontextmanager
-from datetime import datetime, timedelta
-from pathlib import Path as PathLib
+from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request, Query, Path
-from fastapi.exception_handlers import http_exception_handler
-from fastapi.responses import HTMLResponse, Response, RedirectResponse, JSONResponse, StreamingResponse
-from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.openapi.utils import get_openapi
-from starlette.exceptions import HTTPException as StarletteHTTPException
+import responder
 from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
 
-from .kjv import bible, VerseReference
-from .cross_references import get_cross_references
-from .reading_plans import get_plan, get_all_plans, get_plan_summary
-from .topics import get_all_topics, get_topic_with_text, search_topics
-from .interlinear_loader import get_interlinear_data, has_interlinear_data, get_all_interlinear_verses, preload_data, find_verses_by_strongs, count_strongs_occurrences
-from .strongs import format_strongs_entry, search_strongs, get_all_strongs
-from .books import get_book_data, has_book_data
+from .jinja_filters import register_filters
+from .utils.pdf import WEASYPRINT_AVAILABLE
+from .responder_routes import register_all
 
-# Import from modular packages
-from .routes import (
-    api_router,
-    resources_router,
-    family_tree_router,
-    study_guides_router,
-    commentary_router,
-    stories_router,
-    utility_router,
-    bible_router, init_bible_commentary,
-    reading_plans_router,
-    topics_router,
-    strongs_router,
-    timeline_router,
-    about_router,
-    main_router,
-    misc_router, init_search_family_tree,
-)
-from .routes.commentary import (
-    generate_commentary,
-    generate_chapter_overview,
-    generate_book_commentary,
-    generate_word_study_sidenotes,
-)
-from .utils.books import normalize_book_name, OT_BOOKS, NT_BOOKS
-from .utils.helpers import (
-    create_slug, get_verse_text, get_related_content,
-    get_chapter_popularity_score, get_chapter_popularity_explanation,
-    is_verse_reference, parse_verse_reference
-)
-from .utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf, render_html_to_pdf_async
-from .utils.search import perform_full_text_search
-from .utils.family_tree import search_family_tree
+_DIR = Path(__file__).parent
+_STATIC_DIR = _DIR / "static"
+_TEMPLATES_DIR = _DIR / "templates"
 
 
-# Note: Helper functions (create_slug, normalize_book_name, get_related_content,
-# get_chapter_popularity_score, get_chapter_popularity_explanation, get_verse_text,
-# is_verse_reference, parse_verse_reference, perform_full_text_search, etc.)
-# are now imported from utils modules above.
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Lifespan context manager for startup/shutdown events"""
-    # Startup
-    # Initialize search index for fast searches
-    from .utils.search import ensure_search_index
-    ensure_search_index()
-
-    if os.getenv("PRELOAD_INTERLINEAR", "false").lower() == "true":
-        preload_data()
-    yield
-    # Shutdown (nothing needed currently)
-
-
-app = FastAPI(
+# ---------------------------------------------------------------------------
+# Application
+# ---------------------------------------------------------------------------
+api = responder.API(
     title="KJV Study API",
-    description="RESTful API for accessing King James Bible verses, chapters, and study resources",
     version="1.0.0",
-    docs_url="/api/docs",
-    redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json",
-    lifespan=lifespan
+    description=(
+        "RESTful API for accessing King James Bible verses, chapters, "
+        "and study resources"
+    ),
+    templates_dir=str(_TEMPLATES_DIR),
+    static_dir=str(_STATIC_DIR),
+    static_route="/static",
+    openapi="3.0.2",
+    docs_route="/api/docs",
+    openapi_route="/api/openapi.json",
+    gzip=True,
+    secret_key=os.getenv("SECRET_KEY", "kjvstudy-dev-secret-change-in-prod"),
 )
 
-# Include the API router (routes defined in routes/api.py)
-app.include_router(api_router)
 
-# Include the resources router (biblical resources, defined in routes/resources.py)
-app.include_router(resources_router)
+# ---------------------------------------------------------------------------
+# Jinja environment: reuse the app's custom filters and globals
+# ---------------------------------------------------------------------------
+_env = api.templates._env
+register_filters(_env)
 
-# Include the family tree router
-app.include_router(family_tree_router)
-
-# Include the study guides router
-app.include_router(study_guides_router)
-
-# Include the commentary router
-app.include_router(commentary_router)
-
-# Include the stories router
-app.include_router(stories_router)
-
-# Include the utility router (sitemap, robots.txt, health)
-app.include_router(utility_router)
-
-# Include the Bible router (book, chapter, verse, interlinear routes)
-app.include_router(bible_router)
-
-# Include the reading plans router
-app.include_router(reading_plans_router)
-
-# Include the topics router
-app.include_router(topics_router)
-
-# Include the Strong's Concordance router
-app.include_router(strongs_router)
-
-# Include the timeline router
-app.include_router(timeline_router)
-
-# Include the about router
-app.include_router(about_router)
-
-# Include the main router (homepage, books, resources)
-app.include_router(main_router)
-
-# Include the misc router (search, interlinear, random-verse, verse-of-the-day)
-app.include_router(misc_router)
+_static_hashes: dict[str, str] = {}
 
 
-# Custom OpenAPI schema to only include /api routes
-def custom_openapi():
-    if app.openapi_schema:
-        return app.openapi_schema
-
-    openapi_schema = get_openapi(
-        title=app.title,
-        version=app.version,
-        description=app.description,
-        routes=app.routes,
-    )
-
-    # Filter paths to only include /api routes
-    filtered_paths = {
-        path: path_item
-        for path, path_item in openapi_schema["paths"].items()
-        if path.startswith("/api/")
-    }
-
-    openapi_schema["paths"] = filtered_paths
-    app.openapi_schema = openapi_schema
-    return app.openapi_schema
-
-app.openapi = custom_openapi
-
-
-# Caching middleware for performance optimization
-class CacheControlMiddleware(BaseHTTPMiddleware):
-    """Add cache control headers to responses for better performance."""
-
-    async def dispatch(self, request: Request, call_next):
-        response = await call_next(request)
-        path = request.url.path
-
-        # No caching for API endpoints and dynamic content
-        if path.startswith("/api/") or path in ["/verse-of-the-day", "/random-verse"]:
-            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-            response.headers["Pragma"] = "no-cache"
-            response.headers["Expires"] = "0"
-        # Static files (CSS, JS, images) - cache 1 year, but ONLY on success.
-        # Never cache a 404/500 as immutable, or a transient outage poisons the
-        # client cache for a year.
-        elif path.startswith("/static/"):
-            if response.status_code < 400:
-                response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
-            else:
-                response.headers["Cache-Control"] = "no-store"
-        # Bible content (verses, chapters, books) - cache 1 week
-        elif any(x in path for x in ["/book/", "/chapter/", "/verse/"]):
-            response.headers["Cache-Control"] = "public, max-age=604800"
-        # Study resources and special pages - cache 1 day
-        elif any(x in path for x in ["/study-guides/", "/topics/", "/reading-plans/",
-                                      "/biblical-", "/names-of-god", "/parables/",
-                                      "/the-twelve-apostles/", "/women-of-the-bible/",
-                                      "/tetragrammaton", "/commentary/"]):
-            response.headers["Cache-Control"] = "public, max-age=86400"
-        # Homepage - cache 1 hour
-        elif path == "/":
-            response.headers["Cache-Control"] = "public, max-age=3600"
-        # Main sections - cache 1 hour
-        elif path in ["/books", "/search", "/resources", "/strongs"]:
-            response.headers["Cache-Control"] = "public, max-age=3600"
-        # Sitemap and robots.txt - cache 1 day
-        elif path in ["/sitemap.xml", "/robots.txt"]:
-            response.headers["Cache-Control"] = "public, max-age=86400"
-        # Default - cache 10 minutes
+def static_hash(filename: str) -> str:
+    """Short content hash (by mtime) for cache-busting static asset URLs."""
+    if filename not in _static_hashes:
+        filepath = _STATIC_DIR / filename
+        if filepath.exists():
+            mtime = int(filepath.stat().st_mtime)
+            _static_hashes[filename] = hashlib.md5(str(mtime).encode()).hexdigest()[:8]
         else:
-            response.headers["Cache-Control"] = "public, max-age=600"
+            _static_hashes[filename] = "0"
+    return _static_hashes[filename]
 
-        return response
+
+_env.globals["static_hash"] = static_hash
+_env.globals["disable_analytics"] = os.getenv("DISABLE_ANALYTICS", "false").lower() == "true"
+_env.globals["resource_pdf_available"] = WEASYPRINT_AVAILABLE
+_env.globals["github_repo_url"] = "https://github.com/kennethreitz/kjvstudy.org"
 
 
-# Bot detection and logging middleware
+# ---------------------------------------------------------------------------
+# Cache-Control headers (port of CacheControlMiddleware)
+# ---------------------------------------------------------------------------
+@api.after_request()
+def cache_control(req, resp):
+    """Attach Cache-Control headers based on the request path."""
+    path = req.url.path
+
+    if path.startswith("/api/") or path in ("/verse-of-the-day", "/random-verse"):
+        resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        resp.headers["Pragma"] = "no-cache"
+        resp.headers["Expires"] = "0"
+    elif path.startswith("/static/"):
+        if (resp.status_code or 200) < 400:
+            resp.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        else:
+            resp.headers["Cache-Control"] = "no-store"
+    elif any(x in path for x in ("/book/", "/chapter/", "/verse/")):
+        resp.headers["Cache-Control"] = "public, max-age=604800"
+    elif any(x in path for x in (
+        "/study-guides/", "/topics/", "/reading-plans/", "/biblical-",
+        "/names-of-god", "/parables/", "/the-twelve-apostles/",
+        "/women-of-the-bible/", "/tetragrammaton", "/commentary/",
+    )):
+        resp.headers["Cache-Control"] = "public, max-age=86400"
+    elif path == "/":
+        resp.headers["Cache-Control"] = "public, max-age=3600"
+    elif path in ("/books", "/search", "/resources", "/strongs"):
+        resp.headers["Cache-Control"] = "public, max-age=3600"
+    elif path in ("/sitemap.xml", "/robots.txt"):
+        resp.headers["Cache-Control"] = "public, max-age=86400"
+    else:
+        resp.headers["Cache-Control"] = "public, max-age=600"
+
+
+# ---------------------------------------------------------------------------
+# Operational middleware (ports of BotLogger / RateLimit / Timeout)
+# ---------------------------------------------------------------------------
 class BotLoggerMiddleware(BaseHTTPMiddleware):
-    """Log requests from bots/crawlers only"""
+    """Log requests from known bots/crawlers."""
 
-    # Common bot identifiers to detect
     BOT_IDENTIFIERS = [
         'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
         'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
@@ -221,69 +125,46 @@ class BotLoggerMiddleware(BaseHTTPMiddleware):
         'bitlybot', 'skypeuripreview', 'nuzzel', 'discordbot',
         'telegrambot', 'perplexitybot', 'amazonbot', 'claudebot',
         'anthropic-ai', 'gptbot', 'chatgpt-user', 'ccbot',
-        'diffbot', 'bytespider', 'petalbot'
+        'diffbot', 'bytespider', 'petalbot',
     ]
 
-    async def dispatch(self, request: Request, call_next):
-        user_agent = request.headers.get("user-agent", "").lower()
-
-        # Check if this is a bot
-        is_bot = any(bot in user_agent for bot in self.BOT_IDENTIFIERS)
-
-        if is_bot:
-            # Extract the bot name for cleaner logging
-            bot_name = next((bot for bot in self.BOT_IDENTIFIERS if bot in user_agent), "unknown bot")
-            print(f"[BOT] {bot_name}")
-
-        response = await call_next(request)
-        return response
+    async def dispatch(self, request, call_next):
+        ua = request.headers.get("user-agent", "").lower()
+        bot = next((b for b in self.BOT_IDENTIFIERS if b in ua), None)
+        if bot:
+            print(f"[BOT] {bot}")
+        return await call_next(request)
 
 
-# Rate limiting middleware — per-IP request throttle
 class RateLimitMiddleware(BaseHTTPMiddleware):
-    """Simple in-memory per-IP rate limiter using a sliding window."""
+    """Simple in-memory per-IP sliding-window rate limiter."""
 
     def __init__(self, app, requests_per_second: float = 10.0):
         super().__init__(app)
         self.rate = requests_per_second
-        # {ip: (token_count, last_refill_time)}
         self._buckets: dict[str, tuple[float, float]] = {}
-        self._max_tokens = requests_per_second * 5  # burst allowance
+        self._max_tokens = requests_per_second * 5
 
-    async def dispatch(self, request: Request, call_next):
-        # Skip rate limiting for health checks and local/test clients
+    async def dispatch(self, request, call_next):
+        import time
         if request.url.path == "/health":
             return await call_next(request)
-
         ip = request.client.host if request.client else "unknown"
         if ip in ("127.0.0.1", "testclient"):
             return await call_next(request)
         now = time.monotonic()
-
         tokens, last = self._buckets.get(ip, (self._max_tokens, now))
-        elapsed = now - last
-        tokens = min(self._max_tokens, tokens + elapsed * self.rate)
-
+        tokens = min(self._max_tokens, tokens + (now - last) * self.rate)
         if tokens < 1.0:
-            return JSONResponse(
-                {"detail": "Too many requests"},
-                status_code=429,
-                headers={"Retry-After": "1"},
-            )
-
+            return JSONResponse({"detail": "Too many requests"}, status_code=429,
+                                headers={"Retry-After": "1"})
         self._buckets[ip] = (tokens - 1.0, now)
-
-        # Periodic cleanup — evict stale entries every ~1000 requests
         if len(self._buckets) > 5000:
             cutoff = now - 60
-            self._buckets = {
-                k: (t, ts) for k, (t, ts) in self._buckets.items() if ts > cutoff
-            }
-
+            self._buckets = {k: (t, ts) for k, (t, ts) in self._buckets.items() if ts > cutoff}
         return await call_next(request)
 
 
-# Request timeout middleware — kill requests that take too long
 class TimeoutMiddleware(BaseHTTPMiddleware):
     """Cancel requests that exceed a time limit."""
 
@@ -291,100 +172,50 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
         super().__init__(app)
         self.timeout = timeout_seconds
 
-    async def dispatch(self, request: Request, call_next):
+    async def dispatch(self, request, call_next):
         import asyncio
         try:
-            return await asyncio.wait_for(
-                call_next(request),
-                timeout=self.timeout,
-            )
+            return await asyncio.wait_for(call_next(request), timeout=self.timeout)
         except asyncio.TimeoutError:
-            return JSONResponse(
-                {"detail": "Request timeout"},
-                status_code=504,
-            )
+            return JSONResponse({"detail": "Request timeout"}, status_code=504)
 
 
-# Add GZip compression middleware (compress responses > 1000 bytes)
-app.add_middleware(GZipMiddleware, minimum_size=1000)
-
-# Add caching middleware
-app.add_middleware(CacheControlMiddleware)
-
-# Add bot logging middleware
-app.add_middleware(BotLoggerMiddleware)
-
-# Add rate limiting (10 req/s per IP, burst of 50)
-app.add_middleware(RateLimitMiddleware, requests_per_second=10.0)
-
-# Add request timeout (30 seconds max, 60 for PDFs handled by route-level timeout)
-app.add_middleware(TimeoutMiddleware, timeout_seconds=30.0)
+api.add_middleware(TimeoutMiddleware, timeout_seconds=30.0)
+api.add_middleware(RateLimitMiddleware, requests_per_second=10.0)
+api.add_middleware(BotLoggerMiddleware)
 
 
-# Set up Jinja2 templates and static files
-current_dir = PathLib(__file__).parent
-static_dir = current_dir / "static"
-
-from .routes._templates import templates
-
-# Register custom Jinja2 filters
-from .jinja_filters import register_filters
-register_filters(templates.env)
-
-# Add global template variables
-templates.env.globals['disable_analytics'] = os.getenv("DISABLE_ANALYTICS", "false").lower() == "true"
-
-# Cache-busting for static files using file modification time
-import hashlib
-_static_hashes = {}
-
-def static_hash(filename):
-    """Generate a short hash based on file modification time for cache busting."""
-    if filename not in _static_hashes:
-        filepath = static_dir / filename
-        if filepath.exists():
-            mtime = int(filepath.stat().st_mtime)
-            _static_hashes[filename] = hashlib.md5(str(mtime).encode()).hexdigest()[:8]
-        else:
-            _static_hashes[filename] = "0"
-    return _static_hashes[filename]
-
-templates.env.globals['static_hash'] = static_hash
-templates.env.globals['resource_pdf_available'] = WEASYPRINT_AVAILABLE
-templates.env.globals['github_repo_url'] = "https://github.com/kennethreitz/kjvstudy.org"
-
-# Serve /static from the app itself so styling works under any ASGI server
-# (uvicorn, granian, etc.). In production Granian also mounts /static via its
-# own --static-path-route and short-circuits before reaching this app, so this
-# mount is a harmless fallback there but the source of truth for `uvicorn`.
-from fastapi.staticfiles import StaticFiles
-app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
-
-# Initialize commentary functions for the Bible route module
-init_bible_commentary(generate_commentary, generate_chapter_overview, generate_book_commentary, generate_word_study_sidenotes)
+# ---------------------------------------------------------------------------
+# Routes
+# ---------------------------------------------------------------------------
+register_all(api)
 
 
+# Custom 404. Use the router's default_endpoint (an ASGI callable that fires
+# only after every route AND mount has missed — so it does not shadow /static).
+# Branded error page for web paths, JSON for the API. Mirrors
+# server.custom_http_exception_handler.
+from .kjv import bible
+from starlette.requests import Request as _StarletteRequest
+from starlette.responses import HTMLResponse as _HTMLResponse, JSONResponse as _JSONResponse
 
-@app.exception_handler(StarletteHTTPException)
-async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
-    """Custom error handler that renders our error template"""
-    if exc.status_code == 404:
-        books = bible.get_books()
-        return templates.TemplateResponse(
-            request,
-            "error.html",
-            {
-                "status_code": exc.status_code,
-                "detail": exc.detail,
-                "books": books,
-            },
-            status_code=exc.status_code,
+
+async def _not_found(scope, receive, send):
+    path = scope.get("path", "")
+    if path.startswith("/api/"):
+        response = _JSONResponse({"detail": "Not Found"}, status_code=404)
+    else:
+        request = _StarletteRequest(scope, receive)
+        html = api.template(
+            "error.html", request=request,
+            status_code=404, detail="Not Found", books=bible.get_books(),
         )
-
-    # For other errors, use the default handler
-    return await http_exception_handler(request, exc)
-
+        response = _HTMLResponse(html, status_code=404)
+    await response(scope, receive, send)
 
 
-# Initialize the search_family_tree function in misc routes
-init_search_family_tree(search_family_tree)
+api.router.default_endpoint = _not_found
+
+
+if __name__ == "__main__":
+    api.run()

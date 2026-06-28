@@ -566,7 +566,7 @@ def register(api):
 
         resp.media = {"query": q, "results": results}
 
-    @api.route("/api/verse-of-the-day")
+    @api.route("/api/verse-of-the-day", response_model=DailyVerseResponse)
     async def verse_of_the_day_api(req, resp):
         """API endpoint for verse of the day."""
         resp.media = get_daily_verse()
@@ -1406,8 +1406,17 @@ def register(api):
     async def api_list_red_letter_verses(req, resp):
         """List all red letter verses with optional filtering and pagination."""
         book = req.params.get("book")
-        limit = int(req.params.get("limit", 50))
-        offset = int(req.params.get("offset", 0))
+        try:
+            limit = int(req.params.get("limit", 50))
+            offset = int(req.params.get("offset", 0))
+        except (TypeError, ValueError):
+            resp.status_code = 422
+            resp.media = {"detail": "limit and offset must be integers"}
+            return
+        if not (1 <= limit <= 500) or offset < 0:
+            resp.status_code = 422
+            resp.media = {"detail": "limit must be 1-500 and offset >= 0"}
+            return
 
         all_verses = list(iter_red_letter_verses(book))
 

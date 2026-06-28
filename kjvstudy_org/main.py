@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from granian import Granian
-from .server import app  # noqa: F401
+from .server import api  # noqa: F401
 
 
 def main():
@@ -10,7 +10,7 @@ def main():
     static_dir = str(Path(__file__).parent / "static")
 
     granian = Granian(
-        "kjvstudy_org.server:app",
+        "kjvstudy_org.server:api",
         address="0.0.0.0",
         port=8000,
         interface="asgi",

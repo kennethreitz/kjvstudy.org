@@ -15,44 +15,44 @@ class TestReadingPlanHelperFunctions:
 
     def test_parse_reading_reference_single_chapter(self):
         """Test parsing single chapter reference."""
-        from kjvstudy_org.routes.reading_plans import parse_reading_reference
+        from kjvstudy_org.responder_routes.reading_plans import parse_reading_reference
         result = parse_reading_reference("Genesis 1")
         assert result == [("Genesis", 1)]
 
     def test_parse_reading_reference_chapter_range(self):
         """Test parsing chapter range reference."""
-        from kjvstudy_org.routes.reading_plans import parse_reading_reference
+        from kjvstudy_org.responder_routes.reading_plans import parse_reading_reference
         result = parse_reading_reference("Genesis 1-3")
         assert result == [("Genesis", 1), ("Genesis", 2), ("Genesis", 3)]
 
     def test_parse_reading_reference_numbered_book(self):
         """Test parsing numbered book reference."""
-        from kjvstudy_org.routes.reading_plans import parse_reading_reference
+        from kjvstudy_org.responder_routes.reading_plans import parse_reading_reference
         result = parse_reading_reference("1 John 2-3")
         assert len(result) == 2
         assert result[0][0] == "1 John"
 
     def test_parse_reading_reference_invalid(self):
         """Test parsing invalid reference."""
-        from kjvstudy_org.routes.reading_plans import parse_reading_reference
+        from kjvstudy_org.responder_routes.reading_plans import parse_reading_reference
         result = parse_reading_reference("not a valid reference")
         assert result == []
 
     def test_parse_reading_reference_invalid_book(self):
         """Test parsing reference with invalid book name."""
-        from kjvstudy_org.routes.reading_plans import parse_reading_reference
+        from kjvstudy_org.responder_routes.reading_plans import parse_reading_reference
         result = parse_reading_reference("NotABook 1-3")
         assert result == []
 
     def test_parse_reading_reference_matthew(self):
         """Test parsing Matthew reference."""
-        from kjvstudy_org.routes.reading_plans import parse_reading_reference
+        from kjvstudy_org.responder_routes.reading_plans import parse_reading_reference
         result = parse_reading_reference("Matthew 5")
         assert result == [("Matthew", 5)]
 
     def test_get_reading_text_single(self):
         """Test getting reading text for single reference."""
-        from kjvstudy_org.routes.reading_plans import get_reading_text
+        from kjvstudy_org.responder_routes.reading_plans import get_reading_text
         result = get_reading_text(["Genesis 1"])
         assert len(result) >= 1
         assert result[0]["book"] == "Genesis"
@@ -61,19 +61,19 @@ class TestReadingPlanHelperFunctions:
 
     def test_get_reading_text_multiple(self):
         """Test getting reading text for multiple references."""
-        from kjvstudy_org.routes.reading_plans import get_reading_text
+        from kjvstudy_org.responder_routes.reading_plans import get_reading_text
         result = get_reading_text(["Genesis 1", "John 1"])
         assert len(result) >= 2
 
     def test_get_reading_text_range(self):
         """Test getting reading text for chapter range."""
-        from kjvstudy_org.routes.reading_plans import get_reading_text
+        from kjvstudy_org.responder_routes.reading_plans import get_reading_text
         result = get_reading_text(["Psalms 1-3"])
         assert len(result) == 3
 
     def test_get_reading_text_invalid(self):
         """Test getting reading text for invalid reference."""
-        from kjvstudy_org.routes.reading_plans import get_reading_text
+        from kjvstudy_org.responder_routes.reading_plans import get_reading_text
         result = get_reading_text(["InvalidBook 1"])
         assert result == []
 
@@ -482,4 +482,4 @@ class TestMainModule:
         """Test main module imports correctly."""
         from kjvstudy_org import main
         assert hasattr(main, 'main')
-        assert hasattr(main, 'app')
+        assert hasattr(main, 'api')

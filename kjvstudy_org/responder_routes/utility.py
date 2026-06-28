@@ -39,7 +39,7 @@ Crawl-delay: 2
 Sitemap: https://kjvstudy.org/sitemap.xml
 """
         resp.text = robots_content
-        resp.mimetype = "text/plain"
+        resp.mimetype = "text/plain; charset=utf-8"
 
     @api.route("/sitemap.xml")
     async def sitemap_index(req, resp):
