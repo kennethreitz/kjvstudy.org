@@ -11,6 +11,7 @@ from contextlib import contextmanager
 
 from ..kjv import bible
 from .books import OT_BOOKS
+from .helpers import highlight_terms
 
 # Database location - store in static directory alongside other data
 DB_PATH = Path(__file__).parent.parent / "static" / "search_index.db"
@@ -212,14 +213,8 @@ def search_verses(
 
 
 def highlight_matches(text: str, query: str) -> str:
-    """Highlight matching terms in text."""
-    highlighted = text
-    for term in query.lower().split():
-        # Case-insensitive replacement with highlighting
-        import re
-        pattern = re.compile(re.escape(term), re.IGNORECASE)
-        highlighted = pattern.sub(f'<mark>{term}</mark>', highlighted)
-    return highlighted
+    """Highlight matching query terms in text (case-insensitive)."""
+    return highlight_terms(text, query.split())
 
 
 def get_search_stats() -> Dict:

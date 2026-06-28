@@ -6,6 +6,7 @@ Organized by major theological themes and narrative connections.
 from functools import lru_cache
 from pathlib import Path
 
+from .kjv import bible, parse_reference_parts
 from .utils.data_access import load_merged_json_dir
 
 
@@ -31,8 +32,6 @@ def get_cross_references(book: str, chapter: int, verse: int) -> list:
     Returns:
         List of cross-reference dictionaries with 'ref', 'note', and 'text' keys
     """
-    from .kjv import bible
-
     key = f"{book}:{chapter}:{verse}"
     refs = CROSS_REFERENCES.get(key, [])
 
@@ -41,25 +40,14 @@ def get_cross_references(book: str, chapter: int, verse: int) -> list:
     for ref in refs:
         enhanced_ref = ref.copy()
 
-        # Parse the reference to get the verse text
-        ref_str = ref['ref']
-        parts = ref_str.rsplit(' ', 1)
-        if len(parts) == 2:
-            ref_book = parts[0]
-            chapter_verse = parts[1]
-
-            if ':' in chapter_verse:
-                ref_chapter, ref_verse = chapter_verse.split(':')
-                ref_chapter = int(ref_chapter)
-                ref_verse = int(ref_verse)
-
-                # Get the verse text using the bible object
-                try:
-                    verse_text = bible.get_verse_text(ref_book, ref_chapter, ref_verse)
-                    enhanced_ref['text'] = verse_text if verse_text else ""
-                except Exception:
-                    enhanced_ref['text'] = ""
-            else:
+        # Parse the reference and look up the verse text for tooltips
+        parsed = parse_reference_parts(ref['ref'])
+        if parsed:
+            ref_book, ref_chapter, ref_verse, _ = parsed
+            try:
+                verse_text = bible.get_verse_text(ref_book, ref_chapter, ref_verse)
+                enhanced_ref['text'] = verse_text or ""
+            except Exception:
                 enhanced_ref['text'] = ""
         else:
             enhanced_ref['text'] = ""
@@ -77,22 +65,11 @@ def parse_reference(ref: str) -> dict:
         ref: Reference string
 
     Returns:
-        Dictionary with 'book', 'chapter', 'verse' keys
+        Dictionary with 'book', 'chapter', 'verse' keys, or None if unparseable.
     """
-    parts = ref.rsplit(' ', 1)
-    if len(parts) != 2:
+    parsed = parse_reference_parts(ref)
+    if not parsed:
         return None
 
-    book = parts[0]
-    chapter_verse = parts[1].split(':')
-    if len(chapter_verse) != 2:
-        return None
-
-    try:
-        return {
-            'book': book,
-            'chapter': int(chapter_verse[0]),
-            'verse': int(chapter_verse[1])
-        }
-    except ValueError:
-        return None
+    book, chapter, verse, _ = parsed
+    return {'book': book, 'chapter': chapter, 'verse': verse}

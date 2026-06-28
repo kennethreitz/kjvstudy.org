@@ -14,6 +14,7 @@ from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse
 from ..og_image import get_cached_or_generate
 from ..stories import get_story_by_slug
+from ..strongs import normalize_strongs
 from ._templates import templates
 
 router = APIRouter()
@@ -33,17 +34,13 @@ def init_search_family_tree(fn):
 # =============================================================================
 
 def parse_strongs_number(query: str) -> str | None:
-    """Parse a Strong's number query and return the redirect URL, or None."""
-    if not query:
-        return None
-    query = query.strip()
-    # Match H1, H1234, G1, G5678, etc. (case insensitive)
-    match = re.match(r'^([HhGg])(\d+)$', query)
-    if match:
-        prefix = match.group(1).upper()
-        number = match.group(2)
-        return f'/strongs/{prefix}{number}'
-    return None
+    """Parse a Strong's number query and return the redirect URL, or None.
+
+    Normalizes leading zeros (H0001 -> /strongs/H1) so the redirect target
+    matches the canonical Strong's URL.
+    """
+    normalized = normalize_strongs(query)
+    return f'/strongs/{normalized}' if normalized else None
 
 
 @router.get("/search", response_class=HTMLResponse)

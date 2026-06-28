@@ -8,6 +8,7 @@ from pathlib import Path
 
 from typing import Dict, Any
 
+from .kjv import bible, parse_reference_parts
 from .utils.data_access import load_merged_json_dir
 
 @lru_cache(maxsize=1)
@@ -18,22 +19,17 @@ def _load_topics():
 
 
 def _get_verse_text_for_reference(reference: str) -> str:
-    """Look up a single verse text from a reference like 'John 3:16'."""
-    if not reference or not isinstance(reference, str):
+    """Look up a single verse text from a reference like 'John 3:16'.
+
+    Uses the first verse of a range (e.g. 3:16-17 -> 3:16).
+    """
+    parsed = parse_reference_parts(reference)
+    if not parsed:
         return ""
 
-    parts = reference.rsplit(" ", 1)
-    if len(parts) != 2 or ":" not in parts[1]:
-        return ""
-
-    book = parts[0]
-    chapter_part, verse_part = parts[1].split(":", 1)
-    # Use the first verse in a range (e.g., 3:16-17 -> 3:16)
-    verse_segment = verse_part.split("-")[0]
-
+    book, chapter, verse, _ = parsed
     try:
-        from .kjv import bible
-        return bible.get_verse_text(book, int(chapter_part), int(verse_segment)) or ""
+        return bible.get_verse_text(book, chapter, verse) or ""
     except Exception:
         return ""
 

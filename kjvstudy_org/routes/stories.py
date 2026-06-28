@@ -10,17 +10,14 @@ from ..stories import (
     get_story_by_slug,
     get_story_count,
     get_category_count,
+    get_adjacent_stories,
 )
 from ..utils.pdf import pdf_response, require_pdf_available
 
 router = APIRouter(tags=["Bible Stories"])
 
 from ._templates import templates
-
-
-def get_books():
-    """Get list of Bible books."""
-    return bible.get_books()
+from ..utils.helpers import get_books
 
 
 @router.get("/stories", response_class=HTMLResponse)
@@ -121,17 +118,7 @@ async def story_detail(request: Request, slug: str):
         raise HTTPException(status_code=404, detail="Story not found")
 
     # Find previous and next stories for navigation
-    from ..stories import get_all_stories_flat
-    all_stories = get_all_stories_flat()
-    current_index = None
-
-    for i, s in enumerate(all_stories):
-        if s.get("slug") == slug:
-            current_index = i
-            break
-
-    prev_story = all_stories[current_index - 1] if current_index and current_index > 0 else None
-    next_story = all_stories[current_index + 1] if current_index is not None and current_index < len(all_stories) - 1 else None
+    prev_story, next_story = get_adjacent_stories(slug)
 
     return templates.TemplateResponse(
         request,
@@ -165,17 +152,7 @@ async def story_kids(request: Request, slug: str):
         raise HTTPException(status_code=404, detail="Kids version not available for this story")
 
     # Find previous and next stories for navigation
-    from ..stories import get_all_stories_flat
-    all_stories = get_all_stories_flat()
-    current_index = None
-
-    for i, s in enumerate(all_stories):
-        if s.get("slug") == slug:
-            current_index = i
-            break
-
-    prev_story = all_stories[current_index - 1] if current_index and current_index > 0 else None
-    next_story = all_stories[current_index + 1] if current_index is not None and current_index < len(all_stories) - 1 else None
+    prev_story, next_story = get_adjacent_stories(slug)
 
     return templates.TemplateResponse(
         request,

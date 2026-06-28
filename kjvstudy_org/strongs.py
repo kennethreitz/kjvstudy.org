@@ -115,6 +115,21 @@ def get_strongs_kjv_usage(strongs_number: str) -> Optional[str]:
     return None
 
 
+def normalize_strongs(value: str) -> Optional[str]:
+    """Normalize a Strong's number: uppercase and strip leading zeros.
+
+    "H0001"/"h04566"/"G007" -> "H1"/"H4566"/"G7". Returns None when the value is
+    not a valid Strong's number (an "H"/"G" prefix followed by digits). This is
+    the single canonical normalizer shared across display, search, and links.
+    """
+    if not value:
+        return None
+    value = value.strip().upper()
+    if len(value) > 1 and value[0] in ("H", "G") and value[1:].isdigit():
+        return value[0] + str(int(value[1:]))
+    return None
+
+
 def format_strongs_entry(strongs_number: str) -> Optional[Dict[str, Any]]:
     """
     Format a Strong's entry for display/API response.
@@ -122,9 +137,7 @@ def format_strongs_entry(strongs_number: str) -> Optional[Dict[str, Any]]:
     Returns a normalized dictionary with consistent keys.
     """
     # Normalize: strip leading zeros from number portion (H04566 -> H4566)
-    strongs_number = strongs_number.upper().strip()
-    if len(strongs_number) > 1 and strongs_number[0] in ('H', 'G'):
-        strongs_number = strongs_number[0] + str(int(strongs_number[1:]))
+    strongs_number = normalize_strongs(strongs_number) or strongs_number.upper().strip()
 
     entry = get_strongs_entry(strongs_number)
     if not entry:

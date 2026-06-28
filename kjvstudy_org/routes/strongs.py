@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from ..kjv import bible
-from ..strongs import format_strongs_entry, search_strongs, get_all_strongs
+from ..strongs import format_strongs_entry, search_strongs, get_all_strongs, normalize_strongs
 from ..interlinear_loader import find_verses_by_strongs
 from ._templates import templates
 
@@ -29,14 +29,9 @@ async def strongs_index(request: Request, q: str = None):
 
     results = []
     if q:
-        # Check if query looks like a Strong's number (H123, G456, etc.)
-        q_stripped = q.strip().upper()
-        if re.match(r'^[HG]\d+$', q_stripped):
-            # Normalize leading zeros (H0001 -> H1)
-            prefix = q_stripped[0]
-            num = str(int(q_stripped[1:]))
-            normalized = f"{prefix}{num}"
-            # Check if entry exists before redirecting
+        # Redirect Strong's-number queries (e.g. "H0001" -> /strongs/H1) when found
+        normalized = normalize_strongs(q)
+        if normalized:
             entry = format_strongs_entry(normalized)
             if entry:
                 return RedirectResponse(url=f"/strongs/{normalized}", status_code=302)

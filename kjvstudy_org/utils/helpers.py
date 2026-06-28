@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Optional, Dict, List
 from functools import lru_cache
 
-from ..kjv import bible, VerseReference
+from ..kjv import bible, VerseReference, parse_reference_parts
 from ..topics import get_all_topics
 from ..red_letter import get_christ_words
 from ..stories import get_all_stories_flat
@@ -64,6 +64,24 @@ def create_slug(text: str) -> str:
     slug = re.sub(r'[^\w\s-]', '', text.lower())
     slug = re.sub(r'[-\s]+', '-', slug)
     return slug.strip('-')
+
+
+def get_books():
+    """Return the list of Bible book names (shared route helper)."""
+    return bible.get_books()
+
+
+def highlight_terms(text: str, terms) -> str:
+    """Wrap each search term in <mark> tags (case-insensitive match, case preserved).
+
+    The single shared highlighter, used by both the web search page and the FTS
+    index results.
+    """
+    highlighted = text
+    for term in terms:
+        pattern = re.compile(re.escape(term), re.IGNORECASE)
+        highlighted = pattern.sub(f'<mark>{term}</mark>', highlighted)
+    return highlighted
 
 
 def get_verse_text(book: str, chapter: int, verse: int) -> str:
@@ -508,15 +526,11 @@ def verse_reference_to_url(reference: str) -> Optional[str]:
     Returns None if the reference cannot be parsed. Handles multi-word and
     numbered book names (e.g. "Song of Solomon", "1 Corinthians").
     """
-    match = re.match(r'^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$', reference.strip())
-    if not match:
+    parts = parse_reference_parts(reference)
+    if not parts:
         return None
 
-    book = match.group(1).strip()
-    chapter = match.group(2)
-    verse_start = match.group(3)
-    verse_end = match.group(4)
-
+    book, chapter, verse, verse_end = parts
     if verse_end:
-        return f"/book/{book}/chapter/{chapter}#verse-{verse_start}-{verse_end}"
-    return f"/book/{book}/chapter/{chapter}#verse-{verse_start}"
+        return f"/book/{book}/chapter/{chapter}#verse-{verse}-{verse_end}"
+    return f"/book/{book}/chapter/{chapter}#verse-{verse}"

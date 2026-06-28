@@ -1,9 +1,9 @@
 """Biblical resource data - maps, angels, prophets, names of God, etc."""
 
-import re
 from pathlib import Path
 
 from ..utils.data_access import load_merged_json_dir
+from ..utils.helpers import create_slug
 
 
 def _load_resources() -> dict:
@@ -17,13 +17,6 @@ if not _data:
     raise FileNotFoundError("Resource data not found. Ensure data/resources/*.json exists.")
 
 
-def _create_slug(text: str) -> str:
-    """Convert text to URL-friendly slug."""
-    slug = re.sub(r'[^\w\s-]', '', text.lower())
-    slug = re.sub(r'[-\s]+', '-', slug)
-    return slug.strip('-')
-
-
 # Build slug index for O(1) lookups
 _RESOURCE_SLUG_INDEX = {}
 
@@ -34,7 +27,7 @@ def _build_slug_index(data: dict):
     for category_name, category in data.items():
         if isinstance(category, dict):
             for item_name, item_data in category.items():
-                slug = _create_slug(item_name)
+                slug = create_slug(item_name)
                 # Store with data dict key for quick lookup
                 index[slug] = (item_data, item_name, category_name, data)
     return index

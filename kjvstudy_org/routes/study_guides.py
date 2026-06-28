@@ -8,7 +8,7 @@ from functools import lru_cache
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from ..kjv import bible
-from ..utils.helpers import verse_reference_to_url
+from ..utils.helpers import verse_reference_to_url, get_books
 from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
 
 router = APIRouter(tags=["Study Guides"])
@@ -43,11 +43,6 @@ def _load_study_guides():
             catalog.setdefault(category, []).append(catalog_entry)
 
     return {"catalog": catalog, "content": content}
-
-
-def get_books():
-    """Get list of Bible books."""
-    return bible.get_books()
 
 
 def _get_study_guides_catalog():

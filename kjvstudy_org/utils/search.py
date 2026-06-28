@@ -2,7 +2,7 @@
 from typing import List, Dict, Optional
 
 from ..kjv import bible
-from .helpers import is_verse_reference, parse_verse_reference
+from .helpers import is_verse_reference, parse_verse_reference, highlight_terms
 
 # Try to use FTS5 search if available
 _use_fts = False
@@ -83,14 +83,8 @@ def calculate_relevance_score(text: str, search_terms: List[str]) -> float:
 
 
 def highlight_search_terms(text: str, search_terms: List[str]) -> str:
-    """Highlight search terms in text."""
-    import re
-    highlighted = text
-    for term in search_terms:
-        # Case-insensitive replacement
-        pattern = re.compile(re.escape(term), re.IGNORECASE)
-        highlighted = pattern.sub(f'<mark>{term}</mark>', highlighted)
-    return highlighted
+    """Highlight a list of search terms in text."""
+    return highlight_terms(text, search_terms)
 
 
 def ensure_search_index():

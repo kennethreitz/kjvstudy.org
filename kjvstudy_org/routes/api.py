@@ -38,7 +38,6 @@ from ..stories import (
 )
 from ..data import (
     _data as RESOURCES_DATA,
-    _create_slug,
     # Import all specific resource dicts
     BIBLICAL_LOCATIONS, ANGELS_DATA, PROPHETS_DATA, NAMES_DATA,
     PARABLES_DATA, COVENANTS_DATA, APOSTLES_DATA, WOMEN_DATA,
@@ -1422,7 +1421,7 @@ async def api_get_resource_category(
             if isinstance(value, dict):
                 if 'description' in value or 'verses' in value:
                     # This is an item
-                    slug = _create_slug(key)
+                    slug = create_slug(key)
                     verse_count = len(value.get('verses', []))
                     items.append({
                         "name": key,
@@ -1494,7 +1493,7 @@ async def api_get_resource_item(
             if isinstance(value, dict):
                 # Check if this is an item (has description or verses)
                 if 'description' in value or 'verses' in value:
-                    if _create_slug(key) == target_slug:
+                    if create_slug(key) == target_slug:
                         return value, key
                 else:
                     # It's a subcategory, recurse
@@ -1567,7 +1566,7 @@ async def api_get_resource_item_pdf(
         for key, value in data.items():
             if isinstance(value, dict):
                 if 'description' in value or 'verses' in value:
-                    if _create_slug(key) == target_slug:
+                    if create_slug(key) == target_slug:
                         return value, key
                 else:
                     result = find_by_slug(value, target_slug)

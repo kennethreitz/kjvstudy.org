@@ -3,6 +3,7 @@ from pathlib import Path
 from functools import lru_cache
 
 import json
+import re
 
 
 class Verse(BaseModel):
@@ -54,6 +55,29 @@ class VerseReference(BaseModel):
                 chapter, verse = chapter_verse.split(":")
 
         return cls(book=book, chapter=int(chapter), verse=int(verse))
+
+
+_REFERENCE_RE = re.compile(r'^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$')
+
+
+def parse_reference_parts(reference: str):
+    """Parse "Book Chapter:Verse[-VerseEnd]" into (book, chapter, verse, verse_end).
+
+    Returns a tuple ``(book: str, chapter: int, verse: int, verse_end: int|None)``
+    or ``None`` if the reference cannot be parsed. Handles multi-word and numbered
+    book names (e.g. "Song of Solomon", "1 Corinthians") and optional verse ranges.
+    This is the single canonical reference parser shared across the codebase.
+    """
+    if not reference or not isinstance(reference, str):
+        return None
+    match = _REFERENCE_RE.match(reference.strip())
+    if not match:
+        return None
+    book = match.group(1).strip()
+    chapter = int(match.group(2))
+    verse = int(match.group(3))
+    verse_end = int(match.group(4)) if match.group(4) else None
+    return book, chapter, verse, verse_end
 
 
 class Bible:

@@ -19,9 +19,33 @@ from kjvstudy_org.strongs import (
     get_strongs_transliteration,
     get_strongs_kjv_usage,
     format_strongs_entry,
+    normalize_strongs,
     search_strongs,
     get_all_strongs,
 )
+
+
+class TestNormalizeStrongs:
+    """Tests for the shared normalize_strongs helper."""
+
+    def test_strips_leading_zeros(self):
+        assert normalize_strongs("H0001") == "H1"
+        assert normalize_strongs("H04566") == "H4566"
+        assert normalize_strongs("G007") == "G7"
+
+    def test_uppercases_prefix(self):
+        assert normalize_strongs("h1") == "H1"
+        assert normalize_strongs("g26") == "G26"
+
+    def test_strips_whitespace(self):
+        assert normalize_strongs("  H1  ") == "H1"
+
+    def test_invalid_returns_none(self):
+        assert normalize_strongs("") is None
+        assert normalize_strongs(None) is None
+        assert normalize_strongs("X1") is None
+        assert normalize_strongs("H") is None
+        assert normalize_strongs("Habc") is None
 
 
 class TestStrongsDataLoading:

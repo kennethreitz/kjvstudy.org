@@ -25,13 +25,7 @@ except ImportError:
 router = APIRouter(tags=["Family Tree"])
 
 from ._templates import templates
-
-
-
-def get_books():
-    """Get list of Bible books."""
-    from ..kjv import bible
-    return bible.get_books()
+from ..utils.helpers import get_books
 
 
 

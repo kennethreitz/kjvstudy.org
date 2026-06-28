@@ -24,6 +24,7 @@ import mistune
 from functools import lru_cache
 
 from .utils.helpers import create_slug
+from .strongs import normalize_strongs
 
 
 # Matches "Book Chapter:Verse" / "Book Chapter:Verse-Verse" (e.g. "1 John 4:8",
@@ -346,9 +347,8 @@ def linkify_strongs(text):
         return text
     pattern = r'\b([GH])(\d+)\b'
     def replace(match):
-        prefix = match.group(1)
-        num = str(int(match.group(2)))  # Strip leading zeros
-        return f'<a href="/strongs/{prefix}{num}" class="strongs-ref">{prefix}{num}</a>'
+        normalized = normalize_strongs(match.group(0))  # e.g. "H04566" -> "H4566"
+        return f'<a href="/strongs/{normalized}" class="strongs-ref">{normalized}</a>'
     return re.sub(pattern, replace, text)
 
 

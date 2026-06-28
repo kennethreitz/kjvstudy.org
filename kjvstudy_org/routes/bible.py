@@ -37,6 +37,14 @@ def get_section_headings(book: str, chapter: int) -> dict:
     # Convert string keys to int for easier template use
     return {int(k): v for k, v in chapter_headings.items()}
 
+
+def build_interlinear_rows(book: str, chapter: int, verses: list) -> list:
+    """Pair each verse with its interlinear word data (empty list when absent)."""
+    return [
+        {"verse": verse, "interlinear_words": get_interlinear_data(book, chapter, verse.verse) or []}
+        for verse in verses
+    ]
+
 router = APIRouter()
 
 from ._templates import templates
@@ -508,14 +516,7 @@ async def chapter_interlinear_pdf(book: str, chapter: int):
         else:
             raise HTTPException(status_code=404, detail=f"Chapter {chapter} of {book} was not found.")
 
-    # Get interlinear data for each verse
-    verses_with_interlinear = []
-    for verse in verses:
-        interlinear_words = get_interlinear_data(book, chapter, verse.verse)
-        verses_with_interlinear.append({
-            'verse': verse,
-            'interlinear_words': interlinear_words or []
-        })
+    verses_with_interlinear = build_interlinear_rows(book, chapter, verses)
 
     # Determine if OT or NT for language badge
     is_old_testament = book in OT_BOOKS
@@ -554,14 +555,7 @@ async def read_chapter_interlinear(request: Request, book: str, chapter: int):
                 detail=f"Chapter {chapter} of {book} was not found. This book has {len(chapters)} chapters."
             )
 
-    # Get interlinear data for each verse
-    verses_with_interlinear = []
-    for verse in verses:
-        interlinear_words = get_interlinear_data(book, chapter, verse.verse)
-        verses_with_interlinear.append({
-            'verse': verse,
-            'interlinear_words': interlinear_words or []
-        })
+    verses_with_interlinear = build_interlinear_rows(book, chapter, verses)
 
     # Build breadcrumbs
     breadcrumbs = [

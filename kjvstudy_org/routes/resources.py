@@ -50,18 +50,12 @@ from ..data import (
     # Functions
     find_resource_by_slug,
 )
-from ..utils.helpers import create_slug
+from ..utils.helpers import create_slug, get_books
 from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
 
 router = APIRouter(tags=["Biblical Resources"])
 
 from ._templates import templates
-
-
-def get_books():
-    """Get list of Bible books."""
-    from ..kjv import bible
-    return bible.get_books()
 
 
 def find_item_by_slug(data: dict, slug: str):

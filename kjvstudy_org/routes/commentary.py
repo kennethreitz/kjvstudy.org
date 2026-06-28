@@ -15,6 +15,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
 from ..utils.commentary_loader import load_commentary, load_commentary_flat
 from ..utils.books import OT_BOOKS, NT_BOOKS, is_old_testament
+from ..utils.helpers import get_books
 from ..interlinear_loader import get_interlinear_data
 
 router = APIRouter(tags=["Commentary"])
@@ -214,12 +215,6 @@ def _format_numbered_lists(text: str) -> str:
     # Fallback: bare "1)" patterns preceded by whitespace
     fallback_pattern = r'(?<=\s)(\d+)\)\s*'
     return _convert(fallback_pattern, text)
-
-
-def get_books():
-    """Get list of Bible books."""
-    from ..kjv import bible
-    return bible.get_books()
 
 
 def get_verse_text(book, chapter, verse):

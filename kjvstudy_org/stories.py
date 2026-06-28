@@ -72,6 +72,21 @@ def get_story_by_slug(slug: str) -> Optional[dict]:
     return None
 
 
+def get_adjacent_stories(slug: str) -> tuple[Optional[dict], Optional[dict]]:
+    """Return (prev_story, next_story) around the story with the given slug.
+
+    Either side is None at the ends of the list; returns (None, None) when the
+    slug is not found.
+    """
+    stories = get_all_stories_flat()
+    for i, story in enumerate(stories):
+        if story.get("slug") == slug:
+            prev_story = stories[i - 1] if i > 0 else None
+            next_story = stories[i + 1] if i < len(stories) - 1 else None
+            return prev_story, next_story
+    return None, None
+
+
 def get_stories_by_category(category_slug: str) -> list[dict]:
     """Get all stories in a specific category."""
     categories = load_all_stories()
