@@ -439,35 +439,6 @@ def generate_commentary(book, chapter, verse):
     # Generate sophisticated analysis based on biblical themes and context
     theme = get_enhanced_theological_theme(verse_text, book)
     key_concept = extract_theological_concept(verse_text, book)
-    literary_context = analyze_literary_context(book, chapter)
-
-    # Create rich, scholarly analysis
-    analysis_templates = [
-        f"This verse develops the {theme} theme central to {book}. The concept of <strong>{key_concept}</strong> reflects {get_theological_significance(book, theme)}. {get_literary_analysis(verse_text, book, literary_context)} The original language emphasizes {get_linguistic_insight(verse_text, book)}, providing deeper understanding of the author's theological intention.",
-
-        f"Within the broader context of {book}, this passage highlights {theme} through {get_rhetorical_device(verse_text)}. The theological weight of <strong>{key_concept}</strong> {get_doctrinal_significance(key_concept, book)}. This verse contributes to the book's overall argument by {get_structural_purpose(book, chapter, verse_number)}.",
-
-        f"The {theme} theme here intersects with {get_biblical_theology_connection(theme, book)}. Biblical theology recognizes this as part of {get_canonical_development(theme)}. The phrase emphasizing <strong>{key_concept}</strong> {get_systematic_theology_insight(key_concept)} and connects to the broader scriptural witness about {get_cross_biblical_theme(theme)}."
-    ]
-
-    historical_templates = [
-        f"The historical context of {get_detailed_time_period(book)} provides crucial background for understanding this verse. {get_comprehensive_historical_context(book)} The {get_cultural_background(book, verse_text)} would have shaped how the original audience understood {key_concept}. Archaeological and historical evidence reveals {get_archaeological_insight(book, theme)}.",
-
-        f"This passage must be understood within {get_socio_political_context(book)}. The author writes to address {get_historical_audience_situation(book, chapter)}, making the emphasis on {theme} particularly relevant. Historical documents from this period show {get_historical_parallel(book, key_concept)}, illuminating the verse's original impact.",
-
-        f"The literary and historical milieu of {get_literary_historical_context(book)} shapes this text's meaning. {get_historical_theological_development(book, theme)} Understanding {get_ancient_worldview_context(book)} helps modern readers appreciate why the author emphasizes {key_concept} in this particular way."
-    ]
-
-    question_templates = [
-        f"How does the {theme} theme in this verse connect to the overarching narrative of Scripture, and what does this reveal about God's character and purposes?",
-        f"In what ways does understanding {key_concept} in its original context challenge or deepen contemporary Christian thinking about {theme}?",
-        f"How might the original audience's understanding of {key_concept} differ from modern interpretations, and what bridges can be built between ancient meaning and contemporary application?",
-        f"What systematic theological implications arise from this verse's treatment of {theme}, and how does it contribute to a biblical theology of {get_related_doctrine(theme)}?",
-        f"How does this verse's literary context within {book} chapter {chapter} illuminate its theological significance, and what does this teach us about biblical interpretation?",
-        f"What practical applications emerge from understanding {theme} as presented in this verse, particularly in light of {get_contemporary_relevance(theme, key_concept)}?",
-        f"How does this passage contribute to our understanding of {get_biblical_theological_trajectory(theme)}, and what implications does this have for Christian discipleship?",
-        f"In what ways does this verse's emphasis on {key_concept} address {get_contemporary_theological_challenge(theme)}, and how should the church respond?"
-    ]
 
     # Generate cross-references with variety per verse
     cross_refs = get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, key_concept)
@@ -537,35 +508,6 @@ def extract_theological_concept(verse_text, book):
     else:
         return "divine revelation"
 
-def analyze_literary_context(book, chapter):
-    """Provide literary context for the book and chapter"""
-    contexts = {
-        "Genesis": f"foundational narrative establishing God's relationship with creation and humanity",
-        "Psalms": f"worship literature expressing the full range of human experience before God",
-        "Romans": f"systematic theological exposition of the gospel",
-        "John": f"theological biography emphasizing Jesus' divine identity",
-        "Revelation": f"apocalyptic literature revealing God's ultimate victory",
-        "1 Corinthians": f"pastoral letter addressing practical Christian living issues",
-        "Matthew": f"gospel presenting Jesus as the fulfillment of Jewish Messianic hope"
-    }
-    return contexts.get(book, f"biblical literature contributing to the canon's theological witness")
-
-def get_theological_significance(book, theme):
-    """Get theological significance of theme within book context"""
-    significance_map = {
-        ("Genesis", "creation and providence"): "God's absolute sovereignty over all existence",
-        ("Psalms", "worship and praise"): "the proper human response to God's character and works",
-        ("Romans", "salvation"): "justification by faith as the foundation of Christian hope",
-        ("John", "divine love"): "the essential nature of God revealed through Christ",
-        ("Revelation", "kingdom of God"): "the ultimate establishment of divine rule over creation"
-    }
-    key = (book, theme)
-    return significance_map.get(key, f"the development of {theme} within biblical theology")
-
-def get_doctrinal_significance(concept, book):
-    """Provide doctrinal significance of theological concept"""
-    return f"connects to fundamental Christian doctrine about {concept}, contributing to our understanding of God's nature and relationship with humanity"
-
 def get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme, concept):
     """Generate enhanced cross-references based on theme and concept with variety"""
     # Expanded pool of cross-references for each theme
@@ -616,237 +558,6 @@ def get_enhanced_cross_references(book, chapter, verse_number, verse_text, theme
 
     return selected
 
-
-def get_literary_analysis(verse_text, book, literary_context):
-    """Provide literary analysis of the verse within its context"""
-    if "lord" in verse_text or "god" in verse_text:
-        return f"The divine name or title here functions within {literary_context} to establish theological authority and covenantal relationship."
-    elif any(word in verse_text for word in ["love", "mercy", "grace"]):
-        return f"The emotional and relational language employed here is characteristic of {literary_context}, emphasizing the personal nature of divine-human relationship."
-    else:
-        return f"The literary structure and word choice here contribute to {literary_context}, advancing the author's theological argument."
-
-def get_linguistic_insight(verse_text, book):
-    """Provide insight into original language significance"""
-    insights = {
-        "lord": "the covenant name Yahweh, emphasizing God's faithfulness to His promises",
-        "love": "agape in Greek contexts or hesed in Hebrew, indicating covenantal loyalty",
-        "faith": "pistis in Greek, encompassing both belief and faithfulness",
-        "salvation": "soteria in Greek or yeshua in Hebrew, indicating deliverance and wholeness",
-        "grace": "charis in Greek or hen in Hebrew, emphasizing unmerited divine favor"
-    }
-
-    for word, insight in insights.items():
-        if word in verse_text:
-            return insight
-    return "careful word choice that would have carried specific theological weight for the original audience"
-
-def get_rhetorical_device(verse_text):
-    """Identify rhetorical or literary devices in the verse"""
-    if "like" in verse_text or "as" in verse_text:
-        return "simile or metaphorical language"
-    elif any(word in verse_text for word in ["all", "every", "none", "nothing"]):
-        return "universal language and absolute statements"
-    elif "?" in verse_text:
-        return "rhetorical questioning that engages the reader"
-    else:
-        return "declarative statements that establish theological truth"
-
-def get_structural_purpose(book, chapter, verse_number):
-    """Explain how the verse functions structurally within the book"""
-    if verse_number == 1:
-        return f"introducing key themes that will be developed throughout {book}"
-    elif chapter == 1:
-        return f"establishing foundational concepts crucial to {book}'s theological argument"
-    else:
-        return f"building upon previous themes while advancing the overall message of {book}"
-
-def get_biblical_theology_connection(theme, book):
-    """Connect the theme to broader biblical theology"""
-    connections = {
-        "salvation": "the metanarrative of redemption running from Genesis to Revelation",
-        "divine love": "God's covenantal faithfulness demonstrated throughout salvation history",
-        "kingdom of God": "the progressive revelation of God's rule from creation to consummation",
-        "covenant": "God's relationship with His people from Abraham through the new covenant",
-        "faith and obedience": "the proper human response to divine revelation across Scripture"
-    }
-    return connections.get(theme, "the broader canonical witness to God's character and purposes")
-
-def get_canonical_development(theme):
-    """Describe how the theme develops across the biblical canon"""
-    developments = {
-        "salvation": "a unified storyline from the promise in Genesis 3:15 to its fulfillment in Christ",
-        "divine love": "progressive revelation from covenant love in the Old Testament to agape love in the New",
-        "kingdom of God": "development from creation mandate through Davidic kingdom to eschatological fulfillment",
-        "covenant": "evolution from creation covenant through Abrahamic, Mosaic, Davidic, to new covenant"
-    }
-    return developments.get(theme, "progressive revelation that finds its culmination in Christ")
-
-def get_systematic_theology_insight(concept):
-    """Provide systematic theological perspective on the concept"""
-    insights = {
-        "grace": "relates to the doctrine of soteriology and God's unmerited favor in salvation",
-        "faith": "central to epistemology and the means by which humans receive divine revelation",
-        "love": "fundamental to theology proper, revealing God's essential nature and character",
-        "salvation": "encompasses justification, sanctification, and glorification in the ordo salutis",
-        "kingdom": "relates to eschatology and the ultimate purpose of God's redemptive plan"
-    }
-    return insights.get(concept, "contributes to our systematic understanding of Christian doctrine")
-
-def get_cross_biblical_theme(theme):
-    """Identify how the theme appears across Scripture"""
-    cross_biblical = {
-        "salvation": "God's saving work from the Exodus to the cross",
-        "divine love": "hesed in the Old Testament and agape in the New Testament",
-        "kingdom of God": "God's reign from creation through the millennial kingdom",
-        "covenant": "God's relational commitment from Noah to the new covenant"
-    }
-    return cross_biblical.get(theme, "God's consistent character and purposes")
-
-def get_detailed_time_period(book):
-    """Provide detailed historical time period for the book"""
-    periods = {
-        "Genesis": "the patriarchal period (c. 2000-1500 BCE) and primeval history",
-        "Exodus": "the period of Egyptian bondage and wilderness wandering (c. 1440-1400 BCE)",
-        "Psalms": "the monarchic period, particularly David's reign (c. 1000-970 BCE)",
-        "Romans": "the early imperial period under Nero (c. 57 CE)",
-        "John": "the late first century during increasing tension between synagogue and church",
-        "Revelation": "the Domitian persecution period (c. 95 CE)"
-    }
-    return periods.get(book, "the biblical period relevant to this book's composition")
-
-def get_comprehensive_historical_context(book):
-    """Provide comprehensive historical background"""
-    contexts = {
-        "Genesis": "The ancient Near Eastern world with its creation myths, flood narratives, and patriarchal social structures provided the cultural backdrop against which God's revelation stands in stark contrast.",
-        "Romans": "The Roman Empire at its height, with sophisticated legal systems, diverse religious practices, and increasing Christian presence in major urban centers shaped Paul's theological arguments.",
-        "Psalms": "The Israelite monarchy with its temple worship, court life, and constant military threats created the liturgical and emotional context for these prayers and praises."
-    }
-    return contexts.get(book, "The historical and cultural milieu of the biblical world informed the author's theological expression and the audience's understanding.")
-
-def get_archaeological_insight(book, theme):
-    """Provide relevant archaeological insight"""
-    insights = {
-        ("Genesis", "creation and providence"): "Ancient Near Eastern creation texts like Enuma Elish provide comparative context for understanding Genesis's unique theological perspective",
-        ("Romans", "salvation"): "Inscriptions from Corinth and Rome reveal the social dynamics and religious pluralism that shaped early Christian communities",
-        ("Psalms", "worship and praise"): "Temple archaeology and ancient musical instruments illuminate the liturgical context of Israelite worship"
-    }
-    key = (book, theme)
-    return insights.get(key, "Archaeological discoveries continue to illuminate the historical context of biblical texts")
-
-def get_related_doctrine(theme):
-    """Identify related systematic theology doctrines"""
-    doctrines = {
-        "salvation": "soteriology and the doctrine of salvation",
-        "divine love": "theology proper and the doctrine of God",
-        "kingdom of God": "eschatology and the doctrine of last things",
-        "covenant": "theology of covenant and God's relational commitment"
-    }
-    return doctrines.get(theme, "fundamental Christian doctrine")
-
-def get_contemporary_relevance(theme, concept):
-    """Identify contemporary relevance and application"""
-    relevance = {
-        "salvation": "addressing questions of religious pluralism and the exclusivity of Christ",
-        "divine love": "responding to cultural confusion about the nature of love and relationships",
-        "kingdom of God": "providing hope in times of political and social upheaval",
-        "faith and obedience": "challenging cultural relativism with objective truth claims"
-    }
-    return relevance.get(theme, "contemporary challenges facing the church and individual believers")
-
-def get_cultural_background(book, verse_text):
-    """Provide cultural background relevant to the verse"""
-    backgrounds = {
-        "Genesis": "ancient Near Eastern cosmology and patriarchal society",
-        "Matthew": "first-century Palestinian Jewish culture under Roman occupation",
-        "Romans": "Greco-Roman urban culture with diverse religious and philosophical influences",
-        "Psalms": "ancient Israelite worship practices and court culture",
-        "John": "late first-century Jewish-Christian tensions and Hellenistic thought"
-    }
-    return backgrounds.get(book, "the cultural context of the biblical world")
-
-def get_socio_political_context(book):
-    """Provide socio-political context for the book"""
-    contexts = {
-        "Genesis": "the tribal and clan-based society of the ancient Near East",
-        "Matthew": "Roman imperial rule over Jewish Palestine with messianic expectations",
-        "Romans": "the cosmopolitan capital of the Roman Empire with diverse populations",
-        "Psalms": "the Israelite monarchy with its court politics and military conflicts",
-        "Revelation": "imperial persecution under Domitian's demand for emperor worship"
-    }
-    return contexts.get(book, "the political and social structures of the biblical period")
-
-def get_historical_audience_situation(book, chapter):
-    """Describe the specific situation of the original audience"""
-    situations = {
-        "Genesis": "the foundational narrative for Israel's identity and relationship with God",
-        "Matthew": "Jewish Christians seeking to understand Jesus as Messiah",
-        "Romans": "a mixed congregation of Jewish and Gentile believers in the imperial capital",
-        "Psalms": "worshipers in the temple and those seeking God in times of distress",
-        "Revelation": "persecuted Christians in Asia Minor facing pressure to compromise"
-    }
-    return situations.get(book, "believers seeking to understand God's will and purposes")
-
-def get_historical_parallel(book, concept):
-    """Provide historical parallels that illuminate the concept"""
-    parallels = {
-        "salvation": "rescue narratives from ancient literature that would resonate with the audience",
-        "kingdom": "imperial and royal imagery familiar to subjects of ancient monarchies",
-        "covenant": "treaty language and adoption practices from the ancient world",
-        "love": "patron-client relationships and family loyalty concepts"
-    }
-    return parallels.get(concept, "cultural practices and social structures that would have been familiar to the original readers")
-
-def get_literary_historical_context(book):
-    """Provide literary and historical context combined"""
-    contexts = {
-        "Genesis": "ancient Near Eastern narrative literature addressing origins and identity",
-        "Matthew": "Jewish biographical literature presenting Jesus as the fulfillment of Scripture",
-        "Romans": "Hellenistic epistolary literature with sophisticated theological argumentation",
-        "Psalms": "ancient Near Eastern poetry and hymnic literature for worship",
-        "Revelation": "Jewish apocalyptic literature using symbolic imagery to convey hope"
-    }
-    return contexts.get(book, "the literary conventions and historical circumstances of biblical literature")
-
-def get_historical_theological_development(book, theme):
-    """Describe how the theme developed historically within the book's context"""
-    developments = {
-        ("Genesis", "creation and providence"): "The development from creation to divine election established God's sovereign care over history",
-        ("Romans", "salvation"): "Paul's systematic presentation built upon centuries of Jewish understanding about righteousness and divine justice",
-        ("Psalms", "worship and praise"): "Israel's liturgical traditions developed through centuries of temple worship and personal devotion"
-    }
-    key = (book, theme)
-    return developments.get(key, f"The historical development of {theme} within the theological tradition of {book}")
-
-def get_ancient_worldview_context(book):
-    """Provide ancient worldview context"""
-    worldviews = {
-        "Genesis": "a worldview where divine beings actively governed natural and historical processes",
-        "Matthew": "a worldview expecting divine intervention through a promised Messiah",
-        "Romans": "a worldview shaped by both Jewish monotheism and Greco-Roman philosophical thought",
-        "Psalms": "a worldview centered on covenant relationship between God and His people"
-    }
-    return worldviews.get(book, "the ancient worldview that shaped the author's theological expression")
-
-def get_biblical_theological_trajectory(theme):
-    """Describe the biblical theological trajectory of the theme"""
-    trajectories = {
-        "salvation": "from physical deliverance in the Old Testament to spiritual redemption in the New",
-        "kingdom of God": "from earthly theocracy through Davidic kingdom to eschatological fulfillment",
-        "divine love": "from covenant faithfulness to sacrificial love demonstrated in Christ",
-        "faith and obedience": "from law observance to faith in Christ as the means of righteousness"
-    }
-    return trajectories.get(theme, "the progressive revelation of God's purposes throughout Scripture")
-
-def get_contemporary_theological_challenge(theme):
-    """Identify contemporary theological challenges addressed by the theme"""
-    challenges = {
-        "salvation": "religious pluralism and questions about the necessity of Christ",
-        "divine love": "the problem of evil and suffering in light of God's goodness",
-        "kingdom of God": "the apparent delay of Christ's return and God's justice",
-        "faith and obedience": "the relationship between faith and works in salvation"
-    }
-    return challenges.get(theme, "questions about God's character and purposes in the modern world")
 
 def generate_chapter_overview(book, chapter, verses):
     """Generate an AI-powered overview of the entire chapter"""
@@ -1683,21 +1394,8 @@ def generate_book_themes(book):
                 <p>God's future promises provide hope and shape present priorities.</p>
                 """
 
-    return themes.get(book, """
-        <p>The book develops several significant theological themes:</p>
-
-        <h3>Divine Revelation</h3>
-        <p>God communicates His character, will, and purposes through various means.</p>
-
-        <h3>Covenant Relationship</h3>
-        <p>The formal relationship between God and His people establishes mutual commitments.</p>
-
-        <h3>Human Responsibility</h3>
-        <p>People are accountable for their response to divine revelation.</p>
-
-        <h3>Divine Faithfulness</h3>
-        <p>Despite human failures, God remains faithful to His promises and purposes.</p>
-        """)
+    # Every "book not in themes" path returns above, so book is always a key here.
+    return themes[book]
 
 
 def generate_theological_significance(book):
@@ -1775,21 +1473,8 @@ def generate_theological_significance(book):
             <p>The book contributes to biblical teaching about last things.</p>
             """
 
-    return theological.get(book, """
-        <p>The book develops several significant theological concepts:</p>
-
-        <h3>Divine Revelation</h3>
-        <p>God communicates His character, will, and purposes through various means.</p>
-
-        <h3>Covenant Relationship</h3>
-        <p>The formal relationship between God and His people establishes mutual commitments.</p>
-
-        <h3>Human Responsibility</h3>
-        <p>People are accountable for their response to divine revelation.</p>
-
-        <h3>Divine Faithfulness</h3>
-        <p>Despite human failures, God remains faithful to His promises and purposes.</p>
-        """)
+    # Every "book not in theological" path returns above, so book is always a key here.
+    return theological[book]
 
 
 def generate_book_tags(book, genre):
