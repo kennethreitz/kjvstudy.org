@@ -1,7 +1,7 @@
 """KJV Study web app, built on Responder (https://responder.kennethreitz.org).
 
 Every framework-agnostic module is reused unchanged; routing and response
-construction live here and in ``kjvstudy_org/responder_routes/``. The ASGI app
+construction live here and in ``kjvstudy_org/routes/``. The ASGI app
 is the module-level ``api``.
 
 Run it::
@@ -20,7 +20,7 @@ from starlette.responses import JSONResponse
 
 from .jinja_filters import register_filters
 from .utils.pdf import WEASYPRINT_AVAILABLE
-from .responder_routes import register_all
+from .routes import register_all
 
 _DIR = Path(__file__).parent
 _STATIC_DIR = _DIR / "static"
@@ -218,4 +218,7 @@ api.router.default_endpoint = _not_found
 
 
 if __name__ == "__main__":
-    api.run()
+    # Serve with Granian (the production server) — consistent with main.py,
+    # the Dockerfile, and docker-compose. Responder's api.run() would use uvicorn.
+    from .main import main
+    main()

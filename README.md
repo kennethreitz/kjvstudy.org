@@ -71,7 +71,7 @@ Keyboard navigation (Vim-style and arrow keys), screen reader support, text-to-s
 kjvstudy_org/
 ├── server.py                # Responder application (ASGI app = `api`)
 ├── kjv.py                   # Bible text access
-├── responder_routes/        # 16 route modules (register(api) each)
+├── routes/        # 16 route modules (register(api) each)
 ├── utils/                   # Search, PDF, commentary helpers
 ├── templates/               # 77 Jinja2 templates
 ├── static/                  # Tufte CSS, ET Book fonts, JS

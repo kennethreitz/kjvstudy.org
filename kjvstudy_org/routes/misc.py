@@ -19,7 +19,7 @@ from ..utils.family_tree import search_family_tree
 from ..og_image import get_cached_or_generate
 from ..stories import get_story_by_slug
 from ..strongs import normalize_strongs
-from ._helpers import render, redirect
+from ._helpers import render, redirect, pdf_resp
 
 
 # =============================================================================
@@ -225,6 +225,52 @@ def register(api):
             books=books,
             breadcrumbs=breadcrumbs,
         )
+
+    @api.route("/stars/pdf", methods=["POST"])
+    async def stars_pdf(req, resp):
+        """Render the user's starred pages (POSTed from localStorage) as a PDF anthology."""
+        try:
+            data = await req.media()
+        except Exception:
+            data = None
+        raw = data.get("stars") if isinstance(data, dict) else None
+        if not isinstance(raw, list):
+            resp.status_code = 400
+            resp.media = {"detail": "Expected a JSON body of the form {\"stars\": [...]}"}
+            return
+
+        # Sanitize + bound the client-supplied data before rendering.
+        stars = []
+        for item in raw[:500]:
+            if not isinstance(item, dict):
+                continue
+            clean_crumbs = []
+            crumbs = item.get("breadcrumbs")
+            if isinstance(crumbs, list):
+                for c in crumbs:
+                    if isinstance(c, dict) and c.get("text"):
+                        clean_crumbs.append({"text": str(c["text"])[:80]})
+            stars.append({
+                "title": str(item.get("title") or "")[:200],
+                "url": str(item.get("url") or "")[:300],
+                "description": str(item.get("description") or "")[:500],
+                "excerpt": str(item.get("excerpt") or "")[:600],
+                "note": str(item.get("note") or "")[:2000],
+                "tag": str(item.get("tag") or "")[:24],
+                "breadcrumbs": clean_crumbs,
+            })
+
+        if not stars:
+            resp.status_code = 400
+            resp.media = {"detail": "No stars to render"}
+            return
+
+        html = req.api.template(
+            "stars_pdf.html",
+            stars=stars,
+            generated=datetime.now().strftime("%B %-d, %Y"),
+        )
+        await pdf_resp(resp, html, "my-starred-pages.pdf")
 
     @api.route("/red-letter")
     async def red_letter_page(req, resp):

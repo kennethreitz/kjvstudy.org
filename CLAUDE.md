@@ -126,7 +126,7 @@ docker compose up
 ```
 kjvstudy_org/
 ├── server.py          # Responder application (ASGI app = `api`)
-├── responder_routes/  # Route modules (register(api) each)
+├── routes/  # Route modules (register(api) each)
 ├── commentary_gen.py  # Commentary generation (framework-agnostic)
 ├── kjv.py             # Bible data access
 ├── cross_references.py # Cross-reference data

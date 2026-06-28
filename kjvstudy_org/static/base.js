@@ -139,6 +139,66 @@ function showBookmarkToast(added) {
   }, 3000);
 }
 
+// Star an individual verse from the chapter view (without leaving the page).
+function toggleVerseStar(btn) {
+  var book = btn.getAttribute('data-book');
+  var chapter = btn.getAttribute('data-chapter');
+  var verse = btn.getAttribute('data-verse');
+  var url = '/book/' + book + '/chapter/' + chapter + '/verse/' + verse;
+  var bookmarks = getBookmarks();
+  var idx = bookmarks.findIndex(function(b) { return b.url === url; });
+
+  if (idx >= 0) {
+    bookmarks.splice(idx, 1);
+    btn.classList.remove('starred');
+    btn.textContent = '☆';
+    btn.setAttribute('aria-pressed', 'false');
+    showBookmarkToast(false);
+  } else {
+    // Pull the verse text out of its paragraph for the excerpt.
+    var excerpt = '';
+    var p = btn.closest('p');
+    if (p) {
+      var clone = p.cloneNode(true);
+      clone.querySelectorAll('.verse-number-link, .verse-star, label, .sidenote, .marginnote, input').forEach(function(el) { el.remove(); });
+      excerpt = (clone.textContent || '').replace(/\s+/g, ' ').trim().substring(0, 400);
+    }
+    bookmarks.unshift({
+      url: url,
+      title: book + ' ' + chapter + ':' + verse,
+      description: '',
+      breadcrumbs: [
+        { text: 'Books', url: '/books' },
+        { text: book, url: '/book/' + book },
+        { text: 'Chapter ' + chapter, url: '/book/' + book + '/chapter/' + chapter }
+      ],
+      excerpt: excerpt,
+      date: new Date().toISOString()
+    });
+    btn.classList.add('starred');
+    btn.textContent = '★';
+    btn.setAttribute('aria-pressed', 'true');
+    showBookmarkToast(true);
+  }
+  saveBookmarks(bookmarks);
+  updateStarsBadge();
+}
+
+function initVerseStars() {
+  var stars = document.querySelectorAll('.verse-star');
+  if (!stars.length) return;
+  var starred = {};
+  getBookmarks().forEach(function(b) { starred[b.url] = true; });
+  stars.forEach(function(btn) {
+    var url = '/book/' + btn.getAttribute('data-book') + '/chapter/' + btn.getAttribute('data-chapter') + '/verse/' + btn.getAttribute('data-verse');
+    if (starred[url]) {
+      btn.classList.add('starred');
+      btn.textContent = '★';
+      btn.setAttribute('aria-pressed', 'true');
+    }
+  });
+}
+
 // Check bookmark state on page load and update nav badges
 (function() {
   document.addEventListener('DOMContentLoaded', function() {
@@ -150,6 +210,7 @@ function showBookmarkToast(added) {
     // Update nav badges
     updateStarsBadge();
     updateReadingPlansBadge();
+    initVerseStars();
   });
 })();
 

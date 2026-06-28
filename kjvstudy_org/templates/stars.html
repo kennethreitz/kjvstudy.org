@@ -43,6 +43,14 @@
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+}
+
+.stars-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
 }
 
 .stars-sort {
@@ -381,6 +389,41 @@ a.stars-item-title-link:hover {
     background: rgba(251, 191, 36, 0.15);
 }
 
+.stars-item-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    color: #92600f;
+    background: #fef9c3;
+    border: 1px solid #fde68a;
+    padding: 0 0.4rem;
+    border-radius: 6px;
+    line-height: 1.4;
+}
+
+[data-theme="dark"] .stars-item-tag {
+    color: #fcd34d;
+    background: rgba(252, 211, 77, 0.12);
+    border-color: rgba(252, 211, 77, 0.3);
+}
+
+.stars-tag-input {
+    width: 100%;
+    max-width: 320px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+}
+
+.stars-tag-input:focus {
+    outline: none;
+    border-color: var(--link-color);
+}
+
 /* Item actions */
 .stars-item-actions {
     display: flex;
@@ -619,6 +662,7 @@ kbd {
 
 {% block content %}
 <div class="stars-container">
+    <input type="file" id="stars-import-input" accept="application/json,.json" style="display:none" onchange="handleImportFile(this)">
     <div id="stars-content">
         <!-- Populated by JavaScript -->
     </div>
@@ -665,11 +709,44 @@ kbd {
         return div.innerHTML;
     }
 
+    var lastRemoved = null;   // { bookmark, index } for undo
+    var undoTimer = null;
+
     function removeBookmark(url, e) {
         if (e) e.stopPropagation();
         var bookmarks = getBookmarks();
-        bookmarks = bookmarks.filter(function(b) { return b.url !== url; });
+        var index = bookmarks.findIndex(function(b) { return b.url === url; });
+        if (index < 0) return;
+        lastRemoved = { bookmark: bookmarks[index], index: index };
+        bookmarks.splice(index, 1);
         saveBookmarks(bookmarks);
+        renderBookmarks();
+        showUndoToast(lastRemoved.bookmark.title);
+    }
+
+    function showUndoToast(title) {
+        var toast = document.getElementById('bookmark-toast');
+        if (!toast) return;
+        toast.innerHTML = 'Removed “' + escapeHtml(title) + '” — <a href="#" id="stars-undo">Undo</a>';
+        toast.classList.add('show');
+        var undoLink = document.getElementById('stars-undo');
+        if (undoLink) undoLink.onclick = function(ev) { ev.preventDefault(); undoRemove(); };
+        clearTimeout(undoTimer);
+        undoTimer = setTimeout(function() {
+            toast.classList.remove('show');
+            lastRemoved = null;
+        }, 6000);
+    }
+
+    function undoRemove() {
+        if (!lastRemoved) return;
+        var bookmarks = getBookmarks();
+        bookmarks.splice(Math.min(lastRemoved.index, bookmarks.length), 0, lastRemoved.bookmark);
+        saveBookmarks(bookmarks);
+        lastRemoved = null;
+        clearTimeout(undoTimer);
+        var toast = document.getElementById('bookmark-toast');
+        if (toast) toast.classList.remove('show');
         renderBookmarks();
     }
 
@@ -731,6 +808,113 @@ kbd {
             localStorage.removeItem('kjvBookmarks');
             renderBookmarks();
         }
+    }
+
+    function showSimpleToast(msg) {
+        var toast = document.getElementById('bookmark-toast');
+        if (!toast) return;
+        toast.innerHTML = escapeHtml(msg);
+        toast.classList.add('show');
+        setTimeout(function() { toast.classList.remove('show'); }, 2500);
+    }
+
+    // ---- Export / Import (durable, portable, still account-free) ----
+    function exportStars() {
+        var bookmarks = getBookmarks();
+        if (bookmarks.length === 0) { showSimpleToast('Nothing to export yet'); return; }
+        var blob = new Blob([JSON.stringify(bookmarks, null, 2)], { type: 'application/json' });
+        var d = new Date();
+        var stamp = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'kjv-starred-pages-' + stamp + '.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function importStars() {
+        var input = document.getElementById('stars-import-input');
+        if (input) input.click();
+    }
+
+    function handleImportFile(input) {
+        var file = input.files && input.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            var imported;
+            try { imported = JSON.parse(ev.target.result); } catch (err) { imported = null; }
+            if (!Array.isArray(imported)) {
+                input.value = '';
+                showSimpleToast('That file is not a valid stars export');
+                return;
+            }
+            var existing = getBookmarks();
+            var seen = {};
+            existing.forEach(function(b) { seen[b.url] = true; });
+            var added = 0;
+            imported.forEach(function(b) {
+                if (b && b.url && b.title && !seen[b.url]) {
+                    existing.push(b);
+                    seen[b.url] = true;
+                    added++;
+                }
+            });
+            saveBookmarks(existing);
+            input.value = '';
+            renderBookmarks();
+            showSimpleToast(added > 0 ? ('Imported ' + added + ' new star' + (added !== 1 ? 's' : '')) : 'Already up to date — no new stars');
+        };
+        reader.readAsText(file);
+    }
+
+    // ---- Tags (optional, one word, reuses the note storage pattern) ----
+    function updateTag(url, tag) {
+        var bookmarks = getBookmarks();
+        var bookmark = bookmarks.find(function(b) { return b.url === url; });
+        if (!bookmark) return;
+        tag = (tag || '').trim().slice(0, 24);
+        if (tag) bookmark.tag = tag; else delete bookmark.tag;
+        saveBookmarks(bookmarks);
+    }
+
+    function saveAndCloseTag(url, tag) {
+        updateTag(url, tag);
+        renderBookmarks();
+        var item = document.querySelector('[data-url="' + url + '"]');
+        if (item) item.classList.add('expanded');
+    }
+
+    // ---- Printable anthology (server-rendered PDF of your collection) ----
+    function downloadAnthologyPdf() {
+        var bookmarks = getBookmarks();
+        if (bookmarks.length === 0) { showSimpleToast('Star some pages first'); return; }
+        var btn = document.getElementById('stars-pdf-btn');
+        if (btn) { btn.disabled = true; btn.textContent = 'Building…'; }
+        fetch('/stars/pdf', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ stars: bookmarks })
+        }).then(function(r) {
+            if (!r.ok) throw new Error('pdf');
+            return r.blob();
+        }).then(function(blob) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-starred-pages.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }).catch(function() {
+            showSimpleToast('Could not build the PDF');
+        }).finally(function() {
+            if (btn) { btn.disabled = false; btn.textContent = 'Download PDF'; }
+        });
     }
 
     function toggleItem(url) {
@@ -886,7 +1070,7 @@ kbd {
     function filterBookmarks(bookmarks) {
         if (!currentSearch) return bookmarks;
         return bookmarks.filter(function(b) {
-            var searchStr = (b.title + ' ' + (b.description || '') + ' ' + (b.note || '')).toLowerCase();
+            var searchStr = (b.title + ' ' + (b.description || '') + ' ' + (b.note || '') + ' ' + (b.tag || '')).toLowerCase();
             return searchStr.indexOf(currentSearch) !== -1;
         });
     }
@@ -953,6 +1137,11 @@ kbd {
         html += '<option value="alpha"' + (currentSort === 'alpha' ? ' selected' : '') + '>A-Z</option>';
         html += '</select>';
         html += '</div>';
+        html += '<div class="stars-toolbar-actions">';
+        html += '<button class="stars-action-btn" id="stars-pdf-btn" onclick="downloadAnthologyPdf()" title="Download your collection as a printable PDF">Download PDF</button>';
+        html += '<button class="stars-action-btn" onclick="exportStars()" title="Save your stars to a file">Export</button>';
+        html += '<button class="stars-action-btn" onclick="importStars()" title="Load stars from a file">Import</button>';
+        html += '</div>';
         html += '</div>';
 
         if (bookmarks.length === 0) {
@@ -1003,6 +1192,9 @@ kbd {
                 html += '<div class="stars-item-title"><span class="stars-item-title-text" onclick="event.stopPropagation(); window.location.href=\'' + safeUrl + '\'">' + escapeHtml(bookmark.title) + '</span><a href="' + bookmark.url + '" class="stars-item-title-link" onclick="event.stopPropagation()">⤴</a></div>';
                 html += '<div class="stars-item-meta">';
                 html += '<span class="stars-item-date">' + formatDate(bookmark.date) + '</span>';
+                if (bookmark.tag) {
+                    html += '<span class="stars-item-tag">' + escapeHtml(bookmark.tag) + '</span>';
+                }
                 if (bookmark.note) {
                     html += '<span class="stars-item-note-indicator">has notes</span>';
                 }
@@ -1043,6 +1235,12 @@ kbd {
                 html += '<div class="stars-note-saved"></div>';
                 html += '</div>';
 
+                // Tag
+                html += '<div class="stars-detail-section">';
+                html += '<div class="stars-detail-label">Tag</div>';
+                html += '<input type="text" class="stars-tag-input" maxlength="24" placeholder="one word — e.g. comfort, sermon-prep" value="' + escapeHtml(bookmark.tag || '') + '" onclick="event.stopPropagation()" onblur="saveAndCloseTag(\'' + safeUrl + '\', this.value)">';
+                html += '</div>';
+
                 // Actions in detail
                 html += '<div class="stars-detail-section">';
                 html += '<button class="stars-action-btn danger" onclick="removeBookmark(\'' + safeUrl + '\', event)" title="Remove">remove star</button>';
@@ -1079,6 +1277,13 @@ kbd {
     window.handleSort = handleSort;
     window.copyLink = copyLink;
     window.toggleGroup = toggleGroup;
+    window.exportStars = exportStars;
+    window.importStars = importStars;
+    window.handleImportFile = handleImportFile;
+    window.undoRemove = undoRemove;
+    window.updateTag = updateTag;
+    window.saveAndCloseTag = saveAndCloseTag;
+    window.downloadAnthologyPdf = downloadAnthologyPdf;
 
     // Initial render
     renderBookmarks();
