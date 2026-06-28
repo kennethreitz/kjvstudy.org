@@ -44,7 +44,8 @@ api = responder.API(
     docs_route="/api/docs",
     openapi_route="/api/openapi.json",
     gzip=True,
-    secret_key=os.getenv("SECRET_KEY", "kjvstudy-dev-secret-change-in-prod"),
+    # Sessions are unused; disable them entirely (Responder 5.0.0+).
+    sessions=False,
 )
 
 
