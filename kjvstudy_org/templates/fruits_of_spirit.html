@@ -112,46 +112,7 @@
     height: 14px;
 }
 
-.toc {
-    max-width: 55%;
-    margin: 2rem 0;
-    padding: 1.5rem;
-    border-left: 3px solid var(--border-color-darker);
-}
-
-.toc h2 {
-    margin-top: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.toc ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.toc li {
-    margin: 0.5rem 0;
-    line-height: 1.6;
-}
-
-.toc a {
-    color: var(--text-color);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-}
-
-.toc a:hover {
-    color: var(--link-color);
-    border-bottom-color: var(--link-color);
-}
-
-.toc li.toc-h3 {
-    padding-left: 1.5rem;
-    font-size: 0.95rem;
-}
+{% include "partials/_toc_styles.html" %}
 
 @media print {
     .fruits-actions,
