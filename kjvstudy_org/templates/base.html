@@ -374,6 +374,17 @@
             letter-spacing: 0.05em;
         }
 
+        /* Shared intro paragraph styling for resource/study pages
+           (mobile full-width override lives in the max-width:760px @media block below).
+           Intentional per-template variants remain inline: resources.html (65%),
+           resource_detail.html and family-tree pages (55%/1.1rem). */
+        .intro-text {
+            max-width: 60%;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin: 1rem 0;
+        }
+
         /* Refined breadcrumb navigation */
         .breadcrumb {
             margin: 2rem 0 3rem -30px;
