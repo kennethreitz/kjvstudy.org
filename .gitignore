@@ -20,3 +20,6 @@ kjvstudy_org/verse_collections.py
 
 # Background-agent git worktrees
 .claude/worktrees/
+
+# Generated OG image cache
+kjvstudy_org/static/og-cache/
