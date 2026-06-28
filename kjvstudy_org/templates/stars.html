@@ -389,41 +389,6 @@ a.stars-item-title-link:hover {
     background: rgba(251, 191, 36, 0.15);
 }
 
-.stars-item-tag {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-    color: #92600f;
-    background: #fef9c3;
-    border: 1px solid #fde68a;
-    padding: 0 0.4rem;
-    border-radius: 6px;
-    line-height: 1.4;
-}
-
-[data-theme="dark"] .stars-item-tag {
-    color: #fcd34d;
-    background: rgba(252, 211, 77, 0.12);
-    border-color: rgba(252, 211, 77, 0.3);
-}
-
-.stars-tag-input {
-    width: 100%;
-    max-width: 320px;
-    font-family: inherit;
-    font-size: 0.85rem;
-    color: var(--text-color);
-    background: var(--bg-color);
-    border: 1px solid var(--border-color-dark);
-    border-radius: 6px;
-    padding: 0.4rem 0.6rem;
-}
-
-.stars-tag-input:focus {
-    outline: none;
-    border-color: var(--link-color);
-}
-
 /* Item actions */
 .stars-item-actions {
     display: flex;
@@ -871,23 +836,6 @@ kbd {
         reader.readAsText(file);
     }
 
-    // ---- Tags (optional, one word, reuses the note storage pattern) ----
-    function updateTag(url, tag) {
-        var bookmarks = getBookmarks();
-        var bookmark = bookmarks.find(function(b) { return b.url === url; });
-        if (!bookmark) return;
-        tag = (tag || '').trim().slice(0, 24);
-        if (tag) bookmark.tag = tag; else delete bookmark.tag;
-        saveBookmarks(bookmarks);
-    }
-
-    function saveAndCloseTag(url, tag) {
-        updateTag(url, tag);
-        renderBookmarks();
-        var item = document.querySelector('[data-url="' + url + '"]');
-        if (item) item.classList.add('expanded');
-    }
-
     // ---- Printable anthology (server-rendered PDF of your collection) ----
     function downloadAnthologyPdf() {
         var bookmarks = getBookmarks();
@@ -1070,7 +1018,7 @@ kbd {
     function filterBookmarks(bookmarks) {
         if (!currentSearch) return bookmarks;
         return bookmarks.filter(function(b) {
-            var searchStr = (b.title + ' ' + (b.description || '') + ' ' + (b.note || '') + ' ' + (b.tag || '')).toLowerCase();
+            var searchStr = (b.title + ' ' + (b.description || '') + ' ' + (b.note || '')).toLowerCase();
             return searchStr.indexOf(currentSearch) !== -1;
         });
     }
@@ -1192,9 +1140,6 @@ kbd {
                 html += '<div class="stars-item-title"><span class="stars-item-title-text" onclick="event.stopPropagation(); window.location.href=\'' + safeUrl + '\'">' + escapeHtml(bookmark.title) + '</span><a href="' + bookmark.url + '" class="stars-item-title-link" onclick="event.stopPropagation()">⤴</a></div>';
                 html += '<div class="stars-item-meta">';
                 html += '<span class="stars-item-date">' + formatDate(bookmark.date) + '</span>';
-                if (bookmark.tag) {
-                    html += '<span class="stars-item-tag">' + escapeHtml(bookmark.tag) + '</span>';
-                }
                 if (bookmark.note) {
                     html += '<span class="stars-item-note-indicator">has notes</span>';
                 }
@@ -1233,12 +1178,6 @@ kbd {
                 }
                 html += '<textarea class="stars-note" data-note-url="' + escapeHtml(bookmark.url) + '" placeholder="Add your thoughts, reflections, or study notes..." onblur="saveAndCloseNote(\'' + safeUrl + '\', this.value)" onclick="event.stopPropagation()">' + escapeHtml(bookmark.note || '') + '</textarea>';
                 html += '<div class="stars-note-saved"></div>';
-                html += '</div>';
-
-                // Tag
-                html += '<div class="stars-detail-section">';
-                html += '<div class="stars-detail-label">Tag</div>';
-                html += '<input type="text" class="stars-tag-input" maxlength="24" placeholder="one word — e.g. comfort, sermon-prep" value="' + escapeHtml(bookmark.tag || '') + '" onclick="event.stopPropagation()" onblur="saveAndCloseTag(\'' + safeUrl + '\', this.value)">';
                 html += '</div>';
 
                 // Actions in detail
@@ -1281,8 +1220,6 @@ kbd {
     window.importStars = importStars;
     window.handleImportFile = handleImportFile;
     window.undoRemove = undoRemove;
-    window.updateTag = updateTag;
-    window.saveAndCloseTag = saveAndCloseTag;
     window.downloadAnthologyPdf = downloadAnthologyPdf;
 
     // Initial render

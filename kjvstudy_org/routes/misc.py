@@ -256,7 +256,6 @@ def register(api):
                 "description": str(item.get("description") or "")[:500],
                 "excerpt": str(item.get("excerpt") or "")[:600],
                 "note": str(item.get("note") or "")[:2000],
-                "tag": str(item.get("tag") or "")[:24],
                 "breadcrumbs": clean_crumbs,
             })
 
