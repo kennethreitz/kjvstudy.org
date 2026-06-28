@@ -26,7 +26,7 @@
     <meta name="twitter:url" content="https://kjvstudy.org{{ request.url.path }}"/>
     <meta name="twitter:title" content="{% block twitter_title %}{% block title_plain %}Authorized King James Version Bible{% endblock %}{% endblock %}"/>
     <meta name="twitter:description" content="{% block twitter_description %}{% block description_plain %}Study the Authorized King James Version Bible{% endblock %}{% endblock %}"/>
-    <meta name="twitter:image" content="{% block twitter_image %}https://kjvstudy.org/static/og-image.png{% endblock %}"/>
+    <meta name="twitter:image" content="{% block twitter_image %}{{ self.og_image() }}{% endblock %}"/>
 
     <link rel="stylesheet" href="/static/tufte.css?v={{ static_hash('tufte.css') }}"/>
     <link rel="manifest" href="/static/manifest.json"/>

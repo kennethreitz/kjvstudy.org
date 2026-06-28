@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros/seo.html" import breadcrumb_jsonld %}
 
 {% block title %}{{ guide.title }} - Bible Study Guide - KJV Bible{% endblock %}
 
@@ -8,7 +9,6 @@
 {% block og_title %}{{ guide.title }} - Bible Study Guide{% endblock %}
 {% block og_description %}{{ guide.description }}{% endblock %}
 {% block og_image %}https://kjvstudy.org/og/guide/{{ guide.slug }}.png{% endblock %}
-{% block twitter_image %}https://kjvstudy.org/og/guide/{{ guide.slug }}.png{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -36,31 +36,11 @@
   }
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://kjvstudy.org"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Study Guides",
-      "item": "https://kjvstudy.org/study-guides"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": {{ guide.title | tojson }}
-    }
-  ]
-}
-</script>
+{{ breadcrumb_jsonld([
+    ('Home', 'https://kjvstudy.org'),
+    ('Study Guides', 'https://kjvstudy.org/study-guides'),
+    (guide.title, none),
+]) }}
 {% endblock %}
 
 {% block head %}

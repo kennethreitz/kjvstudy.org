@@ -1,10 +1,10 @@
 {% extends "base.html" %}
+{% from "macros/seo.html" import breadcrumb_jsonld %}
 
 {% block title %}{{ topic_name }} - Topical Index - KJV Study{% endblock %}
 {% block description %}{{ topic.description }}{% endblock %}
 
 {% block og_image %}https://kjvstudy.org/og/topic/{{ topic_name | urlencode }}.png{% endblock %}
-{% block twitter_image %}https://kjvstudy.org/og/topic/{{ topic_name | urlencode }}.png{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -28,31 +28,11 @@
   }
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://kjvstudy.org"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Topics",
-      "item": "https://kjvstudy.org/topics"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": {{ topic_name | tojson }}
-    }
-  ]
-}
-</script>
+{{ breadcrumb_jsonld([
+    ('Home', 'https://kjvstudy.org'),
+    ('Topics', 'https://kjvstudy.org/topics'),
+    (topic_name, none),
+]) }}
 {% endblock %}
 
 {% block head %}

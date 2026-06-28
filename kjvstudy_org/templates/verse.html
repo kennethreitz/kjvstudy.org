@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros/seo.html" import breadcrumb_jsonld %}
 
 {% block title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
 
@@ -8,7 +9,6 @@
 {% block og_title %}{{ book }} {{ chapter }}:{{ verse_num }} - KJV Bible{% endblock %}
 {% block og_description %}{{ verse_text[:150] if verse_text else '' }}...{% endblock %}
 {% block og_image %}https://kjvstudy.org/og/verse/{{ book | urlencode }}/{{ chapter }}/{{ verse_num }}.png{% endblock %}
-{% block twitter_image %}https://kjvstudy.org/og/verse/{{ book | urlencode }}/{{ chapter }}/{{ verse_num }}.png{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -37,43 +37,13 @@
   }
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://kjvstudy.org"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Books",
-      "item": "https://kjvstudy.org/books"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": {{ book | tojson }},
-      "item": "https://kjvstudy.org/book/{{ book | urlencode }}"
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "name": "Chapter {{ chapter }}",
-      "item": "https://kjvstudy.org/book/{{ book | urlencode }}/chapter/{{ chapter }}"
-    },
-    {
-      "@type": "ListItem",
-      "position": 5,
-      "name": "Verse {{ verse_num }}"
-    }
-  ]
-}
-</script>
+{{ breadcrumb_jsonld([
+    ('Home', 'https://kjvstudy.org'),
+    ('Books', 'https://kjvstudy.org/books'),
+    (book, 'https://kjvstudy.org/book/' ~ (book | urlencode)),
+    ('Chapter ' ~ chapter, 'https://kjvstudy.org/book/' ~ (book | urlencode) ~ '/chapter/' ~ chapter),
+    ('Verse ' ~ verse_num, none),
+]) }}
 {% endblock %}
 
 {% block head %}

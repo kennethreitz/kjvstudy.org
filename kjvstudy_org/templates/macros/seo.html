@@ -1,0 +1,24 @@
+{# Shared SEO structured-data macros. #}
+
+{# Emit a schema.org BreadcrumbList JSON-LD block.
+   `items` is an ordered list of (name, url) pairs. Positions are numbered
+   automatically. A pair whose url is none renders as a leaf crumb (no "item").
+   Names and urls are passed through tojson so escaping matches hand-written JSON. #}
+{% macro breadcrumb_jsonld(items) -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {%- for name, url in items %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "name": {{ name | tojson }}{% if url is not none %},
+      "item": {{ url | tojson }}{% endif %}
+    }{{ "," if not loop.last }}
+    {%- endfor %}
+  ]
+}
+</script>
+{%- endmacro %}

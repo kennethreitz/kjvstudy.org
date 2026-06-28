@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros/seo.html" import breadcrumb_jsonld %}
 
 {% block title %}{{ story.title }} - Bible Stories - KJV Study{% endblock %}
 {% block description %}{{ story.description }}{% endblock %}
@@ -7,7 +8,6 @@
 {% block og_title %}{{ story.title }} - Bible Story{% endblock %}
 {% block og_description %}{{ story.description }}{% endblock %}
 {% block og_image %}https://kjvstudy.org/og/story/{{ story.slug }}.png{% endblock %}
-{% block twitter_image %}https://kjvstudy.org/og/story/{{ story.slug }}.png{% endblock %}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -35,31 +35,11 @@
   }
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://kjvstudy.org"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Bible Stories",
-      "item": "https://kjvstudy.org/stories"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": {{ story.title | tojson }}
-    }
-  ]
-}
-</script>
+{{ breadcrumb_jsonld([
+    ('Home', 'https://kjvstudy.org'),
+    ('Bible Stories', 'https://kjvstudy.org/stories'),
+    (story.title, none),
+]) }}
 {% endblock %}
 
 {% block head %}
