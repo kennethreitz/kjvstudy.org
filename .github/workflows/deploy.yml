@@ -15,7 +15,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           version: "latest"
-      - run: uv python install 3.13
+      - run: uv python install 3.14
       - run: uv sync --extra dev
       - run: uv run pytest tests/ -n auto --tb=short
 

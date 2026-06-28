@@ -8,7 +8,7 @@ KJV Study is a modern web application for studying the King James Bible with AI-
 
 ## Tech Stack
 
-- **Backend**: Responder (Starlette-based, Python 3.13)
+- **Backend**: Responder (Starlette-based, Python 3.13/3.14)
 - **Package Manager**: uv
 - **Bible Data**: Custom implementation with local JSON (31,102 verses from 1769 Cambridge KJV)
 - **Templates**: Jinja2

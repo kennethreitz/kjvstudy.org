@@ -39,11 +39,6 @@ kjvstudy_org = ["static/*", "templates/*"]
 [tool.uv]
 package = true
 
-# Responder 4.1.0 is not on PyPI yet; resolve it from the local checkout for now.
-# When 4.1.0 is published, delete this [tool.uv.sources] block and `uv lock`.
-[tool.uv.sources]
-responder = { path = "/Users/kennethreitz/repos/responder", editable = true }
-
 [dependency-groups]
 dev = [
     "pytest>=8.3.5",
