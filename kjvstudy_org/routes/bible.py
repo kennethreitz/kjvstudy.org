@@ -13,7 +13,7 @@ from ..interlinear_loader import get_interlinear_data, has_interlinear_data
 from ..books import get_book_data, has_book_data
 from ..utils.books import normalize_book_name, OT_BOOKS, get_canonical_book_order
 from ..utils.helpers import create_slug, get_related_content, get_chapter_popularity_score, get_chapter_popularity_explanation
-from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available, pdf_context
 from ..utils.poetry_loader import is_poetry_chapter, get_stanza_breaks
 
 
@@ -582,8 +582,7 @@ async def read_chapter_interlinear(request: Request, book: str, chapter: int):
             "current_book": book,
             "current_chapter": chapter,
             "is_old_testament": is_old_testament,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "pdf_url": f"/book/{book}/chapter/{chapter}/interlinear/pdf" if WEASYPRINT_AVAILABLE else None
+            **pdf_context(f"/book/{book}/chapter/{chapter}/interlinear/pdf"),
         }
     )
 

@@ -101,6 +101,19 @@ def require_pdf_available():
         )
 
 
+def pdf_context(pdf_url: str) -> dict:
+    """Template-context fragment for a page that offers a PDF download.
+
+    Returns ``pdf_available`` plus ``pdf_url`` (None when PDF rendering is
+    unavailable, so templates hide the download button). Shared by the paired
+    detail handlers (resource, study guide, topic, interlinear, reading plan).
+    """
+    return {
+        "pdf_available": WEASYPRINT_AVAILABLE,
+        "pdf_url": pdf_url if WEASYPRINT_AVAILABLE else None,
+    }
+
+
 async def pdf_response(html: str, filename: str) -> StreamingResponse:
     """Render HTML to a PDF download response (attachment)."""
     pdf_buffer = await render_html_to_pdf_async(html)

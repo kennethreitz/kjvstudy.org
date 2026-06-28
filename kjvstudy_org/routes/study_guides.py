@@ -9,7 +9,7 @@ from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from ..kjv import bible
 from ..utils.helpers import verse_reference_to_url, get_books
-from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available, pdf_context
 
 router = APIRouter(tags=["Study Guides"])
 
@@ -203,8 +203,7 @@ async def study_guide_detail(request: Request, slug: str):
             "books": books,
             "guide": guide,
             "breadcrumbs": breadcrumbs,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "pdf_url": f"/study-guides/{slug}/pdf" if WEASYPRINT_AVAILABLE else None
+            **pdf_context(f"/study-guides/{slug}/pdf"),
         }
     )
 

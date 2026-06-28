@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 
 from ..kjv import bible
 from ..topics import get_all_topics, get_topic_with_text
-from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available, pdf_context
 from ._templates import templates
 
 router = APIRouter()
@@ -60,8 +60,7 @@ async def topic_detail(request: Request, topic_name: str):
             "topic_name": topic_name,
             "books": books,
             "breadcrumbs": breadcrumbs,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "pdf_url": f"/topics/{topic_name}/pdf" if WEASYPRINT_AVAILABLE else None
+            **pdf_context(f"/topics/{topic_name}/pdf"),
         }
     )
 

@@ -2,12 +2,12 @@
 import re
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import HTMLResponse
 
 from ..kjv import bible
 from ..reading_plans import get_plan, get_plan_summary
 from ..utils.books import normalize_book_name, OT_BOOKS, NT_BOOKS
-from ..utils.pdf import WEASYPRINT_AVAILABLE, render_html_to_pdf_async
+from ..utils.pdf import pdf_response, require_pdf_available, pdf_context
 from ._templates import templates
 
 router = APIRouter()
@@ -126,8 +126,7 @@ async def reading_plan_detail(request: Request, plan_id: str):
             "plan_id": plan_id,
             "books": books,
             "breadcrumbs": breadcrumbs,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "pdf_url": f"/reading-plans/{plan_id}/pdf" if WEASYPRINT_AVAILABLE else None,
+            **pdf_context(f"/reading-plans/{plan_id}/pdf"),
             "days_data": days_data,
             "total_days": plan.get('duration_days', len(days_data))
         }
@@ -137,11 +136,7 @@ async def reading_plan_detail(request: Request, plan_id: str):
 @router.get("/reading-plans/{plan_id}/pdf")
 async def reading_plan_pdf(plan_id: str):
     """Generate a PDF export for a reading plan."""
-    if not WEASYPRINT_AVAILABLE:
-        raise HTTPException(
-            status_code=503,
-            detail="PDF generation is not available. WeasyPrint system libraries are not installed."
-        )
+    require_pdf_available()
 
     plan = get_plan(plan_id)
     if not plan:
@@ -168,14 +163,4 @@ async def reading_plan_pdf(plan_id: str):
         include_text=include_text,
         days_with_text=days_with_text
     )
-    pdf_buffer = await render_html_to_pdf_async(html_content)
-
-    if pdf_buffer is None:
-        raise HTTPException(status_code=503, detail="PDF generation failed")
-
-    filename = f"reading-plan-{plan_id}.pdf"
-    return StreamingResponse(
-        pdf_buffer,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    return await pdf_response(html_content, f"reading-plan-{plan_id}.pdf")

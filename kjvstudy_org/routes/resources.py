@@ -51,7 +51,7 @@ from ..data import (
     find_resource_by_slug,
 )
 from ..utils.helpers import create_slug, get_books
-from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available
+from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available, pdf_context
 
 router = APIRouter(tags=["Biblical Resources"])
 
@@ -87,8 +87,6 @@ def _resource_detail_response(
     """Render the shared resource detail template with optional PDF controls."""
     item, item_name, category_name = _get_resource_item_or_404(data, slug, not_found_message)
 
-    pdf_url = f"{request.url.path.rstrip('/')}/pdf" if WEASYPRINT_AVAILABLE else None
-
     return templates.TemplateResponse(
         request,
         "resource_detail.html",
@@ -100,8 +98,7 @@ def _resource_detail_response(
             "resource_title": resource_title,
             "back_url": back_url,
             "back_text": back_text,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "pdf_url": pdf_url,
+            **pdf_context(f"{request.url.path.rstrip('/')}/pdf"),
             "breadcrumbs": [
                 {"text": "Home", "url": "/"},
                 {"text": "Resources", "url": "/resources"},
@@ -150,24 +147,74 @@ async def _resource_index_pdf_response(resource_data: dict, page_title: str, pag
     return await pdf_response(html_content, filename)
 
 
+def _resource_index_response(
+    request: Request,
+    *,
+    resource_data: dict,
+    page_title: str,
+    page_subtitle: str,
+    page_description: str,
+    base_url: str,
+    breadcrumb_label: str = None,
+):
+    """Render a standard ``resource_index.html`` listing page (shared scaffolding).
+
+    Mirrors :func:`_resource_index_pdf_response`. The trailing breadcrumb defaults
+    to ``page_title``; pass ``breadcrumb_label`` only when it should differ.
+    """
+    return templates.TemplateResponse(
+        request,
+        "resource_index.html",
+        {
+            "books": get_books(),
+            "resource_data": resource_data,
+            "page_title": page_title,
+            "page_subtitle": page_subtitle,
+            "page_description": page_description,
+            "base_url": base_url,
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": breadcrumb_label or page_title, "url": None},
+            ],
+        },
+    )
+
+
+def _custom_resource_index(request: Request, template: str, *, breadcrumb_text: str, **context):
+    """Render a themed resource index page (one with its own bespoke template).
+
+    Supplies the shared scaffolding every such page needs: the book list, the
+    PDF-availability flag, and the Home / Resources / <page> breadcrumb trail.
+    Page-specific data (e.g. ``angels_data=ANGELS_DATA``) is passed as kwargs.
+    """
+    return templates.TemplateResponse(
+        request,
+        template,
+        {
+            "books": get_books(),
+            "pdf_available": WEASYPRINT_AVAILABLE,
+            "breadcrumbs": [
+                {"text": "Home", "url": "/"},
+                {"text": "Resources", "url": "/resources"},
+                {"text": breadcrumb_text, "url": None},
+            ],
+            **context,
+        },
+    )
+
+
 # ============================================================================
 # BIBLICAL MAPS
 # ============================================================================
 @router.get("/biblical-maps", response_class=HTMLResponse)
 async def biblical_maps_page(request: Request):
     """Biblical maps page showing important biblical locations."""
-    return templates.TemplateResponse(
-            request,
-            "biblical_maps.html",
-            {
-            "books": get_books(),
-            "biblical_locations": BIBLICAL_LOCATIONS,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Geography", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "biblical_maps.html",
+        breadcrumb_text="Biblical Geography",
+        biblical_locations=BIBLICAL_LOCATIONS,
     )
 
 
@@ -177,19 +224,10 @@ async def biblical_maps_page(request: Request):
 @router.get("/biblical-angels", response_class=HTMLResponse)
 async def biblical_angels_page(request: Request):
     """Biblical angels page exploring angels throughout Scripture."""
-    return templates.TemplateResponse(
-            request,
-            "biblical_angels.html",
-            {
-            "books": get_books(),
-            "angels_data": ANGELS_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Angels", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "biblical_angels.html",
+        breadcrumb_text="Biblical Angels",
+        angels_data=ANGELS_DATA,
     )
 
 
@@ -234,19 +272,10 @@ async def angel_detail_pdf(angel_slug: str):
 @router.get("/biblical-prophets", response_class=HTMLResponse)
 async def biblical_prophets_page(request: Request):
     """Biblical prophets page exploring the prophetic ministry throughout Scripture."""
-    return templates.TemplateResponse(
-            request,
-            "biblical_prophets.html",
-            {
-            "books": get_books(),
-            "prophets_data": PROPHETS_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Prophets", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "biblical_prophets.html",
+        breadcrumb_text="Biblical Prophets",
+        prophets_data=PROPHETS_DATA,
     )
 
 
@@ -290,19 +319,10 @@ async def prophet_detail_pdf(prophet_slug: str):
 @router.get("/names-of-god", response_class=HTMLResponse)
 async def names_of_god_page(request: Request):
     """Names of God page exploring divine names throughout Scripture."""
-    return templates.TemplateResponse(
-            request,
-            "names_of_god.html",
-            {
-            "books": get_books(),
-            "names_data": NAMES_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Names of God", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "names_of_god.html",
+        breadcrumb_text="Names of God",
+        names_data=NAMES_DATA,
     )
 
 
@@ -347,19 +367,10 @@ async def name_of_god_detail_pdf(name_slug: str):
 @router.get("/parables", response_class=HTMLResponse)
 async def parables_page(request: Request):
     """Parables of Jesus page."""
-    return templates.TemplateResponse(
-            request,
-            "parables.html",
-            {
-            "books": get_books(),
-            "parables_data": PARABLES_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Parables of Jesus", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "parables.html",
+        breadcrumb_text="Parables of Jesus",
+        parables_data=PARABLES_DATA,
     )
 
 
@@ -403,19 +414,10 @@ async def parable_detail_pdf(parable_slug: str):
 @router.get("/biblical-covenants", response_class=HTMLResponse)
 async def biblical_covenants_page(request: Request):
     """Biblical covenants page."""
-    return templates.TemplateResponse(
-            request,
-            "biblical_covenants.html",
-            {
-            "books": get_books(),
-            "covenants_data": COVENANTS_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Covenants", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "biblical_covenants.html",
+        breadcrumb_text="Biblical Covenants",
+        covenants_data=COVENANTS_DATA,
     )
 
 
@@ -460,19 +462,10 @@ async def covenant_detail_pdf(covenant_slug: str):
 @router.get("/the-twelve-apostles", response_class=HTMLResponse)
 async def apostles_page(request: Request):
     """The Twelve Apostles page."""
-    return templates.TemplateResponse(
-            request,
-            "twelve_apostles.html",
-            {
-            "books": get_books(),
-            "apostles_data": APOSTLES_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Twelve Apostles", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "twelve_apostles.html",
+        breadcrumb_text="The Twelve Apostles",
+        apostles_data=APOSTLES_DATA,
     )
 
 
@@ -516,19 +509,10 @@ async def apostle_detail_pdf(apostle_slug: str):
 @router.get("/women-of-the-bible", response_class=HTMLResponse)
 async def women_of_the_bible_page(request: Request):
     """Women of the Bible page."""
-    return templates.TemplateResponse(
-            request,
-            "women_of_the_bible.html",
-            {
-            "books": get_books(),
-            "women_data": WOMEN_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Women of the Bible", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "women_of_the_bible.html",
+        breadcrumb_text="Women of the Bible",
+        women_data=WOMEN_DATA,
     )
 
 
@@ -573,19 +557,10 @@ async def woman_detail_pdf(woman_slug: str):
 @router.get("/biblical-festivals", response_class=HTMLResponse)
 async def biblical_festivals_page(request: Request):
     """Biblical festivals page."""
-    return templates.TemplateResponse(
-            request,
-            "biblical_festivals.html",
-            {
-            "books": get_books(),
-            "festivals_data": FESTIVALS_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Biblical Festivals", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "biblical_festivals.html",
+        breadcrumb_text="Biblical Festivals",
+        festivals_data=FESTIVALS_DATA,
     )
 
 
@@ -630,19 +605,10 @@ async def festival_detail_pdf(festival_slug: str):
 @router.get("/fruits-of-the-spirit", response_class=HTMLResponse)
 async def fruits_of_the_spirit_page(request: Request):
     """Fruits of the Spirit page."""
-    return templates.TemplateResponse(
-            request,
-            "fruits_of_spirit.html",
-            {
-            "books": get_books(),
-            "fruits_data": FRUITS_DATA,
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Fruits of the Spirit", "url": None}
-            ]
-        }
+    return _custom_resource_index(
+        request, "fruits_of_spirit.html",
+        breadcrumb_text="Fruits of the Spirit",
+        fruits_data=FRUITS_DATA,
     )
 
 
@@ -760,23 +726,13 @@ async def tetragrammaton_pdf():
 @router.get("/miracles-of-jesus", response_class=HTMLResponse)
 async def miracles_page(request: Request):
     """Miracles of Jesus page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": MIRACLES_DATA,
-            "page_title": "Miracles of Jesus",
-            "page_subtitle": "Signs and Wonders Manifesting Divine Authority",
-            "page_description": "Explore the miracles of Jesus Christ recorded in the Gospels - healings, nature miracles, exorcisms, and raisings from the dead.",
-            "base_url": "/miracles-of-jesus",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Miracles of Jesus", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=MIRACLES_DATA,
+        page_title="Miracles of Jesus",
+        page_subtitle="Signs and Wonders Manifesting Divine Authority",
+        page_description="Explore the miracles of Jesus Christ recorded in the Gospels - healings, nature miracles, exorcisms, and raisings from the dead.",
+        base_url="/miracles-of-jesus",
     )
 
 
@@ -821,23 +777,13 @@ async def miracle_detail_pdf(miracle_slug: str):
 @router.get("/prayers-of-the-bible", response_class=HTMLResponse)
 async def prayers_page(request: Request):
     """Prayers of the Bible page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": PRAYERS_DATA,
-            "page_title": "Prayers of the Bible",
-            "page_subtitle": "Sacred Conversations with the Almighty",
-            "page_description": "Explore the prayers recorded in Scripture - from the Psalms to the prayers of Jesus, Paul, and the early church.",
-            "base_url": "/prayers-of-the-bible",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Prayers of the Bible", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=PRAYERS_DATA,
+        page_title="Prayers of the Bible",
+        page_subtitle="Sacred Conversations with the Almighty",
+        page_description="Explore the prayers recorded in Scripture - from the Psalms to the prayers of Jesus, Paul, and the early church.",
+        base_url="/prayers-of-the-bible",
     )
 
 
@@ -882,23 +828,13 @@ async def prayer_detail_pdf(prayer_slug: str):
 @router.get("/beatitudes", response_class=HTMLResponse)
 async def beatitudes_page(request: Request):
     """The Beatitudes page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": BEATITUDES_DATA,
-            "page_title": "The Beatitudes",
-            "page_subtitle": "The Blessings of the Kingdom",
-            "page_description": "Explore the Beatitudes from Jesus's Sermon on the Mount - the foundational blessings that describe the character of kingdom citizens.",
-            "base_url": "/beatitudes",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Beatitudes", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=BEATITUDES_DATA,
+        page_title="The Beatitudes",
+        page_subtitle="The Blessings of the Kingdom",
+        page_description="Explore the Beatitudes from Jesus's Sermon on the Mount - the foundational blessings that describe the character of kingdom citizens.",
+        base_url="/beatitudes",
     )
 
 
@@ -943,23 +879,13 @@ async def beatitude_detail_pdf(beatitude_slug: str):
 @router.get("/ten-commandments", response_class=HTMLResponse)
 async def ten_commandments_page(request: Request):
     """The Ten Commandments page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": TEN_COMMANDMENTS_DATA,
-            "page_title": "The Ten Commandments",
-            "page_subtitle": "The Moral Law of God",
-            "page_description": "Study the Ten Commandments given by God to Moses on Mount Sinai - the foundation of biblical morality and divine law.",
-            "base_url": "/ten-commandments",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Ten Commandments", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=TEN_COMMANDMENTS_DATA,
+        page_title="The Ten Commandments",
+        page_subtitle="The Moral Law of God",
+        page_description="Study the Ten Commandments given by God to Moses on Mount Sinai - the foundation of biblical morality and divine law.",
+        base_url="/ten-commandments",
     )
 
 
@@ -1004,23 +930,13 @@ async def commandment_detail_pdf(commandment_slug: str):
 @router.get("/armor-of-god", response_class=HTMLResponse)
 async def armor_of_god_page(request: Request):
     """The Armor of God page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": ARMOR_OF_GOD_DATA,
-            "page_title": "The Armor of God",
-            "page_subtitle": "Divine Equipment for Spiritual Warfare",
-            "page_description": "Study the Armor of God from Ephesians 6 - the spiritual equipment believers need to stand against the wiles of the devil.",
-            "base_url": "/armor-of-god",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Armor of God", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=ARMOR_OF_GOD_DATA,
+        page_title="The Armor of God",
+        page_subtitle="Divine Equipment for Spiritual Warfare",
+        page_description="Study the Armor of God from Ephesians 6 - the spiritual equipment believers need to stand against the wiles of the devil.",
+        base_url="/armor-of-god",
     )
 
 
@@ -1065,23 +981,14 @@ async def armor_detail_pdf(armor_slug: str):
 @router.get("/i-am-statements", response_class=HTMLResponse)
 async def i_am_statements_page(request: Request):
     """I Am Statements of Jesus page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": I_AM_STATEMENTS_DATA,
-            "page_title": "I Am Statements of Jesus",
-            "page_subtitle": "Divine Self-Revelations in the Gospel of John",
-            "page_description": "Explore the seven 'I Am' statements of Jesus in John's Gospel - profound declarations of His divine nature and mission.",
-            "base_url": "/i-am-statements",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "I Am Statements", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=I_AM_STATEMENTS_DATA,
+        page_title="I Am Statements of Jesus",
+        page_subtitle="Divine Self-Revelations in the Gospel of John",
+        page_description="Explore the seven 'I Am' statements of Jesus in John's Gospel - profound declarations of His divine nature and mission.",
+        base_url="/i-am-statements",
+        breadcrumb_label="I Am Statements",
     )
 
 
@@ -1126,23 +1033,13 @@ async def i_am_statement_detail_pdf(statement_slug: str):
 @router.get("/trinity", response_class=HTMLResponse)
 async def trinity_page(request: Request):
     """The Trinity - doctrine of God page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": TRINITY_DATA,
-            "page_title": "The Trinity",
-            "page_subtitle": "The Doctrine of One God in Three Persons",
-            "page_description": "An expansive theological study of the Trinity - the doctrine that God eternally exists as Father, Son, and Holy Spirit, three distinct Persons sharing one divine essence.",
-            "base_url": "/trinity",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Trinity", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=TRINITY_DATA,
+        page_title="The Trinity",
+        page_subtitle="The Doctrine of One God in Three Persons",
+        page_description="An expansive theological study of the Trinity - the doctrine that God eternally exists as Father, Son, and Holy Spirit, three distinct Persons sharing one divine essence.",
+        base_url="/trinity",
     )
 
 
@@ -1187,23 +1084,13 @@ async def trinity_detail_pdf(item_slug: str):
 @router.get("/christology", response_class=HTMLResponse)
 async def christology_page(request: Request):
     """Christology - the doctrine of Christ page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": CHRISTOLOGY_DATA,
-            "page_title": "Christology",
-            "page_subtitle": "The Doctrine of the Person and Work of Christ",
-            "page_description": "An expansive theological study of Christology - the doctrine concerning Jesus Christ, His divine-human nature, His offices, and His saving work.",
-            "base_url": "/christology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Christology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=CHRISTOLOGY_DATA,
+        page_title="Christology",
+        page_subtitle="The Doctrine of the Person and Work of Christ",
+        page_description="An expansive theological study of Christology - the doctrine concerning Jesus Christ, His divine-human nature, His offices, and His saving work.",
+        base_url="/christology",
     )
 
 
@@ -1248,23 +1135,13 @@ async def christology_detail_pdf(item_slug: str):
 @router.get("/soteriology", response_class=HTMLResponse)
 async def soteriology_page(request: Request):
     """Soteriology - the doctrine of salvation page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": SOTERIOLOGY_DATA,
-            "page_title": "Soteriology",
-            "page_subtitle": "The Doctrine of Salvation",
-            "page_description": "An expansive theological study of Soteriology - the doctrine of salvation, covering election, atonement, regeneration, justification, sanctification, and glorification.",
-            "base_url": "/soteriology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Soteriology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=SOTERIOLOGY_DATA,
+        page_title="Soteriology",
+        page_subtitle="The Doctrine of Salvation",
+        page_description="An expansive theological study of Soteriology - the doctrine of salvation, covering election, atonement, regeneration, justification, sanctification, and glorification.",
+        base_url="/soteriology",
     )
 
 
@@ -1309,23 +1186,13 @@ async def soteriology_detail_pdf(item_slug: str):
 @router.get("/pneumatology", response_class=HTMLResponse)
 async def pneumatology_page(request: Request):
     """Pneumatology - the doctrine of the Holy Spirit page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": PNEUMATOLOGY_DATA,
-            "page_title": "Pneumatology",
-            "page_subtitle": "The Doctrine of the Holy Spirit",
-            "page_description": "An expansive theological study of Pneumatology - the doctrine of the Holy Spirit, His person, deity, work in salvation, and ministry to believers.",
-            "base_url": "/pneumatology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Pneumatology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=PNEUMATOLOGY_DATA,
+        page_title="Pneumatology",
+        page_subtitle="The Doctrine of the Holy Spirit",
+        page_description="An expansive theological study of Pneumatology - the doctrine of the Holy Spirit, His person, deity, work in salvation, and ministry to believers.",
+        base_url="/pneumatology",
     )
 
 
@@ -1370,23 +1237,13 @@ async def pneumatology_detail_pdf(item_slug: str):
 @router.get("/eschatology", response_class=HTMLResponse)
 async def eschatology_page(request: Request):
     """Eschatology - the doctrine of last things page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": ESCHATOLOGY_DATA,
-            "page_title": "Eschatology",
-            "page_subtitle": "The Doctrine of Last Things",
-            "page_description": "An expansive theological study of Eschatology - the doctrine of death, resurrection, the second coming of Christ, final judgment, and eternal destinies.",
-            "base_url": "/eschatology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Eschatology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=ESCHATOLOGY_DATA,
+        page_title="Eschatology",
+        page_subtitle="The Doctrine of Last Things",
+        page_description="An expansive theological study of Eschatology - the doctrine of death, resurrection, the second coming of Christ, final judgment, and eternal destinies.",
+        base_url="/eschatology",
     )
 
 
@@ -1431,23 +1288,13 @@ async def eschatology_detail_pdf(item_slug: str):
 @router.get("/ecclesiology", response_class=HTMLResponse)
 async def ecclesiology_page(request: Request):
     """Ecclesiology - the doctrine of the church page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": ECCLESIOLOGY_DATA,
-            "page_title": "Ecclesiology",
-            "page_subtitle": "The Doctrine of the Church",
-            "page_description": "An expansive theological study of Ecclesiology - the doctrine of the church, its nature, marks, government, mission, and ordinances.",
-            "base_url": "/ecclesiology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Ecclesiology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=ECCLESIOLOGY_DATA,
+        page_title="Ecclesiology",
+        page_subtitle="The Doctrine of the Church",
+        page_description="An expansive theological study of Ecclesiology - the doctrine of the church, its nature, marks, government, mission, and ordinances.",
+        base_url="/ecclesiology",
     )
 
 
@@ -1492,23 +1339,14 @@ async def ecclesiology_detail_pdf(item_slug: str):
 @router.get("/types-and-shadows", response_class=HTMLResponse)
 async def types_and_shadows_page(request: Request):
     """Types and Shadows of Christ page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": TYPES_AND_SHADOWS_DATA,
-            "page_title": "Types and Shadows of Christ",
-            "page_subtitle": "Old Testament Figures Fulfilled in Christ",
-            "page_description": "An expansive study of Old Testament types and shadows pointing to Christ - persons, events, and institutions that prefigure and find their fulfillment in Jesus.",
-            "base_url": "/types-and-shadows",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Types and Shadows", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=TYPES_AND_SHADOWS_DATA,
+        page_title="Types and Shadows of Christ",
+        page_subtitle="Old Testament Figures Fulfilled in Christ",
+        page_description="An expansive study of Old Testament types and shadows pointing to Christ - persons, events, and institutions that prefigure and find their fulfillment in Jesus.",
+        base_url="/types-and-shadows",
+        breadcrumb_label="Types and Shadows",
     )
 
 
@@ -1553,23 +1391,13 @@ async def types_and_shadows_detail_pdf(item_slug: str):
 @router.get("/messianic-prophecies", response_class=HTMLResponse)
 async def messianic_prophecies_page(request: Request):
     """Messianic Prophecies page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": MESSIANIC_PROPHECIES_DATA,
-            "page_title": "Messianic Prophecies",
-            "page_subtitle": "Old Testament Predictions Fulfilled in Christ",
-            "page_description": "An expansive study of Messianic prophecies - Old Testament predictions concerning the Messiah's coming, ministry, suffering, and triumph, all fulfilled in Jesus Christ.",
-            "base_url": "/messianic-prophecies",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Messianic Prophecies", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=MESSIANIC_PROPHECIES_DATA,
+        page_title="Messianic Prophecies",
+        page_subtitle="Old Testament Predictions Fulfilled in Christ",
+        page_description="An expansive study of Messianic prophecies - Old Testament predictions concerning the Messiah's coming, ministry, suffering, and triumph, all fulfilled in Jesus Christ.",
+        base_url="/messianic-prophecies",
     )
 
 
@@ -1614,23 +1442,13 @@ async def messianic_prophecies_detail_pdf(item_slug: str):
 @router.get("/blood-in-scripture", response_class=HTMLResponse)
 async def blood_in_scripture_page(request: Request):
     """The Blood in Scripture page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": BLOOD_IN_SCRIPTURE_DATA,
-            "page_title": "The Blood in Scripture",
-            "page_subtitle": "The Theology of Redemption Through Blood",
-            "page_description": "An expansive study of the blood in Scripture - its significance, Old Testament foundations, and ultimate fulfillment in the blood of Christ for redemption, justification, and cleansing.",
-            "base_url": "/blood-in-scripture",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Blood in Scripture", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=BLOOD_IN_SCRIPTURE_DATA,
+        page_title="The Blood in Scripture",
+        page_subtitle="The Theology of Redemption Through Blood",
+        page_description="An expansive study of the blood in Scripture - its significance, Old Testament foundations, and ultimate fulfillment in the blood of Christ for redemption, justification, and cleansing.",
+        base_url="/blood-in-scripture",
     )
 
 
@@ -1675,23 +1493,13 @@ async def blood_in_scripture_detail_pdf(item_slug: str):
 @router.get("/kingdom-of-god", response_class=HTMLResponse)
 async def kingdom_of_god_page(request: Request):
     """The Kingdom of God page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": KINGDOM_OF_GOD_DATA,
-            "page_title": "The Kingdom of God",
-            "page_subtitle": "The Reign of God Through Christ",
-            "page_description": "An expansive study of the Kingdom of God - its nature, King, entrance requirements, growth, and ultimate consummation at Christ's return.",
-            "base_url": "/kingdom-of-god",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "The Kingdom of God", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=KINGDOM_OF_GOD_DATA,
+        page_title="The Kingdom of God",
+        page_subtitle="The Reign of God Through Christ",
+        page_description="An expansive study of the Kingdom of God - its nature, King, entrance requirements, growth, and ultimate consummation at Christ's return.",
+        base_url="/kingdom-of-god",
     )
 
 
@@ -1736,23 +1544,14 @@ async def kingdom_of_god_detail_pdf(item_slug: str):
 @router.get("/names-of-christ", response_class=HTMLResponse)
 async def names_of_christ_page(request: Request):
     """Names and Titles of Christ page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": NAMES_OF_CHRIST_DATA,
-            "page_title": "Names and Titles of Christ",
-            "page_subtitle": "The Glorious Designations of Our Lord",
-            "page_description": "An expansive study of the names and titles of Jesus Christ - divine names, messianic titles, redemptive designations, and relational names revealing His person and work.",
-            "base_url": "/names-of-christ",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Names of Christ", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=NAMES_OF_CHRIST_DATA,
+        page_title="Names and Titles of Christ",
+        page_subtitle="The Glorious Designations of Our Lord",
+        page_description="An expansive study of the names and titles of Jesus Christ - divine names, messianic titles, redemptive designations, and relational names revealing His person and work.",
+        base_url="/names-of-christ",
+        breadcrumb_label="Names of Christ",
     )
 
 
@@ -1797,23 +1596,13 @@ async def names_of_christ_detail_pdf(item_slug: str):
 @router.get("/spirits-and-demons", response_class=HTMLResponse)
 async def spirits_and_demons_page(request: Request):
     """Spirits and Demons - biblical demonology page."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": SPIRITS_AND_DEMONS_DATA,
-            "page_title": "Spirits & Demons",
-            "page_subtitle": "Biblical Demonology and Spiritual Warfare",
-            "page_description": "A comprehensive study of demons, Satan, evil spirits, and spiritual warfare in Scripture—from Legion to the Lake of Fire.",
-            "base_url": "/spirits-and-demons",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Spirits & Demons", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=SPIRITS_AND_DEMONS_DATA,
+        page_title="Spirits & Demons",
+        page_subtitle="Biblical Demonology and Spiritual Warfare",
+        page_description="A comprehensive study of demons, Satan, evil spirits, and spiritual warfare in Scripture—from Legion to the Lake of Fire.",
+        base_url="/spirits-and-demons",
     )
 
 
@@ -1858,23 +1647,14 @@ async def spirits_and_demons_detail_pdf(item_slug: str):
 @router.get("/personifications", response_class=HTMLResponse)
 async def personifications_page(request: Request):
     """Personifications in Scripture - abstract concepts given human form."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": PERSONIFICATIONS_DATA,
-            "page_title": "Personifications in Scripture",
-            "page_subtitle": "Abstract Concepts Given Human Form",
-            "page_description": "A study of biblical personifications—Wisdom, Folly, Death, Sin, and other abstract concepts portrayed as persons throughout Scripture.",
-            "base_url": "/personifications",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Personifications", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=PERSONIFICATIONS_DATA,
+        page_title="Personifications in Scripture",
+        page_subtitle="Abstract Concepts Given Human Form",
+        page_description="A study of biblical personifications—Wisdom, Folly, Death, Sin, and other abstract concepts portrayed as persons throughout Scripture.",
+        base_url="/personifications",
+        breadcrumb_label="Personifications",
     )
 
 
@@ -1919,23 +1699,14 @@ async def personifications_detail_pdf(item_slug: str):
 @router.get("/bibliology", response_class=HTMLResponse)
 async def bibliology_page(request: Request):
     """Bibliology - The Doctrine of Scripture."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": BIBLIOLOGY_DATA["categories"],
-            "page_title": BIBLIOLOGY_DATA["title"],
-            "page_subtitle": BIBLIOLOGY_DATA["subtitle"],
-            "page_description": BIBLIOLOGY_DATA["introduction"],
-            "base_url": "/bibliology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Bibliology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=BIBLIOLOGY_DATA["categories"],
+        page_title=BIBLIOLOGY_DATA["title"],
+        page_subtitle=BIBLIOLOGY_DATA["subtitle"],
+        page_description=BIBLIOLOGY_DATA["introduction"],
+        base_url="/bibliology",
+        breadcrumb_label="Bibliology",
     )
 
 
@@ -1980,23 +1751,14 @@ async def bibliology_detail_pdf(item_slug: str):
 @router.get("/theology-proper", response_class=HTMLResponse)
 async def theology_proper_page(request: Request):
     """Theology Proper - The Attributes of God."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": THEOLOGY_PROPER_DATA["categories"],
-            "page_title": THEOLOGY_PROPER_DATA["title"],
-            "page_subtitle": THEOLOGY_PROPER_DATA["subtitle"],
-            "page_description": THEOLOGY_PROPER_DATA["introduction"],
-            "base_url": "/theology-proper",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Theology Proper", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=THEOLOGY_PROPER_DATA["categories"],
+        page_title=THEOLOGY_PROPER_DATA["title"],
+        page_subtitle=THEOLOGY_PROPER_DATA["subtitle"],
+        page_description=THEOLOGY_PROPER_DATA["introduction"],
+        base_url="/theology-proper",
+        breadcrumb_label="Theology Proper",
     )
 
 
@@ -2041,23 +1803,14 @@ async def theology_proper_detail_pdf(item_slug: str):
 @router.get("/anthropology", response_class=HTMLResponse)
 async def anthropology_page(request: Request):
     """Anthropology - The Doctrine of Man."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": ANTHROPOLOGY_DATA["categories"],
-            "page_title": ANTHROPOLOGY_DATA["title"],
-            "page_subtitle": ANTHROPOLOGY_DATA["subtitle"],
-            "page_description": ANTHROPOLOGY_DATA["introduction"],
-            "base_url": "/anthropology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Anthropology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=ANTHROPOLOGY_DATA["categories"],
+        page_title=ANTHROPOLOGY_DATA["title"],
+        page_subtitle=ANTHROPOLOGY_DATA["subtitle"],
+        page_description=ANTHROPOLOGY_DATA["introduction"],
+        base_url="/anthropology",
+        breadcrumb_label="Anthropology",
     )
 
 
@@ -2102,23 +1855,14 @@ async def anthropology_detail_pdf(item_slug: str):
 @router.get("/hamartiology", response_class=HTMLResponse)
 async def hamartiology_page(request: Request):
     """Hamartiology - The Doctrine of Sin."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": HAMARTIOLOGY_DATA["categories"],
-            "page_title": HAMARTIOLOGY_DATA["title"],
-            "page_subtitle": HAMARTIOLOGY_DATA["subtitle"],
-            "page_description": HAMARTIOLOGY_DATA["introduction"],
-            "base_url": "/hamartiology",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Hamartiology", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=HAMARTIOLOGY_DATA["categories"],
+        page_title=HAMARTIOLOGY_DATA["title"],
+        page_subtitle=HAMARTIOLOGY_DATA["subtitle"],
+        page_description=HAMARTIOLOGY_DATA["introduction"],
+        base_url="/hamartiology",
+        breadcrumb_label="Hamartiology",
     )
 
 
@@ -2163,23 +1907,14 @@ async def hamartiology_detail_pdf(item_slug: str):
 @router.get("/providence", response_class=HTMLResponse)
 async def providence_page(request: Request):
     """Providence - Divine Providence."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": PROVIDENCE_DATA["categories"],
-            "page_title": PROVIDENCE_DATA["title"],
-            "page_subtitle": PROVIDENCE_DATA["subtitle"],
-            "page_description": PROVIDENCE_DATA["introduction"],
-            "base_url": "/providence",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Providence", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=PROVIDENCE_DATA["categories"],
+        page_title=PROVIDENCE_DATA["title"],
+        page_subtitle=PROVIDENCE_DATA["subtitle"],
+        page_description=PROVIDENCE_DATA["introduction"],
+        base_url="/providence",
+        breadcrumb_label="Providence",
     )
 
 
@@ -2224,23 +1959,14 @@ async def providence_detail_pdf(item_slug: str):
 @router.get("/grace", response_class=HTMLResponse)
 async def grace_page(request: Request):
     """Grace - The Doctrine of Grace."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": GRACE_DATA["categories"],
-            "page_title": GRACE_DATA["title"],
-            "page_subtitle": GRACE_DATA["subtitle"],
-            "page_description": GRACE_DATA["introduction"],
-            "base_url": "/grace",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Grace", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=GRACE_DATA["categories"],
+        page_title=GRACE_DATA["title"],
+        page_subtitle=GRACE_DATA["subtitle"],
+        page_description=GRACE_DATA["introduction"],
+        base_url="/grace",
+        breadcrumb_label="Grace",
     )
 
 
@@ -2285,23 +2011,14 @@ async def grace_detail_pdf(item_slug: str):
 @router.get("/justification", response_class=HTMLResponse)
 async def justification_page(request: Request):
     """Justification - The Doctrine of Justification."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": JUSTIFICATION_DATA["categories"],
-            "page_title": JUSTIFICATION_DATA["title"],
-            "page_subtitle": JUSTIFICATION_DATA["subtitle"],
-            "page_description": JUSTIFICATION_DATA["introduction"],
-            "base_url": "/justification",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Justification", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=JUSTIFICATION_DATA["categories"],
+        page_title=JUSTIFICATION_DATA["title"],
+        page_subtitle=JUSTIFICATION_DATA["subtitle"],
+        page_description=JUSTIFICATION_DATA["introduction"],
+        base_url="/justification",
+        breadcrumb_label="Justification",
     )
 
 
@@ -2346,23 +2063,14 @@ async def justification_detail_pdf(item_slug: str):
 @router.get("/sanctification", response_class=HTMLResponse)
 async def sanctification_page(request: Request):
     """Sanctification - The Doctrine of Sanctification."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": SANCTIFICATION_DATA["categories"],
-            "page_title": SANCTIFICATION_DATA["title"],
-            "page_subtitle": SANCTIFICATION_DATA["subtitle"],
-            "page_description": SANCTIFICATION_DATA["introduction"],
-            "base_url": "/sanctification",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Sanctification", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=SANCTIFICATION_DATA["categories"],
+        page_title=SANCTIFICATION_DATA["title"],
+        page_subtitle=SANCTIFICATION_DATA["subtitle"],
+        page_description=SANCTIFICATION_DATA["introduction"],
+        base_url="/sanctification",
+        breadcrumb_label="Sanctification",
     )
 
 
@@ -2407,23 +2115,14 @@ async def sanctification_detail_pdf(item_slug: str):
 @router.get("/law-and-gospel", response_class=HTMLResponse)
 async def law_and_gospel_page(request: Request):
     """Law and Gospel - The Doctrine of Law and Gospel."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": LAW_AND_GOSPEL_DATA["categories"],
-            "page_title": LAW_AND_GOSPEL_DATA["title"],
-            "page_subtitle": LAW_AND_GOSPEL_DATA["subtitle"],
-            "page_description": LAW_AND_GOSPEL_DATA["introduction"],
-            "base_url": "/law-and-gospel",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Law and Gospel", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=LAW_AND_GOSPEL_DATA["categories"],
+        page_title=LAW_AND_GOSPEL_DATA["title"],
+        page_subtitle=LAW_AND_GOSPEL_DATA["subtitle"],
+        page_description=LAW_AND_GOSPEL_DATA["introduction"],
+        base_url="/law-and-gospel",
+        breadcrumb_label="Law and Gospel",
     )
 
 
@@ -2468,23 +2167,14 @@ async def law_and_gospel_detail_pdf(item_slug: str):
 @router.get("/worship", response_class=HTMLResponse)
 async def worship_page(request: Request):
     """Worship - The Doctrine of Worship."""
-    return templates.TemplateResponse(
-            request,
-            "resource_index.html",
-            {
-            "books": get_books(),
-            "resource_data": WORSHIP_DATA["categories"],
-            "page_title": WORSHIP_DATA["title"],
-            "page_subtitle": WORSHIP_DATA["subtitle"],
-            "page_description": WORSHIP_DATA["introduction"],
-            "base_url": "/worship",
-            "pdf_available": WEASYPRINT_AVAILABLE,
-            "breadcrumbs": [
-                {"text": "Home", "url": "/"},
-                {"text": "Resources", "url": "/resources"},
-                {"text": "Worship", "url": None}
-            ]
-        }
+    return _resource_index_response(
+        request,
+        resource_data=WORSHIP_DATA["categories"],
+        page_title=WORSHIP_DATA["title"],
+        page_subtitle=WORSHIP_DATA["subtitle"],
+        page_description=WORSHIP_DATA["introduction"],
+        base_url="/worship",
+        breadcrumb_label="Worship",
     )
 
 

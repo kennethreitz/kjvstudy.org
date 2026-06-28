@@ -1,9 +1,12 @@
 """Miscellaneous routes - search, interlinear, random verse, verse of the day, red letter, OG images."""
+import asyncio
 import hashlib
 import random
 import re
 from datetime import datetime, timedelta
+from pathlib import Path as PathLib
 from typing import Optional
+from urllib.parse import unquote
 
 from fastapi import APIRouter, Query, Request, Path
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
@@ -329,6 +332,27 @@ async def red_letter_page(
 # Dynamic OG Image Generation
 # =============================================================================
 
+async def _og_png(cache_key, title, subtitle, page_type, verse_text=None):
+    """Render (or serve from cache) an OG PNG response with long-lived caching.
+
+    CPU-bound image generation runs in a thread pool so it never blocks the
+    event loop. Shared by every /og/*.png handler.
+    """
+    image_bytes = await asyncio.to_thread(
+        get_cached_or_generate,
+        cache_key=cache_key,
+        title=title,
+        subtitle=subtitle,
+        verse_text=verse_text,
+        page_type=page_type,
+    )
+    return Response(
+        content=image_bytes,
+        media_type="image/png",
+        headers={"Cache-Control": "public, max-age=31536000, immutable"},
+    )
+
+
 @router.get("/og/verse/{book}/{chapter}/{verse}.png", response_class=Response)
 async def og_image_verse(
     book: str = Path(..., description="Book name"),
@@ -336,33 +360,19 @@ async def og_image_verse(
     verse: int = Path(..., description="Verse number")
 ):
     """Generate OG image for a specific verse."""
-    import asyncio
-
     verse_text = bible.get_verse_text(book, chapter, verse)
     if not verse_text:
         # Return default image if verse not found
-        from pathlib import Path as PathLib
         default_path = PathLib(__file__).parent.parent / "static" / "og-image.png"
         content = await asyncio.to_thread(default_path.read_bytes)
         return Response(content=content, media_type="image/png")
 
-    title = f"{book} {chapter}:{verse}"
-    cache_key = f"verse:{book}:{chapter}:{verse}"
-
-    # Run CPU-bound image generation in thread pool to avoid blocking
-    image_bytes = await asyncio.to_thread(
-        get_cached_or_generate,
-        cache_key=cache_key,
-        title=title,
+    return await _og_png(
+        cache_key=f"verse:{book}:{chapter}:{verse}",
+        title=f"{book} {chapter}:{verse}",
         subtitle="King James Version",
         verse_text=verse_text,
-        page_type="verse"
-    )
-
-    return Response(
-        content=image_bytes,
-        media_type="image/png",
-        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+        page_type="verse",
     )
 
 
@@ -372,125 +382,65 @@ async def og_image_chapter(
     chapter: int = Path(..., description="Chapter number")
 ):
     """Generate OG image for a chapter."""
-    import asyncio
-
     # Get first verse as preview
     verse_text = bible.get_verse_text(book, chapter, 1)
 
-    title = f"{book} {chapter}"
-    cache_key = f"chapter:{book}:{chapter}"
-
-    image_bytes = await asyncio.to_thread(
-        get_cached_or_generate,
-        cache_key=cache_key,
-        title=title,
+    return await _og_png(
+        cache_key=f"chapter:{book}:{chapter}",
+        title=f"{book} {chapter}",
         subtitle="King James Version",
         verse_text=verse_text[:150] + "..." if verse_text and len(verse_text) > 150 else verse_text,
-        page_type="chapter"
-    )
-
-    return Response(
-        content=image_bytes,
-        media_type="image/png",
-        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+        page_type="chapter",
     )
 
 
 @router.get("/og/book/{book}.png", response_class=Response)
 async def og_image_book(book: str = Path(..., description="Book name")):
     """Generate OG image for a book."""
-    import asyncio
-
-    title = book
-    cache_key = f"book:{book}"
-
-    image_bytes = await asyncio.to_thread(
-        get_cached_or_generate,
-        cache_key=cache_key,
-        title=title,
+    return await _og_png(
+        cache_key=f"book:{book}",
+        title=book,
         subtitle="King James Version Bible",
-        page_type="book"
-    )
-
-    return Response(
-        content=image_bytes,
-        media_type="image/png",
-        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+        page_type="book",
     )
 
 
 @router.get("/og/topic/{topic}.png", response_class=Response)
 async def og_image_topic(topic: str = Path(..., description="Topic name")):
     """Generate OG image for a topic."""
-    import asyncio
-    from urllib.parse import unquote
-
     topic_name = unquote(topic)
 
-    title = topic_name
-    cache_key = f"topic:{topic_name}"
-
-    image_bytes = await asyncio.to_thread(
-        get_cached_or_generate,
-        cache_key=cache_key,
-        title=title,
+    return await _og_png(
+        cache_key=f"topic:{topic_name}",
+        title=topic_name,
         subtitle="Topical Bible Study",
-        page_type="topic"
-    )
-
-    return Response(
-        content=image_bytes,
-        media_type="image/png",
-        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+        page_type="topic",
     )
 
 
 @router.get("/og/story/{slug}.png", response_class=Response)
 async def og_image_story(slug: str = Path(..., description="Story slug")):
     """Generate OG image for a Bible story."""
-    import asyncio
-
     # Look up the story title, falling back to a humanized slug
     title = slug.replace("-", " ").title()
     story = get_story_by_slug(slug)
     if story:
         title = story.get("title", title)
 
-    cache_key = f"story:{slug}"
-
-    image_bytes = await asyncio.to_thread(
-        get_cached_or_generate,
-        cache_key=cache_key,
+    return await _og_png(
+        cache_key=f"story:{slug}",
         title=title,
         subtitle="Bible Stories",
-        page_type="story"
-    )
-
-    return Response(
-        content=image_bytes,
-        media_type="image/png",
-        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+        page_type="story",
     )
 
 
 @router.get("/og/guide/{slug}.png", response_class=Response)
 async def og_image_guide(slug: str = Path(..., description="Study guide slug")):
     """Generate OG image for a study guide."""
-    import asyncio
-
-    title = slug.replace("-", " ").title()  # Fallback title
-    cache_key = f"guide:{slug}"
-
-    image_bytes = await asyncio.to_thread(
-        get_cached_or_generate,
-        cache_key=cache_key,
-        title=title,
+    return await _og_png(
+        cache_key=f"guide:{slug}",
+        title=slug.replace("-", " ").title(),  # Fallback title
         subtitle="Bible Study Guide",
-        page_type="guide"
-    )
-
-    return Response(
-        content=image_bytes,
-        media_type="image/png",
-        headers={"Cache-Control": "public, max-age=31536000, immutable"}
+        page_type="guide",
     )
