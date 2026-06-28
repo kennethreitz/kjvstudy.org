@@ -8,7 +8,7 @@ help: ## Show this help
 		awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
 
 run: ## Run the dev server with autoreload (http://localhost:$(PORT))
-	uv run granian kjvstudy_org.server:app \
+	uv run granian kjvstudy_org.server:api \
 		--interface asgi --host 127.0.0.1 --port $(PORT) --reload \
 		--static-path-route /static --static-path-mount kjvstudy_org/static
 

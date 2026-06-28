@@ -1,9 +1,6 @@
-// Dark mode functionality
-(function() {
-  // Check for saved theme preference or default to light mode
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', currentTheme);
-})();
+// Dark mode functionality.
+// The initial theme is applied by a synchronous inline script in <head> (see
+// base.html) so the page never flashes light before this file loads.
 
 function toggleDarkMode() {
   const currentTheme = document.documentElement.getAttribute('data-theme');

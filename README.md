@@ -69,7 +69,7 @@ Keyboard navigation (Vim-style and arrow keys), screen reader support, text-to-s
 
 ```
 kjvstudy_org/
-├── server.py                # FastAPI application
+├── server.py                # Responder application (ASGI app = `api`)
 ├── kjv.py                   # Bible text access
 ├── routes/                  # 16 route modules
 ├── utils/                   # Search, PDF, commentary helpers
@@ -83,7 +83,7 @@ kjvstudy_org/
 
 | | |
 |---|---|
-| **Backend** | FastAPI, Python 3.13, Gunicorn |
+| **Backend** | Responder, Python 3.13, Granian |
 | **Frontend** | Tufte CSS, ET Book, vanilla JS |
 | **Data** | JSON, SQLite (search), gzip (interlinear) |
 | **PDF** | WeasyPrint |
@@ -134,7 +134,7 @@ uv run python scripts/validate_data.py
 
 ## Deployment
 
-Deployed via [Dokploy](https://dokploy.com) from Docker on every push to `main` (after CI passes). Production runs behind nginx for static asset caching, with Gunicorn/Uvicorn serving the FastAPI application. Health checks, auto-recovery, and HTTPS are configured out of the box.
+Deployed via [Dokploy](https://dokploy.com) from Docker on every push to `main` (after CI passes). Production runs behind nginx for static asset caching, with Granian serving the Responder application. Health checks, auto-recovery, and HTTPS are configured out of the box.
 
 ---
 

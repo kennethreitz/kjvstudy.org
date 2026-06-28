@@ -4,6 +4,18 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <!-- Apply the saved theme before first paint to avoid a light flash on
+         dark mode (this must run in <head>, before the body renders). -->
+    <script>
+      (function () {
+        try {
+          document.documentElement.setAttribute(
+            'data-theme', localStorage.getItem('theme') || 'light'
+          );
+        } catch (e) {}
+      })();
+    </script>
+
     <title>{% block title %}Authorized King James Version Bible{% endblock %}</title>
 
     <meta name="description" content="{% block description %}Study the Authorized King James Version Bible{% endblock %}"/>

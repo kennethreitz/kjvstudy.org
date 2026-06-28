@@ -4,11 +4,11 @@ This file contains information for Claude Code (AI assistant) about the kjvstudy
 
 ## Project Overview
 
-KJV Study is a modern web application for studying the King James Bible with AI-powered commentary and insights. Built with FastAPI, it provides both a web interface and a comprehensive RESTful API.
+KJV Study is a modern web application for studying the King James Bible with AI-powered commentary and insights. Built with Responder, it provides both a web interface and a comprehensive RESTful API.
 
 ## Tech Stack
 
-- **Backend**: FastAPI (Python 3.13)
+- **Backend**: Responder (Starlette-based, Python 3.13)
 - **Package Manager**: uv
 - **Bible Data**: Custom implementation with local JSON (31,102 verses from 1769 Cambridge KJV)
 - **Templates**: Jinja2
@@ -59,7 +59,7 @@ docker compose exec web uv run pytest tests/ -v
 
 Shared fixtures are defined in `tests/conftest.py`:
 
-- `client` - FastAPI TestClient
+- `client` - Responder/Starlette TestClient (`api.session()`)
 - `sample_verses` - Common verse references
 - `sample_books` - Sample book names
 - `book_abbreviations` - Abbreviation mappings
@@ -115,7 +115,7 @@ All endpoints support book name abbreviations (Gen, Ex, Mt, etc.)
 uv sync
 
 # Run development server
-uv run uvicorn kjvstudy_org.server:app --reload
+uv run granian kjvstudy_org.server:api --interface asgi --reload
 
 # Or use Docker
 docker compose up
@@ -125,7 +125,9 @@ docker compose up
 
 ```
 kjvstudy_org/
-├── server.py           # FastAPI application
+├── server.py          # Responder application (ASGI app = `api`)
+├── responder_routes/  # Route modules (register(api) each)
+├── commentary_gen.py  # Commentary generation (framework-agnostic)
 ├── kjv.py             # Bible data access
 ├── cross_references.py # Cross-reference data
 ├── reading_plans.py    # Reading plan data
@@ -229,7 +231,7 @@ When making changes:
 uv sync
 
 # Run server
-uv run uvicorn kjvstudy_org.server:app --reload
+uv run granian kjvstudy_org.server:api --interface asgi --reload
 
 # Run tests
 uv run pytest tests/ -v
