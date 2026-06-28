@@ -8,8 +8,10 @@ from typing import BinaryIO
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 
-from fastapi import HTTPException
-from fastapi.responses import StreamingResponse
+# Starlette (not FastAPI) so this module imports under both the FastAPI app and
+# the Responder port, which require different Starlette versions.
+from starlette.exceptions import HTTPException
+from starlette.responses import StreamingResponse
 
 try:  # pragma: no cover - optional dependency
     # Suppress WeasyPrint's stdout/stderr noise during import

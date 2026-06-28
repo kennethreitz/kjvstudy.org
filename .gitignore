@@ -17,3 +17,6 @@ kjvstudy_org/verse_collections.py
 *.backup
 *.json
 .coverage
+
+# Background-agent git worktrees
+.claude/worktrees/

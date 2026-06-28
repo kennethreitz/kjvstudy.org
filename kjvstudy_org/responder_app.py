@@ -1,35 +1,25 @@
-"""Responder port of the KJV Study web app — WORK IN PROGRESS.
+"""Responder port of the KJV Study web app.
 
-This is the new web layer built on Responder (https://responder.kennethreitz.org),
-replacing the FastAPI layer in ``server.py``. It reuses every framework-agnostic
-module unchanged (``kjv``, ``topics``, ``commentary`` generation, ``red_letter``,
-``utils.*``, the resource catalog, etc.); only routing and response construction
-are reimplemented.
+The new web layer, built on Responder (https://responder.kennethreitz.org),
+replacing the FastAPI layer in ``server.py``. Reuses every framework-agnostic
+module unchanged; only routing and response construction are reimplemented (in
+``kjvstudy_org/responder_routes/``).
 
-Run it with::
+Run it::
 
-    uv run responder run kjvstudy_org.responder_app:api
-    # or
-    uv run python -m kjvstudy_org.responder_app
-
-Porting status: scaffold + a vertical slice (homepage, /books, /resources,
-/health, /api/health, custom 404) are ported and verified. The remaining route
-modules are tracked in PORTING.md.
+    uv run --with ~/repos/responder python -m kjvstudy_org.responder_app
 """
 import hashlib
 import os
-from datetime import date
 from pathlib import Path
 
 import responder
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
 
-from .kjv import bible
 from .jinja_filters import register_filters
-from .resource_catalog import RESOURCE_CATEGORIES, iter_resources
-from .utils.books import OT_BOOKS, NT_BOOKS
-from .utils.helpers import get_daily_verse, verse_reference_to_url
 from .utils.pdf import WEASYPRINT_AVAILABLE
-from .study_guides import get_featured_study_guides
+from .responder_routes import register_all
 
 _DIR = Path(__file__).parent
 _STATIC_DIR = _DIR / "static"
@@ -52,6 +42,8 @@ api = responder.API(
     openapi="3.0.2",
     docs_route="/api/docs",
     openapi_route="/api/openapi.json",
+    gzip=True,
+    secret_key=os.getenv("SECRET_KEY", "kjvstudy-dev-secret-change-in-prod"),
 )
 
 
@@ -82,19 +74,8 @@ _env.globals["resource_pdf_available"] = WEASYPRINT_AVAILABLE
 _env.globals["github_repo_url"] = "https://github.com/kennethreitz/kjvstudy.org"
 
 
-def render(req, resp, template: str, **context) -> None:
-    """Render a Jinja template into ``resp.html``.
-
-    Responder doesn't auto-inject the request the way Starlette's
-    ``TemplateResponse`` does, so we pass ``request=req`` (templates only use
-    ``request.url.path``). This is the shared helper every ported web handler
-    uses in place of ``templates.TemplateResponse(request, name, ctx)``.
-    """
-    resp.html = api.template(template, request=req, **context)
-
-
 # ---------------------------------------------------------------------------
-# Cross-cutting: Cache-Control headers (port of CacheControlMiddleware)
+# Cache-Control headers (port of CacheControlMiddleware)
 # ---------------------------------------------------------------------------
 @api.after_request()
 def cache_control(req, resp):
@@ -129,128 +110,84 @@ def cache_control(req, resp):
 
 
 # ---------------------------------------------------------------------------
-# Web routes (vertical slice — see PORTING.md for the rest)
+# Operational middleware (ports of BotLogger / RateLimit / Timeout)
 # ---------------------------------------------------------------------------
-_homepage_cache: dict = {"date": None, "html": None}
+class BotLoggerMiddleware(BaseHTTPMiddleware):
+    """Log requests from known bots/crawlers."""
 
-
-@api.route("/")
-async def read_root(req, resp):
-    """Homepage (cached, rebuilds once per day)."""
-    today = date.today()
-    if _homepage_cache["date"] == today and _homepage_cache["html"] is not None:
-        resp.html = _homepage_cache["html"]
-        return
-
-    books = bible.get_books()
-    daily_verse = get_daily_verse()
-
-    study_guides = get_featured_study_guides()
-    for category in study_guides.values():
-        for guide in category:
-            guide["verse_refs"] = [
-                {"text": verse, "url": verse_reference_to_url(verse) or "#"}
-                for verse in guide["verses"]
-            ]
-
-    _homepage_exclude = {"/study-guides", "/family-tree", "/biblical-timeline", "/biblical-maps"}
-    theology_links = [r for r in iter_resources() if r["url"] not in _homepage_exclude]
-
-    html = api.template(
-        "index.html",
-        request=req,
-        books=books,
-        daily_verse=daily_verse,
-        study_guides=study_guides,
-        theology_links=theology_links,
-    )
-    _homepage_cache["date"] = today
-    _homepage_cache["html"] = html
-    resp.html = html
-
-
-# Book categorization (slug per book) for the /books grid.
-_BOOK_TYPES = {
-    'Genesis': 'law', 'Exodus': 'law', 'Leviticus': 'law', 'Numbers': 'law', 'Deuteronomy': 'law',
-    'Joshua': 'historical', 'Judges': 'historical', 'Ruth': 'historical',
-    '1 Samuel': 'historical', '2 Samuel': 'historical', '1 Kings': 'historical', '2 Kings': 'historical',
-    '1 Chronicles': 'historical', '2 Chronicles': 'historical', 'Ezra': 'historical',
-    'Nehemiah': 'historical', 'Esther': 'historical',
-    'Job': 'wisdom', 'Psalms': 'wisdom', 'Proverbs': 'wisdom', 'Ecclesiastes': 'wisdom', 'Song of Solomon': 'wisdom',
-    'Isaiah': 'major-prophets', 'Jeremiah': 'major-prophets', 'Lamentations': 'major-prophets',
-    'Ezekiel': 'major-prophets', 'Daniel': 'major-prophets',
-    'Hosea': 'minor-prophets', 'Joel': 'minor-prophets', 'Amos': 'minor-prophets',
-    'Obadiah': 'minor-prophets', 'Jonah': 'minor-prophets', 'Micah': 'minor-prophets',
-    'Nahum': 'minor-prophets', 'Habakkuk': 'minor-prophets', 'Zephaniah': 'minor-prophets',
-    'Haggai': 'minor-prophets', 'Zechariah': 'minor-prophets', 'Malachi': 'minor-prophets',
-    'Matthew': 'gospels', 'Mark': 'gospels', 'Luke': 'gospels', 'John': 'gospels',
-    'Acts': 'acts',
-    'Romans': 'pauline', '1 Corinthians': 'pauline', '2 Corinthians': 'pauline',
-    'Galatians': 'pauline', 'Ephesians': 'pauline', 'Philippians': 'pauline', 'Colossians': 'pauline',
-    '1 Thessalonians': 'pauline', '2 Thessalonians': 'pauline',
-    '1 Timothy': 'pauline', '2 Timothy': 'pauline', 'Titus': 'pauline', 'Philemon': 'pauline',
-    'Hebrews': 'general', 'James': 'general', '1 Peter': 'general', '2 Peter': 'general',
-    '1 John': 'general', '2 John': 'general', '3 John': 'general', 'Jude': 'general',
-    'Revelation': 'apocalyptic',
-}
-
-
-def _book_grid(book_names, available):
-    return [
-        {
-            "name": book,
-            "chapters": len(bible.get_chapters_for_book(book)),
-            "available": book in available,
-            "type": _BOOK_TYPES.get(book, ""),
-        }
-        for book in book_names
+    BOT_IDENTIFIERS = [
+        'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
+        'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
+        'linkedinbot', 'embedly', 'quora link preview', 'showyoubot',
+        'outbrain', 'pinterest', 'slackbot', 'vkshare', 'w3c_validator',
+        'redditbot', 'applebot', 'whatsapp', 'flipboard', 'tumblr',
+        'bitlybot', 'skypeuripreview', 'nuzzel', 'discordbot',
+        'telegrambot', 'perplexitybot', 'amazonbot', 'claudebot',
+        'anthropic-ai', 'gptbot', 'chatgpt-user', 'ccbot',
+        'diffbot', 'bytespider', 'petalbot',
     ]
 
-
-@api.route("/books")
-async def books_page(req, resp):
-    """Browse all books of the Bible."""
-    books = bible.get_books()
-    render(
-        req, resp, "books.html",
-        old_testament=_book_grid(OT_BOOKS, books),
-        new_testament=_book_grid(NT_BOOKS, books),
-        books=books,
-        breadcrumbs=[{"text": "Home", "url": "/"}, {"text": "Books", "url": None}],
-    )
+    async def dispatch(self, request, call_next):
+        ua = request.headers.get("user-agent", "").lower()
+        bot = next((b for b in self.BOT_IDENTIFIERS if b in ua), None)
+        if bot:
+            print(f"[BOT] {bot}")
+        return await call_next(request)
 
 
-@api.route("/resources")
-async def resources_page(req, resp):
-    """Browse all theological resources."""
-    render(
-        req, resp, "resources.html",
-        resources=RESOURCE_CATEGORIES,
-        books=bible.get_books(),
-        breadcrumbs=[{"text": "Home", "url": "/"}, {"text": "Resources", "url": None}],
-    )
+class RateLimitMiddleware(BaseHTTPMiddleware):
+    """Simple in-memory per-IP sliding-window rate limiter."""
+
+    def __init__(self, app, requests_per_second: float = 10.0):
+        super().__init__(app)
+        self.rate = requests_per_second
+        self._buckets: dict[str, tuple[float, float]] = {}
+        self._max_tokens = requests_per_second * 5
+
+    async def dispatch(self, request, call_next):
+        import time
+        if request.url.path == "/health":
+            return await call_next(request)
+        ip = request.client.host if request.client else "unknown"
+        if ip in ("127.0.0.1", "testclient"):
+            return await call_next(request)
+        now = time.monotonic()
+        tokens, last = self._buckets.get(ip, (self._max_tokens, now))
+        tokens = min(self._max_tokens, tokens + (now - last) * self.rate)
+        if tokens < 1.0:
+            return JSONResponse({"detail": "Too many requests"}, status_code=429,
+                                headers={"Retry-After": "1"})
+        self._buckets[ip] = (tokens - 1.0, now)
+        if len(self._buckets) > 5000:
+            cutoff = now - 60
+            self._buckets = {k: (t, ts) for k, (t, ts) in self._buckets.items() if ts > cutoff}
+        return await call_next(request)
 
 
-@api.route("/health")
-async def health(req, resp):
-    """Liveness probe."""
-    resp.media = {"status": "ok"}
+class TimeoutMiddleware(BaseHTTPMiddleware):
+    """Cancel requests that exceed a time limit."""
+
+    def __init__(self, app, timeout_seconds: float = 30.0):
+        super().__init__(app)
+        self.timeout = timeout_seconds
+
+    async def dispatch(self, request, call_next):
+        import asyncio
+        try:
+            return await asyncio.wait_for(call_next(request), timeout=self.timeout)
+        except asyncio.TimeoutError:
+            return JSONResponse({"detail": "Request timeout"}, status_code=504)
+
+
+api.add_middleware(TimeoutMiddleware, timeout_seconds=30.0)
+api.add_middleware(RateLimitMiddleware, requests_per_second=10.0)
+api.add_middleware(BotLoggerMiddleware)
 
 
 # ---------------------------------------------------------------------------
-# API routes (vertical slice)
+# Routes
 # ---------------------------------------------------------------------------
-@api.route("/api/health")
-async def api_health(req, resp):
-    """API health check."""
-    resp.media = {"status": "healthy", "service": "KJV Study API", "version": "1.0.0"}
-
-
-# TODO(port): wire a custom 404 -> error.html. Responder's default-route
-# mechanism (Router.default_endpoint) expects a raw ASGI callable rather than a
-# (req, resp) handler, so the FastAPI custom_http_exception_handler needs a
-# Responder-native equivalent (likely Router(default_response=...) or a
-# catch-all route). Until then Responder serves its built-in 404. See PORTING.md.
+register_all(api)
 
 
 if __name__ == "__main__":
