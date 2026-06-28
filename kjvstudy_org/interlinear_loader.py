@@ -1,7 +1,7 @@
 """
 Lazy loader for compressed interlinear Bible data.
 Decompresses and loads the data on first access.
-Optimized for fly.io production deployment.
+Optimized for production deployment.
 """
 
 import gzip

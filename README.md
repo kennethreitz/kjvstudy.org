@@ -88,7 +88,7 @@ kjvstudy_org/
 | **Data** | JSON, SQLite (search), gzip (interlinear) |
 | **PDF** | WeasyPrint |
 | **Packaging** | uv |
-| **Infrastructure** | Docker, nginx, Fly.io |
+| **Infrastructure** | Docker, nginx, Dokploy |
 | **CI/CD** | GitHub Actions |
 
 ---
@@ -134,7 +134,7 @@ uv run python scripts/validate_data.py
 
 ## Deployment
 
-Deployed to [Fly.io](https://fly.io) with `fly deploy`. Production runs behind nginx for static asset caching, with Gunicorn/Uvicorn serving the FastAPI application. Health checks, auto-recovery, and HTTPS are configured out of the box.
+Deployed via [Dokploy](https://dokploy.com) from Docker on every push to `main` (after CI passes). Production runs behind nginx for static asset caching, with Gunicorn/Uvicorn serving the FastAPI application. Health checks, auto-recovery, and HTTPS are configured out of the box.
 
 ---
 

@@ -1,6 +1,3 @@
-# Fly.io
-fly.toml
-
 # Git
 .git/
 .gitignore

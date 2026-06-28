@@ -13,7 +13,7 @@ KJV Study is a modern web application for studying the King James Bible with AI-
 - **Bible Data**: Custom implementation with local JSON (31,102 verses from 1769 Cambridge KJV)
 - **Templates**: Jinja2
 - **Styling**: Tufte CSS (Edward Tufte-inspired typography)
-- **Deployment**: Fly.io
+- **Deployment**: Docker via Dokploy
 - **CI/CD**: GitHub Actions
 
 ## Testing
@@ -71,9 +71,9 @@ Tests run automatically via GitHub Actions:
 
 - **On every push** to main
 - **On every pull request**
-- **Before deployment** to Fly.io
+- **Before deployment** (Dokploy deploys on push to main after tests pass)
 
-See `.github/workflows/test.yml` and `.github/workflows/fly-deploy.yml`
+See `.github/workflows/test.yml` and `.github/workflows/deploy.yml`
 
 ## API Documentation
 
