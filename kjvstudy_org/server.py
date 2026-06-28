@@ -192,6 +192,21 @@ api.add_middleware(BotLoggerMiddleware)
 register_all(api)
 
 
+# ---------------------------------------------------------------------------
+# OpenAPI schema scope
+# ---------------------------------------------------------------------------
+# Responder 5.0.0 auto-documents *every* route in the OpenAPI spec, including
+# all the HTML page routes. Keep the spec limited to the JSON API: exclude any
+# route whose path does not start with "/api".
+for _route in api.router.routes:
+    _path = str(getattr(_route, "path_template", getattr(_route, "route", "")) or "")
+    if _path.startswith("/api"):
+        continue
+    _endpoint = getattr(_route, "endpoint", None)
+    if _endpoint is not None:
+        _endpoint._include_in_schema = False
+
+
 # Custom 404. Use the router's default_endpoint (an ASGI callable that fires
 # only after every route AND mount has missed — so it does not shadow /static).
 # Branded error page for web paths, JSON for the API. Mirrors
