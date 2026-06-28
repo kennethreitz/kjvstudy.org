@@ -45,6 +45,89 @@ def build_interlinear_rows(book: str, chapter: int, verses: list) -> list:
         for verse in verses
     ]
 
+
+# Priority ordering for cross-reference note types (lower = higher priority).
+# Used to order cross-reference groups on the HTML chapter view.
+_CROSS_REF_NOTE_PRIORITY = {
+    'Prophecy': 1,
+    'Covenant': 1,
+    'Fulfillment': 1,
+    'References Jesus': 2,
+    'References Christ': 2,
+    'Resurrection': 2,
+    'Salvation': 2,
+    'References Lord': 3,
+    'References God': 3,
+    'Kingdom': 3,
+    'Faith': 3,
+    'Grace': 3,
+    'Judgment': 3,
+    'Parallel theme': 5,  # Generic - lower priority
+}
+
+
+def group_cross_references(cross_refs, book, chapter, *, build_urls=False):
+    """Group, parse, sort, and condense a verse's cross-references.
+
+    Groups refs by their note (defaulting to 'Related'), parses each into a
+    book + chapter:verse pair, optionally builds an anchor/href URL
+    (``build_urls``), sorts each group (same book first, then canonical book
+    order, then chapter:verse numerically), and sets a condensed ``display``
+    string (the book is shown only when it changes within a group).
+
+    Returns the grouped dict ``{description: [ref, ...]}``. Group *ordering* is
+    left to the caller — the HTML view orders by note priority, the PDF view
+    keeps insertion order.
+    """
+    book_order = get_canonical_book_order()
+
+    def parse_cv(cv):
+        """Parse '3:14' into (3, 14) for numeric sorting."""
+        try:
+            parts = cv.split(':')
+            return (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
+        except (ValueError, IndexError):
+            return (999, 999)
+
+    grouped_refs = defaultdict(list)
+    for ref in cross_refs:
+        description = ref['note'] if ref['note'] else 'Related'
+        if ' ' in ref['ref'] and ':' in ref['ref']:
+            ref_book = ref['ref'].rsplit(' ', 1)[0]
+            ref_chapter_verse = ref['ref'].rsplit(' ', 1)[1]
+        else:
+            ref_book = None
+            ref_chapter_verse = ref['ref']
+        entry = {
+            'text': ref['ref'],
+            'book': ref_book,
+            'chapter_verse': ref_chapter_verse,
+        }
+        if build_urls:
+            if ref_book is not None:
+                ref_chapter = ref_chapter_verse.split(':')[0]
+                ref_verse = ref_chapter_verse.split(':')[1]
+                # Same chapter: anchor link; otherwise link to the chapter view + anchor
+                if ref_book == book and ref_chapter == str(chapter):
+                    entry['url'] = f"#verse-{ref_verse}"
+                else:
+                    entry['url'] = f"/book/{ref_book}/chapter/{ref_chapter}#verse-{ref_verse}"
+            else:
+                entry['url'] = '#'
+        grouped_refs[description].append(entry)
+
+    for desc, refs in grouped_refs.items():
+        refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), parse_cv(r['chapter_verse'])))
+        last_book = None
+        for r in refs:
+            if r['book'] == last_book:
+                r['display'] = r['chapter_verse']  # Just "1:20"
+            else:
+                r['display'] = r['text']  # Full "Revelation 1:20"
+                last_book = r['book']
+
+    return grouped_refs
+
 router = APIRouter()
 
 from ._templates import templates
@@ -246,71 +329,9 @@ async def read_chapter(request: Request, book: str, chapter: int):
         # Add cross-references
         cross_refs = get_cross_references(book, chapter, verse.verse)
         if cross_refs:
-            # Group cross-references by their description/note
-            grouped_refs = defaultdict(list)
-            for ref in cross_refs:
-                description = ref['note'] if ref['note'] else 'Related'
-                # Parse the reference to build URL
-                if ' ' in ref['ref'] and ':' in ref['ref']:
-                    ref_book = ref['ref'].rsplit(' ', 1)[0]
-                    ref_chapter_verse = ref['ref'].rsplit(' ', 1)[1]
-                    ref_chapter = ref_chapter_verse.split(':')[0]
-                    ref_verse = ref_chapter_verse.split(':')[1]
-                    # Same chapter: use anchor link; different chapter/book: link to chapter view with anchor
-                    if ref_book == book and ref_chapter == str(chapter):
-                        url = f"#verse-{ref_verse}"
-                    else:
-                        url = f"/book/{ref_book}/chapter/{ref_chapter}#verse-{ref_verse}"
-                else:
-                    ref_book = None
-                    ref_chapter_verse = ref['ref']
-                    url = '#'
-                grouped_refs[description].append({
-                    'text': ref['ref'],
-                    'url': url,
-                    'book': ref_book,
-                    'chapter_verse': ref_chapter_verse
-                })
-            # Priority ordering for note types (lower = higher priority)
-            note_priority = {
-                'Prophecy': 1,
-                'Covenant': 1,
-                'Fulfillment': 1,
-                'References Jesus': 2,
-                'References Christ': 2,
-                'Resurrection': 2,
-                'Salvation': 2,
-                'References Lord': 3,
-                'References God': 3,
-                'Kingdom': 3,
-                'Faith': 3,
-                'Grace': 3,
-                'Judgment': 3,
-                'Parallel theme': 5,  # Generic - lower priority
-            }
-            # Sort refs: same book first, then by note priority, then canonical order, then chapter:verse numerically
-            book_order = get_canonical_book_order()
-            def parse_cv(cv):
-                """Parse '3:14' into (3, 14) for numeric sorting."""
-                try:
-                    parts = cv.split(':')
-                    return (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
-                except (ValueError, IndexError):
-                    return (999, 999)
-            for desc, refs in grouped_refs.items():
-                priority = note_priority.get(desc, 4)  # Default priority for unlisted notes
-                refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), parse_cv(r['chapter_verse'])))
-            # Condense refs: show book only when it changes
-            for desc, refs in grouped_refs.items():
-                last_book = None
-                for r in refs:
-                    if r['book'] == last_book:
-                        r['display'] = r['chapter_verse']  # Just "1:20"
-                    else:
-                        r['display'] = r['text']  # Full "Revelation 1:20"
-                        last_book = r['book']
-            # Sort groups by note priority
-            sorted_groups = sorted(grouped_refs.items(), key=lambda x: note_priority.get(x[0], 4))
+            grouped_refs = group_cross_references(cross_refs, book, chapter, build_urls=True)
+            # Order groups by note priority for the HTML view
+            sorted_groups = sorted(grouped_refs.items(), key=lambda x: _CROSS_REF_NOTE_PRIORITY.get(x[0], 4))
             commentary['cross_reference_groups'] = [
                 {'description': desc, 'refs': refs}
                 for desc, refs in sorted_groups
@@ -410,43 +431,8 @@ async def chapter_pdf(request: Request, book: str, chapter: int):
 
         # Add cross-references grouped by description
         cross_refs = get_cross_references(book, chapter, verse.verse)
-        grouped_refs = defaultdict(list)
-        for ref in cross_refs:
-            description = ref['note'] if ref['note'] else 'Related'
-            # Parse the reference to extract book and chapter:verse
-            if ' ' in ref['ref'] and ':' in ref['ref']:
-                ref_book = ref['ref'].rsplit(' ', 1)[0]
-                ref_chapter_verse = ref['ref'].rsplit(' ', 1)[1]
-            else:
-                ref_book = None
-                ref_chapter_verse = ref['ref']
-            grouped_refs[description].append({
-                'text': ref['ref'],
-                'book': ref_book,
-                'chapter_verse': ref_chapter_verse
-            })
-
-        # Sort and condense refs: same book first, then canonical order, then chapter:verse numerically
-        book_order = get_canonical_book_order()
-        def parse_chapter_verse(cv):
-            """Parse '3:14' into (3, 14) for numeric sorting."""
-            try:
-                parts = cv.split(':')
-                return (int(parts[0]), int(parts[1]) if len(parts) > 1 else 0)
-            except (ValueError, IndexError):
-                return (999, 999)
-        for desc, refs in grouped_refs.items():
-            refs.sort(key=lambda r: (0 if r['book'] == book else 1, book_order.get(r['book'], 999), parse_chapter_verse(r['chapter_verse'])))
-            # Condense: show book only when it changes
-            last_book = None
-            for r in refs:
-                if r['book'] == last_book:
-                    r['display'] = r['chapter_verse']
-                else:
-                    r['display'] = r['text']
-                    last_book = r['book']
-
-        # Pass all cross-refs (PDF has more space)
+        grouped_refs = group_cross_references(cross_refs, book, chapter, build_urls=False)
+        # Pass all cross-refs (PDF has more space); groups kept in insertion order
         commentary['cross_reference_groups'] = [
             {'description': desc, 'refs': [r['display'] for r in refs]}
             for desc, refs in grouped_refs.items()

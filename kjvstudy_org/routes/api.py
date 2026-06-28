@@ -24,7 +24,7 @@ from ..utils.stats import compute_site_stats
 from ..resource_catalog import iter_resources, RESOURCE_SEARCH_KEYWORDS
 from ..utils.commentary_loader import load_commentary
 from ..books import get_book_data, get_all_books_metadata, has_book_data
-from ..red_letter import get_christ_words, load_red_letter_verses
+from ..red_letter import get_christ_words, iter_red_letter_verses, red_letter_stats
 from ..strongs import (
     get_strongs_entry, format_strongs_entry, search_strongs,
     get_strongs_definition, get_strongs_word
@@ -1612,50 +1612,8 @@ async def api_list_red_letter_verses(
     offset: int = Query(0, description="Number of verses to skip", example=0, ge=0)
 ):
     """List all red letter verses with optional filtering and pagination."""
-    red_letter_data = load_red_letter_verses()
+    all_verses = list(iter_red_letter_verses(book))
 
-    # Parse all verses and build result list
-    all_verses = []
-    for verse_ref, christ_words in red_letter_data.items():
-        # Parse the reference (format: "Book Chapter:Verse")
-        parts = verse_ref.rsplit(' ', 1)
-        if len(parts) != 2:
-            continue
-
-        book_name = parts[0]
-        chapter_verse = parts[1].split(':')
-        if len(chapter_verse) != 2:
-            continue
-
-        try:
-            chapter_num = int(chapter_verse[0])
-            verse_num = int(chapter_verse[1])
-        except ValueError:
-            continue
-
-        # Apply book filter if specified
-        if book and book_name != book:
-            # Try normalizing the book name in case it's an abbreviation
-            canonical = normalize_book_name(book)
-            if not canonical or book_name != canonical:
-                continue
-
-        # Get the verse text
-        verse_text = bible.get_verse_text(book_name, chapter_num, verse_num)
-        if not verse_text:
-            continue
-
-        all_verses.append({
-            "reference": verse_ref,
-            "book": book_name,
-            "chapter": chapter_num,
-            "verse": verse_num,
-            "text": verse_text,
-            "christ_words": christ_words,
-            "is_full_verse": christ_words == "full"
-        })
-
-    # Apply pagination
     total = len(all_verses)
     paginated_verses = all_verses[offset:offset + limit]
 
@@ -1675,35 +1633,14 @@ async def api_list_red_letter_verses(
 )
 async def api_red_letter_stats():
     """Get statistics about red letter verses in the Bible."""
-    red_letter_data = load_red_letter_verses()
-
-    total_verses = len(red_letter_data)
-    full_verses = sum(1 for v in red_letter_data.values() if v == "full")
-    partial_verses = total_verses - full_verses
-
-    # Count by book
-    by_book = {}
-    books_set = set()
-
-    for verse_ref in red_letter_data.keys():
-        # Parse the reference (format: "Book Chapter:Verse")
-        parts = verse_ref.rsplit(' ', 1)
-        if len(parts) != 2:
-            continue
-
-        book_name = parts[0]
-        books_set.add(book_name)
-        by_book[book_name] = by_book.get(book_name, 0) + 1
-
-    # Sort books by count (descending)
-    by_book = dict(sorted(by_book.items(), key=lambda x: x[1], reverse=True))
+    stats = red_letter_stats()
 
     return {
-        "total_verses": total_verses,
-        "full_verses": full_verses,
-        "partial_verses": partial_verses,
-        "books_with_red_letter": sorted(list(books_set)),
-        "by_book": by_book
+        "total_verses": stats["total"],
+        "full_verses": stats["full"],
+        "partial_verses": stats["partial"],
+        "books_with_red_letter": sorted(stats["by_book"].keys()),
+        "by_book": stats["by_book"]
     }
 
 

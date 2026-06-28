@@ -8,6 +8,10 @@ the words of Jesus Christ (traditionally printed in red in Bibles).
 import json
 from pathlib import Path
 from functools import lru_cache
+from typing import Optional
+
+from .kjv import bible, parse_reference_parts
+from .utils.books import normalize_book_name
 
 
 @lru_cache(maxsize=1)
@@ -22,6 +26,63 @@ def load_red_letter_verses():
         data = json.load(f)
 
     return data.get("verses", {})
+
+
+def iter_red_letter_verses(book_filter: Optional[str] = None):
+    """Yield parsed red-letter verses, optionally filtered by book.
+
+    Each item is a dict: reference, book, chapter, verse, text, christ_words,
+    is_full_verse. Entries that don't parse or have no verse text are skipped.
+    The book filter accepts canonical names and abbreviations (e.g. "Mt" ->
+    "Matthew"), so the web and API surfaces filter identically.
+    """
+    canonical_filter = None
+    if book_filter:
+        canonical_filter = normalize_book_name(book_filter) or book_filter
+
+    for verse_ref, christ_words in load_red_letter_verses().items():
+        parsed = parse_reference_parts(verse_ref)
+        if not parsed:
+            continue
+        book_name, chapter_num, verse_num, _ = parsed
+
+        if canonical_filter and book_name != canonical_filter:
+            continue
+
+        verse_text = bible.get_verse_text(book_name, chapter_num, verse_num)
+        if not verse_text:
+            continue
+
+        yield {
+            "reference": verse_ref,
+            "book": book_name,
+            "chapter": chapter_num,
+            "verse": verse_num,
+            "text": verse_text,
+            "christ_words": christ_words,
+            "is_full_verse": christ_words == "full",
+        }
+
+
+def red_letter_stats() -> dict:
+    """Aggregate red-letter statistics.
+
+    ``total``/``full``/``partial`` are over the raw verse map; ``by_book`` counts
+    every parseable reference (ignoring any filter), ordered by count descending.
+    """
+    red_letter_data = load_red_letter_verses()
+    total = len(red_letter_data)
+    full = sum(1 for v in red_letter_data.values() if v == "full")
+
+    by_book = {}
+    for verse_ref in red_letter_data:
+        parsed = parse_reference_parts(verse_ref)
+        if not parsed:
+            continue
+        by_book[parsed[0]] = by_book.get(parsed[0], 0) + 1
+
+    by_book = dict(sorted(by_book.items(), key=lambda x: x[1], reverse=True))
+    return {"total": total, "full": full, "partial": total - full, "by_book": by_book}
 
 
 def get_christ_words(book: str, chapter: int, verse: int) -> str:

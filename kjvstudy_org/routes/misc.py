@@ -12,7 +12,7 @@ from fastapi import APIRouter, Query, Request, Path
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 
 from ..kjv import bible
-from ..red_letter import load_red_letter_verses
+from ..red_letter import iter_red_letter_verses, red_letter_stats
 from ..utils.search import perform_full_text_search
 from ..utils.helpers import get_daily_verse
 from ..og_image import get_cached_or_generate
@@ -236,50 +236,9 @@ async def red_letter_page(
 ):
     """Red Letter Edition - Words of Christ page"""
     books = bible.get_books()
-    red_letter_data = load_red_letter_verses()
 
-    # Build list of all red letter verses
-    all_verses = []
-    by_book = {}
-
-    for verse_ref, christ_words in red_letter_data.items():
-        # Parse the reference (format: "Book Chapter:Verse")
-        parts = verse_ref.rsplit(' ', 1)
-        if len(parts) != 2:
-            continue
-
-        book_name = parts[0]
-        chapter_verse = parts[1].split(':')
-        if len(chapter_verse) != 2:
-            continue
-
-        try:
-            chapter_num = int(chapter_verse[0])
-            verse_num = int(chapter_verse[1])
-        except ValueError:
-            continue
-
-        # Count by book
-        by_book[book_name] = by_book.get(book_name, 0) + 1
-
-        # Apply book filter if specified
-        if book and book_name != book:
-            continue
-
-        # Get the verse text
-        verse_text = bible.get_verse_text(book_name, chapter_num, verse_num)
-        if not verse_text:
-            continue
-
-        all_verses.append({
-            "reference": verse_ref,
-            "book": book_name,
-            "chapter": chapter_num,
-            "verse": verse_num,
-            "text": verse_text,
-            "christ_words": christ_words,
-            "is_full_verse": christ_words == "full"
-        })
+    # Filtered, parsed verses for the table (book filter accepts abbreviations)
+    all_verses = list(iter_red_letter_verses(book))
 
     # Sort by book order, then chapter, then verse
     book_order = {b: i for i, b in enumerate(books)}
@@ -293,13 +252,12 @@ async def red_letter_page(
     offset = (page - 1) * per_page
     verses = all_verses[offset:offset + per_page]
 
-    # Stats
-    total_all = len(red_letter_data)
-    full_verses = sum(1 for v in red_letter_data.values() if v == "full")
-    partial_verses = total_all - full_verses
-
-    # Sort books by count for sidebar
-    books_with_counts = sorted(by_book.items(), key=lambda x: x[1], reverse=True)
+    # Stats and sidebar counts (unfiltered, by_book already sorted by count)
+    stats = red_letter_stats()
+    total_all = stats["total"]
+    full_verses = stats["full"]
+    partial_verses = stats["partial"]
+    books_with_counts = list(stats["by_book"].items())
 
     breadcrumbs = [
         {"text": "Home", "url": "/"},
