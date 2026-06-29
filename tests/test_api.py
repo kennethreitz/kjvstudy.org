@@ -11,8 +11,9 @@ class TestAPIHealth:
 
     def test_api_health(self, client):
         """Test /api/health endpoint"""
-        response = client.get("/api/health")
+        response = client.get("/api/health", headers={"X-Request-ID": "test-request-id"})
         assert response.status_code == 200
+        assert response.headers["x-request-id"] == "test-request-id"
         data = response.json()
         assert data["status"] == "healthy"
         assert "service" in data

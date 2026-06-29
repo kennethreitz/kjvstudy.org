@@ -604,7 +604,7 @@ dependencies = [
     { name = "parse" },
     { name = "python-gedcom" },
     { name = "requests" },
-    { name = "responder" },
+    { name = "responder", extra = ["server"] },
     { name = "weasyprint" },
 ]
 
@@ -633,7 +633,7 @@ requires-dist = [
     { name = "pytest-xdist", marker = "extra == 'dev'", specifier = ">=3.5.0" },
     { name = "python-gedcom", specifier = ">=1.0.0" },
     { name = "requests", specifier = ">=2.32.3" },
-    { name = "responder", specifier = ">=5.0.0" },
+    { name = "responder", extras = ["server"], specifier = ">=7.0.0,<8.0.0" },
     { name = "weasyprint", specifier = ">=66.0" },
 ]
 provides-extras = ["dev"]
@@ -1077,7 +1077,7 @@ wheels = [
 
 [[package]]
 name = "responder"
-version = "5.0.0"
+version = "7.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "a2wsgi" },
@@ -1091,9 +1091,14 @@ dependencies = [
     { name = "starlette", extra = ["full"] },
     { name = "uvicorn", extra = ["standard"] },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/77/a5/26678063a9ef103f13fb6c617fab85503cd4a0683a2a59c1f965c37c6504/responder-5.0.0.tar.gz", hash = "sha256:4023939cfa8c5f0559406be09072d6012751c3b23fe812a5c0567d315a4ccbf9", size = 116127, upload-time = "2026-06-28T15:20:23.604Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1d/69/0fc84b6cdf07cb1135976a0d4fe0f3c1aa06ba1243e815b9066c665f5f42/responder-7.0.0.tar.gz", hash = "sha256:a3028cc8d9fd2afdb87a81d9d12f3c81d5b802ed405dc64145efa700862b23e7", size = 173579, upload-time = "2026-06-29T18:52:12.134Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e7/fe/d12e0393789e63aa7fce20542d256010c2029cf3b7d2b4a63ffec7d78f5e/responder-5.0.0-py3-none-any.whl", hash = "sha256:c491715b5cd18e8d443268d78d43b378a0e4f192ac38906e9cebd82af0fd7760", size = 83527, upload-time = "2026-06-28T15:20:22.362Z" },
+    { url = "https://files.pythonhosted.org/packages/f9/47/55f2203d6c6787d78fe4f29b082b782ec2b4afbc52375ad09475db5a11a8/responder-7.0.0-py3-none-any.whl", hash = "sha256:00e1281a4f7a7e4ef84cccaba600805b15e902d435f1f0d9f50771410a30c7b1", size = 120063, upload-time = "2026-06-29T18:52:10.803Z" },
+]
+
+[package.optional-dependencies]
+server = [
+    { name = "granian" },
 ]
 
 [[package]]

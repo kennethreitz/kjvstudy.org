@@ -44,6 +44,9 @@ api = responder.API(
     docs_route="/api/docs",
     openapi_route="/api/openapi.json",
     gzip=True,
+    request_id=True,
+    request_timeout=30.0,
+    problem_details=True,
     # Sessions are unused; disable them entirely (Responder 5.0.0+).
     sessions=False,
 )
@@ -166,22 +169,6 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         return await call_next(request)
 
 
-class TimeoutMiddleware(BaseHTTPMiddleware):
-    """Cancel requests that exceed a time limit."""
-
-    def __init__(self, app, timeout_seconds: float = 30.0):
-        super().__init__(app)
-        self.timeout = timeout_seconds
-
-    async def dispatch(self, request, call_next):
-        import asyncio
-        try:
-            return await asyncio.wait_for(call_next(request), timeout=self.timeout)
-        except asyncio.TimeoutError:
-            return JSONResponse({"detail": "Request timeout"}, status_code=504)
-
-
-api.add_middleware(TimeoutMiddleware, timeout_seconds=30.0)
 api.add_middleware(RateLimitMiddleware, requests_per_second=10.0)
 api.add_middleware(BotLoggerMiddleware)
 
