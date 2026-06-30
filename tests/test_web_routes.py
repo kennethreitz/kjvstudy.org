@@ -156,6 +156,8 @@ class TestStudyWorkspace:
         assert b"Passage Study Workspace" in response.content
         assert b"1 Corinthians 13" in response.content
         assert b'href="/study/1%20Corinthians/13"' in response.content
+        assert b"id=\"saved-study-notes\"" in response.content
+        assert b"kjvstudy:notes:" in response.content
 
     def test_study_query_redirects_to_workspace(self, client):
         response = client.get("/study?q=John%203:16-17", follow_redirects=False)

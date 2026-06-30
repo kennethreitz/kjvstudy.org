@@ -264,6 +264,17 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+.saved-note-list {
+    padding-left: 1.4rem;
+    margin: 0.75rem 0 0;
+}
+
+.saved-note-list li {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 0.25rem;
+}
+
 @media (max-width: 900px) {
     .workspace-layout {
         grid-template-columns: 1fr;
@@ -333,6 +344,60 @@
         <a href="/study/Psalms/23">Psalm 23</a>
     </p>
 </section>
+
+<section class="empty-study" id="saved-study-notes" hidden>
+    <h2>Your Passages With Notes</h2>
+    <ul class="saved-note-list" id="saved-note-list"></ul>
+</section>
+
+<script>
+(function () {
+    var notesPrefix = 'kjvstudy:notes:';
+    var section = document.getElementById('saved-study-notes');
+    var list = document.getElementById('saved-note-list');
+    if (!section || !list) return;
+
+    function pathToLabel(path) {
+        var parts = path.split('/').filter(Boolean);
+        if (parts[0] !== 'study' || parts.length < 3) return path;
+        var book = decodeURIComponent(parts[1].replace(/\+/g, ' '));
+        var chapter = parts[2];
+        var verseStart = parts[3];
+        var verseEnd = parts[4];
+        if (!verseStart) return book + ' ' + chapter;
+        if (!verseEnd || verseEnd === verseStart) return book + ' ' + chapter + ':' + verseStart;
+        return book + ' ' + chapter + ':' + verseStart + '-' + verseEnd;
+    }
+
+    try {
+        var passages = [];
+        for (var i = 0; i < localStorage.length; i += 1) {
+            var key = localStorage.key(i);
+            if (!key || key.indexOf(notesPrefix) !== 0) continue;
+            var note = localStorage.getItem(key);
+            if (!note || !note.trim()) continue;
+            var path = key.slice(notesPrefix.length);
+            if (path.indexOf('/study/') !== 0) continue;
+            passages.push({ href: path, label: pathToLabel(path) });
+        }
+
+        passages.sort(function (a, b) {
+            return a.label.localeCompare(b.label);
+        });
+
+        passages.forEach(function (passage) {
+            var item = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = passage.href;
+            link.textContent = passage.label;
+            item.appendChild(link);
+            list.appendChild(item);
+        });
+
+        section.hidden = passages.length === 0;
+    } catch (e) {}
+})();
+</script>
 {% else %}
 <div class="workspace-actions">
     <a class="workspace-action secondary" href="{{ workspace.chapter_url }}">Chapter</a>
