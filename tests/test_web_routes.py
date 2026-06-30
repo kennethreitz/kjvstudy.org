@@ -171,6 +171,8 @@ class TestStudyWorkspace:
         response = client.get("/study/John/3/16")
         assert response.status_code == 200
         assert b"John 3:16" in response.content
+        assert b"<h2>John 3:16</h2>" in response.content
+        assert b"KJV Text" not in response.content
         assert b"God so loved the world" in response.content
         assert b"Notes" in response.content
 
@@ -178,6 +180,7 @@ class TestStudyWorkspace:
         response = client.get("/study/Romans/8/28/30")
         assert response.status_code == 200
         assert b"Romans 8:28-30" in response.content
+        assert b"<h2>Romans 8:28-30</h2>" in response.content
         assert b"Verse Study" in response.content
 
     def test_study_abbreviation_redirects(self, client):
