@@ -25,6 +25,13 @@ class TestHomePage:
         response = client.get("/")
         assert b"search" in response.content.lower()
 
+    def test_homepage_surfaces_passage_workspace(self, client):
+        """Test homepage links to the passage workspace"""
+        response = client.get("/")
+        assert response.status_code == 200
+        assert b"Passage Workspace" in response.content
+        assert b'href="/study"' in response.content
+
 
 class TestBookPages:
     """Tests for book listing and detail pages"""
@@ -75,6 +82,12 @@ class TestChapterPages:
         # Should contain verse numbers or verse content
         assert b"16" in response.content  # John 3:16
 
+    def test_chapter_links_to_study_workspace(self, client):
+        """Test chapter page links to the study workspace"""
+        response = client.get("/book/John/chapter/3")
+        assert response.status_code == 200
+        assert b'href="/study/John/3"' in response.content
+
     def test_first_chapter(self, client):
         """Test first chapter of Genesis"""
         response = client.get("/book/Genesis/chapter/1")
@@ -105,6 +118,12 @@ class TestVersePage:
         content = response.content.lower()
         assert b"verse" in content or b"chapter" in content
 
+    def test_verse_links_to_study_workspace(self, client):
+        """Test verse page links to the study workspace"""
+        response = client.get("/book/John/chapter/3/verse/16")
+        assert response.status_code == 200
+        assert b'href="/study/John/3/16"' in response.content
+
 
 class TestSearchPage:
     """Tests for search functionality"""
@@ -126,6 +145,43 @@ class TestSearchPage:
         """Test search with empty query"""
         response = client.get("/search?q=")
         assert response.status_code == 200
+
+
+class TestStudyWorkspace:
+    """Tests for the passage study workspace"""
+
+    def test_study_landing_loads(self, client):
+        response = client.get("/study")
+        assert response.status_code == 200
+        assert b"Passage Study Workspace" in response.content
+
+    def test_study_query_redirects_to_workspace(self, client):
+        response = client.get("/study?q=John%203:16-17", follow_redirects=False)
+        assert response.status_code in [301, 302, 307, 308]
+        assert response.headers["location"].endswith("/study/John/3/16/17")
+
+    def test_study_single_verse_workspace(self, client):
+        response = client.get("/study/John/3/16")
+        assert response.status_code == 200
+        assert b"John 3:16" in response.content
+        assert b"God so loved the world" in response.content
+        assert b"Notes" in response.content
+
+    def test_study_passage_workspace(self, client):
+        response = client.get("/study/Romans/8/28/30")
+        assert response.status_code == 200
+        assert b"Romans 8:28-30" in response.content
+        assert b"Verse Study" in response.content
+
+    def test_study_abbreviation_redirects(self, client):
+        response = client.get("/study/Gen/1/1", follow_redirects=False)
+        assert response.status_code in [301, 302, 307, 308]
+        assert response.headers["location"].endswith("/study/Genesis/1/1")
+
+    def test_study_invalid_reference(self, client):
+        response = client.get("/study?q=NotABook%201:1")
+        assert response.status_code == 200
+        assert b"Reference not found" in response.content
 
 
 class TestTopicsPages:

@@ -1,0 +1,509 @@
+{% extends "base.html" %}
+{% from "macros/seo.html" import breadcrumb_jsonld %}
+
+{% block title %}{% if workspace %}{{ workspace.label }} Study Workspace{% else %}Passage Study Workspace{% endif %} - KJV Study{% endblock %}
+{% block description %}{% if workspace %}Study {{ workspace.label }} with KJV text, commentary, cross-references, original language data, and notes.{% else %}Open a KJV passage study workspace with commentary, cross-references, original language data, and notes.{% endif %}{% endblock %}
+
+{% block structured_data %}
+{{ breadcrumb_jsonld([
+    ('Home', 'https://kjvstudy.org'),
+    ('Study', 'https://kjvstudy.org/study'),
+    (workspace.label if workspace else 'Passage Workspace', none),
+]) }}
+{% endblock %}
+
+{% block head %}
+<style>
+.workspace-title {
+    margin-bottom: 0.5rem;
+}
+
+.workspace-subtitle {
+    max-width: 62%;
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+}
+
+.study-lookup {
+    max-width: 42rem;
+    margin: 1.5rem 0 2.5rem;
+}
+
+.study-lookup-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.study-lookup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.study-lookup input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--border-color-darker);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.study-lookup button,
+.workspace-action {
+    padding: 0.72rem 1rem;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    background: var(--text-color);
+    color: var(--bg-color);
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.study-lookup button:hover,
+.workspace-action:hover {
+    opacity: 0.86;
+}
+
+.study-error {
+    margin: 0.75rem 0 0;
+    color: #9f1239;
+    font-size: 0.95rem;
+}
+
+[data-theme="dark"] .study-error {
+    color: #fda4af;
+}
+
+.workspace-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0 2rem;
+}
+
+.workspace-action {
+    display: inline-flex;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.workspace-action.secondary {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color-darker);
+}
+
+.workspace-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.42fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+.study-panel {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+    margin-top: 1.25rem;
+}
+
+.study-panel h2,
+.study-panel h3 {
+    margin-top: 0;
+}
+
+.passage-text p {
+    font-size: 1.35rem;
+    line-height: 2;
+    margin: 0.75rem 0;
+}
+
+.verse-study {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-top: 1.75rem;
+}
+
+.verse-study:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.verse-study h3 {
+    font-size: 1.25rem;
+    font-style: normal;
+    margin-bottom: 0.75rem;
+}
+
+.verse-line {
+    margin: 0.75rem 0 1rem;
+}
+
+.verse-number-link {
+    font-size: 0.95rem;
+    vertical-align: super;
+    margin-right: 0.25rem;
+    border-bottom: none;
+}
+
+.study-note {
+    margin: 1rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid #4a7c59;
+}
+
+.study-note h4,
+.study-list h4 {
+    margin: 1rem 0 0.35rem;
+    font-size: 0.95rem;
+    font-style: normal;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.study-note p,
+.study-note li,
+.study-list li {
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.study-list {
+    margin-top: 1rem;
+}
+
+.study-list ul {
+    margin-top: 0.35rem;
+}
+
+.study-list li {
+    margin-bottom: 0.25rem;
+}
+
+.interlinear-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.5rem;
+}
+
+.word-chip {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.35rem 0.45rem;
+    font-size: 0.85rem;
+    background: var(--code-bg);
+}
+
+.word-chip a {
+    border-bottom: none;
+}
+
+.side-workspace {
+    position: sticky;
+    top: 4rem;
+}
+
+.side-workspace textarea {
+    width: 100%;
+    min-height: 14rem;
+    box-sizing: border-box;
+    padding: 0.9rem;
+    border: 1px solid var(--border-color-darker);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.note-status {
+    min-height: 1.25rem;
+    color: var(--text-tertiary);
+    font-size: 0.85rem;
+    margin-top: 0.45rem;
+}
+
+.related-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.related-list li {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0.45rem;
+}
+
+.empty-study {
+    max-width: 42rem;
+}
+
+.example-links {
+    margin-top: 1.5rem;
+}
+
+.example-links a {
+    display: inline-block;
+    margin: 0 0.6rem 0.6rem 0;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+@media (max-width: 900px) {
+    .workspace-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .side-workspace {
+        position: static;
+    }
+}
+
+@media (max-width: 760px) {
+    .workspace-subtitle {
+        max-width: 100%;
+    }
+
+    .study-lookup-row {
+        flex-direction: column;
+    }
+
+    .study-lookup button {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .passage-text p {
+        font-size: 1.25rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="workspace-title">{% if workspace %}{{ workspace.label }}{% else %}Passage Study Workspace{% endif %}</h1>
+<p class="workspace-subtitle">A focused desk for reading, commentary, cross-references, original language notes, and your own observations.</p>
+
+<form class="study-lookup" method="get" action="/study">
+    <label for="study-reference">Passage</label>
+    <div class="study-lookup-row">
+        <input
+            id="study-reference"
+            name="q"
+            value="{{ query or '' }}"
+            placeholder="John 3:16 or Romans 8:28-30"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+        >
+        <button type="submit">Open</button>
+    </div>
+    {% if error %}
+    <p class="study-error">{{ error }}</p>
+    {% endif %}
+</form>
+
+{% if not workspace %}
+<section class="empty-study">
+    <h2>Begin With A Passage</h2>
+    <p>Choose a verse, passage, or chapter.</p>
+    <p class="example-links">
+        <a href="/study/John/3/16">John 3:16</a>
+        <a href="/study/Romans/8/28/30">Romans 8:28-30</a>
+        <a href="/study/Psalms/23">Psalms 23</a>
+    </p>
+</section>
+{% else %}
+<div class="workspace-actions">
+    <a class="workspace-action secondary" href="{{ workspace.chapter_url }}">Chapter</a>
+    <a class="workspace-action secondary" href="{{ workspace.interlinear_url }}">Interlinear</a>
+    {% if workspace.verse_start %}
+    <a class="workspace-action secondary" href="/book/{{ workspace.book }}/chapter/{{ workspace.chapter }}/verse/{{ workspace.verse_start }}">Verse Page</a>
+    {% endif %}
+</div>
+
+<div class="workspace-layout">
+    <main>
+        <section class="study-panel">
+            <h2>KJV Text</h2>
+            <div class="passage-text">
+                {% for row in workspace.rows %}
+                <p>
+                    <a href="#verse-{{ row.verse.verse }}" class="verse-number-link">{{ row.verse.verse }}</a>
+                    {{ row.verse.text | red_letter(workspace.book, workspace.chapter, row.verse.verse) | safe }}
+                </p>
+                {% endfor %}
+            </div>
+        </section>
+
+        {% if workspace.chapter_overview %}
+        <section class="study-panel">
+            <h2>Chapter Context</h2>
+            <div>{{ workspace.chapter_overview | safe }}</div>
+        </section>
+        {% endif %}
+
+        <section class="study-panel">
+            <h2>Verse Study</h2>
+            {% for row in workspace.rows %}
+            <article class="verse-study" id="verse-{{ row.verse.verse }}">
+                <h3>{{ row.reference }}</h3>
+                <p class="verse-line">
+                    <a href="/book/{{ workspace.book }}/chapter/{{ workspace.chapter }}/verse/{{ row.verse.verse }}" class="verse-number-link">{{ row.verse.verse }}</a>
+                    {{ row.verse.text | red_letter(workspace.book, workspace.chapter, row.verse.verse) | safe }}
+                </p>
+
+                {% if row.has_commentary %}
+                <div class="study-note">
+                    {% if row.commentary.analysis %}
+                    <h4>Analysis</h4>
+                    {{ row.commentary.analysis | split_paragraphs | safe }}
+                    {% endif %}
+                    {% if row.commentary.historical %}
+                    <h4>Historical Context</h4>
+                    {{ row.commentary.historical | split_paragraphs | safe }}
+                    {% endif %}
+                    {% if row.commentary.theological %}
+                    <h4>Theological Significance</h4>
+                    {{ row.commentary.theological | split_paragraphs | safe }}
+                    {% endif %}
+                    {% if row.commentary.questions %}
+                    <h4>Reflection</h4>
+                    <ul>
+                        {% for question in row.commentary.questions %}
+                        <li>{{ question }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if row.word_studies %}
+                <div class="study-list">
+                    <h4>Word Studies</h4>
+                    <ul>
+                        {% for study in row.word_studies %}
+                        <li>
+                            <strong>{{ study.word }}</strong>:
+                            {{ study.term }}{% if study.translit %} ({{ study.translit }}){% endif %}
+                            {% if study.strongs %}<a href="/strongs/{{ study.strongs }}">{{ study.strongs }}</a>{% endif %}
+                            - {{ study.meaning }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if row.cross_reference_groups %}
+                <div class="study-list">
+                    <h4>Cross-References</h4>
+                    <ul>
+                        {% for group in row.cross_reference_groups %}
+                        <li>
+                            <strong>{{ group.description }}:</strong>
+                            {% for ref in group.refs[:6] %}
+                            <a href="{{ ref.url }}">{{ ref.display }}</a>{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if row.interlinear_preview %}
+                <div class="study-list">
+                    <h4>Original Language</h4>
+                    <div class="interlinear-preview">
+                        {% for word in row.interlinear_preview %}
+                        <span class="word-chip">
+                            {{ word.original }}
+                            {% if word.strongs %}<a href="/strongs/{{ word.strongs }}">{{ word.strongs }}</a>{% endif %}
+                        </span>
+                        {% endfor %}
+                        {% if row.interlinear_count > row.interlinear_preview|length %}
+                        <span class="word-chip">+{{ row.interlinear_count - (row.interlinear_preview|length) }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+
+    <aside class="side-workspace">
+        <section class="study-panel">
+            <h2>Notes</h2>
+            <textarea id="study-notes" data-note-key="kjvstudy:notes:{{ workspace.url }}" aria-label="Notes for {{ workspace.label }}"></textarea>
+            <div id="note-status" class="note-status"></div>
+        </section>
+
+        {% set related = workspace.related_content %}
+        {% if related and (related.stories or related.topics or related.resources or related.people or related.study_guides) %}
+        <section class="study-panel">
+            <h2>Related</h2>
+            <ul class="related-list">
+                {% for item in related.stories[:4] %}
+                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                {% endfor %}
+                {% for item in related.topics[:4] %}
+                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                {% endfor %}
+                {% for item in related.resources[:4] %}
+                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                {% endfor %}
+                {% for item in related.people[:4] %}
+                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                {% endfor %}
+                {% for item in related.study_guides[:4] %}
+                <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+    </aside>
+</div>
+
+<script>
+(function () {
+    var notes = document.getElementById('study-notes');
+    var status = document.getElementById('note-status');
+    if (!notes) return;
+
+    var key = notes.getAttribute('data-note-key');
+    try {
+        notes.value = localStorage.getItem(key) || '';
+    } catch (e) {}
+
+    var timer = null;
+    notes.addEventListener('input', function () {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(function () {
+            try {
+                localStorage.setItem(key, notes.value);
+                status.textContent = notes.value ? 'Saved on this device' : '';
+            } catch (e) {
+                status.textContent = 'Notes unavailable';
+            }
+        }, 180);
+    });
+})();
+</script>
+{% endif %}
+{% endblock %}

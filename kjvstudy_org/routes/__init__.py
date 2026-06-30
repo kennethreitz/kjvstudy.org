@@ -14,6 +14,7 @@ _MODULES = [
     "about",
     "topics",
     "reading_plans",
+    "study",
     "timeline",
     "stories",
     "strongs",

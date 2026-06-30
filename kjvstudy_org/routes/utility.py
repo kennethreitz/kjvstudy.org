@@ -108,6 +108,12 @@ Sitemap: https://kjvstudy.org/sitemap.xml
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>{base_url}/study</loc>
+        <lastmod>{current_date}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>{base_url}/books</loc>
         <lastmod>{current_date}</lastmod>
         <changefreq>monthly</changefreq>
