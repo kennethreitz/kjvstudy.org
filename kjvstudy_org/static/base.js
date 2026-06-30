@@ -210,6 +210,7 @@ function initVerseStars() {
     // Update nav badges
     updateStarsBadge();
     updateReadingPlansBadge();
+    updateStudyNotesBadge();
     initVerseStars();
   });
 })();
@@ -220,6 +221,27 @@ function updateStarsBadge() {
 
   var bookmarks = getBookmarks();
   badge.textContent = bookmarks.length > 0 ? bookmarks.length : '';
+}
+
+function updateStudyNotesBadge() {
+  var badge = document.getElementById('study-notes-badge');
+  if (!badge) return;
+
+  try {
+    var notesPrefix = 'kjvstudy:notes:';
+    var count = 0;
+    for (var i = 0; i < localStorage.length; i++) {
+      var key = localStorage.key(i);
+      if (!key || key.indexOf(notesPrefix) !== 0) continue;
+      var note = localStorage.getItem(key);
+      if (note && note.trim()) {
+        count++;
+      }
+    }
+    badge.textContent = count > 0 ? count : '';
+  } catch (e) {
+    badge.textContent = '';
+  }
 }
 
 // Reading plans progress badge
@@ -1844,4 +1866,3 @@ function showKeyboardHelp() {
     });
   }
 })();
-

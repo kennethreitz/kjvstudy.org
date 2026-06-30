@@ -31,6 +31,7 @@ class TestHomePage:
         assert response.status_code == 200
         assert b"Passage Workspace" in response.content
         assert b'href="/study"' in response.content
+        assert b'id="study-notes-badge"' in response.content
 
 
 class TestBookPages:
@@ -159,6 +160,7 @@ class TestStudyWorkspace:
         assert b"id=\"saved-study-notes\"" in response.content
         assert b"kjvstudy:notes:" in response.content
         assert response.content.index(b"Your Passages With Notes") < response.content.index(b"Begin With A Passage")
+        assert b'id="study-notes-badge"' in response.content
 
     def test_study_query_redirects_to_workspace(self, client):
         response = client.get("/study?q=John%203:16-17", follow_redirects=False)
@@ -247,6 +249,14 @@ class TestResourcePages:
 
 class TestStaticPages:
     """Tests for static/special pages"""
+
+    def test_base_js_updates_study_notes_badge(self, client):
+        """Test shared JS includes study notes badge updater"""
+        response = client.get("/static/base.js")
+        assert response.status_code == 200
+        assert b"function updateStudyNotesBadge()" in response.content
+        assert b"study-notes-badge" in response.content
+        assert b"kjvstudy:notes:" in response.content
 
     def test_verse_of_the_day(self, client):
         """Test verse of the day page"""

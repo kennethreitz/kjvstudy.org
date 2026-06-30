@@ -567,6 +567,9 @@
             try {
                 localStorage.setItem(key, notes.value);
                 status.textContent = notes.value ? 'Saved on this device' : '';
+                if (typeof updateStudyNotesBadge === 'function') {
+                    updateStudyNotesBadge();
+                }
             } catch (e) {
                 status.textContent = 'Notes unavailable';
             }
