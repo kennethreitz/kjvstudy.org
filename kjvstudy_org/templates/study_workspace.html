@@ -331,6 +331,11 @@
 </form>
 
 {% if not workspace %}
+<section class="empty-study" id="saved-study-notes" hidden>
+    <h2>Your Passages With Notes</h2>
+    <ul class="saved-note-list" id="saved-note-list"></ul>
+</section>
+
 <section class="empty-study">
     <h2>Begin With A Passage</h2>
     <p>Choose a verse, passage, or chapter.</p>
@@ -343,11 +348,6 @@
         <a href="/study/Ephesians/6/10/18">Ephesians 6:10-18</a>
         <a href="/study/Psalms/23">Psalm 23</a>
     </p>
-</section>
-
-<section class="empty-study" id="saved-study-notes" hidden>
-    <h2>Your Passages With Notes</h2>
-    <ul class="saved-note-list" id="saved-note-list"></ul>
 </section>
 
 <script>
