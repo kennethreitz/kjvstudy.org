@@ -154,11 +154,18 @@ class TestStudyWorkspace:
         response = client.get("/study")
         assert response.status_code == 200
         assert b"Passage Study Workspace" in response.content
+        assert b"1 Corinthians 13" in response.content
+        assert b'href="/study/1%20Corinthians/13"' in response.content
 
     def test_study_query_redirects_to_workspace(self, client):
         response = client.get("/study?q=John%203:16-17", follow_redirects=False)
         assert response.status_code in [301, 302, 307, 308]
         assert response.headers["location"].endswith("/study/John/3/16/17")
+
+    def test_study_query_accepts_numbered_book_abbreviation(self, client):
+        response = client.get("/study?q=1%20Cor%2013", follow_redirects=False)
+        assert response.status_code in [301, 302, 307, 308]
+        assert response.headers["location"].endswith("/study/1%20Corinthians/13")
 
     def test_study_single_verse_workspace(self, client):
         response = client.get("/study/John/3/16")
