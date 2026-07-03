@@ -1,4 +1,4 @@
-"""Utility routes for KJV Study - sitemap, robots.txt, health checks. (Responder port of routes/utility.py)"""
+"""Utility routes for KJV Study - sitemap and robots.txt. (Responder port of routes/utility.py)"""
 from datetime import datetime
 from pathlib import Path
 from functools import lru_cache
@@ -19,10 +19,8 @@ _sitemap_cache_date = None
 
 
 def register(api):
-    @api.route("/health")
-    async def health_check(req, resp):
-        """Health check endpoint for monitoring"""
-        resp.media = {"status": "healthy", "service": "kjv-study"}
+    # /health is served by Responder's aggregated health checks
+    # (health_route= + add_health_check in server.py).
 
     @api.route("/robots.txt")
     async def robots_txt(req, resp):

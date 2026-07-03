@@ -4,7 +4,9 @@ Responder port of routes/api.py. Every handler mutates ``resp`` (JSON via
 ``resp.media``, PDFs via ``pdf_resp``) instead of returning a response.
 """
 from typing import Optional, List
+
 from pydantic import BaseModel, Field
+from responder import Query
 import json
 import random
 import re
@@ -378,12 +380,8 @@ def register(api):
         }
 
     @api.route("/api/search")
-    async def search_api(req, resp):
+    async def search_api(req, resp, *, q: Optional[str] = Query(None), limit: Optional[int] = Query(None)):
         """JSON API endpoint for search."""
-        q = req.params.get("q")
-        limit_raw = req.params.get("limit")
-        limit = int(limit_raw) if limit_raw is not None else None
-
         if not q or len(q.strip()) < 2:
             resp.media = {"query": q, "results": [], "total": 0}
             return
@@ -403,11 +401,8 @@ def register(api):
         }
 
     @api.route("/api/universal-search")
-    async def universal_search_api(req, resp):
+    async def universal_search_api(req, resp, *, q: Optional[str] = Query(None), limit: int = Query(5, ge=1, le=100)):
         """Universal search across all content types."""
-        q = req.params.get("q")
-        limit = int(req.params.get("limit", 5))
-
         if not q or len(q.strip()) < 2:
             resp.media = {"query": q, "results": {}}
             return
@@ -1403,21 +1398,13 @@ def register(api):
         return
 
     @api.route("/api/red-letter")
-    async def api_list_red_letter_verses(req, resp):
+    async def api_list_red_letter_verses(
+        req, resp, *,
+        book: Optional[str] = Query(None),
+        limit: int = Query(50, ge=1, le=500),
+        offset: int = Query(0, ge=0),
+    ):
         """List all red letter verses with optional filtering and pagination."""
-        book = req.params.get("book")
-        try:
-            limit = int(req.params.get("limit", 50))
-            offset = int(req.params.get("offset", 0))
-        except (TypeError, ValueError):
-            resp.status_code = 422
-            resp.media = {"detail": "limit and offset must be integers"}
-            return
-        if not (1 <= limit <= 500) or offset < 0:
-            resp.status_code = 422
-            resp.media = {"detail": "limit must be 1-500 and offset >= 0"}
-            return
-
         all_verses = list(iter_red_letter_verses(book))
 
         total = len(all_verses)

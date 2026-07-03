@@ -20,7 +20,7 @@ KJV Study is a modern web application for studying the King James Bible with AI-
 
 ### Test Suite
 
-The project has **941 comprehensive tests** across 16 test files:
+The project has **975 comprehensive tests** across 17 test files:
 
 - **87 API endpoint tests** (`test_api.py`) - Health checks, verse/book/Bible endpoints, search, interlinear, cross-references, topics, reading plans
 - **87 utility tests** (`test_utils.py`) - Helper functions and utilities
@@ -36,6 +36,7 @@ The project has **941 comprehensive tests** across 16 test files:
 - **46 advanced route tests** (`test_advanced_routes.py`) - Commentary, stories, family trees, etc.
 - **39 edge case tests** (`test_edge_cases.py`) - Error handling, boundary conditions, validation
 - **22 data validation tests** (`test_data_validation.py`) - JSON data integrity
+- **20 server feature tests** (`test_server_features.py`) - ETags/304s, security headers, metrics, health checks, query validation, error handlers, rate limiting
 - **14 sitemap/utility tests** (`test_sitemap_and_utilities.py`)
 - **1 KJV core test** (`test_kjv.py`)
 
@@ -105,6 +106,27 @@ GET /api/reading-plans/{plan_id}             - Get reading plan
 ```
 
 All endpoints support book name abbreviations (Gen, Ex, Mt, etc.)
+
+### Operational Endpoints
+
+```
+GET /health   - Aggregated readiness checks (200 when all pass, 503 otherwise)
+GET /metrics  - Prometheus metrics (request counts, latency histograms, in-flight gauge)
+```
+
+### Framework Features in Use (Responder 8.x)
+
+Configured in `kjvstudy_org/server.py`:
+
+- **auto_etag** - GET responses carry content-hash ETags; `If-None-Match` revalidation returns 304
+- **security_headers** - `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` on every response
+- **allowed_hosts** - Host-header allowlist via the `ALLOWED_HOSTS` env var (comma-separated; unset = allow all)
+- **enable_logging** - structured request logs with request IDs (`api.log`)
+- **metrics_route / health_route + add_health_check** - see operational endpoints above
+- **RateLimiter** (`responder.ext.ratelimit`) - 100 requests per 10s sliding window per client, installed as a before-request hook; exempts localhost and `/health`/`/metrics`
+- **Status-code exception handlers** - branded HTML 404/500 pages for web paths, JSON for `/api/*`
+- **Typed `Query()` params** - search/pagination endpoints validate query params (422 on bad input)
+- **orjson** - fast JSON serialization via the `responder[orjson]` extra
 
 ## Development Workflow
 
@@ -256,7 +278,7 @@ docker compose exec web uv run pytest tests/ -v # Run tests in container
 
 ## Notes for Claude
 
-- All tests pass (100/100)
+- All tests pass (975 collected: 972 passing, 3 skipped)
 - Use `uv` for all Python package management
 - API responses use `name` field for books, not `book`
 - API responses use `start`/`end` for verse ranges, not `start_verse`/`end_verse`

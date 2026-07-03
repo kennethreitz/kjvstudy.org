@@ -1,6 +1,8 @@
 """Strong's Concordance routes - Hebrew and Greek word study. (Responder port of routes/strongs.py)"""
 import re
 
+from responder import Query
+
 from ..kjv import bible
 from ..strongs import format_strongs_entry, search_strongs, get_all_strongs, normalize_strongs
 from ..interlinear_loader import find_verses_by_strongs
@@ -50,9 +52,8 @@ def register(api):
         )
 
     @api.route("/strongs/hebrew")
-    async def strongs_hebrew_index(req, resp):
+    async def strongs_hebrew_index(req, resp, *, page: int = Query(1, ge=1)):
         """Paginated index of all Hebrew Strong's entries."""
-        page = int(req.params.get("page", 1))
         data = get_all_strongs("hebrew", page=page, per_page=100)
 
         books = bible.get_books()
@@ -75,9 +76,8 @@ def register(api):
         )
 
     @api.route("/strongs/greek")
-    async def strongs_greek_index(req, resp):
+    async def strongs_greek_index(req, resp, *, page: int = Query(1, ge=1)):
         """Paginated index of all Greek Strong's entries."""
-        page = int(req.params.get("page", 1))
         data = get_all_strongs("greek", page=page, per_page=100)
 
         books = bible.get_books()

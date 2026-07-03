@@ -9,9 +9,9 @@ from kjvstudy_org.server import api
 def client():
     """
     Create test client fixture with session scope for reuse across tests.
-    api.session() returns a Starlette TestClient against the Responder app.
+    api.requests is a Starlette TestClient against the Responder app.
     """
-    return api.session()
+    return api.requests
 
 
 @pytest.fixture(scope="session")

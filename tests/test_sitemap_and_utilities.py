@@ -146,10 +146,11 @@ class TestHealthCheck:
     """Tests for health check endpoint"""
 
     def test_health_check(self, client):
-        """Health check should return healthy status"""
+        """Health check should aggregate readiness checks and pass"""
         response = client.get("/health")
         assert response.status_code == 200
 
         data = response.json()
-        assert data["status"] == "healthy"
-        assert data["service"] == "kjv-study"
+        assert data["status"] == "ok"
+        assert data["checks"]["bible"]["status"] == "ok"
+        assert data["checks"]["books"]["status"] == "ok"

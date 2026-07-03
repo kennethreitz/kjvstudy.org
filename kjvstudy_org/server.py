@@ -11,20 +11,31 @@ Run it::
     uv run python -m kjvstudy_org.server
 """
 import hashlib
+import json
 import os
 from pathlib import Path
 
 import responder
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import JSONResponse
+from responder.ext.ratelimit import RateLimiter
 
 from .jinja_filters import register_filters
+from .kjv import bible
 from .utils.pdf import WEASYPRINT_AVAILABLE
 from .routes import register_all
 
 _DIR = Path(__file__).parent
 _STATIC_DIR = _DIR / "static"
 _TEMPLATES_DIR = _DIR / "templates"
+
+
+def _allowed_hosts():
+    """Hostnames accepted by the app (Host-header injection guard).
+
+    Comma-separated via ``ALLOWED_HOSTS``; unset means all hosts, so local
+    dev and the test client keep working without configuration.
+    """
+    hosts = os.getenv("ALLOWED_HOSTS", "")
+    return [h.strip() for h in hosts.split(",") if h.strip()] or None
 
 
 # ---------------------------------------------------------------------------
@@ -47,9 +58,20 @@ api = responder.API(
     request_id=True,
     request_timeout=30.0,
     problem_details=True,
+    # The KJV text never changes: hash GET responses so revalidating clients
+    # get 304s instead of full page bodies.
+    auto_etag=True,
+    security_headers=True,
+    allowed_hosts=_allowed_hosts(),
+    enable_logging=True,
+    metrics_route="/metrics",
+    health_route="/health",
     # Sessions are unused; disable them entirely (Responder 5.0.0+).
     sessions=False,
 )
+
+api.add_health_check("bible", lambda: bible.get_verse_count() == 31102)
+api.add_health_check("books", lambda: len(bible.get_books()) == 66)
 
 
 # ---------------------------------------------------------------------------
@@ -87,7 +109,10 @@ def cache_control(req, resp):
     """Attach Cache-Control headers based on the request path."""
     path = req.url.path
 
-    if path.startswith("/api/") or path in ("/verse-of-the-day", "/random-verse"):
+    if (
+        path.startswith("/api/")
+        or path in ("/verse-of-the-day", "/random-verse", "/health", "/metrics")
+    ):
         resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         resp.headers["Pragma"] = "no-cache"
         resp.headers["Expires"] = "0"
@@ -115,62 +140,39 @@ def cache_control(req, resp):
 
 
 # ---------------------------------------------------------------------------
-# Operational middleware (ports of BotLogger / RateLimit / Timeout)
+# Rate limiting & bot logging (before-request hooks)
 # ---------------------------------------------------------------------------
-class BotLoggerMiddleware(BaseHTTPMiddleware):
-    """Log requests from known bots/crawlers."""
+# 100 requests per sliding 10-second window per client — the same average as
+# the old token bucket (10 req/s, burst headroom). Keyed by X-Forwarded-For
+# since production sits behind a reverse proxy.
+_limiter = RateLimiter(requests=100, period=10, trust_proxy_headers=True)
 
-    BOT_IDENTIFIERS = [
-        'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
-        'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
-        'linkedinbot', 'embedly', 'quora link preview', 'showyoubot',
-        'outbrain', 'pinterest', 'slackbot', 'vkshare', 'w3c_validator',
-        'redditbot', 'applebot', 'whatsapp', 'flipboard', 'tumblr',
-        'bitlybot', 'skypeuripreview', 'nuzzel', 'discordbot',
-        'telegrambot', 'perplexitybot', 'amazonbot', 'claudebot',
-        'anthropic-ai', 'gptbot', 'chatgpt-user', 'ccbot',
-        'diffbot', 'bytespider', 'petalbot',
-    ]
-
-    async def dispatch(self, request, call_next):
-        ua = request.headers.get("user-agent", "").lower()
-        bot = next((b for b in self.BOT_IDENTIFIERS if b in ua), None)
-        if bot:
-            print(f"[BOT] {bot}")
-        return await call_next(request)
+BOT_IDENTIFIERS = [
+    'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
+    'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
+    'linkedinbot', 'embedly', 'quora link preview', 'showyoubot',
+    'outbrain', 'pinterest', 'slackbot', 'vkshare', 'w3c_validator',
+    'redditbot', 'applebot', 'whatsapp', 'flipboard', 'tumblr',
+    'bitlybot', 'skypeuripreview', 'nuzzel', 'discordbot',
+    'telegrambot', 'perplexitybot', 'amazonbot', 'claudebot',
+    'anthropic-ai', 'gptbot', 'chatgpt-user', 'ccbot',
+    'diffbot', 'bytespider', 'petalbot',
+]
 
 
-class RateLimitMiddleware(BaseHTTPMiddleware):
-    """Simple in-memory per-IP sliding-window rate limiter."""
+@api.route(before_request=True)
+async def operational_hooks(req, resp):
+    """Log known crawlers; rate-limit everyone but local/monitoring traffic."""
+    ua = req.headers.get("user-agent", "").lower()
+    bot = next((b for b in BOT_IDENTIFIERS if b in ua), None)
+    if bot:
+        api.log.info("[BOT] %s", bot)
 
-    def __init__(self, app, requests_per_second: float = 10.0):
-        super().__init__(app)
-        self.rate = requests_per_second
-        self._buckets: dict[str, tuple[float, float]] = {}
-        self._max_tokens = requests_per_second * 5
-
-    async def dispatch(self, request, call_next):
-        import time
-        if request.url.path == "/health":
-            return await call_next(request)
-        ip = request.client.host if request.client else "unknown"
-        if ip in ("127.0.0.1", "testclient"):
-            return await call_next(request)
-        now = time.monotonic()
-        tokens, last = self._buckets.get(ip, (self._max_tokens, now))
-        tokens = min(self._max_tokens, tokens + (now - last) * self.rate)
-        if tokens < 1.0:
-            return JSONResponse({"detail": "Too many requests"}, status_code=429,
-                                headers={"Retry-After": "1"})
-        self._buckets[ip] = (tokens - 1.0, now)
-        if len(self._buckets) > 5000:
-            cutoff = now - 60
-            self._buckets = {k: (t, ts) for k, (t, ts) in self._buckets.items() if ts > cutoff}
-        return await call_next(request)
-
-
-api.add_middleware(RateLimitMiddleware, requests_per_second=10.0)
-api.add_middleware(BotLoggerMiddleware)
+    if req.url.path in ("/health", "/metrics"):
+        return
+    if req.client and req.client[0] in ("127.0.0.1", "::1", "testclient"):
+        return
+    await _limiter.acheck(req, resp)
 
 
 # ---------------------------------------------------------------------------
@@ -182,7 +184,7 @@ register_all(api)
 # ---------------------------------------------------------------------------
 # OpenAPI schema scope
 # ---------------------------------------------------------------------------
-# Responder 5.0.0 auto-documents *every* route in the OpenAPI spec, including
+# Responder auto-documents *every* route in the OpenAPI spec, including
 # all the HTML page routes. Keep the spec limited to the JSON API: exclude any
 # route whose path does not start with "/api".
 for _route in api.router.routes:
@@ -194,30 +196,40 @@ for _route in api.router.routes:
         _endpoint._include_in_schema = False
 
 
-# Custom 404. Use the router's default_endpoint (an ASGI callable that fires
-# only after every route AND mount has missed — so it does not shadow /static).
-# Branded error page for web paths, JSON for the API. Mirrors
-# server.custom_http_exception_handler.
-from .kjv import bible
-from starlette.requests import Request as _StarletteRequest
-from starlette.responses import HTMLResponse as _HTMLResponse, JSONResponse as _JSONResponse
-
-
-async def _not_found(scope, receive, send):
-    path = scope.get("path", "")
-    if path.startswith("/api/"):
-        response = _JSONResponse({"detail": "Not Found"}, status_code=404)
-    else:
-        request = _StarletteRequest(scope, receive)
-        html = api.template(
-            "error.html", request=request,
-            status_code=404, detail="Not Found", books=bible.get_books(),
+# ---------------------------------------------------------------------------
+# Error pages: branded HTML for web paths, JSON for the API
+# ---------------------------------------------------------------------------
+# Unmatched routes raise HTTPException(404), which lands here via the
+# exception middleware; handlers that 404 themselves render their own pages
+# (see routes/_helpers.abort_404).
+# The handlers set resp.content + resp.mimetype (rather than resp.media /
+# resp.html) because the exception-handler adapter only forwards the headers
+# derived from the body — the content path is the one that carries Content-Type.
+def _error_response(req, resp, status_code, detail):
+    resp.status_code = status_code
+    if req.url.path.startswith("/api/"):
+        resp.content = json.dumps({"detail": detail})
+        resp.mimetype = "application/json"
+        return
+    try:
+        resp.content = api.template(
+            "error.html", request=req,
+            status_code=status_code, detail=detail, books=bible.get_books(),
         )
-        response = _HTMLResponse(html, status_code=404)
-    await response(scope, receive, send)
+        resp.mimetype = "text/html"
+    except Exception:  # never let the error page itself take the response down
+        resp.content = detail
+        resp.mimetype = "text/plain"
 
 
-api.router.default_endpoint = _not_found
+@api.exception_handler(404)
+async def not_found(req, resp, exc):
+    _error_response(req, resp, 404, "Not Found")
+
+
+@api.exception_handler(500)
+async def server_error(req, resp, exc):
+    _error_response(req, resp, 500, "Internal Server Error")
 
 
 if __name__ == "__main__":
