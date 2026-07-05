@@ -197,23 +197,10 @@ tests/
 
 ## Code Quality
 
-### Warnings (Known Issues)
-
-The test suite shows several deprecation warnings:
-
-1. **`example` deprecated in favor of `examples`**
-   - FastAPI parameter examples should use `examples=` instead of `example=`
-   - Non-breaking, cosmetic issue
-
-2. **`on_event` deprecated in favor of lifespan**
-   - FastAPI startup events should use lifespan context manager
-   - Non-breaking, will be fixed in future update
-
-3. **TemplateResponse parameter order**
-   - Starlette expects `Request` as first parameter
-   - Non-breaking, cosmetic issue
-
-None of these warnings affect functionality.
+The app has been ported from the older FastAPI implementation to Responder.
+Route handlers mutate `resp`, shared HTML rendering goes through
+`routes/_helpers.py`, and API schema examples use Pydantic
+`json_schema_extra`.
 
 ## Data Validation
 
