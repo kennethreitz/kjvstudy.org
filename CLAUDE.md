@@ -114,7 +114,7 @@ GET /health   - Aggregated readiness checks (200 when all pass, 503 otherwise)
 GET /metrics  - Prometheus metrics (request counts, latency histograms, in-flight gauge)
 ```
 
-### Framework Features in Use (Responder 8.x)
+### Framework Features in Use
 
 Configured in `kjvstudy_org/server.py`:
 

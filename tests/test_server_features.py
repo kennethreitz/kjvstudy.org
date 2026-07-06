@@ -1,6 +1,6 @@
 """Tests for framework-level features wired up in server.py.
 
-Covers the Responder 8.x features adopted from the feature tour:
+Covers the Responder features wired into the app:
 conditional requests (auto ETag), security headers, Prometheus metrics,
 aggregated health checks, typed query-parameter validation, branded
 404/500 handling, and the orjson JSON backend.

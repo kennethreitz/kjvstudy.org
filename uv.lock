@@ -633,7 +633,7 @@ requires-dist = [
     { name = "pytest-xdist", marker = "extra == 'dev'", specifier = ">=3.5.0" },
     { name = "python-gedcom", specifier = ">=1.0.0" },
     { name = "requests", specifier = ">=2.32.3" },
-    { name = "responder", extras = ["server", "orjson"], specifier = ">=8.3.0,<9.0.0" },
+    { name = "responder", extras = ["orjson", "server"], specifier = ">=9.0.0,<10.0.0" },
     { name = "weasyprint", specifier = ">=66.0" },
 ]
 provides-extras = ["dev"]
@@ -1115,7 +1115,7 @@ wheels = [
 
 [[package]]
 name = "responder"
-version = "8.3.0"
+version = "9.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "a2wsgi" },
@@ -1134,9 +1134,9 @@ dependencies = [
     { name = "starlette" },
     { name = "uvicorn", extra = ["standard"] },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2b/4e/5df892684d594a7fde8fd9ef8fefc0accc980fc4979a75539527f6779007/responder-8.3.0.tar.gz", hash = "sha256:f16f053f38524844ed331a74d68029a59fae2f65461299218976414320a41381", size = 338176, upload-time = "2026-07-05T09:40:00.742Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/30/b4/56bcb9fd532a31314aab35addb86a6b1b3c28ab930910d00f42eb2c6f6af/responder-9.0.0.tar.gz", hash = "sha256:0bfd84e994b89cf96f9598794d1c0e4608f4ee73c737920ab2f7f5b8c366485d", size = 347110, upload-time = "2026-07-06T03:21:55.308Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/34/3a/40f5f34bcfd966690ef6ce62a9f686530b8453b5cf0981fc95ec75142aab/responder-8.3.0-py3-none-any.whl", hash = "sha256:718926c5c829fbb0d5d656b6c9db55502ab177101153fe11b320b0695884407a", size = 186756, upload-time = "2026-07-05T09:39:59.43Z" },
+    { url = "https://files.pythonhosted.org/packages/66/b2/b3e85b969ae4ec9f8219e6a984b87ff95f64de5520c4422070785e4d5a4c/responder-9.0.0-py3-none-any.whl", hash = "sha256:097d3e07043de35c0105b0302603e591fcb3a6a4ea72784171fd2c923a615e56", size = 191593, upload-time = "2026-07-06T03:21:53.994Z" },
 ]
 
 [package.optional-dependencies]
