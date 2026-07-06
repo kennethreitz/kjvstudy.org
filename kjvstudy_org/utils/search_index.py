@@ -23,7 +23,7 @@ def get_connection():
     Get a database connection with proper cleanup and thread safety.
 
     Creates a new connection for each request instead of using a global connection.
-    This is thread-safe and works well with FastAPI's concurrent request handling.
+    This is thread-safe and works well with ASGI's concurrent request handling.
     SQLite connection creation is very fast (~microseconds), so this is efficient.
     """
     conn = sqlite3.connect(str(DB_PATH), check_same_thread=True)

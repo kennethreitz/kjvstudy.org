@@ -1,4 +1,4 @@
-"""Study guides routes for KJV Study. (Responder port of routes/study_guides.py)
+"""Study guides routes for KJV Study.
 
 This module contains the study guides routes and content.
 """
@@ -10,8 +10,7 @@ from ..utils.helpers import verse_reference_to_url, get_books
 from ..utils.pdf import WEASYPRINT_AVAILABLE, pdf_response, require_pdf_available, pdf_context
 
 # Study-guide data now lives in the framework-agnostic kjvstudy_org.study_guides
-# module (so the Responder port and FastAPI both reuse it). Re-exported here under
-# the names this module's route handlers already use.
+# module. Re-exported here under the names this module's route handlers already use.
 from ..study_guides import (
     get_study_guides_catalog as _get_study_guides_catalog,
     get_study_guides_content as _get_study_guides_content,

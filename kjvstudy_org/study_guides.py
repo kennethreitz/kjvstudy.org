@@ -1,8 +1,8 @@
 """Study guide data loader (framework-agnostic).
 
 Loads study guide JSON files and exposes the catalog, full content, and the
-curated homepage selection. The web layer (FastAPI routes today, Responder
-routes during the port) imports from here; no web framework is referenced.
+curated homepage selection. The web layer imports from here; no web framework
+is referenced.
 """
 import json
 from pathlib import Path

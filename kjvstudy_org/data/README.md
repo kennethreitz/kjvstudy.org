@@ -737,7 +737,7 @@ gunzip -c kjvstudy_org/data/interlinear.json.gz | head -100
 
 1. **Edit JSON file** in your editor with proper syntax highlighting
 2. **Validate syntax**: `python -m json.tool data/file.json > /dev/null`
-3. **Test locally**: `uv run uvicorn kjvstudy_org.server:app --reload`
+3. **Test locally**: `uv run granian kjvstudy_org.server:api --interface asgi --reload`
 4. **Run tests**: `uv run pytest tests/ -v`
 5. **Commit changes**: `git add data/file.json && git commit -m "Update: ..."`
 6. **Deploy**: Changes automatically deployed via CI/CD

@@ -8,8 +8,8 @@ from typing import BinaryIO
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 
-# Starlette (not FastAPI) so this module imports under both the FastAPI app and
-# the Responder port, which require different Starlette versions.
+# Starlette primitives keep this helper framework-light while fitting the
+# Responder app's response model.
 from starlette.exceptions import HTTPException
 from starlette.responses import StreamingResponse
 
@@ -84,7 +84,7 @@ def render_html_to_pdf(html_content: str) -> BinaryIO:
 async def render_html_to_pdf_async(html_content: str) -> BinaryIO:
     """Async-compatible PDF rendering that won't block the event loop.
 
-    Runs PDF generation in a thread pool to prevent blocking FastAPI.
+    Runs PDF generation in a thread pool to prevent blocking the event loop.
     Cached PDFs are served from disk without re-rendering.
 
     Returns a BytesIO instance positioned at the beginning of the generated PDF.

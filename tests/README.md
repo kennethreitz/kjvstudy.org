@@ -108,7 +108,7 @@ uv run pytest tests/ -n auto
 
 Fixtures are defined in `conftest.py` and automatically available to all test files:
 
-- **client**: FastAPI TestClient for making requests
+- **client**: Responder/Starlette TestClient for making requests
 - **sample_verses**: Dictionary of common verse references
 - **sample_books**: Dictionary of sample book names
 - **book_abbreviations**: Mapping of abbreviations to full names

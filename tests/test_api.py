@@ -510,7 +510,7 @@ class TestResourcesEndpoints:
 
     def test_resource_category_pdf(self, client):
         """Test /api/resources/{category}/pdf endpoint"""
-        # Note: This route may have ordering issues with FastAPI path matching
+        # Note: This route may have ordering issues with route path matching
         # Testing with a simple category
         response = client.get("/api/resources/angels/pdf")
         # May match as /resources/{category} with slug="pdf" due to route order

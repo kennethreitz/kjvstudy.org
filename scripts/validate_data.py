@@ -3,8 +3,8 @@
 Validate JSON data files using Pydantic models.
 
 This script validates all data files in kjvstudy_org/data/ using Pydantic models
-for type safety and validation. Pydantic provides better error messages and
-integrates naturally with FastAPI.
+for type safety and validation. Pydantic provides clear error messages and
+keeps data checks independent of the web layer.
 
 Usage:
     python scripts/validate_data.py              # Validate all files
@@ -13,7 +13,7 @@ Usage:
     python scripts/validate_data.py --generate-schemas  # Generate JSON schemas
 
 Requirements:
-    pip install pydantic (already installed with FastAPI)
+    pip install pydantic
 """
 
 import json

@@ -1,4 +1,4 @@
-"""Shared helpers for Responder route modules (the port of the FastAPI routes).
+"""Shared helpers for Responder route modules.
 
 Every ported handler has the shape::
 
