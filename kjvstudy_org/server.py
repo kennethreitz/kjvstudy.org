@@ -20,6 +20,7 @@ from responder.ext.ratelimit import RateLimiter
 
 from .jinja_filters import register_filters
 from .kjv import bible
+from .openapi_examples import install_openapi_examples
 from .utils.pdf import WEASYPRINT_AVAILABLE
 from .routes import register_all
 
@@ -179,6 +180,7 @@ async def operational_hooks(req, resp):
 # Routes
 # ---------------------------------------------------------------------------
 register_all(api)
+install_openapi_examples(api)
 
 
 # ---------------------------------------------------------------------------

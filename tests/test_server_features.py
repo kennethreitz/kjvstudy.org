@@ -135,6 +135,69 @@ class TestJSONBackend:
         assert formats._orjson is not None
 
 
+class TestOpenAPIExamples:
+    """The generated API schema includes practical examples for docs users."""
+
+    def test_verse_operation_has_parameter_and_response_examples(self, client):
+        schema = client.get("/api/openapi.json").json()
+        operation = schema["paths"]["/api/verse/{book}/{chapter}/{verse}"]["get"]
+
+        assert operation["summary"] == "Get a single verse"
+
+        params = {(p["in"], p["name"]): p for p in operation["parameters"]}
+        assert params[("path", "book")]["example"] == "John"
+        assert params[("path", "chapter")]["example"] == 3
+        assert params[("path", "verse")]["example"] == 16
+        assert params[("query", "interlinear")]["example"] is True
+
+        examples = operation["responses"]["200"]["content"]["application/json"]["examples"]
+        assert examples["john_3_16"]["value"]["reference"] == "John 3:16"
+        assert examples["genesis_1_1"]["value"]["book"] == "Genesis"
+
+    def test_search_operation_has_query_examples(self, client):
+        schema = client.get("/api/openapi.json").json()
+        operation = schema["paths"]["/api/search"]["get"]
+
+        params = {(p["in"], p["name"]): p for p in operation["parameters"]}
+        assert params[("query", "q")]["example"] == "love"
+        assert params[("query", "limit")]["example"] == 5
+
+        examples = operation["responses"]["200"]["content"]["application/json"]["examples"]
+        assert "word_search" in examples
+        assert "direct_reference" in examples
+
+    def test_bulk_lookup_documents_request_and_response_examples(self, client):
+        schema = client.get("/api/openapi.json").json()
+        operation = schema["paths"]["/api/verses/bulk"]["post"]
+
+        request_media = operation["requestBody"]["content"]["application/json"]
+        assert request_media["schema"]["$ref"] == "#/components/schemas/BulkVerseRequest"
+        assert request_media["examples"]["common_verses"]["value"]["references"] == [
+            "John 3:16",
+            "Romans 8:28",
+            "Psalm 23:1",
+        ]
+
+        response_media = operation["responses"]["200"]["content"]["application/json"]
+        assert response_media["schema"]["$ref"] == "#/components/schemas/BulkVerseResponse"
+        assert response_media["examples"]["common_verses"]["value"]["total"] == 3
+
+        components = schema["components"]["schemas"]
+        assert "BulkVerseRequest" in components
+        assert "BulkVerseResponse" in components
+
+    def test_resource_operation_has_path_examples(self, client):
+        schema = client.get("/api/openapi.json").json()
+        operation = schema["paths"]["/api/resources/{category}/{slug}"]["get"]
+
+        params = {(p["in"], p["name"]): p for p in operation["parameters"]}
+        assert params[("path", "category")]["example"] == "biblical_locations"
+        assert params[("path", "slug")]["example"] == "garden-of-eden"
+
+        examples = operation["responses"]["200"]["content"]["application/json"]["examples"]
+        assert examples["garden_of_eden"]["value"]["slug"] == "garden-of-eden"
+
+
 class TestRateLimiter:
     """The shared limiter exempts local/monitoring traffic; the test client
     (host "testclient") is exempt, so hammering an endpoint never 429s."""
