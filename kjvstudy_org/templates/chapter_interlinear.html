@@ -9,63 +9,40 @@
     max-width: 90%;
 }
 
+/* Chapter head — matches the reading page */
+.chapter-head-title {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+}
+
+.chapter-head-title .chapter-book-name {
+    display: block;
+    font-size: 2.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-strong);
+}
+
+.chapter-head-title .chapter-numeral {
+    display: block;
+    margin-top: 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--bronze);
+}
+
 .page-header {
     max-width: 100%;
     margin-bottom: 1.5rem;
 }
 
-.page-header h1 {
-    margin-bottom: 0.25rem;
-}
-
 .page-header .subtitle {
     color: var(--text-secondary);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.testament-badge {
-    display: inline-block;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    font-weight: 600;
-}
-
-.testament-badge.hebrew {
-    background: #8B4513;
-    color: #fff;
-}
-
-.testament-badge.greek {
-    background: #4169E1;
-    color: #fff;
-}
-
-/* Breadcrumb */
-.breadcrumb {
-    max-width: 100%;
-    margin: 0 0 2rem 0;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-.breadcrumb a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
-.breadcrumb-separator {
-    margin: 0 0.5rem;
-    color: var(--text-tertiary);
+    font-size: 1.15rem;
+    margin: 0.5rem 0 0;
 }
 
 /* Chapter navigation */
@@ -74,19 +51,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
-    padding: 0.75rem 0;
+    margin-bottom: 2.5rem;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--border-color);
 }
 
 .chapter-nav a {
-    color: var(--link-color);
+    display: inline-block;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
-    font-size: 0.95rem;
+    transition: all 0.2s;
 }
 
 .chapter-nav a:hover {
-    text-decoration: underline;
+    color: var(--accent-strong);
+    border-color: var(--accent);
+    background: var(--accent-softer);
+}
+
+.chapter-nav-bottom {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    border-bottom: none;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
 }
 
 /* Verse sections */
@@ -108,14 +101,15 @@
 }
 
 .verse-number {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #4a7c59;
+    font-family: et-book-roman-old-style, et-book, Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--bronze);
     min-width: 2.5rem;
 }
 
 .verse-text {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     line-height: 2;
     color: var(--text-strong);
     font-style: italic;
@@ -125,11 +119,12 @@
 .verse-text a {
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px dotted var(--text-tertiary);
+    border-bottom: 1px dotted var(--underline);
 }
 
 .verse-text a:hover {
     border-bottom-style: solid;
+    color: var(--accent-strong);
 }
 
 /* Interlinear flow */
@@ -147,25 +142,25 @@
     vertical-align: top;
     cursor: pointer;
     position: relative;
-    padding: 0.25rem 0.3rem;
-    border-radius: 4px;
+    padding: 0.25rem 0.35rem;
+    border-radius: 6px;
     transition: all 0.2s ease;
     min-width: auto;
-    border: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
 }
 
 .word-unit:hover {
-    background: var(--code-bg);
-    border-color: var(--border-color-darker);
+    border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: var(--shadow-soft);
 }
 
 .word-unit.expanded {
-    background: #f0f7f4;
-    border-color: #4a7c59;
+    background: var(--accent-softer);
+    border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(74,124,89,0.15);
+    box-shadow: var(--shadow-soft);
     z-index: 101;
 }
 
@@ -202,18 +197,18 @@
 .word-english {
     display: block;
     font-size: 0.85rem;
-    color: var(--link-color);
+    color: var(--accent-strong);
     font-weight: 600;
     line-height: 1.3;
 }
 
 .word-strongs {
     display: block;
-    font-size: 0.65rem;
-    color: #999;
-    font-family: monospace;
+    font-size: 0.68rem;
+    color: var(--bronze);
+    letter-spacing: 0.05em;
     margin-top: 0.2rem;
-    opacity: 0.7;
+    opacity: 0.8;
     transition: opacity 0.2s;
 }
 
@@ -224,10 +219,12 @@
 .word-strongs a {
     color: inherit;
     text-decoration: none;
+    border-bottom: none;
 }
 
 .word-strongs a:hover {
-    color: #4a7c59;
+    color: var(--accent-strong);
+    text-decoration: underline;
 }
 
 /* Hover tooltip - full definition */
@@ -236,10 +233,10 @@
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(-4px);
-    background: #333;
-    color: #fff;
+    background: var(--text-strong);
+    color: var(--bg-color);
     padding: 0.65rem 1rem;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 0.95rem;
     white-space: normal;
     max-width: 380px;
@@ -259,7 +256,7 @@
     left: 50%;
     transform: translateX(-50%);
     border: 5px solid transparent;
-    border-top-color: #333;
+    border-top-color: var(--text-strong);
 }
 
 .word-unit:hover .word-tooltip {
@@ -278,13 +275,14 @@
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(8px);
-    background: #fff;
-    border: 1px solid #ddd;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-top: 2px solid var(--gold);
     border-radius: 8px;
     padding: 1rem 1.25rem;
     min-width: 260px;
     max-width: 320px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    box-shadow: var(--shadow-pop);
     z-index: 100;
     text-align: left;
     line-height: 1.5;
@@ -304,13 +302,13 @@
     gap: 0.75rem;
     margin-bottom: 0.75rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .word-detail-original {
     font-size: 2.2rem;
     font-weight: 400;
-    color: #222;
+    color: var(--text-strong);
     line-height: 1.3;
 }
 
@@ -327,7 +325,7 @@
 
 .word-detail-english {
     font-size: 1rem;
-    color: #4a7c59;
+    color: var(--accent-strong);
     font-weight: 600;
 }
 
@@ -342,21 +340,26 @@
 }
 
 .word-detail-label {
-    color: #888;
-    min-width: 85px;
+    color: var(--bronze);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.9;
+    min-width: 95px;
     flex-shrink: 0;
 }
 
 .word-detail-value {
-    color: #333;
+    color: var(--text-color);
 }
 
 .word-detail-definition {
     margin-top: 0.75rem;
     padding-top: 0.75rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
     font-size: 0.85rem;
-    color: #555;
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
@@ -368,114 +371,7 @@
     margin-top: 0.5rem;
 }
 
-/* Dark mode - explicit theme */
-[data-theme="dark"] .word-original {
-    color: #eee;
-}
-
-[data-theme="dark"] .word-unit:hover .word-original {
-    color: #fff;
-}
-
-[data-theme="dark"] .word-unit:hover {
-    background: #2a2a2a;
-    border-color: #444;
-}
-
-[data-theme="dark"] .word-unit.expanded {
-    background: #1a2e1a;
-    border-color: #4a7c59;
-}
-
-[data-theme="dark"] .word-detail {
-    background: #1a1a1a;
-    border-color: #444;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-
-[data-theme="dark"] .word-detail-header {
-    border-bottom-color: #333;
-}
-
-[data-theme="dark"] .word-detail-original {
-    color: #eee;
-}
-
-[data-theme="dark"] .word-detail-label {
-    color: #888;
-}
-
-[data-theme="dark"] .word-detail-value {
-    color: #ddd;
-}
-
-[data-theme="dark"] .word-detail-value a {
-    color: #6b9b7a;
-}
-
-[data-theme="dark"] .word-detail-definition {
-    color: #bbb;
-    border-top-color: #333;
-}
-
-[data-theme="dark"] .verse-text {
-    color: #ccc;
-}
-
-[data-theme="dark"] .verse-section {
-    border-bottom-color: #333;
-}
-
-/* Only apply OS dark mode when explicit theme is not set to light */
-@media (prefers-color-scheme: dark) {
-    html:not([data-theme="light"]) .word-original {
-        color: #eee;
-    }
-
-    html:not([data-theme="light"]) .word-unit:hover .word-original {
-        color: #fff;
-    }
-
-    html:not([data-theme="light"]) .word-unit:hover {
-        background: #2a2a2a;
-        border-color: #444;
-    }
-
-    html:not([data-theme="light"]) .word-unit.expanded {
-        background: #1a2e1a;
-        border-color: #4a7c59;
-    }
-
-    html:not([data-theme="light"]) .word-detail {
-        background: #222;
-        border-color: #444;
-    }
-
-    html:not([data-theme="light"]) .word-detail-original {
-        color: #eee;
-    }
-
-    html:not([data-theme="light"]) .word-detail-value {
-        color: #ddd;
-    }
-
-    html:not([data-theme="light"]) .word-detail-definition {
-        color: #bbb;
-        border-top-color: #444;
-    }
-
-    html:not([data-theme="light"]) .word-detail-header {
-        border-bottom-color: #444;
-    }
-
-    html:not([data-theme="light"]) .verse-text {
-        color: #ccc;
-    }
-
-    html:not([data-theme="light"]) .verse-section {
-        border-bottom-color: #333;
-    }
-}
+/* Dark mode is handled entirely by the shared design tokens in base.html. */
 
 /* Print button */
 .print-actions {
@@ -488,19 +384,19 @@
     gap: 0.35rem;
     padding: 0.45rem 0.9rem;
     font-size: 0.9rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .print-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color, #4a7c59);
-    color: var(--link-color, #4a7c59);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .print-btn svg {
@@ -643,8 +539,8 @@
 {% block content %}
 <div class="interlinear-page">
     <div class="page-header">
-        <h1>{{ book }} {{ chapter }}</h1>
-        <p class="subtitle">Interlinear Bible</p>
+        <h1 class="chapter-head-title"><span class="chapter-book-name">{{ book }}</span> <span class="chapter-numeral">Chapter {{ chapter }} · Interlinear</span></h1>
+        <p class="subtitle">Word-by-word {% if is_old_testament %}Hebrew{% else %}Greek{% endif %} with Strong's numbers</p>
     </div>
 
     {% if pdf_available and pdf_url %}
@@ -705,7 +601,7 @@
                         <span class="word-detail-label">Strong's:</span>
                         <span class="word-detail-value">
                             {% if word.strongs %}
-                                <a href="/strongs/{{ word.strongs }}" style="color: #4a7c59;">{{ word.strongs }}</a>
+                                <a href="/strongs/{{ word.strongs }}" style="color: var(--accent-strong);">{{ word.strongs }}</a>
                             {% else %}
                                 —
                             {% endif %}
@@ -736,7 +632,7 @@
     </section>
     {% endfor %}
 
-    <nav class="chapter-nav" style="margin-top: 2rem; border-top: 1px solid #eee; border-bottom: none; padding-top: 1.5rem;">
+    <nav class="chapter-nav chapter-nav-bottom">
         <div>
             {% if chapter > 1 %}
             <a href="/book/{{ book }}/chapter/{{ chapter - 1 }}/interlinear">← Chapter {{ chapter - 1 }}</a>
@@ -797,7 +693,7 @@ document.addEventListener('click', function(e) {
         clearWordSelection();
 
         selectedVerseIndex = Math.max(0, Math.min(index, verses.length - 1));
-        verses[selectedVerseIndex].style.outline = '2px solid #4a7c59';
+        verses[selectedVerseIndex].style.outline = '2px solid var(--accent)';
         verses[selectedVerseIndex].style.outlineOffset = '4px';
         verses[selectedVerseIndex].classList.add('selected');
         verses[selectedVerseIndex].scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -817,7 +713,7 @@ document.addEventListener('click', function(e) {
 
         const word = words[selectedWordIndex];
         word.classList.add('keyboard-selected');
-        word.style.outline = '2px solid #4a7c59';
+        word.style.outline = '2px solid var(--accent)';
         word.style.outlineOffset = '2px';
         word.scrollIntoView({ behavior: 'auto', block: 'center' });
     }

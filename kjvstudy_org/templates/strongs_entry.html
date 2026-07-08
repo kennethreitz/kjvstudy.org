@@ -24,48 +24,54 @@
     max-width: 800px;
 }
 
-/* Main word card */
+/* Main word card — a framed lexicon plate */
 .word-card {
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 2.5rem;
+    position: relative;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-darker);
+    padding: 2.75rem 2.5rem 2.5rem;
     margin-bottom: 2rem;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: var(--shadow-soft);
+}
+
+.word-card::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1px solid var(--border-color-dark);
+    pointer-events: none;
+}
+
+.word-card > * {
+    position: relative;
 }
 
 .word-card .strongs-number {
-    font-family: monospace;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: var(--bronze);
+    margin-bottom: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
 }
 
 .lang-badge {
     display: inline-block;
-    font-size: 0.65rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
+    font-size: 0.62rem;
+    padding: 0.22rem 0.7rem;
+    border-radius: 999px;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.14em;
     font-weight: 600;
-}
-
-.lang-badge.hebrew {
-    background: #8B4513;
-    color: #fff;
-}
-
-.lang-badge.greek {
-    background: #4169E1;
-    color: #fff;
+    color: var(--bronze);
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
 }
 
 .word-card .original-word {
@@ -101,9 +107,10 @@
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
-    font-size: 1.15rem;
-    color: var(--text-color);
-    line-height: 1.7;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-strong);
+    line-height: 1.75;
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
@@ -118,26 +125,27 @@
 }
 
 .info-card {
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
     padding: 1.5rem;
     transition: all 0.15s;
 }
 
 .info-card.selected {
-    border-color: var(--link-color);
-    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
-    background: #f8fff8;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+    background: var(--accent-softer);
 }
 
 .info-card h2 {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
+    font-size: 0.72rem;
+    color: var(--bronze) !important;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.16em;
     margin: 0 0 0.75rem 0;
     font-weight: 600;
+    font-style: normal;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -149,11 +157,8 @@
     width: 3px;
     height: 1em;
     border-radius: 2px;
+    background: var(--gold);
 }
-
-.info-card.definition h2::before { background: #4a7c59; }
-.info-card.kjv h2::before { background: #8B4513; }
-.info-card.derivation h2::before { background: #4169E1; }
 
 .info-card p {
     margin: 0;
@@ -182,8 +187,8 @@
 .kjv-tag {
     display: inline-block;
     padding: 0.35rem 0.7rem;
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
     font-size: 0.9rem;
     color: var(--text-color);
@@ -191,8 +196,8 @@
 }
 
 .kjv-tag:hover {
-    border-color: var(--link-color);
-    background: var(--bg-color);
+    border-color: var(--accent);
+    background: var(--accent-softer);
 }
 
 .kjv-tag.compare {
@@ -228,20 +233,25 @@
 .related-entry-card {
     padding: 0.75rem 1rem;
     background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    border-left: 3px solid #6495ED;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 0 6px 6px 0;
+    border-left: 3px solid var(--gold);
+    transition: all 0.15s;
 }
 
 .related-entry-card:hover {
-    border-color: #4169E1;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: var(--shadow-soft);
 }
 
 .related-entry-card.selected {
-    border-color: var(--link-color);
-    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
-    background: #f8fff8;
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+    background: var(--accent-softer);
 }
 
 .related-entry-header {
@@ -253,12 +263,15 @@
 
 .related-entry-header a {
     font-weight: 600;
-    font-size: 1rem;
-    color: #4169E1;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: var(--bronze);
     text-decoration: none;
+    border-bottom: none;
 }
 
 .related-entry-header a:hover {
+    color: var(--accent-strong);
     text-decoration: underline;
 }
 
@@ -277,20 +290,6 @@
     color: var(--text-secondary);
     margin: 0;
     line-height: 1.5;
-}
-
-[data-theme="dark"] .related-entry-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .related-entry-card.selected {
-    background: #1a2a1a;
-    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
-}
-
-[data-theme="dark"] .related-entry-header a {
-    color: #6495ED;
 }
 
 .strongs-ref {
@@ -314,33 +313,33 @@
 
 .nav-btn {
     padding: 0.6rem 1.2rem;
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text-secondary);
     font-size: 0.9rem;
     transition: all 0.2s;
 }
 
 .nav-btn:hover {
-    border-color: var(--link-color);
-    color: var(--link-color);
-    background: var(--bg-color);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    background: var(--accent-softer);
 }
 
 .nav-btn.primary,
 .nav-btn.primary:link,
 .nav-btn.primary:visited {
-    background: #4a7c59;
-    border-color: #4a7c59;
-    color: #fff !important;
+    background: var(--accent-fill);
+    border-color: var(--accent-fill);
+    color: var(--on-accent) !important;
 }
 
 .nav-btn.primary:hover {
-    background: #3d6a4b;
-    border-color: #3d6a4b;
-    color: #fff !important;
+    background: var(--accent-fill-hover);
+    border-color: var(--accent-fill-hover);
+    color: var(--on-accent) !important;
 }
 
 .prev-next {
@@ -354,28 +353,49 @@
 }
 
 .occurrences-header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.occurrences-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .occurrences-section > h2,
 .occurrences-header h2 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
     margin: 0;
-    color: var(--text-color);
+    color: var(--text-secondary) !important;
 }
 
 .occurrences-count {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bronze);
     margin: 0;
-    background: var(--code-bg);
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
 }
 
 .occurrences-grid {
@@ -384,22 +404,22 @@
 }
 
 .occurrence-card {
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
     border-radius: 8px;
     padding: 1rem 1.25rem;
     transition: all 0.15s;
 }
 
 .occurrence-card:hover {
-    border-color: var(--link-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-soft);
 }
 
 .occurrence-card.selected {
-    border-color: var(--link-color);
-    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
-    background: #f8fff8;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+    background: var(--accent-softer);
 }
 
 .occurrence-card.hidden {
@@ -414,8 +434,9 @@
 }
 
 .occurrence-card .occ-reference {
-    color: var(--link-color);
+    color: var(--accent-strong);
     text-decoration: none;
+    border-bottom: none;
     font-weight: 600;
     font-size: 0.95rem;
 }
@@ -438,7 +459,7 @@
 }
 
 .occurrence-card .occ-verse-text mark {
-    background: linear-gradient(180deg, transparent 60%, #fff3cd 60%);
+    background: linear-gradient(180deg, transparent 60%, rgba(190, 155, 70, 0.35) 60%);
     color: inherit;
     padding: 0;
     border-radius: 0;
@@ -456,12 +477,12 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
     border-radius: 8px;
     font-size: 0.9rem;
     font-family: inherit;
-    color: var(--text-color);
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.15s;
     -webkit-appearance: none;
@@ -469,8 +490,9 @@
 }
 
 .show-more-btn:hover {
-    border-color: var(--link-color);
-    color: var(--link-color);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    background: var(--accent-softer);
 }
 
 .show-more-btn .count {
@@ -478,69 +500,11 @@
     font-size: 0.85rem;
 }
 
-[data-theme="dark"] .occurrence-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .occurrence-card:hover {
-    border-color: var(--link-color);
-}
-
-[data-theme="dark"] .occurrence-card.selected {
-    background: #1a2a1a;
-    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
-}
-
-[data-theme="dark"] .occurrence-card .occ-verse-text mark {
-    background: linear-gradient(180deg, transparent 60%, #5a4a00 60%);
-    color: #fff;
-}
-
-/* Dark mode */
-[data-theme="dark"] .word-card,
-[data-theme="dark"] .info-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .info-card.selected {
-    background: #1a2a1a;
-    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
-}
-
-[data-theme="dark"] .kjv-tag {
-    background: #2a2a2a;
-    border-color: #444;
-}
-
-[data-theme="dark"] .nav-btn {
-    background: #2a2a2a;
-    border-color: #444;
-}
-
-[data-theme="dark"] .nav-btn:hover {
-    background: #333;
-}
-
-[data-theme="dark"] .show-more-btn {
-    background: #2a2a2a;
-    border-color: #444;
-    color: var(--text-color);
-}
-
-[data-theme="dark"] .show-more-btn .count {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .occurrences-count {
-    background: #2a2a2a;
-}
+/* Dark mode is handled entirely by the shared design tokens in base.html. */
 
 @media (max-width: 600px) {
     .word-card {
-        padding: 2rem 1.5rem;
-        border-radius: 12px;
+        padding: 2rem 1.25rem;
     }
 
     .word-card .original-word {
