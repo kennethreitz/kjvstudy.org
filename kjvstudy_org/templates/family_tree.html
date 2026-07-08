@@ -8,7 +8,7 @@
 {% set female_names = ['eve', 'sarah', 'rebekah', 'rachel', 'leah', 'ruth', 'mary', 'tamar', 'rahab', 'bathsheba', 'dinah', 'keturah', 'hagar', 'zilpah', 'bilhah', 'jochebed', 'miriam', 'deborah', 'hannah', 'abigail', 'esther', 'naomi', 'naamah', 'milcah', 'adah', 'zillah', 'asenath', 'basemath'] %}
 
 .family-tree-page {
-    max-width: 55%;
+    max-width: 56rem;
 }
 
 .page-header {
@@ -25,24 +25,26 @@
 }
 
 .page-intro {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
+    max-width: 46rem;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.9;
 }
 
-/* Search card */
+/* Search — an open lookup block, not a cramped box */
 .search-card {
-    padding: 1rem 1.25rem;
-    border: 1px solid var(--border-color-dark);
-    border-radius: 6px;
-    margin-bottom: 1.5rem;
-    background: var(--bg-elevated);
-    max-width: 320px;
+    max-width: 42rem;
+    margin-bottom: 2.5rem;
 }
 
 .search-card h2 {
-    font-size: 1rem;
-    margin: 0 0 0.75rem 0;
-    color: var(--text-color);
+    font-size: 0.72rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--bronze) !important;
+    margin: 0 0 0.6rem 0;
 }
 
 .search-form {
@@ -51,14 +53,15 @@
 
 .search-form input {
     width: 100%;
-    padding: 0.6rem 0.75rem;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
     border: 1px solid var(--border-color-darker);
-    border-radius: 6px;
-    background: var(--bg-color);
+    border-radius: 8px;
+    background: var(--bg-elevated);
     color: var(--text-color);
     font-family: inherit;
     box-sizing: border-box;
+    box-shadow: var(--shadow-soft);
 }
 
 .search-form input::placeholder {
@@ -80,8 +83,8 @@
     background: var(--bg-elevated);
     border: 1px solid var(--border-color-darker);
     border-top: none;
-    border-radius: 0 0 4px 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 8px 8px;
+    box-shadow: var(--shadow-pop);
     max-height: 280px;
     overflow-y: auto;
     display: none;
@@ -109,107 +112,142 @@
     background: var(--code-bg);
 }
 
-/* Feature cards */
+/* Feature cards — the two grand doors into the tree */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 1.25rem;
+    max-width: 52rem;
+    margin-bottom: 2.5rem;
 }
 
 .feature-card {
-    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1.6rem 1.75rem 1.4rem;
     border: 1px solid var(--border-color-dark);
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--bg-elevated);
-    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .feature-card:hover {
     box-shadow: var(--shadow-soft);
     border-color: var(--accent);
+    transform: translateY(-2px);
 }
 
 .feature-card h3 {
-    font-size: 1.1rem;
-    margin: 0 0 0.5rem 0;
+    font-size: 1.35rem;
+    font-style: normal;
+    margin: 0 0 0.6rem 0;
 }
 
 .feature-card h3 a {
-    color: var(--accent-strong);
+    color: var(--text-strong) !important;
     text-decoration: none;
+    border-bottom: none;
+    transition: color 0.15s ease;
 }
 
-.feature-card h3 a:hover {
-    text-decoration: underline;
+.feature-card:hover h3 a {
+    color: var(--accent-strong) !important;
 }
 
 .feature-card p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    margin: 0;
-    line-height: 1.5;
+    margin: 0 0 1rem;
+    line-height: 1.65;
+    flex: 1;
 }
 
-/* Stats card */
+.feature-go {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--bronze);
+}
+
+.feature-card:hover .feature-go {
+    color: var(--accent-strong);
+}
+
+/* Overview — stat cards in the manner of the books index */
 .stats-card {
-    padding: 1rem 1.25rem;
-    border: 1px solid var(--border-color-dark);
-    border-radius: 6px;
-    margin-bottom: 1.5rem;
-    background: var(--bg-elevated);
+    max-width: 52rem;
+    margin-bottom: 2.5rem;
 }
 
-.stats-card h2 {
-    font-size: 1.1rem;
-    margin: 0 0 1rem 0;
-    padding-bottom: 0.5rem;
+.stats-card h2,
+.section-card h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem 0;
+    padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
+}
+
+.stats-card h2::after,
+.section-card h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
 }
 
 .stat-item {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.35rem 0;
-}
-
-.stat-label {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 1.1rem 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
 }
 
 .stat-value {
-    font-weight: 600;
-    color: var(--text-color);
+    font-family: et-book-roman-old-style, et-book, Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    color: var(--text-strong);
+    line-height: 1.35;
 }
 
 .stat-value a {
     color: var(--accent-strong);
+    border-bottom: none;
 }
 
-/* Generation cards */
+.stat-label {
+    font-size: 0.64rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--bronze);
+    margin-top: 0.4rem;
+}
+
+/* Generation list */
 .section-card {
-    padding: 1rem 1.25rem;
-    border: 1px solid var(--border-color-dark);
-    border-radius: 6px;
-    margin-bottom: 1rem;
-    background: var(--bg-elevated);
-}
-
-.section-card h2 {
-    font-size: 1.1rem;
-    margin: 0 0 0.75rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
+    max-width: 52rem;
+    margin-bottom: 2rem;
 }
 
 .generation-grid {
@@ -221,15 +259,16 @@
     display: flex;
     align-items: baseline;
     gap: 0.75rem;
-    padding: 0.6rem 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
     background: var(--bg-elevated);
-    transition: background 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .gen-card:hover {
-    background: var(--code-bg);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-soft);
 }
 
 .gen-card-num {
@@ -248,8 +287,11 @@
 }
 
 .gen-card-count {
-    font-size: 0.85rem;
-    color: var(--text-tertiary);
+    font-size: 0.64rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
     min-width: 90px;
 }
 
@@ -400,6 +442,7 @@
 
 <div class="family-tree-page">
     <div class="page-header">
+        <span class="page-kicker">The Generations of Scripture</span>
         <h1>Biblical Family Tree</h1>
         <p class="subtitle">From Adam to Jesus Christ</p>
     </div>
@@ -434,10 +477,12 @@
         <div class="feature-card">
             <h3><a href="/family-tree/interactive">Interactive Tree</a></h3>
             <p>Explore the genealogy with a collapsible text-based tree. Expand and collapse branches, search for any person, and navigate with keyboard shortcuts.</p>
+            <span class="feature-go">Explore the tree →</span>
         </div>
         <div class="feature-card">
             <h3><a href="/family-tree/lineage">Messianic Lineage</a></h3>
             <p>View the direct paternal line from Adam to Jesus Christ in a vertical genealogy chart showing each generation.</p>
+            <span class="feature-go">Trace the line →</span>
         </div>
     </div>
 
@@ -447,28 +492,28 @@
         <h2>Overview</h2>
         <div class="stats-grid">
             <div class="stat-item">
-                <span class="stat-label">Total People:</span>
                 <span class="stat-value" id="stat-total-people">{{ family_tree_data|length }}</span>
+                <span class="stat-label">Total People</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">Total Generations:</span>
                 <span class="stat-value" id="stat-total-generations">{{ generations|length }}</span>
+                <span class="stat-label">Total Generations</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">Longest Lived:</span>
                 <span class="stat-value" id="stat-longest-lived">Loading...</span>
+                <span class="stat-label">Longest Lived</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">Most Children:</span>
                 <span class="stat-value" id="stat-most-children">Loading...</span>
+                <span class="stat-label">Most Children</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">Most Siblings:</span>
                 <span class="stat-value" id="stat-most-siblings">Loading...</span>
+                <span class="stat-label">Most Siblings</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">Close Family Marriages:</span>
                 <span class="stat-value" id="stat-close-marriages">Loading...</span>
+                <span class="stat-label">Close Family Marriages</span>
             </div>
         </div>
     </div>
