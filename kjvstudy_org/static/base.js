@@ -1669,6 +1669,9 @@ function showKeyboardHelp() {
 
     if (!target || !target.href) return;
 
+    // Skip links that explicitly opt out (e.g. the verse text is already visible beside them)
+    if (target.closest('[data-no-tooltip]')) return;
+
     // Skip if this is a cross-reference link (has its own tooltip system)
     if (target.classList.contains('cross-ref-link')) return;
 
