@@ -15,30 +15,32 @@
 
 .plan-card {
     display: block;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: all 0.2s;
+    padding: 1.4rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    transition: all 0.2s ease;
     text-decoration: none;
     color: inherit;
     cursor: pointer;
 }
 
 .plan-card:hover {
-    border-color: var(--border-color-darker);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-soft);
     transform: translateY(-2px);
 }
 
 .plan-name {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--link-color);
+    color: var(--text-strong);
+    transition: color 0.15s ease;
 }
 
 .plan-card:hover .plan-name {
-    color: var(--link-hover);
+    color: var(--accent-strong);
 }
 
 .plan-description {
@@ -49,10 +51,12 @@
 }
 
 .plan-duration {
-    font-size: 0.9rem;
-    color: var(--text-tertiary);
-    font-style: italic;
-    margin-top: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
+    margin-top: 0.85rem;
 }
 
 .plan-progress {
@@ -73,13 +77,13 @@
 
 .plan-progress-fill {
     height: 100%;
-    background: #4a7c59;
+    background: var(--accent);
     transition: width 0.3s;
 }
 
 .plan-progress-text {
     font-size: 0.8rem;
-    color: #4a7c59;
+    color: var(--accent-strong);
     margin-top: 0.3rem;
     font-weight: 500;
 }
@@ -100,30 +104,32 @@
 }
 
 .your-plans-list li {
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
+    padding: 0.85rem 1.1rem;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(to right, rgba(74, 124, 89, 0.15) var(--progress, 0%), var(--code-bg) var(--progress, 0%));
+    background: linear-gradient(to right, var(--accent-soft) var(--progress, 0%), var(--bg-elevated) var(--progress, 0%));
     position: relative;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .your-plans-list li:hover {
-    border-color: #4a7c59;
+    border-color: var(--accent);
+    box-shadow: var(--shadow-soft);
 }
 
 .your-plan-link {
     font-weight: 600;
-    color: var(--link-color);
+    color: var(--text-strong);
     text-decoration: none;
     border-bottom: none;
 }
 
 .your-plan-link:hover {
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 .your-plan-next {
@@ -133,14 +139,46 @@
 }
 
 .your-plan-progress {
-    font-size: 0.85rem;
-    color: #4a7c59;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-strong);
 }
 
 .your-plan-completed {
-    color: #4a7c59;
+    font-size: 0.72rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--bronze);
+}
+
+/* Section headings — small caps over a gold-tipped rule */
+#your-reading-plans h2,
+#available-reading-plans h2,
+#using-reading-plans h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 90%;
+}
+
+#your-reading-plans h2::after,
+#available-reading-plans h2::after,
+#using-reading-plans h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 /* Mobile optimizations */
@@ -329,7 +367,7 @@
     function selectItem(index) {
         clearSelection();
         selectedIndex = Math.max(0, Math.min(index, allNavItems.length - 1));
-        allNavItems[selectedIndex].style.outline = '2px solid #4a7c59';
+        allNavItems[selectedIndex].style.outline = '2px solid var(--accent)';
         allNavItems[selectedIndex].style.outlineOffset = '2px';
         allNavItems[selectedIndex].classList.add('selected');
         allNavItems[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });

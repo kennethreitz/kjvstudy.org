@@ -10,31 +10,37 @@
 {% block head %}
 <style>
 .kids-header {
-    background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #fce7f3 100%);
+    position: relative;
+    background: linear-gradient(135deg, var(--gold-soft) 0%, var(--bg-elevated) 55%, var(--accent-softer) 100%);
+    border: 1px solid var(--border-color-dark);
     padding: 2.5rem;
     border-radius: 16px;
     margin-bottom: 2rem;
     text-align: center;
+    box-shadow: var(--shadow-soft);
 }
 .kids-header .category-link {
     display: inline-block;
-    font-size: 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #7c3aed;
+    letter-spacing: 0.18em;
+    color: var(--bronze) !important;
     text-decoration: none;
-    background: rgba(255,255,255,0.7);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
+    border: 1px solid var(--border-color-dark);
+    background: var(--bg-elevated);
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
     margin-bottom: 0.75rem;
 }
 .kids-header h1 {
-    color: #4338ca;
+    color: var(--accent-strong) !important;
     margin: 0.5rem 0;
     font-size: 2.5rem;
 }
 .kids-header .subtitle {
-    color: #6366f1;
+    color: var(--bronze);
+    font-style: italic;
     font-size: 1.1rem;
     margin: 0;
 }
@@ -49,27 +55,29 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.1rem;
     font-size: 0.85rem;
-    border: 2px solid #c4b5fd;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.8);
-    color: #7c3aed;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 999px;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s;
+    text-decoration: none;
 }
 .action-btn:hover {
-    background: #f5f0ff;
-    border-color: #8b5cf6;
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 .action-btn svg {
     width: 16px;
     height: 16px;
 }
 .action-btn.playing {
-    background: #8b5cf6;
-    color: white;
-    border-color: #8b5cf6;
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    border-color: var(--accent-fill);
 }
 
 .kids-meta {
@@ -80,26 +88,27 @@
     margin: 1.5rem 0 2rem;
 }
 .kids-meta-item {
-    background: #fff;
-    border: 2px solid #e5e7eb;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
     border-radius: 12px;
     padding: 1rem 1.5rem;
     text-align: center;
     min-width: 140px;
 }
 .kids-meta-item .label {
-    font-size: 0.7rem;
+    font-size: 0.66rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #9ca3af;
+    letter-spacing: 0.16em;
+    color: var(--bronze);
     margin-bottom: 0.25rem;
 }
 .kids-meta-item .value {
     font-size: 0.95rem;
-    color: #374151;
+    color: var(--text-color);
 }
 .kids-meta-item .value a {
-    color: #6366f1;
+    color: var(--accent-strong);
     text-decoration: none;
 }
 .kids-meta-item .value a:hover {
@@ -117,15 +126,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: linear-gradient(135deg, #dbeafe, #e0e7ff);
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
     font-size: 0.9rem;
-    color: #3730a3;
+    color: var(--bronze);
 }
 .character-badge::before {
-    content: "★";
+    content: "\2605";
     font-size: 0.7rem;
+    color: var(--gold);
 }
 
 /* Story divider */
@@ -136,23 +147,28 @@ hr.story-divider {
     margin: 2rem 0;
 }
 hr.story-divider::before {
-    content: "* * *";
-    font-size: 1rem;
+    content: "\2042";
+    font-size: 1.4rem;
     letter-spacing: 0.6em;
-    color: #c4b5fd;
+    color: var(--gold);
 }
 
 .themes-section {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
     border-radius: 16px;
     padding: 2rem;
     margin: 2.5rem 0;
     text-align: center;
 }
 .themes-section h3 {
-    color: #92400e;
+    color: var(--bronze) !important;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
     margin: 0 0 1rem 0;
-    font-size: 1.3rem;
+    font-size: 0.85rem;
 }
 .themes-list {
     display: flex;
@@ -164,16 +180,17 @@ hr.story-divider::before {
     margin: 0;
 }
 .themes-list li {
-    background: rgba(255,255,255,0.8);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 999px;
     font-size: 0.95rem;
-    color: #78350f;
+    color: var(--text-secondary);
 }
 
 .adult-callout {
-    background: #fff;
-    border: 2px dashed #c4b5fd;
+    background: var(--bg-elevated);
+    border: 2px dashed var(--border-color-darker);
     border-radius: 12px;
     padding: 1.5rem 2rem;
     margin: 2rem 0;
@@ -181,10 +198,10 @@ hr.story-divider::before {
 }
 .adult-callout p {
     margin: 0;
-    color: #6b7280;
+    color: var(--text-secondary);
 }
 .adult-callout a {
-    color: #7c3aed;
+    color: var(--accent-strong) !important;
     font-weight: 600;
     text-decoration: none;
 }
@@ -198,7 +215,7 @@ hr.story-divider::before {
     align-items: center;
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 2px dashed #e5e7eb;
+    border-top: 2px dashed var(--border-color-dark);
     gap: 1rem;
 }
 .kids-nav .nav-prev,
@@ -217,15 +234,16 @@ hr.story-divider::before {
 }
 .kids-nav .nav-label {
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #9ca3af;
+    letter-spacing: 0.16em;
+    color: var(--bronze);
     margin-bottom: 0.25rem;
 }
 .kids-nav .nav-link {
     font-size: 0.95rem;
-    color: #7c3aed;
+    color: var(--accent-strong);
     text-decoration: none;
 }
 .kids-nav .nav-link:hover {
@@ -233,81 +251,10 @@ hr.story-divider::before {
 }
 .kids-nav .nav-disabled {
     font-size: 0.95rem;
-    color: #d1d5db;
+    color: var(--text-quaternary);
 }
 
-/* Dark mode styles */
-[data-theme="dark"] .kids-header {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2d1b4e 50%, #3b1f3b 100%);
-}
-[data-theme="dark"] .kids-header .category-link {
-    background: rgba(0,0,0,0.3);
-    color: #c4b5fd;
-}
-[data-theme="dark"] .kids-header h1 {
-    color: #a5b4fc;
-}
-[data-theme="dark"] .kids-header .subtitle {
-    color: #818cf8;
-}
-[data-theme="dark"] .action-btn {
-    background: rgba(0,0,0,0.3);
-    border-color: #6d28d9;
-    color: #c4b5fd;
-}
-[data-theme="dark"] .action-btn:hover {
-    background: rgba(109,40,217,0.3);
-    border-color: #8b5cf6;
-}
-[data-theme="dark"] .kids-meta-item {
-    background: var(--bg-color);
-    border-color: #374151;
-}
-[data-theme="dark"] .kids-meta-item .label {
-    color: #9ca3af;
-}
-[data-theme="dark"] .kids-meta-item .value {
-    color: #e5e7eb;
-}
-[data-theme="dark"] .kids-meta-item .value a {
-    color: #a5b4fc;
-}
-[data-theme="dark"] .character-badge {
-    background: linear-gradient(135deg, #1e3a5f, #312e81);
-    color: #c7d2fe;
-}
-[data-theme="dark"] hr.story-divider::before {
-    color: #6d28d9;
-}
-[data-theme="dark"] .themes-section {
-    background: linear-gradient(135deg, #422006 0%, #78350f 100%);
-}
-[data-theme="dark"] .themes-section h3 {
-    color: #fcd34d;
-}
-[data-theme="dark"] .themes-section .themes-list li {
-    background: rgba(0,0,0,0.3);
-    color: #fde68a;
-}
-[data-theme="dark"] .adult-callout {
-    background: var(--bg-color);
-    border-color: #6d28d9;
-}
-[data-theme="dark"] .adult-callout p {
-    color: #9ca3af;
-}
-[data-theme="dark"] .adult-callout a {
-    color: #a5b4fc;
-}
-[data-theme="dark"] .kids-nav {
-    border-top-color: #374151;
-}
-[data-theme="dark"] .kids-nav .nav-link {
-    color: #a5b4fc;
-}
-[data-theme="dark"] .kids-nav .nav-disabled {
-    color: #4b5563;
-}
+/* Dark mode is handled entirely by the shared design tokens in base.html. */
 
 /* Print styles */
 @media print {
@@ -328,7 +275,7 @@ hr.story-divider::before {
     }
 
     .kids-header h1 {
-        color: #000;
+        color: #000 !important;
         font-size: 1.8rem;
     }
 
@@ -388,7 +335,7 @@ hr.story-divider::before {
                     {{ verse }}
                 {% endif %}
                 {% if story.verses|length > 1 %}
-                    <span style="color: #9ca3af;"> +{{ story.verses|length - 1 }} more</span>
+                    <span style="color: var(--text-tertiary);"> +{{ story.verses|length - 1 }} more</span>
                 {% endif %}
             </div>
         </div>
@@ -499,7 +446,7 @@ hr.story-divider::before {
         selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
 
         // Add selection to new element
-        elements[selectedIndex].style.outline = '2px solid #8b5cf6';
+        elements[selectedIndex].style.outline = '2px solid var(--accent)';
         elements[selectedIndex].style.outlineOffset = '8px';
         elements[selectedIndex].classList.add('selected');
         elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
