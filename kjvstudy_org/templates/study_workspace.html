@@ -148,7 +148,8 @@
 }
 
 /* Panel headings — unified small caps over a gold-tipped rule */
-.study-panel h2 {
+.study-panel h2,
+.empty-study h2 {
     position: relative;
     font-size: 0.95rem;
     font-weight: 600;
@@ -161,7 +162,8 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-.study-panel h2::after {
+.study-panel h2::after,
+.empty-study h2::after {
     content: '';
     position: absolute;
     left: 0;
@@ -370,6 +372,77 @@
     max-width: 42rem;
 }
 
+/* Undo tufte's narrow section columns inside the empty state */
+.empty-study > p {
+    width: 100%;
+}
+
+.empty-study .empty-lede {
+    font-size: 1.2rem;
+    line-height: 1.9;
+}
+
+/* The desk tour — what the workspace gathers for a passage */
+.desk-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.desk-item {
+    padding: 1.1rem 1.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+}
+
+.desk-item h3 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--bronze) !important;
+    margin: 0 0 0.4rem;
+}
+
+.desk-item p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Reference-format guide */
+.cite-list {
+    width: 100% !important;
+    list-style: none;
+    padding-left: 0 !important;
+    margin-top: 0.75rem;
+}
+
+.cite-list li {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    margin-bottom: 0.35rem;
+}
+
+.cite-list strong {
+    font-weight: 600;
+}
+
+.cite-list .cite-example {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+    .desk-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .example-links {
     margin-top: 1.5rem;
 }
@@ -465,7 +538,9 @@
 
 <section class="empty-study">
     <h2>Begin With A Passage</h2>
-    <p>Choose a verse, passage, or chapter.</p>
+    <p class="empty-lede"><span class="newthought">Every passage of Scripture</span> rewards patient attention. Enter a verse, a span of verses, or a whole chapter above, and the workspace gathers everything onto one desk: the full text of the Authorized Version, verse-by-verse commentary, cross-references arranged by theme, the Hebrew or Greek behind each English word, and a place for your own observations.</p>
+
+    <p>Or begin with a passage that generations of readers have returned to:</p>
     <p class="example-links">
         <a href="/study/John/3/16">John 3:16</a>
         <a href="/study/Romans/8/28/30">Romans 8:28-30</a>
@@ -475,6 +550,48 @@
         <a href="/study/Ephesians/6/10/18">Ephesians 6:10-18</a>
         <a href="/study/Psalms/23">Psalm 23</a>
     </p>
+</section>
+
+<section class="empty-study">
+    <h2>What Is On The Desk</h2>
+    <div class="desk-grid">
+        <div class="desk-item">
+            <h3>The Passage</h3>
+            <p>The complete King James text of your selection, with the words of Christ rubricated in red.</p>
+        </div>
+        <div class="desk-item">
+            <h3>Commentary</h3>
+            <p>Analysis, historical context, and theological significance for each verse, with questions for reflection.</p>
+        </div>
+        <div class="desk-item">
+            <h3>Cross-References</h3>
+            <p>Related passages gathered by theme, each one a doorway into the wider witness of Scripture.</p>
+        </div>
+        <div class="desk-item">
+            <h3>Original Language</h3>
+            <p>Hebrew and Greek word previews with Strong's numbers, linking into the full concordance.</p>
+        </div>
+        <div class="desk-item">
+            <h3>Chapter Context</h3>
+            <p>An orientation to the surrounding chapter, so no verse is read apart from its setting.</p>
+        </div>
+        <div class="desk-item">
+            <h3>Your Notes</h3>
+            <p>A private notepad for each passage, kept in your browser on this device — nothing is sent to a server.</p>
+        </div>
+    </div>
+</section>
+
+<section class="empty-study">
+    <h2>How To Write A Reference</h2>
+    <p>The passage box understands the usual ways of citing Scripture:</p>
+    <ul class="cite-list">
+        <li><strong>A single verse</strong> — <span class="cite-example">John 3:16</span></li>
+        <li><strong>A span of verses</strong> — <span class="cite-example">Romans 8:28-30</span></li>
+        <li><strong>A whole chapter</strong> — <span class="cite-example">Psalm 23</span> or <span class="cite-example">1 Corinthians 13</span></li>
+        <li><strong>Common abbreviations</strong> — <span class="cite-example">Gen 1:1</span>, <span class="cite-example">1 Cor 13</span>, <span class="cite-example">Mt 5:3-12</span></li>
+    </ul>
+    <p>Your notes are saved automatically as you type, and any passage you have written notes on will be listed here when you return.</p>
 </section>
 
 <script>
