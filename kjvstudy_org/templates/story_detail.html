@@ -133,13 +133,36 @@ section > p {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 .meta-section li {
-    margin: 0.25rem 0;
+    margin: 0;
     font-size: 0.95rem;
 }
 .meta-section .scripture-ref {
-    color: var(--link-color);
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color-dark) !important;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    transition: all 0.15s;
+}
+.meta-section .scripture-ref:hover {
+    border-color: var(--accent) !important;
+    color: var(--accent-strong);
+    background: var(--accent-softer);
+}
+
+/* Ledger dividers between the columns on wide screens */
+@media (min-width: 768px) {
+    .meta-section + .meta-section {
+        border-left: 1px solid var(--border-color);
+        padding-left: 1.5rem;
+    }
 }
 .meta-section .tag {
     display: inline-block;
