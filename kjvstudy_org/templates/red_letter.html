@@ -17,8 +17,8 @@
 }
 
 .stat-card {
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
     border-radius: 8px;
     padding: 1.25rem;
     text-align: center;
@@ -32,13 +32,16 @@
 }
 
 .stat-number.red {
-    color: #b22222;
+    color: var(--rubric);
 }
 
 .stat-label {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-top: 0.25rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
+    margin-top: 0.35rem;
 }
 
 .filter-section {
@@ -46,9 +49,11 @@
 }
 
 .filter-section h3 {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-style: normal;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.18em;
     color: var(--text-secondary);
     margin-bottom: 0.75rem;
 }
@@ -61,10 +66,10 @@
 
 .book-filter {
     display: inline-block;
-    padding: 0.4rem 0.75rem;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 999px;
     text-decoration: none;
     color: var(--text-secondary);
     font-size: 0.85rem;
@@ -72,15 +77,15 @@
 }
 
 .book-filter:hover {
-    border-color: #b22222;
-    color: #b22222;
-    background: rgba(178, 34, 34, 0.05);
+    border-color: var(--rubric);
+    color: var(--rubric);
+    background: color-mix(in srgb, var(--rubric) 7%, transparent);
 }
 
 .book-filter.active {
-    background: #b22222;
-    border-color: #b22222;
-    color: #fff;
+    background: var(--rubric);
+    border-color: var(--rubric);
+    color: var(--bg-elevated);
 }
 
 .book-filter .count {
@@ -113,23 +118,30 @@
 }
 
 .verse-card {
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
     margin-bottom: 0.75rem;
-    border-left: 3px solid #b22222;
+    border-left: 3px solid var(--rubric);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .verse-card:hover {
-    border-color: #b22222;
+    border-top-color: var(--rubric);
+    border-right-color: var(--rubric);
+    border-bottom-color: var(--rubric);
+    box-shadow: var(--shadow-soft);
 }
 
 .verse-reference {
     font-weight: 600;
-    color: #b22222;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--rubric) !important;
     text-decoration: none;
-    font-size: 0.95rem;
+    border-bottom: none;
 }
 
 .verse-reference:hover {
@@ -143,7 +155,7 @@
 }
 
 .verse-text .words-of-christ {
-    color: #b22222;
+    color: var(--rubric);
 }
 
 .verse-badge {
@@ -158,14 +170,14 @@
 }
 
 .verse-badge.full {
-    background: #b22222;
-    color: #fff;
+    background: var(--rubric);
+    color: var(--bg-elevated);
 }
 
 .verse-badge.partial {
-    background: var(--code-bg);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
+    background: var(--gold-soft);
+    color: var(--bronze);
+    border: 1px solid var(--border-color-dark);
 }
 
 .pagination {
@@ -180,24 +192,24 @@
 .page-link {
     display: inline-block;
     padding: 0.5rem 0.9rem;
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text-secondary);
     font-size: 0.9rem;
     transition: all 0.15s;
 }
 
 .page-link:hover {
-    border-color: #b22222;
-    color: #b22222;
+    border-color: var(--rubric);
+    color: var(--rubric);
 }
 
 .page-link.active {
-    background: #b22222;
-    border-color: #b22222;
-    color: #fff;
+    background: var(--rubric);
+    border-color: var(--rubric);
+    color: var(--bg-elevated);
 }
 
 .page-link.disabled {
@@ -210,29 +222,7 @@
     font-size: 0.9rem;
 }
 
-[data-theme="dark"] .verse-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .stat-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .book-filter {
-    background: transparent;
-    border-color: #444;
-}
-
-[data-theme="dark"] .book-filter:hover {
-    background: rgba(178, 34, 34, 0.15);
-}
-
-[data-theme="dark"] .page-link {
-    background: #2a2a2a;
-    border-color: #444;
-}
+/* Dark mode is handled entirely by the shared design tokens in base.html. */
 
 @media (max-width: 600px) {
     .stats-cards {
@@ -335,7 +325,7 @@
             cards[selectedIndex].style.outlineOffset = '';
         }
         selectedIndex = Math.max(0, Math.min(index, cards.length - 1));
-        cards[selectedIndex].style.outline = '2px solid #4a7c59';
+        cards[selectedIndex].style.outline = '2px solid var(--accent)';
         cards[selectedIndex].style.outlineOffset = '2px';
         cards[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
