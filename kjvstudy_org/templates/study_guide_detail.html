@@ -45,6 +45,7 @@
 
 {% block head %}
 <style>
+{% include "partials/_toc_styles.html" %}
 
 .guide-actions {
     margin: 1.25rem 0;
@@ -56,18 +57,18 @@
     gap: 0.35rem;
     padding: 0.45rem 0.9rem;
     font-size: 0.9rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     transition: all 0.2s;
 }
 
 .guide-download-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .guide-download-btn svg {
@@ -181,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {% endblock %}
 
 {% block content %}
+<span class="page-kicker">Study Guide</span>
 <h1>{{ guide.title }}</h1>
 <p class="subtitle">{{ guide.description }}</p>
 
@@ -252,7 +254,7 @@ document.body.dataset.resourceReader = 'true';
                 paragraphs[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, paragraphs.length - 1));
-        paragraphs[selectedIndex].style.outline = '2px solid #4a7c59';
+        paragraphs[selectedIndex].style.outline = '2px solid var(--accent)';
         paragraphs[selectedIndex].style.outlineOffset = '4px';
         paragraphs[selectedIndex].classList.add('selected');
         paragraphs[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });

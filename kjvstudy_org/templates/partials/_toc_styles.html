@@ -6,15 +6,40 @@
 .toc {
     max-width: 55%;
     margin: 2rem 0;
-    padding: 1.5rem;
-    border-left: 3px solid var(--border-color-darker);
+    padding: 1.5rem 1.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
 }
 
 .toc h2 {
-    margin-top: 0;
-    font-size: 1.1rem;
+    position: relative;
+    margin: 0 0 1rem 0 !important;
+    font-size: 0.85rem !important;
     font-weight: 600;
-    margin-bottom: 1rem;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.toc h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
+@media (max-width: 768px) {
+    .toc {
+        max-width: 100%;
+    }
 }
 
 .toc ul {
