@@ -1,0 +1,109 @@
+{
+  "entries": [
+    {
+      "date": "July 2026",
+      "title": "The Fine-Print Edition",
+      "items": [
+        "A complete redesign in the manner of a finely printed Bible: warm paper and ink, a deep binding-green accent, bronze and gilt details, with red reserved for the words of Christ.",
+        "Every page of the site moved onto one shared design system — reading pages, study tools, resources, indexes, and the about pages — with dark mode rendered as candlelight rather than gray.",
+        "The biblical geography page traded its modern web map for a hand-drawn, engraved-style plate of the biblical world, with an inset of the Holy Land and Paul's journeys traced westward.",
+        "The books index gained canon statistics (66 books, 1,189 chapters, 31,102 verses) and genre-inked cards; key verses across the site are set as gilt scripture plates.",
+        "The 404 page now offers the parable of the lost sheep, rubricated.",
+        "This changelog was added."
+      ]
+    },
+    {
+      "date": "July 2026",
+      "title": "Framework housekeeping",
+      "items": [
+        "Upgraded to Responder 9 and adopted its newest framework features.",
+        "Improved the OpenAPI examples throughout the JSON API.",
+        "Cleaned up stale build artifacts from the earlier static-site era."
+      ]
+    },
+    {
+      "date": "June 2026",
+      "title": "The Responder port & the Passage Workspace",
+      "items": [
+        "Ported the entire application from FastAPI to Responder, deleting the old stack and re-registering every route.",
+        "Moved to Python 3.14 with the granian server.",
+        "Introduced the Passage Study Workspace — a focused desk for any verse, span, or chapter, with commentary, cross-references, original-language previews, and private notes saved on your own device.",
+        "Added Starred Pages for keeping a personal shelf of verses and chapters.",
+        "A season of DRY cleanup: shared macros, partials, and helpers extracted across the codebase."
+      ]
+    },
+    {
+      "date": "April 2026",
+      "title": "Performance season",
+      "items": [
+        "Switched serving to granian with Rust-level static file handling.",
+        "Added a disk cache for generated PDFs and server-side caching for the homepage.",
+        "Optimized the name-linking filter from hundreds of passes to a single regex."
+      ]
+    },
+    {
+      "date": "March 2026",
+      "title": "Reflections and tuning",
+      "items": [
+        "Added “A Note from Claude” — reflections from the AI assistant behind the site.",
+        "Added Bible text indexes and removed O(n) lookups for faster pages.",
+        "Kept the verse of the day fresh by exempting the homepage from caching."
+      ]
+    },
+    {
+      "date": "January–February 2026",
+      "title": "Static strength",
+      "items": [
+        "Pre-rendered resources, stories, topics, and study guides as static pages.",
+        "Capped search results at fifty per page to keep rendering fast.",
+        "Hardened the deployment behind nginx."
+      ]
+    },
+    {
+      "date": "December 2025",
+      "title": "Commentary completed",
+      "items": [
+        "Verse-by-verse commentary reached every one of the 31,102 verses in the canon — a hundred-batch effort across the whole Bible.",
+        "Poetry formatting with stanza breaks arrived for all forty-five books containing poetic passages, from Job and the Psalms to the embedded songs of the prophets.",
+        "The Verse of the Day gained daily devotionals with meditations, applications, and prayers.",
+        "Listen buttons brought text-to-speech to verses, chapters, stories, topics, and resources.",
+        "Dynamic Open Graph images and richer SEO schema for sharing."
+      ]
+    },
+    {
+      "date": "November 2025",
+      "title": "The study tools buildout",
+      "items": [
+        "Strong's Concordance arrived: fourteen thousand Hebrew and Greek entries with definitions, KJV usage, derivations, and every verse occurrence.",
+        "The interlinear Bible: word-by-word original language for chapters and verses, with parsing and transliteration.",
+        "Comprehensive keyboard navigation across the entire site — every grid, list, and reading page.",
+        "Dark mode extended to every page.",
+        "A statistics page and public JSON API."
+      ]
+    },
+    {
+      "date": "June 2025",
+      "title": "Reading everywhere",
+      "items": [
+        "Chapter pages became fully responsive, with keyboard support for tablets and iPads.",
+        "Custom scrollbars and smoother sidebar behavior."
+      ]
+    },
+    {
+      "date": "May 2025",
+      "title": "The family tree",
+      "items": [
+        "A GEDCOM-driven genealogy from Adam to Jesus Christ, with an interactive, collapsible tree.",
+        "Margin-notes layout for Bible chapters — the beginning of the site's Tufte-inspired reading apparatus."
+      ]
+    },
+    {
+      "date": "April 2025",
+      "title": "Genesis",
+      "items": [
+        "The project began: verse and reference models, the Bible text engine, the first browsing interface, and the first tests.",
+        "The complete 1769 Oxford Standard text of the Authorized Version, all 31,102 verses."
+      ]
+    }
+  ]
+}

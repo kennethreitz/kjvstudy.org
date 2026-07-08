@@ -141,6 +141,23 @@ def register(api):
             breadcrumbs=breadcrumbs,
         )
 
+    @api.route("/changelog")
+    async def changelog(req, resp):
+        """Changelog - the site's history, newest first"""
+        data_path = Path(__file__).parent.parent / "data" / "changelog.json"
+        with open(data_path, "r") as f:
+            changelog_data = json.load(f)
+        render(
+            req, resp, "changelog.html",
+            books=bible.get_books(),
+            entries=changelog_data["entries"],
+            breadcrumbs=[
+                {"text": "Home", "url": "/"},
+                {"text": "About", "url": "/about"},
+                {"text": "Changelog", "url": None},
+            ],
+        )
+
     @api.route("/about/accessibility")
     async def accessibility(req, resp):
         """Accessibility page - keyboard navigation, screen readers, text-to-speech"""

@@ -148,6 +148,27 @@ class TestSearchPage:
         assert response.status_code == 200
 
 
+class TestChangelog:
+    """Tests for the changelog page"""
+
+    def test_changelog_loads(self, client):
+        response = client.get("/changelog")
+        assert response.status_code == 200
+        assert b"Changelog" in response.content
+
+    def test_changelog_has_entries(self, client):
+        response = client.get("/changelog")
+        content = response.content.decode()
+        # Oldest and newest curated entries are present
+        assert "Genesis" in content  # April 2025 entry title
+        assert "The Fine-Print Edition" in content
+        assert content.count('class="changelog-entry"') >= 5
+
+    def test_changelog_linked_from_sidebar(self, client):
+        response = client.get("/")
+        assert b'href="/changelog"' in response.content
+
+
 class TestStudyWorkspace:
     """Tests for the passage study workspace"""
 

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Changelog - KJV Study{% endblock %}
+{% block description %}The history of KJV Study — how this Bible study site has grown, from its beginnings to the present.{% endblock %}
+
+{% block head %}
+<style>
+.changelog-intro {
+    max-width: 55%;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    margin: 1.5rem 0 3rem;
+}
+
+/* The record — a gilt-spined timeline */
+.changelog {
+    max-width: 46rem;
+    margin: 2rem 0;
+    padding-left: 1.75rem;
+    border-left: 1px solid var(--border-color-dark);
+}
+
+.changelog-entry {
+    position: relative;
+    margin: 0 0 3rem;
+}
+
+/* Gilt marker on the spine */
+.changelog-entry::before {
+    content: '';
+    position: absolute;
+    left: calc(-1.75rem - 5px);
+    top: 0.35rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--bg-color);
+    box-shadow: 0 0 0 1px var(--border-color-darker);
+}
+
+.changelog-date {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--bronze);
+    margin-bottom: 0.35rem;
+}
+
+.changelog-title {
+    font-size: 1.55rem !important;
+    font-style: italic !important;
+    font-weight: 400;
+    margin: 0 0 0.9rem !important;
+    line-height: 1.3;
+}
+
+.changelog-entry ul {
+    list-style: none;
+    width: 100% !important;
+    margin: 0;
+    padding: 0 !important;
+}
+
+.changelog-entry li {
+    position: relative;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin: 0 0 0.6rem;
+    padding-left: 1.4rem;
+    color: var(--text-color);
+}
+
+.changelog-entry li::before {
+    content: '\2726'; /* four-pointed star, the site's study-note mark */
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    font-size: 0.7rem;
+    color: var(--gold);
+}
+
+.changelog-footer {
+    max-width: 46rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-tertiary);
+}
+
+.changelog-footer a {
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .changelog-intro {
+        max-width: 100%;
+    }
+
+    .changelog {
+        padding-left: 1.25rem;
+    }
+
+    .changelog-entry::before {
+        left: calc(-1.25rem - 5px);
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<span class="page-kicker">The Record of This Work</span>
+<h1>Changelog</h1>
+<p class="subtitle">How KJV Study has grown</p>
+
+<section>
+    <p class="changelog-intro"><span class="newthought">Every good work</span> keeps a record. What follows is the history of this site — its features, seasons of labor, and turnings — set down from the project's own commit history, newest first.</p>
+</section>
+
+<div class="changelog">
+    {% for entry in entries %}
+    <article class="changelog-entry">
+        <div class="changelog-date">{{ entry.date }}</div>
+        <h2 class="changelog-title">{{ entry.title }}</h2>
+        <ul>
+            {% for item in entry["items"] %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </article>
+    {% endfor %}
+</div>
+
+<div class="changelog-footer">
+    <p>The full history lives in the <a href="{{ github_repo_url or 'https://github.com/kennethreitz/kjvstudy.org' }}" target="_blank" rel="noopener">source repository</a>.</p>
+</div>
+{% endblock %}
