@@ -15,29 +15,32 @@
 
 .topic-card {
     display: block;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: all 0.2s;
+    padding: 1.4rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    transition: all 0.2s ease;
     text-decoration: none;
     color: var(--text-color);
 }
 
 .topic-card:hover {
-    border-color: var(--border-color-darker);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
     cursor: pointer;
 }
 
 .topic-name {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--link-color);
+    color: var(--text-strong);
+    transition: color 0.15s ease;
 }
 
 .topic-card:hover .topic-name {
-    color: var(--link-hover);
+    color: var(--accent-strong);
 }
 
 .topic-description {
@@ -48,10 +51,39 @@
 }
 
 .topic-subtopics {
-    font-size: 0.9rem;
-    color: var(--text-tertiary);
-    font-style: italic;
-    margin-top: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
+    margin-top: 0.85rem;
+}
+
+/* Section headings — small caps over a gold-tipped rule */
+#major-topics h2,
+#using-the-topical-index h2 {
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 3rem 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 90%;
+}
+
+#major-topics h2::after,
+#using-the-topical-index h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 /* Mobile optimizations */
