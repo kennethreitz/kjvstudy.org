@@ -146,6 +146,16 @@
             --shadow-pop: 0 2px 6px rgba(57, 45, 22, 0.08), 0 16px 36px -14px rgba(57, 45, 22, 0.28);
             --star: #b98a1e;
 
+            /* The spine — the sidebar as the book's binding */
+            --spine-bg: #2c523d;
+            --spine-bg-deep: #26472f;
+            --spine-text: #cfc8ae;
+            --spine-text-strong: #f0ead6;
+            --spine-label: #ccab66;
+            --spine-current: #e7c87c;
+            --spine-hover-bg: rgba(255, 255, 255, 0.07);
+            --spine-hairline: rgba(240, 234, 214, 0.16);
+
             /* Book genres — muted, bookish inks (shared by sidebar + /books) */
             --cat-law: #5a7a9f;
             --cat-historical: #6a8a5e;
@@ -200,6 +210,15 @@
             --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 20px -8px rgba(0, 0, 0, 0.55);
             --shadow-pop: 0 2px 6px rgba(0, 0, 0, 0.45), 0 18px 40px -14px rgba(0, 0, 0, 0.65);
             --star: #d9b34a;
+
+            --spine-bg: #1e3527;
+            --spine-bg-deep: #192c20;
+            --spine-text: #b7ae95;
+            --spine-text-strong: #e6dfc9;
+            --spine-label: #b3944f;
+            --spine-current: #d9ba6b;
+            --spine-hover-bg: rgba(255, 255, 255, 0.06);
+            --spine-hairline: rgba(230, 223, 201, 0.13);
 
             --cat-law: #7d9cbf;
             --cat-historical: #8aab7c;
@@ -786,7 +805,7 @@
             background: linear-gradient(to left, transparent, var(--border-color-dark));
         }
 
-        /* Floating Navigation Sidebar */
+        /* Floating Navigation Sidebar — the book's spine */
         .nav-sidebar {
             position: fixed;
             top: 0;
@@ -794,13 +813,34 @@
             width: 140px;
             height: 100vh;
             overflow-y: auto;
-            background: var(--bg-inset);
-            padding: 1.25rem 0.85rem 1.5rem 0.85rem;
+            background: linear-gradient(to right, var(--spine-bg-deep), var(--spine-bg) 45%);
+            padding: 1rem 0.85rem 1.5rem 0.85rem;
             font-size: 0.8rem;
             line-height: 1.4;
             z-index: 100;
-            border-right: 1px solid var(--border-color-dark);
+            border-right: 1px solid rgba(185, 151, 69, 0.35);
             direction: rtl;
+        }
+
+        /* Gilt masthead — the title band on the spine */
+        .sidebar-masthead {
+            display: block;
+            text-align: center;
+            margin: 0.15rem 0 1rem;
+            padding: 0.65rem 0;
+            color: var(--spine-current) !important;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-indent: 0.3em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-top: 1px solid var(--spine-hairline);
+            border-bottom: 1px solid var(--spine-hairline);
+        }
+
+        .sidebar-masthead:hover {
+            color: var(--spine-text-strong) !important;
         }
 
         .nav-sidebar > * {
@@ -816,12 +856,12 @@
         }
 
         .nav-sidebar::-webkit-scrollbar-thumb {
-            background: var(--border-color);
+            background: rgba(240, 234, 214, 0.18);
             border-radius: 3px;
         }
 
         .nav-sidebar::-webkit-scrollbar-thumb:hover {
-            background: var(--text-tertiary);
+            background: rgba(240, 234, 214, 0.32);
         }
 
         /* Section headers */
@@ -831,7 +871,7 @@
             font-style: normal;
             margin: 1.4rem 0 0.5rem 0;
             padding: 0;
-            color: var(--bronze) !important;
+            color: var(--spine-label) !important;
             text-transform: uppercase;
             letter-spacing: 0.18em;
             border: none;
@@ -852,9 +892,9 @@
             margin: 0;
         }
 
-        /* Links */
+        /* Links — parchment lettering on the binding */
         .nav-sidebar a {
-            color: var(--text-secondary);
+            color: var(--spine-text) !important;
             text-decoration: none;
             border-bottom: none;
             display: block;
@@ -866,15 +906,19 @@
         }
 
         .nav-sidebar a:hover {
-            color: var(--text-strong);
-            background: var(--accent-soft);
+            color: var(--spine-text-strong) !important;
+            background: var(--spine-hover-bg);
         }
 
-        /* Current page — quiet: colour and weight alone, no fill or marker */
+        /* Current page — bright gilt lettering */
         .nav-sidebar a.current {
-            color: var(--accent-strong) !important;
+            color: var(--spine-current) !important;
             background: transparent;
             font-weight: 700;
+        }
+
+        .nav-sidebar a.current:hover {
+            color: var(--spine-current) !important;
         }
 
         /* Book type color indicators in sidebar */
@@ -914,7 +958,7 @@
             font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 0.18em;
-            color: var(--bronze);
+            color: var(--spine-label);
             padding: 0.35rem 0;
             font-weight: 600;
             list-style: none;
@@ -926,7 +970,7 @@
         }
 
         .nav-sidebar summary:hover {
-            color: var(--text-strong);
+            color: var(--spine-text-strong);
         }
 
         .nav-sidebar summary::-webkit-details-marker {
@@ -984,29 +1028,30 @@
         .nav-sidebar details#new-testament {
             margin-bottom: 0.75rem;
             padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--spine-hairline);
         }
 
         /* Nav footer */
         .nav-footer {
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
+            margin-top: 0.5rem;
             text-align: center;
         }
 
         .nav-footer a {
-            font-size: 0.75rem;
-            color: var(--text-tertiary);
+            display: inline-block;
+            font-size: 0.72rem;
+            color: var(--spine-text) !important;
             text-decoration: none;
             padding: 0.3rem 0.6rem;
             border-radius: 4px;
             transition: all 0.15s ease;
+            opacity: 0.85;
         }
 
         .nav-footer a:hover {
-            color: var(--text-secondary);
-            background: var(--accent-soft);
+            color: var(--spine-text-strong) !important;
+            background: var(--spine-hover-bg);
+            opacity: 1;
         }
 
         /* Nav badge for counts */
@@ -1014,8 +1059,8 @@
             display: inline-block;
             font-size: 0.7rem;
             font-weight: 500;
-            background: var(--code-bg);
-            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.25);
+            color: var(--spine-text);
             padding: 0.1rem 0.4rem;
             border-radius: 8px;
             margin-left: 0.35rem;
@@ -1035,27 +1080,27 @@
         .sidebar-search input {
             width: 100%;
             padding: 0.5rem 0.55rem;
-            border: 1px solid var(--border-color-dark);
+            border: 1px solid var(--spine-hairline);
             border-radius: 6px;
             font-size: 0.75rem;
             font-family: inherit;
-            background: var(--bg-elevated);
-            color: var(--text-color);
+            background: rgba(0, 0, 0, 0.18);
+            color: var(--spine-text-strong);
             transition: all 0.15s ease;
             box-sizing: border-box;
-            box-shadow: inset 0 1px 2px rgba(57, 45, 22, 0.05);
         }
 
         .sidebar-search input::placeholder {
-            color: var(--text-tertiary);
+            color: var(--spine-text);
+            opacity: 0.75;
             font-size: 0.7rem;
             font-style: italic;
         }
 
         .sidebar-search input:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-soft);
+            border-color: var(--spine-current);
+            box-shadow: 0 0 0 3px rgba(231, 200, 124, 0.15);
         }
 
         /* Universal search dropdown */
@@ -1195,13 +1240,13 @@
         /* Sidebar flourish */
         .sidebar-flourish {
             text-align: center;
-            margin: 2rem 0 1rem 0;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--gold);
+            margin: 2rem 0 0.25rem 0;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--spine-hairline);
+            color: var(--spine-label);
             font-size: 1rem;
             letter-spacing: 0.5em;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         /* Dark mode toggle */
@@ -1762,6 +1807,8 @@
 
     <!-- Floating Navigation Sidebar -->
     <nav class="nav-sidebar" role="navigation" aria-label="Primary navigation">
+        <a href="/" class="sidebar-masthead">KJV Study</a>
+
         <!-- Universal Search Box -->
         <div class="sidebar-search" role="search">
             <input type="text" id="sidebar-search-input" placeholder="Search everything..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Search Bible, topics, and resources">
@@ -1799,6 +1846,11 @@
             <li><a href="/biblical-maps" {% if request.url.path.startswith("/biblical-maps") %}class="current"{% endif %}>Maps</a></li>
             <li><a href="/red-letter" {% if request.url.path.startswith("/red-letter") %}class="current"{% endif %}>Red Letter</a></li>
         </ul>
+
+        <div class="sidebar-flourish" aria-hidden="true">❦</div>
+        <div class="nav-footer">
+            <a href="/changelog" {% if request.url.path == "/changelog" %}class="current"{% endif %}>Changelog</a>
+        </div>
 
     </nav>
 
