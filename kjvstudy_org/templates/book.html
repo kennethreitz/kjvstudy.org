@@ -57,72 +57,57 @@
     padding: 0.5rem;
     font-size: 1.2rem;
     font-weight: 500;
+    font-family: et-book-roman-old-style, et-book, Georgia, serif;
     text-decoration: none;
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     transition: all 0.15s ease;
 }
 
 .chapter-grid a:hover {
-    background: rgba(74, 124, 89, 0.1);
-    border-color: #4a7c59;
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .chapter-grid a.selected {
-    background: rgba(74, 124, 89, 0.15);
-    color: #4a7c59;
-    border-color: #4a7c59;
-    outline: 2px solid rgba(74, 124, 89, 0.4);
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border-color: var(--accent);
+    outline: 2px solid var(--accent-soft);
     outline-offset: 1px;
-}
-
-[data-theme="dark"] .chapter-grid a.selected {
-    background: rgba(107, 155, 122, 0.2);
-    color: #6b9b7a;
-    border-color: #6b9b7a;
-    outline-color: rgba(107, 155, 122, 0.4);
 }
 
 .chapter-grid a.popular-chapter {
     font-weight: bold;
+    color: var(--bronze);
 }
 
 /* Selected chapter section (green box) */
 .chapters-section.selected {
-    outline: 3px solid #4a7c59;
+    outline: 3px solid var(--accent);
     outline-offset: 4px;
-    background: rgba(74, 124, 89, 0.05);
+    background: var(--accent-softer);
     padding: 1rem;
     margin-left: -1rem;
     margin-right: -1rem;
     border-radius: 4px;
     transition: all 0.15s ease;
-}
-
-[data-theme="dark"] .chapters-section.selected {
-    outline-color: #6b9b7a;
-    background: rgba(107, 155, 122, 0.1);
 }
 
 /* Selected content paragraphs (green box) */
 section:not(.chapters-section) p.selected,
 section:not(.chapters-section) li.selected,
 section:not(.chapters-section) blockquote.selected {
-    outline: 3px solid #4a7c59;
+    outline: 3px solid var(--accent);
     outline-offset: 4px;
-    background: rgba(74, 124, 89, 0.05);
+    background: var(--accent-softer);
     padding: 1rem;
     margin-left: -1rem;
     margin-right: -1rem;
     border-radius: 4px;
     transition: all 0.15s ease;
-}
-
-[data-theme="dark"] section:not(.chapters-section) p.selected,
-[data-theme="dark"] section:not(.chapters-section) li.selected,
-[data-theme="dark"] section:not(.chapters-section) blockquote.selected {
-    outline-color: #6b9b7a;
-    background: rgba(107, 155, 122, 0.1);
 }
 
 .popular-chapter {
@@ -137,10 +122,18 @@ section:not(.chapters-section) blockquote.selected {
 }
 
 .book-meta {
-    color: var(--text-secondary, #666);
-    font-size: 0.95rem;
+    color: var(--text-tertiary);
+    font-size: 0.92rem;
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
+}
+
+.book-meta strong {
+    font-weight: 600;
+    color: var(--bronze);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
 }
 
 section blockquote {

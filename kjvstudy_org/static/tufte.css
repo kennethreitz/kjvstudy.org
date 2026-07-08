@@ -46,8 +46,8 @@ body {
     margin-right: auto;
     padding-left: 12.5%;
     font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
-    background-color: #fffff8;
-    color: #111;
+    background-color: #fbf8f1;
+    color: #211d16;
     max-width: 1400px;
     counter-reset: sidenote-counter;
 }
@@ -55,57 +55,57 @@ body {
 /* Adds dark mode - system preference (only when explicit theme not set to light) */
 @media (prefers-color-scheme: dark) {
     html:not([data-theme="light"]) body {
-        background-color: #151515;
-        color: #ddd;
+        background-color: #191510;
+        color: #e9e1cf;
     }
 
     html:not([data-theme="light"]) .sidenote,
     html:not([data-theme="light"]) .marginnote {
-        background-color: #151515;
-        color: #ddd;
+        background-color: #191510;
+        color: #e9e1cf;
     }
 
     html:not([data-theme="light"]) a:link,
     html:not([data-theme="light"]) a:visited {
-        color: #aaa;
+        color: #ded5c0;
     }
 
     html:not([data-theme="light"]) hr {
-        border-top-color: #444;
+        border-top-color: #3b3427;
     }
 
     html:not([data-theme="light"]) h1,
     html:not([data-theme="light"]) h2,
     html:not([data-theme="light"]) h3 {
-        color: #ddd;
+        color: #f5efdf;
     }
 }
 
 /* Adds dark mode - manual toggle via data-theme attribute */
 [data-theme="dark"] body {
-    background-color: #151515;
-    color: #ddd;
+    background-color: #191510;
+    color: #e9e1cf;
 }
 
 [data-theme="dark"] .sidenote,
 [data-theme="dark"] .marginnote {
-    background-color: #151515;
-    color: #ddd;
+    background-color: #191510;
+    color: #e9e1cf;
 }
 
 [data-theme="dark"] a:link,
 [data-theme="dark"] a:visited {
-    color: #aaa;
+    color: #ded5c0;
 }
 
 [data-theme="dark"] hr {
-    border-top-color: #444;
+    border-top-color: #3b3427;
 }
 
 [data-theme="dark"] h1,
 [data-theme="dark"] h2,
 [data-theme="dark"] h3 {
-    color: #ddd;
+    color: #f5efdf;
 }
 
 h1 {
@@ -139,7 +139,7 @@ hr {
     height: 1px;
     width: 55%;
     border: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #d8d0ba;
     margin: 1em 0;
     padding: 0;
 }
@@ -291,8 +291,8 @@ img {
     width: 50%;
     margin-top: 0.3rem;
     margin-bottom: 0;
-    font-size: 1.1rem;
-    line-height: 1.3;
+    font-size: 1.05rem;
+    line-height: 1.45;
     vertical-align: baseline;
     position: relative;
 }

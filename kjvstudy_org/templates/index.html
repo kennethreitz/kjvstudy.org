@@ -6,71 +6,193 @@
 
 {% block head %}
 <style>
-/* Title Page - Classical Book Style */
+/* Title Page — engraved frontispiece.
+   Lives inside the article column so it can never slide under the sidebar. */
 .title-page {
+    position: relative;
     text-align: center;
-    padding: 3rem 0 2rem;
-    margin-bottom: 2rem;
-    margin-left: -150px;
+    padding: 3.5rem 2.5rem 3.25rem;
+    margin: 1.5rem 0 3rem;
+    border: 1px solid var(--border-color-darker);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow-soft);
+}
+
+/* Inner hairline — the classic double-rule plate frame */
+.title-page::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1px solid var(--border-color-dark);
+    pointer-events: none;
+}
+
+.title-page .title-kicker {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.42em;
+    text-indent: 0.42em; /* optically recentre letterspaced caps */
+    color: var(--bronze);
+    margin-bottom: 1.6rem;
 }
 
 .title-page h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.08em;
+    font-size: 3.4rem;
+    margin: 0 0 1rem;
+    letter-spacing: 0.1em;
+    text-indent: 0.1em;
     font-weight: 400;
     text-transform: uppercase;
+    line-height: 1.1;
 }
 
 .title-page .subtitle {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    font-style: italic;
     color: var(--text-secondary);
-    margin: 0 0 2rem 0;
+    margin: 0 0 0.5rem 0;
     line-height: 1.6;
     letter-spacing: 0.05em;
 }
 
 .title-page .divider {
-    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 260px;
+    margin: 1.9rem auto;
+    color: var(--gold);
+    font-size: 1.05rem;
+}
+
+.title-page .divider::before,
+.title-page .divider::after {
+    content: '';
+    flex: 1;
     height: 1px;
-    background: var(--border-color-darker);
-    margin: 0 auto 2rem;
+    background: linear-gradient(to right, transparent, var(--border-color-darker));
 }
 
-.title-page .epigraph {
-    max-width: 36rem;
+.title-page .divider::after {
+    background: linear-gradient(to left, transparent, var(--border-color-darker));
+}
+
+/* Verse of the Day — the plate's centrepiece */
+.votd {
+    max-width: 42rem;
     margin: 0 auto;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    font-style: italic;
-    color: var(--text-color);
+    padding: 0;
 }
 
-.title-page .epigraph p {
+.votd-kicker {
+    /* undo tufte's margin-column figcaption treatment */
+    float: none;
+    max-width: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.votd-kicker::before,
+.votd-kicker::after {
+    content: '';
+    width: 3.5rem;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.55;
+}
+
+.votd-kicker a {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    color: var(--bronze);
+    border-bottom: none;
+    white-space: nowrap;
+}
+
+.votd-kicker a:hover {
+    color: var(--accent-strong);
+}
+
+.votd-quote {
+    position: relative;
     margin: 0;
+    padding: 0;
 }
 
-.title-page .epigraph footer {
-    margin-top: 0.75rem;
-    font-size: 0.95rem;
+.votd-quote p {
+    position: relative;
+    display: inline-block;
+    width: auto;      /* undo tufte's 55% blockquote column */
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.85;
+    font-style: italic;
+    color: var(--text-strong);
+}
+
+.votd-quote p::before {
+    content: '\201C';
+    position: absolute;
+    top: -1.4rem;
+    left: -2.6rem;
+    font-size: 4.6rem;
+    line-height: 1;
     font-style: normal;
+    color: var(--gold);
+    opacity: 0.85;
+    pointer-events: none;
 }
 
-.title-page .epigraph footer a {
-    color: var(--text-secondary);
+.votd-ref {
+    display: inline-block;
+    margin-top: 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--bronze);
+    border-bottom: 1px solid transparent;
 }
 
-/* Search Section */
+.votd-ref::before {
+    content: '— ';
+    color: var(--gold);
+}
+
+.votd-ref:hover {
+    color: var(--accent-strong);
+    border-bottom-color: currentColor;
+}
+
+/* Search Section — centred on the article column, same axis as the plate */
 .search-section {
     max-width: 38rem;
     margin: 0 auto 3rem;
-    margin-left: calc(50% - 19rem - 75px);
 }
 
 .search-form {
     display: flex;
     gap: 0;
     border: 1px solid var(--border-color-darker);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.search-form:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-soft);
 }
 
 .search-input {
@@ -78,7 +200,7 @@
     padding: 1rem 1.25rem;
     font-size: 1.05rem;
     border: none;
-    background: var(--bg-color);
+    background: transparent;
     color: var(--text-color);
     font-family: inherit;
 }
@@ -89,25 +211,39 @@
 
 .search-input::placeholder {
     color: var(--text-tertiary);
+    font-style: italic;
 }
 
 .search-btn {
     padding: 1rem 2rem;
-    font-size: 1rem;
-    background: var(--text-color);
-    color: var(--bg-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background: var(--accent-strong);
+    color: #f6f2e6;
     border: none;
     cursor: pointer;
     font-family: inherit;
-    letter-spacing: 0.05em;
+    transition: background 0.15s ease;
 }
 
 .search-btn:hover {
-    opacity: 0.85;
+    background: var(--accent);
+}
+
+[data-theme="dark"] .search-btn {
+    background: #2c5740;
+    color: #eee7d3;
+}
+
+[data-theme="dark"] .search-btn:hover {
+    background: #356a4e;
 }
 
 .search-help {
     font-size: 0.85rem;
+    font-style: italic;
     color: var(--text-tertiary);
     margin-top: 0.75rem;
     text-align: center;
@@ -117,34 +253,49 @@
 .quick-links {
     text-align: center;
     margin: 2rem 0 3rem;
-    margin-left: -150px;
     font-size: 1rem;
 }
 
 .quick-links a {
     display: inline-block;
-    margin: 0.25rem 0.75rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border-color);
+    margin: 0.25rem 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    background: var(--bg-elevated);
     color: var(--text-color);
     text-decoration: none;
     transition: all 0.2s;
 }
 
 .quick-links a:hover {
-    border-color: var(--text-color);
-    background: var(--code-bg);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    background: var(--accent-softer);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
 }
 
 .quick-links a.primary {
-    background: #4a7c59;
-    color: #fff !important;
-    border-color: #4a7c59;
+    background: var(--accent-strong);
+    color: #f6f2e6 !important;
+    border-color: var(--accent-strong);
 }
 
 .quick-links a.primary:hover {
-    background: #3d6a4b;
-    border-color: #3d6a4b;
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+}
+
+[data-theme="dark"] .quick-links a.primary {
+    background: #2c5740;
+    border-color: #356a4e;
+    color: #eee7d3 !important;
+}
+
+[data-theme="dark"] .quick-links a.primary:hover {
+    background: #356a4e;
 }
 
 /* Section Styling */
@@ -153,40 +304,62 @@ section {
 }
 
 section h2 {
-    font-size: 1.4rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
     margin-bottom: 1.25rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--border-color);
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 /* Resource Grid */
 .resource-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin: 1.5rem 0;
 }
 
 .resource-card {
     display: block;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
+    padding: 1.4rem 1.5rem;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    background: var(--bg-elevated);
     text-decoration: none;
     color: var(--text-color);
-    transition: all 0.2s;
+    transition: all 0.2s ease;
 }
 
 .resource-card:hover {
-    border-color: var(--border-color-darker);
-    background: var(--code-bg);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
 }
 
 .resource-card h3 {
     font-size: 1.1rem;
     font-weight: 600;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.4rem 0;
+    transition: color 0.15s ease;
+}
+
+.resource-card:hover h3 {
+    color: var(--accent-strong) !important;
 }
 
 .resource-card p {
@@ -200,24 +373,27 @@ section h2 {
 .topic-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
+    gap: 0.6rem;
     margin: 1.5rem 0;
 }
 
 .topic-link {
     display: block;
-    padding: 0.75rem 1rem;
+    padding: 0.7rem 1rem;
     text-align: center;
     text-decoration: none;
     color: var(--text-color);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    background: var(--bg-elevated);
     font-size: 0.9rem;
     transition: all 0.2s;
 }
 
 .topic-link:hover {
-    border-color: var(--border-color-darker);
-    background: var(--code-bg);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    background: var(--accent-softer);
 }
 
 /* Interlinear Sample */
@@ -249,15 +425,15 @@ section h2 {
 .sample-word {
     text-align: center;
     padding: 0.5rem 0.75rem;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
 }
 
 .sample-original {
     display: block;
     font-size: 2.2rem;
-    color: var(--text-color);
+    color: var(--text-strong);
     margin-bottom: 0.35rem;
 }
 
@@ -273,14 +449,15 @@ section h2 {
 .sample-english {
     display: block;
     font-size: 0.85rem;
-    color: #4a7c59;
+    color: var(--accent-strong);
     font-weight: 600;
 }
 
 .sample-strongs {
     display: block;
     font-size: 0.7rem;
-    color: var(--text-tertiary);
+    color: var(--bronze);
+    letter-spacing: 0.05em;
     margin-top: 0.15rem;
 }
 
@@ -342,40 +519,51 @@ section h2 {
 
 /* Selection states */
 .selected {
-    outline: 2px solid #4a7c59 !important;
+    outline: 2px solid var(--accent) !important;
     outline-offset: 2px;
-    background: rgba(74, 124, 89, 0.05) !important;
-}
-
-[data-theme="dark"] .selected {
-    outline-color: #6b9b7a !important;
-    background: rgba(107, 155, 122, 0.1) !important;
+    background: var(--accent-softer) !important;
 }
 
 /* Mobile */
 @media (max-width: 760px) {
     .title-page {
-        padding: 2rem 0 1.5rem;
+        padding: 2.5rem 1.25rem 2rem;
+        margin-top: 3.25rem; /* clear the fixed nav/theme toggles */
         margin-left: 0;
     }
 
+    .title-page .title-kicker {
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-indent: 0.3em;
+    }
+
     .title-page h1 {
-        font-size: 2.4rem;
-        letter-spacing: 0.04em;
+        font-size: 2.2rem;
+        letter-spacing: 0.06em;
     }
 
     .title-page .subtitle {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
     }
 
-    .title-page .epigraph {
+    .votd-quote p {
         font-size: 1.25rem;
-        padding: 0 0.5rem;
-        line-height: 1.9;
+        line-height: 1.85;
     }
 
-    .title-page .epigraph footer {
-        font-size: 1.1rem;
+    /* The hanging quotation mark has no gutter on small screens */
+    .votd-quote p::before {
+        display: none;
+    }
+
+    .votd-kicker::before,
+    .votd-kicker::after {
+        width: 2rem;
+    }
+
+    .votd-ref {
+        font-size: 0.8rem;
     }
 
     .search-section {
@@ -476,7 +664,8 @@ section h2 {
     }
 
     section h2 {
-        font-size: 1.6rem;
+        font-size: 1rem;
+        letter-spacing: 0.14em;
     }
 
     section p {
@@ -522,20 +711,24 @@ section h2 {
 
 {% block content %}
 <div class="title-page">
+    <span class="title-kicker">The Authorized Version</span>
     <h1>The Holy Bible</h1>
     <p class="subtitle">Authorized King James Version · <em>Anno Domini</em> 1611</p>
-    <div class="divider"></div>
-    <div class="epigraph">
-        <p>"{{ daily_verse.text }}"</p>
-        <footer><a href="/verse-of-the-day">Verse of the Day</a> — <a href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}#verse-{{ daily_verse.verse }}">{{ daily_verse.reference }}</a></footer>
-    </div>
+    <div class="divider" aria-hidden="true">❦</div>
+    <figure class="votd">
+        <figcaption class="votd-kicker"><a href="/verse-of-the-day">Verse of the Day</a></figcaption>
+        <blockquote class="votd-quote">
+            <p>{{ daily_verse.text }}</p>
+        </blockquote>
+        <a class="votd-ref" href="/book/{{ daily_verse.book }}/chapter/{{ daily_verse.chapter }}#verse-{{ daily_verse.verse }}">{{ daily_verse.reference }}</a>
+    </figure>
 </div>
 
 <div class="search-section" id="search-section">
     <form class="search-form" onsubmit="return handleSearch(event)">
         <input type="text" class="search-input" id="verse-lookup-input"
                placeholder="John 3:16, Romans 8, or search any word..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-        <button type="submit" class="search-btn">Go</button>
+        <button type="submit" class="search-btn">Search</button>
     </form>
     <div class="search-help">Navigate to any verse or search the Scriptures</div>
 </div>
@@ -647,7 +840,7 @@ section h2 {
     <p><span class="newthought">Begin a study</span> on an essential theme. Each guide gathers key passages with commentary to walk you through a doctrine or season of life, one Scripture at a time.</p>
 
     {% for category, guides in study_guides.items() %}
-    <h3 style="font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);font-weight:600;margin:1.75rem 0 0.75rem;">{{ category }}</h3>
+    <h3 style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--bronze);font-weight:600;margin:1.75rem 0 0.75rem;">{{ category }}</h3>
     <div class="topic-grid">
         {% for guide in guides %}
         <a href="/study-guides/{{ guide.slug }}" class="topic-link" title="{{ guide.description }}">{{ guide.title }}</a>

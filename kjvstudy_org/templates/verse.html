@@ -85,19 +85,19 @@
 
 /* Red Letter Edition - Words of Christ */
 .words-of-christ {
-    color: #c41e3a;
+    color: var(--rubric);
 }
 
 /* Dark mode for .words-of-christ is in base.html */
 
 /* Links inside red letter text should also be red */
 .words-of-christ a {
-    color: #c41e3a;
+    color: var(--rubric);
     text-decoration: underline;
 }
 
 [data-theme="dark"] .words-of-christ a {
-    color: #ff6b6b;
+    color: var(--rubric);
 }
 
 /* Prevent sidenotes from inheriting red color */
@@ -196,7 +196,7 @@
 .share-pill:hover {
     border-color: var(--link-color);
     color: var(--link-color);
-    background: rgba(74, 124, 89, 0.05);
+    background: var(--accent-softer);
 }
 
 .share-pill.copied {
@@ -209,7 +209,7 @@
 }
 
 [data-theme="dark"] .share-pill:hover {
-    background: rgba(74, 124, 89, 0.15);
+    background: var(--accent-soft);
 }
 
 [data-font-size="large"] .share-pill {
@@ -296,7 +296,7 @@
 a.crossref-pill:hover {
     border-color: var(--link-color);
     color: var(--link-color);
-    background: rgba(74, 124, 89, 0.05);
+    background: var(--accent-softer);
 }
 
 .crossref-pill .cross-ref-tooltip {
@@ -312,7 +312,7 @@ a.crossref-pill:hover {
 }
 
 [data-theme="dark"] a.crossref-pill:hover {
-    background: rgba(74, 124, 89, 0.15);
+    background: var(--accent-soft);
 }
 
 /* Large font size mode */
@@ -374,7 +374,7 @@ a.crossref-pill:hover {
 .nav-pill:hover {
     border-color: var(--link-color);
     color: var(--link-color);
-    background: rgba(74, 124, 89, 0.05);
+    background: var(--accent-softer);
 }
 
 [data-theme="dark"] .nav-pill {
@@ -382,7 +382,7 @@ a.crossref-pill:hover {
 }
 
 [data-theme="dark"] .nav-pill:hover {
-    background: rgba(74, 124, 89, 0.15);
+    background: var(--accent-soft);
 }
 
 [data-font-size="large"] .nav-pill {
@@ -560,7 +560,7 @@ a.crossref-pill:hover {
 
 .word-unit.expanded {
     background: #f0f7f4;
-    border-color: #4a7c59;
+    border-color: var(--accent);
     z-index: 101;
 }
 
@@ -591,7 +591,7 @@ a.crossref-pill:hover {
 
 .word-english {
     font-size: 0.7rem;
-    color: #4a7c59;
+    color: var(--accent-strong);
     font-weight: 500;
     line-height: 1.2;
     max-width: 100px;
@@ -612,7 +612,7 @@ a.crossref-pill:hover {
 }
 
 .word-strongs a:hover {
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 /* Hover tooltip - full definition preview */
@@ -712,7 +712,7 @@ a.crossref-pill:hover {
 
 .word-detail-english {
     font-size: 1rem;
-    color: #4a7c59;
+    color: var(--accent-strong);
     font-weight: 600;
 }
 
@@ -749,7 +749,7 @@ a.crossref-pill:hover {
     display: inline-block;
     margin-top: 0.5rem;
     font-size: 0.9rem;
-    color: #4a7c59;
+    color: var(--accent-strong);
     text-decoration: none;
 }
 
@@ -773,7 +773,7 @@ a.crossref-pill:hover {
 
 [data-theme="dark"] .word-unit.expanded {
     background: #1a2e1a;
-    border-color: #4a7c59;
+    border-color: var(--accent);
 }
 
 [data-theme="dark"] .word-detail {
@@ -820,7 +820,7 @@ a.crossref-pill:hover {
 
     html:not([data-theme="light"]) .word-unit.expanded {
         background: #1a2e1a;
-        border-color: #4a7c59;
+        border-color: var(--accent);
     }
 
     html:not([data-theme="light"]) .word-detail {
@@ -1015,7 +1015,7 @@ a.crossref-pill:hover {
                         <span class="word-detail-label">Strong's:</span>
                         <span class="word-detail-value">
                             {% if word.strongs %}
-                                <a href="/strongs/{{ word.strongs }}" style="color: #4a7c59;">{{ word.strongs }}</a>
+                                <a href="/strongs/{{ word.strongs }}" style="color: var(--accent-strong);">{{ word.strongs }}</a>
                             {% else %}
                                 —
                             {% endif %}
@@ -1221,7 +1221,7 @@ a.crossref-pill:hover {
         elements = getElements();
         if (elements.length === 0) return;
         selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
-        elements[selectedIndex].style.outline = '2px solid #4a7c59';
+        elements[selectedIndex].style.outline = '2px solid var(--accent)';
         elements[selectedIndex].style.outlineOffset = '4px';
         elements[selectedIndex].classList.add('selected');
         elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
@@ -1241,7 +1241,7 @@ a.crossref-pill:hover {
         selectedWordIndex = Math.max(0, Math.min(index, words.length - 1));
         var word = words[selectedWordIndex];
         word.classList.add('keyboard-selected');
-        word.style.outline = '2px solid #4a7c59';
+        word.style.outline = '2px solid var(--accent)';
         word.style.outlineOffset = '2px';
         word.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
@@ -1343,7 +1343,7 @@ a.crossref-pill:hover {
                 clearWordSelection();
                 // Re-highlight the interlinear container
                 if (isInterlinearSelected()) {
-                    elements[selectedIndex].style.outline = '2px solid #4a7c59';
+                    elements[selectedIndex].style.outline = '2px solid var(--accent)';
                     elements[selectedIndex].style.outlineOffset = '4px';
                 }
             } else {
@@ -1385,7 +1385,7 @@ a.crossref-pill:hover {
                     // No row above, exit word mode
                     clearWordSelection();
                     if (isInterlinearSelected()) {
-                        elements[selectedIndex].style.outline = '2px solid #4a7c59';
+                        elements[selectedIndex].style.outline = '2px solid var(--accent)';
                         elements[selectedIndex].style.outlineOffset = '4px';
                     }
                 } else {
@@ -1406,7 +1406,7 @@ a.crossref-pill:hover {
                 e.preventDefault();
                 clearWordSelection();
                 if (isInterlinearSelected()) {
-                    elements[selectedIndex].style.outline = '2px solid #4a7c59';
+                    elements[selectedIndex].style.outline = '2px solid var(--accent)';
                     elements[selectedIndex].style.outlineOffset = '4px';
                 }
             }

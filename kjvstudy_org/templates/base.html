@@ -42,6 +42,9 @@
 
     <link rel="stylesheet" href="/static/tufte.css?v={{ static_hash('tufte.css') }}"/>
     <link rel="manifest" href="/static/manifest.json"/>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2327503a'/%3E%3Cpath d='M32 12v40M20 26h24' stroke='%23c9a662' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E"/>
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f1"/>
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#191510"/>
 
     <!-- Analytics opt-out detection (kr=1 parameter) -->
     <script>
@@ -90,37 +93,137 @@
     {% block structured_data %}{% endblock %}
 
     <style>
-        /* Color scheme variables */
+        /* ————————————————————————————————————————————————————————————
+           Design tokens — "a finely printed Bible"
+           Warm paper & ink, deep forest green, bronze-gilt details.
+           Red is reserved for the words of Christ (rubrication).
+           ———————————————————————————————————————————————————————————— */
         :root {
             color-scheme: light;
-            --bg-color: #fffff8;
-            --text-color: #111;
-            --text-secondary: #666;
-            --text-tertiary: #767676;   /* WCAG AA on #fffff8 (4.5:1); was #888 (3.53:1) */
-            --text-quaternary: #767676;  /* was #999 (2.84:1, failed AA) */
-            --border-color: #eee;
-            --border-color-dark: #ddd;
-            --border-color-darker: #ccc;
-            --link-color: #333;
-            --link-hover: #000;
-            --code-bg: #f5f5f5;
-            --text-strong: #111;
+
+            /* Paper */
+            --bg-color: #fbf8f1;          /* warm laid paper */
+            --bg-elevated: #fffdf7;       /* cards, popovers */
+            --bg-inset: #f4f0e5;          /* sidebar, wells */
+            --code-bg: #f3efe4;
+
+            /* Ink — warm blacks, AA on paper */
+            --text-color: #211d16;
+            --text-strong: #191610;
+            --text-secondary: #56503f;
+            --text-tertiary: #6d6650;    /* ≥4.5:1 on paper */
+            --text-quaternary: #6d6650;
+
+            /* Hairlines */
+            --border-color: #e7e1d1;
+            --border-color-dark: #d8d0ba;
+            --border-color-darker: #c2b899;
+
+            /* Binding green (accent) */
+            --accent: #34614a;
+            --accent-strong: #27503a;
+            --accent-soft: rgba(52, 97, 74, 0.09);
+            --accent-softer: rgba(52, 97, 74, 0.05);
+
+            /* Gilt */
+            --bronze: #8a6c28;            /* legible bronze for text details */
+            --gold: #b99745;              /* decorative rules & ornament */
+            --gold-soft: rgba(185, 151, 69, 0.16);
+
+            /* Rubric — words of Christ */
+            --rubric: #b3202f;
+
+            --link-color: #2d2921;
+            --link-hover: var(--accent-strong);
+            --underline: rgba(138, 108, 40, 0.44);
+
+            /* Filled controls (buttons, badges) — deep green with cream text */
+            --accent-fill: #2e5a41;
+            --accent-fill-hover: #38684c;
+            --on-accent: #f6f2e6;
+
+            --shadow-soft: 0 1px 2px rgba(57, 45, 22, 0.05), 0 6px 18px -8px rgba(57, 45, 22, 0.18);
+            --shadow-pop: 0 2px 6px rgba(57, 45, 22, 0.08), 0 16px 36px -14px rgba(57, 45, 22, 0.28);
+            --star: #b98a1e;
+
+            /* Book genres — muted, bookish inks (shared by sidebar + /books) */
+            --cat-law: #5a7a9f;
+            --cat-historical: #6a8a5e;
+            --cat-wisdom: #8b6d9c;
+            --cat-major-prophets: #b07845;
+            --cat-minor-prophets: #a05a4a;
+            --cat-gospels: #b9973f;
+            --cat-acts: #5f8f87;
+            --cat-pauline: #64708f;
+            --cat-general: #a06478;
+            --cat-apocalyptic: #953d3d;
         }
 
         [data-theme="dark"] {
             color-scheme: dark;
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --text-tertiary: #909090;
-            --text-quaternary: #707070;
-            --border-color: #333;
-            --border-color-dark: #444;
-            --border-color-darker: #555;
-            --link-color: #d0d0d0;
-            --link-hover: #fff;
-            --code-bg: #2a2a2a;
-            --text-strong: #e0e0e0;
+
+            /* Candlelit study, not server-room gray */
+            --bg-color: #191510;
+            --bg-elevated: #211c15;
+            --bg-inset: #14110c;
+            --code-bg: #262019;
+
+            --text-color: #e9e1cf;
+            --text-strong: #f5efdf;
+            --text-secondary: #baaf94;
+            --text-tertiary: #9d937a;
+            --text-quaternary: #9d937a;
+
+            --border-color: #2e281e;
+            --border-color-dark: #3b3427;
+            --border-color-darker: #4d4433;
+
+            --accent: #8db99b;
+            --accent-strong: #a4cdb1;
+            --accent-soft: rgba(141, 185, 155, 0.13);
+            --accent-softer: rgba(141, 185, 155, 0.07);
+
+            --bronze: #c8a75a;
+            --gold: #c8a75a;
+            --gold-soft: rgba(200, 167, 90, 0.14);
+
+            --rubric: #e57a6f;
+
+            --link-color: #ded5c0;
+            --link-hover: var(--accent-strong);
+            --underline: rgba(200, 167, 90, 0.4);
+
+            --accent-fill: #2c5740;
+            --accent-fill-hover: #356a4e;
+            --on-accent: #eee7d3;
+
+            --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 20px -8px rgba(0, 0, 0, 0.55);
+            --shadow-pop: 0 2px 6px rgba(0, 0, 0, 0.45), 0 18px 40px -14px rgba(0, 0, 0, 0.65);
+            --star: #d9b34a;
+
+            --cat-law: #7d9cbf;
+            --cat-historical: #8aab7c;
+            --cat-wisdom: #ab8dbc;
+            --cat-major-prophets: #c99763;
+            --cat-minor-prophets: #bf7a68;
+            --cat-gospels: #cfae56;
+            --cat-acts: #7dada4;
+            --cat-pauline: #8b97b8;
+            --cat-general: #bd8398;
+            --cat-apocalyptic: #b55f5f;
+        }
+
+        /* Text selection — a wash of gilt */
+        ::selection {
+            background: rgba(185, 151, 69, 0.28);
+            color: inherit;
+        }
+
+        /* Keyboard focus — one consistent, visible ring */
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: 2px;
         }
 
         /* Skip link - visible only when focused */
@@ -141,7 +244,7 @@
 
         .skip-link:focus {
             top: 0;
-            outline: 2px solid #4a7c59;
+            outline: 2px solid var(--gold);
             outline-offset: 2px;
         }
 
@@ -218,9 +321,14 @@
             color: var(--link-hover) !important;
         }
 
+        /* Words of Christ — rubricated, in the manner of red-letter editions */
+        .words-of-christ {
+            color: var(--rubric);
+        }
+
         /* Links inside red letter text should stay red */
         .words-of-christ a {
-            color: #c41e3a !important;
+            color: var(--rubric) !important;
         }
 
         /* But sidenote links should use normal link color (more specific selector wins) */
@@ -230,7 +338,7 @@
         }
 
         [data-theme="dark"] .words-of-christ a {
-            color: #ff6b6b !important;
+            color: var(--rubric) !important;
         }
 
         [data-theme="dark"] .words-of-christ .sidenote a,
@@ -262,13 +370,14 @@
 
         .verse-tooltip {
             position: absolute;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color-darker);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color-dark);
+            border-top: 2px solid var(--gold);
             border-radius: 6px;
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1.1rem;
             min-width: 300px;
             max-width: 450px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-pop);
             z-index: 9999;
             font-size: 1rem;
             line-height: 1.6;
@@ -284,33 +393,21 @@
 
         .verse-tooltip-reference {
             font-weight: 600;
-            color: var(--link-color);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--bronze);
             margin-bottom: 0.5rem;
             display: block;
         }
 
         .verse-tooltip-text {
-            font-weight: 600;
             font-style: italic;
-            color: var(--text-secondary);
+            color: var(--text-color);
         }
 
         .verse-tooltip-loading {
             color: var(--text-tertiary);
-        }
-
-        [data-theme="dark"] .verse-tooltip {
-            background: #2a2a2a;
-            border-color: #444;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            html:not([data-theme="light"]) .verse-tooltip {
-                background: #2a2a2a;
-                border-color: #444;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            }
         }
 
         /* Disable tooltips on mobile */
@@ -355,15 +452,15 @@
         h1, h2, h3 {
             font-weight: 400;
             font-style: normal;
-            color: var(--text-color) !important;
+            color: var(--text-strong) !important;
         }
 
         h1 {
-            font-size: 2.8rem;
-            line-height: 1.2;
+            font-size: 2.9rem;
+            line-height: 1.15;
             margin-top: 3rem;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.015em;
         }
 
         h2 {
@@ -372,6 +469,10 @@
             margin-top: 3rem;
             margin-bottom: 1rem;
             font-style: italic;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
         }
 
         p {
@@ -397,15 +498,17 @@
             margin: 1rem 0;
         }
 
-        /* Refined breadcrumb navigation */
+        /* Refined breadcrumb navigation — quiet small caps, like a running head */
         .breadcrumb {
             margin: 2rem 0 3rem -30px;
             padding-left: 30px;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            font-style: italic;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            font-style: normal;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
+            padding-bottom: 0.9rem;
         }
 
         /* Sticky breadcrumb on scroll */
@@ -418,13 +521,13 @@
         }
 
         .breadcrumb.stuck {
-            box-shadow: none;
+            box-shadow: 0 10px 18px -14px rgba(57, 45, 22, 0.28);
             padding-top: 0.75rem;
             margin-top: 0;
         }
 
         [data-theme="dark"] .breadcrumb.stuck {
-            box-shadow: none;
+            box-shadow: 0 10px 18px -12px rgba(0, 0, 0, 0.7);
         }
 
         .breadcrumb-actions {
@@ -446,9 +549,9 @@
             width: 28px;
             height: 28px;
             cursor: pointer;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color-dark);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -456,12 +559,14 @@
             color: var(--text-secondary);
             transition: all 0.15s;
             font-family: inherit;
+            letter-spacing: normal;
+            text-transform: none;
         }
 
         .breadcrumb-action-btn:hover {
-            border-color: var(--text-tertiary);
-            color: var(--link-color);
-            background: var(--code-bg);
+            border-color: var(--accent);
+            color: var(--accent-strong);
+            background: var(--accent-softer);
         }
 
         .breadcrumb-action-btn.font-toggle {
@@ -497,7 +602,7 @@
 
         .breadcrumb-action-btn.bookmark-btn.bookmarked::before {
             content: '★';
-            color: #eab308;
+            color: var(--star);
         }
 
         .bookmark-toast {
@@ -505,11 +610,12 @@
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--text-color);
-            color: var(--bg-color);
+            background: var(--accent-strong);
+            color: #f6f2e6;
             padding: 0.75rem 1.25rem;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 0.9rem;
+            box-shadow: var(--shadow-pop);
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 1000;
@@ -522,8 +628,13 @@
             pointer-events: auto;
         }
 
+        [data-theme="dark"] .bookmark-toast {
+            background: #2c5740;
+            color: #eee7d3;
+        }
+
         .bookmark-toast a {
-            color: var(--bg-color) !important;
+            color: #f6f2e6 !important;
             margin-left: 0.5rem;
             text-decoration: underline;
             border-bottom: none !important;
@@ -531,10 +642,6 @@
 
         .bookmark-toast a:hover {
             opacity: 0.8;
-        }
-
-        [data-theme="dark"] .bookmark-toast a {
-            color: var(--bg-color) !important;
         }
 
         /* Large font size */
@@ -598,8 +705,9 @@
         }
 
         .breadcrumb a {
-            color: var(--link-color);
+            color: var(--text-secondary);
             text-decoration: none;
+            border-bottom: none;
             transition: color 0.2s;
         }
 
@@ -608,21 +716,21 @@
         }
 
         .breadcrumb-separator {
-            margin: 0 0.75rem;
-            color: var(--text-quaternary);
+            margin: 0 0.6rem;
+            color: var(--gold);
         }
 
-        /* Enhanced link styling */
+        /* Enhanced link styling — hairline gilt underline, green on hover */
         a {
             color: var(--link-color);
             text-decoration: none;
-            border-bottom: 1px solid var(--border-color-dark);
-            transition: all 0.2s;
+            border-bottom: 1px solid var(--underline);
+            transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
         }
 
         a:hover {
             color: var(--link-hover);
-            border-bottom-color: var(--link-hover);
+            border-bottom-color: currentColor;
         }
 
         /* Section dividers */
@@ -635,9 +743,42 @@
         .ornament {
             text-align: center;
             margin: 3rem 0;
-            color: var(--text-quaternary);
-            font-size: 1.5rem;
+            color: var(--gold);
+            font-size: 1.3rem;
             letter-spacing: 1rem;
+        }
+
+        /* Small-caps kicker line above page titles */
+        .page-kicker {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            color: var(--bronze);
+            margin: 0 0 0.9rem 0.1em;
+        }
+
+        /* Gilt rule with centred fleuron: ——— ❦ ——— */
+        .rule-fleuron {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: none;
+            margin: 2.25rem 0;
+            color: var(--gold);
+        }
+
+        .rule-fleuron::before,
+        .rule-fleuron::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color-dark));
+        }
+
+        .rule-fleuron::after {
+            background: linear-gradient(to left, transparent, var(--border-color-dark));
         }
 
         /* Floating Navigation Sidebar */
@@ -648,12 +789,12 @@
             width: 140px;
             height: 100vh;
             overflow-y: auto;
-            background: var(--bg-color);
+            background: var(--bg-inset);
             padding: 1.25rem 0.85rem 1.5rem 0.85rem;
             font-size: 0.8rem;
             line-height: 1.4;
             z-index: 100;
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color-dark);
             direction: rtl;
         }
 
@@ -681,13 +822,13 @@
         /* Section headers */
         .nav-sidebar h3 {
             font-size: 0.6rem;
-            font-weight: 500;
+            font-weight: 600;
             font-style: normal;
-            margin: 1.25rem 0 0.5rem 0;
+            margin: 1.4rem 0 0.5rem 0;
             padding: 0;
-            color: var(--text-tertiary);
+            color: var(--bronze) !important;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.18em;
             border: none;
         }
 
@@ -720,19 +861,15 @@
         }
 
         .nav-sidebar a:hover {
-            color: var(--text-color);
-            background: rgba(74, 124, 89, 0.08);
+            color: var(--text-strong);
+            background: var(--accent-soft);
         }
 
         .nav-sidebar a.current {
-            color: #4a7c59;
-            background: rgba(74, 124, 89, 0.1);
+            color: var(--accent-strong);
+            background: var(--accent-soft);
             font-weight: 700;
-        }
-
-        [data-theme="dark"] .nav-sidebar a.current {
-            color: #6b9b7a;
-            background: rgba(107, 155, 122, 0.15);
+            box-shadow: inset 2px 0 0 var(--accent);
         }
 
         /* Book type color indicators in sidebar */
@@ -743,16 +880,16 @@
             border-radius: 0 4px 4px 0;
         }
 
-        .nav-sidebar .book-list a.law { border-left-color: #3b82f6; }
-        .nav-sidebar .book-list a.historical { border-left-color: #22c55e; }
-        .nav-sidebar .book-list a.wisdom { border-left-color: #a855f7; }
-        .nav-sidebar .book-list a.major-prophets { border-left-color: #f97316; }
-        .nav-sidebar .book-list a.minor-prophets { border-left-color: #ef4444; }
-        .nav-sidebar .book-list a.gospels { border-left-color: #eab308; }
-        .nav-sidebar .book-list a.acts { border-left-color: #14b8a6; }
-        .nav-sidebar .book-list a.pauline { border-left-color: #6366f1; }
-        .nav-sidebar .book-list a.general { border-left-color: #ec4899; }
-        .nav-sidebar .book-list a.apocalyptic { border-left-color: #dc2626; }
+        .nav-sidebar .book-list a.law { border-left-color: var(--cat-law); }
+        .nav-sidebar .book-list a.historical { border-left-color: var(--cat-historical); }
+        .nav-sidebar .book-list a.wisdom { border-left-color: var(--cat-wisdom); }
+        .nav-sidebar .book-list a.major-prophets { border-left-color: var(--cat-major-prophets); }
+        .nav-sidebar .book-list a.minor-prophets { border-left-color: var(--cat-minor-prophets); }
+        .nav-sidebar .book-list a.gospels { border-left-color: var(--cat-gospels); }
+        .nav-sidebar .book-list a.acts { border-left-color: var(--cat-acts); }
+        .nav-sidebar .book-list a.pauline { border-left-color: var(--cat-pauline); }
+        .nav-sidebar .book-list a.general { border-left-color: var(--cat-general); }
+        .nav-sidebar .book-list a.apocalyptic { border-left-color: var(--cat-apocalyptic); }
 
         .nav-sidebar .book-list {
             font-size: 0.75rem;
@@ -771,10 +908,10 @@
             cursor: pointer;
             font-size: 0.6rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-tertiary);
+            letter-spacing: 0.18em;
+            color: var(--bronze);
             padding: 0.35rem 0;
-            font-weight: 500;
+            font-weight: 600;
             list-style: none;
             user-select: none;
             transition: color 0.15s ease;
@@ -784,7 +921,7 @@
         }
 
         .nav-sidebar summary:hover {
-            color: var(--text-secondary);
+            color: var(--text-strong);
         }
 
         .nav-sidebar summary::-webkit-details-marker {
@@ -864,7 +1001,7 @@
 
         .nav-footer a:hover {
             color: var(--text-secondary);
-            background: rgba(74, 124, 89, 0.08);
+            background: var(--accent-soft);
         }
 
         /* Nav badge for counts */
@@ -892,25 +1029,28 @@
 
         .sidebar-search input {
             width: 100%;
-            padding: 0.45rem 0.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
+            padding: 0.5rem 0.55rem;
+            border: 1px solid var(--border-color-dark);
+            border-radius: 6px;
             font-size: 0.75rem;
-            background: var(--bg-color);
+            font-family: inherit;
+            background: var(--bg-elevated);
             color: var(--text-color);
             transition: all 0.15s ease;
             box-sizing: border-box;
+            box-shadow: inset 0 1px 2px rgba(57, 45, 22, 0.05);
         }
 
         .sidebar-search input::placeholder {
             color: var(--text-tertiary);
             font-size: 0.7rem;
+            font-style: italic;
         }
 
         .sidebar-search input:focus {
             outline: none;
-            border-color: #4a7c59;
-            box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
         }
 
         /* Universal search dropdown */
@@ -919,14 +1059,14 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: var(--bg-color);
+            background: var(--bg-elevated);
             border: 1px solid var(--border-color-dark);
             border-top: none;
-            border-radius: 0 0 3px 3px;
+            border-radius: 0 0 6px 6px;
             max-height: 400px;
             overflow-y: auto;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-pop);
             display: none;
         }
 
@@ -946,8 +1086,8 @@
         .search-results-category-title {
             font-size: 0.6rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-tertiary);
+            letter-spacing: 0.14em;
+            color: var(--bronze);
             margin-bottom: 0.3rem;
             font-weight: 600;
         }
@@ -965,7 +1105,7 @@
 
         .search-result-item:hover,
         .search-result-item.selected {
-            background: var(--border-color);
+            background: var(--accent-soft);
             color: var(--link-hover);
         }
 
@@ -1053,10 +1193,10 @@
             margin: 2rem 0 1rem 0;
             padding-top: 1.5rem;
             border-top: 1px solid var(--border-color);
-            color: var(--text-tertiary);
+            color: var(--gold);
             font-size: 1rem;
             letter-spacing: 0.5em;
-            opacity: 0.6;
+            opacity: 0.8;
         }
 
         /* Dark mode toggle */
@@ -1070,12 +1210,12 @@
         }
 
         .dark-mode-btn {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             cursor: pointer;
-            background: transparent;
-            border: 1px solid var(--border-color-darker);
-            border-radius: 3px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color-dark);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1085,8 +1225,9 @@
         }
 
         .dark-mode-btn:hover {
-            border-color: var(--text-tertiary);
-            color: var(--link-hover);
+            border-color: var(--accent);
+            color: var(--accent-strong);
+            background: var(--accent-softer);
         }
 
         .dark-mode-btn::before {
@@ -1188,34 +1329,22 @@
                 font-size: 2.2rem;
                 line-height: 2.4rem;
                 font-weight: 800;
-                color: #000;
+                color: var(--text-strong);
                 letter-spacing: -0.02em;
-            }
-
-            [data-theme="dark"] h1 {
-                color: #fff;
             }
 
             h2 {
                 font-size: 1.65rem;
                 line-height: 1.85rem;
                 font-weight: 700;
-                color: #000;
+                color: var(--text-strong);
                 font-style: normal;
-            }
-
-            [data-theme="dark"] h2 {
-                color: #fff;
             }
 
             h3 {
                 font-size: 1.3rem;
                 font-weight: 700;
-                color: #000;
-            }
-
-            [data-theme="dark"] h3 {
-                color: #fff;
+                color: var(--text-strong);
             }
 
             p {
@@ -1226,24 +1355,14 @@
 
             /* Enhanced link visibility for mobile - strong contrast */
             a {
-                border-bottom: 2px solid #999;
+                border-bottom: 2px solid var(--underline);
                 padding-bottom: 1px;
-                color: #000;
+                color: var(--text-strong);
                 font-weight: 500;
             }
 
-            [data-theme="dark"] a {
-                border-bottom-color: #666;
-                color: #e0e0e0;
-            }
-
             a:hover, a:active {
-                border-bottom-color: #333;
-            }
-
-            [data-theme="dark"] a:hover,
-            [data-theme="dark"] a:active {
-                border-bottom-color: #999;
+                border-bottom-color: currentColor;
             }
 
             /* Touch target sizing only for interactive elements, not inline text links */
@@ -1386,9 +1505,9 @@
                 padding: 0.75rem 1.25rem;
                 font-size: 1rem;
                 font-weight: 700;
-                border: 3px solid #111;
-                background: #111;
-                color: #fff;
+                border: 3px solid var(--accent-strong);
+                background: var(--accent-strong);
+                color: #f6f2e6;
                 cursor: pointer;
                 -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
             }
@@ -1396,9 +1515,9 @@
             [data-theme="dark"] button,
             [data-theme="dark"] .btn,
             [data-theme="dark"] input[type="submit"] {
-                border-color: #ddd;
-                background: #ddd;
-                color: #111;
+                border-color: #2c5740;
+                background: #2c5740;
+                color: #eee7d3;
             }
 
             /* Improve section dividers with strong contrast */
@@ -1625,7 +1744,7 @@
             {% for crumb in breadcrumbs %}
                 {% if not loop.last %}
                     <a href="{{ crumb.url }}">{{ crumb.text }}</a>
-                    <span class="breadcrumb-separator">&gt;</span>
+                    <span class="breadcrumb-separator">·</span>
                 {% else %}
                     <span>{{ crumb.text }}</span>
                 {% endif %}

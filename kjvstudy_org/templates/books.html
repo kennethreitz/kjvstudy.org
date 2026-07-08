@@ -15,53 +15,52 @@
 
 .book-card {
     display: block;
-    padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: all 0.2s;
+    padding: 1rem 1.1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--border-color-darker);
+    border-radius: 6px;
+    transition: all 0.2s ease;
     text-decoration: none;
     color: var(--text-color);
 }
 
 .book-card:hover {
-    border-color: var(--border-color-darker);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
     cursor: pointer;
 }
 
 .book-card.selected {
-    border-color: #4a7c59;
-    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.3);
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
     outline: none;
 }
 
 .book-card.selected .book-name {
-    color: #4a7c59;
-}
-
-[data-theme="dark"] .book-card.selected {
-    border-color: #6b9b7a;
-    box-shadow: 0 0 0 2px rgba(107, 155, 122, 0.3);
-}
-
-[data-theme="dark"] .book-card.selected .book-name {
-    color: #6b9b7a;
+    color: var(--accent-strong);
 }
 
 .book-name {
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
-    color: var(--link-color);
+    color: var(--text-strong);
+    transition: color 0.15s ease;
 }
 
 .book-card:hover .book-name {
-    color: var(--link-hover);
+    color: var(--accent-strong);
 }
 
 .book-info {
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     font-style: italic;
 }
 
@@ -70,79 +69,56 @@
 }
 
 .testament-header {
-    font-size: 1.6rem;
+    position: relative;
+    font-size: 1rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary) !important;
     margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-/* Book type color coding - works in both light and dark modes */
-.book-card.law {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.03));
-    border-left: 3px solid rgba(59, 130, 246, 0.4);
+.testament-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
-.book-card.historical {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.03));
-    border-left: 3px solid rgba(34, 197, 94, 0.4);
-}
-
-.book-card.wisdom {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(168, 85, 247, 0.03));
-    border-left: 3px solid rgba(168, 85, 247, 0.4);
-}
-
-.book-card.major-prophets {
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(249, 115, 22, 0.03));
-    border-left: 3px solid rgba(249, 115, 22, 0.4);
-}
-
-.book-card.minor-prophets {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.03));
-    border-left: 3px solid rgba(239, 68, 68, 0.4);
-}
-
-.book-card.gospels {
-    background: linear-gradient(135deg, rgba(234, 179, 8, 0.08), rgba(234, 179, 8, 0.03));
-    border-left: 3px solid rgba(234, 179, 8, 0.4);
-}
-
-.book-card.acts {
-    background: linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(20, 184, 166, 0.03));
-    border-left: 3px solid rgba(20, 184, 166, 0.4);
-}
-
-.book-card.pauline {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.03));
-    border-left: 3px solid rgba(99, 102, 241, 0.4);
-}
-
-.book-card.general {
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(236, 72, 153, 0.03));
-    border-left: 3px solid rgba(236, 72, 153, 0.4);
-}
-
-.book-card.apocalyptic {
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(220, 38, 38, 0.03));
-    border-left: 3px solid rgba(220, 38, 38, 0.4);
-}
+/* Book type color coding — genre inks on the spine edge */
+.book-card.law { border-left-color: var(--cat-law); }
+.book-card.historical { border-left-color: var(--cat-historical); }
+.book-card.wisdom { border-left-color: var(--cat-wisdom); }
+.book-card.major-prophets { border-left-color: var(--cat-major-prophets); }
+.book-card.minor-prophets { border-left-color: var(--cat-minor-prophets); }
+.book-card.gospels { border-left-color: var(--cat-gospels); }
+.book-card.acts { border-left-color: var(--cat-acts); }
+.book-card.pauline { border-left-color: var(--cat-pauline); }
+.book-card.general { border-left-color: var(--cat-general); }
+.book-card.apocalyptic { border-left-color: var(--cat-apocalyptic); }
 
 /* Legend styles */
 .legend {
     margin: 1.5rem 0 2rem 0;
-    padding: 1rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
+    padding: 1.1rem 1.25rem;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    border: 1px solid var(--border-color-dark);
 }
 
 .legend-title {
-    font-size: 0.9rem;
+    font-size: 0.72rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--bronze);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.16em;
 }
 
 .legend-grid {
@@ -156,64 +132,26 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.85rem;
+    color: var(--text-secondary);
 }
 
 .legend-color {
-    width: 24px;
-    height: 24px;
-    border-radius: 3px;
+    width: 3px;
+    height: 18px;
+    border-radius: 2px;
     flex-shrink: 0;
 }
 
-.legend-color.law {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.03));
-    border-left: 3px solid rgba(59, 130, 246, 0.4);
-}
-
-.legend-color.historical {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.03));
-    border-left: 3px solid rgba(34, 197, 94, 0.4);
-}
-
-.legend-color.wisdom {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(168, 85, 247, 0.03));
-    border-left: 3px solid rgba(168, 85, 247, 0.4);
-}
-
-.legend-color.major-prophets {
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(249, 115, 22, 0.03));
-    border-left: 3px solid rgba(249, 115, 22, 0.4);
-}
-
-.legend-color.minor-prophets {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.03));
-    border-left: 3px solid rgba(239, 68, 68, 0.4);
-}
-
-.legend-color.gospels {
-    background: linear-gradient(135deg, rgba(234, 179, 8, 0.08), rgba(234, 179, 8, 0.03));
-    border-left: 3px solid rgba(234, 179, 8, 0.4);
-}
-
-.legend-color.acts {
-    background: linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(20, 184, 166, 0.03));
-    border-left: 3px solid rgba(20, 184, 166, 0.4);
-}
-
-.legend-color.pauline {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.03));
-    border-left: 3px solid rgba(99, 102, 241, 0.4);
-}
-
-.legend-color.general {
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(236, 72, 153, 0.03));
-    border-left: 3px solid rgba(236, 72, 153, 0.4);
-}
-
-.legend-color.apocalyptic {
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(220, 38, 38, 0.03));
-    border-left: 3px solid rgba(220, 38, 38, 0.4);
-}
+.legend-color.law { background: var(--cat-law); }
+.legend-color.historical { background: var(--cat-historical); }
+.legend-color.wisdom { background: var(--cat-wisdom); }
+.legend-color.major-prophets { background: var(--cat-major-prophets); }
+.legend-color.minor-prophets { background: var(--cat-minor-prophets); }
+.legend-color.gospels { background: var(--cat-gospels); }
+.legend-color.acts { background: var(--cat-acts); }
+.legend-color.pauline { background: var(--cat-pauline); }
+.legend-color.general { background: var(--cat-general); }
+.legend-color.apocalyptic { background: var(--cat-apocalyptic); }
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
@@ -259,8 +197,8 @@
     }
 
     .legend-color {
-        width: 18px;
-        height: 18px;
+        width: 3px;
+        height: 14px;
     }
 }
 

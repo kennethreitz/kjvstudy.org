@@ -144,16 +144,10 @@
 /* Highlight sidenote when its checkbox is checked */
 .margin-toggle:checked + .sidenote,
 .margin-toggle:checked + .marginnote {
-    background-color: rgba(255, 237, 160, 0.3);
-    border-left: 3px solid rgba(255, 193, 7, 0.6);
+    background-color: var(--gold-soft);
+    border-left: 3px solid var(--gold);
     padding-left: 0.5rem;
     margin-left: -0.5rem;
-}
-
-[data-theme="dark"] .margin-toggle:checked + .sidenote,
-[data-theme="dark"] .margin-toggle:checked + .marginnote {
-    background-color: rgba(255, 193, 7, 0.15);
-    border-left: 3px solid rgba(255, 193, 7, 0.5);
 }
 
 .sidenote.expanded,
@@ -256,28 +250,66 @@ hr::before {
     content: "⁂";
     font-size: 1.5rem;
     letter-spacing: 0.6em;
-    color: var(--text-color);
+    color: var(--gold);
+}
+
+/* Chapter head — small-caps book name over a bronze chapter line */
+.chapter-head-title {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+}
+
+.chapter-head-title .chapter-book-name {
+    display: block;
+    font-size: 2.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-strong);
+}
+
+.chapter-head-title .chapter-numeral {
+    display: block;
+    margin-top: 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--bronze);
+}
+
+.chapter-subtitle {
+    font-size: 1.15rem !important;
+    margin-top: 0.5rem !important;
+}
+
+@media (max-width: 768px) {
+    .chapter-head-title .chapter-book-name {
+        font-size: 2rem;
+        letter-spacing: 0.07em;
+        font-weight: 400;
+    }
+
+    .chapter-head-title .chapter-numeral {
+        font-size: 0.75rem;
+    }
 }
 
 /* Section headings - like study Bible pericopes */
 .section-heading {
-    font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
-    font-size: 1.1rem;
-    font-weight: normal;
-    font-style: italic;
-    color: var(--text-secondary, #666);
-    margin: 1.8rem 0 0.6rem 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    color: var(--bronze);
+    margin: 2.4rem 0 0.9rem 0;
     padding: 0;
     border: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.2em;
 }
 
 .section-heading:first-child {
     margin-top: 0;
-}
-
-[data-theme="dark"] .section-heading {
-    color: #a0a0a0;
 }
 
 .verse-number-link {
@@ -285,7 +317,7 @@ hr::before {
     font-size: 1rem;
     vertical-align: super;
     text-decoration: none;
-    color: inherit;
+    color: var(--bronze);
     position: relative;
     top: -0.5rem;
     left: 0.1rem;
@@ -312,13 +344,13 @@ hr::before {
 .verse-star:hover,
 .verse-star:focus-visible {
     opacity: 1;
-    color: #eab308;
+    color: var(--star);
     outline: none;
 }
 
 .verse-star.starred {
     opacity: 1;
-    color: #eab308;
+    color: var(--star);
 }
 
 @media print {
@@ -326,7 +358,7 @@ hr::before {
 }
 
 .verse-number-link:hover {
-    color: #111;
+    color: var(--accent-strong);
     text-decoration: underline;
 }
 
@@ -337,35 +369,22 @@ p[id^="verse-"] {
 
 /* Keyboard navigation selected verse */
 p[id^="verse-"].selected {
-    background: rgba(74, 124, 89, 0.1);
+    background: var(--accent-soft);
     margin-left: -1rem;
     padding-left: 1rem;
-    border-left: 3px solid #4a7c59;
+    border-left: 3px solid var(--accent);
     transition: all 0.15s ease;
-}
-
-[data-theme="dark"] p[id^="verse-"].selected {
-    background: rgba(107, 155, 122, 0.15);
-    border-left-color: #6b9b7a;
 }
 
 /* Keyboard navigation selected action button */
 .action-btn.selected {
-    outline: 2px solid #4a7c59;
+    outline: 2px solid var(--accent);
     outline-offset: 4px;
-}
-
-[data-theme="dark"] .action-btn.selected {
-    outline-color: #6b9b7a;
 }
 
 /* Commentary indicator: green accent, distinct from red-letter (words of Christ) */
 .verse-number-link.has-commentary {
-    color: #4a7c59 !important;
-}
-
-[data-theme="dark"] .verse-number-link.has-commentary {
-    color: #6b9b7a !important;
+    color: var(--accent-strong) !important;
 }
 
 /* Prevent sidenote numbers from appearing too close to verse numbers */
@@ -390,10 +409,10 @@ p[id^="verse-"].selected {
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
     font-weight: 600;
-    background: var(--bg-color);
+    background: var(--bg-elevated);
     color: var(--text-color);
-    border: 1px solid var(--border-color-darker);
-    border-radius: 4px;
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s;
@@ -401,9 +420,9 @@ p[id^="verse-"].selected {
 }
 
 .chapter-nav-btn:hover {
-    background: var(--code-bg);
-    border-color: var(--text-secondary);
-    color: var(--link-hover);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .chapter-nav-btn.secondary {
@@ -454,29 +473,24 @@ p[id^="verse-"].selected {
     padding: 0.45rem 0.9rem;
     font-size: 0.9rem;
     color: var(--text-secondary);
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
 }
 
 .action-btn:hover {
-    background: var(--bg-color);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
     text-decoration: none;
 }
 
 .action-btn svg {
     width: 16px;
     height: 16px;
-}
-
-.interlinear-btn:hover {
-    border-color: #4a7c59;
-    color: #4a7c59;
 }
 
 @media print {
@@ -619,8 +633,8 @@ p[id^="verse-"].selected {
     font-size: 0.6rem;
     line-height: 0;
     margin-left: 0.15rem;
-    color: #4a7c59;
-    opacity: 0.6;
+    color: var(--accent);
+    opacity: 0.65;
     user-select: none;
     -webkit-user-select: none;
     transition: opacity 0.15s ease;
@@ -629,8 +643,6 @@ p[id^="verse-"].selected {
 .vc-marker::before { content: "\2726"; }  /* four-pointed star — quiet study-note mark */
 
 .vc-marker:hover { opacity: 1; }
-
-[data-theme="dark"] .vc-marker { color: #6b9b7a; }
 
 /* Decorative toggle (mouse). The same note is reachable via the verse link. */
 .vc-toggle { display: none; }
@@ -650,12 +662,10 @@ p[id^="verse-"].selected {
     font-size: 0.62rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #4a7c59;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
     margin-bottom: 0.6rem;
 }
-
-[data-theme="dark"] .verse-commentary-body .vc-eyebrow { color: #6b9b7a; }
 
 .verse-commentary-body h4 {
     font-size: 0.7rem;
@@ -686,13 +696,11 @@ p[id^="verse-"].selected {
     display: inline-block;
     margin-top: 0.85rem;
     font-size: 0.8rem;
-    color: #4a7c59;
+    color: var(--accent-strong);
     border-bottom: none;
 }
 
 .verse-commentary-body .vc-permalink:hover { text-decoration: underline; }
-
-[data-theme="dark"] .verse-commentary-body .vc-permalink { color: #6b9b7a; }
 
 @media (max-width: 768px) {
     .chapter-overview { max-width: 100%; }
@@ -717,8 +725,8 @@ p[id^="verse-"].selected {
 // Use chapter-specific reader logic; disable global resource reader on this page
 document.body.dataset.resourceReader = 'false';
 </script>
-<h1>{{ book }} {{ chapter }}</h1>
-<p class="subtitle"><a href="/books">Authorized King James Version</a></p>
+<h1 class="chapter-head-title"><span class="chapter-book-name">{{ book }}</span> <span class="chapter-numeral">Chapter {{ chapter }}</span></h1>
+<p class="subtitle chapter-subtitle"><a href="/books">Authorized King James Version</a></p>
 
 <div class="chapter-actions">
     <a href="/study/{{ book }}/{{ chapter }}" class="action-btn study-btn">
