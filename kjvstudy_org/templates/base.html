@@ -865,15 +865,12 @@
             background: var(--accent-soft);
         }
 
+        /* Current page — quiet: strong ink and a hairline gilt tick, no fill */
         .nav-sidebar a.current {
-            color: var(--on-accent);
-            background: var(--accent-fill);
-            font-weight: 600;
-        }
-
-        .nav-sidebar a.current:hover {
-            color: var(--on-accent);
-            background: var(--accent-fill-hover);
+            color: var(--text-strong);
+            background: transparent;
+            font-weight: 700;
+            box-shadow: inset 2px 0 0 var(--gold);
         }
 
         /* Book type color indicators in sidebar */
