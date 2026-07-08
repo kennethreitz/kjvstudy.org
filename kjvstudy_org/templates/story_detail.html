@@ -49,11 +49,13 @@
     margin-bottom: 2rem;
 }
 .story-header .category-link {
-    font-size: 0.9rem;
+    font-size: 0.78rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--link-color);
+    letter-spacing: 0.22em;
+    color: var(--bronze) !important;
     text-decoration: none;
+    border-bottom: none;
 }
 .story-header .category-link:hover {
     text-decoration: underline;
@@ -78,18 +80,18 @@
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
 }
 .action-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
     text-decoration: none;
 }
 .action-btn svg {
@@ -97,9 +99,9 @@
     height: 16px;
 }
 .action-btn.playing {
-    background: var(--link-color);
-    color: white;
-    border-color: var(--link-color);
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    border-color: var(--accent-fill);
 }
 
 /* Story metadata grid */
@@ -108,16 +110,18 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
     margin: 2rem 0;
-    padding: 1.5rem;
-    background: var(--code-bg, #f8f8f8);
-    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
 }
 .meta-section h4 {
     margin: 0 0 0.5rem 0;
-    font-size: 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary, #888);
+    letter-spacing: 0.16em;
+    color: var(--bronze);
 }
 .meta-section ul {
     list-style: none;
@@ -133,18 +137,19 @@
 }
 .meta-section .tag {
     display: inline-block;
-    padding: 0.2rem 0.6rem;
+    padding: 0.2rem 0.65rem;
     margin: 0.2rem 0.2rem 0.2rem 0;
-    border-radius: 3px;
+    border-radius: 999px;
     font-size: 0.85rem;
+    border: 1px solid var(--border-color-dark);
 }
 .meta-section .tag.character {
-    background: #e8f4f8;
-    color: #2a6f8f;
+    background: var(--accent-softer);
+    color: var(--accent-strong);
 }
 .meta-section .tag.theme {
-    background: #f0f4e8;
-    color: #5a7a2a;
+    background: var(--gold-soft);
+    color: var(--bronze);
 }
 
 /* Story divider */
@@ -155,43 +160,33 @@ hr.story-divider {
     margin: 2.5rem 0;
 }
 hr.story-divider::before {
-    content: "* * *";
-    font-size: 1rem;
+    content: "\2042";  /* asterism */
+    font-size: 1.4rem;
     letter-spacing: 0.6em;
-    color: var(--text-secondary, #888);
+    color: var(--gold);
 }
 
 /* Kids callout */
 .kids-callout {
-    background: linear-gradient(135deg, #f5f0ff 0%, #efe8ff 100%);
-    border-left: 4px solid #8b5cf6;
+    background: var(--accent-softer);
+    border-left: 3px solid var(--accent);
     padding: 1.5rem 2rem;
     margin: 2.5rem 0;
-    border-radius: 0 6px 6px 0;
+    border-radius: 0 8px 8px 0;
 }
 .kids-callout h3 {
     margin: 0 0 0.5rem 0;
-    color: #6d28d9;
+    color: var(--accent-strong) !important;
     font-size: 1.1rem;
+    font-style: normal;
 }
 .kids-callout p {
     margin: 0;
-    color: var(--text-secondary, #555);
+    color: var(--text-secondary);
 }
 .kids-callout a {
-    color: #7c3aed;
+    color: var(--accent-strong) !important;
     font-weight: 600;
-}
-/* Dark mode kids callout */
-[data-theme="dark"] .kids-callout {
-    background: linear-gradient(135deg, #2d2640 0%, #1f1a2e 100%);
-    border-left-color: #a78bfa;
-}
-[data-theme="dark"] .kids-callout h3 {
-    color: #c4b5fd;
-}
-[data-theme="dark"] .kids-callout a {
-    color: #a78bfa;
 }
 
 /* Story navigation */
@@ -220,10 +215,11 @@ hr.story-divider::before {
 }
 .story-nav .nav-label {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.68rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary, #888);
+    letter-spacing: 0.16em;
+    color: var(--bronze);
     margin-bottom: 0.25rem;
 }
 .story-nav .nav-title {

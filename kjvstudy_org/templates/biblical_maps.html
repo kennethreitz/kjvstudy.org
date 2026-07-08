@@ -4,29 +4,140 @@
 {% block description %}Explore the geographical and historical context of biblical locations.{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <style>
 .map-intro {
     max-width: 55%;
     margin: 2rem 0;
 }
 
-.map-container {
+/* The map — a self-contained engraved plate, no external tiles */
+.map-plate {
+    position: relative;
+    max-width: 75%;
+    margin: 2rem 0 1rem;
+    padding: 10px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-darker);
+    box-shadow: var(--shadow-soft);
+}
+
+.map-plate::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid var(--border-color-dark);
+    pointer-events: none;
+}
+
+.map-plate svg {
+    display: block;
     width: 100%;
-    max-width: 55%;
-    height: 450px;
-    margin: 2rem 0;
-    border: 1px solid #ccc;
+    height: auto;
+}
+
+.map-plate .sea {
+    fill: var(--accent-softer);
+}
+
+.map-plate .land {
+    fill: var(--bg-elevated);
+    stroke: var(--bronze);
+    stroke-width: 1.1;
+    stroke-linejoin: round;
+}
+
+.map-plate .water {
+    fill: var(--accent-soft);
+    stroke: var(--bronze);
+    stroke-width: 0.8;
+}
+
+.map-plate .river {
+    fill: none;
+    stroke: var(--bronze);
+    stroke-width: 1;
+    opacity: 0.75;
+}
+
+.map-plate .journey-route {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.4;
+    stroke-dasharray: 5 4;
+    opacity: 0.6;
+}
+
+.map-plate .site {
+    stroke: var(--bg-elevated);
+    stroke-width: 1.4;
+}
+
+.map-plate .site-ot { fill: var(--bronze); }
+.map-plate .site-nt { fill: var(--rubric); }
+.map-plate .site-journey { fill: var(--accent); }
+
+.map-plate .site-label {
+    font-family: inherit;
+    font-size: 11px;
+    fill: var(--text-color);
+}
+
+.map-plate .site-label-small {
+    font-family: inherit;
+    font-size: 9.5px;
+    fill: var(--text-color);
+}
+
+.map-plate .region-label {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    fill: var(--text-tertiary);
+    opacity: 0.85;
+}
+
+.map-plate .sea-label {
+    font-family: inherit;
+    font-size: 10.5px;
+    font-style: italic;
+    letter-spacing: 0.18em;
+    fill: var(--accent);
+    opacity: 0.9;
+}
+
+.map-plate .inset-box {
+    fill: var(--bg-elevated);
+    stroke: var(--bronze);
+    stroke-width: 1;
+}
+
+.map-plate .inset-title {
+    font-family: inherit;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    fill: var(--bronze);
+}
+
+.map-caption {
+    max-width: 75%;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-tertiary);
+    margin: 0.75rem 0 0;
 }
 
 .map-legend {
-    max-width: 55%;
+    max-width: 75%;
     margin: 1rem 0 2rem 0;
     padding: 1rem 0;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     font-size: 0.95rem;
+    color: var(--text-secondary);
 }
 
 .legend-item {
@@ -41,11 +152,40 @@
     border-radius: 50%;
     margin-right: 0.5rem;
     vertical-align: middle;
+    border: 1px solid var(--bg-elevated);
+    box-shadow: 0 0 0 1px var(--border-color-dark);
 }
+
+.legend-marker.ot { background: var(--bronze); }
+.legend-marker.nt { background: var(--rubric); }
+.legend-marker.journey { background: var(--accent); }
 
 .region-section {
     max-width: 55%;
     margin: 3rem 0;
+}
+
+.region-section h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.region-section h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .location-entry {
@@ -56,11 +196,12 @@
     font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
+    color: var(--text-strong);
 }
 
 .location-meta {
     font-style: italic;
-    color: #666;
+    color: var(--text-tertiary);
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 }
@@ -76,7 +217,30 @@
 }
 
 .location-verses a {
-    margin-right: 0.5rem;
+    display: inline-block;
+    margin: 0 0.4rem 0.4rem 0;
+    padding: 0.2rem 0.6rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark) !important;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+}
+
+.location-verses a:hover {
+    border-color: var(--accent) !important;
+    color: var(--accent-strong);
+    background: var(--accent-softer);
+}
+
+@media (max-width: 768px) {
+    .map-plate,
+    .map-caption,
+    .map-legend,
+    .map-intro,
+    .region-section {
+        max-width: 100%;
+    }
 }
 </style>
 {% endblock %}
@@ -95,19 +259,149 @@ document.body.dataset.resourceReader = 'true';
     </div>
 </section>
 
-<div id="biblical-map" class="map-container"></div>
+<figure class="map-plate" aria-label="A stylised map of the biblical world, from Rome to Babylon, with an inset of the Holy Land">
+<svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" role="img">
+    <!-- The sea -->
+    <rect class="sea" x="0" y="0" width="800" height="460"/>
+
+    <!-- Main landmass: North Africa, the Levant, Anatolia, Mesopotamia -->
+    <path class="land" d="M0,332 L60,336 L130,330 L200,322 L235,300 L262,296 L285,312 L330,326 L380,330 L421,327
+        L437,317 L447,314 L458,319 L470,325 L500,330 L518,311 L527,283 L532,266 L541,243 L545,217 L551,204
+        L548,190 L520,193 L505,197 L480,204 L463,202 L440,203 L421,199 L400,196 L380,190 L358,187
+        L350,168 L356,150 L348,132 L352,115 L360,100 L372,88 L388,80 L400,74
+        L430,66 L470,60 L520,57 L570,60 L620,55 L680,52 L740,56 L800,52
+        L800,460 L0,460 Z"/>
+
+    <!-- The Balkans and Greece -->
+    <path class="land" d="M200,0 L235,35 L252,70 L268,88 L262,110 L250,128 L244,150 L252,148 L246,168 L258,186
+        L274,192 L284,176 L280,162 L292,150 L288,132 L300,110 L306,90 L322,64 L340,36 L352,12 L348,0 Z"/>
+
+    <!-- Italy and Sicily -->
+    <path class="land" d="M0,0 L55,0 L78,18 L108,42 L128,66 L146,88 L170,96 L180,102 L160,112 L143,132 L133,152
+        L126,158 L118,150 L122,128 L104,104 L76,84 L48,64 L28,42 L0,22 Z"/>
+    <path class="land" d="M58,152 L108,158 L96,182 L68,176 Z"/>
+
+    <!-- Crete and Cyprus -->
+    <path class="land" d="M284,224 L305,218 L330,220 L342,226 L322,232 L296,230 Z"/>
+    <path class="land" d="M470,222 L492,215 L512,218 L518,222 L505,230 L484,234 L472,228 Z"/>
+
+    <!-- The Red Sea and its gulfs (Suez and Aqaba flanking the Sinai) -->
+    <path class="water" d="M460,332 L470,336 L498,406 L490,412 Z"/>
+    <path class="water" d="M519,368 L527,370 L533,412 L525,414 Z"/>
+    <path class="water" d="M490,412 L498,406 L525,414 L533,412 L548,436 L560,460 L512,460 L496,432 Z"/>
+
+    <!-- The Persian Gulf -->
+    <path class="water" d="M800,340 L800,392 L772,368 L758,346 L776,332 Z"/>
+
+    <!-- Rivers: the Nile, Euphrates, and Tigris -->
+    <path class="river" d="M438,318 L448,334 L450,368 L446,404 L438,436 L436,460"/>
+    <path class="river" d="M458,320 L448,334"/>
+    <path class="river" d="M589,184 C610,205 640,235 670,258 C700,280 715,288 725,296 L760,320 L782,338"/>
+    <path class="river" d="M627,176 C655,192 685,208 706,238 C725,265 745,300 770,330"/>
+
+    <!-- Paul's route westward -->
+    <path class="journey-route" d="M551,205 L505,226 L460,222 L410,196 L366,158 L330,110 L301,79 L289,150 L272,157 L180,120 L100,80 L56,58"/>
+
+    <!-- Sea and region names -->
+    <text class="sea-label" x="330" y="272" text-anchor="middle">THE GREAT SEA</text>
+    <text class="sea-label" x="585" y="30" text-anchor="middle">THE BLACK SEA</text>
+    <text class="sea-label" x="578" y="446" text-anchor="middle" transform="rotate(30 578 446)">THE RED SEA</text>
+    <text class="region-label" x="95" y="48">ITALIA</text>
+    <text class="region-label" x="300" y="42" text-anchor="middle">MACEDONIA</text>
+    <text class="region-label" x="450" y="146" text-anchor="middle">ASIA MINOR</text>
+    <text class="region-label" x="392" y="398" text-anchor="middle">EGYPT</text>
+    <text class="region-label" x="640" y="402" text-anchor="middle">ARABIA</text>
+    <text class="region-label" x="672" y="248" text-anchor="middle">MESOPOTAMIA</text>
+
+    <!-- Compass north -->
+    <g opacity="0.8">
+        <line x1="748" y1="128" x2="748" y2="96" stroke="var(--bronze)" stroke-width="1"/>
+        <path d="M748,90 L744,102 L748,99 L752,102 Z" fill="var(--bronze)"/>
+        <text class="site-label-small" x="748" y="142" text-anchor="middle" fill="var(--bronze)">N</text>
+    </g>
+
+    <!-- Sites: apostolic journeys -->
+    <g>
+        <circle class="site site-journey" cx="53" cy="54" r="4.5"><title>Rome — the imperial capital</title></circle>
+        <text class="site-label" x="61" y="51">Rome</text>
+        <circle class="site site-journey" cx="301" cy="76" r="4.5"><title>Philippi — first European church</title></circle>
+        <text class="site-label" x="309" y="73">Philippi</text>
+        <circle class="site site-journey" cx="289" cy="154" r="4.5"><title>Athens — Paul's Mars Hill sermon</title></circle>
+        <text class="site-label" x="297" y="150">Athens</text>
+        <circle class="site site-journey" cx="272" cy="158" r="4.5"><title>Corinth — cosmopolitan port</title></circle>
+        <text class="site-label" x="264" y="172" text-anchor="end">Corinth</text>
+        <circle class="site site-journey" cx="366" cy="155" r="4.5"><title>Ephesus — one of the Seven Churches</title></circle>
+        <text class="site-label" x="374" y="152">Ephesus</text>
+        <circle class="site site-journey" cx="551" cy="200" r="4.5"><title>Antioch — first called Christians</title></circle>
+        <text class="site-label" x="559" y="197">Antioch</text>
+    </g>
+
+    <!-- Sites: New Testament -->
+    <g>
+        <circle class="site site-nt" cx="554" cy="268" r="4.5"><title>Damascus — where Saul was converted</title></circle>
+        <text class="site-label" x="562" y="265">Damascus</text>
+        <circle class="site site-nt" cx="530" cy="312" r="4.5"><title>Jerusalem — the Holy City</title></circle>
+        <text class="site-label" x="538" y="316">Jerusalem</text>
+    </g>
+
+    <!-- Sites: Old Testament -->
+    <g>
+        <circle class="site site-ot" cx="725" cy="293" r="4.5"><title>Babylon — site of the captivity</title></circle>
+        <text class="site-label" x="733" y="290">Babylon</text>
+        <circle class="site site-ot" cx="697" cy="197" r="4.5"><title>Nineveh — capital of Assyria</title></circle>
+        <text class="site-label" x="705" y="194">Nineveh</text>
+        <circle class="site site-ot" cx="760" cy="333" r="4.5"><title>Ur of the Chaldees — Abraham's birthplace</title></circle>
+        <text class="site-label" x="752" y="348" text-anchor="end">Ur</text>
+        <circle class="site site-ot" cx="505" cy="395" r="4.5"><title>Mount Sinai — where the Law was given</title></circle>
+        <text class="site-label" x="513" y="399">Mt. Sinai</text>
+        <circle class="site site-ot" cx="447" cy="362" r="4.5"><title>Memphis — ancient Egypt</title></circle>
+        <text class="site-label" x="440" y="366" text-anchor="end">Memphis</text>
+    </g>
+
+    <!-- Inset: the Holy Land -->
+    <g>
+        <rect class="inset-box" x="16" y="200" width="196" height="248"/>
+        <path class="sea" d="M17,209 L90,209 L84,222 L76,252 L69,280 L60,330 L46,362 L28,398 L17,420 Z"/>
+        <path d="M90,209 L84,222 L76,252 L69,280 L60,330 L46,362 L28,398 L17,420" fill="none" stroke="var(--bronze)" stroke-width="1"/>
+        <ellipse class="water" cx="146.6" cy="237.5" rx="7" ry="9.5"/>
+        <path class="river" d="M146,247 L143,280 L140,310 L138,336"/>
+        <path class="water" d="M134,365 Q142,372 140,400 Q138,428 132,430 Q128,404 130,382 Z"/>
+        <text class="inset-title" x="104" y="222">THE HOLY LAND</text>
+        <text class="site-label-small" x="156" y="260" font-style="italic">Sea of Galilee</text>
+        <text class="site-label-small" x="148" y="302" font-style="italic">Jordan</text>
+
+        <circle class="site site-nt" cx="111" cy="249" r="4"><title>Nazareth — where Jesus was raised</title></circle>
+        <text class="site-label-small" x="104" y="246" text-anchor="end">Nazareth</text>
+        <circle class="site site-ot" cx="128" cy="347" r="4"><title>Jericho — walls fell before Joshua</title></circle>
+        <text class="site-label-small" x="134" y="344">Jericho</text>
+        <circle class="site site-ot" cx="102" cy="340" r="4"><title>Bethel — Jacob's ladder vision</title></circle>
+        <text class="site-label-small" x="96" y="337" text-anchor="end">Bethel</text>
+        <circle class="site site-nt" cx="99" cy="358" r="4"><title>Jerusalem — the Holy City</title></circle>
+        <text class="site-label-small" x="93" y="356" text-anchor="end">Jerusalem</text>
+        <circle class="site site-nt" cx="99" cy="368" r="4"><title>Bethlehem — Christ's nativity</title></circle>
+        <text class="site-label-small" x="93" y="374" text-anchor="end">Bethlehem</text>
+        <circle class="site site-ot" cx="162" cy="359" r="4"><title>Mount Nebo — Moses viewed the Promised Land</title></circle>
+        <text class="site-label-small" x="168" y="356">Mt. Nebo</text>
+        <circle class="site site-ot" cx="86" cy="387" r="4"><title>Hebron — city of the Patriarchs</title></circle>
+        <text class="site-label-small" x="80" y="392" text-anchor="end">Hebron</text>
+        <circle class="site site-ot" cx="50" cy="420" r="4"><title>Beersheba — southern boundary of Israel</title></circle>
+        <text class="site-label-small" x="57" y="425">Beersheba</text>
+    </g>
+</svg>
+</figure>
+<p class="map-caption">A stylised plate of the biblical world, after the manner of old atlases — not drawn to survey. The dotted line traces Paul's journeys westward from Antioch to Rome.</p>
 
 <div class="map-legend">
     <span class="legend-item">
-        <span class="legend-marker" style="background: #8b4513;"></span>
+        <span class="legend-marker ot"></span>
         Old Testament Sites
     </span>
     <span class="legend-item">
-        <span class="legend-marker" style="background: #4169e1;"></span>
+        <span class="legend-marker nt"></span>
         New Testament Sites
     </span>
     <span class="legend-item">
-        <span class="legend-marker" style="background: #2e7d32;"></span>
+        <span class="legend-marker journey"></span>
         Apostolic Journeys
     </span>
 </div>
@@ -367,7 +661,7 @@ document.body.dataset.resourceReader = 'true';
             entries[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, entries.length - 1));
-        entries[selectedIndex].style.outline = '2px solid #4a7c59';
+        entries[selectedIndex].style.outline = '2px solid var(--accent)';
         entries[selectedIndex].style.outlineOffset = '4px';
         entries[selectedIndex].classList.add('selected');
         entries[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
@@ -404,65 +698,6 @@ document.body.dataset.resourceReader = 'true';
     });
 })();
 
-function initializeMap() {
-    const locations = [
-        // Holy Land
-        { name: 'Jerusalem', coords: [31.7857, 35.2007], type: 'ot', desc: 'The Holy City' },
-        { name: 'Bethlehem', coords: [31.7054, 35.2024], type: 'nt', desc: 'Birthplace of Christ' },
-        { name: 'Nazareth', coords: [32.7, 35.3], type: 'nt', desc: 'Where Jesus was raised' },
-        { name: 'Sea of Galilee', coords: [32.8, 35.6], type: 'nt', desc: 'Site of many miracles' },
-        { name: 'Jericho', coords: [31.87, 35.44], type: 'ot', desc: 'Walls fell before Joshua' },
-        { name: 'Bethel', coords: [31.93, 35.22], type: 'ot', desc: "Jacob's ladder vision" },
-        { name: 'Hebron', coords: [31.53, 35.09], type: 'ot', desc: 'City of the Patriarchs' },
-        { name: 'Beersheba', coords: [31.25, 34.79], type: 'ot', desc: 'Southern boundary of Israel' },
-        { name: 'Jordan River', coords: [31.85, 35.55], type: 'ot', desc: 'Crossed on dry ground' },
 
-        // Exodus and Wilderness
-        { name: 'Red Sea Crossing', coords: [29.5, 33.0], type: 'ot', desc: 'Waters parted for Israel' },
-        { name: 'Mount Sinai', coords: [28.54, 33.97], type: 'ot', desc: 'The Law was given' },
-        { name: 'Mount Nebo', coords: [31.77, 35.73], type: 'ot', desc: 'Moses viewed the Promise' },
-
-        // Ancient Kingdoms
-        { name: 'Egypt', coords: [26.8, 30.8], type: 'ot', desc: 'Land of the Pharaohs' },
-        { name: 'Babylon', coords: [32.54, 44.43], type: 'ot', desc: 'Site of captivity' },
-        { name: 'Damascus', coords: [33.5, 36.3], type: 'nt', desc: 'Where Saul was converted' },
-
-        // Apostolic World
-        { name: 'Antioch', coords: [36.16, 36.2], type: 'journey', desc: 'First called Christians' },
-        { name: 'Ephesus', coords: [37.95, 27.37], type: 'journey', desc: 'One of the Seven Churches' },
-        { name: 'Corinth', coords: [37.9, 22.9], type: 'journey', desc: 'Cosmopolitan port' },
-        { name: 'Rome', coords: [41.9, 12.5], type: 'journey', desc: 'Imperial capital' },
-        { name: 'Athens', coords: [37.98, 23.73], type: 'journey', desc: "Paul's Mars Hill sermon" },
-        { name: 'Philippi', coords: [41.01, 24.29], type: 'journey', desc: 'First European church' }
-    ];
-
-    const map = L.map('biblical-map').setView([33.0, 35.0], 5);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-        maxZoom: 19
-    }).addTo(map);
-
-    const colorMap = {
-        'ot': '#8b4513',
-        'nt': '#4169e1',
-        'journey': '#2e7d32'
-    };
-
-    locations.forEach(location => {
-        const marker = L.circleMarker(location.coords, {
-            radius: 7,
-            fillColor: colorMap[location.type],
-            color: '#fff',
-            weight: 2,
-            fillOpacity: 0.8
-        });
-
-        marker.bindPopup(`<strong>${location.name}</strong><br><em>${location.desc}</em>`);
-        marker.addTo(map);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', initializeMap);
 </script>
 {% endblock %}
