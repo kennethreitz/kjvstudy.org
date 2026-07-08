@@ -4,7 +4,96 @@
 
 {% block description %}Structured KJV Bible study guides covering foundational Christian truths, character development, and biblical themes from the King James Version.{% endblock %}
 
+{% block head %}
+<style>
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+    max-width: 90%;
+    margin: 1.5rem 0 2.5rem;
+}
 
+.guide-card {
+    display: block;
+    padding: 1.4rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.guide-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+}
+
+.guide-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-strong);
+    transition: color 0.15s ease;
+}
+
+.guide-card:hover .guide-name {
+    color: var(--accent-strong);
+}
+
+.guide-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0.4rem 0;
+}
+
+.guide-verses {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
+    margin-top: 0.75rem;
+}
+
+/* Category headings — small caps over a gold-tipped rule */
+.guide-category h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 0.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 90%;
+}
+
+.guide-category h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
+@media (max-width: 768px) {
+    .guide-grid {
+        max-width: 100%;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <h1>Bible Study Guides</h1>
@@ -15,25 +104,18 @@
 </section>
 
 {% for category, guides in study_guides.items() %}
-<section id="{{ category | lower | replace(' ', '-') }}">
+<section class="guide-category" id="{{ category | lower | replace(' ', '-') }}">
     <h2>{{ category }}</h2>
 
-    {% for guide in guides %}
-    <p>
-        <strong><a href="/study-guides/{{ guide.slug }}">{{ guide.title }}</a></strong><label for="sn-{{ guide.slug }}" class="margin-toggle sidenote-number"></label>
-        <input type="checkbox" id="sn-{{ guide.slug }}" class="margin-toggle"/>
-        <span class="sidenote">
-            <strong>Key Verses:</strong><br/>
-            {% for verse_ref in guide.verse_refs[:5] %}
-                <a href="{{ verse_ref.url }}">{{ verse_ref.text }}</a>{% if not loop.last %}, {% endif %}
-            {% endfor %}
-            {% if guide.verse_refs|length > 5 %}
-                <br/><em>+{{ guide.verse_refs|length - 5 }} more</em>
-            {% endif %}
-        </span>
-        — {{ guide.description }}
-    </p>
-    {% endfor %}
+    <div class="guide-grid">
+        {% for guide in guides %}
+        <a href="/study-guides/{{ guide.slug }}" class="guide-card">
+            <div class="guide-name">{{ guide.title }}</div>
+            <div class="guide-description">{{ guide.description }}</div>
+            <div class="guide-verses">{{ guide.verse_refs|length }} key verse{% if guide.verse_refs|length != 1 %}s{% endif %}</div>
+        </a>
+        {% endfor %}
+    </div>
 </section>
 {% endfor %}
 
@@ -42,61 +124,11 @@
 </nav>
 
 <script>
-(function() {
-    const links = Array.from(document.querySelectorAll('section p strong a[href^="/study-guides/"]'));
-    if (links.length === 0) return;
-
-    let selectedIndex = -1;
-
-    function clearSelection() {
-        if (selectedIndex >= 0 && selectedIndex < links.length) {
-            links[selectedIndex].style.outline = '';
-            links[selectedIndex].style.outlineOffset = '';
-            links[selectedIndex].classList.remove('selected');
-        }
+// Use standardized grid navigation from base.js
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.KJVNav && KJVNav.initGridNav) {
+        KJVNav.initGridNav('.guide-card', { gridSelector: '.guide-grid' });
     }
-
-    function selectLink(index) {
-        clearSelection();
-        selectedIndex = Math.max(0, Math.min(index, links.length - 1));
-        links[selectedIndex].style.outline = '2px solid #4a7c59';
-        links[selectedIndex].style.outlineOffset = '2px';
-        links[selectedIndex].classList.add('selected');
-        links[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-        if (KJVNav.sidebarActive) return;
-
-        if (e.key === 'ArrowDown' || e.key === 'j') {
-            e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(links, selectedIndex)) {
-                selectLink(KJVNav.findFirstVisibleIndex(links));
-            } else {
-                selectLink(selectedIndex < 0 ? 0 : selectedIndex + 1);
-            }
-        } else if (e.key === 'ArrowUp' || e.key === 'k') {
-            e.preventDefault();
-            if (KJVNav.isSelectionOffScreen(links, selectedIndex)) {
-                selectLink(KJVNav.findFirstVisibleIndex(links));
-            } else if (selectedIndex <= 0) {
-                selectLink(0);
-            } else {
-                selectLink(selectedIndex - 1);
-            }
-        } else if (e.key === 'ArrowLeft' || e.key === 'h') {
-            e.preventDefault();
-            history.back();
-        } else if (e.key === 'Enter' && selectedIndex >= 0) {
-            e.preventDefault();
-            window.location.href = links[selectedIndex].href;
-        } else if (e.key === 'Escape') {
-            e.preventDefault();
-            clearSelection();
-            selectedIndex = -1;
-        }
-    });
-})();
+});
 </script>
 {% endblock %}
