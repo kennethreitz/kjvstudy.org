@@ -9,7 +9,7 @@
     max-width: 55%;
     margin: 2rem 0;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #111;
+    border-bottom: 2px solid var(--text-strong);
 }
 
 .tree-title {
@@ -21,7 +21,7 @@
 
 .tree-subtitle {
     font-size: 1.2rem;
-    color: #666;
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -40,7 +40,7 @@ div.intro-text {
     gap: 1.5rem;
     margin: 1.5rem 0;
     padding: 1rem 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border-color-darker);
     flex-wrap: wrap;
 }
 
@@ -52,24 +52,27 @@ div.intro-text {
 
 .control-group label {
     font-size: 0.95rem;
-    color: #555;
+    color: var(--text-secondary);
 }
 
 .control-group select {
     font-family: inherit;
     font-size: 0.95rem;
     padding: 0.4rem 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background: white;
+    border: 1px solid var(--border-color-darker);
+    border-radius: 6px;
+    background: var(--bg-elevated);
+    color: var(--text-color);
 }
 
 .control-group input[type="text"] {
     font-family: inherit;
     font-size: 0.95rem;
     padding: 0.4rem 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    border: 1px solid var(--border-color-darker);
+    border-radius: 6px;
+    background: var(--bg-elevated);
+    color: var(--text-color);
     width: 180px;
 }
 
@@ -77,24 +80,24 @@ div.intro-text {
     font-family: inherit;
     font-size: 0.9rem;
     padding: 0.4rem 0.8rem;
-    border: 1px solid #4a7c59;
+    border: 1px solid var(--accent);
     border-radius: 3px;
-    background: #4a7c59;
-    color: white;
+    background: var(--accent-fill);
+    color: var(--on-accent);
     cursor: pointer;
 }
 
 .btn:hover {
-    background: #3d6a4b;
+    background: var(--accent-fill-hover);
 }
 
 .btn-secondary {
-    background: white;
-    color: #4a7c59;
+    background: var(--bg-elevated);
+    color: var(--accent-strong);
 }
 
 .btn-secondary:hover {
-    background: #f5f5f5;
+    background: var(--accent-softer);
 }
 
 /* Tree container */
@@ -106,7 +109,7 @@ div.intro-text {
 /* Tree nodes */
 .tree-node {
     margin: 0.5rem 0 0.5rem 1rem;
-    border-left: 2px solid #ccc;
+    border-left: 2px solid var(--border-color-darker);
     padding-left: 0.75rem;
 }
 
@@ -117,18 +120,18 @@ div.intro-text {
 }
 
 .tree-node.selected {
-    background: rgba(74, 124, 89, 0.08);
-    outline: 2px solid #4a7c59;
+    background: var(--accent-softer);
+    outline: 2px solid var(--accent);
     outline-offset: 4px;
 }
 
 .tree-node.kekule {
-    border-left-color: #d4af37;
+    border-left-color: var(--gold);
 }
 
 .tree-node.kekule.selected {
-    background: rgba(212, 175, 55, 0.08);
-    outline-color: #d4af37;
+    background: var(--gold-soft);
+    outline-color: var(--gold);
 }
 
 .person-name {
@@ -149,29 +152,29 @@ div.intro-text {
 .person-name .expand-toggle {
     font-family: monospace;
     font-size: 0.9rem;
-    color: #888;
+    color: var(--text-tertiary);
     cursor: pointer;
     user-select: none;
     margin-left: 0.5rem;
 }
 
 .person-name .expand-toggle:hover {
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 .person-meta {
     font-size: 0.95rem;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 0.25rem;
 }
 
 .person-details {
     font-size: 0.9rem;
-    color: #888;
+    color: var(--text-tertiary);
 }
 
 .person-details a {
-    color: #888;
+    color: var(--text-tertiary);
     text-decoration: none;
 }
 
@@ -194,7 +197,7 @@ div.intro-text {
 /* Stats */
 .tree-stats {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-secondary);
     margin: 1rem 0;
 }
 
@@ -203,7 +206,7 @@ div.intro-text {
     max-width: 55%;
     margin: 2rem 0;
     padding-top: 1rem;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--border-color-darker);
 }
 
 .navigation-links a {
@@ -214,75 +217,16 @@ div.intro-text {
 .keyboard-hint {
     max-width: 55%;
     font-size: 0.85rem;
-    color: #888;
+    color: var(--text-tertiary);
     margin: 1rem 0;
 }
 
 .keyboard-hint kbd {
     font-family: monospace;
-    background: #f5f5f5;
-    border: 1px solid #ddd;
+    background: var(--code-bg);
+    border: 1px solid var(--border-color-dark);
     border-radius: 3px;
     padding: 0.1rem 0.4rem;
-}
-
-/* Dark mode */
-[data-theme="dark"] .tree-header {
-    border-bottom-color: #444;
-}
-
-[data-theme="dark"] .tree-subtitle,
-[data-theme="dark"] .person-meta,
-[data-theme="dark"] .person-spouse {
-    color: #888;
-}
-
-[data-theme="dark"] .control-group label {
-    color: #aaa;
-}
-
-[data-theme="dark"] .control-group select,
-[data-theme="dark"] .control-group input[type="text"] {
-    background: #1a1a1a;
-    border-color: #444;
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .tree-node {
-    border-left-color: #444;
-}
-
-[data-theme="dark"] .tree-node.selected {
-    background: rgba(74, 124, 89, 0.2);
-}
-
-[data-theme="dark"] .tree-node.kekule.selected {
-    background: rgba(212, 175, 55, 0.15);
-}
-
-[data-theme="dark"] .expand-toggle {
-    color: #888;
-}
-
-[data-theme="dark"] .expand-toggle:hover {
-    color: #6b9b7a;
-}
-
-[data-theme="dark"] .tree-controls {
-    border-bottom-color: #444;
-}
-
-[data-theme="dark"] .navigation-links {
-    border-top-color: #444;
-}
-
-[data-theme="dark"] .keyboard-hint {
-    color: #666;
-}
-
-[data-theme="dark"] .keyboard-hint kbd {
-    background: #2a2a2a;
-    border-color: #444;
 }
 
 /* Mobile full width */

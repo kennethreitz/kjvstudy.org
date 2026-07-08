@@ -20,7 +20,7 @@
 }
 
 .page-header .subtitle {
-    color: #666;
+    color: var(--text-secondary);
     margin: 0;
 }
 
@@ -32,17 +32,17 @@
 /* Search card */
 .search-card {
     padding: 1rem 1.25rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
     margin-bottom: 1.5rem;
-    background: #fff;
+    background: var(--bg-elevated);
     max-width: 320px;
 }
 
 .search-card h2 {
     font-size: 1rem;
     margin: 0 0 0.75rem 0;
-    color: #333;
+    color: var(--text-color);
 }
 
 .search-form {
@@ -53,16 +53,23 @@
     width: 100%;
     padding: 0.6rem 0.75rem;
     font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid var(--border-color-darker);
+    border-radius: 6px;
+    background: var(--bg-color);
+    color: var(--text-color);
     font-family: inherit;
     box-sizing: border-box;
 }
 
+.search-form input::placeholder {
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
 .search-form input:focus {
     outline: none;
-    border-color: #4a7c59;
-    box-shadow: 0 0 3px rgba(74, 124, 89, 0.3);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .search-dropdown {
@@ -70,8 +77,8 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: #ffffff;
-    border: 1px solid #ccc;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-darker);
     border-top: none;
     border-radius: 0 0 4px 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -99,7 +106,7 @@
 
 .search-dropdown button:hover,
 .search-dropdown button.active {
-    background: #f5f5f5;
+    background: var(--code-bg);
 }
 
 /* Feature cards */
@@ -112,15 +119,15 @@
 
 .feature-card {
     padding: 1rem 1.25rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
-    background: #fff;
+    background: var(--bg-elevated);
     transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .feature-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border-color: #ccc;
+    box-shadow: var(--shadow-soft);
+    border-color: var(--accent);
 }
 
 .feature-card h3 {
@@ -129,7 +136,7 @@
 }
 
 .feature-card h3 a {
-    color: #4a7c59;
+    color: var(--accent-strong);
     text-decoration: none;
 }
 
@@ -139,7 +146,7 @@
 
 .feature-card p {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-secondary);
     margin: 0;
     line-height: 1.5;
 }
@@ -147,18 +154,18 @@
 /* Stats card */
 .stats-card {
     padding: 1rem 1.25rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
     margin-bottom: 1.5rem;
-    background: #fff;
+    background: var(--bg-elevated);
 }
 
 .stats-card h2 {
     font-size: 1.1rem;
     margin: 0 0 1rem 0;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
-    color: #333;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
 .stats-grid {
@@ -175,34 +182,34 @@
 }
 
 .stat-label {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 0.9rem;
 }
 
 .stat-value {
     font-weight: 600;
-    color: #333;
+    color: var(--text-color);
 }
 
 .stat-value a {
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 /* Generation cards */
 .section-card {
     padding: 1rem 1.25rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
     margin-bottom: 1rem;
-    background: #fff;
+    background: var(--bg-elevated);
 }
 
 .section-card h2 {
     font-size: 1.1rem;
     margin: 0 0 0.75rem 0;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
-    color: #333;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 
 .generation-grid {
@@ -215,20 +222,20 @@
     align-items: baseline;
     gap: 0.75rem;
     padding: 0.6rem 0.75rem;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    background: #fafafa;
+    background: var(--bg-elevated);
     transition: background 0.15s ease;
 }
 
 .gen-card:hover {
-    background: #f5f5f5;
+    background: var(--code-bg);
 }
 
 .gen-card-num {
     font-weight: 600;
     min-width: 40px;
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 .gen-card-num a {
@@ -242,7 +249,7 @@
 
 .gen-card-count {
     font-size: 0.85rem;
-    color: #888;
+    color: var(--text-tertiary);
     min-width: 90px;
 }
 
@@ -253,7 +260,7 @@
 }
 
 .gen-card-people a {
-    color: #555;
+    color: var(--text-secondary);
 }
 
 /* Notable figures grid */
@@ -267,27 +274,27 @@
     flex-direction: column;
     gap: 0.25rem;
     padding: 0.75rem 1rem;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    background: #fafafa;
+    background: var(--bg-elevated);
     transition: background 0.15s ease;
 }
 
 .person-card:hover {
-    background: #f5f5f5;
+    background: var(--code-bg);
 }
 
 .person-card.male {
-    border-left: 3px solid #3b6ea5;
+    border-left: 3px solid var(--cat-law);
 }
 
 .person-card.female {
-    border-left: 3px solid #a55b80;
+    border-left: 3px solid var(--cat-general);
 }
 
 .person-card.kekule {
-    border-left-color: #d4af37;
-    background: linear-gradient(to right, #fffde7, #fafafa);
+    border-left-color: var(--gold);
+    background: linear-gradient(to right, var(--gold-soft), var(--bg-elevated));
 }
 
 .person-card-header {
@@ -312,37 +319,41 @@
 }
 
 .person-card-badge {
-    font-size: 0.7rem;
-    padding: 0.1rem 0.4rem;
-    border-radius: 2px;
-    background: #d4af37;
-    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
+    color: var(--bronze);
 }
 
 .person-card-meta {
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .person-card-details {
     font-size: 0.9rem;
-    color: #555;
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
 .person-card-details a {
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 .person-card-verse {
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-secondary);
     font-style: italic;
     margin-top: 0.25rem;
 }
 
 .person-card-verse a {
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 @media (max-width: 768px) {
@@ -358,114 +369,29 @@
 }
 
 /* Dark mode */
-[data-theme="dark"] .search-card,
-[data-theme="dark"] .feature-card,
-[data-theme="dark"] .stats-card,
-[data-theme="dark"] .section-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
 
-[data-theme="dark"] .search-card h2,
-[data-theme="dark"] .stats-card h2,
-[data-theme="dark"] .section-card h2 {
-    color: #e0e0e0;
-    border-bottom-color: #333;
-}
 
-[data-theme="dark"] .search-form input {
-    background: #2a2a2a;
-    border-color: #444;
-    color: #e0e0e0;
-}
 
-[data-theme="dark"] .search-form input:focus {
-    border-color: #4a7c59;
-}
 
-[data-theme="dark"] .search-dropdown {
-    background: #2a2a2a;
-    border-color: #444;
-}
 
-[data-theme="dark"] .search-dropdown button {
-    color: #e0e0e0;
-}
 
-[data-theme="dark"] .search-dropdown button:hover,
-[data-theme="dark"] .search-dropdown button.active {
-    background: #333;
-}
 
-[data-theme="dark"] .feature-card:hover {
-    border-color: #555;
-}
 
-[data-theme="dark"] .feature-card h3 a {
-    color: #6b9b7a;
-}
 
-[data-theme="dark"] .feature-card p {
-    color: #aaa;
-}
 
-[data-theme="dark"] .stat-label {
-    color: #aaa;
-}
 
-[data-theme="dark"] .stat-value {
-    color: #e0e0e0;
-}
 
-[data-theme="dark"] .gen-card {
-    background: #252525;
-    border-color: #333;
-}
 
-[data-theme="dark"] .gen-card:hover {
-    background: #2a2a2a;
-}
 
-[data-theme="dark"] .gen-card-count {
-    color: #888;
-}
 
-[data-theme="dark"] .gen-card-people a {
-    color: #bbb;
-}
 
-[data-theme="dark"] .person-card {
-    background: #252525;
-    border-color: #333;
-}
 
-[data-theme="dark"] .person-card:hover {
-    background: #2a2a2a;
-}
 
-[data-theme="dark"] .person-card.kekule {
-    background: linear-gradient(to right, #2a2a1a, #252525);
-}
 
-[data-theme="dark"] .person-card-name {
-    color: #e0e0e0;
-}
 
-[data-theme="dark"] .person-card-meta {
-    color: #888;
-}
 
-[data-theme="dark"] .person-card-details {
-    color: #bbb;
-}
 
-[data-theme="dark"] .person-card-verse {
-    color: #888;
-}
 
-[data-theme="dark"] .page-header .subtitle {
-    color: #888;
-}
 </style>
 {% endblock %}
 
@@ -823,7 +749,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedIndex = Math.max(0, Math.min(index, allItems.length - 1));
 
         // Add selection
-        allItems[selectedIndex].style.outline = '2px solid #4a7c59';
+        allItems[selectedIndex].style.outline = '2px solid var(--accent)';
         allItems[selectedIndex].style.outlineOffset = '2px';
         allItems[selectedIndex].classList.add('selected');
 

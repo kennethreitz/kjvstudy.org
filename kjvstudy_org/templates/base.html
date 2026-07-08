@@ -866,10 +866,14 @@
         }
 
         .nav-sidebar a.current {
-            color: var(--accent-strong);
-            background: var(--accent-soft);
-            font-weight: 700;
-            box-shadow: inset 2px 0 0 var(--accent);
+            color: var(--on-accent);
+            background: var(--accent-fill);
+            font-weight: 600;
+        }
+
+        .nav-sidebar a.current:hover {
+            color: var(--on-accent);
+            background: var(--accent-fill-hover);
         }
 
         /* Book type color indicators in sidebar */
