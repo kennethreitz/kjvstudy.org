@@ -59,9 +59,65 @@
 }
 
 .book-info {
-    font-size: 0.9rem;
-    color: var(--text-tertiary);
-    font-style: italic;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
+    margin-top: 0.4rem;
+}
+
+/* Genre name printed in its own ink */
+.book-genre {
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.3rem;
+}
+
+.book-genre.law { color: var(--cat-law); }
+.book-genre.historical { color: var(--cat-historical); }
+.book-genre.wisdom { color: var(--cat-wisdom); }
+.book-genre.major-prophets { color: var(--cat-major-prophets); }
+.book-genre.minor-prophets { color: var(--cat-minor-prophets); }
+.book-genre.gospels { color: var(--cat-gospels); }
+.book-genre.acts { color: var(--cat-acts); }
+.book-genre.pauline { color: var(--cat-pauline); }
+.book-genre.general { color: var(--cat-general); }
+.book-genre.apocalyptic { color: var(--cat-apocalyptic); }
+
+/* Canon stats strip */
+.canon-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    max-width: 90%;
+    margin: 2rem 0 1rem;
+}
+
+.canon-stat {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    text-align: center;
+}
+
+.canon-stat .number {
+    font-family: et-book-roman-old-style, et-book, Georgia, serif;
+    font-size: 1.9rem;
+    color: var(--text-strong);
+    line-height: 1.2;
+}
+
+.canon-stat .label {
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--bronze);
+    margin-top: 0.3rem;
 }
 
 .testament-section {
@@ -91,6 +147,14 @@
     background: var(--gold);
 }
 
+.testament-count {
+    float: right;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--bronze);
+}
+
 /* Book type color coding — genre inks on the spine edge */
 .book-card.law { border-left-color: var(--cat-law); }
 .book-card.historical { border-left-color: var(--cat-historical); }
@@ -102,56 +166,6 @@
 .book-card.pauline { border-left-color: var(--cat-pauline); }
 .book-card.general { border-left-color: var(--cat-general); }
 .book-card.apocalyptic { border-left-color: var(--cat-apocalyptic); }
-
-/* Legend styles */
-.legend {
-    margin: 1.5rem 0 2rem 0;
-    padding: 1.1rem 1.25rem;
-    background: var(--bg-elevated);
-    border-radius: 8px;
-    border: 1px solid var(--border-color-dark);
-}
-
-.legend-title {
-    font-size: 0.72rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--bronze);
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-}
-
-.legend-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.5rem;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-.legend-color {
-    width: 3px;
-    height: 18px;
-    border-radius: 2px;
-    flex-shrink: 0;
-}
-
-.legend-color.law { background: var(--cat-law); }
-.legend-color.historical { background: var(--cat-historical); }
-.legend-color.wisdom { background: var(--cat-wisdom); }
-.legend-color.major-prophets { background: var(--cat-major-prophets); }
-.legend-color.minor-prophets { background: var(--cat-minor-prophets); }
-.legend-color.gospels { background: var(--cat-gospels); }
-.legend-color.acts { background: var(--cat-acts); }
-.legend-color.pauline { background: var(--cat-pauline); }
-.legend-color.general { background: var(--cat-general); }
-.legend-color.apocalyptic { background: var(--cat-apocalyptic); }
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
@@ -183,23 +197,6 @@
         font-size: 1.1rem;
     }
 
-    .legend {
-        padding: 0.75rem;
-    }
-
-    .legend-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.4rem;
-    }
-
-    .legend-item {
-        font-size: 0.75rem;
-    }
-
-    .legend-color {
-        width: 3px;
-        height: 14px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -216,23 +213,43 @@
         font-size: 0.95rem;
     }
 
-    .legend-grid {
-        grid-template-columns: 1fr 1fr;
-    }
 }
 </style>
 {% endblock %}
 
 {% block content %}
+<span class="page-kicker">The Canon of Scripture</span>
 <h1>Books of the Bible</h1>
 <p class="subtitle">The Authorized King James Version</p>
 
+{% set all_books = old_testament + new_testament %}
+<div class="canon-stats">
+    <div class="canon-stat">
+        <div class="number">{{ all_books | length }}</div>
+        <div class="label">Books</div>
+    </div>
+    <div class="canon-stat">
+        <div class="number">{{ "{:,}".format(all_books | sum(attribute="chapters")) }}</div>
+        <div class="label">Chapters</div>
+    </div>
+    <div class="canon-stat">
+        {# 1769 Oxford Standard text of the Authorized Version #}
+        <div class="number">31,102</div>
+        <div class="label">Verses</div>
+    </div>
+    <div class="canon-stat">
+        <div class="number">2</div>
+        <div class="label">Testaments</div>
+    </div>
+</div>
+
 <section id="old-testament" class="testament-section">
-    <h2 class="testament-header">Old Testament</h2>
+    <h2 class="testament-header">Old Testament <span class="testament-count">{{ old_testament | length }} BOOKS</span></h2>
     <div class="book-grid">
         {% for book in old_testament %}
         {% if book.available %}
         <a href="/book/{{ book.name }}" class="book-card {{ book.type }}">
+            <div class="book-genre {{ book.type }}">{{ book.type.replace('-', ' ') }}</div>
             <div class="book-name">{{ book.name }}</div>
             <div class="book-info">{{ book.chapters }} {% if book.chapters == 1 %}chapter{% else %}chapters{% endif %}</div>
         </a>
@@ -242,11 +259,12 @@
 </section>
 
 <section id="new-testament" class="testament-section">
-    <h2 class="testament-header">New Testament</h2>
+    <h2 class="testament-header">New Testament <span class="testament-count">{{ new_testament | length }} BOOKS</span></h2>
     <div class="book-grid">
         {% for book in new_testament %}
         {% if book.available %}
         <a href="/book/{{ book.name }}" class="book-card {{ book.type }}">
+            <div class="book-genre {{ book.type }}">{{ book.type.replace('-', ' ') }}</div>
             <div class="book-name">{{ book.name }}</div>
             <div class="book-info">{{ book.chapters }} {% if book.chapters == 1 %}chapter{% else %}chapters{% endif %}</div>
         </a>
@@ -255,51 +273,6 @@
     </div>
 </section>
 
-<div id="book-categories" class="legend">
-    <div class="legend-title">Book Categories</div>
-    <div class="legend-grid">
-        <div class="legend-item">
-            <div class="legend-color law"></div>
-            <span>Law</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color historical"></div>
-            <span>Historical</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color wisdom"></div>
-            <span>Wisdom</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color major-prophets"></div>
-            <span>Major Prophets</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color minor-prophets"></div>
-            <span>Minor Prophets</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color gospels"></div>
-            <span>Gospels</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color acts"></div>
-            <span>Acts</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color pauline"></div>
-            <span>Pauline Epistles</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color general"></div>
-            <span>General Epistles</span>
-        </div>
-        <div class="legend-item">
-            <div class="legend-color apocalyptic"></div>
-            <span>Apocalyptic</span>
-        </div>
-    </div>
-</div>
 
 <script>
 // Use standardized grid navigation from base.js
