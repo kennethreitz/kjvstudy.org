@@ -3,18 +3,135 @@
 {% block title %}Search Family Tree - KJV Study{% endblock %}
 {% block description %}Search the biblical family tree from Adam to Jesus Christ.{% endblock %}
 
+{% block head %}
+<style>
+.ft-search-form {
+    margin: 1.5rem 0;
+}
+
+.ft-search-input {
+    width: 100%;
+    max-width: 55%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    font-family: inherit;
+    background: var(--bg-elevated);
+    color: var(--text-color);
+    border: 1px solid var(--border-color-darker);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.ft-search-input::placeholder {
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+.ft-search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.ft-search-btn {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    border: 1px solid var(--accent-fill);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.ft-search-btn:hover {
+    background: var(--accent-fill-hover);
+    border-color: var(--accent-fill-hover);
+}
+
+.ft-results {
+    margin: 1.5rem 0;
+}
+
+.ft-results-heading {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ft-results-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
+.ft-result {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border-color-darker);
+}
+
+.ft-result h3 a {
+    color: var(--text-strong);
+}
+
+.ft-result h3 a:hover {
+    color: var(--accent-strong);
+}
+
+.ft-result p {
+    color: var(--text-secondary);
+}
+
+.ft-back-link {
+    margin: 1.5rem 0;
+}
+
+.ft-back-link a {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.15s ease;
+}
+
+.ft-back-link a:hover {
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>Search Family Tree</h1>
 <p class="subtitle">Find individuals in the biblical genealogy</p>
 
-<form method="get" action="/family-tree/search" style="margin: 1.5rem 0;">
+<form method="get" action="/family-tree/search" class="ft-search-form">
     <input
         type="text"
         name="q"
         value="{{ query }}"
         placeholder="Enter a name..."
         list="person-names"
-        style="width: 100%; max-width: 55%; padding: 0.75rem; font-size: 1.1rem; border: 1px solid #ccc;"
+        class="ft-search-input"
         autofocus
         autocomplete="off"
     >
@@ -24,18 +141,18 @@
         {% endfor %}
     </datalist>
     <br>
-    <button type="submit" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: #111; color: #fff; border: none; cursor: pointer;">Search</button>
+    <button type="submit" class="ft-search-btn">Search</button>
 </form>
 
 {% if query %}
-    <div style="margin: 1.5rem 0;">
-        <h2>Results</h2>
+    <div class="ft-results">
+        <h2 class="ft-results-heading">Results</h2>
 
         {% if results %}
             <p>Found {{ results|length }} individual{% if results|length != 1 %}s{% endif %} matching "{{ query }}"</p>
 
             {% for result in results %}
-            <div style="margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid #ccc;">
+            <div class="ft-result">
                 <h3><a href="/family-tree/person/{{ result.id }}">{{ result.name }}</a></h3>
                 <p>
                     {% if result.generation %}Generation {{ result.generation }}{% endif %}
@@ -50,11 +167,11 @@
     </div>
 {% endif %}
 
-<p style="margin: 1.5rem 0;"><a href="/family-tree">← Back to Family Tree</a></p>
+<p class="ft-back-link"><a href="/family-tree">← Back to Family Tree</a></p>
 
 <script>
 (function() {
-    const results = Array.from(document.querySelectorAll('[style*="border-left: 2px solid #ccc"]'));
+    const results = Array.from(document.querySelectorAll('.ft-result'));
     if (results.length === 0) return;
 
     let selectedIndex = -1;
@@ -66,7 +183,7 @@
             results[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, results.length - 1));
-        results[selectedIndex].style.outline = '2px solid #4a7c59';
+        results[selectedIndex].style.outline = '2px solid var(--accent)';
         results[selectedIndex].style.outlineOffset = '4px';
         results[selectedIndex].classList.add('selected');
         results[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });

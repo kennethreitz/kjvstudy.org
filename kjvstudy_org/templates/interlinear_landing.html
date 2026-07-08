@@ -4,6 +4,61 @@
 
 {% block description %}Study the KJV Bible word-by-word in Hebrew and Greek with transliteration, Strong's numbers, parsing, and definitions.{% endblock %}
 
+{% block head %}
+<style>
+/* Sample word cards — match the homepage interlinear samples */
+.interlinear-example {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.sample-word {
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+}
+
+.sample-original {
+    display: block;
+    font-size: 2.2rem;
+    color: var(--text-strong);
+    margin-bottom: 0.35rem;
+}
+
+.sample-original.hebrew {
+    font-family: "SBL Hebrew", "Ezra SIL", "Times New Roman", serif;
+    direction: rtl;
+}
+
+.sample-original.greek {
+    font-family: "SBL Greek", "Gentium Plus", "Times New Roman", serif;
+}
+
+.sample-english {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--accent-strong);
+    font-weight: 600;
+}
+
+.sample-strongs {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--bronze);
+    letter-spacing: 0.05em;
+    margin-top: 0.15rem;
+}
+
+.sample-link {
+    font-size: 0.9rem;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>Interlinear Bible Study</h1>
 <p class="subtitle">Explore Scripture word-by-word in the original languages</p>
@@ -29,76 +84,76 @@
 
 <div>
     <h2>Example: Genesis 1:1 (Hebrew)</h2>
-    <div class="interlinear-example" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0;">
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Hebrew', 'Ezra SIL', serif; direction: rtl;">בְּרֵאשִׁית</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">In the beginning</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">H7225</span>
+    <div class="interlinear-example">
+        <div class="sample-word">
+            <span class="sample-original hebrew">בְּרֵאשִׁית</span>
+            <span class="sample-english">In the beginning</span>
+            <span class="sample-strongs">H7225</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Hebrew', 'Ezra SIL', serif; direction: rtl;">בָּרָא</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">created</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">H1254</span>
+        <div class="sample-word">
+            <span class="sample-original hebrew">בָּרָא</span>
+            <span class="sample-english">created</span>
+            <span class="sample-strongs">H1254</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Hebrew', 'Ezra SIL', serif; direction: rtl;">אֱלֹהִים</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">God</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">H430</span>
+        <div class="sample-word">
+            <span class="sample-original hebrew">אֱלֹהִים</span>
+            <span class="sample-english">God</span>
+            <span class="sample-strongs">H430</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Hebrew', 'Ezra SIL', serif; direction: rtl;">אֵת</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">[untranslated]</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">H853</span>
+        <div class="sample-word">
+            <span class="sample-original hebrew">אֵת</span>
+            <span class="sample-english">[untranslated]</span>
+            <span class="sample-strongs">H853</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Hebrew', 'Ezra SIL', serif; direction: rtl;">הַשָּׁמַיִם</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">the heavens</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">H8064</span>
+        <div class="sample-word">
+            <span class="sample-original hebrew">הַשָּׁמַיִם</span>
+            <span class="sample-english">the heavens</span>
+            <span class="sample-strongs">H8064</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Hebrew', 'Ezra SIL', serif; direction: rtl;">וְאֵת</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">and</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">H853</span>
+        <div class="sample-word">
+            <span class="sample-original hebrew">וְאֵת</span>
+            <span class="sample-english">and</span>
+            <span class="sample-strongs">H853</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Hebrew', 'Ezra SIL', serif; direction: rtl;">הָאָרֶץ</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">the earth</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">H776</span>
+        <div class="sample-word">
+            <span class="sample-original hebrew">הָאָרֶץ</span>
+            <span class="sample-english">the earth</span>
+            <span class="sample-strongs">H776</span>
         </div>
     </div>
-    <p style="font-size: 0.9rem;"><a href="/book/Genesis/chapter/1/verse/1#interlinear">View full analysis →</a></p>
+    <p class="sample-link"><a href="/book/Genesis/chapter/1/verse/1#interlinear">View full analysis →</a></p>
 </div>
 
 <div>
     <h2>Example: John 1:1 (Greek)</h2>
-    <div class="interlinear-example" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0;">
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Greek', 'Gentium Plus', serif;">Ἐν</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">In</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">G1722</span>
+    <div class="interlinear-example">
+        <div class="sample-word">
+            <span class="sample-original greek">Ἐν</span>
+            <span class="sample-english">In</span>
+            <span class="sample-strongs">G1722</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Greek', 'Gentium Plus', serif;">ἀρχῇ</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">the beginning</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">G746</span>
+        <div class="sample-word">
+            <span class="sample-original greek">ἀρχῇ</span>
+            <span class="sample-english">the beginning</span>
+            <span class="sample-strongs">G746</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Greek', 'Gentium Plus', serif;">ἦν</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">was</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">G1510</span>
+        <div class="sample-word">
+            <span class="sample-original greek">ἦν</span>
+            <span class="sample-english">was</span>
+            <span class="sample-strongs">G1510</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Greek', 'Gentium Plus', serif;">ὁ</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">the</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">G3588</span>
+        <div class="sample-word">
+            <span class="sample-original greek">ὁ</span>
+            <span class="sample-english">the</span>
+            <span class="sample-strongs">G3588</span>
         </div>
-        <div style="text-align: center; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">
-            <span style="display: block; font-size: 2.2rem; font-family: 'SBL Greek', 'Gentium Plus', serif;">λόγος</span>
-            <span style="display: block; font-size: 0.85rem; color: #4a7c59; font-weight: 600;">Word</span>
-            <span style="display: block; font-size: 0.7rem; color: var(--text-tertiary);">G3056</span>
+        <div class="sample-word">
+            <span class="sample-original greek">λόγος</span>
+            <span class="sample-english">Word</span>
+            <span class="sample-strongs">G3056</span>
         </div>
     </div>
-    <p style="font-size: 0.9rem;"><a href="/book/John/chapter/1/verse/1#interlinear">View full analysis →</a></p>
+    <p class="sample-link"><a href="/book/John/chapter/1/verse/1#interlinear">View full analysis →</a></p>
 </div>
 
 <div>
@@ -173,13 +228,9 @@ document.addEventListener('keydown', function(e) {
 </script>
 <style>
 .selected {
-    outline: 2px solid #4a7c59 !important;
+    outline: 2px solid var(--accent) !important;
     outline-offset: 2px;
-    background: rgba(74, 124, 89, 0.05) !important;
-}
-[data-theme="dark"] .selected {
-    outline-color: #6b9b7a !important;
-    background: rgba(107, 155, 122, 0.1) !important;
+    background: var(--accent-softer) !important;
 }
 </style>
 {% endblock %}

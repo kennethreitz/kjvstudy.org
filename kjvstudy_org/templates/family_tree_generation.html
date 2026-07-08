@@ -13,15 +13,29 @@
 .gen-nav {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.6rem;
     margin: 1rem 0;
     padding: 0.75rem 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     max-width: 55%;
 }
 
 .gen-nav a {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    color: var(--text-secondary);
     text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.gen-nav a:hover {
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .gen-nav .nav-prev,
@@ -37,8 +51,9 @@
     max-width: 55%;
     margin: 1rem 0 1.5rem 0;
     padding: 0.75rem 1rem;
-    background: #f9f9f9;
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     font-size: 0.95rem;
     display: flex;
     gap: 2rem;
@@ -51,11 +66,12 @@
 }
 
 .gen-stat-label {
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .gen-stat-value {
     font-weight: 600;
+    color: var(--text-strong);
 }
 
 .person-grid {
@@ -75,28 +91,28 @@
 
 .person-card {
     padding: 1rem 1.25rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
-    background: #fff;
-    transition: box-shadow 0.15s ease;
+    background: var(--bg-elevated);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .person-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--accent);
 }
 
 .person-card.male {
-    border-left: 4px solid #3b6ea5;
+    border-left: 3px solid var(--cat-law);
 }
 
 .person-card.female {
-    border-left: 4px solid #a55b80;
+    border-left: 3px solid var(--cat-general);
 }
 
 .person-card.kekule {
-    border-color: #d4af37;
-    border-left-width: 4px;
-    background: linear-gradient(to right, #fffde7, #fff);
+    border-left-color: var(--gold);
+    background: linear-gradient(to right, var(--gold-soft), var(--bg-elevated));
 }
 
 .person-card-header {
@@ -110,6 +126,7 @@
     font-size: 1.2rem;
     font-weight: 600;
     margin: 0;
+    color: var(--text-strong);
 }
 
 .person-card-name a {
@@ -118,21 +135,25 @@
 }
 
 .person-card-name a:hover {
+    color: var(--accent-strong);
     text-decoration: underline;
 }
 
 .person-card-badge {
-    font-size: 0.75rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 3px;
-    background: #d4af37;
-    color: #fff;
-    font-weight: 500;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
+    color: var(--bronze);
 }
 
 .person-card-dates {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 0.5rem;
 }
 
@@ -151,7 +172,7 @@
     gap: 1rem;
     margin-top: 0.5rem;
     padding-top: 0.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
     font-size: 0.85rem;
 }
 
@@ -162,20 +183,24 @@
 }
 
 .family-label {
-    color: #888;
+    color: var(--text-tertiary);
 }
 
 .family-links a {
-    color: #555;
+    color: var(--text-secondary);
 }
 
 .person-card-verse {
     margin-top: 0.5rem;
     padding-top: 0.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-secondary);
     font-style: italic;
+}
+
+.person-card-verse a {
+    color: var(--accent-strong);
 }
 
 .person-card-actions {
@@ -184,74 +209,7 @@
 
 .person-card-actions a {
     font-size: 0.85rem;
-    color: #4a7c59;
-}
-
-/* Dark mode */
-[data-theme="dark"] .gen-nav {
-    border-bottom-color: #333;
-}
-
-[data-theme="dark"] .gen-nav a {
-    color: #aaa;
-}
-
-[data-theme="dark"] .gen-nav a:hover {
-    color: #fff;
-}
-
-[data-theme="dark"] .gen-stats {
-    background: #252525;
-}
-
-[data-theme="dark"] .gen-stat-label {
-    color: #888;
-}
-
-[data-theme="dark"] .gen-stat-value {
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .person-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .person-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-[data-theme="dark"] .person-card.kekule {
-    background: linear-gradient(to right, #2a2a1a, #1a1a1a);
-}
-
-[data-theme="dark"] .person-card-name {
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .person-card-dates {
-    color: #888;
-}
-
-[data-theme="dark"] .person-card-family {
-    border-top-color: #333;
-}
-
-[data-theme="dark"] .family-label {
-    color: #888;
-}
-
-[data-theme="dark"] .family-links a {
-    color: #bbb;
-}
-
-[data-theme="dark"] .person-card-verse {
-    border-top-color: #333;
-    color: #888;
-}
-
-[data-theme="dark"] .person-card-verse a {
-    color: #6b9b7a;
+    color: var(--accent-strong);
 }
 </style>
 {% endblock %}
@@ -444,7 +402,7 @@
             cards[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, cards.length - 1));
-        cards[selectedIndex].style.outline = '2px solid #4a7c59';
+        cards[selectedIndex].style.outline = '2px solid var(--accent)';
         cards[selectedIndex].style.outlineOffset = '2px';
         cards[selectedIndex].classList.add('selected');
         cards[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });

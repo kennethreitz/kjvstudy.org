@@ -14,6 +14,31 @@
     border-top: 1px solid var(--border-color);
 }
 
+/* Category headings — small caps over a gold-tipped rule */
+.festival-section > h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 60%;
+}
+
+.festival-section > h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
 .festival-entry {
     margin: 1.5rem 0 2rem 0;
 }
@@ -36,7 +61,7 @@
 
 .festival-title {
     font-size: 1.1rem;
-    color: #666;
+    color: var(--text-secondary);
     font-style: italic;
     margin-bottom: 1rem;
 }
@@ -50,34 +75,52 @@
 
 .verse-list {
     margin: 1.5rem 0 0 0;
+    max-width: 60%;
 }
 
+/* Key verses — scripture plates with a gilt spine */
 .verse-item {
-    margin: 1.2rem 0;
-    padding-left: 1.5rem;
-    border-left: 2px solid #ddd;
+    margin: 1.25rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.verse-item:hover {
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: var(--shadow-soft);
 }
 
 .verse-ref {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--bronze);
+    margin-bottom: 0.6rem;
 }
 
 .verse-ref a {
-    color: #333;
+    color: var(--bronze) !important;
     text-decoration: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: none;
 }
 
 .verse-ref a:hover {
-    border-bottom-color: #333;
+    color: var(--accent-strong) !important;
+    border-bottom: 1px solid currentColor;
 }
 
 .verse-text {
-    max-width: 60%;
     font-style: italic;
-    color: var(--text-secondary);
-    line-height: 1.8;
+    color: var(--text-strong);
+    line-height: 1.85;
+    font-size: 1.15rem;
 }
 
 .festivals-actions {
@@ -87,26 +130,27 @@
 .festivals-download-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     transition: all 0.2s;
 }
 
 .festivals-download-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    text-decoration: none;
 }
 
 .festivals-download-btn svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
 }
 
 {% include "partials/_toc_styles.html" %}
@@ -119,6 +163,7 @@
     }
 
     .festival-description,
+    .verse-list,
     .verse-text,
     .intro-text {
         max-width: 100% !important;
@@ -135,7 +180,7 @@
         width: 100%;
         margin: 0.5rem 0;
         font-size: 0.9rem;
-        color: #666;
+        color: var(--text-secondary);
     }
 }
 </style>
@@ -172,7 +217,7 @@ document.body.dataset.resourceReader = 'true';
 
     <p class="intro-text">The festal calendar divides into spring and fall observances, separated by the agricultural work of summer. The spring feasts—Passover through Pentecost—find clear fulfillment in Christ's first advent. The fall feasts—Trumpets through Tabernacles—anticipate events connected with His second coming and millennial reign.<label for="sn-fulfillment" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-fulfillment" class="margin-toggle"/>
-    <span class="sidenote\">Christ fulfilled the spring feasts with remarkable precision: crucified on Passover, buried during Unleavened Bread, resurrected on Firstfruits, and sending the Spirit on Pentecost. This exact correspondence strengthens confidence that the fall feasts will likewise find literal fulfillment in end-time events.</span></p>
+    <span class="sidenote">Christ fulfilled the spring feasts with remarkable precision: crucified on Passover, buried during Unleavened Bread, resurrected on Firstfruits, and sending the Spirit on Pentecost. This exact correspondence strengthens confidence that the fall feasts will likewise find literal fulfillment in end-time events.</span></p>
 </section>
 
 {% for category, festivals in festivals_data.items() %}
@@ -222,9 +267,9 @@ document.body.dataset.resourceReader = 'true';
 
     <p class="intro-text"><span class="newthought">Divine precision</span>, for God commanded these observances centuries before their fulfillment in Christ. The exact correspondence between festival requirements and Messianic events demonstrates supernatural design, providing powerful evidence for inspiration.</p>
 
-    <p class="intro-text"><span class="newthought">Covenant remembrance</span>, as the festivals kept God's mighty acts perpetually before Israel. Each generation relived the Exodus through Passover, recalled Sinai at Pentecost, and remembered wilderness wanderings during Tabernacles. Corporate memory maintained covenant identity.<label for="sn-remembrance" class="margin-toggle sidenote-number\"></label>
+    <p class="intro-text"><span class="newthought">Covenant remembrance</span>, as the festivals kept God's mighty acts perpetually before Israel. Each generation relived the Exodus through Passover, recalled Sinai at Pentecost, and remembered wilderness wanderings during Tabernacles. Corporate memory maintained covenant identity.<label for="sn-remembrance" class="margin-toggle sidenote-number"></label>
     <input type="checkbox" id="sn-remembrance" class="margin-toggle"/>
-    <span class="sidenote\">The command to tell children about Passover's meaning (Exodus 12:26-27) illustrates how festivals transmitted faith across generations. These annual celebrations educated each new generation in covenant history and theology through participatory ritual rather than mere abstract instruction.</span></p>
+    <span class="sidenote">The command to tell children about Passover's meaning (Exodus 12:26-27) illustrates how festivals transmitted faith across generations. These annual celebrations educated each new generation in covenant history and theology through participatory ritual rather than mere abstract instruction.</span></p>
 
     <p class="intro-text"><span class="newthought">Prophetic preview</span>, for the festivals outlined redemptive history in advance. Christ fulfilled the spring feasts at His first coming—dying as the Passover Lamb, rising as the Firstfruits, sending the Spirit at Pentecost. The unfulfilled fall feasts point to His return, national Israel's repentance (Trumpets, Atonement), and millennial blessing (Tabernacles).</p>
 

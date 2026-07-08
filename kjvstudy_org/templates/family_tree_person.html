@@ -23,17 +23,17 @@
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     font-size: 0.9rem;
 }
 
 .person-nav a {
     text-decoration: none;
-    color: #555;
+    color: var(--text-secondary);
 }
 
 .person-nav a:hover {
-    color: #000;
+    color: var(--accent-strong);
 }
 
 .person-nav .nav-spacer {
@@ -43,24 +43,24 @@
 /* Main person card */
 .person-main-card {
     padding: 1.5rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-dark);
     border-radius: 8px;
     margin-bottom: 1.5rem;
-    background: #fff;
+    background: var(--bg-elevated);
 }
 
 .person-main-card.male {
-    border-left: 5px solid #3b6ea5;
+    border-left: 5px solid var(--cat-law);
 }
 
 .person-main-card.female {
-    border-left: 5px solid #a55b80;
+    border-left: 5px solid var(--cat-general);
 }
 
 .person-main-card.kekule {
-    border-color: #d4af37;
+    border-color: var(--gold);
     border-left-width: 5px;
-    background: linear-gradient(to right, #fffde7, #fff);
+    background: linear-gradient(to right, var(--gold-soft), var(--bg-elevated));
 }
 
 .person-name {
@@ -71,20 +71,24 @@
     align-items: center;
     gap: 0.75rem;
     flex-wrap: wrap;
+    color: var(--text-strong);
 }
 
 .person-badge {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     padding: 0.2rem 0.6rem;
-    border-radius: 3px;
-    background: #d4af37;
-    color: #fff;
-    font-weight: 500;
+    border-radius: 999px;
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
+    color: var(--bronze);
 }
 
 .person-subtitle {
     font-size: 1rem;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 1rem;
 }
 
@@ -101,28 +105,44 @@
 }
 
 .vital-label {
-    color: #888;
+    color: var(--text-tertiary);
 }
 
 .vital-value {
     font-weight: 500;
+    color: var(--text-strong);
 }
 
 /* Section cards */
 .section-card {
     padding: 1rem 1.25rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-dark);
     border-radius: 6px;
     margin-bottom: 1rem;
-    background: #fff;
+    background: var(--bg-elevated);
 }
 
 .section-card h2 {
-    font-size: 1.1rem;
-    margin: 0 0 0.75rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
-    color: #333;
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-card h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 /* Family member cards */
@@ -136,27 +156,27 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.6rem 0.75rem;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    background: #fafafa;
+    background: var(--bg-elevated);
     transition: background 0.15s ease;
 }
 
 .family-card:hover {
-    background: #f5f5f5;
+    background: var(--code-bg);
 }
 
 .family-card.male {
-    border-left: 3px solid #3b6ea5;
+    border-left: 3px solid var(--cat-law);
 }
 
 .family-card.female {
-    border-left: 3px solid #a55b80;
+    border-left: 3px solid var(--cat-general);
 }
 
 .family-card.kekule {
-    border-left-color: #d4af37;
-    background: linear-gradient(to right, #fffde7, #fafafa);
+    border-left-color: var(--gold);
+    background: linear-gradient(to right, var(--gold-soft), var(--bg-elevated));
 }
 
 .family-card-name {
@@ -175,39 +195,48 @@
 
 .family-card-meta {
     font-size: 0.8rem;
-    color: #888;
+    color: var(--text-tertiary);
 }
 
 .family-card-badge {
-    font-size: 0.7rem;
-    padding: 0.1rem 0.4rem;
-    border-radius: 2px;
-    background: #d4af37;
-    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: var(--gold-soft);
+    border: 1px solid var(--border-color-dark);
+    color: var(--bronze);
 }
 
-/* Verse cards */
+/* Verse cards (scripture plates) */
 .verse-card {
-    padding: 0.75rem 1rem;
-    border: 1px solid #eee;
-    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
     margin-bottom: 0.75rem;
-    background: #fafafa;
+    background: var(--bg-elevated);
 }
 
 .verse-card-ref {
-    font-weight: 500;
-    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
+    margin-bottom: 0.35rem;
 }
 
 .verse-card-ref a {
-    color: #4a7c59;
+    color: var(--bronze);
 }
 
 .verse-card-text {
     font-style: italic;
-    color: #555;
-    font-size: 0.9rem;
+    color: var(--text-strong);
+    font-size: 1.15rem;
     line-height: 1.6;
 }
 
@@ -220,9 +249,9 @@
 .biography-significance {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
     font-style: italic;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 /* Life events */
@@ -230,7 +259,7 @@
     display: flex;
     gap: 1rem;
     padding: 0.5rem 0;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .event-item:last-child {
@@ -240,7 +269,7 @@
 .event-age {
     font-weight: 600;
     min-width: 60px;
-    color: #4a7c59;
+    color: var(--accent-strong);
 }
 
 .event-desc {
@@ -253,7 +282,7 @@
 }
 
 .event-verse a {
-    color: #666;
+    color: var(--text-secondary);
 }
 
 /* Bottom navigation */
@@ -263,160 +292,35 @@
     gap: 1rem;
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--border-color);
 }
 
 .bottom-nav a {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 0.45rem 0.9rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     font-size: 0.9rem;
-    color: #555;
+    color: var(--text-secondary);
     transition: all 0.15s ease;
 }
 
 .bottom-nav a:hover {
-    background: #f5f5f5;
-    border-color: #ccc;
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .bottom-nav a.primary {
-    background: #4a7c59;
-    color: #fff !important;
-    border-color: #4a7c59;
+    background: var(--accent-fill);
+    color: var(--on-accent) !important;
+    border-color: var(--accent-fill);
 }
 
 .bottom-nav a.primary:hover {
-    background: #3d6a4b;
-}
-
-/* Dark mode */
-[data-theme="dark"] .person-nav {
-    border-bottom-color: #333;
-}
-
-[data-theme="dark"] .person-nav a {
-    color: #aaa;
-}
-
-[data-theme="dark"] .person-nav a:hover {
-    color: #fff;
-}
-
-[data-theme="dark"] .person-main-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .person-main-card.kekule {
-    background: linear-gradient(to right, #2a2a1a, #1a1a1a);
-}
-
-[data-theme="dark"] .person-name {
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .person-subtitle {
-    color: #888;
-}
-
-[data-theme="dark"] .vital-label {
-    color: #888;
-}
-
-[data-theme="dark"] .vital-value {
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .section-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .section-card h2 {
-    color: #e0e0e0;
-    border-bottom-color: #333;
-}
-
-[data-theme="dark"] .family-card {
-    background: #252525;
-    border-color: #333;
-}
-
-[data-theme="dark"] .family-card:hover {
-    background: #2a2a2a;
-}
-
-[data-theme="dark"] .family-card.kekule {
-    background: linear-gradient(to right, #2a2a1a, #252525);
-}
-
-[data-theme="dark"] .family-card-name {
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .family-card-meta {
-    color: #888;
-}
-
-[data-theme="dark"] .verse-card {
-    background: #252525;
-    border-color: #333;
-}
-
-[data-theme="dark"] .verse-card-ref {
-    color: #e0e0e0;
-}
-
-[data-theme="dark"] .verse-card-text {
-    color: #bbb;
-}
-
-[data-theme="dark"] .biography-text {
-    color: #ccc;
-}
-
-[data-theme="dark"] .biography-significance {
-    color: #888;
-    border-top-color: #333;
-}
-
-[data-theme="dark"] .event-item {
-    border-bottom-color: #333;
-}
-
-[data-theme="dark"] .event-desc {
-    color: #ccc;
-}
-
-[data-theme="dark"] .event-verse a {
-    color: #888;
-}
-
-[data-theme="dark"] .bottom-nav {
-    border-top-color: #333;
-}
-
-[data-theme="dark"] .bottom-nav a {
-    background: #252525;
-    border-color: #444;
-    color: #ccc;
-}
-
-[data-theme="dark"] .bottom-nav a:hover {
-    background: #2a2a2a;
-    border-color: #555;
-}
-
-[data-theme="dark"] .bottom-nav a.primary {
-    background: #4a7c59;
-    border-color: #4a7c59;
-    color: #fff;
-}
-
-[data-theme="dark"] .bottom-nav a.primary:hover {
-    background: #3d6a4b;
+    background: var(--accent-fill-hover);
+    border-color: var(--accent-fill-hover);
 }
 </style>
 {% endblock %}
@@ -723,7 +627,7 @@
         mode = 'sections';
         selectedSectionIndex = Math.max(0, Math.min(index, sections.length - 1));
         selectedItemIndex = -1;
-        sections[selectedSectionIndex].style.outline = '2px solid #4a7c59';
+        sections[selectedSectionIndex].style.outline = '2px solid var(--accent)';
         sections[selectedSectionIndex].style.outlineOffset = '4px';
         sections[selectedSectionIndex].classList.add('selected');
         sections[selectedSectionIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
@@ -733,7 +637,7 @@
         clearAllSelections();
         mode = 'items';
         selectedItemIndex = Math.max(0, Math.min(index, allItems.length - 1));
-        allItems[selectedItemIndex].style.outline = '2px solid #4a7c59';
+        allItems[selectedItemIndex].style.outline = '2px solid var(--accent)';
         allItems[selectedItemIndex].style.outlineOffset = '4px';
         allItems[selectedItemIndex].classList.add('selected');
         allItems[selectedItemIndex].scrollIntoView({ behavior: 'auto', block: 'center' });

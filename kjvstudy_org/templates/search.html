@@ -21,30 +21,38 @@
     width: 100%;
     padding: 0.75rem;
     font-size: 1.1rem;
-    border: 1px solid var(--border-color, #ccc);
-    border-radius: 4px;
-    background: var(--bg-color);
+    border: 1px solid var(--border-color-darker);
+    border-radius: 6px;
+    background: var(--bg-elevated);
     color: var(--text-color);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-input::placeholder {
+    font-style: italic;
+    color: var(--text-tertiary);
 }
 
 .search-input:focus {
     outline: none;
-    border-color: var(--text-color, #111);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .search-button {
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
-    background: var(--text-color, #111);
-    color: var(--bg-color, #fff);
+    background: var(--accent-fill);
+    color: var(--on-accent);
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
+    transition: background 0.15s;
 }
 
 .search-button:hover {
-    opacity: 0.85;
+    background: var(--accent-fill-hover);
 }
 
 .search-dropdown {
@@ -52,15 +60,15 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color-darker, #999);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-darker);
     border-top: none;
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 6px 6px;
     max-height: 400px;
     overflow-y: auto;
     z-index: 1000;
     display: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-pop);
 }
 
 .search-dropdown.show {
@@ -72,8 +80,8 @@
     font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-tertiary);
+    letter-spacing: 0.14em;
+    color: var(--bronze);
     background: var(--code-bg);
     border-bottom: 1px solid var(--border-color);
 }
@@ -90,7 +98,7 @@
 
 .search-result-item:hover,
 .search-result-item.selected {
-    background: var(--code-bg);
+    background: var(--accent-softer);
 }
 
 .search-result-item:last-child {
@@ -113,25 +121,61 @@
     color: var(--text-secondary);
 }
 
+.results-heading {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 3rem 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.results-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
 .search-result {
-    margin: 2rem 0;
-    padding: 1rem;
-    border-left: 3px solid var(--text-color);
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.4rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-result:hover {
+    border-color: var(--accent);
+    border-left-color: var(--gold);
+    box-shadow: var(--shadow-soft);
 }
 
 .result-reference {
+    font-size: 0.75rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
     margin-bottom: 0.5rem;
 }
 
 .result-reference a {
     text-decoration: none;
-    color: var(--link-color);
+    color: var(--bronze);
 }
 
 .result-reference a:hover {
     text-decoration: underline;
-    color: var(--link-hover);
+    color: var(--accent-strong);
 }
 
 .result-text {
@@ -139,35 +183,33 @@
 }
 
 .result-text mark {
-    background: #fff3b0;
-    color: #111;
-    padding: 0.1rem 0.2rem;
-    border-radius: 2px;
-}
-
-[data-theme="dark"] .result-text mark {
-    background: rgba(255, 213, 79, 0.25);
-    color: var(--text-color);
+    background: linear-gradient(180deg, transparent 60%, rgba(190, 155, 70, 0.38) 60%);
+    color: inherit;
+    padding: 0 0.1rem;
+    border-radius: 0;
 }
 
 .search-tips {
     margin: 2rem 0;
     padding: 1.5rem;
     background: var(--code-bg);
-    border-left: 3px solid var(--text-color);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
 }
 
 .search-tips h3 {
     margin-top: 0;
+    font-size: 0.85rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--text-secondary) !important;
 }
 
 .search-tips ul {
     line-height: 1.8;
-}
-
-[data-theme="dark"] .search-tips {
-    background: #1a1a1a;
-    border-left-color: #6b9b7a;
 }
 
 /* Mobile optimizations */
@@ -217,7 +259,7 @@
     font-size: 1.2rem;
 }
 [data-font-size="large"] .result-reference {
-    font-size: 1.2rem;
+    font-size: 0.95rem;
 }
 [data-font-size="large"] .result-text {
     font-size: 1.2rem;
@@ -270,7 +312,7 @@
             </div>
 
             {% if family_tree_results %}
-            <h2 style="margin-top: 2rem;" role="heading" aria-level="2">People in Family Tree</h2>
+            <h2 class="results-heading" role="heading" aria-level="2">People in Family Tree</h2>
             {% for result in family_tree_results %}
             <article class="search-result">
                 <div class="result-reference">
@@ -289,7 +331,7 @@
             {% endif %}
 
             {% if results %}
-            <h2 style="margin-top: 2rem;">Bible Verses</h2>
+            <h2 class="results-heading">Bible Verses</h2>
             {% for result in results %}
             <article class="search-result">
                 <div class="result-reference">
@@ -528,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 searchResults[resultIndex].style.outlineOffset = '';
             }
             resultIndex = Math.max(0, Math.min(index, searchResults.length - 1));
-            searchResults[resultIndex].style.outline = '2px solid #4a7c59';
+            searchResults[resultIndex].style.outline = '2px solid var(--accent)';
             searchResults[resultIndex].style.outlineOffset = '4px';
             searchResults[resultIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
         }

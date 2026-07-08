@@ -6,16 +6,37 @@
 {% block head %}
 <style>
 .name-section {
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     padding-top: 1rem;
 }
 
-.name-section:not(:first-of-type) {
-    border-top: 1px solid var(--border-color);
+/* Category headings — small caps over a gold-tipped rule (index apparatus) */
+.name-section > h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 60%;
+}
+
+.name-section > h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .name-entry {
-    margin: 1.5rem 0 2rem 0;
+    margin: 1.5rem 0 2.5rem 0;
 }
 
 .name-heading {
@@ -25,18 +46,18 @@
 }
 
 .name-heading a {
-    color: var(--link-color);
+    color: var(--text-strong);
     text-decoration: none;
 }
 
 .name-heading a:hover {
-    color: var(--link-hover);
-    border-bottom: 1px solid var(--link-hover);
+    color: var(--accent-strong);
+    border-bottom: 1px solid var(--accent-strong);
 }
 
 .name-title {
     font-size: 1.1rem;
-    color: #666;
+    color: var(--text-secondary);
     font-style: italic;
     margin-bottom: 1rem;
 }
@@ -50,34 +71,52 @@
 
 .verse-list {
     margin: 1.5rem 0 0 0;
+    max-width: 60%;
 }
 
+/* Scripture plates — quoted verses with a gilt spine */
 .verse-item {
-    margin: 1.2rem 0;
-    padding-left: 1.5rem;
-    border-left: 2px solid #ddd;
+    margin: 1.25rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.verse-item:hover {
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: var(--shadow-soft);
 }
 
 .verse-ref {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.6rem;
+    color: var(--bronze);
 }
 
 .verse-ref a {
-    color: #333;
+    color: var(--bronze) !important;
     text-decoration: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: none;
 }
 
 .verse-ref a:hover {
-    border-bottom-color: #333;
+    color: var(--accent-strong) !important;
+    border-bottom: 1px solid currentColor;
 }
 
 .verse-text {
-    max-width: 60%;
     font-style: italic;
-    color: var(--text-secondary);
-    line-height: 1.8;
+    color: var(--text-strong);
+    line-height: 1.85;
+    font-size: 1.15rem;
 }
 
 .names-actions {
@@ -90,21 +129,21 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.35rem 0.75rem;
+    padding: 0.45rem 0.9rem;
     font-size: 0.85rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .action-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .action-btn svg {
@@ -113,12 +152,21 @@
 }
 
 .action-btn.playing {
-    background: var(--link-color);
-    color: white;
-    border-color: var(--link-color);
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    border-color: var(--accent-fill);
 }
 
 {% include "partials/_toc_styles.html" %}
+
+@media (max-width: 768px) {
+    .name-section > h2,
+    .name-description,
+    .verse-list,
+    .intro-text {
+        max-width: 100%;
+    }
+}
 
 @media print {
     .names-actions,
@@ -127,6 +175,7 @@
     }
 
     .name-description,
+    .verse-list,
     .verse-text,
     .intro-text {
         max-width: 100% !important;
@@ -143,7 +192,7 @@
         width: 100%;
         margin: 0.5rem 0;
         font-size: 0.9rem;
-        color: #666;
+        color: var(--text-secondary);
     }
 }
 </style>

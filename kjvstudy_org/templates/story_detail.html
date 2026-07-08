@@ -480,7 +480,7 @@ hr.story-divider::before {
         selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
 
         // Add selection to new element
-        elements[selectedIndex].style.outline = '2px solid #4a7c59';
+        elements[selectedIndex].style.outline = '2px solid var(--accent)';
         elements[selectedIndex].style.outlineOffset = '8px';
         elements[selectedIndex].classList.add('selected');
         elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });

@@ -532,18 +532,35 @@
     }
 
     .toc {
-        background: var(--code-bg);
-        border: 1px solid var(--border-color);
-        padding: 1.5rem 2rem;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-color-dark);
+        border-radius: 8px;
+        box-shadow: var(--shadow-soft);
+        padding: 1.5rem 1.75rem;
         margin: 2rem 0 3rem 0;
         max-width: 400px;
     }
 
     .toc strong {
-        font-size: 0.9rem;
+        display: block;
+        position: relative;
+        font-size: 0.85rem;
+        font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.18em;
         color: var(--text-secondary);
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .toc strong::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2.75rem;
+        height: 1px;
+        background: var(--gold);
     }
 
     .toc ul {
@@ -556,16 +573,19 @@
 
     .toc li {
         margin: 0.4rem 0;
+        break-inside: avoid;
     }
 
     .toc a {
         color: var(--text-color);
         text-decoration: none;
         font-size: 0.95rem;
+        border-bottom: 1px solid transparent;
     }
 
     .toc a:hover {
-        color: var(--link-color);
+        color: var(--link-hover);
+        border-bottom-color: var(--underline);
     }
 
     kbd {
@@ -573,10 +593,11 @@
         padding: 0.2rem 0.5rem;
         font-family: 'Consolas', 'Monaco', monospace;
         font-size: 0.85rem;
-        background: var(--code-bg);
-        border: 1px solid var(--border-color);
+        color: var(--text-strong);
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-color-dark);
         border-radius: 4px;
-        box-shadow: 0 1px 0 var(--border-color);
+        box-shadow: 0 1px 0 var(--border-color-darker);
     }
 
     .keyboard-table {
@@ -595,10 +616,11 @@
 
     .keyboard-table th {
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         text-transform: uppercase;
-        letter-spacing: 0.03em;
-        color: var(--text-secondary);
+        letter-spacing: 0.14em;
+        color: var(--bronze);
+        border-bottom: 1px solid var(--border-color-dark);
     }
 
     .keyboard-table td:first-child {
@@ -628,13 +650,11 @@
 
     /* Keyboard navigation selection */
     .nav-paragraph.selected {
-        outline: 2px solid #4a7c59;
+        outline: 2px solid var(--accent);
         outline-offset: 4px;
-        background: rgba(74, 124, 89, 0.05);
+        background: var(--accent-softer);
         border-radius: 4px;
     }
-
-    /* .nav-paragraph.selected dark mode is in base.html */
 </style>
 
 <script>

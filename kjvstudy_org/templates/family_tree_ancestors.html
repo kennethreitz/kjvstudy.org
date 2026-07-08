@@ -6,10 +6,21 @@
 {% block head %}
 <style>
 .tree-header {
+    position: relative;
     max-width: 55%;
     margin: 2rem 0;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #111;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.tree-header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .tree-title {
@@ -21,7 +32,7 @@
 
 .tree-subtitle {
     font-size: 1.2rem;
-    color: #666;
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -37,9 +48,33 @@ div.intro-text {
     margin: 2rem 0;
 }
 
+/* Apparatus heading — small caps over a gold-tipped rule */
+.ancestors-tree > h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ancestors-tree > h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
 .tree-node {
     margin: 1rem 0 1rem 2rem;
-    border-left: 2px solid #ccc;
+    border-left: 2px solid var(--border-color-darker);
     padding-left: 1rem;
 }
 
@@ -50,13 +85,14 @@ div.intro-text {
 }
 
 .tree-node.kekule {
-    border-left-color: #d4af37;
+    border-left-color: var(--gold);
 }
 
 .person-name {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
+    color: var(--text-strong);
 }
 
 .person-name a {
@@ -71,27 +107,44 @@ div.intro-text {
 
 .person-meta {
     font-size: 0.95rem;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 0.5rem;
 }
 
+/* Bronze small-caps micro-label */
 .parent-label {
-    font-size: 0.85rem;
-    color: #999;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--bronze);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.14em;
     margin-bottom: 0.5rem;
 }
 
 .navigation-links {
     max-width: 55%;
     margin: 2rem 0;
-    padding-top: 1rem;
-    border-top: 1px solid #ccc;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-color);
 }
 
 .navigation-links a {
-    margin-right: 1.5rem;
+    display: inline-block;
+    margin: 0 0.6rem 0.6rem 0;
+    padding: 0.45rem 0.9rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.navigation-links a:hover {
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 @media (max-width: 768px) {

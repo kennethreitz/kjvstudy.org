@@ -40,7 +40,7 @@
     </section>
     {% endfor %}
 
-    <section style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+    <section class="stats-section">
         <h2>Coverage Statistics</h2>
         <table>
             <tr>
@@ -62,7 +62,7 @@
 <style>
     .subtitle {
         font-size: 1.2rem;
-        color: #666;
+        color: var(--text-secondary);
         margin-top: -1rem;
         margin-bottom: 2rem;
         font-style: italic;
@@ -70,17 +70,35 @@
 
     .toc {
         margin: 2rem 0;
-        padding: 1.5rem;
-        background: var(--bg-color);
-        border: 2px solid var(--border-color);
-        border-radius: 4px;
+        padding: 1.5rem 1.75rem;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-color-dark);
+        border-radius: 8px;
+        box-shadow: var(--shadow-soft);
     }
 
+    /* Apparatus heading — small caps over a gold-tipped rule */
     .toc h2 {
-        margin-top: 0;
-        margin-bottom: 1rem;
-        font-size: 1.3rem;
-        color: var(--text-strong);
+        position: relative;
+        margin: 0 0 1rem;
+        font-size: 0.85rem !important;
+        font-weight: 600;
+        font-style: normal !important;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-secondary) !important;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .toc h2::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2.75rem;
+        height: 1px;
+        background: var(--gold);
     }
 
     .toc-columns {
@@ -91,28 +109,44 @@
 
     .toc-link {
         text-decoration: none;
-        color: var(--link-color);
+        color: var(--text-color);
+        border-bottom: 1px solid transparent;
     }
 
     .toc-link:hover {
-        text-decoration: underline;
+        color: var(--accent-strong);
+        border-bottom-color: var(--underline);
     }
 
     .book-section {
         margin: 2.5rem 0;
-        padding: 1.5rem;
-        background: var(--bg-color);
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
+        padding: 1.5rem 1.75rem;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-color-dark);
+        border-radius: 8px;
     }
 
     .book-section h2 {
-        margin-top: 0;
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-        color: var(--text-strong);
+        position: relative;
+        margin: 0 0 1.25rem;
+        font-size: 0.95rem !important;
+        font-weight: 600;
+        font-style: normal !important;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-secondary) !important;
+        padding-bottom: 0.6rem;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 0.5rem;
+    }
+
+    .book-section h2::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2.75rem;
+        height: 1px;
+        background: var(--gold);
     }
 
     .chapter-group {
@@ -124,7 +158,11 @@
     .chapter-group strong {
         display: inline-block;
         min-width: 100px;
-        color: var(--text-secondary);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--bronze);
     }
 
     .verse-list {
@@ -134,10 +172,12 @@
     .verse-link {
         text-decoration: none;
         color: var(--link-color);
+        border-bottom: 1px solid transparent;
     }
 
     .verse-link:hover {
-        text-decoration: underline;
+        color: var(--accent-strong);
+        border-bottom-color: var(--underline);
     }
 
     .verse-count {
@@ -145,6 +185,35 @@
         color: var(--text-tertiary);
         font-size: 0.9rem;
         font-style: italic;
+    }
+
+    .stats-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .stats-section h2 {
+        position: relative;
+        margin: 0 0 1.25rem;
+        font-size: 0.95rem !important;
+        font-weight: 600;
+        font-style: normal !important;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-secondary) !important;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .stats-section h2::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2.75rem;
+        height: 1px;
+        background: var(--gold);
     }
 
     table {
@@ -167,7 +236,7 @@
 
     td:last-child {
         text-align: right;
-        font-family: 'Consolas', 'Monaco', monospace;
+        font-variant-numeric: tabular-nums;
         color: var(--text-secondary);
     }
 </style>

@@ -36,7 +36,7 @@
 
 .parable-title {
     font-size: 1.1rem;
-    color: #666;
+    color: var(--text-secondary);
     font-style: italic;
     margin-bottom: 1rem;
 }
@@ -61,33 +61,61 @@
 .action-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .action-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    text-decoration: none;
 }
 
 .action-btn svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
 }
 
 .action-btn.playing {
-    background: var(--link-color);
-    color: white;
-    border-color: var(--link-color);
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    border-color: var(--accent-fill);
+}
+
+.parable-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.parable-download-btn:hover {
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    text-decoration: none;
+}
+
+.parable-download-btn svg {
+    width: 14px;
+    height: 14px;
 }
 
 .verse-list {
@@ -97,22 +125,27 @@
 .verse-item {
     margin: 1.2rem 0;
     padding-left: 1.5rem;
-    border-left: 2px solid #ddd;
+    border-left: 2px solid var(--gold);
 }
 
 .verse-ref {
     font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
     margin-bottom: 0.5rem;
+    color: var(--bronze);
 }
 
 .verse-ref a {
-    color: #333;
+    color: var(--bronze);
     text-decoration: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: none;
 }
 
 .verse-ref a:hover {
-    border-bottom-color: #333;
+    color: var(--accent-strong);
+    border-bottom: 1px solid currentColor;
 }
 
 .verse-text {
@@ -148,7 +181,7 @@
         width: 100%;
         margin: 0.5rem 0;
         font-size: 0.9rem;
-        color: #666;
+        color: var(--text-secondary);
     }
 }
 </style>

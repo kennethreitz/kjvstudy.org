@@ -5,9 +5,70 @@
 
 {% block head %}
 <style>
+/* "Key Scripture" — small caps over a gold-tipped rule (apparatus heading) */
+section > h3 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 2rem 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 55%;
+}
+
+section > h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
+/* Scripture plates — quoted verses with a gilt spine */
+.verse-plate {
+    margin: 1.25rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    max-width: 55%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.verse-plate:hover {
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: var(--shadow-soft);
+}
+
+.verse-plate strong a {
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--bronze) !important;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.verse-plate strong a:hover {
+    color: var(--accent-strong) !important;
+    border-bottom: 1px solid currentColor;
+}
+
 .verse-text {
-    color: var(--text-secondary);
+    color: var(--text-strong);
     font-style: italic;
+    line-height: 1.85;
+    font-size: 1.15rem;
 }
 
 {% include "partials/_toc_styles.html" %}
@@ -20,25 +81,50 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.35rem 0.75rem;
+    padding: 0.45rem 0.9rem;
     font-size: 0.85rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     transition: all 0.2s;
 }
 
 .tetragrammaton-download-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .tetragrammaton-download-btn svg {
     width: 14px;
     height: 14px;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark) !important;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.back-link:hover {
+    border-color: var(--accent) !important;
+    color: var(--accent-strong);
+    background: var(--accent-softer);
+}
+
+@media (max-width: 768px) {
+    section > h3,
+    .verse-plate {
+        max-width: 100%;
+    }
 }
 
 @media print {
@@ -52,6 +138,11 @@
         page-break-inside: avoid;
     }
 
+    section > h3,
+    .verse-plate {
+        max-width: 100% !important;
+    }
+
     .sidenote,
     .marginnote {
         display: block;
@@ -59,7 +150,7 @@
         width: 100%;
         margin: 0.5rem 0;
         font-size: 0.9rem;
-        color: #666;
+        color: var(--text-secondary);
     }
 }
 </style>
@@ -98,7 +189,7 @@
     {% if section.verses %}
     <h3>Key Scripture</h3>
     {% for verse in section.verses %}
-    <p style="margin: 1rem 0; padding-left: 1.5rem; border-left: 2px solid var(--border-color-dark);">
+    <p class="verse-plate">
         <strong><a href="/book/{{ verse.reference.rsplit(' ', 1)[0] }}/chapter/{{ verse.reference.rsplit(' ', 1)[1].split(':')[0] }}/verse/{{ verse.reference.rsplit(' ', 1)[1].split(':')[1] if ':' in verse.reference else '1' }}">{{ verse.reference }}</a></strong><br/>
         <em class="verse-text">{{ verse.text }}</em>
     </p>
@@ -113,7 +204,7 @@
 </section>
 
 <section>
-    <p><a href="/resources">← Back to Resources</a></p>
+    <p><a href="/resources" class="back-link">← Back to Resources</a></p>
 </section>
 
 <script>

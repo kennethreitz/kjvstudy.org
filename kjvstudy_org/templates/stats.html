@@ -4,38 +4,38 @@
 {% block description %}Comprehensive statistics about KJV Study - Bible data, commentary, cross-references, and study resources{% endblock %}
 
 {% block content %}
-<article>
+<article class="stats-page">
     <h1>KJV Study Statistics</h1>
     <p class="subtitle">Comprehensive metrics about this Bible study resource</p>
 
     <section>
         <h2>Bible Text</h2>
-        <table>
-            <tr>
-                <td><strong>Total Verses</strong></td>
-                <td>{{ "{:,}".format(stats.bible.total_verses) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Books</strong></td>
-                <td>{{ stats.bible.total_books }} ({{ stats.bible.ot_books }} OT + {{ stats.bible.nt_books }} NT)</td>
-            </tr>
-            <tr>
-                <td><strong>Total Chapters</strong></td>
-                <td>{{ "{:,}".format(stats.bible.total_chapters) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Words</strong></td>
-                <td>{{ "{:,}".format(stats.bible.total_words) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Average Words per Verse</strong></td>
-                <td>{{ stats.bible.avg_words_per_verse }}</td>
-            </tr>
-            <tr>
-                <td><strong>Average Verses per Chapter</strong></td>
-                <td>{{ stats.bible.avg_verses_per_chapter }}</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.bible.total_verses) }}</div>
+                <div class="stat-label">Total Verses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible.total_books }} <span class="stat-unit">({{ stats.bible.ot_books }} OT + {{ stats.bible.nt_books }} NT)</span></div>
+                <div class="stat-label">Total Books</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.bible.total_chapters) }}</div>
+                <div class="stat-label">Total Chapters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.bible.total_words) }}</div>
+                <div class="stat-label">Total Words</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible.avg_words_per_verse }}</div>
+                <div class="stat-label">Average Words per Verse</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible.avg_verses_per_chapter }}</div>
+                <div class="stat-label">Average Verses per Chapter</div>
+            </div>
+        </div>
     </section>
 
     <section>
@@ -43,28 +43,28 @@
         <p>In-depth theological analysis with Greek/Hebrew word studies
             <br><a href="/about/commentary">→ Browse Commentary Index</a>
         </p>
-        <table>
-            <tr>
-                <td><strong>Commentary Files</strong></td>
-                <td>{{ stats.commentary.files }} books</td>
-            </tr>
-            <tr>
-                <td><strong>Verses with Commentary</strong></td>
-                <td>{{ "{:,}".format(stats.commentary.verses_covered) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Coverage</strong></td>
-                <td>{{ stats.commentary.coverage_percent }}% of Bible</td>
-            </tr>
-            <tr>
-                <td><strong>Total Commentary Words</strong></td>
-                <td>{{ "{:,}".format(stats.commentary.total_words) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Average Words per Verse</strong></td>
-                <td>{{ "{:,}".format(stats.commentary.avg_words_per_verse|int) }}</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.commentary.files }} <span class="stat-unit">books</span></div>
+                <div class="stat-label">Commentary Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.commentary.verses_covered) }}</div>
+                <div class="stat-label">Verses with Commentary</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.commentary.coverage_percent }}% <span class="stat-unit">of Bible</span></div>
+                <div class="stat-label">Coverage</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.commentary.total_words) }}</div>
+                <div class="stat-label">Total Commentary Words</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.commentary.avg_words_per_verse|int) }}</div>
+                <div class="stat-label">Average Words per Verse</div>
+            </div>
+        </div>
     </section>
 
     <section>
@@ -72,43 +72,43 @@
         <p>Based on Treasury of Scripture Knowledge (CC-BY)
             <br><a href="/about/cross-references">→ Browse Cross-References Index</a>
         </p>
-        <table>
-            <tr>
-                <td><strong>Files</strong></td>
-                <td>{{ stats.cross_references.files }} books</td>
-            </tr>
-            <tr>
-                <td><strong>Verses with Cross-References</strong></td>
-                <td>{{ "{:,}".format(stats.cross_references.verses_with_refs) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Coverage</strong></td>
-                <td>{{ stats.cross_references.coverage_percent }}% of Bible</td>
-            </tr>
-            <tr>
-                <td><strong>Total Cross-References</strong></td>
-                <td>{{ "{:,}".format(stats.cross_references.total_references) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Average per Verse</strong></td>
-                <td>{{ stats.cross_references.avg_refs_per_verse }}</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.cross_references.files }} <span class="stat-unit">books</span></div>
+                <div class="stat-label">Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.cross_references.verses_with_refs) }}</div>
+                <div class="stat-label">Verses with Cross-References</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.cross_references.coverage_percent }}% <span class="stat-unit">of Bible</span></div>
+                <div class="stat-label">Coverage</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.cross_references.total_references) }}</div>
+                <div class="stat-label">Total Cross-References</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.cross_references.avg_refs_per_verse }}</div>
+                <div class="stat-label">Average per Verse</div>
+            </div>
+        </div>
     </section>
 
     <section>
         <h2>Red Letter Edition</h2>
         <p>Words of Jesus Christ</p>
-        <table>
-            <tr>
-                <td><strong>Verses</strong></td>
-                <td>{{ "{:,}".format(stats.red_letter.total_verses) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Percentage of Bible</strong></td>
-                <td>{{ stats.red_letter.percent_of_bible }}%</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value rubric">{{ "{:,}".format(stats.red_letter.total_verses) }}</div>
+                <div class="stat-label">Verses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value rubric">{{ stats.red_letter.percent_of_bible }}%</div>
+                <div class="stat-label">Percentage of Bible</div>
+            </div>
+        </div>
     </section>
 
     <section>
@@ -116,36 +116,36 @@
         <p>Narrative retellings of Scripture for all ages
             <br><a href="/stories">→ Browse Bible Stories</a>
         </p>
-        <table>
-            <tr>
-                <td><strong>Story Categories</strong></td>
-                <td>{{ stats.bible_stories.categories }}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Stories</strong></td>
-                <td>{{ stats.bible_stories.total_stories }}</td>
-            </tr>
-            <tr>
-                <td><strong>Kids Versions</strong></td>
-                <td>{{ stats.bible_stories.stories_with_kids }}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Words (Adult)</strong></td>
-                <td>{{ "{:,}".format(stats.bible_stories.total_words) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Words (Kids)</strong></td>
-                <td>{{ "{:,}".format(stats.bible_stories.kids_words) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Biblical Characters</strong></td>
-                <td>{{ stats.bible_stories.unique_characters }}</td>
-            </tr>
-            <tr>
-                <td><strong>Unique Themes</strong></td>
-                <td>{{ stats.bible_stories.unique_themes }}</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible_stories.categories }}</div>
+                <div class="stat-label">Story Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible_stories.total_stories }}</div>
+                <div class="stat-label">Total Stories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible_stories.stories_with_kids }}</div>
+                <div class="stat-label">Kids Versions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.bible_stories.total_words) }}</div>
+                <div class="stat-label">Total Words (Adult)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.bible_stories.kids_words) }}</div>
+                <div class="stat-label">Total Words (Kids)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible_stories.unique_characters }}</div>
+                <div class="stat-label">Biblical Characters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.bible_stories.unique_themes }}</div>
+                <div class="stat-label">Unique Themes</div>
+            </div>
+        </div>
     </section>
 
     <section>
@@ -153,74 +153,74 @@
         <p>Hebrew, Greek, and interlinear resources
             <br><a href="/strongs">→ Browse Strong's Concordance</a>
         </p>
-        <table>
-            <tr>
-                <td><strong>Hebrew Strong's Entries</strong></td>
-                <td>{{ "{:,}".format(stats.language_tools.hebrew_entries) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Greek Strong's Entries</strong></td>
-                <td>{{ "{:,}".format(stats.language_tools.greek_entries) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Strong's Concordance</strong></td>
-                <td>{{ "{:,}".format(stats.language_tools.total_strongs) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Interlinear Data Size</strong></td>
-                <td>{{ stats.language_tools.interlinear_size_mb }} MB (compressed)</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.language_tools.hebrew_entries) }}</div>
+                <div class="stat-label">Hebrew Strong's Entries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.language_tools.greek_entries) }}</div>
+                <div class="stat-label">Greek Strong's Entries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.language_tools.total_strongs) }}</div>
+                <div class="stat-label">Total Strong's Concordance</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.language_tools.interlinear_size_mb }} <span class="stat-unit">MB (compressed)</span></div>
+                <div class="stat-label">Interlinear Data Size</div>
+            </div>
+        </div>
     </section>
 
     <section>
         <h2>Study Resources</h2>
         <p>Topical studies, reading plans, and biblical resources</p>
-        <table>
-            <tr>
-                <td><strong>Study Guides</strong></td>
-                <td>{{ stats.study_resources.study_guides }}</td>
-            </tr>
-            <tr>
-                <td><strong>Topics</strong></td>
-                <td>{{ stats.study_resources.topics }}</td>
-            </tr>
-            <tr>
-                <td><strong>Resources</strong></td>
-                <td>{{ stats.study_resources.resources }}</td>
-            </tr>
-            <tr>
-                <td><strong>Bible Stories</strong></td>
-                <td>{{ stats.study_resources.stories }}</td>
-            </tr>
-            <tr>
-                <td><strong>Biographies</strong></td>
-                <td>{{ stats.study_resources.biographies }} biblical figures</td>
-            </tr>
-            <tr>
-                <td><strong>Reading Plans</strong></td>
-                <td>{{ stats.study_resources.reading_plans }}</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.study_resources.study_guides }}</div>
+                <div class="stat-label">Study Guides</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.study_resources.topics }}</div>
+                <div class="stat-label">Topics</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.study_resources.resources }}</div>
+                <div class="stat-label">Resources</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.study_resources.stories }}</div>
+                <div class="stat-label">Bible Stories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.study_resources.biographies }} <span class="stat-unit">biblical figures</span></div>
+                <div class="stat-label">Biographies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.study_resources.reading_plans }}</div>
+                <div class="stat-label">Reading Plans</div>
+            </div>
+        </div>
     </section>
 
     <section>
         <h2>Technical Data</h2>
         <p>Data files and infrastructure</p>
-        <table>
-            <tr>
-                <td><strong>Total JSON Files</strong></td>
-                <td>{{ "{:,}".format(stats.data.total_json_files) }}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Data Size</strong></td>
-                <td>{{ stats.data.total_size_mb }} MB</td>
-            </tr>
-            <tr>
-                <td><strong>Book Abbreviations</strong></td>
-                <td>{{ stats.data.book_abbreviations }}</td>
-            </tr>
-        </table>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ "{:,}".format(stats.data.total_json_files) }}</div>
+                <div class="stat-label">Total JSON Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.data.total_size_mb }} <span class="stat-unit">MB</span></div>
+                <div class="stat-label">Total Data Size</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ stats.data.book_abbreviations }}</div>
+                <div class="stat-label">Book Abbreviations</div>
+            </div>
+        </div>
     </section>
 
     <section>
@@ -244,50 +244,100 @@
 <style>
     .subtitle {
         font-size: 1.2rem;
-        color: #666;
+        color: var(--text-secondary);
         margin-top: -1rem;
         margin-bottom: 2rem;
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 1.5rem 0;
-    }
-
-    tr {
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    td {
-        padding: 0.75rem 1rem;
-    }
-
-    td:first-child {
-        width: 60%;
-    }
-
-    td:last-child {
-        text-align: right;
-        font-family: 'Consolas', 'Monaco', monospace;
-        color: var(--text-secondary);
-    }
-
-    section {
+    .stats-page section {
         margin: 3rem 0;
     }
 
-    section p {
+    /* Apparatus headings — small caps over a gold-tipped rule */
+    .stats-page section h2 {
+        position: relative;
+        font-size: 0.95rem !important;
+        font-weight: 600;
+        font-style: normal !important;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-secondary) !important;
+        margin: 0 0 1.25rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .stats-page section h2::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 2.75rem;
+        height: 1px;
+        background: var(--gold);
+    }
+
+    .stats-page section p {
         color: var(--text-secondary);
         font-style: italic;
         margin-bottom: 0.5rem;
     }
 
-    code {
-        background: var(--code-bg);
-        padding: 0.2rem 0.4rem;
-        border-radius: 3px;
-        font-size: 0.9em;
+    /* Stat cards — old-style numerals over bronze small-caps labels */
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .stat-card {
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-color-dark);
+        border-radius: 8px;
+        padding: 1.1rem 1.25rem;
+        text-align: center;
+    }
+
+    .stat-value {
+        font-family: et-book-roman-old-style, et-book, Georgia, serif;
+        font-size: 1.9rem;
+        color: var(--text-strong);
+        line-height: 1.2;
+    }
+
+    .stat-value.rubric {
+        color: var(--rubric);
+    }
+
+    .stat-unit {
+        font-size: 0.95rem;
+        color: var(--text-tertiary);
+        font-style: italic;
+    }
+
+    .stat-label {
+        font-size: 0.66rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--bronze);
+        margin-top: 0.3rem;
+    }
+
+    @media (max-width: 768px) {
+        .stat-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .stat-card {
+            padding: 0.9rem 0.75rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+        }
     }
 </style>
 {% endblock %}

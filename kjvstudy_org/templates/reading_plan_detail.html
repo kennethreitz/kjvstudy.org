@@ -10,9 +10,11 @@
     font-size: 1.2rem;
     line-height: 1.9;
     margin: 1.5rem 0;
-    padding: 1rem;
-    border-left: 3px solid var(--border-color-darker);
-    background: var(--code-bg);
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
 }
 
 .plan-stats {
@@ -24,22 +26,49 @@
 
 .stat-item {
     padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
     flex: 1;
 }
 
 .stat-value {
     font-size: 2rem;
     font-weight: 600;
-    color: var(--link-color);
+    color: var(--accent-strong);
 }
 
 .stat-label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--bronze);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.14em;
+}
+
+/* "Reading Schedule" heading — small caps over a gold-tipped rule */
+.section-heading {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 90%;
+}
+
+.section-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .plan-actions {
@@ -56,18 +85,18 @@
     padding: 0.45rem 0.9rem;
     font-size: 0.9rem;
     color: var(--text-secondary);
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
 }
 
 .action-btn:hover {
-    background: var(--bg-color);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .action-btn svg {
@@ -82,21 +111,22 @@
 }
 
 .progress-bar-container {
-    background: var(--code-bg);
-    border-radius: 4px;
+    background: var(--bg-inset);
+    border-radius: 999px;
     height: 24px;
     overflow: hidden;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color-dark);
 }
 
 .progress-bar {
     height: 100%;
-    background: var(--link-color);
+    background: var(--accent-fill);
+    border-radius: 999px;
     transition: width 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--on-accent);
     font-size: 0.8rem;
     font-weight: 600;
 }
@@ -114,8 +144,9 @@
     gap: 0.4rem;
     margin: 1.5rem 0;
     padding: 1rem;
-    background: var(--code-bg);
-    border-radius: 4px;
+    background: var(--bg-inset);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     max-width: 90%;
 }
 
@@ -124,9 +155,9 @@
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
     color: var(--text-secondary);
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 3px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     text-decoration: none;
     transition: all 0.15s;
     min-width: 28px;
@@ -134,26 +165,28 @@
 }
 
 .day-nav a:hover {
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .day-nav a.completed {
-    background: #4a7c59;
-    color: white;
-    border-color: #4a7c59;
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    border-color: var(--accent-fill);
 }
 
 /* Day entries */
 .reading-day {
     margin: 1.5rem 0;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
     overflow: hidden;
 }
 
 .reading-day.completed {
-    border-color: #4a7c59;
+    border-color: var(--accent);
 }
 
 .day-header {
@@ -167,20 +200,20 @@
 }
 
 .day-header:hover {
-    background: var(--border-color);
+    background: var(--accent-soft);
 }
 
 .day-checkbox {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: var(--link-color);
+    accent-color: var(--accent);
 }
 
 .day-number {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--link-color);
+    color: var(--accent-strong);
     min-width: 70px;
 }
 
@@ -193,9 +226,9 @@
 
 .day-readings span {
     padding: 0.2rem 0.5rem;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 3px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 4px;
     font-size: 0.85rem;
     color: var(--text-color);
 }
@@ -245,12 +278,23 @@
 }
 
 .chapter-heading {
+    position: relative;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--text-strong);
     margin-bottom: 0.75rem;
     padding-bottom: 0.4rem;
     border-bottom: 1px solid var(--border-color);
+}
+
+.chapter-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .chapter-heading a {
@@ -259,7 +303,7 @@
 }
 
 .chapter-heading a:hover {
-    color: var(--link-color);
+    color: var(--accent-strong);
 }
 
 .verse-text {
@@ -313,7 +357,7 @@
     font-size: 2.5rem;
 }
 [data-font-size="large"] .stat-label {
-    font-size: 1.1rem;
+    font-size: 0.85rem;
 }
 [data-font-size="large"] .progress-text {
     font-size: 1.1rem;
@@ -387,7 +431,7 @@
 </section>
 
 <section>
-    <h2>Reading Schedule</h2>
+    <h2 class="section-heading">Reading Schedule</h2>
     <p class="intro-text">Click a day to expand and load the Scripture text. Check the box to mark as read.</p>
 
     <div class="day-nav" id="day-nav">
@@ -640,7 +684,7 @@
         inExpandedMode = false;
         selectedSectionIndex = -1;
         selectedDayIndex = Math.max(0, Math.min(index, days.length - 1));
-        days[selectedDayIndex].style.outline = '2px solid #4a7c59';
+        days[selectedDayIndex].style.outline = '2px solid var(--accent)';
         days[selectedDayIndex].style.outlineOffset = '4px';
         days[selectedDayIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }
@@ -659,7 +703,7 @@
 
         selectedSectionIndex = Math.max(0, Math.min(sectionIndex, sections.length - 1));
         inExpandedMode = true;
-        sections[selectedSectionIndex].style.outline = '2px solid #4a7c59';
+        sections[selectedSectionIndex].style.outline = '2px solid var(--accent)';
         sections[selectedSectionIndex].style.outlineOffset = '4px';
         sections[selectedSectionIndex].scrollIntoView({ behavior: 'auto', block: 'center' });
     }

@@ -66,18 +66,18 @@
     padding: 0.45rem 0.9rem;
     font-size: 0.9rem;
     color: var(--text-secondary);
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
 }
 
 .action-btn:hover {
-    background: var(--bg-color);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
 }
 
 .action-btn svg {
@@ -91,10 +91,35 @@
     }
 }
 
+/* "Subtopics" heading — small caps over a gold-tipped rule */
+.section-heading {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 70%;
+}
+
+.section-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
 .subtopic-header {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--link-color);
+    color: var(--text-strong);
     margin-bottom: 0.5rem;
 }
 
@@ -110,31 +135,55 @@
     margin: 1rem 0;
 }
 
+/* Verse entries — small scripture plates with a gilt spine */
 .verse-item {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-    border-left: 2px solid var(--border-color);
+    margin: 1.25rem 0;
+    padding: 1.1rem 1.4rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.verse-item:hover {
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: var(--shadow-soft);
 }
 
 .verse-ref {
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--bronze);
 }
 
 .verse-ref a {
-    color: var(--link-color);
+    color: var(--bronze);
     text-decoration: none;
 }
 
 .verse-ref a:hover {
-    color: var(--link-hover);
-    border-bottom: 1px solid var(--link-hover);
+    color: var(--accent-strong);
+    border-bottom: 1px solid currentColor;
 }
 
 .verse-note {
     color: var(--text-secondary);
     font-style: italic;
+    font-size: 0.95rem;
     margin-left: 0.5rem;
+}
+
+.verse-quote {
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: var(--text-strong);
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
 /* Large font mode - template-specific rules (shared rules in base.html) */
@@ -184,7 +233,7 @@
 </div>
 
 <div>
-    <h2>Subtopics</h2>
+    <h2 class="section-heading">Subtopics</h2>
 
     <div class="subtopics-container">
         {% for subtopic_name, subtopic_data in topic.subtopics.items() %}
@@ -231,7 +280,7 @@
                     <span class="verse-note">— {{ verse.note }}</span>
                     {% endif %}
                     {% if verse.text is defined and verse.text %}
-                    <div style="margin-top: 0.4rem; color: var(--text-secondary); line-height: 1.6;">
+                    <div class="verse-quote">
                         {{ verse.text }}
                     </div>
                     {% endif %}
@@ -292,7 +341,7 @@
             elements[selectedIndex].classList.remove('selected');
         }
         selectedIndex = Math.max(0, Math.min(index, elements.length - 1));
-        elements[selectedIndex].style.outline = '2px solid #4a7c59';
+        elements[selectedIndex].style.outline = '2px solid var(--accent)';
         elements[selectedIndex].style.outlineOffset = '8px';
         elements[selectedIndex].classList.add('selected');
         elements[selectedIndex].scrollIntoView({ behavior: 'auto', block: 'center' });

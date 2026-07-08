@@ -137,19 +137,42 @@ section:not(.chapters-section) blockquote.selected {
 }
 
 section blockquote {
-    margin: 1rem 0 1.5rem;
-    padding-left: 1rem;
-    border-left: 3px solid var(--border-color, #ddd);
+    margin: 1.25rem 0 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
 }
 
 section blockquote p {
+    width: 100%;
     font-style: italic;
-    margin-bottom: 0.5rem;
+    color: var(--text-strong);
+    margin: 0 0 0.5rem;
 }
 
 section blockquote footer {
+    width: 100%;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
+    text-align: right;
+}
+
+/* Significance notes revert to quiet prose */
+section blockquote footer em {
+    display: block;
+    margin-top: 0.5rem;
     font-size: 0.9rem;
-    color: var(--text-secondary, #666);
+    font-weight: 400;
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text-secondary);
 }
 
 section blockquote footer em {
@@ -170,25 +193,59 @@ section ul li strong {
     margin: 1.5rem 0 1.5rem;
 }
 
+/* Book title — letterspaced caps, kin to the chapter pages */
+h1.book-title {
+    font-size: 2.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+}
+
+/* Chapters heading — small caps over a gold-tipped rule */
+.chapters-section > h2 {
+    position: relative;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 500px;
+}
+
+.chapters-section > h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
+}
+
 .print-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     font-size: 0.95rem;
-    color: var(--text-secondary, #666);
-    background: var(--code-bg, #f8f8f8);
-    border: 1px solid var(--border-color, #ddd);
-    border-radius: 4px;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
 }
 
 .print-btn:hover {
-    background: var(--bg-color, #fff);
-    border-color: var(--link-color);
-    color: var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
     text-decoration: none;
 }
 
@@ -224,7 +281,12 @@ section ul li strong {
 
     section blockquote {
         margin: 0.75rem 0 1rem;
-        padding-left: 0.75rem;
+        padding: 1rem 1.1rem;
+    }
+
+    h1.book-title {
+        font-size: 2rem;
+        letter-spacing: 0.07em;
     }
 
     .print-btn {
@@ -743,7 +805,8 @@ document.addEventListener('DOMContentLoaded', function() {
 {% endblock %}
 
 {% block content %}
-<h1>{{ book }}</h1>
+{% if book_intro and book_intro.testament %}<span class="page-kicker">The {{ book_intro.testament }}</span>{% endif %}
+<h1 class="book-title">{{ book }}</h1>
 <p class="subtitle"><a href="/books">Authorized King James Version</a></p>
 
 {% if book_intro %}

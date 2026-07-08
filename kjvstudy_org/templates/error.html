@@ -13,171 +13,262 @@
 {% block head %}
 <style>
 .error-page {
-    max-width: 70%;
+    max-width: 46rem;
     margin: 0 auto;
 }
 
-.error-header {
-    margin: 3rem 0 2rem;
+/* The plate — double hairline frame, like the title page of the book */
+.error-plate {
+    position: relative;
+    text-align: center;
+    padding: 3rem 2.5rem 2.75rem;
+    margin: 2.5rem 0 3rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-darker);
+    box-shadow: var(--shadow-soft);
+}
+
+.error-plate::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1px solid var(--border-color-dark);
+    pointer-events: none;
 }
 
 .error-code {
-    font-size: 6rem;
+    font-size: 5rem;
     font-weight: 300;
-    color: var(--text-secondary);
+    color: var(--bronze);
     line-height: 1;
-    margin: 0;
+    margin: 0 0 0.75rem;
     font-variant-numeric: oldstyle-nums;
+    letter-spacing: 0.08em;
 }
 
 .error-title {
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     font-weight: 400;
-    margin: 1rem 0 0.5rem;
-    line-height: 1.2;
+    font-style: italic;
+    color: var(--text-strong);
+    margin: 0;
+    line-height: 1.25;
 }
 
+/* Gold ornament between title and verse */
+.error-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 240px;
+    margin: 1.75rem auto;
+    color: var(--gold);
+    font-size: 1.05rem;
+}
+
+.error-divider::before,
+.error-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border-color-darker));
+}
+
+.error-divider::after {
+    background: linear-gradient(to left, transparent, var(--border-color-darker));
+}
+
+/* Luke 15:4 — the words of Christ, rubricated */
 .error-verse {
-    max-width: 60%;
-    font-size: 1.3rem;
+    max-width: 34rem;
+    font-size: 1.15rem;
     line-height: 1.9;
     font-style: italic;
-    color: var(--text-secondary);
-    margin: 2rem 0;
-    padding-left: 1.5rem;
-    border-left: 3px solid var(--border-color-darker);
+    color: var(--rubric);
+    margin: 0 auto;
+    padding: 0;
+    border: none;
 }
 
 .error-verse-ref {
     display: block;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     font-style: normal;
-    font-weight: 600;
-    font-size: 1rem;
 }
 
 .error-verse-ref a {
-    color: var(--link-color);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bronze);
     text-decoration: none;
+    border-bottom: 1px solid transparent;
 }
 
 .error-verse-ref a:hover {
-    border-bottom: 1px solid var(--link-color);
+    color: var(--accent-strong);
+    border-bottom-color: var(--underline);
 }
 
 .error-explanation {
-    max-width: 60%;
-    font-size: 1.2rem;
-    line-height: 1.9;
-    margin: 2rem 0;
+    max-width: 34rem;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 0 auto;
+}
+
+.error-explanation p {
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
 }
 
 .search-container {
-    max-width: 60%;
     margin: 3rem 0;
-    padding: 2rem;
-    background: var(--code-bg);
-    border: 1px solid var(--border-color);
+    padding: 1.75rem 2rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
 }
 
-.search-container h2 {
-    font-size: 1.3rem;
+/* Apparatus headings — small caps over a gold-tipped rule */
+.search-container h2,
+.helpful-links h2 {
+    position: relative;
+    font-size: 0.95rem !important;
     font-weight: 600;
-    margin: 0 0 1rem;
+    font-style: normal !important;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary) !important;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-container h2::after,
+.helpful-links h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--gold);
 }
 
 .search-box {
     width: 100%;
     padding: 0.75rem 1rem;
-    font-size: 1.1rem;
-    border: 2px solid var(--border-color-darker);
-    background: var(--bg-color);
+    font-size: 1.05rem;
+    border: 1px solid var(--border-color-darker);
+    background: var(--bg-elevated);
     color: var(--text-color);
     font-family: inherit;
-    border-radius: 2px;
+    border-radius: 8px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-box::placeholder {
+    font-style: italic;
+    color: var(--text-tertiary);
 }
 
 .search-box:focus {
     outline: none;
-    border-color: var(--link-color);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .search-examples {
-    margin-top: 0.75rem;
+    margin-top: 0.85rem;
     font-size: 0.9rem;
     color: var(--text-secondary);
 }
 
 .search-examples code {
-    background: var(--bg-color);
+    background: var(--code-bg);
     padding: 0.15rem 0.4rem;
     border: 1px solid var(--border-color);
+    border-radius: 4px;
     font-size: 0.85rem;
 }
 
 .suggestions-section {
     margin: 2rem 0;
-    padding: 1.5rem;
-    background: #fffaed;
-    border-left: 3px solid #d4a574;
+    padding: 1.25rem 1.5rem;
+    background: var(--gold-soft);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
 }
 
 .suggestions-section h3 {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    margin: 0 0 1rem;
-    color: #8b6914;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin: 0 0 0.75rem;
+    color: var(--bronze);
 }
 
 .suggestion-text {
     margin: 0.5rem 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
 }
 
 .suggestion-text a {
-    color: var(--link-color);
+    color: var(--accent-strong);
     text-decoration: none;
     font-weight: 600;
+    border-bottom: 1px solid transparent;
 }
 
 .suggestion-text a:hover {
-    border-bottom: 1px solid var(--link-color);
+    border-bottom-color: var(--underline);
 }
 
 .helpful-links {
     margin: 3rem 0;
 }
 
-.helpful-links h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 0 1.5rem;
-}
-
 .links-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    max-width: 60%;
 }
 
 .help-link {
-    padding: 1rem;
-    border: 1px solid var(--border-color);
+    padding: 1.1rem 1.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 8px;
     text-decoration: none;
     color: var(--text-color);
     display: block;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
 }
 
 .help-link:hover {
-    border-color: var(--link-color);
-    background: var(--code-bg);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
 }
 
 .help-link-title {
     font-weight: 600;
     margin-bottom: 0.25rem;
-    color: var(--link-color);
+    color: var(--text-strong);
+    transition: color 0.15s ease;
+}
+
+.help-link:hover .help-link-title {
+    color: var(--accent-strong);
 }
 
 .help-link-desc {
@@ -185,18 +276,61 @@
     color: var(--text-secondary);
 }
 
+/* Chip links home */
 .go-back {
-    margin: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 2.5rem 0;
 }
 
 .go-back a {
-    color: var(--link-color);
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color-dark);
+    border-radius: 6px;
+    color: var(--text-secondary);
     text-decoration: none;
-    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.15s ease;
 }
 
 .go-back a:hover {
-    border-bottom: 1px solid var(--link-color);
+    background: var(--accent-softer);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+}
+
+.go-back a.go-back-home {
+    background: var(--accent-fill);
+    border-color: var(--accent-fill);
+    color: var(--on-accent);
+}
+
+.go-back a.go-back-home:hover {
+    background: var(--accent-fill-hover);
+    border-color: var(--accent-fill-hover);
+    color: var(--on-accent);
+}
+
+.error-plate .go-back {
+    justify-content: center;
+    margin: 2.25rem 0 0;
+}
+
+@media (max-width: 768px) {
+    .error-plate {
+        padding: 2.25rem 1.25rem 2rem;
+    }
+
+    .error-code {
+        font-size: 3.5rem;
+    }
+
+    .error-title {
+        font-size: 1.6rem;
+    }
 }
 </style>
 {% endblock %}
@@ -204,17 +338,17 @@
 {% block content %}
 <article class="error-page">
     {% if status_code == 404 %}
-    <header class="error-header">
+    <header class="error-plate">
         <p class="error-code">404</p>
         <h1 class="error-title">The Page You Seek Cannot Be Found</h1>
+        <div class="error-divider" aria-hidden="true">&#10086;</div>
+        <blockquote class="error-verse">
+            What man of you, having an hundred sheep, if he lose one of them, doth not leave the ninety and nine in the wilderness, and go after that which is lost, until he find it?
+            <span class="error-verse-ref">
+                <a href="/book/Luke/chapter/15/verse/4">Luke 15:4</a>
+            </span>
+        </blockquote>
     </header>
-
-    <blockquote class="error-verse">
-        What man of you, having an hundred sheep, if he lose one of them, doth not leave the ninety and nine in the wilderness, and go after that which is lost, until he find it?
-        <span class="error-verse-ref">
-            <a href="/book/Luke/chapter/15/verse/4">Luke 15:4</a>
-        </span>
-    </blockquote>
 
     <div id="url-suggestions"></div>
 
@@ -262,24 +396,25 @@
         </div>
     </section>
 
-    <section class="go-back">
-        <p><a href="javascript:history.back()">← Return to previous page</a> or <a href="/">go to homepage</a></p>
-    </section>
+    <nav class="go-back">
+        <a href="javascript:history.back()">&larr; Return to previous page</a>
+        <a href="/" class="go-back-home">Go to homepage</a>
+    </nav>
 
     {% else %}
     {# Other error codes #}
-    <header class="error-header">
+    <header class="error-plate">
         <p class="error-code">{{ status_code }}</p>
         <h1 class="error-title">An Error Has Occurred</h1>
+        <div class="error-divider" aria-hidden="true">&#10086;</div>
+        <section class="error-explanation">
+            <p>{{ detail or "An unexpected error occurred. Please try again or return to the homepage." }}</p>
+        </section>
+        <nav class="go-back">
+            <a href="javascript:history.back()">&larr; Return to previous page</a>
+            <a href="/" class="go-back-home">Go to homepage</a>
+        </nav>
     </header>
-
-    <section class="error-explanation">
-        <p>{{ detail or "An unexpected error occurred. Please try again or return to the homepage." }}</p>
-    </section>
-
-    <section class="go-back">
-        <p><a href="javascript:history.back()">← Return to previous page</a> or <a href="/">go to homepage</a></p>
-    </section>
     {% endif %}
 </article>
 
